@@ -19,7 +19,7 @@ export function PageHeader({ enableBack, hideHeadInMobile, children }: PageHeade
     return (
         <header
             className={classNames(
-                'bg-primaryBottom sticky top-0 z-10 w-full pb-3 pt-6',
+                'sticky top-0 z-10 w-full bg-primaryBottom pb-3 pt-6',
                 enableBack ? 'flex items-center gap-6' : '',
             )}
         >

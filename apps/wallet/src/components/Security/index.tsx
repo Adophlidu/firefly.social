@@ -89,8 +89,8 @@ export function SecuritySettings() {
 
     return (
         <div className="space-y-4">
-            <div className="bg-lightBg flex h-12 items-center justify-between rounded-2xl px-3">
-                <span className="text-main text-sm font-medium">
+            <div className="flex h-12 items-center justify-between rounded-2xl bg-lightBg px-3">
+                <span className="text-sm font-medium text-main">
                     <Trans>Enable authentication</Trans>
                 </span>
                 {loading || isRefetching ? (
@@ -101,21 +101,21 @@ export function SecuritySettings() {
             </div>
             <ClickableButton
                 disabled={disabled || resetLoading}
-                className="bg-lightBg text-highlight h-12 w-full rounded-2xl px-3 text-left text-sm font-medium"
+                className="h-12 w-full rounded-2xl bg-lightBg px-3 text-left text-sm font-medium text-highlight"
                 onClick={disabled ? undefined : resetPinCode}
             >
                 <Trans>Reset PIN Code</Trans>
             </ClickableButton>
-            <div className="bg-lightBg w-full overflow-hidden rounded-2xl">
+            <div className="w-full overflow-hidden rounded-2xl bg-lightBg">
                 <div className="flex h-12 items-center justify-between px-3">
-                    <span className="text-main text-sm font-medium">
+                    <span className="text-sm font-medium text-main">
                         <Trans>Recovery Email</Trans>
                     </span>
-                    <span className="text-second text-[13px]">{data?.email ? desensitizeEmail(data.email) : ''}</span>
+                    <span className="text-[13px] text-second">{data?.email ? desensitizeEmail(data.email) : ''}</span>
                 </div>
                 <ClickableButton
                     disabled={disabled || resetEmailLoading}
-                    className="bg-lightBg text-highlight h-12 w-full border-t border-[#CFCFCF] px-3 text-left text-sm font-medium"
+                    className="h-12 w-full border-t border-[#CFCFCF] bg-lightBg px-3 text-left text-sm font-medium text-highlight"
                     onClick={resetEmail}
                 >
                     <Trans>Change Email</Trans>

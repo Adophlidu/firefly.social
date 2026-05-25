@@ -30,7 +30,7 @@ export function PrivyReadyBanner({ children }: PropsWithChildren) {
             <div className="flex min-h-screen items-center justify-center">
                 <div className="flex flex-col items-center gap-2">
                     <LoadingIcon size={24} />
-                    <span className="text-second text-sm">
+                    <span className="text-sm text-second">
                         <Trans>Signing In</Trans>
                     </span>
                 </div>
@@ -45,7 +45,7 @@ export function PrivyReadyBanner({ children }: PropsWithChildren) {
             {/* Floating banner - doesn't affect layout */}
             {isTimeout ? (
                 <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2">
-                    <div className="bg-warn/95 flex items-center gap-3 whitespace-nowrap rounded-lg px-4 py-2 shadow-lg backdrop-blur-sm">
+                    <div className="flex items-center gap-3 whitespace-nowrap rounded-lg bg-warn/95 px-4 py-2 shadow-lg backdrop-blur-sm">
                         <span className="text-sm font-medium text-white">
                             <Trans>Connection taking longer than expected</Trans>
                         </span>

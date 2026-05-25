@@ -10,7 +10,7 @@ import { useComeBack } from '@/hooks/useComeback.js';
 export const WorldCupModal = memo(function WorldCupModal() {
     const onClose = useComeBack();
     return (
-        <div className="z-modal fixed inset-0 flex flex-col bg-black/50 backdrop-blur-sm">
+        <div className="fixed inset-0 z-modal flex flex-col bg-black/50 backdrop-blur-sm">
             <div className="hidden h-10 shrink-0 items-center justify-end md:flex">
                 <CloseButton
                     className="mr-2 cursor-pointer text-white hover:opacity-80"

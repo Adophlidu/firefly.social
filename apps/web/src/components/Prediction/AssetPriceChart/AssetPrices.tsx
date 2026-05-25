@@ -75,14 +75,14 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
         <div className="mb-3 flex items-end justify-between px-4">
             <div className="flex gap-5">
                 <div className="flex flex-col gap-1">
-                    <span className="text-second text-[10px] font-bold">
+                    <span className="text-[10px] font-bold text-second">
                         <Trans>Price to beat</Trans>
                     </span>
-                    <span className="text-second text-base font-black">
+                    <span className="text-base font-black text-second">
                         {priceToBeat ? formatCryptoPrice(crypto, priceToBeat) : 'N/A'}
                     </span>
                 </div>
-                <div className="border-lightLineSecond flex flex-col gap-1 border-l pl-5">
+                <div className="flex flex-col gap-1 border-l border-lightLineSecond pl-5">
                     <div
                         className={classNames(
                             'flex items-center gap-1',

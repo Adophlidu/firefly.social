@@ -9,7 +9,7 @@ interface Props {
 export function SnapText({ props: { content, size = 'md', weight = 'normal', align } }: Props) {
     return (
         <p
-            className={classNames('text-main break-words', {
+            className={classNames('break-words text-main', {
                 'text-sm': size === 'sm',
                 'text-base': size === 'md',
                 'font-bold': weight === 'bold',

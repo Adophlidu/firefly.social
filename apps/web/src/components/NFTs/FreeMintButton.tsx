@@ -135,7 +135,7 @@ export function FreeMintButton({
                 href={externalUrl}
                 target="_blank"
                 className={classNames(
-                    'border-main text-main flex h-8 items-center justify-center gap-1.5 rounded-full border text-sm font-bold',
+                    'flex h-8 items-center justify-center gap-1.5 rounded-full border border-main text-sm font-bold text-main',
                     className,
                 )}
                 onClick={() => {
@@ -161,7 +161,7 @@ export function FreeMintButton({
                 {isSupportedChain ? (
                     <ClickableButton
                         {...rest}
-                        className="bg-main text-lightBottom dark:text-darkBottom flex h-8 flex-1 items-center justify-center rounded-full px-5 text-sm font-bold"
+                        className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
                         disabled={disabled}
                         onClick={handleClick}
                         aria-label={loading ? 'Minting' : getMintButtonAriaLabel(data?.mintStatus)}
@@ -173,7 +173,7 @@ export function FreeMintButton({
                     <Link
                         href={externalUrl}
                         target="_blank"
-                        className="border-main text-main flex size-8 shrink-0 items-center justify-center rounded-full border"
+                        className="flex size-8 shrink-0 items-center justify-center rounded-full border border-main text-main"
                     >
                         <WebsiteIcon width={20} height={20} />
                     </Link>

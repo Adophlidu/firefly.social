@@ -118,7 +118,7 @@ function FireflyAccountWithTitleUI({
 
     return (
         <>
-            <div className="z-navbar sticky left-0 top-0 h-0 w-full duration-200">
+            <div className="sticky left-0 top-0 z-navbar h-0 w-full duration-200">
                 <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
             </div>
             <FireflyAccountInfoUI profile={profile} highlighted={highlighted} className="z-banner">
@@ -165,7 +165,7 @@ function FallbackFireflyAccountInfo({
         );
     }
     return (
-        <div className="z-navbar sticky left-0 top-0 w-full">
+        <div className="sticky left-0 top-0 z-navbar w-full">
             <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
         </div>
     );
@@ -228,7 +228,7 @@ function FireflyAccountInfoHeader({
                     <>
                         <Link
                             href={PageRoute.SettingConnected}
-                            className="bg-bg text-second inline-flex size-8 items-center justify-center rounded-lg active:opacity-50 md:hover:opacity-60"
+                            className="inline-flex size-8 items-center justify-center rounded-lg bg-bg text-second active:opacity-50 md:hover:opacity-60"
                         >
                             <SettingIcon />
                         </Link>

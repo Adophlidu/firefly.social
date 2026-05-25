@@ -124,7 +124,7 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
                             rotate: particle.rotation,
                         }}
                         transition={{ duration: 0.6, ease: 'easeOut' }}
-                        className="text-danger pointer-events-none absolute"
+                        className="pointer-events-none absolute text-danger"
                     >
                         <LikeIcon fill="currentColor" width={size / 1.5} height={size / 1.5} />
                     </motion.div>

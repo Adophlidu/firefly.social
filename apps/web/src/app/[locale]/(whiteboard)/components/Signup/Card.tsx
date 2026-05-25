@@ -12,7 +12,7 @@ export function Card({ className, children }: CardProps) {
             }}
         >
             <CardBg preserveAspectRatio="none" width={'100%'} height={'100%'} className="absolute inset-0" />
-            <div className="z-1 absolute inset-0">{children}</div>
+            <div className="absolute inset-0 z-1">{children}</div>
         </div>
     );
 }

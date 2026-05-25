@@ -26,7 +26,7 @@ function ExportPrivateKeyResult({ privateKey }: { privateKey: string }) {
         <div className="flex h-[252px] flex-col items-center justify-center gap-6">
             <div className="flex items-center gap-2">
                 <WarningIcon className="text-danger" width={24} height={24} />
-                <p className="text-danger text-sm font-semibold">
+                <p className="text-sm font-semibold text-danger">
                     <Trans>Keep it safe and do not share</Trans>
                 </p>
             </div>
@@ -39,7 +39,7 @@ function ExportPrivateKeyResult({ privateKey }: { privateKey: string }) {
             </div>
             <div className="flex cursor-pointer items-center gap-2" onClick={() => handleCopy(privateKey)}>
                 {copied ? <CheckIcon width={16} height={16} /> : <CopyIcon width={16} height={16} />}
-                <span className="text-second text-sm font-semibold">
+                <span className="text-sm font-semibold text-second">
                     {copied ? <Trans>Copied</Trans> : <Trans>Copy to clipboard</Trans>}
                 </span>
             </div>
@@ -89,19 +89,19 @@ export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalPr
                             <>
                                 <div className="flex flex-col items-center gap-2">
                                     <SecurityIcon width={60} height={60} />
-                                    <p className="text-second mt-4">
+                                    <p className="mt-4 text-second">
                                         <Trans>Keep Your Recovery Phrase Safe</Trans>
                                     </p>
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center gap-2">
                                             <KeyIcon width={24} height={24} className="shrink-0" />
-                                            <p className="text-main text-sm font-semibold">
+                                            <p className="text-sm font-semibold text-main">
                                                 <Trans>Your recovery phrase is like a password, keep it secret.</Trans>
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <WarningIcon width={24} height={24} className="shrink-0" />
-                                            <p className="text-main text-sm font-semibold">
+                                            <p className="text-sm font-semibold text-main">
                                                 <Trans>
                                                     We do not recommend ever sharing it with any app or person.
                                                 </Trans>

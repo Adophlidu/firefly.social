@@ -115,7 +115,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                 <HeadlessMenuButton
                     disabled={allDisabled}
                     className={classNames(
-                        'text-second hover:text-secondarySuccess relative flex w-min items-center md:space-x-2',
+                        'relative flex w-min items-center text-second hover:text-secondarySuccess md:space-x-2',
                         !!disabled || allDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
                         {
                             'text-secondarySuccess': hasMirrored,
@@ -133,7 +133,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                             </span>
                         }
                     >
-                        <span className="hover:bg-secondarySuccess/[.20] inline-flex size-7 items-center justify-center rounded-full">
+                        <span className="inline-flex size-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">
                             {mirrorLoading ? (
                                 <LoadingIcon className="text-second" size={16} />
                             ) : (
@@ -189,7 +189,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                                 }}
                             >
                                 <MirrorLargeIcon width={18} height={18} className="text-danger" />
-                                <span className="text-danger font-bold leading-[22px]">
+                                <span className="font-bold leading-[22px] text-danger">
                                     <Trans>Undo repost</Trans>
                                 </span>
                             </MenuButton>
@@ -208,7 +208,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                             }}
                         >
                             <QuoteDownIcon width={17} height={17} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 {quoteDisabled ? <Trans>Quote posts disabled</Trans> : <Trans>Quote post</Trans>}
                             </span>
                         </MenuButton>

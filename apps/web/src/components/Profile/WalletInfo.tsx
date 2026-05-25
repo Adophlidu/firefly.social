@@ -91,7 +91,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                             src={avatar}
                             alt="avatar"
                             size={40}
-                            className="border-highlight size-10 rounded-full border"
+                            className="size-10 rounded-full border border-highlight"
                         />
                     </div>
                     <div className="relative flex min-w-0 flex-1 flex-col">
@@ -101,16 +101,16 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                 id={WALLET_PROFILE_ACTION_ID}
                             >
                                 <div className="flex min-w-0 flex-1 flex-col">
-                                    <div className="text-lightMain h-6 min-w-0 truncate text-lg font-black leading-6 md:hidden">
+                                    <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain md:hidden">
                                         {!showFireflyWallet && ensName ? <EnsName ens={ensName} /> : displayName}
                                     </div>
                                     <div className="flex min-w-0 flex-row items-center">
                                         {profile.isDefault ? (
-                                            <div className="bg-highlight text-highlight my-auto mr-1 h-6 shrink-0 rounded bg-opacity-[0.16] px-2 text-[13px] font-medium leading-6">
+                                            <div className="my-auto mr-1 h-6 shrink-0 rounded bg-highlight bg-opacity-[0.16] px-2 text-[13px] font-medium leading-6 text-highlight">
                                                 <Trans>Primary</Trans>
                                             </div>
                                         ) : null}
-                                        <div className="text-lightMain h-6 min-w-0 truncate text-lg font-black leading-6 max-md:hidden">
+                                        <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain max-md:hidden">
                                             {!showFireflyWallet && ensName ? <EnsName ens={ensName} /> : displayName}
                                         </div>
                                         <WalletProfileTags profile={profile} />
@@ -119,7 +119,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                         <div className="mt-1 text-xl font-bold leading-6">
                                             <Trans>
                                                 $ {formatPrice(totalBalance ?? 0)}{' '}
-                                                <span className="text-second text-sm">Net worth</span>
+                                                <span className="text-sm text-second">Net worth</span>
                                             </Trans>
                                         </div>
                                     ) : null}
@@ -129,7 +129,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                 </NoSSR>
                             </div>
 
-                            <div className="text-secondary flex min-w-0 items-center gap-1 text-sm leading-[14px] max-md:text-xs">
+                            <div className="flex min-w-0 items-center gap-1 text-sm leading-[14px] text-secondary max-md:text-xs">
                                 <span className="truncate">{profile.address}</span>
                                 <NoSSR>
                                     <CopyTextButton text={profile.address} />
@@ -147,7 +147,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
             </div>
             {profile.hacked ? (
                 <div className="mt-3 w-full">
-                    <p className="bg-danger text-danger w-full rounded-lg bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px]">
+                    <p className="w-full rounded-lg bg-danger bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px] text-danger">
                         <Trans>
                             This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid
                             any transactions or sharing of sensitive information. Stay safe!

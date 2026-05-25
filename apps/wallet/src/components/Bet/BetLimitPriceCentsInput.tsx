@@ -43,7 +43,7 @@ export function BetLimitPriceCentsInput({
         onChange(normalize(next.toString(), maxDecimals, maxNum));
     };
     return (
-        <div className="border-line flex h-12 w-[180px] items-center justify-between rounded-lg border bg-transparent px-2 py-2.5">
+        <div className="flex h-12 w-[180px] items-center justify-between rounded-lg border border-line bg-transparent px-2 py-2.5">
             <button
                 type="button"
                 className="flex size-6 items-center justify-center disabled:cursor-not-allowed disabled:opacity-50"
@@ -51,7 +51,7 @@ export function BetLimitPriceCentsInput({
                 disabled={!canDecrease}
                 aria-label="Decrease limit price"
             >
-                <Minus className="text-main size-4" />
+                <Minus className="size-4 text-main" />
             </button>
             <input
                 type="number"
@@ -64,18 +64,18 @@ export function BetLimitPriceCentsInput({
                 onChange={(e) => handleChange(e.target.value)}
                 onBlur={onBlur}
                 className={cn(
-                    'ring-none text-main w-full appearance-none border-none bg-transparent text-center text-lg font-bold tabular-nums leading-6 outline-none focus:ring-0',
+                    'ring-none w-full appearance-none border-none bg-transparent text-center text-lg font-bold tabular-nums leading-6 text-main outline-none focus:ring-0',
                     inputClassName,
                 )}
             />
-            <div className="text-main text-lg font-bold leading-6">¢</div>
+            <div className="text-lg font-bold leading-6 text-main">¢</div>
             <button
                 type="button"
                 className="flex size-6 items-center justify-center"
                 onClick={() => applyDelta(1)}
                 aria-label="Increase limit price"
             >
-                <Plus className="text-main size-4" />
+                <Plus className="size-4 text-main" />
             </button>
         </div>
     );

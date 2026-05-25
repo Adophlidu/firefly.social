@@ -36,7 +36,7 @@ function HolderRow({
         <Link href={RouteResolver.betsProfile(holder.wallet, { platform })} className="flex items-center gap-2 py-2">
             <Avatar className="shrink-0" src={holder.avatar} size={36} alt={holder.wallet} />
             <div className="min-w-0 flex-1">
-                <div className="text-main truncate text-sm font-semibold leading-5">
+                <div className="truncate text-sm font-semibold leading-5 text-main">
                     {holder.name || formatAddressEthereum(holder.wallet, 4)}
                 </div>
                 <div className="text-sm font-semibold leading-5" style={{ color: teamColor }}>
@@ -71,7 +71,7 @@ export const SportTopHolders = memo(function SportTopHolders({ platform, market,
             <div className="flex h-28 w-full items-center justify-center">
                 <ClickableButton
                     onClick={() => refetch()}
-                    className="text-second text-sm font-semibold hover:underline"
+                    className="text-sm font-semibold text-second hover:underline"
                 >
                     <Trans>Retry</Trans>
                 </ClickableButton>

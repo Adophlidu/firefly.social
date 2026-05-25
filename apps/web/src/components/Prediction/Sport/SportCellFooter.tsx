@@ -17,7 +17,7 @@ export const SportCellFooter = memo(function SportCellFooter({ startTime, volume
     const formattedTime = startTime ? dayjs(new Date(startTime).getTime()).format('MMM D, h:mm A') : null;
 
     return (
-        <div className="text-second flex items-center gap-2 text-xs leading-[14px]">
+        <div className="flex items-center gap-2 text-xs leading-[14px] text-second">
             {formattedTime ? <span>{formattedTime}</span> : null}
             <span>
                 <Trans>{formattedVol} Vol.</Trans>

@@ -74,7 +74,7 @@ export const Image = memo(function Image({ onError, onLoad, fallback, fallbackCl
             className={classNames(
                 props.className,
                 isFailed ? fallbackClassName : undefined,
-                loading ? 'bg-bg animate-pulse' : '',
+                loading ? 'animate-pulse bg-bg' : '',
             )}
             onError={handleError}
             alt={props.alt || ''}

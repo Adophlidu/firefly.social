@@ -143,13 +143,13 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                         key="editable"
                         onFocus={() => updateFocused(true)}
                         onBlur={() => updateFocused(false)}
-                        className="text-main flex-1 shrink-0 cursor-text resize-none appearance-none border-none bg-transparent p-0 pb-2 text-left text-[16px] leading-6 outline-none outline-0 focus:ring-0"
+                        className="flex-1 shrink-0 cursor-text resize-none appearance-none border-none bg-transparent p-0 pb-2 text-left text-[16px] leading-6 text-main outline-none outline-0 focus:ring-0"
                     />
                 }
                 placeholder={
                     <div
                         className={classNames(
-                            'text-medium text-placeholder pointer-events-none absolute left-0 top-0 leading-6',
+                            'pointer-events-none absolute left-0 top-0 text-medium leading-6 text-placeholder',
                             { 'top-2.5 pl-[52px]': replying },
                         )}
                     >

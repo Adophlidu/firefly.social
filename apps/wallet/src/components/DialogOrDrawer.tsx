@@ -165,7 +165,7 @@ function DialogOrDrawerTopButton({
         <button
             type="button"
             className={cn(
-                'dark:hover:bg-darkBg text-main hover:bg-lightBg focus-visible:ring-main absolute left-0 top-6 cursor-pointer rounded p-1 outline-none transition focus-visible:ring-2 focus-visible:ring-offset-2',
+                'dark:hover:bg-darkBg absolute left-0 top-6 cursor-pointer rounded p-1 text-main outline-none transition hover:bg-lightBg focus-visible:ring-2 focus-visible:ring-main focus-visible:ring-offset-2',
                 className,
             )}
             {...props}

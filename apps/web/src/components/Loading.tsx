@@ -12,7 +12,7 @@ interface LoadingProps extends HTMLProps<HTMLDivElement> {
 export const Loading = memo(function Loading({ className, minHeight = 500 }: LoadingProps) {
     return (
         <div
-            className={classNames('text-main flex items-center justify-center', className)}
+            className={classNames('flex items-center justify-center text-main', className)}
             style={{
                 minHeight,
             }}

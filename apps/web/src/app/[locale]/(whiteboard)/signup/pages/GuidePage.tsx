@@ -45,7 +45,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
     }, [throttledResize]);
 
     return (
-        <div className="no-scrollbar z-1 absolute inset-0 flex flex-col items-center justify-center gap-[6.875%] md:flex-row">
+        <div className="no-scrollbar absolute inset-0 z-1 flex flex-col items-center justify-center gap-[6.875%] md:flex-row">
             <ShadowInAndOut className="hidden [--card-face-color:#FFF9F5] md:block">
                 <FireflyAccountSVG width={'26.46vw'} className="ml-auto max-w-[508px]" />
             </ShadowInAndOut>

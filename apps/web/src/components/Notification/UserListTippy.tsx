@@ -23,7 +23,7 @@ export const UserListTippy = memo<Props>(function UserListTippy({ users, classNa
             interactive
             content={
                 <div
-                    className="border-secondaryLine bg-primaryBottom max-h-[330px] w-[346px] overflow-auto rounded-2xl border"
+                    className="max-h-[330px] w-[346px] overflow-auto rounded-2xl border border-secondaryLine bg-primaryBottom"
                     data-hide-scrollbar
                 >
                     {users.map((profile) => (

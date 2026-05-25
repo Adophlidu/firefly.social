@@ -123,12 +123,12 @@ export function SettleResolvedMarketsModal({
                     <div className="flex flex-col items-center gap-2">
                         <ClaimProceedsSuccessIcon width={64} height={64} />
                         <div className="flex flex-col items-center leading-6">
-                            <div className="text-main text-base font-semibold">
+                            <div className="text-base font-semibold text-main">
                                 <Trans>You won</Trans>
                             </div>
-                            <div className="text-success text-lg font-bold">{formatPnlUSD(totalWinAmount)}</div>
+                            <div className="text-lg font-bold text-success">{formatPnlUSD(totalWinAmount)}</div>
                         </div>
-                        <div className="text-second text-center text-sm font-medium leading-[18px]">
+                        <div className="text-center text-sm font-medium leading-[18px] text-second">
                             <Trans>Great job predicting the future!</Trans>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ export function SettleResolvedMarketsModal({
 
                         return (
                             <div key={x.conditionId} className="flex w-full items-center gap-2">
-                                <div className="bg-lightBg size-10 overflow-hidden rounded-lg">
+                                <div className="size-10 overflow-hidden rounded-lg bg-lightBg">
                                     <Image
                                         src={x.image}
                                         alt={x.conditionId}
@@ -152,10 +152,10 @@ export function SettleResolvedMarketsModal({
                                     />
                                 </div>
                                 <div className="flex flex-1 flex-col justify-center">
-                                    <div className="text-second line-clamp-1 text-sm font-semibold leading-5">
+                                    <div className="line-clamp-1 text-sm font-semibold leading-5 text-second">
                                         {x.title}
                                     </div>
-                                    <div className="text-main text-base font-semibold leading-6">
+                                    <div className="text-base font-semibold leading-6 text-main">
                                         <Trans>
                                             {betText} • Won{' '}
                                             <span className="text-success">

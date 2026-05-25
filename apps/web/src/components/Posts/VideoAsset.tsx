@@ -31,7 +31,7 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
 
     return minimal ? (
         <div className="relative size-full">
-            <div className="text-lightTextMain absolute inset-0 m-auto box-border flex size-6 shrink-0 items-center justify-center rounded-xl bg-white/80">
+            <div className="absolute inset-0 m-auto box-border flex size-6 shrink-0 items-center justify-center rounded-xl bg-white/80 text-lightTextMain">
                 <Play width={16} height={16} />
             </div>
             {asset.coverUri ? (

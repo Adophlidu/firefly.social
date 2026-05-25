@@ -60,7 +60,7 @@ export function SocialProfileInfo(props: InfoProps) {
                     <div className="flex h-8 w-full items-start gap-2 md:-mb-2">
                         <div className="flex h-8 min-w-0 flex-1 items-center gap-2 md:h-6">
                             <TextOverflowTooltip content={profile.displayName} placement="top">
-                                <h1 className="text-lightMain min-w-0 truncate text-lg font-black not-italic leading-6">
+                                <h1 className="min-w-0 truncate text-lg font-black not-italic leading-6 text-lightMain">
                                     {!profile.displayName ? (
                                         '-'
                                     ) : highlighted ? (
@@ -98,7 +98,7 @@ export function SocialProfileInfo(props: InfoProps) {
                         })}
                     >
                         <data value={followingCount}>
-                            <span className="text-lightMain font-bold">{nFormatter(followingCount)} </span>
+                            <span className="font-bold text-lightMain">{nFormatter(followingCount)} </span>
                             <span className="text-secondary">
                                 <Trans>Following</Trans>
                             </span>
@@ -112,7 +112,7 @@ export function SocialProfileInfo(props: InfoProps) {
                         })}
                     >
                         <data value={followerCount}>
-                            <span className="text-lightMain font-bold">{nFormatter(followerCount)} </span>
+                            <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
                             <span className="text-secondary">
                                 <Plural value={followerCount} one="Follower" other="Followers" />
                             </span>

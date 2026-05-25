@@ -12,5 +12,5 @@ export const AsideTokensSkeleton = memo<Props>(function AsideTokensSkeleton({ lo
     const isLogin = useIsLogin();
     if (!isLogin && loginRequired) return null;
 
-    return <div className="bg-bg flex h-[386.5px] animate-pulse flex-col gap-2 rounded-xl" />;
+    return <div className="flex h-[386.5px] animate-pulse flex-col gap-2 rounded-xl bg-bg" />;
 });

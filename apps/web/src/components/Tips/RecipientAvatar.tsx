@@ -44,7 +44,7 @@ export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvat
             </div>
             <div
                 className={classNames(
-                    'z-1 absolute -right-1 bottom-0 size-4 rounded-full border border-white',
+                    'absolute -right-1 bottom-0 z-1 size-4 rounded-full border border-white',
                     isEvm ? 'bg-[#312B37]' : '',
                 )}
             >

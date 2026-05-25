@@ -16,12 +16,11 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalContent } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
 
-interface Props
-    extends LayoutProps<{
-        id: string;
-        index: string;
-        source: SocialSourceInURL;
-    }> {}
+interface Props extends LayoutProps<{
+    id: string;
+    index: string;
+    source: SocialSourceInURL;
+}> {}
 
 export default function Page(props: Props) {
     const { id: postId, index, source } = use(props.params);

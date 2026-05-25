@@ -64,7 +64,7 @@ export const SearchTabs = memo(function SearchTabs() {
     }, [source, searchKeyword, clubType]);
 
     return (
-        <nav className="no-scrollbar border-line bg-primaryBottom flex w-full gap-x-4 overflow-x-auto border-b px-4">
+        <nav className="no-scrollbar flex w-full gap-x-4 overflow-x-auto border-b border-line bg-primaryBottom px-4">
             {tabs.map((tab) => {
                 const isActive = isRoutePathname(pathname, tab.link.split('?')[0] as `/${string}`);
 
@@ -74,7 +74,7 @@ export const SearchTabs = memo(function SearchTabs() {
                         className={classNames(
                             'h-[45px] whitespace-nowrap border-b-4 font-bold leading-[45px] transition-all',
                             {
-                                'text-third border-transparent': !isActive,
+                                'border-transparent text-third': !isActive,
                                 'border-highlight text-highlight': isActive,
                             },
                         )}

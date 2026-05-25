@@ -61,7 +61,7 @@ export const TokenIcon = memo(function TokenIcon({
             ) : (
                 <span
                     className={cn(
-                        'bg-bg bg-main text-primaryBottom flex items-center justify-center rounded-full font-semibold',
+                        'flex items-center justify-center rounded-full bg-bg bg-main font-semibold text-primaryBottom',
                         size < 30 ? 'text-sm' : 'text-xl',
                     )}
                     style={{
@@ -77,7 +77,7 @@ export const TokenIcon = memo(function TokenIcon({
                     className={cn(
                         'absolute -bottom-px overflow-hidden bg-white p-px empty:hidden',
                         badgeClassName,
-                        roundedSquareBadge ? 'border-line box-border rounded-[4px] border' : 'rounded-full',
+                        roundedSquareBadge ? 'box-border rounded-[4px] border border-line' : 'rounded-full',
                     )}
                     style={{
                         right: -badgeSize / 2,

@@ -14,7 +14,7 @@ export function SettingsHeader() {
 
     if (pathname !== PageRoute.Settings) return null;
     return (
-        <header className="text-main hidden w-full items-center gap-4 px-6 py-3 max-md:flex">
+        <header className="hidden w-full items-center gap-4 px-6 py-3 text-main max-md:flex">
             <div className="flex size-[30px] shrink-0 justify-center">
                 <ClickableButton
                     className="flex items-center justify-center"

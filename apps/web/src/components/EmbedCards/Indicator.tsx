@@ -8,7 +8,7 @@ export interface IndicatorProps extends HTMLProps<HTMLDivElement> {
 export const Indicator = memo<IndicatorProps>(function Indicator({ className, active, ...rest }) {
     return (
         <div {...rest} className={classNames('w-[60px] min-w-2 cursor-pointer py-2', className)}>
-            <div className={classNames('bg-highlight h-1', active ? '' : 'opacity-50')} />
+            <div className={classNames('h-1 bg-highlight', active ? '' : 'opacity-50')} />
         </div>
     );
 });

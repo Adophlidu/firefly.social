@@ -35,7 +35,7 @@ export function ActivityCreatorTasks() {
     );
 
     return (
-        <div className="text-main flex w-full flex-col gap-6 px-6 pb-4">
+        <div className="flex w-full flex-col gap-6 px-6 pb-4 text-main">
             <Trans>
                 <p>
                     Firefly is launching <span className="font-bold">Polymarket trading</span>, connecting onchain
@@ -79,7 +79,7 @@ export function ActivityCreatorTasks() {
                 <Link
                     href={formUrl}
                     trusted
-                    className="outline-main flex flex-1 flex-col items-center gap-2 rounded-lg p-2.5 font-bold outline outline-1 outline-offset-[-1px]"
+                    className="flex flex-1 flex-col items-center gap-2 rounded-lg p-2.5 font-bold outline outline-1 outline-offset-[-1px] outline-main"
                     target="_blank"
                 >
                     <Trans>Open Google Form</Trans>
@@ -89,7 +89,7 @@ export function ActivityCreatorTasks() {
             <div className="w-full text-center text-[10px]">
                 <Trans>
                     For any inquiries, please{' '}
-                    <Link href={FIREFLY_TELEGRAM_URL} target="_blank" className="text-highlight inline">
+                    <Link href={FIREFLY_TELEGRAM_URL} target="_blank" className="inline text-highlight">
                         contact us
                     </Link>
                     . All rights reserved by Firefly.

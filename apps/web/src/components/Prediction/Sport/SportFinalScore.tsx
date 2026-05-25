@@ -30,11 +30,11 @@ function MultipleScores({ scores }: { scores: SportScore[] }) {
                 const away = set.score[1] ?? 0;
                 return (
                     <div key={i} className="flex items-center gap-2 text-xs">
-                        <span className={classNames(home > away ? 'text-lightMain font-bold' : 'text-third')}>
+                        <span className={classNames(home > away ? 'font-bold text-lightMain' : 'text-third')}>
                             {home}
                         </span>
                         <span className="text-third">-</span>
-                        <span className={classNames(away > home ? 'text-lightMain font-bold' : 'text-third')}>
+                        <span className={classNames(away > home ? 'font-bold text-lightMain' : 'text-third')}>
                             {away}
                         </span>
                     </div>
@@ -50,7 +50,7 @@ export const SportFinalScore = memo(function SportFinalScore({ scores, scoreType
     if (isMultiple) {
         return (
             <div className="flex items-center gap-2">
-                <span className="text-second rounded bg-[#f0f0f0] px-1.5 py-0.5 text-xs font-bold dark:bg-[#3a3a3a]">
+                <span className="rounded bg-[#f0f0f0] px-1.5 py-0.5 text-xs font-bold text-second dark:bg-[#3a3a3a]">
                     <Trans>FINAL</Trans>
                 </span>
                 <MultipleScores scores={scores} />
@@ -64,7 +64,7 @@ export const SportFinalScore = memo(function SportFinalScore({ scores, scoreType
 
     return (
         <div className="flex items-center gap-2">
-            <span className="text-second rounded bg-[#f0f0f0] px-1.5 py-0.5 text-xs font-bold dark:bg-[#3a3a3a]">
+            <span className="rounded bg-[#f0f0f0] px-1.5 py-0.5 text-xs font-bold text-second dark:bg-[#3a3a3a]">
                 <Trans>FINAL</Trans>
             </span>
             <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export const SportFinalScore = memo(function SportFinalScore({ scores, scoreType
                 >
                     {homeScore}
                 </span>
-                <span className="text-third text-sm">-</span>
+                <span className="text-sm text-third">-</span>
                 <span
                     className={classNames('text-sm font-bold', {
                         'text-lightMain': awayWins || winResult === undefined,

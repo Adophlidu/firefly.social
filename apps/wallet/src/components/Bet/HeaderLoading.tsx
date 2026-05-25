@@ -11,15 +11,15 @@ export function HeaderLoading({ className }: HTMLProps<'div'>) {
             )}
         >
             <div className="flex flex-col items-center justify-start gap-2">
-                <div className="bg-lightBg h-10 w-60 rounded-lg" />
-                <div className="bg-lightBg h-4 w-28 rounded" />
+                <div className="h-10 w-60 rounded-lg bg-lightBg" />
+                <div className="h-4 w-28 rounded bg-lightBg" />
             </div>
             <div className="flex flex-col items-start justify-start gap-3 self-stretch">
                 <div className="inline-flex items-center justify-center gap-3 self-stretch">
-                    <div className="bg-lightBg h-16 flex-1 rounded-2xl" />
-                    <div className="bg-lightBg h-16 flex-1 rounded-2xl" />
+                    <div className="h-16 flex-1 rounded-2xl bg-lightBg" />
+                    <div className="h-16 flex-1 rounded-2xl bg-lightBg" />
                 </div>
-                <div className="bg-lightBg h-16 self-stretch rounded-2xl" />
+                <div className="h-16 self-stretch rounded-2xl bg-lightBg" />
             </div>
         </div>
     );

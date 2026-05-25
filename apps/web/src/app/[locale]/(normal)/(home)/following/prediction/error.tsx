@@ -16,7 +16,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
         <div className="flex min-h-screen flex-col">
             <ErrorHandler error={error} reset={reset} className="h-auto min-h-screen" />
             {!IS_PRODUCTION ? (
-                <pre className="border-line bg-lightBg text-second mx-4 mb-6 whitespace-pre-wrap break-words rounded-xl border p-4 text-xs">
+                <pre className="mx-4 mb-6 whitespace-pre-wrap break-words rounded-xl border border-line bg-lightBg p-4 text-xs text-second">
                     {error?.message || String(error)}
                     {error?.stack ? `\n\n${error.stack}` : ''}
                 </pre>

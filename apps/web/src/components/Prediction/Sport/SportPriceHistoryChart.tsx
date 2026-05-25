@@ -227,7 +227,7 @@ function SportChartTooltip(outcomes: SportChartOutcome[]) {
             <div className={isVisible ? 'visible' : 'invisible'}>
                 {isVisible ? (
                     <div>
-                        {time ? <span className="text-second text-xs">{time}</span> : null}
+                        {time ? <span className="text-xs text-second">{time}</span> : null}
                         <div className="space-y-2">
                             {payload.map((data) => {
                                 const dataKey = data.dataKey?.toString();
@@ -313,7 +313,7 @@ export const SportPriceHistoryChart = memo(function SportPriceHistoryChart({
         return (
             <div
                 style={{ height: chartHeight }}
-                className="text-second flex w-full items-center justify-center text-sm"
+                className="flex w-full items-center justify-center text-sm text-second"
             >
                 <ClickableButton className="px-3 hover:underline" onClick={() => refetch()}>
                     <Trans>Retry</Trans>
@@ -324,7 +324,7 @@ export const SportPriceHistoryChart = memo(function SportPriceHistoryChart({
         return (
             <div
                 style={{ height: chartHeight }}
-                className="text-second flex w-full items-center justify-center text-sm"
+                className="flex w-full items-center justify-center text-sm text-second"
             >
                 <Trans>There is no data available for display.</Trans>
             </div>

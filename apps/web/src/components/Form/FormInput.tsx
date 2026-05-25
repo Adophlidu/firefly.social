@@ -10,7 +10,7 @@ function inputClassName({
     className?: string;
 } = {}) {
     return classNames(
-        'leading-12 bg-bg text-main h-12 w-full rounded-2xl border-none !outline-offset-0 ring-0 duration-100 focus:bg-transparent focus:outline-1',
+        'leading-12 h-12 w-full rounded-2xl border-none bg-bg text-main !outline-offset-0 ring-0 duration-100 focus:bg-transparent focus:outline-1',
         error ? 'focus:shadow-inputDanger focus:ring-fail/50' : 'focus:ring-highlight/50',
         className,
     );

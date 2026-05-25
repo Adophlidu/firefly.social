@@ -17,23 +17,23 @@ export const WalletQrCode = memo(function WalletQrCode() {
 
     return (
         <div className="space-y-4">
-            <p className="text-main text-center text-sm">
+            <p className="text-center text-sm text-main">
                 <Trans>Scan this code or copy your wallet address to receive funds on Ethereum.</Trans>
             </p>
-            <div className="border-main mx-auto flex size-[200px] items-center justify-center rounded-xl border">
+            <div className="mx-auto flex size-[200px] items-center justify-center rounded-xl border border-main">
                 <QRCode value={evmAddress} size={180} />
             </div>
-            <div className="bg-lightBg flex items-center gap-3 rounded-xl p-4">
+            <div className="flex items-center gap-3 rounded-xl bg-lightBg p-4">
                 <InfoIcon className="size-5 shrink-0" />
-                <span className="text-main min-w-0 flex-1 text-sm">
+                <span className="min-w-0 flex-1 text-sm text-main">
                     <Trans>Make sure to send funds on Ethereum.</Trans>
                 </span>
             </div>
-            <div className="border-line flex h-14 items-center justify-between rounded-xl border px-3">
-                <span className="text-main text-sm">{formatAddressEthereum(evmAddress, 6)}</span>
+            <div className="flex h-14 items-center justify-between rounded-xl border border-line px-3">
+                <span className="text-sm text-main">{formatAddressEthereum(evmAddress, 6)}</span>
                 <Button
                     variant="outline"
-                    className="border-highlight hover:bg-highlight/20 text-highlight h-7 text-sm"
+                    className="h-7 border-highlight text-sm text-highlight hover:bg-highlight/20"
                     onClick={() => handleCopy()}
                 >
                     {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}

@@ -23,14 +23,14 @@ export function ActivityEndedDialog({ buttonText, data, open = true, ...rest }: 
 
     return (
         <Modal open={!!open && data.status === ActivityStatus.Ended} onClose={onClose}>
-            <div className="bg-primaryBottom relative w-[359px] rounded-[12px] transition-all">
+            <div className="relative w-[359px] rounded-[12px] bg-primaryBottom transition-all">
                 <div className="relative inline-flex h-12 w-full items-center justify-center gap-2 rounded-t-[12px] pt-6 text-center">
-                    <div className="text-main text-lg font-bold leading-6">
+                    <div className="text-lg font-bold leading-6 text-main">
                         <Trans>Event Ended!</Trans>
                     </div>
                 </div>
                 <div className="p-6">
-                    <p className="text-second mb-6 text-sm font-medium leading-6">
+                    <p className="mb-6 text-sm font-medium leading-6 text-second">
                         <Trans>This event has ended. Stay tuned for what&#39;s next!</Trans>
                     </p>
                     <button

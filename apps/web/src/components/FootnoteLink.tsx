@@ -17,7 +17,7 @@ export const FootnoteLink = memo<FootnoteLinkProps>(function FootnoteLink({ href
             href={href}
             target="_blank"
             onClick={stopPropagation}
-            className="text-secondary ml-auto mt-1 flex justify-end text-sm hover:underline"
+            className="ml-auto mt-1 flex justify-end text-sm text-secondary hover:underline"
         >
             {parsed.hostname}
         </Link>

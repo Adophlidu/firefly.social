@@ -24,9 +24,9 @@ function formatMultipleScores(scores: SportScore[]) {
         const away = set.score[1] ?? 0;
         return (
             <div key={i} className="flex items-center gap-2 text-xs">
-                <span className={classNames(home > away ? 'text-lightMain font-bold' : 'text-third')}>{home}</span>
+                <span className={classNames(home > away ? 'font-bold text-lightMain' : 'text-third')}>{home}</span>
                 <span className="text-third">-</span>
-                <span className={classNames(away > home ? 'text-lightMain font-bold' : 'text-third')}>{away}</span>
+                <span className={classNames(away > home ? 'font-bold text-lightMain' : 'text-third')}>{away}</span>
             </div>
         );
     });
@@ -35,15 +35,15 @@ function formatMultipleScores(scores: SportScore[]) {
 export const SportLiveScore = memo(function SportLiveScore({ scores, period }: SportLiveScoreProps) {
     return (
         <div className="flex items-center gap-2">
-            <span className="bg-danger rounded px-1.5 py-0.5 text-xs font-bold text-white">
+            <span className="rounded bg-danger px-1.5 py-0.5 text-xs font-bold text-white">
                 <Trans>LIVE</Trans>
             </span>
-            {period ? <span className="text-second text-xs">{period}</span> : null}
+            {period ? <span className="text-xs text-second">{period}</span> : null}
             <div className="flex items-center gap-1">
                 {scores.length > 1 ? (
                     <div className="flex flex-col gap-0.5">{formatMultipleScores(scores)}</div>
                 ) : (
-                    <span className="text-lightMain text-sm font-bold">{formatSingleScore(scores)}</span>
+                    <span className="text-sm font-bold text-lightMain">{formatSingleScore(scores)}</span>
                 )}
             </div>
         </div>

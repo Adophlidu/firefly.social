@@ -68,7 +68,7 @@ function MethodCallDemo() {
             <p className="text-sm text-gray-600">This section demonstrates how to call snackbar methods directly.</p>
             <div className="flex flex-wrap gap-3">
                 <ClickableButton
-                    className="bg-success rounded-md px-3 py-2 text-white"
+                    className="rounded-md bg-success px-3 py-2 text-white"
                     onClick={() => {
                         enqueueSuccessMessage('This is a success message from method call');
                     }}
@@ -76,7 +76,7 @@ function MethodCallDemo() {
                     Open success message
                 </ClickableButton>
                 <ClickableButton
-                    className="bg-danger rounded-md px-3 py-2 text-white"
+                    className="rounded-md bg-danger px-3 py-2 text-white"
                     onClick={() => {
                         enqueueErrorMessage('This is an error message from method call', {
                             error: new Error('Sample error'),
@@ -86,7 +86,7 @@ function MethodCallDemo() {
                     Open error message
                 </ClickableButton>
                 <ClickableButton
-                    className="bg-warn rounded-md px-3 py-2 text-white"
+                    className="rounded-md bg-warn px-3 py-2 text-white"
                     onClick={() => {
                         enqueueWarningMessage('This is a warning message from method call');
                     }}
@@ -94,7 +94,7 @@ function MethodCallDemo() {
                     Open warning message
                 </ClickableButton>
                 <ClickableButton
-                    className="bg-main rounded-md px-3 py-2 text-white"
+                    className="rounded-md bg-main px-3 py-2 text-white"
                     onClick={() => {
                         enqueueInfoMessage('This is an info message from method call');
                     }}

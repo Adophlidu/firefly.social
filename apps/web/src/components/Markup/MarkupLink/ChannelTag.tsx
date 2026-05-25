@@ -65,7 +65,7 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
         if (!channelId) return;
         return (
             <ClickableArea
-                className="text-highlight cursor-pointer hover:underline"
+                className="cursor-pointer text-highlight hover:underline"
                 as="span"
                 ref={ref}
                 onClick={() => {

@@ -26,11 +26,11 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
 
     return (
         <div className="w-full">
-            <p className="text-lightMain font-bold">
+            <p className="font-bold text-lightMain">
                 {title}
                 {tooltip ? (
                     <Tooltip placement="top" content={<div className="md:!max-w-[290px]">{tooltip}</div>}>
-                        <QuestionIcon className="text-second ml-1 inline-block cursor-pointer" width={18} height={18} />
+                        <QuestionIcon className="ml-1 inline-block cursor-pointer text-second" width={18} height={18} />
                     </Tooltip>
                 ) : null}
             </p>

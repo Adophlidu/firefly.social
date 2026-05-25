@@ -34,7 +34,7 @@ export function ReportPostButton({ post, ref, onReport, onClick, ...rest }: Prop
             ref={ref}
         >
             <FlagIcon width={18} height={18} />
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 <Trans>Report post</Trans>
             </span>
         </MenuButton>

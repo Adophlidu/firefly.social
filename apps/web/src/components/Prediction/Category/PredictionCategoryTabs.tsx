@@ -21,7 +21,7 @@ export const PredictionCategoryTabs = memo<Props>(function PredictionCategoryTab
     if (!showGames) return null;
 
     return (
-        <div className="bg-bg flex h-9 shrink-0 rounded-lg p-0.5">
+        <div className="flex h-9 shrink-0 rounded-lg bg-bg p-0.5">
             <ClickableButton
                 onClick={() => onTabChange(PREDICTION_CATEGORY_GAMES_TAB)}
                 className={classNames(

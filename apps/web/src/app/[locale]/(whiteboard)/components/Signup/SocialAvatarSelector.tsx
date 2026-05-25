@@ -33,7 +33,7 @@ export function SocialAvatarSelector({ profiles, onSelect }: SocialAvatarSelecto
                         <PopoverPanel
                             portal
                             anchor="top"
-                            className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-10 w-[190px] -translate-y-3 rounded-lg dark:border dark:shadow-none"
+                            className="no-scrollbar absolute bottom-full right-0 z-10 w-[190px] -translate-y-3 rounded-lg bg-lightBottom text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                             style={{ height: profiles.length * 44 }}
                         >
                             <div>
@@ -60,7 +60,7 @@ export function SocialAvatarSelector({ profiles, onSelect }: SocialAvatarSelecto
                                                 source={profile.source}
                                             />
                                         )}
-                                        <span className="text-lightTextMain min-w-0 flex-1 truncate text-left text-sm font-semibold">
+                                        <span className="min-w-0 flex-1 truncate text-left text-sm font-semibold text-lightTextMain">
                                             @{profile.handle || '-'}
                                         </span>
                                     </ClickableButton>

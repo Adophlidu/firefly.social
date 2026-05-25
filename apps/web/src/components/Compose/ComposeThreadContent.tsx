@@ -61,7 +61,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                             />
                         ) : null}
                         {i < posts.length - 1 ? (
-                            <div className="bg-secondaryMain absolute -bottom-3 left-[19px] top-0 w-[2px]" />
+                            <div className="absolute -bottom-3 left-[19px] top-0 w-[2px] bg-secondaryMain" />
                         ) : null}
                         {currentProfile ? (
                             <div className="relative">

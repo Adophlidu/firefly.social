@@ -41,14 +41,14 @@ export function NumberSelector({ value, label, numbers, onChange, className, dis
                         <Popover.Button
                             disabled={disabled}
                             className={classNames(
-                                'bg-lightBg w-full rounded-md border border-transparent px-2 py-1.5 md:rounded-2xl md:px-3 md:py-2.5',
+                                'w-full rounded-md border border-transparent bg-lightBg px-2 py-1.5 md:rounded-2xl md:px-3 md:py-2.5',
                                 disabled ? 'opacity-50' : '',
                                 open ? 'border-lightSecond' : '',
                             )}
                         >
-                            <div className="text-second text-left text-[13px]">{label}</div>
+                            <div className="text-left text-[13px] text-second">{label}</div>
                             <div className="mt-1 flex items-center justify-between">
-                                <span className="text-lightMain text-base font-bold md:text-lg">{value}</span>
+                                <span className="text-base font-bold text-lightMain md:text-lg">{value}</span>
                                 <ArrowDownIcon className={classNames('text-second', open ? 'rotate-180' : '')} />
                             </div>
                         </Popover.Button>
@@ -62,14 +62,14 @@ export function NumberSelector({ value, label, numbers, onChange, className, dis
                             leaveTo="opacity-0 translate-y-1"
                         >
                             <Popover.Panel
-                                className="bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 flex max-h-[200px] w-full -translate-y-2 flex-col gap-2 overflow-y-auto rounded-lg py-3 md:max-h-[300px] dark:border dark:shadow-none"
+                                className="absolute bottom-full right-0 flex max-h-[200px] w-full -translate-y-2 flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[300px]"
                                 ref={panelRef}
                             >
                                 {options.map((option) => (
                                     <ClickableButton
                                         key={option}
                                         className={classNames(
-                                            'text-lightMain h-6 cursor-pointer text-center text-base font-bold leading-6',
+                                            'h-6 cursor-pointer text-center text-base font-bold leading-6 text-lightMain',
                                             value === option ? 'bg-lightBg' : '',
                                         )}
                                         onClick={() => {

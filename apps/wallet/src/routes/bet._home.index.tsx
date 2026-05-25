@@ -7,7 +7,7 @@ import { SettleResolvedMarketsSection } from '@/components/Bet/SettleResolvedMar
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 
 function SkeletonLine({ className }: { className: string }) {
-    return <div className={`bg-lightBg animate-pulse rounded ${className}`} />;
+    return <div className={`animate-pulse rounded bg-lightBg ${className}`} />;
 }
 
 function PositionsSkeleton() {

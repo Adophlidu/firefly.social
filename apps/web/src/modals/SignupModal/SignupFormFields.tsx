@@ -177,12 +177,12 @@ export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormF
 
                 return (
                     <div key={field.name} className="text-left">
-                        <label className="text-main text-sm font-bold" htmlFor={fieldId}>
+                        <label className="text-sm font-bold text-main" htmlFor={fieldId}>
                             {field.label}
                         </label>
                         <div className="relative mt-1.5">
                             {field.prefix ? (
-                                <span className="text-medium text-main absolute left-0 top-0 h-12 pl-3 text-center leading-[48px]">
+                                <span className="absolute left-0 top-0 h-12 pl-3 text-center text-medium leading-[48px] text-main">
                                     {field.prefix}
                                 </span>
                             ) : null}

@@ -26,8 +26,8 @@ export function EventLayoutBody({ children }: { children: ReactNode }) {
     return (
         <>
             <SideBar />
-            <main className="md:border-line flex w-full flex-[1_1_100%] flex-col md:border-r md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
-                <div className="bg-primaryBottom sticky top-0 z-40">
+            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
+                <div className="sticky top-0 z-40 bg-primaryBottom">
                     <HeaderSearchBar />
                     <IfPathname isOneOf={[PageRoute.Events]}>
                         <NavigatorBar />
@@ -35,7 +35,7 @@ export function EventLayoutBody({ children }: { children: ReactNode }) {
                 </div>
                 {children}
             </main>
-            <aside className="z-1 sticky top-0 hidden h-full w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
+            <aside className="sticky top-0 z-1 hidden h-full w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <AsideSearchBar />
                     <SuggestedFollows />

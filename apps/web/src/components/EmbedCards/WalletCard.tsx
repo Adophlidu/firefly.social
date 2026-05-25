@@ -83,16 +83,16 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
             <div
                 {...rest}
                 className={classNames(
-                    'border-line bg-lightBg flex cursor-default items-center gap-1.5 rounded-2xl border p-3',
+                    'flex cursor-default items-center gap-1.5 rounded-2xl border border-line bg-lightBg p-3',
                     rest.className,
                 )}
                 onClick={(e) => {
                     e.stopPropagation();
                 }}
             >
-                <Link className="ring-primaryBottom shrink-0 rounded-full ring" href={profileUrl}>
+                <Link className="shrink-0 rounded-full ring ring-primaryBottom" href={profileUrl}>
                     <Avatar
-                        className="bg-bg size-12 overflow-hidden rounded-full"
+                        className="size-12 overflow-hidden rounded-full bg-bg"
                         unoptimized
                         loading="lazy"
                         src={getStampAvatarByProfileId(Source.Wallet, walletProfile.primary_ens || address, 100)}
@@ -113,15 +113,15 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                                 height={18}
                             />
                         ) : null}
-                        <Link href={profileUrl} className="text-main text-lg font-bold leading-6 hover:underline">
+                        <Link href={profileUrl} className="text-lg font-bold leading-6 text-main hover:underline">
                             {getEnsNameFromWalletProfile(walletProfile) || <Trans>Wallet</Trans>}
                         </Link>
                         {walletSecurity ? <SecurityBadge security={walletSecurity} /> : null}
                     </div>
-                    <div className="text-secondary flex items-center gap-2 whitespace-nowrap">
+                    <div className="flex items-center gap-2 whitespace-nowrap text-secondary">
                         <Link
                             href={profileUrl}
-                            className="font-inter text-secondary min-w-0 truncate text-sm font-bold leading-[14px] hover:underline"
+                            className="min-w-0 truncate font-inter text-sm font-bold leading-[14px] text-secondary hover:underline"
                         >
                             {formatAddress(address, 4)}
                         </Link>

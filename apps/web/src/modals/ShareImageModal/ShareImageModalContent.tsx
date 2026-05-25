@@ -34,17 +34,17 @@ export function ShareImageModalContent(props: ShareImageModalContentProps) {
         <div>
             <div className="relative flex h-10 items-center justify-center">
                 <CloseButton className="absolute left-0 top-1/2 -translate-y-1/2" onClick={props.onClose} />
-                <span className="text-main text-lg font-semibold">
+                <span className="text-lg font-semibold text-main">
                     <Trans>Share image</Trans>
                 </span>
             </div>
             <div className="no-scrollbar relative my-4 max-h-[50vh] overflow-y-auto">
                 {loading || hasError ? (
-                    <div className="z-1 bg-primaryBottom absolute inset-0 flex items-center justify-center">
+                    <div className="absolute inset-0 z-1 flex items-center justify-center bg-primaryBottom">
                         {loading ? (
                             <LoadingIcon width={24} height={24} className="text-main" />
                         ) : hasError ? (
-                            <span className="text-medium text-secondary font-medium">
+                            <span className="text-medium font-medium text-secondary">
                                 <Trans>Failed to load image.</Trans>
                             </span>
                         ) : null}
@@ -74,7 +74,7 @@ export function ShareImageModalContent(props: ShareImageModalContentProps) {
             <ClickableButton
                 disabled={loading || hasError}
                 loading={isDownloading}
-                className="bg-main text-medium text-primaryBottom h-10 w-full rounded-lg text-center font-bold"
+                className="h-10 w-full rounded-lg bg-main text-center text-medium font-bold text-primaryBottom"
                 onClick={handleDownload}
             >
                 <Trans>Download image</Trans>

@@ -74,10 +74,10 @@ export function TokenTrendingList(props: Props) {
     return (
         <div>
             <div className="mt-3 flex px-4">
-                <div className="font-inter text-secondary text-[13px] leading-[17px]">
+                <div className="font-inter text-[13px] leading-[17px] text-secondary">
                     <Trans>Volume · MC</Trans>
                 </div>
-                <div className="font-inter text-secondary ml-auto text-right text-[13px] leading-[17px]">
+                <div className="ml-auto text-right font-inter text-[13px] leading-[17px] text-secondary">
                     <Trans>Price · Change</Trans>
                 </div>
             </div>

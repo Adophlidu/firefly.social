@@ -19,7 +19,7 @@ export function PredictionProfileCategoryTabs() {
         <Tabs
             value={currentTab}
             onChange={setCurrentTab}
-            className={classNames('bg-primaryBottom sticky z-30', IS_APPLE && IS_SAFARI ? 'top-[53px]' : 'top-[54px]')}
+            className={classNames('sticky z-30 bg-primaryBottom', IS_APPLE && IS_SAFARI ? 'top-[53px]' : 'top-[54px]')}
             variant="default"
         >
             {categories.map((tab) => (

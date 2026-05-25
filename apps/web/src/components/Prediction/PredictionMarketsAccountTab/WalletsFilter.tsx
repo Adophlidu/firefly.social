@@ -29,9 +29,9 @@ export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ w
         <Popover as="div" className="relative mb-4">
             {({ close }) => (
                 <>
-                    <PopoverButton className="border-secondaryLine text-main flex h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border bg-bottom px-2 text-sm font-semibold focus:outline-none">
+                    <PopoverButton className="flex h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border border-secondaryLine bg-bottom px-2 text-sm font-semibold text-main focus:outline-none">
                         <span>{currentWallet.label}</span>
-                        <ChevronDownIcon className="text-secondary size-4" />
+                        <ChevronDownIcon className="size-4 text-secondary" />
                     </PopoverButton>
                     <Transition
                         as={Fragment}
@@ -46,9 +46,9 @@ export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ w
                             portal={false}
                             anchor="top start"
                             style={{ height: 38 * wallets.length + 32 + 40 }}
-                            className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-30 w-[380px] !max-w-[90vw] -translate-y-3 rounded-lg py-4 [--anchor-max-height:224px] dark:border dark:shadow-none"
+                            className="no-scrollbar absolute bottom-full right-0 z-30 w-[380px] !max-w-[90vw] -translate-y-3 rounded-lg bg-lightBottom py-4 text-medium shadow-popover [--anchor-max-height:224px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
-                            <h1 className="text-main h-7 px-4 text-lg font-bold">
+                            <h1 className="h-7 px-4 text-lg font-bold text-main">
                                 <Trans>Wallets</Trans>
                             </h1>
                             <div className="mt-2 space-y-1">
@@ -59,7 +59,7 @@ export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ w
                                         <ClickableButton
                                             key={wallet.proxy}
                                             className={classNames(
-                                                'hover:bg-lightBg flex h-[34px] w-full items-center gap-3 truncate px-4 transition duration-150 ease-in',
+                                                'flex h-[34px] w-full items-center gap-3 truncate px-4 transition duration-150 ease-in hover:bg-lightBg',
                                                 isSelected ? 'bg-lightBg font-semibold' : '',
                                             )}
                                             onClick={() => {
@@ -67,7 +67,7 @@ export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ w
                                                 close();
                                             }}
                                         >
-                                            <span className="text-main min-w-0 flex-1 truncate text-left text-sm font-medium">
+                                            <span className="min-w-0 flex-1 truncate text-left text-sm font-medium text-main">
                                                 {wallet.label}
                                             </span>
                                         </ClickableButton>

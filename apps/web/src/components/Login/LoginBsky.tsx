@@ -250,11 +250,11 @@ export function LoginBsky() {
             })}
         >
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
-                <h2 className="text-second whitespace-nowrap text-xs max-md:whitespace-normal">
+                <h2 className="whitespace-nowrap text-xs text-second max-md:whitespace-normal">
                     <Trans>Enter your username and password to sign in instantly</Trans>
                 </h2>
 
-                <div className="bg-lightBg text-main ring-highlight group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl focus-within:bg-bottom focus-within:ring-1">
+                <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <AtIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         disabled={loading}
@@ -263,7 +263,7 @@ export function LoginBsky() {
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Username or email address`}
-                        className="placeholder:text-secondary dark:text-input w-full border-0 bg-transparent py-2 pl-9 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         {...register('account', { required: true })}
                     />
                     {account ? (
@@ -281,7 +281,7 @@ export function LoginBsky() {
                         />
                     ) : null}
                 </div>
-                <div className="bg-lightBg text-main ring-highlight group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl focus-within:bg-bottom focus-within:ring-1">
+                <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <LockIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         disabled={loading}
@@ -289,7 +289,7 @@ export function LoginBsky() {
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Account or App Password`}
-                        className="placeholder:text-secondary dark:text-input w-full border-0 bg-transparent py-2 pl-9 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         {...register('password', { required: true })}
                     />
                     {password ? (
@@ -307,7 +307,7 @@ export function LoginBsky() {
                         />
                     ) : null}
                 </div>
-                <div className="bg-lightBg text-main ring-highlight group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl focus-within:bg-bottom focus-within:ring-1">
+                <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <ServiceUrlIcon className="absolute left-3 size-[18px] shrink-0" />
                     <input
                         disabled={loading}
@@ -316,7 +316,7 @@ export function LoginBsky() {
                         spellCheck="false"
                         placeholder={DEFAULT_SERVICE_URL}
                         className={classNames(
-                            'placeholder:text-secondary dark:text-input w-full border-0 bg-transparent py-2 pl-9 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6',
+                            'w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6',
                             {
                                 'pointer-events-none opacity-0': !editServiceUrl,
                             },
@@ -334,7 +334,7 @@ export function LoginBsky() {
                     />
                     <span
                         className={classNames(
-                            'placeholder:text-secondary dark:text-input absolute w-full border-0 bg-transparent py-2 pl-9 text-left focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6',
+                            'absolute w-full border-0 bg-transparent py-2 pl-9 text-left placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6',
                             {
                                 hidden: editServiceUrl,
                             },
@@ -364,7 +364,7 @@ export function LoginBsky() {
                     ) : null}
                 </div>
                 {show2FAInput ? (
-                    <div className="bg-lightBg text-main ring-highlight group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl focus-within:bg-bottom focus-within:ring-1">
+                    <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                         <SecurityIcon width={18} height={18} className="absolute left-3 shrink-0" />
                         <input
                             disabled={loading}
@@ -372,7 +372,7 @@ export function LoginBsky() {
                             autoComplete="one-time-code"
                             spellCheck="false"
                             placeholder={t`2FA confirmation code`}
-                            className="placeholder:text-secondary dark:text-input w-full border-0 bg-transparent py-2 pl-9 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                            className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                             {...register('authFactorToken')}
                         />
                         {watch('authFactorToken') ? (
@@ -393,7 +393,7 @@ export function LoginBsky() {
                     </div>
                 ) : null}
                 <ClickableButton
-                    className="border-line bg-lightMain text-primaryBottom flex h-[42px] w-full items-center justify-center gap-1 rounded-full border"
+                    className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
                     disabled={
                         loading ||
                         isLoading ||
@@ -406,7 +406,7 @@ export function LoginBsky() {
                     {loading ? (
                         <>
                             <Trans>Signing in</Trans>
-                            <LoadingIcon className="text-primaryBottom size-[18px]" />
+                            <LoadingIcon className="size-[18px] text-primaryBottom" />
                         </>
                     ) : show2FAInput ? (
                         <Trans>Verify</Trans>

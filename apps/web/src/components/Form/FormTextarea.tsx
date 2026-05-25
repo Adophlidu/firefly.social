@@ -30,7 +30,7 @@ export function FormTextarea<
         <div className="w-full">
             <textarea
                 className={classNames(
-                    'bg-bg text-main w-full rounded-2xl border-none !outline-offset-0 ring-0 duration-100 focus:bg-transparent focus:outline-1',
+                    'w-full rounded-2xl border-none bg-bg text-main !outline-offset-0 ring-0 duration-100 focus:bg-transparent focus:outline-1',
                     error ? 'focus:shadow-inputDanger focus:ring-fail/50' : 'focus:ring-highlight/50',
                     className,
                 )}
@@ -40,7 +40,7 @@ export function FormTextarea<
                 {...register(name, options)}
             />
             {placeholder && !value ? (
-                <span className="text-secondary pointer-events-none absolute left-0 pl-3 pt-2">{placeholder}</span>
+                <span className="pointer-events-none absolute left-0 pl-3 pt-2 text-secondary">{placeholder}</span>
             ) : null}
         </div>
     );

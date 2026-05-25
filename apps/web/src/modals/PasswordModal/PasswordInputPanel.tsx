@@ -71,7 +71,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
         <div className="relative flex items-center" style={{ justifyContent: 'space-around' }} ref={wrapperRef}>
             <input
                 id={SESSION_PASSWORD_INPUT_ID}
-                className="-z-1 absolute size-0 opacity-0"
+                className="absolute -z-1 size-0 opacity-0"
                 type="text"
                 ref={inputRef}
                 value={password}
@@ -101,7 +101,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                         inputRef.current.setSelectionRange(password.length, password.length);
                     }}
                     className={classNames(
-                        'border-lightLineSecond bg-input text-main dark:bg-lightBg size-11 rounded-2xl border text-center text-base font-medium !leading-[44px]',
+                        'size-11 rounded-2xl border border-lightLineSecond bg-input text-center text-base font-medium !leading-[44px] text-main dark:bg-lightBg',
                     )}
                 >
                     {password[index] ? '*' : ''}

@@ -46,7 +46,7 @@ export function PreviewImageModal({
     }, [close]);
 
     return (
-        <div className="z-modal fixed left-0 top-0 size-full">
+        <div className="fixed left-0 top-0 z-modal size-full">
             <div
                 className="fixed inset-0 bg-black bg-opacity-90"
                 onClick={(event) => {
@@ -56,14 +56,14 @@ export function PreviewImageModal({
                 }}
             />
             <div className="size-full">
-                <div className="text-main relative z-50 cursor-pointer pl-4 pt-4">
+                <div className="relative z-50 cursor-pointer pl-4 pt-4 text-main">
                     <CloseButton
                         onClick={close}
                         className="hover:!bg-transparent"
                         IconProps={{ className: '!text-white' }}
                     />
                 </div>
-                <div className="text-main flex size-full items-center">
+                <div className="flex size-full items-center text-main">
                     <Swiper
                         modules={[Navigation, Keyboard]}
                         navigation={{
@@ -93,14 +93,14 @@ export function PreviewImageModal({
                             className="prev-button absolute left-[50px] top-[50%] z-50 max-md:hidden"
                             aria-label="Previous image"
                         >
-                            <ArrowLeftIcon width={24} height={24} className="text-main hover:bg-bg rounded-full p-1" />
+                            <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                         </ClickableButton>
                         <ClickableButton
                             ref={nextRef}
                             className="next-button absolute right-[50px] top-[50%] z-50 max-md:hidden"
                             aria-label="Next image"
                         >
-                            <ArrowRightIcon width={24} height={24} className="text-main hover:bg-bg rounded-full p-1" />
+                            <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                         </ClickableButton>
                     </Swiper>
                 </div>

@@ -28,8 +28,8 @@ export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(functi
                 'flex w-full cursor-pointer items-center justify-between rounded-[10px] border bg-white px-5 py-2',
                 {
                     'hover:border-lightHighlight': !disabled,
-                    'text-commonMain border-transparent': !quantity,
-                    'border-lightHighlight text-lightHighlight border': !!quantity,
+                    'border-transparent text-commonMain': !quantity,
+                    'border border-lightHighlight text-lightHighlight': !!quantity,
                     'cursor-default opacity-40': disabled,
                 },
             )}

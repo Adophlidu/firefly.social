@@ -77,7 +77,7 @@ export const Avatar = memo(function Avatar({
             loading="lazy"
             unoptimized
             priority={false}
-            className={classNames('bg-secondary max-w-none rounded-full object-cover', className)}
+            className={classNames('max-w-none rounded-full bg-secondary object-cover', className)}
             style={{
                 height: size,
                 width: size,

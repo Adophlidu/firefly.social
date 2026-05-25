@@ -36,7 +36,7 @@ export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({
     ) : (
         <SocialSourceIcon className="rounded-full" source={source} size={40} />
     );
-    const name = <span className="text-lightMain text-lg font-black leading-6">{channel.name}</span>;
+    const name = <span className="text-lg font-black leading-6 text-lightMain">{channel.name}</span>;
 
     return (
         <article {...rest} className={classNames('flex gap-2.5 p-3', rest.className)}>
@@ -64,13 +64,13 @@ export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({
                                     <span className="text-medium text-secondary">
                                         <Trans>By @{channel.lead?.handle || '-'}</Trans>
                                     </span>
-                                    <span className="text-secondary leading-[22px]">·</span>
+                                    <span className="leading-[22px] text-secondary">·</span>
                                 </>
                             ) : null
                         ) : (
                             <>
                                 <span className="text-medium text-secondary">/{channel.id}</span>
-                                <span className="text-secondary leading-[22px]">·</span>
+                                <span className="leading-[22px] text-secondary">·</span>
                             </>
                         )}
 

@@ -307,7 +307,7 @@ export function BuyMarketForm({
                         />
                         <Skeleton className="h-5 w-full max-w-[100px]" isLoading={isLoadingAvailableAmount}>
                             {availableAmount ? (
-                                <div className="text-second h-5 w-full text-center text-sm">
+                                <div className="h-5 w-full text-center text-sm text-second">
                                     <Trans>{formatTokenUSD(availableAmount, { minDisplay: 0.01 })} available</Trans>
                                 </div>
                             ) : null}
@@ -318,10 +318,10 @@ export function BuyMarketForm({
             <div className="w-full space-y-4 p-4">
                 <div className="flex justify-between px-2">
                     <div>
-                        <div className="text-main text-lg font-bold">
+                        <div className="text-lg font-bold text-main">
                             <Trans>To win</Trans>
                         </div>
-                        <div className="text-second flex h-5 items-center gap-1 text-[13px] leading-5">
+                        <div className="flex h-5 items-center gap-1 text-[13px] leading-5 text-second">
                             <span>
                                 <Trans>Avg. Price</Trans>
                             </span>
@@ -330,14 +330,14 @@ export function BuyMarketForm({
                             </Skeleton>
                         </div>
                     </div>
-                    <div className="text-success text-lg font-bold">
+                    <div className="text-lg font-bold text-success">
                         <Skeleton className="h-5 w-24" isLoading={isLoadingToWin}>
                             <div>{formatTokenUSD(toWin?.win_amount ?? 0, { minDisplay: 0.01 })}</div>
                         </Skeleton>
                     </div>
                 </div>
                 {takerFeeUsd.gt(0) ? (
-                    <div className="text-second flex justify-between px-2 text-[13px]">
+                    <div className="flex justify-between px-2 text-[13px] text-second">
                         <span>
                             <Trans>Est. fee</Trans>
                         </span>
@@ -349,7 +349,7 @@ export function BuyMarketForm({
                         <button
                             key={price}
                             className={cn(
-                                'bg-lightBg active:bg-main/10 h-8 min-w-[70px] rounded-full px-4 text-center font-semibold leading-8 duration-75 active:scale-95',
+                                'h-8 min-w-[70px] rounded-full bg-lightBg px-4 text-center font-semibold leading-8 duration-75 active:scale-95 active:bg-main/10',
                                 {
                                     'text-highlight': price === 'Max',
                                 },
@@ -578,11 +578,11 @@ export function BuyLimitForm({
             <div className="flex w-full flex-col gap-6 pt-6">
                 <div className="flex w-full items-center justify-between px-4">
                     <div className="flex flex-col items-start justify-center">
-                        <div className="text-main text-base font-semibold leading-6">
+                        <div className="text-base font-semibold leading-6 text-main">
                             <Trans>Limit Price</Trans>
                         </div>
                         <Skeleton className="h-[18px] w-full max-w-[100px]" isLoading={isLoadingAvailableAmount}>
-                            <div className="text-second h-[18px] text-[13px] font-normal leading-[18px]">
+                            <div className="h-[18px] text-[13px] font-normal leading-[18px] text-second">
                                 {availableAmount ? (
                                     <Trans>Available {formatTokenUSD(availableAmount, { minDisplay: 0.01 })}</Trans>
                                 ) : null}
@@ -608,10 +608,10 @@ export function BuyLimitForm({
 
                 <div className="flex w-full flex-col items-end gap-4 px-4">
                     <div className="flex w-full items-center justify-between">
-                        <div className="text-main text-base font-semibold leading-6">
+                        <div className="text-base font-semibold leading-6 text-main">
                             <Trans>Shares</Trans>
                         </div>
-                        <div className="border-line flex h-12 w-[180px] items-center justify-center rounded-lg border bg-transparent px-2 py-2.5">
+                        <div className="flex h-12 w-[180px] items-center justify-center rounded-lg border border-line bg-transparent px-2 py-2.5">
                             <input
                                 type="number"
                                 inputMode="decimal"
@@ -642,7 +642,7 @@ export function BuyLimitForm({
                             <button
                                 key={x.delta}
                                 className={cn(
-                                    'border-line flex items-center justify-center gap-2.5 rounded-lg border bg-transparent p-2 active:scale-95',
+                                    'flex items-center justify-center gap-2.5 rounded-lg border border-line bg-transparent p-2 active:scale-95',
                                     x.delta === 'max' ? 'text-highlight' : 'text-main',
                                 )}
                                 onClick={() => {
@@ -659,20 +659,20 @@ export function BuyLimitForm({
             <div className="mt-auto w-full space-y-4 p-4">
                 <div className="flex flex-col gap-2 px-2">
                     <div className="inline-flex w-full items-center justify-between">
-                        <div className="text-main text-center text-lg font-bold leading-6">
+                        <div className="text-center text-lg font-bold leading-6 text-main">
                             <Trans>Total</Trans>
                         </div>
-                        <div className="text-main text-center text-lg font-bold leading-6">
+                        <div className="text-center text-lg font-bold leading-6 text-main">
                             {formatTokenUSD(totalUSD.toString(), { minDisplay: 0.01 })}
                         </div>
                     </div>
                     <div className="inline-flex w-full items-center justify-between">
-                        <div className="text-main text-center text-lg font-bold leading-6">
+                        <div className="text-center text-lg font-bold leading-6 text-main">
                             <Trans>To win</Trans>
                         </div>
                         <Skeleton className="h-5 w-full max-w-24" isLoading={isLoadingWinAmount}>
                             <div
-                                className={cn('text-success text-center text-lg font-bold leading-6', {
+                                className={cn('text-center text-lg font-bold leading-6 text-success', {
                                     'text-second': !winAmount,
                                 })}
                             >

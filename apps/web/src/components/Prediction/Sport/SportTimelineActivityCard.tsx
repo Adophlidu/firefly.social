@@ -262,7 +262,7 @@ function TeamColumn({
         >
             <div className="flex min-w-0 flex-col items-center justify-center gap-2">
                 <TeamLogo team={team} />
-                <p className="text-lightMain line-clamp-2 min-h-4 w-full break-words text-[13px] font-semibold leading-4">
+                <p className="line-clamp-2 min-h-4 w-full break-words text-[13px] font-semibold leading-4 text-lightMain">
                     {team.name}
                 </p>
             </div>
@@ -281,7 +281,7 @@ function ProbabilityBar({ outcomes }: { outcomes: OutcomeViewModel[] }) {
 
     return (
         <div className="flex h-6 max-w-full items-center justify-center gap-1">
-            <span className="text-lightMain shrink-0 text-[13px] font-semibold leading-[17px]">
+            <span className="shrink-0 text-[13px] font-semibold leading-[17px] text-lightMain">
                 {formatPercent(homePercent)}
             </span>
             <div className="flex h-1 w-[52px] shrink-0 gap-0.5 overflow-hidden">
@@ -299,7 +299,7 @@ function ProbabilityBar({ outcomes }: { outcomes: OutcomeViewModel[] }) {
                     );
                 })}
             </div>
-            <span className="text-lightMain shrink-0 text-[13px] font-semibold leading-[17px]">
+            <span className="shrink-0 text-[13px] font-semibold leading-[17px] text-lightMain">
                 {formatPercent(awayPercent)}
             </span>
         </div>
@@ -312,7 +312,7 @@ function ScoreLine({ activity, winner }: { activity: BetsActivity; winner?: 'hom
     const awayScore = getScoreValue(latestScores, 1);
 
     return (
-        <div className="text-lightMain flex h-6 items-center justify-center gap-1 text-base font-semibold leading-6">
+        <div className="flex h-6 items-center justify-center gap-1 text-base font-semibold leading-6 text-lightMain">
             <span className={classNames({ 'opacity-40': winner === 'away' })}>{formatScore(homeScore)}</span>
             <span>-</span>
             <span className={classNames({ 'opacity-40': winner === 'home' })}>{formatScore(awayScore)}</span>
@@ -359,7 +359,7 @@ function StatusLine({ activity }: { activity: BetsActivity }) {
                 </span>
                 {sport.periodShow ? (
                     <>
-                        <span className="bg-danger size-1.5 rounded-full" />
+                        <span className="size-1.5 rounded-full bg-danger" />
                         <span className="text-lightMain">{sport.periodShow}</span>
                     </>
                 ) : null}
@@ -369,7 +369,7 @@ function StatusLine({ activity }: { activity: BetsActivity }) {
 
     if (sport.ended) {
         return (
-            <div className="text-lightMain flex h-6 items-center justify-center text-xs font-medium leading-[14px]">
+            <div className="flex h-6 items-center justify-center text-xs font-medium leading-[14px] text-lightMain">
                 <Trans>FINAL</Trans>
             </div>
         );
@@ -377,7 +377,7 @@ function StatusLine({ activity }: { activity: BetsActivity }) {
 
     const startTime = formatStartTime(activity);
     return startTime ? (
-        <div className="text-lightMain flex h-6 items-center justify-center text-xs font-medium leading-[14px]">
+        <div className="flex h-6 items-center justify-center text-xs font-medium leading-[14px] text-lightMain">
             {startTime}
         </div>
     ) : null;
@@ -388,7 +388,7 @@ function MetaLine({ activity }: { activity: BetsActivity }) {
     const metaItems = [volumeLabel, activity.sportData?.leagueName].filter(Boolean);
     if (!metaItems.length) return null;
 
-    return <p className="text-second truncate text-[13px] leading-[17px]">{metaItems.join(' · ')}</p>;
+    return <p className="truncate text-[13px] leading-[17px] text-second">{metaItems.join(' · ')}</p>;
 }
 
 function CenterColumn({
@@ -506,7 +506,7 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
     const rowHeightClass = isFinal && !showTennisScore ? 'min-h-[90px]' : 'min-h-[125px]';
 
     return (
-        <div className="border-line mt-1.5 rounded-2xl border p-4">
+        <div className="mt-1.5 rounded-2xl border border-line p-4">
             <div
                 className={classNames(
                     'grid w-full grid-cols-[minmax(84px,156px)_minmax(88px,1fr)_minmax(84px,156px)] items-center gap-2',

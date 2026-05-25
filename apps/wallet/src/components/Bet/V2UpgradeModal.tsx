@@ -34,11 +34,11 @@ export function V2UpgradeModal({ proxyAddress }: V2UpgradeModalProps) {
                 <PolymarketV2MigrationIcon width={88} height={88} className="shrink-0" />
 
                 <div className="flex flex-col items-center gap-2 text-center">
-                    <h2 className="text-main text-lg font-semibold leading-normal">
+                    <h2 className="text-lg font-semibold leading-normal text-main">
                         <Trans>Migrate to Polymarket V2</Trans>
                     </h2>
 
-                    <p className="text-second w-full px-5 text-sm font-medium leading-[18px]">
+                    <p className="w-full px-5 text-sm font-medium leading-[18px] text-second">
                         <Trans>
                             Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly.
                         </Trans>

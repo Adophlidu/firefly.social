@@ -23,8 +23,8 @@ export const SnapshotChoice = memo<SnapshotChoiceProps>(function SnapshotChoice(
                 'flex w-full cursor-pointer items-center justify-between rounded-[10px] border bg-white px-5 py-2.5',
                 {
                     'hover:border-lightHighlight hover:text-lightHighlight': !disabled,
-                    'text-commonMain border-transparent': !selected,
-                    'border-lightHighlight text-lightHighlight border !py-[7px]': selected,
+                    'border-transparent text-commonMain': !selected,
+                    'border border-lightHighlight !py-[7px] text-lightHighlight': selected,
                     'cursor-default opacity-40': disabled,
                 },
             )}

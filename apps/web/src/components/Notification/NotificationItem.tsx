@@ -372,7 +372,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-secondaryLine hover:bg-bg dark:border-line cursor-pointer border-b px-4 py-3"
+            className="cursor-pointer border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
             onClick={handleNotificationClick}
         >
             <div className="flex justify-between">
@@ -387,14 +387,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 <SocialSourceIcon mono source={notification.source} className="text-second" />
                                 {notification.timestamp &&
                                 !(notification.type === NotificationType.Reaction && profiles.length > 1) ? (
-                                    <span className="text-secondary text-xs leading-4">
+                                    <span className="text-xs leading-4 text-secondary">
                                         <TimestampFormatter time={notification.timestamp} />
                                     </span>
                                 ) : null}
                                 {moreAction}
                             </div>
                         </div>
-                        <div className="text-medium mt-2 flex min-w-0 items-center gap-[0.2em] whitespace-nowrap">
+                        <div className="mt-2 flex min-w-0 items-center gap-[0.2em] whitespace-nowrap text-medium">
                             {title}
                         </div>
                         {content}

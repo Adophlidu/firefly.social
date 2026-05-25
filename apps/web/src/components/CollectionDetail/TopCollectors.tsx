@@ -76,7 +76,7 @@ function getTopCollectorsItemContent(index: number, item: CollectionHolder) {
                         <Tooltip content={addressOrEns} placement="top" className="!max-w-[400px]">
                             <div className="truncate">{formatAddress(item.address, 4)}</div>
                         </Tooltip>
-                        <LinkIcon className="text-secondary ml-1.5 size-3 shrink-0" />
+                        <LinkIcon className="ml-1.5 size-3 shrink-0 text-secondary" />
                     </div>
                 </Link>
             </td>

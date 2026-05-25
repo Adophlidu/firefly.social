@@ -24,7 +24,7 @@ export function TokenSecurityTippy({ children, level, security, interactive }: P
 
     const content =
         levels.length > 1 ? (
-            <div className="border-line bg-primaryBottom flex flex-col gap-2 rounded-lg border p-4">
+            <div className="flex flex-col gap-2 rounded-lg border border-line bg-primaryBottom p-4">
                 {Object.entries(groups).map(([level, group]) => {
                     return <RiskCard key={level} level={group[0].level} security={security} messages={group} />;
                 })}

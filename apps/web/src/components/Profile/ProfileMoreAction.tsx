@@ -65,7 +65,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
             button={<MoreIcon width={22} height={22} className="shrink-0" />}
             className={className}
             buttonClassName={classNames(
-                'bg-primaryBottom size-8 justify-center rounded-lg dark:bg-white dark:bg-opacity-[0.08]',
+                'size-8 justify-center rounded-lg bg-primaryBottom dark:bg-white dark:bg-opacity-[0.08]',
                 buttonClassName,
                 {
                     '!text-farcasterPrimary': profile.source === Source.Farcaster,
@@ -121,7 +121,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                                             }}
                                         >
                                             <SearchIcon width={18} height={18} />
-                                            <span className="text-main font-bold leading-[22px]">
+                                            <span className="font-bold leading-[22px] text-main">
                                                 <Trans>Search in profile</Trans>
                                             </span>
                                         </MenuButton>

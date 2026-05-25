@@ -43,7 +43,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
         <motion.div
             key={`${connection.platform}-${connection.address}`}
             layoutId={`${connection.platform}-${connection.address}`}
-            className="border-line text-medium dark:bg-bg inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg border bg-white bg-bottom px-3 py-2 backdrop-blur"
+            className="inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg border border-line bg-white bg-bottom px-3 py-2 text-medium backdrop-blur dark:bg-bg"
         >
             {!noAction ? (
                 <>
@@ -71,7 +71,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                                 </Trans>
                             }
                         >
-                            <InfoIcon width={20} height={20} className="text-second size-5 shrink-0" />
+                            <InfoIcon width={20} height={20} className="size-5 shrink-0 text-second" />
                         </Tooltip>
                     ) : null}
                 </>
@@ -79,12 +79,12 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
             <Icon className="shrink-0" width={24} height={24} />
             <div className="flex min-w-0 flex-1 flex-col text-left">
                 {connection.ens?.[0] ? (
-                    <span className="text-main flex items-center text-base font-bold">{connection.ens[0]}</span>
+                    <span className="flex items-center text-base font-bold text-main">{connection.ens[0]}</span>
                 ) : null}
                 <div
                     className={classNames(
                         'flex items-center gap-1',
-                        connection.ens?.[0] ? 'text-second' : 'text-main font-semibold',
+                        connection.ens?.[0] ? 'text-second' : 'font-semibold text-main',
                     )}
                 >
                     <span className="flex items-center truncate">

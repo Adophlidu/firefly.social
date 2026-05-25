@@ -56,7 +56,7 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
     ) : (
         <>
             <PredictionActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
-            <div className="border-line mt-1.5 rounded-2xl border p-4">
+            <div className="mt-1.5 rounded-2xl border border-line p-4">
                 <div className="flex gap-x-2">
                     <PredictionEventImage
                         platform={activity.platform}
@@ -66,7 +66,7 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
                         className="shrink-0"
                         src={activity.image}
                     />
-                    <span className="text-lightMain line-clamp-2 text-sm font-semibold leading-6">{displayTitle}</span>
+                    <span className="line-clamp-2 text-sm font-semibold leading-6 text-lightMain">{displayTitle}</span>
                 </div>
                 <div className="mt-3 flex items-center gap-x-1 text-sm font-medium">
                     <span
@@ -77,7 +77,7 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
                     >
                         {outcome} - {floor(+activity.price * 100)}¢
                     </span>
-                    <span className="bg-lightBg text-lightMain min-h-6 rounded-lg px-2 leading-6">
+                    <span className="min-h-6 rounded-lg bg-lightBg px-2 leading-6 text-lightMain">
                         <Trans>×{toFixedTrimmed(+activity.size, 2)} shares</Trans>
                     </span>
                 </div>

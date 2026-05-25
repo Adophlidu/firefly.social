@@ -73,9 +73,9 @@ export function PrimaryButton({
                 {loading ? (
                     <LoadingIcon size={20} />
                 ) : isDefault ? (
-                    <StarFilledIcon width={20} height={20} className="text-warn shrink-0" />
+                    <StarFilledIcon width={20} height={20} className="shrink-0 text-warn" />
                 ) : (
-                    <StarOutlineIcon width={20} height={20} className="text-second shrink-0" />
+                    <StarOutlineIcon width={20} height={20} className="shrink-0 text-second" />
                 )}
             </ClickableButton>
         </Tooltip>

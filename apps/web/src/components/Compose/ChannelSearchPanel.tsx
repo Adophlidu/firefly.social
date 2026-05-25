@@ -42,7 +42,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
     const { data, isLoading, isError } = useSearchChannels(inputText, source, !!rpPayload, selectedChannel[source]);
 
     const InputBox = (
-        <div className="bg-lightBg text-main relative mx-0 flex h-10 grow items-center rounded-xl px-3 md:mx-3">
+        <div className="relative mx-0 flex h-10 grow items-center rounded-xl bg-lightBg px-3 text-main md:mx-3">
             <SearchIcon width={18} height={18} className="shrink-0" />
             <SearchInput
                 className="h-8"
@@ -64,15 +64,15 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
     const ListBox = (
         <div className={classNames('no-scrollbar overflow-auto', className)} {...rest}>
             {isLoading ? (
-                <div className="text-main m-auto flex h-[100px] items-center justify-center text-center text-sm">
+                <div className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
                     <LoadingIcon />
                 </div>
             ) : isError ? (
-                <p className="text-main m-auto flex h-[100px] items-center justify-center text-center text-sm">
+                <p className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
                     <Trans>Something went wrong. Please try again.</Trans>
                 </p>
             ) : !data?.length ? (
-                <p className="text-main m-auto flex h-[100px] items-center justify-center text-center text-sm">
+                <p className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
                     <Trans>There is no data available for display.</Trans>
                 </p>
             ) : (
@@ -83,7 +83,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                     return channel.unavailable || !channelName ? null : (
                         <Fragment key={channel.id}>
                             <div
-                                className="hover:bg-lightBg flex h-12 cursor-pointer items-center justify-between px-3 transition duration-150 ease-in"
+                                className="flex h-12 cursor-pointer items-center justify-between px-3 transition duration-150 ease-in hover:bg-lightBg"
                                 onClick={() => {
                                     if (!isSelected) updateChannel(channel);
                                     onSelected?.();
@@ -97,7 +97,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                                 >
                                     {renderChannelIcon(channel)}
                                     <div
-                                        className="text-secondary flex items-center gap-1"
+                                        className="flex items-center gap-1 text-secondary"
                                         style={{ width: 'calc(100% - 34px)' }}
                                     >
                                         <span
@@ -126,7 +126,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
     );
 
     const content = (
-        <div className="md:bg-lightBottom md:dark:bg-darkBottom flex flex-col gap-2">
+        <div className="flex flex-col gap-2 md:bg-lightBottom md:dark:bg-darkBottom">
             {[Source.Farcaster, Source.Lens].includes(source) ? InputBox : null}
             {ListBox}
         </div>
@@ -147,7 +147,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                     portal
                     anchor="top"
                     className={classNames(
-                        'no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg py-3 dark:border dark:shadow-none',
+                        'no-scrollbar absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none',
                         {
                             '[--anchor-max-height:264px]': [Source.Farcaster, Source.Lens].includes(source),
                         },

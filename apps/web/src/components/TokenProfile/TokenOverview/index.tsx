@@ -90,7 +90,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
     return (
         <div {...rest}>
             <div className="space-y-3">
-                <h2 className="font-inter text-main font-bold">
+                <h2 className="font-inter font-bold text-main">
                     <Trans>Statistic</Trans>
                 </h2>
 
@@ -139,7 +139,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
                 </div>
                 <div className="flex gap-3">
                     {isTreasuryHoldingsLoading ? (
-                        <div className="bg-lightBg h-[74px] w-full animate-pulse rounded-xl" />
+                        <div className="h-[74px] w-full animate-pulse rounded-xl bg-lightBg" />
                     ) : (
                         <>
                             <InfoCard
@@ -202,7 +202,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
                     />
                 </div>
             </div>
-            <h2 className="font-inter text-main mt-3 font-bold">
+            <h2 className="mt-3 font-inter font-bold text-main">
                 <Trans>Info</Trans>
             </h2>
             <div className="mt-3 flex flex-col gap-3">
@@ -230,7 +230,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
                                     touch
                                 >
                                     <span
-                                        className="text-medium text-main truncate font-bold"
+                                        className="truncate text-medium font-bold text-main"
                                         data-address={selectedAddress}
                                     >
                                         {formatAddress(selectedAddress, 4)}
@@ -255,7 +255,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
                                         key={url}
                                         href={url}
                                         target="_blank"
-                                        className="text-highlight text-right hover:underline"
+                                        className="text-right text-highlight hover:underline"
                                     >
                                         {parseUrl(url)?.host || url}
                                     </Link>

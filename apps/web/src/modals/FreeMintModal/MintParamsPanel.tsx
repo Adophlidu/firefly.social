@@ -62,7 +62,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
     });
 
     return (
-        <ul className={classNames('text-main flex w-full flex-col gap-3 text-base', className)}>
+        <ul className={classNames('flex w-full flex-col gap-3 text-base text-main', className)}>
             {chain ? (
                 <li className="flex w-full items-center justify-between">
                     <span>
@@ -90,7 +90,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                 <span>
                     <Trans>Network cost</Trans>
                 </span>
-                <span className={classNames('text-secondary', isLoading ? 'bg-third h-6 w-24 animate-pulse' : '')}>
+                <span className={classNames('text-secondary', isLoading ? 'h-6 w-24 animate-pulse bg-third' : '')}>
                     {isLoading ? '' : renderPrice(gasFee, decimals, symbol)}
                 </span>
             </li>
@@ -102,7 +102,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                     <span
                         className={classNames('text-secondary', {
                             'line-through': isFree,
-                            'bg-third h-6 w-24 animate-pulse': isLoading,
+                            'h-6 w-24 animate-pulse bg-third': isLoading,
                         })}
                     >
                         {isLoading ? '' : renderPrice(totalCost, decimals, symbol)}

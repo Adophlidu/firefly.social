@@ -1,5 +1,5 @@
 function SkeletonLine({ className }: { className: string }) {
-    return <div className={`bg-lightBg animate-pulse rounded ${className}`} />;
+    return <div className={`animate-pulse rounded bg-lightBg ${className}`} />;
 }
 
 export function OpenOrdersSkeleton() {

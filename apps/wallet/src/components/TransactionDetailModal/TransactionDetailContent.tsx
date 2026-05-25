@@ -78,7 +78,7 @@ function WalletAvatar({ address, className, size = 40 }: { address?: string; cla
     if (!address) {
         return (
             <span
-                className={cn('bg-bg inline-block rounded-full', className)}
+                className={cn('inline-block rounded-full bg-bg', className)}
                 style={{
                     width: size,
                     height: size,
@@ -115,7 +115,7 @@ function DetailAddressValue({
             {address ? (
                 <AddressLink chainId={chainId} address={address} />
             ) : (
-                <span className="text-main text-sm font-medium">--</span>
+                <span className="text-sm font-medium text-main">--</span>
             )}
         </span>
     );
@@ -179,7 +179,7 @@ function TransactionDetailSubtitle({
 
     return (
         <>
-            <div className="border-main text-main flex items-center rounded-lg border px-2 py-[2px]">
+            <div className="flex items-center rounded-lg border border-main px-2 py-[2px] text-main">
                 <TransactionCategoryIcon category={transaction.category} />
                 <span className="text-sm">
                     <TransactionDetailActionLabel category={transaction.category} />
@@ -281,11 +281,11 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                     <WalletAvatar address={profileAddress} className="size-10" />
                 )}
                 <div className="flex min-w-0 flex-col">
-                    <div className="text-medium flex items-center gap-x-1">
+                    <div className="flex items-center gap-x-1 text-medium">
                         {profileUrl ? (
                             <Link
                                 to={profileUrl}
-                                className="text-lightMain min-w-0 truncate text-base font-semibold"
+                                className="min-w-0 truncate text-base font-semibold text-lightMain"
                                 onClick={(event: MouseEvent<HTMLAnchorElement>) =>
                                     handleInternalLinkClick(event, profileUrl)
                                 }
@@ -293,12 +293,12 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                                 {fromEnsHandle ? <span>{fromEnsHandle}</span> : (fromAddressName ?? '--')}
                             </Link>
                         ) : (
-                            <span className="text-lightMain min-w-0 truncate text-base font-semibold">
+                            <span className="min-w-0 truncate text-base font-semibold text-lightMain">
                                 {fromEnsHandle ? <span>{fromEnsHandle}</span> : (fromAddressName ?? '--')}
                             </span>
                         )}
                     </div>
-                    <div className="text-second flex items-center gap-x-1 text-sm">
+                    <div className="flex items-center gap-x-1 text-sm text-second">
                         {fromEnsHandle && profileUrl ? (
                             <Link
                                 to={profileUrl}
@@ -331,7 +331,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
             <div className="mt-5 space-y-3">
                 {transaction.category === TransactionHistoryCategory.TokenSend ? (
                     <div className="flex items-center justify-between">
-                        <span className="text-second text-sm">
+                        <span className="text-sm text-second">
                             <Trans>To Address</Trans>
                         </span>
                         <DetailAddressValue
@@ -343,7 +343,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                 ) : null}
                 {transaction.category === TransactionHistoryCategory.TokenReceive ? (
                     <div className="flex items-center justify-between">
-                        <span className="text-second text-sm">
+                        <span className="text-sm text-second">
                             <Trans>From Address</Trans>
                         </span>
                         <DetailAddressValue chainId={transaction.chain_id} address={fromAddress} />
@@ -351,7 +351,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                 ) : null}
                 {showContractRow ? (
                     <div className="flex items-center justify-between">
-                        <span className="text-second text-sm">
+                        <span className="text-sm text-second">
                             <Trans>Contract</Trans>
                         </span>
                         <DetailAddressValue
@@ -371,19 +371,19 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                     </div>
                 ) : null}
                 <div className="flex items-center justify-between">
-                    <span className="text-second text-sm">
+                    <span className="text-sm text-second">
                         <Trans>Transaction Hash</Trans>
                     </span>
                     {transaction.hash ? <TxLink chainId={transaction.chain_id} hash={transaction.hash} /> : '--'}
                 </div>
                 <div className="flex items-center justify-between">
-                    <span className="text-second text-sm">
+                    <span className="text-sm text-second">
                         <Trans>Block</Trans>
                     </span>
-                    <span className="text-main text-sm font-medium">{transaction.block_number || '--'}</span>
+                    <span className="text-sm font-medium text-main">{transaction.block_number || '--'}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                    <span className="text-second text-sm">
+                    <span className="text-sm text-second">
                         <Trans>Status</Trans>
                     </span>
                     <span
@@ -402,19 +402,19 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                     </span>
                 </div>
                 <div className="flex items-center justify-between">
-                    <span className="text-second text-sm">
+                    <span className="text-sm text-second">
                         <Trans>Network</Trans>
                     </span>
                     <div className="flex items-center gap-1">
                         <ChainIcon chainId={transaction.chain_id} size={20} networkType={presentation.networkType} />
-                        <span className="text-lightMain text-sm font-medium">{networkName}</span>
+                        <span className="text-sm font-medium text-lightMain">{networkName}</span>
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
-                    <span className="text-second text-sm">
+                    <span className="text-sm text-second">
                         <Trans>Time</Trans>
                     </span>
-                    <span className="text-main text-sm font-medium">
+                    <span className="text-sm font-medium text-main">
                         {transaction.timestamp ? <TransactionDate time={Number(transaction.timestamp) * 1000} /> : '--'}
                     </span>
                 </div>
@@ -423,7 +423,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
             <div className="mt-6 md:mt-6">
                 <ClickableButton
                     disabled={!presentation.explorerUrl}
-                    className="bg-lightMain text-primaryBottom fixed bottom-6 left-1/2 z-20 flex h-12 w-[calc(100%-32px)] -translate-x-1/2 items-center justify-center rounded-xl text-sm font-bold shadow-lg md:static md:h-10 md:w-full md:translate-x-0 md:rounded-lg md:shadow-none"
+                    className="fixed bottom-6 left-1/2 z-20 flex h-12 w-[calc(100%-32px)] -translate-x-1/2 items-center justify-center rounded-xl bg-lightMain text-sm font-bold text-primaryBottom shadow-lg md:static md:h-10 md:w-full md:translate-x-0 md:rounded-lg md:shadow-none"
                     onClick={() => {
                         if (presentation.explorerUrl) window.open(presentation.explorerUrl, '_blank');
                     }}

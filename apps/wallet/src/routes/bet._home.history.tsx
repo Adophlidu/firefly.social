@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { lazy, Suspense } from 'react';
 
 function SkeletonLine({ className }: { className: string }) {
-    return <div className={`bg-lightBg animate-pulse rounded ${className}`} />;
+    return <div className={`animate-pulse rounded bg-lightBg ${className}`} />;
 }
 
 function HistorySkeleton() {

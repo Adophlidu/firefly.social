@@ -21,11 +21,11 @@ interface InfoRowProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {
 
 export function InfoRow({ title, description, amount, asInfinite, value, extra, className, ...rest }: InfoRowProps) {
     return (
-        <div className={classNames('text-medium flex items-center gap-2', className)} {...rest}>
-            <span className="text-second whitespace-nowrap">{title}</span>
+        <div className={classNames('flex items-center gap-2 text-medium', className)} {...rest}>
+            <span className="whitespace-nowrap text-second">{title}</span>
             {description ? (
                 <Tooltip placement="top" content={description} touch>
-                    <QuestionIcon className="text-second ml-1 cursor-pointer" width={14} height={14} />
+                    <QuestionIcon className="ml-1 cursor-pointer text-second" width={14} height={14} />
                 </Tooltip>
             ) : null}
             {extra ? (
@@ -33,7 +33,7 @@ export function InfoRow({ title, description, amount, asInfinite, value, extra, 
             ) : (
                 <div
                     className={classNames(
-                        'font-inter text-main ml-auto min-w-0 truncate whitespace-nowrap font-bold',
+                        'ml-auto min-w-0 truncate whitespace-nowrap font-inter font-bold text-main',
                         asInfinite ? 'text-2xl leading-[22.5px]' : 'text-medium',
                     )}
                 >

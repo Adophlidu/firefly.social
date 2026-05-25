@@ -42,7 +42,7 @@ export const ContractList = memo<Props>(function ContractList({
         >
             <MenuItems
                 style={{ '--anchor-max-height': '225px' } as CSSProperties}
-                className="border-line bg-primaryBottom text-main z-[1000] flex max-h-[225px] w-max flex-col overflow-auto rounded-2xl border py-3 text-base shadow-[0_0_20px_0_rgba(34,49,71,0.05)] backdrop-blur"
+                className="z-[1000] flex max-h-[225px] w-max flex-col overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)] backdrop-blur"
                 data-hide-scrollbar
                 onClick={stopEvent}
                 anchor={menuAnchor}
@@ -51,7 +51,7 @@ export const ContractList = memo<Props>(function ContractList({
                     <MenuItem key={contract.address}>
                         {({ close }) => (
                             <ContractItem
-                                className="border-line hover:bg-bg02 cursor-pointer rounded border-b px-3 last-of-type:border-0"
+                                className="cursor-pointer rounded border-b border-line px-3 last-of-type:border-0 hover:bg-bg02"
                                 contract={contract}
                                 onClick={() => {
                                     onSelect?.(contract);
@@ -80,11 +80,11 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
             {icon ? (
                 <Image src={icon} className="shrink-0" alt={name || ''} width={16} height={16} />
             ) : (
-                <QuestionIcon className="text-second ml-1 cursor-pointer" width={16} height={16} />
+                <QuestionIcon className="ml-1 cursor-pointer text-second" width={16} height={16} />
             )}
             <div className="min-w-[100px] grow p-1 leading-4">
-                <div className="text-main text-[12px] font-bold capitalize">{name}</div>
-                <div className="text-main max-w-[160px] truncate text-[12px] font-bold" data-address={contract.address}>
+                <div className="text-[12px] font-bold capitalize text-main">{name}</div>
+                <div className="max-w-[160px] truncate text-[12px] font-bold text-main" data-address={contract.address}>
                     {formatAddress(contract.address, 4)}
                 </div>
             </div>

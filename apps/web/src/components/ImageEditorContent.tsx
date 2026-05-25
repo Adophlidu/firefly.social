@@ -56,14 +56,14 @@ export function ImageEditorContent({ file, onSave, AvatarEditorProps }: ImageEdi
                         borderRadius={AvatarEditorProps?.borderRadius ?? 300}
                     />
                 </div>
-                <div ref={rangerRef} className="bg-bg relative mx-2 h-1.5 w-full rounded-2xl">
+                <div ref={rangerRef} className="relative mx-2 h-1.5 w-full rounded-2xl bg-bg">
                     {rangerInstance
                         .handles()
                         .map(({ value, onKeyDownHandler, onMouseDownHandler, onTouchStart }, i) => (
                             <Fragment key={i}>
                                 <div className="relative size-full overflow-hidden rounded-2xl">
                                     <div
-                                        className="bg-link size-full origin-left"
+                                        className="size-full origin-left bg-link"
                                         style={{
                                             transform: `scaleX(${rangerInstance.getPercentageForValue(value) / 100})`,
                                         }}
@@ -77,7 +77,7 @@ export function ImageEditorContent({ file, onSave, AvatarEditorProps }: ImageEdi
                                     aria-valuemin={rangerInstance.options.min}
                                     aria-valuemax={rangerInstance.options.max}
                                     aria-valuenow={value}
-                                    className="willChange-[left] bg-link shadow-messageShadow absolute left-0 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                                    className="willChange-[left] absolute left-0 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-link shadow-messageShadow"
                                     style={{
                                         left: `${rangerInstance.getPercentageForValue(value)}%`,
                                     }}
@@ -86,11 +86,11 @@ export function ImageEditorContent({ file, onSave, AvatarEditorProps }: ImageEdi
                         ))}
                 </div>
             </div>
-            <div className="shadow-accountCardShadowLight mt-auto flex w-full p-4">
+            <div className="mt-auto flex w-full p-4 shadow-accountCardShadowLight">
                 <ClickableButton
                     enableDefault
                     enablePropagate
-                    className="bg-main text-medium text-primaryBottom flex h-10 w-full items-center justify-center rounded-lg font-bold leading-10"
+                    className="flex h-10 w-full items-center justify-center rounded-lg bg-main text-medium font-bold leading-10 text-primaryBottom"
                     onClick={handleSave}
                 >
                     <Trans>Confirm</Trans>

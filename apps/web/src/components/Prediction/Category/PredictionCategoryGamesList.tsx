@@ -80,7 +80,7 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
 
     if (isError) {
         return (
-            <p className="text-second px-4 py-12 text-center text-sm">
+            <p className="px-4 py-12 text-center text-sm text-second">
                 <Trans>Failed to load games</Trans>
             </p>
         );
@@ -88,7 +88,7 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
 
     if (!hasVisibleContent) {
         return (
-            <p className="text-second px-4 py-12 text-center text-sm">
+            <p className="px-4 py-12 text-center text-sm text-second">
                 <Trans>No games found</Trans>
             </p>
         );
@@ -103,13 +103,13 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
 
                 return (
                     <section key={section.id} className="flex flex-col gap-3">
-                        <h2 className="text-main text-base font-black">{section.title}</h2>
+                        <h2 className="text-base font-black text-main">{section.title}</h2>
                         <div className="flex flex-col gap-3">
                             {visibleEvents.map((event) => renderSportsCell(event))}
                         </div>
                         {hasMore ? (
                             <ClickableButton
-                                className="text-highlight text-sm font-bold"
+                                className="text-sm font-bold text-highlight"
                                 onClick={() =>
                                     setExpandedSections((prev) => ({
                                         ...prev,
@@ -127,7 +127,7 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
                 <div className="flex flex-col items-center gap-3 py-4">
                     <button
                         type="button"
-                        className="bg-bg text-main mx-auto flex h-9 items-center justify-center gap-2 rounded-[20px] px-6 py-2 text-sm font-semibold"
+                        className="mx-auto flex h-9 items-center justify-center gap-2 rounded-[20px] bg-bg px-6 py-2 text-sm font-semibold text-main"
                         onClick={() => setShowFinishedClosed((prev) => !prev)}
                     >
                         <Trans>View Finished</Trans>

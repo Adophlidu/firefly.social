@@ -131,7 +131,7 @@ export function AccountCards() {
                     return (
                         <div className="flex w-full flex-col gap-3" key={source}>
                             <div className="flex w-full items-center justify-between">
-                                <span className="text-main text-base font-bold leading-[18px]">
+                                <span className="text-base font-bold leading-[18px] text-main">
                                     {resolveSourceName(source)}
                                 </span>
                             </div>
@@ -147,7 +147,7 @@ export function AccountCards() {
                                         <motion.div
                                             key={profile.profileId}
                                             layoutId={profile.profileId}
-                                            className="border-line dark:bg-bg inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border bg-white bg-bottom px-3 py-2 backdrop-blur"
+                                            className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg"
                                         >
                                             {isConnected ? (
                                                 <PrimaryButton
@@ -176,7 +176,7 @@ export function AccountCards() {
                                                     <InfoIcon
                                                         width={20}
                                                         height={20}
-                                                        className="text-second size-5 shrink-0"
+                                                        className="size-5 shrink-0 text-second"
                                                     />
                                                 </Tooltip>
                                             )}

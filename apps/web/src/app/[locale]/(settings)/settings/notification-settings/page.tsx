@@ -67,7 +67,7 @@ export default function NotificationPage() {
         <SettingsSection title={<Trans>Notifications</Trans>}>
             <div className="relative w-full">
                 {isLoading || isRefetching ? (
-                    <div className="bg-primaryBottom/50 absolute inset-0 flex justify-center pt-32">
+                    <div className="absolute inset-0 flex justify-center bg-primaryBottom/50 pt-32">
                         <LoadingIcon size={24} />
                     </div>
                 ) : null}
@@ -79,7 +79,7 @@ export default function NotificationPage() {
                             !list.length ? null : (
                                 <div
                                     key={groupName}
-                                    className="border-line group space-y-4 rounded-lg border px-3 py-2"
+                                    className="group space-y-4 rounded-lg border border-line px-3 py-2"
                                 >
                                     {list.map(({ children, ...rest }) => (
                                         <Fragment key={rest.pushType}>
@@ -87,11 +87,11 @@ export default function NotificationPage() {
                                                 key={`${rest.pushType}-self`}
                                                 {...rest}
                                                 disabled={rest.platform !== NotificationPlatform.All && !globalSwitch}
-                                                className="border-line border-b pb-4 last:border-b-0 last:pb-0"
+                                                className="border-b border-line pb-4 last:border-b-0 last:pb-0"
                                             />
                                             {children?.length ? (
                                                 <div
-                                                    className="border-line border-b pb-4 last:border-b-0 last:pb-0"
+                                                    className="border-b border-line pb-4 last:border-b-0 last:pb-0"
                                                     key={`${rest.pushType}-children`}
                                                 >
                                                     {children?.map(({ children, ...subConfig }) => (

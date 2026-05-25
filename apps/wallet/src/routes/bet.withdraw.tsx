@@ -223,7 +223,7 @@ function WithdrawClient() {
                         )}
                         placeholder="$0"
                     />
-                    <div className="text-second text-sm">
+                    <div className="text-sm text-second">
                         <Trans>{formatTokenItemAmount(withdrawableAmount)} available</Trans>
                     </div>
                 </span>
@@ -231,12 +231,12 @@ function WithdrawClient() {
             <div className="w-full space-y-4 pb-4">
                 {isLoadingTargetToken || !targetToken ? (
                     <div className="flex h-[60px] w-full items-center gap-4">
-                        <div className="bg-lightBg size-9 rounded-full" />
+                        <div className="size-9 rounded-full bg-lightBg" />
                         <div className="flex-1">
-                            <div className="bg-lightBg h-5 w-[50px]" />
-                            <div className="bg-lightBg mt-1 h-3 w-[100px]" />
+                            <div className="h-5 w-[50px] bg-lightBg" />
+                            <div className="mt-1 h-3 w-[100px] bg-lightBg" />
                         </div>
-                        <div className="bg-lightBg h-5 w-7" />
+                        <div className="h-5 w-7 bg-lightBg" />
                     </div>
                 ) : (
                     <div className="flex h-[60px] w-full items-center">
@@ -258,7 +258,7 @@ function WithdrawClient() {
                                 <Trans>Receive</Trans>
                                 <ArrowDownIcon width={16} height={16} />
                             </div>
-                            <div className="text-second w-full text-xs font-medium leading-3">
+                            <div className="w-full text-xs font-medium leading-3 text-second">
                                 <Trans>in your Firefly wallet</Trans>
                             </div>
                         </div>
@@ -266,7 +266,7 @@ function WithdrawClient() {
                             className={cn(
                                 'ml-auto min-h-5 max-w-[50%] shrink-0 break-all rounded text-sm font-semibold',
                                 {
-                                    'bg-lightBg inline-block min-w-12 animate-pulse text-transparent':
+                                    'inline-block min-w-12 animate-pulse bg-lightBg text-transparent':
                                         isLoadingWithdrawPreview,
                                 },
                             )}
@@ -281,7 +281,7 @@ function WithdrawClient() {
                     {[0.25, 0.5, 0.75, 1].map((rate) => (
                         <button
                             key={rate}
-                            className="bg-lightBg active:bg-main/10 h-8 w-[70px] rounded-full text-center font-semibold leading-8 duration-75 active:scale-95"
+                            className="h-8 w-[70px] rounded-full bg-lightBg text-center font-semibold leading-8 duration-75 active:scale-95 active:bg-main/10"
                             onClick={() => {
                                 setValue(BigNumber(withdrawableAmount).times(rate).toString());
                             }}

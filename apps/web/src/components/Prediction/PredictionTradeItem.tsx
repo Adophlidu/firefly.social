@@ -51,7 +51,7 @@ function BetsTradeType({ type, onlyIcon = false, className }: BetsTradeTypeProps
 
     return (
         <div className={classNames('w-[130px] shrink-0 items-center gap-3', className)}>
-            {!onlyIcon ? <span className="text-main text-sm font-medium">{title}</span> : null}
+            {!onlyIcon ? <span className="text-sm font-medium text-main">{title}</span> : null}
         </div>
     );
 }
@@ -100,7 +100,7 @@ export function PredictionTradeItem({ trade, platform, className, targetProfileI
     };
 
     return (
-        <div className={classNames('border-line flex items-center border-t px-4 py-2', className)}>
+        <div className={classNames('flex items-center border-t border-line px-4 py-2', className)}>
             <BetsTradeType className="hidden md:flex" type={trade.side} />
             <div className="flex min-w-0 flex-1 gap-3 md:items-center">
                 <div className="flex size-11 shrink-0 items-center overflow-hidden rounded">
@@ -117,7 +117,7 @@ export function PredictionTradeItem({ trade, platform, className, targetProfileI
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <Link
                         href={eventUrl}
-                        className="text-main text-[13px] font-medium hover:underline"
+                        className="text-[13px] font-medium text-main hover:underline"
                         onClick={handleEventClick}
                     >
                         {displayTitle}
@@ -133,7 +133,7 @@ export function PredictionTradeItem({ trade, platform, className, targetProfileI
                             <span>{`${trade.outcome}`}</span>
                             <span>{removeTrailingZeros(rightShift(trade.price, 2).toFixed(1))}¢</span>
                         </div>
-                        <span className="text-second text-xs font-medium">
+                        <span className="text-xs font-medium text-second">
                             <Plural
                                 value={removeTrailingZeros(toFixedTrimmed(+trade.size, 2))}
                                 one="# share"
@@ -143,21 +143,21 @@ export function PredictionTradeItem({ trade, platform, className, targetProfileI
                     </div>
                     <div className="mt-1.5 flex items-end justify-between md:hidden">
                         <div className="flex flex-col">
-                            <span className="text-main text-sm font-medium">{`$${toFixedTrimmed(+trade.usdcSize, 2)}`}</span>
-                            <span className="text-second text-xs font-medium">
+                            <span className="text-sm font-medium text-main">{`$${toFixedTrimmed(+trade.usdcSize, 2)}`}</span>
+                            <span className="text-xs font-medium text-second">
                                 <Trans>Value</Trans>
                             </span>
                         </div>
-                        <span className="text-second text-xs font-medium">
+                        <span className="text-xs font-medium text-second">
                             <PredictionTime timestamp={trade.timestamp * 1000} />
                         </span>
                     </div>
                 </div>
                 <div className="hidden shrink-0 items-end gap-1 md:flex md:flex-col">
-                    <div className="text-main w-16 text-right text-sm font-medium">
+                    <div className="w-16 text-right text-sm font-medium text-main">
                         {`$${toFixedTrimmed(+trade.usdcSize, 2)}`}
                     </div>
-                    <div className="text-second w-24 text-right text-xs font-medium">
+                    <div className="w-24 text-right text-xs font-medium text-second">
                         <PredictionTime timestamp={trade.timestamp * 1000} />
                     </div>
                 </div>

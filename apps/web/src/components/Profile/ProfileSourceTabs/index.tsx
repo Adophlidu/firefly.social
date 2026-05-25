@@ -141,7 +141,7 @@ export function ProfileSourceTabs({
                                                       'bg-lensPrimary text-lensText': source === Source.Lens,
                                                       'bg-lightMain text-primaryBottom': source === Source.Twitter,
                                                       'bg-bskyPrimary text-white': source === Source.Bsky,
-                                                      'bg-highlight dark:bg-walletBg text-white dark:text-white':
+                                                      'bg-highlight text-white dark:bg-walletBg dark:text-white':
                                                           isWalletProfile,
                                                   }
                                                 : {

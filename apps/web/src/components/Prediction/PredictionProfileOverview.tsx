@@ -167,7 +167,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                         src={avatar || getStampAvatarByProfileId(Source.Wallet, profile.wallet)}
                         alt="avatar"
                         size={40}
-                        className="border-highlight size-10 rounded-full border"
+                        className="size-10 rounded-full border border-highlight"
                     />
                     {isSocialSource(source) ? (
                         <ProfileSourceIcon
@@ -179,16 +179,16 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                 </Link>
                 <div className="min-w-0">
                     <Link
-                        className="text-main block truncate whitespace-nowrap text-lg font-semibold"
+                        className="block truncate whitespace-nowrap text-lg font-semibold text-main"
                         href={profileUrl}
                         onClick={handleWalletProfileClick}
                     >
                         {name || <PredictionPlatformName platform={platform} />}
                     </Link>
-                    <div className="text-second ml-auto flex items-center text-[13px] font-medium">
+                    <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(address, 4, 2)}
                         <CopyTextButton
-                            className="text-second ml-2"
+                            className="ml-2 text-second"
                             size={14}
                             text={address}
                             data-prevent-progress
@@ -208,7 +208,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                     {profile.tags.map((tag, i) => (
                         <span
                             key={i}
-                            className="border-line bg-lightBg font-inter text-main h-[26px] rounded-full border px-3 text-xs font-medium !leading-6"
+                            className="h-[26px] rounded-full border border-line bg-lightBg px-3 font-inter text-xs font-medium !leading-6 text-main"
                         >
                             {tag}
                         </span>
@@ -216,14 +216,14 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                 </div>
             ) : null}
             <div className="flex flex-col gap-4 p-4">
-                <div className="text-main text-base font-bold leading-6">
+                <div className="text-base font-bold leading-6 text-main">
                     <Trans>Overview</Trans>
                 </div>
                 <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-3">
                     {dataConfig.map((item, i) => (
-                        <div key={i} className="bg-lightBg flex flex-col gap-1 rounded-xl p-3">
-                            <span className="text-second text-xs">{item.label}</span>
-                            <div className="text-main text-sm font-semibold">{item.value ?? '-'}</div>
+                        <div key={i} className="flex flex-col gap-1 rounded-xl bg-lightBg p-3">
+                            <span className="text-xs text-second">{item.label}</span>
+                            <div className="text-sm font-semibold text-main">{item.value ?? '-'}</div>
                         </div>
                     ))}
                 </div>

@@ -32,16 +32,16 @@ export function WalletItem({ address, isDeleting, onDisconnect }: WalletItemProp
     };
 
     return (
-        <div className="border-line flex items-center gap-2 rounded-lg border px-3 py-2">
+        <div className="flex items-center gap-2 rounded-lg border border-line px-3 py-2">
             <div className="flex min-w-0 flex-1 flex-col justify-center gap-1">
                 {ensName ? (
                     <div className="flex items-center gap-1">
-                        <span className="text-main text-base font-bold leading-[19.36px]">{ensName}</span>
+                        <span className="text-base font-bold leading-[19.36px] text-main">{ensName}</span>
                     </div>
                 ) : null}
                 <div className="flex items-center gap-1">
                     <span
-                        className={`text-[15px] leading-[18.15px] ${ensName ? 'text-second' : 'text-main font-bold'}`}
+                        className={`text-[15px] leading-[18.15px] ${ensName ? 'text-second' : 'font-bold text-main'}`}
                     >
                         {formatAddress(address, 8)}
                     </span>

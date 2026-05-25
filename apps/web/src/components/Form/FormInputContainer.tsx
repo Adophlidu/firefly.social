@@ -27,7 +27,7 @@ export function FormInputContainer<
             {children}
             {isLoading ? <LoadingIcon className="absolute bottom-2 right-2" /> : null}
             {maxLength && value && value.length > maxLength ? (
-                <div className="text-medium text-fail absolute bottom-2 right-3 font-normal leading-6">
+                <div className="absolute bottom-2 right-3 text-medium font-normal leading-6 text-fail">
                     {value.length}/{maxLength}
                 </div>
             ) : null}

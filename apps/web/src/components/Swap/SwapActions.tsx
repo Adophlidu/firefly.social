@@ -105,7 +105,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>
             <SwapButton
                 loginRequired
-                className="!text-commonWarn !ml-0 flex items-center !gap-1 !rounded-lg bg-transparent !p-0 !text-[12px] !font-normal !leading-5"
+                className="!ml-0 flex items-center !gap-1 !rounded-lg bg-transparent !p-0 !text-[12px] !font-normal !leading-5 !text-commonWarn"
                 swapProps={{
                     entry: SwapAccessPath.CopyTrade,
                     chainId: activity.chain_id,
@@ -114,19 +114,19 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     toChainId: activity.to_chain_id,
                 }}
             >
-                <LightningIcon width="28px" height="28px" className="hover:bg-commonWarn/30 rounded-full p-1" />
+                <LightningIcon width="28px" height="28px" className="rounded-full p-1 hover:bg-commonWarn/30" />
                 <Trans>Buy</Trans>
             </SwapButton>
             <div className="flex items-center gap-5">
                 <div
-                    className={classNames('text-second flex items-center gap-1 text-sm', {
+                    className={classNames('flex items-center gap-1 text-sm text-second', {
                         '!text-secondarySuccess': !!data?.is_repost,
                     })}
                 >
                     <Tooltip placement="top" content={<Trans>Repost</Trans>}>
                         <ClickableButton
                             loading={handleMirrorLoading}
-                            className="hover:bg-secondarySuccess/[.20] text-second hover:text-secondarySuccess inline-flex size-7 items-center justify-center rounded-full"
+                            className="inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-secondarySuccess/[.20] hover:text-secondarySuccess"
                             onClick={handleMirror}
                         >
                             <MirrorIcon
@@ -146,7 +146,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                         <Tooltip placement="top" content={<Trans>Share</Trans>}>
                             <motion.div
                                 whileTap={{ scale: 0.9 }}
-                                className="hover:bg-link/[0.2] hover:text-link inline-flex size-7 items-center justify-center rounded-full disabled:opacity-60"
+                                className="inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
                             >
                                 <ShareButtonWithAnimation />
                             </motion.div>
@@ -197,7 +197,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                                     }}
                                 >
                                     <ShareImageIcon width={18} height={18} className="text-main" />
-                                    <span className="text-main font-bold leading-[22px]">
+                                    <span className="font-bold leading-[22px] text-main">
                                         <Trans>Share Image</Trans>
                                     </span>
                                 </MenuButton>

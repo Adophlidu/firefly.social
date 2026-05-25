@@ -162,7 +162,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 placement="bottom"
                 disabled={!hasError || posts.length === 1}
                 content={
-                    <div className="bg-tooltipBg flex flex-col rounded-lg px-3 py-1 opacity-80">
+                    <div className="flex flex-col rounded-lg bg-tooltipBg px-3 py-1 opacity-80">
                         {post.availableSources.map((x) => {
                             const name = resolveSourceName(x);
                             const errorIndex = posts.findIndex((post) => post.postError[x]);
@@ -184,7 +184,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 <ClickableButton
                     disabled={disabled}
                     className={classNames(
-                        'text-medium relative flex min-w-[100px] items-center justify-center gap-1 overflow-hidden rounded-full px-1 py-2 font-bold leading-[18px]',
+                        'relative flex min-w-[100px] items-center justify-center gap-1 overflow-hidden rounded-full px-1 py-2 text-medium font-bold leading-[18px]',
                         hasError ? 'bg-commonDanger text-white' : 'bg-black text-white dark:bg-white dark:text-black',
                     )}
                     onClick={() => {
@@ -217,7 +217,7 @@ export function ComposeSend(props: ComposeSendProps) {
                         </>
                     ) : (
                         <>
-                            <SendIcon width={18} height={18} className="text-primaryBottom mr-1" />
+                            <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
                             <span>{scheduleTime ? <Trans>Send on schedule</Trans> : <Trans>Send</Trans>}</span>
                         </>
                     )}

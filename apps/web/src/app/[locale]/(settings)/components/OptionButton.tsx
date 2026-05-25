@@ -17,7 +17,7 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
             className={classNames(
                 `inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3`,
                 darkMode
-                    ? 'border-line bg-darkBottom border text-white'
+                    ? 'border border-line bg-darkBottom text-white'
                     : 'border border-neutral-900 bg-white text-slate-950',
                 props.className,
             )}
@@ -26,13 +26,13 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
             <div className="flex w-[135px] items-center gap-5">
                 {selected ? (
                     <div
-                        className="bg-success size-2 rounded-full"
+                        className="size-2 rounded-full bg-success"
                         style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                     />
                 ) : (
                     <div className="size-2" />
                 )}
-                <div className="text-medium flex-1 text-left font-bold leading-[18px]">{label}</div>
+                <div className="flex-1 text-left text-medium font-bold leading-[18px]">{label}</div>
             </div>
         </ClickableButton>
     );

@@ -114,7 +114,7 @@ export function SwapTimeline({
                             onClick={() => {
                                 router.push(resolveExploreUrl(ExploreType.TopProfiles));
                             }}
-                            className="leading-12 bg-main text-primaryBottom h-12 min-w-[100px] rounded-2xl px-5"
+                            className="leading-12 h-12 min-w-[100px] rounded-2xl bg-main px-5 text-primaryBottom"
                         >
                             <Trans>Explore</Trans>
                         </ClickableButton>

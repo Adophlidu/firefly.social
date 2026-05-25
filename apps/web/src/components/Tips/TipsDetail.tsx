@@ -47,16 +47,16 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                 src={targetAccountInfo.avatar}
                 className="size-7 rounded-full object-cover"
             />
-            <span className="text-main font-semibold">{targetAccountInfo.displayName}</span>
+            <span className="font-semibold text-main">{targetAccountInfo.displayName}</span>
         </Link>
     );
 
     return (
         <div>
-            <div className="border-line bg-primaryBottom sticky top-0 z-30 flex h-[60px] items-center justify-between border-b px-4">
+            <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
                 <div className="flex min-w-0 items-center gap-7">
-                    <Comeback className="text-lightMain cursor-pointer" />
-                    <span className="text-lightMain min-w-0 truncate text-xl font-bold">
+                    <Comeback className="cursor-pointer text-lightMain" />
+                    <span className="min-w-0 truncate text-xl font-bold text-lightMain">
                         <Trans>Transaction</Trans>
                     </span>
                 </div>
@@ -80,7 +80,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                         />
                     </Link>
                     <div className="min-w-0 flex-1">
-                        <Link href={maintainAccountInfo.link} className="text-main break-all text-base font-semibold">
+                        <Link href={maintainAccountInfo.link} className="break-all text-base font-semibold text-main">
                             {maintainAccountInfo.displayName}
                             <NoSSR>
                                 <WalletEnsName address={maintainAccountInfo.address} />
@@ -92,25 +92,25 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                     <div className="flex flex-wrap items-center text-base">
                         {isSender ? (
                             <Trans>
-                                <span className="border-main text-main flex h-[30px] cursor-pointer items-center gap-1 rounded-lg border px-2">
+                                <span className="flex h-[30px] cursor-pointer items-center gap-1 rounded-lg border border-main px-2 text-main">
                                     <DownloadIcon width={14} height={14} />
                                     <span className="font-medium">Sent a tip</span>
                                 </span>
-                                <span className="text-second mx-3">to</span>
+                                <span className="mx-3 text-second">to</span>
                                 {targetAccount}
                             </Trans>
                         ) : (
                             <Trans>
-                                <span className="border-main text-main flex h-[30px] cursor-pointer items-center gap-1 rounded-lg border px-2">
+                                <span className="flex h-[30px] cursor-pointer items-center gap-1 rounded-lg border border-main px-2 text-main">
                                     <DownloadIcon width={14} height={14} />
                                     <span className="font-medium">Received a tip</span>
                                 </span>
-                                <span className="text-second mx-3">from</span>
+                                <span className="mx-3 text-second">from</span>
                                 {targetAccount}
                             </Trans>
                         )}
                     </div>
-                    <div className="bg-lightBg flex items-center justify-between rounded-lg p-3">
+                    <div className="flex items-center justify-between rounded-lg bg-lightBg p-3">
                         <Link
                             href={resolveTokenPageUrl({
                                 identity: tipsData.token_symbol,
@@ -128,8 +128,8 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                                 />
                             ) : null}
                             <div className="flex flex-col">
-                                <span className="text-main text-base font-medium">{tipsData.token_name}</span>
-                                <span className="text-second text-sm">{tipsData.token_symbol}</span>
+                                <span className="text-base font-medium text-main">{tipsData.token_name}</span>
+                                <span className="text-sm text-second">{tipsData.token_symbol}</span>
                             </div>
                         </Link>
                         <div className="flex flex-col text-right">
@@ -167,7 +167,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                     </NoSSR>
                     <div className="space-y-3 pt-4">
                         <div className="flex min-w-0 items-center justify-between gap-2">
-                            <span className="text-second shrink-0 text-sm">
+                            <span className="shrink-0 text-sm text-second">
                                 <Trans>Transaction Hash</Trans>
                             </span>
                             {tipsData.tx_hash ? (
@@ -180,14 +180,14 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                         </div>
                         {tipsData.height ? (
                             <div className="flex min-w-0 items-center justify-between gap-2">
-                                <span className="text-second shrink-0 text-sm">
+                                <span className="shrink-0 text-sm text-second">
                                     <Trans>Block</Trans>
                                 </span>
-                                <span className="text-main truncate text-sm font-medium">{tipsData.height}</span>
+                                <span className="truncate text-sm font-medium text-main">{tipsData.height}</span>
                             </div>
                         ) : null}
                         <div className="flex min-w-0 items-center justify-between gap-2">
-                            <span className="text-second shrink-0 text-sm">
+                            <span className="shrink-0 text-sm text-second">
                                 <Trans>Status</Trans>
                             </span>
                             <span
@@ -200,16 +200,16 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                             </span>
                         </div>
                         <div className="flex items-center justify-between">
-                            <span className="text-second text-sm">
+                            <span className="text-sm text-second">
                                 <Trans>Network</Trans>
                             </span>
                             <ChainInfo chainId={tipsData.chain_id} />
                         </div>
                         <div className="flex items-center justify-between">
-                            <span className="text-second text-sm">
+                            <span className="text-sm text-second">
                                 <Trans>Time</Trans>
                             </span>
-                            <span className="text-main text-sm font-medium">
+                            <span className="text-sm font-medium text-main">
                                 {tipsData.timestamp ? <TransactionDate time={tipsData.timestamp} /> : '--'}
                             </span>
                         </div>

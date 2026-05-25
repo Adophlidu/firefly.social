@@ -65,34 +65,34 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-secondaryLine hover:bg-bg dark:border-line cursor-pointer border-b px-4 py-3"
+            className="cursor-pointer border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
             onClick={handleClickPost}
         >
             <div className="flex w-full items-start gap-4">
-                <ScheduleIcon className="text-secondary shrink-0" width={24} height={24} />
+                <ScheduleIcon className="shrink-0 text-secondary" width={24} height={24} />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
-                        <div className="text-medium text-main font-bold leading-4">
+                        <div className="text-medium font-bold leading-4 text-main">
                             <Trans>Scheduled Post</Trans>
                         </div>
                         <div className="flex items-center space-x-2">
                             <FireflyRoundIcon className="text-secondary" fontSize={15} width={15} height={15} />
                             {timestamp ? (
-                                <span className="text-secondary text-xs leading-4">
+                                <span className="text-xs leading-4 text-secondary">
                                     <TimestampFormatter time={timestamp} />
                                 </span>
                             ) : null}
                         </div>
                     </div>
 
-                    <div className="text-medium text-main mt-3 leading-4">{description}</div>
-                    <div className="border-line bg-bg mt-3 rounded-2xl border p-3">
+                    <div className="mt-3 text-medium leading-4 text-main">{description}</div>
+                    <div className="mt-3 rounded-2xl border border-line bg-bg p-3">
                         {data.status === ScheduleTaskStatus.Failed ? (
-                            <div className="text-danger text-[12px] font-bold leading-4">
+                            <div className="text-[12px] font-bold leading-4 text-danger">
                                 <Trans>Failed Post</Trans>
                             </div>
                         ) : null}
-                        <div className="text-medium line-clamp-5 break-words text-left leading-6">
+                        <div className="line-clamp-5 break-words text-left text-medium leading-6">
                             {firstPost?.display_info?.content}
                             {firstPost?.display_info?.media_type?.length ? (
                                 <span>

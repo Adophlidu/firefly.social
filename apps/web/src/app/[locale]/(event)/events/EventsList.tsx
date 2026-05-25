@@ -34,7 +34,7 @@ export function EventsList() {
                     <Trans>Exclusive Events</Trans>
                 </ActivityMobileNavigationBar>
             ) : (
-                <div className="bg-primaryBottom sticky top-0 z-20 hidden h-[60px] w-full flex-row items-center px-4 pt-2.5 text-xl font-bold md:flex">
+                <div className="sticky top-0 z-20 hidden h-[60px] w-full flex-row items-center bg-primaryBottom px-4 pt-2.5 text-xl font-bold md:flex">
                     <span>
                         <Trans>Exclusive Events</Trans>
                     </span>

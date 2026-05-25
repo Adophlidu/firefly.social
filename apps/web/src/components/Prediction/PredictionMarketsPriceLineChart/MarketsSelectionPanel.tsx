@@ -39,7 +39,7 @@ export const MarketsSelectionPanel = memo<MarketsSelectionPanelProps>(function M
 
     return (
         <>
-            <h1 className="text-main text-lg font-bold !leading-[22px]">
+            <h1 className="text-lg font-bold !leading-[22px] text-main">
                 <Trans>Select up to {MAX_MARKETS_COUNT_SELECTABLE} options</Trans>
             </h1>
             {markets.map((market) => (
@@ -59,7 +59,7 @@ export const MarketsSelectionPanel = memo<MarketsSelectionPanelProps>(function M
                         toggleMarketSelection(market.id, true);
                     }}
                 >
-                    <span className="text-main min-w-0 flex-1 truncate text-left text-sm font-medium">
+                    <span className="min-w-0 flex-1 truncate text-left text-sm font-medium text-main">
                         {market.title}
                     </span>
                     {market.selected && selectedLength > 1 ? (

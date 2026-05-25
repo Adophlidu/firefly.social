@@ -87,14 +87,14 @@ export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymo
                         </div>
                     }
                 >
-                    <ClickableButton className="text-second flex items-center gap-0.5">
+                    <ClickableButton className="flex items-center gap-0.5 text-second">
                         <span className="text-sm font-medium">
                             <Trans>Anonymous</Trans>
                         </span>
                         <InfoIcon width={14} height={14} />
                     </ClickableButton>
                 </Tooltip>
-                <span className="text-main text-sm">
+                <span className="text-sm text-main">
                     {data.daily_remaining}/{data.daily_limit}
                 </span>
             </div>
@@ -108,7 +108,7 @@ export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymo
                         key={source}
                         disabled={disabled || anonymousDisabled}
                         onClick={() => toggleSource(source)}
-                        className="hover:bg-bg flex h-8 w-full items-center justify-between gap-2 px-3"
+                        className="flex h-8 w-full items-center justify-between gap-2 px-3 hover:bg-bg"
                     >
                         <div className="relative shrink-0">
                             <AnonymousAvatar width={24} height={24} className="size-6 rounded-full" />

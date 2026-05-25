@@ -100,7 +100,7 @@ function TabNavigation() {
     ];
 
     return (
-        <div className="bg-primaryBottom sticky top-0 z-10 mb-2 mt-4 flex w-full items-center gap-4 px-4">
+        <div className="sticky top-0 z-10 mb-2 mt-4 flex w-full items-center gap-4 bg-primaryBottom px-4">
             <Tabs
                 className="min-w-0 flex-1"
                 value={pathnameInTab}
@@ -115,7 +115,7 @@ function TabNavigation() {
 
                     <Link
                         to="/bet/history"
-                        className="text-main !ml-auto flex size-9 shrink-0 items-center justify-center"
+                        className="!ml-auto flex size-9 shrink-0 items-center justify-center text-main"
                     >
                         <HistoryIcon width={24} height={24} />
                     </Link>
@@ -146,7 +146,7 @@ export function ClientLayout() {
         const confirmed = await Confirm.call({
             title: <Trans>Assets to Release</Trans>,
             message: (
-                <p className="text-second text-sm leading-5">
+                <p className="text-sm leading-5 text-second">
                     <Trans>
                         Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD
                         to keep your predictions going.
@@ -174,22 +174,22 @@ export function ClientLayout() {
     return (
         <>
             <div className="flex w-full flex-col justify-start gap-2 p-4">
-                <div className="text-main w-auto truncate text-[40px] font-bold leading-8">
+                <div className="w-auto truncate text-[40px] font-bold leading-8 text-main">
                     <CurrencyAmount amount={totalBalance} />
                 </div>
                 <Suspense
-                    fallback={<div className="bg-lightBg col-span-2 grid h-[17px] w-40 animate-pulse rounded-xl" />}
+                    fallback={<div className="col-span-2 grid h-[17px] w-40 animate-pulse rounded-xl bg-lightBg" />}
                 >
                     <PNL proxyAddress={proxyAddress} />
                 </Suspense>
-                <div className="text-second h-4 text-[13px] leading-[17px]">
+                <div className="h-4 text-[13px] leading-[17px] text-second">
                     <Trans>Available: {availableText}</Trans>
                 </div>
             </div>
             <div className="grid w-full grid-cols-2 gap-3 px-3">
                 <Link
                     to="/bet/withdraw"
-                    className="bg-lightBg flex w-full items-center justify-center gap-[6px] rounded-[20px] py-2.5 text-sm font-medium"
+                    className="flex w-full items-center justify-center gap-[6px] rounded-[20px] bg-lightBg py-2.5 text-sm font-medium"
                 >
                     <WithdrawIcon width={24} height={24} className="text-highlight" />
                     <span>
@@ -198,7 +198,7 @@ export function ClientLayout() {
                 </Link>
                 <Link
                     to="/bet/deposit"
-                    className="bg-lightBg flex w-full items-center justify-center gap-[6px] rounded-[20px] py-2.5 text-sm font-medium"
+                    className="flex w-full items-center justify-center gap-[6px] rounded-[20px] bg-lightBg py-2.5 text-sm font-medium"
                 >
                     <DepositIcon width={24} height={24} className="text-highlight" />
                     <span>
@@ -208,14 +208,14 @@ export function ClientLayout() {
                 {showToRelease ? (
                     <button
                         type="button"
-                        className="border-line col-span-2 flex w-full items-center justify-between border-y py-3"
+                        className="col-span-2 flex w-full items-center justify-between border-y border-line py-3"
                         onClick={handleRelease}
                     >
                         <span className="flex items-center gap-1 text-[13px]">
                             <span className="mx-0.5 inline-block size-[5px] bg-[#ffb100] text-base leading-5" />
                             <Trans>
-                                <span className="text-main text-[13px] font-semibold">{releaseAmountText}</span>
-                                <span className="text-second text-[13px]">to release</span>
+                                <span className="text-[13px] font-semibold text-main">{releaseAmountText}</span>
+                                <span className="text-[13px] text-second">to release</span>
                             </Trans>
                         </span>
                         <ArrowRightIcon width={16} height={16} className="text-second" />
@@ -242,11 +242,11 @@ function PNL({ proxyAddress }: { proxyAddress: Address }) {
                     path: `/polymarket/profile/${profile?.proxy ?? proxyAddress}`,
                 })
             }
-            className="text-second flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-xl text-[13px] leading-[17px]"
+            className="flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-xl text-[13px] leading-[17px] text-second"
         >
             <Trans>
                 Total PnL:{' '}
-                <span className={pnlValue >= 0 ? 'text-success font-bold' : 'text-danger font-bold'}>
+                <span className={pnlValue >= 0 ? 'font-bold text-success' : 'font-bold text-danger'}>
                     {formatPnlUSD(pnlValue)}({formatPercentRate(pnlRate)})
                 </span>
             </Trans>

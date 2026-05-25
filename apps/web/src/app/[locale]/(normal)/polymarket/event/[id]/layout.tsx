@@ -4,10 +4,9 @@ import type { Metadata } from 'next';
 
 import { createPredictionEventMetadata } from '@/providers/firefly/metadata/createPredictionEventMetadata.js';
 
-interface Props
-    extends LayoutProps<{
-        id: string;
-    }> {}
+interface Props extends LayoutProps<{
+    id: string;
+}> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { id } = await props.params;

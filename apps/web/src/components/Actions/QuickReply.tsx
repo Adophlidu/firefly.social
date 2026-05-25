@@ -28,13 +28,13 @@ export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, po
     }
 
     return (
-        <ClickableArea className="border-line flex cursor-pointer items-center border-b px-4 py-3" onClick={onComment}>
+        <ClickableArea className="flex cursor-pointer items-center border-b border-line px-4 py-3" onClick={onComment}>
             <Avatar src={currentProfile.pfp} size={40} alt={currentProfile.profileId} />
-            <div className="text-secondary flex-1 p-3 text-[20px]">
+            <div className="flex-1 p-3 text-[20px] text-secondary">
                 <Trans>Post your reply</Trans>
             </div>
             <ActionButton disabled className="!flex-[0] text-nowrap px-6 py-[4px]">
-                <SendIcon width={18} height={18} className="text-primaryBottom mr-1" />
+                <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
                 <Trans>Send</Trans>
             </ActionButton>
         </ClickableArea>

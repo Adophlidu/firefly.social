@@ -97,7 +97,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className={classNames(
-                'border-line cursor-pointer border-b bg-bottom px-3 py-2 md:px-4 md:py-3',
+                'cursor-pointer border-b border-line bg-bottom px-3 py-2 md:px-4 md:py-3',
                 className,
                 {
                     'hover:bg-bg': !isDetail,
@@ -174,7 +174,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 </NoSSR>
 
                 {show ? (
-                    <div className="text-medium text-highlight mt-2 w-full cursor-pointer text-center font-bold">
+                    <div className="mt-2 w-full cursor-pointer text-center text-medium font-bold text-highlight">
                         <div>
                             <Trans>Show More</Trans>
                         </div>

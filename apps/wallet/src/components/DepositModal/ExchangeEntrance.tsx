@@ -43,12 +43,12 @@ export const ExchangeEntrance = memo(function ExchangeEntrance() {
     return (
         <Button
             variant="outline"
-            className="hover:bg-lightBg text-main flex h-14 w-full items-center justify-start gap-3"
+            className="flex h-14 w-full items-center justify-start gap-3 text-main hover:bg-lightBg"
             disabled={isPending}
             onClick={() => mutateAsync()}
         >
-            {isPending ? <LoadingIcon size={24} /> : <SwitchIcon className="text-main size-6" width={24} height={24} />}
-            <span className="text-main text-base">
+            {isPending ? <LoadingIcon size={24} /> : <SwitchIcon className="size-6 text-main" width={24} height={24} />}
+            <span className="text-base text-main">
                 <Trans>Transfer from an exchange</Trans>
             </span>
         </Button>

@@ -28,15 +28,15 @@ export function DatePickerTab(props: DatePickerTabProps) {
     );
 
     return (
-        <div className="border-line relative flex items-center justify-between border-x p-3">
+        <div className="relative flex items-center justify-between border-x border-line p-3">
             {days.map((day) => {
                 const localeDateString = day.toLocaleDateString();
                 return (
                     <div
                         className={classNames(
-                            'border-secondary text-secondary flex size-[28px] cursor-pointer items-center justify-center rounded-full border text-center text-sm',
+                            'flex size-[28px] cursor-pointer items-center justify-center rounded-full border border-secondary text-center text-sm text-secondary',
                             {
-                                'bg-fireflyBrand !border-none text-white': date.getDate() === day.getDate(),
+                                '!border-none bg-fireflyBrand text-white': date.getDate() === day.getDate(),
                                 'cursor-default': allowedDates.includes(localeDateString),
                                 '!cursor-not-allowed border-none opacity-50': !allowedDates.includes(localeDateString),
                             },

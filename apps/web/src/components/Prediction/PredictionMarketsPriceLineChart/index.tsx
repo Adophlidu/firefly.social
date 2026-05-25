@@ -141,7 +141,7 @@ export function PredictionMarketsPriceLineChart({
                         <MarketSettings markets={marketsWithSettings} onMarketsChange={setMarketsWithSettings} />
                     ) : (
                         <ClickableButton
-                            className="hover:bg-bg -mt-1 flex size-6 items-center justify-center rounded"
+                            className="-mt-1 flex size-6 items-center justify-center rounded hover:bg-bg"
                             onClick={() => {
                                 const firstMarket = first(markets);
                                 if (!firstMarket) return;

@@ -30,14 +30,14 @@ export function CollectPostModal({ ref }: Props) {
 
     return (
         <Modal disableDialogClose onClose={() => dispatch?.close()} open={open}>
-            <ClickableArea className="bg-lightBottom shadow-popover dark:bg-darkBottom relative w-[432px] max-w-[90vw] rounded-xl transition-all dark:text-gray-950">
+            <ClickableArea className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950">
                 <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
                     <CloseButton
                         onClick={() => {
                             dispatch?.close();
                         }}
                     />
-                    <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Collect Post</Trans>
                     </div>
                     <div className="relative size-6" />

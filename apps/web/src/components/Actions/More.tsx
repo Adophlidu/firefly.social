@@ -80,7 +80,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
             return (
                 <>
                     {icon}
-                    <span className="text-main font-bold leading-[22px]">
+                    <span className="font-bold leading-[22px] text-main">
                         {showSuperFollow ? (
                             <Trans>Super Follow</Trans>
                         ) : isPending ? (
@@ -125,7 +125,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                                 ) : (
                                     <TrashIcon width={18} height={18} className="text-danger" />
                                 )}
-                                <span className="text-danger font-bold leading-[22px]">
+                                <span className="font-bold leading-[22px] text-danger">
                                     <Trans>Delete post</Trans>
                                 </span>
                             </MenuButton>
@@ -138,7 +138,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                                 <MenuItem>
                                     {({ close }) => (
                                         <ToggleFollowButton
-                                            className="hover:bg-bg flex h-8 cursor-pointer items-center space-x-2 px-3 py-1"
+                                            className="flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                                             onClick={close}
                                             profile={author}
                                             ref={ref}
@@ -190,11 +190,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                         <Link
                             shallow
                             href={resolvePostEngagementUrl(post)}
-                            className="hover:bg-bg box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1"
+                            className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={stopPropagation}
                         >
                             <EngagementIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>View engagements</Trans>
                             </span>
                         </Link>

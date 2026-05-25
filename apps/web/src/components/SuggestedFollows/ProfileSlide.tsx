@@ -24,7 +24,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
 
     return (
         <div className="relative cursor-pointer">
-            <div className="bg-lightBottom shadow-primary dark:bg-primaryBottom h-[184px] w-[164px] rounded-2xl px-3 py-6 backdrop-blur">
+            <div className="h-[184px] w-[164px] rounded-2xl bg-lightBottom px-3 py-6 shadow-primary backdrop-blur dark:bg-primaryBottom">
                 <div
                     className={classNames('size-[56px] rounded-full border-2 p-0.5', {
                         'border-farcasterPrimary': profile.source === Source.Farcaster,
@@ -38,7 +38,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                         <Link
                             href={getProfileUrl(profile)}
                             prefetch={false}
-                            className="link-overlay text-medium text-main mr-0.5 max-w-full cursor-pointer truncate"
+                            className="link-overlay mr-0.5 max-w-full cursor-pointer truncate text-medium text-main"
                         >
                             {profile.displayName}
                         </Link>
@@ -46,10 +46,10 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                     <SocialSourceIcon source={profile.source} size={15} className="shrink-0" />
                 </div>
                 {hideFollowers ? null : (
-                    <FollowersLink profile={profile} className="z-1 text-second relative text-xs leading-6" />
+                    <FollowersLink profile={profile} className="relative z-1 text-xs leading-6 text-second" />
                 )}
                 <BioMarkup
-                    className={classNames('text-lightMain text-xs', hideFollowers ? 'line-clamp-4' : 'line-clamp-2')}
+                    className={classNames('text-xs text-lightMain', hideFollowers ? 'line-clamp-4' : 'line-clamp-2')}
                     source={profile.source}
                     profile={profile}
                     components={{ a: 'a' }}

@@ -49,7 +49,7 @@ export const PostMoreAction = memo<MoreProps>(function PostMoreAction({ post }) 
                             }}
                         >
                             <LinkIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>Copy link</Trans>
                             </span>
                         </MenuButton>
@@ -71,7 +71,7 @@ export const PostMoreAction = memo<MoreProps>(function PostMoreAction({ post }) 
                             }}
                         >
                             <PostIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>Post with link</Trans>
                             </span>
                         </MenuButton>
@@ -86,7 +86,7 @@ export const PostMoreAction = memo<MoreProps>(function PostMoreAction({ post }) 
                             }}
                         >
                             <ShareIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>View on website</Trans>
                             </span>
                         </MenuButton>

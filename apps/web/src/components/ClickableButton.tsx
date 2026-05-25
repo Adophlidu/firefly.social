@@ -5,8 +5,10 @@ import { type ButtonHTMLAttributes, type DetailedHTMLProps, memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 
-export interface ClickableButtonProps
-    extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+export interface ClickableButtonProps extends DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+> {
     enableDefault?: boolean;
     enablePropagate?: boolean;
     enableOutline?: boolean;

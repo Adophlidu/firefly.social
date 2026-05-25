@@ -42,7 +42,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
             button={<MoreIcon width={22} height={22} className="shrink-0" />}
             className={className}
             buttonClassName={classNames(
-                'bg-primaryBottom !text-highlight dark:text-main size-8 justify-center rounded-lg dark:bg-white dark:bg-opacity-[0.08]',
+                'size-8 justify-center rounded-lg bg-primaryBottom !text-highlight dark:bg-white dark:bg-opacity-[0.08] dark:text-main',
                 buttonClassName,
             )}
         >
@@ -68,7 +68,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                     <MenuItem>
                         {({ close }) => (
                             <Tips
-                                className="!text-main hover:bg-bg px-3 py-1"
+                                className="px-3 py-1 !text-main hover:bg-bg"
                                 identity={identity}
                                 handle={profile.primary_ens || ens}
                                 tooltipDisabled

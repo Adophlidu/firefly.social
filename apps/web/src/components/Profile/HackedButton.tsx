@@ -12,7 +12,7 @@ export const HackedButton = memo(function HackedButton({ className }: HackedButt
     return (
         <ClickableButton
             className={classNames(
-                'border-danger bg-danger text-medium box-border flex h-8 min-w-[112px] cursor-default items-center justify-center whitespace-nowrap rounded-lg border px-5 font-semibold text-white outline-none transition-all',
+                'box-border flex h-8 min-w-[112px] cursor-default items-center justify-center whitespace-nowrap rounded-lg border border-danger bg-danger px-5 text-medium font-semibold text-white outline-none transition-all',
                 className,
             )}
         >

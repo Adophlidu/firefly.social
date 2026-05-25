@@ -80,7 +80,7 @@ export const CodeInputPanel = memo<CodeInputPanelProps>(function CodeInputPanel(
         <div className="relative flex items-center" style={{ justifyContent: 'space-around' }} ref={wrapperRef}>
             <input
                 id={PIN_CODE_INPUT_ID}
-                className="-z-1 absolute size-0 opacity-0"
+                className="absolute -z-1 size-0 opacity-0"
                 type="text"
                 readOnly={readOnly}
                 ref={inputRef}
@@ -113,7 +113,7 @@ export const CodeInputPanel = memo<CodeInputPanelProps>(function CodeInputPanel(
                         inputRef.current.setSelectionRange(code.length, code.length);
                     }}
                     className={classNames(
-                        'border-lightLineSecond bg-lightBg text-main size-11 rounded-2xl border text-center text-base font-medium !leading-[44px]',
+                        'size-11 rounded-2xl border border-lightLineSecond bg-lightBg text-center text-base font-medium !leading-[44px] text-main',
                     )}
                 >
                     {code[index] ? '*' : ''}

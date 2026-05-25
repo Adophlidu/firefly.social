@@ -31,14 +31,14 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
     return (
         <motion.div
             whileTap={{ scale: 0.98 }}
-            className="bg-input dark:bg-lightBg mt-3 flex h-[68px] cursor-pointer items-center gap-3 rounded-xl px-4"
+            className="mt-3 flex h-[68px] cursor-pointer items-center gap-3 rounded-xl bg-input px-4 dark:bg-lightBg"
             onClick={async () => {
                 if (loading) return;
                 await handleSelectToken();
             }}
         >
             {!token ? (
-                <span className="text-medium text-second flex-1 text-left">
+                <span className="flex-1 text-left text-medium text-second">
                     <Trans>Choose a token to send</Trans>
                 </span>
             ) : (
@@ -61,7 +61,7 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
                                 />
                             </div>
                             {token.chainLogoUrl ? (
-                                <div className="z-1 absolute -right-1 bottom-0 size-[18px] rounded-full border border-white bg-white">
+                                <div className="absolute -right-1 bottom-0 z-1 size-[18px] rounded-full border border-white bg-white">
                                     <Image
                                         width={16}
                                         height={16}
@@ -74,8 +74,8 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
                         </div>
                     ) : null}
                     <div className="flex min-w-0 flex-1 flex-col items-start text-left">
-                        <span className="text-medium text-main w-full truncate font-bold">{token.name}</span>
-                        <span className="text-second text-[13px]">
+                        <span className="w-full truncate text-medium font-bold text-main">{token.name}</span>
+                        <span className="text-[13px] text-second">
                             <Trans>
                                 Balance:{' '}
                                 {`${token.amount ? formatTokenItemAmount(token.amount) : '-'} ${token.symbol?.toUpperCase()}`}

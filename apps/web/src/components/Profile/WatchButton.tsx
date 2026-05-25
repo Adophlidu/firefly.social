@@ -73,15 +73,15 @@ export const WatchButton = memo(function WatchButton({
     return (
         <ClickableButton
             className={classNames(
-                'text-medium flex h-8 items-center justify-center rounded-lg font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-lg text-medium font-semibold transition-all',
                 variantClassName,
                 className,
                 {
                     [watchButtonClassName]: buttonState === State.Watch,
                     [watchingButtonClassName]: buttonState === State.Watching,
                     'bg-main text-primaryBottom hover:opacity-80': buttonState === State.Watch,
-                    'text-lightMain border border-current': buttonState === State.Watching,
-                    'bg-danger text-danger border border-current border-opacity-50 bg-opacity-20':
+                    'border border-current text-lightMain': buttonState === State.Watching,
+                    'border border-current border-opacity-50 bg-danger bg-opacity-20 text-danger':
                         buttonState === State.Unwatch,
                 },
             )}

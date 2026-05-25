@@ -12,16 +12,16 @@ export function ContentCard({
     headerSlot?: ReactNode;
 }>) {
     return (
-        <section className="border-line text-main rounded-lg border px-3 py-2">
+        <section className="rounded-lg border border-line px-3 py-2 text-main">
             <div
                 className={classNames(
                     'flex w-full items-center justify-between gap-2',
-                    children ? 'border-line border-b pb-4' : '',
+                    children ? 'border-b border-line pb-4' : '',
                 )}
             >
                 <div>
                     <h2 className="text-base font-bold">{label}</h2>
-                    <p className="text-medium text-second mt-1">{description}</p>
+                    <p className="mt-1 text-medium text-second">{description}</p>
                 </div>
                 {headerSlot}
             </div>

@@ -7,12 +7,11 @@ import { createNftMetadata } from '@/providers/firefly/metadata/createNftMetadat
 
 export const revalidate = 300;
 
-interface Props
-    extends LayoutProps<{
-        addressOrTokenId: string;
-        tokenId: string;
-        chainIdOrCollectionId: string;
-    }> {}
+interface Props extends LayoutProps<{
+    addressOrTokenId: string;
+    tokenId: string;
+    chainIdOrCollectionId: string;
+}> {}
 
 export async function generateMetadata(props: Props) {
     const { addressOrTokenId, tokenId, chainIdOrCollectionId } = await props.params;

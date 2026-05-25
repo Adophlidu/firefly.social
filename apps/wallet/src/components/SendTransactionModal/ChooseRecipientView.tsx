@@ -37,14 +37,14 @@ export function ChooseRecipientView() {
         <div className="flex w-full flex-col px-6 pb-6">
             <div className="relative flex items-center justify-center py-6">
                 <button
-                    className="text-main absolute left-0 top-6 cursor-pointer rounded p-1"
+                    className="absolute left-0 top-6 cursor-pointer rounded p-1 text-main"
                     onClick={() => {
                         router.navigate({ to: RoutePath.Form, replace: true });
                     }}
                 >
                     <LeftArrowIcon className="size-6" />
                 </button>
-                <h2 className="text-main text-lg font-semibold">
+                <h2 className="text-lg font-semibold text-main">
                     <Trans>Recipient</Trans>
                 </h2>
             </div>
@@ -137,7 +137,7 @@ function ChooseRecipient({
                     role="button"
                     tabIndex={0}
                     key={`${recipient.address}`}
-                    className="hover:bg-bg w-full cursor-pointer rounded-lg px-3 py-2"
+                    className="w-full cursor-pointer rounded-lg px-3 py-2 hover:bg-bg"
                     onClick={() => onClick(recipient)}
                 >
                     <RecipientItem {...recipient} explorerLink showSources forceAddress />

@@ -27,7 +27,7 @@ export function SuccessPage() {
     const accountId = currentProfileSession?.profileId;
 
     return (
-        <ShadowInAndOut className="no-scrollbar z-1 absolute inset-0 flex flex-col items-center justify-center gap-5 p-6 pt-20 sm:gap-[6.875%] md:flex-row md:pt-6">
+        <ShadowInAndOut className="no-scrollbar absolute inset-0 z-1 flex flex-col items-center justify-center gap-5 p-6 pt-20 sm:gap-[6.875%] md:flex-row md:pt-6">
             <MusicTogglePlay />
             <GamePlayer
                 avatar={avatar ? decodeURIComponent(avatar) : ''}

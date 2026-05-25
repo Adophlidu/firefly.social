@@ -28,7 +28,7 @@ export const ShareAction = memo(function ShareAction({ link, onClick }: ShareAct
                     <motion.span
                         onClick={onClick}
                         whileTap={{ scale: 0.9 }}
-                        className="text-second hover:bg-link/[0.2] hover:text-link inline-flex size-7 items-center justify-center rounded-full"
+                        className="inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link"
                     >
                         <ShareButtonWithAnimation />
                     </motion.span>
@@ -47,7 +47,7 @@ export const ShareAction = memo(function ShareAction({ link, onClick }: ShareAct
                             }}
                         >
                             <SendIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>Post with link</Trans>
                             </span>
                         </MenuButton>

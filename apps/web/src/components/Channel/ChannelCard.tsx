@@ -35,19 +35,19 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
     if (loading) {
         return (
-            <div className="border-secondaryLine bg-primaryBottom w-[350px] rounded-2xl border p-4">
+            <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
                 <div className="animate-pulse">
                     <div className="flex w-full gap-2.5">
-                        <div className="bg-third size-20 rounded-full" />
+                        <div className="size-20 rounded-full bg-third" />
                         <div className="flex flex-1 flex-col justify-between">
-                            <div className="bg-third h-3 w-[120px] rounded" />
-                            <div className="bg-third h-3 w-[120px] rounded" />
-                            <div className="bg-third h-3 w-[120px] rounded" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
                         </div>
                     </div>
                     <div className="mt-3 space-y-4">
-                        <div className="bg-third h-3 w-full rounded" />
-                        <div className="bg-third h-3 w-full rounded" />
+                        <div className="h-3 w-full rounded bg-third" />
+                        <div className="h-3 w-full rounded bg-third" />
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
     const isLens = channel.source === Source.Lens;
 
     return (
-        <div className="border-secondaryLine bg-primaryBottom w-[350px] rounded-2xl border p-4">
+        <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
             <div className="flex gap-2.5">
                 {channel.imageUrl ? (
                     <Avatar
@@ -79,7 +79,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                     <div className="flex items-center gap-[6px] whitespace-nowrap">
                         <span
                             onClick={handleNavigateToDetail}
-                            className="text-lightMain cursor-pointer overflow-auto truncate text-lg font-bold"
+                            className="cursor-pointer overflow-auto truncate text-lg font-bold text-lightMain"
                         >
                             {channel.name}
                         </span>
@@ -87,7 +87,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                     </div>
                     <div
                         onClick={handleNavigateToDetail}
-                        className="text-medium text-secondary flex cursor-pointer items-center gap-2"
+                        className="flex cursor-pointer items-center gap-2 text-medium text-secondary"
                     >
                         {isBsky || isLens ? (
                             channel.lead?.handle ? (
@@ -100,7 +100,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         )}
                         <div className="flex items-center gap-2">
                             {!isBsky ? <UserIcon width={18} height={18} /> : <LikeIcon className="text-secondary" />}
-                            <data value={followerCount} className="text-medium text-lightMain leading-6">
+                            <data value={followerCount} className="text-medium leading-6 text-lightMain">
                                 {nFormatter(followerCount)}
                             </data>
                         </div>
@@ -110,7 +110,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
             <div onClick={handleNavigateToDetail}>
                 <BioMarkup
-                    className="text-medium text-lightMain mt-3 line-clamp-2 leading-[22px]"
+                    className="mt-3 line-clamp-2 text-medium leading-[22px] text-lightMain"
                     source={channel.source}
                 >
                     {channel.description ?? '-'}

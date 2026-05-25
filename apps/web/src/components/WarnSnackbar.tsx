@@ -31,7 +31,7 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
     const [copied, handleCopy] = useCopyText(`${name}\n\n${description}`, { enqueueSuccessMessage: false });
 
     return (
-        <div ref={ref} className="bg-warn rounded-[4px]">
+        <div ref={ref} className="rounded-[4px] bg-warn">
             <div className="w-full text-sm">
                 <div className="p-2 pl-3">
                     <div className="flex max-w-[400px] items-center text-white">

@@ -14,7 +14,7 @@ interface Props {
 
 const FrameViewerModalContent = dynamic(() => import('@/modals/FrameViewerModal/FrameViewerModalContent.js'), {
     ssr: false,
-    loading: () => <Loading className="bg-primaryBottom flex-1" />,
+    loading: () => <Loading className="flex-1 bg-primaryBottom" />,
 });
 
 export function FrameViewerModal({ ref }: Props) {

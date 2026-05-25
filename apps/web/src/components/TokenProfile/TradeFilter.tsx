@@ -39,7 +39,7 @@ export function TradeFilter({ value, onChange }: Props) {
             renderMenu={({ close }) => (
                 <div>
                     <MenuButton
-                        className="text-placeholder size-4 outline-none"
+                        className="size-4 text-placeholder outline-none"
                         onMouseEnter={(e) => e.currentTarget.click()}
                     >
                         <FilterIcon width={16} height={16} />
@@ -50,12 +50,12 @@ export function TradeFilter({ value, onChange }: Props) {
                         className="z-50 origin-top-right !overflow-visible font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
                         onMouseLeave={() => close()}
                     >
-                        <div className="bg-primaryBottom shadow-messageShadow flex translate-y-1 flex-col gap-2 overflow-y-auto rounded-2xl p-3">
+                        <div className="flex translate-y-1 flex-col gap-2 overflow-y-auto rounded-2xl bg-primaryBottom p-3 shadow-messageShadow">
                             {options.map((option) => (
                                 <MenuItem key={option.id}>
                                     {({ close: itemClose }) => (
                                         <div
-                                            className="font-inter text-main hover:bg-bg box-border flex min-w-[235px] cursor-pointer flex-row items-center rounded-lg bg-clip-padding p-2 text-sm"
+                                            className="box-border flex min-w-[235px] cursor-pointer flex-row items-center rounded-lg bg-clip-padding p-2 font-inter text-sm text-main hover:bg-bg"
                                             onClick={() => {
                                                 onChange(option.value);
                                                 itemClose();
@@ -63,7 +63,7 @@ export function TradeFilter({ value, onChange }: Props) {
                                         >
                                             {option.label}
                                             {value === option.value ? (
-                                                <CheckIcon width={16} height={16} className="text-highlight ml-auto" />
+                                                <CheckIcon width={16} height={16} className="ml-auto text-highlight" />
                                             ) : null}
                                         </div>
                                     )}

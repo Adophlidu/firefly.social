@@ -114,7 +114,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
         !!trimify(nickname) && (avatar.type === 'custom' ? !!avatar.file : !!avatar.url) && !nicknameError;
 
     return (
-        <ShadowInAndOut className="z-1 absolute inset-0 flex items-center justify-center">
+        <ShadowInAndOut className="absolute inset-0 z-1 flex items-center justify-center">
             <Card>
                 {loading || isLoading ? (
                     <div className="absolute inset-0 z-10 flex items-center justify-center">
@@ -123,7 +123,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
                 ) : (
                     <div className="no-scrollbar flex h-full flex-col justify-between overflow-y-auto p-3 pt-0 md:p-12 md:pt-0">
                         <div className="w-full">
-                            <div className="z-1 sticky top-0 flex items-center gap-4 bg-white pt-3 md:pt-12">
+                            <div className="sticky top-0 z-1 flex items-center gap-4 bg-white pt-3 md:pt-12">
                                 <motion.button
                                     whileTap={{ scale: 0.8 }}
                                     onClick={() => changeStep(SignupStep.LoginSocialPlatform)}

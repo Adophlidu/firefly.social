@@ -1,8 +1,10 @@
 import { useWindowSize } from 'react-use';
 import { VirtuosoGrid, type VirtuosoGridProps } from 'react-virtuoso';
 
-export interface VirtualGridListProps<ItemData = unknown, Context = unknown>
-    extends VirtuosoGridProps<ItemData, Context> {
+export interface VirtualGridListProps<ItemData = unknown, Context = unknown> extends VirtuosoGridProps<
+    ItemData,
+    Context
+> {
     listKey?: string;
 }
 

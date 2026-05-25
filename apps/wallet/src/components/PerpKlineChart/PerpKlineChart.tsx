@@ -26,27 +26,27 @@ export const PerpKlineChart = memo<PerpKlineChartProps>(function PerpKlineChart(
     const showChart = !showSkeleton && !showError;
 
     return (
-        <div className="bg-bg flex size-full flex-col gap-1.5 p-2">
+        <div className="flex size-full flex-col gap-1.5 bg-bg p-2">
             <div className="flex flex-col gap-1">
                 <PerpKlineIntervalPills value={interval} onChange={setInterval} />
 
-                <span className="text-main text-sm font-semibold leading-[18px]">
+                <span className="text-sm font-semibold leading-[18px] text-main">
                     {coin}USD · {interval} · Hyperliquid
                 </span>
             </div>
 
             <div className="min-h-0 flex-1 overflow-hidden rounded-[10px]">
-                {showSkeleton ? <div className="bg-lightBg size-full animate-pulse" /> : null}
+                {showSkeleton ? <div className="size-full animate-pulse bg-lightBg" /> : null}
 
                 {showError ? (
-                    <div className="bg-lightBg flex size-full flex-col items-center justify-center gap-3">
-                        <span className="text-second text-[13px] font-medium leading-[17px]">Chart unavailable</span>
+                    <div className="flex size-full flex-col items-center justify-center gap-3 bg-lightBg">
+                        <span className="text-[13px] font-medium leading-[17px] text-second">Chart unavailable</span>
                         <button
                             type="button"
-                            className="bg-lightBg inline-flex h-8 items-center justify-center rounded-full px-4 active:opacity-75"
+                            className="inline-flex h-8 items-center justify-center rounded-full bg-lightBg px-4 active:opacity-75"
                             onClick={retry}
                         >
-                            <span className="text-main text-[13px] font-medium leading-[17px]">Retry</span>
+                            <span className="text-[13px] font-medium leading-[17px] text-main">Retry</span>
                         </button>
                     </div>
                 ) : null}

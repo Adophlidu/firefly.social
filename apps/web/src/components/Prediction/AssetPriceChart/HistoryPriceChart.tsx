@@ -192,7 +192,7 @@ function CustomTooltip(props: TooltipProps<number, string>) {
                     </div>
                     <span>{formatCryptoPrice(crypto, payload.value as number)}</span>
                 </div>
-                <p className="text-second font-medium">{dayjs(payload.payload.date).format('MMM D, YYYY h:mm:ss A')}</p>
+                <p className="font-medium text-second">{dayjs(payload.payload.date).format('MMM D, YYYY h:mm:ss A')}</p>
             </div>
         );
     }
@@ -260,7 +260,7 @@ export const HistoryPriceChart = memo<HistoryPriceChartProps>(function HistoryPr
     if (!data?.length)
         return (
             <div className="flex w-full items-center justify-center" style={{ height: CRYPTO_PRICE_CHART_HEIGHT }}>
-                <span className="text-second text-sm font-medium">
+                <span className="text-sm font-medium text-second">
                     <Trans>No price data.</Trans>
                 </span>
             </div>

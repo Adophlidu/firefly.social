@@ -28,7 +28,7 @@ export function Post({ collapsed = false }: PostProps) {
             <li className="text-center">
                 <Tooltip content={<Trans>Post</Trans>} placement="right">
                     <ClickableButton
-                        className="bg-main text-primaryBottom rounded-full p-1"
+                        className="rounded-full bg-main p-1 text-primaryBottom"
                         onClick={() =>
                             openComposeModal({
                                 type: 'compose',
@@ -43,7 +43,7 @@ export function Post({ collapsed = false }: PostProps) {
         ) : (
             <li className="px-2">
                 <ClickableButton
-                    className="bg-main text-primaryBottom mt-6 hidden w-full rounded-2xl p-2 text-xl font-bold leading-6 md:block"
+                    className="mt-6 hidden w-full rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
                     onClick={() => {
                         openComposeModal({
                             type: 'compose',

@@ -28,7 +28,7 @@ export function ProjectTrendingList() {
                 return <ProjectItem key={x.project_id} project={x} />;
             })}
 
-            <div className="text-secondary flex items-center justify-center gap-x-2 p-6 text-base">
+            <div className="flex items-center justify-center gap-x-2 p-6 text-base text-secondary">
                 <Image width={80} height={24} alt="rootdata" src="/image/rootdata.png" />
                 <Trans>Top 40 Projects powered by Rootdata</Trans>
             </div>

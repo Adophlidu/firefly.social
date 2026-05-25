@@ -109,12 +109,12 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                                 />
                             ) : null}
                             <div className="min-w-0 flex-1 text-left">
-                                <div className="text-main text-base font-semibold">
+                                <div className="text-base font-semibold text-main">
                                     <span className={!disabled ? 'hover:underline' : 'cursor-text'}>
                                         {market.title}
                                     </span>
                                 </div>
-                                <span className="text-second text-xs">
+                                <span className="text-xs text-second">
                                     <Trans>{`$${nFormatter(+market.volume, 2)}`} Vol.</Trans>
                                 </span>
                             </div>
@@ -130,7 +130,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                                 </span>
                             ) : (
                                 <span
-                                    className={classNames('text-main text-2xl font-bold', bedStead.className)}
+                                    className={classNames('text-2xl font-bold text-main', bedStead.className)}
                                 >{`${yesPercent < 1 ? '<1' : Math.round(yesPercent)}%`}</span>
                             )}
                         </ClickableButton>
@@ -177,7 +177,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
             {toggleType !== 'none' ? (
                 <div className="flex items-center justify-center">
                     <ClickableButton
-                        className="bg-bg text-main flex h-9 items-center gap-2 rounded-full px-6 text-sm font-semibold"
+                        className="flex h-9 items-center gap-2 rounded-full bg-bg px-6 text-sm font-semibold text-main"
                         onClick={() => setShowMore((v) => !v)}
                     >
                         {showMore ? (

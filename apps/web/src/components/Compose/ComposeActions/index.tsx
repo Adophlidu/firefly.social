@@ -49,18 +49,18 @@ export function ComposeActions() {
     return (
         <div className="px-4 pb-4">
             <div className="mb-2 flex flex-wrap gap-2">
-                <div className="border-secondaryLine flex items-center gap-x-1 rounded-[6px] border p-2">
+                <div className="flex items-center gap-x-1 rounded-[6px] border border-secondaryLine p-2">
                     <PlatformAction hasError={hasError} />
                 </div>
                 {showReplyScope && !isAnonymous ? <ReplyRestrictionAction hasError={hasError} /> : null}
 
                 {showFarcasterChannel && !isAnonymous ? (
-                    <div className="border-secondaryLine rounded-[6px] border p-2">
+                    <div className="rounded-[6px] border border-secondaryLine p-2">
                         <ChooseChannelAction source={Source.Farcaster} hasError={hasError} />
                     </div>
                 ) : null}
                 {showLensChannel ? (
-                    <div className="border-secondaryLine rounded-[6px] border p-2">
+                    <div className="rounded-[6px] border border-secondaryLine p-2">
                         <ChooseChannelAction source={Source.Lens} hasError={hasError} />
                     </div>
                 ) : null}

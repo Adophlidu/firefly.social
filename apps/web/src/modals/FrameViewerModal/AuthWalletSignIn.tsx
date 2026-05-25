@@ -100,7 +100,7 @@ export function AuthWalletSignIn() {
                     description={<Trans>Something went wrong, please try again.</Trans>}
                 >
                     <ClickableButton
-                        className="bg-main text-primaryBottom mt-6 rounded-2xl p-2 px-4 font-bold outline-none"
+                        className="mt-6 rounded-2xl bg-main p-2 px-4 font-bold text-primaryBottom outline-none"
                         onClick={() => {
                             refetch();
                             setIsScanned(false);
@@ -117,7 +117,7 @@ export function AuthWalletSignIn() {
                             description={<Trans>Failed to sign in with Firefly Wallet.</Trans>}
                         >
                             <ClickableButton
-                                className="bg-main text-primaryBottom mt-6 rounded-2xl p-2 px-4 font-bold outline-none"
+                                className="mt-6 rounded-2xl bg-main p-2 px-4 font-bold text-primaryBottom outline-none"
                                 onClick={() => sign()}
                             >
                                 <Trans>Retry</Trans>

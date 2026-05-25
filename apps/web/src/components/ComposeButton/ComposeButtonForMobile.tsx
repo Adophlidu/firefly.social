@@ -37,7 +37,7 @@ export function ComposeButtonForMobile() {
 
     return (
         <ClickableButton
-            className="bg-fireflyBrand dark:text-fireflyBrand fixed bottom-4 left-4 z-40 flex size-16 items-center justify-center rounded-full text-white outline-none dark:bg-white"
+            className="fixed bottom-4 left-4 z-40 flex size-16 items-center justify-center rounded-full bg-fireflyBrand text-white outline-none dark:bg-white dark:text-fireflyBrand"
             onClick={() => {
                 openComposeModal({
                     type: isPostPage ? 'reply' : 'compose',

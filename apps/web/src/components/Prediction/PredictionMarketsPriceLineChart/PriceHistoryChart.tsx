@@ -107,7 +107,7 @@ export const PriceHistoryChart = memo<PriceHistoryChartProps>(function PriceHist
         return (
             <div
                 style={{ height: chartHeight }}
-                className="text-second flex w-full items-center justify-center text-sm"
+                className="flex w-full items-center justify-center text-sm text-second"
             >
                 <ClickableButton className="px-3 hover:underline" onClick={() => refetch()}>
                     <Trans>Retry</Trans>
@@ -118,7 +118,7 @@ export const PriceHistoryChart = memo<PriceHistoryChartProps>(function PriceHist
         return (
             <div
                 style={{ height: chartHeight }}
-                className="text-second flex w-full items-center justify-center text-sm"
+                className="flex w-full items-center justify-center text-sm text-second"
             >
                 <Trans>There is no data available for display.</Trans>
             </div>

@@ -23,10 +23,10 @@ export function SnapshotFallbackContent({ title, body }: { title: string; body: 
 
     return (
         <div className="link-preview">
-            <ClickableArea className="border-line bg-bg text-commonMain relative mt-[6px] flex flex-col gap-2 rounded-2xl border p-3 text-left">
+            <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <div
                     className={
-                        'bg-lightMain text-lightBottom flex items-center gap-1 self-start rounded-full px-3 py-[2px] text-sm leading-[18px] opacity-40'
+                        'flex items-center gap-1 self-start rounded-full bg-lightMain px-3 py-[2px] text-sm leading-[18px] text-lightBottom opacity-40'
                     }
                 >
                     <ActiveIcon />
@@ -59,9 +59,9 @@ export function SnapshotFallbackContent({ title, body }: { title: string; body: 
                             </Tab>
                         ))}
                     </Tab.List>
-                    <Tab.Panels className="bg-primaryBottom rounded-b-xl p-4">
+                    <Tab.Panels className="rounded-b-xl bg-primaryBottom p-4">
                         <Tab.Panel>
-                            <SnapshotMarkup className="no-scrollbar text-secondary overflow-auto text-sm leading-[18px] max-md:h-[270px] md:h-[374px]">
+                            <SnapshotMarkup className="no-scrollbar overflow-auto text-sm leading-[18px] text-secondary max-md:h-[270px] md:h-[374px]">
                                 {body}
                             </SnapshotMarkup>
                         </Tab.Panel>

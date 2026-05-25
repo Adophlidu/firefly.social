@@ -42,7 +42,7 @@ function TweetSpaceContent({ spaceId }: Props) {
 
     if (isLoading) {
         return (
-            <div className="bg-purple mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
+            <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <LoadingIcon />
             </div>
         );
@@ -50,7 +50,7 @@ function TweetSpaceContent({ spaceId }: Props) {
 
     if (error) {
         return (
-            <div className="bg-purple mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
+            <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>Something went wrong</Trans>
                 </p>
@@ -68,7 +68,7 @@ function TweetSpaceContent({ spaceId }: Props) {
 
     if (!space) {
         return (
-            <div className="bg-purple mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
+            <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <EmptyStatusIcon className="h-[64px] w-[80px]" />
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>This space does not exist.</Trans>
@@ -141,7 +141,7 @@ function TweetSpaceContent({ spaceId }: Props) {
         <Link
             href={`https://x.com/i/spaces/${space.id}`}
             target="_blank"
-            className="bg-purple mt-3 flex w-full flex-col space-y-3 rounded-2xl p-4 text-white"
+            className="mt-3 flex w-full flex-col space-y-3 rounded-2xl bg-purple p-4 text-white"
         >
             <div className="flex items-center space-x-1">
                 {tags.map((tag, i) => (
@@ -158,7 +158,7 @@ function TweetSpaceContent({ spaceId }: Props) {
             {creator ? (
                 <div className="flex h-6 items-center leading-6">
                     <Avatar className="mr-2 size-[18px]" src={creator.pfp} size={18} alt={creator.handle} />
-                    <span className="text-medium mr-1 truncate font-bold leading-5">{creator.displayName}</span>
+                    <span className="mr-1 truncate text-medium font-bold leading-5">{creator.displayName}</span>
                     <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1 sm:mr-2" profile={creator} />
                     <div className="flex items-center space-x-1 rounded-lg bg-[rgba(24,26,32,0.5)] px-2 text-xs font-semibold leading-[18px]">
                         <Trans>Host</Trans>
@@ -174,7 +174,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
         <LoginRequiredGuard
             source={Source.Twitter}
             fallback={
-                <div className="bg-purple mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
+                <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                     <p className="text-[13px] font-semibold leading-6">
                         <Trans>Log in with your X account to view</Trans>
                     </p>

@@ -85,11 +85,11 @@ export function SuccessView() {
     return (
         <div className="flex flex-col items-center pt-6">
             <SuccessIcon width={64} height={64} className="shrink-0" />
-            <p className="text-main mt-4 text-2xl font-semibold">
+            <p className="mt-4 text-2xl font-semibold text-main">
                 <Trans>Transaction completed!</Trans>
             </p>
             <div className="relative mt-12 w-full">
-                <div className="bg-bg flex h-[68px] items-center gap-3 rounded-xl px-4">
+                <div className="flex h-[68px] items-center gap-3 rounded-xl bg-bg px-4">
                     {token.logo_url ? (
                         <div className="relative size-9">
                             <div
@@ -108,7 +108,7 @@ export function SuccessView() {
                                 />
                             </div>
                             {token.chainLogoUrl ? (
-                                <div className="z-1 absolute -right-1 bottom-0 size-[18px] rounded-full border-2 border-white bg-white">
+                                <div className="absolute -right-1 bottom-0 z-1 size-[18px] rounded-full border-2 border-white bg-white">
                                     <Image
                                         width={14}
                                         height={14}
@@ -121,11 +121,11 @@ export function SuccessView() {
                         </div>
                     ) : null}
                     <div className="min-w-0 flex-1">
-                        <div className="text-main flex justify-between text-lg font-semibold">
+                        <div className="flex justify-between text-lg font-semibold text-main">
                             <span className="uppercase">{token.symbol}</span>
                             <span>{formatTokenAmount(tokenAmount)}</span>
                         </div>
-                        <div className="text-second mt-1 flex justify-between text-sm">
+                        <div className="mt-1 flex justify-between text-sm text-second">
                             <span>
                                 <Trans>Send</Trans>
                             </span>
@@ -133,27 +133,27 @@ export function SuccessView() {
                         </div>
                     </div>
                 </div>
-                <div className="bg-bg mt-4 flex h-[68px] items-center gap-3 rounded-xl px-4">
+                <div className="mt-4 flex h-[68px] items-center gap-3 rounded-xl bg-bg px-4">
                     <RecipientAvatar recipient={recipient} />
                     <div className="min-w-0 flex-1">
                         {!recipient.ens ? (
-                            <div className="text-medium text-main break-all text-left font-medium">
+                            <div className="break-all text-left text-medium font-medium text-main">
                                 {recipient.address}
                                 {recipient.isDefault ? (
-                                    <span className="text-highlight ml-1 inline-flex h-4 -translate-y-0.5 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                                    <span className="ml-1 inline-flex h-4 -translate-y-0.5 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                         <Trans>Primary</Trans>
                                     </span>
                                 ) : null}
                             </div>
                         ) : (
                             <div className="flex flex-col items-start text-left">
-                                <span className="text-medium text-main font-bold">{recipient.ens}</span>
+                                <span className="text-medium font-bold text-main">{recipient.ens}</span>
                                 <div className="flex items-center">
-                                    <span className="text-second text-[13px]">
+                                    <span className="text-[13px] text-second">
                                         {formatAddress(recipient.address, 4)}
                                     </span>
                                     {recipient.isDefault ? (
-                                        <span className="text-highlight ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                                        <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                             <Trans>Primary</Trans>
                                         </span>
                                     ) : null}
@@ -162,17 +162,17 @@ export function SuccessView() {
                         )}
                     </div>
                 </div>
-                <div className="border-bg bg-lightBottom absolute left-1/2 top-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2">
+                <div className="absolute left-1/2 top-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-bg bg-lightBottom">
                     <ArrowDownIcon className="text-main" width={24} height={24} />
                 </div>
             </div>
-            <div className="text-medium mt-12 flex w-full gap-4 font-bold">
+            <div className="mt-12 flex w-full gap-4 text-medium font-bold">
                 {hash && token.chainId ? (
                     <ClickableButton
                         onClick={() => {
                             openWindow(RouteResolver.tx(token.chainId, hash));
                         }}
-                        className="bg-secondaryLine text-main h-10 flex-1 rounded-lg"
+                        className="h-10 flex-1 rounded-lg bg-secondaryLine text-main"
                     >
                         <Trans>Details</Trans>
                     </ClickableButton>
@@ -180,7 +180,7 @@ export function SuccessView() {
                 <ClickableButton
                     loading={loading}
                     onClick={sharePost}
-                    className="bg-main text-primaryBottom h-10 flex-1 rounded-lg"
+                    className="h-10 flex-1 rounded-lg bg-main text-primaryBottom"
                 >
                     <Trans>Done</Trans>
                 </ClickableButton>

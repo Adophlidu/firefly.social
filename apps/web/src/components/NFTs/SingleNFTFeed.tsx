@@ -51,7 +51,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-line hover:bg-bg cursor-pointer border-b bg-bottom px-3 py-2 max-md:px-4 max-md:py-3 md:px-4 md:py-3"
+            className="cursor-pointer border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3"
             onClick={() => {
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;

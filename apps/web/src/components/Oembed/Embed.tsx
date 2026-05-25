@@ -35,7 +35,7 @@ export function Embed({ og }: EmbedProps) {
                 target={isSelfReference(og.url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
-                <div className="border-line text-main rounded-xl border bg-white dark:bg-black">
+                <div className="rounded-xl border border-line bg-white text-main dark:bg-black">
                     {og.isLarge ? (
                         <Image
                             className="aspect-[16/9] w-full rounded-t-xl object-cover"
@@ -49,7 +49,7 @@ export function Embed({ og }: EmbedProps) {
                         {!og.isLarge ? (
                             <div className="relative flex aspect-square h-[90px] shrink-0 items-center justify-center md:h-36">
                                 <Image
-                                    className="border-line aspect-square h-[144px] rounded-l-xl border-r object-cover"
+                                    className="aspect-square h-[144px] rounded-l-xl border-r border-line object-cover"
                                     layout="fill"
                                     src={imageProps.src}
                                     unoptimized
@@ -58,11 +58,11 @@ export function Embed({ og }: EmbedProps) {
                                 />
                             </div>
                         ) : null}
-                        <div className="text-second truncate px-3 py-2 text-left">
-                            <div className="text-main line-clamp-1 max-w-full text-base font-semibold first-letter:uppercase empty:hidden">
+                        <div className="truncate px-3 py-2 text-left text-second">
+                            <div className="line-clamp-1 max-w-full text-base font-semibold text-main first-letter:uppercase empty:hidden">
                                 {og.title || og.site}
                             </div>
-                            <div className="text-highlight line-clamp-1 max-w-full text-sm font-medium">
+                            <div className="line-clamp-1 max-w-full text-sm font-medium text-highlight">
                                 {u?.hostname || og.url}
                             </div>
                         </div>

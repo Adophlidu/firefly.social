@@ -24,7 +24,7 @@ export const EventsPopover = memo<PropsWithChildren<EventsPopoverProps>>(functio
         <Popover as="div" className="relative">
             {({ close }) => (
                 <>
-                    <PopoverButton className="border-secondaryLine h-[30px] rounded-full border px-2.5 focus:outline-none">
+                    <PopoverButton className="h-[30px] rounded-full border border-secondaryLine px-2.5 focus:outline-none">
                         {children}
                     </PopoverButton>
                     <Transition
@@ -40,14 +40,14 @@ export const EventsPopover = memo<PropsWithChildren<EventsPopoverProps>>(functio
                             portal={false}
                             anchor="top start"
                             style={{ height: 36 * events.length + 32 }}
-                            className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-30 w-[240px] !max-w-[80vw] -translate-y-3 rounded-lg py-4 [--anchor-max-height:214px] dark:border dark:shadow-none"
+                            className="no-scrollbar absolute bottom-full right-0 z-30 w-[240px] !max-w-[80vw] -translate-y-3 rounded-lg bg-lightBottom py-4 text-medium shadow-popover [--anchor-max-height:214px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
                             <div>
                                 {events.map((event) => {
                                     return (
                                         <Link
                                             className={classNames(
-                                                'hover:bg-lightBg flex h-9 items-center px-3 text-xs font-medium',
+                                                'flex h-9 items-center px-3 text-xs font-medium hover:bg-lightBg',
                                                 event.slug === eventSlug ? 'pointer-events-none opacity-50' : '',
                                             )}
                                             key={event.id}

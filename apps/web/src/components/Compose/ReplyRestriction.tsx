@@ -21,17 +21,17 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
     const isMedium = useIsMedium();
 
     const content = (
-        <div className="md:bg-lightBottom md:dark:bg-darkBottom flex flex-col rounded-lg">
+        <div className="flex flex-col rounded-lg md:bg-lightBottom md:dark:bg-darkBottom">
             {items.map((type) => (
                 <div
                     key={type}
-                    className="hover:bg-bg flex h-12 cursor-pointer items-center justify-between px-3"
+                    className="flex h-12 cursor-pointer items-center justify-between px-3 hover:bg-bg"
                     onClick={() => {
                         setRestriction(type);
                         captureReplyRestrictionChangeClickEvent();
                     }}
                 >
-                    <span className="text-main mr-auto font-bold">
+                    <span className="mr-auto font-bold text-main">
                         <ReplyRestrictionText type={type} />
                     </span>
                     <CircleCheckboxIcon checked={restriction === type} />
@@ -55,7 +55,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                     portal
                     modal
                     anchor="top"
-                    className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-10 w-[320px] -translate-y-3 overflow-hidden rounded-lg dark:border dark:shadow-none"
+                    className="no-scrollbar absolute bottom-full right-0 z-10 w-[320px] -translate-y-3 overflow-hidden rounded-lg bg-lightBottom text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                     style={
                         {
                             '--anchor-max-height': `${items.length <= 4 ? items.length * 48 : 216}px`,

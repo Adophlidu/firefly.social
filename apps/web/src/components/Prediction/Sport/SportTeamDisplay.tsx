@@ -43,19 +43,19 @@ export const SportTeamDisplay = memo(function SportTeamDisplay({
             <div className="flex min-w-0 flex-1 items-center gap-2">
                 <TeamLogo team={homeTeam} />
                 <div className="min-w-0">
-                    <p className="text-lightMain truncate text-sm font-semibold leading-5">
+                    <p className="truncate text-sm font-semibold leading-5 text-lightMain">
                         {homeTeam.abbreviation || homeTeam.name || 'Home'}
                     </p>
-                    {homeTeam.record ? <p className="text-second text-xs leading-4">{homeTeam.record}</p> : null}
+                    {homeTeam.record ? <p className="text-xs leading-4 text-second">{homeTeam.record}</p> : null}
                 </div>
             </div>
-            <span className="text-third text-xs font-medium">vs</span>
+            <span className="text-xs font-medium text-third">vs</span>
             <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
                 <div className="min-w-0 text-right">
-                    <p className="text-lightMain truncate text-sm font-semibold leading-5">
+                    <p className="truncate text-sm font-semibold leading-5 text-lightMain">
                         {awayTeam.abbreviation || awayTeam.name || 'Away'}
                     </p>
-                    {awayTeam.record ? <p className="text-second text-xs leading-4">{awayTeam.record}</p> : null}
+                    {awayTeam.record ? <p className="text-xs leading-4 text-second">{awayTeam.record}</p> : null}
                 </div>
                 <TeamLogo team={awayTeam} />
             </div>

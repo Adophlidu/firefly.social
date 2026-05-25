@@ -119,28 +119,28 @@ export const PredictionCategoryHorizontalScroll = memo<Props>(function Predictio
             <button
                 type="button"
                 className={classNames(
-                    'hover:text-highlight absolute left-0 z-10 flex h-full transform-gpu cursor-pointer items-center pl-4 duration-100',
+                    'absolute left-0 z-10 flex h-full transform-gpu cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
                     hiddenLeft ? 'pointer-events-none opacity-0' : '',
                 )}
                 aria-label={t`Scroll categories left`}
                 onClick={() => onScrollTo(ScrollDirection.Left)}
             >
-                <span className="to-primaryBottom absolute left-0 top-0 h-full w-14 bg-gradient-to-l from-transparent to-55%" />
-                <span className="shadow-action border-line bg-primaryBottom relative flex size-5 shrink-0 items-center justify-center rounded-full border">
+                <span className="absolute left-0 top-0 h-full w-14 bg-gradient-to-l from-transparent to-primaryBottom to-55%" />
+                <span className="shadow-action relative flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom">
                     <ArrowLeftIcon className="relative h-2 w-auto shrink-0" />
                 </span>
             </button>
             <button
                 type="button"
                 className={classNames(
-                    'hover:text-highlight absolute right-0 z-10 flex h-full transform-gpu cursor-pointer items-center pr-4 duration-100',
+                    'absolute right-0 z-10 flex h-full transform-gpu cursor-pointer items-center pr-4 duration-100 hover:text-highlight',
                     hiddenRight ? 'pointer-events-none opacity-0' : '',
                 )}
                 aria-label={t`Scroll categories right`}
                 onClick={() => onScrollTo(ScrollDirection.Right)}
             >
-                <span className="to-primaryBottom absolute right-0 top-0 h-full w-14 bg-gradient-to-r from-transparent to-55%" />
-                <span className="shadow-action border-line bg-primaryBottom relative flex size-5 shrink-0 items-center justify-center rounded-full border">
+                <span className="absolute right-0 top-0 h-full w-14 bg-gradient-to-r from-transparent to-primaryBottom to-55%" />
+                <span className="shadow-action relative flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom">
                     <ArrowRightIcon className="relative h-2 w-auto shrink-0" />
                 </span>
             </button>

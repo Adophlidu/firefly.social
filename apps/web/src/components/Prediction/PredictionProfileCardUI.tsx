@@ -55,23 +55,23 @@ export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(functi
 
     return (
         <Link
-            className="bg-primaryBottom flex justify-evenly gap-3 rounded-xl p-3"
+            className="flex justify-evenly gap-3 rounded-xl bg-primaryBottom p-3"
             href={RouteResolver.betsProfile(profile.proxy, {
                 platform: profile.platform,
             })}
             onClick={handleProfileClick}
             data-disable-progress
         >
-            <div className="text-main flex flex-1 items-center gap-2">
+            <div className="flex flex-1 items-center gap-2 text-main">
                 <PredictionPlatformIcon platform={profile.platform} className="shrink-0 rounded-full" size={32} />
                 <div className="flex h-9 w-28 flex-col items-start">
                     <div className="w-full shrink-0 truncate text-sm font-semibold">
                         {profile.platform_name || <PredictionPlatformName platform={profile.platform} />}
                     </div>
-                    <div className="text-second ml-auto flex items-center text-[13px] font-medium">
+                    <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(profile.proxy, 4, 2)}
                         <CopyTextButton
-                            className="text-second ml-2"
+                            className="ml-2 text-second"
                             size={14}
                             text={profile.proxy}
                             data-prevent-progress
@@ -84,18 +84,18 @@ export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(functi
                 </div>
             </div>
             <div className="flex h-9 flex-1 shrink-0 flex-col items-end justify-between gap-1">
-                <div className="text-second text-xs">
+                <div className="text-xs text-second">
                     <Trans>Portfolio</Trans>
                 </div>
-                <div className="text-main relative text-sm font-semibold">
+                <div className="relative text-sm font-semibold text-main">
                     {`$${profile ? formatPrice(profile.balance.toFixed(2)) : '-'}`}
                 </div>
             </div>
             <div className="flex h-9 flex-1 shrink-0 flex-col items-end justify-between gap-1">
-                <div className="text-second text-xs">
+                <div className="text-xs text-second">
                     <Trans>PnL</Trans>
                 </div>
-                <div className="text-success relative">
+                <div className="relative text-success">
                     <span
                         className={`text-sm font-semibold ${
                             !profile ? '' : profile.pnl < 0 ? 'text-danger' : 'text-success'

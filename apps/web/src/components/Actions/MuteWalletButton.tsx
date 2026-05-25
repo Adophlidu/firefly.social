@@ -76,7 +76,7 @@ export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, 
             ) : (
                 <MuteIcon width={18} height={18} />
             )}
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 {isMuted ? <Trans>Unmute {handleOrEnsOrAddress}</Trans> : <Trans>Mute {handleOrEnsOrAddress}</Trans>}
             </span>
         </MenuButton>

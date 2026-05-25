@@ -51,7 +51,7 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
         <Popover as="div" className="relative">
             {({ close }) => (
                 <>
-                    <PopoverButton className="border-secondaryLine flex h-[30px] items-center gap-2 rounded-full border px-2.5 focus:outline-none">
+                    <PopoverButton className="flex h-[30px] items-center gap-2 rounded-full border border-secondaryLine px-2.5 focus:outline-none">
                         <span className="shrink-0 whitespace-nowrap text-[10px] font-bold">
                             <Trans>Past</Trans>
                         </span>
@@ -81,7 +81,7 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
                             portal={false}
                             anchor="top start"
                             style={{ height: 36 * pastEvents.length + 32 }}
-                            className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-30 w-[240px] !max-w-[80vw] -translate-y-3 rounded-lg py-4 [--anchor-max-height:214px] dark:border dark:shadow-none"
+                            className="no-scrollbar absolute bottom-full right-0 z-30 w-[240px] !max-w-[80vw] -translate-y-3 rounded-lg bg-lightBottom py-4 text-medium shadow-popover [--anchor-max-height:214px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
                             <div>
                                 {pastEvents.map((event) => {
@@ -99,7 +99,7 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
                                         <Link
                                             key={event.id}
                                             className={classNames(
-                                                'hover:bg-lightBg flex h-9 items-center gap-1.5 px-3 text-xs font-medium',
+                                                'flex h-9 items-center gap-1.5 px-3 text-xs font-medium hover:bg-lightBg',
                                                 event.slug === eventSlug ? 'pointer-events-none opacity-50' : '',
                                             )}
                                             href={resolvePredictionEventUrl(event)}

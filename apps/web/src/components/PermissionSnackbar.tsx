@@ -19,7 +19,7 @@ export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSn
     const { closeSnackbar } = useSnackbar();
 
     return (
-        <div className="bg-lightBottom text-main shadow-popover dark:bg-darkBottom relative flex w-[343px] !items-start gap-2 rounded-2xl p-4 text-xs dark:shadow-none">
+        <div className="relative flex w-[343px] !items-start gap-2 rounded-2xl bg-lightBottom p-4 text-xs text-main shadow-popover dark:bg-darkBottom dark:shadow-none">
             <CloseButton
                 size={18}
                 className="absolute right-3 top-3"
@@ -28,7 +28,7 @@ export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSn
                     closeSnackbar(id);
                 }}
             />
-            <div className="text-second px-1 pt-4">
+            <div className="px-1 pt-4 text-second">
                 <NotificationIcon width={24} height={24} />
             </div>
             <div className="min-w-0 flex-1">
@@ -42,7 +42,7 @@ export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSn
                         </p>
                         <div className="mt-4 flex items-center gap-3 font-bold">
                             <ClickableButton
-                                className="bg-main text-primaryBottom h-8 flex-1 rounded-full text-center leading-8"
+                                className="h-8 flex-1 rounded-full bg-main text-center leading-8 text-primaryBottom"
                                 onClick={() => {
                                     onEnable?.();
                                     closeSnackbar(id);
@@ -52,7 +52,7 @@ export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSn
                                 <Trans>Enable now</Trans>
                             </ClickableButton>
                             <ClickableButton
-                                className="bg-thirdMain h-8 flex-1 rounded-full text-center leading-8"
+                                className="h-8 flex-1 rounded-full bg-thirdMain text-center leading-8"
                                 onClick={() => {
                                     localStorage.setItem(NOTIFICATION_PERMISSION_KEY, Date.now().toString());
                                     closeSnackbar(id);

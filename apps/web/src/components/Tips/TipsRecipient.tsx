@@ -34,37 +34,37 @@ export const TipsRecipient = memo(function TipsRecipient() {
     return (
         <motion.div
             whileTap={{ scale: 0.98 }}
-            className="bg-input dark:bg-lightBg flex h-[77px] cursor-pointer items-center gap-3 rounded-xl p-4"
+            className="flex h-[77px] cursor-pointer items-center gap-3 rounded-xl bg-input p-4 dark:bg-lightBg"
             onClick={openRecipientSelector}
         >
             <RecipientAvatar recipient={recipient} />
             <div className="min-w-0 flex-1">
                 {!ensName ? (
-                    <div className="text-medium text-main break-all text-left font-medium">
+                    <div className="break-all text-left text-medium font-medium text-main">
                         {recipient.address}
                         {isPrimary ? (
-                            <span className="text-highlight ml-1 inline-flex h-4 -translate-y-0.5 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                            <span className="ml-1 inline-flex h-4 -translate-y-0.5 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                 <Trans>Primary</Trans>
                             </span>
                         ) : null}
                         {isFireflyWallet ? (
-                            <span className="text-highlight ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                            <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                 <SmallFireflyAvatar width={13} height={13} />
                             </span>
                         ) : null}
                     </div>
                 ) : (
                     <div className="flex flex-col items-start text-left">
-                        <span className="text-medium text-main font-bold">{ensName}</span>
+                        <span className="text-medium font-bold text-main">{ensName}</span>
                         <div className="flex items-center">
-                            <span className="text-second text-[13px]">{formatAddress(recipient.address, 4)}</span>
+                            <span className="text-[13px] text-second">{formatAddress(recipient.address, 4)}</span>
                             {isPrimary ? (
-                                <span className="text-highlight ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                                <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                     <Trans>Primary</Trans>
                                 </span>
                             ) : null}
                             {isFireflyWallet ? (
-                                <span className="text-highlight ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                                <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                     <SmallFireflyAvatar width={13} height={13} />
                                 </span>
                             ) : null}
@@ -72,7 +72,7 @@ export const TipsRecipient = memo(function TipsRecipient() {
                     </div>
                 )}
             </div>
-            {recipientList.length > 1 ? <ArrowDownIcon width={18} height={18} className="text-main shrink-0" /> : null}
+            {recipientList.length > 1 ? <ArrowDownIcon width={18} height={18} className="shrink-0 text-main" /> : null}
         </motion.div>
     );
 });

@@ -38,7 +38,7 @@ export const ImageWithLoading = memo<ImageWithLoadingProps>(function ImageWithLo
                 onError={() => setLoading(false)}
             />
             {loading ? (
-                <div className="z-1 absolute inset-0 flex items-center justify-center rounded-full bg-white/70">
+                <div className="absolute inset-0 z-1 flex items-center justify-center rounded-full bg-white/70">
                     <LoadingIcon />
                 </div>
             ) : null}

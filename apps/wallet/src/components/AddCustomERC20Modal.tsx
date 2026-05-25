@@ -152,7 +152,7 @@ function AddCustomERC20ModalContent({
                         value={String(selectedChain)}
                         onValueChange={(value) => setValue('chainId', Number.parseInt(value, 10))}
                     >
-                        <SelectTrigger className="border-lightLineSecond text-main h-10 w-[120px] shrink-0 items-center gap-1 rounded-lg border px-2 text-xs">
+                        <SelectTrigger className="h-10 w-[120px] shrink-0 items-center gap-1 rounded-lg border border-lightLineSecond px-2 text-xs text-main">
                             {selectedChainConfig ? (
                                 <div className="flex min-w-0 items-center gap-2">
                                     <ChainIcon chainId={selectedChain} size={15} />
@@ -166,7 +166,7 @@ function AddCustomERC20ModalContent({
                             position="popper"
                             side="bottom"
                             align="start"
-                            className="bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom z-50 max-h-[275px] w-[200px] overflow-y-auto rounded-lg py-3 md:max-h-[370px] dark:border dark:shadow-none"
+                            className="z-50 max-h-[275px] w-[200px] overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[370px]"
                             viewPortClassName="py-1"
                         >
                             {chainIds.map((chainId) => {
@@ -177,10 +177,10 @@ function AddCustomERC20ModalContent({
                                             {chain ? (
                                                 <>
                                                     <ChainIcon chainId={chainId} size={15} />
-                                                    <span className="text-main text-xs">{chain.name}</span>
+                                                    <span className="text-xs text-main">{chain.name}</span>
                                                 </>
                                             ) : (
-                                                <span className="text-main text-xs">{chainId}</span>
+                                                <span className="text-xs text-main">{chainId}</span>
                                             )}
                                         </div>
                                     </SelectItem>
@@ -189,7 +189,7 @@ function AddCustomERC20ModalContent({
                         </SelectContent>
                     </Select>
 
-                    <div className="bg-lightBg focus-within:border-highlight flex-1 rounded-lg border border-transparent transition-all">
+                    <div className="flex-1 rounded-lg border border-transparent bg-lightBg transition-all focus-within:border-highlight">
                         <Input
                             {...register('contractAddress', {
                                 required: true,
@@ -197,7 +197,7 @@ function AddCustomERC20ModalContent({
                             })}
                             autoComplete="off"
                             placeholder={t`Contract address`}
-                            className="placeholder:text-secondary h-10 rounded-lg border-0 bg-transparent px-3 py-1.5 text-sm focus:border-0 focus:outline-0 focus-visible:ring-0"
+                            className="h-10 rounded-lg border-0 bg-transparent px-3 py-1.5 text-sm placeholder:text-secondary focus:border-0 focus:outline-0 focus-visible:ring-0"
                         />
                     </div>
                 </div>

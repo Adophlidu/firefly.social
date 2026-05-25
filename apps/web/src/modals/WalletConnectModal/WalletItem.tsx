@@ -30,7 +30,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
     return (
         <ClickableButton
             {...rest}
-            className="border-secondaryLine even:bg-lightBg flex w-full cursor-pointer items-center gap-2 rounded-lg border p-2"
+            className="flex w-full cursor-pointer items-center gap-2 rounded-lg border border-secondaryLine p-2 even:bg-lightBg"
         >
             <Image
                 src={icon?.trim() || ''}
@@ -38,7 +38,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
                 fallback="avatar"
                 width={40}
                 height={40}
-                className="border-secondaryLine size-10 rounded-xl border"
+                className="size-10 rounded-xl border border-secondaryLine"
             />
             <div className="flex flex-1 flex-col items-start text-sm">
                 <span className="text-main">{name || 'Unknown'}</span>
@@ -58,7 +58,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
             {tagIcon ? (
                 tagIcon
             ) : installed || connected ? (
-                <span className="bg-success/20 text-success flex h-7 items-center rounded px-1 text-sm">
+                <span className="flex h-7 items-center rounded bg-success/20 px-1 text-sm text-success">
                     {connected ? <Trans>Connected</Trans> : <Trans>Installed</Trans>}
                 </span>
             ) : null}

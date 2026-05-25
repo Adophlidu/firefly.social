@@ -82,13 +82,13 @@ export function PredictionTradeList({
     return (
         <>
             <div className="hidden items-center p-4 md:flex">
-                <span className="text-second w-[130px] text-[11px] uppercase">
+                <span className="w-[130px] text-[11px] uppercase text-second">
                     <Trans>ACTIVITY</Trans>
                 </span>
-                <span className="text-second flex-1 text-[11px] uppercase">
+                <span className="flex-1 text-[11px] uppercase text-second">
                     <Trans>MARKET</Trans>
                 </span>
-                <span className="text-second w-[176px] pl-6 text-right text-[11px] uppercase">
+                <span className="w-[176px] pl-6 text-right text-[11px] uppercase text-second">
                     <Trans>TOTAL</Trans>
                 </span>
             </div>

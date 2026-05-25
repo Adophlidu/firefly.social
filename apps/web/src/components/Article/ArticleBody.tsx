@@ -34,7 +34,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
             as="article"
             onClick={onClick}
             className={classNames(
-                'border-secondaryLine bg-bg text-main relative mt-[6px] flex flex-col gap-2 rounded-2xl border p-3 text-left',
+                'relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-secondaryLine bg-bg p-3 text-left text-main',
                 {
                     'overflow-hidden': !!article.content,
                 },
@@ -68,7 +68,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
             >
                 {article.title}
             </h1>
-            <div className="border-secondaryLine flex min-w-0 items-center justify-between border-b pb-[10px]">
+            <div className="flex min-w-0 items-center justify-between border-b border-secondaryLine pb-[10px]">
                 <ArticleAuthor className="min-w-0" article={article} />
                 {isMedium ? <ArticleActions article={article} /> : null}
             </div>
@@ -90,7 +90,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                             />
                         </div>
                     ) : (
-                        <ArticleMarkup disableImage className="markup text-second break-words text-sm leading-[18px]">
+                        <ArticleMarkup disableImage className="markup break-words text-sm leading-[18px] text-second">
                             {article.content}
                         </ArticleMarkup>
                     )}

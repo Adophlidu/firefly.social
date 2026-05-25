@@ -29,7 +29,7 @@ export function ErrorHandler({ error, reset, className }: ErrorHandlerProps) {
                 )}
             </div>
             <ClickableButton
-                className="bg-main text-primaryBottom mt-6 whitespace-nowrap rounded-2xl px-4 py-1 text-sm font-semibold leading-6"
+                className="mt-6 whitespace-nowrap rounded-2xl bg-main px-4 py-1 text-sm font-semibold leading-6 text-primaryBottom"
                 onClick={() => reset()}
             >
                 <LoadingIcon size={16} animate={false} className="mr-2 inline-block" />

@@ -15,7 +15,7 @@ export const Switch = memo<Props>(function Switch({ className, loading, size = '
         <HeadlessSwitch
             {...rest}
             className={classNames(
-                'bg-second data-[checked]:bg-highlight dark:bg-bg data-[checked]:dark:bg-highlight group inline-flex shrink-0 items-center rounded-full transition',
+                'group inline-flex shrink-0 items-center rounded-full bg-second transition data-[checked]:bg-highlight dark:bg-bg data-[checked]:dark:bg-highlight',
                 className,
                 {
                     'h-[18px] w-[32px]': size === 'small',

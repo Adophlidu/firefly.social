@@ -24,7 +24,7 @@ export function RootView() {
         <RedPacketProvider>
             <div
                 className={classNames(
-                    'bg-primaryBottom flex transform-gpu flex-col overflow-hidden rounded-xl transition-all',
+                    'flex transform-gpu flex-col overflow-hidden rounded-xl bg-primaryBottom transition-all',
                     location.pathname === '/requirement-rules'
                         ? 'min-h-[400px] min-w-[400px]'
                         : 'min-h-[620px] min-w-[600px]',
@@ -46,7 +46,7 @@ export function RootView() {
                         />
                     )}
 
-                    <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         {title}
                     </div>
                     <div className="relative size-6">

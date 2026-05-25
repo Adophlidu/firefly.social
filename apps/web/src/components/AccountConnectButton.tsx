@@ -24,7 +24,7 @@ export const AccountConnectButton = memo<Props>(function AccountConnectButton({ 
             disabled={isLoading}
             onClick={onClick}
             className={classNames(
-                'bg-lightBg text-main flex h-10 min-w-[120px] items-center gap-3 whitespace-nowrap rounded-lg px-4 text-lg leading-6',
+                'flex h-10 min-w-[120px] items-center gap-3 whitespace-nowrap rounded-lg bg-lightBg px-4 text-lg leading-6 text-main',
             )}
         >
             {!profiles.length ? (

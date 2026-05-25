@@ -16,9 +16,9 @@ function Toaster({ ...props }: ToasterProps) {
             theme={theme as ToasterProps['theme']}
             className="toaster group"
             icons={{
-                error: <ErrorIcon className="text-danger size-5" width={20} height={20} />,
-                success: <SuccessIcon className="text-success size-5" width={20} height={20} />,
-                loading: <LoadingIcon className="text-primary size-5" width={20} height={20} />,
+                error: <ErrorIcon className="size-5 text-danger" width={20} height={20} />,
+                success: <SuccessIcon className="size-5 text-success" width={20} height={20} />,
+                loading: <LoadingIcon className="size-5 text-primary" width={20} height={20} />,
             }}
             position="top-center"
             toastOptions={{

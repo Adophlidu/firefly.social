@@ -22,7 +22,7 @@ export function PredictionActivityResult({ activity }: ActivityResultProps) {
                 <Trans>Settled as {outcome}</Trans>
             </div>
             <div className={classNames('mt-1 h-1', isLeft ? 'bg-success' : 'bg-danger')} />
-            <div className="text-second mt-3 text-xs font-medium">
+            <div className="mt-3 text-xs font-medium text-second">
                 $
                 {activity.platform === PredictionPlatform.Opinion
                     ? nFormatter(parseFloat(activity.volume), 2)

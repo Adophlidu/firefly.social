@@ -33,17 +33,17 @@ export function ConfirmSyncSessionModal({ ref }: Props) {
         >
             <div
                 className={
-                    'bg-bgModal shadow-popover relative flex w-[320px] max-w-[clamp(386px,90vw,95vw)] flex-col rounded-xl transition-all md:w-[355px] dark:text-gray-950'
+                    'relative flex w-[320px] max-w-[clamp(386px,90vw,95vw)] flex-col rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950 md:w-[355px]'
                 }
                 onClick={stopPropagation}
             >
                 <div className="inline-flex h-auto w-full items-center justify-center gap-4 rounded-t-[12px] p-4">
-                    <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Accounts Connected</Trans>
                     </div>
                 </div>
                 <div className="flex flex-1 flex-col gap-6 px-6 pb-[6px] pt-0">
-                    <div className="text-medium text-second text-center leading-[18px]">
+                    <div className="text-center text-medium leading-[18px] text-second">
                         <Trans>We&apos;ve detected logins available for sync.</Trans>
                     </div>
                 </div>
@@ -69,7 +69,7 @@ export function ConfirmSyncSessionModal({ ref }: Props) {
 
                 <div className="flex gap-2 px-6 pb-6">
                     <ClickableButton
-                        className="border-main text-medium text-main box-border flex h-10 flex-1 items-center justify-center rounded-full border font-bold"
+                        className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"
                         onClick={() => {
                             captureTokenSyncNoEvent();
                             dispatch?.close(false);
@@ -78,7 +78,7 @@ export function ConfirmSyncSessionModal({ ref }: Props) {
                         <Trans>Skip</Trans>
                     </ClickableButton>
                     <ClickableButton
-                        className="bg-main text-medium text-primaryBottom box-border flex h-10 flex-1 items-center justify-center rounded-full font-bold"
+                        className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-medium font-bold text-primaryBottom"
                         onClick={() => {
                             captureTokenSyncYesEvent();
                             dispatch?.close(true);

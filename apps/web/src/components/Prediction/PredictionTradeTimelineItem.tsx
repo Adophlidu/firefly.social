@@ -30,7 +30,7 @@ export function PredictionTradeTimelineItem({ trade, platform }: PredictionTrade
     const { displayName, avatarUrl, source } = resolveBetActivityTraderInfo(trade);
 
     return (
-        <div className="border-line flex items-center gap-2 border-b px-4 py-3">
+        <div className="flex items-center gap-2 border-b border-line px-4 py-3">
             <Link href={betsProfileUrl} target="_blank" className="relative">
                 <Avatar src={avatarUrl} size={36} alt={walletAddress} />
                 {isSocialSource(source) ? (
@@ -41,7 +41,7 @@ export function PredictionTradeTimelineItem({ trade, platform }: PredictionTrade
                     />
                 ) : null}
             </Link>
-            <div className="text-second text-sm font-medium">
+            <div className="text-sm font-medium text-second">
                 {trade.side === 'buy' ? (
                     <Trans>
                         <Link href={betsProfileUrl} target="_blank" className="text-main hover:underline">

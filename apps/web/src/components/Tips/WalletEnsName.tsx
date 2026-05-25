@@ -14,5 +14,5 @@ export function WalletEnsName({ address }: WalletEnsNameProps) {
 
     if (isLoading) return <LoadingIcon className="ml-2 inline-block" size={16} />;
 
-    return <span className="text-second ml-2 text-base">{data || formatAddress(address, 6, 2, false)}</span>;
+    return <span className="ml-2 text-base text-second">{data || formatAddress(address, 6, 2, false)}</span>;
 }

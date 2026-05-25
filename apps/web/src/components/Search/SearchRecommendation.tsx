@@ -80,7 +80,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     if (!records.length && !keyword) return null;
 
     const containerClasses = classNames(
-        'max:max-h-[calc(100vh-59px)] dark:border-line dark:bg-primaryBottom absolute -inset-x-px top-10 z-[1000] flex w-full flex-col overflow-auto bg-white dark:border',
+        'max:max-h-[calc(100vh-59px)] absolute -inset-x-px top-10 z-[1000] flex w-full flex-col overflow-auto bg-white dark:border dark:border-line dark:bg-primaryBottom',
         {
             'mt-2 rounded-2xl shadow-[0_4px_30px_0_rgba(0,0,0,0.1)]': !fullScreen,
             'bottom-0 mt-3 h-[calc(100vh-40px)] border-none': fullScreen,
@@ -92,7 +92,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
         return (
             <div className={containerClasses}>
                 <div
-                    className="hover:bg-bg relative mb-4 mt-3 flex cursor-pointer items-center gap-3 px-3 text-left"
+                    className="relative mb-4 mt-3 flex cursor-pointer items-center gap-3 px-3 text-left hover:bg-bg"
                     onClick={() =>
                         onSearch?.({
                             q: keyword,
@@ -102,11 +102,11 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 >
                     <SearchIcon width={20} height={20} className="ml-0.5 shrink-0" />
                     <div className="flex min-w-0 flex-col">
-                        <div className="text-second text-sm leading-[18px]">
+                        <div className="text-sm leading-[18px] text-second">
                             <Trans>
                                 Search{' '}
                                 <Link
-                                    className="z-1 text-highlight relative hover:underline"
+                                    className="relative z-1 text-highlight hover:underline"
                                     href={fixSearchUrl(false, keyword, SearchType.Posts, source)}
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -120,7 +120,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 </Link>
                                 ,{' '}
                                 <Link
-                                    className="z-1 text-highlight relative hover:underline"
+                                    className="relative z-1 text-highlight hover:underline"
                                     href={fixSearchUrl(false, keyword, SearchType.Profiles, source)}
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -134,7 +134,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 </Link>
                                 ,{' '}
                                 <Link
-                                    className="z-1 text-highlight relative hover:underline"
+                                    className="relative z-1 text-highlight hover:underline"
                                     href={fixSearchUrl(false, keyword, SearchType.Prediction, source)}
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -148,7 +148,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 </Link>{' '}
                                 and{' '}
                                 <Link
-                                    className="z-1 text-highlight relative hover:underline"
+                                    className="relative z-1 text-highlight hover:underline"
                                     href={fixSearchUrl(false, keyword, SearchType.Tokens, source)}
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -182,11 +182,11 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     return (
         <div className={containerClasses}>
             <h2 className="flex p-3 pb-2 text-sm">
-                <span className="text-main font-bold">
+                <span className="font-bold text-main">
                     <Trans>Recent</Trans>
                 </span>
                 <ClickableButton
-                    className="text-highlight ml-auto font-bold"
+                    className="ml-auto font-bold text-highlight"
                     onClick={() => {
                         clearAll();
                         onClear?.();
@@ -198,7 +198,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             {records.length ? (
                 <menu className="my-0">
                     {records.map((record) => (
-                        <div className="hover:bg-bg flex cursor-pointer items-center px-3" key={record}>
+                        <div className="flex cursor-pointer items-center px-3 hover:bg-bg" key={record}>
                             <Link
                                 className="flex min-w-0 flex-1 items-center truncate"
                                 href={getSearchUrlForRecord(
@@ -214,11 +214,11 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 }}
                             >
                                 <SearchIcon width={18} height={18} className="shrink-0" />
-                                <span className="text-main ml-4 grow truncate py-2">{record}</span>
+                                <span className="ml-4 grow truncate py-2 text-main">{record}</span>
                             </Link>
                             <ClearButton
                                 size={16}
-                                className="text-second ml-auto"
+                                className="ml-auto text-second"
                                 IconProps={{ className: 'text-inherit' }}
                                 tooltip={<Trans>Remove</Trans>}
                                 onClick={() => {

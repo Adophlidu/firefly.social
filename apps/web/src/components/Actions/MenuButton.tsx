@@ -8,7 +8,7 @@ export const MenuButton = memo(function MenuButton(props: HTMLProps<HTMLButtonEl
             type={props.type as 'button'}
             className={classNames(
                 'flex h-8 items-center space-x-2 px-3 py-1',
-                props.disabled ? 'cursor-not-allowed opacity-50' : 'hover:bg-bg cursor-pointer',
+                props.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                 props.className,
             )}
             onClick={(event) => {

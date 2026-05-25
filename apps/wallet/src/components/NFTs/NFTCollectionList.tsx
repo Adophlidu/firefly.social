@@ -29,7 +29,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
 
     return (
         <div
-            className="bg-lightBg relative flex cursor-pointer flex-col rounded-lg"
+            className="relative flex cursor-pointer flex-col rounded-lg bg-lightBg"
             onClick={() => {
                 onClick?.(chainId ?? mainnet.id, collection.contract_address, collection);
             }}
@@ -48,7 +48,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
                     alt="nft_image"
                 />
                 {ownedTotal > 1 ? (
-                    <span className="light bg-bg text-main absolute bottom-1 right-1 h-5 rounded-lg px-1 text-[10px] font-bold leading-5">
+                    <span className="light absolute bottom-1 right-1 h-5 rounded-lg bg-bg px-1 text-[10px] font-bold leading-5 text-main">
                         {`x ${nFormatter(ownedTotal)}`}
                     </span>
                 ) : null}

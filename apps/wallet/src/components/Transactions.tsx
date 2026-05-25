@@ -60,7 +60,7 @@ function getTransactionHistoryItem(
 ) {
     return (
         <Fragment key={index}>
-            {item.date ? <div className="text-second pt-4 text-sm font-medium">{item.date}</div> : null}
+            {item.date ? <div className="pt-4 text-sm font-medium text-second">{item.date}</div> : null}
             <TransactionHistoryItem item={item} onSelectTransaction={onSelectTransaction} />
         </Fragment>
     );
@@ -112,7 +112,7 @@ function TransactionHistoryItem({
         <div
             role="button"
             tabIndex={0}
-            className="hover:bg-bg focus-visible:ring-lightMain my-1 flex cursor-pointer items-center rounded-lg p-2 outline-none focus-visible:ring-2"
+            className="my-1 flex cursor-pointer items-center rounded-lg p-2 outline-none hover:bg-bg focus-visible:ring-2 focus-visible:ring-lightMain"
             onClick={openTransaction}
             onKeyDown={handleKeyDown}
         >
@@ -130,7 +130,7 @@ function ItemEnd({ presentation }: { presentation: TransactionPresentation }) {
     if (!assetEffect) return null;
 
     if (assetEffect.type === 'nft') {
-        const content = assetEffect.symbol || <LinkIcon width={16} height={16} className="text-second shrink-0" />;
+        const content = assetEffect.symbol || <LinkIcon width={16} height={16} className="shrink-0 text-second" />;
         if (assetEffect.explorerUrl) {
             return (
                 <a
@@ -192,7 +192,7 @@ function TransactionHistoryTokenItem({ presentation }: { presentation: Transacti
                     symbol={icon.receivedToken.token.symbol}
                     name={icon.receivedToken.token.name}
                 />
-                <div className="z-1 absolute -right-2 bottom-0 w-[14px] rounded-full bg-white p-px">
+                <div className="absolute -right-2 bottom-0 z-1 w-[14px] rounded-full bg-white p-px">
                     <ChainIcon size={12} networkType={networkType} chainId={chainId} />
                 </div>
             </div>
@@ -202,7 +202,7 @@ function TransactionHistoryTokenItem({ presentation }: { presentation: Transacti
     if (icon.type === 'document') {
         return (
             <span className="relative" style={{ width: 30, height: 30 }}>
-                <span className="bg-main text-primaryBottom flex size-[30px] items-center justify-center rounded-full">
+                <span className="flex size-[30px] items-center justify-center rounded-full bg-main text-primaryBottom">
                     <FileTextIcon size={16} />
                 </span>
                 {!isSolana && chainId ? (
@@ -236,7 +236,7 @@ function TransactionHistorySubTitle({ presentation }: { presentation: Transactio
 
     if (subtitle.type === 'plain-address') {
         return (
-            <div className="text-second text-[13px] font-medium lowercase leading-[18px]">
+            <div className="text-[13px] font-medium lowercase leading-[18px] text-second">
                 <div>{formatSubtitleAddress(subtitle.address)}</div>
             </div>
         );
@@ -244,7 +244,7 @@ function TransactionHistorySubTitle({ presentation }: { presentation: Transactio
 
     if (subtitle.type === 'on-project') {
         return (
-            <div className="text-second text-[13px] font-medium leading-[18px]">
+            <div className="text-[13px] font-medium leading-[18px] text-second">
                 {subtitle.projectName ? (
                     <Trans>on {subtitle.projectName}</Trans>
                 ) : (
@@ -256,7 +256,7 @@ function TransactionHistorySubTitle({ presentation }: { presentation: Transactio
 
     if (subtitle.type === 'via-project') {
         return (
-            <div className="text-second text-[13px] font-medium leading-[18px]">
+            <div className="text-[13px] font-medium leading-[18px] text-second">
                 {subtitle.projectName ? (
                     <Trans>via {subtitle.projectName}</Trans>
                 ) : (
@@ -268,7 +268,7 @@ function TransactionHistorySubTitle({ presentation }: { presentation: Transactio
 
     if (subtitle.type === 'with-address') {
         return (
-            <div className="text-second text-[13px] font-medium leading-[18px]">
+            <div className="text-[13px] font-medium leading-[18px] text-second">
                 <Trans>
                     With <span className="lowercase">{subtitle.text ?? '--'}</span>
                 </Trans>
@@ -278,7 +278,7 @@ function TransactionHistorySubTitle({ presentation }: { presentation: Transactio
 
     if (subtitle.type === 'to-address') {
         return (
-            <div className="text-second text-[13px] font-medium leading-[18px]">
+            <div className="text-[13px] font-medium leading-[18px] text-second">
                 <Trans>
                     To <span className="lowercase">{subtitle.text ?? '--'}</span>
                 </Trans>
@@ -287,7 +287,7 @@ function TransactionHistorySubTitle({ presentation }: { presentation: Transactio
     }
 
     return (
-        <div className="text-second text-[13px] font-medium leading-[18px]">
+        <div className="text-[13px] font-medium leading-[18px] text-second">
             <Trans>
                 From <span className="lowercase">{subtitle.text ?? '--'}</span>
             </Trans>

@@ -54,9 +54,9 @@ export const ToggleMutedButton = memo(function ToggleMutedButton({
         <ClickableButton
             ref={hoverRef}
             className={classNames(
-                'border-danger text-medium flex h-8 items-center justify-center rounded-full font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-full border-danger text-medium font-semibold transition-all',
                 buttonState === MuteLabel.Muted ? 'border' : '',
-                buttonState === MuteLabel.Unmute ? 'border-danger border border-opacity-50' : '',
+                buttonState === MuteLabel.Unmute ? 'border border-danger border-opacity-50' : '',
                 isMuted ? 'bg-danger text-white' : 'text-danger',
                 className,
                 variantClassName,

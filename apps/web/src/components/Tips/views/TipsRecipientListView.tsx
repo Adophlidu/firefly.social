@@ -35,7 +35,7 @@ export function TipsRecipientListView() {
     return (
         <>
             <div className="no-scrollbar h-full overflow-y-auto">
-                <div className="border-warn text-warn flex items-center gap-3 rounded-2xl border p-3">
+                <div className="flex items-center gap-3 rounded-2xl border border-warn p-3 text-warn">
                     <WarnIcon width={24} height={24} className="shrink-0" />
                     <p className="text-left text-[13px] font-medium leading-5">
                         <Trans>Associated wallet may be outdated or inaccurate. Please verify before sending.</Trans>
@@ -50,39 +50,39 @@ export function TipsRecipientListView() {
                         return (
                             <ClickableButton
                                 key={recipient.address}
-                                className="text-main hover:bg-lightBg flex w-full cursor-pointer items-center gap-x-3 rounded-lg px-3 py-2"
+                                className="flex w-full cursor-pointer items-center gap-x-3 rounded-lg px-3 py-2 text-main hover:bg-lightBg"
                                 onClick={() => handleSelectRecipient(recipient)}
                             >
                                 <RecipientAvatar recipient={recipient} />
                                 <div className="min-w-0 flex-1">
                                     {!recipient.ens ? (
-                                        <div className="text-medium text-main break-all text-left font-medium">
+                                        <div className="break-all text-left text-medium font-medium text-main">
                                             {recipient.address}
                                             {recipient.isDefault ? (
-                                                <span className="text-highlight ml-1 inline-flex h-4 -translate-y-0.5 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                                                <span className="ml-1 inline-flex h-4 -translate-y-0.5 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                                     <Trans>Primary</Trans>
                                                 </span>
                                             ) : null}
                                             {isFireflyWallet ? (
-                                                <span className="text-highlight ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                                                <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                                     <SmallFireflyAvatar width={13} height={13} />
                                                 </span>
                                             ) : null}
                                         </div>
                                     ) : (
                                         <div className="flex flex-col items-start text-left">
-                                            <span className="text-medium text-main font-bold">{recipient.ens}</span>
+                                            <span className="text-medium font-bold text-main">{recipient.ens}</span>
                                             <div className="flex items-center">
-                                                <span className="text-second text-[13px]">
+                                                <span className="text-[13px] text-second">
                                                     {formatAddress(recipient.address, 4)}
                                                 </span>
                                                 {recipient.isDefault ? (
-                                                    <span className="text-highlight ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                                                    <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                                         <Trans>Primary</Trans>
                                                     </span>
                                                 ) : null}
                                                 {isFireflyWallet ? (
-                                                    <span className="text-highlight ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium">
+                                                    <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                                         <SmallFireflyAvatar width={13} height={13} />
                                                     </span>
                                                 ) : null}

@@ -50,7 +50,7 @@ export function SignupModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div className="bg-primaryBottom relative flex h-screen w-screen flex-col transition-all md:h-[500px] md:w-[400px] md:max-w-[90vw] md:rounded-xl">
+            <div className="relative flex h-screen w-screen flex-col bg-primaryBottom transition-all md:h-[500px] md:w-[400px] md:max-w-[90vw] md:rounded-xl">
                 <ModalTitle
                     className="!py-3"
                     onClose={onClose}

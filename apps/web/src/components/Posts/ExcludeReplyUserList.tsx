@@ -38,7 +38,7 @@ function ExcludeReplyUserListItem({
         >
             <Avatar src={profile.pfp} size={20} alt={profile.profileId} />
             <span className="ml-2 min-w-0 truncate">{profile.displayName}</span>
-            <span className="text-second ml-1 mr-auto min-w-0 truncate">@{profile.handle}</span>
+            <span className="ml-1 mr-auto min-w-0 truncate text-second">@{profile.handle}</span>
             <CircleCheckboxIcon
                 checked={checked}
                 className={classNames('ml-1 shrink-0', {
@@ -60,12 +60,12 @@ function ExcludeReplyUserList({ post, profiles, excluded = EMPTY_LIST, onClickPr
     const otherProfiles = profiles.filter((profile) => !isSameProfile(profile, post.author));
     return (
         <div className="flex flex-col gap-2">
-            <h4 className="text-medium py-1 font-bold leading-5">
+            <h4 className="py-1 text-medium font-bold leading-5">
                 <Trans>Replying to</Trans>
             </h4>
             <ExcludeReplyUserListItem profile={post.author} checked disabled />
             {otherProfiles.length > 0 ? (
-                <h4 className="text-medium py-1 font-bold leading-5">
+                <h4 className="py-1 text-medium font-bold leading-5">
                     <Trans>Others in the conversation</Trans>
                 </h4>
             ) : null}
@@ -97,7 +97,7 @@ export function ExcludeReplyUserListModal({
     if (isMedium) {
         return (
             <Popover>
-                <Popover.Button className="text-main flex cursor-pointer gap-1 focus:outline-none">
+                <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none">
                     {children}
                 </Popover.Button>
                 <Popover.Panel
@@ -105,7 +105,7 @@ export function ExcludeReplyUserListModal({
                     anchor="bottom start"
                     className="fixed bottom-full left-0 z-50 translate-y-1 transition duration-200 ease-in-out data-[closed]:-translate-y-1 data-[closed]:opacity-0"
                 >
-                    <div className="bg-lightBottom text-main shadow-popover dark:border-line dark:bg-darkBottom w-[280px] rounded-lg p-3 dark:border dark:shadow-none">
+                    <div className="w-[280px] rounded-lg bg-lightBottom p-3 text-main shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
                         <ExcludeReplyUserList {...props} />
                     </div>
                 </Popover.Panel>

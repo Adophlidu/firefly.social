@@ -53,8 +53,8 @@ export const OrderBookHeader = memo<OrderBookHeaderProps>(function OrderBookHead
 
     return (
         <div className="mb-3 flex min-w-0 items-center justify-between gap-2">
-            <div className="text-second flex min-w-0 flex-1 items-center">
-                <span className="text-main mr-1 min-w-0 truncate text-sm font-semibold">
+            <div className="flex min-w-0 flex-1 items-center text-second">
+                <span className="mr-1 min-w-0 truncate text-sm font-semibold text-main">
                     <Trans>Trade {outcomeLabel || '-'}</Trans>
                 </span>
                 <IconButton disabled={loading} tooltip={<Trans>Toggle trade view</Trans>} onClick={onToggleOutcome}>
@@ -74,11 +74,11 @@ export const OrderBookHeader = memo<OrderBookHeaderProps>(function OrderBookHead
                 </IconButton>
                 {showSpreadSetting ? (
                     <ClickableButton
-                        className="bg-lightBg flex h-[22px] items-center gap-1 rounded-full px-2"
+                        className="flex h-[22px] items-center gap-1 rounded-full bg-lightBg px-2"
                         disabled={loading}
                         onClick={onToggleSpread}
                     >
-                        <span className="text-second text-xs font-medium">
+                        <span className="text-xs font-medium text-second">
                             <Trans>Spread {spread}¢</Trans>
                         </span>
                         <SwitchIcon width={12} height={12} className="text-main" />

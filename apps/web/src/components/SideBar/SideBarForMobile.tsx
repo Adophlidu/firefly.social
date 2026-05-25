@@ -29,7 +29,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="bg-main/25 fixed inset-0 bg-opacity-30" />
+                    <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
                 </Transition.Child>
 
                 <div
@@ -49,7 +49,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                             leaveTo="-translate-x-full"
                         >
                             <div className="relative z-50 flex w-[280px] flex-col bg-white dark:bg-black">
-                                <div className="border-line flex grow flex-col gap-y-4 border-r px-3">
+                                <div className="flex grow flex-col gap-y-4 border-r border-line px-3">
                                     <div className="-ml-2 flex h-16 shrink-0 items-center">
                                         {isDarkMode ? (
                                             <DarkLogo width={169} height={80} />

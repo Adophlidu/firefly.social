@@ -18,7 +18,7 @@ export function ImageLoader({ src }: ImageLoaderProps) {
     const [failed, setFailed] = useState(false);
 
     return (
-        <div className="bg-bg relative flex h-[156px] w-full items-center justify-center rounded-md">
+        <div className="relative flex h-[156px] w-full items-center justify-center rounded-md bg-bg">
             {!failed ? (
                 <Image
                     alt="poster"
@@ -35,7 +35,7 @@ export function ImageLoader({ src }: ImageLoaderProps) {
                 <Image src={isDark ? MASK_DARK_FALLBACK : MASK_LIGHT_FALLBACK} width={60} height={60} alt="mask" />
             )}
             {!loaded && !failed ? (
-                <div className="text-main absolute left-1/2 top-1/2">
+                <div className="absolute left-1/2 top-1/2 text-main">
                     <LoadingIcon size={20} />
                 </div>
             ) : null}

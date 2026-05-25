@@ -18,8 +18,8 @@ export const ToggleChartTypeButtons = memo(function ToggleChartTypeButtons() {
             <ClickableButton
                 onClick={() => setChartType(PredictionChartType.RatioLine)}
                 className={classNames(
-                    'hover:text-highlight hover:bg-highlight/10 flex size-[30px] items-center justify-center rounded-md',
-                    chartType === PredictionChartType.RatioLine ? 'text-highlight bg-highlight/10' : 'text-second',
+                    'flex size-[30px] items-center justify-center rounded-md hover:bg-highlight/10 hover:text-highlight',
+                    chartType === PredictionChartType.RatioLine ? 'bg-highlight/10 text-highlight' : 'text-second',
                 )}
             >
                 <ChartIcon />

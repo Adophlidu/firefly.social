@@ -11,7 +11,7 @@ export function DownloadMobileAppContent() {
     return (
         <div className="px-6 pb-6">
             <div className="mx-auto mt-0 flex max-w-60 flex-col items-center gap-4">
-                <p className="text-second text-sm">
+                <p className="text-sm text-second">
                     <Trans>Scan the QR code with your phone to download the app</Trans>
                 </p>
                 <div className="relative rounded-lg bg-white p-3">
@@ -20,7 +20,7 @@ export function DownloadMobileAppContent() {
                         <FireflyLogo width={28} height={36} />
                     </div>
                 </div>
-                <span className="text-second text-sm">
+                <span className="text-sm text-second">
                     <Trans>or</Trans>
                 </span>
             </div>

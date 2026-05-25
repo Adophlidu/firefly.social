@@ -38,7 +38,7 @@ const DrawerOverlay = React.forwardRef<
     <DrawerPrimitive.Overlay
         ref={ref}
         className={cn(
-            'bg-main/25 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm',
+            'fixed inset-0 z-50 bg-main/25 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
             className,
         )}
         {...props}
@@ -58,7 +58,7 @@ const DrawerContent = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.C
                 ref={ref}
                 data-vaul-custom-container="true"
                 className={cn(
-                    'bg-lightBottom data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom-1/4 dark:bg-darkBottom fixed inset-x-0 bottom-0 z-50 mt-12 flex max-h-[92svh] flex-col overflow-hidden rounded-t-xl shadow-lg transition ease-out sm:rounded-t-2xl',
+                    'fixed inset-x-0 bottom-0 z-50 mt-12 flex max-h-[92svh] flex-col overflow-hidden rounded-t-xl bg-lightBottom shadow-lg transition ease-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom-1/4 dark:bg-darkBottom sm:rounded-t-2xl',
                     className,
                 )}
                 {...props}
@@ -88,7 +88,7 @@ function DrawerHeader({
     return (
         <div
             className={cn(
-                'bg-lightBottom dark:bg-darkBottom sticky top-0 z-20 flex w-full flex-row-reverse items-center justify-between py-6 text-center sm:text-left',
+                'sticky top-0 z-20 flex w-full flex-row-reverse items-center justify-between bg-lightBottom py-6 text-center dark:bg-darkBottom sm:text-left',
                 className,
             )}
             {...props}
@@ -98,7 +98,7 @@ function DrawerHeader({
                 <DrawerPrimitive.Close asChild>
                     <button
                         type="button"
-                        className="dark:hover:bg-darkBg text-main hover:bg-lightBg focus-visible:ring-main rounded p-1 outline-none transition focus-visible:ring-2 focus-visible:ring-offset-2"
+                        className="dark:hover:bg-darkBg rounded p-1 text-main outline-none transition hover:bg-lightBg focus-visible:ring-2 focus-visible:ring-main focus-visible:ring-offset-2"
                     >
                         <CloseIcon className="size-6" />
                         <span className="sr-only">Close</span>

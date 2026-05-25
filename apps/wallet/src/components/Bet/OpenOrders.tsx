@@ -109,7 +109,7 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
         <div className="w-full space-y-3 p-4">
             <button type="button" className="w-full space-y-3 text-left" onClick={navigateToDetail}>
                 <div className="flex w-full items-center gap-2">
-                    <div className="bg-lightBg size-6 min-w-0 shrink-0 overflow-hidden rounded-md">
+                    <div className="size-6 min-w-0 shrink-0 overflow-hidden rounded-md bg-lightBg">
                         <Image
                             width={24}
                             height={24}
@@ -119,7 +119,7 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
                             className="size-full object-cover"
                         />
                     </div>
-                    <div className="text-main line-clamp-2 min-w-0 text-sm font-semibold leading-5">{marketLabel}</div>
+                    <div className="line-clamp-2 min-w-0 text-sm font-semibold leading-5 text-main">{marketLabel}</div>
                 </div>
 
                 <div className="w-full space-y-2">
@@ -129,29 +129,29 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
                                 <span className="capitalize">{sideLabel}</span>-
                                 <span className={cn(isSell ? 'text-danger' : 'text-success')}>{outcome}</span>
                             </div>
-                            <div className="text-second text-xs leading-4">
+                            <div className="text-xs leading-4 text-second">
                                 <Trans>Outcome</Trans>
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <div className="text-main text-sm font-semibold leading-5">
+                            <div className="text-sm font-semibold leading-5 text-main">
                                 {formatTokenUSD(totalUsd, { minDisplay: 0.01 })}
                             </div>
-                            <div className="text-second text-xs leading-4">
+                            <div className="text-xs leading-4 text-second">
                                 <Trans>Total</Trans>
                             </div>
                         </div>
                     </div>
                     <div className="grid w-full grid-cols-2 gap-2">
                         <div className="flex flex-col">
-                            <div className="text-main text-sm font-semibold leading-5">{priceText}</div>
-                            <div className="text-second text-xs leading-4">
+                            <div className="text-sm font-semibold leading-5 text-main">{priceText}</div>
+                            <div className="text-xs leading-4 text-second">
                                 <Trans>Price</Trans>
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <div className="text-main text-sm font-semibold leading-5">{sharesText}</div>
-                            <div className="text-second text-xs leading-4">
+                            <div className="text-sm font-semibold leading-5 text-main">{sharesText}</div>
+                            <div className="text-xs leading-4 text-second">
                                 <Trans>Shares</Trans>
                             </div>
                         </div>
@@ -164,7 +164,7 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
                     type="button"
                     variant="outline"
                     size="lg"
-                    className={cn('border-third text-main h-10 w-full rounded-[10px] active:scale-[0.99]')}
+                    className={cn('h-10 w-full rounded-[10px] border-third text-main active:scale-[0.99]')}
                 >
                     <Trans>Cancel</Trans>
                 </Button>
@@ -225,12 +225,12 @@ function CancelPolymarketOrderModal({
             <DialogOrDrawerTrigger asChild>{children}</DialogOrDrawerTrigger>
             <DialogOrDrawerContent>
                 <div className="flex w-full items-center justify-between py-6">
-                    <DialogOrDrawerTitle className="text-main text-left text-xl font-semibold leading-6">
+                    <DialogOrDrawerTitle className="text-left text-xl font-semibold leading-6 text-main">
                         <Trans>Cancel order?</Trans>
                     </DialogOrDrawerTitle>
                 </div>
 
-                <div className="text-main w-full text-left text-base font-medium leading-5">
+                <div className="w-full text-left text-base font-medium leading-5 text-main">
                     <Trans>
                         Are you sure you want to cancel this order?
                         <br />
@@ -243,7 +243,7 @@ function CancelPolymarketOrderModal({
                         <Button
                             variant="outline"
                             size="lg"
-                            className="border-main text-main h-12 w-full rounded-full"
+                            className="h-12 w-full rounded-full border-main text-main"
                             disabled={isPending}
                         >
                             <Trans>Skip</Trans>

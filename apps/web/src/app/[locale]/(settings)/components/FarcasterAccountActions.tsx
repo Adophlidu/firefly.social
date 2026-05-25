@@ -26,9 +26,9 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
             button={
                 <motion.div
                     whileTap={{ scale: 0.9 }}
-                    className="hover:bg-link/[0.2] hover:text-link inline-flex size-5 items-center justify-center rounded-full"
+                    className="inline-flex size-5 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"
                 >
-                    <MoreIcon width={20} height={20} className="text-second size-5 shrink-0" />
+                    <MoreIcon width={20} height={20} className="size-5 shrink-0 text-second" />
                 </motion.div>
             }
             loginRequired={false}
@@ -44,7 +44,7 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
                                 close();
                             }}
                         >
-                            <span className="text-main flex items-center gap-2 font-bold leading-[22px]">
+                            <span className="flex items-center gap-2 font-bold leading-[22px] text-main">
                                 <WalletBoldIcon className="size-[18px]" />
                                 <Trans>Verified addresses</Trans>
                             </span>
@@ -62,7 +62,7 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
                                     });
                                 }}
                             >
-                                <span className="text-main flex items-center gap-2 font-bold leading-[22px]">
+                                <span className="flex items-center gap-2 font-bold leading-[22px] text-main">
                                     <SecurityIcon className="size-[18px]" />
                                     <Trans>Export recovery phrase</Trans>
                                 </span>

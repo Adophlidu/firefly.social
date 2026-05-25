@@ -882,7 +882,7 @@ export function TransactionAssetRowLabel({ label }: { label: TransactionAssetLab
 }
 
 export function TransactionContractFallbackIcon() {
-    return <ClipboardTextIcon className="text-secondary size-3" />;
+    return <ClipboardTextIcon className="size-3 text-secondary" />;
 }
 
 export function TransactionProjectLogo({ src, alt }: { src: string; alt?: string }) {

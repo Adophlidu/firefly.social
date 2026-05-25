@@ -123,17 +123,17 @@ export const FollowButton = memo(function FollowButton({
             watching={watching}
             profile={profile}
             className={classNames(
-                'text-medium flex h-8 items-center justify-center rounded-lg font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-lg text-medium font-semibold transition-all',
                 variantClassName,
                 className,
                 {
                     'bg-main text-primaryBottom hover:opacity-80': buttonState === State.Follow,
-                    'text-lightMain border border-current': buttonState === State.Following,
-                    'border-danger bg-danger text-danger border border-opacity-50 bg-opacity-20':
+                    'border border-current text-lightMain': buttonState === State.Following,
+                    'border border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger':
                         buttonState === State.Unfollow,
                     [followButtonClassName]: buttonState === State.Follow,
                     [followingButtonClassName]: buttonState === State.Following,
-                    'text-main border border-opacity-50 bg-opacity-20': buttonState === State.FollowPending,
+                    'border border-opacity-50 bg-opacity-20 text-main': buttonState === State.FollowPending,
                 },
             )}
             {...rest}

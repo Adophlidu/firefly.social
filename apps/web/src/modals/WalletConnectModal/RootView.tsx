@@ -21,8 +21,8 @@ export function RootView() {
     const title = contextTitle ?? <Trans>Connect Wallet</Trans>;
 
     return (
-        <div className="bg-lightBottom text-medium text-lightMain shadow-popover dark:bg-darkBottom relative flex max-h-[70vh] w-[80vw] max-w-[400px] flex-col rounded-md transition-all max-md:size-full max-md:max-h-screen max-md:max-w-[100vw] md:rounded-xl">
-            <h3 className="pt-safe relative h-14 shrink-0">
+        <div className="relative flex max-h-[70vh] w-[80vw] max-w-[400px] flex-col rounded-md bg-lightBottom text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom max-md:size-full max-md:max-h-screen max-md:max-w-[100vw] md:rounded-xl">
+            <h3 className="relative h-14 shrink-0 pt-safe">
                 {isMain || isFinalView ? (
                     <CloseButton onClick={() => WalletConnectModalRef.close()} className="absolute left-4 top-4" />
                 ) : (
@@ -33,7 +33,7 @@ export function RootView() {
                         }}
                     />
                 )}
-                <span className="text-main flex size-full items-center justify-center text-lg font-bold">{title}</span>
+                <span className="flex size-full items-center justify-center text-lg font-bold text-main">{title}</span>
             </h3>
             <div
                 className={classNames(
@@ -43,7 +43,7 @@ export function RootView() {
             >
                 <Outlet />
                 {loading ? (
-                    <div className="bg-lightBottom dark:bg-darkBottom absolute inset-0 flex min-h-10 items-center justify-center">
+                    <div className="absolute inset-0 flex min-h-10 items-center justify-center bg-lightBottom dark:bg-darkBottom">
                         <LoadingIcon />
                     </div>
                 ) : null}

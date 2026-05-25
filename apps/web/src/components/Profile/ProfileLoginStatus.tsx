@@ -20,7 +20,7 @@ interface ProfileLoginStatusProps extends HTMLProps<HTMLDivElement> {
 }
 
 function getButtonClassName(...rest: string[]) {
-    return classNames('text-medium h-8 rounded-lg px-5 font-bold leading-[30px]', ...rest);
+    return classNames('h-8 rounded-lg px-5 text-medium font-bold leading-[30px]', ...rest);
 }
 
 export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStatusProps) {

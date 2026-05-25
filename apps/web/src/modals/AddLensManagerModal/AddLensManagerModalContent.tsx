@@ -60,14 +60,14 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
 
     return (
         <div>
-            <div className="border-lightLineSecond flex w-full items-center gap-2 rounded-lg border p-2">
+            <div className="flex w-full items-center gap-2 rounded-lg border border-lightLineSecond p-2">
                 <ProfileAvatar profile={profile} size={40} enableSourceIcon={false} />
                 <div className="min-w-0 flex-1 text-left">
-                    <p className="text-main truncate text-sm font-bold">{profile.displayName}</p>
-                    <p className="text-second truncate text-sm">@{profile.handle}</p>
+                    <p className="truncate text-sm font-bold text-main">{profile.displayName}</p>
+                    <p className="truncate text-sm text-second">@{profile.handle}</p>
                 </div>
             </div>
-            <p className="text-medium text-second mt-2 py-1 text-center font-medium">
+            <p className="mt-2 py-1 text-center text-medium font-medium text-second">
                 <Trans>
                     Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login.
                 </Trans>
@@ -75,7 +75,7 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
             <ClickableButton
                 loading={loading}
                 onClick={bindManager}
-                className="bg-main text-medium text-primaryBottom mt-2 h-10 w-full rounded-lg font-bold leading-10"
+                className="mt-2 h-10 w-full rounded-lg bg-main text-medium font-bold leading-10 text-primaryBottom"
             >
                 <Trans>Sign to Authorize</Trans>
             </ClickableButton>

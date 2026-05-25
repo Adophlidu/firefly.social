@@ -69,12 +69,12 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         <CollectionMore chainId={chainId} address={address} externalUrl={externalUrl} />
                     </div>
                     {address ? (
-                        <div className="text-secondary flex items-center gap-1 text-[14px] leading-[14px]">
+                        <div className="flex items-center gap-1 text-[14px] leading-[14px] text-secondary">
                             <ChainIcon className="shrink-0" chainId={chainId} size={14} />
                             <span className="min-w-0 truncate">{isMedium ? address : formatAddress(address, 4)}</span>
                             <CopyTextButton size={14} text={address} />
                             <a className="size-3.5" href={resolveAddressLink(chainId, address)} target="_blank">
-                                <LinkIcon className="text-secondary size-3.5" />
+                                <LinkIcon className="size-3.5 text-secondary" />
                             </a>
                         </div>
                     ) : null}
@@ -89,7 +89,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         ) : null}
                         {ownerCount ? (
                             <>
-                                <div className="text-secondary mx-2 w-3">·</div>
+                                <div className="mx-2 w-3 text-secondary">·</div>
                                 <div>
                                     <div className="font-bold">{nFormatter(ownerCount)}</div>
                                     <div className="text-secondary">
@@ -100,7 +100,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         ) : null}
                         {volume24h ? (
                             <>
-                                <div className="text-secondary mx-2 w-3">·</div>
+                                <div className="mx-2 w-3 text-secondary">·</div>
                                 <div>
                                     <div className="font-bold">{volume24h}</div>
                                     <div className="text-secondary">
@@ -111,7 +111,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         ) : null}
                         {floorPrice ? (
                             <>
-                                <div className="text-secondary mx-2 w-3">·</div>
+                                <div className="mx-2 w-3 text-secondary">·</div>
                                 <div>
                                     <div className="font-bold">{floorPrice}</div>
                                     <div className="text-secondary">

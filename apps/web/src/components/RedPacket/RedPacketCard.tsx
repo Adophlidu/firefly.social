@@ -16,7 +16,7 @@ interface Props {
 export function RedPacketCard(props: Props) {
     return (
         <div
-            className="text-lightTextMain relative my-2 flex min-h-[282px] flex-col gap-3 rounded-2xl p-3 md:min-h-[398px]"
+            className="relative my-2 flex min-h-[282px] flex-col gap-3 rounded-2xl p-3 text-lightTextMain md:min-h-[398px]"
             style={{
                 background:
                     'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%), linear-gradient(90deg, rgba(28, 104, 243, 0.2) 0%, rgba(249, 55, 55, 0.2) 100%), #FFFFFF',

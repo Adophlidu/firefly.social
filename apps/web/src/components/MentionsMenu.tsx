@@ -77,7 +77,7 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                             data-focus={false}
                             data-autofocus={false}
                             as="span"
-                            className="border-secondaryLine text-highlight inline-flex cursor-pointer items-center gap-2 rounded-full border bg-white py-1 pl-1 pr-[6px] leading-4 dark:bg-black"
+                            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-secondaryLine bg-white py-1 pl-1 pr-[6px] leading-4 text-highlight dark:bg-black"
                             onMouseEnter={(e) => e.currentTarget.click()}
                         >
                             <span className="flex items-center -space-x-1">
@@ -107,14 +107,14 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                             onMouseLeave={() => close()}
                         >
                             <div className="w-full pt-2">
-                                <div className="bg-primaryBottom shadow-messageShadow flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] px-2 py-3">
+                                <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom px-2 py-3 shadow-messageShadow">
                                     {profiles
                                         .filter((x) => x.platform !== FireflyPlatform.Wallet && !!x.handle)
                                         .map(({ platform, handle, platform_id }) => {
                                             return (
                                                 <MenuItem key={platform_id}>
                                                     <span
-                                                        className="cross-at-edit-item hover:bg-secondaryBottom group flex w-[192px] cursor-pointer items-center justify-between p-2"
+                                                        className="cross-at-edit-item group flex w-[192px] cursor-pointer items-center justify-between p-2 hover:bg-secondaryBottom"
                                                         onClick={() => handleEdit(close)}
                                                     >
                                                         <span className="flex max-w-[75%] items-center gap-[6px] overflow-hidden">
@@ -127,11 +127,11 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                                                                 size={16}
                                                                 className="min-w-4"
                                                             />
-                                                            <span className="text-main truncate text-sm leading-[18px]">
+                                                            <span className="truncate text-sm leading-[18px] text-main">
                                                                 @{handle}
                                                             </span>
                                                         </span>
-                                                        <EditProfileIcon className="cross-at-edit text-main hidden size-4 group-hover:block" />
+                                                        <EditProfileIcon className="cross-at-edit hidden size-4 text-main group-hover:block" />
                                                     </span>
                                                 </MenuItem>
                                             );

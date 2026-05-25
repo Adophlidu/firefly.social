@@ -108,7 +108,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
 
     return (
         <ClickableArea
-            className={classNames('text-second mt-2 flex items-center justify-between', className, {
+            className={classNames('mt-2 flex items-center justify-between text-second', className, {
                 'pl-[52px]': !disablePadding,
             })}
         >
@@ -145,7 +145,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     return (
         <footer
-            className={classNames('text-second mt-2 text-xs', className, {
+            className={classNames('mt-2 text-xs text-second', className, {
                 'pl-[52px]': !noLeftPadding,
             })}
             {...rest}

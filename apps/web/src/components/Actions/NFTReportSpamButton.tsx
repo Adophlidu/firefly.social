@@ -23,7 +23,7 @@ export function NFTReportSpamButton({ chainId, address, onClick, ...rest }: Prop
             }}
         >
             <FlagIcon width={18} height={18} />
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 <Trans>Report spam</Trans>
             </span>
         </MenuButton>

@@ -46,7 +46,7 @@ export const OpenOrderItem = memo<OpenOrderItemProps>(function OpenOrderItem({ o
     }, [order.id, order.maker_address]);
 
     return (
-        <div className="border-line flex flex-col items-center gap-3 rounded-xl border p-3 md:flex-row">
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-line p-3 md:flex-row">
             <div className="flex w-full flex-1 items-center gap-1">
                 <div className="flex min-w-0 flex-1 flex-col">
                     <span
@@ -57,31 +57,31 @@ export const OpenOrderItem = memo<OpenOrderItemProps>(function OpenOrderItem({ o
                     >
                         {order.outcome}
                     </span>
-                    <span className="text-second text-xs">{orderSide}</span>
+                    <span className="text-xs text-second">{orderSide}</span>
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col">
-                    <span className="text-main w-full truncate text-sm font-semibold">
+                    <span className="w-full truncate text-sm font-semibold text-main">
                         {formatPriceToCents(order.price)}
                     </span>
-                    <span className="text-second text-xs">
+                    <span className="text-xs text-second">
                         <Trans>Price</Trans>
                     </span>
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col">
-                    <span className="text-main w-full truncate text-sm font-semibold">{sharesText}</span>
-                    <span className="text-second text-xs">
+                    <span className="w-full truncate text-sm font-semibold text-main">{sharesText}</span>
+                    <span className="text-xs text-second">
                         <Trans>Shares</Trans>
                     </span>
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col items-end md:items-start">
-                    <span className="text-main w-full truncate text-sm font-semibold">{formatTokenUSD(totalUsd)}</span>
-                    <span className="text-second text-xs">
+                    <span className="w-full truncate text-sm font-semibold text-main">{formatTokenUSD(totalUsd)}</span>
+                    <span className="text-xs text-second">
                         <Trans>Total</Trans>
                     </span>
                 </div>
             </div>
             <ClickableButton
-                className="bg-bg text-main h-8 w-full shrink-0 rounded-lg px-4 text-xs font-semibold md:w-auto md:min-w-20"
+                className="h-8 w-full shrink-0 rounded-lg bg-bg px-4 text-xs font-semibold text-main md:w-auto md:min-w-20"
                 loading={loading}
                 onlyLoading
                 onClick={cancelOrder}

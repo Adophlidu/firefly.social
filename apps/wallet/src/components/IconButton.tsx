@@ -17,7 +17,7 @@ interface IconButtonProps extends ClickableButtonProps {
 
 export const IconButton = memo(function IconButton({ size = 24, tooltip, children, ref, ...props }: IconButtonProps) {
     const Button = (
-        <ClickableButton {...props} className={cn('hover:bg-lightBg rounded p-1', props.className)}>
+        <ClickableButton {...props} className={cn('rounded p-1 hover:bg-lightBg', props.className)}>
             {children}
         </ClickableButton>
     );

@@ -134,9 +134,9 @@ export function NotificationSettings({ source }: { source: NotificationSource })
     return (
         <Popover className="relative flex items-center justify-center">
             <PopoverButton className="p-2 outline-none">
-                <FilterIcon className="text-secondary size-6 shrink-0" width={24} height={24} />
+                <FilterIcon className="size-6 shrink-0 text-secondary" width={24} height={24} />
             </PopoverButton>
-            <PopoverPanel className="bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom absolute right-0 top-10 z-50 flex min-w-[320px] flex-col gap-2 rounded-lg">
+            <PopoverPanel className="absolute right-0 top-10 z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom">
                 <div className={'flex flex-col gap-4 p-4'}>
                     {source !== Source.Twitter ? (
                         <div className="flex justify-between">

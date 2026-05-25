@@ -46,7 +46,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
 
     return (
         <div className="min-h-screen">
-            <div className="bg-primaryBottom sticky top-0 z-40 flex items-center px-4 py-[18px]">
+            <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
                 <Comeback className="mr-8" />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>
@@ -75,7 +75,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                     />
                 ) : null}
                 {!isMuted ? <div className="line-clamp-5 text-2xl font-semibold">{article.title}</div> : null}
-                <div className="border-line my-5 mt-2 border-b">
+                <div className="my-5 mt-2 border-b border-line">
                     <ArticleHeader article={article} className="items-center pb-2" />
                 </div>
                 {isMuted ? (
@@ -152,7 +152,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                 ) : (
                     <ArticleMarkup
                         linkProps={{ sourceLink: article.origin }}
-                        className="markup linkify text-medium break-words"
+                        className="markup linkify break-words text-medium"
                         imageProps={{ disableLoadHandler: true, style: { objectFit: 'cover' } }}
                     >
                         {article.content}
@@ -162,7 +162,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                     {articleOrigin ? (
                         <Link
                             href={articleOrigin}
-                            className="text-link flex items-center gap-1 text-xs hover:underline"
+                            className="flex items-center gap-1 text-xs text-link hover:underline"
                             rel="noreferrer noopener"
                             target="_blank"
                             onClick={handleViewSourceClick}

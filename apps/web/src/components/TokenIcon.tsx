@@ -78,7 +78,7 @@ export const TokenIcon = memo(function TokenIcon({
             ) : (
                 <span
                     className={classNames(
-                        'bg-main text-primaryBottom flex items-center justify-center rounded-full font-semibold',
+                        'flex items-center justify-center rounded-full bg-main font-semibold text-primaryBottom',
                         size < 30 ? 'text-sm' : 'text-xl',
                     )}
                     style={{

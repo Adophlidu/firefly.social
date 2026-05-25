@@ -42,7 +42,7 @@ export const StepHeaderDescription = memo<StepDescriptionProps>(function StepDes
     };
 
     const description = descriptions[`${workflow}-${step}`];
-    return description ? <p className="text-medium text-second leading-[18px]">{description}</p> : null;
+    return description ? <p className="text-medium leading-[18px] text-second">{description}</p> : null;
 });
 
 export const StepFooterDescription = memo<StepDescriptionProps>(function StepDescription({
@@ -68,5 +68,5 @@ export const StepFooterDescription = memo<StepDescriptionProps>(function StepDes
         [`${PasswordWorkflow.Verify}-${PasswordStep.VerifyPassword}`]: forgetPasswordDescription,
     };
     const description = descriptions[`${workflow}-${step}`];
-    return description ? <p className="text-medium text-second leading-[18px]">{description}</p> : null;
+    return description ? <p className="text-medium leading-[18px] text-second">{description}</p> : null;
 });

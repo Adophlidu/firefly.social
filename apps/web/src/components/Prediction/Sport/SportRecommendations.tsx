@@ -22,12 +22,12 @@ export const SportRecommendations = memo(function SportRecommendations({ events 
 
     return (
         <div className="px-4">
-            <h3 className="text-lightMain mb-3 text-sm font-semibold">
+            <h3 className="mb-3 text-sm font-semibold text-lightMain">
                 <Trans>You might like</Trans>
             </h3>
             <div className="flex flex-col gap-3">
                 {formattedEvents.map((event) => (
-                    <div key={event.id} className="border-line rounded-xl border p-3">
+                    <div key={event.id} className="rounded-xl border border-line p-3">
                         <SportActivityCell event={event} />
                     </div>
                 ))}

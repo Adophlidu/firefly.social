@@ -86,7 +86,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         <MenuItem>
                             {({ close }) => (
                                 <Tips
-                                    className="!text-main hover:bg-bg px-3 py-1"
+                                    className="px-3 py-1 !text-main hover:bg-bg"
                                     identity={identity}
                                     handle={ens}
                                     tooltipDisabled

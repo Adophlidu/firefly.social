@@ -31,19 +31,19 @@ export const PostBodyModeration = memo(function PostBodyModeration(props: PostBo
                 'pl-[52px]': !noLeftPadding,
             })}
         >
-            <div className="border-line bg-bg mt-4 flex items-center gap-2 rounded-lg border p-3">
+            <div className="mt-4 flex items-center gap-2 rounded-lg border border-line bg-bg p-3">
                 <WarnIcon width={24} height={24} className="shrink-0" />
                 <p className="text-left text-[13px] font-medium leading-5">
                     <ModerationDescription post={post} />
                 </p>
             </div>
             {post.moderator && post.source === Source.Bsky ? (
-                <div className="text-secondary mt-2 text-[13px] font-medium leading-5">
+                <div className="mt-2 text-[13px] font-medium leading-5 text-secondary">
                     <Trans>
                         Labeled by{' '}
                         {
                             <Link
-                                className="text-highlight truncate hover:underline"
+                                className="truncate text-highlight hover:underline"
                                 href={getProfileUrl(post.moderator)}
                             >
                                 {post.moderator?.displayName}

@@ -37,7 +37,7 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
                             <Reorder.Item key={choice} value={choice}>
                                 <div
                                     className={classNames(
-                                        'border-lightHighlight text-lightHighlight flex w-full items-center justify-between rounded-[10px] border bg-white px-5 py-2',
+                                        'flex w-full items-center justify-between rounded-[10px] border border-lightHighlight bg-white px-5 py-2 text-lightHighlight',
                                         {
                                             'opacity-40': disabled,
                                         },
@@ -60,7 +60,7 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
                         <div
                             key={choice}
                             className={classNames(
-                                'text-commonMain flex w-full items-center justify-between rounded-[10px] border border-transparent bg-white px-5 py-2',
+                                'flex w-full items-center justify-between rounded-[10px] border border-transparent bg-white px-5 py-2 text-commonMain',
                                 {
                                     'hover:border-lightHighlight hover:text-lightHighlight': !disabled,
                                     'opacity-40': disabled,

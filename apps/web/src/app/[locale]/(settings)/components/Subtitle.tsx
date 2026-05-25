@@ -8,7 +8,7 @@ interface SubtitleProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Subtitle({ className, children }: SubtitleProps) {
     return (
         <div className={classNames('flex w-full items-center justify-between leading-[18px]', className)}>
-            <span className="text-main text-[18px] font-bold">{children}</span>
+            <span className="text-[18px] font-bold text-main">{children}</span>
         </div>
     );
 }

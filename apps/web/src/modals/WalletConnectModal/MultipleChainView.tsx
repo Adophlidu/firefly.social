@@ -65,8 +65,8 @@ export default function MultipleChainView() {
             {connectorImage ? (
                 <Image width={80} height={80} className="size-20" src={connectorImage} alt={activeConnector.name} />
             ) : null}
-            <div className="text-medium flex flex-col items-center gap-2">
-                <span className="text-main font-medium">
+            <div className="flex flex-col items-center gap-2 text-medium">
+                <span className="font-medium text-main">
                     <Trans>Select Chain for {activeConnector.name}</Trans>
                 </span>
                 <span className="text-second">
@@ -83,7 +83,7 @@ export default function MultipleChainView() {
                     return (
                         <ClickableButton
                             disabled={loading}
-                            className="bg-lightBg hover:bg-highlight/20 group flex items-center gap-3 rounded py-[7px] pl-2 pr-4"
+                            className="group flex items-center gap-3 rounded bg-lightBg py-[7px] pl-2 pr-4 hover:bg-highlight/20"
                             key={connector.chain}
                             onClick={() => {
                                 onConnect(connector);
@@ -106,7 +106,7 @@ export default function MultipleChainView() {
                             ) : null}
                             <span className="group-hover:font-medium">{resolveAppKitNetworkName(connector.chain)}</span>
                             {isAlreadyConnected ? (
-                                <span className="bg-success/20 text-success ml-auto flex h-7 items-center rounded px-1 text-[13px]">
+                                <span className="ml-auto flex h-7 items-center rounded bg-success/20 px-1 text-[13px] text-success">
                                     <Trans>Connected</Trans>
                                 </span>
                             ) : null}

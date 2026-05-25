@@ -100,7 +100,7 @@ export function SellMarketForm({
                                 })}
                             />
                             <Skeleton className="h-5 w-full max-w-[100px]" isLoading={isLoadingAvailableShares}>
-                                <div className="text-second h-5 w-full text-center text-sm">
+                                <div className="h-5 w-full text-center text-sm text-second">
                                     <Trans>{formatTokenItemAmount(availableSharesBN, 2)} shares available</Trans>
                                 </div>
                             </Skeleton>
@@ -111,10 +111,10 @@ export function SellMarketForm({
             <div className="w-full space-y-4 p-4">
                 <div className="flex justify-between px-2">
                     <div>
-                        <div className="text-main text-lg font-bold">
+                        <div className="text-lg font-bold text-main">
                             <Trans>Will receive</Trans>
                         </div>
-                        <div className="text-second flex h-5 items-center gap-1 text-[13px] leading-5">
+                        <div className="flex h-5 items-center gap-1 text-[13px] leading-5 text-second">
                             <span>
                                 <Trans>Avg. Price</Trans>
                             </span>
@@ -123,7 +123,7 @@ export function SellMarketForm({
                             </Skeleton>
                         </div>
                     </div>
-                    <div className="text-success text-lg font-bold">
+                    <div className="text-lg font-bold text-success">
                         <Skeleton className="h-5 w-24" isLoading={isLoadingToWin}>
                             <div>{formatPnlUSD(toWin?.win_amount ?? 0)}</div>
                         </Skeleton>
@@ -135,7 +135,7 @@ export function SellMarketForm({
                         <button
                             key={rate}
                             className={cn(
-                                'bg-lightBg active:bg-main/10 h-8 min-w-[70px] rounded-full px-4 text-center font-semibold leading-8 duration-75 active:scale-95',
+                                'h-8 min-w-[70px] rounded-full bg-lightBg px-4 text-center font-semibold leading-8 duration-75 active:scale-95 active:bg-main/10',
                                 { 'text-highlight': rate === 1 },
                             )}
                             onClick={() => {
@@ -252,7 +252,7 @@ export function SellLimitForm({
             <div className="flex w-full flex-col gap-6 pt-6">
                 <div className="flex w-full items-center justify-between px-4">
                     <div className="flex flex-col items-start justify-center">
-                        <div className="text-main text-base font-semibold leading-6">
+                        <div className="text-base font-semibold leading-6 text-main">
                             <Trans>Limit Price</Trans>
                         </div>
                     </div>
@@ -276,16 +276,16 @@ export function SellLimitForm({
                 <div className="flex w-full flex-col items-end gap-4 px-4">
                     <div className="flex w-full items-center justify-between">
                         <div className="flex flex-col items-start justify-center">
-                            <div className="text-main text-base font-semibold leading-6">
+                            <div className="text-base font-semibold leading-6 text-main">
                                 <Trans>Shares</Trans>
                             </div>
                             <Skeleton className="h-[17px] w-full max-w-[140px]" isLoading={isLoadingAvailableShares}>
-                                <div className="text-second text-[13px] leading-[17px]">
+                                <div className="text-[13px] leading-[17px] text-second">
                                     <Trans>Available {formatTokenItemAmount(availableSharesBN, 2)}</Trans>
                                 </div>
                             </Skeleton>
                         </div>
-                        <div className="border-line flex h-12 w-[180px] items-center justify-center rounded-lg border bg-transparent px-2 py-2.5">
+                        <div className="flex h-12 w-[180px] items-center justify-center rounded-lg border border-line bg-transparent px-2 py-2.5">
                             <input
                                 type="number"
                                 inputMode="decimal"
@@ -308,7 +308,7 @@ export function SellLimitForm({
                             <button
                                 key={rate}
                                 className={cn(
-                                    'border-line rounded-lg border bg-transparent px-4 py-2 text-sm font-medium leading-4 active:scale-95',
+                                    'rounded-lg border border-line bg-transparent px-4 py-2 text-sm font-medium leading-4 active:scale-95',
                                     { 'text-highlight': rate === 1, 'text-main': rate !== 1 },
                                 )}
                                 onClick={() => {
@@ -341,12 +341,12 @@ export function SellLimitForm({
 
             <div className="mt-auto w-full space-y-4 p-4">
                 <div className="flex justify-between px-2">
-                    <div className="text-main text-lg font-bold">
+                    <div className="text-lg font-bold text-main">
                         <Trans>Will receive</Trans>
                     </div>
                     <Skeleton className="h-6 w-24" isLoading={isLoadingToWin}>
                         {toWin?.win_amount ? (
-                            <div className="text-success h-6 text-lg font-bold">{formatPnlUSD(toWin?.win_amount)}</div>
+                            <div className="h-6 text-lg font-bold text-success">{formatPnlUSD(toWin?.win_amount)}</div>
                         ) : null}
                     </Skeleton>
                 </div>

@@ -31,7 +31,7 @@ export function TxLink({ chainId, hash, children }: TxLinkProps) {
                 target="_blank"
                 rel="noreferrer"
                 href={txLink}
-                className={classNames('text-highlight flex items-center gap-1 text-sm font-medium', bedStead.className)}
+                className={classNames('flex items-center gap-1 text-sm font-medium text-highlight', bedStead.className)}
             >
                 {hash.slice(0, 6)}...{hash.slice(-4)}
                 {children}
@@ -40,7 +40,7 @@ export function TxLink({ chainId, hash, children }: TxLinkProps) {
     }
 
     return (
-        <span className={classNames('text-highlight flex items-center gap-1 text-sm font-medium', bedStead.className)}>
+        <span className={classNames('flex items-center gap-1 text-sm font-medium text-highlight', bedStead.className)}>
             {hash.slice(0, 6)}...{hash.slice(-4)}
             {children}
         </span>
@@ -69,7 +69,7 @@ export function AddressLink({ chainId, address }: AddressLinkProps) {
                 href={addressLink}
                 target="_blank"
                 rel="noreferrer"
-                className={classNames('text-highlight text-sm font-medium', bedStead.className)}
+                className={classNames('text-sm font-medium text-highlight', bedStead.className)}
             >
                 {formatAddress(address, 4)}
             </Link>
@@ -77,7 +77,7 @@ export function AddressLink({ chainId, address }: AddressLinkProps) {
     }
 
     return (
-        <span className={classNames('text-highlight text-sm font-medium', bedStead.className)}>
+        <span className={classNames('text-sm font-medium text-highlight', bedStead.className)}>
             {formatAddress(address, 4)}
         </span>
     );

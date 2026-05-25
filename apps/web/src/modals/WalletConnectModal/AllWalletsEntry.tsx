@@ -9,7 +9,7 @@ export const AllWalletsEntry = memo(function AllWalletsEntry() {
 
     return (
         <ClickableButton
-            className="border-secondaryLine text-main w-full rounded-lg border p-2 text-sm leading-6"
+            className="w-full rounded-lg border border-secondaryLine p-2 text-sm leading-6 text-main"
             onClick={() => {
                 history.push('/all-wallets');
             }}

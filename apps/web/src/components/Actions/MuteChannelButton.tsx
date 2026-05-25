@@ -47,7 +47,7 @@ export const MuteChannelButton = memo(function MuteChannelButton({ channel, ref,
             ref={ref}
         >
             <MuteIcon width={18} height={18} />
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 {muted ? <Trans>Unmute /{channel.id}</Trans> : <Trans>Mute /{channel.id}</Trans>}
             </span>
         </MenuButton>

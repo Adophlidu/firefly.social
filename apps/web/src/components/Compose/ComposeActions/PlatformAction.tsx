@@ -36,7 +36,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
 
     const buttonContent = (
         <>
-            <div className="text-main text-nowrap text-[14px] leading-[18px]">
+            <div className="text-nowrap text-[14px] leading-[18px] text-main">
                 <Trans>Share to</Trans>
             </div>
             <span className="flex items-center gap-x-1 font-bold">
@@ -50,7 +50,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
                         <SocialSourceIcon key={y} source={y} size={14} />
                     ))}
             </span>
-            {!disabled ? <ChevronDownIcon className="text-secondary size-4" aria-hidden="true" /> : null}
+            {!disabled ? <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );
 
@@ -58,7 +58,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
         return (
             <Popover as="div" className="relative">
                 <PopoverButton
-                    className="text-main flex cursor-pointer items-center gap-1 focus:outline-none disabled:cursor-default"
+                    className="flex cursor-pointer items-center gap-1 text-main focus:outline-none disabled:cursor-default"
                     disabled={disabled}
                 >
                     {buttonContent}
@@ -70,7 +70,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
     return (
         <>
             <ClickableButton
-                className="text-main flex items-center gap-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
                 disabled={disabled}
             >

@@ -21,7 +21,7 @@ const DialogOverlay = React.forwardRef<
         <DialogPrimitive.Overlay
             ref={ref}
             className={cn(
-                'bg-main/25 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50',
+                'fixed inset-0 z-50 bg-main/25 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
                 className,
             )}
             {...props}
@@ -38,7 +38,7 @@ const DialogContent = React.forwardRef<
         <DialogPrimitive.Content
             ref={ref}
             className={cn(
-                'bg-lightBottom data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] dark:bg-darkBottom fixed left-[50%] top-[50%] z-50 flex max-h-svh w-full max-w-[480px] translate-x-[-50%] translate-y-[-50%] flex-col items-center rounded-md px-6 pb-6 shadow-lg outline-none duration-200 sm:rounded-lg md:rounded-xl',
+                'fixed left-[50%] top-[50%] z-50 flex max-h-svh w-full max-w-[480px] translate-x-[-50%] translate-y-[-50%] flex-col items-center rounded-md bg-lightBottom px-6 pb-6 shadow-lg outline-none duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] dark:bg-darkBottom sm:rounded-lg md:rounded-xl',
                 className,
             )}
             {...props}
@@ -60,7 +60,7 @@ function DialogHeader({
     return (
         <div
             className={cn(
-                'bg-lightBottom dark:bg-darkBottom sticky top-0 z-20 line-clamp-1 flex w-full flex-shrink-0 flex-col px-8 py-6 text-center sm:text-left',
+                'sticky top-0 z-20 line-clamp-1 flex w-full flex-shrink-0 flex-col bg-lightBottom px-8 py-6 text-center dark:bg-darkBottom sm:text-left',
                 className,
             )}
             {...props}
@@ -90,7 +90,7 @@ function DialogTopButton({
         <button
             {...props}
             className={cn(
-                'text-main hover:bg-lightBg absolute left-0 top-6 cursor-pointer rounded p-1 outline-none',
+                'absolute left-0 top-6 cursor-pointer rounded p-1 text-main outline-none hover:bg-lightBg',
                 className,
             )}
         >

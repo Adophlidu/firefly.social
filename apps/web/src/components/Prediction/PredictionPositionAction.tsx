@@ -37,7 +37,7 @@ export const PredictionPositionAction = memo<Props>(function PredictionPositionA
                 </ClickableButton>
             ) : !position.isClaimable && position.shares && position.shares >= MIN_SELLABLE_SHARES ? (
                 <ClickableButton
-                    className="bg-highlight box-border h-8 w-full whitespace-nowrap rounded-lg py-2 text-xs text-white md:w-[128px]"
+                    className="box-border h-8 w-full whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white md:w-[128px]"
                     onClick={() => {
                         const outcomeIndex = position.outcomeIndex ?? 0;
                         const params = new URLSearchParams();

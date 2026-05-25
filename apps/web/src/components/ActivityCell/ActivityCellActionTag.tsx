@@ -12,7 +12,7 @@ export function ActivityCellActionTag({ icon, className, children }: PropsWithCh
         <div
             className={classNames(
                 className,
-                'border-main flex h-[22px] items-center whitespace-nowrap rounded-lg border px-2 text-sm font-normal leading-[22px]',
+                'flex h-[22px] items-center whitespace-nowrap rounded-lg border border-main px-2 text-sm font-normal leading-[22px]',
             )}
         >
             {cloneElement(icon, { width: 12, height: 12, className: 'shrink-0 mr-1' })}

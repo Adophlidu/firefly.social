@@ -24,7 +24,7 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
                 style={{ width: currentRate ? `${currentRate}%` : '20px' }}
             >
                 <motion.div
-                    className="dark:bg-secondaryMain h-full bg-[#EEEEF6]"
+                    className="h-full bg-[#EEEEF6] dark:bg-secondaryMain"
                     transition={{
                         type: 'tween',
                         ease: 'easeInOut',
@@ -35,7 +35,7 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
                     animate={{ width: '100%' }}
                 />
             </div>
-            <div className="text-lightMain absolute z-10 flex size-full items-center justify-between pl-5 text-base font-bold">
+            <div className="absolute z-10 flex size-full items-center justify-between pl-5 text-base font-bold text-lightMain">
                 <span
                     className={classNames('mr-2 flex items-center gap-2 truncate', {
                         'text-highlight': isUserVoted,

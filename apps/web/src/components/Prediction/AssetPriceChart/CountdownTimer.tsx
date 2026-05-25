@@ -65,10 +65,10 @@ function SlideDigits({ value }: { value: number }) {
 function CountdownUnit({ value, label }: { value: number; label: string }) {
     return (
         <div className="flex flex-col items-end gap-0.5">
-            <span className="text-danger text-base font-black leading-tight">
+            <span className="text-base font-black leading-tight text-danger">
                 <SlideDigits value={value} />
             </span>
-            <span className="text-second text-[10px] font-bold uppercase tracking-wider">{label}</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-second">{label}</span>
         </div>
     );
 }

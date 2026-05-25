@@ -51,9 +51,9 @@ export const TokenAmountInput = memo(function TokenAmountInput() {
                 <ClickableButton
                     key={config.usdt}
                     className={classNames(
-                        'text-medium hover:border-main h-full w-10 shrink-0 rounded-xl border transition-colors md:w-[50px]',
+                        'h-full w-10 shrink-0 rounded-xl border text-medium transition-colors hover:border-main md:w-[50px]',
                         !amount && selectedUsdtValue === config.usdt
-                            ? 'border-main text-main font-semibold'
+                            ? 'border-main font-semibold text-main'
                             : 'border-second text-second',
                     )}
                     onClick={() => {
@@ -66,7 +66,7 @@ export const TokenAmountInput = memo(function TokenAmountInput() {
             <div className="h-full min-w-0 flex-1">
                 <input
                     className={classNames(
-                        'focus:!border-highlight size-full rounded-xl border bg-transparent text-center outline-none transition-colors placeholder:text-[10px] focus:outline-none focus:ring-0 disabled:cursor-not-allowed md:placeholder:text-[13px]',
+                        'size-full rounded-xl border bg-transparent text-center outline-none transition-colors placeholder:text-[10px] focus:!border-highlight focus:outline-none focus:ring-0 disabled:cursor-not-allowed md:placeholder:text-[13px]',
                         amount ? 'border-main' : 'border-second',
                     )}
                     placeholder={!isMedium ? t`Custom amount` : t`Custom token amount`}

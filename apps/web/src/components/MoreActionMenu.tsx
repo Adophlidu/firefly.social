@@ -115,7 +115,7 @@ export function MoreActionMenu({
         ...restButtonProps
     } = buttonProps ?? {};
     const mergedButtonClass = classNames(
-        'text-lightMain flex shrink-0 items-center transition duration-100 active:scale-90',
+        'flex shrink-0 items-center text-lightMain transition duration-100 active:scale-90',
         buttonClassFromProps,
         buttonClassName,
     );

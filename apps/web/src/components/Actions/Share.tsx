@@ -41,7 +41,7 @@ export const Share = memo<ShareProps>(function Share({ post, disabled = false, c
                     <motion.div
                         onClick={() => capturePostActionEvent('share', post)}
                         whileTap={{ scale: 0.9 }}
-                        className="hover:bg-link/[0.2] hover:text-link group inline-flex size-7 items-center justify-center rounded-full disabled:opacity-60"
+                        className="group inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
                     >
                         <ShareButtonWithAnimation />
                     </motion.div>
@@ -60,7 +60,7 @@ export const Share = memo<ShareProps>(function Share({ post, disabled = false, c
                             }}
                         >
                             <SendIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>Post with link</Trans>
                             </span>
                         </MenuButton>

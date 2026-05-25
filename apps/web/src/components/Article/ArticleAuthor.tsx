@@ -43,13 +43,13 @@ export function ArticleAuthor({ article, ...props }: Props) {
 
             <ConditionalLink
                 href={authorUrl}
-                className="text-medium text-secondary block truncate leading-5"
+                className="block truncate text-medium leading-5 text-secondary"
                 target={target}
             >
                 {authorName}
             </ConditionalLink>
 
-            <Time dateTime={article.timestamp} className="text-secondary whitespace-nowrap text-xs leading-4">
+            <Time dateTime={article.timestamp} className="whitespace-nowrap text-xs leading-4 text-secondary">
                 <TimestampFormatter time={article.timestamp} />
             </Time>
 

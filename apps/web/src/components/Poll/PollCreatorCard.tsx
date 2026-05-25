@@ -52,9 +52,9 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
     return (
         <div
             ref={pollCardRef}
-            className="border-secondaryLine bg-lightBottom dark:bg-darkBottom mt-14 rounded-2xl border p-3"
+            className="mt-14 rounded-2xl border border-secondaryLine bg-lightBottom p-3 dark:bg-darkBottom"
         >
-            <div className="text-lightMain flex items-center justify-between">
+            <div className="flex items-center justify-between text-lightMain">
                 <div className="flex items-center gap-2">
                     <PollIcon width={24} height={24} />
                     <span className="text-lg font-bold">
@@ -70,12 +70,12 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
             <div>
                 {poll.options.map((option, index) => (
                     <div
-                        className="bg-lightBg text-medium text-lightMain mt-4 flex h-12 items-center rounded-2xl px-3.5"
+                        className="mt-4 flex h-12 items-center rounded-2xl bg-lightBg px-3.5 text-medium text-lightMain"
                         key={option.id}
                     >
                         <div className="h-full w-[calc(100%_-_20px)]">
                             <input
-                                className="placeholder:text-secondary size-full border-0 bg-transparent focus:border-0 focus:outline-0 focus:ring-0"
+                                className="size-full border-0 bg-transparent placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0"
                                 value={option.label}
                                 placeholder={t`Choice ${index + 1}`}
                                 onChange={(e) => onOptionChange(option, e.target.value)}
@@ -97,7 +97,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
             <div className="mt-4 flex items-center justify-between">
                 <ClickableButton
                     disabled={readonly || poll.options.length >= getPollOptionsMaxLength(availableSources)}
-                    className="text-lightMain flex cursor-pointer items-center gap-2"
+                    className="flex cursor-pointer items-center gap-2 text-lightMain"
                     onClick={addOption}
                 >
                     <AddIcon width={20} height={20} />

@@ -43,7 +43,7 @@ export const ErrorMessage = memo(function ErrorMessage() {
     if (workflow && step && stepErrorRecord[step]) {
         return (
             <div className="px-8 text-center">
-                <p className="bg-danger rounded-md px-2.5 text-[10px] font-bold leading-6 text-white">
+                <p className="rounded-md bg-danger px-2.5 text-[10px] font-bold leading-6 text-white">
                     {stepErrorRecord[step]}
                 </p>
                 {[PinCodeWorkflow.Authenticate, PinCodeWorkflow.ResetEmail].includes(workflow) &&
@@ -56,5 +56,5 @@ export const ErrorMessage = memo(function ErrorMessage() {
         );
     }
 
-    return <div className="text-danger px-8 text-center text-base">* {errorMsg}</div>;
+    return <div className="px-8 text-center text-base text-danger">* {errorMsg}</div>;
 });

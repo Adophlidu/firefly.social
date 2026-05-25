@@ -47,7 +47,7 @@ export function RecipientItem({
                 {(!forceAddress || ens) && avatar ? (
                     <Image src={avatar} alt={address} width={36} height={36} className="size-9 rounded-full" />
                 ) : (
-                    <div className="border-line2 bg-primaryBottom flex size-9 items-center justify-center rounded-lg border">
+                    <div className="border-line2 flex size-9 items-center justify-center rounded-lg border bg-primaryBottom">
                         <WalletIcon width={24} height={24} className="text-third" />
                     </div>
                 )}
@@ -55,7 +55,7 @@ export function RecipientItem({
                     <SocialSourceIcon
                         source={source}
                         size={15}
-                        className="border-primaryBottom absolute -right-2 bottom-0 z-10 rounded-full border"
+                        className="absolute -right-2 bottom-0 z-10 rounded-full border border-primaryBottom"
                     />
                 ) : null}
             </div>
@@ -64,7 +64,7 @@ export function RecipientItem({
                     {forceAddress && ens ? (
                         <>
                             <div className="w-full truncate pr-3 font-bold leading-[18px]">{ens}</div>
-                            <div className="text-second w-full truncate pr-3 leading-[14px]">
+                            <div className="w-full truncate pr-3 leading-[14px] text-second">
                                 {formatAddress(address, 6)}
                             </div>
                         </>
@@ -82,7 +82,7 @@ export function RecipientItem({
             ) : (
                 <div className="flex flex-1 flex-col items-start space-y-1 text-[13px]">
                     <div className="h-[18px] truncate font-bold leading-[18px]">{username || ens}</div>
-                    <div className="text-second h-3.5 leading-[14px]">
+                    <div className="h-3.5 leading-[14px] text-second">
                         {handle ? `@${handle}` : formatAddress(address, 4)}
                     </div>
                 </div>
@@ -93,7 +93,7 @@ export function RecipientItem({
                         {tags.map((tag, index) => (
                             <div
                                 key={index}
-                                className="bg-walletBg text-highlight flex h-6 items-center whitespace-nowrap rounded px-2 text-[13px] font-medium leading-6"
+                                className="flex h-6 items-center whitespace-nowrap rounded bg-walletBg px-2 text-[13px] font-medium leading-6 text-highlight"
                             >
                                 {tag}
                             </div>
@@ -124,7 +124,7 @@ function ExplorerLink({ address }: { address: string }) {
     const link = getBlockExplorersURL(mainnet.id, address, 'address');
     if (!link) return null;
     return (
-        <a href={link} target="_blank" rel="noopener noreferrer" className="text-second my-auto ml-auto">
+        <a href={link} target="_blank" rel="noopener noreferrer" className="my-auto ml-auto text-second">
             <LinkIcon width={20} height={20} />
         </a>
     );

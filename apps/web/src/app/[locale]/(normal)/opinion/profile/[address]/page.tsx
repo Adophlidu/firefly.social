@@ -5,10 +5,9 @@ import { PredictionProfileDetailContent } from '@/components/Prediction/Predicti
 
 export const revalidate = 60;
 
-interface Props
-    extends LayoutProps<{
-        address: string;
-    }> {}
+interface Props extends LayoutProps<{
+    address: string;
+}> {}
 
 export default async function OpinionProfilePage(props: Props) {
     const { address } = await props.params;

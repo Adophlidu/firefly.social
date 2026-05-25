@@ -396,7 +396,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
         >
             <div className="mt-4 flex flex-col" data-prevent-progress="true">
                 <div
-                    className="border-line1 bg-bg relative max-h-[580px] w-full overflow-hidden rounded-xl border"
+                    className="relative max-h-[580px] w-full overflow-hidden rounded-xl border border-line1 bg-bg"
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div className="max-h-[580px] overflow-y-auto overscroll-contain p-3">

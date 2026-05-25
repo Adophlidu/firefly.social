@@ -62,16 +62,16 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
     if (isLoading) {
         return (
             <div className="flex flex-col">
-                <div className="border-line bg-primaryBottom sticky top-0 z-30 flex h-[60px] items-center justify-between border-b px-4">
+                <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
                     <div className="flex min-w-0 items-center gap-7">
-                        <Comeback className="text-lightMain cursor-pointer" />
-                        <span className="text-lightMain min-w-0 truncate text-xl font-bold">
+                        <Comeback className="cursor-pointer text-lightMain" />
+                        <span className="min-w-0 truncate text-xl font-bold text-lightMain">
                             <Trans>Transaction</Trans>
                         </span>
                     </div>
                 </div>
                 <div className="p-4">
-                    <div className="bg-bg h-10 w-full animate-pulse rounded" />
+                    <div className="h-10 w-full animate-pulse rounded bg-bg" />
                     <Loading />
                 </div>
             </div>
@@ -107,10 +107,10 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
     );
     return (
         <div className="flex flex-col">
-            <div className="border-line bg-primaryBottom sticky top-0 z-30 flex h-[60px] items-center justify-between border-b px-4">
+            <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
                 <div className="flex min-w-0 items-center gap-7">
-                    <Comeback className="text-lightMain cursor-pointer" />
-                    <span className="text-lightMain min-w-0 truncate text-xl font-bold">
+                    <Comeback className="cursor-pointer text-lightMain" />
+                    <span className="min-w-0 truncate text-xl font-bold text-lightMain">
                         <Trans>Transaction</Trans>
                     </span>
                 </div>
@@ -124,12 +124,12 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                 <div className="flex min-w-0 items-center gap-3">
                     {profileUrl ? <Link href={profileUrl}>{avatar}</Link> : avatar}
                     <div className="flex min-w-0 items-center gap-1">
-                        <div className="text-medium flex min-w-0 items-center gap-x-1">
-                            <Link href={profileUrl} className="text-lightMain min-w-0 truncate font-bold">
+                        <div className="flex min-w-0 items-center gap-x-1 text-medium">
+                            <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
                                 {ensHandle ? <EnsName className="min-w-0 truncate" ens={ensHandle} /> : addressName}
                             </Link>
                         </div>
-                        <div className="text-second flex items-center gap-x-1 text-sm">
+                        <div className="flex items-center gap-x-1 text-sm text-second">
                             {ensHandle ? (
                                 <Link href={profileUrl} className="text-second">
                                     {addressName}
@@ -144,7 +144,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                 {activity.dex_name || activity.router_address ? (
                     <div className="mb-4 flex items-center gap-x-2">
                         <Trans>
-                            <div className="border-main text-main flex items-center gap-x-1 rounded-lg border px-2">
+                            <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
                                 <ExchangeIcon className="size-3" />
                                 <span className="text-medium leading-6">
                                     {activity.is_cross_chain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
@@ -179,7 +179,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                                     traderName: ensHandle,
                                     address: activity.from_token.address,
                                 })}
-                                className="bg-bg flex items-center gap-2 rounded-lg p-3"
+                                className="flex items-center gap-2 rounded-lg bg-bg p-3"
                             >
                                 {activity.from_token.logo ? (
                                     <Image
@@ -190,13 +190,13 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                                         height={32}
                                     />
                                 ) : (
-                                    <div className="bg-bg text-second flex size-8 items-center justify-center rounded-full">
+                                    <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
                                         {first(activity.from_token.symbol)}
                                     </div>
                                 )}
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-lightMain text-base font-medium leading-5">
+                                        <span className="text-base font-medium leading-5 text-lightMain">
                                             {activity.from_token.name}
                                         </span>
                                         {activity.from_token.amount_num ? (
@@ -206,7 +206,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                                         ) : null}
                                     </div>
 
-                                    <div className="text-second flex items-center justify-between">
+                                    <div className="flex items-center justify-between text-second">
                                         <span className="text-sm leading-[18px]">{activity.from_token.symbol}</span>
                                         <span className="text-sm leading-[18px]">
                                             {formatTokenUSD(activity.from_token.amount_usd)}
@@ -226,7 +226,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                                     traderName: ensHandle,
                                     address: activity.to_token.address,
                                 })}
-                                className="bg-bg flex items-center gap-2 rounded-lg p-3"
+                                className="flex items-center gap-2 rounded-lg bg-bg p-3"
                             >
                                 {activity.to_token.logo ? (
                                     <Image
@@ -237,23 +237,23 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                                         height={32}
                                     />
                                 ) : (
-                                    <div className="bg-bg text-second flex size-8 items-center justify-center rounded-full">
+                                    <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
                                         {first(activity.to_token.symbol)}
                                     </div>
                                 )}
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-lightMain text-base font-medium leading-5">
+                                        <span className="text-base font-medium leading-5 text-lightMain">
                                             {activity.to_token.name}
                                         </span>
                                         {activity.to_token.amount_num ? (
-                                            <span className="text-success text-base leading-5">
+                                            <span className="text-base leading-5 text-success">
                                                 + {renderShrankPrice(formatPrice(activity.to_token.amount_num) ?? '')}
                                             </span>
                                         ) : null}
                                     </div>
 
-                                    <div className="text-second flex items-center justify-between">
+                                    <div className="flex items-center justify-between text-second">
                                         <span className="text-sm leading-[18px]">{activity.to_token.symbol}</span>
                                         <span className="text-sm leading-[18px]">
                                             {formatTokenUSD(activity.to_token.amount_usd)}
@@ -292,8 +292,8 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                         </div>
                     ) : null}
                     {explorerLink ? (
-                        <div className="text-highlight flex min-w-0 items-center justify-between gap-2 text-sm">
-                            <span className="text-second shrink-0">
+                        <div className="flex min-w-0 items-center justify-between gap-2 text-sm text-highlight">
+                            <span className="shrink-0 text-second">
                                 <Trans>Transaction Hash</Trans>
                             </span>
 
@@ -304,14 +304,14 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                     ) : null}
                     {!isFailed ? (
                         <div className="flex min-w-0 items-center justify-between gap-2 text-sm">
-                            <span className="text-second shrink-0">
+                            <span className="shrink-0 text-second">
                                 <Trans>Block</Trans>
                             </span>
-                            <span className="text-lightMain truncate">{activity.block_number}</span>
+                            <span className="truncate text-lightMain">{activity.block_number}</span>
                         </div>
                     ) : null}
                     <div className="flex min-w-0 items-center justify-between gap-2 text-sm">
-                        <span className="text-second shrink-0">
+                        <span className="shrink-0 text-second">
                             <Trans>Status</Trans>
                         </span>
                         <span

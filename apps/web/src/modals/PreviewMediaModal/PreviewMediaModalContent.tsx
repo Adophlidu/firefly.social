@@ -43,14 +43,14 @@ export function PreviewMediaModalContent({ onClose, post, source, medias, index 
 
     return (
         <>
-            <div className="text-main absolute left-4 top-4 z-50 cursor-pointer">
+            <div className="absolute left-4 top-4 z-50 cursor-pointer text-main">
                 <CloseButton
                     onClick={onClose}
                     className="hover:!bg-transparent"
                     IconProps={{ className: '!text-white' }}
                 />
             </div>
-            <div className="text-main flex w-full">
+            <div className="flex w-full text-main">
                 <Swiper
                     modules={[Navigation, Keyboard]}
                     navigation={{
@@ -80,14 +80,14 @@ export function PreviewMediaModalContent({ onClose, post, source, medias, index 
                         className="prev-button absolute left-[50px] top-1/2 z-50 max-md:hidden"
                         aria-label="Previous media"
                     >
-                        <ArrowLeftIcon width={24} height={24} className="text-main hover:bg-bg rounded-full p-1" />
+                        <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                     </ClickableButton>
                     <ClickableButton
                         ref={nextRef}
                         className="next-button absolute right-[50px] top-1/2 z-50 max-md:hidden"
                         aria-label="Next media"
                     >
-                        <ArrowRightIcon width={24} height={24} className="text-main hover:bg-bg rounded-full p-1" />
+                        <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                     </ClickableButton>
                 </Swiper>
             </div>

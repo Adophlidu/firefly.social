@@ -53,7 +53,7 @@ export const StepForm = memo<StepFormProps>(function StepForm({ onSuccess }) {
         <div className="w-full px-5">
             {step === PinCodeAction.SetEmail ? (
                 <input
-                    className="border-third h-12 w-full rounded-lg border px-4 text-base"
+                    className="h-12 w-full rounded-lg border border-third px-4 text-base"
                     placeholder={t`Email`}
                     type="email"
                     readOnly={isBusy}

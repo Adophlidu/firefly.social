@@ -43,10 +43,10 @@ export const CurrencyAmount = memo(function CurrencyAmount({ amount, formatted, 
 
     return (
         <div className={cn('flex items-end', className)}>
-            {prefix ? <span className="text-third text-5xl font-normal">{prefix}</span> : null}
-            {currency ? <span className="text-third text-5xl font-normal">{currency}</span> : null}
-            <span className="text-main ml-1 text-5xl font-semibold leading-none">{integer}</span>
-            {decimal ? <span className="text-main mb-0.5 ml-0.5 self-end text-xl">.{decimal}</span> : null}
+            {prefix ? <span className="text-5xl font-normal text-third">{prefix}</span> : null}
+            {currency ? <span className="text-5xl font-normal text-third">{currency}</span> : null}
+            <span className="ml-1 text-5xl font-semibold leading-none text-main">{integer}</span>
+            {decimal ? <span className="mb-0.5 ml-0.5 self-end text-xl text-main">.{decimal}</span> : null}
         </div>
     );
 });

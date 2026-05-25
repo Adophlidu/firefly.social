@@ -41,10 +41,10 @@ function ShareAccountsPopoverItem({
                 onClick(name);
             }}
         >
-            <div className="hover:bg-bg box-content flex h-12 items-center justify-between px-3">
-                <div className="text-main flex items-center gap-2">
+            <div className="box-content flex h-12 items-center justify-between px-3 hover:bg-bg">
+                <div className="flex items-center gap-2 text-main">
                     {icon}
-                    <span className="text-main font-bold">{formatAccountName(ensName ?? name)}</span>
+                    <span className="font-bold text-main">{formatAccountName(ensName ?? name)}</span>
                 </div>
             </div>
         </ClickableArea>
@@ -65,7 +65,7 @@ export function ShareAccountsPopover({ accounts, children, onSelect, className, 
                 <>
                     <PopoverButton
                         className={classNames(
-                            'text-main flex cursor-pointer gap-1 focus:outline-none disabled:cursor-default',
+                            'flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-default',
                             className,
                         )}
                     >
@@ -86,7 +86,7 @@ export function ShareAccountsPopover({ accounts, children, onSelect, className, 
                             modal
                             className="absolute bottom-full right-0 z-10 w-[280px] -translate-y-3"
                         >
-                            <div className="bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom flex flex-col gap-2 overflow-y-auto rounded-lg py-3 dark:border dark:shadow-none">
+                            <div className="flex flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
                                 {accounts.map(({ icon, name }) => (
                                     <ShareAccountsPopoverItem
                                         key={name}

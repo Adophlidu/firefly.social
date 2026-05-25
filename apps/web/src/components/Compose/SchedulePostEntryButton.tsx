@@ -55,7 +55,7 @@ export function SchedulePostEntryButton({ className, showText, disabled = false,
     const content = showText ? (
         <div
             className={classNames(
-                'text-second mb-3 flex items-center gap-2.5 text-[13px]',
+                'mb-3 flex items-center gap-2.5 text-[13px] text-second',
                 scheduleDisabled ? 'cursor-not-allowed opacity-50' : '',
             )}
             onClick={handleClick}
@@ -73,7 +73,7 @@ export function SchedulePostEntryButton({ className, showText, disabled = false,
             </span>
         </div>
     ) : (
-        <div className="text-second flex items-center gap-2.5 text-[13px]" ref={ref}>
+        <div className="flex items-center gap-2.5 text-[13px] text-second" ref={ref}>
             <ScheduleIcon
                 className={classNames(
                     scheduleDisabled ? 'size-6 cursor-not-allowed opacity-50' : 'size-6 cursor-pointer',

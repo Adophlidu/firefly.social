@@ -42,7 +42,7 @@ export function WatchWalletButton({ handleOrEnsOrAddress, address, isFollowing, 
             ) : (
                 <FollowIcon width={18} height={18} />
             )}
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 {following ? (
                     <Trans>Unfollow {handleOrEnsOrAddress}</Trans>
                 ) : (

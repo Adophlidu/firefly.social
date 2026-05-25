@@ -30,7 +30,7 @@ function CountdownButton() {
             disabled={count > 0}
             onClick={() => ConfirmModalRef.close(true)}
             className={classNames(
-                'bg-commonDanger flex flex-1 items-center justify-center overflow-hidden rounded-full py-2 font-bold text-white',
+                'flex flex-1 items-center justify-center overflow-hidden rounded-full bg-commonDanger py-2 font-bold text-white',
             )}
         >
             {count > 0 ? <Trans>{count}s</Trans> : <Trans>Confirm</Trans>}
@@ -68,7 +68,7 @@ export function useDeleteFireflyAccount() {
                             </li>
                             <li className="mb-4">
                                 <Trans>
-                                    <span className="text-danger font-bold">
+                                    <span className="font-bold text-danger">
                                         Any assets in this Firefly wallet will be permanently lost and cannot be
                                         recovered.
                                     </span>{' '}

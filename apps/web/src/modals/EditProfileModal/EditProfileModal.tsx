@@ -28,8 +28,8 @@ export function EditProfileModal({ ref }: Props) {
     return (
         <Modal open={open} onClose={() => dispatch?.close()} dialogPanelClassName="flex-col" disableDialogClose>
             {profile ? (
-                <div className="bg-lightBottom dark:bg-darkBottom relative flex h-screen min-h-0 w-screen flex-col overflow-hidden transition-all md:h-auto md:max-h-[min(800px,100vh-2rem)] md:w-[600px] md:flex-[0] md:overflow-hidden md:rounded-xl lg:grow-0 dark:text-gray-950">
-                    <div className="pt-safe relative flex shrink-0 items-center justify-between">
+                <div className="relative flex h-screen min-h-0 w-screen flex-col overflow-hidden bg-lightBottom transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:max-h-[min(800px,100vh-2rem)] md:w-[600px] md:flex-[0] md:overflow-hidden md:rounded-xl lg:grow-0">
+                    <div className="relative flex shrink-0 items-center justify-between pt-safe">
                         <ModalTitle title={<Trans>Edit Profile</Trans>} onClose={() => dispatch?.close()} />
                     </div>
                     <EditProfileDialogContent profile={profile} onClose={() => dispatch?.close()} />

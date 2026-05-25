@@ -31,7 +31,7 @@ export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ 
     });
 
     return (
-        <div className="border-line bg-lightBottom dark:bg-darkBottom relative flex flex-col gap-3 rounded-2xl border p-4 transition-colors hover:opacity-95">
+        <div className="relative flex flex-col gap-3 rounded-2xl border border-line bg-lightBottom p-4 transition-colors hover:opacity-95 dark:bg-darkBottom">
             <Link
                 href={eventHref}
                 className="absolute inset-0 z-0 rounded-2xl"
@@ -64,13 +64,13 @@ const LiveSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(func
                     <span className="inline-flex overflow-visible p-px">
                         <ActiveTag variant="danger" />
                     </span>
-                    <span className="text-danger font-medium">
+                    <span className="font-medium text-danger">
                         <Trans>LIVE</Trans>
                     </span>
                 </div>
                 <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden">
                     {model.statusLabel ? (
-                        <span className="text-main shrink-0 font-semibold">{model.statusLabel}</span>
+                        <span className="shrink-0 font-semibold text-main">{model.statusLabel}</span>
                     ) : null}
                     <HeaderMeta volumeLabel={model.volumeLabel} leagueLabel={model.leagueLabel} />
                 </div>
@@ -86,7 +86,7 @@ const ScheduledSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>
     return (
         <div className="flex h-7 items-center gap-2 overflow-hidden whitespace-nowrap text-[13px] leading-[17px]">
             {model.scheduledTimeLabel ? (
-                <span className="bg-bg text-main flex h-7 shrink-0 items-center rounded-lg px-2 font-semibold">
+                <span className="flex h-7 shrink-0 items-center rounded-lg bg-bg px-2 font-semibold text-main">
                     {model.scheduledTimeLabel}
                 </span>
             ) : null}
@@ -100,7 +100,7 @@ const FinishedSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(
 }) {
     return (
         <div className="flex h-7 items-center gap-2 overflow-hidden whitespace-nowrap text-[13px] leading-[17px]">
-            <span className="text-main shrink-0 font-semibold">
+            <span className="shrink-0 font-semibold text-main">
                 <Trans>FINAL</Trans>
             </span>
             <HeaderMeta volumeLabel={model.volumeLabel} leagueLabel={model.leagueLabel} className="font-normal" />
@@ -116,7 +116,7 @@ const HeaderMeta = memo<{
     const metaParts = [volumeLabel, leagueLabel].filter(Boolean);
     if (!metaParts.length) return null;
 
-    return <span className={classNames('text-second truncate', className)}>{metaParts.join(' · ')}</span>;
+    return <span className={classNames('truncate text-second', className)}>{metaParts.join(' · ')}</span>;
 });
 
 const LivestreamButton = memo<{ url: string }>(function LivestreamButton({ url }) {
@@ -129,7 +129,7 @@ const LivestreamButton = memo<{ url: string }>(function LivestreamButton({ url }
     return (
         <button
             type="button"
-            className="text-second hover:text-main pointer-events-auto relative z-20 flex size-5 shrink-0 items-center justify-center"
+            className="pointer-events-auto relative z-20 flex size-5 shrink-0 items-center justify-center text-second hover:text-main"
             onClick={handleClick}
             aria-label={t`Open livestream`}
         >
@@ -211,12 +211,12 @@ const TeamInfoRow = memo<{
                     className="size-9 shrink-0 rounded-lg object-cover"
                 />
             ) : (
-                <span className="bg-bg size-9 shrink-0 rounded-lg" aria-hidden />
+                <span className="size-9 shrink-0 rounded-lg bg-bg" aria-hidden />
             )}
             <div className="flex min-w-0 items-center gap-2">
-                <span className="text-main truncate text-sm font-semibold leading-[18px]">{team.name}</span>
+                <span className="truncate text-sm font-semibold leading-[18px] text-main">{team.name}</span>
                 {team.record ? (
-                    <span className="text-second shrink-0 text-sm font-medium leading-[18px]">{team.record}</span>
+                    <span className="shrink-0 text-sm font-medium leading-[18px] text-second">{team.record}</span>
                 ) : null}
             </div>
         </div>
@@ -289,7 +289,7 @@ const DrawOutcomePriceButton = memo<{
             marketSlug={draw.marketSlug}
             outcomeIndex={draw.outcomeIndex}
             className={classNames(
-                'bg-bg text-main flex items-center justify-center gap-1 rounded-lg px-4 text-sm',
+                'flex items-center justify-center gap-1 rounded-lg bg-bg px-4 text-sm text-main',
                 className,
             )}
         >

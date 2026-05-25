@@ -31,7 +31,7 @@ export const SuggestCollectionList = memo<SuggestCollectionListProps>(function S
 
     return (
         <div>
-            <h2 className="border-line border-t p-3 pb-2 text-sm font-bold leading-[18px]">
+            <h2 className="border-t border-line p-3 pb-2 text-sm font-bold leading-[18px]">
                 <Trans>Collections</Trans>
             </h2>
             {isLoading ? (

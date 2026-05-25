@@ -36,7 +36,7 @@ export const ModalActions = memo<ModalActionsProps>(function ModalActions({
         <div className="flex items-center gap-2">
             <ClickableButton
                 onClick={onCancel}
-                className="border-main text-medium text-fourMain h-10 flex-1 rounded-full border font-bold leading-10"
+                className="h-10 flex-1 rounded-full border border-main text-medium font-bold leading-10 text-fourMain"
             >
                 <Trans>Cancel</Trans>
             </ClickableButton>
@@ -45,7 +45,7 @@ export const ModalActions = memo<ModalActionsProps>(function ModalActions({
                 loading={confirmLoading}
                 onlyLoading
                 onClick={onConfirm}
-                className="bg-main text-medium text-primaryBottom h-10 flex-1 rounded-full font-bold leading-10"
+                className="h-10 flex-1 rounded-full bg-main text-medium font-bold leading-10 text-primaryBottom"
             >
                 {confirmText}
             </ClickableButton>

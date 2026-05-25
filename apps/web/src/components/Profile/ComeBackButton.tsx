@@ -9,7 +9,7 @@ export function ComeBackButton() {
     const comeback = useComeBack();
     return (
         <ClickableButton
-            className="bg-bg text-main inline-flex size-8 items-center justify-center rounded-lg active:opacity-50 md:hover:opacity-60"
+            className="inline-flex size-8 items-center justify-center rounded-lg bg-bg text-main active:opacity-50 md:hover:opacity-60"
             onClick={comeback}
         >
             <ComeBackIcon className="size-6 shrink-0" />

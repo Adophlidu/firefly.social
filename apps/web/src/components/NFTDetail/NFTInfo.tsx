@@ -87,11 +87,11 @@ export function NFTInfo(props: NFTInfoProps) {
 
     const ownerContent = (
         <>
-            <span className="text-second leading-4">
+            <span className="leading-4 text-second">
                 {isPoap ? <Trans>Collected by</Trans> : <Trans>Owned By</Trans>}
             </span>
             <TextOverflowTooltip content={ensName ?? ownerAddress}>
-                <span className="text-main block truncate font-bold">
+                <span className="block truncate font-bold text-main">
                     {!ownerAddress ? '-' : ensName ? ensName : formatAddress(ownerAddress, 4)}
                 </span>
             </TextOverflowTooltip>
@@ -180,7 +180,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         ) : null}
                     </div>
                     {isPoap ? (
-                        <ul className="text-medium text-second w-full space-y-1">
+                        <ul className="w-full space-y-1 text-medium text-second">
                             <PoapTrait value={poapTraits.position} icon={LocationIcon} />
                             <PoapTrait value={poapTraits.date} icon={CalendarIcon} />
                             <PoapTrait url={poapTraits.eventURL} icon={WebsiteIcon} />
@@ -191,30 +191,30 @@ export function NFTInfo(props: NFTInfoProps) {
                             <Link
                                 href={getProfileUrl({ source: Source.Wallet, profileId: ownerAddress })}
                                 target="_blank"
-                                className="bg-lightBg h-[68px] min-w-0 flex-1 space-y-1.5 rounded-lg p-2.5 text-base"
+                                className="h-[68px] min-w-0 flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base"
                             >
                                 {ownerContent}
                             </Link>
                         ) : (
-                            <div className="bg-lightBg h-[68px] flex-1 space-y-1.5 rounded-lg p-2.5 text-base">
+                            <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
                                 {ownerContent}
                             </div>
                         )}
                         {isPoap ? (
-                            <div className="bg-lightBg h-[68px] flex-1 space-y-1.5 rounded-lg p-2.5 text-base">
-                                <span className="text-second leading-4">
+                            <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
+                                <span className="leading-4 text-second">
                                     <Trans>Attendance</Trans>
                                 </span>
-                                <span className="text-main block truncate font-bold">
+                                <span className="block truncate font-bold text-main">
                                     {attendance ? attendance.toLocaleString() : '-'}
                                 </span>
                             </div>
                         ) : (
-                            <div className="bg-lightBg h-[68px] flex-1 space-y-1.5 rounded-lg p-2.5 text-base">
-                                <span className="text-second leading-4">
+                            <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
+                                <span className="leading-4 text-second">
                                     <Trans>Floor Price</Trans>
                                 </span>
-                                <span className="text-main block truncate font-bold">
+                                <span className="block truncate font-bold text-main">
                                     {marketInfo?.floor_price ?? '-'}
                                 </span>
                             </div>

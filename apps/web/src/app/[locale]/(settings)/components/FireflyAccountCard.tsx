@@ -37,19 +37,19 @@ export function FireflyAccountCard() {
                     isLoading ? 'animate-pulse border-transparent' : 'border-highlight',
                 )}
             >
-                <div className="bg-bg mr-2 size-[60px] shrink-0 rounded-full">
+                <div className="mr-2 size-[60px] shrink-0 rounded-full bg-bg">
                     {!isLoading ? <Avatar size={60} alt="firefly-avatar" className="!z-0" src={avatar ?? ''} /> : null}
                 </div>
                 <div className="mr-2 flex h-10 flex-col items-start justify-evenly text-sm font-normal leading-5">
                     <div
                         className={classNames('min-w-12', isLoading ? 'h-3' : 'h-5', {
-                            'bg-bg animate-pulse': isLoading,
+                            'animate-pulse bg-bg': isLoading,
                         })}
                     >
                         {!isLoading
                             ? account?.displayName || (
                                   <ClickableButton
-                                      className="text-highlight font-semibold hover:underline"
+                                      className="font-semibold text-highlight hover:underline"
                                       onClick={() => {
                                           EditFireflyProfileModalRef.open({
                                               profile: account,
@@ -64,8 +64,8 @@ export function FireflyAccountCard() {
                             : null}
                     </div>
                     <div
-                        className={classNames('text-second min-w-[120px]', isLoading ? 'h-3' : 'h-5', {
-                            'bg-bg animate-pulse': isLoading,
+                        className={classNames('min-w-[120px] text-second', isLoading ? 'h-3' : 'h-5', {
+                            'animate-pulse bg-bg': isLoading,
                         })}
                     >
                         {!isLoading ? <Trans>UID: {account?.uid}</Trans> : null}
@@ -75,13 +75,13 @@ export function FireflyAccountCard() {
                     {isLoading ? (
                         <>
                             {new Array(2).fill(0).map((_, i) => (
-                                <div key={i} className="bg-bg size-5 rounded-lg" />
+                                <div key={i} className="size-5 rounded-lg bg-bg" />
                             ))}
                         </>
                     ) : (
                         <>
                             <ClickableButton
-                                className="text-danger flex size-5 items-center justify-center rounded-lg"
+                                className="flex size-5 items-center justify-center rounded-lg text-danger"
                                 onClick={() => LogoutModalRef.open()}
                             >
                                 <LogoutIcon className="size-5 shrink-0" />
@@ -109,7 +109,7 @@ export function FireflyAccountCard() {
                                                 }}
                                             >
                                                 <EditIcon width={18} height={18} />
-                                                <span className="text-main font-bold leading-[22px]">
+                                                <span className="font-bold leading-[22px] text-main">
                                                     <Trans>Edit profile</Trans>
                                                 </span>
                                             </MenuButton>
@@ -125,7 +125,7 @@ export function FireflyAccountCard() {
                                                 }}
                                             >
                                                 <TrashIcon width={18} height={18} className="text-danger" />
-                                                <span className="text-danger font-bold leading-[22px]">
+                                                <span className="font-bold leading-[22px] text-danger">
                                                     <Trans>Delete Firefly account</Trans>
                                                 </span>
                                             </MenuButton>

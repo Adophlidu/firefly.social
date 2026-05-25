@@ -48,7 +48,7 @@ export function ReportArticleButton({ article, ref, onClick, ...rest }: Props) {
             ref={ref}
         >
             <FlagIcon width={18} height={18} />
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 <Trans>Report article</Trans>
             </span>
         </MenuButton>

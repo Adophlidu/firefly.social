@@ -28,7 +28,7 @@ function OrderBookList({ data, emptyMessage, side, onPriceClick }: OrderBookList
 
     if (!data.length) {
         return (
-            <div className="text-second flex h-10 items-center justify-center text-sm font-semibold">
+            <div className="flex h-10 items-center justify-center text-sm font-semibold text-second">
                 {emptyMessage}
             </div>
         );
@@ -90,7 +90,7 @@ export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({
 
     return (
         <div>
-            <div className="text-second mb-2 grid grid-cols-[minmax(52px,1fr)_minmax(72px,1fr)_minmax(86px,1.1fr)] items-center gap-1 text-left text-xs">
+            <div className="mb-2 grid grid-cols-[minmax(52px,1fr)_minmax(72px,1fr)_minmax(86px,1.1fr)] items-center gap-1 text-left text-xs text-second">
                 <span className="min-w-0">
                     <Trans>Price</Trans>
                 </span>
@@ -108,7 +108,7 @@ export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({
                     emptyMessage={<Trans>No asks</Trans>}
                     onPriceClick={onPriceClick}
                 />
-                <div ref={forkedRef} className="text-third grid h-[14px] grid-cols-2 items-center gap-1">
+                <div ref={forkedRef} className="grid h-[14px] grid-cols-2 items-center gap-1 text-third">
                     <span className="min-w-0 truncate">
                         <Trans id="bets-last-price" comment="Last: {lastPrice}">
                             Last: {lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'}

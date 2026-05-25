@@ -87,13 +87,13 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                     <ClickableButton
                         disabled={minusDisabled}
                         onClick={() => changeMintCount(`${mintCount - 1}`)}
-                        className="bg-main text-lightBottom dark:text-darkBottom flex size-8 items-center justify-center rounded-full"
+                        className="flex size-8 items-center justify-center rounded-full bg-main text-lightBottom dark:text-darkBottom"
                     >
                         <MinusIcon width={20} height={20} />
                     </ClickableButton>
                     <input
                         readOnly={inputDisabled}
-                        className="border-secondaryLine text-main focus:border-highlight h-8 w-[62px] rounded-full border bg-transparent text-center"
+                        className="h-8 w-[62px] rounded-full border border-secondaryLine bg-transparent text-center text-main focus:border-highlight"
                         value={count}
                         onChange={(e) => changeMintCount(e.target.value)}
                         onBlur={onInputBlur}
@@ -101,7 +101,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                     <ClickableButton
                         disabled={addDisabled}
                         onClick={() => changeMintCount(`${mintCount + 1}`)}
-                        className="bg-main text-lightBottom dark:text-darkBottom flex size-8 items-center justify-center rounded-full"
+                        className="flex size-8 items-center justify-center rounded-full bg-main text-lightBottom dark:text-darkBottom"
                     >
                         <AddIcon width={20} height={20} />
                     </ClickableButton>
@@ -112,7 +112,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                 onClick={onMint}
                 loading={showLoading}
                 onlyLoading={!loading}
-                className="bg-main text-lightBottom dark:text-darkBottom h-8 flex-1 rounded-full text-center text-sm font-bold !leading-8"
+                className="h-8 flex-1 rounded-full bg-main text-center text-sm font-bold !leading-8 text-lightBottom dark:text-darkBottom"
             >
                 {loading ? (
                     <Trans>Minting</Trans>

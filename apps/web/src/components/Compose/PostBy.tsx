@@ -104,7 +104,7 @@ export function PostBy() {
     }, [type, sealedSource, poll, scheduleTime, availableSources, images, rpPayload, videos, disabledSources]);
 
     const content = (
-        <div className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom flex max-h-[156px] flex-col gap-2 overflow-y-auto rounded-lg py-3 md:max-h-[188px] dark:border dark:shadow-none">
+        <div className="no-scrollbar flex max-h-[156px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[188px]">
             {SORTED_SOCIAL_SOURCES.map((source, index) => (
                 <PostByItem key={source} source={source} {...postByDisabled[index]} />
             ))}

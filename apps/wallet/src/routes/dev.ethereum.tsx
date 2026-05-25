@@ -134,7 +134,7 @@ export function EthereumDevPage() {
             <h1 className="mb-4 text-lg font-semibold">EVM Transfer (Dev)</h1>
 
             {!evmAddress ? (
-                <div className="bg-bg mb-4 rounded-md p-3 text-sm">Please log in via Privy and connect a wallet</div>
+                <div className="mb-4 rounded-md bg-bg p-3 text-sm">Please log in via Privy and connect a wallet</div>
             ) : null}
 
             <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
@@ -211,7 +211,7 @@ export function EthereumDevPage() {
                         {...register('to', { required: true })}
                         autoComplete="off"
                         placeholder="0x... or ENS"
-                        className="bg-bg flex-1 rounded-md px-3 py-2 text-sm outline-none"
+                        className="flex-1 rounded-md bg-bg px-3 py-2 text-sm outline-none"
                     />
                 </div>
 
@@ -222,7 +222,7 @@ export function EthereumDevPage() {
                         autoComplete="off"
                         placeholder="Enter amount"
                         inputMode="decimal"
-                        className="bg-bg flex-1 rounded-md px-3 py-2 text-sm outline-none"
+                        className="flex-1 rounded-md bg-bg px-3 py-2 text-sm outline-none"
                     />
                 </div>
 
@@ -235,7 +235,7 @@ export function EthereumDevPage() {
 
             <iframe
                 src={`${typeof window !== 'undefined' ? window.location.origin : ''}${APP_BASE_PATH}`}
-                className="border-line h-[600px] w-full max-w-[500px] rounded-lg border shadow-sm"
+                className="h-[600px] w-full max-w-[500px] rounded-lg border border-line shadow-sm"
             />
         </div>
     );

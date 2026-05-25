@@ -510,7 +510,7 @@ export default function BetEventClient({ id }: { id: string }) {
     return (
         <div className="flex w-full flex-1 flex-col">
             {submitDisabledReason ? (
-                <div className="bg-warn w-full px-3 py-2 text-center text-xs text-white">{submitDisabledReason}</div>
+                <div className="w-full bg-warn px-3 py-2 text-center text-xs text-white">{submitDisabledReason}</div>
             ) : null}
             <div className="grid w-full grid-cols-[1fr_36px] items-center gap-2 p-4">
                 <button
@@ -523,7 +523,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         });
                     }}
                 >
-                    <div className="bg-lightBg size-10 rounded-lg">
+                    <div className="size-10 rounded-lg bg-lightBg">
                         {data?.resolvedImage ? (
                             <Image
                                 src={data.resolvedImage}
@@ -534,7 +534,7 @@ export default function BetEventClient({ id }: { id: string }) {
                                 height={40}
                             />
                         ) : (
-                            <RandomIcon width={40} height={40} className="outline-lightLineSecond rounded-lg outline" />
+                            <RandomIcon width={40} height={40} className="rounded-lg outline outline-lightLineSecond" />
                         )}
                     </div>
                     <div className="text-sm font-semibold">{data?.question || id}</div>

@@ -14,7 +14,7 @@ interface SecondTabsProps<T extends keyof any> {
 
 export function SecondTabs<T extends keyof any>({ items, current }: SecondTabsProps<T>) {
     return (
-        <nav className="border-line bg-primaryBottom border-b">
+        <nav className="border-b border-line bg-primaryBottom">
             <menu className="scrollable-tab -mb-px flex gap-1.5 px-4 md:w-full" aria-label="Tabs">
                 {items.map((tab) => {
                     return (
@@ -23,8 +23,8 @@ export function SecondTabs<T extends keyof any>({ items, current }: SecondTabsPr
                                 replace
                                 href={tab.link}
                                 className={classNames(
-                                    current === tab.value ? 'border-highlight text-highlight border-b-4' : 'text-third',
-                                    'hover:text-highlight h-[45px] whitespace-nowrap px-4 text-center text-base font-bold leading-[45px] hover:cursor-pointer',
+                                    current === tab.value ? 'border-b-4 border-highlight text-highlight' : 'text-third',
+                                    'h-[45px] whitespace-nowrap px-4 text-center text-base font-bold leading-[45px] hover:cursor-pointer hover:text-highlight',
                                 )}
                             >
                                 {tab.title}

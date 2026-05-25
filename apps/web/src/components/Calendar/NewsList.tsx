@@ -83,7 +83,7 @@ export function NewsList({ date }: NewsListProps) {
                         <p className="p-2 font-bold leading-none">{group.label}</p>
                         {group.events.map((event) => (
                             <Link
-                                className="border-line flex cursor-pointer flex-col gap-2 border-b p-2 outline-none last:border-none hover:no-underline"
+                                className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 outline-none last:border-none hover:no-underline"
                                 key={event.event_url}
                                 href={event.event_url}
                                 rel="noopener noreferrer"
@@ -99,15 +99,15 @@ export function NewsList({ date }: NewsListProps) {
                                                 height={24}
                                                 alt={event.project.name}
                                             />
-                                            <p className="text-main text-xs font-bold">{event.project.name}</p>
+                                            <p className="text-xs font-bold text-main">{event.project.name}</p>
                                         </div>
                                     ) : null}
-                                    <p className="bg-bg text-main flex items-center justify-center rounded-md px-2 py-1 text-center text-xs">
+                                    <p className="flex items-center justify-center rounded-md bg-bg px-2 py-1 text-center text-xs text-main">
                                         {event.event_type}
                                     </p>
                                 </div>
                                 <p className="text-main">{event.event_title}</p>
-                                <p className="text-second text-xs">{event.event_description}</p>
+                                <p className="text-xs text-second">{event.event_description}</p>
                             </Link>
                         ))}
                     </div>
@@ -118,7 +118,7 @@ export function NewsList({ date }: NewsListProps) {
                     {isFetching ? <Loading className="text-main" /> : null}
                 </ElementAnchor>
             ) : (
-                <p className="text-second py-2 text-center text-xs">
+                <p className="py-2 text-center text-xs text-second">
                     <Trans>No more data available.</Trans>
                 </p>
             )}

@@ -66,7 +66,7 @@ export function EditFireflyProfileForm() {
                 <div className="mb-10">
                     <label htmlFor="avatar-upload" className="relative cursor-pointer">
                         <EditProfileAvatar pfp={context.profile?.avatar} name="avatar" size={120} />
-                        <div className="bg-main text-primaryBottom absolute bottom-1 right-1 z-10 flex size-6 items-center justify-center rounded-full">
+                        <div className="absolute bottom-1 right-1 z-10 flex size-6 items-center justify-center rounded-full bg-main text-primaryBottom">
                             <EditIcon className="size-3.5 shrink-0" />
                         </div>
                     </label>
@@ -91,7 +91,7 @@ export function EditFireflyProfileForm() {
                         }}
                     />
                 </div>
-                <label htmlFor="display-name-input" className="text-main mb-6 text-sm font-bold leading-[18px]">
+                <label htmlFor="display-name-input" className="mb-6 text-sm font-bold leading-[18px] text-main">
                     <Trans>Nickname</Trans>
                 </label>
                 <FormInput
@@ -116,13 +116,13 @@ export function EditFireflyProfileForm() {
                 />
                 <ErrorMessage name="displayName" className="mt-2" />
             </div>
-            <div className="shadow-accountCardShadowLight mt-auto flex w-full justify-end p-4">
+            <div className="mt-auto flex w-full justify-end p-4 shadow-accountCardShadowLight">
                 <ClickableButton
                     enableDefault
                     enablePropagate
                     type="submit"
                     disabled={!isDirty || !isValid || isSubmitting}
-                    className="bg-main text-medium text-primaryBottom flex h-10 w-[120px] items-center justify-center rounded-full font-bold leading-10"
+                    className="flex h-10 w-[120px] items-center justify-center rounded-full bg-main text-medium font-bold leading-10 text-primaryBottom"
                 >
                     {isSubmitting ? <LoadingIcon size={16} /> : <Trans>Save</Trans>}
                 </ClickableButton>

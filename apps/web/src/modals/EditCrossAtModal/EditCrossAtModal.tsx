@@ -55,20 +55,20 @@ export function EditCrossAtModal({ ref }: Props) {
 
     return (
         <Modal onClose={() => dispatch?.close()} open={open}>
-            <div className="bg-primaryBottom shadow-popover relative z-10 mx-auto w-[300px] min-w-[300px] max-w-[95vw] rounded-2xl transition-all">
+            <div className="relative z-10 mx-auto w-[300px] min-w-[300px] max-w-[95vw] rounded-2xl bg-primaryBottom shadow-popover transition-all">
                 <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] px-4 pt-4">
                     <CloseButton
                         onClick={() => {
                             dispatch?.close();
                         }}
                     />
-                    <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Cross at handles</Trans>
                     </div>
                     <div className="relative size-6" />
                 </div>
                 <div className="flex flex-col items-center px-4 pb-6 pt-2">
-                    <div className="text-second text-center text-sm">
+                    <div className="text-center text-sm text-second">
                         <Trans>Choose or set the handles for cross at.</Trans>
                     </div>
                 </div>
@@ -82,8 +82,8 @@ export function EditCrossAtModal({ ref }: Props) {
                         return (
                             <div key={source} className="flex items-center gap-3">
                                 <SocialSourceIcon square source={source} size={18} className="size-[18px]" />
-                                <div className="border-line text-main focus-within:border-lightHighlight relative flex w-full items-center rounded-md border bg-transparent p-2 text-xl font-medium outline-none transition duration-150">
-                                    <span className="text-main text-[14px] leading-[18px]">@</span>
+                                <div className="relative flex w-full items-center rounded-md border border-line bg-transparent p-2 text-xl font-medium text-main outline-none transition duration-150 focus-within:border-lightHighlight">
+                                    <span className="text-[14px] leading-[18px] text-main">@</span>
                                     <input
                                         className="w-full border-none bg-transparent p-0 leading-[18px] outline-none focus:border-none"
                                         style={{ boxShadow: 'none' }}
@@ -101,7 +101,7 @@ export function EditCrossAtModal({ ref }: Props) {
                                             {({ open, close }) => (
                                                 <>
                                                     <PopoverButton className="outline-none">
-                                                        <ArrowDown className="text-second size-4 cursor-pointer" />
+                                                        <ArrowDown className="size-4 cursor-pointer text-second" />
                                                     </PopoverButton>
                                                     <Transition
                                                         as={Fragment}
@@ -112,11 +112,11 @@ export function EditCrossAtModal({ ref }: Props) {
                                                         leaveFrom="opacity-100"
                                                         leaveTo="opacity-0 translate-y-1"
                                                     >
-                                                        <PopoverPanel className="no-scrollbar bg-primaryBottom shadow-popover absolute -left-[222px] right-0 top-[110%] z-10 max-h-60 w-full min-w-[238px] overflow-y-auto rounded-2xl py-2">
+                                                        <PopoverPanel className="no-scrollbar absolute -left-[222px] right-0 top-[110%] z-10 max-h-60 w-full min-w-[238px] overflow-y-auto rounded-2xl bg-primaryBottom py-2 shadow-popover">
                                                             {profile.related_profiles?.map((item) => (
                                                                 <div
                                                                     key={item.platform_id}
-                                                                    className="hover:bg-bg flex cursor-pointer items-center gap-[14px] px-4 py-2"
+                                                                    className="flex cursor-pointer items-center gap-[14px] px-4 py-2 hover:bg-bg"
                                                                     onClick={() => {
                                                                         setHandles((h) => ({
                                                                             ...h,
@@ -132,10 +132,10 @@ export function EditCrossAtModal({ ref }: Props) {
                                                                         enableDefaultAvatar
                                                                     />
                                                                     <div className="flex flex-col gap-1">
-                                                                        <div className="text-medium text-main text-left font-medium leading-[16px]">
+                                                                        <div className="text-left text-medium font-medium leading-[16px] text-main">
                                                                             {item.name}
                                                                         </div>
-                                                                        <div className="text-second text-left text-sm">
+                                                                        <div className="text-left text-sm text-second">
                                                                             @{item.handle}
                                                                         </div>
                                                                     </div>

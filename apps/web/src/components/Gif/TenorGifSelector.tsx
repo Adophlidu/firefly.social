@@ -20,8 +20,8 @@ export const TenorGifSelector = memo<TenorGifSelectorProps>(function TenorGifSel
 
     return (
         <>
-            <div className="bg-lightBg text-main relative mx-3 flex grow items-center rounded-xl pl-3">
-                <SearchIcon width={18} height={18} className="text-primaryMain shrink-0" />
+            <div className="relative mx-3 flex grow items-center rounded-xl bg-lightBg pl-3 text-main">
+                <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />
                 <div className="w-full flex-1">
                     <SearchInput
                         value={inputText}

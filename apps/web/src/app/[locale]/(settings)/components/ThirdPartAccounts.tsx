@@ -47,14 +47,14 @@ function ThirdPartItem({
     const connected = !!account;
 
     return (
-        <div className="border-line dark:bg-bg inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border bg-white bg-bottom px-3 py-2 backdrop-blur">
+        <div className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg">
             <div className={classNames('flex size-10 items-center justify-center rounded-full', iconClassName)}>
                 <PlatformIcon width={iconWidth} height={iconHeight} />
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <span className="text-lightMain truncate text-base font-bold">{resolveSourceName(source)}</span>
+                <span className="truncate text-base font-bold text-lightMain">{resolveSourceName(source)}</span>
                 {connected ? (
-                    <span className="text-medium text-second truncate">
+                    <span className="truncate text-medium text-second">
                         {formatThirdPartyProfileName(account.profile)}
                     </span>
                 ) : null}
@@ -122,7 +122,7 @@ export function ThirdPartAccounts() {
     return (
         <div className="flex w-full flex-col items-center gap-3">
             <div className="flex w-full items-center justify-between">
-                <span className="text-main text-base font-bold leading-[18px]">
+                <span className="text-base font-bold leading-[18px] text-main">
                     <Trans>Others</Trans>
                 </span>
             </div>

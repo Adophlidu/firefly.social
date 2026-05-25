@@ -29,34 +29,34 @@ export default function BetsLeaderboardPage() {
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="border-line bg-primaryBottom border-b">
+            <div className="border-b border-line bg-primaryBottom">
                 <nav className="flex items-center gap-1.5 px-4">
                     <div className="flex flex-col">
                         <ClickableButton
                             onClick={() => handleTabChange(BetsLeaderboardTab.Global)}
                             className={classNames(
-                                'hover:text-highlight flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all',
+                                'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',
                                 tab === BetsLeaderboardTab.Global ? 'text-highlight' : 'text-third',
                             )}
                         >
                             <Trans>Global</Trans>
                         </ClickableButton>
                         {tab === BetsLeaderboardTab.Global ? (
-                            <span className="bg-highlight h-1 w-full transition-all" />
+                            <span className="h-1 w-full bg-highlight transition-all" />
                         ) : null}
                     </div>
                     <div className="flex flex-col">
                         <ClickableButton
                             onClick={() => handleTabChange(BetsLeaderboardTab.Following)}
                             className={classNames(
-                                'hover:text-highlight flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all',
+                                'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',
                                 tab === BetsLeaderboardTab.Following ? 'text-highlight' : 'text-third',
                             )}
                         >
                             <Trans>Following</Trans>
                         </ClickableButton>
                         {tab === BetsLeaderboardTab.Following ? (
-                            <span className="bg-highlight h-1 w-full transition-all" />
+                            <span className="h-1 w-full bg-highlight transition-all" />
                         ) : null}
                     </div>
                 </nav>

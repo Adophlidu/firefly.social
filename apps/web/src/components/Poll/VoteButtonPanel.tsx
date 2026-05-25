@@ -104,7 +104,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                     key={`${option.id}-${index}`}
                     disabled={loading}
                     className={classNames(
-                        'hover:border-lightHighlight hover:text-highlight mt-3 flex h-10 w-full items-center justify-center rounded-[10px] border text-base font-bold leading-10 disabled:!cursor-default disabled:!opacity-100',
+                        'mt-3 flex h-10 w-full items-center justify-center rounded-[10px] border text-base font-bold leading-10 hover:border-lightHighlight hover:text-highlight disabled:!cursor-default disabled:!opacity-100',
                         selectedOptions.some((x) => x.id === option.id)
                             ? 'border-lightHighlight text-highlight'
                             : 'border-lightMain text-lightMain',
@@ -117,7 +117,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
             ))}
             {isMultiple && selectedOptions.length ? (
                 <ClickableButton
-                    className="bg-main text-primaryBottom mt-3 h-10 w-full rounded-full text-sm font-bold"
+                    className="mt-3 h-10 w-full rounded-full bg-main text-sm font-bold text-primaryBottom"
                     loading={loading}
                     onClick={() => handleVote()}
                     aria-label="Submit vote"

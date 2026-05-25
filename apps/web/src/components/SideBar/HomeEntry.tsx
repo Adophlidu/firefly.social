@@ -32,7 +32,7 @@ export function HomeEntry({ collapsed }: HomeEntryProps) {
 
     return (
         <li
-            className="text-main flex w-full rounded-lg outline-none"
+            className="flex w-full rounded-lg text-main outline-none"
             onClick={() => {
                 updateSidebarOpen(false);
             }}

@@ -93,7 +93,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
             <div className="size-[120px]">
                 {asset.coverUri ? (
                     <div className="relative">
-                        <div className="bg-third text-lightTextMain absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl p-2">
+                        <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-third p-2 text-lightTextMain">
                             <Play width={16} height={16} />
                         </div>
                         <Image
@@ -105,11 +105,11 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                         />
                     </div>
                 ) : (
-                    <div className="bg-secondaryMain flex size-[120px] flex-col items-center justify-center space-y-2 rounded-xl px-[7.5px] py-4">
+                    <div className="flex size-[120px] flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
                         <span className="text-primaryBottom opacity-50">
                             <Music width={24} height={24} />
                         </span>
-                        <span className="text-secondary break-keep text-[11px] font-medium leading-[16px]">
+                        <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">
                             <Trans>Audio Cover</Trans>
                         </span>
                     </div>
@@ -228,7 +228,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                     )}
                                 </WithPreviewLink>
                                 {isLast && moreImageCount > 0 ? (
-                                    <div className="bg-mainLight/50 absolute right-0 top-0 flex size-full items-center justify-center rounded-lg text-white">
+                                    <div className="absolute right-0 top-0 flex size-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                         <div className={classNames('font-bold', minimal ? 'text-medium' : 'text-2xl')}>
                                             +{moreImageCount + 1}
                                         </div>
@@ -246,7 +246,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                 <div className={classNames('my-2')}>
                     <div
                         className={classNames(
-                            'border-primaryMain text-medium flex items-center justify-between gap-1 rounded-lg px-3 py-[6px]',
+                            'flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-medium',
                             {
                                 border: !minimal,
                             },
@@ -256,7 +256,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
 
                         <Link
                             href={asset.uri}
-                            className="text-highlight flex items-center gap-1"
+                            className="flex items-center gap-1 text-highlight"
                             target="_blank"
                             rel="noreferrer noopener"
                         >

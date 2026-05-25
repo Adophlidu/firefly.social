@@ -129,7 +129,7 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
 
     return (
         <IconButton onlyLoading loading={loading} tooltip={<Trans>Lens Auto login</Trans>} onClick={onMoreButtonClick}>
-            <MoreIcon width={20} height={20} className="text-second size-5 shrink-0" />
+            <MoreIcon width={20} height={20} className="size-5 shrink-0 text-second" />
         </IconButton>
     );
 });

@@ -66,10 +66,10 @@ export const TimeRangeSettings = memo<TimeRangeSettingsProps>(function TimeRange
                 <ClickableButton
                     key={range}
                     className={classNames(
-                        'hover:text-highlight h-[18px] rounded px-1.5 text-xs !leading-[18px]',
+                        'h-[18px] rounded px-1.5 text-xs !leading-[18px] hover:text-highlight',
                         range === timeRange
-                            ? 'bg-highlight/20 text-highlight font-semibold'
-                            : 'text-main bg-transparent',
+                            ? 'bg-highlight/20 font-semibold text-highlight'
+                            : 'bg-transparent text-main',
                     )}
                     onClick={() => {
                         if (range === timeRange) return;

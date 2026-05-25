@@ -1286,8 +1286,10 @@ export interface SportActivityData {
     winResult?: number;
 }
 
-export interface SportActivityGameData
-    extends Omit<SportActivityData, 'livestreamInfo' | 'periodShow' | 'scoreShow' | 'scoreType'> {
+export interface SportActivityGameData extends Omit<
+    SportActivityData,
+    'livestreamInfo' | 'periodShow' | 'scoreShow' | 'scoreType'
+> {
     livestream_info?: {
         livestreamUrl?: string;
         livestream_url?: string;

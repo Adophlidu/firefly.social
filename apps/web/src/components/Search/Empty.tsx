@@ -11,10 +11,10 @@ interface EmptyProps {
 export function Empty({ keyword, message }: EmptyProps) {
     return (
         <div className="mx-16">
-            <div className="text-main text-sm">
+            <div className="text-sm text-main">
                 <Trans>No results for &quot;{keyword}&quot;</Trans>
             </div>
-            <p className="text-second mt-4 text-center text-sm">
+            <p className="mt-4 text-center text-sm text-second">
                 {message || <Trans>Try searching for something else.</Trans>}
             </p>
         </div>

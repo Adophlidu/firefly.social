@@ -34,12 +34,12 @@ export const ModalTitle = memo(function ModalTitle({
                 <CloseButton
                     disabled={buttonDisabled}
                     onClick={() => onClose?.()}
-                    className="text-main cursor-pointer"
+                    className="cursor-pointer text-main"
                 />
             ) : enableBack ? (
-                <BackButton disabled={buttonDisabled} onClick={() => onBack?.()} className="text-main cursor-pointer" />
+                <BackButton disabled={buttonDisabled} onClick={() => onBack?.()} className="cursor-pointer text-main" />
             ) : null}
-            <div className="text-main h-6 shrink grow basis-0 text-center text-lg font-bold leading-snug">{title}</div>
+            <div className="h-6 shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">{title}</div>
             <div className="flex size-8 items-center justify-end">{actions}</div>
         </DialogTitle>
     );

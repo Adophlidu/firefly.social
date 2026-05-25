@@ -17,7 +17,7 @@ export function ChartTooltip(markets: BetsMarketWithSettings[], outcomeId: strin
             <div className={classNames(isVisible ? 'visible' : 'invisible')}>
                 {isVisible ? (
                     <div>
-                        {time ? <span className="text-second text-xs">{time}</span> : null}
+                        {time ? <span className="text-xs text-second">{time}</span> : null}
                         <div className="space-y-2">
                             {payload.map((data) => {
                                 const market = markets.find(

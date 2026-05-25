@@ -77,7 +77,7 @@ export function FormView() {
                 >
                     <ComebackIcon />
                 </Button>
-                <h2 className="text-main text-lg font-semibold">
+                <h2 className="text-lg font-semibold text-main">
                     <Trans>Send</Trans>
                 </h2>
             </div>
@@ -302,7 +302,7 @@ function Form() {
         >
             <div className="no-scrollbar -mx-px flex min-h-0 w-full grow flex-col gap-3 overflow-y-auto px-px">
                 <ClickableButton
-                    className="bg-line flex w-full items-center justify-between rounded-xl p-4"
+                    className="flex w-full items-center justify-between rounded-xl bg-line p-4"
                     onClick={() => router.navigate({ to: RoutePath.SelectToken })}
                 >
                     <div className="flex items-center gap-x-4">
@@ -314,9 +314,9 @@ function Form() {
                             symbol={token.symbol}
                             name={token.name}
                         />
-                        <div className="text-medium flex flex-col space-y-1 text-left">
+                        <div className="flex flex-col space-y-1 text-left text-medium">
                             <span className="h-[18px] leading-[18px]">{token.name}</span>
-                            <span className="text-second h-3.5 text-[13px] leading-[14px]">
+                            <span className="h-3.5 text-[13px] leading-[14px] text-second">
                                 <Trans>
                                     Balance:{' '}
                                     {isLoadingAvailableBalance ? '...' : availableBalance || token.balance || '0'}{' '}
@@ -332,7 +332,7 @@ function Form() {
                 <div className="text-sm font-medium">
                     <Trans>To</Trans>
                 </div>
-                <div className="bg-line focus-within:bg-primaryBottom focus-within:ring-highlight relative flex w-full rounded-xl focus-within:ring-1">
+                <div className="relative flex w-full rounded-xl bg-line focus-within:bg-primaryBottom focus-within:ring-1 focus-within:ring-highlight">
                     {showRecipient && recipient ? (
                         <div
                             className={cn(
@@ -351,7 +351,7 @@ function Form() {
                             'opacity-0': !!showRecipient && !isFocusingAddressInput,
                         })}
                     >
-                        <div className="border-line2 bg-primaryBottom flex size-9 items-center justify-center rounded-lg border">
+                        <div className="border-line2 flex size-9 items-center justify-center rounded-lg border bg-primaryBottom">
                             <WalletIcon width={24} height={24} className="text-third" />
                         </div>
                         <textarea
@@ -363,7 +363,7 @@ function Form() {
                                 },
                             })}
                             onFocus={() => setIsFocusingAddressInput(true)}
-                            className="text-medium no-scrollbar text-main placeholder:text-second max-h-9 min-h-[18px] flex-1 resize-none border-none bg-transparent p-0 pl-3 font-medium leading-[18px] focus:!shadow-none focus:!outline-none focus:!ring-transparent"
+                            className="no-scrollbar max-h-9 min-h-[18px] flex-1 resize-none border-none bg-transparent p-0 pl-3 text-medium font-medium leading-[18px] text-main placeholder:text-second focus:!shadow-none focus:!outline-none focus:!ring-transparent"
                             autoComplete="off"
                             autoCorrect="off"
                             spellCheck="false"
@@ -390,7 +390,7 @@ function Form() {
                     </ClickableButton>
                 </div>
                 {recipient && isSocialRecipient(recipient) && isSameAddress(recipient.address, to) ? (
-                    <div className="text-warn flex items-center space-x-3 rounded-2xl border border-current p-3 text-left text-[13px] font-medium leading-5">
+                    <div className="flex items-center space-x-3 rounded-2xl border border-current p-3 text-left text-[13px] font-medium leading-5 text-warn">
                         <InfoIcon width={24} height={24} className="shrink-0" />
                         <div>
                             <Trans>
@@ -406,7 +406,7 @@ function Form() {
                 <div className="flex w-full flex-col space-y-1">
                     <label
                         htmlFor="send-transaction-amount"
-                        className="bg-line focus-within:bg-primaryBottom focus-within:ring-highlight flex cursor-text items-center rounded-xl p-4 pl-2 duration-100 focus-within:ring-1"
+                        className="flex cursor-text items-center rounded-xl bg-line p-4 pl-2 duration-100 focus-within:bg-primaryBottom focus-within:ring-1 focus-within:ring-highlight"
                     >
                         <input
                             id="send-transaction-amount"
@@ -427,7 +427,7 @@ function Form() {
                             autoCorrect="off"
                             spellCheck="false"
                             inputMode="decimal"
-                            className="no-spinner text-medium text-main placeholder:text-second h-9 flex-1 border-none bg-transparent p-0 pl-3 placeholder:font-normal focus:!shadow-none focus:!outline-none focus:!ring-transparent"
+                            className="no-spinner h-9 flex-1 border-none bg-transparent p-0 pl-3 text-medium text-main placeholder:font-normal placeholder:text-second focus:!shadow-none focus:!outline-none focus:!ring-transparent"
                             placeholder={t`Enter amount`}
                         />
                         <ClickableButton
@@ -440,14 +440,14 @@ function Form() {
                             loading={isLoadingAvailableBalance}
                             onlyLoading
                             type="button"
-                            className="text-medium text-highlight flex size-9 items-center justify-center font-semibold uppercase"
+                            className="flex size-9 items-center justify-center text-medium font-semibold uppercase text-highlight"
                         >
                             <Trans>Max</Trans>
                         </ClickableButton>
                     </label>
                 </div>
                 <div className="flex h-[18px] w-full flex-row justify-between whitespace-nowrap text-sm leading-[18px]">
-                    <div className="text-second font-normal">
+                    <div className="font-normal text-second">
                         <Trans>Network cost</Trans>
                     </div>
                     <div className="flex items-center gap-1 font-medium">
@@ -460,7 +460,7 @@ function Form() {
                             </>
                         ) : estimateGasError ? (
                             <ClickableButton
-                                className="text-second flex items-center gap-1"
+                                className="flex items-center gap-1 text-second"
                                 onClick={() => refetchEstimateGas()}
                                 type="button"
                             >

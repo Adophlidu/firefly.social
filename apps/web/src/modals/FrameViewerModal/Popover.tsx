@@ -33,7 +33,7 @@ export const Popover = memo(function Popover({ frame, open, onClose, title, cont
                     leaveTo="opacity-0"
                 >
                     <div
-                        className="bg-main/25 absolute inset-0 bg-opacity-30"
+                        className="absolute inset-0 bg-main/25 bg-opacity-30"
                         onClick={(ev) => {
                             ev.preventDefault();
                             ev.stopPropagation();
@@ -50,8 +50,8 @@ export const Popover = memo(function Popover({ frame, open, onClose, title, cont
                     leaveFrom="translate-y-0"
                     leaveTo="translate-y-full"
                 >
-                    <div className="bg-lightBottom dark:bg-darkBottom relative z-10 max-h-[600px] w-full rounded-t-xl">
-                        <div className="border-line flex items-center border-b p-3">
+                    <div className="relative z-10 max-h-[600px] w-full rounded-t-xl bg-lightBottom dark:bg-darkBottom">
+                        <div className="flex items-center border-b border-line p-3">
                             {frame?.button.action.splashImageUrl ? (
                                 <Image
                                     className="mr-2 rounded-xl"
@@ -66,7 +66,7 @@ export const Popover = memo(function Popover({ frame, open, onClose, title, cont
                             <div className="text-left">
                                 <h2 className="text-sm font-bold">{title}</h2>
                                 {u ? (
-                                    <p className="text-secondary mt-1 text-xs">
+                                    <p className="mt-1 text-xs text-secondary">
                                         <Trans>
                                             Requested from{' '}
                                             <Link className="text-fireflyBrand" href={u.href}>

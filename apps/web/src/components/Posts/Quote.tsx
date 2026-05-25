@@ -29,7 +29,7 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '', isI
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={classNames('border-secondaryLine mt-3 cursor-pointer rounded-2xl border p-3', className)}
+            className={classNames('mt-3 cursor-pointer rounded-2xl border border-secondaryLine p-3', className)}
             onClick={(event) => {
                 event.stopPropagation();
 

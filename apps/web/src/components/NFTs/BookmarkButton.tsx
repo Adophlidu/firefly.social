@@ -108,7 +108,7 @@ export const BookmarkInIcon = memo(function BookmarkInIcon({
                                   'flex size-8 items-center justify-center rounded-xl bg-black/25 text-white',
                                   bookmarked
                                       ? 'text-warn'
-                                      : 'hover:bg-warn/20 hover:text-warn active:text-warn active:bg-black/25',
+                                      : 'hover:bg-warn/20 hover:text-warn active:bg-black/25 active:text-warn',
                               )
                     }
                 >

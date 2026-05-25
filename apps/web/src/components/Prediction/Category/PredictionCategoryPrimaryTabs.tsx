@@ -24,7 +24,7 @@ function PrimaryTab({ item, isActive }: { item: PolymarketEventSlugListData; isA
             {...{ [PREDICTION_CATEGORY_SCROLL_KEY_ATTR]: item.slug }}
             className={classNames(
                 'flex h-12 shrink-0 items-center border-b-4 text-base font-bold transition-colors',
-                isActive ? 'border-highlight text-highlight' : 'text-third hover:text-main border-transparent',
+                isActive ? 'border-highlight text-highlight' : 'border-transparent text-third hover:text-main',
             )}
         >
             {item.label}
@@ -39,7 +39,7 @@ export const PredictionCategoryPrimaryTabs = memo<Props>(function PredictionCate
     return (
         <PredictionCategoryHorizontalScroll
             scrollActiveKey={context.primaryItem.slug}
-            className="no-scrollbar border-line flex w-full items-center gap-5 overflow-x-auto border-b px-4"
+            className="no-scrollbar flex w-full items-center gap-5 overflow-x-auto border-b border-line px-4"
         >
             {leading.map((item) => (
                 <PrimaryTab key={item.slug} item={item} isActive={context.primaryItem.slug === item.slug} />

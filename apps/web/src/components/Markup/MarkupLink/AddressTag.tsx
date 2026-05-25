@@ -43,7 +43,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
                     height={15}
                 />
                 <Link
-                    className="text-highlight cursor-pointer hover:underline"
+                    className="cursor-pointer text-highlight hover:underline"
                     onClick={stopPropagation}
                     prefetch={false}
                     href={getProfileUrl({ source: Source.Wallet, profileId: address })}

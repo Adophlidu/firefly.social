@@ -76,12 +76,12 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
             <div
-                className="bg-bgModal shadow-popover relative w-[320px] max-w-[clamp(386px,90vw,95vw)] rounded-xl transition-all md:w-[355px] dark:text-gray-950"
+                className="relative w-[320px] max-w-[clamp(386px,90vw,95vw)] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950 md:w-[355px]"
                 onClick={stopEvent}
             >
                 <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
                     <CloseButton onClick={() => dispatch?.close()} />
-                    <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Disconnect</Trans>
                     </div>
                     <div className="relative size-6" />
@@ -89,7 +89,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
 
                 <div className="flex flex-col gap-2 px-0 !pt-0 pb-6">
                     <div className="flex flex-col gap-2">
-                        <div className="text-medium text-lightMain px-6 font-medium leading-normal">
+                        <div className="px-6 text-medium font-medium leading-normal text-lightMain">
                             {isThirdPartyAccount ? (
                                 <Trans>Confirm to disconnect this account from Firefly’s social graph?</Trans>
                             ) : (
@@ -100,7 +100,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
                         </div>
                         <menu className="flex flex-col gap-3 px-6 pb-3 pt-2">
                             {account ? (
-                                <div className="border-line rounded-lg border px-3 py-2">
+                                <div className="rounded-lg border border-line px-3 py-2">
                                     <ProfileInList
                                         key={account.profile.profileId}
                                         selected
@@ -118,7 +118,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
                     </div>
                     <ClickableButton
                         className={classNames(
-                            'bg-commonDanger mx-6 flex h-10 min-h-10 flex-1 items-center justify-center rounded-full py-2 font-bold text-white',
+                            'mx-6 flex h-10 min-h-10 flex-1 items-center justify-center rounded-full bg-commonDanger py-2 font-bold text-white',
                         )}
                         disabled={loading}
                         onClick={() => confirm()}

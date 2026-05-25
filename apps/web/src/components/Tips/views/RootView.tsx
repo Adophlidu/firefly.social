@@ -61,7 +61,7 @@ export function RootView() {
                 onClose={onClose}
                 disableDialogClose={false}
             >
-                <div className="bg-lightBottom text-medium text-lightMain dark:bg-darkBottom z-10 transition-all">
+                <div className="z-10 bg-lightBottom text-medium text-lightMain transition-all dark:bg-darkBottom">
                     {content}
                 </div>
             </Modal>
@@ -70,7 +70,7 @@ export function RootView() {
 
     return (
         <Popover open={open} onClose={onClose} dialogPanelClassName="!pt-10">
-            <div className="text-medium text-lightMain px-3 pb-6">{content}</div>
+            <div className="px-3 pb-6 text-medium text-lightMain">{content}</div>
         </Popover>
     );
 }

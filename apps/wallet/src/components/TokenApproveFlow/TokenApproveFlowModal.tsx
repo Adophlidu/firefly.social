@@ -62,8 +62,8 @@ function shortAddress(addr: string): string {
 function SummaryRow({ label, children }: { label: string; children: ReactNode }) {
     return (
         <div className="flex w-full items-center justify-between gap-2">
-            <span className="text-second shrink-0 text-[13px] leading-[18px]">{label}</span>
-            <div className="text-main min-w-0 text-right text-[13px] font-medium leading-[18px]">{children}</div>
+            <span className="shrink-0 text-[13px] leading-[18px] text-second">{label}</span>
+            <div className="min-w-0 text-right text-[13px] font-medium leading-[18px] text-main">{children}</div>
         </div>
     );
 }
@@ -270,12 +270,12 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
 
                     <div className="flex flex-col gap-6">
                         <div className="flex w-full items-center justify-between gap-2">
-                            <h2 className="text-main flex-1 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] font-bold leading-[22px]">
+                            <h2 className="flex-1 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] font-bold leading-[22px] text-main">
                                 {headerTitle}
                             </h2>
                             <button
                                 type="button"
-                                className="text-main flex size-6 shrink-0 items-center justify-center"
+                                className="flex size-6 shrink-0 items-center justify-center text-main"
                                 onClick={() => {
                                     void onHeaderClose();
                                 }}
@@ -287,7 +287,7 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
 
                         {view === 'summary' ? (
                             <>
-                                <div className="border-secondaryLine flex w-full flex-col gap-3 rounded-2xl border p-3">
+                                <div className="flex w-full flex-col gap-3 rounded-2xl border border-secondaryLine p-3">
                                     <SummaryRow label={t`Wallet`}>
                                         <span>{shortAddress(walletAddress)}</span>
                                     </SummaryRow>
@@ -301,7 +301,7 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
                                                 onClick={openCustom}
                                             >
                                                 <span className="truncate">{approveDisplay}</span>
-                                                <Pencil className="text-main size-4 shrink-0" aria-hidden />
+                                                <Pencil className="size-4 shrink-0 text-main" aria-hidden />
                                             </button>
                                         )}
                                     </SummaryRow>
@@ -358,7 +358,7 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
                                                         symbol={symbol}
                                                         className="shrink-0"
                                                     />
-                                                    <span className="text-main text-[20px] font-semibold leading-6">
+                                                    <span className="text-[20px] font-semibold leading-6 text-main">
                                                         {symbol}
                                                     </span>
                                                 </>
@@ -367,7 +367,7 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
                                         {metaLoading ? (
                                             <Skeleton className="h-6 w-24" />
                                         ) : customUnlimited ? (
-                                            <span className="text-second text-[20px] font-semibold leading-5">
+                                            <span className="text-[20px] font-semibold leading-5 text-second">
                                                 <Trans>Unlimited</Trans>
                                             </span>
                                         ) : (
@@ -377,19 +377,19 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
                                                 placeholder="0"
                                                 inputMode="decimal"
                                                 autoComplete="off"
-                                                className="text-main caret-highlight placeholder:text-second/60 min-w-0 flex-1 border-none bg-transparent text-right text-[20px] font-semibold leading-6 outline-none focus:border-none focus:outline-none"
+                                                className="placeholder:text-second/60 min-w-0 flex-1 border-none bg-transparent text-right text-[20px] font-semibold leading-6 text-main caret-highlight outline-none focus:border-none focus:outline-none"
                                             />
                                         )}
                                     </div>
                                     <div className="flex items-center justify-between gap-3">
-                                        <span className="text-second text-[13px] leading-6">
+                                        <span className="text-[13px] leading-6 text-second">
                                             <Trans>Unlimited Amount</Trans>
                                         </span>
                                         <Switch
                                             checked={customUnlimited}
                                             onCheckedChange={setCustomUnlimited}
                                             disabled={metaLoading}
-                                            className="data-[state=checked]:bg-highlight h-[22px] w-[44px] data-[state=unchecked]:bg-[#B7B7B7]/50 [&>span]:size-[14px] data-[state=checked]:[&>span]:translate-x-[26px] data-[state=unchecked]:[&>span]:translate-x-1"
+                                            className="h-[22px] w-[44px] data-[state=checked]:bg-highlight data-[state=unchecked]:bg-[#B7B7B7]/50 [&>span]:size-[14px] data-[state=checked]:[&>span]:translate-x-[26px] data-[state=unchecked]:[&>span]:translate-x-1"
                                         />
                                     </div>
                                 </div>

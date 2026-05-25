@@ -64,7 +64,7 @@ export const PredictionBaseInfoTabs = memo<PredictionBaseInfoTabsProps>(function
             value={tab}
             onChange={handleTabChange}
             className={classNames(
-                'bg-primaryBottom sticky z-30 mt-4 px-4',
+                'sticky z-30 mt-4 bg-primaryBottom px-4',
                 IS_APPLE && IS_SAFARI ? 'top-[53px]' : 'top-[54px]',
             )}
             variant="main"

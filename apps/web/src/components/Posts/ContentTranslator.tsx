@@ -88,7 +88,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
 
     return (
         <>
-            <div className="text-highlight my-1.5 text-sm">
+            <div className="my-1.5 text-sm text-highlight">
                 {translatedText ? (
                     <ClickableButton
                         onClick={() => setCollapsed(true)}

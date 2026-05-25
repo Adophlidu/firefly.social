@@ -50,7 +50,7 @@ export function ShareImageModal({ ref }: Props) {
     if (isMedium) {
         return (
             <Modal open={open} onClose={onClose}>
-                <div className="bg-primaryBottom shadow-popover relative w-[480px] max-w-[90vw] rounded-3xl p-6 transition-all">
+                <div className="relative w-[480px] max-w-[90vw] rounded-3xl bg-primaryBottom p-6 shadow-popover transition-all">
                     <ShareImageModalContent
                         imageUrl={props.imageUrl}
                         aspectRatio={props.aspectRatio}
@@ -63,7 +63,7 @@ export function ShareImageModal({ ref }: Props) {
 
     return (
         <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0 !pt-6">
-            <div className="text-medium text-lightMain px-3 pb-6">
+            <div className="px-3 pb-6 text-medium text-lightMain">
                 <ShareImageModalContent imageUrl={props.imageUrl} aspectRatio={props.aspectRatio} onClose={onClose} />
             </div>
         </Popover>

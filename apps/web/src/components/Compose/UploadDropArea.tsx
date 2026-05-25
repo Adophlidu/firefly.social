@@ -81,7 +81,7 @@ export function UploadDropArea({ loading, children, ref, onDropFiles, ...props }
             className={classNames(
                 'relative',
                 props.className,
-                isDragging ? 'border-highlight border-dashed' : 'border-secondaryLine',
+                isDragging ? 'border-dashed border-highlight' : 'border-secondaryLine',
                 {
                     'cursor-not-allowed [&_*]:cursor-not-allowed': !canDrop && isDragging,
                 },
@@ -90,7 +90,7 @@ export function UploadDropArea({ loading, children, ref, onDropFiles, ...props }
         >
             {children}
             {loading ? (
-                <div className="text-secondary absolute inset-0 flex items-center justify-center bg-white/10">
+                <div className="absolute inset-0 flex items-center justify-center bg-white/10 text-secondary">
                     <LoadingIcon size={40} />
                 </div>
             ) : null}

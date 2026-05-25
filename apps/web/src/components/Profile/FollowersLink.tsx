@@ -26,7 +26,7 @@ export const FollowersLink = memo<FollowersLinkProps>(function FollowersLink({ p
             })}
         >
             <data value={followerCount}>
-                <span className="text-lightMain font-bold">{nFormatter(followerCount)} </span>
+                <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
                 <span className="text-secondary">
                     <Plural value={followerCount} one="Follower" other="Followers" />
                 </span>

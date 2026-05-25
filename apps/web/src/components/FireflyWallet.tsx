@@ -86,19 +86,19 @@ export function FireflyWallet() {
             >
                 <div
                     className={classNames(
-                        'border-line bg-primaryBottom text-main absolute bottom-0 right-4 z-50 size-[calc(100%-32px)] h-[600px] max-w-[385px] origin-bottom-right overflow-hidden rounded-xl border bg-bottom pt-14 shadow-lg duration-300 lg:right-0',
+                        'absolute bottom-0 right-4 z-50 size-[calc(100%-32px)] h-[600px] max-w-[385px] origin-bottom-right overflow-hidden rounded-xl border border-line bg-primaryBottom bg-bottom pt-14 text-main shadow-lg duration-300 lg:right-0',
                         { 'translate-y-[calc(100%-56px)] max-lg:scale-0 max-lg:opacity-0': !isOpen },
                     )}
                 >
                     <div
-                        className="border-b-line bg-lightBg absolute left-0 top-0 flex h-14 w-full items-center justify-between whitespace-nowrap border-b px-5"
+                        className="absolute left-0 top-0 flex h-14 w-full items-center justify-between whitespace-nowrap border-b border-b-line bg-lightBg px-5"
                         onClick={() => {
                             if (!isOpen) {
                                 updateFireflyWalletIsOpen(true);
                             }
                         }}
                     >
-                        <div className="text-medium flex items-center font-medium">
+                        <div className="flex items-center text-medium font-medium">
                             <WalletIcon width={24} height={24} className="mr-2" />
                             <Trans>Firefly Wallet</Trans>
                         </div>
@@ -110,7 +110,7 @@ export function FireflyWallet() {
                                     className="relative"
                                     menuOnClick={(e) => e.stopPropagation()}
                                     menuButton={
-                                        <MenuButton className="border-secondaryLine bg-bg text-main flex size-6 cursor-pointer items-center justify-center rounded-full border">
+                                        <MenuButton className="flex size-6 cursor-pointer items-center justify-center rounded-full border border-secondaryLine bg-bg text-main">
                                             <MoreIcon width={12} height={12} />
                                         </MenuButton>
                                     }
@@ -118,12 +118,12 @@ export function FireflyWallet() {
                                     <MenuItems
                                         portal
                                         anchor="bottom end"
-                                        className="border-line bg-primaryBottom text-main z-50 flex w-max min-w-[110px] flex-col overflow-hidden rounded-lg border py-3 text-base shadow-lg"
+                                        className="z-50 flex w-max min-w-[110px] flex-col overflow-hidden rounded-lg border border-line bg-primaryBottom py-3 text-base text-main shadow-lg"
                                     >
                                         <MenuItem>
                                             {({ close }) => (
                                                 <button
-                                                    className="hover:bg-bg flex cursor-pointer items-center gap-2 px-3 py-1"
+                                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 hover:bg-bg"
                                                     onClick={() => {
                                                         close();
                                                         handleRefresh();
@@ -139,7 +139,7 @@ export function FireflyWallet() {
                                         <MenuItem>
                                             {({ close }) => (
                                                 <button
-                                                    className="hover:bg-bg flex cursor-pointer items-center gap-2 px-3 py-1"
+                                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 hover:bg-bg"
                                                     onClick={() => {
                                                         close();
                                                         iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
@@ -158,7 +158,7 @@ export function FireflyWallet() {
                                 </MoreActionMenu>
                             ) : null}
                             <button
-                                className="border-secondaryLine bg-bg flex size-6 cursor-pointer items-center justify-center rounded-full border"
+                                className="flex size-6 cursor-pointer items-center justify-center rounded-full border border-secondaryLine bg-bg"
                                 onClick={() => updateFireflyWalletIsOpen(!isOpen)}
                             >
                                 <ArrowLineDownIcon
@@ -181,7 +181,7 @@ export function FireflyWallet() {
                 </div>
                 <button
                     className={classNames(
-                        'bg-lightBg text-main absolute bottom-4 right-4 z-50 flex size-12 origin-bottom-right items-center justify-center rounded-2xl shadow-lg duration-150 lg:right-0 lg:hidden',
+                        'absolute bottom-4 right-4 z-50 flex size-12 origin-bottom-right items-center justify-center rounded-2xl bg-lightBg text-main shadow-lg duration-150 lg:right-0 lg:hidden',
                         isOpen ? 'pointer-events-none scale-[3] opacity-0' : 'cursor-pointer',
                     )}
                     onClick={() => updateFireflyWalletIsOpen(true)}

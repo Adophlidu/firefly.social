@@ -33,7 +33,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         <LoadingIcon size={16} />
                     </span>
                 ) : (
-                    <span className="border-lightLineSecond inline-flex size-8 items-center justify-center rounded-lg border">
+                    <span className="inline-flex size-8 items-center justify-center rounded-lg border border-lightLineSecond">
                         <MoreIcon width={21} height={21} />
                     </span>
                 )

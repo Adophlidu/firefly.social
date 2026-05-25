@@ -51,7 +51,7 @@ export const ContractTag = memo<ContractTagProps>(function ContractTag({ detecte
                 height={15}
             />
             <Link
-                className="text-highlight cursor-pointer hover:underline"
+                className="cursor-pointer text-highlight hover:underline"
                 onClick={(e) => {
                     e.stopPropagation();
                 }}

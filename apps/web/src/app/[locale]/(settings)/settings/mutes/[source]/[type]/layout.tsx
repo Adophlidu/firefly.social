@@ -32,11 +32,10 @@ const resolveMuteTitle = createLookupTableResolver<string, MessageDescriptor>(
     msg`Unknown`,
 );
 
-interface Props
-    extends LayoutProps<{
-        source: SourceInURL;
-        type: MuteType;
-    }> {}
+interface Props extends LayoutProps<{
+    source: SourceInURL;
+    type: MuteType;
+}> {}
 
 export async function generateMetadata(props: Props) {
     const { source, type } = await props.params;

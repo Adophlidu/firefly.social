@@ -30,12 +30,12 @@ export function SchedulePostModal({ ref }: Props) {
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
             <div
-                className="bg-primaryBottom shadow-popover relative w-[355px] max-w-[90vw] rounded-xl transition-all dark:text-gray-950"
+                className="relative w-[355px] max-w-[90vw] rounded-xl bg-primaryBottom shadow-popover transition-all dark:text-gray-950"
                 onClick={stopEvent}
             >
                 <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
                     <CloseButton onClick={() => dispatch?.close()} />
-                    <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Schedule Post</Trans>
                     </div>
                     <div className="relative size-6" />

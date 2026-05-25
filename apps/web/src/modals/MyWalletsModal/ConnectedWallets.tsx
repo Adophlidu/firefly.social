@@ -41,13 +41,13 @@ const FireflyWalletPanel = memo<Props>(function FireflyWalletPanel({ onOpenWalle
         onOpenWallets?.();
     }, [onOpenWallets, updateFireflyWalletIsOpen]);
 
-    if (isLoadingAllConnections) return <div className="bg-bg mb-2 h-[122px] w-full animate-pulse rounded-lg" />;
+    if (isLoadingAllConnections) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
     if (!isCreatedPrivyWallet) return null;
 
     return (
-        <div className="border-secondaryLine mb-2 h-[122px] overflow-hidden rounded-lg border">
+        <div className="mb-2 h-[122px] overflow-hidden rounded-lg border border-secondaryLine">
             <button
-                className="border-secondaryLine bg-lightBg text-main flex h-10 w-full items-center justify-between gap-2 border-b px-2"
+                className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                 onClick={() => {
                     captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
                         wallet_address: privyAccounts[0]?.address,
@@ -67,7 +67,7 @@ const FireflyWalletPanel = memo<Props>(function FireflyWalletPanel({ onOpenWalle
                 ) : null}
             </button>
             {!privyAccounts?.length ? (
-                <div className="text-secondary flex h-10 items-center justify-center text-sm">
+                <div className="flex h-10 items-center justify-center text-sm text-secondary">
                     <Trans>No connected wallet.</Trans>
                 </div>
             ) : (
@@ -157,9 +157,9 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
     return (
         <div>
             <FireflyWalletPanel onOpenWallets={onOpenWallets} />
-            <div className="border-secondaryLine overflow-hidden rounded-lg border">
+            <div className="overflow-hidden rounded-lg border border-secondaryLine">
                 <ClickableButton
-                    className="border-secondaryLine bg-lightBg text-main flex h-10 w-full items-center justify-between gap-2 border-b px-2"
+                    className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                     disabled={loading}
                     onClick={openWallets}
                     aria-label="Open connecting wallets"
@@ -171,7 +171,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                     {loading || isLoading ? <LoadingIcon size={20} /> : <PlusIcon width={20} height={20} />}
                 </ClickableButton>
                 {!allAccountsWithEns.length ? (
-                    <div className="text-secondary flex h-20 items-center justify-center text-sm">
+                    <div className="flex h-20 items-center justify-center text-sm text-secondary">
                         <Trans>No connected wallet.</Trans>
                     </div>
                 ) : (

@@ -43,7 +43,7 @@ export function Mutuals({ profile }: { profile: Profile }) {
     return enabledMutuals && mutualCount ? (
         <div className="break-word col-[1/3] mt-1 flex items-center gap-2 leading-[22px] hover:underline sm:col-[2/3]">
             <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 20, className: 'border border-white' }} />
-            <Link className="text-secondary text-sm" href={getProfileUrl(profile, FollowCategory.Mutuals)}>
+            <Link className="text-sm text-secondary" href={getProfileUrl(profile, FollowCategory.Mutuals)}>
                 {mutualCount === 1 ? (
                     <Trans>Followed by {mutuals[0].displayName}</Trans>
                 ) : mutualCount === 2 ? (

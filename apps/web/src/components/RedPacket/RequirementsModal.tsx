@@ -50,7 +50,7 @@ function NFTList({ nfts }: NFTListProps) {
         })),
     });
     return (
-        <div className="text-main mx-1 flex flex-col gap-1 text-left text-sm">
+        <div className="mx-1 flex flex-col gap-1 text-left text-sm text-main">
             {queries.map((query, index) => {
                 const { data } = query;
                 const nft = nfts[index];
@@ -78,7 +78,7 @@ function NFTList({ nfts }: NFTListProps) {
                         key={`${nft.chainId}-${nft.contractAddress}`}
                         href={url!}
                         target="_blank"
-                        className="text-highlight inline-flex gap-1 truncate"
+                        className="inline-flex gap-1 truncate text-highlight"
                     >
                         {node}
                     </Link>
@@ -146,7 +146,7 @@ export function RequirementsModal({
         <Modal open={open} onClose={onClose}>
             <div
                 className={classNames(
-                    'bg-primaryBottom group flex min-h-[344px] transform-gpu flex-col transition-all max-md:h-screen max-md:w-screen md:min-w-[476px] md:rounded-xl',
+                    'group flex min-h-[344px] transform-gpu flex-col bg-primaryBottom transition-all max-md:h-screen max-md:w-screen md:min-w-[476px] md:rounded-xl',
                     {
                         unclaimed: showResults,
                     },
@@ -159,12 +159,12 @@ export function RequirementsModal({
                             onClose();
                         }}
                     />
-                    <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Requirements</Trans>
                     </div>
                     <div className="relative size-6" />
                 </div>
-                <div className="bg-primaryBottom flex flex-1 flex-col gap-2 rounded-b-xl px-6 pb-4 pt-6">
+                <div className="flex flex-1 flex-col gap-2 rounded-b-xl bg-primaryBottom px-6 pb-4 pt-6">
                     {requirements.flatMap((status) => {
                         const platform = resolveRedPacketPlatformType(post.source);
                         if (status.type === StrategyType.profileFollow) {
@@ -191,7 +191,7 @@ export function RequirementsModal({
                                     {showResults ? (
                                         isVerifying && !status.result ? (
                                             <LoadingIcon
-                                                className="text-secondary animate-spin"
+                                                className="animate-spin text-secondary"
                                                 width={24}
                                                 height={24}
                                             />
@@ -248,7 +248,7 @@ export function RequirementsModal({
                                             {showResults ? (
                                                 isVerifying && !condition.value ? (
                                                     <LoadingIcon
-                                                        className="text-secondary animate-spin"
+                                                        className="animate-spin text-secondary"
                                                         width={24}
                                                         height={24}
                                                     />
@@ -282,7 +282,7 @@ export function RequirementsModal({
                                     {showResults ? (
                                         isVerifying && !status.result ? (
                                             <LoadingIcon
-                                                className="text-secondary animate-spin"
+                                                className="animate-spin text-secondary"
                                                 width={24}
                                                 height={24}
                                             />
@@ -330,12 +330,12 @@ export function RequirementsModal({
                                                         badgeSize={7.5}
                                                     />
                                                     {isZero(x.amount || 0) ? (
-                                                        <Link className="text-highlight ml-1" href={tokenLink}>
+                                                        <Link className="ml-1 text-highlight" href={tokenLink}>
                                                             ${x.symbol}
                                                         </Link>
                                                     ) : (
                                                         <>
-                                                            <Link className="text-highlight ml-1" href={tokenLink}>
+                                                            <Link className="ml-1 text-highlight" href={tokenLink}>
                                                                 ${x.symbol}
                                                             </Link>
                                                             <TextOverflowTooltip
@@ -362,7 +362,7 @@ export function RequirementsModal({
                                     {showResults ? (
                                         isVerifying && !status.result ? (
                                             <LoadingIcon
-                                                className="text-secondary animate-spin"
+                                                className="animate-spin text-secondary"
                                                 width={24}
                                                 height={24}
                                             />
@@ -391,7 +391,7 @@ export function RequirementsModal({
                                                 Member of{' '}
                                                 <Link
                                                     href={`/club/farcaster/${status.payload.farcasterChannelId}`}
-                                                    className="text-highlight truncate"
+                                                    className="truncate text-highlight"
                                                     target="_blank"
                                                 >
                                                     /{status.payload.farcasterChannelId}
@@ -401,7 +401,7 @@ export function RequirementsModal({
                                         {showResults ? (
                                             isVerifying && !status.result ? (
                                                 <LoadingIcon
-                                                    className="text-secondary animate-spin"
+                                                    className="animate-spin text-secondary"
                                                     width={24}
                                                     height={24}
                                                 />
@@ -428,7 +428,7 @@ export function RequirementsModal({
                                                 Member of{' '}
                                                 <Link
                                                     href={`/club/lens/${status.payload.lensOrbClubHandle}`}
-                                                    className="text-highlight truncate"
+                                                    className="truncate text-highlight"
                                                     target="_blank"
                                                 >
                                                     /{status.payload.farcasterChannelId}
@@ -438,7 +438,7 @@ export function RequirementsModal({
                                         {showResults ? (
                                             isVerifying && !status.result ? (
                                                 <LoadingIcon
-                                                    className="text-secondary animate-spin"
+                                                    className="animate-spin text-secondary"
                                                     width={24}
                                                     height={24}
                                                 />

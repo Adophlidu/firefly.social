@@ -53,7 +53,7 @@ export function ReportProfileButton({ profile, ref, onConfirm, onClick, ...rest 
             ref={ref}
         >
             {loading ? <LoadingIcon size={18} /> : <FlagIcon width={18} height={18} />}
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 <Trans>Report @{profile.handle}</Trans>
             </span>
         </MenuButton>

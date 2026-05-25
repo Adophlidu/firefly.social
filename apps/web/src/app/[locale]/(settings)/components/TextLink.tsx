@@ -22,7 +22,7 @@ export function TextLink({ name, link, relatedLinks }: TextLinkProps) {
 
     return (
         <Link
-            className={`border-line text-main mb-6 flex items-center justify-between border-b pb-1 text-[18px] leading-6 hover:font-bold ${
+            className={`mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px] leading-6 text-main hover:font-bold ${
                 matched ? 'font-bold' : 'font-normal'
             }`}
             key={link}

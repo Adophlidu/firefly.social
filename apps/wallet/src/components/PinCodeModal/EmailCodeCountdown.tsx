@@ -57,7 +57,7 @@ export const EmailCodeCountdown = memo(function EmailCodeCountdown() {
                 disabled={disabled}
                 loading={loading}
                 onClick={disabled ? undefined : resendCode}
-                className="border-main text-main h-8 rounded-full border py-1.5 text-[13px] font-bold"
+                className="h-8 rounded-full border border-main py-1.5 text-[13px] font-bold text-main"
             >
                 {time > 0 ? <Trans id="second">{time}s</Trans> : <Trans>Resend</Trans>}
             </Button>

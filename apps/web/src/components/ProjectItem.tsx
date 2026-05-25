@@ -11,7 +11,7 @@ export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
         <Link
             target="_blank"
             rel="noreferrer noopener"
-            className="border-line hover:bg-bg flex gap-x-2 border-b px-3 py-2"
+            className="flex gap-x-2 border-b border-line px-3 py-2 hover:bg-bg"
             href={rootdataurl}
         >
             <Image className="size-11 shrink-0 rounded-full" width={44} height={44} src={logo} alt={project_name} />
@@ -23,14 +23,14 @@ export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
                 <div className="flex flex-wrap items-center gap-x-1">
                     {tags.map((tag, index) => (
                         <div
-                            className="bg-lightBg text-secondary flex items-center gap-x-1 break-keep rounded-lg p-1 text-xs"
+                            className="flex items-center gap-x-1 break-keep rounded-lg bg-lightBg p-1 text-xs text-secondary"
                             key={index}
                         >
                             #{tag}
                         </div>
                     ))}
                 </div>
-                <div className="text-medium line-clamp-2 leading-[22px]">{one_liner}</div>
+                <div className="line-clamp-2 text-medium leading-[22px]">{one_liner}</div>
             </div>
         </Link>
     );

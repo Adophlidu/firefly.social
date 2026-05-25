@@ -5,8 +5,10 @@ import { TableVirtuoso, type TableVirtuosoProps } from 'react-virtuoso';
 
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export interface VirtualTableListProps<ItemData = unknown, Context = unknown>
-    extends TableVirtuosoProps<ItemData, Context> {
+export interface VirtualTableListProps<ItemData = unknown, Context = unknown> extends TableVirtuosoProps<
+    ItemData,
+    Context
+> {
     listKey?: string;
 }
 

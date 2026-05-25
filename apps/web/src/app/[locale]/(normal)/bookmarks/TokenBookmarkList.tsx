@@ -15,16 +15,16 @@ import { getTokenBookmarks } from '@/providers/firefly/endpoint/getTokenBookmark
 import type { Bookmarkable, TokenWithMarketData } from '@/providers/types/Firefly.js';
 
 function getTokenItemContent(token: Bookmarkable<TokenWithMarketData>) {
-    return <BookmarkedTokenItem className="border-line border-b !p-4" token={token} showMarketInfo />;
+    return <BookmarkedTokenItem className="border-b border-line !p-4" token={token} showMarketInfo />;
 }
 
 function ListHeader() {
     return (
         <div className="mt-3 flex px-4">
-            <div className="font-inter text-secondary text-[13px] leading-[17px]">
+            <div className="font-inter text-[13px] leading-[17px] text-secondary">
                 <Trans>Volume(24h) · Market Cap</Trans>
             </div>
-            <div className="font-inter text-secondary ml-auto text-right text-[13px] leading-[17px]">
+            <div className="ml-auto text-right font-inter text-[13px] leading-[17px] text-secondary">
                 <Trans>Price · Change(24h)</Trans>
             </div>
         </div>

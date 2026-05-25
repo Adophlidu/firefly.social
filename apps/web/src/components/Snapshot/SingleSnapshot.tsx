@@ -27,7 +27,7 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
 
     return (
         <article
-            className={'border-line hover:bg-bg border-b bg-bottom px-3 py-2 max-md:px-4 max-md:py-3 md:px-4 md:py-3'}
+            className={'border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3'}
         >
             <SingleSnapshotHeader data={data} />
             {isMuted ? (

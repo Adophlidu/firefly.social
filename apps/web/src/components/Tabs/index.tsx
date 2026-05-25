@@ -6,8 +6,7 @@ import { createContext, type HTMLProps, type PropsWithChildren, useContext, useM
 type Variant = 'default' | 'second' | 'solid' | 'subtle' | 'main';
 
 export interface TabsProps<T = string>
-    extends PropsWithChildren,
-        Omit<HTMLProps<HTMLDivElement>, 'onChange' | 'value'> {
+    extends PropsWithChildren, Omit<HTMLProps<HTMLDivElement>, 'onChange' | 'value'> {
     value: T;
     onChange: (value: T) => void;
     variant?: Variant;
@@ -74,24 +73,24 @@ export function Tab({ children, value, className, disabled, ...props }: TabProps
     const variantClassName = (
         {
             default: classNames(
-                'hover:text-main h-[43px] border-b-2 px-4 text-center font-bold leading-[43px] hover:cursor-pointer md:h-[60px] md:py-[18px] md:leading-6',
-                currentTab === value ? 'border-farcasterPrimary text-main' : 'text-third border-transparent',
+                'h-[43px] border-b-2 px-4 text-center font-bold leading-[43px] hover:cursor-pointer hover:text-main md:h-[60px] md:py-[18px] md:leading-6',
+                currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
             ),
             second: classNames(
-                'hover:text-main border-b-2 text-center font-bold hover:cursor-pointer sm:p-4 sm:pb-3 sm:leading-5',
-                currentTab === value ? 'border-farcasterPrimary text-main' : 'text-third border-transparent',
+                'border-b-2 text-center font-bold hover:cursor-pointer hover:text-main sm:p-4 sm:pb-3 sm:leading-5',
+                currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
             ),
             solid: classNames(
-                'hover:text-highlight h-8 rounded-[4px] px-[12px] py-[6px] transition-colors',
-                currentTab === value ? 'bg-bg text-highlight' : 'text-second cursor-pointer',
+                'h-8 rounded-[4px] px-[12px] py-[6px] transition-colors hover:text-highlight',
+                currentTab === value ? 'bg-bg text-highlight' : 'cursor-pointer text-second',
             ),
             subtle: classNames(
-                'text-main h-8 rounded-full border px-4 leading-8 duration-100',
-                currentTab === value ? 'border-secondaryLine bg-bg' : 'text-third border-transparent',
+                'h-8 rounded-full border px-4 leading-8 text-main duration-100',
+                currentTab === value ? 'border-secondaryLine bg-bg' : 'border-transparent text-third',
             ),
             main: classNames(
-                'hover:text-highlight h-12 cursor-pointer border-b-4 text-base font-bold !leading-[48px] duration-100',
-                currentTab === value ? 'border-highlight text-highlight' : 'text-third border-transparent',
+                'h-12 cursor-pointer border-b-4 text-base font-bold !leading-[48px] duration-100 hover:text-highlight',
+                currentTab === value ? 'border-highlight text-highlight' : 'border-transparent text-third',
             ),
         } satisfies Record<Variant, string>
     )[variant];

@@ -47,7 +47,7 @@ export function ActivityCellHeader({
             <div className="flex flex-1 grow flex-row items-center truncate text-[15px] leading-6 max-md:max-w-[calc(100%_-_56px)]">
                 <ConditionalLink
                     href={authorUrl}
-                    className="text-main block max-w-full truncate font-bold"
+                    className="block max-w-full truncate font-bold text-main"
                     target={target}
                     onClick={onClickLink}
                 >
@@ -57,7 +57,7 @@ export function ActivityCellHeader({
                 {displayName ? (
                     <ConditionalLink
                         href={authorUrl}
-                        className="text-secondary ml-2 block min-w-0 max-w-full truncate max-md:hidden"
+                        className="ml-2 block min-w-0 max-w-full truncate text-secondary max-md:hidden"
                         target={target}
                         onClick={onClickLink}
                     >
@@ -68,7 +68,7 @@ export function ActivityCellHeader({
                 {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
 
                 {time ? (
-                    <Time dateTime={time} className="text-secondary mx-1 whitespace-nowrap">
+                    <Time dateTime={time} className="mx-1 whitespace-nowrap text-secondary">
                         · <TimestampFormatter time={time} />
                     </Time>
                 ) : null}

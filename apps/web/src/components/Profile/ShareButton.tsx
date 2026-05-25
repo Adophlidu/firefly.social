@@ -16,7 +16,7 @@ export function ShareButton({ profile }: { profile: Profile }) {
     const [, handleCopy] = useCopyText(url);
     return (
         <ClickableButton
-            className="bg-lightBg text-second inline-flex size-8 items-center justify-center rounded-lg active:opacity-50 md:hover:opacity-60"
+            className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
             onClick={() => handleCopy()}
         >
             <ShareIcon />

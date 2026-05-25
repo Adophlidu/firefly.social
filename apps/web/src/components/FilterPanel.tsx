@@ -58,34 +58,34 @@ export const FilterPanel = memo(function FilterPanel({
         <Popover className={classNames('relative flex items-center justify-center', className)}>
             <PopoverButton className="flex items-center gap-2 p-2 outline-none">
                 {selectedTimeRange && enableTimeRange ? (
-                    <span className="text-main flex items-center text-xs leading-[18px]">
+                    <span className="flex items-center text-xs leading-[18px] text-main">
                         {resolveTimeRangeShortName(selectedTimeRange)}
                     </span>
                 ) : null}
                 {Icon}
             </PopoverButton>
             <PopoverPanel
-                className="bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom absolute right-0 top-10 z-50 flex min-w-[320px] flex-col gap-2 rounded-lg"
+                className="absolute right-0 top-10 z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom"
                 transition
             >
                 <div className="flex flex-col gap-4 p-4">
-                    <div className="text-second text-sm font-normal">
+                    <div className="text-sm font-normal text-second">
                         <Trans>Chain filter</Trans>
                     </div>
                     <div
-                        className="bg-bg flex h-[30px] cursor-pointer items-center rounded-lg px-3 py-[7px]"
+                        className="flex h-[30px] cursor-pointer items-center rounded-lg bg-bg px-3 py-[7px]"
                         onClick={() => {
                             if (disableChainChange) return;
                             setExpanded(!expanded);
                         }}
                     >
                         {selectedChainId ? (
-                            <div className="text-main flex items-center gap-2 text-sm font-normal">
+                            <div className="flex items-center gap-2 text-sm font-normal text-main">
                                 <ChainIcon chainId={selectedChainId} size={15} networkType={networkType} />
                                 {chains.find(({ id }) => id === selectedChainId)?.name}
                             </div>
                         ) : (
-                            <div className="text-main flex items-center gap-2 text-sm font-normal">
+                            <div className="flex items-center gap-2 text-sm font-normal text-main">
                                 <EvmChainsIcon className="size-[18px]" />
                                 <Trans>All Chains</Trans>
                             </div>
@@ -98,14 +98,14 @@ export const FilterPanel = memo(function FilterPanel({
                     {expanded ? (
                         <div className="flex flex-col gap-0.5">
                             <div
-                                className="hover:bg-bg flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg bg-clip-padding p-2"
+                                className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg bg-clip-padding p-2 hover:bg-bg"
                                 onClick={() => {
                                     if (disableChainChange) return;
                                     onChainChange(null);
                                     setExpanded(false);
                                 }}
                             >
-                                <div className="text-main flex h-[20px] items-center gap-2 text-sm font-normal">
+                                <div className="flex h-[20px] items-center gap-2 text-sm font-normal text-main">
                                     <EvmChainsIcon className="size-[18px]" />
                                     <span>
                                         <Trans>All Chains</Trans>
@@ -120,7 +120,7 @@ export const FilterPanel = memo(function FilterPanel({
                             {chains.map(({ id, name, networkType }) => (
                                 <div
                                     key={id}
-                                    className="hover:bg-bg flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg bg-clip-padding p-2"
+                                    className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg bg-clip-padding p-2 hover:bg-bg"
                                     onClick={() => {
                                         if (disableChainChange) return;
                                         onChainChange(id);
@@ -128,7 +128,7 @@ export const FilterPanel = memo(function FilterPanel({
                                         captureChainFilterTabEvent('home', `${id}`, name);
                                     }}
                                 >
-                                    <div className="text-main flex h-[20px] items-center gap-2 text-sm font-normal">
+                                    <div className="flex h-[20px] items-center gap-2 text-sm font-normal text-main">
                                         <ChainIcon chainId={id} size={15} networkType={networkType} />
                                         <span>{name}</span>
                                     </div>
@@ -144,11 +144,11 @@ export const FilterPanel = memo(function FilterPanel({
 
                     {enableTimeRange ? (
                         <>
-                            <div className="text-second text-sm font-normal">
+                            <div className="text-sm font-normal text-second">
                                 <Trans>Time range filter</Trans>
                             </div>
                             <div
-                                className="bg-bg flex h-[30px] cursor-pointer items-center rounded-lg px-3 py-[7px]"
+                                className="flex h-[30px] cursor-pointer items-center rounded-lg bg-bg px-3 py-[7px]"
                                 onClick={() => {
                                     setTimeRangeExpanded(!timeRangeExpanded);
                                 }}
@@ -163,7 +163,7 @@ export const FilterPanel = memo(function FilterPanel({
                                     {getEnumAsArray(TimeRangeFilter).map((timeRange) => (
                                         <div
                                             key={timeRange.value}
-                                            className="hover:bg-bg flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg bg-clip-padding p-2"
+                                            className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg bg-clip-padding p-2 hover:bg-bg"
                                             onClick={() => {
                                                 onTimeRangeChange?.(timeRange.value);
                                                 setTimeRangeExpanded(false);

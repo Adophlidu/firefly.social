@@ -43,7 +43,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
         <Link
             href={resolvePlatformProfileUrl(platform, screenName)}
             target="_blank"
-            className="text-highlight text-base leading-[18px]"
+            className="text-base leading-[18px] text-highlight"
         >
             @{screenName}
         </Link>

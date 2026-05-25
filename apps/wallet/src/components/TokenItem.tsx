@@ -43,7 +43,7 @@ export function TokenItem({ className, token, disableChainIcon, withArrow, ...pr
         <ClickableButton
             key={token.id}
             className={cn(
-                'text-lightMain flex w-full items-center justify-between gap-2 rounded-lg py-3 font-bold',
+                'flex w-full items-center justify-between gap-2 rounded-lg py-3 font-bold text-lightMain',
                 className,
             )}
             enablePropagate
@@ -65,13 +65,13 @@ export function TokenItem({ className, token, disableChainIcon, withArrow, ...pr
                     <div className="flex h-5 w-full items-center justify-start truncate leading-5">
                         <span className="h-5 min-w-0 truncate text-sm font-semibold">{token.name}</span>
                         {token.custom ? (
-                            <span className="bg-lightBg text-second ml-2.5 inline-block h-5 shrink-0 rounded px-2 text-xs font-medium leading-5">
+                            <span className="ml-2.5 inline-block h-5 shrink-0 rounded bg-lightBg px-2 text-xs font-medium leading-5 text-second">
                                 <Trans>Added</Trans>
                             </span>
                         ) : null}
                         {withArrow ? <ArrowDownIcon className="ml-1 shrink-0" width={16} height={16} /> : null}
                     </div>
-                    <div className="text-second w-full text-xs font-medium leading-3">{secondaryText}</div>
+                    <div className="w-full text-xs font-medium leading-3 text-second">{secondaryText}</div>
                 </div>
             </div>
             <div className="flex flex-col items-end justify-center font-medium">

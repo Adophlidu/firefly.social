@@ -28,12 +28,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     return createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`);
 }
 
-interface ProfileLayoutProps
-    extends LayoutProps<{
-        id: string;
-        category: string;
-        source: string;
-    }> {}
+interface ProfileLayoutProps extends LayoutProps<{
+    id: string;
+    category: string;
+    source: string;
+}> {}
 
 export default async function Layout(props: ProfileLayoutProps) {
     const { source, id } = await props.params;

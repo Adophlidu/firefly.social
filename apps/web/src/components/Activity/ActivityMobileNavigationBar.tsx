@@ -28,18 +28,18 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
     return (
         <>
             <div
-                className={classNames('bg-primaryBottom fixed bottom-[calc(100%-44px)] left-0 z-20 h-[700px] w-full', {
+                className={classNames('fixed bottom-[calc(100%-44px)] left-0 z-20 h-[700px] w-full bg-primaryBottom', {
                     'dark:bg-[#181a20]': IS_ANDROID,
                 })}
             />
             <div
-                className={classNames('bg-primaryBottom pt-safe sticky top-0 z-30 w-full overflow-x-hidden', {
+                className={classNames('sticky top-0 z-30 w-full overflow-x-hidden bg-primaryBottom pt-safe', {
                     'dark:bg-[#181a20]': IS_ANDROID,
                 })}
             >
                 <div
                     className={classNames(
-                        'bg-primaryBottom grid h-[44px] w-full grid-cols-[24px_1fr_24px] items-center justify-between gap-2 px-4 text-center text-lg font-bold',
+                        'grid h-[44px] w-full grid-cols-[24px_1fr_24px] items-center justify-between gap-2 bg-primaryBottom px-4 text-center text-lg font-bold',
                         className,
                         {
                             'dark:bg-[#181a20]': IS_ANDROID,
@@ -47,7 +47,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                     )}
                 >
                     <div
-                        className={classNames('bg-primaryBottom absolute bottom-full left-0 h-[500px] w-full', {
+                        className={classNames('absolute bottom-full left-0 h-[500px] w-full bg-primaryBottom', {
                             'dark:bg-[#181a20]': IS_ANDROID,
                         })}
                     />
@@ -78,7 +78,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                     >
                         <ShareIcon width={24} height={24} />
                     </button>
-                    <div className="bg-primaryBottom absolute bottom-full h-[200px] w-full dark:bg-[#262a34]" />
+                    <div className="absolute bottom-full h-[200px] w-full bg-primaryBottom dark:bg-[#262a34]" />
                 </div>
             </div>
         </>

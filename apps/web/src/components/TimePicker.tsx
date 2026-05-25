@@ -62,7 +62,7 @@ const TimeColumn = memo(function TimeColumn({ value, onChange, min, max, classNa
                     className={classNames(
                         'flex h-8 w-12 cursor-pointer items-center justify-center text-sm transition-all duration-200',
                         {
-                            'bg-lightHighlight rounded text-white': num === value,
+                            'rounded bg-lightHighlight text-white': num === value,
                             'text-second': num !== value,
                         },
                     )}
@@ -83,7 +83,7 @@ export const TimePicker = memo(function TimePicker({ value, onChange, open, onTo
 
     if (!open) return null;
     return (
-        <div className="border-line bg-bgModal absolute right-[15px] top-12 z-50 flex flex-col gap-[6px] rounded-2xl border px-1 pt-2">
+        <div className="absolute right-[15px] top-12 z-50 flex flex-col gap-[6px] rounded-2xl border border-line bg-bgModal px-1 pt-2">
             <div className="flex items-center justify-center gap-4 p-1">
                 <TimeColumn
                     value={value.getHours()}
@@ -95,7 +95,7 @@ export const TimePicker = memo(function TimePicker({ value, onChange, open, onTo
                     min={0}
                     max={23}
                 />
-                <div className="bg-line h-32 w-px" />
+                <div className="h-32 w-px bg-line" />
                 <TimeColumn
                     value={value.getMinutes()}
                     onChange={(minutes: number) => {

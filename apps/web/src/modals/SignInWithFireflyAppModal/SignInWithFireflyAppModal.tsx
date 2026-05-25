@@ -47,7 +47,7 @@ export const SignInWithFireflyAppModal = memo(function SignInWithFireflyAppModal
 
     return (
         <Modal size="md" title={<Trans>Sign in via Firefly App</Trans>} enableClose onClose={onClose} open={open}>
-            <div className="bg-lightBottom text-second dark:bg-darkBottom relative rounded-[12px] transition-all">
+            <div className="relative rounded-[12px] bg-lightBottom text-second transition-all dark:bg-darkBottom">
                 <div className="flex w-full flex-col items-center space-y-3 text-xs">
                     <Content enabled={open} onClose={onClose} />
                 </div>
@@ -128,7 +128,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                             <Link
                                 href={`${SITE_URL_OFFICIAL}/about`}
                                 target="_blank"
-                                className="text-highlight font-bold hover:underline"
+                                className="font-bold text-highlight hover:underline"
                             >
                                 Firefly mobile app
                             </Link>
@@ -137,7 +137,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                         </Trans>
                     </p>
                     <div
-                        className="shadow-primary relative flex size-[270px] items-center justify-center rounded-2xl bg-white"
+                        className="relative flex size-[270px] items-center justify-center rounded-2xl bg-white shadow-primary"
                         onClick={async () => {
                             await refetchDesktopLinkInfo();
                             await refetchOTP();

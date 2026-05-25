@@ -34,15 +34,15 @@ function CopyButton({ address }: { address: string }) {
 function LoadingSkeleton() {
     return (
         <div className="w-full animate-pulse space-y-2">
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
-            <div className="bg-lightBg h-16 w-full rounded-2xl" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
+            <div className="h-16 w-full rounded-2xl bg-lightBg" />
         </div>
     );
 }

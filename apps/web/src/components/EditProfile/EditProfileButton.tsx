@@ -27,7 +27,7 @@ export function EditProfileButton({ profile, variant = 'text', className, ref, .
                 captureEditProfileClickEvent();
             }}
             className={classNames(
-                'border-lightMain text-medium text-lightMain flex h-8 shrink-0 items-center justify-center whitespace-nowrap rounded-lg border px-5 font-bold leading-5',
+                'flex h-8 shrink-0 items-center justify-center whitespace-nowrap rounded-lg border border-lightMain px-5 text-medium font-bold leading-5 text-lightMain',
                 className,
             )}
         >

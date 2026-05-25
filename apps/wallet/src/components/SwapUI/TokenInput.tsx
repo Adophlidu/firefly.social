@@ -224,9 +224,9 @@ export const TokenInput = memo(function TokenInput({
     }, [walletAddress, chainId, connections]);
 
     return (
-        <div className={cn('bg-lightBg flex flex-col gap-2 rounded-2xl px-3 pb-5 pt-3', className)}>
+        <div className={cn('flex flex-col gap-2 rounded-2xl bg-lightBg px-3 pb-5 pt-3', className)}>
             <div className="relative flex items-center justify-between">
-                <span className="text-secondary text-[14px] font-medium leading-[14px]">
+                <span className="text-[14px] font-medium leading-[14px] text-secondary">
                     {type === 'pay' ? <Trans>Pay</Trans> : <Trans>Receive</Trans>}
                 </span>
                 {hasWallet ? (
@@ -248,7 +248,7 @@ export const TokenInput = memo(function TokenInput({
                         <ArrowDownIcon className="size-3.5" />
                     </button>
                 ) : (
-                    <span className="text-highlight flex items-center gap-1 text-[14px] font-medium leading-[14px]">
+                    <span className="flex items-center gap-1 text-[14px] font-medium leading-[14px] text-highlight">
                         <Trans>Connect Wallet</Trans>
                         <AddCircleLinearIcon className="size-3.5" />
                     </span>
@@ -276,7 +276,7 @@ export const TokenInput = memo(function TokenInput({
                     autoFocus={autoFocus}
                     disabled={!isEditable}
                     className={cn(
-                        'placeholder:text-third flex-1 border-0 bg-transparent p-0 text-[32px] font-semibold leading-[32px] shadow-none focus-visible:ring-0',
+                        'flex-1 border-0 bg-transparent p-0 text-[32px] font-semibold leading-[32px] shadow-none placeholder:text-third focus-visible:ring-0',
                         isInsufficient && 'text-[#ff3545]',
                     )}
                 />
@@ -299,18 +299,18 @@ export const TokenInput = memo(function TokenInput({
             </div>
 
             <div className="flex items-center justify-between">
-                <span className="text-secondary truncate text-[14px] font-medium leading-[14px]">
+                <span className="truncate text-[14px] font-medium leading-[14px] text-secondary">
                     {formattedUsdValue && !loading ? formattedUsdValue : '\u00A0'}
                 </span>
                 {token ? (
-                    <span className="text-secondary whitespace-nowrap text-[14px] font-medium leading-[14px]">
+                    <span className="whitespace-nowrap text-[14px] font-medium leading-[14px] text-secondary">
                         {formattedBalance ?? '0'} {token.symbol}
                         {isEditable && formattedBalance ? (
                             <>
                                 {' '}
                                 <button
                                     type="button"
-                                    className="text-highlight font-medium"
+                                    className="font-medium text-highlight"
                                     onClick={() => handlePercentageClick(100)}
                                     disabled={isGasReserveLoading}
                                 >

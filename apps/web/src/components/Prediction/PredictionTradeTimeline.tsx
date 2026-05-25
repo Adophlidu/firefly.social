@@ -88,11 +88,11 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
     return (
         <div className="min-h-[512px] space-y-4">
             {isLoginFirefly ? (
-                <div className="border-secondaryLine m-4 mb-0 inline-flex h-7 rounded-md border text-xs">
+                <div className="m-4 mb-0 inline-flex h-7 rounded-md border border-secondaryLine text-xs">
                     <ClickableButton
                         className={classNames(
                             'px-2',
-                            !isFollowing ? 'bg-lightBg text-main font-semibold' : 'text-second font-medium',
+                            !isFollowing ? 'bg-lightBg font-semibold text-main' : 'font-medium text-second',
                         )}
                         onClick={() => {
                             if (platform === PredictionPlatform.Polymarket && eventSlug) {
@@ -108,7 +108,7 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
                     <ClickableButton
                         className={classNames(
                             'px-2',
-                            isFollowing ? 'bg-lightBg text-main font-semibold' : 'text-second font-medium',
+                            isFollowing ? 'bg-lightBg font-semibold text-main' : 'font-medium text-second',
                         )}
                         onClick={() => {
                             if (platform === PredictionPlatform.Polymarket && eventSlug) {

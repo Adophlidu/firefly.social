@@ -31,7 +31,7 @@ function ClaimMessage({ amount, symbol, networkType, chainId, txHash }: Props) {
         <Trans>
             You claimed {amount} {symbol} to your{' '}
             <span
-                className="text-highlight cursor-pointer"
+                className="cursor-pointer text-highlight"
                 onClick={() => {
                     openFireflyWallet({
                         path: urlcat('/transactions', { chain: chainId, tx: txHash, network: networkType }),
@@ -54,10 +54,10 @@ export function sharePostAfterClaimed({ post, ...rest }: ShareOptions) {
         content: (
             <div className="flex h-[276px] w-[388px] flex-col items-center max-md:w-auto">
                 <CircleSuccessIcon width={90} height={90} />
-                <div className="text-success mt-3 text-xl font-bold leading-6">
+                <div className="mt-3 text-xl font-bold leading-6 text-success">
                     <Trans>Congratulations!</Trans>
                 </div>
-                <div className="text-main mt-10 text-base font-bold leading-5">
+                <div className="mt-10 text-base font-bold leading-5 text-main">
                     {rest.amount ? <ClaimMessage {...rest} /> : <Trans>Claimed successfully.</Trans>}
                 </div>
             </div>

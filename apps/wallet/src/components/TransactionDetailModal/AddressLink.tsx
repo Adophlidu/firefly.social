@@ -17,7 +17,7 @@ export function AddressLink({ chainId, address }: { chainId: number; address: st
                 href={addressLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn('text-highlight text-sm font-medium', bedStead.className)}
+                className={cn('text-sm font-medium text-highlight', bedStead.className)}
             >
                 {formatAddress(address, 4)}
             </a>
@@ -25,7 +25,7 @@ export function AddressLink({ chainId, address }: { chainId: number; address: st
     }
 
     return (
-        <span className={cn('text-highlight text-sm font-medium', bedStead.className)}>
+        <span className={cn('text-sm font-medium text-highlight', bedStead.className)}>
             {formatAddress(address, 4)}
         </span>
     );

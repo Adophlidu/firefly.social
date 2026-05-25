@@ -63,7 +63,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
             <Tabs
                 value={currentPathname}
                 onValueChange={(value) => navigate({ to: value, resetScroll: false })}
-                className="bg-primaryBottom sticky top-0 z-10 mb-2 mt-4 w-full max-w-[800px] px-4"
+                className="sticky top-0 z-10 mb-2 mt-4 w-full max-w-[800px] bg-primaryBottom px-4"
             >
                 <TabsList variant="second" className="w-full">
                     {compact([

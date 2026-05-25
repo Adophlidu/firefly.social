@@ -22,7 +22,7 @@ export function TwitterArticleBody({ cover, title, content, oembedUrls }: Props)
     }, [oembedUrls]);
 
     const body = (
-        <article className="border-line bg-bg text-main relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border p-3 text-left">
+        <article className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3 text-left text-main">
             {cover ? (
                 <ImageAsset
                     disableLoadHandler
@@ -53,7 +53,7 @@ export function TwitterArticleBody({ cover, title, content, oembedUrls }: Props)
             </div>
             {content ? (
                 <div className="h-[100px]">
-                    <ArticleMarkup disableImage className="markup text-second break-words text-sm leading-[18px]">
+                    <ArticleMarkup disableImage className="markup break-words text-sm leading-[18px] text-second">
                         {content}
                     </ArticleMarkup>
                     <div

@@ -278,10 +278,10 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             DraggablePopoverRef.open({
                 content: (
                     <div className="p-6">
-                        <div className="text-main text-center text-[18px] font-bold leading-[22px]">
+                        <div className="text-center text-[18px] font-bold leading-[22px] text-main">
                             <Trans>Sign in with Farcaster</Trans>
                         </div>
-                        <div className="text-second mt-8 text-center text-[14px] leading-[16px]">
+                        <div className="mt-8 text-center text-[14px] leading-[16px] text-second">
                             <Trans>
                                 Reconnect if you’ve used Farcaster to sign in before.
                                 <br />
@@ -294,7 +294,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     onClick(FarcasterSignType.FireflySponsorship);
                                     DraggablePopoverRef.close();
                                 }}
-                                className="border-lightMain text-fourMain flex flex-1 items-center justify-center rounded-full border py-2 font-bold"
+                                className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
                                 aria-label="New Connect"
                             >
                                 <Trans>New Connect</Trans>
@@ -304,7 +304,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     onClick(FarcasterSignType.RelayService);
                                     DraggablePopoverRef.close();
                                 }}
-                                className="bg-main text-primaryBottom flex flex-1 items-center justify-center rounded-full py-2 font-bold"
+                                className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                                 aria-label="Reconnect"
                             >
                                 <Trans>Reconnect</Trans>
@@ -327,7 +327,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4">
                     {count !== 0 ? <LoadingIcon /> : null}
-                    <div className="text-second mt-2 text-center text-sm leading-[16px]">
+                    <div className="mt-2 text-center text-sm leading-[16px] text-second">
                         {count !== 0 ? (
                             <Trans>Please confirm the login with Farcaster.</Trans>
                         ) : (
@@ -339,7 +339,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 <div className="flex w-full flex-col items-center gap-4">
                     {url ? (
                         <>
-                            <div className="text-second text-center text-xs leading-4">
+                            <div className="text-center text-xs leading-4 text-second">
                                 {signType === SignType.GrantPermission ? (
                                     <Trans>
                                         Scan this QR code to establish a new connection via Farcaster for free.
@@ -355,7 +355,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                                     `/farcaster?signType=${FarcasterSignType.FireflySponsorship}`,
                                                 );
                                             }}
-                                            className="text-highlight inline hover:underline"
+                                            className="inline text-highlight hover:underline"
                                         >
                                             First time
                                         </button>
@@ -386,14 +386,14 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     </div>
                                 ) : null}
                             </div>
-                            <div className="text-second text-center text-xs leading-4">
+                            <div className="text-center text-xs leading-4 text-second">
                                 {signType === SignType.GrantPermission || signType === SignType.FireflySponsorship ? (
                                     <button
                                         onClick={() => {
                                             captureReconnectClickInLogin();
                                             history.replace(`/farcaster?signType=${SignType.RelayService}`);
                                         }}
-                                        className="text-highlight inline hover:underline"
+                                        className="inline text-highlight hover:underline"
                                     >
                                         <Trans>Already signed in before?</Trans>
                                     </button>

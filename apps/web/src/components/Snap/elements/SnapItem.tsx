@@ -23,11 +23,11 @@ export function SnapItem({ props: { title, description, imageUrl }, onPress, chi
                 </div>
             ) : null}
             <div className="min-w-0 flex-1">
-                <p className="text-main truncate text-sm font-medium">{title}</p>
-                {description ? <p className="text-secondary truncate text-xs">{description}</p> : null}
+                <p className="truncate text-sm font-medium text-main">{title}</p>
+                {description ? <p className="truncate text-xs text-secondary">{description}</p> : null}
             </div>
             {children ? (
-                <div className="text-secondary flex shrink-0 items-center justify-end gap-1">{children}</div>
+                <div className="flex shrink-0 items-center justify-end gap-1 text-secondary">{children}</div>
             ) : null}
         </div>
     );

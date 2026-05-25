@@ -36,7 +36,7 @@ export const TopHoldersContent = memo<TopHoldersContentProps>(function TopHolder
             <div className="flex h-28 w-full items-center justify-center">
                 <ClickableButton
                     onClick={() => refetch()}
-                    className="text-second text-sm font-semibold hover:underline"
+                    className="text-sm font-semibold text-second hover:underline"
                 >
                     <Trans>Retry</Trans>
                 </ClickableButton>

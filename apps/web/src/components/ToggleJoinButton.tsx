@@ -47,10 +47,10 @@ export const ToggleJoinButton = memo<ToggleJoinButtonProps>(function ToggleJoinB
         return (
             <ClickableButton
                 className={classNames('flex h-8 items-center justify-center', className, {
-                    'bg-main text-primaryBottom w-8 rounded-full': variant === 'icon',
-                    'text-medium rounded-lg px-5 font-bold': variant === 'text',
+                    'w-8 rounded-full bg-main text-primaryBottom': variant === 'icon',
+                    'rounded-lg px-5 text-medium font-bold': variant === 'text',
                     'bg-main text-primaryBottom hover:opacity-80': !joined,
-                    'border-main text-main hover:border-danger hover:bg-danger/50 hover:text-danger border':
+                    'border border-main text-main hover:border-danger hover:bg-danger/50 hover:text-danger':
                         joined && variant === 'text',
                 })}
                 onlyLoading

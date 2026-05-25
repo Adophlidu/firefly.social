@@ -281,7 +281,7 @@ export default function MainView() {
 
     return (
         <>
-            <div className="bg-primaryBottom flex flex-1 flex-col gap-y-4 px-4 pt-2">
+            <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 pt-2">
                 <div className="flex gap-2">
                     <Tabs value={randomType} onChange={setRandomType} variant="solid" className="self-start">
                         {redPacketRandomTabs.map((tab) => (
@@ -293,7 +293,7 @@ export default function MainView() {
                     <TypeTabs />
                 </div>
 
-                <div className="bg-bg focus-within:border-highlight focus-within:bg-primaryBottom flex items-center rounded-xl border border-transparent pr-3 focus-within:bg-bottom">
+                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-primaryBottom focus-within:bg-bottom">
                     <form className="w-full flex-1">
                         <label className="flex w-full flex-1 items-center">
                             <input
@@ -304,14 +304,14 @@ export default function MainView() {
                                 spellCheck="false"
                                 placeholder={t`Enter number of winners`}
                                 className={
-                                    'placeholder:text-secondary w-full border-0 bg-transparent py-2 focus:border-0 focus:outline-0 focus:ring-0'
+                                    'w-full border-0 bg-transparent py-2 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0'
                                 }
                                 inputMode="decimal"
                                 pattern="^[0-9]+$"
                             />
                         </label>
                     </form>
-                    <span className="text-secondary mr-1 text-[14px] leading-[18px]">
+                    <span className="mr-1 text-[14px] leading-[18px] text-secondary">
                         <Trans>Winners</Trans>
                     </span>
                     <RedPacketIcon width={18} height={18} />
@@ -338,14 +338,14 @@ export default function MainView() {
                     <Trans>Message</Trans>
                 </label>
 
-                <div className="bg-bg focus-within:border-highlight focus-within:bg-primaryBottom flex items-center rounded-xl border border-transparent pr-3 focus-within:bg-bottom">
+                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-primaryBottom focus-within:bg-bottom">
                     <form className="w-full flex-1">
                         <label className="flex w-full flex-1 items-center">
                             <input
                                 value={message}
                                 onChange={onMessageChange}
                                 placeholder={t`Hope this sparks a smile.`}
-                                className="placeholder:text-secondary w-full border-0 bg-transparent py-2 focus:border-0 focus:outline-0 focus:ring-0"
+                                className="w-full border-0 bg-transparent py-2 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0"
                             />
                         </label>
                     </form>
@@ -360,7 +360,7 @@ export default function MainView() {
                                 <Trans>Estimated network fee</Trans>
                             )}
                         </label>
-                        <div className="text-secondary flex gap-x-1 text-[14px] font-bold leading-[18px]">
+                        <div className="flex gap-x-1 text-[14px] font-bold leading-[18px] text-secondary">
                             <span>
                                 {formatBalance(gasFee, nativeToken.decimals)} {nativeToken.symbol}
                             </span>
@@ -375,7 +375,7 @@ export default function MainView() {
                 ) : null}
             </div>
             <div className="grow" />
-            <div className="bg-lightBottom80 shadow-primary dark:shadow-primaryDark w-full p-4 backdrop-blur-lg">
+            <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ChainGuardButton
                     networkType={networkType}
                     targetChainId={chainId}

@@ -132,7 +132,7 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                     enablePropagate
                     loading={isSubmitting}
                     disabled={!isDirty || !isValid || isSubmitting}
-                    className="bg-main text-medium text-primaryBottom h-10 w-full rounded-lg font-bold outline-none"
+                    className="h-10 w-full rounded-lg bg-main text-medium font-bold text-primaryBottom outline-none"
                     aria-label="Sign Up"
                 >
                     <Trans>Sign Up</Trans>

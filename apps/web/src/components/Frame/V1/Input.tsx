@@ -11,7 +11,7 @@ export function Input({ input, ...rest }: Props) {
     return (
         <input
             {...rest}
-            className="border-line dark:bg-darkBottom w-full rounded-md border bg-white px-2 py-1.5 dark:text-white"
+            className="w-full rounded-md border border-line bg-white px-2 py-1.5 dark:bg-darkBottom dark:text-white"
             type="text"
             autoComplete="off"
             spellCheck="false"

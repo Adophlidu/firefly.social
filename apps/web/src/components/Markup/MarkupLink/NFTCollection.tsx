@@ -29,7 +29,7 @@ export const NFTCollection = memo<NFTCollectionProps>(function NFTCard({ contrac
             target="_blank"
             rel="noopener noreferrer"
         >
-            <div className="bg-bg max-w-[250px] rounded-lg">
+            <div className="max-w-[250px] rounded-lg bg-bg">
                 <NFTImage
                     src={collection.banner_url}
                     width={120}
@@ -39,7 +39,7 @@ export const NFTCollection = memo<NFTCollectionProps>(function NFTCard({ contrac
                     alt={collection.name || contractAddress || ''}
                 />
                 <div className="p-2">
-                    <div className="text-main mb-2 text-base font-bold">{collection.name}</div>
+                    <div className="mb-2 text-base font-bold text-main">{collection.name}</div>
                 </div>
             </div>
         </Link>

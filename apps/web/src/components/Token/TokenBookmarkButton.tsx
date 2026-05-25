@@ -91,7 +91,7 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
 
     return (
         <ClickableArea
-            className={classNames('text-second flex cursor-pointer items-center space-x-1 md:space-x-2', {
+            className={classNames('flex cursor-pointer items-center space-x-1 text-second md:space-x-2', {
                 'cursor-not-allowed opacity-50': disabled,
             })}
             {...props}
@@ -100,7 +100,7 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className="hover:bg-warn/[.20] hover:text-warn inline-flex size-5 items-center justify-center rounded-full"
+                    className="inline-flex size-5 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
                     aria-label="Bookmark"
                     onClick={() => {
                         mutate(!!bookmarked);

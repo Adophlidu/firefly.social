@@ -23,7 +23,7 @@ export function FireflyWalletChainSelector<C extends string = string>({
 
     return (
         <Select value={selectedChain as string} onValueChange={(v) => onSelectChain(v as C)}>
-            <SelectTrigger className="bg-bg inline-flex h-8 w-auto items-center rounded-full px-2 text-[13px] font-medium">
+            <SelectTrigger className="inline-flex h-8 w-auto items-center rounded-full bg-bg px-2 text-[13px] font-medium">
                 {chain?.icon
                     ? cloneElement(chain.icon, {
                           width: 15,
@@ -37,7 +37,7 @@ export function FireflyWalletChainSelector<C extends string = string>({
                 position="popper"
                 side="bottom"
                 align="end"
-                className="bg-primaryBottom z-50 w-[130px] origin-top-left !overflow-visible text-xs outline-none transition data-[state=closed]:scale-95 data-[state=closed]:opacity-0"
+                className="z-50 w-[130px] origin-top-left !overflow-visible bg-primaryBottom text-xs outline-none transition data-[state=closed]:scale-95 data-[state=closed]:opacity-0"
                 viewPortClassName="py-3"
             >
                 {chains.map(({ value, label, icon }) => (

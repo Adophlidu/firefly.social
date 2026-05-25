@@ -167,7 +167,7 @@ export function TipsTransactionActions({
 
     return (
         <div className={classNames('flex items-center justify-between', className)}>
-            <div className="text-secondary flex items-center gap-2">
+            <div className="flex items-center gap-2 text-secondary">
                 <motion.button
                     disabled={loading || isLoading}
                     onClick={handleSharePost}
@@ -217,7 +217,7 @@ export function TipsTransactionActions({
                                     }}
                                 >
                                     <ImageDownloadIcon width={16} height={16} />
-                                    <span className="text-main font-bold leading-[22px]">
+                                    <span className="font-bold leading-[22px] text-main">
                                         <Trans>Share image</Trans>
                                     </span>
                                 </MenuButton>

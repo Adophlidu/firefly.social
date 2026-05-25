@@ -37,7 +37,7 @@ export function TokenTrendingListItem({ data, className }: { data: TokenTrending
 
     return (
         <Link
-            className={classNames('border-line hover:bg-bg flex items-center gap-3 border-b p-4', className)}
+            className={classNames('flex items-center gap-3 border-b border-line p-4 hover:bg-bg', className)}
             href={tokenPageUrl}
         >
             <TokenIcon
@@ -51,7 +51,7 @@ export function TokenTrendingListItem({ data, className }: { data: TokenTrending
             />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                    <span className="text-lightMain flex items-center gap-1 text-base font-semibold leading-6">
+                    <span className="flex items-center gap-1 text-base font-semibold leading-6 text-lightMain">
                         {data.symbol}
                         {data.deployPlatformLogo ? (
                             <Image
@@ -66,26 +66,26 @@ export function TokenTrendingListItem({ data, className }: { data: TokenTrending
                 </div>
                 <div className="flex gap-2">
                     {data.volume ? (
-                        <span className="text-second text-sm leading-5">${nFormatter(parseFloat(data.volume), 2)}</span>
+                        <span className="text-sm leading-5 text-second">${nFormatter(parseFloat(data.volume), 2)}</span>
                     ) : (
                         '-'
                     )}
                     <span>·</span>
                     {data.marketCap ? (
-                        <span className="text-second text-sm leading-5">${nFormatter(Number(data.marketCap), 2)}</span>
+                        <span className="text-sm leading-5 text-second">${nFormatter(Number(data.marketCap), 2)}</span>
                     ) : (
                         '-'
                     )}
                 </div>
             </div>
             <div className="flex flex-col justify-end">
-                <div className="font-inter text-lightMain text-right text-base font-semibold leading-6">
+                <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
                     {data.price ? <>${renderShrankPrice(formatPrice(data.price) ?? '')}</> : ''}
                 </div>
                 {data.priceChange ? (
                     <data
                         className={classNames(
-                            'font-inter flex h-5 shrink-0 items-center justify-end gap-1 text-right text-sm font-medium max-md:w-auto max-md:min-w-[60px]',
+                            'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px]',
                             Number(data.priceChange) >= 0 ? 'text-success' : 'text-danger',
                         )}
                     >

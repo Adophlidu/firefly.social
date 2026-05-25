@@ -74,7 +74,7 @@ export const PredictionLeaderboardItem = memo<PredictionLeaderboardItemProps>(fu
     return (
         <div className="flex items-center gap-2 px-0 py-3">
             <div className="flex w-[30px] shrink-0 items-center justify-center">
-                <span className="text-lightMain text-base font-bold leading-5">{rank}</span>
+                <span className="text-base font-bold leading-5 text-lightMain">{rank}</span>
             </div>
             <Link href={profileLink} className="flex flex-1 items-center gap-2" data-disable-progress>
                 <div className="relative shrink-0">
@@ -82,7 +82,7 @@ export const PredictionLeaderboardItem = memo<PredictionLeaderboardItemProps>(fu
                     {medal ? <div className="absolute -bottom-1 right-0">{medal}</div> : null}
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="text-lightMain max-w-[100px] truncate text-[13px] font-semibold leading-5">
+                    <span className="max-w-[100px] truncate text-[13px] font-semibold leading-5 text-lightMain">
                         {displayName}
                     </span>
                     {displayName ? (
@@ -94,7 +94,7 @@ export const PredictionLeaderboardItem = memo<PredictionLeaderboardItemProps>(fu
             </Link>
             <div className="flex items-center gap-2">
                 <div className="flex w-[120px] shrink-0 flex-col items-end justify-center">
-                    <span className="text-lightMain whitespace-nowrap text-[13px] font-medium leading-5">
+                    <span className="whitespace-nowrap text-[13px] font-medium leading-5 text-lightMain">
                         {pnlValue}
                     </span>
                 </div>
@@ -111,7 +111,7 @@ export const PredictionLeaderboardItem = memo<PredictionLeaderboardItemProps>(fu
                     </div>
                 ) : null}
                 <div className="flex w-[100px] shrink-0 flex-col items-end justify-center">
-                    <span className="text-second whitespace-nowrap text-[11px] font-medium leading-5">
+                    <span className="whitespace-nowrap text-[11px] font-medium leading-5 text-second">
                         {volumeValue}
                     </span>
                 </div>

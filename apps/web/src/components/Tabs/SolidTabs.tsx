@@ -16,13 +16,13 @@ interface SolidTabsProps<T> {
 export function SolidTabs<T = unknown>({ data, link, isSelected, itemRender, onChange }: SolidTabsProps<T>) {
     return (
         <div>
-            <ul className="no-scrollbar border-secondaryLine bg-thirdBottom relative inline-flex h-10 max-w-full items-center overflow-x-auto overflow-y-hidden rounded-md border px-[5px] py-1">
+            <ul className="no-scrollbar relative inline-flex h-10 max-w-full items-center overflow-x-auto overflow-y-hidden rounded-md border border-secondaryLine bg-thirdBottom px-[5px] py-1">
                 {data.map((value, index) => {
                     const isActive = isSelected(value);
                     const className = classNames(
-                        'hover:text-highlight inline-flex h-8 cursor-pointer items-center rounded px-3 text-sm font-medium transition-colors',
+                        'inline-flex h-8 cursor-pointer items-center rounded px-3 text-sm font-medium transition-colors hover:text-highlight',
                         {
-                            'text-second bg-transparent': !isActive,
+                            'bg-transparent text-second': !isActive,
                             'bg-lightBg text-highlight': isActive,
                         },
                     );

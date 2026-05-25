@@ -99,7 +99,7 @@ export function AppKitAccountItem({
     return (
         <ClickableButton
             key={address}
-            className="text-main flex h-10 w-full items-center justify-between gap-2 px-2"
+            className="flex h-10 w-full items-center justify-between gap-2 px-2 text-main"
             onClick={onConnectionClick}
             disabled={loading}
         >

@@ -20,7 +20,7 @@ export const ProfileAvatarSelector = memo<Props>(function ProfileAvatarSelector(
         <div className="mx-auto size-[120px]">
             <label htmlFor={disabled ? undefined : AVATAR_SELECTOR_ID} className="relative cursor-pointer">
                 <EditProfileAvatar pfp="" name="pfp" size={120} />
-                <div className="bg-main text-primaryBottom absolute bottom-1 right-1 z-10 flex size-6 items-center justify-center rounded-full">
+                <div className="absolute bottom-1 right-1 z-10 flex size-6 items-center justify-center rounded-full bg-main text-primaryBottom">
                     <EditIcon className="size-3.5 shrink-0" />
                 </div>
             </label>

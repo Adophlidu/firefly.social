@@ -65,8 +65,8 @@ function UnifiedNotificationBase({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={classNames('border-secondaryLine dark:border-line border-b px-4 py-3', {
-                'hover:bg-bg cursor-pointer': isClickable,
+            className={classNames('border-b border-secondaryLine px-4 py-3 dark:border-line', {
+                'cursor-pointer hover:bg-bg': isClickable,
             })}
             onClick={isClickable ? onClick : undefined}
         >
@@ -85,14 +85,14 @@ function UnifiedNotificationBase({
                                     fontSize={15}
                                     width={15}
                                     height={15}
-                                    className="text-second inline shrink-0"
+                                    className="inline shrink-0 text-second"
                                 />
-                                <span className="text-secondary text-xs leading-4">
+                                <span className="text-xs leading-4 text-secondary">
                                     <TimestampFormatter time={timestamp} />
                                 </span>
                             </div>
                         </div>
-                        <div className="text-medium mt-2 flex min-w-0 items-center gap-[0.2em] whitespace-nowrap">
+                        <div className="mt-2 flex min-w-0 items-center gap-[0.2em] whitespace-nowrap text-medium">
                             {title}
                         </div>
                         {children}

@@ -27,7 +27,7 @@ export async function waitForDisconnectConfirmation(connection: FireflyWalletCon
         title: <Trans>Disconnect</Trans>,
         content: (
             <div className="-mb-2.5 -mt-4">
-                <p className="text-lightMain mb-3 text-[13px]">
+                <p className="mb-3 text-[13px] text-lightMain">
                     {profiles.length ? (
                         <Trans>Confirm to disconnect this wallet and its associated account from Firefly?</Trans>
                     ) : (
@@ -39,7 +39,7 @@ export async function waitForDisconnectConfirmation(connection: FireflyWalletCon
                     {profiles.map((profile) => (
                         <div
                             key={profile.profileId}
-                            className="border-line dark:bg-bg mt-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border bg-white bg-bottom px-3 py-2 backdrop-blur"
+                            className="mt-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg"
                         >
                             <ProfileAvatar profile={profile} size={36} />
                             <ProfileName profile={profile} />

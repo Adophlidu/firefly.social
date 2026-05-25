@@ -36,23 +36,23 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
             <span className="text-[14px] leading-[18px]">
                 <ReplyRestrictionText type={restriction} />
             </span>
-            {!disabled ? <ChevronDownIcon className="text-secondary size-4" aria-hidden="true" /> : null}
+            {!disabled ? <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );
 
     if (disabled && restriction === RestrictionType.Everyone) return null;
     if (disabled)
         return (
-            <div className="border-secondaryLine text-main flex gap-1 text-nowrap rounded-[6px] border p-2 focus:outline-none">
+            <div className="flex gap-1 text-nowrap rounded-[6px] border border-secondaryLine p-2 text-main focus:outline-none">
                 {buttonContent}
             </div>
         );
 
     if (isMedium) {
         return (
-            <Popover as="div" className="border-secondaryLine relative text-nowrap rounded-[6px] border p-2">
+            <Popover as="div" className="relative text-nowrap rounded-[6px] border border-secondaryLine p-2">
                 <PopoverButton
-                    className="text-main flex cursor-pointer items-center gap-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex cursor-pointer items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={hasError}
                 >
                     {buttonContent}
@@ -62,9 +62,9 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
         );
     }
     return (
-        <div className="border-secondaryLine text-nowrap rounded-[6px] border p-2">
+        <div className="text-nowrap rounded-[6px] border border-secondaryLine p-2">
             <ClickableButton
-                className="text-main flex cursor-pointer gap-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
                 disabled={disabled}
             >

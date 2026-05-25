@@ -135,9 +135,9 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
 
             <DialogOrDrawerContent>
                 <div className="flex w-full items-center justify-between py-6">
-                    <div className="text-main flex-1 text-left text-lg font-bold leading-[22px]">{title}</div>
+                    <div className="flex-1 text-left text-lg font-bold leading-[22px] text-main">{title}</div>
                     <DialogOrDrawerClose asChild>
-                        <button type="button" className="text-second shrink-0" aria-label="Close">
+                        <button type="button" className="shrink-0 text-second" aria-label="Close">
                             <CloseIcon width={24} height={24} />
                         </button>
                     </DialogOrDrawerClose>
@@ -153,7 +153,7 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
                     </div>
 
                     <div className="flex flex-col items-center">
-                        <div className="text-main text-center text-base font-semibold leading-6">
+                        <div className="text-center text-base font-semibold leading-6 text-main">
                             {isWin ? <Trans>You won</Trans> : <Trans>You lost</Trans>}
                         </div>
                         <div
@@ -166,7 +166,7 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
                         </div>
                     </div>
 
-                    <div className="text-second text-center text-sm font-medium leading-[18px]">
+                    <div className="text-center text-sm font-medium leading-[18px] text-second">
                         {isWin ? (
                             <Trans>Great job predicting the future!</Trans>
                         ) : (

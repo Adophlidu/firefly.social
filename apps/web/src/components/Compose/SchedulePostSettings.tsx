@@ -108,14 +108,14 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
     }, [value, task, currentLensProfile, onClose, updateScheduleTime, disableSource]);
 
     return (
-        <div className="text-main flex-col px-4 py-2 pb-6 max-md:px-0 max-md:pb-2">
-            <div className="text-medium text-center leading-[18px]">
+        <div className="flex-col px-4 py-2 pb-6 text-main max-md:px-0 max-md:pb-2">
+            <div className="text-center text-medium leading-[18px]">
                 <Trans>The scheduled time to send this post can be set up to 7 days in advance.</Trans>
             </div>
             <div className="flex gap-2 pt-3 md:gap-4">
                 <div ref={datePickerRef} className="flex w-full flex-1 items-center justify-center">
                     <div
-                        className="bg-bg text-main flex w-full cursor-pointer gap-3 rounded-2xl px-4 py-3"
+                        className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
                         onClick={() => setDatePickerOpen(!datePickerOpen)}
                     >
                         <CalendarIcon />
@@ -141,7 +141,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
 
                 <div ref={timePickerRef} className="flex w-full flex-1 items-center justify-center">
                     <div
-                        className="bg-bg text-main flex w-full cursor-pointer gap-3 rounded-2xl px-4 py-3"
+                        className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
                         onClick={() => setTimePickerOpen(!timePickerOpen)}
                     >
                         <TimerIcon />
@@ -156,7 +156,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                     <ClickableButton
                         loading={loading}
                         onClick={handleSet}
-                        className="bg-main text-primaryBottom flex flex-1 items-center justify-center rounded-full py-2 font-bold"
+                        className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     >
                         <Trans>Set</Trans>
                     </ClickableButton>
@@ -168,7 +168,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                                     clearScheduleTime();
                                     onClose();
                                 }}
-                                className="border-lightMain text-fourMain flex flex-1 items-center justify-center rounded-full border py-2 font-bold"
+                                className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
                             >
                                 <Trans>Clear</Trans>
                             </ClickableButton>
@@ -176,7 +176,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                         <ClickableButton
                             loading={loading}
                             onClick={handleSet}
-                            className="bg-main text-primaryBottom flex flex-1 items-center justify-center gap-2 rounded-full py-2 font-bold"
+                            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-main py-2 font-bold text-primaryBottom"
                             disabled={task?.schedule_at ? dayjs(task.schedule_at).isSame(value) : false}
                         >
                             <Trans>Update</Trans>

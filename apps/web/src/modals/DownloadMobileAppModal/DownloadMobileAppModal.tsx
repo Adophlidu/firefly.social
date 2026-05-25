@@ -15,7 +15,7 @@ export function DownloadMobileAppModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <div className="bg-primaryBottom relative w-[420px] max-w-[90vw] rounded-3xl transition-all">
+            <div className="relative w-[420px] max-w-[90vw] rounded-3xl bg-primaryBottom transition-all">
                 <ModalTitle
                     enableClose
                     className="!p-6"

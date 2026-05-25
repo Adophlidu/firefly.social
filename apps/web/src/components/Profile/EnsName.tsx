@@ -15,7 +15,7 @@ export function EnsName({ ens, className }: EnsNameProps) {
     return (
         <span className={classNames('flex w-full min-w-0', className)}>
             <span className="min-w-0 truncate">{displayName}</span>
-            <span className="text-second shrink-0">{suffix}</span>
+            <span className="shrink-0 text-second">{suffix}</span>
         </span>
     );
 }

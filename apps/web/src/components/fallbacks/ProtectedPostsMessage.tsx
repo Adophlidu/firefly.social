@@ -5,10 +5,10 @@ import { Trans } from '@lingui/react/macro';
 export function ProtectedPostsMessage() {
     return (
         <div className="flex flex-col">
-            <div className="text-second mt-[42px] text-lg">
+            <div className="mt-[42px] text-lg text-second">
                 <Trans>These posts are protected</Trans>
             </div>
-            <div className="text-second mt-6 text-base">
+            <div className="mt-6 text-base text-second">
                 <Trans>
                     Only approved followers can see these posts.
                     <br />

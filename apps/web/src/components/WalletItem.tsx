@@ -68,7 +68,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
     const isLoading = mutation.isPending || loading;
 
     return (
-        <div className="border-line text-medium text-lightMain mb-3 flex h-[72px] w-full items-center justify-start gap-2.5 border-b md:p-3">
+        <div className="mb-3 flex h-[72px] w-full items-center justify-start gap-2.5 border-b border-line text-medium text-lightMain md:p-3">
             <Link href={profileLink}>
                 <Avatar src={avatar} size={48} alt={walletHandle} />
             </Link>
@@ -81,7 +81,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
                 <div
                     className={classNames(
                         'flex items-center gap-1',
-                        primary_ens ? 'text-second' : 'text-lightMain text-lg font-bold',
+                        primary_ens ? 'text-second' : 'text-lg font-bold text-lightMain',
                     )}
                 >
                     <Link href={profileLink} className="truncate">

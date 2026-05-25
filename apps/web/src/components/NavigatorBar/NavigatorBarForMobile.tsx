@@ -108,7 +108,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     return (
         <>
-            <header className="text-main flex w-full items-center gap-4 px-4 py-[7px]">
+            <header className="flex w-full items-center gap-4 px-4 py-[7px] text-main">
                 {searchMode || enableFixedBack || isSearchPage ? (
                     <div className="flex size-[30px] shrink-0 justify-center">
                         <BackButton
@@ -144,7 +144,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                 <h1 className="flex h-10 flex-1 items-center justify-center">
                     {searchMode || isSearchPage ? (
                         <form
-                            className="bg-lightBg flex flex-1 items-center rounded-md px-3"
+                            className="flex flex-1 items-center rounded-md bg-lightBg px-3"
                             onSubmit={(ev) => {
                                 ev.preventDefault();
                                 handleInputSubmit({ q: inputText });

@@ -66,7 +66,7 @@ function RootDocument({ children }: { children: ReactNode }) {
                         })()`}
                 </ScriptOnce>
             </head>
-            <body className="bg-primaryBottom text-main mx-auto flex min-h-screen flex-col items-center">
+            <body className="mx-auto flex min-h-screen flex-col items-center bg-primaryBottom text-main">
                 <div className="flex w-full max-w-[800px] flex-1 flex-col items-center">
                     <LinguiClientProvider>
                         <ClientProviders>

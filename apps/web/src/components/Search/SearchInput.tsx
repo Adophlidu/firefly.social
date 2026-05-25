@@ -30,12 +30,12 @@ export const SearchInput = memo(function SearchInput({
                 ref={inputRef}
                 {...rest}
                 className={classNames(
-                    `placeholder:text-secondary dark:text-input w-full border-0 bg-transparent py-2 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6`,
+                    `w-full border-0 bg-transparent py-2 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6`,
                     rest.className,
                 )}
             />
             {!rest.value ? (
-                <span className="text-secondary pointer-events-none absolute left-0 pl-3 sm:text-sm sm:leading-6">
+                <span className="pointer-events-none absolute left-0 pl-3 text-secondary sm:text-sm sm:leading-6">
                     {placeholder || <Trans>Search...</Trans>}
                 </span>
             ) : null}

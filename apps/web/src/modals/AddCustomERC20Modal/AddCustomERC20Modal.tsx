@@ -155,7 +155,7 @@ function AddCustomERC20ModalContent({
                         itemRenderer={getChainItem}
                     />
 
-                    <div className="!bg-lightBg focus-within:border-highlight flex-1 rounded-lg !border border-transparent transition-all">
+                    <div className="flex-1 rounded-lg !border border-transparent !bg-lightBg transition-all focus-within:border-highlight">
                         <SearchInput
                             placeholder={t`Contract address`}
                             className="h-10 !py-1.5 px-3"

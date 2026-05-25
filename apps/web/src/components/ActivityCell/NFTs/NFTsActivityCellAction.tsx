@@ -119,7 +119,7 @@ export function NFTsActivityCellAction(props: Props) {
                                 <ClickableArea className="whitespace-nowrap">
                                     <Link
                                         href={getProfileUrl({ source: Source.Wallet, profileId: fromAddress })}
-                                        className="text-highlight truncate hover:underline"
+                                        className="truncate text-highlight hover:underline"
                                     >
                                         {formatAddressEthereum(fromAddress, 4)}
                                     </Link>
@@ -144,7 +144,7 @@ export function NFTsActivityCellAction(props: Props) {
                             <ClickableArea className="whitespace-nowrap">
                                 <Link
                                     href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
-                                    className="text-highlight truncate hover:underline"
+                                    className="truncate text-highlight hover:underline"
                                 >
                                     {formatAddressEthereum(toAddress, 4)}
                                 </Link>

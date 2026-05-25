@@ -31,7 +31,7 @@ export function PredictionEventOverview() {
                 />
             ) : null}
             <div className="min-w-0 flex-1">
-                <h1 className="text-main text-xl font-semibold leading-6">{detail.title}</h1>
+                <h1 className="text-xl font-semibold leading-6 text-main">{detail.title}</h1>
                 <div className="mt-3 flex items-center gap-1.5">
                     <PredictionPlatformIcon platform={detail.platform} size={20} />
                     {!isCrypto || isMultipleSeries ? (
@@ -56,7 +56,7 @@ export function PredictionEventOverview() {
                             )}
                         </span>
                     ) : null}
-                    <div className="text-second flex items-center gap-1">
+                    <div className="flex items-center gap-1 text-second">
                         <TimeIcon width={12} height={12} />
                         {isCrypto && detail.startTime && detail.endDate ? (
                             <PredictionEventTimeRange startTime={detail.startTime} endDate={detail.endDate} />

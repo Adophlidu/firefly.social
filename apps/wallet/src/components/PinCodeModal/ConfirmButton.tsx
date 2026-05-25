@@ -36,7 +36,7 @@ export const ConfirmButton = memo<ConfirmButtonProps>(function ConfirmButton({ o
                 disabled={disabled || loading || isBusy}
                 loading={loading || isBusy}
                 onClick={disabled || loading ? undefined : () => runWorkflow()}
-                className="bg-main text-primaryBottom h-[48px] w-full rounded-full text-base font-bold"
+                className="h-[48px] w-full rounded-full bg-main text-base font-bold text-primaryBottom"
             >
                 {isLastStep ? <Trans>Confirm</Trans> : <Trans>Next</Trans>}
             </Button>

@@ -63,7 +63,7 @@ export function ErrorMessage({ name, control, className, ...rest }: ErrorMessage
     const message = errors[name]?.message;
     if (!message || typeof message !== 'string') return null;
     return (
-        <p className={classNames('text-fail text-xs font-medium leading-4', className)} {...rest}>
+        <p className={classNames('text-xs font-medium leading-4 text-fail', className)} {...rest}>
             <ValidationErrorMessage errorCode={message} />
         </p>
     );

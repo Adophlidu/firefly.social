@@ -77,7 +77,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={handleClose} disableBackdropClose>
-            <div className="dark:bg-bgModal relative flex w-[455px] max-w-[90vw] flex-col gap-6 rounded-xl bg-white p-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.1)]">
+            <div className="relative flex w-[455px] max-w-[90vw] flex-col gap-6 rounded-xl bg-white p-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.1)] dark:bg-bgModal">
                 <ModalTitle
                     title={<Trans>Your Recovery Phrase</Trans>}
                     enableClose
@@ -93,7 +93,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
                             </div>
 
                             <div className="flex w-full flex-col gap-1 px-10">
-                                <h3 className="text-second text-center text-lg font-semibold leading-normal">
+                                <h3 className="text-center text-lg font-semibold leading-normal text-second">
                                     <Trans>Keep Your Recovery Phrase Safe</Trans>
                                 </h3>
 
@@ -102,7 +102,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
                                         <div className="flex size-6 shrink-0 items-center justify-center">
                                             <KeySquareIcon width={24} height={24} className="text-danger" />
                                         </div>
-                                        <p className="text-main flex-1 text-left text-sm font-semibold leading-5">
+                                        <p className="flex-1 text-left text-sm font-semibold leading-5 text-main">
                                             <Trans>Your recovery phrase is like a password, keep it secret.</Trans>
                                         </p>
                                     </div>
@@ -111,7 +111,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
                                         <div className="flex size-6 shrink-0 items-center justify-center">
                                             <EyeSlashIcon width={24} height={24} className="text-danger" />
                                         </div>
-                                        <p className="text-main flex-1 text-left text-sm font-semibold leading-5">
+                                        <p className="flex-1 text-left text-sm font-semibold leading-5 text-main">
                                             <Trans>
                                                 If you enter it in another app, it can steal your funds and Farcaster
                                                 account.
@@ -123,7 +123,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
                                         <div className="flex size-6 shrink-0 items-center justify-center">
                                             <Warning2Icon width={24} height={24} className="text-danger" />
                                         </div>
-                                        <p className="text-main flex-1 text-left text-sm font-semibold leading-5">
+                                        <p className="flex-1 text-left text-sm font-semibold leading-5 text-main">
                                             <Trans>We do not recommend ever sharing it with any app or person.</Trans>
                                         </p>
                                     </div>
@@ -133,7 +133,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
 
                         <div className="flex w-full">
                             <ClickableButton
-                                className="hover:bg-commonDanger/90 bg-commonDanger flex h-10 w-full items-center justify-center rounded-full px-[18px] py-[11px] font-bold text-white transition-colors"
+                                className="hover:bg-commonDanger/90 flex h-10 w-full items-center justify-center rounded-full bg-commonDanger px-[18px] py-[11px] font-bold text-white transition-colors"
                                 onClick={handleConfirm}
                                 disabled={loading}
                                 loading={loading}
@@ -149,19 +149,19 @@ export function RecoveryPhraseModal({ ref }: Props) {
                             <div className="flex size-6 shrink-0 items-center justify-center">
                                 <Warning2Icon width={24} height={24} className="text-danger" />
                             </div>
-                            <p className="text-danger text-sm font-semibold leading-5">
+                            <p className="text-sm font-semibold leading-5 text-danger">
                                 <Trans>Keep it safe and do not share</Trans>
                             </p>
                         </div>
 
-                        <div className="border-line flex items-start justify-between gap-4 rounded-2xl border px-6 py-3">
+                        <div className="flex items-start justify-between gap-4 rounded-2xl border border-line px-6 py-3">
                             <div className="flex flex-1 flex-col gap-1">
                                 {getColumnWords(0).map((word: string, index: number) => (
                                     <div
                                         key={index}
                                         className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
                                     >
-                                        <span className="text-second w-8 shrink-0 text-left">
+                                        <span className="w-8 shrink-0 text-left text-second">
                                             {String(index + 1).padStart(2, '0')}
                                         </span>
                                         <span className="text-main">{word}</span>
@@ -174,7 +174,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
                                         key={index}
                                         className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
                                     >
-                                        <span className="text-second w-8 shrink-0 text-left">
+                                        <span className="w-8 shrink-0 text-left text-second">
                                             {String(index + 9).padStart(2, '0')}
                                         </span>
                                         <span className="text-main">{word}</span>
@@ -187,7 +187,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
                                         key={index}
                                         className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
                                     >
-                                        <span className="text-second w-8 shrink-0 text-left">
+                                        <span className="w-8 shrink-0 text-left text-second">
                                             {String(index + 17).padStart(2, '0')}
                                         </span>
                                         <span className="text-main">{word}</span>
@@ -198,7 +198,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
 
                         <div className="flex w-full justify-center">
                             <ClickableButton
-                                className="text-second hover:bg-bg flex items-center gap-1 rounded-xl p-1 text-sm font-semibold leading-[18px] transition-colors"
+                                className="flex items-center gap-1 rounded-xl p-1 text-sm font-semibold leading-[18px] text-second transition-colors hover:bg-bg"
                                 onClick={() => handleCopy()}
                                 aria-label={copied ? 'Copied' : 'Copy recovery phrase to clipboard'}
                             >

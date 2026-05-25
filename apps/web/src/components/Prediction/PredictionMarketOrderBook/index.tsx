@@ -103,7 +103,7 @@ export const PredictionMarketOrderBook = memo<PredictionMarketOrderBookProps>(fu
             ) : error ? (
                 <div className="flex h-[110px] items-center justify-center">
                     <ClickableButton
-                        className="text-second text-sm font-medium hover:underline"
+                        className="text-sm font-medium text-second hover:underline"
                         onClick={() => refetch()}
                     >
                         <Trans>Retry</Trans>

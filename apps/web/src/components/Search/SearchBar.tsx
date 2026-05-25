@@ -142,11 +142,11 @@ export function SearchBar({ slot, autoSearchType = false, className, ...rest }: 
             {isSearchPage && slot === 'header' ? (
                 <BackButton className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
-            <div className="bg-lightBg text-main focus-within:border-highlight focus-within:bg-primaryBottom group relative flex grow items-center rounded-xl border border-transparent px-3">
+            <div className="group relative flex grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-primaryBottom">
                 <SearchIcon
                     width={18}
                     height={18}
-                    className="text-primaryMain group-focus-within:text-highlight shrink-0"
+                    className="shrink-0 text-primaryMain group-focus-within:text-highlight"
                 />
                 <form
                     className="w-full flex-1"
@@ -179,7 +179,7 @@ export function SearchBar({ slot, autoSearchType = false, className, ...rest }: 
                     }}
                 >
                     <SearchInput
-                        className="focus:text-main box-border h-[35px]"
+                        className="box-border h-[35px] focus:text-main"
                         value={inputText}
                         onChange={(ev) => {
                             const newValue = ev.currentTarget.value;

@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 export default memo(function RequirementRulesView() {
     return (
-        <div className="text-main flex w-[400px] flex-col gap-6 p-4 pt-0 text-left">
+        <div className="flex w-[400px] flex-col gap-6 p-4 pt-0 text-left text-main">
             <div className="flex flex-col gap-3">
                 <h2 className="text-base font-bold leading-4">
                     <Trans>Follow me</Trans>

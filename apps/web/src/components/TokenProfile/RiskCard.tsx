@@ -34,7 +34,7 @@ export const RiskCard = memo<RiskCardProps>(function RiskCard({ level, messages,
         <div
             {...rest}
             className={classNames(
-                'border-line bg-primaryBottom text-main box-border flex w-[568px] cursor-pointer flex-row gap-3 rounded-lg border p-4',
+                'box-border flex w-[568px] cursor-pointer flex-row gap-3 rounded-lg border border-line bg-primaryBottom p-4 text-main',
                 rest.className,
             )}
         >
@@ -46,7 +46,7 @@ export const RiskCard = memo<RiskCardProps>(function RiskCard({ level, messages,
                     return (
                         <Fragment key={title}>
                             <div className={classNames('font-bold', textColor)}>{title}</div>
-                            {description ? <div className="text-secondary text-sm">{description}</div> : null}
+                            {description ? <div className="text-sm text-secondary">{description}</div> : null}
                         </Fragment>
                     );
                 })}

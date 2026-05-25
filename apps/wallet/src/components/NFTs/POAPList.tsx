@@ -67,7 +67,7 @@ function NFTItemContent({
             <Link
                 to={nftUrl}
                 key={`${index}-${item.contract_address}-${item.token_id}`}
-                className="bg-bg flex cursor-pointer flex-col rounded-lg pb-1 sm:rounded-2xl"
+                className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
             >
                 <div className="relative aspect-square h-auto w-full overflow-hidden">
                     {props.isShowChainIcon ? (
@@ -76,7 +76,7 @@ function NFTItemContent({
                     {props.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
                     {props.isShowOwner && item.owner ? <Owner address={item.owner as Hex} /> : null}
                     {props.ownerCount ? (
-                        <div className="bg-primaryBottom absolute left-2 top-2 z-10 h-5 rounded-lg px-1 text-xs font-bold leading-5">
+                        <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
                             × {nFormatter(props.ownerCount)}
                         </div>
                     ) : null}
@@ -115,7 +115,7 @@ function PoapItemContent({
             <Link
                 to={nftUrl}
                 key={`${index}-${item.tokenId}`}
-                className="bg-bg flex cursor-pointer flex-col rounded-lg pb-1 sm:rounded-2xl"
+                className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
             >
                 <div className="relative aspect-square h-auto w-full overflow-hidden">
                     {props.isShowChainIcon ? (
@@ -124,7 +124,7 @@ function PoapItemContent({
                     {props.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
                     {props.isShowOwner && item.owner ? <Owner address={item.owner as Hex} /> : null}
                     {props.ownerCount ? (
-                        <div className="light bg-primaryBottom absolute left-2 top-2 z-10 h-5 rounded-lg px-1 text-xs font-bold leading-5">
+                        <div className="light absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
                             × {nFormatter(props.ownerCount)}
                         </div>
                     ) : null}

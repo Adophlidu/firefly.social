@@ -61,7 +61,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                             key={outcomeData.outcome}
                             className={classNames(
                                 'flex min-w-0 flex-1 shrink-0 break-all text-sm',
-                                outcomeData.isLast ? 'text-danger justify-end text-right' : 'text-success text-left',
+                                outcomeData.isLast ? 'justify-end text-right text-danger' : 'text-left text-success',
                             )}
                         >
                             <span className={`min-w-0 truncate font-bold ${bedStead.className}`}>
@@ -129,7 +129,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                     return (
                         <div
                             key={outcome}
-                            className={classNames('text-second text-[13px]', isLast ? 'text-right' : 'text-left')}
+                            className={classNames('text-[13px] text-second', isLast ? 'text-right' : 'text-left')}
                         >
                             ${computeVolume(activity, index)}
                         </div>

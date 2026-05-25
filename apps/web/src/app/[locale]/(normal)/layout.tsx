@@ -26,8 +26,8 @@ interface Props {
 export default async function Layout({ children, modal, sidebar, subnav }: Props) {
     return (
         <>
-            <main className="md:border-line flex w-full flex-[1_1_100%] flex-col md:border-r md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
-                <div className="bg-primaryBottom sticky top-0 z-40">
+            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
+                <div className="sticky top-0 z-40 bg-primaryBottom">
                     <IfPathname
                         isNotOneOf={[
                             {
@@ -63,7 +63,7 @@ export default async function Layout({ children, modal, sidebar, subnav }: Props
                 {children}
                 {modal}
             </main>
-            <aside className="z-1 sticky top-0 hidden h-screen w-96 flex-col px-4 md:min-w-[384px] lg:flex">
+            <aside className="sticky top-0 z-1 hidden h-screen w-96 flex-col px-4 md:min-w-[384px] lg:flex">
                 <AsideSearchBar />
 
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">

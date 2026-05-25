@@ -86,7 +86,7 @@ function HistoryTabButton({
             type="button"
             className={cn(
                 'flex min-w-0 items-center justify-center border-b-[2.5px] px-1 text-base font-semibold leading-6',
-                active ? 'border-main text-main' : 'text-second border-transparent',
+                active ? 'border-main text-main' : 'border-transparent text-second',
             )}
             onClick={onClick}
         >
@@ -100,7 +100,7 @@ export function History() {
 
     return (
         <div className="w-full">
-            <div className="bg-primaryBottom sticky top-0 z-10 px-4">
+            <div className="sticky top-0 z-10 bg-primaryBottom px-4">
                 <div className="grid h-9 grid-cols-2">
                     <HistoryTabButton
                         active={tab === HistoryTab.ClosedPositions}
@@ -185,7 +185,7 @@ function ClosedPositionsHistory() {
                         <CloseLossesDialog proxyAddress={proxyAddress} positions={closeableLosses}>
                             <button
                                 type="button"
-                                className="border-line text-main flex h-9 items-center gap-1 rounded-2xl border px-4 text-sm font-medium leading-[18px]"
+                                className="flex h-9 items-center gap-1 rounded-2xl border border-line px-4 text-sm font-medium leading-[18px] text-main"
                             >
                                 <ArchiveIcon className="size-3.5" />
                                 <Trans>Close all the losses</Trans>
@@ -208,7 +208,7 @@ function ClosedPositionsHistory() {
                 }}
                 NoResultsFallbackProps={{
                     className: 'px-4',
-                    icon: <BetHistoryEmptyIcon className="text-third h-[128px] w-[160px]" />,
+                    icon: <BetHistoryEmptyIcon className="h-[128px] w-[160px] text-third" />,
                     message: <BetEmptyState message={<Trans>No positions found</Trans>} />,
                 }}
             />
@@ -250,7 +250,7 @@ function TradingActivitiesHistory() {
             }}
             NoResultsFallbackProps={{
                 className: 'px-4',
-                icon: <BetHistoryEmptyIcon className="text-third h-16 w-20" />,
+                icon: <BetHistoryEmptyIcon className="h-16 w-20 text-third" />,
                 message: <BetEmptyState message={<Trans>No activities found</Trans>} />,
             }}
         />
@@ -272,7 +272,7 @@ function ClosedPositionSortDialog({
             <DialogOrDrawerTrigger asChild>
                 <button
                     type="button"
-                    className="border-line text-main ml-auto flex h-9 items-center gap-1.5 rounded-2xl border px-3 text-sm leading-[18px]"
+                    className="ml-auto flex h-9 items-center gap-1.5 rounded-2xl border border-line px-3 text-sm leading-[18px] text-main"
                 >
                     <span>{selectedOption?.label}</span>
                     <ChevronDown className="size-3.5" />
@@ -292,7 +292,7 @@ function ClosedPositionSortDialog({
                             <button
                                 key={option.value}
                                 type="button"
-                                className="text-main flex w-full items-center justify-between gap-2.5 p-2 text-left text-base font-semibold leading-6"
+                                className="flex w-full items-center justify-between gap-2.5 p-2 text-left text-base font-semibold leading-6 text-main"
                                 onClick={() => {
                                     onValueChange(option.value);
                                     setOpen(false);
@@ -343,9 +343,9 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
     };
 
     return (
-        <div className="border-line w-full rounded-xl border p-4">
+        <div className="w-full rounded-xl border border-line p-4">
             <button type="button" className="flex w-full items-center gap-2 text-left" onClick={navigateToDetail}>
-                <div className="bg-lightBg size-8 shrink-0 overflow-hidden rounded-md">
+                <div className="size-8 shrink-0 overflow-hidden rounded-md bg-lightBg">
                     <Image
                         width={32}
                         height={32}
@@ -355,7 +355,7 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
                         className="size-full object-cover"
                     />
                 </div>
-                <div className="text-main line-clamp-2 min-w-0 flex-1 text-sm font-semibold leading-5">
+                <div className="line-clamp-2 min-w-0 flex-1 text-sm font-semibold leading-5 text-main">
                     {position.title || '-'}
                 </div>
             </button>
@@ -370,13 +370,13 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
                         {isWon ? <WonIcon className="size-3.5" /> : <LostIcon className="size-3.5" />}
                         <span>{isWon ? <Trans>Won</Trans> : <Trans>Lost</Trans>}</span>
                     </span>
-                    <span className="text-main truncate text-xs leading-[14px]">{position.vote_status || '-'}</span>
+                    <span className="truncate text-xs leading-[14px] text-main">{position.vote_status || '-'}</span>
                 </div>
                 <div className="flex shrink-0 flex-col items-end justify-center">
-                    <div className="text-main text-sm font-semibold leading-5">
+                    <div className="text-sm font-semibold leading-5 text-main">
                         <Trans>{formatTokenItemAmount(totalBought, 2)} shares</Trans>
                     </div>
-                    <div className="text-second text-xs leading-[14px]">
+                    <div className="text-xs leading-[14px] text-second">
                         <Trans>Avg {formatPriceToCents(position.avg_price, 1)}</Trans>
                     </div>
                 </div>
@@ -391,15 +391,15 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
                     >
                         {formatSignedUSD(position.pnl)}({formatSignedPercent(pnlRate)})
                     </div>
-                    <div className="text-second truncate text-xs leading-[14px]">
+                    <div className="truncate text-xs leading-[14px] text-second">
                         {formatTokenUSD(settlementValue.toString(), { minDisplay: 0.01 })}
                     </div>
                 </div>
                 <div className="flex min-w-0 flex-col items-end">
-                    <div className="text-main text-sm font-semibold leading-5">
+                    <div className="text-sm font-semibold leading-5 text-main">
                         {formatTokenUSD(totalTrade.toString())}
                     </div>
-                    <div className="text-second text-xs leading-[14px]">
+                    <div className="text-xs leading-[14px] text-second">
                         <Trans>Total traded</Trans>
                     </div>
                 </div>
@@ -478,11 +478,11 @@ function CloseLossesDialog({
             <DialogOrDrawerTrigger asChild>{children}</DialogOrDrawerTrigger>
             <DialogOrDrawerContent className="w-full gap-6 rounded-t-2xl p-6" bodyClassName="gap-6 p-0">
                 <div className="flex w-full items-center justify-between gap-4">
-                    <DialogOrDrawerTitle className="text-main text-left text-xl font-bold leading-6">
+                    <DialogOrDrawerTitle className="text-left text-xl font-bold leading-6 text-main">
                         <Trans>Close all the losses</Trans>
                     </DialogOrDrawerTitle>
                     <DialogOrDrawerClose asChild>
-                        <button type="button" className="text-main shrink-0 rounded p-1">
+                        <button type="button" className="shrink-0 rounded p-1 text-main">
                             <X className="size-6" />
                             <span className="sr-only">Close</span>
                         </button>
@@ -490,13 +490,13 @@ function CloseLossesDialog({
                 </div>
                 <div className="flex min-h-0 flex-col gap-6">
                     <div className="flex flex-col items-center gap-2">
-                        <div className="bg-second/60 text-primaryBottom flex items-center justify-center rounded-full">
+                        <div className="bg-second/60 flex items-center justify-center rounded-full text-primaryBottom">
                             <WarnIcon width={64} height={64} className="text-third" />
                         </div>
-                        <div className="text-main text-center text-base font-semibold leading-6">
+                        <div className="text-center text-base font-semibold leading-6 text-main">
                             <Trans>Missed this round</Trans>
                         </div>
-                        <div className="text-second text-center text-sm leading-[18px]">
+                        <div className="text-center text-sm leading-[18px] text-second">
                             <Trans>Better luck on the next prediction.</Trans>
                         </div>
                     </div>
@@ -504,7 +504,7 @@ function CloseLossesDialog({
                     <div className="no-scrollbar flex max-h-[280px] min-h-0 w-full flex-col gap-3 overflow-auto px-2">
                         {positions.map((position) => (
                             <div key={getPositionKey(0, position)} className="flex items-center gap-2">
-                                <div className="bg-lightBg size-10 shrink-0 overflow-hidden rounded-lg">
+                                <div className="size-10 shrink-0 overflow-hidden rounded-lg bg-lightBg">
                                     <Image
                                         width={40}
                                         height={40}
@@ -515,10 +515,10 @@ function CloseLossesDialog({
                                     />
                                 </div>
                                 <div className="min-w-0 flex-1">
-                                    <div className="text-second line-clamp-1 text-sm font-semibold leading-5">
+                                    <div className="line-clamp-1 text-sm font-semibold leading-5 text-second">
                                         {position.title || '-'}
                                     </div>
-                                    <div className="text-main text-base font-bold leading-6">
+                                    <div className="text-base font-bold leading-6 text-main">
                                         <Trans>Lost {formatPnlUSD(getPositionLoss(position))}</Trans>
                                     </div>
                                 </div>
@@ -527,7 +527,7 @@ function CloseLossesDialog({
                     </div>
 
                     {claimItems.length < positions.length ? (
-                        <div className="text-warn text-center text-sm leading-[18px]">
+                        <div className="text-center text-sm leading-[18px] text-warn">
                             <Trans>
                                 {claimItems.length} of {positions.length} positions will be closed
                             </Trans>
@@ -578,14 +578,14 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
         return (
             <HistoryCard>
                 <div className="flex items-center gap-2">
-                    <div className="bg-lightBg flex size-10 items-center justify-center rounded-lg">
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-lightBg">
                         {isIn ? <ArrowDown width={20} height={20} /> : <ArrowUp width={20} height={20} />}
                     </div>
                     <div className="min-w-0 flex-1">
-                        <div className="text-main truncate text-sm font-bold leading-5">
+                        <div className="truncate text-sm font-bold leading-5 text-main">
                             {isIn ? <Trans>Add Funds</Trans> : <Trans>Withdraw</Trans>}
                         </div>
-                        <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
+                        <div className="text-xs leading-[14px] text-second">{whenRelative}</div>
                     </div>
                     <div className="shrink-0 text-right text-sm font-semibold leading-5">
                         {amount ? (
@@ -615,13 +615,13 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
                         <div
                             className={
                                 isLost
-                                    ? 'text-danger font-bedstead text-sm font-bold leading-5'
-                                    : 'text-main text-sm font-semibold leading-5'
+                                    ? 'font-bedstead text-sm font-bold leading-5 text-danger'
+                                    : 'text-sm font-semibold leading-5 text-main'
                             }
                         >
                             {isLost ? <Trans>Lost</Trans> : <Trans>Claim</Trans>}
                         </div>
-                        <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
+                        <div className="text-xs leading-[14px] text-second">{whenRelative}</div>
                     </div>
                 </HistoryCard>
             );
@@ -636,21 +636,21 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
                 {isClaimed ? (
                     <div className="mt-3 flex flex-col gap-1">
                         <div className="flex items-center justify-between gap-6">
-                            <div className="font-bedstead text-main text-sm font-bold leading-5">
+                            <div className="font-bedstead text-sm font-bold leading-5 text-main">
                                 <Trans>Claimed</Trans>
                             </div>
-                            <div className="text-success text-sm font-semibold leading-5">
+                            <div className="text-sm font-semibold leading-5 text-success">
                                 +{formatTokenUSD(claimedAmount ?? '0', { minDisplay: 0.01 })}
                             </div>
                         </div>
-                        <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
+                        <div className="text-xs leading-[14px] text-second">{whenRelative}</div>
                     </div>
                 ) : (
                     <div className="mt-3 flex items-center justify-between gap-6">
-                        <div className="font-bedstead text-danger text-sm font-bold leading-5">
+                        <div className="font-bedstead text-sm font-bold leading-5 text-danger">
                             <Trans>Lost</Trans>
                         </div>
-                        <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
+                        <div className="text-xs leading-[14px] text-second">{whenRelative}</div>
                     </div>
                 )}
             </HistoryCard>
@@ -662,10 +662,10 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
         return (
             <HistoryCard>
                 <div className="flex items-center justify-between gap-6">
-                    <div className="text-main text-sm font-semibold leading-5">
+                    <div className="text-sm font-semibold leading-5 text-main">
                         <Trans>Trade</Trans>
                     </div>
-                    <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
+                    <div className="text-xs leading-[14px] text-second">{whenRelative}</div>
                 </div>
             </HistoryCard>
         );
@@ -700,27 +700,27 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
                             '-'
                         )}
                     </div>
-                    <div className="text-second text-xs leading-[14px]">
+                    <div className="text-xs leading-[14px] text-second">
                         <Plural value={shares.count} one="# share" other="# shares" />
                     </div>
                 </div>
                 <div className="flex shrink-0 flex-col items-end justify-center">
-                    <div className="text-main text-sm font-semibold leading-5">
+                    <div className="text-sm font-semibold leading-5 text-main">
                         {formatTokenUSD(totalUsd, { minDisplay: 0.01 })}
                     </div>
-                    <div className="text-second text-xs leading-[14px]">
+                    <div className="text-xs leading-[14px] text-second">
                         <Trans>Total</Trans>
                     </div>
                 </div>
             </div>
             <div className="mt-2 flex w-full items-end justify-between gap-6">
                 <div className="flex flex-col justify-center">
-                    <div className="text-main text-sm font-semibold leading-5">{priceCents}</div>
-                    <div className="text-second text-xs leading-[14px]">
+                    <div className="text-sm font-semibold leading-5 text-main">{priceCents}</div>
+                    <div className="text-xs leading-[14px] text-second">
                         <Trans>Price</Trans>
                     </div>
                 </div>
-                <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
+                <div className="text-xs leading-[14px] text-second">{whenRelative}</div>
             </div>
         </HistoryCard>
     );
@@ -758,11 +758,11 @@ function HistoryCard({ children, onClick }: { children: React.ReactNode; onClick
     return (
         <div className="w-full px-4 pt-4">
             {onClick ? (
-                <button type="button" className="border-line w-full rounded-xl border p-3 text-left" onClick={onClick}>
+                <button type="button" className="w-full rounded-xl border border-line p-3 text-left" onClick={onClick}>
                     {children}
                 </button>
             ) : (
-                <div className="border-line w-full rounded-xl border p-3">{children}</div>
+                <div className="w-full rounded-xl border border-line p-3">{children}</div>
             )}
         </div>
     );
@@ -771,7 +771,7 @@ function HistoryCard({ children, onClick }: { children: React.ReactNode; onClick
 function MarketHeader({ image, title }: { image?: string; title?: string }) {
     return (
         <div className="grid grid-cols-[40px_1fr] gap-2">
-            <div className="bg-lightBg size-10 overflow-hidden rounded-lg">
+            <div className="size-10 overflow-hidden rounded-lg bg-lightBg">
                 <Image
                     width={40}
                     height={40}
@@ -782,7 +782,7 @@ function MarketHeader({ image, title }: { image?: string; title?: string }) {
                 />
             </div>
             <div className="min-w-0">
-                <div className="text-main line-clamp-2 text-sm font-semibold leading-5">{title || '-'}</div>
+                <div className="line-clamp-2 text-sm font-semibold leading-5 text-main">{title || '-'}</div>
             </div>
         </div>
     );

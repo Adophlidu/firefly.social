@@ -15,7 +15,7 @@ export function PostMarkup({ post, content, canShowMore }: PostMarkupProps) {
             post={post}
             className={classNames(
                 { 'line-clamp-5': canShowMore, 'single-post': canShowMore },
-                'markup text-medium break-words',
+                'markup break-words text-medium',
             )}
         >
             {`${content}${post.incomplete ? ` #SYSTOGGLEMORE` : ''}`}

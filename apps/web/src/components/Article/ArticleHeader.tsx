@@ -17,7 +17,7 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
     return (
         <div
             className={classNames(
-                'border-secondaryLine flex min-w-0 items-center justify-between border-b pb-[10px]',
+                'flex min-w-0 items-center justify-between border-b border-secondaryLine pb-[10px]',
                 className,
             )}
         >

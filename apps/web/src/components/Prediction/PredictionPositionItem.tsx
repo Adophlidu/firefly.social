@@ -109,7 +109,7 @@ export function PredictionPositionItem({
         const pnlRate = Math.max(-1, totalTrade > 0 ? position.pnl / totalTrade : position.pnl_rate);
 
         return (
-            <div key={position.Id} className="border-line flex w-full flex-col gap-3 rounded-xl border p-3">
+            <div key={position.Id} className="flex w-full flex-col gap-3 rounded-xl border border-line p-3">
                 <div className="flex w-full items-center gap-2">
                     <div className="size-10 shrink-0 overflow-hidden rounded-lg">
                         {position.image ? (
@@ -127,12 +127,12 @@ export function PredictionPositionItem({
                             <Link
                                 href={eventUrl}
                                 onClick={handleEventClick}
-                                className="text-main line-clamp-2 min-w-0 break-words text-sm font-semibold leading-5 hover:underline"
+                                className="line-clamp-2 min-w-0 break-words text-sm font-semibold leading-5 text-main hover:underline"
                             >
                                 {displayTitle}
                             </Link>
                         ) : (
-                            <h3 className="text-main line-clamp-2 min-w-0 break-words text-sm font-semibold leading-5">
+                            <h3 className="line-clamp-2 min-w-0 break-words text-sm font-semibold leading-5 text-main">
                                 {displayTitle}
                             </h3>
                         )}
@@ -146,7 +146,7 @@ export function PredictionPositionItem({
                                 {isWon ? <WonIcon className="size-3.5" /> : <LostIcon className="size-3.5" />}
                                 <span>{isWon ? <Trans>Won</Trans> : <Trans>Lost</Trans>}</span>
                             </span>
-                            <span className="text-main truncate text-xs leading-[14px]">
+                            <span className="truncate text-xs leading-[14px] text-main">
                                 {position.vote_status || '-'}
                             </span>
                         </div>
@@ -154,10 +154,10 @@ export function PredictionPositionItem({
                 </div>
                 <div className="flex items-start gap-2">
                     <div className="flex min-w-0 flex-1 flex-col">
-                        <div className="text-main truncate text-sm font-semibold leading-5">
+                        <div className="truncate text-sm font-semibold leading-5 text-main">
                             <Trans>{formatPolymarketNumber(totalBought, { symbol: null })} shares</Trans>
                         </div>
-                        <div className="text-second truncate text-xs leading-[14px]">
+                        <div className="truncate text-xs leading-[14px] text-second">
                             <Trans>Avg</Trans> {formatBetsPrice(position.avg_price)}
                         </div>
                     </div>
@@ -170,15 +170,15 @@ export function PredictionPositionItem({
                         >
                             {formatPolymarketNumber(position.pnl, { sign: true })}({formatSignedPercent(pnlRate)})
                         </div>
-                        <div className="text-second truncate text-xs leading-[14px]">
+                        <div className="truncate text-xs leading-[14px] text-second">
                             {formatPolymarketNumber(settlementValue)}
                         </div>
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col">
-                        <div className="text-main truncate text-sm font-semibold leading-5">
+                        <div className="truncate text-sm font-semibold leading-5 text-main">
                             {formatPolymarketNumber(totalTrade)}
                         </div>
-                        <div className="text-second text-xs leading-[14px]">
+                        <div className="text-xs leading-[14px] text-second">
                             <Trans>Total trade</Trans>
                         </div>
                     </div>
@@ -188,7 +188,7 @@ export function PredictionPositionItem({
     }
 
     return (
-        <div key={position.Id} className="border-line flex flex-col items-start gap-3 rounded-xl border p-3">
+        <div key={position.Id} className="flex flex-col items-start gap-3 rounded-xl border border-line p-3">
             <div className="flex w-full gap-2">
                 <div className="size-10 shrink-0">
                     {position.image ? (
@@ -206,12 +206,12 @@ export function PredictionPositionItem({
                         <Link
                             href={eventUrl}
                             onClick={handleEventClick}
-                            className="text-main line-clamp-5 w-full break-words text-sm font-bold hover:underline"
+                            className="line-clamp-5 w-full break-words text-sm font-bold text-main hover:underline"
                         >
                             {displayTitle}
                         </Link>
                     ) : (
-                        <h3 className="text-main line-clamp-5 w-full break-words text-sm font-bold">{displayTitle}</h3>
+                        <h3 className="line-clamp-5 w-full break-words text-sm font-bold text-main">{displayTitle}</h3>
                     )}
                     <div className="flex items-center gap-2">
                         <div
@@ -223,7 +223,7 @@ export function PredictionPositionItem({
                         >
                             {position.vote_status}
                         </div>
-                        <span className="text-second text-xs">
+                        <span className="text-xs text-second">
                             <Trans>{formatPolymarketNumber(position.shares, { symbol: null })} shares</Trans>
                         </span>
                     </div>
@@ -232,14 +232,14 @@ export function PredictionPositionItem({
             <div className="flex w-full flex-col items-center gap-2 md:flex-row">
                 <div className="flex w-full min-w-0 flex-1 items-center justify-evenly gap-2 md:w-auto">
                     <div className="flex min-w-0 flex-1 shrink-0 flex-col items-start truncate">
-                        <span className="text-main text-sm font-medium">{formatBetsPrice(position.avg_price)}</span>
-                        <span className="text-second text-[11px]">
+                        <span className="text-sm font-medium text-main">{formatBetsPrice(position.avg_price)}</span>
+                        <span className="text-[11px] text-second">
                             <Trans>Avg</Trans>
                         </span>
                     </div>
                     <div className="flex min-w-0 flex-1 shrink-0 flex-col items-start truncate">
-                        <span className="text-main text-sm font-medium">{formatBetsPrice(position.cur_price)}</span>
-                        <span className="text-second text-[11px]">
+                        <span className="text-sm font-medium text-main">{formatBetsPrice(position.cur_price)}</span>
+                        <span className="text-[11px] text-second">
                             <Trans>Current</Trans>
                         </span>
                     </div>
@@ -253,7 +253,7 @@ export function PredictionPositionItem({
                             {formatPolymarketNumber(position.pnl, { sign: true })}
                             {`(${removeTrailingZeros(Math.abs(position.pnl_rate * 100).toFixed(2))}%)`}
                         </span>
-                        <span className="text-second text-sm font-medium leading-[21px] tracking-[0.15px]">
+                        <span className="text-sm font-medium leading-[21px] tracking-[0.15px] text-second">
                             {formatPolymarketNumber(position.current_value)}
                         </span>
                     </div>

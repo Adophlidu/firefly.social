@@ -24,7 +24,7 @@ export function SnapSwitch({ props: { name, label, value, defaultChecked }, acce
 
     return (
         <div className="flex w-full items-center justify-between gap-3" onClick={(e) => e.stopPropagation()}>
-            {label ? <span className="text-main text-sm">{label}</span> : null}
+            {label ? <span className="text-sm text-main">{label}</span> : null}
             <button
                 type="button"
                 role="switch"

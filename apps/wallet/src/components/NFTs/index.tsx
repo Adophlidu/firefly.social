@@ -28,7 +28,7 @@ export function NFTs({ address, addresses = [address] }: { address: string; addr
                     <div className="mb-2 flex flex-row items-center">
                         <IconButton
                             tooltip={<Trans>Back</Trans>}
-                            className="bg-lightBg mr-2 rounded-full p-2"
+                            className="mr-2 rounded-full bg-lightBg p-2"
                             onClick={() => setSelectedCollection(null)}
                         >
                             <UndoSVG className="size-4" />

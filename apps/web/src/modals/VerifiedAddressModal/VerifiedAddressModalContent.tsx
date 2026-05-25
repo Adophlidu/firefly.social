@@ -201,7 +201,7 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
         return (
             <div
                 ref={ref}
-                className="bg-primaryBottom shadow-popover relative flex w-screen grow flex-col overflow-auto transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0"
+                className="relative flex w-screen grow flex-col overflow-auto bg-primaryBottom shadow-popover transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0"
             >
                 <ModalTitle title={<Trans>Verified addresses</Trans>} onClose={onClose} />
                 <div className="flex flex-col gap-6 px-6 pb-6 pt-0">
@@ -217,7 +217,7 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
                                         <div key={section.key} className="flex flex-col gap-3">
                                             <div className="flex items-center gap-2">
                                                 <section.icon width={18} height={18} />
-                                                <span className="text-main text-lg font-bold leading-[18px]">
+                                                <span className="text-lg font-bold leading-[18px] text-main">
                                                     {section.title}
                                                 </span>
                                             </div>
@@ -244,7 +244,7 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
                             )}
 
                             {!isLoading && addresses.evm.length === 0 && addresses.solana.length === 0 && (
-                                <div className="text-medium text-second py-8 text-center">
+                                <div className="py-8 text-center text-medium text-second">
                                     <Trans>No verified addresses found</Trans>
                                 </div>
                             )}
@@ -255,7 +255,7 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
                         <ClickableButton
                             type="button"
                             loading={handleVerifyAddress.isPending}
-                            className="border-main text-main hover:bg-main hover:text-lightBottom flex h-11 min-h-11 w-[200px] items-center justify-center gap-2 rounded-lg border bg-transparent px-[18px] py-[11px] text-[15px] font-bold leading-[20px] transition-colors"
+                            className="flex h-11 min-h-11 w-[200px] items-center justify-center gap-2 rounded-lg border border-main bg-transparent px-[18px] py-[11px] text-[15px] font-bold leading-[20px] text-main transition-colors hover:bg-main hover:text-lightBottom"
                             onClick={() => handleVerifyAddress.mutate()}
                         >
                             <Trans>Verify Address</Trans>

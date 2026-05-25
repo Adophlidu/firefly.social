@@ -92,7 +92,7 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
                             <Link
                                 key={profile.identity.id}
                                 href={getProfileUrl({ source: Source.Wallet, profileId: profile.identity.id })}
-                                className="bg-primaryBottom flex h-6 flex-row items-center space-x-1 rounded px-2"
+                                className="flex h-6 flex-row items-center space-x-1 rounded bg-primaryBottom px-2"
                             >
                                 {isMPC ? (
                                     <FireflyLogo width={16} height={16} />
@@ -109,7 +109,7 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
                         <button
                             type="button"
                             onClick={() => setIsExpanded(true)}
-                            className="bg-primaryBottom flex h-6 flex-row items-center rounded px-2 hover:opacity-80"
+                            className="flex h-6 flex-row items-center rounded bg-primaryBottom px-2 hover:opacity-80"
                         >
                             <Trans>View all</Trans>
                         </button>
@@ -118,7 +118,7 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
                             loginRequired={false}
                             useTransition={false}
                             menuButton={
-                                <MenuButton className="bg-primaryBottom flex h-6 flex-row items-center rounded px-2">
+                                <MenuButton className="flex h-6 flex-row items-center rounded bg-primaryBottom px-2">
                                     {remaining.length}+
                                 </MenuButton>
                             }
@@ -126,7 +126,7 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
                             <MenuItems
                                 transition
                                 anchor="bottom end"
-                                className="border-line bg-primaryBottom text-main z-[1000] w-max origin-top-right overflow-y-auto rounded-2xl border text-base duration-100 data-[closed]:scale-95 data-[closed]:opacity-0"
+                                className="z-[1000] w-max origin-top-right overflow-y-auto rounded-2xl border border-line bg-primaryBottom text-base text-main duration-100 data-[closed]:scale-95 data-[closed]:opacity-0"
                             >
                                 <div className="flex max-h-[400px] flex-col gap-2 overflow-y-auto py-3">
                                     {remaining.map((profile) => (
@@ -136,14 +136,14 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
                                                     source: Source.Wallet,
                                                     profileId: profile.identity.id,
                                                 })}
-                                                className="hover:bg-bg flex h-8 cursor-pointer items-center space-x-2 px-3 py-1"
+                                                className="flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                                             >
                                                 <Avatar
                                                     size={18}
                                                     alt={profile.identity.id}
                                                     src={getStampAvatarByFireflyProfile(profile)}
                                                 />
-                                                <span className="text-main font-bold leading-[22px]">
+                                                <span className="font-bold leading-[22px] text-main">
                                                     {profile.displayName}
                                                 </span>
                                             </Link>
@@ -155,14 +155,14 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
                     ) : null}
                 </div>
                 <div className="mb-2.5 flex w-full flex-row justify-between">
-                    <div className="text-medium text-second font-bold uppercase leading-6">
+                    <div className="text-medium font-bold uppercase leading-6 text-second">
                         <Trans>Net Worth</Trans>
                     </div>
                 </div>
             </div>
             <div
                 className={classNames('h-6 text-2xl font-bold', {
-                    'bg-main/25 w-[120px] animate-pulse': isLoading,
+                    'w-[120px] animate-pulse bg-main/25': isLoading,
                 })}
             >
                 {isLoading ? null : `$ ${formatPrice(totalBalance ?? 0)}`}

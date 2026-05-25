@@ -40,7 +40,7 @@ export function FrameViewerModalHeader({ props, setProps, onClose }: FrameViewer
     const { data: author } = useFrameAuthor(frame);
 
     return (
-        <div className="bg-lightBg dark:bg-fireflyBrand flex h-[60px] items-center justify-between px-4 py-3 text-black dark:text-white">
+        <div className="flex h-[60px] items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
             <div className="cursor-pointer">
                 <CloseButton onClick={() => onClose?.()} />
             </div>
@@ -57,12 +57,12 @@ export function FrameViewerModalHeader({ props, setProps, onClose }: FrameViewer
                 <div className={frame.x_manifest?.frame.iconUrl ? 'text-left' : ''}>
                     <h2 className="font-bold">{frame.x_manifest?.frame.name || frame.button.action.name}</h2>
                     {author ? (
-                        <div className="text-secondary flex gap-1 text-xs">
+                        <div className="flex gap-1 text-xs text-secondary">
                             <Trans>by {author.fullHandle || author.displayName}</Trans>
                             <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1" profile={author} />
                         </div>
                     ) : u ? (
-                        <div className="text-secondary text-xs">{u.host}</div>
+                        <div className="text-xs text-secondary">{u.host}</div>
                     ) : null}
                 </div>
             </div>

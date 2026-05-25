@@ -38,7 +38,7 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
     }, [toggleBookmark, activity]);
 
     return (
-        <div className="text-second mt-3 flex items-center justify-between">
+        <div className="mt-3 flex items-center justify-between text-second">
             <div className="flex items-center">
                 <LikeButton type={Source.Prediction} data={activity} />
             </div>

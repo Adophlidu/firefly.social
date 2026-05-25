@@ -215,7 +215,7 @@ export default function Page(props: Props) {
                         <div className={frame.x_manifest?.frame.iconUrl ? 'text-left' : ''}>
                             <h2 className="font-bold">{frame.x_manifest?.frame.name || frame.button.action.name}</h2>
                             {author ? (
-                                <div className="text-secondary flex gap-1 text-xs">
+                                <div className="flex gap-1 text-xs text-secondary">
                                     <Trans>by {author.fullHandle || author.displayName}</Trans>
                                     <ProfileVerifyBadge
                                         className="flex shrink-0 items-center space-x-1"
@@ -223,12 +223,12 @@ export default function Page(props: Props) {
                                     />
                                 </div>
                             ) : u ? (
-                                <div className="text-secondary text-sm">{u.host}</div>
+                                <div className="text-sm text-secondary">{u.host}</div>
                             ) : null}
                         </div>
                     </>
                 ) : (
-                    <span className="text-second text-xs">
+                    <span className="text-xs text-second">
                         <Trans>Loading...</Trans>
                     </span>
                 )}

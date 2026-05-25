@@ -10,14 +10,14 @@ export function GlobalError({ reset }: ErrorPageProps) {
             <div className="flex w-[160px] flex-col items-center gap-4">
                 <div className="flex flex-col items-center gap-2">
                     <LoadFailedIcon width={160} height={128} className="text-third" />
-                    <div className="text-third w-full text-center text-sm font-semibold leading-5">
+                    <div className="w-full text-center text-sm font-semibold leading-5 text-third">
                         <Trans>Something went wrong</Trans>
                     </div>
                 </div>
                 <Button
                     type="button"
                     variant="secondary"
-                    className="bg-bg text-main hover:bg-bg h-auto rounded-[40px] px-5 py-1 text-sm font-bold"
+                    className="h-auto rounded-[40px] bg-bg px-5 py-1 text-sm font-bold text-main hover:bg-bg"
                     onClick={() => reset()}
                 >
                     <Trans>Reload</Trans>

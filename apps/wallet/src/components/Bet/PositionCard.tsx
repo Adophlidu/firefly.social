@@ -102,10 +102,10 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
     };
 
     return (
-        <div className="border-line w-full space-y-3 rounded-xl border p-3">
+        <div className="w-full space-y-3 rounded-xl border border-line p-3">
             <button type="button" className="w-full space-y-3 text-left" onClick={() => navigateToDetail()}>
                 <div className="grid h-10 grid-cols-[40px_1fr] grid-rows-[40px] gap-2 text-sm font-semibold leading-5">
-                    <div className="bg-lightBg size-10 overflow-hidden rounded-lg">
+                    <div className="size-10 overflow-hidden rounded-lg bg-lightBg">
                         <Image
                             width={40}
                             height={40}
@@ -154,7 +154,7 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
             ) : showAction && !position.isClaimable && !position.is_closed ? (
                 <Button
                     size="lg"
-                    className="hover:bg-highlight w-full rounded-[10px] font-bold"
+                    className="w-full rounded-[10px] font-bold hover:bg-highlight"
                     colorPattern="purple"
                     type="button"
                     onClick={navigateToSell}
@@ -170,7 +170,7 @@ function Item({ field, children }: PropsWithChildren<{ field: ReactNode }>) {
     return (
         <div className="flex flex-col items-start">
             <div className="h-5 text-sm font-bold leading-5">{children}</div>
-            <div className="text-second text-xs">{field}</div>
+            <div className="text-xs text-second">{field}</div>
         </div>
     );
 }

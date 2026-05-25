@@ -19,7 +19,7 @@ export const GifEntryButton = memo(function GifEntryButton({ disabled = false }:
     return (
         <Tooltip content={<Trans>GIF</Trans>} placement="top" disabled={disabled}>
             <ClickableButton
-                className="text-main flex cursor-pointer gap-1 focus:outline-none"
+                className="flex cursor-pointer gap-1 text-main focus:outline-none"
                 disabled={disabled}
                 onClick={() => {
                     history.push('/gif');

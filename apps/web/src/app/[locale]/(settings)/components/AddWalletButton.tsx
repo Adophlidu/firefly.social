@@ -45,7 +45,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     return (
         <ClickableButton
             {...rest}
-            className="text-medium text-main h-10 w-full max-w-[200px] rounded-lg border border-current bg-bottom px-[18px] font-bold leading-10"
+            className="h-10 w-full max-w-[200px] rounded-lg border border-current bg-bottom px-[18px] text-medium font-bold leading-10 text-main"
             onClick={handleAddWallet}
             disabled={loading || disabled}
         >

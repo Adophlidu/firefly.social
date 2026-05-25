@@ -26,7 +26,7 @@ export default async function Layout(props: Props) {
 
     return (
         <>
-            <header className="border-line bg-primaryBottom sticky top-0 z-40 flex items-center border-b px-4 py-[18px]">
+            <header className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <Comeback className="mr-8" />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>

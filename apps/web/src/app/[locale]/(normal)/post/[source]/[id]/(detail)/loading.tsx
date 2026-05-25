@@ -13,17 +13,17 @@ export default function LoadingPage() {
     return (
         <div className="max-h-svh animate-pulse overflow-y-hidden border-b-0 px-3 py-2 md:px-4 md:py-3">
             <div className="grid grid-cols-[40px_1fr] gap-3">
-                <div className="bg-bg size-10 rounded-full" />
+                <div className="size-10 rounded-full bg-bg" />
                 <div>
-                    <div className="bg-bg mt-1 h-3 w-full max-w-28 rounded" />
-                    <div className="bg-bg mt-2 h-3 w-full max-w-20 rounded" />
+                    <div className="mt-1 h-3 w-full max-w-28 rounded bg-bg" />
+                    <div className="mt-2 h-3 w-full max-w-20 rounded bg-bg" />
                 </div>
             </div>
             <div className="mt-4 space-y-4">
-                <div className="bg-bg h-3 w-full rounded" />
-                <div className="bg-bg h-3 w-full rounded" />
-                <div className="bg-bg h-3 w-3/4 rounded" />
-                <div className="bg-bg aspect-square w-full rounded-lg" />
+                <div className="h-3 w-full rounded bg-bg" />
+                <div className="h-3 w-full rounded bg-bg" />
+                <div className="h-3 w-3/4 rounded bg-bg" />
+                <div className="aspect-square w-full rounded-lg bg-bg" />
             </div>
         </div>
     );

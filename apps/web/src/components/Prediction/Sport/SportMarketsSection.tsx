@@ -53,8 +53,8 @@ function MarketTitle({ title, markets }: { title: React.ReactNode; markets: Bets
     const vol = formatSectionVolume(markets);
     return (
         <div className="min-w-0 max-md:flex max-md:w-full max-md:items-start max-md:justify-between max-md:gap-3">
-            <h3 className="text-lightMain min-w-0 truncate text-[13px] font-semibold leading-[17px]">{title}</h3>
-            {vol ? <p className="text-second shrink-0 text-xs leading-4 max-md:text-right">{vol}</p> : null}
+            <h3 className="min-w-0 truncate text-[13px] font-semibold leading-[17px] text-lightMain">{title}</h3>
+            {vol ? <p className="shrink-0 text-xs leading-4 text-second max-md:text-right">{vol}</p> : null}
         </div>
     );
 }
@@ -202,13 +202,13 @@ function SportLineSwitcher({
     return (
         <div
             className={classNames(
-                'border-line -mx-4 mt-4 flex h-12 items-center justify-between border-t px-3',
+                '-mx-4 mt-4 flex h-12 items-center justify-between border-t border-line px-3',
                 flushBottom ? '-mb-4' : '',
             )}
         >
             <button
                 type="button"
-                className="text-third hover:text-main flex size-8 items-center justify-center disabled:opacity-40"
+                className="flex size-8 items-center justify-center text-third hover:text-main disabled:opacity-40"
                 disabled={currentIndex <= 0}
                 onClick={() => setLineByOffset(-1)}
             >
@@ -222,8 +222,8 @@ function SportLineSwitcher({
                         className={classNames(
                             'shrink-0 rounded-full px-2 py-1 text-sm leading-[18px]',
                             option.key === selectedKey
-                                ? 'text-main font-semibold'
-                                : 'text-second hover:bg-lightBg hover:text-main font-medium opacity-80',
+                                ? 'font-semibold text-main'
+                                : 'font-medium text-second opacity-80 hover:bg-lightBg hover:text-main',
                         )}
                         onClick={() => onSelect(option.key)}
                     >
@@ -233,7 +233,7 @@ function SportLineSwitcher({
             </div>
             <button
                 type="button"
-                className="text-main hover:text-highlight disabled:text-third flex size-8 items-center justify-center disabled:opacity-40"
+                className="flex size-8 items-center justify-center text-main hover:text-highlight disabled:text-third disabled:opacity-40"
                 disabled={currentIndex >= options.length - 1}
                 onClick={() => setLineByOffset(1)}
             >
@@ -346,7 +346,7 @@ function SportMarketDetailsTabsContent({
                             'h-10 border-b-4 text-sm font-bold leading-6 transition-colors',
                             activeTab === item
                                 ? 'border-highlight text-highlight'
-                                : 'text-third hover:text-main border-transparent',
+                                : 'border-transparent text-third hover:text-main',
                         )}
                         onClick={() => void setTab(item)}
                     >

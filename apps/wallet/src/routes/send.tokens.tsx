@@ -55,7 +55,7 @@ function ChainFilterDropdown({
         <div className="relative" ref={ref}>
             <button
                 type="button"
-                className="border-line flex h-10 w-auto max-w-[150px] items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm"
+                className="flex h-10 w-auto max-w-[150px] items-center justify-between whitespace-nowrap rounded-md border border-line bg-transparent px-3 py-2 text-sm shadow-sm"
                 onClick={() => setOpen((prev) => !prev)}
             >
                 {chainId ? (
@@ -76,10 +76,10 @@ function ChainFilterDropdown({
                 </svg>
             </button>
             {open ? (
-                <div className="border-line bg-primaryBottom absolute left-0 top-full z-50 mt-1 w-[180px] rounded-md border py-3 shadow-md">
+                <div className="absolute left-0 top-full z-50 mt-1 w-[180px] rounded-md border border-line bg-primaryBottom py-3 shadow-md">
                     <button
                         type="button"
-                        className="text-main hover:bg-lightBg w-full cursor-pointer px-3 py-1 text-left text-xs opacity-50"
+                        className="w-full cursor-pointer px-3 py-1 text-left text-xs text-main opacity-50 hover:bg-lightBg"
                         onClick={() => {
                             onChainChange(undefined);
                             setOpen(false);
@@ -91,7 +91,7 @@ function ChainFilterDropdown({
                         <button
                             type="button"
                             key={chain.id}
-                            className="hover:bg-lightBg flex w-full cursor-pointer items-center px-3 py-1 text-left"
+                            className="flex w-full cursor-pointer items-center px-3 py-1 text-left hover:bg-lightBg"
                             onClick={() => {
                                 onChainChange(chain.id);
                                 setOpen(false);
@@ -172,7 +172,7 @@ function SelectTokenPage() {
 
     return (
         <div className="flex w-full flex-col pb-6">
-            <div className="bg-primaryBottom sticky top-0 z-10 px-6">
+            <div className="sticky top-0 z-10 bg-primaryBottom px-6">
                 <div className="relative flex items-center justify-center py-6">
                     <Button
                         variant="ghost"
@@ -182,7 +182,7 @@ function SelectTokenPage() {
                     >
                         <ComebackIcon />
                     </Button>
-                    <h2 className="text-main text-lg font-semibold">
+                    <h2 className="text-lg font-semibold text-main">
                         <Trans>Select Token</Trans>
                     </h2>
                 </div>
@@ -195,7 +195,7 @@ function SelectTokenPage() {
                     <input
                         autoComplete="off"
                         spellCheck="false"
-                        className="bg-lightBg text-main placeholder:text-secondary h-10 w-full rounded-lg border-0 px-3 py-1.5 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6 dark:bg-[rgba(255,255,255,0.12)]"
+                        className="h-10 w-full rounded-lg border-0 bg-lightBg px-3 py-1.5 text-main placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:bg-[rgba(255,255,255,0.12)] sm:text-sm sm:leading-6"
                         type="search"
                         value={keyword}
                         name="searchText"
@@ -215,7 +215,7 @@ function SelectTokenPage() {
                             <TokenItem
                                 token={token}
                                 key={`${token.chainId}-${token.id}`}
-                                className="hover:bg-bg duration-100"
+                                className="duration-100 hover:bg-bg"
                                 onClick={() => {
                                     setToken(token);
                                     setValue('token', token);
@@ -234,7 +234,7 @@ function SelectTokenPage() {
                     )}
                     {tokens.length && canExpand ? (
                         <ClickableButton
-                            className="text-highlight hover:bg-lightBg mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold"
+                            className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-highlight hover:bg-lightBg"
                             onClick={() => setShowSmall((prev) => !prev)}
                         >
                             <span>

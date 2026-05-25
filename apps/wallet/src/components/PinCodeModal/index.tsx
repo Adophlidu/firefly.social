@@ -58,7 +58,7 @@ export const PinCodeModal = createCallable<Props, string | null>(function PinCod
                             isMobile ? 'pt-10' : 'justify-center',
                         )}
                     >
-                        <div className="text-second px-10 text-center text-sm">
+                        <div className="px-10 text-center text-sm text-second">
                             <StepDescription />
                         </div>
                         <StepForm onSuccess={onSuccess} />

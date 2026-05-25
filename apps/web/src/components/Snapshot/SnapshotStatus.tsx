@@ -38,7 +38,7 @@ export function SnapshotStatus({ status, className }: Props) {
     return (
         <div
             className={classNames(
-                'bg-lightMain text-lightBottom flex items-center gap-1 rounded-full px-3 py-[2px] text-sm leading-[18px] opacity-40',
+                'flex items-center gap-1 rounded-full bg-lightMain px-3 py-[2px] text-sm leading-[18px] text-lightBottom opacity-40',
                 {
                     '!bg-highlight !text-white !opacity-100': status === SnapshotState.Active,
                     '!bg-highlight !bg-opacity-50 !text-white !opacity-50': status === SnapshotState.Pending,

@@ -35,10 +35,10 @@ import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 function SearchRecipientQueryErrorFallback({ reset }: ErrorPageProps) {
     return (
         <div className="flex w-full flex-1 flex-col items-center justify-center gap-3">
-            <p className="text-secondary text-sm">
+            <p className="text-sm text-secondary">
                 <Trans>Failed to search. Please try again.</Trans>
             </p>
-            <button className="bg-highlight rounded-lg px-4 py-2 text-sm font-semibold text-white" onClick={reset}>
+            <button className="rounded-lg bg-highlight px-4 py-2 text-sm font-semibold text-white" onClick={reset}>
                 <Trans>Retry</Trans>
             </button>
         </div>
@@ -48,10 +48,10 @@ function SearchRecipientQueryErrorFallback({ reset }: ErrorPageProps) {
 function EnsLookupErrorFallback({ reset }: ErrorPageProps) {
     return (
         <div className="flex w-full flex-1 flex-col items-center justify-center gap-3">
-            <p className="text-secondary text-sm">
+            <p className="text-sm text-secondary">
                 <Trans>ENS lookup failed. Please try again.</Trans>
             </p>
-            <button className="bg-highlight rounded-lg px-4 py-2 text-sm font-semibold text-white" onClick={reset}>
+            <button className="rounded-lg bg-highlight px-4 py-2 text-sm font-semibold text-white" onClick={reset}>
                 <Trans>Retry</Trans>
             </button>
         </div>
@@ -111,23 +111,23 @@ function SearchRecipient({
             <div className="shrink-0 px-6">
                 <div className="relative flex items-center justify-center py-6">
                     <button
-                        className="text-main absolute left-0 top-6 cursor-pointer rounded p-1"
+                        className="absolute left-0 top-6 cursor-pointer rounded p-1 text-main"
                         onClick={() => {
                             router.navigate({ to: RoutePath.Form, replace: true });
                         }}
                     >
                         <LeftArrowIcon className="size-6" />
                     </button>
-                    <h2 className="text-main text-lg font-semibold">
+                    <h2 className="text-lg font-semibold text-main">
                         <Trans>Recipient</Trans>
                     </h2>
                 </div>
                 <div className="pb-2">
-                    <div className="bg-lightBg focus-within:border-highlight flex w-full items-center rounded-lg border border-transparent px-3 transition-all">
-                        <SearchIcon width={18} height={18} className="text-second mr-2 shrink-0" />
+                    <div className="flex w-full items-center rounded-lg border border-transparent bg-lightBg px-3 transition-all focus-within:border-highlight">
+                        <SearchIcon width={18} height={18} className="mr-2 shrink-0 text-second" />
                         <input
                             autoFocus
-                            className="text-main placeholder:text-secondary h-10 w-full border-0 bg-transparent px-0 py-2 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                            className="h-10 w-full border-0 bg-transparent px-0 py-2 text-main placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
                             autoComplete="off"
                             placeholder={t`Address, ENS, or social handle`}
                             value={keyword}
@@ -205,7 +205,7 @@ function RecipientList({
             <div
                 role="button"
                 tabIndex={0}
-                className="hover:bg-bg w-full cursor-pointer rounded-lg px-3 py-2"
+                className="w-full cursor-pointer rounded-lg px-3 py-2 hover:bg-bg"
                 onClick={() => onClick(recipient, keyword)}
             >
                 <RecipientItem {...recipient} explorerLink showSources />
@@ -244,7 +244,7 @@ function RecipientList({
                 <div
                     role="button"
                     tabIndex={0}
-                    className="hover:bg-bg w-full cursor-pointer rounded-lg px-3 py-2"
+                    className="w-full cursor-pointer rounded-lg px-3 py-2 hover:bg-bg"
                     onClick={() => onClick(directRecipient, keyword)}
                 >
                     <RecipientItem {...directRecipient} explorerLink />
@@ -322,7 +322,7 @@ function ENSLookupResult({
             <div
                 role="button"
                 tabIndex={0}
-                className="hover:bg-bg w-full cursor-pointer rounded-lg px-3 py-2"
+                className="w-full cursor-pointer rounded-lg px-3 py-2 hover:bg-bg"
                 onClick={() => onClick(recipient, keyword)}
             >
                 <RecipientItem {...recipient} explorerLink showSources />

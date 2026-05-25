@@ -36,7 +36,7 @@ export const PollButton = memo(function PollButton() {
             disabled={!isPollSupported ? false : hasConflictContent}
         >
             <ClickableButton
-                className={classNames('text-main leading-4', disabled ? 'cursor-not-allowed opacity-50' : '')}
+                className={classNames('leading-4 text-main', disabled ? 'cursor-not-allowed opacity-50' : '')}
                 onClick={() => {
                     if (disabled) return;
                     createPoll();

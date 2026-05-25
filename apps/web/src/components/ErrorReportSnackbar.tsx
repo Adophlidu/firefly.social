@@ -66,7 +66,7 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
     });
 
     return (
-        <div ref={ref} className="bg-danger rounded-[4px]">
+        <div ref={ref} className="rounded-[4px] bg-danger">
             <div className="w-full text-sm">
                 <div className="p-2 pl-3">
                     <div className="flex max-w-[400px] text-white">

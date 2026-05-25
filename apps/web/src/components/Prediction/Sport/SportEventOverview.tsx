@@ -14,7 +14,7 @@ export const SportEventOverview = memo(function SportEventOverview({ sportData }
     return (
         <div className="flex items-start gap-4 p-4">
             <div className="min-w-0 flex-1">
-                <h1 className="text-main text-xl font-semibold leading-6">
+                <h1 className="text-xl font-semibold leading-6 text-main">
                     {homeTeam.name || homeTeam.abbreviation || 'Home'} vs{' '}
                     {awayTeam.name || awayTeam.abbreviation || 'Away'}
                 </h1>

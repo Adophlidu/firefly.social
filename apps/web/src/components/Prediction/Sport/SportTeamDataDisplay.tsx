@@ -53,7 +53,7 @@ function TeamColumn({ team, fallbackLabel, muted }: { team: SportTeam; fallbackL
                         <span className="text-xl font-bold text-white">{label[0] || '?'}</span>
                     )}
                 </div>
-                <p className="text-lightMain w-full max-w-[156px] truncate text-center text-[13px] font-semibold leading-4">
+                <p className="w-full max-w-[156px] truncate text-center text-[13px] font-semibold leading-4 text-lightMain">
                     {label}
                 </p>
             </div>
@@ -131,7 +131,7 @@ function UpcomingCenter({
     return (
         <>
             <div className="flex w-32 items-center justify-center gap-1">
-                <span className="text-lightMain shrink-0 text-[13px] font-semibold leading-[17px]">{homePct}%</span>
+                <span className="shrink-0 text-[13px] font-semibold leading-[17px] text-lightMain">{homePct}%</span>
                 <ProbabilityBar
                     homeTeam={homeTeam}
                     awayTeam={awayTeam}
@@ -139,11 +139,11 @@ function UpcomingCenter({
                     awayPct={awayPct}
                     drawPct={drawPct}
                 />
-                <span className="text-lightMain shrink-0 text-[13px] font-semibold leading-[17px]">{awayPct}%</span>
+                <span className="shrink-0 text-[13px] font-semibold leading-[17px] text-lightMain">{awayPct}%</span>
             </div>
             {formattedTime ? (
                 <div className="flex h-6 items-center justify-center">
-                    <span className="text-lightMain text-xs font-medium leading-[14px]">{formattedTime}</span>
+                    <span className="text-xs font-medium leading-[14px] text-lightMain">{formattedTime}</span>
                 </div>
             ) : null}
         </>
@@ -189,7 +189,7 @@ function ScoreRow({
 
     const [homeScore, awayScore] = getSingleScore(scores);
     return (
-        <div className="text-lightMain flex w-full items-center justify-center gap-1 text-base font-semibold leading-6">
+        <div className="flex w-full items-center justify-center gap-1 text-base font-semibold leading-6 text-lightMain">
             <span className={classNames(loser === 'home' ? 'opacity-40' : '')}>{homeScore}</span>
             <span>-</span>
             <span className={classNames(loser === 'away' ? 'opacity-40' : '')}>{awayScore}</span>
@@ -200,13 +200,13 @@ function ScoreRow({
 function LiveStatus({ period }: { period?: string }) {
     return (
         <div className="flex h-6 items-center justify-center gap-1.5">
-            <span className="text-danger text-xs font-medium leading-[14px]">
+            <span className="text-xs font-medium leading-[14px] text-danger">
                 <Trans>LIVE</Trans>
             </span>
             {period ? (
                 <>
-                    <span className="bg-danger size-1.5 rounded-full" />
-                    <span className="text-lightMain text-xs font-medium leading-[14px]">{period}</span>
+                    <span className="size-1.5 rounded-full bg-danger" />
+                    <span className="text-xs font-medium leading-[14px] text-lightMain">{period}</span>
                 </>
             ) : null}
         </div>
@@ -216,7 +216,7 @@ function LiveStatus({ period }: { period?: string }) {
 function FinalStatus() {
     return (
         <div className="flex h-6 items-center justify-center">
-            <span className="text-lightMain text-xs font-medium leading-[14px]">
+            <span className="text-xs font-medium leading-[14px] text-lightMain">
                 <Trans>FINAL</Trans>
             </span>
         </div>
@@ -281,7 +281,7 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
                         ) : null}
 
                         {formattedMeta ? (
-                            <span className="text-second max-w-full truncate text-[13px] font-normal leading-[17px]">
+                            <span className="max-w-full truncate text-[13px] font-normal leading-[17px] text-second">
                                 {formattedMeta}
                             </span>
                         ) : null}

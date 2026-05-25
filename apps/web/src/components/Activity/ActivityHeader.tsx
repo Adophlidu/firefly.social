@@ -42,7 +42,7 @@ export function ActivityHeader({
                 </div>
             </div>
             <div className="w-full px-6 pb-4">
-                <div className="border-line w-full space-y-2 border-b pb-4">
+                <div className="w-full space-y-2 border-b border-line pb-4">
                     <h1 className="text-xl font-semibold leading-6">{data.title}</h1>
                     <p className="text-sm leading-6">{parseDescription(data.description)}</p>
                 </div>

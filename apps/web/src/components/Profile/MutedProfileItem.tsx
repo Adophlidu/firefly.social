@@ -18,7 +18,7 @@ export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfil
 
     return (
         <div
-            className="border-line grid gap-2 border-b p-3"
+            className="grid gap-2 border-b border-line p-3"
             style={{ gridTemplateColumns: '50px calc(100% - 50px - 112px - 16px) 112px' }}
         >
             <ProfileAvatar
@@ -28,7 +28,7 @@ export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfil
                 profile={profile}
                 size={50}
             />
-            <div className="leading-5.5 text-medium flex flex-col">
+            <div className="leading-5.5 flex flex-col text-medium">
                 <div className="flex w-full items-center">
                     <Link href={profileUrl} className="mr-2 max-w-[calc(100%-32px)] truncate text-lg leading-6">
                         {profile.displayName}
@@ -40,7 +40,7 @@ export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfil
                         })}
                     />
                 </div>
-                <Link href={profileUrl} className="text-secondary w-full truncate">
+                <Link href={profileUrl} className="w-full truncate text-secondary">
                     @{profile.handle}
                 </Link>
                 <div className="w-full truncate">{profile.bio}</div>

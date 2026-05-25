@@ -88,13 +88,13 @@ export const SwapReview = memo(function SwapReview({
                                 <span className="max-w-full truncate text-[20px] font-semibold">
                                     -{formatTokenAmount(fromAmount)}
                                 </span>
-                                <span className="text-secondary text-[11px]">
+                                <span className="text-[11px] text-secondary">
                                     {formatTokenUSD(fromUsdValue, { minDisplay: 0.01 })}
                                 </span>
                             </div>
                         </div>
 
-                        <div className="bg-line h-px" />
+                        <div className="h-px bg-line" />
 
                         <div className="flex items-center justify-between gap-2 py-2">
                             <div className="flex items-center gap-3">
@@ -115,7 +115,7 @@ export const SwapReview = memo(function SwapReview({
                                 >
                                     +{formatTokenAmount(toAmount)}
                                 </span>
-                                <span className="text-secondary text-[11px]">
+                                <span className="text-[11px] text-secondary">
                                     ≈{formatTokenUSD(toUsdValue, { minDisplay: 0.01 })}
                                 </span>
                             </div>
@@ -154,7 +154,7 @@ export const SwapReview = memo(function SwapReview({
                                         {rateReversed
                                             ? formatRate(toToken.symbol, fromToken.symbol, 1 / rate)
                                             : formatRate(fromToken.symbol, toToken.symbol, rate)}
-                                        <ArrowSwapHorizontalIcon className="text-main size-3" />
+                                        <ArrowSwapHorizontalIcon className="size-3 text-main" />
                                     </span>
                                 </div>
                             ) : null}
@@ -174,7 +174,7 @@ export const SwapReview = memo(function SwapReview({
                                     trigger={
                                         <span className="flex cursor-pointer items-center gap-1 font-medium">
                                             {slippage === 'auto' ? t`Auto` : `${slippagePercent}%`}
-                                            <ArrowSwapHorizontalIcon className="text-main size-3" />
+                                            <ArrowSwapHorizontalIcon className="size-3 text-main" />
                                         </span>
                                     }
                                 />
@@ -183,7 +183,7 @@ export const SwapReview = memo(function SwapReview({
 
                         {minReceived && toToken ? (
                             <>
-                                <div className="bg-line h-px" />
+                                <div className="h-px bg-line" />
                                 <div className="flex items-center justify-between p-3 text-[13px]">
                                     <span className="text-secondary">
                                         <Trans>Receive at least</Trans>
@@ -193,7 +193,7 @@ export const SwapReview = memo(function SwapReview({
                                             {formatTokenAmount(minReceived)} {toToken.symbol}
                                         </span>
                                         {toToken.price ? (
-                                            <span className="text-secondary text-[11px]">
+                                            <span className="text-[11px] text-secondary">
                                                 ≈
                                                 {formatTokenUSD(parseFloat(minReceived) * toToken.price, {
                                                     minDisplay: 0.01,
@@ -208,7 +208,7 @@ export const SwapReview = memo(function SwapReview({
 
                     <button
                         type="button"
-                        className="bg-main h-10 w-full rounded-full text-[15px] font-bold text-white disabled:opacity-50 dark:text-black"
+                        className="h-10 w-full rounded-full bg-main text-[15px] font-bold text-white disabled:opacity-50 dark:text-black"
                         onClick={onConfirm}
                         disabled={loading || fetching}
                     >

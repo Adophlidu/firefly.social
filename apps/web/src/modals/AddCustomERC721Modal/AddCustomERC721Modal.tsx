@@ -117,7 +117,7 @@ function AddCustomERC721Content({
                         itemRenderer={getChainItem}
                     />
 
-                    <div className="!bg-lightBg focus-within:border-highlight flex-1 rounded-lg !border border-transparent transition-all">
+                    <div className="flex-1 rounded-lg !border border-transparent !bg-lightBg transition-all focus-within:border-highlight">
                         <SearchInput
                             placeholder={t`Contract address`}
                             className="h-10 !py-1.5 px-3"
@@ -154,13 +154,13 @@ export function AddCustomERC721Modal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={onClose} className="z-50 w-[calc(100%-40px)] md:w-[450px]">
-            <div className="bg-lightBottom text-medium text-lightMain shadow-popover flex h-auto transform-gpu flex-col rounded-md p-4 pt-0">
-                <DialogTitle as="h3" className="pt-safe relative h-14 shrink-0">
+            <div className="flex h-auto transform-gpu flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover">
+                <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
                     <CloseIcon
                         onClick={onClose}
-                        className="text-main absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />
-                    <span className="text-main flex size-full items-center justify-center text-lg font-bold">
+                    <span className="flex size-full items-center justify-center text-lg font-bold text-main">
                         <Trans>Add Collection</Trans>
                     </span>
                 </DialogTitle>

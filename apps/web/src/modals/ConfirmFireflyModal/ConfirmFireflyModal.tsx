@@ -34,7 +34,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                 title: <Trans>Different Account Detected</Trans>,
                 content: (
                     <div>
-                        <p className="text-medium text-second mb-2 mt-[-8px] font-medium leading-normal">
+                        <p className="mb-2 mt-[-8px] text-medium font-medium leading-normal text-second">
                             <Trans>
                                 You are logging into a different Firefly account by{' '}
                                 {resolveSourceName(account.profile.profileSource)} account{' '}
@@ -46,7 +46,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                             </Trans>
                         </p>
                         {fireflyProfile ? (
-                            <menu className="no-scrollbar border-line mb-2 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border p-2">
+                            <menu className="no-scrollbar mb-2 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-line p-2">
                                 <ProfileInList
                                     key={account.profile.profileId}
                                     selectable={false}
@@ -63,7 +63,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                         <AccountConflictSolutionLink />
                         <div className="mt-6 flex gap-2">
                             <ClickableButton
-                                className="border-main text-medium text-main box-border flex h-10 flex-1 items-center justify-center rounded-full border font-bold"
+                                className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"
                                 onClick={() => {
                                     ConfirmModalRef.close(false);
                                     ConfirmFireflyModalRef.close(false);
@@ -73,7 +73,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                 <Trans>Cancel</Trans>
                             </ClickableButton>
                             <ClickableButton
-                                className="bg-main text-medium text-primaryBottom box-border flex h-10 flex-1 items-center justify-center rounded-full font-bold"
+                                className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-medium font-bold text-primaryBottom"
                                 onClick={() => {
                                     ConfirmModalRef.close(true);
                                     ConfirmFireflyModalRef.close(true);
@@ -111,7 +111,7 @@ function AccountConflictSolutionLink() {
     }, [locale]);
     return (
         <div className="flex w-full items-center justify-end">
-            <Link href={href} target="_blank" className="text-highlight text-xs font-medium underline">
+            <Link href={href} target="_blank" className="text-xs font-medium text-highlight underline">
                 <Trans>How to do?</Trans>
             </Link>
         </div>

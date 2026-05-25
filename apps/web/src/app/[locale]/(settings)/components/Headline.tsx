@@ -14,7 +14,7 @@ export function Headline({ className, hideInMobile = true, children }: HeadlineP
                 className,
             )}
         >
-            <span className="text-main text-[20px] font-bold leading-6">{children}</span>
+            <span className="text-[20px] font-bold leading-6 text-main">{children}</span>
         </div>
     );
 }

@@ -152,7 +152,7 @@ export function OrbView() {
 
     return (
         <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">
-            <div className="text-second text-center text-xs leading-4">
+            <div className="text-center text-xs leading-4 text-second">
                 <Trans>
                     Scan the QR code with the <span className="font-bold">Camera app</span> <br />
                     and give <span className="font-bold">edit permission</span> to sign in instantly
@@ -194,9 +194,9 @@ export function OrbView() {
                     </div>
                 ) : null}
             </ClickableArea>
-            <div className="text-second mt-4 text-center text-xs leading-4">
+            <div className="mt-4 text-center text-xs leading-4 text-second">
                 <Trans>Powered by</Trans>
-                <Link href="https://orb.club/" className="text-highlight mx-[2px] font-bold">
+                <Link href="https://orb.club/" className="mx-[2px] font-bold text-highlight">
                     Orb
                 </Link>
             </div>

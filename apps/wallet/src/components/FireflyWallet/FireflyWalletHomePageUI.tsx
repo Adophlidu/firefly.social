@@ -28,7 +28,7 @@ function ActionButton({ Icon, loading, children, ...props }: ActionButtonProps) 
             {...props}
             disabled={props.disabled || loading}
             className={cn(
-                'hover:bg-button-hover bg-lightBg text-main active:bg-bg flex h-16 flex-1 shrink-0 flex-col items-center justify-center gap-0.5 rounded-2xl px-4 py-2.5 duration-100 active:scale-95 md:w-[124px]',
+                'hover:bg-button-hover flex h-16 flex-1 shrink-0 flex-col items-center justify-center gap-0.5 rounded-2xl bg-lightBg px-4 py-2.5 text-main duration-100 active:scale-95 active:bg-bg md:w-[124px]',
                 'disabled:cursor-not-allowed disabled:opacity-50',
                 props.className,
             )}
@@ -37,9 +37,9 @@ function ActionButton({ Icon, loading, children, ...props }: ActionButtonProps) 
             {loading ? (
                 <LoadingIcon size={24} className="text-highlight" />
             ) : (
-                <Icon width={24} height={24} className="text-highlight shrink-0" />
+                <Icon width={24} height={24} className="shrink-0 text-highlight" />
             )}
-            <span className="text-main whitespace-nowrap text-sm leading-5">{children}</span>
+            <span className="whitespace-nowrap text-sm leading-5 text-main">{children}</span>
         </button>
     );
 }
@@ -76,7 +76,7 @@ export function FireflyWalletHomePageUI({
             <div className="mt-2 flex w-full flex-col">
                 <div className="mb-8 flex flex-col space-y-2 text-center">
                     {loadingBalance ? (
-                        <div className="bg-bg h-12 w-20 animate-pulse rounded-lg" />
+                        <div className="h-12 w-20 animate-pulse rounded-lg bg-bg" />
                     ) : (
                         <CurrencyAmount amount={balance} formatted={formatTokenUSD(balance)} />
                     )}

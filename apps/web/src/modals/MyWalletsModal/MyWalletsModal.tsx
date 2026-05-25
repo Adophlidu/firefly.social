@@ -29,9 +29,9 @@ export function MyWalletsModal({ ref }: Props) {
             className="max-md:h-svh"
             enableClose
         >
-            <div className="bg-lightBottom text-medium text-lightMain dark:bg-darkBottom relative flex max-h-[70vh] w-full flex-col transition-all max-md:size-full max-md:max-h-full max-md:max-w-full">
+            <div className="relative flex max-h-[70vh] w-full flex-col bg-lightBottom text-medium text-lightMain transition-all dark:bg-darkBottom max-md:size-full max-md:max-h-full max-md:max-w-full">
                 <div className="no-scrollbar relative min-h-0 flex-1 overflow-y-auto">
-                    <p className="text-secondary pb-2 text-sm max-md:text-left">
+                    <p className="pb-2 text-sm text-secondary max-md:text-left">
                         <Trans>
                             Please select one EVM wallet and one Solana wallet for onchain features in Firefly.
                         </Trans>

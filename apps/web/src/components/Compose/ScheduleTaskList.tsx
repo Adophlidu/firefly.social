@@ -132,7 +132,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
     ]);
 
     return (
-        <div className="border-line border-b p-3">
+        <div className="border-b border-line p-3">
             <div className="flex items-center justify-between">
                 <div
                     className={classNames('text-[12px] font-bold', {
@@ -143,15 +143,15 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                     {isFailed ? <Trans>FAILED POST</Trans> : <Trans>POST</Trans>}
                 </div>
                 {removeLoading ? (
-                    <LoadingIcon size={20} className="text-secondary cursor-pointer" />
+                    <LoadingIcon size={20} className="cursor-pointer text-secondary" />
                 ) : (
                     <Tooltip content={<Trans>Delete</Trans>}>
-                        <Trash className="text-secondary size-5 cursor-pointer" onClick={handleRemove} />
+                        <Trash className="size-5 cursor-pointer text-secondary" onClick={handleRemove} />
                     </Tooltip>
                 )}
             </div>
-            <div className="text-fourMain my-2 cursor-pointer" onClick={handleUpdate}>
-                <div className="text-medium line-clamp-5 min-h-[24px] break-words text-left leading-6">
+            <div className="my-2 cursor-pointer text-fourMain" onClick={handleUpdate}>
+                <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-6">
                     {content}
                     {mediaTypes?.length ? (
                         <span>
@@ -170,7 +170,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                         <SocialSourceIcon key={index} source={resolveSocialSource(platform)} size={20} />
                     ))}
                 </span>
-                <span className="text-secondary text-[13px] font-medium leading-6">
+                <span className="text-[13px] font-medium leading-6 text-secondary">
                     {isFailed ? (
                         <Trans>
                             Saved on {dayjs(createdAt).format('ddd, MMM DD, YYYY')} at{' '}
@@ -231,9 +231,9 @@ export function ScheduleTaskList() {
     return (
         <div className="no-scrollbar box-border flex min-h-[478px] grow flex-col gap-1 overflow-auto p-3">
             {preferences.SHOW_SCHEDULE_POST_TIP ? (
-                <div className="bg-bg flex items-center gap-1.5 rounded-[4px] p-3">
-                    <Info width={20} height={20} className="text-main shrink-0" />
-                    <div className="text-main min-w-0 flex-1 text-left text-xs leading-4">
+                <div className="flex items-center gap-1.5 rounded-[4px] bg-bg p-3">
+                    <Info width={20} height={20} className="shrink-0 text-main" />
+                    <div className="min-w-0 flex-1 text-left text-xs leading-4 text-main">
                         <Trans>
                             Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are
                             sent as scheduled, please make sure that multi-device login remains turned on.
@@ -242,7 +242,7 @@ export function ScheduleTaskList() {
                     <Close
                         width={20}
                         height={20}
-                        className="text-main shrink-0 cursor-pointer"
+                        className="shrink-0 cursor-pointer text-main"
                         onClick={() => {
                             setPreference('SHOW_SCHEDULE_POST_TIP', false);
                         }}

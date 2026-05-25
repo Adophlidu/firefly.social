@@ -94,9 +94,9 @@ export const ComposeUI = memo(function ComposeUI() {
                 }}
             >
                 {isFailedSchedulePost ? (
-                    <div className="bg-bg mb-6 flex items-center gap-1.5 rounded-[4px] p-3">
-                        <Info width={20} height={20} className="text-main shrink-0" />
-                        <div className="text-main text-left text-xs leading-4">
+                    <div className="mb-6 flex items-center gap-1.5 rounded-[4px] bg-bg p-3">
+                        <Info width={20} height={20} className="shrink-0 text-main" />
+                        <div className="text-left text-xs leading-4 text-main">
                             <Trans>
                                 For a failed scheduled post, only the text content can be restored. Please redo the
                                 <br />
@@ -106,7 +106,7 @@ export const ComposeUI = memo(function ComposeUI() {
                         <Close
                             width={20}
                             height={20}
-                            className="text-main shrink-0 cursor-pointer"
+                            className="shrink-0 cursor-pointer text-main"
                             onClick={() => {
                                 updateIsFailedSchedulePost(false);
                             }}
@@ -114,22 +114,22 @@ export const ComposeUI = memo(function ComposeUI() {
                     </div>
                 ) : null}
                 {showMediaAlert ? (
-                    <div className="bg-bg mb-3 flex items-center gap-1.5 rounded px-3 py-2 backdrop-blur-sm">
-                        <Info width={20} height={20} className="text-main shrink-0" />
-                        <p className="text-main min-w-0 flex-1 text-left text-xs leading-4">
+                    <div className="mb-3 flex items-center gap-1.5 rounded bg-bg px-3 py-2 backdrop-blur-sm">
+                        <Info width={20} height={20} className="shrink-0 text-main" />
+                        <p className="min-w-0 flex-1 text-left text-xs leading-4 text-main">
                             <Trans>
                                 Note: Cloud drafts save text only. Please upload original images or video again.
                             </Trans>
                         </p>
                         <CloseButton
                             size={20}
-                            className="text-main shrink-0"
+                            className="shrink-0 text-main"
                             onClick={() => setShowMediaAlert(false)}
                         />
                     </div>
                 ) : null}
                 <UploadDropArea
-                    className="bg-bg flex h-full flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg border p-[14px]"
+                    className="flex h-full flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg border bg-bg p-[14px]"
                     loading={loading}
                     onDropFiles={handleDropFiles}
                     style={

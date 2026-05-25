@@ -48,7 +48,7 @@ export function EngagementLayout({
     );
     return (
         <>
-            <div className="bg-primaryBottom sticky top-0 z-40 flex items-center px-4 py-[18px]">
+            <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
                 <Comeback className="mr-[30px]" />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Post engagements</Trans>

@@ -28,10 +28,10 @@ export function Title({ channel }: TitleProps) {
     const comeback = useComeBack();
 
     return (
-        <header className="border-line bg-primaryBottom sticky top-0 z-30 flex h-[60px] items-center justify-between border-b pl-4 pr-3">
+        <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom pl-4 pr-3">
             <h1 className="flex min-w-0 items-center gap-7">
-                <ComeBackIcon className="text-lightMain shrink-0 cursor-pointer" onClick={comeback} />
-                <span className="text-lightMain min-w-0 truncate text-xl font-black">
+                <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
+                <span className="min-w-0 truncate text-xl font-black text-lightMain">
                     {resolveChannelName(channel) || '-'}
                 </span>
             </h1>

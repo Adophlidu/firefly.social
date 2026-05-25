@@ -36,7 +36,7 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
     const [tabType, setTabType] = useState<GiphyTabType>(GiphyTabType.Gifs);
 
     const [sizedFooter, { width }] = useSize(
-        <div className="text-second mt-2 flex items-center justify-end pb-2 pr-3 text-[13px] font-bold">
+        <div className="mt-2 flex items-center justify-end pb-2 pr-3 text-[13px] font-bold text-second">
             <Trans>Powered by</Trans>
             <Image className="ml-2" alt="GIPHY" src="/image/giphy.png" width={12} height={12} />
             <span className="text-black dark:text-white">GIPHY</span>
@@ -58,8 +58,8 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
         >
             <div>
                 {tabType !== GiphyTabType.Emoji ? (
-                    <div className="bg-lightBg text-main relative mx-3 flex grow items-center rounded-xl pl-3">
-                        <SearchIcon width={18} height={18} className="text-primaryMain shrink-0" />
+                    <div className="relative mx-3 flex grow items-center rounded-xl bg-lightBg pl-3 text-main">
+                        <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />
                         <div className="w-full flex-1">
                             <SearchBar className="ff-giphy-search-bar" placeholder={t`Search...`} />
                         </div>
@@ -82,7 +82,7 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
                         <GiphyGifList width={width - 24} onSelected={onSelected} />
                     )}
                 </div>
-                <div className="no-scrollbar bg-lightBg mx-3 my-2.5 overflow-x-auto whitespace-nowrap rounded-3xl px-4 py-1">
+                <div className="no-scrollbar mx-3 my-2.5 overflow-x-auto whitespace-nowrap rounded-3xl bg-lightBg px-4 py-1">
                     {getGiphyMediaTabs().map((mediaTab) => (
                         <ClickableButton
                             onClick={() => setTabType(mediaTab.type)}

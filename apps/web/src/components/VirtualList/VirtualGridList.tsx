@@ -5,8 +5,10 @@ import { VirtuosoGrid, type VirtuosoGridProps } from 'react-virtuoso';
 
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export interface VirtualGridListProps<ItemData = unknown, Context = unknown>
-    extends VirtuosoGridProps<ItemData, Context> {
+export interface VirtualGridListProps<ItemData = unknown, Context = unknown> extends VirtuosoGridProps<
+    ItemData,
+    Context
+> {
     listKey?: string;
 }
 

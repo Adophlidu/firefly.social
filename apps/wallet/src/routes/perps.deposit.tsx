@@ -127,12 +127,12 @@ function PerpsDepositClient() {
                 />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1">
-                        <span className="text-main text-sm font-semibold">USDC</span>
+                        <span className="text-sm font-semibold text-main">USDC</span>
                     </div>
                     {isBalanceLoading ? (
-                        <div className="bg-lightBg h-[14px] w-8 animate-pulse" />
+                        <div className="h-[14px] w-8 animate-pulse bg-lightBg" />
                     ) : (
-                        <span className="text-second text-xs font-medium">
+                        <span className="text-xs font-medium text-second">
                             <Trans>
                                 {formatTokenItemAmount(usdcToken?.balance ?? '0')} USDC in your Firefly wallet
                             </Trans>
@@ -140,9 +140,9 @@ function PerpsDepositClient() {
                     )}
                 </div>
                 {isBalanceLoading ? (
-                    <div className="bg-lightBg h-5 w-7 animate-pulse" />
+                    <div className="h-5 w-7 animate-pulse bg-lightBg" />
                 ) : (
-                    <span className="text-main shrink-0 text-sm font-semibold">
+                    <span className="shrink-0 text-sm font-semibold text-main">
                         {usdcToken?.balance
                             ? formatTokenUSD(multipliedBy(usdcToken.balance, usdcToken.price ?? 1).toString())
                             : '$0'}
@@ -187,12 +187,12 @@ function PerpsDepositClient() {
                         <div className="h-5 w-full truncate text-sm font-semibold">
                             <Trans>Receive</Trans>
                         </div>
-                        <div className="text-second w-full text-xs font-medium leading-3">
+                        <div className="w-full text-xs font-medium leading-3 text-second">
                             <Trans>into your perps account</Trans>
                         </div>
                     </div>
                     {isGasLoading && value ? (
-                        <div className="bg-lightBg ml-auto h-5 w-10 animate-pulse" />
+                        <div className="ml-auto h-5 w-10 animate-pulse bg-lightBg" />
                     ) : (
                         <div className="ml-auto text-sm font-semibold">{receivedUsdText || '-'}</div>
                     )}
@@ -203,7 +203,7 @@ function PerpsDepositClient() {
                         <button
                             key={rate}
                             type="button"
-                            className="bg-lightBg active:bg-main/10 h-8 w-[70px] rounded-full text-center font-semibold leading-8 duration-75 active:scale-95"
+                            className="h-8 w-[70px] rounded-full bg-lightBg text-center font-semibold leading-8 duration-75 active:scale-95 active:bg-main/10"
                             onClick={() => {
                                 if (!usdcToken?.balance) return;
                                 const maxBn = BigNumber(usdcToken.balance);

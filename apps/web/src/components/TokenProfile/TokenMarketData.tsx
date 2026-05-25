@@ -172,9 +172,9 @@ export const TokenMarketData = memo(function TokenMarketData({
     const baseInfo = (
         <>
             <TextOverflowTooltip content={token.name} placement="top">
-                <strong className="text-medium text-main ml-0.5 min-w-0 truncate font-bold">{token.name}</strong>
+                <strong className="ml-0.5 min-w-0 truncate text-medium font-bold text-main">{token.name}</strong>
             </TextOverflowTooltip>
-            <span className="font-inter text-medium whitespace-nowrap font-bold uppercase">{token.symbol}</span>
+            <span className="whitespace-nowrap font-inter text-medium font-bold uppercase">{token.symbol}</span>
         </>
     );
 
@@ -222,7 +222,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     const contractSelect =
         chainId && address ? (
             <div
-                className="border-lightLineSecond bg-bg02 text-main mt-0.5 inline-flex h-[30px] w-auto cursor-pointer items-center gap-1 rounded-full border px-2 text-sm"
+                className="mt-0.5 inline-flex h-[30px] w-auto cursor-pointer items-center gap-1 rounded-full border border-lightLineSecond bg-bg02 px-2 text-sm text-main"
                 data-address={address}
             >
                 <div className="inline-flex items-center gap-1">
@@ -264,13 +264,13 @@ export const TokenMarketData = memo(function TokenMarketData({
                     <div className="flex min-h-[42px] min-w-0 items-center gap-3">
                         {wrapLink(icon, tokenPageUrl, linkable)}
                         <div className="flex min-w-0 flex-col gap-1">
-                            <div className="text-second flex min-w-0 flex-col items-start gap-1 leading-6 md:flex-row md:items-center">
+                            <div className="flex min-w-0 flex-col items-start gap-1 leading-6 text-second md:flex-row md:items-center">
                                 <div className="flex w-full items-center gap-1 truncate md:w-auto">
                                     {wrapLink(baseInfo, tokenPageUrl, linkable)}
                                 </div>
                                 <div className="flex items-center gap-1">
                                     {tokenRank ? (
-                                        <span className="bg-highlight inline-flex h-[14px] items-center whitespace-nowrap rounded px-1 py-0.5 text-[10px] text-white">
+                                        <span className="inline-flex h-[14px] items-center whitespace-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
                                             <Trans>Rank #{tokenRank}</Trans>
                                         </span>
                                     ) : null}
@@ -280,7 +280,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                                 key={link.name}
                                                 href={link.url!}
                                                 target="_blank"
-                                                className="bg-input dark:bg-bg inline-flex size-6 items-center justify-center rounded-lg"
+                                                className="inline-flex size-6 items-center justify-center rounded-lg bg-input dark:bg-bg"
                                             >
                                                 <link.icon width={16} height={16} />
                                             </Link>
@@ -289,7 +289,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 </div>
                             </div>
                             {traderCount ? (
-                                <div className="text-second text-sm leading-[14px]">
+                                <div className="text-sm leading-[14px] text-second">
                                     <Plural
                                         value={traderCount}
                                         one="# person I follow has traded"
@@ -312,7 +312,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                     <PriceArrow
                                         width={20}
                                         height={20}
-                                        className={isUp ? 'text-success' : 'text-fail rotate-180'}
+                                        className={isUp ? 'text-success' : 'rotate-180 text-fail'}
                                     />
                                     <span className={isUp ? 'text-medium text-success' : 'text-medium text-fail'}>
                                         {isNumber(change24h) ? `${change24h.toFixed(2)}%` : '--%'}
@@ -320,7 +320,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 </>
                             )}
                             {activeRecord ? (
-                                <span className="text-secondary ml-2 text-sm">
+                                <span className="ml-2 text-sm text-secondary">
                                     {dayjs(activeRecord.date).format('MMM DD, YYYY, hh:mm A')}
                                 </span>
                             ) : null}
@@ -376,7 +376,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 >
                                     <div
                                         className={classNames(
-                                            'group-hover:bg-third group-hover:dark:bg-secondary h-[2px] grow cursor-pointer rounded-[2px]',
+                                            'h-[2px] grow cursor-pointer rounded-[2px] group-hover:bg-third group-hover:dark:bg-secondary',
                                             activeTradeHash === trade.hash || activeRecordIndex === i
                                                 ? 'bg-third dark:bg-secondary'
                                                 : 'bg-secondaryLine',
@@ -396,8 +396,8 @@ export const TokenMarketData = memo(function TokenMarketData({
                             className={classNames(
                                 'h-6 min-w-10 rounded-lg px-2',
                                 currentRange.id === range.id
-                                    ? 'light bg-input text-main rounded-[18px] font-bold'
-                                    : 'text-secondary bg-transparent',
+                                    ? 'light rounded-[18px] bg-input font-bold text-main'
+                                    : 'bg-transparent text-secondary',
                             )}
                             key={range.id}
                             onClick={() => {

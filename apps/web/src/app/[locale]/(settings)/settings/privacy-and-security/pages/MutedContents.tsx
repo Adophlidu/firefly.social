@@ -22,7 +22,7 @@ export const MutedContents = memo(function MutedContents() {
             <div className="w-full">
                 {menus.map((menu) => (
                     <Link
-                        className="text-main hover:bg-bg -mx-3 mt-2 flex items-center justify-between rounded-md px-3 py-1 text-base transition-colors"
+                        className="-mx-3 mt-2 flex items-center justify-between rounded-md px-3 py-1 text-base text-main transition-colors hover:bg-bg"
                         key={`${menu.source}-${menu.type}`}
                         href={`/settings/mutes/${resolveSourceInUrl(menu.source)}/${menu.type}`}
                     >

@@ -33,7 +33,7 @@ export function LogoutModal({ ref }: Props) {
                 confirmButtonClass: 'mx-6',
                 content: (
                     <div className="flex flex-col gap-2">
-                        <div className="text-medium text-lightMain px-6 font-medium leading-normal">
+                        <div className="px-6 text-medium font-medium leading-normal text-lightMain">
                             {props?.account ? (
                                 <Trans>Confirm to log out this account?</Trans>
                             ) : (
@@ -49,7 +49,7 @@ export function LogoutModal({ ref }: Props) {
                             >
                                 {accounts.map((account) => (
                                     <div
-                                        className="shadow-primary rounded-lg px-3 py-2"
+                                        className="rounded-lg px-3 py-2 shadow-primary"
                                         key={account.profile.profileId}
                                     >
                                         <ProfileInList

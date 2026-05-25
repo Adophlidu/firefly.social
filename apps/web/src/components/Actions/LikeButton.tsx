@@ -35,7 +35,7 @@ export const LikeButton = memo<LikeButtonProps>(function LikeButton({ disabled =
 
     return (
         <ClickableArea
-            className={classNames('hover:text-danger flex w-min cursor-pointer items-center', {
+            className={classNames('flex w-min cursor-pointer items-center hover:text-danger', {
                 'opacity-50': isDisabled,
             })}
             disabled={isDisabled}
@@ -44,7 +44,7 @@ export const LikeButton = memo<LikeButtonProps>(function LikeButton({ disabled =
                 isLiked={isLiked}
                 disabled={isDisabled}
                 likeCount={likeData?.likeCount}
-                className="hover:bg-danger/20 inline-flex h-7 items-center justify-center gap-1 rounded-full px-1.5 transition-colors"
+                className="inline-flex h-7 items-center justify-center gap-1 rounded-full px-1.5 transition-colors hover:bg-danger/20"
                 onToggle={() => mutateAsync(isLiked)}
             />
         </ClickableArea>

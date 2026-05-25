@@ -252,9 +252,9 @@ export const BetItem = memo(function BetItem({
             return (
                 <div className="flex items-center gap-1">
                     <Timer
-                        icon={<TimeIcon className="text-second shrink-0" width={12} height={12} />}
+                        icon={<TimeIcon className="shrink-0 text-second" width={12} height={12} />}
                         endTime={endTime}
-                        className="text-second !bg-inherit !p-0 text-xs leading-[14px]"
+                        className="!bg-inherit !p-0 text-xs leading-[14px] text-second"
                     />
                 </div>
             );
@@ -262,8 +262,8 @@ export const BetItem = memo(function BetItem({
 
         return (
             <div className="flex items-center gap-1">
-                <TimeIcon className="text-second shrink-0" width={12} height={12} />
-                <span className="text-second text-xs leading-[14px]">{dayjs(endTime).format('MMM D, YYYY')}</span>
+                <TimeIcon className="shrink-0 text-second" width={12} height={12} />
+                <span className="text-xs leading-[14px] text-second">{dayjs(endTime).format('MMM D, YYYY')}</span>
             </div>
         );
     }, [isResolved, isMultiMarket, eventClosed, eventArchived, endTime]);
@@ -296,7 +296,7 @@ export const BetItem = memo(function BetItem({
     return (
         <Link
             className={classNames(
-                'border-line bg-primaryBottom hover:bg-bg flex flex-col gap-3 rounded-2xl border p-4',
+                'flex flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-4 hover:bg-bg',
                 className,
             )}
             href={RouteResolver.betsEventDetail(platform, eventSlug, { multiple: isMultiMarket })}
@@ -313,7 +313,7 @@ export const BetItem = memo(function BetItem({
                     height={40}
                 />
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
-                    <h3 className="text-lightMain line-clamp-1 text-left text-base font-semibold leading-5">
+                    <h3 className="line-clamp-1 text-left text-base font-semibold leading-5 text-lightMain">
                         {event.title}
                     </h3>
 
@@ -351,12 +351,12 @@ export const BetItem = memo(function BetItem({
                                         }}
                                     >
                                         <div className="min-w-0 flex-1">
-                                            <p className="text-lightMain truncate text-left text-sm leading-5">
+                                            <p className="truncate text-left text-sm leading-5 text-lightMain">
                                                 {market.groupItemTitle || market.question || market.title}
                                             </p>
                                         </div>
                                         <div className="flex shrink-0 flex-col text-right">
-                                            <p className="text-lightMain text-sm font-semibold leading-5">
+                                            <p className="text-sm font-semibold leading-5 text-lightMain">
                                                 {formatWinRate(ratio)}
                                             </p>
                                         </div>
@@ -409,7 +409,7 @@ export const BetItem = memo(function BetItem({
                         })}
                         {remainingCount > 0 && (
                             <div className="flex items-center">
-                                <p className="text-second text-sm leading-5">+{remainingCount} others</p>
+                                <p className="text-sm leading-5 text-second">+{remainingCount} others</p>
                             </div>
                         )}
                     </div>
@@ -428,20 +428,20 @@ export const BetItem = memo(function BetItem({
                             <div className="flex items-center gap-2">
                                 {firstOutcome ? (
                                     <div className="flex flex-1 items-center gap-1">
-                                        <span className="text-success max-w-[64px] truncate text-sm font-bold leading-5">
+                                        <span className="max-w-[64px] truncate text-sm font-bold leading-5 text-success">
                                             {firstOutcome}
                                         </span>
-                                        <span className="text-success text-sm font-semibold leading-5">
+                                        <span className="text-sm font-semibold leading-5 text-success">
                                             {formatPriceCents(firstPrice)}
                                         </span>
                                     </div>
                                 ) : null}
                                 {secondOutcome ? (
                                     <div className="flex flex-1 items-center justify-end gap-1">
-                                        <span className="text-danger max-w-[64px] truncate text-sm font-bold leading-5">
+                                        <span className="max-w-[64px] truncate text-sm font-bold leading-5 text-danger">
                                             {secondOutcome}
                                         </span>
-                                        <span className="text-danger text-sm font-semibold leading-5">
+                                        <span className="text-sm font-semibold leading-5 text-danger">
                                             {formatPriceCents(secondPrice)}
                                         </span>
                                     </div>
@@ -461,8 +461,8 @@ export const BetItem = memo(function BetItem({
                         ) : (
                             primaryOutcomes.length === 2 && (
                                 <div className="flex h-1 overflow-hidden">
-                                    <div className="bg-success h-full" style={{ width: `${firstPercentage}%` }} />
-                                    <div className="bg-danger h-full" style={{ width: `${secondPercentage}%` }} />
+                                    <div className="h-full bg-success" style={{ width: `${firstPercentage}%` }} />
+                                    <div className="h-full bg-danger" style={{ width: `${secondPercentage}%` }} />
                                 </div>
                             )
                         )}
@@ -507,7 +507,7 @@ export const BetItem = memo(function BetItem({
                 )}
 
                 <div className="flex items-center justify-between">
-                    <div className="text-second flex items-center gap-2 text-sm leading-[17px]">
+                    <div className="flex items-center gap-2 text-sm leading-[17px] text-second">
                         <span>${nFormatter(eventVolume, 2, true)} Vol.</span>
                         {series?.recurrence ? <span>{capitalize(series.recurrence)}</span> : null}
                     </div>

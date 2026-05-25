@@ -28,23 +28,23 @@ export function PredictionTopHoldersUI({
 }: PredictionTopHoldersUIProps) {
     return (
         <div className={classNames('w-full', className)}>
-            <span className="text-second pl-4 text-xs font-medium">
+            <span className="pl-4 text-xs font-medium text-second">
                 <Trans>{outcomeLabel} Holders</Trans>
             </span>
             {!holders.length ? (
-                <div className="text-second pl-4 pt-9 text-left text-xs font-semibold">
+                <div className="pl-4 pt-9 text-left text-xs font-semibold text-second">
                     <Trans>No holders found.</Trans>
                 </div>
             ) : null}
             {holders.map((holder) => (
                 <Link
                     href={RouteResolver.betsProfile(holder.wallet, { platform })}
-                    className="border-line flex items-center gap-2 border-b py-2 pl-4"
+                    className="flex items-center gap-2 border-b border-line py-2 pl-4"
                     key={holder.wallet}
                 >
                     <Avatar className="shrink-0" src={holder.avatar} size={36} alt={holder.wallet} />
                     <div className="min-w-0 flex-1">
-                        <div className="text-main truncate text-sm font-semibold">
+                        <div className="truncate text-sm font-semibold text-main">
                             {holder.name || formatAddressEthereum(holder.wallet, 4)}
                         </div>
                         <div className={classNames('text-sm font-semibold', isYes ? 'text-success' : 'text-danger')}>

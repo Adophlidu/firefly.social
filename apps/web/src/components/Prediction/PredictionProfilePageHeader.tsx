@@ -32,11 +32,11 @@ export function PredictionProfilePageHeader({ address, platform, fallbackName }:
     const showFollowButton = !!followButtonEntry && !followButtonEntry.isIntersecting;
 
     return (
-        <div className="border-line bg-primaryBottom sticky top-0 z-40 flex h-[60px] items-center justify-between border-b px-4">
+        <div className="sticky top-0 z-40 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
             <div className="flex min-w-0 items-center gap-2">
-                <Comeback className="text-lightMain cursor-pointer" />
+                <Comeback className="cursor-pointer text-lightMain" />
                 {name && showFollowButton ? (
-                    <span className="text-main min-w-0 truncate text-xl font-black">{name}</span>
+                    <span className="min-w-0 truncate text-xl font-black text-main">{name}</span>
                 ) : null}
             </div>
             <div className={classNames('ml-auto shrink-0', !showFollowButton ? 'pointer-events-none opacity-0' : '')}>

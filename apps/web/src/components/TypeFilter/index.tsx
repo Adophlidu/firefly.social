@@ -51,7 +51,7 @@ function TypeFilter<T extends string = string>({
 
     return (
         <div className={classNames('flex flex-col gap-4', className)} {...props}>
-            <div className="text-main text-sm font-bold">{title ?? <Trans>Type filter</Trans>}</div>
+            <div className="text-sm font-bold text-main">{title ?? <Trans>Type filter</Trans>}</div>
             <div className="flex flex-col gap-3">
                 {options.map((option) => {
                     const selected = multiple
@@ -99,7 +99,7 @@ function TypeFilter<T extends string = string>({
                             {option.signInAction ? (
                                 <button
                                     type="button"
-                                    className="text-highlight shrink-0 text-sm font-normal"
+                                    className="shrink-0 text-sm font-normal text-highlight"
                                     onClick={(event) => {
                                         event.stopPropagation();
                                         option.onSignIn?.(event);
@@ -110,11 +110,11 @@ function TypeFilter<T extends string = string>({
                             ) : (
                                 <span className="flex size-5 shrink-0 items-center justify-center" aria-hidden>
                                     {selected ? (
-                                        <span className="bg-highlight flex size-5 items-center justify-center rounded-full">
+                                        <span className="flex size-5 items-center justify-center rounded-full bg-highlight">
                                             <CheckIcon className="size-2.5 text-white" width={10} height={10} />
                                         </span>
                                     ) : (
-                                        <span className="border-secondaryLine size-5 rounded-full border border-solid bg-transparent" />
+                                        <span className="size-5 rounded-full border border-solid border-secondaryLine bg-transparent" />
                                     )}
                                 </span>
                             )}

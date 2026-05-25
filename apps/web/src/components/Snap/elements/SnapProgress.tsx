@@ -14,8 +14,8 @@ export function SnapProgress({ props: { value, max = 100, label, color }, accent
 
     return (
         <div className="w-full">
-            {label ? <span className="text-secondary mb-1 block text-xs">{label}</span> : null}
-            <div className="bg-bg h-2 w-full overflow-hidden rounded-full">
+            {label ? <span className="mb-1 block text-xs text-secondary">{label}</span> : null}
+            <div className="h-2 w-full overflow-hidden rounded-full bg-bg">
                 <div
                     className={classNames('h-full rounded-full transition-all', barColor)}
                     style={{ width: `${pct}%` }}

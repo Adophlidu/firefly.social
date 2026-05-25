@@ -37,7 +37,7 @@ export function TwitterFollowButton({
         <ClickableButton
             ref={hoverRef}
             className={classNames(
-                'text-medium flex h-8 items-center justify-center rounded-full border font-semibold transition-all hover:cursor-default',
+                'flex h-8 items-center justify-center rounded-full border text-medium font-semibold transition-all hover:cursor-default',
                 className,
                 variantClassName,
                 {

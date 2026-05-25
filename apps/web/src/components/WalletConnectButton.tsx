@@ -44,7 +44,7 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
     return (
         <ClickableButton
             className={classNames(
-                'bg-lightBg text-main flex h-10 items-center gap-3 whitespace-nowrap rounded-lg px-4 text-lg leading-6',
+                'flex h-10 items-center gap-3 whitespace-nowrap rounded-lg bg-lightBg px-4 text-lg leading-6 text-main',
                 className,
             )}
             onClick={async () => {

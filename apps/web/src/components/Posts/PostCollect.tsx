@@ -196,15 +196,15 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">
-            <div className="bg-lightBg my-3 rounded-lg px-3 py-2">
+            <div className="my-3 rounded-lg bg-lightBg px-3 py-2">
                 <div className="flex items-center gap-2">
                     <Avatar src={post.author.pfp} size={20} alt={post.author.handle} />
-                    <span className="text-medium text-main overflow-hidden text-ellipsis font-bold leading-6">
+                    <span className="overflow-hidden text-ellipsis text-medium font-bold leading-6 text-main">
                         {post.author.displayName}
                     </span>
-                    <span className="text-medium text-second leading-6">@{post.author.handle}</span>
+                    <span className="text-medium leading-6 text-second">@{post.author.handle}</span>
                 </div>
-                <div className="text-fourMain line-clamp-2 text-left text-base leading-5">
+                <div className="line-clamp-2 text-left text-base leading-5 text-fourMain">
                     {post.metadata.content?.content}
                     {compact(
                         [
@@ -224,7 +224,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
             <div className="flex items-center justify-center gap-7 text-sm leading-[22px]">
                 <div className="flex flex-col items-center">
-                    <div className="text-main font-bold">
+                    <div className="font-bold text-main">
                         <span>{collectModule?.collectedCount}</span>
                         {collectModule?.collectLimit ? <span>/ {collectModule.collectLimit}</span> : null}
                     </div>
@@ -235,7 +235,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
                 {timeLeft && !isTimeout ? (
                     <div className="flex flex-col items-center">
-                        <div className="text-main font-bold">{timeLeft}</div>
+                        <div className="font-bold text-main">{timeLeft}</div>
                         <div className="text-second">
                             <Trans>Time Limit</Trans>
                         </div>
@@ -243,7 +243,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 ) : null}
 
                 <div className="flex flex-col items-center">
-                    <div className="text-main font-bold">
+                    <div className="font-bold text-main">
                         {collectModule?.followerOnly ? <Trans>Followers</Trans> : <Trans>Everyone</Trans>}
                     </div>
                     <div className="text-second">
@@ -251,7 +251,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                     </div>
                 </div>
                 <div className="flex flex-col items-center">
-                    <div className="text-main font-bold">
+                    <div className="font-bold text-main">
                         {collectModule?.amount && collectModule.currency ? (
                             `${collectModule.amount} $${collectModule.currency}`
                         ) : (

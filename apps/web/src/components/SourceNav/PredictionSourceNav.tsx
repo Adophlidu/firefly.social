@@ -110,7 +110,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                 </nav>
             </div>
             <Link
-                className="bg-highlight text-lightBottom flex h-[30px] items-center gap-1 rounded-full px-3"
+                className="flex h-[30px] items-center gap-1 rounded-full bg-highlight px-3 text-lightBottom"
                 href={RouteResolver.predictionCategory({
                     slug: first(tags)?.slug || '',
                 })}

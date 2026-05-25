@@ -21,7 +21,7 @@ export function TrendingNFT({ collection, className, ...rest }: CollectionItemPr
 
     return (
         <Link
-            className={classNames('border-line hover:bg-bg flex items-center gap-2.5 border-b p-3', className)}
+            className={classNames('flex items-center gap-2.5 border-b border-line p-3 hover:bg-bg', className)}
             {...rest}
             href={resolveNFTUrl(chainId, collection.contract_address)}
         >
@@ -34,23 +34,23 @@ export function TrendingNFT({ collection, className, ...rest }: CollectionItemPr
             />
             <div className="flex grow flex-col">
                 <div className="flex items-center gap-1">
-                    <span className="text-lightMain text-lg font-bold leading-6">{collection.contract_name}</span>
+                    <span className="text-lg font-bold leading-6 text-lightMain">{collection.contract_name}</span>
                     <ChainIcon size={18} className="shrink-0" chainId={chainId} />
                 </div>
                 <div className="mt-1 flex grow items-center gap-2">
-                    <span className="text-medium text-lightMain whitespace-nowrap font-bold leading-[22px]">
+                    <span className="whitespace-nowrap text-medium font-bold leading-[22px] text-lightMain">
                         <Trans>
                             {nFormatter(collection.collection.amounts_total || collection.items_total || 0)}{' '}
-                            <span className="text-second font-normal">Items</span>
+                            <span className="font-normal text-second">Items</span>
                         </Trans>
                     </span>
                     {collection.floor_price && collection.price_symbol ? (
                         <>
                             <span className="text-second">·</span>
-                            <span className="text-medium text-lightMain whitespace-nowrap font-bold leading-[22px]">
+                            <span className="whitespace-nowrap text-medium font-bold leading-[22px] text-lightMain">
                                 <Trans>
                                     {collection.floor_price} {collection.price_symbol}{' '}
-                                    <span className="text-second font-normal">Floor</span>
+                                    <span className="font-normal text-second">Floor</span>
                                 </Trans>
                             </span>
                         </>
@@ -58,10 +58,10 @@ export function TrendingNFT({ collection, className, ...rest }: CollectionItemPr
                     {collection.volume_1d ? (
                         <>
                             <span className="text-second">·</span>
-                            <span className="text-medium text-lightMain whitespace-nowrap font-bold leading-[22px]">
+                            <span className="whitespace-nowrap text-medium font-bold leading-[22px] text-lightMain">
                                 <Trans>
                                     {collection.volume_1d} {collection.price_symbol}{' '}
-                                    <span className="text-second font-normal">24H Vol</span>
+                                    <span className="font-normal text-second">24H Vol</span>
                                 </Trans>
                             </span>
                         </>

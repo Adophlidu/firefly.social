@@ -839,7 +839,7 @@ body {
     height: 100%;
     z-index: 99999;
 
-    @apply bg-primaryBottom flex items-center justify-center;
+    @apply flex items-center justify-center bg-primaryBottom;
 }
 
 /* okx dex widget iframe */

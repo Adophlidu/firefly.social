@@ -34,12 +34,12 @@ export function SnapSlider({
         <div className="w-full" onClick={(e) => e.stopPropagation()}>
             {label || showValue ? (
                 <div className="mb-1 flex justify-between">
-                    {label ? <label className="text-secondary text-xs font-medium">{label}</label> : <span />}
-                    {showValue ? <span className="text-secondary text-xs">{value}</span> : null}
+                    {label ? <label className="text-xs font-medium text-secondary">{label}</label> : <span />}
+                    {showValue ? <span className="text-xs text-secondary">{value}</span> : null}
                 </div>
             ) : null}
             <div className="relative flex items-center">
-                <div className="bg-bg relative h-2 w-full overflow-hidden rounded-full">
+                <div className="relative h-2 w-full overflow-hidden rounded-full bg-bg">
                     <div
                         className={classNames('h-full rounded-full', ACCENT_COLOR_MAP[accent])}
                         style={{ width: `${pct}%` }}

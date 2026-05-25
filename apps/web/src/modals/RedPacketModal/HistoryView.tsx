@@ -19,7 +19,7 @@ export default memo(function HistoryView() {
     const { account } = useChainContext({ networkType });
 
     return (
-        <div className="bg-primaryBottom flex flex-1 grow flex-col px-4 py-2">
+        <div className="flex flex-1 grow flex-col bg-primaryBottom px-4 py-2">
             <div className="flex gap-2">
                 <Tabs value={historyType} onChange={setHistoryType} variant="solid" className="self-start">
                     <Tab value={FireflyRedPacketAPI.ActionType.Claim} key="claimed">

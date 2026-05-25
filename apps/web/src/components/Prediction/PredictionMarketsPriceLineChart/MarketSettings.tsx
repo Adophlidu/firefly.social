@@ -30,7 +30,7 @@ export const MarketSettings = memo<MarketSettingsProps>(function MarketSettings(
                 <>
                     <PopoverButton
                         className={classNames(
-                            'hover:bg-bg -mt-1 flex size-6 items-center justify-center rounded',
+                            '-mt-1 flex size-6 items-center justify-center rounded hover:bg-bg',
                             open ? 'bg-bg' : '',
                         )}
                     >
@@ -49,7 +49,7 @@ export const MarketSettings = memo<MarketSettingsProps>(function MarketSettings(
                             portal={false}
                             anchor="bottom end"
                             style={{ height: 48 * markets.length + 32 + 22 }}
-                            className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-30 w-[400px] !max-w-[80vw] translate-y-3 space-y-3 rounded-lg p-4 [--anchor-max-height:266px] dark:border dark:shadow-none"
+                            className="no-scrollbar absolute bottom-full right-0 z-30 w-[400px] !max-w-[80vw] translate-y-3 space-y-3 rounded-lg bg-lightBottom p-4 text-medium shadow-popover [--anchor-max-height:266px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
                             <MarketsSelectionPanel markets={markets} toggleMarketSelection={toggleMarketSelection} />
                         </PopoverPanel>

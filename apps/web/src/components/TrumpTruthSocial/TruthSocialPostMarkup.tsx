@@ -24,7 +24,7 @@ export const TruthSocialPostMarkup = memo<Props>(function TruthSocialPostMarkup(
                 <PostMarkup post={post} canShowMore={false} content={postContent} />
             </div>
             {overflow || !showMore ? (
-                <div className="text-medium text-highlight font-bold">
+                <div className="text-medium font-bold text-highlight">
                     <ClickableButton
                         onClick={(event) => {
                             event.stopPropagation();

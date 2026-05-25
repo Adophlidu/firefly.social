@@ -180,13 +180,13 @@ export default function FrameViewerModalContent({ open, props, setProps }: Props
                 }}
             />
             {machine.is('blocking') ? (
-                <div className="bg-bg dark:bg-darkBottom absolute inset-0 top-[60px] flex min-h-0 grow flex-col items-center justify-center">
+                <div className="absolute inset-0 top-[60px] flex min-h-0 grow flex-col items-center justify-center bg-bg dark:bg-darkBottom">
                     <p className="p-2 text-sm font-bold">
                         <Trans>This mini app works only inside Farcaster. Open it there to check it out.</Trans>
                     </p>
                     <a
                         href={`https://farcaster.xyz/?launchFrameUrl=${frame.button.action.url}`}
-                        className="bg-lightBg text-lightHighlight dark:bg-fireflyBrand rounded-lg px-3 py-2 font-bold dark:text-white"
+                        className="rounded-lg bg-lightBg px-3 py-2 font-bold text-lightHighlight dark:bg-fireflyBrand dark:text-white"
                         target="_blank"
                         rel="noreferrer"
                     >
@@ -194,7 +194,7 @@ export default function FrameViewerModalContent({ open, props, setProps }: Props
                     </a>
                 </div>
             ) : machine.is('timeout') ? (
-                <div className="bg-primaryBottom absolute inset-0 top-[60px] flex items-center justify-center">
+                <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-primaryBottom">
                     <p className="text-sm">
                         <Trans>Something went wrong. Please try again later.</Trans>
                     </p>

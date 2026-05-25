@@ -8,7 +8,7 @@ export function BaseNotFound(props: HTMLProps<HTMLDivElement>) {
         <main
             {...props}
             className={classNames(
-                'border-line flex flex-[1_1_100%] flex-col border-r md:!pl-0 lg:!pl-0',
+                'flex flex-[1_1_100%] flex-col border-r border-line md:!pl-0 lg:!pl-0',
                 props.className,
             )}
         >

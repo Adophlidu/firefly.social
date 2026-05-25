@@ -75,7 +75,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                     alt={props.footer.name}
                 />
             ) : null}
-            <h2 className="text-medium text-lightMain min-w-0 flex-1 truncate font-bold">{props.footer?.name}</h2>
+            <h2 className="min-w-0 flex-1 truncate text-medium font-bold text-lightMain">{props.footer?.name}</h2>
         </>
     );
     const address = nft?.contract_address ?? collection?.contract_address;
@@ -124,11 +124,11 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                     <div className="flex justify-between">
                         {floorPrice ? (
                             <div className="flex flex-col justify-start">
-                                <div className="text-secondary text-xs font-bold leading-[18px]">
+                                <div className="text-xs font-bold leading-[18px] text-secondary">
                                     <Trans>Price</Trans>
                                 </div>
                                 <div className="flex items-center gap-1 leading-[18px]">
-                                    <span className="text-medium text-lightMain truncate font-bold">{floorPrice}</span>
+                                    <span className="truncate text-medium font-bold text-lightMain">{floorPrice}</span>
                                     <TokenIcon
                                         disableBadge
                                         chainId={chainId}
@@ -141,12 +141,12 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                         ) : null}
                         {nft?.latest_trade_price ? (
                             <div className="ml-auto flex flex-col items-end">
-                                <div className="text-secondary text-xs font-bold leading-[18px]">
+                                <div className="text-xs font-bold leading-[18px] text-secondary">
                                     <Trans>Last sale</Trans>
                                 </div>
 
                                 <div className="flex items-center gap-1 leading-[18px]">
-                                    <span className="text-medium text-lightMain truncate font-bold">
+                                    <span className="truncate text-medium font-bold text-lightMain">
                                         {nft.latest_trade_price}
                                     </span>
                                     <TokenIcon disableBadge chainId={chainId} address={zeroAddress} size={16} />
@@ -154,12 +154,12 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                             </div>
                         ) : !nft && marketInfo?.total_volume ? (
                             <div className="ml-auto flex flex-col items-end">
-                                <div className="text-secondary text-xs font-bold leading-[18px]">
+                                <div className="text-xs font-bold leading-[18px] text-secondary">
                                     <Trans>Total volume</Trans>
                                 </div>
 
                                 <div className="flex items-center gap-1 leading-[18px]">
-                                    <span className="text-medium text-lightMain truncate font-bold">
+                                    <span className="truncate text-medium font-bold text-lightMain">
                                         {marketInfo.total_volume}
                                     </span>
                                     <TokenIcon disableBadge chainId={chainId} address={zeroAddress} size={16} />
@@ -174,7 +174,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
 
     return (
         <div
-            className={classNames('bg-bg relative w-[300px] overflow-hidden rounded-xl text-left', props.className)}
+            className={classNames('relative w-[300px] overflow-hidden rounded-xl bg-bg text-left', props.className)}
             onClick={stopPropagation}
         >
             {link ? <Link href={link}>{content}</Link> : content}

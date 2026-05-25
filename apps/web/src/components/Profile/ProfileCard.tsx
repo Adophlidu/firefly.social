@@ -57,19 +57,19 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
 
     if (isLoading) {
         return (
-            <div className="border-secondaryLine bg-primaryBottom h-[182px] w-[350px] rounded-2xl border p-4">
+            <div className="h-[182px] w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
                 <div className="animate-pulse">
                     <div className="flex w-full gap-2.5">
-                        <div className="bg-third size-20 rounded-full" />
+                        <div className="size-20 rounded-full bg-third" />
                         <div className="flex flex-1 flex-col justify-between">
-                            <div className="bg-third h-3 w-[120px] rounded" />
-                            <div className="bg-third h-3 w-[120px] rounded" />
-                            <div className="bg-third h-3 w-[120px] rounded" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
                         </div>
                     </div>
                     <div className="mt-3 space-y-4">
-                        <div className="bg-third h-3 w-full rounded" />
-                        <div className="bg-third h-3 w-full rounded" />
+                        <div className="h-3 w-full rounded bg-third" />
+                        <div className="h-3 w-full rounded bg-third" />
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
     const url = getProfileUrl(profile);
 
     return (
-        <ClickableArea className="border-secondaryLine bg-primaryBottom flex w-[350px] flex-col gap-y-3 rounded-2xl border p-4">
+        <ClickableArea className="flex w-[350px] flex-col gap-y-3 rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
             <div className="flex gap-2.5">
                 <Link href={url}>
                     <Avatar
@@ -95,7 +95,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                     <div className="flex items-center gap-2">
                         <Link
                             href={url}
-                            className="text-lightMain block min-w-0 cursor-pointer truncate text-xl leading-6"
+                            className="block min-w-0 cursor-pointer truncate text-xl leading-6 text-lightMain"
                         >
                             {profile.displayName}
                         </Link>
@@ -104,11 +104,11 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                         <SocialSourceIcon source={profile.source} className="ml-auto shrink-0" size={18} />
                     </div>
 
-                    <Link href={url} className="text-medium text-secondary cursor-pointer leading-6">
+                    <Link href={url} className="cursor-pointer text-medium leading-6 text-secondary">
                         @{profile.handle}
                     </Link>
 
-                    <div className="text-medium flex gap-3">
+                    <div className="flex gap-3 text-medium">
                         <Link
                             href={getProfileUrl(profile, FollowCategory.Following)}
                             className={classNames('gap-1 leading-[22px] hover:underline', {
@@ -117,7 +117,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                             })}
                         >
                             <data value={profile.followingCount}>
-                                <span className="text-lightMain font-bold">{nFormatter(profile.followingCount)} </span>
+                                <span className="font-bold text-lightMain">{nFormatter(profile.followingCount)} </span>
                                 <span className="text-secondary">
                                     <Trans>Following</Trans>
                                 </span>
@@ -129,7 +129,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
             </div>
 
             <BioMarkup
-                className="text-medium text-lightMain mt-3 line-clamp-2 leading-[22px]"
+                className="mt-3 line-clamp-2 text-medium leading-[22px] text-lightMain"
                 source={profile.source}
                 profile={profile}
             >

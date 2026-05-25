@@ -19,7 +19,7 @@ export function TxLink({ chainId, hash, children }: TxLinkProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 href={txLink}
-                className={cn('text-highlight flex items-center gap-1 text-sm font-medium', bedStead.className)}
+                className={cn('flex items-center gap-1 text-sm font-medium text-highlight', bedStead.className)}
             >
                 {hash.slice(0, 6)}...{hash.slice(-4)}
                 {children}
@@ -28,7 +28,7 @@ export function TxLink({ chainId, hash, children }: TxLinkProps) {
     }
 
     return (
-        <span className={cn('text-highlight flex items-center gap-1 text-sm font-medium', bedStead.className)}>
+        <span className={cn('flex items-center gap-1 text-sm font-medium text-highlight', bedStead.className)}>
             {hash.slice(0, 6)}...{hash.slice(-4)}
             {children}
         </span>

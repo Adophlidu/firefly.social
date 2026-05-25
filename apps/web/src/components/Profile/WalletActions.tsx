@@ -51,7 +51,7 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
                             safeUnreachable(profile.dataSource);
                     }
                 }}
-                className="bg-highlight text-medium text-primaryBottom dark:text-main ml-auto mr-1 flex h-8 min-w-[100px] items-center justify-center rounded-lg px-2 font-semibold transition-all hover:opacity-80"
+                className="ml-auto mr-1 flex h-8 min-w-[100px] items-center justify-center rounded-lg bg-highlight px-2 text-medium font-semibold text-primaryBottom transition-all hover:opacity-80 dark:text-main"
             >
                 <Trans>Open</Trans>
             </ClickableButton>

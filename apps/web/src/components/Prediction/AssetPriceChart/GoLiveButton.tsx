@@ -58,11 +58,11 @@ export const GoLiveButton = memo<GoLiveButtonProps>(function GoLiveButton({ plat
     return (
         <ClickableButton
             disabled={loading}
-            className="border-lightLineSecond flex h-[30px] items-center gap-1 rounded-full border px-2.5"
+            className="flex h-[30px] items-center gap-1 rounded-full border border-lightLineSecond px-2.5"
             onClick={openLiveMarket}
         >
             {loading ? <LoadingIcon size={9} /> : <ActiveTag />}
-            <span className="text-second text-[10px] font-bold">
+            <span className="text-[10px] font-bold text-second">
                 {isMedium ? <Trans>Go to live market</Trans> : <Trans>Live</Trans>}
             </span>
         </ClickableButton>

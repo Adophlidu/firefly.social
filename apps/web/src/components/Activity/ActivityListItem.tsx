@@ -32,7 +32,7 @@ function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number
             <Link
                 href={data.url || `/event/${data.name}`}
                 data-disable-progress={data.status === ActivityStatus.Ended}
-                className="border-line bg-bg relative mb-4 flex w-full flex-col rounded-2xl border"
+                className="relative mb-4 flex w-full flex-col rounded-2xl border border-line bg-bg"
                 onClick={(e) => {
                     if (data.status === ActivityStatus.Ended) {
                         e.preventDefault();
@@ -41,7 +41,7 @@ function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number
                     }
                 }}
             >
-                <div className="z-1 absolute right-2 top-2">
+                <div className="absolute right-2 top-2 z-1">
                     <ActivityStatusTag status={data.status} />
                 </div>
                 <Image
@@ -53,7 +53,7 @@ function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number
                     width={343}
                     height={140}
                 />
-                <div className="text-lightMain w-full space-y-1 rounded-b-2xl p-2">
+                <div className="w-full space-y-1 rounded-b-2xl p-2 text-lightMain">
                     <h4 className="truncate text-base font-semibold leading-6">{data.title}</h4>
                     {data.description ? (
                         <p className="line-clamp-2 text-sm leading-6">{data.description.replaceAll('\\n', ' ')}</p>

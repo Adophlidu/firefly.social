@@ -241,20 +241,20 @@ function SelectTokenPage() {
 
     return (
         <div className="flex h-screen w-full flex-col overflow-hidden">
-            <div className="bg-primaryBottom shrink-0">
+            <div className="shrink-0 bg-primaryBottom">
                 <NavigationBar onBack={() => goBack()}>
                     <Trans>Select Token</Trans>
                 </NavigationBar>
 
                 <div className="flex flex-col gap-2 px-3 pb-2">
-                    <div className="bg-lightBg flex h-10 items-center gap-1 rounded-lg px-3">
-                        <SearchIcon width={18} height={18} className="text-secondary shrink-0" />
+                    <div className="flex h-10 items-center gap-1 rounded-lg bg-lightBg px-3">
+                        <SearchIcon width={18} height={18} className="shrink-0 text-secondary" />
                         <input
                             type="text"
                             placeholder={t`Search symbol or contract`}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="text-main placeholder:text-secondary h-full flex-1 border-none bg-transparent text-[15px] outline-none focus:ring-0"
+                            className="h-full flex-1 border-none bg-transparent text-[15px] text-main outline-none placeholder:text-secondary focus:ring-0"
                         />
                     </div>
 
@@ -265,7 +265,7 @@ function SelectTokenPage() {
                                     type="button"
                                     data-chain-id="all"
                                     onClick={() => setSelectedChainId(null)}
-                                    className={`font-inter shrink-0 rounded-[10px] px-2 py-1.5 text-[14px] font-semibold leading-[21px] ${
+                                    className={`shrink-0 rounded-[10px] px-2 py-1.5 font-inter text-[14px] font-semibold leading-[21px] ${
                                         selectedChainId === null ? 'bg-highlight text-white' : 'bg-lightBg text-main'
                                     }`}
                                 >
@@ -279,7 +279,7 @@ function SelectTokenPage() {
                                         onClick={() =>
                                             setSelectedChainId(selectedChainId === chain.chainId ? null : chain.chainId)
                                         }
-                                        className={`font-inter shrink-0 rounded-[10px] px-2 py-1.5 text-[14px] font-semibold leading-[21px] ${
+                                        className={`shrink-0 rounded-[10px] px-2 py-1.5 font-inter text-[14px] font-semibold leading-[21px] ${
                                             selectedChainId === chain.chainId
                                                 ? 'bg-highlight text-white'
                                                 : 'bg-lightBg text-main'
@@ -289,7 +289,7 @@ function SelectTokenPage() {
                                     </button>
                                 ))}
                             </div>
-                            <div className="from-primaryBottom pointer-events-none absolute right-0 top-1/2 h-[33px] w-6 -translate-y-1/2 bg-gradient-to-l to-transparent" />
+                            <div className="pointer-events-none absolute right-0 top-1/2 h-[33px] w-6 -translate-y-1/2 bg-gradient-to-l from-primaryBottom to-transparent" />
                         </div>
                         <div ref={chainMenuRef} className="relative shrink-0">
                             <button
@@ -297,10 +297,10 @@ function SelectTokenPage() {
                                 className="flex items-center justify-center py-1.5"
                                 onClick={() => setShowChainMenu(!showChainMenu)}
                             >
-                                <GlobeIcon className="text-main size-5" />
+                                <GlobeIcon className="size-5 text-main" />
                             </button>
                             {showChainMenu ? (
-                                <div className="no-scrollbar bg-primaryBottom absolute right-0 top-full z-20 mt-1 max-h-[70vh] min-w-[200px] overflow-y-auto rounded-xl shadow-[0_8px_64px_0_rgba(0,0,0,0.1)]">
+                                <div className="no-scrollbar absolute right-0 top-full z-20 mt-1 max-h-[70vh] min-w-[200px] overflow-y-auto rounded-xl bg-primaryBottom shadow-[0_8px_64px_0_rgba(0,0,0,0.1)]">
                                     <button
                                         type="button"
                                         className="flex w-full items-center gap-2 px-4 py-[11px]"
@@ -309,15 +309,15 @@ function SelectTokenPage() {
                                             setShowChainMenu(false);
                                         }}
                                     >
-                                        <GlobeIcon className="text-main size-6" />
-                                        <span className="text-main text-sm font-semibold">
+                                        <GlobeIcon className="size-6 text-main" />
+                                        <span className="text-sm font-semibold text-main">
                                             <Trans>All networks</Trans>
                                         </span>
                                         {selectedChainId === null ? (
-                                            <SelectedIcon className="text-main ml-auto size-6" />
+                                            <SelectedIcon className="ml-auto size-6 text-main" />
                                         ) : null}
                                     </button>
-                                    <div className="bg-line h-px" />
+                                    <div className="h-px bg-line" />
                                     {filteredSupportedChains.map((chain) => (
                                         <button
                                             key={chain.chainId}
@@ -328,18 +328,18 @@ function SelectTokenPage() {
                                                 setShowChainMenu(false);
                                             }}
                                         >
-                                            <div className="border-line flex size-6 items-center justify-center overflow-hidden rounded-lg border">
+                                            <div className="flex size-6 items-center justify-center overflow-hidden rounded-lg border border-line">
                                                 <ChainIcon
                                                     chainId={chain.chainId}
                                                     icon={chain.logoUrl}
                                                     className="rounded-none"
                                                 />
                                             </div>
-                                            <span className="text-main truncate text-sm font-semibold">
+                                            <span className="truncate text-sm font-semibold text-main">
                                                 {chain.chainName}
                                             </span>
                                             {selectedChainId === chain.chainId ? (
-                                                <SelectedIcon className="text-main ml-auto size-6" />
+                                                <SelectedIcon className="ml-auto size-6 text-main" />
                                             ) : null}
                                         </button>
                                     ))}
@@ -375,7 +375,7 @@ function SelectTokenPage() {
                         {visibleMyTokens.length > 0 || foldedMyTokens.length > 0 ? (
                             <div className="flex flex-col">
                                 {isBetDeposit && isBetDeposit ? null : (
-                                    <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
+                                    <div className="px-3 text-[13px] font-medium leading-[17px] text-secondary">
                                         <Trans>Your tokens</Trans>
                                     </div>
                                 )}
@@ -390,9 +390,9 @@ function SelectTokenPage() {
                                     <button
                                         type="button"
                                         onClick={() => setShowFolded(!showFolded)}
-                                        className="bg-lightBg ml-4 flex items-center gap-1 self-start rounded-[10px] px-2 py-1.5"
+                                        className="ml-4 flex items-center gap-1 self-start rounded-[10px] bg-lightBg px-2 py-1.5"
                                     >
-                                        <span className="text-secondary text-[13px] font-medium leading-[17px]">
+                                        <span className="text-[13px] font-medium leading-[17px] text-secondary">
                                             {showFolded ? t`Hide assets < 1 USD` : t`Show assets < 1 USD`}
                                         </span>
                                         {showFolded ? (
@@ -416,7 +416,7 @@ function SelectTokenPage() {
 
                         {filteredRecentTokens.length > 0 ? (
                             <div className="flex flex-col">
-                                <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
+                                <div className="px-3 text-[13px] font-medium leading-[17px] text-secondary">
                                     <Trans>Recent</Trans>
                                 </div>
                                 {filteredRecentTokens.map((token) => (
@@ -431,7 +431,7 @@ function SelectTokenPage() {
 
                         {filteredTrendingTokens.length > 0 ? (
                             <div className="flex flex-col">
-                                <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
+                                <div className="px-3 text-[13px] font-medium leading-[17px] text-secondary">
                                     <Trans>Trendings</Trans>
                                 </div>
                                 {filteredTrendingTokens.map((token) => (
@@ -453,13 +453,13 @@ function SelectTokenPage() {
 function SkeletonRow() {
     return (
         <div className="flex items-center gap-3 px-3 py-4">
-            <div className="bg-lightBg size-9 shrink-0 rounded-[20px] dark:bg-white/10" />
+            <div className="size-9 shrink-0 rounded-[20px] bg-lightBg dark:bg-white/10" />
             <div className="flex flex-1 items-start justify-between">
                 <div className="flex flex-col gap-1">
-                    <div className="bg-lightBg h-3 w-24 rounded-lg dark:bg-white/10" />
-                    <div className="bg-lightBg h-3 w-12 rounded-lg dark:bg-white/10" />
+                    <div className="h-3 w-24 rounded-lg bg-lightBg dark:bg-white/10" />
+                    <div className="h-3 w-12 rounded-lg bg-lightBg dark:bg-white/10" />
                 </div>
-                <div className="bg-lightBg h-3 w-24 rounded-lg dark:bg-white/10" />
+                <div className="h-3 w-24 rounded-lg bg-lightBg dark:bg-white/10" />
             </div>
         </div>
     );
@@ -485,7 +485,7 @@ function LoadingSkeleton({ hideTrending, hideRecent }: LoadingSkeletonProps) {
     return (
         <div className="flex flex-col gap-4">
             <div className="flex flex-col">
-                <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
+                <div className="px-3 text-[13px] font-medium leading-[17px] text-secondary">
                     <Trans>Your tokens</Trans>
                 </div>
                 <SkeletonRow />
@@ -493,7 +493,7 @@ function LoadingSkeleton({ hideTrending, hideRecent }: LoadingSkeletonProps) {
             </div>
             {!hideTrending ? (
                 <div className="flex flex-col">
-                    <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
+                    <div className="px-3 text-[13px] font-medium leading-[17px] text-secondary">
                         <Trans>Trendings</Trans>
                     </div>
                     <SkeletonRow />
@@ -522,7 +522,7 @@ const TokenItemBase = memo(function TokenItemBase({ token, onClick, subtitle, ch
         <button
             type="button"
             onClick={onClick}
-            className="hover:bg-lightBg flex w-full items-center gap-3 px-3 py-4 transition-colors"
+            className="flex w-full items-center gap-3 px-3 py-4 transition-colors hover:bg-lightBg"
         >
             <TokenIcon
                 icon={token.logoURI}
@@ -536,8 +536,8 @@ const TokenItemBase = memo(function TokenItemBase({ token, onClick, subtitle, ch
                 badgeClassName="rounded-md border-[1.5px] border-white"
             />
             <div className="flex flex-1 flex-col items-start gap-1">
-                <span className="text-main truncate text-sm font-semibold">{token.name}</span>
-                <span className="text-secondary truncate text-[12px] font-medium leading-[14px]">{subtitle}</span>
+                <span className="truncate text-sm font-semibold text-main">{token.name}</span>
+                <span className="truncate text-[12px] font-medium leading-[14px] text-secondary">{subtitle}</span>
             </div>
             {children}
         </button>
@@ -556,7 +556,7 @@ const MyTokenItem = memo(function MyTokenItem({ token, onClick }: TokenItemProps
     return (
         <TokenItemBase token={token} onClick={onClick} subtitle={subtitle}>
             {formattedUsdValue ? (
-                <span className="text-main shrink-0 text-right text-[14px] font-semibold leading-[14px]">
+                <span className="shrink-0 text-right text-[14px] font-semibold leading-[14px] text-main">
                     {formattedUsdValue}
                 </span>
             ) : null}
@@ -579,7 +579,7 @@ const TrendingTokenItem = memo(function TrendingTokenItem({ token, onClick }: To
             {marketCap || priceChange ? (
                 <div className="flex shrink-0 flex-col items-end gap-1">
                     {marketCap ? (
-                        <span className="text-main text-right text-[14px] font-semibold leading-[14px]">
+                        <span className="text-right text-[14px] font-semibold leading-[14px] text-main">
                             {marketCap}
                         </span>
                     ) : null}

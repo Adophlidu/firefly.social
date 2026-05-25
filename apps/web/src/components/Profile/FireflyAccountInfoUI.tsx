@@ -45,7 +45,7 @@ export function FireflyAccountInfoUI({
     );
 
     return (
-        <div className={classNames('bg-primaryBottom relative flex w-full flex-col items-center pt-2.5', className)}>
+        <div className={classNames('relative flex w-full flex-col items-center bg-primaryBottom pt-2.5', className)}>
             {banner ? (
                 <Image
                     src={banner}

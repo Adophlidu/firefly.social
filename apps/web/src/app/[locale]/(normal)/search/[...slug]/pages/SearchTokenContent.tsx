@@ -70,7 +70,7 @@ export function SearchTokenContent() {
                 return (
                     <div key={group}>
                         {group !== 'unknown' ? (
-                            <h2 className="border-line flex h-10 items-center px-4 text-sm font-bold">
+                            <h2 className="flex h-10 items-center border-line px-4 text-sm font-bold">
                                 {group === TokenPlatformType.Cex ? <Trans>Coins</Trans> : <Trans>Dex</Trans>}
                             </h2>
                         ) : null}
@@ -80,7 +80,7 @@ export function SearchTokenContent() {
                         {tokens.length > 5 ? (
                             <div className="flex w-full items-center justify-center">
                                 <div
-                                    className="text-highlight w-full cursor-pointer text-center text-xs font-bold leading-6"
+                                    className="w-full cursor-pointer text-center text-xs font-bold leading-6 text-highlight"
                                     onClick={() => {
                                         setExpandMap((map) => ({
                                             ...map,

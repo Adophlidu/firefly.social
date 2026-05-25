@@ -90,7 +90,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
 
     return (
         <Link
-            className={classNames('border-line hover:bg-bg flex items-center gap-x-2 border-b p-3', className)}
+            className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
             href={getProfileUrlWithAccount(profile, related, source)}
             onClick={onClick}
             prefetch={false}
@@ -98,11 +98,11 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
             <Avatar alt={profile.handle} className="size-7 rounded-full" src={avatar} size={44} />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1">
-                    <span className="text-lightMain truncate text-lg font-bold leading-6">{displayName || '-'}</span>
+                    <span className="truncate text-lg font-bold leading-6 text-lightMain">{displayName || '-'}</span>
                     {sortedRelated.map((x) =>
                         x.platform === FireflyPlatform.Wallet ? (
                             <WalletIcon
-                                className="text-second inline-block shrink-0"
+                                className="inline-block shrink-0 text-second"
                                 key={x.platform}
                                 width={15}
                                 height={15}
@@ -111,14 +111,14 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                             <SocialSourceIcon
                                 key={x.platform}
                                 mono
-                                className="text-second inline-block shrink-0"
+                                className="inline-block shrink-0 text-second"
                                 source={resolveSocialSourceFromFireflyPlatform(x.platform)}
                                 size={15}
                             />
                         ),
                     )}
                 </div>
-                <div className="text-medium text-second truncate leading-[22px]">
+                <div className="truncate text-medium leading-[22px] text-second">
                     {source === Source.Wallet || source === Source.Firefly ? '' : '@'}
                     {source === Source.Firefly && profile.uid
                         ? profile.uid

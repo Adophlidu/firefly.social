@@ -43,7 +43,7 @@ export function SnapToggleGroup({
 
     return (
         <div className="w-full" onClick={(e) => e.stopPropagation()}>
-            {label ? <label className="text-secondary mb-1 block text-xs font-medium">{label}</label> : null}
+            {label ? <label className="mb-1 block text-xs font-medium text-secondary">{label}</label> : null}
             <div className={classNames('flex w-full gap-1', { 'flex-col': orientation === 'vertical' })}>
                 {options.map((opt) => {
                     const selected = isSelected(opt);
@@ -59,13 +59,13 @@ export function SnapToggleGroup({
                                           'border',
                                           selected
                                               ? classNames(activeColor, 'border-transparent text-white')
-                                              : 'border-line1 text-main hover:bg-bg bg-transparent',
+                                              : 'border-line1 bg-transparent text-main hover:bg-bg',
                                       )
                                     : classNames(
-                                          'border-line1 border',
+                                          'border border-line1',
                                           selected
                                               ? classNames(activeColor, 'border-transparent text-white')
-                                              : 'text-main hover:bg-bg bg-transparent',
+                                              : 'bg-transparent text-main hover:bg-bg',
                                       ),
                             )}
                         >

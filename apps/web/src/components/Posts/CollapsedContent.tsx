@@ -16,7 +16,7 @@ export function CollapsedContent({ isQuote, authorMuted: muted, ...rest }: Props
         <div {...rest}>
             <div
                 className={classNames(
-                    'border-primaryMain text-medium flex items-center gap-1 rounded-lg py-[6px]',
+                    'flex items-center gap-1 rounded-lg border-primaryMain py-[6px] text-medium',
                     isQuote ? '' : 'border px-3',
                 )}
             >

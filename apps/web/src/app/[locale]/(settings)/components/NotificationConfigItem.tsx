@@ -83,10 +83,10 @@ export function NotificationConfigItem({
             )}
         >
             <div className="min-w-0 flex-1 truncate">
-                <p className="text-main text-base font-bold">
+                <p className="text-base font-bold text-main">
                     {typeof label === 'string' ? notificationLabelMap[label] || label : label}
                 </p>
-                <p className="text-medium text-second mt-1">
+                <p className="mt-1 text-medium text-second">
                     {typeof description === 'string'
                         ? notificationDescriptionMap[description] || description
                         : description}
@@ -115,7 +115,7 @@ export function NotificationChildConfigItem({ label, description, disabled, ...r
         <ClickableButton
             disabled={loading || disabled}
             onClick={onSwitch}
-            className="border-line flex w-full items-start gap-2 border-b py-2 text-left last:border-none last:pb-0"
+            className="flex w-full items-start gap-2 border-b border-line py-2 text-left last:border-none last:pb-0"
         >
             <Tooltip
                 content={rest.unsupported ? <Trans>Seems like this feature is not supported!</Trans> : null}
@@ -126,7 +126,7 @@ export function NotificationChildConfigItem({ label, description, disabled, ...r
                 </Checkbox>
             </Tooltip>
             <div className="min-w-0 flex-1 truncate">
-                <p className="text-main text-base font-bold">
+                <p className="text-base font-bold text-main">
                     {typeof label === 'string' ? notificationLabelMap[label] || label : label}
                 </p>
             </div>

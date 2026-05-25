@@ -42,7 +42,7 @@ export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestToke
 
     return (
         <div>
-            <h2 className="border-line border-t p-3 pb-2 text-sm font-bold leading-[18px]">
+            <h2 className="border-t border-line p-3 pb-2 text-sm font-bold leading-[18px]">
                 <Trans>Tokens</Trans>
             </h2>
             {isLoading ? (
@@ -74,7 +74,7 @@ export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestToke
             {tokens.length > 5 ? (
                 <div className="px-3 pb-4 pt-2">
                     <Link
-                        className="text-secondary text-sm leading-[18px]"
+                        className="text-sm leading-[18px] text-secondary"
                         href={resolveSearchUrl(query, SearchType.Tokens)}
                         onClick={() => onSelect?.()}
                     >

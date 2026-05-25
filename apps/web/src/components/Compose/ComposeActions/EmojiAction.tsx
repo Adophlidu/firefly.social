@@ -37,7 +37,7 @@ export const EmojiAction = memo(function EmojiAction() {
 
     const buttonContent = (
         <Tooltip content={<Trans>Emoji</Trans>} placement="top">
-            <EmojiIcon className="text-main cursor-pointer" width={24} height={24} />
+            <EmojiIcon className="cursor-pointer text-main" width={24} height={24} />
         </Tooltip>
     );
 
@@ -97,7 +97,7 @@ export const EmojiAction = memo(function EmojiAction() {
     return (
         <>
             <ClickableButton
-                className="text-main flex items-center gap-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => {
                     setOpen(true);
                     captureEmojiClickEvent();

@@ -7,6 +7,6 @@ export function Skeleton({
     isLoading = true,
     children,
 }: PropsWithChildren<{ className?: string; isLoading?: boolean }>) {
-    if (isLoading) return <div className={cn('bg-lightBg animate-pulse rounded', className)} />;
+    if (isLoading) return <div className={cn('animate-pulse rounded bg-lightBg', className)} />;
     return children;
 }

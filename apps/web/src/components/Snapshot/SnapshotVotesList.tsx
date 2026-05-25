@@ -51,12 +51,12 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
                     placement="top"
                     content={ens || formatAddressEthereum(vote.voter, 4)}
                 >
-                    <div className="text-main truncate">{ens || formatAddressEthereum(vote.voter, 4)}</div>
+                    <div className="truncate text-main">{ens || formatAddressEthereum(vote.voter, 4)}</div>
                 </TextOverflowTooltip>
             </Link>
             <div className="flex-1">
                 <TextOverflowTooltip className="max-sm:block" placement="top-start" content={choiceLabel}>
-                    <span className="text-main truncate">{choiceLabel}</span>
+                    <span className="truncate text-main">{choiceLabel}</span>
                 </TextOverflowTooltip>
             </div>
 

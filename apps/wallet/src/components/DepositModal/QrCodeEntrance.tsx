@@ -15,12 +15,12 @@ export const QrCodeEntrance = memo<ButtonProps>(function QrCodeEntrance({ classN
     return (
         <Button
             variant="outline"
-            className={cn('hover:bg-lightBg flex h-14 w-full items-center justify-start gap-3', className)}
+            className={cn('flex h-14 w-full items-center justify-start gap-3 hover:bg-lightBg', className)}
             disabled={!evmAddress || isMutating}
             {...props}
         >
-            <QrCodeIcon className="text-main size-6" width={24} height={24} />
-            <span className="text-main text-base">
+            <QrCodeIcon className="size-6 text-main" width={24} height={24} />
+            <span className="text-base text-main">
                 <Trans>Receive funds</Trans>
             </span>
         </Button>

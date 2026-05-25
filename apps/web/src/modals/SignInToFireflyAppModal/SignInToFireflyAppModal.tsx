@@ -38,7 +38,7 @@ export const SignInToFireflyAppModal = memo(function SignInToFireflyAppModal({ r
 
     return (
         <Modal size="md" title={<Trans>Sign in within Firefly App</Trans>} enableClose onClose={onClose} open={open}>
-            <div className="bg-lightBottom text-second dark:bg-darkBottom relative rounded-[12px] transition-all">
+            <div className="relative rounded-[12px] bg-lightBottom text-second transition-all dark:bg-darkBottom">
                 <div className="flex w-full flex-col items-center space-y-3 text-xs">
                     <Content enabled={open} onClose={onClose} />
                 </div>
@@ -95,7 +95,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                 title: <Trans>Sign in Confirmation</Trans>,
                 variant: 'normal',
                 content: (
-                    <div className="dark:text-secondary mb-3 mt-4 text-center text-sm font-normal leading-[18px] text-[rgba(70,70,70,0.8)]">
+                    <div className="mb-3 mt-4 text-center text-sm font-normal leading-[18px] text-[rgba(70,70,70,0.8)] dark:text-secondary">
                         <Trans>
                             Your account is requesting to sign in to mobile. Please confirm that the device is with you
                             and that it is you who is signing in
@@ -135,7 +135,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                     <Link
                         href={`${SITE_URL_OFFICIAL}/about`}
                         target="_blank"
-                        className="text-highlight font-bold hover:underline"
+                        className="font-bold text-highlight hover:underline"
                     >
                         Firefly mobile app
                     </Link>
@@ -144,7 +144,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                 </Trans>
             </p>
             <div
-                className="shadow-primary relative flex size-[270px] items-center justify-center rounded-2xl bg-white"
+                className="relative flex size-[270px] items-center justify-center rounded-2xl bg-white shadow-primary"
                 onClick={async () => {
                     await refetchDesktopLinkInfo();
                     regenerateCryptoKey();

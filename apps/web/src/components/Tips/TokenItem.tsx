@@ -38,7 +38,7 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
         <ClickableButton
             key={token.id}
             className={classNames(
-                'text-lightMain flex w-full items-center justify-between rounded-lg px-3 py-2 font-bold',
+                'flex w-full items-center justify-between rounded-lg px-3 py-2 font-bold text-lightMain',
                 className,
             )}
             enablePropagate
@@ -55,12 +55,12 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
                     <div className="h-5 w-full truncate leading-5">
                         <span>{token.name}</span>
                         {token.custom ? (
-                            <span className="bg-lightBg text-second ml-2.5 inline-block h-5 rounded px-2 text-xs font-medium leading-5">
+                            <span className="ml-2.5 inline-block h-5 rounded bg-lightBg px-2 text-xs font-medium leading-5 text-second">
                                 <Trans>Added</Trans>
                             </span>
                         ) : null}
                     </div>
-                    <div className="text-second w-full text-[13px] font-normal leading-[18px]">
+                    <div className="w-full text-[13px] font-normal leading-[18px] text-second">
                         {balance} {token.symbol || '-'}
                     </div>
                 </div>

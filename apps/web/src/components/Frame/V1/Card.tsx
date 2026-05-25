@@ -24,12 +24,12 @@ export function Card({ frame, source, readonly = false, loading = false, onButto
     return (
         <div className="mt-4 flex flex-col" data-prevent-progress="true">
             <div
-                className="border-line bg-bg w-full rounded-xl border p-2 text-sm"
+                className="w-full rounded-xl border border-line bg-bg p-2 text-sm"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="relative w-full">
                     {loading ? (
-                        <div className="shadow-primary dark:bg-bg absolute inset-0 z-10 overflow-hidden rounded-xl bg-white backdrop-blur-sm" />
+                        <div className="absolute inset-0 z-10 overflow-hidden rounded-xl bg-white shadow-primary backdrop-blur-sm dark:bg-bg" />
                     ) : null}
                     <Image
                         className="divider aspect-2 w-full rounded-xl object-cover"

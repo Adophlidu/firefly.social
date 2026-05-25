@@ -248,7 +248,7 @@ export default memo(function ConfirmView() {
 
     return (
         <>
-            <div className="bg-primaryBottom flex flex-1 flex-col gap-y-4 px-4 pt-2">
+            <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 pt-2">
                 <div className="flex gap-x-4">
                     <div className="flex flex-1 flex-col gap-y-2">
                         <label className="self-start text-sm font-bold leading-[18px]">
@@ -299,7 +299,7 @@ export default memo(function ConfirmView() {
                                     </Trans>
                                 }
                             >
-                                <QuestionIcon width={18} height={18} className="text-secondary ml-2" />
+                                <QuestionIcon width={18} height={18} className="ml-2 text-secondary" />
                             </Tooltip>
                         </label>
 
@@ -309,7 +309,7 @@ export default memo(function ConfirmView() {
                             accounts={accounts}
                             onSelect={setShareFrom}
                         >
-                            <div className="bg-bg flex cursor-pointer items-center justify-between rounded-lg p-3">
+                            <div className="flex cursor-pointer items-center justify-between rounded-lg bg-bg p-3">
                                 <span className="text-sm font-bold">
                                     {isValidAddressEthereum(shareFrom) || isValidAddressSolana(shareFrom)
                                         ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
@@ -320,7 +320,7 @@ export default memo(function ConfirmView() {
                         </ShareAccountsPopover>
                     </div>
                     <div className="flex w-[220px] flex-col gap-2">
-                        <h2 className="text-secondary text-sm font-bold">
+                        <h2 className="text-sm font-bold text-secondary">
                             <Trans>Preview</Trans>
                         </h2>
                         {creatingTheme ? (
@@ -342,7 +342,7 @@ export default memo(function ConfirmView() {
                                 </div>
                                 {isCustomTheme ? (
                                     <div
-                                        className="text-highlight flex cursor-pointer justify-center gap-3 text-sm"
+                                        className="flex cursor-pointer justify-center gap-3 text-sm text-highlight"
                                         onClick={async () => {
                                             const files = await selectFiles(ALLOWED_COVER_MIMES.join(', '));
                                             if (files.length === 0) return;
@@ -355,8 +355,8 @@ export default memo(function ConfirmView() {
                                     <div className="flex justify-center gap-3">
                                         <ArrowLeftIcon
                                             className={classNames('size-6', {
-                                                'text-third cursor-not-allowed': themeIndex === 0,
-                                                'text-second cursor-pointer': themeIndex !== 0,
+                                                'cursor-not-allowed text-third': themeIndex === 0,
+                                                'cursor-pointer text-second': themeIndex !== 0,
                                             })}
                                             onClick={() => {
                                                 if (themeIndex === 0) return;
@@ -365,8 +365,8 @@ export default memo(function ConfirmView() {
                                         />
                                         <ArrowRightIcon
                                             className={classNames('size-6', {
-                                                'text-third cursor-not-allowed': themeIndex === themes.length - 1,
-                                                'text-second cursor-pointer': themeIndex !== themes.length - 1,
+                                                'cursor-not-allowed text-third': themeIndex === themes.length - 1,
+                                                'cursor-pointer text-second': themeIndex !== themes.length - 1,
                                             })}
                                             onClick={() => {
                                                 if (themeIndex >= themes.length - 1) return;
@@ -407,7 +407,7 @@ export default memo(function ConfirmView() {
                         <label>
                             <Trans>Claim requirements</Trans>
                         </label>
-                        <div className="text-secondary flex gap-2">
+                        <div className="flex gap-2 text-secondary">
                             {rules.map((rule) => {
                                 const Icon = REQUIREMENT_ICON_MAP[rule];
                                 const title = REQUIREMENT_TITLE_MAP[rule];
@@ -422,7 +422,7 @@ export default memo(function ConfirmView() {
                     </div>
                 ) : null}
 
-                <div className="bg-bg flex max-w-[568px] gap-x-[6px] rounded-[4px] p-3">
+                <div className="flex max-w-[568px] gap-x-[6px] rounded-[4px] bg-bg p-3">
                     <InfoIcon width={20} height={20} />
                     <div className="flex flex-col gap-2.5 text-start text-[13px] leading-[18px]">
                         <div>
@@ -442,7 +442,7 @@ export default memo(function ConfirmView() {
 
             <div className="grow" />
 
-            <div className="bg-lightBottom80 shadow-primary dark:shadow-primaryDark w-full p-4 backdrop-blur-lg">
+            <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ActionButton
                     className="rounded-lg"
                     onClick={async () => {

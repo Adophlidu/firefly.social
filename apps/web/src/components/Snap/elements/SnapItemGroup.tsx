@@ -19,8 +19,8 @@ export function SnapItemGroup({ props: { border = false, separator = true, gap }
     return (
         <div
             className={classNames('w-full', gap ? GAP_MAP[gap] : '', {
-                'border-line1 rounded-xl border': border,
-                'divide-line divide-y': separator && !gap,
+                'rounded-xl border border-line1': border,
+                'divide-y divide-line': separator && !gap,
             })}
         >
             {children}

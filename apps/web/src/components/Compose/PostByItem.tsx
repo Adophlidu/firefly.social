@@ -132,14 +132,14 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                         signInDisabled ? '' : 'hover:bg-bg',
                     )}
                 >
-                    <div className="text-main flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-main">
                         <SocialSourceIcon size={24} source={source} />
                         <span className={classNames('font-bold', signInDisabled ? 'text-secondary' : 'text-main')}>
                             {resolveSourceName(source)}
                         </span>
                     </div>
 
-                    <span className="text-highlight font-bold">
+                    <span className="font-bold text-highlight">
                         <Trans>Sign In</Trans>
                     </span>
                 </div>
@@ -153,7 +153,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
             <div className="shrink-0" key={profile.profileId} onClick={() => toggleSource(profile)}>
                 <div
                     className={classNames('box-content flex h-8 items-center justify-between px-3', {
-                        'hover:bg-bg cursor-pointer': !disabled,
+                        'cursor-pointer hover:bg-bg': !disabled,
                         'cursor-not-allowed opacity-50': disabled && !reason,
                     })}
                 >
@@ -171,14 +171,14 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                     {isSameProfile(currentProfile, profile) ? (
                         disabled && reason ? (
                             <Tooltip placement="top" content={reason}>
-                                <InfoIcon width={22} height={22} className="text-second cursor-pointer" />
+                                <InfoIcon width={22} height={22} className="cursor-pointer text-second" />
                             </Tooltip>
                         ) : (
                             <CircleCheckboxIcon size={18} checked={checked} />
                         )
                     ) : (
                         <ClickableButton
-                            className="text-highlight font-bold"
+                            className="font-bold text-highlight"
                             disabled={loading}
                             onClick={() => login({ profile, session })}
                         >

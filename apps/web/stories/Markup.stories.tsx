@@ -13,7 +13,7 @@ const meta = {
             <div className="flex flex-col gap-2">
                 {bios.map((bio: string) => (
                     <div key={bio} className="flex flex-col gap-2 border p-2">
-                        <blockquote className="text-second text-sm italic">{bio}</blockquote>
+                        <blockquote className="text-sm italic text-second">{bio}</blockquote>
                         <BioMarkup key={bio}>{bio}</BioMarkup>
                     </div>
                 ))}

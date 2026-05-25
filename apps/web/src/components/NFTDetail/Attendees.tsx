@@ -84,7 +84,7 @@ function AttendeesItem({ poapHolderToken }: { poapHolderToken: PoapHolderToken }
                             <span>{formatAddressEthereum(ownerAddress, 4)}</span>
                         </Tooltip>
                     )}
-                    <LinkIcon width={14} height={14} className="text-secondary shrink-0" />
+                    <LinkIcon width={14} height={14} className="shrink-0 text-secondary" />
                 </div>
             </Link>
             <WatchButton address={ownerAddress} ens={ensName} className="h-8 leading-8" />

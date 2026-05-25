@@ -28,7 +28,7 @@ export function CollectArticleModal({ ref }: Props) {
     return (
         <Modal onClose={() => dispatch?.close()} open={open}>
             <div
-                className="bg-lightBottom shadow-popover dark:bg-darkBottom relative w-[432px] max-w-[90vw] rounded-xl transition-all dark:text-gray-950"
+                className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950"
                 onClick={stopEvent}
             >
                 <div className="inline-flex w-full items-center justify-center gap-2 rounded-t-[12px] p-6">
@@ -37,7 +37,7 @@ export function CollectArticleModal({ ref }: Props) {
                             dispatch?.close();
                         }}
                     />
-                    <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Collect Article</Trans>
                     </div>
                     <div className="relative size-6" />

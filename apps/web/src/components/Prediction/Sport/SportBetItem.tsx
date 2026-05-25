@@ -30,7 +30,7 @@ export const SportBetItem = memo(function SportBetItem({
     return (
         <Link
             className={classNames(
-                'border-line bg-primaryBottom hover:bg-bg flex flex-col gap-3 rounded-2xl border p-4',
+                'flex flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-4 hover:bg-bg',
                 className,
             )}
             href={RouteResolver.betsEventDetail(platform, eventSlug, { multiple: isMultiMarket })}

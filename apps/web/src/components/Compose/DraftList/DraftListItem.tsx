@@ -161,7 +161,7 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
     return (
         <ClickableArea
             className={classNames(
-                'border-line border-b py-3 last:border-b-0',
+                'border-b border-line py-3 last:border-b-0',
                 isApplying ? 'cursor-not-allowed' : 'cursor-pointer',
             )}
             disabled={isApplying}
@@ -188,16 +188,16 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
                             handleRemove();
                         }}
                     >
-                        <Trash className="text-secondary size-5 cursor-pointer" onClick={handleRemove} />
+                        <Trash className="size-5 cursor-pointer text-secondary" onClick={handleRemove} />
                     </IconButton>
                 )}
             </div>
             <div
-                className={classNames('text-fourMain my-2 cursor-pointer', {
+                className={classNames('my-2 cursor-pointer text-fourMain', {
                     'text-third': isDisabled || isApplying,
                 })}
             >
-                <div className="text-medium line-clamp-5 min-h-[24px] break-words text-left leading-6">{content}</div>
+                <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-6">{content}</div>
                 <div className="text-left">
                     {compact([
                         post?.images.length ? t`[Photo]` : undefined,
@@ -213,12 +213,12 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
                         <SocialSourceIcon key={y} source={y} size={20} />
                     ))}
                 </span>
-                <span className="text-secondary text-left text-[13px] font-medium leading-6">
+                <span className="text-left text-[13px] font-medium leading-6 text-secondary">
                     <Trans>Saved on {dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')}</Trans>
                 </span>
                 {draft.draftType === DraftPostType.Cloud ? (
                     <Tooltip placement="top" content={<Trans>Cloud Draft</Trans>}>
-                        <CloudIcon className="text-secondary shrink-0" width={16} height={16} />
+                        <CloudIcon className="shrink-0 text-secondary" width={16} height={16} />
                     </Tooltip>
                 ) : null}
             </div>

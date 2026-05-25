@@ -14,12 +14,12 @@ import { useTipsStore } from '@/store/useTipsStore.js';
 
 function LoadingView() {
     return (
-        <div className="bg-lightBottom dark:bg-darkBottom flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
             <LoadingIcon size={54} className="text-highlight" />
-            <p className="text-main text-2xl font-semibold">
+            <p className="text-2xl font-semibold text-main">
                 <Trans>Sending</Trans>
             </p>
-            <p className="text-second text-sm">
+            <p className="text-sm text-second">
                 <Trans>The transaction is in progress.</Trans>
             </p>
         </div>
@@ -30,16 +30,16 @@ function FailedView() {
     const { error, reset } = useTipsStore();
     return (
         <>
-            <div className="bg-lightBottom dark:bg-darkBottom flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
                 <ErrorIcon width={64} height={64} />
-                <p className="text-main text-2xl font-semibold">
+                <p className="text-2xl font-semibold text-main">
                     <Trans>Transaction failed</Trans>
                 </p>
-                <div className="text-second mt-4 line-clamp-2 w-full break-all text-sm">{error?.message}</div>
+                <div className="mt-4 line-clamp-2 w-full break-all text-sm text-second">{error?.message}</div>
             </div>
             <div className="flex w-full items-center gap-2">
                 <ActionButton
-                    className="text-medium mt-12 h-10 w-full rounded-lg"
+                    className="mt-12 h-10 w-full rounded-lg text-medium"
                     onClick={() => {
                         reset();
                     }}

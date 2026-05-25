@@ -16,7 +16,7 @@ import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (
         <div className="flex w-full gap-4 text-base font-normal leading-6">
-            <div className="text-secondary w-[100px] min-w-[100px] whitespace-nowrap">{props.field}:</div>
+            <div className="w-[100px] min-w-[100px] whitespace-nowrap text-secondary">{props.field}:</div>
             <div className="flex-1 text-base">{props.value}</div>
         </div>
     );
@@ -62,7 +62,7 @@ function convertDescriptionToArray(description: string): ReactNode[] {
     return parts.map((part, i) => {
         if (/(https?:\/\/[^\s]+)/.test(part)) {
             return (
-                <Link key={`${part}-${i}`} href={part} target="_blank" className="text-highlight break-all underline">
+                <Link key={`${part}-${i}`} href={part} target="_blank" className="break-all text-highlight underline">
                     {part}
                 </Link>
             );

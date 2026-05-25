@@ -64,7 +64,7 @@ export function PageDetail({ id: postId, source }: Props) {
         <article className="min-h-svh pb-20 md:pb-0">
             {post.channel?.name ? (
                 <Section title="Post Channel">
-                    <ChannelInfo channel={post.channel} source={post.source} className="border-line border-b p-3" />
+                    <ChannelInfo channel={post.channel} source={post.source} className="border-b border-line p-3" />
                 </Section>
             ) : null}
             {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
@@ -93,7 +93,7 @@ export function PageDetail({ id: postId, source }: Props) {
                                     post={post}
                                     isDetail
                                     disabled={post.isHidden}
-                                    className="border-line !mt-0 border-y py-3 pl-2 pr-4"
+                                    className="!mt-0 border-y border-line py-3 pl-2 pr-4"
                                 />
                             ) : null}
                         </NoSSR>

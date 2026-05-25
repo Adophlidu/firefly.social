@@ -45,7 +45,7 @@ export function ConfirmModal({ ref }: Props) {
         >
             <div
                 className={classNames(
-                    'bg-bgModal shadow-popover relative flex flex-col rounded-xl transition-all dark:text-gray-950',
+                    'relative flex flex-col rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950',
                     props.resetSize ? '' : 'w-[320px] max-w-[clamp(386px,90vw,95vw)] md:w-[355px]',
                     props.modalClass,
                 )}
@@ -63,12 +63,12 @@ export function ConfirmModal({ ref }: Props) {
                     ) : null}
                     {props.textOverflowTooltip && props.title ? (
                         <TextOverflowTooltip content={props.title}>
-                            <div className="text-main shrink grow basis-0 truncate text-center text-lg font-bold leading-snug">
+                            <div className="shrink grow basis-0 truncate text-center text-lg font-bold leading-snug text-main">
                                 {props.title}
                             </div>
                         </TextOverflowTooltip>
                     ) : (
-                        <div className="text-main shrink grow basis-0 text-center text-lg font-bold leading-snug">
+                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                             {props.title || <Trans>Confirmation</Trans>}
                         </div>
                     )}
@@ -86,7 +86,7 @@ export function ConfirmModal({ ref }: Props) {
                             <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-3">
                                 {props.enableCancelButton ? (
                                     <ClickableButton
-                                        className="border-lightMain text-fourMain flex flex-1 items-center justify-center rounded-full border py-2 font-bold"
+                                        className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
                                         onClick={() => {
                                             props.onCancel?.();
                                             dispatch?.close(false);
@@ -102,7 +102,7 @@ export function ConfirmModal({ ref }: Props) {
                                             {
                                                 'bg-main text-primaryBottom': props.variant === 'normal',
                                                 'bg-commonDanger text-white': props.variant === 'danger',
-                                                'border-main text-main border bg-bottom': props.variant === 'secondary',
+                                                'border border-main bg-bottom text-main': props.variant === 'secondary',
                                             },
                                             props.confirmButtonClass,
                                         )}
@@ -116,7 +116,7 @@ export function ConfirmModal({ ref }: Props) {
                                 ) : null}
                             </div>
                             {props.errorMessage ? (
-                                <p className="text-danger text-center text-sm">{props.errorMessage}</p>
+                                <p className="text-center text-sm text-danger">{props.errorMessage}</p>
                             ) : null}
                         </div>
                     ) : null}

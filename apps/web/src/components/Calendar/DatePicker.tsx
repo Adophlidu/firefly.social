@@ -50,7 +50,7 @@ export function DatePicker({
     const table = (
         <table>
             <thead>
-                <tr className="text-third mb-6 text-sm font-bold">
+                <tr className="mb-6 text-sm font-bold text-third">
                     {days.map((day) => (
                         <th key={day}>
                             <p>{day}</p>
@@ -94,11 +94,11 @@ export function DatePicker({
                                     >
                                         <span
                                             className={classNames(
-                                                'text-second flex size-[28px] items-center justify-center rounded-full text-sm leading-5',
+                                                'flex size-[28px] items-center justify-center rounded-full text-sm leading-5 text-second',
                                                 {
-                                                    'bg-fireflyBrand !border-none text-white':
+                                                    '!border-none bg-fireflyBrand text-white':
                                                         date.toDateString() === currentDatePointer.toDateString(),
-                                                    'border-second cursor-pointer border':
+                                                    'cursor-pointer border border-second':
                                                         allowedDates.includes(localeDateString),
                                                 },
                                             )}
@@ -118,12 +118,12 @@ export function DatePicker({
     return (
         <div
             className={classNames(
-                'border-line bg-bgModal absolute right-[15px] top-12 z-50 flex w-[320px] flex-col gap-[6px] rounded-2xl border px-[6px] pt-[6px]',
+                'absolute right-[15px] top-12 z-50 flex w-[320px] flex-col gap-[6px] rounded-2xl border border-line bg-bgModal px-[6px] pt-[6px]',
                 className,
             )}
         >
             <div className="flex items-center justify-between">
-                <p className="text-main pl-2 font-bold">{format(currentDate, 'MMMM yyyy')}</p>
+                <p className="pl-2 font-bold text-main">{format(currentDate, 'MMMM yyyy')}</p>
                 <div className="flex items-center">
                     <ClickableButton onClick={() => handleMonthClick(-1)}>
                         <RightArrowIcon className="rotate-180" width={24} height={24} />

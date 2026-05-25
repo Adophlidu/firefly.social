@@ -72,14 +72,14 @@ export function TokenInfoRow({
             {label ? (
                 <div
                     className={cn(
-                        'text-secondary text-left text-sm font-medium',
+                        'text-left text-sm font-medium text-secondary',
                         showLabelMarginTop ? 'mt-3' : undefined,
                     )}
                 >
                     {label}
                 </div>
             ) : null}
-            <div className={cn('bg-bg flex items-center justify-between gap-2 rounded-lg p-3', containerClassName)}>
+            <div className={cn('flex items-center justify-between gap-2 rounded-lg bg-bg p-3', containerClassName)}>
                 <div className="flex items-center gap-2">
                     <Link
                         to={tokenPageUrl}
@@ -98,7 +98,7 @@ export function TokenInfoRow({
                                 className="size-8 rounded-full"
                             />
                         ) : tokenSymbol ? (
-                            <div className="bg-bg text-second flex size-8 items-center justify-center rounded-full">
+                            <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
                                 {first(tokenSymbol)}
                             </div>
                         ) : null}
@@ -112,9 +112,9 @@ export function TokenInfoRow({
                                 onNavigate(tokenPageUrl);
                             }}
                         >
-                            <div className="text-lightMain text-sm font-medium">{tokenName}</div>
+                            <div className="text-sm font-medium text-lightMain">{tokenName}</div>
                         </Link>
-                        <div className="text-second flex items-center justify-between">
+                        <div className="flex items-center justify-between text-second">
                             <span className="text-xs">{tokenSymbol}</span>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ export function TokenInfoRow({
                             )}
                         </span>
                     ) : null}
-                    <span className="text-secondary text-right text-xs leading-[14px]">{amountUSD}</span>
+                    <span className="text-right text-xs leading-[14px] text-secondary">{amountUSD}</span>
                 </div>
             </div>
         </div>

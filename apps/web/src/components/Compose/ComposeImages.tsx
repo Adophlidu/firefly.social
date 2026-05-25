@@ -60,7 +60,7 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: <Trans>Remove</Trans>,
                     content: (
-                        <span className="text-secondary text-center text-[15px] leading-normal">
+                        <span className="text-center text-[15px] leading-normal text-secondary">
                             <Trans>
                                 Confirm to remove this Lucky drop? You can request a refund from your history after 24
                                 hours.
@@ -126,7 +126,7 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
                             alt={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
                         />
                         {isLast && moreImageCount > 0 ? (
-                            <div className="bg-mainLight/50 absolute right-0 top-0 flex size-full items-center justify-center rounded-lg text-white">
+                            <div className="absolute right-0 top-0 flex size-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                 <div className={'text-2xl font-bold'}>+{moreImageCount + 1}</div>
                             </div>
                         ) : null}

@@ -10,7 +10,7 @@ export function EditProfileAvatar({ pfp, name, size = 108 }: { pfp: string; name
     const value = useWatch({ control, name }) as File;
     const data = useMemo(() => (value ? URL.createObjectURL(value) : null), [value]);
     if (pfp?.startsWith(FIREFLY_STAMP_URL)) {
-        return <FallbackAvatarSVG width={size} height={size} className="border-secondaryLine rounded-full border" />;
+        return <FallbackAvatarSVG width={size} height={size} className="rounded-full border border-secondaryLine" />;
     }
     return <Avatar src={data || pfp} size={size} alt="avatar" />;
 }

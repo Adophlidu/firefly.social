@@ -23,12 +23,12 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError,
 
     const buttonContent = (
         <>
-            <SocialSourceIcon className="text-secondary size-4" mono width={20} height={20} source={source} />
+            <SocialSourceIcon className="size-4 text-secondary" mono width={20} height={20} source={source} />
 
             <span className="text-[14px] leading-[18px]">
                 {channel[source] ? resolveChannelName(channel[source]) : null}
             </span>
-            {!hasError ? <ChevronDownIcon className="text-secondary size-4" aria-hidden="true" /> : null}
+            {!hasError ? <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );
 
@@ -38,7 +38,7 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError,
                 {({ close }) => (
                     <>
                         <PopoverButton
-                            className="text-main flex cursor-pointer items-center gap-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex cursor-pointer items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={hasError}
                         >
                             {buttonContent}
@@ -52,7 +52,7 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError,
     return (
         <>
             <ClickableButton
-                className="text-main flex items-center gap-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
             >
                 {buttonContent}

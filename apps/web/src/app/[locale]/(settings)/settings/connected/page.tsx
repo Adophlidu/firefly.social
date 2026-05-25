@@ -35,8 +35,8 @@ export default function Connected() {
                                 openLoginModal();
                             }}
                         >
-                            <div className="text-main inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current py-[11px]">
-                                <div className="text-medium w-full font-bold leading-[18px]">
+                            <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current py-[11px] text-main">
+                                <div className="w-full text-medium font-bold leading-[18px]">
                                     <Trans>Add an existing account</Trans>
                                 </div>
                             </div>

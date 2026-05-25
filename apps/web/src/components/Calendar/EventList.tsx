@@ -63,7 +63,7 @@ export function EventList({ date }: EventListProps) {
                     return (
                         <Link
                             key={event.event_id}
-                            className="border-line text-main flex cursor-pointer flex-col gap-2 border-b p-2 outline-none last:border-none hover:no-underline"
+                            className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 text-main outline-none last:border-none hover:no-underline"
                             href={event.event_url}
                             rel="noopener noreferrer"
                             target="_blank"
@@ -83,11 +83,11 @@ export function EventList({ date }: EventListProps) {
                                 </div>
                             ) : null}
                             <p className="text-sm">{event.event_description || event.event_title}</p>
-                            <p className="text-main flex items-center gap-3 text-[13px] leading-[18px]">
+                            <p className="flex items-center gap-3 text-[13px] leading-[18px] text-main">
                                 <LocationIcon width={18} height={18} className="shrink-0" />
                                 {event.event_full_location}
                             </p>
-                            <p className="text-main flex items-center gap-3 text-[13px] leading-[18px]">
+                            <p className="flex items-center gap-3 text-[13px] leading-[18px] text-main">
                                 <CalendarIcon className="shrink-0" width={18} height={18} />
                                 {format(event.event_date, 'MMM dd, yyyy HH:mm')}
                             </p>
@@ -100,7 +100,7 @@ export function EventList({ date }: EventListProps) {
                         {isFetching ? <Loading className="text-main" /> : null}
                     </ElementAnchor>
                 ) : (
-                    <p className="text-second py-2 text-center text-xs">
+                    <p className="py-2 text-center text-xs text-second">
                         <Trans>No more data available.</Trans>
                     </p>
                 )}

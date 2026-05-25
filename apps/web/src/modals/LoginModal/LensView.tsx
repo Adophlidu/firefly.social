@@ -168,14 +168,14 @@ export const LensView = memo(function LensView() {
     return (
         <div className="flex flex-col p-6 pt-0 md:w-[400px]">
             <div
-                className="border-lightHighlight flex cursor-pointer items-center gap-2 rounded-lg border p-2 max-md:hidden"
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-lightHighlight p-2 max-md:hidden"
                 onClick={() => {
                     history.replace('/orb');
                     TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_CLICK, {});
                 }}
             >
                 <OrbIcon />
-                <div className="text-main flex flex-1 flex-col text-left text-[14px] leading-5">
+                <div className="flex flex-1 flex-col text-left text-[14px] leading-5 text-main">
                     <span>
                         <Trans>Orb Mobile</Trans>
                     </span>
@@ -190,7 +190,7 @@ export const LensView = memo(function LensView() {
                     <Trans>
                         Or select an account from your
                         <span
-                            className="text-highlight ml-1 cursor-pointer"
+                            className="ml-1 cursor-pointer text-highlight"
                             onClick={() => {
                                 WalletConnectModalRef.open();
                             }}
@@ -209,7 +209,7 @@ export const LensView = memo(function LensView() {
                         {profiles.map((profile) => {
                             return (
                                 <div
-                                    className="border-secondaryLine flex cursor-pointer items-center gap-2 rounded-lg border p-2"
+                                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-secondaryLine p-2"
                                     key={profile.profileId}
                                     onClick={() => {
                                         setSelectedProfile(profile);
@@ -223,7 +223,7 @@ export const LensView = memo(function LensView() {
                                     />
 
                                     <div className="flex flex-1 flex-col text-left text-[14px] leading-5">
-                                        <span className="text-main font-bold">{profile.displayName}</span>
+                                        <span className="font-bold text-main">{profile.displayName}</span>
                                         <span className="text-second">@{profile.handle}</span>
                                     </div>
                                     <CircleCheckboxIcon checked={isSameProfile(currentProfile, profile)} />
@@ -232,7 +232,7 @@ export const LensView = memo(function LensView() {
                         })}
                     </div>
                 ) : (
-                    <div className="text-second flex h-[228px] flex-col items-center justify-center gap-1 text-[14px] leading-6 max-md:max-h-[calc(100vh_-_136px)]">
+                    <div className="flex h-[228px] flex-col items-center justify-center gap-1 text-[14px] leading-6 text-second max-md:max-h-[calc(100vh_-_136px)]">
                         {isFetching ? (
                             <LoadingIcon />
                         ) : (
@@ -246,7 +246,7 @@ export const LensView = memo(function LensView() {
                                 !isPrivy ? (
                                     <Trans>
                                         <ClickableButton
-                                            className="text-highlight mx-1"
+                                            className="mx-1 text-highlight"
                                             onClick={() => {
                                                 WalletConnectModalRef.open();
                                             }}
@@ -271,7 +271,7 @@ export const LensView = memo(function LensView() {
                                         <Trans>
                                             please{' '}
                                             <ClickableButton
-                                                className="text-highlight mx-1"
+                                                className="mx-1 text-highlight"
                                                 onClick={() => {
                                                     WalletConnectModalRef.open();
                                                 }}
@@ -294,14 +294,14 @@ export const LensView = memo(function LensView() {
                     disabled={!currentProfile || !profiles.length || isFetching}
                     loading={loading}
                     onClick={() => login()}
-                    className="bg-lightMain text-primaryBottom mt-2 flex h-10 w-full items-center justify-center rounded-lg text-sm font-bold"
+                    className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
                     aria-label="Sign to Confirm"
                 >
                     {loading ? <Trans>Signing to confirm</Trans> : <Trans>Sign to Confirm</Trans>}
                 </ClickableButton>
             ) : (
                 <ClickableButton
-                    className="bg-lightMain text-primaryBottom mt-2 flex h-10 w-full items-center justify-center rounded-lg text-sm font-bold"
+                    className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
                     onClick={() => {
                         WalletConnectModalRef.open();
                     }}

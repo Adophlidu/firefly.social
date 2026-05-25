@@ -87,12 +87,12 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
     if (!profile) return null;
 
     return (
-        <div className="border-highlight flex h-[76px] items-center gap-2 rounded-lg border px-2">
+        <div className="flex h-[76px] items-center gap-2 rounded-lg border border-highlight px-2">
             <Avatar src={avatar} size={60} alt={profile.uid ?? ''} />
             <div className="mr-auto flex h-[60px] flex-col items-start justify-center text-sm">
                 {!profile.avatar || !profile.displayName ? (
                     <ClickableButton
-                        className="text-highlight h-5 cursor-pointer text-sm font-bold leading-5 hover:underline"
+                        className="h-5 cursor-pointer text-sm font-bold leading-5 text-highlight hover:underline"
                         onClick={() => {
                             EditFireflyProfileModalRef.open({
                                 profile,
@@ -106,7 +106,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                 ) : (
                     <span className="h-5 font-bold leading-5">{profile?.displayName || 'Firefly Account'}</span>
                 )}
-                <span className="text-secondary h-5 leading-5">UID: {profile?.uid}</span>
+                <span className="h-5 leading-5 text-secondary">UID: {profile?.uid}</span>
             </div>
             <MoreActionMenu
                 className="z-10"
@@ -134,7 +134,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                 }}
                             >
                                 <EditIcon width={18} height={18} />
-                                <span className="text-main font-bold leading-[22px]">
+                                <span className="font-bold leading-[22px] text-main">
                                     <Trans>Edit profile</Trans>
                                 </span>
                             </MenuButton>
@@ -157,7 +157,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                 }}
                             >
                                 <ScanIcon width={18} height={18} />
-                                <span className="text-main font-bold leading-[22px]">
+                                <span className="font-bold leading-[22px] text-main">
                                     <Trans>Sign in on mobile</Trans>
                                 </span>
                             </MenuButton>
@@ -180,7 +180,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                 ) : (
                                     <CloudIcon width={18} height={18} />
                                 )}
-                                <span className="text-main min-w-0 flex-1 text-left font-bold leading-[22px]">
+                                <span className="min-w-0 flex-1 text-left font-bold leading-[22px] text-main">
                                     <Trans>Multi-device login</Trans>
                                 </span>
                             </MenuButton>
@@ -199,7 +199,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                 }}
                             >
                                 <LogoutIcon width={18} height={18} className="text-danger" />
-                                <span className="text-danger font-bold leading-[22px]">
+                                <span className="font-bold leading-[22px] text-danger">
                                     <Trans>Log out</Trans>
                                 </span>
                             </MenuButton>

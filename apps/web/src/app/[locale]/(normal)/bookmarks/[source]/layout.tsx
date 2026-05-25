@@ -35,7 +35,7 @@ export default async function Layout(props: Props) {
 
     return (
         <div>
-            <div className="bg-primaryBottom sticky top-[54px] z-20 pb-3 md:top-0">
+            <div className="sticky top-[54px] z-20 bg-primaryBottom pb-3 md:top-0">
                 <TimelineTitle title={<Trans>Bookmarks</Trans>} />
                 <div className="px-4">
                     <BookmarkSourceTabs source={source} />

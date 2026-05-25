@@ -111,7 +111,7 @@ export function HomeTabs({
     const isFollowingTab = currentTab === HomeTab.Following;
 
     return (
-        <div className="bg-primaryBottom sticky top-[54px] z-30 flex w-full flex-col md:top-0">
+        <div className="sticky top-[54px] z-30 flex w-full flex-col bg-primaryBottom md:top-0">
             <div className={!onlyFilter ? 'max-md:hidden' : ''}>
                 {!isLogin && currentTab === HomeTab.Discover ? (
                     <div className={classNames('flex h-[60px] flex-col px-4 pt-2.5', containerClass)}>
@@ -150,7 +150,7 @@ export function HomeTabs({
                                         className="z-50 w-[128px] origin-top-left !overflow-visible text-xl font-bold outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
                                     >
                                         <div className="w-full translate-y-[-50px] pt-[50px]">
-                                            <div className="bg-primaryBottom shadow-messageShadow flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] py-3">
+                                            <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
                                                 {getEnumAsArray(HomeTab).map(({ value: tab }) => {
                                                     const type =
                                                         types[tab].includes(source) && tab !== currentTab
@@ -191,7 +191,7 @@ export function HomeTabs({
                                 return (
                                     <span className="relative">
                                         {resolveSourceUIName(x)}
-                                        <span className="bg-danger absolute -top-2 right-[-18px] rounded-full px-1 py-0.5 text-[9px] leading-[9px] text-white">
+                                        <span className="absolute -top-2 right-[-18px] rounded-full bg-danger px-1 py-0.5 text-[9px] leading-[9px] text-white">
                                             <Trans>New</Trans>
                                         </span>
                                     </span>

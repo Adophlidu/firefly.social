@@ -23,7 +23,7 @@ interface AudioProps {
 
 export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artist, className }) {
     return (
-        <ClickableArea className={classNames('bg-thirdMain overflow-hidden rounded-2xl p-3', className ?? '')}>
+        <ClickableArea className={classNames('overflow-hidden rounded-2xl bg-thirdMain p-3', className ?? '')}>
             <div className="flex space-x-2">
                 {poster ? (
                     <Image
@@ -34,18 +34,18 @@ export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artis
                         alt="title"
                     />
                 ) : (
-                    <div className="bg-secondaryMain box-content flex w-20 flex-col items-center justify-center space-y-2 rounded-xl px-[7.5px] py-4">
+                    <div className="box-content flex w-20 flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
                         <span className="text-primaryBottom opacity-50">
                             <Music width={24} height={24} />
                         </span>
-                        <span className="text-secondary break-keep text-[11px] font-medium leading-[16px]">
+                        <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">
                             <Trans>Audio Cover</Trans>
                         </span>
                     </div>
                 )}
                 <div className="flex w-full flex-col space-y-1 truncate">
-                    <h5 className="text-main truncate font-semibold">{title}</h5>
-                    <h6 className="text-main truncate font-semibold">{artist}</h6>
+                    <h5 className="truncate font-semibold text-main">{title}</h5>
+                    <h6 className="truncate font-semibold text-main">{artist}</h6>
                 </div>
             </div>
             <div className="mt-2">

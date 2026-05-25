@@ -44,7 +44,7 @@ export const EstimatedCost = memo<EstimatedCostProps>(function EstimatedCost({ g
             <span className="text-second">
                 <Trans>Estimated cost</Trans>
             </span>
-            <span className="text-main font-medium">
+            <span className="font-medium text-main">
                 {!costUsdtValue ? '-' : `$${formatPrice(costUsdtValue.toString())}`}
             </span>
         </p>

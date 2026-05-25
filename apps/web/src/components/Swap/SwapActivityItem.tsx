@@ -79,7 +79,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
             onMouseEnter={() => {
                 if (detailUrl) router.prefetch(detailUrl);
             }}
-            className="border-line flex cursor-pointer flex-col border-b px-4 py-3"
+            className="flex cursor-pointer flex-col border-b border-line px-4 py-3"
         >
             {activity.followingSources?.length ? <FeedFollowSource source={first(activity.followingSources)} /> : null}
             <div className="flex gap-x-3">
@@ -98,10 +98,10 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                 </div>
                 <div className="min-w-0 flex-1 overflow-hidden">
                     <div className="mb-2 flex items-center justify-between gap-2">
-                        <div className="text-medium text-second flex min-w-0 max-w-full flex-1 items-center gap-x-1">
+                        <div className="flex min-w-0 max-w-full flex-1 items-center gap-x-1 text-medium text-second">
                             <Link
                                 href={profileUrl}
-                                className="text-lightMain min-w-0 max-w-full truncate font-bold"
+                                className="min-w-0 max-w-full truncate font-bold text-lightMain"
                                 onClick={stopPropagation}
                             >
                                 {ensHandle ? <EnsName ens={ensHandle} /> : addressName}
@@ -127,7 +127,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                     {activity.dex_name || activity.router_address ? (
                         <div className="mb-2 flex items-center gap-x-2">
                             <Trans>
-                                <div className="border-main text-main flex items-center gap-x-1 rounded-lg border px-2">
+                                <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
                                     <ExchangeIcon className="size-3" />
                                     <span className="text-medium leading-6">
                                         {isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
@@ -160,7 +160,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     traderName: ensHandle,
                                     address: activity.from_token.address,
                                 })}
-                                className="bg-bg flex items-center gap-2 rounded-lg p-2"
+                                className="flex items-center gap-2 rounded-lg bg-bg p-2"
                                 onClick={stopPropagation}
                             >
                                 <TokenIcon
@@ -173,7 +173,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 />
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-lightMain text-sm font-medium">
+                                        <span className="text-sm font-medium text-lightMain">
                                             {activity.from_token?.name}
                                         </span>
                                         {activity.from_token?.amount_num ? (
@@ -181,8 +181,8 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                         ) : null}
                                     </div>
 
-                                    <div className="text-second flex items-center justify-between">
-                                        <span className="text-second text-xs">{activity.from_token?.symbol}</span>
+                                    <div className="flex items-center justify-between text-second">
+                                        <span className="text-xs text-second">{activity.from_token?.symbol}</span>
                                         <span>{formatTokenUSD(activity.from_token?.amount_usd)}</span>
                                     </div>
                                 </div>
@@ -197,7 +197,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     traderName: ensHandle,
                                     address: activity.to_token.address,
                                 })}
-                                className="bg-bg flex items-center gap-2 rounded-lg p-2"
+                                className="flex items-center gap-2 rounded-lg bg-bg p-2"
                                 onClick={stopPropagation}
                             >
                                 <TokenIcon
@@ -210,7 +210,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 />
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-lightMain text-sm font-medium">
+                                        <span className="text-sm font-medium text-lightMain">
                                             {activity.to_token?.name}
                                         </span>
                                         {activity.to_token?.amount_num ? (
@@ -220,8 +220,8 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                         ) : null}
                                     </div>
 
-                                    <div className="text-second flex items-center justify-between">
-                                        <span className="text-second text-xs">{activity.to_token?.symbol}</span>
+                                    <div className="flex items-center justify-between text-second">
+                                        <span className="text-xs text-second">{activity.to_token?.symbol}</span>
                                         <span>{formatTokenUSD(activity.to_token?.amount_usd)}</span>
                                     </div>
                                 </div>

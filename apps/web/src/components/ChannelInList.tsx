@@ -61,7 +61,7 @@ export const ChannelInList = memo(function ChannelInList({
     return (
         <div
             className={classNames(
-                'border-b-lightLineSecond hover:bg-bg dark:border-line flex cursor-pointer justify-start overflow-auto',
+                'flex cursor-pointer justify-start overflow-auto border-b-lightLineSecond hover:bg-bg dark:border-line',
                 {
                     'border-b p-3': !dense,
                     'px-4 py-2': dense,
@@ -97,29 +97,29 @@ export const ChannelInList = memo(function ChannelInList({
                         <ChannelTippy channel={channel} className="mr-1 truncate">
                             <span className="text-[18px] leading-6">{channel.name}</span>
                         </ChannelTippy>
-                        <SocialSourceIcon mono source={channel.source} size={16} className="text-secondary shrink-0" />
+                        <SocialSourceIcon mono source={channel.source} size={16} className="shrink-0 text-secondary" />
                     </div>
-                    <div className="text-secondary flex items-center gap-2 text-sm leading-6">
+                    <div className="flex items-center gap-2 text-sm leading-6 text-secondary">
                         <ChannelTippy channel={channel}>
                             {isLens || isBsky ? (
                                 channel.lead?.handle ? (
-                                    <p className="text-medium truncate leading-[22px]">
+                                    <p className="truncate text-medium leading-[22px]">
                                         <Trans>By @{channel.lead.handle}</Trans>
                                     </p>
                                 ) : null
                             ) : (
-                                <p className="text-medium truncate leading-[22px]">/{channel.id}</p>
+                                <p className="truncate text-medium leading-[22px]">/{channel.id}</p>
                             )}
                         </ChannelTippy>
                         {isLens && hideFollowersCount ? null : (
                             <>
-                                <span className="text-secondary leading-[22px]">·</span>
+                                <span className="leading-[22px] text-secondary">·</span>
 
                                 <data value={followerCount}>
-                                    <span className="text-lightMain font-bold leading-[22px]">
+                                    <span className="font-bold leading-[22px] text-lightMain">
                                         {nFormatter(followerCount)}{' '}
                                     </span>
-                                    <span className="text-secondary leading-[22px]">
+                                    <span className="leading-[22px] text-secondary">
                                         {!isBsky ? (
                                             <Plural value={followerCount} one="Follower" other="Followers" />
                                         ) : (

@@ -77,7 +77,7 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
         <Image
             width={40}
             height={40}
-            className="bg-secondary size-10 shrink-0 rounded-full object-cover"
+            className="size-10 shrink-0 rounded-full bg-secondary object-cover"
             src={fromAccountInfo?.avatar || defaultAvatarUrl}
             alt={fromAccountInfo?.displayName || 'Firefly'}
         />
@@ -103,11 +103,11 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-secondaryLine hover:bg-bg dark:border-line cursor-pointer border-b px-4 py-3"
+            className="cursor-pointer border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
             onClick={handleTipsClick}
         >
             <div className="flex w-full items-start gap-4">
-                <TipIcon className="text-secondary shrink-0" width={24} height={24} />
+                <TipIcon className="shrink-0 text-secondary" width={24} height={24} />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
                         {fromAccountInfo?.link ? (
@@ -120,14 +120,14 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                         <div className="flex items-center space-x-2">
                             <FireflyRoundIcon fontSize={15} width={15} height={15} />
                             {data.timestamp ? (
-                                <span className="text-secondary text-xs leading-4">
+                                <span className="text-xs leading-4 text-secondary">
                                     <TimestampFormatter time={data.timestamp} />
                                 </span>
                             ) : null}
                             <TipsNotificationMoreAction data={data} />
                         </div>
                     </div>
-                    <div className="text-medium text-main mt-2 font-medium">
+                    <div className="mt-2 text-medium font-medium text-main">
                         {data.notification_type === TipsNotificationType.Tip ? (
                             <Trans>
                                 {fromAccountInfo?.link ? (

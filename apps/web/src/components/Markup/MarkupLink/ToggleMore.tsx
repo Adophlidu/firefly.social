@@ -58,7 +58,7 @@ export const ToggleMore = memo<Props>(function ToggleMore({ post, ...rest }) {
     return (
         <span
             {...rest}
-            className={classNames(rest.className, 'text-highlight cursor-pointer font-bold hover:underline')}
+            className={classNames(rest.className, 'cursor-pointer font-bold text-highlight hover:underline')}
             onClick={async (e) => {
                 e.stopPropagation();
                 toggleQueryData(post, collapsed);

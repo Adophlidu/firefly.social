@@ -16,8 +16,8 @@ export default memo(function RequirementsView() {
 
     return (
         <>
-            <div className="bg-primaryBottom flex flex-1 flex-col gap-y-4 px-4 py-2">
-                <div className="bg-bg flex gap-x-[6px] rounded-[4px] p-3">
+            <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 py-2">
+                <div className="flex gap-x-[6px] rounded-[4px] bg-bg p-3">
                     <InfoIcon width={20} height={20} />
                     <div className="flex flex-col gap-2.5 text-start text-[13px] leading-[18px]">
                         <div>
@@ -41,7 +41,7 @@ export default memo(function RequirementsView() {
                                 <input
                                     type="checkbox"
                                     checked={checked}
-                                    className="text-highlight size-5 cursor-pointer rounded-[4px]"
+                                    className="size-5 cursor-pointer rounded-[4px] text-highlight"
                                     onChange={(event) => {
                                         const checked = event.currentTarget.checked;
                                         setRules(checked ? [...rules, value] : rules.filter((x) => x !== value));
@@ -58,7 +58,7 @@ export default memo(function RequirementsView() {
 
                 <div className="flex justify-end">
                     <div
-                        className="text-highlight cursor-pointer text-base font-bold leading-5"
+                        className="cursor-pointer text-base font-bold leading-5 text-highlight"
                         onClick={() => {
                             setRules(EMPTY_LIST);
                             setRequireTokens(EMPTY_LIST);
@@ -70,7 +70,7 @@ export default memo(function RequirementsView() {
                 </div>
             </div>
             <div className="grow" />
-            <div className="bg-lightBottom80 shadow-primary dark:shadow-primaryDark w-full p-4 backdrop-blur-lg">
+            <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ActionButton className="rounded-lg" onClick={() => history.push('/confirm')}>
                     <Trans>Next</Trans>
                 </ActionButton>

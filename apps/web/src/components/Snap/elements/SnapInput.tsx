@@ -13,10 +13,10 @@ export function SnapInput({ props: { name, label, placeholder, type = 'text', ma
 
     return (
         <div className="w-full">
-            {label ? <label className="text-secondary mb-1 block text-xs font-medium">{label}</label> : null}
+            {label ? <label className="mb-1 block text-xs font-medium text-secondary">{label}</label> : null}
             <input
                 type={type}
-                className="border-line1 bg-bg text-main placeholder:text-secondary w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-current"
+                className="w-full rounded-lg border border-line1 bg-bg px-3 py-2 text-sm text-main outline-none placeholder:text-secondary focus:ring-1 focus:ring-current"
                 placeholder={placeholder}
                 value={value}
                 maxLength={maxLength}

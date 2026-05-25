@@ -103,13 +103,13 @@ export function LoginEmail() {
 
     return (
         <form className="box-border flex w-[452px] flex-col items-center gap-[20px] px-6 pb-6 max-md:w-full">
-            <h2 className="text-second text-center text-xs">
+            <h2 className="text-center text-xs text-second">
                 <Trans>
                     Enter your email address below, and we’ll send a one-time passcode to confirm your address
                 </Trans>
             </h2>
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
-                <div className="bg-lightBg text-main ring-highlight group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl focus-within:bg-bottom focus-within:ring-1">
+                <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <EmailIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         ref={emailRef}
@@ -120,7 +120,7 @@ export function LoginEmail() {
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Your email address`}
-                        className="placeholder:text-secondary dark:text-input w-full border-0 bg-transparent py-2 pl-9 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         value={email}
                         onChange={(ev) => setEmail(ev.currentTarget.value)}
                     />
@@ -138,7 +138,7 @@ export function LoginEmail() {
                     ) : null}
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                    <div className="bg-lightBg text-main ring-highlight group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl focus-within:bg-bottom focus-within:ring-1">
+                    <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                         <LockIcon width={18} height={18} className="absolute left-3 shrink-0" />
                         <input
                             ref={passcodeRef}
@@ -148,7 +148,7 @@ export function LoginEmail() {
                             autoComplete="off"
                             spellCheck="false"
                             placeholder={t`One-time passcode`}
-                            className="placeholder:text-secondary dark:text-input w-full border-0 bg-transparent py-2 pl-9 focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                            className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                             value={passcode}
                             onChange={(ev) => setPasscode(ev.currentTarget.value)}
                         />
@@ -170,7 +170,7 @@ export function LoginEmail() {
                     <SendPasscodeButton email={email} disabled={!email || !isValidEmail} />
                 </div>
                 <ClickableButton
-                    className="border-line bg-lightMain text-primaryBottom flex h-[42px] w-full items-center justify-center gap-1 rounded-full border"
+                    className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
                     disabled={loading || !email || !passcode || !isValidEmail || !isValidPasscode}
                     onClick={() => login()}
                     aria-label="Connect email"
@@ -178,7 +178,7 @@ export function LoginEmail() {
                     {loading ? (
                         <>
                             <Trans>Connecting</Trans>
-                            <LoadingIcon className="text-primaryBottom size-[18px]" />
+                            <LoadingIcon className="size-[18px] text-primaryBottom" />
                         </>
                     ) : (
                         <Trans>Connect</Trans>

@@ -20,7 +20,7 @@ export const PredictionCategoryHeader = memo<Props>(function PredictionCategoryH
 }) {
     return (
         <div className="flex items-center justify-between gap-3 px-4 py-3">
-            <h1 className="text-main min-w-0 truncate text-2xl font-black">{title}</h1>
+            <h1 className="min-w-0 truncate text-2xl font-black text-main">{title}</h1>
             <PredictionCategoryTabs tab={tab} showGames={showGames} onTabChange={onTabChange} />
         </div>
     );

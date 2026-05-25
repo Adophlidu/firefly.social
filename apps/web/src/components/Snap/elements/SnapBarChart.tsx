@@ -19,14 +19,14 @@ export function SnapBarChart({ props: { bars, max: maxOverride, color }, accent 
                 const barColor = bar.color ? ACCENT_COLOR_MAP[bar.color] : defaultColor;
                 return (
                     <div key={idx} className="flex items-center gap-2">
-                        <span className="text-secondary w-20 shrink-0 truncate text-right text-xs">{bar.label}</span>
-                        <div className="bg-bg h-2 flex-1 overflow-hidden rounded-md">
+                        <span className="w-20 shrink-0 truncate text-right text-xs text-secondary">{bar.label}</span>
+                        <div className="h-2 flex-1 overflow-hidden rounded-md bg-bg">
                             <div
                                 className={classNames('h-full rounded-md transition-all', barColor)}
                                 style={{ width: `${pct}%` }}
                             />
                         </div>
-                        <span className="text-secondary w-8 shrink-0 text-xs">{bar.value}</span>
+                        <span className="w-8 shrink-0 text-xs text-secondary">{bar.value}</span>
                     </div>
                 );
             })}

@@ -50,8 +50,8 @@ export const PredictionLeaderboardFilters = memo<PredictionLeaderboardFiltersPro
                             key={p.value}
                             onClick={() => onPeriodChange(p.value)}
                             className={classNames('px-2 py-1.5 text-xs capitalize leading-4 transition-colors', {
-                                'bg-lightBg text-lightMain py-[6px] font-semibold': period === p.value,
-                                'text-second font-medium': period !== p.value,
+                                'bg-lightBg py-[6px] font-semibold text-lightMain': period === p.value,
+                                'font-medium text-second': period !== p.value,
                                 'rounded-l-md': index === 0,
                                 'rounded-r-md': index === PERIODS.length - 1,
                                 'border-lightLine2 border-l': index > 0,
@@ -67,7 +67,7 @@ export const PredictionLeaderboardFilters = memo<PredictionLeaderboardFiltersPro
                         key={o.value}
                         onClick={() => onOrderChange(o.value)}
                         className={classNames(
-                            'text-second group flex shrink-0 items-center justify-end gap-1 px-0 py-1 text-xs font-semibold capitalize leading-4 transition-colors',
+                            'group flex shrink-0 items-center justify-end gap-1 px-0 py-1 text-xs font-semibold capitalize leading-4 text-second transition-colors',
                             o.width,
                         )}
                     >

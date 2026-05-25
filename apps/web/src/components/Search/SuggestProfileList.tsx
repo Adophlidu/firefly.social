@@ -42,7 +42,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
 
     return (
         <div>
-            <h2 className="border-line border-t p-3 pb-2 text-sm font-bold leading-[18px]">
+            <h2 className="border-t border-line p-3 pb-2 text-sm font-bold leading-[18px]">
                 <Trans>Users</Trans>
             </h2>
             {isLoading ? (
@@ -75,7 +75,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
             {profiles.length ? (
                 <div className="px-3 pb-4 pt-2">
                     <Link
-                        className="text-secondary text-sm leading-[18px]"
+                        className="text-sm leading-[18px] text-secondary"
                         href={resolveSearchUrl(query, SearchType.Profiles)}
                     >
                         <Trans>Show more users</Trans>

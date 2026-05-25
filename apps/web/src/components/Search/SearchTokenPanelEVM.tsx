@@ -110,7 +110,7 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
         >
             {canExpand ? (
                 <ClickableButton
-                    className="text-highlight hover:bg-lightBg mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold"
+                    className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-highlight hover:bg-lightBg"
                     onClick={() => setShowSmall((prev) => !prev)}
                 >
                     <span>

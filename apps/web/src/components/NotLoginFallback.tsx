@@ -85,7 +85,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                 height={isNotSocialSource ? 208 : 200}
                 alt={`${resolveSourceName(source)} login`}
             />
-            <span className="leading-3.5 text-secondary px-6 text-center text-base">
+            <span className="leading-3.5 px-6 text-center text-base text-secondary">
                 {message ??
                     (isNotSocialSource ? (
                         <Trans>Login to enable all features</Trans>

@@ -59,7 +59,7 @@ export function TopProfileMenuItem({ profile, identity }: { profile: FireflyProf
             >
                 <span
                     className={classNames(
-                        'bg-highlight inline-flex size-3.5 shrink-0 items-center justify-center rounded text-white',
+                        'inline-flex size-3.5 shrink-0 items-center justify-center rounded bg-highlight text-white',
                         {
                             'outline outline-[0.5px] outline-current': isCurrentSource,
                         },

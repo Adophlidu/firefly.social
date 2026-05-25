@@ -51,7 +51,7 @@ export const MediaAction = memo(function MediaAction() {
             <Popover as="div" className="relative">
                 {({ close }) => (
                     <>
-                        <Popover.Button className="text-main flex cursor-pointer gap-1 focus:outline-none">
+                        <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none">
                             {buttonContent}
                         </Popover.Button>
 

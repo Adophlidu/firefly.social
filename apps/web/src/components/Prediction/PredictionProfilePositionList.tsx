@@ -62,8 +62,8 @@ const getPositionItem = ({
 
 function PositionEmptyState({ message }: { message: ReactNode }) {
     return (
-        <div className="bg-primaryBottom flex h-40 items-center justify-center rounded-xl p-4">
-            <div className="text-second max-w-[303px] text-center text-base font-semibold">{message}</div>
+        <div className="flex h-40 items-center justify-center rounded-xl bg-primaryBottom p-4">
+            <div className="max-w-[303px] text-center text-base font-semibold text-second">{message}</div>
         </div>
     );
 }
@@ -191,10 +191,10 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                     <div className="space-y-4">
                         <button
                             type="button"
-                            className="bg-lightBg mx-auto flex h-9 items-center justify-center gap-2 rounded-[20px] px-6 py-2"
+                            className="mx-auto flex h-9 items-center justify-center gap-2 rounded-[20px] bg-lightBg px-6 py-2"
                             onClick={() => setShowClosed((prev) => !prev)}
                         >
-                            <span className="text-main text-sm font-semibold">
+                            <span className="text-sm font-semibold text-main">
                                 <Trans>View closed positions</Trans>
                             </span>
                             <ArrowLineDownIcon

@@ -27,7 +27,7 @@ export const ChannelTabs = memo<ChannelTabsProps>(function ChannelTabs({ source,
                 <Link
                     className={classNames(
                         'flex h-11 items-center border-b-4 px-4 text-base font-bold',
-                        currentTab === tab ? 'border-highlight text-highlight' : 'text-third border-transparent',
+                        currentTab === tab ? 'border-highlight text-highlight' : 'border-transparent text-third',
                     )}
                     key={tab}
                     href={resolveChannelUrl(channelId, source, tab)}

@@ -140,7 +140,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     if (!paramsLoading && (!collectParams || collectParams.chainId === 0)) {
         return (
             <div className="flex h-[198px] w-full items-center justify-center">
-                <div className="text-secondary text-[14px] leading-6">
+                <div className="text-[14px] leading-6 text-secondary">
                     <Trans>This article is no longer available</Trans>
                 </div>
             </div>
@@ -161,29 +161,29 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
     return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">
-            <div className="border-secondaryLine mb-6 rounded-lg border px-3 py-2">
-                <div className="text-main line-clamp-2 text-left text-base font-bold leading-5">{article.title}</div>
+            <div className="mb-6 rounded-lg border border-secondaryLine px-3 py-2">
+                <div className="line-clamp-2 text-left text-base font-bold leading-5 text-main">{article.title}</div>
                 {article.author ? (
                     <div className="mt-[6px] flex items-center gap-2">
                         <Avatar src={article.author.avatar} size={20} alt={article.author.handle} />
-                        <span className="text-medium text-second leading-6">
+                        <span className="text-medium leading-6 text-second">
                             {article.author.handle ?? formatAddressEthereum(article.author.id, 4)}
                         </span>
                         {isCollected ? <CollectFillIcon width={16} height={16} className="ml-auto mr-1.5" /> : null}
                     </div>
                 ) : null}
                 <div className="mt-1.5 flex gap-2 text-center text-base">
-                    <div className="bg-lightBg flex-1 rounded-lg p-2.5">
+                    <div className="flex-1 rounded-lg bg-lightBg p-2.5">
                         <span className="text-second">
                             <Trans>Collected</Trans>
                         </span>
-                        <span className="text-main mt-2 block">{nFormatter(collectParams?.mintCount || 0)}</span>
+                        <span className="mt-2 block text-main">{nFormatter(collectParams?.mintCount || 0)}</span>
                     </div>
-                    <div className="bg-lightBg flex-1 rounded-lg p-2.5">
+                    <div className="flex-1 rounded-lg bg-lightBg p-2.5">
                         <span className="text-second">
                             <Trans>Standard</Trans>
                         </span>
-                        <span className="text-main mt-2 block">ERC721</span>
+                        <span className="mt-2 block text-main">ERC721</span>
                     </div>
                 </div>
             </div>

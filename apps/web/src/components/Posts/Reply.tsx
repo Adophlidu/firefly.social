@@ -93,13 +93,13 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                     <div className="w-full text-left">
                         <PostBody post={post} isReply disablePadding={post.isHidden || post.isEncrypted} />
                         {isLoading ? (
-                            <p className="text-medium text-placeholder mt-3 flex min-h-[20px] items-center">
+                            <p className="mt-3 flex min-h-[20px] items-center text-medium text-placeholder">
                                 <Trans>
                                     <LoadingIcon className="mr-1" size={16} /> Loading
                                 </Trans>
                             </p>
                         ) : ENABLED_REPLY_SOURCES.includes(post.source) ? (
-                            <div className="text-medium text-placeholder mt-3 min-h-[20px] cursor-pointer">
+                            <div className="mt-3 min-h-[20px] cursor-pointer text-medium text-placeholder">
                                 {replyingProfilesContent}
                             </div>
                         ) : (
@@ -118,7 +118,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                                 }}
                             >
                                 <div
-                                    className="text-medium text-placeholder mt-3 min-h-[20px] cursor-pointer"
+                                    className="mt-3 min-h-[20px] cursor-pointer text-medium text-placeholder"
                                     onClick={() => setOpen(true)}
                                 >
                                     {replyingProfilesContent}

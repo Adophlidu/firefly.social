@@ -32,8 +32,8 @@ export function SettingsList() {
     ];
 
     return (
-        <div className="lg:border-line flex min-h-full min-w-full flex-col p-6 lg:min-w-[280px] lg:border-r">
-            <div className="text-lightMain hidden pb-6 text-[20px] font-bold leading-6 lg:block">
+        <div className="flex min-h-full min-w-full flex-col p-6 lg:min-w-[280px] lg:border-r lg:border-line">
+            <div className="hidden pb-6 text-[20px] font-bold leading-6 text-lightMain lg:block">
                 <Trans>Settings</Trans>
             </div>
             {settingLinks.map(({ name, link, isHidden, relatedLinks }) => {

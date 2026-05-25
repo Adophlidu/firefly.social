@@ -37,10 +37,10 @@ import { captureMobileQrLoginClickEvent } from '@/providers/telemetry/captureSyn
 function FireflyAccountLoadingSkeleton() {
     return (
         <div className="flex h-[76px] animate-pulse items-center gap-2 rounded-lg px-2">
-            <div className="bg-bg size-[60px] shrink-0 rounded-full" />
+            <div className="size-[60px] shrink-0 rounded-full bg-bg" />
             <div className="flex h-[60px] flex-col items-start justify-center">
-                <div className="bg-bg mb-2 h-3 w-[80px] rounded-lg" />
-                <div className="bg-bg h-3 w-[120px] rounded-lg" />
+                <div className="mb-2 h-3 w-[80px] rounded-lg bg-bg" />
+                <div className="h-3 w-[120px] rounded-lg bg-bg" />
             </div>
         </div>
     );
@@ -49,7 +49,7 @@ function FireflyAccountLoadingSkeleton() {
 function FireflyLoginButton() {
     return (
         <button
-            className="border-highlight bg-bg text-main flex h-[56px] w-full items-center gap-2 rounded-lg border px-2 text-left text-sm"
+            className="flex h-[56px] w-full items-center gap-2 rounded-lg border border-highlight bg-bg px-2 text-left text-sm text-main"
             onClick={() => {
                 LoginModalRef.close();
                 captureMobileQrLoginClickEvent();
@@ -61,7 +61,7 @@ function FireflyLoginButton() {
                 <span className="h-5 w-full truncate leading-5">
                     <Trans>Firefly Mobile</Trans>
                 </span>
-                <span className="text-second h-5 w-full truncate leading-5">
+                <span className="h-5 w-full truncate leading-5 text-second">
                     <Trans>Scan QR code to access your account</Trans>
                 </span>
             </span>
@@ -161,7 +161,7 @@ export function MainView() {
                         ) : (
                             <FireflyLoginButton />
                         )}
-                        <div className="text-medium my-2 text-left font-medium leading-[15px]">
+                        <div className="my-2 text-left text-medium font-medium leading-[15px]">
                             <Trans>Social accounts</Trans>
                         </div>
                         <div className="flex flex-col gap-2">
@@ -176,7 +176,7 @@ export function MainView() {
                             })}
                         </div>
 
-                        <div className="text-medium my-2 text-left font-medium leading-[15px]">
+                        <div className="my-2 text-left text-medium font-medium leading-[15px]">
                             <Trans>Other accounts</Trans>
                         </div>
                     </>
@@ -188,7 +188,7 @@ export function MainView() {
                             ? formatAccountFromConnections(sourceInUrl, connections.__origin__)
                             : null;
                         return (
-                            <div className="border-secondaryLine overflow-hidden rounded-lg border" key={index}>
+                            <div className="overflow-hidden rounded-lg border border-secondaryLine" key={index}>
                                 <ClickableButton
                                     className={classNames(
                                         'flex w-full cursor-pointer items-center justify-between p-2',

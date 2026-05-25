@@ -119,11 +119,11 @@ export const SwapSettings = memo(function SwapSettings({ trigger }: SwapSettings
                             <label className="text-base font-semibold">
                                 <Trans>Slippage</Trans>
                             </label>
-                            <span className="text-secondary text-sm">
+                            <span className="text-sm text-secondary">
                                 <Trans>We will find the lowest slippage for a successful swap</Trans>
                             </span>
 
-                            <div className="bg-lightBg mt-1 flex flex-col gap-3 rounded-2xl p-3">
+                            <div className="mt-1 flex flex-col gap-3 rounded-2xl bg-lightBg p-3">
                                 <div className="flex items-center justify-between">
                                     <span className="text-base font-semibold">
                                         <Trans>Auto</Trans>
@@ -132,8 +132,8 @@ export const SwapSettings = memo(function SwapSettings({ trigger }: SwapSettings
                                 </div>
 
                                 {!isAuto ? (
-                                    <div className="border-secondaryLine dark:bg-bg02 box-border flex flex-col rounded-lg border bg-white px-3 py-1">
-                                        <span className="text-secondary inline-block h-4 shrink-0 text-xs leading-4">
+                                    <div className="box-border flex flex-col rounded-lg border border-secondaryLine bg-white px-3 py-1 dark:bg-bg02">
+                                        <span className="inline-block h-4 shrink-0 text-xs leading-4 text-secondary">
                                             <Trans>Custom (0.5-100%)</Trans>
                                         </span>
                                         <div className="flex shrink-0 items-center">
@@ -160,11 +160,11 @@ export const SwapSettings = memo(function SwapSettings({ trigger }: SwapSettings
                             <label className="text-base font-semibold">
                                 <Trans>Skip reviews</Trans>
                             </label>
-                            <span className="text-secondary text-sm">
+                            <span className="text-sm text-secondary">
                                 <Trans>Swap faster by skipping the review step</Trans>
                             </span>
 
-                            <div className="bg-lightBg mt-1 flex items-center justify-between rounded-2xl px-3 py-4">
+                            <div className="mt-1 flex items-center justify-between rounded-2xl bg-lightBg px-3 py-4">
                                 <span className="text-base font-semibold">
                                     <Trans>Enable skip reviews</Trans>
                                 </span>
@@ -174,7 +174,7 @@ export const SwapSettings = memo(function SwapSettings({ trigger }: SwapSettings
 
                         <button
                             type="button"
-                            className="bg-main h-10 w-full rounded-full text-[15px] font-bold text-white dark:text-black"
+                            className="h-10 w-full rounded-full bg-main text-[15px] font-bold text-white dark:text-black"
                             onClick={() => setOpen(false)}
                         >
                             <Trans>Confirm</Trans>

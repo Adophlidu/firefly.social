@@ -39,7 +39,7 @@ function FormField({ field, profile }: { field: ProfileEditableField; profile: P
             return (
                 <div className="space-y-1.5">
                     <div className="flex w-full flex-row items-center space-x-1">
-                        <label className="text-main min-w-[110px] text-sm font-bold">
+                        <label className="min-w-[110px] text-sm font-bold text-main">
                             <Trans>Display Name</Trans>
                         </label>
                         <FormInputContainer name="displayName" className="flex-1">
@@ -69,7 +69,7 @@ function FormField({ field, profile }: { field: ProfileEditableField; profile: P
             return (
                 <div className="space-y-1.5">
                     <div className="flex w-full flex-row items-center space-x-1">
-                        <label className="text-main min-w-[110px] text-sm font-bold">
+                        <label className="min-w-[110px] text-sm font-bold text-main">
                             <Trans>Website</Trans>
                         </label>
                         <FormInputContainer name="website" className="flex-1">
@@ -100,7 +100,7 @@ function FormField({ field, profile }: { field: ProfileEditableField; profile: P
             return (
                 <div className="space-y-1.5">
                     <div className="flex w-full flex-row items-center space-x-1">
-                        <label className="text-main min-w-[110px] text-sm font-bold">
+                        <label className="min-w-[110px] text-sm font-bold text-main">
                             <Trans>Location</Trans>
                         </label>
                         <FormInputContainer name="location" className="flex-1">
@@ -126,7 +126,7 @@ function FormField({ field, profile }: { field: ProfileEditableField; profile: P
             return (
                 <div className="space-y-1.5">
                     <div className="flex w-full flex-row items-start space-x-1">
-                        <label className="text-main h-12 min-w-[110px] text-sm font-bold leading-[3rem]">
+                        <label className="h-12 min-w-[110px] text-sm font-bold leading-[3rem] text-main">
                             <Trans>Bio</Trans>
                         </label>
                         <FormInputContainer name="bio" className="h-[100px] flex-1">
@@ -193,11 +193,11 @@ export const EditProfileForm = memo<EditProfileFormProps>(function EditProfileFo
             <div className="no-scrollbar flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pb-4">
                 <div className="flex w-full items-center gap-4">
                     <EditProfileAvatar pfp={profile.pfp} name="pfp" />
-                    <div className="text-main flex flex-col space-y-2 text-left">
+                    <div className="flex flex-col space-y-2 text-left text-main">
                         <div className="text-[20px] font-bold">@{profile.handle}</div>
                         <label
                             htmlFor="pfp-upload"
-                            className="text-highlight block cursor-pointer rounded-lg font-bold leading-5"
+                            className="block cursor-pointer rounded-lg font-bold leading-5 text-highlight"
                         >
                             <Trans>Upload photo</Trans>
                         </label>
@@ -232,7 +232,7 @@ export const EditProfileForm = memo<EditProfileFormProps>(function EditProfileFo
                     enablePropagate
                     type="submit"
                     disabled={!isDirty || !isValid || isSubmitting}
-                    className="bg-main text-medium text-primaryBottom flex h-10 w-[120px] items-center justify-center rounded-full font-bold leading-10"
+                    className="flex h-10 w-[120px] items-center justify-center rounded-full bg-main text-medium font-bold leading-10 text-primaryBottom"
                 >
                     {isSubmitting ? <LoadingIcon size={16} /> : <Trans>Save</Trans>}
                 </ClickableButton>

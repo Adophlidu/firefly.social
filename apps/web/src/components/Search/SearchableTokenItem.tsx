@@ -71,7 +71,7 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
 
     return (
         <Link
-            className={classNames('hover:bg-bg flex items-center gap-3 p-3', className)}
+            className={classNames('flex items-center gap-3 p-3 hover:bg-bg', className)}
             href={tokenPageUrl}
             onClick={onClick}
         >
@@ -86,20 +86,20 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                 name={token.name}
             />
             <div className="min-w-0 flex-1">
-                <div className="text-medium text-secondary flex items-center gap-x-1 font-bold">
-                    <span className="text-lightMain inline-block truncate leading-6">{token.name}</span>
+                <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">
+                    <span className="inline-block truncate leading-6 text-lightMain">{token.name}</span>
                     {showSymbol ? <span className="whitespace-nowrap">{token.symbol}</span> : null}
                     {showRank && token.market_cap_rank && token.market_cap_rank <= MAX_TOP_TOKENS ? (
-                        <span className="bg-lightBg whitespace-nowrap rounded px-1 py-0.5 text-[10px]">
+                        <span className="whitespace-nowrap rounded bg-lightBg px-1 py-0.5 text-[10px]">
                             <Trans>Rank #{token.market_cap_rank}</Trans>
                         </span>
                     ) : null}
                 </div>
                 <div className="flex gap-2">
-                    {showSymbol ? <div className="text-second text-sm leading-5">{token.symbol}</div> : null}
+                    {showSymbol ? <div className="text-sm leading-5 text-second">{token.symbol}</div> : null}
                     {token.address && !isCex ? (
                         <span
-                            className={classNames('text-third truncate text-sm leading-5', bedStead.className)}
+                            className={classNames('truncate text-sm leading-5 text-third', bedStead.className)}
                             title={token.address}
                         >
                             {formatTokenAddress(token.address)}
@@ -107,13 +107,13 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                     ) : null}
                     {showMarketInfo && tokenWithMarket ? (
                         <div className="flex gap-2">
-                            <span className="text-second text-sm leading-5">
+                            <span className="text-sm leading-5 text-second">
                                 {tokenWithMarket.market_data?.volume_usd_24h
                                     ? `$${nFormatter(tokenWithMarket.market_data.volume_usd_24h)}`
                                     : '-'}
                             </span>
-                            <span className="text-second text-sm leading-5">·</span>
-                            <span className="text-second text-sm leading-5">
+                            <span className="text-sm leading-5 text-second">·</span>
+                            <span className="text-sm leading-5 text-second">
                                 {tokenWithMarket.market_data?.market_cap_usd
                                     ? `$${nFormatter(tokenWithMarket.market_data.market_cap_usd)}`
                                     : '-'}
@@ -123,7 +123,7 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                 </div>
             </div>
             <div className="flex flex-col justify-end">
-                <div className="font-inter text-lightMain text-right text-base font-semibold leading-6">
+                <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
                     {token.market?.current_price ? (
                         <>${renderShrankPrice(formatPrice(token.market.current_price) ?? '')}</>
                     ) : (
@@ -133,7 +133,7 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                 {showChange ? (
                     <data
                         className={classNames(
-                            'font-inter flex h-5 shrink-0 items-center justify-end gap-1 text-right text-sm font-medium max-md:w-auto max-md:min-w-[60px] max-md:px-2',
+                            'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px] max-md:px-2',
                             priceChange >= 0 ? 'text-success' : 'text-danger',
                         )}
                     >

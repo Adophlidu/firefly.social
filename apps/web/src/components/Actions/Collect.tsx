@@ -34,7 +34,7 @@ export const Collect = memo<CollectProps>(function Collect({
 
     return (
         <ClickableArea
-            className={classNames('text-second hover:text-collected flex w-min items-center md:space-x-2', {
+            className={classNames('flex w-min items-center text-second hover:text-collected md:space-x-2', {
                 'opacity-50': disabled,
             })}
         >
@@ -44,7 +44,7 @@ export const Collect = memo<CollectProps>(function Collect({
                 disabled={disabled}
             >
                 <motion.button
-                    className="hover:bg-collected/[.20] inline-flex size-7 items-center justify-center rounded-full"
+                    className="inline-flex size-7 items-center justify-center rounded-full hover:bg-collected/[.20]"
                     whileTap={{ scale: 0.9 }}
                     disabled={disabled}
                     onClick={(ev) => {

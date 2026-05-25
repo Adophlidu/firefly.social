@@ -8,11 +8,10 @@ import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export const revalidate = 60;
 
-interface Props
-    extends LayoutProps<{
-        id: string;
-        source: SocialSourceInURL;
-    }> {}
+interface Props extends LayoutProps<{
+    id: string;
+    source: SocialSourceInURL;
+}> {}
 
 export default async function Page(props: Props) {
     const params = await props.params;

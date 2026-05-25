@@ -43,7 +43,7 @@ export function MuteProfileButton({ profile, ref, onConfirm, onToggle, onClick, 
             ref={ref}
         >
             {muted ? <UnmuteIcon width={18} height={18} /> : <MuteIcon width={18} height={18} />}
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 {muted ? <Trans>Unmute @{profile.handle}</Trans> : <Trans>Mute @{profile.handle}</Trans>}
             </span>
         </MenuButton>

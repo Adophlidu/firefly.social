@@ -29,7 +29,7 @@ export const DraftPage = memo(function DraftPage() {
 
     return (
         <div className="flex min-h-0 grow flex-col">
-            <div className="scrollable-tab border-line flex shrink-0 gap-3 border-b px-4">
+            <div className="scrollable-tab flex shrink-0 gap-3 border-b border-line px-4">
                 {[
                     {
                         type: DraftPageTab.Draft,
@@ -57,7 +57,7 @@ export const DraftPage = memo(function DraftPage() {
                         </ClickableButton>
                         <span
                             className={classNames(
-                                'bg-fireflyBrand h-1 w-full rounded-full transition-all',
+                                'h-1 w-full rounded-full bg-fireflyBrand transition-all',
                                 currentTab !== type ? 'hidden' : '',
                             )}
                         />

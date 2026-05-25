@@ -15,11 +15,11 @@ export function SuspendedAccountFallback() {
     return (
         <div className="relative flex h-screen w-full flex-col items-center justify-start pt-10">
             <div className="flex w-full flex-col items-center justify-center space-y-10 px-4 text-center">
-                <SuspendedSVG className="text-third h-auto w-full max-w-[310px]" />
-                <h3 className="text-second text-lg font-bold">
+                <SuspendedSVG className="h-auto w-full max-w-[310px] text-third" />
+                <h3 className="text-lg font-bold text-second">
                     <Trans>Suspended</Trans>
                 </h3>
-                <p className="text-second text-base">
+                <p className="text-base text-second">
                     <Trans>The content of this account is currently unavailable</Trans>
                 </p>
             </div>

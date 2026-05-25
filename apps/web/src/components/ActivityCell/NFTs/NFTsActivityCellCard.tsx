@@ -68,7 +68,7 @@ export function NFTsActivityCellCard(props: NFTsActivityCellCardProps) {
                         <ClickableArea>
                             <NFTVideo
                                 className={classNames(
-                                    'bg-lightBg dark:bg-bg h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] cursor-pointer rounded-t-xl object-cover md:w-[300px]',
+                                    'h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] cursor-pointer rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]',
                                     {
                                         'rounded-b-xl': true,
                                     },
@@ -81,7 +81,7 @@ export function NFTsActivityCellCard(props: NFTsActivityCellCardProps) {
                         <NFTImage
                             src={imageURL}
                             className={classNames(
-                                'bg-lightBg dark:bg-bg h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] rounded-t-xl object-cover md:w-[300px]',
+                                'h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]',
                                 {
                                     'rounded-b-xl': true,
                                 },

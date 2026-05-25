@@ -116,14 +116,14 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
     }, [token, maxAmount, balance, maxAmountShares, onAmountChange]);
 
     return (
-        <div className="bg-bg focus-within:border-highlight focus-within:bg-primaryBottom rounded-xl border border-transparent px-3 py-2.5">
+        <div className="rounded-xl border border-transparent bg-bg px-3 py-2.5 focus-within:border-highlight focus-within:bg-primaryBottom">
             <div className="flex items-center justify-end gap-x-1 text-[13px] leading-[18px]">
                 <label className="text-secondary">
                     {isNativeToken ? <Trans>Available Balance</Trans> : <Trans>Balance</Trans>}
                 </label>
-                <span className="text-main font-bold">{formatBalance(balance, token?.decimals) ?? '0'}</span>
+                <span className="font-bold text-main">{formatBalance(balance, token?.decimals) ?? '0'}</span>
                 <div
-                    className="bg-highlight cursor-pointer rounded-full px-[6px] py-[2px] text-[10px] font-bold leading-[14px] text-white"
+                    className="cursor-pointer rounded-full bg-highlight px-[6px] py-[2px] text-[10px] font-bold leading-[14px] text-white"
                     onClick={onMaxClick}
                 >
                     <Trans>MAX</Trans>
@@ -134,7 +134,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
                 <input
                     value={amount}
                     onChange={onChange}
-                    className="placeholder:text-secondary flex-1 border-0 border-transparent bg-transparent px-0 outline-transparent focus:border-0 focus:outline-0 focus:ring-0"
+                    className="flex-1 border-0 border-transparent bg-transparent px-0 outline-transparent placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0"
                     autoComplete="off"
                     autoCorrect="off"
                     spellCheck="false"

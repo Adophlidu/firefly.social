@@ -49,18 +49,18 @@ export function TokenSelectorModal({ ref }: Props) {
             onClose={() => dispatch?.close(null)}
             dialogClassName="z-50"
         >
-            <div className="bg-lightBottom text-medium text-lightMain shadow-popover dark:bg-darkBottom z-50 flex h-[70vh] w-4/5 flex-col rounded-md p-4 pt-0 transition-all md:h-[620px] md:w-[600px] md:rounded-xl">
-                <DialogTitle as="h3" className="pt-safe relative h-14 shrink-0">
+            <div className="z-50 flex h-[70vh] w-4/5 flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:h-[620px] md:w-[600px] md:rounded-xl">
+                <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
                     <BackButton
                         onClick={() => dispatch?.close(null)}
-                        className="text-main absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />
-                    <span className="text-main flex size-full items-center justify-center text-lg font-bold">
+                    <span className="flex size-full items-center justify-center text-lg font-bold text-main">
                         <Trans>Select Token</Trans>
                     </span>
                     {[NetworkType.Ethereum].includes(props.networkType) ? (
                         <ClickableButton
-                            className="text-main absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2"
+                            className="absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
                             onClick={() => {
                                 AddCustomERC20ModalRef.open({
                                     validChainIds: props.validChainIds,
@@ -68,7 +68,7 @@ export function TokenSelectorModal({ ref }: Props) {
                                 });
                             }}
                         >
-                            <AddIcon width={24} height={24} className="text-highlight size-6 shrink-0" />
+                            <AddIcon width={24} height={24} className="size-6 shrink-0 text-highlight" />
                         </ClickableButton>
                     ) : null}
                 </DialogTitle>
@@ -84,7 +84,7 @@ export function TokenSelectorModal({ ref }: Props) {
                     ) : (
                         <div className="flex size-full items-center justify-center">
                             <ClickableButton
-                                className="border-main text-main h-10 rounded-full border px-3 text-lg font-bold leading-10"
+                                className="h-10 rounded-full border border-main px-3 text-lg font-bold leading-10 text-main"
                                 onClick={() => {
                                     switch (props.networkType) {
                                         case NetworkType.Ethereum:

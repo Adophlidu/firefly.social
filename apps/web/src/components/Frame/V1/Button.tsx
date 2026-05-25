@@ -17,9 +17,9 @@ export function Button({ button, disabled = false, onClick }: Props) {
     return (
         <ClickableButton
             className={classNames(
-                'border-line text-main dark:bg-darkBottom box-border flex flex-1 items-center justify-center overflow-auto rounded-md border bg-white p-2 dark:text-white',
+                'box-border flex flex-1 items-center justify-center overflow-auto rounded-md border border-line bg-white p-2 text-main dark:bg-darkBottom dark:text-white',
                 {
-                    'hover:bg-bg hover:cursor-pointer': !disabled,
+                    'hover:cursor-pointer hover:bg-bg': !disabled,
                 },
             )}
             disabled={disabled}
@@ -34,7 +34,7 @@ export function Button({ button, disabled = false, onClick }: Props) {
                 {button.text}
             </span>
             {[ActionType.PostRedirect, ActionType.Link].includes(button.action) ? (
-                <LinkIcon className="text-second ml-1 shrink-0" width={18} height={18} />
+                <LinkIcon className="ml-1 shrink-0 text-second" width={18} height={18} />
             ) : null}
         </ClickableButton>
     );

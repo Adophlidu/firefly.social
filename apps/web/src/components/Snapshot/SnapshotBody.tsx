@@ -81,10 +81,10 @@ export function SnapshotBody({ snapshot, link, postId, activity, showVote = true
             : snapshot.state;
     return (
         <div>
-            <ClickableArea className="border-line bg-bg text-commonMain relative mt-[6px] flex flex-col gap-2 rounded-2xl border p-3 text-left">
+            <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <SnapshotStatus status={state} className="self-start" />
                 <h3
-                    className={classNames('text-main line-clamp-2 text-left text-[20px] font-bold leading-[22px]', {
+                    className={classNames('line-clamp-2 text-left text-[20px] font-bold leading-[22px] text-main', {
                         'max-h-[40px]': IS_SAFARI && IS_APPLE,
                     })}
                 >
@@ -103,7 +103,7 @@ export function SnapshotBody({ snapshot, link, postId, activity, showVote = true
                         <Link
                             href={authorUrl}
                             onClick={stopPropagation}
-                            className="text-medium text-secondary block truncate leading-5"
+                            className="block truncate text-medium leading-5 text-secondary"
                         >
                             <Trans>
                                 <strong>{space.name}</strong> by{' '}
@@ -125,7 +125,7 @@ export function SnapshotBody({ snapshot, link, postId, activity, showVote = true
                                 <Link
                                     href={authorUrl}
                                     onClick={stopPropagation}
-                                    className="text-medium text-secondary block truncate leading-5"
+                                    className="block truncate text-medium leading-5 text-secondary"
                                 >
                                     <Trans>
                                         <strong>{space.name}</strong> by{' '}
@@ -135,7 +135,7 @@ export function SnapshotBody({ snapshot, link, postId, activity, showVote = true
                             </div>
                             <Time
                                 dateTime={snapshot.created * 1000}
-                                className="text-medium text-secondary truncate whitespace-nowrap leading-4"
+                                className="truncate whitespace-nowrap text-medium leading-4 text-secondary"
                             >
                                 <TimestampFormatter time={snapshot.created * 1000} />
                             </Time>
@@ -163,9 +163,9 @@ export function SnapshotBody({ snapshot, link, postId, activity, showVote = true
                                 </Tab>
                             ))}
                         </TabList>
-                        <TabPanels className="bg-primaryBottom rounded-b-xl p-4">
+                        <TabPanels className="rounded-b-xl bg-primaryBottom p-4">
                             <TabPanel>
-                                <SnapshotMarkup className="no-scrollbar text-secondary overflow-auto text-sm leading-[18px] max-md:h-[270px] md:h-[374px]">
+                                <SnapshotMarkup className="no-scrollbar overflow-auto text-sm leading-[18px] text-secondary max-md:h-[270px] md:h-[374px]">
                                     {snapshot.body}
                                 </SnapshotMarkup>
                             </TabPanel>
@@ -283,7 +283,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: <Trans>Your vote is in!</Trans>,
                 content: (
-                    <div className="text-medium text-secondary mb-2 text-center leading-[18px]">
+                    <div className="mb-2 text-center text-medium leading-[18px] text-secondary">
                         <Trans>
                             Create a post to tell everyone about your participation. Votes can be changed while the
                             proposal is active.

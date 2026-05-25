@@ -25,7 +25,7 @@ function PinnedPostContent({ source, profileId }: Props) {
         <SinglePost
             className="z-10"
             header={
-                <div className="text-medium text-second mb-3 flex items-center font-bold">
+                <div className="mb-3 flex items-center text-medium font-bold text-second">
                     <PinnedIcon width={16} height={16} className="mr-2" />
                     <Trans>Pinned</Trans>
                 </div>

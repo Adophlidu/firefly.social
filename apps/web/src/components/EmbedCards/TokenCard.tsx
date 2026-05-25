@@ -53,7 +53,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ..
             <div
                 {...rest}
                 className={classNames(
-                    'border-line bg-lightBg flex cursor-default flex-col rounded-2xl border px-3 py-[7px]',
+                    'flex cursor-default flex-col rounded-2xl border border-line bg-lightBg px-3 py-[7px]',
                     rest.className,
                 )}
                 onClick={(e) => {
@@ -61,7 +61,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ..
                 }}
             >
                 <div className="flex h-[47.5px] items-center">
-                    <div className="text-second flex items-center gap-2 whitespace-nowrap">
+                    <div className="flex items-center gap-2 whitespace-nowrap text-second">
                         <Link href={tokenPageUrl}>
                             <TokenIcon
                                 icon={token.logoURL}
@@ -73,13 +73,13 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ..
                             />
                         </Link>
                         <Link
-                            className="text-main ml-[2px] text-lg font-bold uppercase hover:underline"
+                            className="ml-[2px] text-lg font-bold uppercase text-main hover:underline"
                             href={tokenPageUrl}
                         >
                             {token.symbol}
                         </Link>
                         {tokenSecurity ? <SecurityBadge security={tokenSecurity} /> : null}
-                        <span className="font-inter text-third max-w-28 truncate text-sm font-bold">
+                        <span className="max-w-28 truncate font-inter text-sm font-bold text-third">
                             {formatAddress(address, 4)}
                         </span>
                         <CopyTextButton text={address} />
@@ -110,19 +110,19 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ..
                                         MC
                                     </span>
                                     {rank ? (
-                                        <span className="bg-highlight inline-flex h-[14px] items-center rounded px-1 py-0.5 text-[10px] text-white">
+                                        <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
                                             Rank #{rank}
                                         </span>
                                     ) : null}
                                 </Trans>
                             ) : null}
                         </div>
-                        <div className="line-height-[22px] text-medium flex items-center gap-1">
+                        <div className="line-height-[22px] flex items-center gap-1 text-medium">
                             <Trans>
                                 <PriceArrow
                                     width={16}
                                     height={16}
-                                    className={isUp ? 'text-success shrink-0' : 'text-fail shrink-0 rotate-180'}
+                                    className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
                                 />
                                 {market?.price_change_percentage_24h_in_currency !== undefined ? (
                                     <span className={isUp ? 'text-success' : 'text-fail'}>

@@ -178,7 +178,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
     if (showLoadingView) {
         return (
             <motion.button
-                className="bg-lightMain text-lightBottom dark:text-darkBottom mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg font-bold"
+                className="mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom"
                 whileTap={{ scale: 0.98 }}
                 onClick={() => {
                     context.onClose();
@@ -192,7 +192,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
     if (showFailedView) {
         return (
             <motion.button
-                className="bg-lightMain text-lightBottom dark:text-darkBottom mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg font-bold"
+                className="mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom"
                 whileTap={{ scale: 0.98 }}
                 onClick={() => {
                     update({ hash: null, hasError: false });
@@ -208,7 +208,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             <EstimatedCost gas={value?.gas || ZERO} canFreeGas={value?.canFreeGas} />
             <motion.button
                 className={classNames(
-                    'bg-lightMain text-lightBottom dark:text-darkBottom mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg font-bold',
+                    'mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom',
                     disabled ? 'cursor-not-allowed opacity-50' : '',
                 )}
                 disabled={disabled}

@@ -102,7 +102,7 @@ export function RelayServiceSignIn() {
                 }}
             >
                 {isError ? (
-                    <div className="text-primaryBottom flex size-[232px] flex-col items-center justify-center gap-2 p-6 text-sm">
+                    <div className="flex size-[232px] flex-col items-center justify-center gap-2 p-6 text-sm text-primaryBottom">
                         <Trans>Something went wrong, please try again.</Trans>
                     </div>
                 ) : isLoading || isRefetching || !data ? (

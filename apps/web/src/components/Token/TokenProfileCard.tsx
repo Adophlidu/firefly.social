@@ -35,41 +35,41 @@ export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
         <div
             {...props}
             className={classNames(
-                'border-line bg-primaryBottom cursor-default rounded-2xl border p-3',
+                'cursor-default rounded-2xl border border-line bg-primaryBottom p-3',
                 props.className,
             )}
         >
             <div className="flex animate-pulse flex-col gap-3">
                 <div className="flex items-center">
-                    <div className="bg-bg size-8 rounded-full" />
+                    <div className="size-8 rounded-full bg-bg" />
                     <div className="ml-3 flex flex-col gap-1">
                         <div className="flex items-center gap-1">
-                            <div className="bg-bg h-3 w-10 rounded py-0.5" />
-                            <span className="bg-bg size-3 rounded-full" />
+                            <div className="h-3 w-10 rounded bg-bg py-0.5" />
+                            <span className="size-3 rounded-full bg-bg" />
                         </div>
                         <div className="flex items-center gap-1 leading-4">
-                            <span className="bg-bg h-3 w-20 py-0.5" />
+                            <span className="h-3 w-20 bg-bg py-0.5" />
                         </div>
                     </div>
                     <div className="ml-auto flex items-center justify-end gap-1 self-start">
-                        <div className="bg-bg text-main h-[18px] w-[130px] rounded" />
+                        <div className="h-[18px] w-[130px] rounded bg-bg text-main" />
                     </div>
                 </div>
                 <div className="flex h-10 items-center">
                     <div className="flex items-center gap-1 leading-[22px]">
-                        <strong className="bg-bg h-[22px] w-20 rounded" />
-                        <span className="bg-bg text-medium text-secondary h-4 w-6" title={t`Market Cap`} />
-                        <span className="bg-bg inline-flex h-[14px] w-12 items-center text-nowrap rounded px-1 py-0.5" />
+                        <strong className="h-[22px] w-20 rounded bg-bg" />
+                        <span className="h-4 w-6 bg-bg text-medium text-secondary" title={t`Market Cap`} />
+                        <span className="inline-flex h-[14px] w-12 items-center text-nowrap rounded bg-bg px-1 py-0.5" />
                     </div>
-                    <div className="bg-bg ml-auto h-8 w-[170px] overflow-auto rounded" />
+                    <div className="ml-auto h-8 w-[170px] overflow-auto rounded bg-bg" />
                 </div>
                 <div className="flex items-center">
-                    <div className="text-medium flex h-8 items-center gap-1 leading-[22px]">
-                        <span className="bg-bg h-3 w-10 rounded py-0.5" />
-                        <span className="bg-bg h-3 w-20 rounded py-0.5" />
-                        <span className="bg-bg h-3 w-10 rounded py-0.5" />
+                    <div className="flex h-8 items-center gap-1 text-medium leading-[22px]">
+                        <span className="h-3 w-10 rounded bg-bg py-0.5" />
+                        <span className="h-3 w-20 rounded bg-bg py-0.5" />
+                        <span className="h-3 w-10 rounded bg-bg py-0.5" />
                     </div>
-                    <div className="bg-bg row-start-3 ml-auto flex h-8 w-[80px] items-center justify-end rounded-full" />
+                    <div className="row-start-3 ml-auto flex h-8 w-[80px] items-center justify-end rounded-full bg-bg" />
                 </div>
             </div>
         </div>
@@ -168,7 +168,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
         <div
             {...rest}
             className={classNames(
-                'border-line bg-primaryBottom flex cursor-default flex-col gap-3 rounded-2xl border p-3',
+                'flex cursor-default flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-3',
                 rest.className,
             )}
             onClick={(e) => {
@@ -189,7 +189,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                 <div className="ml-3 flex flex-col">
                     <div className="flex items-center gap-1">
                         <Link
-                            className="text-main text-base font-bold uppercase leading-4 hover:underline"
+                            className="text-base font-bold uppercase leading-4 text-main hover:underline"
                             href={tokenPageUrl}
                         >
                             {selectedToken.symbol}
@@ -198,10 +198,10 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                     </div>
                     {chainCount === 1 ? (
                         <div className="flex items-center gap-1 leading-4">
-                            <span className="font-inter text-third max-w-28 truncate text-[13px] font-bold leading-4">
+                            <span className="max-w-28 truncate font-inter text-[13px] font-bold leading-4 text-third">
                                 {formatAddress(address, 4)}
                             </span>
-                            {address ? <CopyTextButton text={address} className="text-third leading-4" /> : null}
+                            {address ? <CopyTextButton text={address} className="leading-4 text-third" /> : null}
                         </div>
                     ) : null}
                 </div>
@@ -210,7 +210,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                         className="ml-auto flex cursor-pointer items-center gap-1 self-start"
                         onClick={() => setOpenSwitcher(true)}
                     >
-                        <div className="text-main text-sm font-bold leading-[18px]">
+                        <div className="text-sm font-bold leading-[18px] text-main">
                             <Trans>View similar symbols</Trans>
                         </div>
                         <LineArrowUp className="rotate-180" width={20} height={20} />
@@ -227,7 +227,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                             MC
                         </span>
                         {rank ? (
-                            <span className="bg-highlight inline-flex h-[14px] items-center text-nowrap rounded px-1 py-0.5 text-[10px] text-white">
+                            <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
                                 Rank #{rank}
                             </span>
                         ) : null}
@@ -243,15 +243,15 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                 </div>
             </div>
             <div className="flex items-center">
-                <div className="text-medium flex h-8 items-center gap-1 leading-[22px]">
+                <div className="flex h-8 items-center gap-1 text-medium leading-[22px]">
                     {typeof changePercent === 'number' ? (
                         <>
                             <PriceArrow
                                 width={16}
                                 height={16}
-                                className={isUp ? 'text-success shrink-0' : 'text-fail shrink-0 rotate-180'}
+                                className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
                             />
-                            <span className={isUp ? 'text-success text-xs' : 'text-fail text-xs'}>
+                            <span className={isUp ? 'text-xs text-success' : 'text-xs text-fail'}>
                                 {changePercent.toFixed(2)}%
                             </span>
                         </>

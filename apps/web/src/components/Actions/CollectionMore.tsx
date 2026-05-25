@@ -61,7 +61,7 @@ export const CollectionMore = memo<CollectionMoreProps>(function CollectionMore(
                             }}
                         >
                             <ShareIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>View on website</Trans>
                             </span>
                         </MenuButton>

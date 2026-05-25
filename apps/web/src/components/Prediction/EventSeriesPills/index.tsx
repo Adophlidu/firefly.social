@@ -175,7 +175,7 @@ export const EventSeriesPills = memo<EventSeriesPillsProps>(function EventSeries
                         uiBySlug={uiBySlug}
                     />
                     {showEnded && endedLabel ? (
-                        <ClickableButton className="bg-main text-primaryBottom flex h-[30px] items-center gap-1 rounded-full px-3 text-[10px] font-bold">
+                        <ClickableButton className="flex h-[30px] items-center gap-1 rounded-full bg-main px-3 text-[10px] font-bold text-primaryBottom">
                             <Trans>Ended: </Trans>
                             <EventTime event={currentEvent} onlyShowDate />
                         </ClickableButton>
@@ -187,7 +187,7 @@ export const EventSeriesPills = memo<EventSeriesPillsProps>(function EventSeries
                     />
                     {moreUi.length ? (
                         <EventsPopover eventSlug={currentSlug} events={moreUi}>
-                            <div className="text-main flex items-center gap-1">
+                            <div className="flex items-center gap-1 text-main">
                                 <span className="shrink-0 whitespace-nowrap text-[10px] font-bold">
                                     <Trans>More</Trans>
                                 </span>

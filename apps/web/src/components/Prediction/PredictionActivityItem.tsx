@@ -64,7 +64,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
     );
 
     return (
-        <div className="border-line border-b px-4 py-3" ref={root}>
+        <div className="border-b border-line px-4 py-3" ref={root}>
             <ShareButtonWithAnimationContext value={isHover}>
                 {activity.followingSources?.length ? (
                     <FeedFollowSource source={first(activity.followingSources)} />
@@ -90,13 +90,13 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                         )}
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
-                        <div className="text-medium text-second flex items-center gap-x-1">
+                        <div className="flex items-center gap-x-1 text-medium text-second">
                             {profileUrl ? (
-                                <Link href={profileUrl} className="text-lightMain min-w-0 truncate font-bold">
+                                <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
                                     {ensName ? <EnsName ens={ensName} /> : addressName}
                                 </Link>
                             ) : (
-                                <span className="text-lightMain min-w-0 truncate font-bold">
+                                <span className="min-w-0 truncate font-bold text-lightMain">
                                     {ensName ? <EnsName ens={ensName} /> : addressName}
                                 </span>
                             )}

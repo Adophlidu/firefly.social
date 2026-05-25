@@ -79,11 +79,11 @@ function TeamColumn({ team }: { team: PredictionSportsTeamForUI }) {
             {team.logo ? (
                 <Image src={team.logo} alt="" width={48} height={48} className="size-12 rounded-lg object-cover" />
             ) : (
-                <span className="bg-bg text-second flex size-12 items-center justify-center rounded-lg text-sm font-semibold">
+                <span className="flex size-12 items-center justify-center rounded-lg bg-bg text-sm font-semibold text-second">
                     {label[0]}
                 </span>
             )}
-            <span className="text-main w-full truncate text-center text-xs font-semibold leading-4">{label}</span>
+            <span className="w-full truncate text-center text-xs font-semibold leading-4 text-main">{label}</span>
         </div>
     );
 }
@@ -98,27 +98,27 @@ const RecommendationCard = memo<{ item: SportRecommendationItem }>(function Reco
     return (
         <Link
             href={eventHref}
-            className="border-line bg-primaryBottom hover:bg-bg flex min-h-[104px] items-center gap-3 rounded-lg border p-4 transition-colors"
+            className="flex min-h-[104px] items-center gap-3 rounded-lg border border-line bg-primaryBottom p-4 transition-colors hover:bg-bg"
         >
             <TeamColumn team={model.homeTeam} />
             <div className="flex min-w-0 flex-1 flex-col items-center justify-center gap-2 text-center">
                 {model.gamePhase === 'live' ? (
                     <>
-                        <span className="text-main text-xl font-bold leading-6">{getLiveScoreLabel(model)}</span>
+                        <span className="text-xl font-bold leading-6 text-main">{getLiveScoreLabel(model)}</span>
                         <span className="flex min-w-0 items-center justify-center gap-2 text-xs leading-4">
-                            <span className="text-danger shrink-0 font-semibold">
+                            <span className="shrink-0 font-semibold text-danger">
                                 <Trans>LIVE</Trans>
                             </span>
                             {model.statusLabel ? (
                                 <>
-                                    <span className="bg-danger size-1.5 shrink-0 rounded-full" />
-                                    <span className="text-second min-w-0 truncate">{model.statusLabel}</span>
+                                    <span className="size-1.5 shrink-0 rounded-full bg-danger" />
+                                    <span className="min-w-0 truncate text-second">{model.statusLabel}</span>
                                 </>
                             ) : null}
                         </span>
                     </>
                 ) : (
-                    <span className="text-main flex flex-col text-sm font-semibold leading-5">
+                    <span className="flex flex-col text-sm font-semibold leading-5 text-main">
                         {scheduledTimeParts ? (
                             <>
                                 <span>{scheduledTimeParts.date}</span>
@@ -155,10 +155,10 @@ export const SportRecommendationsSidebar = memo(function SportRecommendationsSid
     return (
         <section className="flex flex-col gap-4">
             <div className="flex items-center justify-between px-3">
-                <h2 className="text-lightMain text-xl font-bold leading-6">
+                <h2 className="text-xl font-bold leading-6 text-lightMain">
                     <Trans>You might like</Trans>
                 </h2>
-                <Link href={categoryHref} className="text-highlight text-sm font-medium leading-6 hover:underline">
+                <Link href={categoryHref} className="text-sm font-medium leading-6 text-highlight hover:underline">
                     <Trans>More</Trans>
                 </Link>
             </div>

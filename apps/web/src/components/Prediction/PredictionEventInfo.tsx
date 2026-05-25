@@ -29,12 +29,12 @@ interface InfoItemProps {
 
 function InfoItem({ label, value, loading }: InfoItemProps) {
     return (
-        <div className="bg-lightBg flex h-[62px] min-w-0 flex-1 shrink-0 flex-col gap-1 rounded-xl p-3">
-            <span className="text-second text-xs">{label}</span>
+        <div className="flex h-[62px] min-w-0 flex-1 shrink-0 flex-col gap-1 rounded-xl bg-lightBg p-3">
+            <span className="text-xs text-second">{label}</span>
             {loading ? (
                 <LoadingIcon size={18} />
             ) : (
-                <span className="text-main truncate text-sm font-semibold">{value ?? '-'}</span>
+                <span className="truncate text-sm font-semibold text-main">{value ?? '-'}</span>
             )}
         </div>
     );
@@ -73,7 +73,7 @@ export const PredictionEventInfo = memo<PredictionEventInfoProps>(function Predi
                     {props.tags?.map((tag) => (
                         <span
                             key={tag.id}
-                            className="border-secondary text-main h-[26px] rounded-full border px-3 text-xs font-medium !leading-[26px]"
+                            className="h-[26px] rounded-full border border-secondary px-3 text-xs font-medium !leading-[26px] text-main"
                         >
                             {tag.label}
                         </span>
@@ -81,7 +81,7 @@ export const PredictionEventInfo = memo<PredictionEventInfoProps>(function Predi
                 </div>
             ) : null}
             {props.description ? (
-                <PredictionDescription className="text-main text-sm">{props.description}</PredictionDescription>
+                <PredictionDescription className="text-sm text-main">{props.description}</PredictionDescription>
             ) : null}
         </div>
     );

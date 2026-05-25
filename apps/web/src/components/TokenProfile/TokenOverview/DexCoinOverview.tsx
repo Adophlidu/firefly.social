@@ -73,7 +73,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
 
     return (
         <div {...rest} className={classNames('space-y-3', className)}>
-            <h2 className="font-inter text-main font-bold">
+            <h2 className="font-inter font-bold text-main">
                 <Trans>Statistic</Trans>
             </h2>
             <div className="grid grid-cols-3 gap-3">
@@ -109,7 +109,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                                 page.
                             </Trans>
                             <OriginalLink target="_blank" href={resolveAddressLink(chainId, address) || ''}>
-                                <LinkIcon width={14} height={14} className="text-second inline-block" />
+                                <LinkIcon width={14} height={14} className="inline-block text-second" />
                             </OriginalLink>
                         </>
                     }
@@ -120,7 +120,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                     description={createAt ? formatDate(new Date(createAt), 'MMM d, yyyy, hh:mm a') : null}
                 />
             </div>
-            <h2 className="font-inter text-main font-bold">
+            <h2 className="font-inter font-bold text-main">
                 <Trans>Info</Trans>
             </h2>
             <div className="flex flex-col gap-3">
@@ -138,7 +138,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                                 placement="top"
                                 touch
                             >
-                                <span className="text-medium text-main truncate font-bold" data-address={address}>
+                                <span className="truncate text-medium font-bold text-main" data-address={address}>
                                     {formatAddress(address, 4)}
                                 </span>
                             </Tooltip>

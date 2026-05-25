@@ -39,7 +39,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
     });
     const priceChange = token.market_data?.price_change_percentage_24h ?? 0;
     return (
-        <div className={classNames('hover:bg-bg flex items-center gap-3 px-2 py-3', className)}>
+        <div className={classNames('flex items-center gap-3 px-2 py-3 hover:bg-bg', className)}>
             <TokenBookmarkButton
                 coinId={token.id}
                 chainId={chainId}
@@ -62,15 +62,15 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                     name={token.name}
                 />
                 <div className="min-w-0 flex-1">
-                    <div className="text-medium text-secondary flex items-center gap-x-1 font-bold">
+                    <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">
                         <TextOverflowTooltip content={token.name}>
-                            <span className="text-lightMain truncate leading-6">{token.name}</span>
+                            <span className="truncate leading-6 text-lightMain">{token.name}</span>
                         </TextOverflowTooltip>
                     </div>
                     {showMarketInfo ? (
                         <div className="flex gap-2">
                             {token.market_data?.volume_usd_24h ? (
-                                <span className="text-second text-sm leading-5">
+                                <span className="text-sm leading-5 text-second">
                                     ${nFormatter(token.market_data.volume_usd_24h)}
                                 </span>
                             ) : null}
@@ -78,7 +78,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                                 <span>·</span>
                             ) : null}
                             {token.market_data?.market_cap_usd ? (
-                                <span className="text-second text-sm leading-5">
+                                <span className="text-sm leading-5 text-second">
                                     ${nFormatter(token.market_data.market_cap_usd)}
                                 </span>
                             ) : null}
@@ -86,7 +86,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                     ) : null}
                 </div>
                 <div className="flex flex-col justify-end">
-                    <div className="font-inter text-lightMain text-right text-base font-semibold leading-6">
+                    <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
                         {token.market_data?.token_price_usd ? (
                             <>${renderShrankPrice(formatPrice(token.market_data.token_price_usd) ?? '')}</>
                         ) : (
@@ -95,7 +95,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                     </div>
                     <data
                         className={classNames(
-                            'font-inter flex h-5 shrink-0 items-center justify-end gap-1 text-right text-sm font-medium max-md:w-auto max-md:min-w-[60px]',
+                            'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px]',
                             priceChange >= 0 ? 'text-success' : 'text-danger',
                         )}
                     >

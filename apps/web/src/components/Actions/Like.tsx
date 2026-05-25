@@ -66,8 +66,8 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
 
     return (
         <ClickableArea
-            className={classNames('text-second hover:text-danger flex w-min cursor-pointer items-center md:space-x-2', {
-                'text-danger font-bold': !!hasLiked,
+            className={classNames('flex w-min cursor-pointer items-center text-second hover:text-danger md:space-x-2', {
+                'font-bold text-danger': !!hasLiked,
                 'opacity-50': disabled,
             })}
             onClick={() => {
@@ -79,7 +79,7 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
                 isLiked={!!hasLiked}
                 disabled={disabled}
                 likeCount={!hiddenCount ? post.stats?.reactions : undefined}
-                className="hover:bg-danger/[.20] inline-flex size-7 items-center justify-center rounded-full"
+                className="inline-flex size-7 items-center justify-center rounded-full hover:bg-danger/[.20]"
             />
         </ClickableArea>
     );

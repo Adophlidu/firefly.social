@@ -63,7 +63,7 @@ export function CalendarCard() {
                     onChange={setDate}
                     onMonthChange={setPickerDate}
                 />
-                <TabPanels className="border-line rounded-b-xl border border-t-0 px-2">
+                <TabPanels className="rounded-b-xl border border-t-0 border-line px-2">
                     <TabPanel>
                         <NewsList date={date} />
                     </TabPanel>

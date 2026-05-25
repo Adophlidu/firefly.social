@@ -44,7 +44,7 @@ export function ProfileInList({
             {selectable ? (
                 <CircleCheckboxIcon className="shrink-0" checked={selected} />
             ) : viewable ? (
-                <Link className="text-highlight shrink-0" href={getProfileUrl(viewProfile || profile)} target="_blank">
+                <Link className="shrink-0 text-highlight" href={getProfileUrl(viewProfile || profile)} target="_blank">
                     <Trans>View</Trans>
                 </Link>
             ) : null}

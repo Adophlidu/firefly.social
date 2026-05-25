@@ -44,7 +44,7 @@ export function TipsButton({ identity, handle, profiles }: Props) {
     }, [isLogin, handle, profiles, identity]);
     return (
         <ClickableButton
-            className="bg-bg text-second inline-flex size-8 items-center justify-center rounded-lg active:opacity-50 md:hover:opacity-60"
+            className="inline-flex size-8 items-center justify-center rounded-lg bg-bg text-second active:opacity-50 md:hover:opacity-60"
             loading={loading}
             onClick={handleClick}
         >

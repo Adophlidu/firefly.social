@@ -44,7 +44,7 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
                 <motion.button
                     whileTap={commentDisabled ? {} : { scale: 0.9 }}
                     className={classNames(
-                        'text-second hover:bg-link/[0.2] hover:text-link inline-flex size-7 items-center justify-center rounded-full focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+                        'inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                         commentDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
                     )}
                     aria-label="Comment"
@@ -60,7 +60,7 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
                     <ReplyIcon width={16} height={16} />
                 </motion.button>
             </Tooltip>
-            {!hiddenCount && count ? <span className="text-main text-xs font-medium">{nFormatter(count)}</span> : null}
+            {!hiddenCount && count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
         </ClickableArea>
     );
 });

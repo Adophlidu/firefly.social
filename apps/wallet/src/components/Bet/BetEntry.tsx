@@ -32,15 +32,15 @@ export function BetEntry({ className }: { className?: string }) {
             className={cn('flex w-full items-center justify-between duration-100 active:scale-[0.99]', className)}
         >
             <span className="flex min-w-0 items-center">
-                <span className="text-main text-base font-semibold leading-6">
+                <span className="text-base font-semibold leading-6 text-main">
                     <Trans>Predictions</Trans>
                 </span>
-                <ArrowRightIcon width={20} height={20} className="text-second shrink-0" />
+                <ArrowRightIcon width={20} height={20} className="shrink-0 text-second" />
             </span>
             {isLoadingSection ? (
-                <div className="bg-lightBg h-6 w-10 shrink-0 animate-pulse rounded-full" />
+                <div className="h-6 w-10 shrink-0 animate-pulse rounded-full bg-lightBg" />
             ) : (
-                <span className="text-main shrink-0 text-right text-sm font-semibold leading-[14px]">
+                <span className="shrink-0 text-right text-sm font-semibold leading-[14px] text-main">
                     {hasBetAccount ? portfolioText : '$0'}
                 </span>
             )}

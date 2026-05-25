@@ -34,7 +34,7 @@ export function ComposeRouteRoot() {
     const draftButton = (
         <DraftButton
             size={isMedium ? 24 : 18}
-            className="text-fourMain cursor-pointer"
+            className="cursor-pointer text-fourMain"
             onClick={() => {
                 history.push('/draft');
                 captureDraftClickEvent();
@@ -58,7 +58,7 @@ export function ComposeRouteRoot() {
 
     return (
         <>
-            <div className="pt-safe relative flex shrink-0 items-center justify-between">
+            <div className="relative flex shrink-0 items-center justify-between pt-safe">
                 <ModalTitle
                     title={
                         <div className="flex w-full items-center justify-center gap-1">

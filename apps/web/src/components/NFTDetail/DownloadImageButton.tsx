@@ -25,7 +25,7 @@ export function DownloadImageButton({ url, ref, onClick }: DownloadImageButtonPr
             }}
         >
             <DownloadIcon width={18} height={18} />
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 <Trans>Download media</Trans>
             </span>
         </MenuButton>

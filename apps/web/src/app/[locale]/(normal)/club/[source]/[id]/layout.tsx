@@ -34,7 +34,7 @@ export default async function Page(props: Props) {
         <>
             <Title channel={channel} />
             <ChannelInfoUI channel={channel} source={channel.source} isChannelPage />
-            <hr className="divider border-line w-full" />
+            <hr className="divider w-full border-line" />
             {props.children}
         </>
     );

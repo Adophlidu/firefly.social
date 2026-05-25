@@ -34,7 +34,7 @@ const STATUS_OPTIONS: Array<{
 const TopicPill = memo(function TopicPill({ topic, onClick }: { topic: PredictionSearchTag; onClick: () => void }) {
     return (
         <ClickableButton
-            className="bg-primaryBottom text-main hover:bg-bg rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-colors"
+            className="rounded-full bg-primaryBottom px-4 py-1.5 text-sm font-medium text-main shadow-sm transition-colors hover:bg-bg"
             onClick={onClick}
         >
             {topic.label}
@@ -55,7 +55,7 @@ const StatusRow = memo(function StatusRow({
 
     return (
         <ClickableButton
-            className="text-main flex w-full items-center justify-between py-2 text-base"
+            className="flex w-full items-center justify-between py-2 text-base text-main"
             onClick={() => setEventStatus(checked ? undefined : value)}
         >
             <span>{children}</span>
@@ -96,13 +96,13 @@ export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilte
 
     return (
         <div className="mt-[26px] flex flex-col gap-4">
-            <div className="bg-bg text-main rounded-lg px-4 py-3 text-base font-bold">
+            <div className="rounded-lg bg-bg px-4 py-3 text-base font-bold text-main">
                 <Trans>Search Filter</Trans>
             </div>
-            <div className="bg-bg rounded-lg px-4 py-5">
+            <div className="rounded-lg bg-bg px-4 py-5">
                 {topics.length ? (
                     <section>
-                        <h2 className="text-main text-base font-bold">
+                        <h2 className="text-base font-bold text-main">
                             <Trans>Topics</Trans>
                         </h2>
                         <div className="mt-5 flex flex-wrap gap-3">
@@ -122,7 +122,7 @@ export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilte
                     </section>
                 ) : null}
                 <section className={classNames({ 'mt-7': topics.length > 0 })}>
-                    <h2 className="text-main text-base font-bold">
+                    <h2 className="text-base font-bold text-main">
                         <Trans>Event Status</Trans>
                     </h2>
                     <div className="mt-4 flex flex-col gap-1">

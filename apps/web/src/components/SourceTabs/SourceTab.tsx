@@ -29,8 +29,8 @@ export const SourceTab = memo(function SourceTab({
     return (
         <Link
             className={classNames(
-                'active:bg-main/10 md:hover:text-highlight h-[43px] cursor-pointer border-b-4 px-3 text-center font-bold leading-[43px] md:h-[60px] md:py-[18px] md:leading-6',
-                isActive ? 'border-highlight text-highlight' : 'text-third border-transparent',
+                'h-[43px] cursor-pointer border-b-4 px-3 text-center font-bold leading-[43px] active:bg-main/10 md:h-[60px] md:py-[18px] md:leading-6 md:hover:text-highlight',
+                isActive ? 'border-highlight text-highlight' : 'border-transparent text-third',
                 className,
             )}
             aria-current={isActive ? 'page' : undefined}

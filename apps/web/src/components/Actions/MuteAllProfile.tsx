@@ -89,7 +89,7 @@ function MuteAllProfileBase({ identity, onClose, className }: MuteAllProfileBase
     return (
         <MenuButton onClick={handleMuteAll} disabled={loading} className={className}>
             {loading ? <LoadingIcon size={18} /> : <MuteIcon width={18} height={18} />}
-            <span className="text-main font-bold leading-[22px]">
+            <span className="font-bold leading-[22px] text-main">
                 <Trans>Mute all</Trans>
             </span>
         </MenuButton>

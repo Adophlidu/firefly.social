@@ -190,11 +190,11 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
 
     if (isQuote) {
         return (
-            <div className="text-main mt-2 break-words text-base" ref={mergedRef}>
+            <div className="mt-2 break-words text-base text-main" ref={mergedRef}>
                 <NakedMarkup
                     post={post}
                     className={classNames(
-                        'text-medium line-clamp-5 w-full self-stretch break-words text-left opacity-75',
+                        'line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
                         {
                             'max-h-[7.8rem]': mounted && IS_SAFARI && IS_APPLE,
                         },
@@ -219,7 +219,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
 
     return (
         <article
-            className={classNames('text-main mb-1.5 overflow-hidden break-words text-base', {
+            className={classNames('mb-1.5 overflow-hidden break-words text-base text-main', {
                 '-mt-2 pl-[52px]': !noLeftPadding,
                 'mt-1.5': noLeftPadding,
             })}
@@ -247,21 +247,21 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
 
             {isFireflyCollapsible ? (
                 <ClickableArea
-                    className="text-medium text-highlight cursor-pointer font-bold"
+                    className="cursor-pointer text-medium font-bold text-highlight"
                     onClick={() => setIsArticleExpanded((prev) => !prev)}
                 >
                     <div>{isArticleExpanded ? <Trans>Show Less</Trans> : <Trans>Show More</Trans>}</div>
                 </ClickableArea>
             ) : canShowMore || hasFireflyArticle ? (
                 isComment ? (
-                    <div className="text-medium text-highlight cursor-pointer font-bold">
+                    <div className="cursor-pointer text-medium font-bold text-highlight">
                         <div>
                             <Trans>Show More</Trans>
                         </div>
                     </div>
                 ) : (
                     <ClickableArea
-                        className="text-medium text-highlight cursor-pointer font-bold"
+                        className="cursor-pointer text-medium font-bold text-highlight"
                         onClick={() => {
                             if (post.isTruthSocial) {
                                 return;

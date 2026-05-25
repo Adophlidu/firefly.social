@@ -32,7 +32,7 @@ export const FramePageTitle = memo(function FramePageTitle({
     onSwitchWallet,
 }: FramePageTitleProps) {
     return (
-        <div className="bg-lightBg dark:bg-fireflyBrand flex items-center justify-between px-4 py-3 text-black shadow-md dark:text-white">
+        <div className="flex items-center justify-between bg-lightBg px-4 py-3 text-black shadow-md dark:bg-fireflyBrand dark:text-white">
             <CloseButton onClick={onClose} />
             <div className="flex items-center gap-2 text-center">{children}</div>
             <MoreAction selectable={false} frame={frame} onReload={onReload} onSwitchWallet={onSwitchWallet} />

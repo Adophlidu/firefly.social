@@ -18,7 +18,7 @@ export function VideoSwiper({ videos, source, minimal }: VideoSwiperProps) {
 
     return (
         <div>
-            <div className="bg-lightBg aspect-video rounded-md">
+            <div className="aspect-video rounded-md bg-lightBg">
                 {currentVideo ? (
                     <VideoAsset
                         key={`${currentVideo.uri}-${activeIndex}`}

@@ -53,7 +53,7 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                         <PopoverPanel
                             portal={false}
                             anchor="bottom start"
-                            className="bg-lightBottom shadow-popover dark:border-line dark:bg-darkBottom border-line z-30 mt-2 min-w-[200px] max-w-[min(320px,90vw)] rounded-2xl border p-3 dark:border dark:shadow-none"
+                            className="z-30 mt-2 min-w-[200px] max-w-[min(320px,90vw)] rounded-2xl border border-line bg-lightBottom p-3 shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
                             <div className="flex flex-col gap-0.5">
                                 {tertiaryItems.map((tertiary) => {
@@ -63,7 +63,7 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                                             key={tertiary.slug}
                                             href={buildPredictionCategoryHref(tertiary, item)}
                                             className={classNames(
-                                                'hover:bg-lightBg flex items-center gap-2 rounded-xl p-2 text-sm font-medium transition-colors',
+                                                'flex items-center gap-2 rounded-xl p-2 text-sm font-medium transition-colors hover:bg-lightBg',
                                                 isActive ? 'bg-highlight/10 text-highlight' : 'text-main',
                                             )}
                                         >

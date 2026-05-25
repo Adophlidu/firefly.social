@@ -195,7 +195,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     return (
         <div
             className={classNames(
-                'text-second flex min-h-6 w-full flex-wrap justify-between text-xs leading-6',
+                'flex min-h-6 w-full flex-wrap justify-between text-xs leading-6 text-second',
                 className,
             )}
         >

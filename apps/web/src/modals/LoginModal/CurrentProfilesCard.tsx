@@ -129,14 +129,14 @@ export const CurrentProfilesCard = memo<CurrentProfilesCardProps>(function Curre
     const isExceed = accounts.length >= MAX_ACCOUNT_COUNT_PER_SOURCE;
 
     return (
-        <div className="border-secondaryLine overflow-hidden rounded-lg border" key={source}>
+        <div className="overflow-hidden rounded-lg border border-secondaryLine" key={source}>
             <ClickableButton
                 className={classNames(
                     'flex w-full items-center justify-between p-2',
                     isExceed ? 'cursor-not-allowed' : 'cursor-pointer',
                     {
                         'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
-                        'border-secondaryLine border-b': isLoginFirefly && profileStore[source].accounts.length > 0,
+                        'border-b border-secondaryLine': isLoginFirefly && profileStore[source].accounts.length > 0,
                     },
                 )}
                 disabled={switchLoading || loading}
@@ -176,7 +176,7 @@ export const CurrentProfilesCard = memo<CurrentProfilesCardProps>(function Curre
                             />
                             <div className="flex min-w-0 flex-col items-start text-[14px] leading-5">
                                 <span className="max-w-full truncate font-bold">{account.profile.displayName}</span>
-                                <span className="text-secondary max-w-full truncate">@{account.profile.handle}</span>
+                                <span className="max-w-full truncate text-secondary">@{account.profile.handle}</span>
                             </div>
                         </div>
                         {isCurrent ? (
@@ -200,11 +200,11 @@ export const CurrentProfilesCard = memo<CurrentProfilesCardProps>(function Curre
             })}
             {connectedProfiles.length > 0 ? (
                 <ClickableArea
-                    className="border-t-line flex cursor-pointer items-center gap-[10px] border-t p-2"
+                    className="flex cursor-pointer items-center gap-[10px] border-t border-t-line p-2"
                     onClick={() => onClick(source)}
                 >
                     <AvatarGroup profiles={connectedProfiles} AvatarProps={{ className: 'size-5', size: 20 }} />
-                    <span className="text-second text-sm font-normal">
+                    <span className="text-sm font-normal text-second">
                         <Trans>Reauthorize connected account</Trans>
                     </span>
                 </ClickableArea>

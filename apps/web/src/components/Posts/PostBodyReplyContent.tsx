@@ -41,7 +41,7 @@ export const PostBodyReplyContent = memo<PostBodyReplyContentProps>(function Pos
         <div>
             <div
                 ref={ref}
-                className={classNames('single-post text-main line-clamp-4 w-full self-stretch break-words text-base', {
+                className={classNames('single-post line-clamp-4 w-full self-stretch break-words text-base text-main', {
                     'max-h-[7.8rem]': mounted && IS_SAFARI && IS_APPLE,
                 })}
                 style={{ WebkitLineClamp: multiple * 4 }}
@@ -50,10 +50,10 @@ export const PostBodyReplyContent = memo<PostBodyReplyContentProps>(function Pos
                     {liteRawContent}
                 </NakedMarkup>
             </div>
-            <div className="text-main flex flex-col text-base">
+            <div className="flex flex-col text-base text-main">
                 {overflow || multiple > 1 ? (
                     <ClickableButton
-                        className="text-highlight inline-flex"
+                        className="inline-flex text-highlight"
                         onClick={() => setMultiple((prev) => (overflow ? prev + 1 : 1))}
                     >
                         {overflow ? <Trans>Show more</Trans> : <Trans>Show less</Trans>}

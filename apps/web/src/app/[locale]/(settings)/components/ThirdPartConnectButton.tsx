@@ -51,7 +51,7 @@ export function ThirdPartConnectButton({ source }: Props) {
 
     return (
         <ClickableButton
-            className="text-medium text-lightMain font-bold leading-4"
+            className="text-medium font-bold leading-4 text-lightMain"
             disabled={loading}
             onClick={() => handleConnect(source)}
         >

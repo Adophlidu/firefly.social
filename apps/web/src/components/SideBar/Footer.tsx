@@ -26,7 +26,7 @@ export function Footer() {
     const { updateSidebarOpen } = useNavigatorState();
 
     return (
-        <footer className={classNames('pb-safe-or-10 absolute inset-x-0 bottom-20 pl-2 md:pl-6')}>
+        <footer className={classNames('absolute inset-x-0 bottom-20 pl-2 pb-safe-or-10 md:pl-6')}>
             {isLoginFirefly || isLogin ? (
                 <>
                     <WalletConnectButton className="mb-6" />
@@ -43,7 +43,7 @@ export function Footer() {
                 <div className="mb-4 flex justify-start">
                     <ClickableButton
                         disabled={isLoading}
-                        className="bg-lightMain text-primaryBottom mr-2 flex min-w-[120px] items-center justify-center rounded-lg px-4 py-2 text-lg leading-6"
+                        className="mr-2 flex min-w-[120px] items-center justify-center rounded-lg bg-lightMain px-4 py-2 text-lg leading-6 text-primaryBottom"
                         onClick={async () => {
                             updateSidebarOpen(false);
                             await delay(300);

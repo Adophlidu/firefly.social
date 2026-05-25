@@ -167,7 +167,7 @@ export function ProfileCategoryTabs({
     };
 
     return (
-        <div className="border-lightLineSecond bg-primaryBottom dark:border-line sticky top-0 z-20 mt-[-60px] flex h-[110px] items-center border-b px-3 pt-[60px]">
+        <div className="sticky top-0 z-20 mt-[-60px] flex h-[110px] items-center border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
             <nav className="scrollable-tab flex min-w-0 flex-1 gap-1.5">
                 {categories.map(({ type, title }) => {
                     const profileUrl = getProfileUrl({ source, profileId: id, handle: id }, type, isCurrentProfile);
@@ -189,14 +189,14 @@ export function ProfileCategoryTabs({
                                 href={profileUrl}
                                 replace
                                 className={classNames(
-                                    'hover:text-highlight flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all',
+                                    'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',
                                     category === type ? 'text-highlight' : 'text-third',
                                 )}
                                 onClick={() => handleTabClick(type)}
                             >
                                 {title}
                             </Link>
-                            {category === type ? <span className="bg-highlight h-1 w-full transition-all" /> : null}
+                            {category === type ? <span className="h-1 w-full bg-highlight transition-all" /> : null}
                         </div>
                     );
                 })}

@@ -32,9 +32,9 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
         <Popover as="div" className="relative px-4 pt-4">
             {({ close }) => (
                 <>
-                    <PopoverButton className="border-secondaryLine text-main flex h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border bg-bottom px-2 text-sm font-semibold focus:outline-none">
+                    <PopoverButton className="flex h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border border-secondaryLine bg-bottom px-2 text-sm font-semibold text-main focus:outline-none">
                         <span>{market?.title || ''}</span>
-                        <ChevronDownIcon className="text-secondary size-4" />
+                        <ChevronDownIcon className="size-4 text-secondary" />
                     </PopoverButton>
                     <Transition
                         as={Fragment}
@@ -49,9 +49,9 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
                             portal={false}
                             anchor="top start"
                             style={{ height: 38 * markets.length + 32 + 40 }}
-                            className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-30 w-[400px] !max-w-[80vw] -translate-y-3 rounded-lg py-4 [--anchor-max-height:224px] dark:border dark:shadow-none"
+                            className="no-scrollbar absolute bottom-full right-0 z-30 w-[400px] !max-w-[80vw] -translate-y-3 rounded-lg bg-lightBottom py-4 text-medium shadow-popover [--anchor-max-height:224px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
-                            <h1 className="text-main h-7 px-4 text-lg font-bold">
+                            <h1 className="h-7 px-4 text-lg font-bold text-main">
                                 <Trans>Markets</Trans>
                             </h1>
                             <div className="mt-2 space-y-1">
@@ -59,7 +59,7 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
                                     <ClickableButton
                                         key={market.id}
                                         className={classNames(
-                                            'hover:bg-lightBg flex h-[34px] w-full items-center gap-3 truncate px-4 transition duration-150 ease-in',
+                                            'flex h-[34px] w-full items-center gap-3 truncate px-4 transition duration-150 ease-in hover:bg-lightBg',
                                             market.id === marketId ? 'font-semibold' : '',
                                         )}
                                         onClick={() => {
@@ -76,7 +76,7 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
                                             close();
                                         }}
                                     >
-                                        <span className="text-main min-w-0 flex-1 truncate text-left text-sm font-medium">
+                                        <span className="min-w-0 flex-1 truncate text-left text-sm font-medium text-main">
                                             {market.title}
                                         </span>
                                         <CircleCheckboxIcon checked={market.id === marketId} />

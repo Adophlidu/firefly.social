@@ -163,9 +163,9 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                         loading={quoteLoading}
                     />
 
-                    <div className="dark:border-darkBottom absolute left-1/2 top-0 flex size-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border-4 border-white bg-[#ebecff]">
+                    <div className="absolute left-1/2 top-0 flex size-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border-4 border-white bg-[#ebecff] dark:border-darkBottom">
                         {quoteLoading ? (
-                            <SwapLoadingIcon className="text-highlight size-6 animate-spin" />
+                            <SwapLoadingIcon className="size-6 animate-spin text-highlight" />
                         ) : (
                             <button
                                 type="button"
@@ -173,7 +173,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                                 onClick={() => swapTokens()}
                                 disabled={isLoading}
                             >
-                                <SwapFlipIcon className="text-highlight size-6 -rotate-90" />
+                                <SwapFlipIcon className="size-6 -rotate-90 text-highlight" />
                             </button>
                         )}
                     </div>
@@ -182,11 +182,11 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
 
             {formattedRate ? (
                 <div className="flex items-center justify-between px-3 text-[14px]">
-                    <span className="text-secondary font-normal leading-[14px]">
+                    <span className="font-normal leading-[14px] text-secondary">
                         <Trans>Rate</Trans>
                     </span>
                     <span
-                        className="text-main flex cursor-pointer items-center gap-1 font-medium leading-[18px]"
+                        className="flex cursor-pointer items-center gap-1 font-medium leading-[18px] text-main"
                         onClick={() => setRateReversed((v) => !v)}
                     >
                         {quoteLoading ? '-' : formattedRate}
@@ -205,7 +205,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                     <button
                         key={value}
                         type="button"
-                        className="bg-lightBg w-[70px] rounded-2xl px-4 py-1 text-center text-[16px] font-semibold leading-6"
+                        className="w-[70px] rounded-2xl bg-lightBg px-4 py-1 text-center text-[16px] font-semibold leading-6"
                         onClick={() => handlePercentageClick(value)}
                         disabled={isGasReserveLoading}
                     >

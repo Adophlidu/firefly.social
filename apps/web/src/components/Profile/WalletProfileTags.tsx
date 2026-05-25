@@ -111,7 +111,7 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
     }, [networkType, profile.ens, profile.baseEth, profile.sns, profile.seekerId]);
 
     if (isLoading) {
-        return <div className="bg-bg ml-1 mr-auto h-6 w-[120px] animate-pulse" />;
+        return <div className="ml-1 mr-auto h-6 w-[120px] animate-pulse bg-bg" />;
     }
 
     const dynamicTagsCount =
@@ -143,12 +143,12 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
                     className="tippy-card"
                     placement="bottom"
                     content={
-                        <div className="no-scrollbar border-secondaryLine bg-primaryBottom flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] p-3">
+                        <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
                             {ensList.map((ens) => {
                                 return (
                                     <div className="flex items-center gap-[5px]" key={`${id}-${ens}`}>
                                         <Icon width={13} height={13} className={itemClassName} />
-                                        <span className="text-main text-[10px] font-bold leading-4">{ens}</span>
+                                        <span className="text-[10px] font-bold leading-4 text-main">{ens}</span>
                                     </div>
                                 );
                             })}

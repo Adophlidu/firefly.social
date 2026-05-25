@@ -200,12 +200,12 @@ function DepositClient() {
         <div className="flex min-h-0 w-full flex-1 flex-col items-center px-4">
             {!depositToken || isDepositTokenLoading ? (
                 <div className="flex h-[60px] w-full items-center gap-3">
-                    <div className="bg-lightBg size-9 rounded-full" />
+                    <div className="size-9 rounded-full bg-lightBg" />
                     <div className="flex-1">
-                        <div className="bg-lightBg h-5 w-[50px]" />
-                        <div className="bg-lightBg mt-1 h-3 w-[100px]" />
+                        <div className="h-5 w-[50px] bg-lightBg" />
+                        <div className="mt-1 h-3 w-[100px] bg-lightBg" />
                     </div>
-                    <div className="bg-lightBg h-5 w-7" />
+                    <div className="h-5 w-7 bg-lightBg" />
                 </div>
             ) : (
                 <div className="flex h-[60px] w-full cursor-pointer items-center gap-3" onClick={goToSelectToken}>
@@ -221,13 +221,13 @@ function DepositClient() {
                     />
                     <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1">
-                            <span className="text-main text-sm font-semibold">{depositToken.name}</span>
+                            <span className="text-sm font-semibold text-main">{depositToken.name}</span>
                             <ArrowDownIcon width={16} height={16} />
                         </div>
                         {isBalanceLoading ? (
-                            <div className="bg-lightBg h-[14px] w-8 animate-pulse" />
+                            <div className="h-[14px] w-8 animate-pulse bg-lightBg" />
                         ) : (
-                            <span className="text-second text-xs font-medium">
+                            <span className="text-xs font-medium text-second">
                                 <Trans>
                                     {formatTokenItemAmount(depositToken.balance ?? '0')} {depositToken.symbol} in your
                                     Firefly wallet
@@ -236,9 +236,9 @@ function DepositClient() {
                         )}
                     </div>
                     {isBalanceLoading ? (
-                        <div className="bg-lightBg h-5 w-7 animate-pulse" />
+                        <div className="h-5 w-7 animate-pulse bg-lightBg" />
                     ) : (
-                        <span className="text-main shrink-0 text-sm font-semibold">
+                        <span className="shrink-0 text-sm font-semibold text-main">
                             {depositToken.balance
                                 ? formatTokenUSD(multipliedBy(depositToken.balance, depositToken.price ?? 0).toString())
                                 : '$0'}
@@ -280,7 +280,7 @@ function DepositClient() {
                                 size={14}
                                 icon={inputType === InputType.Amount ? pusdTokenFallback.logoUrl : depositToken.logoUrl}
                             />
-                            <span className="text-second text-xs leading-[14px]">
+                            <span className="text-xs leading-[14px] text-second">
                                 {inputType === InputType.Amount ? formatTokenUSD(usdcValue) : amount}
                             </span>
                             <BetSwitchIcon width={14} height={14} />
@@ -304,12 +304,12 @@ function DepositClient() {
                         <div className="h-5 w-full truncate text-sm font-semibold">
                             <Trans>Receive</Trans>
                         </div>
-                        <div className="text-second w-full text-xs font-medium leading-3">
+                        <div className="w-full text-xs font-medium leading-3 text-second">
                             <Trans>into your predict wallet</Trans>
                         </div>
                     </div>
                     {isQuoteLoading ? (
-                        <div className="bg-lightBg ml-auto h-5 w-10 animate-pulse" />
+                        <div className="ml-auto h-5 w-10 animate-pulse bg-lightBg" />
                     ) : (
                         <div className="ml-auto text-sm font-semibold">{usdcBalanceUsdText || '-'}</div>
                     )}
@@ -318,7 +318,7 @@ function DepositClient() {
                     {[0.25, 0.5, 0.75, 1].map((rate) => (
                         <button
                             key={rate}
-                            className="bg-lightBg active:bg-main/10 h-8 w-[70px] rounded-full text-center font-semibold leading-8 duration-75 active:scale-95"
+                            className="h-8 w-[70px] rounded-full bg-lightBg text-center font-semibold leading-8 duration-75 active:scale-95 active:bg-main/10"
                             onClick={() => {
                                 if (!depositToken) return;
 

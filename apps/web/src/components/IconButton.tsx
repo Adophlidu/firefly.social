@@ -23,7 +23,7 @@ export const IconButton = memo(function IconButton({ size = 24, tooltip, childre
         <ClickableButton
             role="button"
             {...props}
-            className={classNames('hover:bg-lightBg rounded p-1', props.className)}
+            className={classNames('rounded p-1 hover:bg-lightBg', props.className)}
         >
             {children}
         </ClickableButton>

@@ -43,7 +43,7 @@ export default async function Layout(props: Props) {
 
     return (
         <>
-            <Title title={displayName} className="border-line sticky top-0 border-b" />
+            <Title title={displayName} className="sticky top-0 border-b border-line" />
             <FollowPageLayout profile={profile} category={category}>
                 <LoginRequiredGuard
                     className="lg:!pt-0"

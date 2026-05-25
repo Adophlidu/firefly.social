@@ -37,7 +37,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
 
     const content = (
         <Link
-            className="text-highlight cursor-pointer hover:underline"
+            className="cursor-pointer text-highlight hover:underline"
             onClick={(e) => {
                 e.stopPropagation();
             }}
@@ -60,7 +60,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 content={
                     enabled ? (
                         <TokenProfileCard
-                            className="bg-primaryBottom text-main w-[415px] p-2 shadow-[0_8px_20px_0_rgba(0,0,0,0.04)]"
+                            className="w-[415px] bg-primaryBottom p-2 text-main shadow-[0_8px_20px_0_rgba(0,0,0,0.04)]"
                             symbol={symbol}
                         />
                     ) : null

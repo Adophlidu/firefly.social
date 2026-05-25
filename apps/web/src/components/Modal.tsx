@@ -71,7 +71,7 @@ export const Modal = memo(function Modal({
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog
-                className={classNames('z-modal relative', dialogClassName)}
+                className={classNames('relative z-modal', dialogClassName)}
                 onClose={disableDialogClose ? noop : onClose}
                 tabIndex={-1}
             >
@@ -87,7 +87,7 @@ export const Modal = memo(function Modal({
                         {enableBackdrop ? (
                             <Transition.Child
                                 as="div"
-                                className="bg-main/25 fixed inset-0"
+                                className="fixed inset-0 bg-main/25"
                                 enter="ease-out duration-300"
                                 enterFrom="opacity-0"
                                 enterTo="opacity-100"
@@ -115,7 +115,7 @@ export const Modal = memo(function Modal({
                             {title ? (
                                 <div
                                     className={classNames(
-                                        'bg-lightBottom dark:bg-darkBottom relative z-10 flex flex-col rounded-md md:rounded-xl',
+                                        'relative z-10 flex flex-col rounded-md bg-lightBottom dark:bg-darkBottom md:rounded-xl',
                                         className,
                                         {
                                             'w-[520px]': size === 'lg',

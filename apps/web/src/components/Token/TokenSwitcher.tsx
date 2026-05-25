@@ -50,15 +50,15 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
         <div
             {...rest}
             className={classNames(
-                'border-line bg-primaryBottom flex cursor-default flex-col gap-2 rounded-2xl border px-3 py-[7px]',
+                'flex cursor-default flex-col gap-2 rounded-2xl border border-line bg-primaryBottom px-3 py-[7px]',
                 rest.className,
             )}
             onClick={(e) => {
                 e.stopPropagation();
             }}
         >
-            <div className="text-main grid grid-cols-[20px_auto_20px] grid-rows-1" onClick={onClose}>
-                <div className="text-main col-start-2 text-center text-sm font-bold leading-[18px]">
+            <div className="grid grid-cols-[20px_auto_20px] grid-rows-1 text-main" onClick={onClose}>
+                <div className="col-start-2 text-center text-sm font-bold leading-[18px] text-main">
                     <Trans>View similar symbols</Trans>
                 </div>
                 <LineArrowUp className="cursor-pointer" width={20} height={20} />
@@ -107,28 +107,28 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
                                 size={32}
                             />
                             <div className="flex flex-col">
-                                <div className="text-main text-base font-bold leading-4">{tokenInfo.name}</div>
-                                <div className="text-secondary text-[13px] font-bold uppercase leading-4">
+                                <div className="text-base font-bold leading-4 text-main">{tokenInfo.name}</div>
+                                <div className="text-[13px] font-bold uppercase leading-4 text-secondary">
                                     {tokenInfo.symbol}
                                 </div>
                             </div>
                             <div className="ml-auto flex flex-col items-end">
-                                <div className="text-main text-base font-bold leading-4">
+                                <div className="text-base font-bold leading-4 text-main">
                                     ${renderShrankPrice(formatPrice(market_data?.token_price_usd) ?? '-')}
                                 </div>
                                 {isNumber(market_data?.price_change_percentage_24h) ? (
-                                    <div className="text-secondary flex items-center text-[13px] font-bold uppercase leading-4">
+                                    <div className="flex items-center text-[13px] font-bold uppercase leading-4 text-secondary">
                                         <PriceArrow
                                             width={16}
                                             height={16}
-                                            className={isUp ? 'text-success shrink-0' : 'text-fail shrink-0 rotate-180'}
+                                            className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
                                         />
                                         <span className={isUp ? 'text-success' : 'text-fail'}>
                                             {market_data.price_change_percentage_24h.toFixed(2)}%
                                         </span>
                                     </div>
                                 ) : (
-                                    <div className="text-secondary flex items-center text-[13px] font-bold uppercase leading-4">
+                                    <div className="flex items-center text-[13px] font-bold uppercase leading-4 text-secondary">
                                         <span>-</span>
                                     </div>
                                 )}

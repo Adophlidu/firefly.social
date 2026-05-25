@@ -24,7 +24,7 @@ export function ProfileCell({ profile, source, className, ref, ...rest }: Props)
     return (
         <Link
             href={getProfileUrl(profile)}
-            className={classNames('hover:bg-bg flex w-full px-4 py-2', className)}
+            className={classNames('flex w-full px-4 py-2 hover:bg-bg', className)}
             data-disable-progress
             {...rest}
         >
@@ -40,11 +40,11 @@ export function ProfileCell({ profile, source, className, ref, ...rest }: Props)
                     </span>
                 </ProfileTippy>
                 <div className="mr-auto flex max-w-[calc(100%-16px-40px-16px-32px)] flex-col">
-                    <div className="text-medium flex items-center justify-start truncate font-bold leading-5">
-                        <div className="text-main mr-2 max-w-full truncate text-left">{profile.displayName}</div>
+                    <div className="flex items-center justify-start truncate text-medium font-bold leading-5">
+                        <div className="mr-2 max-w-full truncate text-left text-main">{profile.displayName}</div>
                         <SocialSourceIcon source={source} size={16} className="shrink-0" />
                     </div>
-                    <div className="text-medium text-secondary flex items-center gap-2 leading-6">
+                    <div className="flex items-center gap-2 text-medium leading-6 text-secondary">
                         <p className="truncate">@{profile.handle}</p>
                     </div>
                 </div>

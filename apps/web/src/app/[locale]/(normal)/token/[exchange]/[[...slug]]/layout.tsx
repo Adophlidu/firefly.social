@@ -117,10 +117,10 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
             <TokenContextProvider>
-                <div className="border-line bg-primaryBottom sticky top-0 z-30 flex h-[60px] items-center justify-between border-b px-4">
+                <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
                     <div className="flex min-w-0 items-center gap-7">
-                        <Comeback className="text-lightMain cursor-pointer" />
-                        <span className="text-lightMain min-w-0 truncate text-xl font-black uppercase">
+                        <Comeback className="cursor-pointer text-lightMain" />
+                        <span className="min-w-0 truncate text-xl font-black uppercase text-lightMain">
                             {token?.symbol || (isNewRoute ? slug : legacySymbol)}
                         </span>
                     </div>

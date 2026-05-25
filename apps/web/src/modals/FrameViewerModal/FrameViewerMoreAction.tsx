@@ -44,7 +44,7 @@ export const MoreAction = memo(function MoreAction({
                                 }}
                             >
                                 <CopyIcon width={18} height={18} />
-                                <span className="text-main font-bold leading-[22px]">
+                                <span className="font-bold leading-[22px] text-main">
                                     <Trans>Copy frame URL</Trans>
                                 </span>
                             </MenuButton>
@@ -62,7 +62,7 @@ export const MoreAction = memo(function MoreAction({
                             }}
                         >
                             <ReloadIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>Reload page</Trans>
                             </span>
                         </MenuButton>
@@ -79,7 +79,7 @@ export const MoreAction = memo(function MoreAction({
                             }}
                         >
                             <WalletIcon width={18} height={18} />
-                            <span className="text-main font-bold leading-[22px]">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>Switch wallet</Trans>
                             </span>
                         </MenuButton>

@@ -45,7 +45,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
 
     if (post.isTruthSocial && post.retruthed) {
         return (
-            <div className="text-medium text-secondary mb-3 flex w-full items-center space-x-2">
+            <div className="mb-3 flex w-full items-center space-x-2 text-medium text-secondary">
                 <MirrorIcon width={16} height={16} className="shrink-0" />
                 <Link href={getProfileUrl(post.author)} className="flex min-w-0 space-x-1">
                     {isSameProfile(post.author, currentProfile) ? (
@@ -65,7 +65,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
     return (
         <ClickableArea className="w-full">
             {post.type === PostType.Mirror && post.reporter && !isPostPage ? (
-                <div className="text-medium text-secondary mb-3 flex items-center space-x-2">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} className="shrink-0" />
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
                         {isSameProfile(post.reporter, currentProfile) ? (
@@ -82,7 +82,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                 </div>
             ) : null}
             {post.mirrors?.length && !isPostPage ? (
-                <div className="text-medium text-secondary mb-3 flex items-center space-x-2">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
                         {post.mirrors.some((profile) => isSameProfile(profile, currentProfile)) ? (
@@ -123,7 +123,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                 </div>
             ) : null}
             {post.reactions?.length && !isComment && !isPostPage ? (
-                <div className="text-medium text-secondary mb-3 flex items-center space-x-2">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
                         {post.reactions.some((profile) => isSameProfile(profile, currentProfile)) ? (

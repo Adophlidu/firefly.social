@@ -14,7 +14,7 @@ export default function Page() {
 
     return (
         <div className="flex w-full flex-col items-center">
-            <div className="bg-primaryBottom sticky top-[54px] z-20 flex w-full flex-col md:top-0">
+            <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
                 <TimelineTitle title={<Trans>Something went wrong</Trans>} />
             </div>
             <NavigatorBar />

@@ -140,7 +140,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                             disablePadding
                             post={post}
                             disabled={post.isHidden}
-                            className="border-line !mt-0 border-y py-3 pl-2.5 pr-4"
+                            className="!mt-0 border-y border-line py-3 pl-2.5 pr-4"
                         />
                     </div>
                 ) : null}

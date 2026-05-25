@@ -57,8 +57,8 @@ function QrScanLogin({ logo, title, description, onLogin }: QrScanLoginProps) {
             <div className="flex min-w-0 flex-1 items-center gap-3">
                 {logo}
                 <div className="text-left">
-                    <p className="text-main text-base font-semibold">{title}</p>
-                    <p className="text-second text-sm">{description}</p>
+                    <p className="text-base font-semibold text-main">{title}</p>
+                    <p className="text-sm text-second">{description}</p>
                 </div>
             </div>
             <QrScan width={28} height={28} className="shrink-0" />
@@ -116,7 +116,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
     }, []);
 
     return (
-        <ShadowInAndOut className="z-1 absolute inset-0 flex items-center justify-center overflow-hidden">
+        <ShadowInAndOut className="absolute inset-0 z-1 flex items-center justify-center overflow-hidden">
             <Card>
                 <div className="flex h-full flex-col p-3 md:p-12">
                     <div className="shrink-0 bg-white">

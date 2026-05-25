@@ -28,7 +28,7 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
     const profileUrl = getProfileUrl({ source: profileSource, profileId: source.id, handle: source.handle });
 
     return (
-        <div className="text-medium text-second mb-3 flex items-center leading-6">
+        <div className="mb-3 flex items-center text-medium leading-6 text-second">
             <StarIcon className="mr-2 size-4" />
             {[WatchType.Farcaster, WatchType.Lens, WatchType.Twitter].includes(source.type) ? (
                 <>

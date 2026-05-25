@@ -21,7 +21,7 @@ export function SearchableCollectionItem({ collection, className, onClick }: Col
 
     return (
         <Link
-            className={classNames('border-line hover:bg-bg flex items-center gap-2.5 border-b p-3', className)}
+            className={classNames('flex items-center gap-2.5 border-b border-line p-3 hover:bg-bg', className)}
             href={resolveNFTUrl(chainId, collection.contract_address)}
             onClick={onClick}
         >
@@ -34,23 +34,23 @@ export function SearchableCollectionItem({ collection, className, onClick }: Col
             />
             <div>
                 <div className="flex items-center gap-1">
-                    <span className="text-lightMain text-lg font-bold leading-6">{collection.name}</span>
+                    <span className="text-lg font-bold leading-6 text-lightMain">{collection.name}</span>
                     <ChainIcon size={18} className="shrink-0" chainId={chainId} />
                 </div>
                 <div className="mt-1 flex items-center gap-2">
-                    <span className="text-medium text-lightMain font-bold leading-[22px]">
+                    <span className="text-medium font-bold leading-[22px] text-lightMain">
                         <Trans>
                             {nFormatter(collection.items_total || 0)}{' '}
-                            <span className="text-second font-normal">Items</span>
+                            <span className="font-normal text-second">Items</span>
                         </Trans>
                     </span>
                     {collection.floor_price && collection.price_symbol ? (
                         <>
                             <span className="text-second">·</span>
-                            <span className="text-medium text-lightMain font-bold leading-[22px]">
+                            <span className="text-medium font-bold leading-[22px] text-lightMain">
                                 <Trans>
                                     {collection.floor_price}
-                                    {collection.price_symbol} <span className="text-second font-normal">Floor</span>
+                                    {collection.price_symbol} <span className="font-normal text-second">Floor</span>
                                 </Trans>
                             </span>
                         </>

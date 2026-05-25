@@ -21,12 +21,12 @@ function SuggestedChannelItem({ channel }: { channel: Channel }) {
     return (
         <ChannelTippy channel={channel}>
             <Link
-                className="bg-lightBottom dark:bg-primaryBottom inline-flex h-6 items-center gap-1 rounded-full px-3"
+                className="inline-flex h-6 items-center gap-1 rounded-full bg-lightBottom px-3 dark:bg-primaryBottom"
                 href={getChannelUrl(channel)}
             >
                 <Avatar className="rounded-full" src={channel.imageUrl} size={15} alt={channel.name} />
-                <span className="text-medium text-main font-bold">{channel.name}</span>
-                <SocialSourceIcon mono source={channel.source} size={15} className="text-secondary shrink-0" />
+                <span className="text-medium font-bold text-main">{channel.name}</span>
+                <SocialSourceIcon mono source={channel.source} size={15} className="shrink-0 text-secondary" />
             </Link>
         </ChannelTippy>
     );
@@ -55,7 +55,7 @@ export function SuggestedChannelsCard() {
                     </Link>
                 }
             />
-            <div className="bg-lightBg flex flex-wrap gap-2.5 rounded-xl p-3">
+            <div className="flex flex-wrap gap-2.5 rounded-xl bg-lightBg p-3">
                 {data.map((channel) => (
                     <SuggestedChannelItem key={channel.id} channel={channel} />
                 ))}

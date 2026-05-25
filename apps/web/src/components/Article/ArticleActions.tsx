@@ -82,7 +82,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     };
 
     return (
-        <div className="text-second flex items-center justify-end">
+        <div className="flex items-center justify-end text-second">
             <div className="flex items-center">
                 <LikeButton type={Source.Article} data={article} />
                 {/* TODO: Collect feature temporarily hidden, may be needed later

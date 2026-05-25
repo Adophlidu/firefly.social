@@ -37,7 +37,7 @@ export function SquareButton({
                 preserveAspectRatio="none"
                 className={colorMode === 'auto' ? 'text-main' : colorMode === 'light' ? 'text-white' : 'text-[#171717]'}
             />
-            <div className="z-1 absolute inset-0 flex items-center justify-center gap-3">
+            <div className="absolute inset-0 z-1 flex items-center justify-center gap-3">
                 {loading ? (
                     <LoadingIcon
                         size={24}

@@ -28,7 +28,7 @@ export const PostBodyDecryption = memo(function PostBodyDecryption({ ref, ...pro
         >
             <div
                 className={classNames(
-                    'border-primaryMain text-medium flex items-center justify-between rounded-lg px-3 py-[6px]',
+                    'flex items-center justify-between rounded-lg border-primaryMain px-3 py-[6px] text-medium',
                     {
                         border: !props.isQuote,
                     },

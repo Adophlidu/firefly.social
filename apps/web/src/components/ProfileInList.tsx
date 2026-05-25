@@ -56,14 +56,14 @@ export const ProfileInList = memo<ProfileInListProps>(function ProfileInList({
 
     if (isBadProfile(profile)) {
         return (
-            <div className="flex-start border-secondaryLine hover:bg-bg dark:border-line flex cursor-not-allowed gap-3 overflow-auto border-b p-3">
+            <div className="flex-start flex cursor-not-allowed gap-3 overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">
                 <SocialSourceIcon size={isMedium ? 40 : 44} className="rounded-full border" source={profile.source} />
                 <div className="flex min-w-0 grow flex-col justify-center">
                     <span className="truncate text-lg font-bold leading-6">
                         <Trans>Undefined user</Trans>
                     </span>
                     {profile.profileId ? (
-                        <span className="text-medium text-secondary self-start leading-[22px]">
+                        <span className="self-start text-medium leading-[22px] text-secondary">
                             ID: {profile.profileId}
                         </span>
                     ) : null}
@@ -73,7 +73,7 @@ export const ProfileInList = memo<ProfileInListProps>(function ProfileInList({
     }
 
     return (
-        <div className="flex-start border-secondaryLine hover:bg-bg dark:border-line flex gap-3 overflow-auto border-b p-3">
+        <div className="flex-start flex gap-3 overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">
             <Link onClick={handleClickOnLink} className="shrink-0" href={profileUrl} prefetch={false}>
                 <Avatar
                     className="rounded-full border"
@@ -91,7 +91,7 @@ export const ProfileInList = memo<ProfileInListProps>(function ProfileInList({
                             </Link>
                             <SocialSourceIcon
                                 mono
-                                className="text-secondary shrink-0"
+                                className="shrink-0 text-secondary"
                                 size={16}
                                 source={profile.source}
                             />
@@ -99,7 +99,7 @@ export const ProfileInList = memo<ProfileInListProps>(function ProfileInList({
                         <div className="flex items-center whitespace-nowrap">
                             {profile.handle ? (
                                 <Link
-                                    className="text-medium text-secondary self-start truncate leading-[22px]"
+                                    className="self-start truncate text-medium leading-[22px] text-secondary"
                                     href={profileUrl}
                                     onClick={handleClickOnLink}
                                     prefetch={false}
@@ -109,20 +109,20 @@ export const ProfileInList = memo<ProfileInListProps>(function ProfileInList({
                             ) : null}
                             {[Source.Lens, Source.Farcaster].includes(profile.source) ? null : (
                                 <>
-                                    <span className="text-secondary mx-1 leading-[22px]">·</span>
+                                    <span className="mx-1 leading-[22px] text-secondary">·</span>
                                     <Link
                                         prefetch={false}
                                         href={getProfileUrl(profile, FollowCategory.Followers)}
-                                        className={classNames('text-medium gap-1 leading-[22px] hover:underline', {
+                                        className={classNames('gap-1 text-medium leading-[22px] hover:underline', {
                                             'pointer-events-none':
                                                 source !== Source.Farcaster && source !== Source.Lens,
                                         })}
                                     >
                                         <data value={followerCount}>
-                                            <span className="text-lightMain font-bold leading-[22px]">
+                                            <span className="font-bold leading-[22px] text-lightMain">
                                                 {nFormatter(followerCount)}{' '}
                                             </span>
-                                            <span className="text-secondary leading-[22px]">
+                                            <span className="leading-[22px] text-secondary">
                                                 <Plural value={followerCount} one="Follower" other="Followers" />
                                             </span>
                                         </data>

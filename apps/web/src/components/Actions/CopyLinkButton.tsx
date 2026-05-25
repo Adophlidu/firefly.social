@@ -26,7 +26,7 @@ export const CopyLinkButton = memo(function CopyLinkButton({ link, children, ref
             }}
         >
             <LinkIcon width={18} height={18} />
-            <span className="text-main font-bold leading-[22px]">{children || <Trans>Copy link</Trans>}</span>
+            <span className="font-bold leading-[22px] text-main">{children || <Trans>Copy link</Trans>}</span>
         </MenuButton>
     );
 });

@@ -103,7 +103,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
                             return (
                                 <li
-                                    className="text-main flex w-full rounded-lg outline-none"
+                                    className="flex w-full rounded-lg text-main outline-none"
                                     key={item.href}
                                     onClick={() => {
                                         updateSidebarOpen(false);
@@ -140,7 +140,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         })}
 
                         <li className="md:hidden">
-                            <OpenFireflyAppButton className="text-fireflyBrand flex w-full items-center gap-x-3 p-2">
+                            <OpenFireflyAppButton className="flex w-full items-center gap-x-3 p-2 text-fireflyBrand">
                                 <CircleShareIcon width={20} height={20} />
                                 <span className="text-lg font-bold leading-6">
                                     <Trans>Mobile App</Trans>

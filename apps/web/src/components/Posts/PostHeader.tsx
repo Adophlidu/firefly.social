@@ -57,7 +57,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
         <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
             <Link
                 href={profileLink}
-                className={classNames('text-medium text-secondary shrink-0 truncate leading-5', className)}
+                className={classNames('shrink-0 truncate text-medium leading-5 text-secondary', className)}
                 onClick={stopPropagation}
             >
                 @{author.handle}
@@ -98,7 +98,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
                         <Link
                             href={profileLink}
-                            className="text-medium text-main mr-1 truncate font-bold leading-5"
+                            className="mr-1 truncate text-medium font-bold leading-5 text-main"
                             onClick={stopPropagation}
                         >
                             {author.highlighted || highlighted ? (
@@ -121,14 +121,14 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         : null}
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
                         <>
-                            <span className="text-secondary mx-1 leading-5">·</span>
+                            <span className="mx-1 leading-5 text-secondary">·</span>
                             <Time
                                 dateTime={post.timestamp}
-                                className="text-medium text-secondary whitespace-nowrap leading-5"
+                                className="whitespace-nowrap text-medium leading-5 text-secondary"
                             >
                                 <TimestampFormatter time={post.timestamp} />
                             </Time>
-                            <span className="text-secondary mx-1 leading-5">·</span>
+                            <span className="mx-1 leading-5 text-secondary">·</span>
                         </>
                     ) : null}
                     {isSendFromFirefly(post) ? (
@@ -136,13 +136,13 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                             fontSize={15}
                             width={15}
                             height={15}
-                            className="text-second mr-1 inline shrink-0"
+                            className="mr-1 inline shrink-0 text-second"
                         />
                     ) : null}
                     {post.isTruthSocial ? (
-                        <TruthSocialIcon width={15} height={15} className="text-second shrink-0" />
+                        <TruthSocialIcon width={15} height={15} className="shrink-0 text-second" />
                     ) : (
-                        <SocialSourceIcon mono className="text-second shrink-0" source={post.source} size={15} />
+                        <SocialSourceIcon mono className="shrink-0 text-second" source={post.source} size={15} />
                     )}
                 </div>
                 {!isQuote ? (

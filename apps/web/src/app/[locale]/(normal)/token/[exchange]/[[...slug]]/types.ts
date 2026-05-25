@@ -1,11 +1,10 @@
 import type { TokenCategory } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 
-export interface TokenPageProps
-    extends LayoutProps<{
-        exchange: string;
-        slug: [coingecko_id: string] | [chain_id: string, address: string];
-    }> {
+export interface TokenPageProps extends LayoutProps<{
+    exchange: string;
+    slug: [coingecko_id: string] | [chain_id: string, address: string];
+}> {
     searchParams: Promise<TokenPageSearch>;
 }
 
