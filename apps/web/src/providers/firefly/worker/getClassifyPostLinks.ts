@@ -1,4 +1,6 @@
 import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
+import { isSameUrl } from '@dimensiondev/utils';
+import { uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -50,20 +52,23 @@ export async function getClassifyPostLinks(urls: string[]) {
         ClassifyPostLinkResult
     >;
 
-    return normalizedUrls.flatMap((normalizedUrl, index) => {
-        const result = resultMap.get(normalizedUrl);
-        if (!result) return [];
+    return uniqWith(
+        normalizedUrls.flatMap((normalizedUrl, index) => {
+            const result = resultMap.get(normalizedUrl);
+            if (!result) return [];
 
-        if (result.oembed?.og) {
-            const sid = getSharerParam(urls[index]);
-            if (sid) {
-                result.oembed = {
-                    ...result.oembed,
-                    og: { ...result.oembed.og, url: addSharerParam(result.oembed.og.url, sid) },
-                };
+            if (result.oembed?.og) {
+                const sid = getSharerParam(urls[index]);
+                if (sid) {
+                    result.oembed = {
+                        ...result.oembed,
+                        og: { ...result.oembed.og, url: addSharerParam(result.oembed.og.url, sid) },
+                    };
+                }
             }
-        }
 
-        return [{ url: urls[index], result }];
-    });
+            return [{ url: urls[index], result }];
+        }),
+        (a, b) => isSameUrl(a.url, b.url),
+    );
 }

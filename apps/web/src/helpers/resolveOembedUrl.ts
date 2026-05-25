@@ -1,5 +1,5 @@
 import { isSameUrl } from '@dimensiondev/utils';
-import { uniq } from 'lodash-es';
+import { uniqWith } from 'lodash-es';
 
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -27,7 +27,11 @@ export function resolveOembedUrl(post: Pick<Post, 'metadata'>) {
 export function resolveAllOembedUrls(post: Pick<Post, 'metadata'>) {
     const oembedUrls = post.metadata.content?.oembedUrls;
     const attachmentsUrls = post.metadata.content?.attachments?.map((x) => x.uri);
-    if (!oembedUrls?.length || !attachmentsUrls?.length) return oembedUrls || [];
+    if (!oembedUrls?.length) return [];
 
-    return uniq(oembedUrls.filter((url) => !attachmentsUrls.some((attachmentUrl) => isSameUrl(attachmentUrl, url))));
+    const filtered = attachmentsUrls?.length
+        ? oembedUrls.filter((url) => !attachmentsUrls.some((attachmentUrl) => isSameUrl(attachmentUrl, url)))
+        : oembedUrls;
+
+    return uniqWith(filtered, isSameUrl);
 }
