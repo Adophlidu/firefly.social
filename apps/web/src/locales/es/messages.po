@@ -4782,8 +4782,8 @@ msgid "Wait for signing..."
 msgstr "Esperando firma..."
 
 #. placeholder {0}: market_cap ? `$${formatMarketCap(market_cap)}` : '-'
-#. placeholder {1}: rank ? ( <span className="bg-highlight inline-flex h-[14px] items-center rounded px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
-#. placeholder {1}: rank ? ( <span className="bg-highlight inline-flex h-[14px] items-center text-nowrap rounded px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
+#. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
+#. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
 msgstr "<0>{0}</0><1>Valor de mercado</1>{1}"
 

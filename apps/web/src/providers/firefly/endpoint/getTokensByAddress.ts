@@ -1,6 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { resolveDebankChain } from '@dimensiondev/web3/chains';
 import urlcat from 'urlcat';
+import { isAddress } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { STALE_TIMES } from '@/constants/query.js';
@@ -41,7 +42,10 @@ export async function getTokensByAddress(address: string): Promise<
             chainLogoUrl: chain?.logo_url,
             logo_url:
                 chainId && token.logo_url?.includes('static.debank.com')
-                    ? resolveTokenLogoURL(chainId, token.id)
+                    ? resolveTokenLogoURL(
+                          chainId,
+                          isAddress(token.id) ? token.id : '0x0000000000000000000000000000000000000000',
+                      )
                     : token.logo_url,
         };
     });
