@@ -1,7 +1,9 @@
+import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { Md5, runInSafeAsync, UserRejectionError } from '@dimensiondev/utils';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { PinCodeWorkflow } from '@/constants/pinCode.js';
+import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 import { runPinCodeWorkflow } from '@/helpers/runPinCodeWorkflow.js';
 import { getSecuritySettingsQuery } from '@/queries/firefly/getSecuritySettingsQuery.js';
 import { skipPinCodeAtom } from '@/store/embeddedWallets.js';
@@ -26,6 +28,9 @@ export async function withPinCodeCheck<T>(callback: (pinCode?: string) => Promis
     if (!pinConfig?.enable) return callback();
 
     const cachedCode = store.get(pinCodeAtom);
+    if (!cachedCode && isRunningInIframe()) {
+        await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_OPEN, {});
+    }
     const pinCode = pinConfig.is_set_pin_code
         ? cachedCode || (await runPinCodeWorkflow(PinCodeWorkflow.Authenticate))
         : await runPinCodeWorkflow(PinCodeWorkflow.Create);
