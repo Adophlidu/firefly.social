@@ -126,7 +126,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     ) : null;
     const collects = post.stats?.countOpenActions ? (
         <data value={post.stats.countOpenActions}>
-            <span className="mr-[2px] font-bold">{post.stats.countOpenActions}</span>
+            <span className="mr-[2px] font-bold">{nFormatter(post.stats.countOpenActions)}</span>
             <Plural value={post.stats.countOpenActions} one="collect" other="collects" />
         </data>
     ) : null;
@@ -137,7 +137,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             onSetScrollIndex={onSetScrollIndex}
         >
             <data value={post.stats.mirrors}>
-                <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
+                <span className="mr-[2px] font-bold">{nFormatter(post.stats.mirrors)}</span>
                 {{
                     [Source.Farcaster]: <Plural value={post.stats.mirrors} one="recast" other="recasts" />,
                     [Source.Lens]: <Plural value={post.stats.mirrors} one="repost" other="reposts" />,
@@ -150,7 +150,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const quotes = post.stats?.quotes ? (
         <EngagementLink post={post} type={EngagementType.Quotes} onSetScrollIndex={onSetScrollIndex}>
             <data value={post.stats.quotes}>
-                <span className="mr-[2px] font-bold">{post.stats.quotes}</span>
+                <span className="mr-[2px] font-bold">{nFormatter(post.stats.quotes)}</span>
                 <Plural value={post.stats.quotes} one="quote" other="quotes" />
             </data>
         </EngagementLink>
