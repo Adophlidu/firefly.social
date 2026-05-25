@@ -6,7 +6,7 @@ import type { LoggedInPostOperations, PostAction, PostStats } from '@lens-protoc
 import { ORB_POLL_CONTRACT } from '@/constants/poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function formatLensPostStats(stats: PostStats): Required<Post['stats']> {
+export function formatLensPostStats(stats: PostStats): NonNullable<Post['stats']> {
     return {
         comments: stats.comments,
         mirrors: stats.reposts,

@@ -208,6 +208,7 @@ export interface Post {
         reactions: number;
         bookmarks?: number;
         countOpenActions?: number;
+        views?: number;
     };
     mirrors?: Profile[];
     reactions?: Profile[];

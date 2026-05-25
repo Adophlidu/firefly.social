@@ -156,6 +156,13 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         </EngagementLink>
     ) : null;
     const pollVotes = post.poll ? <PollVotes poll={post.poll} /> : null;
+    const views =
+        post.source === Source.Twitter && post.stats?.views ? (
+            <data value={post.stats.views}>
+                <span className="mr-[2px] font-bold">{nFormatter(post.stats.views)}</span>
+                <Plural value={post.stats.views} one="view" other="views" />
+            </data>
+        ) : null;
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
     const isChannelPage = isRoutePathname(pathname, PageRoute.Channel, true);
 
@@ -181,6 +188,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                           <span>{formatLocalizedDate(post.timestamp, locale)}</span>
                       </Time>
                   ) : null,
+                  views,
                   likes,
                   comments,
                   mirrors,

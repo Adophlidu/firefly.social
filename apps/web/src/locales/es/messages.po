@@ -1863,6 +1863,13 @@ msgstr "ingresos totales"
 msgid "Today"
 msgstr "hoy"
 
+#. placeholder {0}: post.stats.views
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
+msgid "view"
+msgid_plural "views"
+msgstr[0] ""
+msgstr[1] ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
 msgstr "🎭 Comentó en {0}."

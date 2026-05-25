@@ -143,6 +143,7 @@ export function formatTwitterPostFromNitter(
             comments: tweet.stats.replies,
             mirrors: tweet.stats.retweets,
             quotes: tweet.stats.quotes,
+            views: tweet.stats.views,
         },
         timestamp: dayjs.unix(tweet.time).valueOf(),
         mentions: parseTweetMentions(tweet.text),

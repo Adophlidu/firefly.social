@@ -1854,6 +1854,12 @@ msgstr "총 수익"
 msgid "Today"
 msgstr "오늘"
 
+#. placeholder {0}: post.stats.views
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
+msgid "view"
+msgid_plural "views"
+msgstr[0] ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
 msgstr "🎭 {0}에 답글을 남겼습니다."
