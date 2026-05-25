@@ -483,6 +483,9 @@ msgstr "Bridge"
 msgid "Enter amount"
 msgstr "Enter amount"
 
+msgid "A pin code is required to perform this action. Please enable it in your security settings."
+msgstr "A pin code is required to perform this action. Please enable it in your security settings."
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
@@ -672,6 +675,9 @@ msgstr "Please enter a valid email address. If you want to reset your PIN code, 
 
 msgid "Email"
 msgstr "Email"
+
+msgid "Issue reported."
+msgstr "Issue reported."
 
 msgid "PnL"
 msgstr "PnL"

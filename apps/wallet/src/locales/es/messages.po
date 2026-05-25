@@ -483,6 +483,9 @@ msgstr "Puente"
 msgid "Enter amount"
 msgstr "Ingresar monto"
 
+msgid "A pin code is required to perform this action. Please enable it in your security settings."
+msgstr ""
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
@@ -672,6 +675,9 @@ msgstr "Ingrese una dirección de correo válida. Si desea restablecer su PIN, s
 
 msgid "Email"
 msgstr "Correo electrónico"
+
+msgid "Issue reported."
+msgstr ""
 
 msgid "PnL"
 msgstr "P/G"

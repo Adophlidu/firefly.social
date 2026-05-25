@@ -71,6 +71,11 @@ export function SecuritySettings() {
         runPinCodeWorkflow(PinCodeWorkflow.ResetPinCode, data?.email);
     }, [data?.email]);
 
+    const [{ loading: resetEmailLoading }, resetEmail] = useAsyncFn(async () => {
+        await runPinCodeWorkflow(PinCodeWorkflow.ResetEmail, data?.email);
+        queryClient.refetchQueries({ queryKey: getSecuritySettingsQuery().queryKey });
+    }, [data?.email]);
+
     if (!isLogin)
         return (
             <div className="flex h-full min-h-52 items-center justify-center">
@@ -109,9 +114,9 @@ export function SecuritySettings() {
                     <span className="text-second text-[13px]">{data?.email ? desensitizeEmail(data.email) : ''}</span>
                 </div>
                 <ClickableButton
-                    disabled={disabled}
+                    disabled={disabled || resetEmailLoading}
                     className="bg-lightBg text-highlight h-12 w-full border-t border-[#CFCFCF] px-3 text-left text-sm font-medium"
-                    onClick={disabled ? undefined : () => runPinCodeWorkflow(PinCodeWorkflow.ResetEmail, data?.email)}
+                    onClick={resetEmail}
                 >
                     <Trans>Change Email</Trans>
                 </ClickableButton>

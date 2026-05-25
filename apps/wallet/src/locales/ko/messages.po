@@ -483,6 +483,9 @@ msgstr "브릿지"
 msgid "Enter amount"
 msgstr "금액 입력"
 
+msgid "A pin code is required to perform this action. Please enable it in your security settings."
+msgstr ""
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
@@ -672,6 +675,9 @@ msgstr "유효한 이메일 주소를 입력해 주세요. PIN 코드를 재설�
 
 msgid "Email"
 msgstr "이메일"
+
+msgid "Issue reported."
+msgstr ""
 
 msgid "PnL"
 msgstr "손익"

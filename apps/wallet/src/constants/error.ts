@@ -1,3 +1,7 @@
+export const FIREFLY_API_ERROR_CODES = {
+    PinCodeRequired: 2653,
+};
+
 export class InvalidPolymarketAccountError extends Error {
     override name = 'InvalidPolymarketAccountError';
 }

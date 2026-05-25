@@ -483,6 +483,9 @@ msgstr "跨鏈橋"
 msgid "Enter amount"
 msgstr "輸入金額"
 
+msgid "A pin code is required to perform this action. Please enable it in your security settings."
+msgstr ""
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
@@ -672,6 +675,9 @@ msgstr "請輸入有效的信箱地址。如果您想重設 PIN 碼，驗證碼�
 
 msgid "Email"
 msgstr "信箱"
+
+msgid "Issue reported."
+msgstr ""
 
 msgid "PnL"
 msgstr "盈虧"

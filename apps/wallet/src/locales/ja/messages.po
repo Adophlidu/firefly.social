@@ -483,6 +483,9 @@ msgstr "ブリッジ"
 msgid "Enter amount"
 msgstr "金額を入力"
 
+msgid "A pin code is required to perform this action. Please enable it in your security settings."
+msgstr ""
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
@@ -672,6 +675,9 @@ msgstr "有効なメールアドレスを入力してください。PIN コー�
 
 msgid "Email"
 msgstr "メール"
+
+msgid "Issue reported."
+msgstr ""
 
 msgid "PnL"
 msgstr "損益"

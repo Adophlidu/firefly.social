@@ -58,6 +58,7 @@ export const StepForm = memo<StepFormProps>(function StepForm({ onSuccess }) {
                     type="email"
                     readOnly={isBusy}
                     value={valueRecord[step]}
+                    autoFocus
                     onChange={(e) => onCodeChange(e.target.value)}
                 />
             ) : (

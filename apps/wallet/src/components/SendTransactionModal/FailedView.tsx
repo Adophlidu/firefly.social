@@ -1,15 +1,19 @@
 import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
 import ErrorIcon from '@dimensiondev/assets/error-circle.svg';
+import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { Trans } from '@lingui/react/macro';
 import { Navigate, useLocation, useNavigate } from '@tanstack/react-router';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { useAsyncFn } from 'react-use';
+import { toast } from 'sonner';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
 import { Button } from '@/components/ui/button.js';
-import { useReportFeedback } from '@/hooks/useReportFeedback.js';
 
 export function FailedView() {
+    const [reported, setReported] = useState(false);
+
     const navigate = useNavigate();
     const { token } = useSendToken();
     const location = useLocation();
@@ -18,10 +22,16 @@ export function FailedView() {
     // Capture error on mount so it survives route transition re-renders.
     const errorRef = useRef(state?.error);
 
-    const [reported, loading, handleReport] = useReportFeedback(
-        'Privy Transaction Failed',
-        errorRef.current?.message ?? '',
-    );
+    const [{ loading }, handleReport] = useAsyncFn(async () => {
+        if (!errorRef.current) return;
+
+        captureException(ExceptionId.CUSTOM_ERROR, errorRef.current, {
+            handler: 'SendTransactionModal - FailedView',
+        });
+        setReported(true);
+
+        toast.success(<Trans>Issue reported.</Trans>);
+    }, []);
 
     if (!errorRef.current) {
         return <Navigate to={token ? RoutePath.Form : RoutePath.SelectToken} />;

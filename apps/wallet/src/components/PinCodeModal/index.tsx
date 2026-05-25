@@ -14,6 +14,8 @@ import { ErrorMessage } from '@/components/PinCodeModal/ErrorMessage.js';
 import { PinCodeModalHeader } from '@/components/PinCodeModal/PinCodeModalHeader.js';
 import { StepDescription } from '@/components/PinCodeModal/StepDescription.js';
 import { StepForm } from '@/components/PinCodeModal/StepForm.js';
+import { getMobileDevice } from '@/helpers/getMobileDevice.js';
+import { cn } from '@/lib/utils.js';
 
 interface Props {
     hide?: boolean;
@@ -29,6 +31,8 @@ export const PinCodeModal = createCallable<Props, string | null>(function PinCod
         [call],
     );
 
+    const isMobile = getMobileDevice() !== 'unknown';
+
     return (
         <DialogOrDrawer
             open={hide ?? open}
@@ -39,10 +43,7 @@ export const PinCodeModal = createCallable<Props, string | null>(function PinCod
             }}
         >
             {/* Pin Code Modal will open anywhere, must has highest z-index */}
-            <DialogOrDrawerContent
-                className="z-[999999999] !m-0 !h-full !max-h-full w-full !rounded-none"
-                bodyClassName="!p-0"
-            >
+            <DialogOrDrawerContent className="!m-0 !h-full !max-h-full w-full !rounded-none" bodyClassName="!p-0">
                 <VisuallyHidden asChild>
                     <DialogOrDrawerHeader>
                         <DialogOrDrawerTitle>Pin Code</DialogOrDrawerTitle>
@@ -51,7 +52,12 @@ export const PinCodeModal = createCallable<Props, string | null>(function PinCod
 
                 <div className="flex size-full flex-col">
                     <PinCodeModalHeader onClose={onSuccess} />
-                    <div className="flex min-h-0 w-full flex-1 flex-col items-center justify-center gap-8">
+                    <div
+                        className={cn(
+                            'flex min-h-0 w-full flex-1 flex-col items-center gap-8',
+                            isMobile ? 'pt-10' : 'justify-center',
+                        )}
+                    >
                         <div className="text-second px-10 text-center text-sm">
                             <StepDescription />
                         </div>

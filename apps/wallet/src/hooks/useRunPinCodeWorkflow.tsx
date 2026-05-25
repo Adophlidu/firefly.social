@@ -19,6 +19,8 @@ import {
 } from '@/store/pinCode.js';
 
 function getErrorMessage(workflow: PinCodeWorkflow, error: unknown) {
+    if (error instanceof FireflyApiError && error.message) return error.message;
+
     switch (workflow) {
         case PinCodeWorkflow.Create:
         case PinCodeWorkflow.ResetPinCode:
