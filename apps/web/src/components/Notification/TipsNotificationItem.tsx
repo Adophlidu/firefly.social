@@ -1,6 +1,6 @@
 'use client';
 
-import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
+import FireflyMonochromeIcon from '@dimensiondev/assets/firefly-monochrome.svg';
 import TipIcon from '@dimensiondev/assets/tips.svg';
 import { Source, TipsDetailViewType, TipsNotificationType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
@@ -118,7 +118,12 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                             fromAvatar
                         )}
                         <div className="flex items-center space-x-2">
-                            <FireflyRoundIcon fontSize={15} width={15} height={15} />
+                            <FireflyMonochromeIcon
+                                fontSize={15}
+                                width={15}
+                                height={15}
+                                className="inline shrink-0 text-second"
+                            />
                             {data.timestamp ? (
                                 <span className="text-xs leading-4 text-secondary">
                                     <TimestampFormatter time={data.timestamp} />

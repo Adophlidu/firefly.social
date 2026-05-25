@@ -1,6 +1,6 @@
 'use client';
 
-import FireflyRoundIcon from '@dimensiondev/assets/firefly-pure.svg';
+import FireflyMonochromeIcon from '@dimensiondev/assets/firefly-monochrome.svg';
 import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
 import { SORTED_SCHEDULE_POST_SOURCES } from '@dimensiondev/constants/computed';
 import { t } from '@lingui/core/macro';
@@ -76,7 +76,12 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                             <Trans>Scheduled Post</Trans>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <FireflyRoundIcon className="text-secondary" fontSize={15} width={15} height={15} />
+                            <FireflyMonochromeIcon
+                                fontSize={15}
+                                width={15}
+                                height={15}
+                                className="inline shrink-0 text-second"
+                            />
                             {timestamp ? (
                                 <span className="text-xs leading-4 text-secondary">
                                     <TimestampFormatter time={timestamp} />
