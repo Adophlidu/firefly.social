@@ -3,8 +3,8 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2491
-Packages with multiple versions: 479
+Total packages: 2489
+Packages with multiple versions: 410
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -21,7 +21,7 @@ Packages with Multiple Versions
  @babel/helper-string-parser@7.27.1,8.0.0-rc.3
  @babel/helper-validator-identifier@7.28.5,8.0.0-rc.3
  @babel/helper-wrap-function@7.25.9,7.28.6
- @babel/parser@7.29.2,7.29.3,8.0.0-rc.3
+ @babel/parser@7.29.3,8.0.0-rc.3
  @babel/plugin-transform-async-generator-functions@7.26.8,7.29.0
  @babel/plugin-transform-async-to-generator@7.25.9,7.28.6
  @babel/plugin-transform-block-scoping@7.27.0,7.28.6
@@ -35,7 +35,6 @@ Packages with Multiple Versions
  @babel/plugin-transform-react-jsx@7.25.9,7.28.6
  @babel/plugin-transform-regenerator@7.27.0,7.29.0
  @babel/plugin-transform-runtime@7.26.10,7.29.0
- @babel/traverse@7.28.6,7.29.0
  @babel/types@7.29.0,8.0.0-rc.3
 *@coral-xyz/anchor@0.31.1,0.32.1
  @emotion/is-prop-valid@0.8.8,1.4.0
@@ -66,7 +65,6 @@ Packages with Multiple Versions
  @esbuild/win32-arm64@0.24.2,0.25.12,0.25.4,0.27.0
  @esbuild/win32-ia32@0.24.2,0.25.12,0.25.4,0.27.0
  @esbuild/win32-x64@0.24.2,0.25.12,0.25.4,0.27.0
- @floating-ui/react@0.26.28,0.27.19
  @img/sharp-darwin-arm64@0.33.5,0.34.5
  @img/sharp-darwin-x64@0.33.5,0.34.5
  @img/sharp-libvips-darwin-arm64@1.0.4,1.2.4
@@ -94,7 +92,7 @@ Packages with Multiple Versions
  @lingui/message-utils@5.5.2,5.9.5
  @napi-rs/wasm-runtime@0.2.12,1.0.7,1.1.4
  @next/env@16.0.0,16.2.6
-*@next/eslint-plugin-next@16.0.11,16.2.4
+*@next/eslint-plugin-next@16.0.11,16.2.6
  @noble/hashes@1.4.0,1.7.0,1.8.0,2.0.1
  @radix-ui/react-primitive@2.1.3,2.1.4
 *@radix-ui/react-slot@1.2.3,1.2.4
@@ -102,6 +100,14 @@ Packages with Multiple Versions
  @react-native/codegen@0.84.1,0.85.3
  @react-native/js-polyfills@0.84.1,0.85.3
  @react-native/normalize-colors@0.74.89,0.84.1
+ @reown/appkit-common@1.8.19,1.8.20
+ @reown/appkit-controllers@1.8.19,1.8.20
+ @reown/appkit-pay@1.8.19,1.8.20
+ @reown/appkit-polyfills@1.8.19,1.8.20
+ @reown/appkit-scaffold-ui@1.8.19,1.8.20
+ @reown/appkit-ui@1.8.19,1.8.20
+ @reown/appkit-utils@1.8.19,1.8.20
+ @reown/appkit-wallet@1.8.19,1.8.20
  @rolldown/pluginutils@1.0.0-beta.27,1.0.0-beta.40,1.0.0-rc.17,1.0.0-rc.3
  @rollup/pluginutils@5.1.4,5.3.0
  @rollup/rollup-android-arm-eabi@4.39.0,4.60.1
@@ -167,103 +173,21 @@ Packages with Multiple Versions
  @solana/transactions@4.0.0,5.4.0
  @storybook/icons@1.6.0,2.0.2
  @swc/helpers@0.5.15,0.5.18
- @tamagui/accordion@1.114.0,1.144.4
- @tamagui/adapt@1.114.0,1.144.4
- @tamagui/alert-dialog@1.114.0,1.144.4
- @tamagui/animate@1.114.0,1.144.4
- @tamagui/animate-presence@1.114.0,1.144.4
- @tamagui/animations-css@1.114.0,1.144.4
- @tamagui/animations-moti@1.114.0,1.144.4
- @tamagui/animations-react-native@1.114.0,1.144.4
- @tamagui/avatar@1.114.0,1.144.4
- @tamagui/button@1.114.0,1.144.4
- @tamagui/card@1.114.0,1.144.4
- @tamagui/checkbox@1.114.0,1.144.4
- @tamagui/checkbox-headless@1.114.0,1.144.4
- @tamagui/collapsible@1.114.0,1.144.4
- @tamagui/collection@1.114.0,1.144.4
- @tamagui/colors@1.114.0,1.144.4
- @tamagui/compose-refs@1.114.0,1.144.4,2.0.0-rc.41
-*@tamagui/config@1.114.0,1.144.4
- @tamagui/config-default@1.114.0,1.144.4
- @tamagui/constants@1.114.0,1.144.4,2.0.0-rc.41
-*@tamagui/core@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/create-context@1.114.0,1.144.4
- @tamagui/create-theme@1.114.0,1.144.4
- @tamagui/cubic-bezier-animator@1.114.0,1.144.4
- @tamagui/dialog@1.114.0,1.144.4
- @tamagui/dismissable@1.114.0,1.144.4
- @tamagui/elements@1.114.0,1.144.4
- @tamagui/fake-react-native@1.114.0,1.144.4
- @tamagui/floating@1.114.0,1.144.4
- @tamagui/focus-scope@1.114.0,1.144.4
- @tamagui/focusable@1.114.0,1.144.4
- @tamagui/font-inter@1.114.0,1.144.4
- @tamagui/font-silkscreen@1.114.0,1.144.4
- @tamagui/font-size@1.114.0,1.144.4
- @tamagui/form@1.114.0,1.144.4
- @tamagui/get-button-sized@1.114.0,1.144.4
- @tamagui/get-font-sized@1.114.0,1.144.4
- @tamagui/get-token@1.114.0,1.144.4
- @tamagui/group@1.114.0,1.144.4
-*@tamagui/helpers@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/helpers-tamagui@1.114.0,1.144.4
- @tamagui/image@1.114.0,1.144.4
- @tamagui/is-equal-shallow@1.144.4,2.0.0-rc.41
- @tamagui/label@1.114.0,1.144.4
- @tamagui/linear-gradient@1.114.0,1.144.4
- @tamagui/list-item@1.114.0,1.144.4
- @tamagui/normalize-css-color@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/polyfill-dev@1.114.0,1.144.4
- @tamagui/popover@1.114.0,1.144.4
- @tamagui/popper@1.114.0,1.144.4
- @tamagui/portal@1.114.0,1.144.4
- @tamagui/progress@1.114.0,1.144.4
- @tamagui/radio-group@1.114.0,1.144.4
- @tamagui/radio-headless@1.114.0,1.144.4
- @tamagui/react-native-media-driver@1.114.0,1.144.4,2.0.0-rc.41
-*@tamagui/react-native-svg@1.114.0,2.0.0-rc.41
- @tamagui/react-native-use-pressable@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/react-native-use-responder-events@1.114.0,1.144.4
- @tamagui/remove-scroll@1.114.0,1.144.4
- @tamagui/roving-focus@1.114.0,1.144.4
- @tamagui/scroll-view@1.114.0,1.144.4
- @tamagui/select@1.114.0,1.144.4
- @tamagui/separator@1.114.0,1.144.4
- @tamagui/shapes@1.114.0,1.144.4
- @tamagui/sheet@1.114.0,1.144.4
- @tamagui/shorthands@1.114.0,1.144.4
- @tamagui/simple-hash@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/slider@1.114.0,1.144.4
- @tamagui/stacks@1.114.0,1.144.4
- @tamagui/start-transition@1.114.0,1.144.4
- @tamagui/switch@1.114.0,1.144.4
- @tamagui/switch-headless@1.114.0,1.144.4
- @tamagui/tabs@1.114.0,1.144.4
- @tamagui/text@1.114.0,1.144.4
- @tamagui/theme@1.114.0,1.144.4
- @tamagui/theme-builder@1.114.0,1.144.4
- @tamagui/themes@1.114.0,1.144.4
- @tamagui/timer@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/toggle-group@1.114.0,1.144.4
- @tamagui/tooltip@1.114.0,1.144.4
- @tamagui/types@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/use-callback-ref@1.114.0,1.144.4
- @tamagui/use-constant@1.114.0,1.144.4
- @tamagui/use-controllable-state@1.114.0,1.144.4
- @tamagui/use-debounce@1.114.0,1.144.4
- @tamagui/use-did-finish-ssr@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/use-direction@1.114.0,1.144.4
- @tamagui/use-element-layout@1.144.4,2.0.0-rc.41
- @tamagui/use-escape-keydown@1.114.0,1.144.4
- @tamagui/use-event@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/use-force-update@1.114.0,1.144.4,2.0.0-rc.41
- @tamagui/use-keyboard-visible@1.114.0,1.144.4
- @tamagui/use-presence@1.114.0,1.144.4
- @tamagui/use-previous@1.114.0,1.144.4
- @tamagui/use-window-dimensions@1.114.0,1.144.4
- @tamagui/visually-hidden@1.114.0,1.144.4
- @tamagui/web@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/compose-refs@1.114.4,2.0.0-rc.41
+ @tamagui/constants@1.114.4,2.0.0-rc.41
+*@tamagui/core@1.114.4,2.0.0-rc.41
+*@tamagui/helpers@1.114.4,2.0.0-rc.41
+ @tamagui/normalize-css-color@1.114.4,2.0.0-rc.41
+ @tamagui/react-native-media-driver@1.114.4,2.0.0-rc.41
+*@tamagui/react-native-svg@1.114.4,2.0.0-rc.41
+ @tamagui/react-native-use-pressable@1.114.4,2.0.0-rc.41
+ @tamagui/simple-hash@1.114.4,2.0.0-rc.41
+ @tamagui/timer@1.114.4,2.0.0-rc.41
+ @tamagui/types@1.114.4,2.0.0-rc.41
+ @tamagui/use-did-finish-ssr@1.114.4,2.0.0-rc.41
+ @tamagui/use-event@1.114.4,2.0.0-rc.41
+ @tamagui/use-force-update@1.114.4,2.0.0-rc.41
+ @tamagui/web@1.114.4,2.0.0-rc.41
  @tanstack/query-core@5.100.9,5.85.9
  @types/estree@1.0.7,1.0.8,1.0.9
  @types/unist@2.0.11,3.0.3
@@ -278,6 +202,14 @@ Packages with Multiple Versions
  @typescript-eslint/typescript-estree@8.47.0,8.54.0
  @typescript-eslint/utils@8.47.0,8.54.0
  @typescript-eslint/visitor-keys@8.47.0,8.54.0
+*@typescript/native-preview@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
+ @typescript/native-preview-darwin-arm64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
+ @typescript/native-preview-darwin-x64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
+ @typescript/native-preview-linux-arm@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
+ @typescript/native-preview-linux-arm64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
+ @typescript/native-preview-linux-x64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
+ @typescript/native-preview-win32-arm64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
+ @typescript/native-preview-win32-x64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
 *@vitejs/plugin-react@4.7.0,5.2.0
  @wagmi/connectors@7.0.6,8.0.10
 *@wagmi/core@3.0.2,3.4.9
@@ -322,6 +254,7 @@ Packages with Multiple Versions
  crossws@0.3.5,0.4.4
  css-tree@1.1.3,2.2.1,2.3.1,3.1.0
  date-fns@2.30.0,3.6.0
+*dayjs@1.11.13,1.11.20
  debug@2.6.9,3.2.7,4.4.3
  define-lazy-prop@2.0.0,3.0.0
  doctrine@2.1.0,3.0.0
@@ -334,7 +267,7 @@ Packages with Multiple Versions
  es-module-lexer@1.7.0,2.0.0,2.1.0
  esbuild@0.24.2,0.25.12,0.25.4,0.27.0
  escape-string-regexp@1.0.5,2.0.0,4.0.0,5.0.0
-*eslint-config-next@16.0.11,16.2.4
+*eslint-config-next@16.0.11,16.2.6
 *eslint-plugin-react-hooks@5.2.0,7.0.1
  eslint-scope@5.1.1,8.4.0
  eslint-visitor-keys@3.4.3,4.2.1
@@ -356,7 +289,6 @@ Packages with Multiple Versions
  hasown@2.0.2,2.0.3
  hermes-estree@0.25.1,0.32.0,0.33.3,0.35.0
  hermes-parser@0.25.1,0.32.0,0.33.3,0.35.0
- hono@4.12.18,4.12.22
  html-escaper@2.0.2,3.0.3
  htmlparser2@10.0.0,10.1.0
  idb-keyval@6.2.1,6.2.2
@@ -420,7 +352,7 @@ Packages with Multiple Versions
  parse5@7.3.0,8.0.0
  path-exists@4.0.0,5.0.0
  path-scurry@1.11.1,2.0.2
- picomatch@2.3.1,4.0.3,4.0.4
+ picomatch@2.3.1,4.0.4
  pkg-dir@4.2.0,5.0.0
  pkg-types@1.3.1,2.3.0
 *postcss@8.4.31,8.5.15
@@ -453,7 +385,6 @@ Packages with Multiple Versions
  strip-indent@3.0.0,4.1.1
  superstruct@0.15.5,2.0.2
  supports-color@10.2.2,7.2.0,8.1.1
-*tamagui@1.114.0,1.144.4
  tapable@2.3.2,2.3.3
  terser@5.46.1,5.47.1
  terser-webpack-plugin@5.4.0,5.5.0
@@ -646,6 +577,7 @@ Packages with Single Version
  @babel/preset-typescript@7.28.5
  @babel/runtime@7.29.2
  @babel/template@7.28.6
+ @babel/traverse@7.29.0
  @base-org/account@2.4.0
  @bprogress/core@1.3.4
  @bprogress/next@3.2.12
@@ -660,6 +592,7 @@ Packages with Single Version
  @cloudflare/workerd-windows-64@1.20251011.0
  @cloudflare/workers-types@4.20251011.0
  @coinbase/cdp-sdk@1.43.1
+ @coinbase/wallet-sdk@4.3.6
  @coral-xyz/anchor-errors@0.31.1
  @coral-xyz/borsh@0.31.1
  @cspell/cspell-bundled-dicts@7.3.9
@@ -793,6 +726,7 @@ Packages with Single Version
  @firebase/webchannel-wrapper@1.0.3
  @floating-ui/core@1.7.5
  @floating-ui/dom@1.7.6
+ @floating-ui/react@0.26.28
  @floating-ui/react-dom@2.1.8
  @floating-ui/react-native@0.10.9
  @floating-ui/utils@0.2.11
@@ -1053,16 +987,8 @@ Packages with Single Version
  @react-stately/utils@3.11.0
  @react-types/shared@3.33.1
 *@reown/appkit@1.8.19
-*@reown/appkit-adapter-solana@1.8.19
-*@reown/appkit-adapter-wagmi@1.8.19
- @reown/appkit-common@1.8.19
- @reown/appkit-controllers@1.8.19
- @reown/appkit-pay@1.8.19
- @reown/appkit-polyfills@1.8.19
- @reown/appkit-scaffold-ui@1.8.19
- @reown/appkit-ui@1.8.19
- @reown/appkit-utils@1.8.19
- @reown/appkit-wallet@1.8.19
+*@reown/appkit-adapter-solana@1.8.20
+*@reown/appkit-adapter-wagmi@1.8.20
  @rolldown/binding-android-arm64@1.0.0-rc.17
  @rolldown/binding-darwin-arm64@1.0.0-rc.17
  @rolldown/binding-darwin-x64@1.0.0-rc.17
@@ -1175,7 +1101,7 @@ Packages with Single Version
  @solana/spl-token-group@0.0.7
  @solana/spl-token-metadata@0.1.6
 *@solana/wallet-adapter-base@0.9.27
-*@solana/wallet-adapter-phantom@0.9.28
+*@solana/wallet-adapter-phantom@0.9.29
  @solana/wallet-standard-chains@1.1.1
  @solana/wallet-standard-features@1.3.0
  @solana/wallet-standard-util@1.1.2
@@ -1235,23 +1161,103 @@ Packages with Single Version
  @swc/counter@0.1.3
  @swc/types@0.1.26
 *@tailwindcss/forms@0.5.11
- @tamagui/aria-hidden@1.114.0
- @tamagui/babel-plugin-fully-specified@1.114.0
- @tamagui/build@1.114.0
- @tamagui/cli-color@1.114.0
- @tamagui/generate-themes@1.114.0
+ @tamagui/accordion@1.114.4
+ @tamagui/adapt@1.114.4
+ @tamagui/alert-dialog@1.114.4
+ @tamagui/animate@1.114.4
+ @tamagui/animate-presence@1.114.4
+ @tamagui/animations-css@1.114.4
+ @tamagui/animations-moti@1.114.4
+ @tamagui/animations-react-native@1.114.4
+ @tamagui/aria-hidden@1.114.4
+ @tamagui/avatar@1.114.4
+ @tamagui/babel-plugin-fully-specified@1.114.4
+ @tamagui/build@1.114.4
+ @tamagui/button@1.114.4
+ @tamagui/card@1.114.4
+ @tamagui/checkbox@1.114.4
+ @tamagui/checkbox-headless@1.114.4
+ @tamagui/cli-color@1.114.4
+ @tamagui/collapsible@1.114.4
+ @tamagui/collection@1.114.4
+ @tamagui/colors@1.114.4
+*@tamagui/config@1.114.4
+ @tamagui/config-default@1.114.4
+ @tamagui/create-context@1.114.4
+ @tamagui/create-theme@1.114.4
+ @tamagui/cubic-bezier-animator@1.114.4
+ @tamagui/dialog@1.114.4
+ @tamagui/dismissable@1.114.4
+ @tamagui/elements@1.114.4
+ @tamagui/fake-react-native@1.114.4
+ @tamagui/floating@1.114.4
+ @tamagui/focus-scope@1.114.4
+ @tamagui/focusable@1.114.4
+ @tamagui/font-inter@1.114.4
+ @tamagui/font-silkscreen@1.114.4
+ @tamagui/font-size@1.114.4
+ @tamagui/form@1.114.4
+ @tamagui/generate-themes@1.114.4
+ @tamagui/get-button-sized@1.114.4
+ @tamagui/get-font-sized@1.114.4
+ @tamagui/get-token@1.114.4
+ @tamagui/group@1.114.4
  @tamagui/helpers-icon@2.0.0-rc.41
- @tamagui/helpers-node@1.114.0
+ @tamagui/helpers-node@1.114.4
+ @tamagui/helpers-tamagui@1.114.4
+ @tamagui/image@1.114.4
+ @tamagui/is-equal-shallow@2.0.0-rc.41
+ @tamagui/label@1.114.4
+ @tamagui/linear-gradient@1.114.4
+ @tamagui/list-item@1.114.4
 *@tamagui/lucide-icons-2@2.0.0-rc.41
  @tamagui/native@2.0.0-rc.41
- @tamagui/proxy-worm@1.114.0
- @tamagui/react-native-web-internals@1.114.0
- @tamagui/react-native-web-lite@1.114.0
+ @tamagui/polyfill-dev@1.114.4
+ @tamagui/popover@1.114.4
+ @tamagui/popper@1.114.4
+ @tamagui/portal@1.114.4
+ @tamagui/progress@1.114.4
+ @tamagui/proxy-worm@1.114.4
+ @tamagui/radio-group@1.114.4
+ @tamagui/radio-headless@1.114.4
+ @tamagui/react-native-use-responder-events@1.114.4
+ @tamagui/react-native-web-internals@1.114.4
+ @tamagui/react-native-web-lite@1.114.4
+ @tamagui/remove-scroll@1.114.4
+ @tamagui/roving-focus@1.114.4
+ @tamagui/scroll-view@1.114.4
+ @tamagui/select@1.114.4
+ @tamagui/separator@1.114.4
+ @tamagui/shapes@1.114.4
+ @tamagui/sheet@1.114.4
+ @tamagui/shorthands@1.114.4
  @tamagui/sizable-context@2.0.0-rc.41
- @tamagui/static@1.114.0
- @tamagui/use-async@1.144.4
-*@tamagui/vite-plugin@1.114.0
- @tamagui/z-index-stack@1.144.4
+ @tamagui/slider@1.114.4
+ @tamagui/stacks@1.114.4
+ @tamagui/start-transition@1.114.4
+ @tamagui/static@1.114.4
+ @tamagui/switch@1.114.4
+ @tamagui/switch-headless@1.114.4
+ @tamagui/tabs@1.114.4
+ @tamagui/text@1.114.4
+ @tamagui/theme@1.114.4
+ @tamagui/theme-builder@1.114.4
+ @tamagui/themes@1.114.4
+ @tamagui/toggle-group@1.114.4
+ @tamagui/tooltip@1.114.4
+ @tamagui/use-callback-ref@1.114.4
+ @tamagui/use-constant@1.114.4
+ @tamagui/use-controllable-state@1.114.4
+ @tamagui/use-debounce@1.114.4
+ @tamagui/use-direction@1.114.4
+ @tamagui/use-element-layout@2.0.0-rc.41
+ @tamagui/use-escape-keydown@1.114.4
+ @tamagui/use-keyboard-visible@1.114.4
+ @tamagui/use-presence@1.114.4
+ @tamagui/use-previous@1.114.4
+ @tamagui/use-window-dimensions@1.114.4
+ @tamagui/visually-hidden@1.114.4
+*@tamagui/vite-plugin@1.114.4
  @tanstack/history@1.161.6
  @tanstack/ranger@0.0.4
 *@tanstack/react-query@5.85.9
@@ -1284,12 +1290,12 @@ Packages with Single Version
 *@tolgee/cli@2.16.1
  @toon-format/toon@2.2.0
  @trysound/sax@0.2.0
- @turbo/darwin-64@2.9.10
- @turbo/darwin-arm64@2.9.10
- @turbo/linux-64@2.9.10
- @turbo/linux-arm64@2.9.10
- @turbo/windows-64@2.9.10
- @turbo/windows-arm64@2.9.10
+ @turbo/darwin-64@2.9.14
+ @turbo/darwin-arm64@2.9.14
+ @turbo/linux-64@2.9.14
+ @turbo/linux-arm64@2.9.14
+ @turbo/windows-64@2.9.14
+ @turbo/windows-arm64@2.9.14
  @tybys/wasm-util@0.10.2
  @types/archy@0.0.32
  @types/argparse@1.0.38
@@ -1349,18 +1355,10 @@ Packages with Single Version
  @types/twemoji-parser@13.1.4
  @types/twitter-text@3.1.10
  @types/uuid@8.3.4
- @types/web@0.0.197
+ @types/web@0.0.349
  @types/webpack@5.28.5
  @types/yargs@17.0.33
  @types/yargs-parser@21.0.3
-*@typescript/native-preview@7.0.0-dev.20260522.1
- @typescript/native-preview-darwin-arm64@7.0.0-dev.20260522.1
- @typescript/native-preview-darwin-x64@7.0.0-dev.20260522.1
- @typescript/native-preview-linux-arm@7.0.0-dev.20260522.1
- @typescript/native-preview-linux-arm64@7.0.0-dev.20260522.1
- @typescript/native-preview-linux-x64@7.0.0-dev.20260522.1
- @typescript/native-preview-win32-arm64@7.0.0-dev.20260522.1
- @typescript/native-preview-win32-x64@7.0.0-dev.20260522.1
  @ungap/structured-clone@1.3.0
  @unrs/resolver-binding-android-arm-eabi@1.11.1
  @unrs/resolver-binding-android-arm64@1.11.1
@@ -1636,7 +1634,6 @@ Packages with Single Version
  data-view-buffer@1.0.2
  data-view-byte-length@1.0.2
  data-view-byte-offset@1.0.1
-*dayjs@1.11.13
  dayjs-twitter@0.5.0
  db0@0.3.4
  de-indent@1.0.2
@@ -1833,6 +1830,7 @@ Packages with Single Version
  hey-listen@1.0.8
  hls.js@1.6.16
  hmac-drbg@1.0.1
+ hono@4.12.22
  hookable@6.1.1
  html-encoding-sniffer@6.0.0
  html-url-attributes@3.0.1
@@ -2059,7 +2057,7 @@ Packages with Single Version
  mlly@1.8.0
  module-alias@2.2.3
  moo@0.5.2
- moti@0.30.0
+ moti@0.29.0
 *motion@12.38.0
  mppx@0.6.5
  mrmime@2.0.1
@@ -2074,7 +2072,7 @@ Packages with Single Version
  negotiator@1.0.0
  neo-async@2.6.2
  next@16.2.6
- next-auth@4.24.13
+ next-auth@4.24.14
  nf3@0.3.16
 *nitro@3.0.1-alpha.2
  no-case@3.0.4
@@ -2188,7 +2186,7 @@ Packages with Single Version
  randomfill@1.0.4
  range-parser@1.2.1
  rangetouch@2.0.1
-*react@19.2.5
+*react@19.2.6
  react-aptor@2.0.0
  react-avatar-editor@13.0.2
 *react-call@1.8.2
@@ -2196,7 +2194,7 @@ Packages with Single Version
  react-devtools-core@6.1.5
  react-docgen@8.0.2
  react-docgen-typescript@2.2.2
-*react-dom@19.2.5
+*react-dom@19.2.6
  react-error-boundary@3.1.4
  react-freeze@1.0.4
 *react-hook-form@7.53.2
@@ -2204,7 +2202,7 @@ Packages with Single Version
  react-native@0.84.1
  react-native-is-edge-to-edge@1.3.1
  react-native-reanimated@4.3.1
-*react-native-svg@15.15.4
+*react-native-svg@15.15.5
  react-native-webview@13.13.2
  react-native-worklets@0.8.3
 *react-qr-code@2.0.21
@@ -2354,6 +2352,7 @@ Packages with Single Version
 *tailwindcss@3.4.19
 *tailwindcss-animate@1.0.7
 *tailwindcss-safe-area@0.6.0
+*tamagui@1.114.4
  test-exclude@6.0.0
  text-encoding-utf-8@1.0.2
  thenify@3.3.1
@@ -2393,7 +2392,7 @@ Packages with Single Version
  tsconfck@3.1.6
  tsdown@0.21.10
  tty-browserify@0.0.1
-*turbo@2.9.10
+*turbo@2.9.14
  twitter-api-v2@1.28.0
  twitter-text@3.1.0
  type-check@0.4.0
@@ -2470,7 +2469,6 @@ Packages with Single Version
  w3c-xmlserializer@5.0.0
 *wagmi@3.1.4
  walker@1.0.8
- warn-once@0.1.1
  watchpack@2.5.1
  wcwidth@1.0.1
  web-vitals@4.2.4

@@ -15,12 +15,12 @@
         "@dimensiondev/workers-shared": "workspace:*",
         "@hono/zod-validator": "^0.7.6",
         "hono": "^4.12.22",
-        "zod": "^4.0.5"
+        "zod": "^4.0.17"
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20251011.0",
-        "@types/node": "^24.0.13",
-        "@typescript/native-preview": "7.0.0-dev.20260522.1",
+        "@types/node": "^24.0.15",
+        "@typescript/native-preview": "7.0.0-dev.20260523.1",
         "wrangler": "^4.45.4"
     },
     "peerDependencies": {
