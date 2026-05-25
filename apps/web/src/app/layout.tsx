@@ -6,6 +6,7 @@ import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { Analytics } from '@vercel/analytics/next';
 import type { ReactNode } from 'react';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <body className={`${inter.variable} notranslate font-inter`}>
                 <ErrorBoundary>{children}</ErrorBoundary>
                 <GlobalLoadingIndicator />
+                {IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? <Analytics /> : null}
             </body>
         </html>
     );

@@ -16,6 +16,7 @@ import { RouteChangedHandler } from '@/components/RouteChangedHandler.js';
 import { ThemeHandler } from '@/components/ThemeHandler.js';
 import { Toaster } from '@/components/ui/sonner.js';
 import { TooltipProvider } from '@/components/ui/tooltip.js';
+import { VercelAnalytics } from '@/components/VercelAnalytics.js';
 import { ModalType } from '@/configs/modalRoutes.js';
 import { Modals } from '@/modals/index.js';
 
@@ -88,6 +89,7 @@ function RootDocument({ children }: { children: ReactNode }) {
                         </ClientProviders>
                     </LinguiClientProvider>
                 </div>
+                <VercelAnalytics />
                 <Scripts />
             </body>
         </html>
