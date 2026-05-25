@@ -1,6 +1,5 @@
 import type { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
-import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
@@ -51,9 +50,8 @@ export const TokenIcon = memo(function TokenIcon({
     }, [hasErrorOptimized]);
 
     const tokenIcon = useMemo(() => {
-        if (chainId && isNativeTokenAddress(address)) {
-            return resolveTokenLogoURL(chainId, address ?? '0x0000000000000000000000000000000000000000');
-        }
+        if (icon) return icon;
+        if (chainId) return resolveTokenLogoURL(chainId, address ?? '0x0000000000000000000000000000000000000000');
         return icon;
     }, [icon, address, chainId]);
 

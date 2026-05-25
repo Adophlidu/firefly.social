@@ -22,7 +22,7 @@ const NATIVE_TOKEN_ADDRESSES = new Set(
 );
 
 export function isZeroAddressEthereum(address?: string): address is typeof ETH_ZERO_ADDRESS {
-    return isSameEthereumAddress(address, ETH_ZERO_ADDRESS);
+    return isSameEthereumAddress(address, ETH_ZERO_ADDRESS) || isSameEthereumAddress(address, ETH_NATIVE_TOKEN_ADDRESS);
 }
 
 export function isZeroAddressSolana(address?: string): address is typeof SOL_ZERO_ADDRESS {
