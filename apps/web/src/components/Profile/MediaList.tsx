@@ -7,6 +7,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ProtectedPostsMessage } from '@/components/fallbacks/ProtectedPostsMessage.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { TwitterMediaGalleryList } from '@/components/Profile/TwitterMediaGalleryList.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -18,14 +19,14 @@ interface MediaListProps {
     source: SocialSource;
 }
 
-export function MediaList({ profileId, source }: MediaListProps) {
+function DefaultMediaList({ profileId, source }: MediaListProps) {
     const isProtected = useIsProfileProtected(source, profileId);
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', 'medias', profileId],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
-            const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'nitter' });
+            const provider = resolveSocialMediaProvider(source);
             const posts = await provider.getMediaPostsByProfileId(profileId, createIndicator(undefined, pageParam));
             return posts;
         },
@@ -54,4 +55,12 @@ export function MediaList({ profileId, source }: MediaListProps) {
             }}
         />
     );
+}
+
+export function MediaList({ profileId, source }: MediaListProps) {
+    if (source === Source.Twitter) {
+        return <TwitterMediaGalleryList profileId={profileId} />;
+    }
+
+    return <DefaultMediaList profileId={profileId} source={source} />;
 }
