@@ -87,6 +87,7 @@ export const TWITTER_TIMELINE_WHITELIST_UID_SET: ReadonlySet<string> = new Set([
     '2783573302', // x: @AdEx_Network
     '2840459873', // x: @XXY177
     '2851873888', // x: @0xCurva
+    '2890630160', // x: @Luckyjudy666
     '2898961290', // x: @PANews
     '2903732421', // x: @MiaBleem
     '2911696541', // x: @daice_0622
