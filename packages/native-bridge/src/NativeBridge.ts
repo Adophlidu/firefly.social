@@ -15,6 +15,7 @@ const REQUEST_ONLY_METHODS = [
     SupportedMethod.BACK,
     SupportedMethod.UPDATE_NAVIGATOR_BAR,
     SupportedMethod.OPEN_URL,
+    SupportedMethod.ADD_CALENDAR,
     SupportedMethod.CLOSE,
     SupportedMethod.SET_PRIMARY_BUTTON,
     SupportedMethod.SET_FRAME_READY_OPTIONS,

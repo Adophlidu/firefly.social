@@ -30,6 +30,7 @@ export enum SupportedMethod {
     FOLLOW_FARCASTER_USER = 'followFarcasterUser',
     UPDATE_NAVIGATOR_BAR = 'updateNavigatorBar',
     OPEN_URL = 'openUrl',
+    ADD_CALENDAR = 'addCalendar',
     LOGIN = 'login',
     SHARE = 'share',
     COMPOSE = 'compose',
@@ -98,6 +99,14 @@ export interface Mention {
     profiles: MentionProfile[];
 }
 
+export interface AddCalendarEventParams {
+    title: string;
+    startDate: number;
+    endDate: number;
+    location?: string;
+    notes?: string;
+}
+
 export interface RequestArguments {
     [SupportedMethod.GET_SUPPORTED_METHODS]: {};
     [SupportedMethod.GET_AUTHORIZATION]: {};
@@ -134,6 +143,7 @@ export interface RequestArguments {
     [SupportedMethod.OPEN_URL]: {
         url: string;
     };
+    [SupportedMethod.ADD_CALENDAR]: AddCalendarEventParams;
     [SupportedMethod.LOGIN]: {
         platform: string; // FireflyPlatform (app-level) replaced with string to avoid coupling
     };
@@ -238,6 +248,7 @@ export interface ResponseResult {
     [SupportedMethod.BIND_WALLET]: string;
     [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
     [SupportedMethod.OPEN_URL]: void;
+    [SupportedMethod.ADD_CALENDAR]: void;
     [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: StringifyBoolean;
     [SupportedMethod.FOLLOW_TWITTER_USER]: StringifyBoolean;
     [SupportedMethod.FOLLOW_LENS_USER]: StringifyBoolean;
