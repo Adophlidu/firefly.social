@@ -3,7 +3,6 @@
 import 'swiper/css';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@dimensiondev/constants/computed';
 import { AttachmentType, type Source } from '@dimensiondev/enums';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useMemo, useRef } from 'react';
@@ -12,6 +11,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
+import { GALLERY_MEDIA_TYPES } from '@/helpers/getPostPreviewAttachments.js';
 import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
@@ -32,8 +32,7 @@ export function PreviewMediaModalContent({ onClose, post, source, medias, index 
         if (!post) return EMPTY_LIST;
         const asset = post.metadata.content?.asset;
         const attachments =
-            post.metadata.content?.attachments?.filter((x) => SUPPORTED_PREVIEW_MEDIA_TYPES.includes(x.type)) ??
-            EMPTY_LIST;
+            post.metadata.content?.attachments?.filter((x) => GALLERY_MEDIA_TYPES.includes(x.type)) ?? EMPTY_LIST;
 
         if (asset?.type === AttachmentType.Image && attachments.length === 1) {
             return [asset];
