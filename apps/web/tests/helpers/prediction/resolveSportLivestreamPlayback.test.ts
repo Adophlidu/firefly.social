@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { resolveSportLivestreamPlayback } from '@/helpers/prediction/resolveSportLivestreamPlayback.js';
+import {
+    isTwitchLivestreamUrl,
+    resolveSportLivestreamPlayback,
+} from '@/helpers/prediction/resolveSportLivestreamPlayback.js';
 
 describe('resolveSportLivestreamPlayback', () => {
     it('embeds Twitch livestream URLs', () => {
@@ -32,6 +35,12 @@ describe('resolveSportLivestreamPlayback', () => {
             embedUrl: 'https://player.twitch.tv/?channel=fireflysports&parent=mask.social&muted=true',
             sourceUrl: 'https://www.twitch.tv/fireflysports',
         });
+    });
+
+    it('detects Twitch livestream URLs', () => {
+        expect(isTwitchLivestreamUrl('https://www.twitch.tv/fireflysports')).toBe(true);
+        expect(isTwitchLivestreamUrl('https://kick.com/fireflysports')).toBe(false);
+        expect(isTwitchLivestreamUrl(undefined)).toBe(false);
     });
 
     it('opens non-Twitch URLs externally and keeps the original livestream URL when available', () => {

@@ -7,6 +7,16 @@ export interface CategoryRouteSearchParams {
     parentTagType?: string | null;
 }
 
+export function parseLiveSportsListRequest(context: CategorySlugContext): PolymarketSportsListRequest {
+    const { activeItem } = context;
+
+    return {
+        children_tag_slug: activeItem.slug_tag || activeItem.slug,
+        children_tag_slug_type: activeItem.type || undefined,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    };
+}
+
 export function parseSportsListRequest(
     context: CategorySlugContext,
     searchParams?: CategoryRouteSearchParams,
@@ -37,6 +47,11 @@ export function parseSportsListRequest(
         children_tag_slug_type: activeItem.type || searchParams?.tagType || undefined,
         timezone,
     };
+}
+
+export function getCategoryPropsTagSlug(context: CategorySlugContext): string | undefined {
+    const tagSlug = context.activeItem.slug_tag?.trim();
+    return tagSlug || undefined;
 }
 
 export function getPropsListSlugParams(context: CategorySlugContext): { slug: string; subSlug?: string } {

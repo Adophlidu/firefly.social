@@ -2158,6 +2158,9 @@ msgstr "Lo sentimos, actualmente no podemos acuñar este NFT."
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "El contenido se perderá si abandona esta página en modo anónimo."
 
+msgid "Starting Soon"
+msgstr ""
+
 msgid "Post could not be found."
 msgstr "No se encontraron publicaciones relacionadas."
 

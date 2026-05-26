@@ -2147,6 +2147,9 @@ msgstr "죄송합니다. 현재 이 NFT를 민팅할 수 없습니다."
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "익명 모드에서 이 페이지를 떠나면 콘텐츠가 사라집니다."
 
+msgid "Starting Soon"
+msgstr ""
+
 msgid "Post could not be found."
 msgstr "게시물을 찾을 수 없습니다."
 

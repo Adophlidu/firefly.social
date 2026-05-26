@@ -9,18 +9,22 @@ import { memo, useMemo, useState } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionSportsCell } from '@/components/Prediction/Category/PredictionSportsCell.js';
+import { categoryHasGamesDisplayContent } from '@/helpers/prediction/category/categoryGamesPropsTabAvailability.js';
 import { formatPolymarketSportsEventForUI } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import {
-    groupLiveSportsEventsByLeague,
+    groupLiveSportsListForDisplay,
     groupSportsEventsForDisplay,
+    liveSportsListHasDisplayContent,
 } from '@/helpers/prediction/category/groupSportsEventsForDisplay.js';
 import { isSportsLiveCategoryContext } from '@/helpers/prediction/category/isSportsLiveCategoryContext.js';
-import { parseSportsListRequest } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
+import {
+    parseLiveSportsListRequest,
+    parseSportsListRequest,
+} from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { applySportsMarketPriceOverrides } from '@/helpers/prediction/category/sportsMarketLivePrices.js';
 import { useLiveSportsMarketPrices } from '@/hooks/prediction/useLiveSportsMarketPrices.js';
 import { getSportsEventList } from '@/providers/firefly/prediction/getSportsEventList.js';
-import { getSportsLiveEventList } from '@/providers/firefly/prediction/getSportsLiveEventList.js';
 import type { PolymarketSportsEvent } from '@/providers/types/Firefly.js';
 
 const INITIAL_VISIBLE = 5;
@@ -32,17 +36,15 @@ interface Props {
 export const PredictionCategoryGamesList = memo<Props>(function PredictionCategoryGamesList({ context }) {
     const isLiveCategory = isSportsLiveCategoryContext(context);
     const sportsRequest = useMemo(
-        () => (isLiveCategory ? null : parseSportsListRequest(context)),
+        () => (isLiveCategory ? parseLiveSportsListRequest(context) : parseSportsListRequest(context)),
         [context, isLiveCategory],
     );
     const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
     const [showFinishedClosed, setShowFinishedClosed] = useState(false);
 
     const { data, isPending, isError } = useQuery({
-        queryKey: isLiveCategory
-            ? ['prediction', 'category', 'sports-live-list']
-            : ['prediction', 'category', 'sports-list', sportsRequest],
-        queryFn: () => (isLiveCategory ? getSportsLiveEventList() : getSportsEventList(sportsRequest!)),
+        queryKey: ['prediction', 'category', 'sports-list', sportsRequest],
+        queryFn: () => getSportsEventList(sportsRequest),
     });
 
     const { sections, closedEvents } = useMemo(() => {
@@ -50,17 +52,17 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
             return { sections: [], closedEvents: [] };
         }
         if (isLiveCategory) {
-            return {
-                sections: groupLiveSportsEventsByLeague(data.live),
-                closedEvents: [],
-            };
+            return { ...groupLiveSportsListForDisplay(data), closedEvents: [] };
         }
         return groupSportsEventsForDisplay(data);
     }, [data, isLiveCategory]);
 
-    const hasVisibleContent = sections.length > 0 || closedEvents.length > 0;
+    const hasVisibleContent = isLiveCategory
+        ? liveSportsListHasDisplayContent(data)
+        : categoryHasGamesDisplayContent(data);
 
     const liveEventsForPrices = useMemo(() => sections.flatMap((section) => section.events), [sections]);
+
     const liveMarketPrices = useLiveSportsMarketPrices(liveEventsForPrices);
 
     const renderSportsCell = (event: PolymarketSportsEvent) => {

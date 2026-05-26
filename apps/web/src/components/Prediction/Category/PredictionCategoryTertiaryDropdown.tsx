@@ -63,8 +63,8 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                                             key={tertiary.slug}
                                             href={buildPredictionCategoryHref(tertiary, item)}
                                             className={classNames(
-                                                'flex items-center gap-2 rounded-xl p-2 text-sm font-medium transition-colors hover:bg-lightBg',
-                                                isActive ? 'bg-highlight/10 text-highlight' : 'text-main',
+                                                'flex items-center gap-2 rounded-xl p-2 text-sm font-medium text-main transition-colors hover:bg-lightBg',
+                                                isActive ? 'bg-bg' : '',
                                             )}
                                         >
                                             <PredictionCategorySlugIcon item={tertiary} />

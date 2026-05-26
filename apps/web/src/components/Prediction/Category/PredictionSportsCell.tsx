@@ -12,6 +12,7 @@ import { Link } from '@/components/Link.js';
 import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
 import { Image } from '@/esm/Image.js';
+import { useRouter } from '@/esm/navigation.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import {
     parseSportsPriceCentsLabel,
@@ -19,6 +20,7 @@ import {
     type PredictionSportsDrawOutcomeForUI,
     type PredictionSportsTeamForUI,
 } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
+import { isTwitchLivestreamUrl } from '@/helpers/prediction/resolveSportLivestreamPlayback.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 
 interface Props {
@@ -75,7 +77,7 @@ const LiveSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(func
                     <HeaderMeta volumeLabel={model.volumeLabel} leagueLabel={model.leagueLabel} />
                 </div>
             </div>
-            {model.livestreamUrl ? <LivestreamButton url={model.livestreamUrl} /> : null}
+            {model.livestreamUrl ? <LivestreamButton url={model.livestreamUrl} eventSlug={model.eventSlug} /> : null}
         </div>
     );
 });
@@ -119,10 +121,21 @@ const HeaderMeta = memo<{
     return <span className={classNames('truncate text-second', className)}>{metaParts.join(' · ')}</span>;
 });
 
-const LivestreamButton = memo<{ url: string }>(function LivestreamButton({ url }) {
+const LivestreamButton = memo<{ url: string; eventSlug: string }>(function LivestreamButton({ url, eventSlug }) {
+    const router = useRouter();
+
     const handleClick = (event: MouseEvent) => {
         event.preventDefault();
         event.stopPropagation();
+        if (isTwitchLivestreamUrl(url)) {
+            router.push(
+                RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, eventSlug, {
+                    appendRoot: false,
+                    stream: true,
+                }),
+            );
+            return;
+        }
         window.open(url, '_blank', 'noopener,noreferrer');
     };
 

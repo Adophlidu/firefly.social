@@ -18,6 +18,37 @@ export interface SportsGamesListDisplay {
     closedEvents: PolymarketSportsEvent[];
 }
 
+export interface LiveSportsListDisplay {
+    sections: SportsEventDisplaySection[];
+}
+
+export function groupLiveSportsListForDisplay(response: PolymarketSportsListResponse): LiveSportsListDisplay {
+    const sections: SportsEventDisplaySection[] = [];
+
+    if (response.live.length > 0) {
+        sections.push({
+            id: 'live',
+            title: t`Live`,
+            events: response.live,
+        });
+    }
+
+    if (response.today.length > 0) {
+        sections.push({
+            id: 'starting-soon',
+            title: t`Starting Soon`,
+            events: response.today,
+        });
+    }
+
+    return { sections };
+}
+
+export function liveSportsListHasDisplayContent(response: PolymarketSportsListResponse | undefined): boolean {
+    if (!response) return false;
+    return response.live.length > 0 || response.today.length > 0;
+}
+
 function resolveLeagueSectionTitle(event: PolymarketSportsEvent): string {
     const leagueName = event.leagueName?.trim();
     if (leagueName) return leagueName;

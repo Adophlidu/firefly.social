@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseSportsListRequest } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
+import {
+    getCategoryPropsTagSlug,
+    getPropsListSlugParams,
+    parseLiveSportsListRequest,
+    parseSportsListRequest,
+} from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -8,8 +13,9 @@ function slugItem(
     slug: string,
     type?: string,
     sub_slug: PolymarketEventSlugListData[] = [],
+    slug_tag?: string,
 ): PolymarketEventSlugListData {
-    return { slug, label: slug, type, sub_slug };
+    return { slug, label: slug, type, sub_slug, slug_tag };
 }
 
 function context(overrides: Partial<CategorySlugContext> & Pick<CategorySlugContext, 'depth'>): CategorySlugContext {
@@ -24,6 +30,30 @@ function context(overrides: Partial<CategorySlugContext> & Pick<CategorySlugCont
         depth: overrides.depth,
     };
 }
+
+describe('parseLiveSportsListRequest', () => {
+    it('requests live sports list with local timezone', () => {
+        const live = slugItem('live', 'live', [], 'live-tag');
+        const basketball = slugItem('basketball', 'sport');
+        const sports = slugItem('sports', 'sport', [live, basketball]);
+
+        const request = parseLiveSportsListRequest(
+            context({
+                depth: 2,
+                primaryItem: sports,
+                secondaryItem: live,
+                activeItem: live,
+            }),
+        );
+
+        expect(request).toEqual({
+            children_tag_slug: 'live-tag',
+            children_tag_slug_type: 'live',
+            timezone: expect.any(String),
+        });
+        expect(request.children_tag_slug).toBe('live-tag');
+    });
+});
 
 describe('parseSportsListRequest', () => {
     it('sends only secondary slug at depth 2', () => {
@@ -82,5 +112,87 @@ describe('parseSportsListRequest', () => {
         expect(request.children_tag_slug).toBe('sports');
         expect(request.children_tag_slug_type).toBe('sport');
         expect(request.children_children_tag_slug).toBeUndefined();
+    });
+});
+
+describe('getPropsListSlugParams', () => {
+    it('sends primary and active slug at depth 2+', () => {
+        const nba = slugItem('nba', 'league');
+        const sports = slugItem('sports', 'sport', [nba]);
+
+        expect(
+            getPropsListSlugParams(
+                context({
+                    depth: 2,
+                    primaryItem: sports,
+                    secondaryItem: nba,
+                    activeItem: nba,
+                }),
+            ),
+        ).toEqual({ slug: 'sports', subSlug: 'nba' });
+    });
+
+    it('sends only active slug at depth 1', () => {
+        const politics = slugItem('politics');
+
+        expect(
+            getPropsListSlugParams(
+                context({
+                    depth: 1,
+                    primaryItem: politics,
+                    activeItem: politics,
+                }),
+            ),
+        ).toEqual({ slug: 'politics' });
+    });
+});
+
+describe('getCategoryPropsTagSlug', () => {
+    it('returns trimmed slug_tag from active item', () => {
+        const active = slugItem('nba', 'league', [], '  nba-props  ');
+
+        expect(
+            getCategoryPropsTagSlug(
+                context({
+                    depth: 2,
+                    activeItem: active,
+                }),
+            ),
+        ).toBe('nba-props');
+    });
+
+    it('returns undefined when slug_tag is missing or blank', () => {
+        const withoutTag = slugItem('nba', 'league');
+
+        expect(
+            getCategoryPropsTagSlug(
+                context({
+                    depth: 2,
+                    activeItem: withoutTag,
+                }),
+            ),
+        ).toBeUndefined();
+
+        expect(
+            getCategoryPropsTagSlug(
+                context({
+                    depth: 2,
+                    activeItem: slugItem('nba', 'league', [], '   '),
+                }),
+            ),
+        ).toBeUndefined();
+    });
+
+    it('does not fall back to slug when slug_tag is absent', () => {
+        const active = slugItem('nba', 'league');
+
+        expect(
+            getCategoryPropsTagSlug(
+                context({
+                    depth: 2,
+                    activeItem: active,
+                }),
+            ),
+        ).toBeUndefined();
     });
 });

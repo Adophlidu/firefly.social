@@ -2147,6 +2147,9 @@ msgstr "很抱歉，我们目前无法铸造此 NFT。"
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "匿名模式下离开此页面内容将丢失。"
 
+msgid "Starting Soon"
+msgstr ""
+
 msgid "Post could not be found."
 msgstr "未找到相关帖子。"
 

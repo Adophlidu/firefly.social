@@ -51,6 +51,11 @@ function resolveTwitchEmbedUrl(url: string | undefined, parent: string): string 
     return undefined;
 }
 
+export function isTwitchLivestreamUrl(url: string | undefined): boolean {
+    if (!url?.trim()) return false;
+    return !!resolveTwitchEmbedUrl(url.trim(), 'localhost');
+}
+
 export function resolveSportLivestreamPlayback(
     livestreamInfo: SportLiveStreamInfo | undefined,
     parent: string,

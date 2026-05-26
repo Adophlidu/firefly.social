@@ -57,13 +57,14 @@ export class RouteResolver {
     static betsEventDetail(
         platform: PredictionPlatform,
         eventId: string,
-        options?: { multiple?: boolean; appendRoot?: boolean },
+        options?: { multiple?: boolean; appendRoot?: boolean; stream?: boolean },
     ) {
         const appendRoot = options?.appendRoot ?? false;
         return urlcat(appendRoot ? SITE_URL : '', '/:platform/event/:eventId', {
             platform,
             eventId,
             type: options?.multiple ? 'multi' : undefined,
+            stream: options?.stream ? '1' : undefined,
         });
     }
     static explorePrediction({

@@ -11,8 +11,8 @@ interface Props {
 
 export const secondaryChipClassName = (isActive: boolean) =>
     classNames(
-        'flex shrink-0 items-center gap-1 rounded-full border border-secondaryLine px-3 py-2 text-base font-semibold transition-colors',
-        isActive ? 'border-highlight text-highlight' : 'text-main hover:border-main',
+        'flex shrink-0 items-center gap-1 rounded-[20px] px-3 py-2 text-base font-semibold leading-6 transition-colors',
+        isActive ? 'border border-secondaryLine bg-bg text-main' : 'border border-secondaryLine text-main hover:bg-bg',
     );
 
 export const PredictionCategorySecondaryChip = memo<Props>(function PredictionCategorySecondaryChip({

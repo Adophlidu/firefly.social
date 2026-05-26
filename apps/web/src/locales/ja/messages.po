@@ -2147,6 +2147,9 @@ msgstr "申し訳ありません。現在この NFT をミントできません�
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "匿名モードでこのページを離れると、コンテンツは失われます。"
 
+msgid "Starting Soon"
+msgstr ""
+
 msgid "Post could not be found."
 msgstr "投稿が見つかりませんでした。"
 

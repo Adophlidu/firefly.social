@@ -26,6 +26,7 @@ import { isSportsLiveCategoryContext } from '@/helpers/prediction/category/isSpo
 import type { CategoryRouteSearchParams } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import { resolveCategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { shouldShowGamesPropsTabs, shouldShowGamesTab } from '@/helpers/prediction/category/shouldShowGamesTab.js';
+import { useCategoryGamesPropsAvailability } from '@/hooks/prediction/useCategoryGamesPropsAvailability.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 
 interface Props {
@@ -71,7 +72,6 @@ export function PredictionCategoryPage({ slug }: Props) {
     }, [context, router, shouldRedirectToDefaultSecondary]);
 
     const showGamesList = shouldShowGamesTab(context?.activeItem);
-    const showGamesPropsTabs = context ? shouldShowGamesPropsTabs(context) : false;
     const isLiveGamesOnly = context ? isSportsLiveCategoryContext(context) : false;
     const defaultTab = showGamesList ? PREDICTION_CATEGORY_GAMES_TAB : PREDICTION_CATEGORY_PROPS_TAB;
 
@@ -82,11 +82,21 @@ export function PredictionCategoryPage({ slug }: Props) {
             .withOptions({ clearOnDefault: true }),
     );
 
+    const tabAvailability = useCategoryGamesPropsAvailability({
+        context,
+        tabFromUrl: tab,
+    });
+
+    const needsTabAvailability = context ? shouldShowGamesPropsTabs(context) : false;
+    const isTabAvailabilityPending = needsTabAvailability && tabAvailability.isPending;
+
     const effectiveTab = !showGamesList
         ? PREDICTION_CATEGORY_PROPS_TAB
         : isLiveGamesOnly
           ? PREDICTION_CATEGORY_GAMES_TAB
-          : tab;
+          : isTabAvailabilityPending
+            ? tab
+            : tabAvailability.effectiveTab;
 
     const handleTabChange = useCallback(
         (nextTab: PredictionCategoryTab) => {
@@ -116,6 +126,7 @@ export function PredictionCategoryPage({ slug }: Props) {
     }
 
     const headerTitle = getCategoryHeaderLabel(context.activeItem);
+    const showCategoryHeader = tabAvailability.showTabSwitcher || !isLiveGamesOnly;
 
     return (
         <div className="flex flex-col">
@@ -124,25 +135,33 @@ export function PredictionCategoryPage({ slug }: Props) {
                 <PredictionCategoryPrimaryTabs slugs={slugs} context={context} />
                 <PredictionCategorySecondaryNav context={context} />
             </div>
-            <PredictionCategoryHeader
-                title={headerTitle}
-                tab={effectiveTab}
-                showGames={showGamesPropsTabs}
-                onTabChange={handleTabChange}
-            />
-            {effectiveTab === PREDICTION_CATEGORY_GAMES_TAB ? (
-                <PredictionCategoryGamesList context={context} />
-            ) : (
-                <Suspense
-                    fallback={
-                        <div className="flex justify-center py-12">
-                            <Loading />
-                        </div>
-                    }
-                >
-                    <PredictionCategoryPropsList context={context} />
-                </Suspense>
-            )}
+            {showCategoryHeader ? (
+                <PredictionCategoryHeader
+                    title={headerTitle}
+                    tab={effectiveTab}
+                    availableTabs={tabAvailability.showTabSwitcher ? tabAvailability.availableTabs : []}
+                    onTabChange={handleTabChange}
+                />
+            ) : null}
+            <div className={!showCategoryHeader ? 'pt-3' : ''}>
+                {isTabAvailabilityPending ? (
+                    <div className="flex justify-center py-12">
+                        <Loading />
+                    </div>
+                ) : effectiveTab === PREDICTION_CATEGORY_GAMES_TAB ? (
+                    <PredictionCategoryGamesList context={context} />
+                ) : (
+                    <Suspense
+                        fallback={
+                            <div className="flex justify-center py-12">
+                                <Loading />
+                            </div>
+                        }
+                    >
+                        <PredictionCategoryPropsList context={context} />
+                    </Suspense>
+                )}
+            </div>
         </div>
     );
 }

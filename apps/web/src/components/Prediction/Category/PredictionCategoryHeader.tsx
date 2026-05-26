@@ -8,20 +8,20 @@ import type { PredictionCategoryTab } from '@/helpers/prediction/category/consta
 interface Props {
     title: string;
     tab: PredictionCategoryTab;
-    showGames: boolean;
+    availableTabs: PredictionCategoryTab[];
     onTabChange: (tab: PredictionCategoryTab) => void;
 }
 
 export const PredictionCategoryHeader = memo<Props>(function PredictionCategoryHeader({
     title,
     tab,
-    showGames,
+    availableTabs,
     onTabChange,
 }) {
     return (
         <div className="flex items-center justify-between gap-3 px-4 py-3">
             <h1 className="min-w-0 truncate text-2xl font-black text-main">{title}</h1>
-            <PredictionCategoryTabs tab={tab} showGames={showGames} onTabChange={onTabChange} />
+            <PredictionCategoryTabs tab={tab} availableTabs={availableTabs} onTabChange={onTabChange} />
         </div>
     );
 });

@@ -2158,6 +2158,9 @@ msgstr "So sorry, we are not able to mint this NFT at the moment."
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "Content will be lost when leaving this page in anonymous mode."
 
+msgid "Starting Soon"
+msgstr "Starting Soon"
+
 msgid "Post could not be found."
 msgstr "Post could not be found."
 
