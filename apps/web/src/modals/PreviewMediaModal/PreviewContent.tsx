@@ -50,7 +50,7 @@ export const PreviewContent = memo<PreviewContentProps>(function PreviewContent(
                     src={asset.uri}
                     mode="video"
                     poster={asset.coverUri}
-                    autoPlay
+                    autoPlay={false}
                     enableViewportAutoPlay={false}
                 />
             </div>
