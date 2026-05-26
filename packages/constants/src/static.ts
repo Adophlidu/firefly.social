@@ -28,6 +28,7 @@ export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/'
 export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
 export const NEYNAR_URL = 'https://neynar-proxy.r2d2.to';
 export const ORB_API_URL = 'https://orbapi.xyz';
+export const ORB_QUERIES_API_URL = 'https://us-central1-stellar-verve-314311.cloudfunctions.net/MAINNET-QUERIES';
 export const CALENDAR_BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/';
 export const ACCOUNT_CONFLICT_SOLUTION_URL =
     'https://mask.notion.site/Experience-a-login-conflict-2227d90fdc9b819cabffe6a98d87f901';

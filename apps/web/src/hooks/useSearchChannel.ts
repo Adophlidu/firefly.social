@@ -3,6 +3,9 @@ import { SORTED_CHANNEL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
+import { type Group, GroupsOrderBy, PageSize } from '@lens-protocol/client';
+import { fetchGroups } from '@lens-protocol/client/actions';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -12,9 +15,13 @@ import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';
+import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
+import { getLensClient } from '@/providers/lens/getLensClient.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import type { GetClubsData, SearchClubsData } from '@/providers/orb/type.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -38,7 +45,7 @@ function getLensTokenHeaders(profileId?: string) {
         : undefined;
 }
 
-async function fetchLensClubSection(category: 'MY_ADMIN_CLUBS' | 'MY_CLUBS', profileId?: string) {
+async function fetchOrbClubs(category: 'MY_ADMIN_CLUBS' | 'MY_CLUBS', profileId?: string) {
     const headers = getLensTokenHeaders(profileId);
     if (!headers) return EMPTY_LIST as Channel[];
 
@@ -70,12 +77,63 @@ async function searchLensClubsFromOrb(keyword: string, profileId?: string) {
     return data.items.map((club) => formatChannelFromOrb(club));
 }
 
+async function fetchLensManagedClubs(profileId: string | undefined, includeOwners: boolean) {
+    if (!profileId) return EMPTY_LIST as Channel[];
+
+    const result = await ensureLensResult(
+        fetchGroups(getLensClient(), {
+            pageSize: PageSize.Fifty,
+            orderBy: GroupsOrderBy.LatestFirst,
+            filter: {
+                managedBy: {
+                    address: safeEvmAddress(profileId),
+                    includeOwners,
+                },
+            },
+        }),
+    );
+
+    return result.items
+        .filter((group: Group) => !includeOwners || isSameEthereumAddress(group.owner, profileId))
+        .map(formatLensChannelFromGroup);
+}
+
+async function fetchLensJoinedClubs(profileId?: string) {
+    if (!profileId) return EMPTY_LIST as Channel[];
+
+    const result = await ensureLensResult(
+        fetchGroups(getLensClient(), {
+            pageSize: PageSize.Fifty,
+            orderBy: GroupsOrderBy.LatestFirst,
+            filter: {
+                member: safeEvmAddress(profileId),
+            },
+        }),
+    );
+    return result.items.map(formatLensChannelFromGroup);
+}
+
+async function searchLensClubsFromLens(keyword: string) {
+    const result = await ensureLensResult(
+        fetchGroups(getLensClient(), {
+            pageSize: PageSize.Fifty,
+            orderBy: GroupsOrderBy.LatestFirst,
+            filter: {
+                searchQuery: keyword,
+            },
+        }),
+    );
+    return result.items.map(formatLensChannelFromGroup);
+}
+
 function orderLensClubs({
     selectedChannel,
+    ownedClubs,
     adminClubs,
     joinedClubs,
 }: {
     selectedChannel?: Channel | null;
+    ownedClubs: Channel[];
     adminClubs: Channel[];
     joinedClubs: Channel[];
 }) {
@@ -92,6 +150,7 @@ function orderLensClubs({
 
     add(HOME_CLUB);
     if (selectedChannel?.id !== HOME_CLUB.id) add(selectedChannel);
+    ownedClubs.forEach(add);
     adminClubs.forEach(add);
     joinedClubs.forEach(add);
 
@@ -105,24 +164,37 @@ async function searchChannels(
 ) {
     const provider = resolveSocialMediaProvider(source);
     if (source === Source.Lens && keyword) {
-        try {
-            const channels = await searchLensClubsFromOrb(keyword, profileId);
-            if (channels.length) return channels.filter((x) => !x.unavailable);
-        } catch {
-            // Fall back to the Lens provider below if the Orb search endpoint is unavailable.
-        }
+        const results = await Promise.allSettled([
+            searchLensClubsFromOrb(keyword, profileId),
+            searchLensClubsFromLens(keyword),
+        ]);
+        return uniqBy(
+            results.flatMap((x) => (x.status === 'fulfilled' ? x.value : EMPTY_LIST)).filter((x) => !x.unavailable),
+            (x) => x.id.toLowerCase(),
+        );
     }
 
     if (source === Source.Lens && !keyword) {
-        const [adminClubs, joinedClubs] = await Promise.allSettled([
-            fetchLensClubSection('MY_ADMIN_CLUBS', profileId),
-            fetchLensClubSection('MY_CLUBS', profileId),
-        ]);
+        const [orbAdminClubs, orbJoinedClubs, lensOwnedClubs, lensAdminClubs, lensJoinedClubs] =
+            await Promise.allSettled([
+                fetchOrbClubs('MY_ADMIN_CLUBS', profileId),
+                fetchOrbClubs('MY_CLUBS', profileId),
+                fetchLensManagedClubs(profileId, true),
+                fetchLensManagedClubs(profileId, false),
+                fetchLensJoinedClubs(profileId),
+            ]);
 
         return orderLensClubs({
             selectedChannel,
-            adminClubs: adminClubs.status === 'fulfilled' ? adminClubs.value : EMPTY_LIST,
-            joinedClubs: joinedClubs.status === 'fulfilled' ? joinedClubs.value : EMPTY_LIST,
+            ownedClubs: lensOwnedClubs.status === 'fulfilled' ? lensOwnedClubs.value : EMPTY_LIST,
+            adminClubs: [
+                ...(orbAdminClubs.status === 'fulfilled' ? orbAdminClubs.value : EMPTY_LIST),
+                ...(lensAdminClubs.status === 'fulfilled' ? lensAdminClubs.value : EMPTY_LIST),
+            ],
+            joinedClubs: [
+                ...(orbJoinedClubs.status === 'fulfilled' ? orbJoinedClubs.value : EMPTY_LIST),
+                ...(lensJoinedClubs.status === 'fulfilled' ? lensJoinedClubs.value : EMPTY_LIST),
+            ],
         });
     }
 

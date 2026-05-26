@@ -1,4 +1,4 @@
-import { ORB_API_URL } from '@dimensiondev/constants/static';
+import { ORB_QUERIES_API_URL } from '@dimensiondev/constants/static';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
@@ -27,7 +27,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const { 'x-access-token': lensToken } = getHeadersWithZodSchema(request, HeadersSchema);
     const { q, skip, limit } = getSearchParamsWithZodSchema(request, ParamsSchema);
 
-    const response = await fetchOrbJson<SearchClubsResponse>(urlcat(ORB_API_URL, '/search'), {
+    const response = await fetchOrbJson<SearchClubsResponse>(urlcat(ORB_QUERIES_API_URL, '/search'), {
         method: 'POST',
         body: JSON.stringify({
             searchQuery: q,
