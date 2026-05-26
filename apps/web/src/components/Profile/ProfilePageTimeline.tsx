@@ -1,8 +1,8 @@
 'use client';
 
 import { SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN } from '@dimensiondev/constants/computed';
-import type { ProfileCategory, SocialProfileCategory, WalletProfileCategory } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import type { ProfileCategory, WalletProfileCategory } from '@dimensiondev/enums';
+import { SocialProfileCategory, Source } from '@dimensiondev/enums';
 
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { PinnedPost } from '@/components/Posts/PinnedPost.js';
@@ -22,9 +22,10 @@ export function ProfilePageTimeline({
         return <WalletProfileContentList type={category as WalletProfileCategory} address={identity.id} />;
     }
     if (identity && isSocialSource(identity.source)) {
+        const showPinnedPost = category === SocialProfileCategory.Feed || category === SocialProfileCategory.Replies;
         return (
             <>
-                <PinnedPost profileId={identity.id} source={identity.source} />
+                {showPinnedPost ? <PinnedPost profileId={identity.id} source={identity.source} /> : null}
                 <LoginRequiredGuard
                     source={identity.source}
                     required={SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN[identity.source].includes(
