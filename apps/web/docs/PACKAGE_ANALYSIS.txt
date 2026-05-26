@@ -3,7 +3,7 @@ Package Analysis
 
 Application: apps/web
 
-Total packages: 2487
+Total packages: 2488
 Packages with multiple versions: 388
 
 Legend:
@@ -1380,6 +1380,7 @@ Packages with Single Version
  @urql/exchange-auth@2.2.1
 *@vercel/analytics@2.0.1
 *@vercel/kv@1.0.1
+*@vercel/speed-insights@2.0.0
  @vitest/expect@3.2.4
  @vitest/mocker@3.2.4
  @vitest/pretty-format@3.2.4

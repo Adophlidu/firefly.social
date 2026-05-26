@@ -266,6 +266,9 @@ importers:
       '@vercel/analytics':
         specifier: ^2.0.1
         version: 2.0.1(next@16.2.6)(react@19.2.6)
+      '@vercel/speed-insights':
+        specifier: ^2
+        version: 2.0.0(next@16.2.6)(react@19.2.6)
       '@wagmi/core':
         specifier: ^3.1.0
         version: 3.4.9(@tanstack/query-core@5.100.9)(@types/react@19.2.15)(accounts@0.8.10)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(viem@2.48.11)
@@ -663,6 +666,9 @@ importers:
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
+      '@vercel/speed-insights':
+        specifier: ^2
+        version: 2.0.0(next@16.2.6)(react@19.2.6)
       '@wagmi/core':
         specifier: ^3.1.0
         version: 3.4.9(@tanstack/query-core@5.100.9)(@types/react@19.2.15)(accounts@0.8.10)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(viem@2.48.11)
@@ -16807,6 +16813,36 @@ packages:
       '@upstash/redis': 1.25.1
     dev: false
 
+  /@vercel/speed-insights@2.0.0(next@16.2.6)(react@19.2.6):
+    resolution: {integrity: sha512-jwkNcrTeafWxjmWq4AHBaptSqZiJkYU5adLC9QBSqeim0GcqDMgN5Ievh8OG1rJ6W3A4l1oiP7qr9CWxGuzu3w==}
+    peerDependencies:
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      nuxt: '>= 3'
+      react: 19.2.6
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      nuxt:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
+    dependencies:
+      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      react: 19.2.6
+    dev: false
+
   /@vitejs/plugin-react@4.7.0(vite@7.3.3):
     resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -30422,6 +30458,7 @@ time:
   /@typescript/native-preview@7.0.0-dev.20260522.1: '2026-05-22T08:01:48.656Z'
   /@typescript/native-preview@7.0.0-dev.20260523.1: '2026-05-23T08:03:34.248Z'
   /@vercel/analytics@2.0.1: '2026-03-12T14:46:08.217Z'
+  /@vercel/speed-insights@2.0.0: '2026-03-10T16:37:05.993Z'
   /@vitejs/plugin-react@4.7.0: '2025-07-18T03:32:30.541Z'
   /@vitejs/plugin-react@5.2.0: '2026-03-12T14:27:45.817Z'
   /accounts@0.8.10: '2026-05-02T08:27:39.335Z'
