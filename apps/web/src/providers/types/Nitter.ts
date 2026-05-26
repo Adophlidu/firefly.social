@@ -31,6 +31,26 @@ export type GetProfileResponse = Response<{
     pinned: Tweet;
 }>;
 
+export interface AccountInfo {
+    username: string;
+    fullname: string;
+    userPic: string;
+    joinDate: number;
+    verifiedType: UserVerifiedType;
+    suspended: boolean;
+    basedIn: string;
+    source: string;
+    usernameChanges: number;
+    lastUsernameChange: number;
+    affiliateUsername: string;
+    affiliateLabel: string;
+    isIdentityVerified: boolean;
+    verifiedSince: number;
+    overrideVerifiedYear: number;
+}
+
+export type GetAccountInfoResponse = Response<AccountInfo>;
+
 export type GetUserTimelineResponse = Response<{
     pagination: Pagination;
     timeline: Tweet[];
