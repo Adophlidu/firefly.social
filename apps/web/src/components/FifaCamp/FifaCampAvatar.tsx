@@ -34,12 +34,12 @@ export const FifaCampAvatar = memo<FifaCampAvatarProps>(function FifaCampAvatar(
         return <Avatar size={size} className={className} {...avatarProps} />;
     }
 
-    const scale = size / BASE_PHOTO_SIZE;
+    const scale = size / BASE_OUTER;
+    const outerSize = size;
     const photoSize = Math.round(BASE_PHOTO_SIZE * scale);
     const keyline = BASE_KEYLINE * scale;
     const frameSize = photoSize + keyline * 2;
     const ringInner = BASE_RING_INNER * scale;
-    const outerSize = BASE_OUTER * scale;
     const flagHeight = BASE_FLAG_HEIGHT * scale;
     const flagWidth = BASE_FLAG_WIDTH * scale;
     const flagBorder = BASE_FLAG_BORDER * scale;
@@ -55,13 +55,14 @@ export const FifaCampAvatar = memo<FifaCampAvatarProps>(function FifaCampAvatar(
                 style={{ width: ringInner, height: ringInner }}
             />
 
-            <Image
+            <img
                 src={getFifaCampAvatarRingUrl()}
                 alt=""
                 width={Math.round(outerSize)}
                 height={Math.round(outerSize)}
                 className="absolute inset-0 z-[1] size-full"
                 aria-hidden
+                decoding="async"
             />
 
             <div

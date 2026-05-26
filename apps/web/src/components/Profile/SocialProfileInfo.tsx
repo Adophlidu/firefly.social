@@ -7,7 +7,6 @@ import { Plural, Trans } from '@lingui/react/macro';
 
 import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { FifaCampAvatar } from '@/components/FifaCamp/FifaCampAvatar.js';
-import { getFifaCampAvatarOuterSize } from '@/components/FifaCamp/getFifaCampFlagUrl.js';
 import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -39,8 +38,8 @@ export function SocialProfileInfo(props: InfoProps) {
     const { data: fifaCampCountryCode, flagUrl: fifaCampFlagUrl } = useFifaCampAvatar(profile);
     const { data: defiUnitedTier } = useDefiUnitedBadgeByProfile(profile);
 
-    const avatarPhotoSize = 40;
-    const avatarColumnWidth = fifaCampCountryCode ? getFifaCampAvatarOuterSize(avatarPhotoSize) : avatarPhotoSize;
+    const avatarSize = 40;
+    const avatarColumnWidth = avatarSize;
 
     const avatarSrc =
         source === Source.Twitter
@@ -57,7 +56,7 @@ export function SocialProfileInfo(props: InfoProps) {
             <FifaCampAvatar
                 src={avatarSrc}
                 alt="avatar"
-                size={avatarPhotoSize}
+                size={avatarSize}
                 countryCode={fifaCampCountryCode}
                 flagUrl={fifaCampFlagUrl}
                 className={classNames({
