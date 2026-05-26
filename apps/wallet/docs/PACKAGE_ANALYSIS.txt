@@ -3,7 +3,7 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2488
+Total packages: 2487
 Packages with multiple versions: 388
 
 Legend:
@@ -1378,7 +1378,6 @@ Packages with Single Version
  @upstash/redis@1.25.1
  @urql/core@5.1.1
  @urql/exchange-auth@2.2.1
-*@vercel/analytics@2.0.1
  @vercel/kv@1.0.1
 *@vercel/speed-insights@2.0.0
  @vitest/expect@3.2.4

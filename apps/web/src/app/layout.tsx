@@ -6,7 +6,6 @@ import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { ReactNode } from 'react';
 
@@ -53,12 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <body className={`${inter.variable} notranslate font-inter`}>
                 <ErrorBoundary>{children}</ErrorBoundary>
                 <GlobalLoadingIndicator />
-                {IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
-                    <>
-                        <Analytics />
-                        <SpeedInsights />
-                    </>
-                ) : null}
+                {IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? <SpeedInsights /> : null}
             </body>
         </html>
     );
