@@ -1,5 +1,6 @@
 import { Source } from '@dimensiondev/enums';
-import { memo } from 'react';
+import { memo, useRef } from 'react';
+import { useHover } from 'usehooks-ts';
 
 import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
@@ -11,6 +12,8 @@ import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackC
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity, SnapshotProposal } from '@/providers/snapshot/type.js';
+
+import { ShareButtonWithAnimationContext } from '../Posts/ShareButton.js';
 
 function getProposalLink(proposal: SnapshotProposal) {
     return `https://snapshot.box/#/s:${proposal.space.id}/proposal/${proposal.id}`;
@@ -24,9 +27,12 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
     const isMuted = data.author.isMuted;
 
     const label = data.proposal ? formatSnapshotChoice(data.choice, data.proposal.type, data.proposal.choices) : null;
+    const root = useRef(null!);
+    const hover = useHover(root);
 
     return (
         <article
+            ref={root}
             className={'border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3'}
         >
             <SingleSnapshotHeader data={data} />
@@ -49,8 +55,13 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                     )}
 
                     <footer className="mt-3 flex items-center justify-between">
-                        <LikeButton type={Source.DAOs} data={data} />
-                        <SnapshotActions activity={data} link={data.proposal ? getProposalLink(data.proposal) : ''} />
+                        <ShareButtonWithAnimationContext value={hover}>
+                            <LikeButton type={Source.DAOs} data={data} />
+                            <SnapshotActions
+                                activity={data}
+                                link={data.proposal ? getProposalLink(data.proposal) : ''}
+                            />
+                        </ShareButtonWithAnimationContext>
                     </footer>
                 </div>
             )}

@@ -10,14 +10,14 @@ export function ShareButtonWithAnimation() {
     const hover = use(ShareButtonWithAnimationContext);
     const animate = hover;
     return (
-        <span ref={ref} className={animate ? 'size-6' : 'size-6 p-1'}>
+        <span ref={ref} className={animate ? 'size-6' : 'size-6 pt-0.5'}>
             {animate ? (
-                <span className="absolute -ml-3 size-6" style={{ clipPath: 'circle(40% at 50% 50%)' }}>
-                    <Send2FilledIcon width={23} height={23} className="airplane-r1-animation" />
-                    <Send2FilledIcon width={23} height={23} className="airplane-r2-animation absolute top-0" />
+                <span className="absolute -ml-4 -mt-0.5 size-6" style={{ clipPath: 'circle(40% at 50% 50%)' }}>
+                    <Send2FilledIcon width={27} height={27} className="airplane-r1-animation" />
+                    <Send2FilledIcon width={27} height={27} className="airplane-r2-animation absolute top-0" />
                 </span>
             ) : (
-                <Send2Icon width={16} height={16} />
+                <Send2Icon width={20} height={20} />
             )}
         </span>
     );
