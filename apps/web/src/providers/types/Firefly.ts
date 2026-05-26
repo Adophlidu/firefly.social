@@ -2372,6 +2372,26 @@ export type GenesisSparksAccountsResponse = Response<{
     infoList: SparksAccountInfo[];
 } | null>;
 
+export interface FifaCampAccountInfo {
+    platform: SourceInURL;
+    platform_id: string;
+    handle?: string;
+    account_id?: string;
+    address?: string;
+    joined: boolean;
+    country_code?: string;
+    country_name?: string;
+    country_logo?: string;
+    status: number;
+    is_eliminate?: number;
+    join_time?: number;
+    can_change: boolean;
+}
+
+export type FifaCampAccountsResponse = Response<{
+    infoList: FifaCampAccountInfo[];
+} | null>;
+
 export type GetExploreSwitchConfigResponse = Response<{
     explore_switch: boolean;
     list: Array<{

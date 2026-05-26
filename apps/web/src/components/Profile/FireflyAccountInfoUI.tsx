@@ -3,7 +3,7 @@ import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import type { HTMLProps } from 'react';
 
-import { Avatar } from '@/components/Avatar.js';
+import { FifaCampAvatar } from '@/components/FifaCamp/FifaCampAvatar.js';
 import { Image } from '@/components/Image.js';
 import { HighlightedText } from '@/components/Profile/HighlightedText.js';
 import { Link } from '@/esm/Link.js';
@@ -29,9 +29,17 @@ export function FireflyAccountInfoUI({
     profile,
     banner,
     highlighted,
+    fifaCampCountryCode,
+    fifaCampFlagUrl,
     children,
     className,
-}: HTMLProps<'div'> & { profile: FireflyAccountProfile; banner?: string; highlighted?: boolean }) {
+}: HTMLProps<'div'> & {
+    profile: FireflyAccountProfile;
+    banner?: string;
+    highlighted?: boolean;
+    fifaCampCountryCode?: string;
+    fifaCampFlagUrl?: string | null;
+}) {
     const { currentProfileSession } = useFireflyProfileStore();
 
     const { uid, avatar, displayName } = profile;
@@ -59,7 +67,13 @@ export function FireflyAccountInfoUI({
             )}
             {children}
             <div className="z-1 flex w-full flex-col items-center px-4">
-                <Avatar size={80} alt="firefly-account" src={avatarWithFallback} />
+                <FifaCampAvatar
+                    size={80}
+                    alt="firefly-account"
+                    src={avatarWithFallback}
+                    countryCode={fifaCampCountryCode}
+                    flagUrl={fifaCampFlagUrl}
+                />
                 <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
                     {isCurrentProfile && highlighted ? (
                         <Link href={`/sparks/${profile.uid}`}>{accountName}</Link>

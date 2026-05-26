@@ -5,8 +5,8 @@ import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { MoreAction } from '@/components/Actions/More.js';
-import { Avatar } from '@/components/Avatar.js';
 import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
+import { FifaCampAvatar } from '@/components/FifaCamp/FifaCampAvatar.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { HighlightedText } from '@/components/Profile/HighlightedText.js';
@@ -23,6 +23,7 @@ import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import { useDefiUnitedBadgeByProfile } from '@/hooks/useDefiUnitedBadge.js';
+import { useFifaCampAvatar } from '@/hooks/useFifaCampAvatar.js';
 import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -46,7 +47,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
 
     const isDetailPage = useIsPostDetailPage();
     const { data: highlighted } = useProfileHighlighted(author);
+    const { data: fifaCampCountryCode, flagUrl: fifaCampFlagUrl } = useFifaCampAvatar(author);
     const { data: defiUnitedTier } = useDefiUnitedBadgeByProfile(author);
+    const avatarSize = isQuote ? 24 : 40;
 
     const identity = resolveFireflyIdentity(author);
     const shouldAlwaysBreakHandleLine = !isQuote && isDetailPage && !isComment && !showDate;
@@ -76,13 +79,15 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         onClickProfileLink?.();
                     }}
                 >
-                    <Avatar
+                    <FifaCampAvatar
                         className={classNames({
                             'size-10': !isQuote,
                             'size-6': isQuote,
                         })}
                         src={author.pfp || getStampAvatarByProfileId(author.source, author.profileId)}
-                        size={isQuote ? 24 : 40}
+                        size={avatarSize}
+                        countryCode={fifaCampCountryCode}
+                        flagUrl={fifaCampFlagUrl}
                         alt={author.profileId}
                     />
                 </Link>

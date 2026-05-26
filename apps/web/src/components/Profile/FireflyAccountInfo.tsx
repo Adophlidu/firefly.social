@@ -1,7 +1,7 @@
 'use client';
 
 import SettingIcon from '@dimensiondev/assets/setting.svg';
-import { NetworkType, PageRoute, Source } from '@dimensiondev/enums';
+import { NetworkType, PageRoute, type ProfilePageSource, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -26,6 +26,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useFifaCampAvatar } from '@/hooks/useFifaCampAvatar.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -102,26 +103,39 @@ function FireflyAccountWithTitleUI({
     profile,
     profiles,
 }: FireflyAccountWithTitleUIProps) {
-    const { data: highlighted } = useProfileHighlighted(
-        socialProfile
-            ? socialProfile
-            : walletProfile
-              ? {
-                    source: Source.Wallet,
-                    profileId: walletProfile.address,
-                    handle: walletProfile.address,
-                }
-              : null,
-        true,
-        profile.uid,
-    );
+    const highlightProfile: {
+        source: ProfilePageSource;
+        profileId: string;
+        handle: string;
+    } | null = socialProfile
+        ? {
+              source: socialProfile.source,
+              profileId: socialProfile.profileId,
+              handle: socialProfile.handle,
+          }
+        : walletProfile
+          ? {
+                source: Source.Wallet,
+                profileId: walletProfile.address,
+                handle: walletProfile.address,
+            }
+          : null;
+
+    const { data: highlighted } = useProfileHighlighted(highlightProfile, true, profile.uid);
+    const { data: fifaCampCountryCode, flagUrl: fifaCampFlagUrl } = useFifaCampAvatar(highlightProfile);
 
     return (
         <>
             <div className="sticky left-0 top-0 z-navbar h-0 w-full duration-200">
                 <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
             </div>
-            <FireflyAccountInfoUI profile={profile} highlighted={highlighted} className="z-banner">
+            <FireflyAccountInfoUI
+                profile={profile}
+                highlighted={highlighted}
+                fifaCampCountryCode={fifaCampCountryCode}
+                fifaCampFlagUrl={fifaCampFlagUrl}
+                className="z-banner"
+            >
                 <FireflyAccountInfoHeader
                     identity={identity}
                     walletProfile={walletProfile}

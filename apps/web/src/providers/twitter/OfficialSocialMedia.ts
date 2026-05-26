@@ -21,6 +21,7 @@ import type {
 import urlcat from 'urlcat';
 
 import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
+import { AddAuthorFifaCampStatusForPosts } from '@/decorators/AddFifaCampStatusForPosts.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -97,6 +98,7 @@ function whenNotV2Cursor(argIndex: number): (...args: unknown[]) => boolean {
 @SetQueryDataForPosts
 @WithMutedProfilesQuery()
 @AddAuthorHighlightStatusForPosts(Source.Twitter)
+@AddAuthorFifaCampStatusForPosts(Source.Twitter)
 class OfficialSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;

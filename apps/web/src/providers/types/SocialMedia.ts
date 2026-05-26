@@ -101,6 +101,10 @@ export interface Profile<O = unknown> {
     canUnfollow?: boolean;
     /** highlight handle if true */
     highlighted?: boolean;
+    /** FIFA camp country code; when set with logo, show camp avatar frame */
+    fifaCampCountryCode?: string;
+    /** FIFA camp flag image URL from camp/check API */
+    fifaCampCountryLogo?: string;
     __original__?: O;
     __lazy__?: boolean;
 }

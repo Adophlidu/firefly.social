@@ -4,6 +4,7 @@ import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
 
 import { AddBookmarkStatusForPosts } from '@/decorators/AddBookmarkStatusForPosts.js';
+import { AddAuthorFifaCampStatusForPosts } from '@/decorators/AddFifaCampStatusForPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -96,6 +97,7 @@ import type {
 @SetQueryDataForJoinChannel(Source.Bsky)
 @AddBookmarkStatusForPosts(Source.Bsky)
 @AddAuthorHighlightStatusForPosts(Source.Bsky)
+@AddAuthorFifaCampStatusForPosts(Source.Bsky)
 @WithMutedProfilesQuery()
 class BskySocialMedia implements Provider {
     get type() {
