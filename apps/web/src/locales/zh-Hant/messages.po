@@ -23,7 +23,7 @@ msgid "Copy to clipboard"
 msgstr "複製到剪貼簿"
 
 msgid "DRAW"
-msgstr ""
+msgstr "和局"
 
 msgid "Refunded"
 msgstr "已退款"
@@ -71,7 +71,7 @@ msgid "Failed to add to Bookmarks. {0}"
 msgstr "無法加入書籤。{0}"
 
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 msgid "Template"
 msgstr "模板"
@@ -508,7 +508,7 @@ msgid "Invalid password. Please ensure it is a 6-digit number."
 msgstr "密碼無效，請輸入 6 位數字密碼。"
 
 msgid "Props"
-msgstr ""
+msgstr "特別投注"
 
 msgid "Potential risk of external call."
 msgstr "存在外部調用風險。"
@@ -914,7 +914,7 @@ msgstr "沒有更多數據。"
 #. placeholder {0}: model.homeTeam.name
 #. placeholder {1}: model.awayTeam.name
 msgid "View {0} vs {1}"
-msgstr ""
+msgstr "查看 {0} 對陣 {1}"
 
 msgid "Orb Mobile"
 msgstr "Orb 流動端"
@@ -1093,7 +1093,7 @@ msgid "Followed by {0}"
 msgstr "已被 {0} 追蹤"
 
 msgid "Price · Change(24h)"
-msgstr ""
+msgstr "價格 · 漲跌幅(24h)"
 
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}"
@@ -1269,7 +1269,7 @@ msgid "Buy {secondOutcome}"
 msgstr "購買 {secondOutcome}"
 
 msgid "The error has been reported automatically."
-msgstr ""
+msgstr "錯誤已自動報告。"
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "此錢包來自公開數據或我們的算法，請先添加錢包再設為主要錢包。"
@@ -1305,7 +1305,7 @@ msgid "Today at {0}"
 msgstr "今天 {0}"
 
 msgid "FINAL"
-msgstr ""
+msgstr "已結束"
 
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
@@ -1557,7 +1557,7 @@ msgid "Available"
 msgstr "可用的"
 
 msgid "Event Status"
-msgstr ""
+msgstr "賽事狀態"
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
@@ -1570,7 +1570,7 @@ msgid "Connect Wallet"
 msgstr "連接錢包"
 
 msgid "Try to recover"
-msgstr ""
+msgstr "嘗試恢復"
 
 msgid "Custom amount"
 msgstr "自訂數額"
@@ -1785,7 +1785,7 @@ msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} 
 msgstr "🤑 剛從 @{0} 領取了一個 #FireflyLuckyDrop 🧧💰✨ {postUrl} ！"
 
 msgid "Open livestream"
-msgstr ""
+msgstr "打開直播"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "流通量指市場可公開交易的代幣數量，類似於流通股概念"
@@ -1924,7 +1924,7 @@ msgid "Invalid 2FA code. Please try again."
 msgstr "2FA 驗證碼無效。請重試。"
 
 msgid "View More"
-msgstr ""
+msgstr "查看更多"
 
 msgid "Installed"
 msgstr "已安裝"
@@ -2055,7 +2055,7 @@ msgid "Sign in within Firefly App"
 msgstr "在 Firefly App 內登入"
 
 msgid "LIVE"
-msgstr ""
+msgstr "進行中"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "反巨鯨機制(交易次數限制)"
@@ -2208,7 +2208,7 @@ msgid "Verified by {provider}"
 msgstr "由 {provider} 驗證"
 
 msgid "Search Filter"
-msgstr ""
+msgstr "搜尋篩選"
 
 #. placeholder {0}: session.type
 msgid "This {0} account is already linked"
@@ -2228,7 +2228,7 @@ msgid "Failed to verify address: {0}"
 msgstr "無法移除地址：{0}"
 
 msgid "No games found"
-msgstr ""
+msgstr "未找到比賽"
 
 msgid "Cross at handles"
 msgstr "跨平台用戶名稱"
@@ -2518,7 +2518,7 @@ msgid "Display Name should not exceed 20 characters"
 msgstr "名稱不得超過 20 字元"
 
 msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
-msgstr ""
+msgstr "點擊「下一步」，即表示您知曉並接受與去中心化網路和測試版產品相關的風險。"
 
 msgid "Decrypt"
 msgstr "解密"
@@ -2593,7 +2593,7 @@ msgid "Settled as {outcome}"
 msgstr "已結算為 {outcome}"
 
 msgid "Scroll categories left"
-msgstr ""
+msgstr "向左滾動分類"
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
@@ -3090,7 +3090,7 @@ msgid "Failed to like prediction."
 msgstr "無法按讚預測。"
 
 msgid "Failed to load games"
-msgstr ""
+msgstr "比賽載入失敗"
 
 msgid "No financial crime involved."
 msgstr "未涉及金融犯罪"
@@ -3240,7 +3240,7 @@ msgid "Sign In"
 msgstr "登入"
 
 msgid "Scroll categories right"
-msgstr ""
+msgstr "向右滾動分類"
 
 msgid "Insufficient Balance"
 msgstr "餘額不足"
@@ -3420,7 +3420,7 @@ msgid "Malicious mining activities."
 msgstr "惡意挖礦活動。"
 
 msgid "Resolved"
-msgstr ""
+msgstr "已結算"
 
 msgid "Comment or mention"
 msgstr "留言或提及"
@@ -3753,7 +3753,7 @@ msgid "No tax changes found for personal addresses."
 msgstr "未檢測到個人地址稅率變更。"
 
 msgid "View Finished"
-msgstr ""
+msgstr "查看已結束賽事"
 
 msgid "This QR code is longer valid. Please scan a new one to continue."
 msgstr "該QR碼已過期，請刷新後重試。"
@@ -4032,7 +4032,7 @@ msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "於 Firefly 上取消追蹤 {handleOrEnsOrAddress}"
 
 msgid "Topics"
-msgstr ""
+msgstr "主題"
 
 msgid "Enter your password to verify your identity."
 msgstr "請輸入密碼以驗證您的身份。"
@@ -4626,7 +4626,7 @@ msgid "Cybercrime found."
 msgstr "發現网络犯罪。"
 
 msgid "Games"
-msgstr ""
+msgstr "比賽"
 
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
@@ -4865,7 +4865,7 @@ msgid "Token holder of any one below"
 msgstr "擁有以下任意代幣"
 
 msgid "World Cup"
-msgstr ""
+msgstr "世界盃"
 
 msgid "Text"
 msgstr "純文字"
