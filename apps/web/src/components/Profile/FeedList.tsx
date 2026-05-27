@@ -2,6 +2,7 @@
 
 import ProtectedIcon from '@dimensiondev/assets/protected.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SUPPORTED_PINNED_POST_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
@@ -31,7 +32,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
 
     const { data: pinnedPost } = useQuery({
         ...pinnedPostQueryOptions(source, profileId),
-        enabled: source === Source.Twitter && !!profileId,
+        enabled: SUPPORTED_PINNED_POST_SOURCES.includes(source) && !!profileId,
     });
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -56,20 +57,17 @@ export function FeedList({ profileId, source }: FeedListProps) {
             if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
-        select: getPostsSelector(source),
+        select: (data) => {
+            const posts = getPostsSelector(source)(data);
+            return pinnedPost ? posts.filter((post) => !isSamePost(post, pinnedPost)) : posts;
+        },
     });
 
     return (
         <ListInPage
             source={source}
             key={source}
-            queryResult={{
-                ...queryResult,
-                data:
-                    pinnedPost && isSamePost(queryResult.data?.[0], pinnedPost)
-                        ? queryResult.data?.slice(1)
-                        : queryResult.data,
-            }}
+            queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${profileId}`,
                 computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,

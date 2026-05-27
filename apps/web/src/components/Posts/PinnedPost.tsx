@@ -1,8 +1,8 @@
 'use client';
 
 import PinnedIcon from '@dimensiondev/assets/pinned.svg';
+import { SUPPORTED_PINNED_POST_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
@@ -13,8 +13,6 @@ interface Props {
     source: SocialSource;
     profileId: string;
 }
-
-const AVAILABLE_SOURCE: SocialSource[] = [Source.Twitter];
 
 function PinnedPostContent({ source, profileId }: Props) {
     const { data } = useQuery(pinnedPostQueryOptions(source, profileId));
@@ -37,6 +35,6 @@ function PinnedPostContent({ source, profileId }: Props) {
 }
 
 export function PinnedPost(props: Props) {
-    if (!AVAILABLE_SOURCE.includes(props.source)) return null;
+    if (!SUPPORTED_PINNED_POST_SOURCES.includes(props.source)) return null;
     return <PinnedPostContent {...props} />;
 }
