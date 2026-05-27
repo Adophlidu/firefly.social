@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { resolveSportData } from '@/helpers/prediction/polymarket/resolveSportData.js';
 import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
+import { SportScoreType } from '@/types/prediction.js';
 
 function baseEvent(overrides: Partial<PolymarketEvent> = {}): PolymarketEvent {
     return {
@@ -37,5 +38,32 @@ describe('resolveSportData', () => {
 
     it('falls back to the first non-generic sport tag when the league name is unavailable', () => {
         expect(resolveSportData(baseEvent({ leagueName: undefined }))?.leagueSlug).toBe('nba');
+    });
+
+    it('parses score string as fallback when score_show is empty', () => {
+        const result = resolveSportData(baseEvent({ score: '1-1', score_show: [] }));
+        expect(result?.scores).toEqual([{ score: [1, 1] }]);
+        expect(result?.scoreType).toBe(SportScoreType.Single);
+    });
+
+    it('parses score string as fallback when score_show is undefined', () => {
+        const result = resolveSportData(baseEvent({ score: '2-0' }));
+        expect(result?.scores).toEqual([{ score: [2, 0] }]);
+        expect(result?.scoreType).toBe(SportScoreType.Single);
+    });
+
+    it('prefers score_show over score string', () => {
+        const result = resolveSportData(
+            baseEvent({
+                score: '0-0',
+                score_show: [{ score: [3, 2] }],
+            }),
+        );
+        expect(result?.scores).toEqual([{ score: [3, 2] }]);
+    });
+
+    it('returns empty scores when both score_show and score are absent', () => {
+        const result = resolveSportData(baseEvent());
+        expect(result?.scores).toEqual([]);
     });
 });

@@ -38,11 +38,19 @@ function withFallbackLabel(team: SportTeam, label: string | undefined): SportTea
 }
 
 function mapScores(raw: PolymarketEvent): SportScore[] {
-    if (!raw.score_show?.length) return [];
-    return raw.score_show.map((s: PolymarketScore) => ({
-        score: s.score,
-        memo: s.memo,
-    }));
+    if (raw.score_show?.length) {
+        return raw.score_show.map((s: PolymarketScore) => ({
+            score: s.score,
+            memo: s.memo,
+        }));
+    }
+    if (raw.score) {
+        const parts = raw.score.split('-').map(Number);
+        if (parts.length === 2 && parts.every((n) => !isNaN(n))) {
+            return [{ score: parts }];
+        }
+    }
+    return [];
 }
 
 function mapLivestreamInfo(raw: PolymarketEvent): SportLiveStreamInfo | undefined {
@@ -84,7 +92,8 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
     const awayTeam = withFallbackLabel(mapTeam(teams?.[1], DEFAULT_AWAY_COLOR), fallbackOutcomeLabels?.[1]);
 
     const rawScoreType =
-        detail.score_type ?? (detail.score_show?.length ? PolymarketScoreType.Single : PolymarketScoreType.Unknown);
+        detail.score_type ??
+        (detail.score_show?.length || detail.score ? PolymarketScoreType.Single : PolymarketScoreType.Unknown);
     const scoreType: SportScoreType =
         rawScoreType === PolymarketScoreType.Single
             ? SportScoreType.Single
