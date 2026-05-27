@@ -17,6 +17,9 @@ import type {
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
+// Polymarket API does not support these sortBy values; they are handled by client-side sorting.
+const CLIENT_SIDE_ONLY_SORT_BY: readonly string[] = ['TIMESTAMP', 'REALIZEDPNL'];
+
 export async function getClosedPositions({
     address,
     indicator,
@@ -34,11 +37,13 @@ export async function getClosedPositions({
 }): Promise<Pageable<PolymarketPositionV2Data, PageIndicator>> {
     const offset = indicator?.id ? +indicator.id : 0;
 
+    const apiSortBy = sortBy && !CLIENT_SIDE_ONLY_SORT_BY.includes(sortBy) ? sortBy : undefined;
+
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/polymarket/closed/positions', {
         user: address,
         offset,
         limit,
-        sortBy: sortBy ?? 'CURRENT',
+        ...(apiSortBy ? { sortBy: apiSortBy } : {}),
         sortDirection: sortDirection ?? 'DESC',
         ...(eventId ? { eventId } : {}),
     });

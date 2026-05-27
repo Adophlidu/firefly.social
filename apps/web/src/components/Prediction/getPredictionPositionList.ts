@@ -43,6 +43,7 @@ function mapV2ToUI(position: PolymarketPositionV2Data, isClosed: boolean): Predi
         avg_price: avgPrice,
         closed_time: isClosed ? (position.timestamp ?? null) : null,
         endDate: position.endDate,
+        endTime: position.endTime,
         conditionId: position.conditionId ?? '',
         cur_price: curPrice,
         current_value: isClosed ? avgPrice * totalBought + pnl : (position.currentValue ?? curPrice * size),
@@ -89,6 +90,26 @@ export async function getPredictionPositionList(
                     seen.add(p.conditionId);
                     return p.shares > 0;
                 });
+
+                // Client-side sort: align with wallet — TIMESTAMP DESC
+                // For redeemable positions without closed_time, synthesize a timestamp
+                // from endDate (end of that day) so they interleave with closed positions.
+                const getTimestamp = (p: PredictionPositionDataForUI): number => {
+                    if (p.closed_time) return p.closed_time;
+                    if (p.endTime) {
+                        const date = new Date(p.endTime);
+                        if (!isNaN(date.getTime())) return Math.floor(date.getTime() / 1000);
+                    }
+                    if (p.endDate) {
+                        const date = new Date(p.endDate);
+                        if (!isNaN(date.getTime())) {
+                            date.setHours(23, 59, 59, 0);
+                            return Math.floor(date.getTime() / 1000);
+                        }
+                    }
+                    return 0;
+                };
+                merged.sort((a, b) => getTimestamp(b) - getTimestamp(a));
 
                 return {
                     ...closedResult,

@@ -129,12 +129,13 @@ function ClosedPositionsHistory() {
 
     // Keyed on proxy only — changing sortBy won't trigger a re-fetch of these 200 items
     const { data: redeemablePositions = EMPTY_LIST } = useSuspenseQuery({
-        queryKey: ['polymarket-history-redeemable', proxy],
+        queryKey: ['polymarket-history-redeemable', proxy, sortBy],
         async queryFn() {
             const positions = await getFireflyEndpoint().getPolymarketV2CurrentPositions(proxyAddress, {
                 redeemable: true,
                 offset: 0,
                 limit: 200,
+                sortBy: sortBy === 'TIMESTAMP' ? 'CURRENT' : undefined,
             });
             if (!positions) return EMPTY_LIST;
             return positions.map((p) => mapPolymarketV2ToLegacy(p, false)).filter((x) => x.shares > 0);
@@ -804,6 +805,10 @@ function sortClosedPositions(positions: PolymarketPosition[], sortBy: ClosedPosi
         // from endDate (end of that day) so they interleave with closed positions by day.
         const getTimestamp = (p: PolymarketPosition): number => {
             if (p.closed_time) return p.closed_time;
+            if (p.endTime) {
+                const date = new Date(p.endTime);
+                if (!isNaN(date.getTime())) return Math.floor(date.getTime() / 1000);
+            }
             if (p.endDate) {
                 const date = new Date(p.endDate);
                 if (!isNaN(date.getTime())) {

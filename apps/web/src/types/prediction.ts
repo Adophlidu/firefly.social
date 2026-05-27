@@ -54,6 +54,7 @@ export interface PredictionPositionDataForUI {
     is_closed: boolean;
     closed_time?: number | null;
     endDate?: string;
+    endTime?: string;
     topicId?: number;
     is_mutil?: number;
     isClaimable?: boolean;

@@ -2863,6 +2863,7 @@ export interface PolymarketPositionV2Data {
     oppositeOutcome?: string;
     oppositeAsset?: string;
     endDate?: string;
+    endTime?: string;
     negativeRisk?: boolean;
     timestamp?: number;
     resolvedResult?: string;

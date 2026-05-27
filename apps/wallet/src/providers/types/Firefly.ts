@@ -477,6 +477,7 @@ export interface PolymarketPosition {
     pnl_rate: number;
     marketSlug: string;
     endDate?: string;
+    endTime?: string;
 }
 
 export interface PolymarketPositionV2 {
@@ -505,6 +506,7 @@ export interface PolymarketPositionV2 {
     oppositeOutcome?: string;
     oppositeAsset?: string;
     endDate?: string;
+    endTime?: string;
     negativeRisk?: boolean;
     timestamp?: number;
     resolvedResult?: string;
@@ -559,6 +561,7 @@ export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boo
         pnl_rate: pnlRate,
         marketSlug: pos.slug ?? '',
         endDate: pos.endDate,
+        endTime: pos.endTime,
     };
 }
 
