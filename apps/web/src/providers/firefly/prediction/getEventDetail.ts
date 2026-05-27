@@ -3,7 +3,12 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { formatOpinionEvent, formatPolymarketEvent } from '@/providers/firefly/prediction/formatEvents.js';
+import {
+    formatOpinionEvent,
+    formatPolymarketEvent,
+    mergeSportGroupedMarkets,
+} from '@/providers/firefly/prediction/formatEvents.js';
+import { getSportEventDetail } from '@/providers/firefly/prediction/getSportEventDetail.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getPolymarketEvent } from '@/providers/prediction/polymarket/getEvent.js';
 import type { OpinionMarketDetail, Response } from '@/providers/types/Firefly.js';
@@ -48,7 +53,21 @@ export async function getEventDetail(
         }
         case PredictionPlatform.Polymarket: {
             const detail = await getPolymarketEvent({ slug: id });
-            return detail ? formatPolymarketEvent(detail) : null;
+            if (!detail) return null;
+            const formatted = formatPolymarketEvent(detail);
+            const hasNonMoneylineMarkets = formatted.markets.some(
+                (m) => m.sportsMarketType?.toLowerCase() !== 'moneyline',
+            );
+            if (!formatted.sportData?.gameId || hasNonMoneylineMarkets) return formatted;
+
+            try {
+                const sportDetail = await getSportEventDetail(id);
+                if (sportDetail?.groupedMarkets?.length) {
+                    return mergeSportGroupedMarkets(formatted, sportDetail);
+                }
+            } catch {}
+
+            return formatted;
         }
         default:
             safeUnreachable(platform);

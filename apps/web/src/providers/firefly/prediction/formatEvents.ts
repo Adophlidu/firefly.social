@@ -5,7 +5,11 @@ import { first, last } from 'lodash-es';
 import { resolveSportData } from '@/helpers/prediction/polymarket/resolveSportData.js';
 import { resolveCryptoFromPolymarketEvent } from '@/providers/firefly/prediction/resolveCryptoFromPolymarketEvent.js';
 import { getPredictionRecurrenceFromPolymarketEvent } from '@/providers/prediction/polymarket/resolveCryptoUpDownFromEvent.js';
-import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
+import type {
+    PolymarketEvent,
+    PolymarketSportDetail,
+    PolymarketSportGroupedMarketItem,
+} from '@/providers/prediction/polymarket/type.js';
 import type { OpinionMarketDetail } from '@/providers/types/Firefly.js';
 import { type BetsEventDataForUI, type BetsMarketDataForUI, PredictionRecurrence } from '@/types/prediction.js';
 
@@ -168,6 +172,72 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
                 recurrence: fixRecurrence(s.recurrence, detail.startTime, detail.endDate),
             })),
         sportData,
+    };
+}
+
+function formatSportGroupedMarketItem(
+    item: PolymarketSportGroupedMarketItem,
+    sportsMarketType?: string,
+): BetsMarketDataForUI {
+    const outcomeLabels = item.outcomes || [];
+    const outcomeIds = item.clobTokenIds || [];
+    const prices = item.outcomePrices || [];
+    const isResolved = item.umaResolutionStatus === BetsMarketResolveStatus.Resolved;
+    const outcomes = outcomeLabels.map((label, i) => ({
+        id: outcomeIds[i] || '',
+        label,
+        price: prices[i] || '0',
+    }));
+
+    return {
+        id: item.id || '',
+        slug: item.slug,
+        questionId: item.id || '',
+        volume: `${item.volumeClob ?? 0}`,
+        title: item.groupItemTitle || '',
+        isResolved,
+        resolvedOutcomeId:
+            isResolved && outcomes.length === 2
+                ? Number.parseFloat(outcomes[0].price) >= Number.parseFloat(outcomes[1].price)
+                    ? outcomes[0].id
+                    : outcomes[1].id
+                : undefined,
+        isClosed: isResolved,
+        createTime: 0,
+        conditionId: item.conditionId || '',
+        outcomes,
+        sportsMarketType,
+        line: item.line,
+        groupItemThreshold:
+            item.groupItemThreshold !== null && item.groupItemThreshold !== undefined
+                ? `${item.groupItemThreshold}`
+                : undefined,
+    };
+}
+
+export function mergeSportGroupedMarkets(
+    event: BetsEventDataForUI,
+    sportDetail: PolymarketSportDetail,
+): BetsEventDataForUI {
+    const existingIds = new Set(event.markets.map((m) => m.id));
+    const additionalMarkets: BetsMarketDataForUI[] = [];
+
+    for (const group of sportDetail.groupedMarkets || []) {
+        const marketType = group.sportsMarketType;
+        if (marketType?.toLowerCase() === 'moneyline') continue;
+
+        for (const item of group.markets || []) {
+            if (!item.id || existingIds.has(item.id)) continue;
+            additionalMarkets.push(formatSportGroupedMarketItem(item, marketType));
+            existingIds.add(item.id);
+        }
+    }
+
+    if (!additionalMarkets.length) return event;
+
+    return {
+        ...event,
+        markets: sortMarkets([...event.markets, ...additionalMarkets]),
     };
 }
 
