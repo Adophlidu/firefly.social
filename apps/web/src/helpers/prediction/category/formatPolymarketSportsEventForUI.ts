@@ -328,7 +328,7 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
         gamePhase,
         statusLabel,
         scheduledTimeLabel,
-        volumeLabel: formatVolumeLabel(event.volume24hr || event.volume),
+        volumeLabel: formatVolumeLabel(event.volume || event.volume24hr),
         leagueLabel: event.leagueName,
         livestreamUrl: gamePhase === 'live' ? resolveSportsLivestreamUrl(event.livestream_info) : undefined,
     };
@@ -394,7 +394,7 @@ export function formatPolymarketSportsEventForUI(event: PolymarketSportsEvent): 
         gamePhase,
         statusLabel,
         scheduledTimeLabel,
-        volumeLabel: formatVolumeLabel(event.volume24hr || event.volume),
+        volumeLabel: formatVolumeLabel(event.volume || event.volume24hr),
         leagueLabel: event.leagueName,
         livestreamUrl: gamePhase === 'live' ? resolveSportsLivestreamUrl(event.livestream_info) : undefined,
     };

@@ -47,21 +47,30 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
         queryFn: () => getSportsEventList(sportsRequest),
     });
 
+    const liveDisplay = useMemo(() => {
+        if (!data || !isLiveCategory) return null;
+        return groupLiveSportsListForDisplay(data, context.primaryItem);
+    }, [data, isLiveCategory, context.primaryItem]);
+
     const { sections, closedEvents } = useMemo(() => {
-        if (!data) {
+        if (!data || isLiveCategory) {
             return { sections: [], closedEvents: [] };
-        }
-        if (isLiveCategory) {
-            return { ...groupLiveSportsListForDisplay(data), closedEvents: [] };
         }
         return groupSportsEventsForDisplay(data);
     }, [data, isLiveCategory]);
 
     const hasVisibleContent = isLiveCategory
-        ? liveSportsListHasDisplayContent(data)
+        ? liveSportsListHasDisplayContent(data, context.primaryItem)
         : categoryHasGamesDisplayContent(data);
 
-    const liveEventsForPrices = useMemo(() => sections.flatMap((section) => section.events), [sections]);
+    const liveEventsForPrices = useMemo(() => {
+        if (isLiveCategory && liveDisplay) {
+            return liveDisplay.timeSections.flatMap((timeSection) =>
+                timeSection.sportSections.flatMap((sportSection) => sportSection.events),
+            );
+        }
+        return sections.flatMap((section) => section.events);
+    }, [isLiveCategory, liveDisplay, sections]);
 
     const liveMarketPrices = useLiveSportsMarketPrices(liveEventsForPrices);
 
@@ -93,6 +102,48 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
             <p className="px-4 py-12 text-center text-sm text-second">
                 <Trans>No games found</Trans>
             </p>
+        );
+    }
+
+    if (isLiveCategory && liveDisplay) {
+        return (
+            <div className="flex flex-col gap-6 px-4 pb-8">
+                {liveDisplay.timeSections.map((timeSection) => (
+                    <section key={timeSection.id} className="flex flex-col gap-4">
+                        <h2 className="text-base font-black text-main">{timeSection.title}</h2>
+                        {timeSection.sportSections.map((sportSection) => {
+                            const sectionKey = `${timeSection.id}-${sportSection.id}`;
+                            const isExpanded = expandedSections[sectionKey];
+                            const visibleEvents = isExpanded
+                                ? sportSection.events
+                                : sportSection.events.slice(0, INITIAL_VISIBLE);
+                            const hasMore = sportSection.events.length > INITIAL_VISIBLE;
+
+                            return (
+                                <div key={sectionKey} className="flex flex-col gap-3">
+                                    <h3 className="text-sm font-bold text-main">{sportSection.title}</h3>
+                                    <div className="flex flex-col gap-3">
+                                        {visibleEvents.map((event) => renderSportsCell(event))}
+                                    </div>
+                                    {hasMore ? (
+                                        <ClickableButton
+                                            className="text-sm font-bold text-highlight"
+                                            onClick={() =>
+                                                setExpandedSections((prev) => ({
+                                                    ...prev,
+                                                    [sectionKey]: !prev[sectionKey],
+                                                }))
+                                            }
+                                        >
+                                            {isExpanded ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
+                                        </ClickableButton>
+                                    ) : null}
+                                </div>
+                            );
+                        })}
+                    </section>
+                ))}
+            </div>
         );
     }
 

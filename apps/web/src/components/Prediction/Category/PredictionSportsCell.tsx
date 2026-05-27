@@ -216,13 +216,9 @@ const TeamInfoRow = memo<{
                 </span>
             ) : null}
             {team.logo ? (
-                <Image
-                    src={team.logo}
-                    alt=""
-                    width={36}
-                    height={36}
-                    className="size-9 shrink-0 rounded-lg object-cover"
-                />
+                <div className="relative size-[30px] shrink-0 overflow-hidden rounded-lg">
+                    <Image unoptimized={false} quality={75} fill src={team.logo} alt="" className="object-cover" />
+                </div>
             ) : (
                 <span className="size-9 shrink-0 rounded-lg bg-bg" aria-hidden />
             )}

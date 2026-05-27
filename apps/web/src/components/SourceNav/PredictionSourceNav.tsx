@@ -73,7 +73,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
     if (!data || !tags?.length) return null;
 
     return (
-        <div className="flex w-full items-center gap-3 px-4">
+        <div className="mb-2 mt-3 flex w-full items-center gap-3 px-4">
             <div
                 ref={containerRef}
                 className={classNames(
@@ -81,7 +81,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                     className,
                 )}
             >
-                <nav className="flex space-x-2 px-1.5 pb-1.5 pt-3" aria-label="Tabs">
+                <nav className="flex space-x-2" aria-label="Tabs">
                     {tags.map((slug) => {
                         const isActive = isFireflySlugPage ? subSlug === slug.slug : source === slug.slug;
                         const href = isFireflySlugPage
@@ -94,7 +94,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                                 href={href}
                                 key={slug.slug}
                                 className={classNames(
-                                    'flex h-6 shrink-0 cursor-pointer list-none justify-center whitespace-nowrap rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
+                                    'flex h-[30px] shrink-0 cursor-pointer list-none items-center justify-center whitespace-nowrap rounded-md px-1.5 text-xs lg:flex-initial lg:justify-start',
                                     isActive
                                         ? 'bg-highlight text-white'
                                         : 'bg-thirdMain text-second hover:text-highlight',
@@ -110,7 +110,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                 </nav>
             </div>
             <Link
-                className="flex h-[30px] items-center gap-1 rounded-full bg-highlight px-3 text-lightBottom"
+                className="flex h-[30px] items-center gap-1 rounded-full bg-highlight px-3 text-white"
                 href={RouteResolver.predictionCategory({
                     slug: first(tags)?.slug || '',
                 })}
