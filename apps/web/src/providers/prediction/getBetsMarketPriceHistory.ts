@@ -38,7 +38,6 @@ function formatPolymarketTimeRange(
     timeRange: BetsPriceTimeRange,
     createTime: number,
 ): {
-    startTs?: number;
     fidelity?: number;
     interval?: PriceHistoryInterval;
 } {
@@ -60,7 +59,6 @@ function formatPolymarketTimeRange(
         diffMaxRange = null;
     }
 
-    let startTs: number | undefined;
     let fidelity: number | undefined;
     let interval: PriceHistoryInterval | undefined;
     if (!!diffMaxRange && timeRange <= diffMaxRange) {
@@ -100,34 +98,41 @@ function formatPolymarketTimeRange(
                 break;
         }
     } else {
-        startTs = dayjs(createTime).unix();
-
         switch (diffMaxRange) {
-            case BetsPriceTimeRange.OneHour:
+            case BetsPriceTimeRange.OneHour: {
+                interval = '6h';
+                fidelity = 1;
+                break;
+            }
             case BetsPriceTimeRange.SixHours: {
+                interval = '1d';
                 fidelity = 1;
                 break;
             }
             case BetsPriceTimeRange.OneDay: {
+                interval = '1w';
                 fidelity = 5;
                 break;
             }
             case BetsPriceTimeRange.OneWeek: {
+                interval = '1m';
                 fidelity = 30;
                 break;
             }
             case BetsPriceTimeRange.OneMonth: {
+                interval = 'max';
                 fidelity = 720;
                 break;
             }
             default: {
+                interval = '1h';
                 fidelity = 1;
                 break;
             }
         }
     }
 
-    return { startTs, interval, fidelity };
+    return { interval, fidelity };
 }
 
 function formatOpinionPricesData(questions: OpinionPriceHistory[], outcomeId: string) {
