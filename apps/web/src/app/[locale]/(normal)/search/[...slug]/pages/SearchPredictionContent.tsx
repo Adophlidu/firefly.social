@@ -1,18 +1,15 @@
 'use client';
 
-import { PredictionPlatform, ScrollListKey, Source } from '@dimensiondev/enums';
-import { createIndicator } from '@dimensiondev/utils';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 
+import {
+    type SearchPredictionContentPagedData,
+    useSearchPredictionContent,
+} from '@/app/[locale]/(normal)/search/[...slug]/pages/useSearchPredictionContent.js';
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
-import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
-import { logger } from '@/libs/Logger.js';
-import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
-import { searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';
 import { capturePolymarketSearchEventClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import { useSearchPredictionFilterStore } from '@/store/useSearchPredictionFilterStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -32,65 +29,18 @@ function getBetsItemContent(_: number, data: BetsEventDataForUI) {
     );
 }
 
+function selector(data: SearchPredictionContentPagedData) {
+    const events = uniqBy(
+        data.pages.flatMap((x) => x?.data?.events || []),
+        (e) => e.id,
+    );
+    return events;
+}
+
 export function SearchPredictionContent() {
-    const { searchKeyword, searchType, source } = useSearchStateStore();
+    const { searchKeyword, source } = useSearchStateStore();
     const eventStatus = useSearchPredictionFilterStore.use.eventStatus();
-
-    const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, searchKeyword, source, eventStatus],
-        queryFn: async ({ pageParam }) => {
-            // Check if searchKeyword is a prediction URL and extract identifier if it matches
-            const urlResult = resolveSearchUrlType(searchKeyword);
-            const isPredictionUrl =
-                urlResult?.kind === SearchUrlKind.Prediction && urlResult.platform && urlResult.identifier;
-
-            // Use identifier if URL matches, otherwise use full searchKeyword
-            const keyword = isPredictionUrl && urlResult.identifier ? urlResult.identifier : searchKeyword;
-            if (!keyword.trim()) return { data: [], nextIndicator: undefined };
-
-            const indicator = createIndicator(undefined, pageParam);
-            const result = await searchPrediction({
-                keyword,
-                indicator,
-                limit: 20,
-                sort: 'volume_24hr',
-                eventsStatus: eventStatus,
-                searchTags: true,
-            });
-
-            const events = result.data.map(formatPolymarketEventListData);
-
-            // Prepend pinned prediction on first page
-            if (!pageParam && isPredictionUrl && urlResult.identifier && urlResult.platform) {
-                try {
-                    const isMutil =
-                        urlResult.platform === PredictionPlatform.Opinion ? Boolean(urlResult.isMultiple) : false;
-                    const event = await getEventDetail(urlResult.platform, {
-                        id: urlResult.identifier,
-                        isMutil,
-                    });
-                    if (event) events.unshift(event);
-                } catch (error) {
-                    logger.error('[Search] Failed to fetch pinned prediction', error);
-                }
-            }
-
-            return {
-                data: events,
-                nextIndicator: result.nextIndicator,
-            };
-        },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
-            return lastPage?.nextIndicator?.id;
-        },
-        select: (data) =>
-            uniqBy(
-                data.pages.flatMap((x) => x?.data || []),
-                (e) => e.id,
-            ),
-    });
+    const queryResult = useSearchPredictionContent(searchKeyword, source, eventStatus, selector);
 
     return (
         <div className="px-4 py-2">
