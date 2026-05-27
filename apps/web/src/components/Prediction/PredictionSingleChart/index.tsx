@@ -48,6 +48,7 @@ export const PredictionSingleChart = memo(function PredictionSingleChart() {
 
     return (
         <PredictionMarketsPriceLineChart
+            className="mt-[5px] !py-0"
             platform={event.platform}
             markets={event.markets}
             isActive={isActive}

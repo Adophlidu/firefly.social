@@ -38,9 +38,9 @@ export const EventsPopover = memo<PropsWithChildren<EventsPopoverProps>>(functio
                     >
                         <PopoverPanel
                             portal={false}
-                            anchor="top start"
+                            anchor="bottom start"
                             style={{ height: 36 * events.length + 32 }}
-                            className="no-scrollbar absolute bottom-full right-0 z-30 w-[240px] !max-w-[80vw] -translate-y-3 rounded-lg bg-lightBottom py-4 text-medium shadow-popover [--anchor-max-height:214px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
+                            className="no-scrollbar absolute bottom-full right-0 z-30 w-[240px] !max-w-[80vw] rounded-lg bg-lightBottom py-4 text-medium shadow-popover [--anchor-max-height:214px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
                             <div>
                                 {events.map((event) => {

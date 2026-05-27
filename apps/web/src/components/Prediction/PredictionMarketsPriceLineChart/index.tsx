@@ -3,6 +3,7 @@
 import ToggleIcon from '@dimensiondev/assets/toggle.svg';
 import type { PredictionPlatform } from '@dimensiondev/enums';
 import { BetsPriceTimeRange } from '@dimensiondev/enums';
+import { classNames } from '@dimensiondev/utils';
 import { first, isUndefined, sumBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
@@ -34,6 +35,7 @@ interface PredictionMarketsPriceLineChartProps {
     isActive: boolean;
     showBuyButtons?: boolean;
     filterResolvedMarkets?: boolean;
+    className?: string;
 }
 
 const lineColors = ['#FF209B', '#5E69FF', '#FF372B', '#FFAA16', '#00D2FF', '#00FF85', '#FF6EC4', '#8C56FF'];
@@ -67,6 +69,7 @@ export function PredictionMarketsPriceLineChart({
     isActive,
     showBuyButtons = true,
     filterResolvedMarkets = true,
+    className,
 }: PredictionMarketsPriceLineChartProps) {
     const [outcomeId, setOutcomeId] = useState(first(markets)?.outcomes?.[0]?.id || '');
     const [timeRange, setTimeRange] = useState(BetsPriceTimeRange.All);
@@ -126,7 +129,7 @@ export function PredictionMarketsPriceLineChart({
 
     return (
         <div>
-            <div className="p-4">
+            <div className={classNames('p-4', className)}>
                 <ChartLabels labels={labels} isSingleMarket={markets.length === 1} />
                 <PriceHistoryChart
                     outcomeId={outcomeId}
