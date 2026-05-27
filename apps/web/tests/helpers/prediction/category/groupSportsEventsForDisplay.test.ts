@@ -1,90 +1,42 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-    buildSportLabelMap,
-    groupEventsBySport,
     groupLiveSportsEventsByLeague,
     groupLiveSportsListForDisplay,
     groupSportsEventsForDisplay,
     liveSportsListHasDisplayContent,
 } from '@/helpers/prediction/category/groupSportsEventsForDisplay.js';
 import type {
-    PolymarketEventSlugListData,
     PolymarketSportsEvent,
     PolymarketSportsListResponse,
+    PolymarketSportsMarketData,
 } from '@/providers/types/Firefly.js';
 
-function slugItem(
-    slug: string,
-    type?: string,
-    sub_slug: PolymarketEventSlugListData[] = [],
-    slug_tag?: string,
-    label?: string,
-): PolymarketEventSlugListData {
-    return { slug, label: label ?? slug, type, sub_slug, slug_tag };
-}
-
-function sportsPrimary(): PolymarketEventSlugListData {
-    return slugItem('sports', 'sport', [
-        slugItem('live', 'live', [], 'live'),
-        slugItem('basketball', 'sport', [], 'basketball', 'Basketball'),
-        slugItem('soccer', 'sport', [], 'soccer', 'Soccer'),
-    ]);
-}
-
-function event(id: string, leagueName?: string, sportId?: string): PolymarketSportsEvent {
+function displayableEvent(id: string, leagueName?: string, leagueId?: string): PolymarketSportsEvent {
     return {
         id,
         slug: id,
         leagueName,
-        sportId,
+        leagueId,
+        volume: 100,
+        markets: [
+            {
+                sportsMarketType: 'moneyline',
+                outcomes: '["Home","Away"]',
+                outcomePrices: '["0.4","0.6"]',
+                clobTokenIds: '["token-home","token-away"]',
+            } as PolymarketSportsMarketData,
+        ],
     } as PolymarketSportsEvent;
 }
 
-describe('buildSportLabelMap', () => {
-    it('excludes live and keeps sport chip order', () => {
-        const map = buildSportLabelMap(sportsPrimary());
-
-        expect(map.orderedKeys).toEqual(['basketball', 'soccer']);
-        expect(map.labelByKey.get('basketball')).toBe('Basketball');
-        expect(map.labelByKey.get('soccer')).toBe('Soccer');
-        expect(map.labelByKey.has('live')).toBe(false);
-    });
-});
-
-describe('groupEventsBySport', () => {
-    it('groups events by sportId in nav order and hides empty sports', () => {
-        const sportLabelMap = buildSportLabelMap(sportsPrimary());
-        const sections = groupEventsBySport(
-            [event('1', undefined, 'basketball'), event('2', undefined, 'soccer'), event('3', undefined, 'basketball')],
-            sportLabelMap,
-        );
-
-        expect(sections.map((section) => section.title)).toEqual(['Basketball', 'Soccer']);
-        expect(sections[0]?.events.map((item) => item.id)).toEqual(['1', '3']);
-        expect(sections[1]?.events.map((item) => item.id)).toEqual(['2']);
-    });
-
-    it('puts unknown sport keys after known keys', () => {
-        const sportLabelMap = buildSportLabelMap(sportsPrimary());
-        const sections = groupEventsBySport([event('1', undefined, 'hockey')], sportLabelMap);
-
-        expect(sections).toHaveLength(1);
-        expect(sections[0]?.title).toBe('HOCKEY');
-    });
-
-    it('groups events without sportId under Other', () => {
-        const sportLabelMap = buildSportLabelMap(sportsPrimary());
-        const sections = groupEventsBySport([event('1')], sportLabelMap);
-
-        expect(sections).toHaveLength(1);
-        expect(sections[0]?.title).toBe('Other');
-    });
-});
-
 describe('groupLiveSportsEventsByLeague', () => {
     it('groups live events by leagueName without a Live section wrapper', () => {
-        const sections = groupLiveSportsEventsByLeague([event('1', 'SUD'), event('2', 'EPL'), event('3', 'SUD')]);
+        const sections = groupLiveSportsEventsByLeague([
+            displayableEvent('1', 'SUD'),
+            displayableEvent('2', 'EPL'),
+            displayableEvent('3', 'SUD'),
+        ]);
 
         expect(sections).toHaveLength(2);
         expect(sections[0]?.title).toBe('EPL');
@@ -94,34 +46,40 @@ describe('groupLiveSportsEventsByLeague', () => {
     });
 
     it('falls back to leagueId when leagueName is missing', () => {
-        const sections = groupLiveSportsEventsByLeague([
-            { id: '1', slug: '1', leagueId: 'nba' } as PolymarketSportsEvent,
-        ]);
+        const sections = groupLiveSportsEventsByLeague([displayableEvent('1', undefined, 'nba')]);
 
         expect(sections[0]?.title).toBe('NBA');
+    });
+
+    it('omits leagues with no displayable events', () => {
+        const sections = groupLiveSportsEventsByLeague([
+            { id: '1', slug: '1', leagueName: 'EPL' } as PolymarketSportsEvent,
+        ]);
+
+        expect(sections).toEqual([]);
     });
 });
 
 describe('groupLiveSportsListForDisplay', () => {
-    it('builds Live and Starting Soon time blocks with sport subgroups', () => {
+    it('builds Live and Starting Soon time blocks with league subgroups from event data', () => {
         const response = {
-            live: [event('live-1', undefined, 'basketball'), event('live-2', undefined, 'soccer')],
-            today: [event('soon-1', undefined, 'basketball')],
-            tomorrow: [event('tomorrow-1', undefined, 'soccer')],
+            live: [displayableEvent('live-1', 'NBA'), displayableEvent('live-2', 'EPL')],
+            today: [displayableEvent('soon-1', 'NBA')],
+            tomorrow: [displayableEvent('tomorrow-1', 'EPL')],
             afterTomorrow: [],
             closed: [],
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
 
-        const result = groupLiveSportsListForDisplay(response, sportsPrimary());
+        const result = groupLiveSportsListForDisplay(response);
 
         expect(result.timeSections.map((section) => section.id)).toEqual(['live', 'starting-soon']);
         expect(result.timeSections[0]?.title).toBe('Live');
-        expect(result.timeSections[0]?.sportSections.map((section) => section.title)).toEqual(['Basketball', 'Soccer']);
-        expect(result.timeSections[0]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['live-1']);
-        expect(result.timeSections[0]?.sportSections[1]?.events.map((item) => item.id)).toEqual(['live-2']);
+        expect(result.timeSections[0]?.sportSections.map((section) => section.title)).toEqual(['EPL', 'NBA']);
+        expect(result.timeSections[0]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['live-2']);
+        expect(result.timeSections[0]?.sportSections[1]?.events.map((item) => item.id)).toEqual(['live-1']);
         expect(result.timeSections[1]?.title).toBe('Starting Soon');
-        expect(result.timeSections[1]?.sportSections.map((section) => section.title)).toEqual(['Basketball']);
+        expect(result.timeSections[1]?.sportSections.map((section) => section.title)).toEqual(['NBA']);
         expect(result.timeSections[1]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['soon-1']);
     });
 
@@ -129,19 +87,19 @@ describe('groupLiveSportsListForDisplay', () => {
         const response = {
             live: [],
             today: [],
-            tomorrow: [event('tomorrow-1', undefined, 'soccer')],
+            tomorrow: [displayableEvent('tomorrow-1', 'EPL')],
             afterTomorrow: [],
             closed: [],
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
 
-        expect(groupLiveSportsListForDisplay(response, sportsPrimary()).timeSections).toEqual([]);
-        expect(liveSportsListHasDisplayContent(response, sportsPrimary())).toBe(false);
+        expect(groupLiveSportsListForDisplay(response).timeSections).toEqual([]);
+        expect(liveSportsListHasDisplayContent(response)).toBe(false);
     });
 
-    it('preserves event order within a sport section', () => {
+    it('preserves event order within a league section', () => {
         const response = {
-            live: [event('live-a', undefined, 'basketball'), event('live-b', undefined, 'basketball')],
+            live: [displayableEvent('live-a', 'NBA'), displayableEvent('live-b', 'NBA')],
             today: [],
             tomorrow: [],
             afterTomorrow: [],
@@ -149,17 +107,16 @@ describe('groupLiveSportsListForDisplay', () => {
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
 
-        const liveSportSection = groupLiveSportsListForDisplay(response, sportsPrimary()).timeSections[0]
-            ?.sportSections[0];
+        const liveLeagueSection = groupLiveSportsListForDisplay(response).timeSections[0]?.sportSections[0];
 
-        expect(liveSportSection?.events.map((item) => item.id)).toEqual(['live-a', 'live-b']);
+        expect(liveLeagueSection?.events.map((item) => item.id)).toEqual(['live-a', 'live-b']);
     });
 });
 
 describe('groupSportsEventsForDisplay', () => {
     it('returns closed events separately from dated sections', () => {
-        const closed = event('closed-1');
-        const today = event('today-1');
+        const closed = displayableEvent('closed-1');
+        const today = displayableEvent('today-1');
         const response = {
             live: [],
             today: [today],

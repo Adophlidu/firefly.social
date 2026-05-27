@@ -49,8 +49,8 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
 
     const liveDisplay = useMemo(() => {
         if (!data || !isLiveCategory) return null;
-        return groupLiveSportsListForDisplay(data, context.primaryItem);
-    }, [data, isLiveCategory, context.primaryItem]);
+        return groupLiveSportsListForDisplay(data);
+    }, [data, isLiveCategory]);
 
     const { sections, closedEvents } = useMemo(() => {
         if (!data || isLiveCategory) {
@@ -60,7 +60,7 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
     }, [data, isLiveCategory]);
 
     const hasVisibleContent = isLiveCategory
-        ? liveSportsListHasDisplayContent(data, context.primaryItem)
+        ? liveSportsListHasDisplayContent(data)
         : categoryHasGamesDisplayContent(data);
 
     const liveEventsForPrices = useMemo(() => {
@@ -108,41 +108,43 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
     if (isLiveCategory && liveDisplay) {
         return (
             <div className="flex flex-col gap-6 px-4 pb-8">
-                {liveDisplay.timeSections.map((timeSection) => (
-                    <section key={timeSection.id} className="flex flex-col gap-4">
-                        <h2 className="text-base font-black text-main">{timeSection.title}</h2>
-                        {timeSection.sportSections.map((sportSection) => {
-                            const sectionKey = `${timeSection.id}-${sportSection.id}`;
-                            const isExpanded = expandedSections[sectionKey];
-                            const visibleEvents = isExpanded
-                                ? sportSection.events
-                                : sportSection.events.slice(0, INITIAL_VISIBLE);
-                            const hasMore = sportSection.events.length > INITIAL_VISIBLE;
+                {liveDisplay.timeSections
+                    .filter((timeSection) => timeSection.sportSections.length > 0)
+                    .map((timeSection) => (
+                        <section key={timeSection.id} className="flex flex-col gap-4">
+                            <h2 className="text-base font-black text-main">{timeSection.title}</h2>
+                            {timeSection.sportSections.map((sportSection) => {
+                                const sectionKey = `${timeSection.id}-${sportSection.id}`;
+                                const isExpanded = expandedSections[sectionKey];
+                                const visibleEvents = isExpanded
+                                    ? sportSection.events
+                                    : sportSection.events.slice(0, INITIAL_VISIBLE);
+                                const hasMore = sportSection.events.length > INITIAL_VISIBLE;
 
-                            return (
-                                <div key={sectionKey} className="flex flex-col gap-3">
-                                    <h3 className="text-sm font-bold text-main">{sportSection.title}</h3>
-                                    <div className="flex flex-col gap-3">
-                                        {visibleEvents.map((event) => renderSportsCell(event))}
+                                return (
+                                    <div key={sectionKey} className="flex flex-col gap-3">
+                                        <h3 className="text-sm font-bold text-main">{sportSection.title}</h3>
+                                        <div className="flex flex-col gap-3">
+                                            {visibleEvents.map((event) => renderSportsCell(event))}
+                                        </div>
+                                        {hasMore ? (
+                                            <ClickableButton
+                                                className="text-sm font-bold text-highlight"
+                                                onClick={() =>
+                                                    setExpandedSections((prev) => ({
+                                                        ...prev,
+                                                        [sectionKey]: !prev[sectionKey],
+                                                    }))
+                                                }
+                                            >
+                                                {isExpanded ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
+                                            </ClickableButton>
+                                        ) : null}
                                     </div>
-                                    {hasMore ? (
-                                        <ClickableButton
-                                            className="text-sm font-bold text-highlight"
-                                            onClick={() =>
-                                                setExpandedSections((prev) => ({
-                                                    ...prev,
-                                                    [sectionKey]: !prev[sectionKey],
-                                                }))
-                                            }
-                                        >
-                                            {isExpanded ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
-                                        </ClickableButton>
-                                    ) : null}
-                                </div>
-                            );
-                        })}
-                    </section>
-                ))}
+                                );
+                            })}
+                        </section>
+                    ))}
             </div>
         );
     }

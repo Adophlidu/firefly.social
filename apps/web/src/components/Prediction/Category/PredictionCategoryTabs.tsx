@@ -26,7 +26,7 @@ export const PredictionCategoryTabs = memo<Props>(function PredictionCategoryTab
                 <ClickableButton
                     onClick={() => onTabChange(PREDICTION_CATEGORY_GAMES_TAB)}
                     className={classNames(
-                        'flex h-full flex-1 items-center justify-center rounded-md px-4 text-sm font-bold transition-colors',
+                        'flex h-full flex-1 items-center justify-center whitespace-nowrap rounded-md px-4 text-sm font-bold transition-colors',
                         tab === PREDICTION_CATEGORY_GAMES_TAB ? 'bg-primaryBottom text-main shadow-sm' : 'text-second',
                     )}
                 >
@@ -37,7 +37,7 @@ export const PredictionCategoryTabs = memo<Props>(function PredictionCategoryTab
                 <ClickableButton
                     onClick={() => onTabChange(PREDICTION_CATEGORY_PROPS_TAB)}
                     className={classNames(
-                        'flex h-full flex-1 items-center justify-center rounded-md px-4 text-sm font-bold transition-colors',
+                        'flex h-full flex-1 items-center justify-center whitespace-nowrap rounded-md px-4 text-sm font-bold transition-colors',
                         tab === PREDICTION_CATEGORY_PROPS_TAB ? 'bg-primaryBottom text-main shadow-sm' : 'text-second',
                     )}
                 >
