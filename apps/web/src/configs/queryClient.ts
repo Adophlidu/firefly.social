@@ -82,3 +82,10 @@ export const queryClientConfig: QueryClientConfig = {
 };
 
 export const queryClient = new QueryClient(queryClientConfig);
+
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    Object.defineProperty(window, '__TANSTACK_QUERY_CLIENT__', {
+        value: queryClient,
+        configurable: true,
+    });
+}
