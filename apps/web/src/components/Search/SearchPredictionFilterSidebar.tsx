@@ -4,7 +4,7 @@ import { SearchType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { uniqBy } from 'lodash-es';
-import { memo, type PropsWithChildren, type ReactNode } from 'react';
+import { memo, type PropsWithChildren } from 'react';
 
 import {
     type SearchPredictionContentPagedData,
@@ -18,20 +18,6 @@ import {
     useSearchPredictionFilterStore,
 } from '@/store/useSearchPredictionFilterStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
-
-const STATUS_OPTIONS: Array<{
-    value: SearchPredictionEventStatus;
-    label: ReactNode;
-}> = [
-    {
-        value: 'active',
-        label: <Trans>Active</Trans>,
-    },
-    {
-        value: 'resolved',
-        label: <Trans>Resolved</Trans>,
-    },
-];
 
 const TopicPill = memo(function TopicPill({ topic, onClick }: { topic: PredictionSearchTag; onClick: () => void }) {
     return (
@@ -58,7 +44,7 @@ const StatusRow = memo(function StatusRow({
     return (
         <ClickableButton
             className="flex w-full items-center justify-between py-2 text-base text-main"
-            onClick={() => setEventStatus(checked ? undefined : value)}
+            onClick={() => setEventStatus(value)}
         >
             <span>{children}</span>
             <CircleCheckboxIcon checked={checked} />
@@ -122,11 +108,12 @@ export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilte
                         <Trans>Event Status</Trans>
                     </h2>
                     <div className="mt-4 flex flex-col gap-1">
-                        {STATUS_OPTIONS.map((option) => (
-                            <StatusRow key={option.value} value={option.value} selected={eventStatus}>
-                                {option.label}
-                            </StatusRow>
-                        ))}
+                        <StatusRow value="active" selected={eventStatus}>
+                            <Trans>Active</Trans>
+                        </StatusRow>
+                        <StatusRow value="resolved" selected={eventStatus}>
+                            <Trans>Resolved</Trans>
+                        </StatusRow>
                     </div>
                 </section>
             </div>
