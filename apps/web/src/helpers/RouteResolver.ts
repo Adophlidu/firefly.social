@@ -64,7 +64,7 @@ export class RouteResolver {
             platform,
             eventId,
             type: options?.multiple ? 'multi' : undefined,
-            stream: options?.stream ? '1' : undefined,
+            'chart-view': options?.stream ? 'stream' : undefined,
         });
     }
     static explorePrediction({
