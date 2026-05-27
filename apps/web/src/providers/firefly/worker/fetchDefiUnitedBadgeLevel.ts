@@ -19,6 +19,14 @@ interface BadgeLevelResult {
     level: number;
     platform: string;
     profile_id: string;
+    token_symbol?: string;
+    token_amount?: string;
+}
+
+export interface DefiUnitedBadgeInfo {
+    tier: DefiUnitedTier;
+    symbol?: string;
+    amount?: string;
 }
 
 const PLATFORM_TO_SOURCE: Partial<Record<BadgeLevelPlatform, Source>> = {
@@ -43,7 +51,7 @@ function toDefiUnitedTier(level: number): DefiUnitedTier | null {
     return null;
 }
 
-async function fetcher(payloads: BadgeLevelQuery[]): Promise<Record<string, DefiUnitedTier | null>> {
+async function fetcher(payloads: BadgeLevelQuery[]): Promise<Record<string, DefiUnitedBadgeInfo | null>> {
     if (payloads.length === 0) return {};
 
     const response = await fetchJson<
@@ -64,14 +72,17 @@ async function fetcher(payloads: BadgeLevelQuery[]): Promise<Record<string, Defi
     if (!data.results.length) return {};
 
     return Object.fromEntries(
-        data.results.map((result) => [
-            makeBadgeLevelKey(result.platform as BadgeLevelPlatform, result.profile_id),
-            toDefiUnitedTier(result.level),
-        ]),
+        data.results.map((result) => {
+            const tier = toDefiUnitedTier(result.level);
+            return [
+                makeBadgeLevelKey(result.platform as BadgeLevelPlatform, result.profile_id),
+                tier !== null ? { tier, symbol: result.token_symbol, amount: result.token_amount } : null,
+            ];
+        }),
     );
 }
 
-const batchedFetchBadgeLevel = createBatcher<BadgeLevelQuery, DefiUnitedTier | null>(
+const batchedFetchBadgeLevel = createBatcher<BadgeLevelQuery, DefiUnitedBadgeInfo | null>(
     'fetchDefiUnitedBadgeLevel',
     fetcher,
     {
@@ -82,15 +93,19 @@ const batchedFetchBadgeLevel = createBatcher<BadgeLevelQuery, DefiUnitedTier | n
     },
 );
 
-function hydrateBadgeLevelCache(platform: BadgeLevelPlatform, id: string, tier: DefiUnitedTier | null | undefined) {
+function hydrateBadgeLevelCache(
+    platform: BadgeLevelPlatform,
+    id: string,
+    info: DefiUnitedBadgeInfo | null | undefined,
+) {
     if (platform === 'eth') {
-        queryClient.setQueryData(['defiunited-badge', normalizeQueryId(platform, id)], tier ?? null);
+        queryClient.setQueryData(['defiunited-badge', normalizeQueryId(platform, id)], info ?? null);
         return;
     }
 
     const source = PLATFORM_TO_SOURCE[platform];
     if (source) {
-        queryClient.setQueryData(['defiunited-badge-profile', source, id], tier ?? null);
+        queryClient.setQueryData(['defiunited-badge-profile', source, id], info ?? null);
     }
 }
 
@@ -101,8 +116,8 @@ function hydrateBadgeLevelCache(platform: BadgeLevelPlatform, id: string, tier: 
 export async function fetchDefiUnitedBadgeLevel(
     platform: BadgeLevelPlatform,
     id: string,
-): Promise<DefiUnitedTier | null> {
-    const tier = await batchedFetchBadgeLevel({ platform, id });
-    hydrateBadgeLevelCache(platform, id, tier);
-    return tier ?? null;
+): Promise<DefiUnitedBadgeInfo | null> {
+    const info = await batchedFetchBadgeLevel({ platform, id });
+    hydrateBadgeLevelCache(platform, id, info);
+    return info ?? null;
 }

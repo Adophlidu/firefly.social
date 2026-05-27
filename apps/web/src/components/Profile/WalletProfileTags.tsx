@@ -126,7 +126,13 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
                 dynamicTagsCount >= 4 ? 'gap-0.5' : 'gap-1.5',
             )}
         >
-            {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} /> : null}
+            {defiUnitedTier ? (
+                <DefiUnitedBadge
+                    tier={defiUnitedTier.tier}
+                    symbol={defiUnitedTier.symbol}
+                    amount={defiUnitedTier.amount}
+                />
+            ) : null}
             {networkType === NetworkType.Ethereum ? <EvmIcon width={ICON_SIZE} height={ICON_SIZE} /> : null}
             {networkType === NetworkType.Solana ? <SolanaIcon width={ICON_SIZE} height={ICON_SIZE} /> : null}
             {walletRelation?.verifiedSources?.map((x) => {

@@ -5162,6 +5162,9 @@ msgstr "Security & Privacy"
 msgid "Loading..."
 msgstr "Loading..."
 
+msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
+msgstr "Donated {formattedAmount} {symbol} to DeFiUnited"
+
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
 msgstr "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
 

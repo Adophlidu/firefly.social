@@ -109,7 +109,14 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                                     <span className="ml-2 max-md:hidden">{addressName}</span>
                                 )
                             ) : null}
-                            {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
+                            {defiUnitedTier ? (
+                                <DefiUnitedBadge
+                                    tier={defiUnitedTier.tier}
+                                    symbol={defiUnitedTier.symbol}
+                                    amount={defiUnitedTier.amount}
+                                    className="shrink-0"
+                                />
+                            ) : null}
                             {activity.timestamp ? (
                                 <span className="whitespace-nowrap pl-1">
                                     · <TimestampFormatter time={activity.timestamp * 1000} /> ·

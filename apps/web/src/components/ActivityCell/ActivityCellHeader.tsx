@@ -65,7 +65,14 @@ export function ActivityCellHeader({
                     </ConditionalLink>
                 ) : null}
 
-                {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
+                {defiUnitedTier ? (
+                    <DefiUnitedBadge
+                        tier={defiUnitedTier.tier}
+                        symbol={defiUnitedTier.symbol}
+                        amount={defiUnitedTier.amount}
+                        className="shrink-0"
+                    />
+                ) : null}
 
                 {time ? (
                     <Time dateTime={time} className="mx-1 whitespace-nowrap text-secondary">

@@ -11,6 +11,8 @@ import { Tooltip } from '@/components/Tooltip.js';
 
 interface DefiUnitedBadgeProps {
     tier: DefiUnitedTier;
+    symbol?: string;
+    amount?: string;
     className?: string;
 }
 
@@ -22,10 +24,19 @@ const badgeByTier: Record<DefiUnitedTier, React.FunctionComponent<SVGAttributes<
     [DefiUnitedTier.Gold]: GoldBadge,
 };
 
-export function DefiUnitedBadge({ tier, className }: DefiUnitedBadgeProps) {
+export function DefiUnitedBadge({ tier, symbol, amount, className }: DefiUnitedBadgeProps) {
     const Icon = badgeByTier[tier];
+    const formattedAmount = amount ? parseFloat(amount).toString() : undefined;
+    const tooltipContent =
+        formattedAmount && symbol ? (
+            <Trans>
+                Donated {formattedAmount} {symbol} to DeFiUnited
+            </Trans>
+        ) : (
+            <Trans>DeFiUnited Supporter</Trans>
+        );
     return (
-        <Tooltip content={<Trans>DeFiUnited Supporter</Trans>} placement="top">
+        <Tooltip content={tooltipContent} placement="top">
             <Icon className={className} width={BADGE_SIZE} height={BADGE_SIZE} />
         </Tooltip>
     );

@@ -85,7 +85,14 @@ export function SocialProfileInfo(props: InfoProps) {
                                 </h1>
                             </TextOverflowTooltip>
                             <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1" profile={profile} />
-                            {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
+                            {defiUnitedTier ? (
+                                <DefiUnitedBadge
+                                    tier={defiUnitedTier.tier}
+                                    symbol={defiUnitedTier.symbol}
+                                    amount={defiUnitedTier.amount}
+                                    className="shrink-0"
+                                />
+                            ) : null}
                         </div>
                         <div id={PROFILE_ACTION_ID} className="ml-auto flex items-center gap-2">
                             <NoSSR>

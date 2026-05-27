@@ -120,7 +120,14 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     ) : (
                         <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1 sm:mr-2" profile={author} />
                     )}
-                    {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0 sm:mr-2" /> : null}
+                    {defiUnitedTier ? (
+                        <DefiUnitedBadge
+                            tier={defiUnitedTier.tier}
+                            symbol={defiUnitedTier.symbol}
+                            amount={defiUnitedTier.amount}
+                            className="shrink-0 sm:mr-2"
+                        />
+                    ) : null}
                     {!isQuote
                         ? renderHandle(shouldAlwaysBreakHandleLine ? 'hidden' : 'hidden min-[620px]:block')
                         : null}

@@ -100,7 +100,14 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                             {profile.displayName}
                         </Link>
                         <ProfileVerifyBadge profile={profile} className="flex shrink-0 items-center space-x-1" />
-                        {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
+                        {defiUnitedTier ? (
+                            <DefiUnitedBadge
+                                tier={defiUnitedTier.tier}
+                                symbol={defiUnitedTier.symbol}
+                                amount={defiUnitedTier.amount}
+                                className="shrink-0"
+                            />
+                        ) : null}
                         <SocialSourceIcon source={profile.source} className="ml-auto shrink-0" size={18} />
                     </div>
 

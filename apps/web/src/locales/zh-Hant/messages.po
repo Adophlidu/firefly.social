@@ -5136,6 +5136,9 @@ msgstr "安全與隱私"
 msgid "Loading..."
 msgstr "載入中……"
 
+msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
+msgstr ""
+
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
 msgstr "使用<0>Firefly 行動應用</0><1/>掃描 QR 碼，即可在應用內直接登入。"
 

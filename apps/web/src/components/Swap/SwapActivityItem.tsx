@@ -111,7 +111,14 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     {addressName}
                                 </Link>
                             ) : null}
-                            {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
+                            {defiUnitedTier ? (
+                                <DefiUnitedBadge
+                                    tier={defiUnitedTier.tier}
+                                    symbol={defiUnitedTier.symbol}
+                                    amount={defiUnitedTier.amount}
+                                    className="shrink-0"
+                                />
+                            ) : null}
                             {activity.timestamp ? (
                                 <span className="whitespace-nowrap pl-1">
                                     · <TimestampFormatter time={Number(activity.timestamp) * 1000} /> ·
