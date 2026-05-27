@@ -452,9 +452,6 @@ msgstr "需超越的价格"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "通过 {0}<0>{platformName}</0> 发布"
 
-msgid "No bets found"
-msgstr "未找到投注"
-
 msgid "Firefly wallets"
 msgstr "Firefly 钱包"
 
@@ -2226,9 +2223,6 @@ msgstr "取消转发"
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
 msgstr "移除地址失败：{0}"
-
-msgid "No games found"
-msgstr "未找到比赛"
 
 msgid "Cross at handles"
 msgstr "跨平台用户名"

@@ -455,9 +455,6 @@ msgstr "Precio a batir"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "Publicado vía {0} <0>{platformName}</0>"
 
-msgid "No bets found"
-msgstr "No se encontraron apuestas"
-
 msgid "Firefly wallets"
 msgstr "Carteras Firefly"
 
@@ -2237,9 +2234,6 @@ msgstr "Cancelar republicación"
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
 msgstr "No se pudo verificar la dirección: {0}"
-
-msgid "No games found"
-msgstr "No se encontraron juegos"
 
 msgid "Cross at handles"
 msgstr "Cruz en manejadores"

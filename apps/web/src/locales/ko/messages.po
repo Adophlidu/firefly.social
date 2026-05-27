@@ -452,9 +452,6 @@ msgstr "넘어야 할 가격"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "{0} <0>{platformName}</0>을(를) 통해 게시됨"
 
-msgid "No bets found"
-msgstr "베팅 없음"
-
 msgid "Firefly wallets"
 msgstr "Firefly 지갑"
 
@@ -2226,9 +2223,6 @@ msgstr "리포스트 취소"
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
 msgstr "주소 인증에 실패했습니다: {0}"
-
-msgid "No games found"
-msgstr "게임을 찾을 수 없습니다"
 
 msgid "Cross at handles"
 msgstr "플랫폼 간 핸들"

@@ -452,9 +452,6 @@ msgstr "超えるべき価格"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "{0} <0>{platformName}</0> 経由で投稿"
 
-msgid "No bets found"
-msgstr "ベットが見つかりません"
-
 msgid "Firefly wallets"
 msgstr "Firefly ウォレット"
 
@@ -2226,9 +2223,6 @@ msgstr "リポストをキャンセル"
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
 msgstr "アドレスの検証に失敗しました: {0}"
-
-msgid "No games found"
-msgstr "ゲームが見つかりません"
 
 msgid "Cross at handles"
 msgstr "クロスプラットフォームのハンドル"

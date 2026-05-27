@@ -8,6 +8,7 @@ import { memo, useMemo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { PredictionSportsCell } from '@/components/Prediction/Category/PredictionSportsCell.js';
 import { categoryHasGamesDisplayContent } from '@/helpers/prediction/category/categoryGamesPropsTabAvailability.js';
 import { formatPolymarketSportsEventForUI } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
@@ -99,9 +100,9 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
 
     if (!hasVisibleContent) {
         return (
-            <p className="px-4 py-12 text-center text-sm text-second">
-                <Trans>No games found</Trans>
-            </p>
+            <div>
+                <NoResultsFallback message={<Trans>No predictions found</Trans>} />
+            </div>
         );
     }
 

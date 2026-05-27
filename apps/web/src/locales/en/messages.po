@@ -455,9 +455,6 @@ msgstr "Price to beat"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "Posted via {0} <0>{platformName}</0>"
 
-msgid "No bets found"
-msgstr "No bets found"
-
 msgid "Firefly wallets"
 msgstr "Firefly wallets"
 
@@ -2237,9 +2234,6 @@ msgstr "Cancel Repost"
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
 msgstr "Failed to verify address: {0}"
-
-msgid "No games found"
-msgstr "No games found"
 
 msgid "Cross at handles"
 msgstr "Cross at handles"

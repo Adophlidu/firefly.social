@@ -67,7 +67,7 @@ const SportsCategoryPropsListContent = memo<{ tagSlug: string }>(function Sports
                     itemContent: getBetsItemContent,
                 }}
                 NoResultsFallbackProps={{
-                    message: <Trans>No bets found</Trans>,
+                    message: <Trans>No predictions found</Trans>,
                 }}
             />
         </div>
@@ -80,7 +80,7 @@ const SportsCategoryPropsList = memo<{ context: CategorySlugContext }>(function 
     if (!tagSlug) {
         return (
             <p className="px-4 py-12 text-center text-sm text-second">
-                <Trans>No bets found</Trans>
+                <Trans>No predictions found</Trans>
             </p>
         );
     }
@@ -122,7 +122,7 @@ const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(functi
                     itemContent: getBetsItemContent,
                 }}
                 NoResultsFallbackProps={{
-                    message: <Trans>No bets found</Trans>,
+                    message: <Trans>No predictions found</Trans>,
                 }}
             />
         </div>
