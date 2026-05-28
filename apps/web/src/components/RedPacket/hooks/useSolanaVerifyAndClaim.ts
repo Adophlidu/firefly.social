@@ -8,6 +8,7 @@ import { useAsyncFn } from 'react-use';
 
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
@@ -27,6 +28,10 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         const accountId = payload.rpid;
+
+        if (!privySolanaProvider.publicKey) {
+            await privySolanaProvider.connect();
+        }
 
         if (!payload.token) throw new Error('Token is missing');
 

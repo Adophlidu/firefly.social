@@ -6,6 +6,7 @@ import { envs } from '@dimensiondev/envs/web';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
+import { WalletNotConnectedError } from '@/constants/error.js';
 import { getAnchorProvider } from '@/helpers/getAnchorProvider.js';
 import type { Redpacket } from '@/idls/redpacket.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
@@ -17,6 +18,8 @@ export function createRedPacketProgram(chainId: number, requireWallet = false, f
     const provider = forcePrivy
         ? (privySolanaProvider as ReturnType<typeof getWalletAdaptorConnected>)
         : getWalletAdaptorConnected();
+
+    if (!provider.publicKey) throw new WalletNotConnectedError();
 
     const key = `${chainId}-${requireWallet}-${forcePrivy}-${provider.name}-${provider.publicKey.toBase58()}`;
     const hit = storage.get(key);

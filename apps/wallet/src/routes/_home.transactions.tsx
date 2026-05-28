@@ -27,7 +27,7 @@ function TransactionsPage() {
 
     const isEvm = networkType === NetworkType.Ethereum;
     const address = isEvm ? evmAddress : solanaAddress;
-    const allChains = isEvm ? chains.map((x) => x.id) : [solana.id as number];
+    const chainIds = isEvm ? chains.map((x) => x.id) : [solana.id as number];
 
     return (
         <div className="w-full px-4">
@@ -41,7 +41,7 @@ function TransactionsPage() {
             {address ? (
                 <Suspense fallback={<LoadingPanel />}>
                     <TransactionHistory
-                        chains={allChains}
+                        chains={chainIds}
                         address={address}
                         onSelectTransaction={setSelectedTransaction}
                     />
