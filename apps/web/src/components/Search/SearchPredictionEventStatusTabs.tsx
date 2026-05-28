@@ -7,7 +7,7 @@ import type { HTMLProps, ReactNode } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import {
     type SearchPredictionEventStatus,
-    useSearchPredictionFilterStore,
+    useSearchPredictionEventStatus,
 } from '@/store/useSearchPredictionFilterStore.js';
 
 export const SEARCH_PREDICTION_EVENT_STATUS_OPTIONS: Array<{
@@ -25,9 +25,7 @@ export const SEARCH_PREDICTION_EVENT_STATUS_OPTIONS: Array<{
 ];
 
 export function SearchPredictionEventStatusTabs({ className, ...props }: HTMLProps<HTMLDivElement>) {
-    const eventStatus = useSearchPredictionFilterStore.use.eventStatus();
-    const selectedStatus = eventStatus ?? 'active';
-    const setEventStatus = useSearchPredictionFilterStore.use.setEventStatus();
+    const [selectedStatus, setEventStatus] = useSearchPredictionEventStatus();
 
     return (
         <nav {...props} className={classNames('no-scrollbar flex gap-x-2 overflow-x-auto px-4 pb-2 pt-3', className)}>
@@ -42,7 +40,7 @@ export function SearchPredictionEventStatusTabs({ className, ...props }: HTMLPro
                             selected ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
                         )}
                         aria-pressed={selected}
-                        onClick={() => setEventStatus(option.value)}
+                        onClick={() => void setEventStatus(option.value)}
                     >
                         {option.label}
                     </ClickableButton>

@@ -61,7 +61,15 @@ export async function searchPrediction({
     const response = await fetchJson<Response<GammaSearchResponse>>(url);
 
     const data = resolveFireflyResponseData(response);
-    const events = data?.events || [];
+    const events = (data?.events || []).filter((event) => {
+        if (eventsStatus === undefined) return true;
+        if (eventsStatus === 'active')
+            return event.markets.some((market) => market.enableOrderBook !== false && !market.closed);
+        if (eventsStatus === 'resolved')
+            return event.markets.every((market) => market.enableOrderBook === false || market.closed);
+        if (eventsStatus === 'archived') return event.archived;
+        return true;
+    });
     const tags = data?.tags || [];
     const currentIndicator = createIndicator(indicator);
     const hasMore = data?.pagination.hasMore ?? false;

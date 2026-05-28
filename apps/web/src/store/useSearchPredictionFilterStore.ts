@@ -1,23 +1,19 @@
-import { create } from 'zustand';
-import { immer } from 'zustand/middleware/immer';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
 
-import { createSelectors } from '@/helpers/createSelector.js';
+export const SEARCH_PREDICTION_EVENT_STATUS_PARAM = 'events_status';
+export const SEARCH_PREDICTION_EVENT_STATUS_VALUES = ['active', 'resolved'] as const;
 
-export type SearchPredictionEventStatus = 'active' | 'resolved';
+export type SearchPredictionEventStatus = (typeof SEARCH_PREDICTION_EVENT_STATUS_VALUES)[number];
 
-interface SearchPredictionFilterState {
-    eventStatus: SearchPredictionEventStatus | undefined;
-    setEventStatus: (eventStatus?: SearchPredictionEventStatus) => void;
+export function isSearchPredictionEventStatus(value: string | null | undefined): value is SearchPredictionEventStatus {
+    return SEARCH_PREDICTION_EVENT_STATUS_VALUES.includes(value as SearchPredictionEventStatus);
 }
 
-const useSearchPredictionFilterStoreBase = create<SearchPredictionFilterState, [['zustand/immer', never]]>(
-    immer((set) => ({
-        eventStatus: 'active',
-        setEventStatus: (eventStatus) =>
-            set((state) => {
-                state.eventStatus = eventStatus;
-            }),
-    })),
-);
-
-export const useSearchPredictionFilterStore = createSelectors(useSearchPredictionFilterStoreBase);
+export function useSearchPredictionEventStatus() {
+    return useQueryState<SearchPredictionEventStatus>(
+        SEARCH_PREDICTION_EVENT_STATUS_PARAM,
+        parseAsStringEnum<SearchPredictionEventStatus>([...SEARCH_PREDICTION_EVENT_STATUS_VALUES])
+            .withDefault('active')
+            .withOptions({ clearOnDefault: true }),
+    );
+}

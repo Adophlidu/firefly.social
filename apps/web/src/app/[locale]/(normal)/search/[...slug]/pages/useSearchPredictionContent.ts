@@ -25,12 +25,12 @@ export type SearchPredictionContentPagedData = InfiniteData<
 export function useSearchPredictionContent<T>(
     searchKeyword: string,
     source: Source,
-    eventStatus: SearchPredictionEventStatus | undefined,
+    eventsStatus: SearchPredictionEventStatus | undefined,
     selector: (data: SearchPredictionContentPagedData) => T,
 ) {
-    eventStatus ??= 'active';
+    eventsStatus ??= 'active';
     return useSuspenseInfiniteQuery({
-        queryKey: ['search', SearchType.Prediction, searchKeyword, source, eventStatus],
+        queryKey: ['search', SearchType.Prediction, searchKeyword, source, eventsStatus],
         queryFn: async ({ pageParam }) => {
             // Check if searchKeyword is a prediction URL and extract identifier if it matches
             const urlResult = resolveSearchUrlType(searchKeyword);
@@ -47,7 +47,7 @@ export function useSearchPredictionContent<T>(
                 indicator,
                 limit: 20,
                 sort: 'volume_24hr',
-                eventsStatus: eventStatus,
+                eventsStatus,
                 searchTags: true,
             });
             const events = result.data.map(formatPolymarketEventListData);

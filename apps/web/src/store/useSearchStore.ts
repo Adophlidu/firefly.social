@@ -9,6 +9,10 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import {
+    isSearchPredictionEventStatus,
+    SEARCH_PREDICTION_EVENT_STATUS_PARAM,
+} from '@/store/useSearchPredictionFilterStore.js';
 
 interface SearchTypeState {
     source: Source | undefined;
@@ -114,6 +118,7 @@ export function useSearchStateStore() {
             const newType = state.type || currentType;
             const newClubType = state.clubType || currentClubType;
             const resolvedSource = state.source || currentSource;
+            const eventsStatus = params.get(SEARCH_PREDICTION_EVENT_STATUS_PARAM);
 
             updateSearchType(newType);
             updateClubType(newClubType);
@@ -121,7 +126,12 @@ export function useSearchStateStore() {
             // search input is empty
             if (!newQuery) return;
 
-            const url = resolveSearchUrl(newQuery, newType, resolvedSource);
+            const url = resolveSearchUrl(newQuery, newType, resolvedSource, newClubType, {
+                eventsStatus:
+                    newType === SearchType.Prediction && isSearchPredictionEventStatus(eventsStatus)
+                        ? eventsStatus
+                        : undefined,
+            });
             if (replace) router.replace(url);
             else router.push(url);
         },

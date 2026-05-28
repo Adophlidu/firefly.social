@@ -11,20 +11,33 @@ import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { captureSearchPredictionsClick } from '@/providers/telemetry/capturePolymarketEvent.js';
+import {
+    type SearchPredictionEventStatus,
+    useSearchPredictionEventStatus,
+} from '@/store/useSearchPredictionFilterStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-function fixSearchUrl(query: string, type: SearchType, source: Source, clubType: ClubType) {
+function fixSearchUrl(
+    query: string,
+    type: SearchType,
+    source: Source,
+    clubType: ClubType,
+    eventsStatus?: SearchPredictionEventStatus,
+) {
     let resolvedSource = source;
     if (!SORTED_SEARCH_TYPE[source as SocialSource]?.includes(type)) {
         resolvedSource = SORTED_SOCIAL_SOURCES.find((x) => SORTED_SEARCH_TYPE[x].includes(type)) ?? Source.Farcaster;
     }
 
-    return resolveSearchUrl(query, type, resolvedSource, clubType);
+    return resolveSearchUrl(query, type, resolvedSource, clubType, { eventsStatus });
 }
 
 export const SearchTabs = memo(function SearchTabs() {
     const pathname = usePathname();
-    const { searchKeyword, source, clubType } = useSearchStateStore();
+    const { searchKeyword, searchType, source, clubType } = useSearchStateStore();
+    const [eventStatus] = useSearchPredictionEventStatus();
+    const predictionEventsStatus =
+        searchType === SearchType.Prediction && eventStatus === 'resolved' ? eventStatus : undefined;
 
     const tabs = useMemo<Array<{ label: JSX.Element; link: string; onClick?: () => void }>>(() => {
         const isFromSearch = typeof searchKeyword === 'string' && searchKeyword.trim().startsWith('from:');
@@ -33,7 +46,7 @@ export const SearchTabs = memo(function SearchTabs() {
             return [
                 {
                     label: <Trans>Posts</Trans>,
-                    link: fixSearchUrl(searchKeyword, SearchType.Posts, source, clubType),
+                    link: fixSearchUrl(searchKeyword, SearchType.Posts, source, clubType, predictionEventsStatus),
                 },
             ];
         }
@@ -41,27 +54,27 @@ export const SearchTabs = memo(function SearchTabs() {
         return [
             {
                 label: <Trans>Posts</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Posts, source, clubType),
+                link: fixSearchUrl(searchKeyword, SearchType.Posts, source, clubType, predictionEventsStatus),
             },
             {
                 label: <Trans>Users</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Profiles, source, clubType),
+                link: fixSearchUrl(searchKeyword, SearchType.Profiles, source, clubType, predictionEventsStatus),
             },
             {
                 label: <Trans>Tokens</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Tokens, source, clubType),
+                link: fixSearchUrl(searchKeyword, SearchType.Tokens, source, clubType, predictionEventsStatus),
             },
             {
                 label: <Trans>Predictions</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Prediction, source, clubType),
+                link: fixSearchUrl(searchKeyword, SearchType.Prediction, source, clubType, predictionEventsStatus),
                 onClick: captureSearchPredictionsClick,
             },
             {
                 label: <Trans>Clubs</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Clubs, source, clubType),
+                link: fixSearchUrl(searchKeyword, SearchType.Clubs, source, clubType, predictionEventsStatus),
             },
         ];
-    }, [source, searchKeyword, clubType]);
+    }, [source, searchKeyword, clubType, predictionEventsStatus]);
 
     return (
         <nav className="no-scrollbar flex w-full gap-x-4 overflow-x-auto border-b border-line bg-primaryBottom px-4">

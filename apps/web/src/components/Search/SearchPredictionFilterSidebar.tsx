@@ -16,7 +16,7 @@ import { SEARCH_PREDICTION_EVENT_STATUS_OPTIONS } from '@/components/Search/Sear
 import type { PredictionSearchTag } from '@/providers/firefly/prediction/searchPrediction.js';
 import {
     type SearchPredictionEventStatus,
-    useSearchPredictionFilterStore,
+    useSearchPredictionEventStatus,
 } from '@/store/useSearchPredictionFilterStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -39,13 +39,13 @@ const StatusRow = memo(function StatusRow({
     value: SearchPredictionEventStatus;
     selected?: SearchPredictionEventStatus;
 }>) {
-    const setEventStatus = useSearchPredictionFilterStore.use.setEventStatus();
+    const [, setEventStatus] = useSearchPredictionEventStatus();
     const checked = selected === value;
 
     return (
         <ClickableButton
             className="flex w-full items-center justify-between py-2 text-base text-main"
-            onClick={() => setEventStatus(value)}
+            onClick={() => void setEventStatus(value)}
         >
             <span>{children}</span>
             <CircleCheckboxIcon checked={checked} />
@@ -70,8 +70,7 @@ function selector(data: SearchPredictionContentPagedData) {
 
 export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilterSidebar() {
     const { searchKeyword, searchType, updateState, source } = useSearchStateStore();
-    const eventStatus = useSearchPredictionFilterStore.use.eventStatus();
-    const selectedStatus = eventStatus ?? 'active';
+    const [eventStatus] = useSearchPredictionEventStatus();
     const keyword = searchKeyword.trim();
 
     const result = useSearchPredictionContent(keyword, source, eventStatus, selector);

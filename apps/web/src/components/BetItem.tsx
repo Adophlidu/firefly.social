@@ -362,7 +362,7 @@ export const BetItem = memo(function BetItem({
                                         </div>
                                     </div>
                                     {isMarketResolved && winningOutcome ? (
-                                        <div className="flex w-full shrink-0 md:w-auto">
+                                        <div className="flex w-full min-w-6 shrink-0 md:w-auto">
                                             <span
                                                 className={classNames(
                                                     bedStead.className,

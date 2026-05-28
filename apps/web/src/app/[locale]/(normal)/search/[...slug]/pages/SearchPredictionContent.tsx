@@ -12,7 +12,7 @@ import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { SearchPredictionEventStatusTabs } from '@/components/Search/SearchPredictionEventStatusTabs.js';
 import { capturePolymarketSearchEventClick } from '@/providers/telemetry/capturePolymarketEvent.js';
-import { useSearchPredictionFilterStore } from '@/store/useSearchPredictionFilterStore.js';
+import { useSearchPredictionEventStatus } from '@/store/useSearchPredictionFilterStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
@@ -23,6 +23,7 @@ function getBetsItemContent(_: number, data: BetsEventDataForUI) {
             event={data}
             openLinkInNewTab={false}
             platform={data.platform}
+            className="mb-4"
             onLinkClick={() => {
                 capturePolymarketSearchEventClick(data.slug ?? '', data.title);
             }}
@@ -40,13 +41,13 @@ function selector(data: SearchPredictionContentPagedData) {
 
 export function SearchPredictionContent() {
     const { searchKeyword, source } = useSearchStateStore();
-    const eventStatus = useSearchPredictionFilterStore.use.eventStatus();
+    const [eventStatus] = useSearchPredictionEventStatus();
     const queryResult = useSearchPredictionContent(searchKeyword, source, eventStatus, selector);
 
     return (
         <>
             <SearchPredictionEventStatusTabs className="lg:hidden" />
-            <div className="px-4 py-2">
+            <div className="p-4">
                 <ListInPage
                     queryResult={queryResult}
                     source={Source.Prediction}

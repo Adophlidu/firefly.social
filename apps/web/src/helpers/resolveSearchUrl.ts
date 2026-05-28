@@ -2,6 +2,7 @@ import { ClubType, SearchType, Source } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import type { SearchPredictionEventStatus } from '@/store/useSearchPredictionFilterStore.js';
 
 const TYPES_WITHOUT_SOURCE = [SearchType.Profiles, SearchType.Tokens, SearchType.Prediction];
 
@@ -20,7 +21,15 @@ function resolveClubType(source: Source, clubType?: ClubType) {
     }
 }
 
-export function resolveSearchUrl(query: string, type?: SearchType, source?: Source, clubType?: ClubType) {
+export function resolveSearchUrl(
+    query: string,
+    type?: SearchType,
+    source?: Source,
+    clubType?: ClubType,
+    options?: {
+        eventsStatus?: SearchPredictionEventStatus;
+    },
+) {
     // TODO: Support search articles
     const resolvedSource = !source || source === Source.Article ? Source.Twitter : source;
     const resolvedType = type === SearchType.Channels ? SearchType.Clubs : type || SearchType.Posts;
@@ -38,5 +47,9 @@ export function resolveSearchUrl(query: string, type?: SearchType, source?: Sour
         type: resolvedType,
         q: query,
         source: ignoreSource ? undefined : resolveSourceInUrl(resolvedSource),
+        events_status:
+            resolvedType === SearchType.Prediction && options?.eventsStatus === 'resolved'
+                ? options.eventsStatus
+                : undefined,
     });
 }

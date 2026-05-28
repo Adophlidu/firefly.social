@@ -20,6 +20,10 @@ import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
+import {
+    type SearchPredictionEventStatus,
+    useSearchPredictionEventStatus,
+} from '@/store/useSearchPredictionFilterStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface SearchRecommendationProps {
@@ -31,11 +35,19 @@ interface SearchRecommendationProps {
     onClear?: () => void;
 }
 
-function fixSearchUrl(isBasicSearch: boolean, query: string, searchType: SearchType, source: Source) {
+function fixSearchUrl(
+    isBasicSearch: boolean,
+    query: string,
+    searchType: SearchType,
+    source: Source,
+    eventsStatus?: SearchPredictionEventStatus,
+) {
     // Always check if the query is a URL first
     const urlResult = resolveSearchUrlType(query);
     if (urlResult && urlResult.kind !== SearchUrlKind.FireflyInternal) {
-        return resolveSearchUrl(query, urlResult.searchType, urlResult.source);
+        return resolveSearchUrl(query, urlResult.searchType, urlResult.source, undefined, {
+            eventsStatus: urlResult.searchType === SearchType.Prediction ? eventsStatus : undefined,
+        });
     }
 
     // If not a URL, use the original logic
@@ -43,7 +55,9 @@ function fixSearchUrl(isBasicSearch: boolean, query: string, searchType: SearchT
         return resolveSearchUrl(query, resolveSearchTypeFromQuery(query));
     }
 
-    return resolveSearchUrl(query, searchType, source);
+    return resolveSearchUrl(query, searchType, source, undefined, {
+        eventsStatus: searchType === SearchType.Prediction ? eventsStatus : undefined,
+    });
 }
 
 function getSearchUrlForRecord(
@@ -52,11 +66,18 @@ function getSearchUrlForRecord(
     isSearchPage: boolean,
     searchType: SearchType,
     source: Source,
+    eventsStatus?: SearchPredictionEventStatus,
 ) {
     // Always check if the record is a URL first
     const urlResult = resolveSearchUrlType(record);
     if (urlResult && urlResult.kind !== SearchUrlKind.FireflyInternal) {
-        return resolveSearchUrl(record, urlResult.searchType, urlResult.source);
+        return resolveSearchUrl(record, urlResult.searchType, urlResult.source, undefined, {
+            eventsStatus: urlResult.searchType === SearchType.Prediction ? eventsStatus : undefined,
+        });
+    }
+
+    if (isSearchPage && searchType === SearchType.Prediction) {
+        return resolveSearchUrl(record, searchType, source, undefined, { eventsStatus });
     }
 
     // If not a URL, use the original logic
@@ -64,7 +85,7 @@ function getSearchUrlForRecord(
         return resolveSearchUrl(record, resolveSearchTypeFromQuery(record));
     }
 
-    return fixSearchUrl(isSearchPage, record, searchType, source);
+    return fixSearchUrl(isSearchPage, record, searchType, source, eventsStatus);
 }
 
 export function SearchRecommendation(props: SearchRecommendationProps) {
@@ -72,6 +93,9 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
     const { searchType, source } = useSearchStateStore();
+    const [eventStatus] = useSearchPredictionEventStatus();
+    const predictionEventsStatus =
+        searchType === SearchType.Prediction && eventStatus === 'resolved' ? eventStatus : undefined;
 
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
 
@@ -107,7 +131,13 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 Search{' '}
                                 <Link
                                     className="relative z-1 text-highlight hover:underline"
-                                    href={fixSearchUrl(false, keyword, SearchType.Posts, source)}
+                                    href={fixSearchUrl(
+                                        false,
+                                        keyword,
+                                        SearchType.Posts,
+                                        source,
+                                        predictionEventsStatus,
+                                    )}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         onSearch?.({
@@ -121,7 +151,13 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 ,{' '}
                                 <Link
                                     className="relative z-1 text-highlight hover:underline"
-                                    href={fixSearchUrl(false, keyword, SearchType.Profiles, source)}
+                                    href={fixSearchUrl(
+                                        false,
+                                        keyword,
+                                        SearchType.Profiles,
+                                        source,
+                                        predictionEventsStatus,
+                                    )}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         onSearch?.({
@@ -135,7 +171,13 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 ,{' '}
                                 <Link
                                     className="relative z-1 text-highlight hover:underline"
-                                    href={fixSearchUrl(false, keyword, SearchType.Prediction, source)}
+                                    href={fixSearchUrl(
+                                        false,
+                                        keyword,
+                                        SearchType.Prediction,
+                                        source,
+                                        predictionEventsStatus,
+                                    )}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         onSearch?.({
@@ -149,7 +191,13 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 and{' '}
                                 <Link
                                     className="relative z-1 text-highlight hover:underline"
-                                    href={fixSearchUrl(false, keyword, SearchType.Tokens, source)}
+                                    href={fixSearchUrl(
+                                        false,
+                                        keyword,
+                                        SearchType.Tokens,
+                                        source,
+                                        predictionEventsStatus,
+                                    )}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         onSearch?.({
@@ -207,6 +255,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                     isSearchPage,
                                     searchType,
                                     source,
+                                    predictionEventsStatus,
                                 )}
                                 onClick={() => {
                                     addRecord(record);
