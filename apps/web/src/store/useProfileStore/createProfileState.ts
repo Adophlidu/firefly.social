@@ -42,8 +42,8 @@ export const customSelectors: CustomSelectors<ProfileState> = {
 
 export function createProfileState(
     provider: {
-        getUpdatedProfile?: (profile: Profile) => Promise<Profile | null>;
-        refreshCurrentAccountSession?: (session?: Session | null) => Promise<Session | null>;
+        refreshProfile?: (profile: Profile) => Promise<Profile | null>;
+        refreshSession?: (session?: Session | null) => Promise<Session | null>;
     },
     options: PersistOptions<ProfileState, SessionState>,
 ) {
@@ -124,7 +124,7 @@ export function createProfileState(
                     const { currentProfile: profile, accounts } = get();
                     const updatedAccounts = await Promise.all(
                         accounts.map(async (account) => {
-                            const profile = await provider.getUpdatedProfile?.(account.profile);
+                            const profile = await provider.refreshProfile?.(account.profile);
                             if (!profile) return account;
                             return {
                                 profile,
@@ -147,9 +147,9 @@ export function createProfileState(
                     const { currentProfile: profile } = get();
                     if (!profile) return;
 
-                    const session = refreshSession ? await provider.refreshCurrentAccountSession?.() : null;
+                    const session = refreshSession ? await provider.refreshSession?.() : null;
 
-                    const updatedProfile = await provider.getUpdatedProfile?.(profile);
+                    const updatedProfile = await provider.refreshProfile?.(profile);
                     if (!updatedProfile) return;
 
                     set((state) => {

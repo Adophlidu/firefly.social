@@ -12,7 +12,7 @@ import { createProfileState, customSelectors } from '@/store/useProfileStore/cre
 
 const state = createProfileState(
     {
-        getUpdatedProfile: (profile: Profile) => getFarcasterProfileById(profile.profileId),
+        refreshProfile: (profile: Profile) => getFarcasterProfileById(profile.profileId),
     },
     {
         name: 'farcaster-state',

@@ -13,8 +13,8 @@ import { createProfileState, customSelectors } from '@/store/useProfileStore/cre
 
 const state = createProfileState(
     {
-        getUpdatedProfile: (profile: Profile) => getLensProfileByHandle(profile.handle),
-        refreshCurrentAccountSession: () => lensSessionHolder.refreshSession(),
+        refreshProfile: (profile: Profile) => getLensProfileByHandle(profile.handle),
+        refreshSession: () => lensSessionHolder.refreshSession(),
     },
     {
         name: 'lens-state',

@@ -17,7 +17,7 @@ import { createProfileState, customSelectors } from '@/store/useProfileStore/cre
 
 const state = createProfileState(
     {
-        getUpdatedProfile: (profile: Profile) => getBskyProfileById(profile.profileId),
+        refreshProfile: (profile: Profile) => getBskyProfileById(profile.profileId),
     },
     {
         name: 'bsky-state',
