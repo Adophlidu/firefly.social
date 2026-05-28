@@ -30,6 +30,8 @@ import {
     optimisticUpdatePositionShares,
 } from '@/helpers/polymarketPositionsCache.js';
 import { computePolymarketMarketBuyFeeUsd, parsePolymarketTakerFeeRate } from '@/helpers/polymarketTakerFee.js';
+import { resolveBetEventPageConfig } from '@/helpers/resolveBetEventPageConfig.js';
+import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import {
     type MarketPriceChangeData,
@@ -132,22 +134,33 @@ export default function BetEventClient({ id }: { id: string }) {
     const { data } = useSuspenseQuery({
         queryKey: ['polymarketGammaEndpoint', id, fallbackEventSlug, fallbackConditionId],
         async queryFn() {
-            const result = await polymarketGammaEndpoint.getMarketBySlug(id);
-            if (result.ok) return result;
+            const eventSlugToTry = fallbackEventSlug || id;
+            const [result, parentEvent] = await Promise.all([
+                polymarketGammaEndpoint.getMarketBySlug(id),
+                getFireflyEndpoint().getPolymarketEventBySlug(eventSlugToTry),
+            ]);
+            if (result.ok)
+                return {
+                    ...result,
+                    data: {
+                        ...result.data,
+                        parentEvent,
+                    },
+                };
 
             // Fallback: resolve market via event slug + conditionId (from Positions).
             // Try fallbackEventSlug first, then id itself (in case id is an event slug).
-            const eventSlugToTry = fallbackEventSlug || id;
-            const eventResult = await polymarketGammaEndpoint.getEventBySlug(eventSlugToTry);
-            const markets = eventResult.ok ? (eventResult.data?.markets ?? []) : [];
+            const markets = parentEvent?.markets || [];
             const matched =
                 markets.find((m) => m?.conditionId === fallbackConditionId) ?? markets.find((m) => Boolean(m?.slug));
             if (matched) {
                 return {
                     ok: true,
-                    status: eventResult.status ?? 200,
-                    data: matched,
-                    raw: eventResult.raw,
+                    status: 200,
+                    data: {
+                        ...matched,
+                        parentEvent,
+                    },
                 };
             }
 
@@ -165,7 +178,7 @@ export default function BetEventClient({ id }: { id: string }) {
                 const price = Number.isFinite(p) && p > 0 && p < 1 ? p : 0.5;
                 return { outcome, bestBid: price, bestAsk: price };
             });
-            const resolvedImage = market.image || first(market.events)?.image || null;
+            const resolvedImage = market.image || market.parentEvent?.image || null;
             return {
                 ...market,
                 resolvedImage,
@@ -212,6 +225,10 @@ export default function BetEventClient({ id }: { id: string }) {
             };
         });
     }, [data?.outcomeOptions, data?.parsedTokenIds, prices, orderBooks]);
+    const pageConfig = useMemo(
+        () => (data ? resolveBetEventPageConfig(data.parentEvent, data.conditionId) : null),
+        [data],
+    );
 
     const tokenIds = data?.parsedTokenIds ?? [];
     const safeOutcomeIndex = Math.min(
@@ -226,7 +243,13 @@ export default function BetEventClient({ id }: { id: string }) {
             : null;
 
     const outcomePrices = outcomeOptions[safeOutcomeIndex];
-    const outcome = outcomeOptions[safeOutcomeIndex]?.outcome ?? '';
+    const fallbackOutcome = outcomeOptions[safeOutcomeIndex]?.outcome ?? '';
+    const outcome =
+        (safeOutcomeIndex === 0
+            ? pageConfig?.leftTitle
+            : safeOutcomeIndex === 1
+              ? pageConfig?.rightTitle
+              : undefined) || fallbackOutcome;
 
     const outcomeAvgPriceForFee = useMemo(() => {
         const raw = data?.parsedOutcomePrices?.[safeOutcomeIndex];
@@ -517,7 +540,7 @@ export default function BetEventClient({ id }: { id: string }) {
                     type="button"
                     className="grid grid-cols-[40px_1fr] items-center gap-2 text-left"
                     onClick={() => {
-                        const eventSlug = first(data.events ?? [])?.slug || fallbackEventSlug;
+                        const eventSlug = data?.parentEvent?.slug || fallbackEventSlug;
                         iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
                             path: `/polymarket/event/${eventSlug}`,
                         });
@@ -537,7 +560,7 @@ export default function BetEventClient({ id }: { id: string }) {
                             <RandomIcon width={40} height={40} className="rounded-lg outline outline-lightLineSecond" />
                         )}
                     </div>
-                    <div className="text-sm font-semibold">{data?.question || id}</div>
+                    <div className="text-sm font-semibold">{pageConfig?.pageTitle || data?.question || id}</div>
                 </button>
                 <Button size="icon" variant="ghost" onClick={() => navigate({ to: '/bet', replace: true })}>
                     <CloseIcon width={24} height={24} className="size-6" />
@@ -583,17 +606,36 @@ export default function BetEventClient({ id }: { id: string }) {
                 {outcomeOptions.map(({ outcome, bestAsk, bestBid }, i) => {
                     const displayPrice = side === Side.Buy ? bestAsk : bestBid;
                     const tokenId = tokenIds[i];
+                    const bgColor =
+                        i === safeOutcomeIndex
+                            ? i === 0
+                                ? pageConfig?.leftColor || '#48AD3C'
+                                : i === 1
+                                  ? pageConfig?.rightColor || '#FF564D'
+                                  : '#8B5CF6'
+                            : undefined;
+                    const outcomeLabel =
+                        i === 0
+                            ? pageConfig?.leftTitle || outcome
+                            : i === 1
+                              ? pageConfig?.rightTitle || outcome
+                              : outcome;
+
                     return (
                         <Button
                             key={tokenId ? `${tokenId}-${i}` : `${outcome}-${i}`}
                             variant="secondary"
-                            colorPattern={
-                                i === safeOutcomeIndex ? ((['success', 'danger'] as const)[i] ?? 'purple') : undefined
-                            }
                             onClick={() => setQueryParams({ outcome: i })}
-                            className="min-w-0 justify-start overflow-hidden"
+                            className={cn('min-w-0 justify-start overflow-hidden', bgColor ? 'text-white' : '')}
+                            style={
+                                bgColor
+                                    ? {
+                                          backgroundColor: bgColor,
+                                      }
+                                    : undefined
+                            }
                         >
-                            <span className="min-w-0 flex-1 truncate text-left">{outcome}</span>
+                            <span className="min-w-0 flex-1 truncate text-left">{outcomeLabel}</span>
                             {!isUndefined(displayPrice) ? (
                                 <span className="ml-1 shrink-0 whitespace-nowrap">
                                     {removeTrailingZeros(((displayPrice === 1 ? 0 : displayPrice) * 100).toFixed(1))}¢

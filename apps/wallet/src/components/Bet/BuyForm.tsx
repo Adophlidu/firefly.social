@@ -215,7 +215,7 @@ export function BuyMarketForm({
     loading?: boolean;
     submitDisabled?: boolean;
     feesEnabled?: boolean | null;
-    feeSchedule?: { rate?: string | null } | null;
+    feeSchedule?: { rate?: number | null } | null;
     /** Gamma outcome price (0–1) for fee math; mirrors Android `conditionOutcomes` price. */
     outcomeAvgPriceForFee?: number;
 }) {

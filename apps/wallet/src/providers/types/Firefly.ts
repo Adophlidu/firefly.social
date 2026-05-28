@@ -871,3 +871,131 @@ export interface PolymarketOrderBookData {
     tick_size: string;
     neg_risk: boolean;
 }
+
+export interface PolymarketTeam {
+    id?: number;
+    name?: string;
+    league?: string;
+    logo?: string;
+    abbreviation?: string;
+    color?: string;
+    record?: string;
+    alias?: string;
+}
+
+export interface PolymarketMarket {
+    id: string;
+    question: string;
+    conditionId: string;
+    slug: string;
+    startDate?: string;
+    endDate: string;
+    createdAt: string;
+    liquidity: string;
+    image: string;
+    icon: string;
+    description: string;
+    outcomes: string;
+    outcomePrices: string;
+    volume: string;
+    active: boolean;
+    closed: boolean;
+    new: boolean;
+    negRisk: boolean;
+    umaResolutionStatus: string;
+    umaResolutionStatuses: string;
+    groupItemTitle: string;
+    groupItemThreshold: string;
+    clobTokenIds: string;
+    oneDayPriceChange: string;
+    oneWeekPriceChange: string;
+    events: PolymarketEvent[];
+    orderPriceMinTickSize: string;
+    bestAsk?: number;
+    bestBid?: number;
+    eventStartTime?: string;
+    /** Sport fields */
+    gameId?: number;
+    sportsMarketType?: string;
+    line?: number;
+    teamAID?: number;
+    teamBID?: number;
+    teams?: PolymarketTeam[];
+    groupItemRange?: string;
+    feesEnabled?: boolean;
+    feeSchedule?: {
+        exponent: number;
+        rate: number;
+        rebateRate: number;
+        takerOnly: boolean;
+    };
+}
+
+export interface PolymarketEvent {
+    id: string;
+    slug: string;
+    title: string;
+    description: string;
+    startDate: string;
+    creationDate: string;
+    endDate: string;
+    image: string;
+    icon: string;
+    active: boolean;
+    closed: boolean;
+    archived: boolean;
+    new: boolean;
+    liquidity: string;
+    volume: string;
+    openInterest: string;
+    createdAt: string;
+    updatedAt: string;
+    negRisk: boolean;
+    sortBy: string;
+    markets: PolymarketMarket[];
+    series: unknown[];
+    seriesSlug?: string;
+    tags: MarketTag[];
+    startTime?: string;
+    eventMetadata?: {
+        priceToBeat?: number;
+        finalPrice?: number;
+    };
+    /** Sport fields */
+    live?: boolean;
+    ended?: boolean;
+    gameId?: number;
+    score?: string;
+    period?: string;
+    elapsed?: string;
+    gameStatus?: string;
+    finishedTimestamp?: string;
+    spreadsMainLine?: number;
+    totalsMainLine?: number;
+    score_show?: unknown[];
+    score_type?: unknown;
+    period_show?: string;
+    drawTeams?: PolymarketTeam[];
+    isDraw?: boolean;
+    winResult?: number;
+    leagueName?: string;
+    leagueId?: string;
+    sportId?: string;
+    livestream_info?: unknown;
+}
+
+export interface SportEventData {
+    gameId: number;
+    live: boolean;
+    ended: boolean;
+    homeTeam: PolymarketTeam;
+    awayTeam: PolymarketTeam;
+    period?: string;
+    startTime?: string;
+    winResult?: number;
+    isDraw: boolean;
+    leagueName?: string;
+    leagueSlug?: string;
+    spreadsMainLine?: number;
+    totalsMainLine?: number;
+}

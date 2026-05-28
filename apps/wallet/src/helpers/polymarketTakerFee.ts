@@ -10,7 +10,7 @@ const MARKET_SHARES_DECIMALS = 18;
  */
 export function parsePolymarketTakerFeeRate(
     feesEnabled?: boolean | null,
-    feeSchedule?: { rate?: string | null } | null,
+    feeSchedule?: { rate?: number | null } | null,
 ): BigNumber {
     if (!feesEnabled || !feeSchedule?.rate) return BigNumber(0);
     const r = BigNumber(feeSchedule.rate);
