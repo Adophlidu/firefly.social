@@ -53,7 +53,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             {
                                 href: PageRoute.Explore,
                                 name: <Trans>Explore</Trans>,
-                                match: () => pathname.startsWith(PageRoute.Explore),
+                                match: () =>
+                                    [PageRoute.Explore, PageRoute.PredictionCategory].some((p) =>
+                                        pathname.startsWith(p),
+                                    ),
                             },
                             {
                                 href: PageRoute.Notifications,

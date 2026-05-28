@@ -323,6 +323,7 @@ export enum PageRoute {
     Sparks = '/sparks',
     MysteryBox = '/mystery-box',
     WorldCup = '/world-cup',
+    PredictionCategory = '/prediction/category',
 }
 
 export enum HomeTab {
