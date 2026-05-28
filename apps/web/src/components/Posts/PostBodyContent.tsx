@@ -3,7 +3,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@dimensiondev/constants/computed';
 import { MIN_CHAR_LENGTH_TO_TRANSLATE, RP_HASH_TAG } from '@dimensiondev/constants/static';
-import { PageRoute, Source, STATUS } from '@dimensiondev/enums';
+import { PageRoute, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -44,7 +44,6 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export interface PostBodyContentProps {
     post: Post;
@@ -85,7 +84,6 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
 
     const router = useRouter();
     const mounted = useMounted();
-    const currentTwitterProfileSession = useTwitterProfileStore.use.currentProfileSession();
     const { metadata, author } = post;
     const postRawContent = metadata.content?.content;
     // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable
@@ -163,10 +161,9 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const hasEncryptedPayload = !!redPacketMetadata;
     const EncryptedContent = useMemo(() => {
         if (!seen || isInCompose || !redPacketMetadata) return null;
-        if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
 
         return <RedPacketCard post={post} payload={redPacketMetadata as RedPacketJSONPayload} />;
-    }, [seen, isInCompose, redPacketMetadata, post, currentTwitterProfileSession]);
+    }, [seen, isInCompose, redPacketMetadata, post]);
 
     if (post.isHidden || (muted && !isProfilePage)) {
         return (
