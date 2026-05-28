@@ -15,6 +15,7 @@ import type { TransactionOrVersionedTransaction } from '@reown/appkit-adapter-so
 import type { AnyTransaction, Provider } from '@reown/appkit-utils/solana';
 import {
     BaseMessageSignerWalletAdapter,
+    isVersionedTransaction,
     scopePollingDetectionStrategy,
     type SendTransactionOptions,
     type SupportedTransactionVersions,
@@ -237,7 +238,7 @@ class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
                 },
             });
             const bytes = bs58.decode(serialized);
-            if (transaction instanceof web3.VersionedTransaction) {
+            if (isVersionedTransaction(transaction)) {
                 return web3.VersionedTransaction.deserialize(bytes) as T;
             }
             return web3.Transaction.from(bytes) as T;
