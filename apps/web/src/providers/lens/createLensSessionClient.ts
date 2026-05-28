@@ -2,7 +2,7 @@ import { SessionType, Source } from '@dimensiondev/enums';
 import { type AccessToken, type IdToken, mainnet, PublicClient, type RefreshToken } from '@lens-protocol/client';
 
 import { SessionExpiredError } from '@/constants/error.js';
-import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
+import { EVENT_FIREFLY_SESSION_EXPIRED } from '@/constants/event.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
@@ -69,7 +69,7 @@ async function retryOnAutoRefreshError(error: unknown) {
         };
     } catch (error) {
         if (error instanceof SessionExpiredError) {
-            dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
+            dispatchCustomEvent(EVENT_FIREFLY_SESSION_EXPIRED, {
                 source: Source.Lens,
             });
         }

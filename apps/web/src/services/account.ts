@@ -8,7 +8,7 @@ import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SessionExpiredError } from '@/constants/error.js';
-import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
+import { EVENT_FIREFLY_SESSION_EXPIRED } from '@/constants/event.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
@@ -448,7 +448,7 @@ export async function switchAccount(
         session = await ensureSessionIsValid(session);
     } catch (error) {
         if (error instanceof SessionExpiredError) {
-            dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, { account });
+            dispatchCustomEvent(EVENT_FIREFLY_SESSION_EXPIRED, { account });
             throw error;
         }
     }

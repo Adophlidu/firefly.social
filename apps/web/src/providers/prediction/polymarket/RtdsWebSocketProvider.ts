@@ -126,7 +126,7 @@ export class RtdsWebSocketProvider {
     }
 
     private sendSubscription() {
-        if (!this.ws || this.ws.readyState !== WebSocket.OPEN || !this.symbol) return;
+        if (this.ws?.readyState !== WebSocket.OPEN || !this.symbol) return;
 
         this.ws.send(
             JSON.stringify({
@@ -145,7 +145,7 @@ export class RtdsWebSocketProvider {
     private startPing() {
         this.cleanupPing();
         this.pingInterval = window.setInterval(() => {
-            if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+            if (this.ws?.readyState === WebSocket.OPEN) {
                 this.ws.send('PING');
             }
         }, PING_INTERVAL_MS);
@@ -167,7 +167,7 @@ export class RtdsWebSocketProvider {
         this.callback = callback;
         this.historyCallback = historyCallback ?? null;
 
-        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        if (this.ws?.readyState === WebSocket.OPEN) {
             this.sendSubscription();
             return;
         }

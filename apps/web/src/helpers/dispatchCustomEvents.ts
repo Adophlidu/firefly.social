@@ -1,12 +1,12 @@
 import type { SocialSource } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 
-import type { EVENT_FORBIDDEN, EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
+import type { EVENT_FIREFLY_SESSION_EXPIRED, EVENT_FORBIDDEN } from '@/constants/event.js';
 import type { Account } from '@/providers/types/Account.js';
 
 interface CustomEvents {
     [EVENT_FORBIDDEN]: void;
-    [EVENT_SOCIAL_ACCOUNT_EXPIRED]: { account?: Account; removeFromStore?: boolean; source?: SocialSource };
+    [EVENT_FIREFLY_SESSION_EXPIRED]: { account?: Account; removeFromStore?: boolean; source?: SocialSource };
     'hls-player-play': HTMLVideoElement;
 }
 

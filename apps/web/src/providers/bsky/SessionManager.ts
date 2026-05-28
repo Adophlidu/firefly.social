@@ -3,7 +3,7 @@ import { isServer } from '@tanstack/react-query';
 
 import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
 import { SessionExpiredError } from '@/constants/error.js';
-import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
+import { EVENT_FIREFLY_SESSION_EXPIRED } from '@/constants/event.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
@@ -74,7 +74,7 @@ export class SessionManager {
             await this.refreshSession();
         } catch (err) {
             if (err instanceof SessionExpiredError) {
-                dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, { source: Source.Bsky });
+                dispatchCustomEvent(EVENT_FIREFLY_SESSION_EXPIRED, { source: Source.Bsky });
                 throw err;
             }
 

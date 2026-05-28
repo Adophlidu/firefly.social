@@ -130,7 +130,7 @@ export class MarketsWebSocketProvider {
     }
 
     private sendInitialSubscription() {
-        if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        if (this.ws?.readyState !== WebSocket.OPEN) {
             logger.warn('WebSocket is not open, cannot send initial subscription');
             return;
         }
@@ -151,7 +151,7 @@ export class MarketsWebSocketProvider {
         this.cleanupPingInterval();
 
         this.pingInterval = window.setInterval(() => {
-            if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+            if (this.ws?.readyState === WebSocket.OPEN) {
                 this.ws.send('PING');
             }
         }, 10000);
@@ -185,7 +185,7 @@ export class MarketsWebSocketProvider {
         if (newIds.length) this.assetsIds = [...this.assetsIds, ...newIds];
         this.onEventCallbacks.push(callback);
 
-        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        if (this.ws?.readyState === WebSocket.OPEN) {
             this.sendInitialSubscription();
             return;
         }

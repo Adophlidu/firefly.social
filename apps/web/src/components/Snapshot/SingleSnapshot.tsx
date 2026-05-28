@@ -5,6 +5,7 @@ import { useHover } from 'usehooks-ts';
 import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
+import { ShareButtonWithAnimationContext } from '@/components/Posts/ShareButton.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotActions } from '@/components/Snapshot/SnapshotActions.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
@@ -12,8 +13,6 @@ import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackC
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity, SnapshotProposal } from '@/providers/snapshot/type.js';
-
-import { ShareButtonWithAnimationContext } from '../Posts/ShareButton.js';
 
 function getProposalLink(proposal: SnapshotProposal) {
     return `https://snapshot.box/#/s:${proposal.space.id}/proposal/${proposal.id}`;

@@ -60,7 +60,7 @@ export const FifaCampAvatar = memo<FifaCampAvatarProps>(function FifaCampAvatar(
                 alt=""
                 width={Math.round(outerSize)}
                 height={Math.round(outerSize)}
-                className="absolute inset-0 z-[1] size-full"
+                className="absolute inset-0 z-1 size-full"
                 aria-hidden
                 decoding="async"
             />

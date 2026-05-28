@@ -3,7 +3,7 @@ import { bom, delay } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useEffect, useRef } from 'react';
 
-import { EVENT_FORBIDDEN, EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
+import { EVENT_FIREFLY_SESSION_EXPIRED, EVENT_FORBIDDEN } from '@/constants/event.js';
 import { listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { enqueueForbiddenMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -34,7 +34,7 @@ export function useWatchAccountChange() {
         );
 
         listenCustomEvent(
-            EVENT_SOCIAL_ACCOUNT_EXPIRED,
+            EVENT_FIREFLY_SESSION_EXPIRED,
             async (e) => {
                 const { account, removeFromStore = true, source } = e.detail;
                 if (!removeFromStore) return;

@@ -571,7 +571,7 @@ const SportMarketGroupCard = memo(function SportMarketGroupCard({
                 <SportLineSwitcher
                     options={lineOptions}
                     selectedKey={selectedOption?.key || ''}
-                    onSelect={(key) => void onLineChange(key)}
+                    onSelect={(key) => onLineChange(key)}
                     flushBottom={!active}
                 />
             ) : null}

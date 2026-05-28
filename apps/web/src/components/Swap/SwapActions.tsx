@@ -92,7 +92,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                 });
 
                 patchTransactionsQuery(Source.Swap, (data?: SwapActivity) => {
-                    if (data && data.hash === activity.hash) {
+                    if (data?.hash === activity.hash) {
                         data.repost_count = data.repost_count + 1;
                         data.is_repost = true;
                     }

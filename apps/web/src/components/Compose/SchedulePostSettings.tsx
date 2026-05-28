@@ -14,7 +14,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { CreateScheduleError, SessionExpiredError } from '@/constants/error.js';
-import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
+import { EVENT_FIREFLY_SESSION_EXPIRED } from '@/constants/event.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -86,7 +86,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
         } catch (error) {
             if (error instanceof SessionExpiredError && error.source === Source.Lens && currentLensProfile) {
                 const state = getProfileState(Source.Lens);
-                dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
+                dispatchCustomEvent(EVENT_FIREFLY_SESSION_EXPIRED, {
                     account: {
                         profile: currentLensProfile,
                         session: state.currentProfileSession as LensSession,

@@ -72,7 +72,7 @@ async function recoverCompositePost({
     const rpid = draftPost.rpPayload?.metadata?.rpid;
     if (draft.draftType === DraftPostType.Cloud && rpid) {
         const rpDetail = await runInSafeAsync(() => getHistoryDataById(rpid));
-        if (!rpDetail || rpDetail.redpacket_status !== FireflyRedPacketAPI.RedPacketStatus.Send) {
+        if (rpDetail?.redpacket_status !== FireflyRedPacketAPI.RedPacketStatus.Send) {
             post.rpPayload = null;
             return post;
         }
