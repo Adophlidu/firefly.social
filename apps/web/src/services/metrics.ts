@@ -80,7 +80,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
         const platform = item.metaInfo.platform;
         return {
             source: platform === 'bluesky' ? Source.Bsky : resolveSocialSource(platform),
-            metrics: { ...item },
+            metrics: item,
         };
     });
     for (const localMetric of validLocalMetrics) {
@@ -204,22 +204,20 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     now,
                     FAKE_SIGNER_REQUEST_TOKEN,
                 );
+                if (!currentSession) sessionHolder.resumeSession(session);
+
                 const account = {
                     profile,
                     session,
                     origin: 'sync',
                 } satisfies Account;
-                if (!currentSession) {
-                    sessionHolder.resumeSession(session);
-                }
+                profileState.addAccount(account, !currentSession);
                 captureAccountLoginEvent(account);
 
-                profileState.addAccount(account, !currentSession);
                 if (!currentSession) {
                     await runInSafeAsync(() => getProfileState(source)?.refreshCurrentAccount(false));
                 }
                 newAccounts.push(account);
-
                 break;
             }
             case Source.Twitter: {

@@ -6,7 +6,12 @@ import { decodeAsciiPayload, decodeNoAsciiPayload } from '@/helpers/encodeSessio
 import { logger } from '@/libs/Logger.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflySession, FireflySessionPayload, type FireflySessionSignature } from '@/providers/firefly/Session.js';
+import {
+    FireflyJwtPayload,
+    FireflySession,
+    FireflySessionPayload,
+    type FireflySessionSignature,
+} from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -98,6 +103,8 @@ export class SessionFactory {
         const fourthPart = fragments[4] ?? '';
         // for firefly session, the fifth part is the payload in base64 encoded
         const fifthPart = fragments[5] ?? '';
+        // for firefly session, the sixth part is the FireflyJwtPayload in base64 encoded
+        const sixthPart = fragments[6] ?? '';
 
         const session = parseJson<{
             type: SessionType;
@@ -149,7 +156,7 @@ export class SessionFactory {
                 }
                 case SessionType.Bsky: {
                     const u = parseUrl(atob(secondPart));
-                    if (!u) throw new Error('Failed to parse service URL.');
+                    if (!u) throw new Error('[SessionFactory] Failed to parse bluesky service URL.');
 
                     const parsed = BskySessionPayload.safeParse(decodeAsciiPayload(thirdPart));
                     if (!parsed.success) throw new Error(parsed.error.message);
@@ -162,22 +169,34 @@ export class SessionFactory {
                         parsed.data,
                     );
                 }
-                case SessionType.Firefly:
+                case SessionType.Firefly: {
                     const parsed = FireflySessionPayload.safeParse(fifthPart ? decodeNoAsciiPayload(fifthPart) : {});
                     if (!parsed.success) throw new Error(parsed.error.message);
+
+                    const signature = thirdPart
+                        ? (decodeAsciiPayload<z.infer<typeof FireflySessionSignature>>(thirdPart) ?? null)
+                        : null;
+
+                    const payload = {
+                        ...parsed.data,
+                        isNew: fourthPart === '1',
+                    };
+
+                    const jwtPayloadParsed = sixthPart
+                        ? FireflyJwtPayload.safeParse(decodeAsciiPayload(sixthPart))
+                        : undefined;
+                    if (jwtPayloadParsed && !jwtPayloadParsed.success) throw new Error(jwtPayloadParsed.error.message);
+
                     return new FireflySession(
                         session.profileId,
-                        session.token,
+                        session.token, // @deprecated
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
-                        thirdPart
-                            ? (decodeAsciiPayload<z.infer<typeof FireflySessionSignature>>(thirdPart) ?? null)
-                            : null, // signature
+                        signature,
                         false, // @deprecated
-                        {
-                            ...parsed.data,
-                            isNew: fourthPart === '1',
-                        }, // payload
+                        payload,
+                        jwtPayloadParsed?.data,
                     );
+                }
                 case SessionType.Apple:
                 case SessionType.Google:
                 case SessionType.Email:

@@ -54,6 +54,13 @@ export function createProfileState(
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
+
+                // internal use only
+                __setStatus__: (status) =>
+                    set((state) => {
+                        state.status = status;
+                    }),
+
                 addAccount: (account, setAsCurrent) =>
                     set((state) => {
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
@@ -147,10 +154,10 @@ export function createProfileState(
                     const { currentProfile: profile } = get();
                     if (!profile) return;
 
-                    const session = refreshSession ? await provider.refreshSession?.() : null;
-
                     const updatedProfile = await provider.refreshProfile?.(profile);
                     if (!updatedProfile) return;
+
+                    const session = refreshSession ? await provider.refreshSession?.() : null;
 
                     set((state) => {
                         state.currentProfile = updatedProfile;
@@ -166,11 +173,6 @@ export function createProfileState(
                         });
                     });
                 },
-                // internal use only
-                __setStatus__: (status) =>
-                    set((state) => {
-                        state.status = status;
-                    }),
                 upgrade: () =>
                     set((state) => {
                         if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {

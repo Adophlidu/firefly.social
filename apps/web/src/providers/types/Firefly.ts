@@ -427,6 +427,12 @@ export type ThreadResponse = Response<{
 export type LoginResponse = Response<{
     accessToken: string;
     accountId: string; // uuid
+    /** Firefly JWT v3 access token (1h TTL). Use this over accessToken when present. */
+    access_token_v3?: string;
+    /** Firefly JWT v3 refresh token (7d TTL, rotated on each use). */
+    refresh_token_v3?: string;
+    /** Session ID for tracking; not used in Authorization headers. */
+    session_id?: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     isNew: boolean;

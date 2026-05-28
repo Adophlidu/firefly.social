@@ -25,14 +25,14 @@ function encryptCipherText(passcode: string, text: string) {
 
 async function getMetricsDataToUpload(account: Account) {
     const platform = resolveSocialSourceInUrl(account.profile.source);
-    // twitter metrics data will be uploaded in server directly, and bsky metrics data is not supported now
+    // twitter metrics data will be uploaded to server directly, and bsky metrics data is not supported now
     if (platform === SourceInURL.Bsky || platform === SourceInURL.Twitter) return null;
 
-    const commonData: CommonMetricsData = {
+    const commonData = {
         platform,
         profile_id: account.profile.profileId,
         login_time: Date.now().toString(),
-    };
+    } satisfies CommonMetricsData;
 
     switch (account.profile.source) {
         case Source.Lens: {
@@ -71,14 +71,15 @@ export async function getAccountMetricsData(account: Account, passcode: string):
     if (source === Source.Bsky) return null;
 
     const platform = resolveSocialSourceInUrl(source) as MetricsMetaInfo['platform'];
-    const metaInfo: MetricsMetaInfo = {
+    const metaInfo = {
         platform,
         profileId: account.profile.profileId,
         profileHandle: account.profile.handle,
         name: account.profile.displayName || '',
         avatar: account.profile.pfp || '',
         loginTime: Date.now().toString(),
-    };
+    } satisfies MetricsMetaInfo;
+
     if (source === Source.Twitter) {
         return {
             source,

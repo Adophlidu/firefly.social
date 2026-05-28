@@ -3,12 +3,15 @@ import { bom, delay } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useEffect, useRef } from 'react';
 
-import { EVENT_FIREFLY_SESSION_EXPIRED, EVENT_FORBIDDEN } from '@/constants/event.js';
+import { EVENT_FIREFLY_SESSION_EXPIRED, EVENT_FIREFLY_SESSION_REFRESHED, EVENT_FORBIDDEN } from '@/constants/event.js';
 import { listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { enqueueForbiddenMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { removeAccountByProfileId, removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function useWatchAccountChange() {
     const isForbiddenErrorRef = useRef(false);
@@ -52,6 +55,17 @@ export function useWatchAccountChange() {
                 if (message) {
                     enqueueWarningMessage(message);
                 }
+            },
+            { signal: abortController.signal },
+        );
+
+        listenCustomEvent(
+            EVENT_FIREFLY_SESSION_REFRESHED,
+            (e) => {
+                const session = SessionFactory.createSession<FireflySession>(e.detail);
+                const state = useFireflyProfileStore.getState();
+                const account = state.accounts.find((a) => a.session.profileId === session.profileId);
+                if (account) state.updateCurrentAccount({ ...account, session });
             },
             { signal: abortController.signal },
         );
