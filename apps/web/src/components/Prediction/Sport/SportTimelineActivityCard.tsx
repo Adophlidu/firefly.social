@@ -239,34 +239,17 @@ function TeamLogo({ team }: { team: TeamViewModel }) {
     );
 }
 
-function TeamColumn({
-    team,
-    outcome,
-    isLoser,
-    slug,
-    showButton,
-}: {
-    team: TeamViewModel;
-    outcome: OutcomeViewModel;
-    isLoser?: boolean;
-    slug?: string;
-    showButton: boolean;
-}) {
+function TeamColumn({ team, isLoser }: { team: TeamViewModel; isLoser?: boolean }) {
     return (
         <div
-            className={classNames(
-                'flex h-full min-w-0 flex-col items-center justify-center gap-2 text-center',
-                showButton ? 'justify-between' : '',
-                { 'opacity-40': !!isLoser },
-            )}
+            className={classNames('flex h-full min-w-0 flex-col items-center justify-center gap-2 text-center', {
+                'opacity-40': !!isLoser,
+            })}
         >
-            <div className="flex min-w-0 flex-col items-center justify-center gap-2">
-                <TeamLogo team={team} />
-                <p className="line-clamp-2 min-h-4 w-full break-words text-[13px] font-semibold leading-4 text-lightMain">
-                    {team.name}
-                </p>
-            </div>
-            {showButton ? <SportTimelineOutcomeButton slug={slug} outcome={outcome} /> : null}
+            <TeamLogo team={team} />
+            <p className="line-clamp-2 min-h-4 w-full break-words text-[10px] font-semibold leading-4 text-lightMain md:text-[13px]">
+                {team.name}
+            </p>
         </div>
     );
 }
@@ -360,7 +343,7 @@ function StatusLine({ activity }: { activity: BetsActivity }) {
                 {sport.periodShow ? (
                     <>
                         <span className="size-1.5 rounded-full bg-danger" />
-                        <span className="text-lightMain">{sport.periodShow}</span>
+                        <span className="whitespace-nowrap text-lightMain">{sport.periodShow}</span>
                     </>
                 ) : null}
             </div>
@@ -377,7 +360,7 @@ function StatusLine({ activity }: { activity: BetsActivity }) {
 
     const startTime = formatStartTime(activity);
     return startTime ? (
-        <div className="flex h-6 items-center justify-center text-xs font-medium leading-[14px] text-lightMain">
+        <div className="flex h-6 items-center justify-center whitespace-nowrap text-[10px] font-medium leading-[14px] text-lightMain md:text-xs">
             {startTime}
         </div>
     ) : null;
@@ -394,14 +377,10 @@ function MetaLine({ activity }: { activity: BetsActivity }) {
 function CenterColumn({
     activity,
     outcomes,
-    drawOutcome,
-    showButton,
     winner,
 }: {
     activity: BetsActivity;
     outcomes: OutcomeViewModel[];
-    drawOutcome?: OutcomeViewModel;
-    showButton: boolean;
     winner?: 'home' | 'away' | 'draw';
 }) {
     const sport = activity.sportData;
@@ -418,13 +397,10 @@ function CenterColumn({
     }
 
     return (
-        <div className="flex h-full min-w-0 flex-col items-center justify-center gap-2 text-center">
+        <div className="flex h-full min-w-0 flex-col items-center justify-center gap-1 text-center md:gap-2">
             {topContent}
             <StatusLine activity={activity} />
             <MetaLine activity={activity} />
-            {showButton && drawOutcome ? (
-                <SportTimelineOutcomeButton slug={activity.rawData?.slug || activity.slug} outcome={drawOutcome} />
-            ) : null}
         </div>
     );
 }
@@ -438,7 +414,7 @@ function SportTimelineOutcomeButton({ slug, outcome }: { slug?: string; outcome:
 
     return (
         <ClickableButton
-            className="flex h-9 w-full max-w-32 items-center justify-center gap-1 overflow-hidden rounded-lg px-2 text-sm leading-6 disabled:opacity-60"
+            className="flex h-9 w-full items-center justify-center gap-1 overflow-hidden rounded-lg px-2 text-xs leading-6 disabled:opacity-60 md:text-sm"
             style={
                 outcome.draw
                     ? { backgroundColor: DRAW_BACKGROUND, color: 'var(--color-light-main, #181818)' }
@@ -453,7 +429,7 @@ function SportTimelineOutcomeButton({ slug, outcome }: { slug?: string; outcome:
                 handleOpenPredictionPage();
             }}
         >
-            <span className="min-w-0 truncate font-medium opacity-80">{outcome.label}</span>
+            <span className="min-w-0 truncate font-medium uppercase opacity-80">{outcome.label}</span>
             <span className="shrink-0 font-bold">{formatPriceCents(outcome.price)}</span>
         </ClickableButton>
     );
@@ -502,39 +478,21 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
               }
             : undefined;
     const outcomes = drawOutcome ? [homeOutcome, drawOutcome, awayOutcome] : [homeOutcome, awayOutcome];
-    const showTennisScore = (sport.scoreType === 2 || (sport.scoreShow?.length ?? 0) > 1) && !!sport.scoreShow?.length;
-    const rowHeightClass = isFinal && !showTennisScore ? 'min-h-[90px]' : 'min-h-[125px]';
 
     return (
-        <div className="mt-1.5 rounded-2xl border border-line p-4">
-            <div
-                className={classNames(
-                    'grid w-full grid-cols-[minmax(84px,156px)_minmax(88px,1fr)_minmax(84px,156px)] items-center gap-2',
-                    rowHeightClass,
-                )}
-            >
-                <TeamColumn
-                    team={homeTeam}
-                    outcome={homeOutcome}
-                    isLoser={winner === 'away'}
-                    slug={slug}
-                    showButton={canShowButtons}
-                />
-                <CenterColumn
-                    activity={activity}
-                    outcomes={outcomes}
-                    drawOutcome={drawOutcome}
-                    showButton={Boolean(canShowButtons && drawOutcome)}
-                    winner={winner}
-                />
-                <TeamColumn
-                    team={awayTeam}
-                    outcome={awayOutcome}
-                    isLoser={winner === 'home'}
-                    slug={slug}
-                    showButton={canShowButtons}
-                />
+        <div className="mt-1.5 rounded-2xl border border-line p-3 md:p-4">
+            <div className="grid w-full grid-cols-[minmax(84px,156px)_minmax(88px,1fr)_minmax(84px,156px)] items-center gap-2">
+                <TeamColumn team={homeTeam} isLoser={winner === 'away'} />
+                <CenterColumn activity={activity} outcomes={outcomes} winner={winner} />
+                <TeamColumn team={awayTeam} isLoser={winner === 'home'} />
             </div>
+            {canShowButtons ? (
+                <div className={classNames('mt-2 grid gap-2', drawOutcome ? 'grid-cols-3' : 'grid-cols-2')}>
+                    <SportTimelineOutcomeButton slug={slug} outcome={homeOutcome} />
+                    {drawOutcome ? <SportTimelineOutcomeButton slug={slug} outcome={drawOutcome} /> : null}
+                    <SportTimelineOutcomeButton slug={slug} outcome={awayOutcome} />
+                </div>
+            ) : null}
         </div>
     );
 });
