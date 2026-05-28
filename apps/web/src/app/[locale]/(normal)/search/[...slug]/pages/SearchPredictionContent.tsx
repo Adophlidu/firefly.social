@@ -10,6 +10,7 @@ import {
 } from '@/app/[locale]/(normal)/search/[...slug]/pages/useSearchPredictionContent.js';
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { SearchPredictionEventStatusTabs } from '@/components/Search/SearchPredictionEventStatusTabs.js';
 import { capturePolymarketSearchEventClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import { useSearchPredictionFilterStore } from '@/store/useSearchPredictionFilterStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -43,19 +44,22 @@ export function SearchPredictionContent() {
     const queryResult = useSearchPredictionContent(searchKeyword, source, eventStatus, selector);
 
     return (
-        <div className="px-4 py-2">
-            <ListInPage
-                queryResult={queryResult}
-                source={Source.Prediction}
-                VirtualListProps={{
-                    listKey: `${ScrollListKey.Prediction}:explore:${source}`,
-                    computeItemKey: (index, item) => `${item.id}-${index}`,
-                    itemContent: getBetsItemContent,
-                }}
-                NoResultsFallbackProps={{
-                    message: <Trans>No predictions found</Trans>,
-                }}
-            />
-        </div>
+        <>
+            <SearchPredictionEventStatusTabs className="lg:hidden" />
+            <div className="px-4 py-2">
+                <ListInPage
+                    queryResult={queryResult}
+                    source={Source.Prediction}
+                    VirtualListProps={{
+                        listKey: `${ScrollListKey.Prediction}:explore:${source}`,
+                        computeItemKey: (index, item) => `${item.id}-${index}`,
+                        itemContent: getBetsItemContent,
+                    }}
+                    NoResultsFallbackProps={{
+                        message: <Trans>No predictions found</Trans>,
+                    }}
+                />
+            </div>
+        </>
     );
 }

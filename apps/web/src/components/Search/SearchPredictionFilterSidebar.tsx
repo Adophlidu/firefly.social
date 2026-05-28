@@ -12,6 +12,7 @@ import {
 } from '@/app/[locale]/(normal)/search/[...slug]/pages/useSearchPredictionContent.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { SEARCH_PREDICTION_EVENT_STATUS_OPTIONS } from '@/components/Search/SearchPredictionEventStatusTabs.js';
 import type { PredictionSearchTag } from '@/providers/firefly/prediction/searchPrediction.js';
 import {
     type SearchPredictionEventStatus,
@@ -70,6 +71,7 @@ function selector(data: SearchPredictionContentPagedData) {
 export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilterSidebar() {
     const { searchKeyword, searchType, updateState, source } = useSearchStateStore();
     const eventStatus = useSearchPredictionFilterStore.use.eventStatus();
+    const selectedStatus = eventStatus ?? 'active';
     const keyword = searchKeyword.trim();
 
     const result = useSearchPredictionContent(keyword, source, eventStatus, selector);
@@ -108,12 +110,11 @@ export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilte
                         <Trans>Event Status</Trans>
                     </h2>
                     <div className="mt-4 flex flex-col gap-1">
-                        <StatusRow value="active" selected={eventStatus}>
-                            <Trans>Active</Trans>
-                        </StatusRow>
-                        <StatusRow value="resolved" selected={eventStatus}>
-                            <Trans>Resolved</Trans>
-                        </StatusRow>
+                        {SEARCH_PREDICTION_EVENT_STATUS_OPTIONS.map((option) => (
+                            <StatusRow key={option.value} value={option.value} selected={eventStatus}>
+                                {option.label}
+                            </StatusRow>
+                        ))}
                     </div>
                 </section>
             </div>
