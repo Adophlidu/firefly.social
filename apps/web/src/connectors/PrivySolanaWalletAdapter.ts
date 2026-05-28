@@ -225,7 +225,7 @@ class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
 
     async signTransaction<T extends web3.Transaction | web3.VersionedTransaction>(transaction: T): Promise<T> {
         try {
-            const signedTransaction = await this.bridgeRequest({
+            const serialized = await this.bridgeRequest({
                 method: SolanaMethod.SignTransaction,
                 params: {
                     transaction: bs58.encode(
@@ -236,7 +236,11 @@ class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
                     ),
                 },
             });
-            return web3.Transaction.from(bs58.decode(signedTransaction)) as T;
+            const bytes = bs58.decode(serialized);
+            if (transaction instanceof web3.VersionedTransaction) {
+                return web3.VersionedTransaction.deserialize(bytes) as T;
+            }
+            return web3.Transaction.from(bytes) as T;
         } catch (error: unknown) {
             this.emit('error', new WalletError('Failed to send transaction', error));
             throw error;

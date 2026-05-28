@@ -4,7 +4,7 @@ import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { NetworkType } from '@dimensiondev/enums';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
-import { rpSupportedChains } from '@dimensiondev/web3/chains';
+import { isSolanaChain, rpSupportedChains } from '@dimensiondev/web3/chains';
 import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import {
     isGreaterThan,
@@ -102,7 +102,7 @@ export default function MainView() {
     const totalAmount = multipliedBy(amount, isRandom ? 1 : shares);
     const minTotalAmount = new BigNumber(isRandom ? 1 : shares);
     const isDivisible = !totalAmount.dividedBy(shares).isLessThan(1);
-    const isEVM = networkType === NetworkType.Ethereum;
+    const isEVM = networkType === NetworkType.Ethereum && !isSolanaChain(chainId);
 
     const onTokenChange = useCallback(
         (token: FungibleToken<number, EthereumSchemaType>) => {

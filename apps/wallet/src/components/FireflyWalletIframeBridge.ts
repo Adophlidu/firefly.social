@@ -11,6 +11,7 @@ import {
 } from '@dimensiondev/iframe-bridge';
 import { delay, NotImplementedError, unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
+import { isVersionedTransaction } from '@solana/wallet-adapter-base';
 import { useNavigate, useRouter } from '@tanstack/react-router';
 import { getWalletClient } from '@wagmi/core';
 import bs58 from 'bs58';
@@ -297,9 +298,19 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
                     case SolanaMethod.SignTransaction: {
                         const params = p as SolanaRequestArguments[SolanaMethod.SignTransaction];
                         const txBytes = bs58.decode(params.transaction);
-                        const transaction = web3.VersionedTransaction.deserialize(txBytes);
+                        let transaction: web3.Transaction | web3.VersionedTransaction;
+                        try {
+                            transaction = web3.VersionedTransaction.deserialize(txBytes);
+                        } catch {
+                            transaction = web3.Transaction.from(txBytes);
+                        }
+
                         const signedTransaction = await privySolanaProvider.signTransaction(transaction);
-                        return bs58.encode(signedTransaction.signatures[0]);
+                        return bs58.encode(
+                            isVersionedTransaction(signedTransaction)
+                                ? Buffer.from(signedTransaction.serialize())
+                                : (signedTransaction as web3.Transaction).serialize(),
+                        );
                     }
                     default:
                         unreachable(method);

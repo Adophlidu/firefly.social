@@ -13,7 +13,7 @@ import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketCo
 import type { CreateRedPacketContext, CreateRedPacketParams } from '@/providers/ethereum/red-packet/types.js';
 
 export async function createRedPacketParams(context: CreateRedPacketContext) {
-    const { creator, duration, isRandom, message, name, shares, total, token, chainId, version, publicKey } = context;
+    const { creator, duration, isRandom, message, name, shares, total, token, chainId, publicKey } = context;
 
     const tokenAddress =
         token?.schema === EthereumSchemaType.Native ? getEvmNativeTokenAddress(chainId) : token?.address;
