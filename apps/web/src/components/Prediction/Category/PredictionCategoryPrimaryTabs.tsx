@@ -20,6 +20,7 @@ interface Props {
 function PrimaryTab({ item, isActive }: { item: PolymarketEventSlugListData; isActive: boolean }) {
     return (
         <Link
+            replace
             href={buildPredictionCategoryHrefForPrimary(item)}
             {...{ [PREDICTION_CATEGORY_SCROLL_KEY_ATTR]: item.slug }}
             className={classNames(

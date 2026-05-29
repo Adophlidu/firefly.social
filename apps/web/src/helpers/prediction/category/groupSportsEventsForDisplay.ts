@@ -43,10 +43,61 @@ function resolveLeagueSectionTitle(event: PolymarketSportsEvent): string {
     return t`Other`;
 }
 
+function resolveSportsEventVolume(event: PolymarketSportsEvent): number {
+    return event.volume || event.volume24hr || 0;
+}
+
+function resolveSportsEventStartTimeMs(event: PolymarketSportsEvent): number {
+    for (const market of event.markets ?? []) {
+        const sportsMarket = market as PolymarketSportsMarketData;
+        if (sportsMarket.sportsMarketType === 'moneyline' && sportsMarket.gameStartTime) {
+            const startMs = new Date(sportsMarket.gameStartTime).getTime();
+            if (!Number.isNaN(startMs)) return startMs;
+        }
+    }
+
+    const firstMarket = event.markets?.[0] as PolymarketSportsMarketData | undefined;
+    const startDate = firstMarket?.gameStartTime || event.startDate;
+    if (!startDate) return Number.POSITIVE_INFINITY;
+
+    const startMs = new Date(startDate).getTime();
+    return Number.isNaN(startMs) ? Number.POSITIVE_INFINITY : startMs;
+}
+
+function compareSportsEventsByStartTime(a: PolymarketSportsEvent, b: PolymarketSportsEvent): number {
+    const startDiff = resolveSportsEventStartTimeMs(a) - resolveSportsEventStartTimeMs(b);
+    return startDiff !== 0 ? startDiff : a.id.localeCompare(b.id);
+}
+
+function resolveLeagueSectionVolume(events: PolymarketSportsEvent[]): number {
+    let maxVolume = 0;
+    for (const event of events) {
+        const volume = resolveSportsEventVolume(event);
+        if (volume > maxVolume) maxVolume = volume;
+    }
+    return maxVolume;
+}
+
+function resolveLeagueSectionStartTimeMs(events: PolymarketSportsEvent[]): number {
+    let earliestStart = Number.POSITIVE_INFINITY;
+    for (const event of events) {
+        const startMs = resolveSportsEventStartTimeMs(event);
+        if (startMs < earliestStart) earliestStart = startMs;
+    }
+    return earliestStart;
+}
+
+interface GroupLiveSportsEventsByLeagueOptions {
+    /** Live leagues are ordered by highest event volume. */
+    sortLeaguesByVolume?: boolean;
+    /** Starting Soon leagues and events are ordered by earliest start time. */
+    sortByStartTime?: boolean;
+}
+
 export function groupLiveSportsListForDisplay(response: PolymarketSportsListResponse): LiveSportsListDisplay {
     const timeSections: LiveSportsTimeSection[] = [];
 
-    const liveLeagueSections = groupLiveSportsEventsByLeague(response.live);
+    const liveLeagueSections = groupLiveSportsEventsByLeague(response.live, { sortLeaguesByVolume: true });
     if (liveLeagueSections.length > 0) {
         timeSections.push({
             id: 'live',
@@ -55,7 +106,7 @@ export function groupLiveSportsListForDisplay(response: PolymarketSportsListResp
         });
     }
 
-    const startingSoonLeagueSections = groupLiveSportsEventsByLeague(response.today);
+    const startingSoonLeagueSections = groupLiveSportsEventsByLeague(response.today, { sortByStartTime: true });
     if (startingSoonLeagueSections.length > 0) {
         timeSections.push({
             id: 'starting-soon',
@@ -72,7 +123,10 @@ export function liveSportsListHasDisplayContent(response: PolymarketSportsListRe
     return groupLiveSportsListForDisplay(response).timeSections.length > 0;
 }
 
-export function groupLiveSportsEventsByLeague(events: PolymarketSportsEvent[]): SportsEventDisplaySection[] {
+export function groupLiveSportsEventsByLeague(
+    events: PolymarketSportsEvent[],
+    options?: GroupLiveSportsEventsByLeagueOptions,
+): SportsEventDisplaySection[] {
     const grouped = new Map<string, PolymarketSportsEvent[]>();
 
     for (const event of events) {
@@ -84,12 +138,24 @@ export function groupLiveSportsEventsByLeague(events: PolymarketSportsEvent[]): 
         grouped.set(title, list);
     }
 
-    return [...grouped.entries()]
-        .sort(([a], [b]) => a.localeCompare(b))
+    const entries = [...grouped.entries()];
+    const sortedEntries = options?.sortLeaguesByVolume
+        ? entries.sort(([titleA, eventsA], [titleB, eventsB]) => {
+              const volumeDiff = resolveLeagueSectionVolume(eventsB) - resolveLeagueSectionVolume(eventsA);
+              return volumeDiff !== 0 ? volumeDiff : titleA.localeCompare(titleB);
+          })
+        : options?.sortByStartTime
+          ? entries.sort(([titleA, eventsA], [titleB, eventsB]) => {
+                const startDiff = resolveLeagueSectionStartTimeMs(eventsA) - resolveLeagueSectionStartTimeMs(eventsB);
+                return startDiff !== 0 ? startDiff : titleA.localeCompare(titleB);
+            })
+          : entries.sort(([titleA], [titleB]) => titleA.localeCompare(titleB));
+
+    return sortedEntries
         .map(([title, sectionEvents]) => ({
             id: `league-${title}`,
             title,
-            events: sectionEvents,
+            events: options?.sortByStartTime ? [...sectionEvents].sort(compareSportsEventsByStartTime) : sectionEvents,
         }))
         .filter((section) => section.events.length > 0);
 }

@@ -12,19 +12,27 @@ import type {
     PolymarketSportsMarketData,
 } from '@/providers/types/Firefly.js';
 
-function displayableEvent(id: string, leagueName?: string, leagueId?: string): PolymarketSportsEvent {
+function displayableEvent(
+    id: string,
+    leagueName?: string,
+    leagueId?: string,
+    volume = 100,
+    gameStartTime?: string,
+): PolymarketSportsEvent {
     return {
         id,
         slug: id,
         leagueName,
         leagueId,
-        volume: 100,
+        volume,
+        startDate: gameStartTime,
         markets: [
             {
                 sportsMarketType: 'moneyline',
                 outcomes: '["Home","Away"]',
                 outcomePrices: '["0.4","0.6"]',
                 clobTokenIds: '["token-home","token-away"]',
+                gameStartTime,
             } as PolymarketSportsMarketData,
         ],
     } as PolymarketSportsEvent;
@@ -58,12 +66,41 @@ describe('groupLiveSportsEventsByLeague', () => {
 
         expect(sections).toEqual([]);
     });
+
+    it('orders leagues by highest event volume when sortLeaguesByVolume is enabled', () => {
+        const sections = groupLiveSportsEventsByLeague(
+            [
+                displayableEvent('low', 'EPL', undefined, 50),
+                displayableEvent('high', 'NBA', undefined, 500),
+                displayableEvent('mid', 'NHL', undefined, 200),
+            ],
+            { sortLeaguesByVolume: true },
+        );
+
+        expect(sections.map((section) => section.title)).toEqual(['NBA', 'NHL', 'EPL']);
+    });
+
+    it('orders leagues and events by start time when sortByStartTime is enabled', () => {
+        const sections = groupLiveSportsEventsByLeague(
+            [
+                displayableEvent('late-league', 'EPL', undefined, 100, '2026-05-20T22:00:00Z'),
+                displayableEvent('early-league', 'NBA', undefined, 100, '2026-05-20T18:00:00Z'),
+                displayableEvent('later-in-nba', 'NBA', undefined, 100, '2026-05-20T20:00:00Z'),
+                displayableEvent('earlier-in-nba', 'NBA', undefined, 100, '2026-05-20T19:00:00Z'),
+            ],
+            { sortByStartTime: true },
+        );
+
+        expect(sections.map((section) => section.title)).toEqual(['NBA', 'EPL']);
+        expect(sections[0]?.events.map((item) => item.id)).toEqual(['early-league', 'earlier-in-nba', 'later-in-nba']);
+        expect(sections[1]?.events.map((item) => item.id)).toEqual(['late-league']);
+    });
 });
 
 describe('groupLiveSportsListForDisplay', () => {
     it('builds Live and Starting Soon time blocks with league subgroups from event data', () => {
         const response = {
-            live: [displayableEvent('live-1', 'NBA'), displayableEvent('live-2', 'EPL')],
+            live: [displayableEvent('live-1', 'NBA', undefined, 500), displayableEvent('live-2', 'EPL', undefined, 50)],
             today: [displayableEvent('soon-1', 'NBA')],
             tomorrow: [displayableEvent('tomorrow-1', 'EPL')],
             afterTomorrow: [],
@@ -75,9 +112,9 @@ describe('groupLiveSportsListForDisplay', () => {
 
         expect(result.timeSections.map((section) => section.id)).toEqual(['live', 'starting-soon']);
         expect(result.timeSections[0]?.title).toBe('Live');
-        expect(result.timeSections[0]?.sportSections.map((section) => section.title)).toEqual(['EPL', 'NBA']);
-        expect(result.timeSections[0]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['live-2']);
-        expect(result.timeSections[0]?.sportSections[1]?.events.map((item) => item.id)).toEqual(['live-1']);
+        expect(result.timeSections[0]?.sportSections.map((section) => section.title)).toEqual(['NBA', 'EPL']);
+        expect(result.timeSections[0]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['live-1']);
+        expect(result.timeSections[0]?.sportSections[1]?.events.map((item) => item.id)).toEqual(['live-2']);
         expect(result.timeSections[1]?.title).toBe('Starting Soon');
         expect(result.timeSections[1]?.sportSections.map((section) => section.title)).toEqual(['NBA']);
         expect(result.timeSections[1]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['soon-1']);
@@ -95,6 +132,33 @@ describe('groupLiveSportsListForDisplay', () => {
 
         expect(groupLiveSportsListForDisplay(response).timeSections).toEqual([]);
         expect(liveSportsListHasDisplayContent(response)).toBe(false);
+    });
+
+    it('sorts Starting Soon leagues and events by start time', () => {
+        const response = {
+            live: [],
+            today: [
+                displayableEvent('soon-late-league', 'EPL', undefined, 100, '2026-05-20T22:00:00Z'),
+                displayableEvent('soon-early-league', 'NBA', undefined, 100, '2026-05-20T18:00:00Z'),
+                displayableEvent('soon-later', 'NBA', undefined, 100, '2026-05-20T20:00:00Z'),
+                displayableEvent('soon-earlier', 'NBA', undefined, 100, '2026-05-20T19:00:00Z'),
+            ],
+            tomorrow: [],
+            afterTomorrow: [],
+            closed: [],
+            timezone: 'UTC',
+        } as PolymarketSportsListResponse;
+
+        const startingSoonSection = groupLiveSportsListForDisplay(response).timeSections[0];
+
+        expect(startingSoonSection?.id).toBe('starting-soon');
+        expect(startingSoonSection?.sportSections.map((section) => section.title)).toEqual(['NBA', 'EPL']);
+        expect(startingSoonSection?.sportSections[0]?.events.map((item) => item.id)).toEqual([
+            'soon-early-league',
+            'soon-earlier',
+            'soon-later',
+        ]);
+        expect(startingSoonSection?.sportSections[1]?.events.map((item) => item.id)).toEqual(['soon-late-league']);
     });
 
     it('preserves event order within a league section', () => {

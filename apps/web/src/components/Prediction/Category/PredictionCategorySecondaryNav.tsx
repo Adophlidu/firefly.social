@@ -36,6 +36,7 @@ function isSecondaryChipActive(context: CategorySlugContext, slug: string): bool
 function SecondaryChipLink({ item, isActive }: { item: PolymarketEventSlugListData; isActive: boolean }) {
     return (
         <Link
+            replace
             href={buildPredictionCategoryHref(item)}
             {...{ [PREDICTION_CATEGORY_SCROLL_KEY_ATTR]: item.slug }}
             className={secondaryChipClassName(isActive)}

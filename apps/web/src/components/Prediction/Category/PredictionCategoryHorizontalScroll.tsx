@@ -7,6 +7,7 @@ import { t } from '@lingui/core/macro';
 import { memo, type PropsWithChildren, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { PREDICTION_CATEGORY_SCROLL_KEY_ATTR } from '@/helpers/prediction/category/getCategoryScrollKey.js';
+import { getNextHorizontalScrollLeft } from '@/helpers/prediction/category/getNextHorizontalScrollLeft.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 
 enum ScrollDirection {
@@ -108,9 +109,19 @@ export const PredictionCategoryHorizontalScroll = memo<Props>(function Predictio
     const onScrollTo = useCallback((direction: ScrollDirection) => {
         const element = scrollRef.current;
         if (!element) return;
+
+        const nextLeft = getNextHorizontalScrollLeft(
+            {
+                scrollLeft: element.scrollLeft,
+                clientWidth: element.clientWidth,
+                scrollWidth: element.scrollWidth,
+            },
+            direction === ScrollDirection.Left ? 'left' : 'right',
+        );
+
         element.scrollTo({
             behavior: 'smooth',
-            left: direction === ScrollDirection.Left ? 0 : element.scrollWidth,
+            left: nextLeft,
         });
     }, []);
 

@@ -60,6 +60,7 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                                     const isActive = isOpenBySelection && context.activeItem.slug === tertiary.slug;
                                     return (
                                         <Link
+                                            replace
                                             key={tertiary.slug}
                                             href={buildPredictionCategoryHref(tertiary, item)}
                                             className={classNames(

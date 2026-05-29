@@ -24,13 +24,37 @@ import { getCategoryHeaderLabel } from '@/helpers/prediction/category/formatPoly
 import { getDefaultSecondaryCategoryItem } from '@/helpers/prediction/category/getDefaultSecondaryCategoryItem.js';
 import { isSportsLiveCategoryContext } from '@/helpers/prediction/category/isSportsLiveCategoryContext.js';
 import type { CategoryRouteSearchParams } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
-import { resolveCategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
+import {
+    type CategorySlugContext,
+    resolveCategorySlugContext,
+} from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { shouldShowGamesPropsTabs, shouldShowGamesTab } from '@/helpers/prediction/category/shouldShowGamesTab.js';
 import { useCategoryGamesPropsAvailability } from '@/hooks/prediction/useCategoryGamesPropsAvailability.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
+import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
 interface Props {
     slug: string;
+}
+
+function PredictionCategoryStickyNav({
+    slugs,
+    context,
+}: {
+    slugs?: PolymarketEventSlugListData[];
+    context?: CategorySlugContext;
+}) {
+    return (
+        <div className="sticky top-0 z-30 bg-primaryBottom">
+            <PredictionCategoryToolbar />
+            {slugs && context ? (
+                <div className="flex flex-col gap-3">
+                    <PredictionCategoryPrimaryTabs slugs={slugs} context={context} />
+                    <PredictionCategorySecondaryNav context={context} />
+                </div>
+            ) : null}
+        </div>
+    );
 }
 
 export function PredictionCategoryPage({ slug }: Props) {
@@ -79,7 +103,7 @@ export function PredictionCategoryPage({ slug }: Props) {
         'tab',
         parseAsStringEnum<PredictionCategoryTab>([PREDICTION_CATEGORY_GAMES_TAB, PREDICTION_CATEGORY_PROPS_TAB])
             .withDefault(defaultTab)
-            .withOptions({ clearOnDefault: true }),
+            .withOptions({ clearOnDefault: true, history: 'replace' }),
     );
 
     const tabAvailability = useCategoryGamesPropsAvailability({
@@ -108,7 +132,7 @@ export function PredictionCategoryPage({ slug }: Props) {
     if (isPending || shouldRedirectToDefaultSecondary) {
         return (
             <div className="flex flex-col">
-                <PredictionCategoryToolbar />
+                <PredictionCategoryStickyNav />
                 <div className="flex justify-center py-16">
                     <Loading />
                 </div>
@@ -119,7 +143,7 @@ export function PredictionCategoryPage({ slug }: Props) {
     if (!context || !slugs) {
         return (
             <div className="flex flex-col">
-                <PredictionCategoryToolbar />
+                <PredictionCategoryStickyNav />
                 <NotFound />
             </div>
         );
@@ -130,11 +154,7 @@ export function PredictionCategoryPage({ slug }: Props) {
 
     return (
         <div className="flex flex-col">
-            <PredictionCategoryToolbar />
-            <div className="flex flex-col gap-3">
-                <PredictionCategoryPrimaryTabs slugs={slugs} context={context} />
-                <PredictionCategorySecondaryNav context={context} />
-            </div>
+            <PredictionCategoryStickyNav slugs={slugs} context={context} />
             {showCategoryHeader ? (
                 <PredictionCategoryHeader
                     title={headerTitle}

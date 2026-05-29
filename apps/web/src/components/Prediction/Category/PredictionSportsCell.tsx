@@ -11,7 +11,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
-import { Image } from '@/esm/Image.js';
+import { SportTeamAvatar } from '@/components/Prediction/Sport/SportTeamAvatar.js';
 import { useRouter } from '@/esm/navigation.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import {
@@ -215,13 +215,7 @@ const TeamInfoRow = memo<{
                     {team.score}
                 </span>
             ) : null}
-            {team.logo ? (
-                <div className="relative size-[30px] shrink-0 overflow-hidden rounded-lg">
-                    <Image unoptimized={false} quality={75} fill src={team.logo} alt="" className="object-cover" />
-                </div>
-            ) : (
-                <span className="size-9 shrink-0 rounded-lg bg-bg" aria-hidden />
-            )}
+            <SportTeamAvatar logo={team.logo} name={team.name} abbreviation={team.abbreviation} color={team.color} />
             <div className="flex min-w-0 items-center gap-2">
                 <span className="truncate text-sm font-semibold leading-[18px] text-main">{team.name}</span>
                 {team.record ? (
