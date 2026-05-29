@@ -47,11 +47,11 @@ describe('parseLiveSportsListRequest', () => {
         );
 
         expect(request).toEqual({
-            children_tag_slug: 'live-tag',
+            children_tag_slug: 'live',
             children_tag_slug_type: 'live',
             timezone: expect.any(String),
         });
-        expect(request.children_tag_slug).toBe('live-tag');
+        expect(request.children_tag_slug).toBe('live');
     });
 });
 
@@ -112,6 +112,21 @@ describe('parseSportsListRequest', () => {
         expect(request.children_tag_slug).toBe('sports');
         expect(request.children_tag_slug_type).toBe('sport');
         expect(request.children_children_tag_slug).toBeUndefined();
+    });
+
+    it('uses slug instead of slug_tag for games list requests', () => {
+        const nba = slugItem('nba', 'league', [], 'nba-tag-slug');
+
+        const request = parseSportsListRequest(
+            context({
+                depth: 2,
+                primaryItem: slugItem('sports', 'sport', [nba]),
+                secondaryItem: nba,
+                activeItem: nba,
+            }),
+        );
+
+        expect(request.children_tag_slug).toBe('nba');
     });
 });
 

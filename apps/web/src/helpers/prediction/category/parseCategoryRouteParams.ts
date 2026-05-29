@@ -11,7 +11,7 @@ export function parseLiveSportsListRequest(context: CategorySlugContext): Polyma
     const { activeItem } = context;
 
     return {
-        children_tag_slug: activeItem.slug_tag || activeItem.slug,
+        children_tag_slug: activeItem.slug,
         children_tag_slug_type: activeItem.type || undefined,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
@@ -26,9 +26,9 @@ export function parseSportsListRequest(
 
     if (depth === 3 && secondaryItem) {
         return {
-            children_tag_slug: secondaryItem.slug_tag || secondaryItem.slug,
+            children_tag_slug: secondaryItem.slug,
             children_tag_slug_type: secondaryItem.type || searchParams?.parentTagType || undefined,
-            children_children_tag_slug: activeItem.slug_tag || activeItem.slug,
+            children_children_tag_slug: activeItem.slug,
             children_children_tag_slug_type: activeItem.type || searchParams?.tagType || undefined,
             timezone,
         };
@@ -36,14 +36,14 @@ export function parseSportsListRequest(
 
     if (depth === 2) {
         return {
-            children_tag_slug: activeItem.slug_tag || activeItem.slug,
+            children_tag_slug: activeItem.slug,
             children_tag_slug_type: activeItem.type || searchParams?.tagType || undefined,
             timezone,
         };
     }
 
     return {
-        children_tag_slug: activeItem.slug_tag || activeItem.slug,
+        children_tag_slug: activeItem.slug,
         children_tag_slug_type: activeItem.type || searchParams?.tagType || undefined,
         timezone,
     };
