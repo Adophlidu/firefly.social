@@ -22,6 +22,7 @@ export function Title({ channel }: TitleProps) {
     const isMedium = useIsMedium();
 
     useMotionValueEvent(scrollY, 'change', (value) => {
+        if (document.body.style.position === 'fixed') return;
         setReached(value > 48);
     });
 
