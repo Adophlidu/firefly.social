@@ -25,7 +25,7 @@ export async function getGammaEvents({
     active = true,
     closed = false,
     archived = false,
-    order = 'volume24hr',
+    order = 'volume',
     ascending = false,
 }: GetGammaEventsOptions): Promise<PolymarketEventListData[]> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/gamma/events', {
