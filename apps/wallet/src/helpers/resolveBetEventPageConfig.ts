@@ -16,7 +16,7 @@ export function resolveBetEventPageConfig(event: PolymarketEvent, conditionId: s
         pageTitle,
         leftColor: leftTeam?.color,
         rightColor: rightTeam?.color,
-        leftTitle: leftTeam?.alias || leftTeam?.abbreviation || leftTeam?.name,
-        rightTitle: rightTeam?.alias || rightTeam?.abbreviation || rightTeam?.name,
+        leftTitle: leftTeam?.alias || leftTeam?.abbreviation?.toUpperCase() || leftTeam?.name,
+        rightTitle: rightTeam?.alias || rightTeam?.abbreviation?.toUpperCase() || rightTeam?.name,
     };
 }
