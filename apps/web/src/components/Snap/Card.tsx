@@ -18,10 +18,10 @@ import { enqueueErrorMessage, enqueueMessageFromError, enqueueWarningMessage } f
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
+import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { validateSnapStructure } from '@/helpers/snap.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -305,7 +305,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                             return;
                         }
 
-                        await ComposeModalRef.openAndWaitForClose({
+                        await openAndWaitForCloseComposeModal({
                             source: Source.Farcaster,
                             type: 'compose',
                             chars: action.params.text,

@@ -6,7 +6,8 @@ import { CoreProviderController } from '@reown/appkit';
 import type { Provider } from '@reown/appkit-utils/solana';
 
 import { WalletNotConnectedError } from '@/constants/error.js';
-import { type WalletConnectModalOpenProps, WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
+import { openAndWaitForCloseWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/refs.js';
 
 export function getWalletAdapter() {
     if (!('solana' in CoreProviderController.state.providers)) throw new WalletNotConnectedError();
@@ -28,7 +29,7 @@ export async function getWalletAdaptorRequired(openProps?: WalletConnectModalOpe
         if (error instanceof WalletNotConnectedError) {
             const { silent, ...modalOptions } = openProps || {};
             if (silent) throw error;
-            await WalletConnectModalRef.openAndWaitForClose({
+            await openAndWaitForCloseWalletConnectModal({
                 ...modalOptions,
                 networkType: NetworkType.Solana,
             });

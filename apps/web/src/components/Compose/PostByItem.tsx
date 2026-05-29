@@ -19,12 +19,13 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { closeComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccounts } from '@/hooks/useAccounts.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { CloseAction, ComposeModalRef } from '@/modals/ComposeModal/refs.js';
+import { CloseAction } from '@/modals/ComposeModal/refs.js';
 import { captureShareToChangeClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -118,7 +119,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                         const closeAction = await routeContext.onClose();
                         if (closeAction === CloseAction.None) return;
                     } else {
-                        ComposeModalRef.close();
+                        closeComposeModal();
                     }
                     await delay(300);
                     openLoginModalWithGuard({

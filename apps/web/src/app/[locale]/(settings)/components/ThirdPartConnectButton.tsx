@@ -10,8 +10,8 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { openAndWaitForCloseLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getTelegramLoginUrl } from '@/providers/firefly/auth/getTelegramLoginUrl.js';
 
 interface Props {
@@ -32,7 +32,7 @@ export function ThirdPartConnectButton({ source }: Props) {
                     await signIn(resolveSourceInUrl(source));
                     break;
                 case Source.Email:
-                    await LoginModalRef.openAndWaitForClose({
+                    await openAndWaitForCloseLoginModal({
                         source: Source.Email,
                     });
                     break;

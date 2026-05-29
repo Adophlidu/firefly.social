@@ -75,6 +75,7 @@ function resolveLeagueSectionVolume(events: PolymarketSportsEvent[]): number {
         const volume = resolveSportsEventVolume(event);
         if (volume > maxVolume) maxVolume = volume;
     }
+
     return maxVolume;
 }
 
@@ -84,6 +85,7 @@ function resolveLeagueSectionStartTimeMs(events: PolymarketSportsEvent[]): numbe
         const startMs = resolveSportsEventStartTimeMs(event);
         if (startMs < earliestStart) earliestStart = startMs;
     }
+
     return earliestStart;
 }
 

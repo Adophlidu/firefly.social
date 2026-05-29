@@ -16,6 +16,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
+import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveFireflyMention } from '@/helpers/resolveFireflyMention.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
@@ -23,7 +24,6 @@ import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
@@ -52,7 +52,7 @@ export function SuccessView() {
 
             const mentionChars = await getMentionCharsByIdentity(identity, post?.source);
             if (mentionChars) {
-                ComposeModalRef.openAndWaitForClose({
+                openAndWaitForCloseComposeModal({
                     type: post ? 'reply' : 'compose',
                     post,
                     source: post?.source,

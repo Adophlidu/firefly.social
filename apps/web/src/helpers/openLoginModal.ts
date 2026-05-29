@@ -2,12 +2,12 @@ import { SessionType, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { bom } from '@dimensiondev/utils';
 
-import { dispatchModalEvent } from '@/helpers/dispatchModalEvent.js';
+import { dispatchModalEvent, openAndWaitForCloseModalEvent } from '@/helpers/dispatchModalEvent.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
 import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/refs.js';
-import type { LoginModalOpenProps } from '@/modals/LoginModal/refs.js';
+import type { LoginModalCloseProps, LoginModalOpenProps } from '@/modals/LoginModal/refs.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export function openLoginModal(props: LoginModalOpenProps | void) {
@@ -16,6 +16,10 @@ export function openLoginModal(props: LoginModalOpenProps | void) {
 
 export function closeLoginModal() {
     dispatchModalEvent('login-modal', 'close', undefined);
+}
+
+export function openAndWaitForCloseLoginModal(props?: LoginModalOpenProps) {
+    return openAndWaitForCloseModalEvent('login-modal', props) as Promise<LoginModalCloseProps>;
 }
 
 export function openLoginModalWithGuard(props: LoginModalOpenProps | void, forceOpen = false) {

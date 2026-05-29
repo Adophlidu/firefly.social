@@ -21,9 +21,9 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { openAndWaitForCloseWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { updateCacheAfterAdd, updateCacheAfterDelete } from '@/helpers/updateVerifiedAddressesCache.js';
 import { WalletItem } from '@/modals/VerifiedAddressModal/WalletItem.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { deleteVerifiedAddress } from '@/providers/farcaster/deleteVerifiedAddress.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { verifyEthereumAddress, verifySolanaAddress } from '@/providers/farcaster/verifyAddress.js';
@@ -104,7 +104,7 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
             mutationFn: async () => {
                 if (!fid) throw new Error('FID is required for verification');
 
-                const selectedWallet = await WalletConnectModalRef.openAndWaitForClose({
+                const selectedWallet = await openAndWaitForCloseWalletConnectModal({
                     customTitle: t`Select Wallet`,
                 });
                 if (!selectedWallet) return null;

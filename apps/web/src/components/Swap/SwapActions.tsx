@@ -29,12 +29,12 @@ import { queryClient } from '@/configs/queryClient.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
@@ -65,7 +65,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             return;
         }
 
-        const result = await ComposeModalRef.openAndWaitForClose({
+        const result = await openAndWaitForCloseComposeModal({
             type: 'compose',
             chars: [
                 t`🔥 Spotted a smart swap on Firefly! One-tap copy trading now available. #OnChainSocial`,

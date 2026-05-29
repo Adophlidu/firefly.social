@@ -6,9 +6,9 @@ import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { openAndWaitForCloseWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import { AddWalletModalRef } from '@/modals/AddWalletModal/refs.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface AddWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {
@@ -35,7 +35,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
             onSuccess?.();
             return;
         }
-        const selectedWallet = await WalletConnectModalRef.openAndWaitForClose({ customTitle: t`Select Wallet` });
+        const selectedWallet = await openAndWaitForCloseWalletConnectModal({ customTitle: t`Select Wallet` });
         if (!selectedWallet) return;
 
         await handleBind(selectedWallet.networkType);

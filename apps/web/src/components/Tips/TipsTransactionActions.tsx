@@ -24,13 +24,13 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
+import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import type { ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { ShareImageModalRef } from '@/modals/ShareImageModal/refs.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
@@ -88,7 +88,7 @@ async function sharePost(
                   ],
               };
 
-    const result = await ComposeModalRef.openAndWaitForClose(options);
+    const result = await openAndWaitForCloseComposeModal(options);
     return !!result?.post;
 }
 

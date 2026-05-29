@@ -15,6 +15,7 @@ import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
+import { closeComposeModal } from '@/helpers/openComposeModal.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -22,7 +23,6 @@ import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { logger } from '@/libs/Logger.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { deleteCloudDraft } from '@/providers/firefly/cloud-draft/deleteCloudDraft.js';
 import { createAnonymousPost } from '@/services/createAnonymousPost.js';
 import { crossPost } from '@/services/crossPost.js';
@@ -91,7 +91,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     queryClient.invalidateQueries({ queryKey: ['cloud-drafts'] });
                 }
                 removeTempDrafts();
-                ComposeModalRef.close({
+                closeComposeModal({
                     post: postResult,
                 });
             } catch (error) {

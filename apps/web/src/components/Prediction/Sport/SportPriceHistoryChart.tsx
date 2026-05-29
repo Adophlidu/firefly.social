@@ -1,6 +1,6 @@
 'use client';
 
-import { BetsPriceTimeRange } from '@dimensiondev/enums';
+import type { BetsPriceTimeRange } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';

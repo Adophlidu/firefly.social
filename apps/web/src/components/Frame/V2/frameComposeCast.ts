@@ -2,12 +2,12 @@ import { Source } from '@dimensiondev/enums';
 import type { MiniAppHost } from '@farcaster/miniapp-host';
 
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
+import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
 import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 
 export const frameComposeCast = async function (options) {
-    const result = await ComposeModalRef.openAndWaitForClose({
+    const result = await openAndWaitForCloseComposeModal({
         source: Source.Farcaster,
         type: 'compose',
         chars: options.text,

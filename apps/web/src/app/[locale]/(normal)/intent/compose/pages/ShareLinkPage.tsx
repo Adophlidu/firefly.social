@@ -9,11 +9,11 @@ import { useEffect, useRef } from 'react';
 import { useRouter } from '@/esm/navigation.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
+import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
@@ -83,7 +83,7 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
         ?.map((x) => resolveSocialSourceFromFireflyPlatform(x.platform))
         ?.filter((x) => !!currentProfiles[x]?.profileId);
 
-    await ComposeModalRef.openAndWaitForClose({
+    await openAndWaitForCloseComposeModal({
         type: 'compose',
         source: expectedSources,
         chars: [

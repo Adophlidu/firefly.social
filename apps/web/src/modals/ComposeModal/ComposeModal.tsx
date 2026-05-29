@@ -24,6 +24,7 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
+import { closeComposeModal } from '@/helpers/openComposeModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useApplyTempDraftPost } from '@/hooks/useApplyDraftPost.js';
@@ -33,7 +34,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ComposeModalContext } from '@/modals/ComposeModal/context.js';
-import { CloseAction, ComposeModalRef } from '@/modals/ComposeModal/refs.js';
+import { CloseAction } from '@/modals/ComposeModal/refs.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
@@ -203,7 +204,7 @@ function ComposeModalUI({ ref }: Props) {
                     dispatch?.close();
                     return;
                 }
-                ComposeModalRef.close();
+                closeComposeModal();
                 enqueueSuccessMessage(<Trans>Your draft was saved.</Trans>);
                 captureComposeDraftPostEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, posts[0], {
                     draftId: draft.draftId,
