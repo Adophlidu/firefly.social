@@ -2,8 +2,8 @@ import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
 
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
-import { closeConfirmModal, openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { closeConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
+import { closeConfirmModal, openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { ConfirmLeavingModalRefType } from '@/modals/ConfirmLeavingModal/refs.js';
 
