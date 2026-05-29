@@ -66,7 +66,11 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     <Tips identity={identity} handle={article.author.handle || ens} onClick={close} pureWallet />
                 ) : null}
                 {url ? (
-                    <ShareAction link={url} onClick={() => captureArticleShareClickEvent(article.id, identity.id)} />
+                    <ShareAction
+                        link={url}
+                        cellType="article"
+                        onClick={() => captureArticleShareClickEvent(article.id, identity.id)}
+                    />
                 ) : null}
             </div>
         </div>

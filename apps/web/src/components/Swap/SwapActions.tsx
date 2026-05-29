@@ -38,6 +38,7 @@ import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
+import { captureShareIconClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 
 interface SwapActionsProps {
@@ -145,6 +146,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     button={
                         <Tooltip placement="top" content={<Trans>Share</Trans>}>
                             <motion.div
+                                onClick={() => captureShareIconClickEvent('Swap')}
                                 whileTap={{ scale: 0.9 }}
                                 className="inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
                             >

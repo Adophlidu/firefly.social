@@ -57,7 +57,7 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
                     className="hover:bg-fireflyBrand/[.20] inline-flex size-7 items-center justify-center rounded-full"
                     pureWallet
                 />
-                <ShareAction link={polymarketUrl} />
+                <ShareAction link={polymarketUrl} cellType="Prediction" />
             </div>
         </div>
     );

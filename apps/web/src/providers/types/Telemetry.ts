@@ -81,6 +81,7 @@ export enum EventId {
 
     // share id
     PAGE_LOAD_SHARE_ID_DETECTED = 'page_load_share_id_detected',
+    SHARE_ICON_CLICK = 'Share_icon_click',
 
     // poll
     CREATE_ORB_POLL_SUCCESS = 'orb_poll_create_success',
@@ -575,6 +576,13 @@ export interface Events extends Record<EventId, Event> {
     [EventId.PAGE_LOAD_SHARE_ID_DETECTED]: {
         type: EventType.Interact;
         parameters: {};
+    };
+    [EventId.SHARE_ICON_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            cell_type: string;
+        };
     };
 
     [EventId.ACCOUNT_CREATE_SUCCESS]: {

@@ -18,6 +18,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { captureShareIconClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -39,7 +40,10 @@ export const Share = memo<ShareProps>(function Share({ post, disabled = false, c
             button={
                 <Tooltip content={<Trans>Share</Trans>} placement="top" disabled={disabled}>
                     <motion.div
-                        onClick={() => capturePostActionEvent('share', post)}
+                        onClick={() => {
+                            captureShareIconClickEvent('Post');
+                            capturePostActionEvent('share', post);
+                        }}
                         whileTap={{ scale: 0.9 }}
                         className="group inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
                     >

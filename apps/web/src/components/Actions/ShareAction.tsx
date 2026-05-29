@@ -13,20 +13,25 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
+import { captureShareIconClickEvent, type ShareIconCellType } from '@/providers/telemetry/captureClickEvent.js';
 
 interface ShareActionProps {
     link: string;
     onClick?: () => void;
+    cellType?: ShareIconCellType;
 }
 
-export const ShareAction = memo(function ShareAction({ link, onClick }: ShareActionProps) {
+export const ShareAction = memo(function ShareAction({ link, onClick, cellType }: ShareActionProps) {
     return (
         <MoreActionMenu
             className="z-10"
             button={
                 <Tooltip content={<Trans>Share</Trans>} placement="top">
                     <motion.span
-                        onClick={onClick}
+                        onClick={() => {
+                            if (cellType) captureShareIconClickEvent(cellType);
+                            onClick?.();
+                        }}
                         whileTap={{ scale: 0.9 }}
                         className="inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link"
                     >
