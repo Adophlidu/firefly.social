@@ -3,7 +3,7 @@ import type { MiniAppHost } from '@farcaster/miniapp-host';
 
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
-import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
+import { closeFrameViewerModal } from '@/helpers/openFrameViewerModal.js';
 import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 
 export const frameComposeCast = async function (options) {
@@ -17,7 +17,7 @@ export const frameComposeCast = async function (options) {
     });
 
     if (options.close) {
-        FrameViewerModalRef.close();
+        closeFrameViewerModal();
         return;
     }
 

@@ -19,6 +19,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { openAndWaitForCloseRedPacketModal } from '@/helpers/openRedPacketModal.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
@@ -27,7 +28,6 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { captureRedPacketClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { Chars } from '@/types/chars.js';
@@ -63,7 +63,7 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
         }
         captureRedPacketClickEvent();
 
-        const result = await RedPacketModalRef.openAndWaitForClose();
+        const result = await openAndWaitForCloseRedPacketModal();
         if (result) {
             const compositePost = getCompositePost(cursor);
             const firstChar = compositePost?.chars[0];

@@ -21,10 +21,10 @@ import { useRouter as useNextRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { openEditFireflyProfileModal } from '@/helpers/openEditFireflyProfileModal.js';
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { openAndWaitForClosePasswordModal } from '@/helpers/openPasswordModal.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/refs.js';
 import { LogoutModalRef } from '@/modals/LogoutModal/refs.js';
 import { SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal/refs.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
@@ -94,7 +94,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                     <ClickableButton
                         className="h-5 cursor-pointer text-sm font-bold leading-5 text-highlight hover:underline"
                         onClick={() => {
-                            EditFireflyProfileModalRef.open({
+                            openEditFireflyProfileModal({
                                 profile,
                                 connections,
                             });
@@ -124,7 +124,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                             <MenuButton
                                 className="w-full"
                                 onClick={() => {
-                                    EditFireflyProfileModalRef.open({
+                                    openEditFireflyProfileModal({
                                         profile,
                                         connections,
                                     });

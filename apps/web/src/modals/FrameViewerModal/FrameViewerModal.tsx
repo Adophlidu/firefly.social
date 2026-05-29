@@ -20,6 +20,7 @@ const FrameViewerModalContent = dynamic(() => import('@/modals/FrameViewerModal/
 export function FrameViewerModal({ ref }: Props) {
     const [props, setProps] = useState<FrameViewerModalOpenProps | null>(null);
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'frame-viewer-modal',
         onOpen(props) {
             setProps(props);
         },

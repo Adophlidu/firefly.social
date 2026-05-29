@@ -45,6 +45,7 @@ interface Props {
 export function RedPacketModal({ ref }: Props) {
     const routerRef = useRef(createRedPacketRouter());
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'red-packet-modal',
         onOpen: async (props) => {
             const initialEntries = props?.initialPath ? [props.initialPath] : ['/main'];
             routerRef.current = createRedPacketRouter(initialEntries);

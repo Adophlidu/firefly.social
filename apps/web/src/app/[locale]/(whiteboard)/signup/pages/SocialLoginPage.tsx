@@ -24,9 +24,9 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openSignInWithFireflyAppModal } from '@/helpers/openSignInWithFireflyAppModal.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal/refs.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
 import { resumeFireflySession } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -143,7 +143,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
                                 }
                                 title={<Trans>Firefly Mobile</Trans>}
                                 description={<Trans>Scan QR code to access your account</Trans>}
-                                onLogin={() => SignInWithFireflyAppModalRef.open()}
+                                onLogin={() => openSignInWithFireflyAppModal()}
                             />
                             <QrScanLogin
                                 logo={<OrbLogo className="shrink-0" width={40} height={40} />}

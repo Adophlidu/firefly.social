@@ -28,6 +28,7 @@ export function EditFireflyProfileModal({ ref }: Props) {
     const [profile, setProfile] = useState<FireflyAccountProfile | undefined>(undefined);
     const [connections, setConnections] = useState<AllConnections | undefined>(undefined);
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'edit-firefly-profile-modal',
         onOpen: (props) => {
             if (props.profile) setProfile(props.profile ?? undefined);
             setConnections(props.connections);

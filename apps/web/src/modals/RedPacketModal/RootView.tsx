@@ -5,8 +5,8 @@ import { Trans } from '@lingui/react/macro';
 import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-router';
 
 import { BackButton, CloseButton } from '@/components/IconButton.js';
+import { closeRedPacketModal } from '@/helpers/openRedPacketModal.js';
 import { RedPacketProvider } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 
 export function RootView() {
     const router = useRouter();
@@ -35,7 +35,7 @@ export function RootView() {
                         <CloseButton
                             className="!p-0"
                             onClick={() => {
-                                RedPacketModalRef.close();
+                                closeRedPacketModal();
                             }}
                         />
                     ) : (

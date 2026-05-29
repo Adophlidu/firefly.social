@@ -35,12 +35,12 @@ import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
+import { openRedPacketModal } from '@/helpers/openRedPacketModal.js';
 import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
-import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -153,7 +153,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                 <ClickableArea
                     className="absolute right-3 top-3 z-10 flex cursor-pointer items-center justify-center text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] text-sm font-bold leading-4 opacity-75 backdrop-blur-[5px]"
                     onClick={() => {
-                        RedPacketModalRef.open({
+                        openRedPacketModal({
                             initialPath: urlcat('/detail', {
                                 rpid: payload.rpid,
                                 networkType,

@@ -20,6 +20,7 @@ import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
+import { openSignInWithFireflyAppModal } from '@/helpers/openSignInWithFireflyAppModal.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -30,7 +31,6 @@ import { CurrentProfilesCard } from '@/modals/LoginModal/CurrentProfilesCard.js'
 import { FireflyAccount } from '@/modals/LoginModal/FireflyAccount.js';
 import { LensCurrentProfilesCard } from '@/modals/LoginModal/LensCurrentProfilesCard.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/refs.js';
-import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal/refs.js';
 import { getTelegramLoginUrl } from '@/providers/firefly/auth/getTelegramLoginUrl.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import { captureMobileQrLoginClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
@@ -54,7 +54,7 @@ function FireflyLoginButton() {
             onClick={() => {
                 closeLoginModal();
                 captureMobileQrLoginClickEvent();
-                SignInWithFireflyAppModalRef.open();
+                openSignInWithFireflyAppModal();
             }}
         >
             <FireflyAvatar className="size-[40px] shrink-0" width={40} height={40} />

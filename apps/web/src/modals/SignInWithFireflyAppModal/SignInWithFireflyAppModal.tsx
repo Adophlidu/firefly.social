@@ -36,7 +36,7 @@ function generateOTP() {
 }
 
 export const SignInWithFireflyAppModal = memo(function SignInWithFireflyAppModal({ ref }: Props) {
-    const [open, dispatch] = useSingletonModal(ref);
+    const [open, dispatch] = useSingletonModal(ref, { name: 'sign-in-with-firefly-app-modal' });
     const queryClient = useQueryClient();
     const onClose = useCallback(async () => {
         dispatch?.close();

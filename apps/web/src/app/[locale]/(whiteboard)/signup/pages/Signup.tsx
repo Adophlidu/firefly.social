@@ -18,9 +18,9 @@ import { SuccessPage } from '@/app/[locale]/(whiteboard)/signup/pages/SuccessPag
 import { queryClient } from '@/configs/queryClient.js';
 import { useRouter } from '@/esm/navigation.js';
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
+import { closeSignInWithFireflyAppModal } from '@/helpers/openSignInWithFireflyAppModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
-import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal/refs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -107,7 +107,7 @@ export function Signup({ initialStep }: SignupProps) {
 
     if (hasFireflyAccount && !hasFinished.current && !isSyncing && !isSyncingMetrics) {
         closeLoginModal();
-        SignInWithFireflyAppModalRef.close();
+        closeSignInWithFireflyAppModal();
         router.replace(PageRoute.FollowingPosts);
     }
 

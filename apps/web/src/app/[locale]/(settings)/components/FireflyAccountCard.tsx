@@ -13,10 +13,10 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { openEditFireflyProfileModal } from '@/helpers/openEditFireflyProfileModal.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/refs.js';
 import { LogoutModalRef } from '@/modals/LogoutModal/refs.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
@@ -51,7 +51,7 @@ export function FireflyAccountCard() {
                                   <ClickableButton
                                       className="font-semibold text-highlight hover:underline"
                                       onClick={() => {
-                                          EditFireflyProfileModalRef.open({
+                                          openEditFireflyProfileModal({
                                               profile: account,
                                               connections: data?.__origin__,
                                           });
@@ -100,7 +100,7 @@ export function FireflyAccountCard() {
                                             <MenuButton
                                                 className="w-full"
                                                 onClick={() => {
-                                                    EditFireflyProfileModalRef.open({
+                                                    openEditFireflyProfileModal({
                                                         profile: account,
                                                         connections: data?.__origin__,
                                                     });

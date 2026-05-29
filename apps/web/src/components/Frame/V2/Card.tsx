@@ -12,11 +12,11 @@ import { Image } from '@/components/Image.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getCurrentProfileFromStorage, type StateProfile } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { closeFrameViewerModal, openFrameViewerModal } from '@/helpers/openFrameViewerModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/libs/Logger.js';
-import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
@@ -77,7 +77,7 @@ function createFrameHost(
         frame: () => frame,
         ready: (options) => {
             logger.debug('[frame host]: ready options', JSON.stringify(options));
-            return FrameViewerModalRef.open({
+            return openFrameViewerModal({
                 ready: true,
                 frame,
                 frameHost,
@@ -95,7 +95,7 @@ function createFrameHost(
         },
         close: () => {
             logger.debug('[frame host]: close');
-            FrameViewerModalRef.close();
+            closeFrameViewerModal();
         },
         setPrimaryButton: options?.setPrimaryButton,
         viewCast: (hash) => {
@@ -108,7 +108,7 @@ function createFrameHost(
         },
         openMiniApps: (frame: FrameV2) => {
             logger.debug('[frame host]: openMiniApps', frame);
-            FrameViewerModalRef.open({
+            openFrameViewerModal({
                 ready: false,
                 frame,
                 frameHost: createFrameHost(frame, post, router, { profile }),
@@ -150,7 +150,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
 
         captureFrameActionEvent('click', frame);
 
-        FrameViewerModalRef.open({
+        openFrameViewerModal({
             ready: false,
             frame,
             frameHost,

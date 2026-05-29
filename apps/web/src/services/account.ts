@@ -17,13 +17,13 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
+import { openAndWaitForCloseConfirmFireflyModal } from '@/helpers/openConfirmFireflyModal.js';
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { logger } from '@/libs/Logger.js';
-import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal/refs.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { reportFarcasterSigner } from '@/providers/firefly/farcaster-account/reportFarcasterSigner.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
@@ -255,7 +255,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     if (!skipResumeFireflyAccounts && fireflySession && !belongsTo) {
         closeLoginModal();
 
-        const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
+        const confirmed = await openAndWaitForCloseConfirmFireflyModal({
             account,
         });
 
@@ -373,7 +373,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
                 ? true
                 : isSameSession(fireflySession, currentFireflySession);
         if (!belongsTo) {
-            const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmFireflyModal({
                 account: accounts[0]!,
             });
             if (currentFireflySession?.profileId) {

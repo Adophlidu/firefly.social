@@ -24,6 +24,7 @@ import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatCurrency } from '@/helpers/formatCurrency.js';
 import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
+import { closeRedPacketModal } from '@/helpers/openRedPacketModal.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
@@ -35,7 +36,6 @@ import {
     redPacketCoverTabs,
     redPacketFontColorTabs,
 } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { createPublicKey } from '@/providers/firefly/red-packet/createPublicKey.js';
 import { createTheme as createFireflyTheme } from '@/providers/firefly/red-packet/createTheme.js';
@@ -448,7 +448,7 @@ export default memo(function ConfirmView() {
                     onClick={async () => {
                         const coverImageUrl = await handleCreate();
                         // Technically, the encrypted cover image is all we need.
-                        RedPacketModalRef.close(coverImageUrl);
+                        closeRedPacketModal(coverImageUrl);
                     }}
                     loading={creatingRedPacket || creatingTheme || loading}
                 >

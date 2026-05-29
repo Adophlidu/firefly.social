@@ -48,6 +48,31 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'confirm-firefly-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'frame-viewer-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'edit-firefly-profile-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'sign-in-with-firefly-app-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'red-packet-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
     'draggable-popover': {
         open?: unknown;
         close?: unknown;
