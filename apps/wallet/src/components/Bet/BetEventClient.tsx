@@ -3,7 +3,7 @@ import CloseIcon from '@dimensiondev/assets/close.svg';
 import SwapIcon from '@dimensiondev/assets/doube-arrow.svg';
 import RandomIcon from '@dimensiondev/assets/random-firefly.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { parseJson, removeTrailingZeros } from '@dimensiondev/utils';
+import { parseJson, removeTrailingZeros, runInSafeAsync } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -134,11 +134,11 @@ export default function BetEventClient({ id }: { id: string }) {
     const { data } = useSuspenseQuery({
         queryKey: ['polymarketGammaEndpoint', id, fallbackEventSlug, fallbackConditionId],
         async queryFn() {
-            const eventSlugToTry = fallbackEventSlug || id;
-            const [result, parentEvent] = await Promise.all([
-                polymarketGammaEndpoint.getMarketBySlug(id),
+            const result = await polymarketGammaEndpoint.getMarketBySlug(id);
+            const eventSlugToTry = first(result?.data?.events)?.slug || fallbackEventSlug || id;
+            const parentEvent = await runInSafeAsync(() =>
                 getFireflyEndpoint().getPolymarketEventBySlug(eventSlugToTry),
-            ]);
+            );
             if (result.ok)
                 return {
                     ...result,
@@ -226,7 +226,7 @@ export default function BetEventClient({ id }: { id: string }) {
         });
     }, [data?.outcomeOptions, data?.parsedTokenIds, prices, orderBooks]);
     const pageConfig = useMemo(
-        () => (data ? resolveBetEventPageConfig(data.parentEvent, data.conditionId) : null),
+        () => (data?.parentEvent ? resolveBetEventPageConfig(data.parentEvent, data.conditionId) : null),
         [data],
     );
 
