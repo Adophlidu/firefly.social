@@ -14,12 +14,11 @@ export function useIntersectionObserver<T extends Element>(
 
     const customRef = useCallback<RefCallback<T>>(
         (node) => {
-            if (!node) return;
             if (previousObserver.current) {
                 previousObserver.current.disconnect();
                 previousObserver.current = null;
             }
-            if (node.nodeType !== Node.ELEMENT_NODE) return;
+            if (!node || node.nodeType !== Node.ELEMENT_NODE) return;
             const observer = new IntersectionObserver(
                 ([entry]) => {
                     setEntry(entry);

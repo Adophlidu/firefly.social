@@ -84,23 +84,22 @@ export const PredictionContextProvider = memo<PropsWithChildren<PredictionContex
             if (!firstOutcome) return;
 
             const provider = new MarketsWebSocketProvider();
-            provider.subscribeToMarket(
-                [firstOutcome.id],
-                debounce((message?: MarketMessage) => {
-                    if (!message) return;
+            const debouncedHandler = debounce((message?: MarketMessage) => {
+                if (!message) return;
 
-                    if (
-                        !isArray(message) &&
-                        isObject(message) &&
-                        message.event_type === 'price_change' &&
-                        message.price_changes.length
-                    ) {
-                        setMarketPrices(message.price_changes);
-                    }
-                }, 300),
-            );
+                if (
+                    !isArray(message) &&
+                    isObject(message) &&
+                    message.event_type === 'price_change' &&
+                    message.price_changes.length
+                ) {
+                    setMarketPrices(message.price_changes);
+                }
+            }, 300);
+            provider.subscribeToMarket([firstOutcome.id], debouncedHandler);
 
             return () => {
+                debouncedHandler.cancel();
                 provider.close();
             };
         }, [marketId, updatedEvent.markets]);

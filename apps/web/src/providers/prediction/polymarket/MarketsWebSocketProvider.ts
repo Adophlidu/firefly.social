@@ -42,6 +42,7 @@ export class MarketsWebSocketProvider {
     private pingInterval: number | null = null;
     private assetsIds: string[] = [];
     private onEventCallbacks: Set<(message?: MarketMessage) => void> = new Set();
+    private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
 
     private connect() {
         const fullUrl = `${POLYMARKET_WS_URL}/ws/${MARKET_CHANNEL}`;
@@ -64,7 +65,8 @@ export class MarketsWebSocketProvider {
         this.reconnectAttempts += 1;
         const delay = this.reconnectDelay * this.reconnectAttempts;
 
-        setTimeout(() => {
+        this.reconnectTimer = setTimeout(() => {
+            this.reconnectTimer = null;
             if (!this.isConnected) {
                 logger.info(`Attempting to reconnect... (Attempt ${this.reconnectAttempts})`);
                 this.connect();
@@ -159,6 +161,11 @@ export class MarketsWebSocketProvider {
 
     public close(): void {
         logger.info('Closing WebSocket connection');
+
+        if (this.reconnectTimer !== null) {
+            clearTimeout(this.reconnectTimer);
+            this.reconnectTimer = null;
+        }
 
         this.cleanupPingInterval();
 
