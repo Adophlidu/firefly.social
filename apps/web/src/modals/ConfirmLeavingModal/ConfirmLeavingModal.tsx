@@ -2,9 +2,9 @@ import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
 
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
+import { closeConfirmModal, openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConfirmLeavingModalRef, type ConfirmLeavingModalRefType } from '@/modals/ConfirmLeavingModal/refs.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 
 const WHITELIST: Array<string | ((url: string) => boolean)> = [
     (url) => isSameOriginUrl(url, location.origin),
@@ -21,13 +21,13 @@ export function ConfirmLeavingModal({ ref }: Props) {
             // urls in the whitelist will not trigger the modal
             if (WHITELIST.some((x) => (typeof x === 'function' ? x(url) : isSameOriginUrl(url, x)))) {
                 setTimeout(() => {
-                    ConfirmModalRef.close(true);
+                    closeConfirmModal(true);
                     ConfirmLeavingModalRef.close(true);
                 }, 100);
                 return;
             }
 
-            ConfirmModalRef.open({
+            openConfirmModal({
                 title: <Trans>Leaving Firefly</Trans>,
                 content: (
                     <div className="text-main">
@@ -38,11 +38,11 @@ export function ConfirmLeavingModal({ ref }: Props) {
                     </div>
                 ),
                 onConfirm() {
-                    ConfirmModalRef.close(true);
+                    closeConfirmModal(true);
                     ConfirmLeavingModalRef.close(true);
                 },
                 onCancel() {
-                    ConfirmModalRef.close(false);
+                    closeConfirmModal(false);
                     ConfirmLeavingModalRef.close(false);
                 },
             });

@@ -15,9 +15,9 @@ import { Link } from '@/components/Link.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
@@ -49,7 +49,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
             return;
         }
         if (!isMuted) {
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Mute {walletHandle}</Trans>,
                 variant: 'normal',
                 content: (

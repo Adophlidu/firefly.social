@@ -9,7 +9,7 @@ import { useCountdown } from 'usehooks-ts';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
+import { closeConfirmModal, openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { deleteAccount } from '@/providers/firefly/auth/deleteAccount.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureAccountDeleteEvent } from '@/providers/telemetry/captureAccountEvent.js';
@@ -28,7 +28,7 @@ function CountdownButton() {
     return (
         <ClickableButton
             disabled={count > 0}
-            onClick={() => ConfirmModalRef.close(true)}
+            onClick={() => closeConfirmModal(true)}
             className={classNames(
                 'flex flex-1 items-center justify-center overflow-hidden rounded-full bg-commonDanger py-2 font-bold text-white',
             )}
@@ -41,7 +41,7 @@ function CountdownButton() {
 export function useDeleteFireflyAccount() {
     const router = useRouter();
     return useAsyncFn(async () => {
-        const confirmed = await ConfirmModalRef.openAndWaitForClose({
+        const confirmed = await openAndWaitForCloseConfirmModal({
             title: <Trans>Delete Firefly account?</Trans>,
             variant: 'danger',
             enableConfirmButton: false,

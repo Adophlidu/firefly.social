@@ -6,7 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { WalletItem } from '@/app/[locale]/(settings)/components/WalletItem.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 
@@ -23,7 +23,7 @@ export async function getRelatedProfiles({ identities }: FireflyWalletConnection
 export async function waitForDisconnectConfirmation(connection: FireflyWalletConnection) {
     const profiles = await getRelatedProfiles(connection);
 
-    return ConfirmModalRef.openAndWaitForClose({
+    return openAndWaitForCloseConfirmModal({
         title: <Trans>Disconnect</Trans>,
         content: (
             <div className="-mb-2.5 -mt-4">

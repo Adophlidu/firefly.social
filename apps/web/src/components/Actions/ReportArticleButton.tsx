@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { reportArticle } from '@/providers/firefly/report/reportArticle.js';
 import type { Article } from '@/providers/types/Article.js';
 
@@ -27,7 +27,7 @@ export function ReportArticleButton({ article, ref, onClick, ...rest }: Props) {
             {...rest}
             onClick={async (event) => {
                 onClick?.(event);
-                const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                const confirmed = await openAndWaitForCloseConfirmModal({
                     title: <Trans>Report article</Trans>,
                     content: (
                         <div className="text-main">

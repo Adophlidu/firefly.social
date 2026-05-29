@@ -12,8 +12,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { Link } from '@/esm/Link.js';
 import { useRouter } from '@/esm/navigation.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 
 interface ToggleEnableButtonProps {
     className?: string;
@@ -37,7 +37,7 @@ export const ToggleEnableButton = memo<ToggleEnableButtonProps>(function ToggleE
     const isHover = useHover(spanRef);
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
-        const confirmed = await ConfirmModalRef.openAndWaitForClose({
+        const confirmed = await openAndWaitForCloseConfirmModal({
             title: <Trans>Remove Truth Social</Trans>,
             variant: 'normal',
             content: (

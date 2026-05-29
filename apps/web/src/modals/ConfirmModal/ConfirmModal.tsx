@@ -18,6 +18,7 @@ export function ConfirmModal({ ref }: Props) {
     const [props, setProps] = useState<ConfirmModalOpenProps>();
 
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'confirm-modal',
         onOpen: (props) => {
             setProps({
                 ...props,

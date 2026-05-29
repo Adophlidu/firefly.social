@@ -13,9 +13,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Switch } from '@/components/Switch/index.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { resetPasscode } from '@/providers/firefly/metrics/resetPasscode.js';
@@ -45,7 +45,7 @@ function ToggleSyncSessionSwitch({
                     return;
                 }
 
-                const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                const confirmed = await openAndWaitForCloseConfirmModal({
                     title: <Trans>Turn off</Trans>,
                     variant: 'normal',
                     enableCancelButton: true,

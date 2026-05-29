@@ -22,13 +22,13 @@ import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { SchedulePostModalRef } from '@/modals/SchedulePostModal/refs.js';
 import { deleteScheduledPost } from '@/providers/firefly/post/deleteScheduledPost.js';
 import { getScheduledPosts } from '@/providers/firefly/post/getScheduledPosts.js';
@@ -62,7 +62,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
         try {
             if (!task.task_uuid) return;
 
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Delete</Trans>,
                 content: (
                     <div className="text-fourMain">

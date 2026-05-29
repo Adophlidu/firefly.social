@@ -18,6 +18,7 @@ import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
@@ -25,7 +26,6 @@ import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { getHistoryDataById } from '@/providers/firefly/red-packet/getHistoryDataById.js';
 import { getMaskTypedMessage } from '@/providers/firefly/red-packet/getMaskTypedMessage.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
@@ -283,7 +283,7 @@ export function useApplyTempDraftPost() {
             );
             if (isDisabled) return;
 
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Unsaved draft found</Trans>,
                 content: (
                     <div className="text-medium text-main md:text-base">

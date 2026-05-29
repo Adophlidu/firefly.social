@@ -8,8 +8,8 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
@@ -37,7 +37,7 @@ export function ReportProfileButton({ profile, ref, onConfirm, onClick, ...rest 
             disabled={loading}
             onClick={async (event) => {
                 onClick?.(event);
-                const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                const confirmed = await openAndWaitForCloseConfirmModal({
                     title: <Trans>Report @{profile.handle}</Trans>,
                     content: (
                         <div className="text-main">

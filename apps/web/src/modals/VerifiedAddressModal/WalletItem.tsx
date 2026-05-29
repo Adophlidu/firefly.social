@@ -4,8 +4,8 @@ import { Trans } from '@lingui/react/macro';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 
 interface WalletItemProps {
     address: string;
@@ -18,7 +18,7 @@ export function WalletItem({ address, isDeleting, onDisconnect }: WalletItemProp
     const { data: ensName } = useEnsName(isEthereumAddress ? address : undefined, isEthereumAddress);
     const handleDisconnect = async () => {
         if (!onDisconnect || isDeleting) return;
-        const confirmed = await ConfirmModalRef.openAndWaitForClose({
+        const confirmed = await openAndWaitForCloseConfirmModal({
             title: <Trans>Remove Address</Trans>,
             content: (
                 <div className="text-medium text-main md:text-base">

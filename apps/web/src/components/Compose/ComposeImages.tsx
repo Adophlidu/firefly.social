@@ -9,9 +9,9 @@ import { type HTMLProps, memo, useCallback } from 'react';
 import { SingleImage } from '@/components/Posts/SingleImage.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { MediaObject } from '@/types/compose.js';
 
@@ -57,7 +57,7 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
     const handleRemoveImage = useCallback(
         async (image: MediaObject) => {
             if (image.isRpPayloadImage) {
-                const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                const confirmed = await openAndWaitForCloseConfirmModal({
                     title: <Trans>Remove</Trans>,
                     content: (
                         <span className="text-center text-[15px] leading-normal text-secondary">

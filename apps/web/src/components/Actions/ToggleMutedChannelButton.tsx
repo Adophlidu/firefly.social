@@ -8,8 +8,8 @@ import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
@@ -42,7 +42,7 @@ export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
 
     const onToggle = async () => {
         if (!isMuted) {
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Mute /{channel.name}</Trans>,
                 content: (
                     <div className="text-main">

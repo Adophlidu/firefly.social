@@ -9,9 +9,9 @@ import urlcat from 'urlcat';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
+import { openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ShareOptions {
@@ -49,7 +49,7 @@ export function sharePostAfterClaimed({ post, ...rest }: ShareOptions) {
     const uid = getSessionFromStorage(SessionType.Firefly)?.payload?.uid;
     const postUrl = addSharerParam(urlcat(SITE_URL, getPostUrl(post)), uid);
 
-    ConfirmModalRef.open({
+    openConfirmModal({
         title: <Trans>Lucky Drop</Trans>,
         content: (
             <div className="flex h-[276px] w-[388px] flex-col items-center max-md:w-auto">

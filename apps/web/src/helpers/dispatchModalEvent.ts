@@ -23,6 +23,11 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'confirm-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
     'draggable-popover': {
         open?: unknown;
         close?: unknown;

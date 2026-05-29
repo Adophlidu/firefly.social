@@ -8,7 +8,7 @@ import { memo } from 'react';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children' | 'onToggle'> {
@@ -25,7 +25,7 @@ export const MuteChannelButton = memo(function MuteChannelButton({ channel, ref,
             onClick={async (event) => {
                 onClick?.(event);
                 const confirmed = !muted
-                    ? await ConfirmModalRef.openAndWaitForClose({
+                    ? await openAndWaitForCloseConfirmModal({
                           title: muted ? <Trans>Unmute /{channel.id}</Trans> : <Trans>Mute /{channel.id}</Trans>,
                           content: (
                               <div className="text-main">

@@ -6,9 +6,9 @@ import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { reportNFT } from '@/providers/firefly/report/reportNFT.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
@@ -67,7 +67,7 @@ export function useReportSpamNFT() {
                 return;
             }
 
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Report spam</Trans>,
                 variant: 'normal',
                 content: (

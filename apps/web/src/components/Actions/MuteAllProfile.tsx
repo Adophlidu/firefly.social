@@ -16,11 +16,11 @@ import { setWalletBlockStatus } from '@/decorators/SetQueryDataForBlockWallet.js
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { isProfileMutedAll } from '@/providers/firefly/endpoint/isProfileMutedAll.js';
 import { muteProfileAll } from '@/providers/firefly/endpoint/muteProfileAll.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
@@ -37,7 +37,7 @@ interface MuteAllProfileBaseProps extends HTMLProps<'button'> {
 }
 
 function waitForConfirmation() {
-    return ConfirmModalRef.openAndWaitForClose({
+    return openAndWaitForCloseConfirmModal({
         title: <Trans>Mute all</Trans>,
         content: (
             <p className="text-lightMain">

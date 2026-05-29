@@ -25,6 +25,7 @@ import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { closeComposeModal } from '@/helpers/openComposeModal.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useApplyTempDraftPost } from '@/hooks/useApplyDraftPost.js';
@@ -36,7 +37,6 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ComposeModalContext } from '@/modals/ComposeModal/context.js';
 import { CloseAction } from '@/modals/ComposeModal/refs.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useComposeDraftState } from '@/store/useComposeDraftStore.js';
@@ -171,7 +171,7 @@ function ComposeModalUI({ ref }: Props) {
             ] as SocialSource[];
 
             const hasError = !!errorsSource.length;
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: isAnonymous ? (
                     <Trans>Discard Post</Trans>
                 ) : hasError ? (

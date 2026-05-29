@@ -33,9 +33,9 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { getVotePower } from '@/providers/snapshot/getVotePower.js';
 import { pathQueryVoteResultsByVoter } from '@/providers/snapshot/pathQueryVoteResultsByVoter.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
@@ -280,7 +280,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
 
             if (!result) return;
 
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Your vote is in!</Trans>,
                 content: (
                     <div className="mb-2 text-center text-medium leading-[18px] text-secondary">

@@ -5,8 +5,8 @@ import { memo } from 'react';
 
 import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
@@ -22,7 +22,7 @@ export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({
 
     const onToggle = async () => {
         if (!isMuted) {
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Mute @{profile.handle}</Trans>,
                 content: (
                     <div className="text-main">

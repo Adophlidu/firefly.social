@@ -9,8 +9,8 @@ import { compact } from 'lodash-es';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import type { LogoutModalRefType } from '@/modals/LogoutModal/refs.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 
@@ -27,7 +27,7 @@ export function LogoutModal({ ref }: Props) {
                 props?.account ? [props.account] : SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts),
             );
 
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Log out</Trans>,
                 contentClass: 'px-0 !pt-0',
                 confirmButtonClass: 'mx-6',

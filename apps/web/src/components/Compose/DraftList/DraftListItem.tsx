@@ -22,9 +22,9 @@ import { queryClient } from '@/configs/queryClient.js';
 import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { openAndWaitForCloseConfirmModal, openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useApplyDraftPost } from '@/hooks/useApplyDraftPost.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { deleteCloudDraft } from '@/providers/firefly/cloud-draft/deleteCloudDraft.js';
 import { captureDraftDeleteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
@@ -81,7 +81,7 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
 
     const [{ loading: isRemoving }, handleRemove] = useAsyncFn(async () => {
         try {
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Delete</Trans>,
                 content: (
                     <div className="text-fourMain">
@@ -130,7 +130,7 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
         }
 
         if (hasError && draft.posts.length > 1) {
-            ConfirmModalRef.open({
+            openConfirmModal({
                 title: <Trans>Resend full or remaining?</Trans>,
                 content: (
                     <div className="text-main">

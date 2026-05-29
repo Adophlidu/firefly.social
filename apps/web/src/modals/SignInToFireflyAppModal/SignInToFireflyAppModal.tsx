@@ -14,9 +14,9 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { Link } from '@/esm/Link.js';
 import { generateCryptoKey } from '@/helpers/generateCryptoKey.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { usePollingSyncChannelStatus } from '@/hooks/usePollingSyncChannelStatus.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import type { SignInToFireflyAppModalRefType } from '@/modals/SignInToFireflyAppModal/refs.js';
 import { confirmSyncChannel } from '@/providers/firefly/endpoint/confirmSyncChannel.js';
 import { getDesktopSyncLinkInfo } from '@/providers/firefly/endpoint/getDesktopSyncLinkInfo.js';
@@ -91,7 +91,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
         enabled,
         session: linkInfoData?.session,
         async onScanned() {
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            const confirmed = await openAndWaitForCloseConfirmModal({
                 title: <Trans>Sign in Confirmation</Trans>,
                 variant: 'normal',
                 content: (

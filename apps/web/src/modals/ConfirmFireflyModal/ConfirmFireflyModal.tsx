@@ -8,11 +8,11 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { closeConfirmModal, openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConfirmFireflyModalRef, type ConfirmFireflyModalRefType } from '@/modals/ConfirmFireflyModal/refs.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import {
     captureAccountConflictNoEvent,
     captureAccountConflictYesEvent,
@@ -30,7 +30,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                 ? createDummyProfileFromFireflySession(account.fireflySession)
                 : null;
 
-            ConfirmModalRef.open({
+            openConfirmModal({
                 title: <Trans>Different Account Detected</Trans>,
                 content: (
                     <div>
@@ -65,7 +65,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                             <ClickableButton
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"
                                 onClick={() => {
-                                    ConfirmModalRef.close(false);
+                                    closeConfirmModal(false);
                                     ConfirmFireflyModalRef.close(false);
                                     captureAccountConflictNoEvent(account.fireflySession?.accountIdForEvent ?? '');
                                 }}
@@ -75,7 +75,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                             <ClickableButton
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-medium font-bold text-primaryBottom"
                                 onClick={() => {
-                                    ConfirmModalRef.close(true);
+                                    closeConfirmModal(true);
                                     ConfirmFireflyModalRef.close(true);
                                     captureAccountConflictYesEvent(account.fireflySession?.accountIdForEvent ?? '');
                                 }}
@@ -86,7 +86,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                     </div>
                 ),
                 onCancel: () => {
-                    ConfirmModalRef.close(false);
+                    closeConfirmModal(false);
                     ConfirmFireflyModalRef.close(false);
                 },
                 enableCancelButton: false,

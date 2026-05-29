@@ -11,9 +11,9 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useToggleNFTBookmark } from '@/hooks/useToggleNFTBookmark.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 
 interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'children'> {
     nftId: string;
@@ -60,7 +60,7 @@ function BookmarkButton({
             disabled={isMutating || isLoading}
             onClick={async () => {
                 const confirmed = hasBookmarked
-                    ? await ConfirmModalRef.openAndWaitForClose({
+                    ? await openAndWaitForCloseConfirmModal({
                           resetSize: true,
                           title: <Trans>Remove from bookmarks</Trans>,
                           modalStyle: { width: 400, maxWidth: '90vw' },
