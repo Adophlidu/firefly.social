@@ -4,7 +4,7 @@ import LikeIcon from '@dimensiondev/assets/like-large.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { AnimatePresence, motion } from 'framer-motion';
-import { memo, useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -39,6 +39,13 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
 }) {
     const [particles, setParticles] = useState<Particle[]>([]);
     const buttonId = useRef(`like-button-${crypto.randomUUID()}`);
+    const burstTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (burstTimerRef.current !== null) clearTimeout(burstTimerRef.current);
+        };
+    }, []);
 
     const triggerBurst = useCallback(() => {
         const newParticles: Particle[] = Array.from({ length: 8 }).map((_, i) => {
@@ -54,8 +61,9 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
         });
         setParticles(newParticles);
 
-        // Clear particles after animation
-        setTimeout(() => {
+        if (burstTimerRef.current !== null) clearTimeout(burstTimerRef.current);
+        burstTimerRef.current = setTimeout(() => {
+            burstTimerRef.current = null;
             setParticles([]);
         }, 1000);
     }, []);

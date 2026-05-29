@@ -71,6 +71,7 @@ export function SetQueryDataForMirrorPost(source: SocialSource) {
                         toggleMirror(source, postId, status, id);
                         const result = await m.call(target.prototype, postId, ...args);
 
+                        if (status) lensOriginalMirrored.delete(id);
                         return result;
                     } catch (error) {
                         // rolling back

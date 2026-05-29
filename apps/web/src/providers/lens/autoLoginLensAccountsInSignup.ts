@@ -18,3 +18,7 @@ export async function autoLoginLensAccountsInSignup({ fireflyAccountId, forceUse
 
     return task;
 }
+
+export function clearAutoLoginLensCache() {
+    cachedTasks.clear();
+}

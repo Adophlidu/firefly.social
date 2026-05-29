@@ -37,11 +37,11 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
-import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import {
     captureFirstTimeClickInLogin,
     captureReconnectClickInLogin,

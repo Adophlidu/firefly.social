@@ -9,7 +9,7 @@ import { scaleLinear, scaleTime } from 'd3-scale';
 import { curveMonotoneX, line } from 'd3-shape';
 import dayjs from 'dayjs';
 import type { CSSProperties } from 'react';
-import { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { STALE_TIMES } from '@/constants/query.js';
@@ -246,6 +246,8 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
         },
         [handleResize],
     );
+
+    useEffect(() => () => resizeRef.current?.disconnect(), []);
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['sport', 'price-history', market.id, homeOutcome?.id, awayOutcome?.id, timeRange],

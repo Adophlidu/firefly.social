@@ -11,10 +11,10 @@ import { type HTMLProps, useCallback } from 'react';
 
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import { SchedulePostModalRef } from '@/modals/SchedulePostModal/refs.js';
 import { captureSchedulePostClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';

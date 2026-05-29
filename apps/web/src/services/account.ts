@@ -31,7 +31,10 @@ import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { trackReferralConversion } from '@/providers/firefly/referral/trackReferral.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
+import {
+    autoLoginLensAccountsInSignup,
+    clearAutoLoginLensCache,
+} from '@/providers/lens/autoLoginLensAccountsInSignup.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { reLoginLensCurrentAccountWithPrivy } from '@/providers/lens/reLoginLensCurrentAccountWithPrivy.js';
@@ -636,6 +639,7 @@ export async function removeCurrentAccount(source: SocialSource) {
 }
 
 export async function removeAllAccounts() {
+    clearAutoLoginLensCache();
     const allAccounts = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts);
 
     await Promise.all(
