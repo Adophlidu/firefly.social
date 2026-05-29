@@ -33,7 +33,7 @@ export const SportRecommendationsSection = memo(function SportRecommendationsSec
 
     return (
         <div className="p-4">
-            <SportRecommendationsSidebar events={events} leagueSlug={leagueSlug} />
+            <SportRecommendationsSidebar categorySlug={leagueSlug} categoryTagType="league" events={events} />
         </div>
     );
 });

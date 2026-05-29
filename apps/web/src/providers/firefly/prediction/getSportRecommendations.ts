@@ -1,53 +1,105 @@
-import urlcat from 'urlcat';
+import { formatPolymarketSportsEventForUI } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
+import { getSportsEventList } from '@/providers/firefly/prediction/getSportsEventList.js';
+import type { PolymarketSportsEvent, PolymarketSportsListRequest } from '@/providers/types/Firefly.js';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
-import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { PolymarketSportsEvent, PolymarketSportsListResponse, Response } from '@/providers/types/Firefly.js';
-import { settings } from '@/settings/index.js';
+const MAX_RECOMMENDATIONS = 5;
+const LIVE_CATEGORY_SLUG = 'live';
+
+interface SportRecommendationSource {
+    categorySlug: string;
+    categoryTagType?: string;
+    request: PolymarketSportsListRequest;
+}
+
+export interface SportRecommendationsResult {
+    categorySlug: string;
+    categoryTagType?: string;
+    events: PolymarketSportsEvent[];
+}
+
+function getRecommendationSources(leagueSlug?: string): SportRecommendationSource[] {
+    const sources: SportRecommendationSource[] = [];
+
+    if (leagueSlug) {
+        sources.push({
+            categorySlug: leagueSlug,
+            categoryTagType: 'league',
+            request: {
+                children_tag_slug: leagueSlug,
+                children_tag_slug_type: 'league',
+            },
+        });
+    }
+
+    sources.push({
+        categorySlug: LIVE_CATEGORY_SLUG,
+        request: {
+            children_tag_slug: LIVE_CATEGORY_SLUG,
+        },
+    });
+
+    return sources;
+}
+
+function getRecommendationEventKey(event: PolymarketSportsEvent) {
+    return event.slug || event.id;
+}
+
+function isClosedSportsEvent(event: PolymarketSportsEvent) {
+    return event.closed || event.game_status === 2 || event.game_status === '2' || event.game_status === 'finished';
+}
 
 export async function getSportRecommendations(
-    leagueSlug: string,
+    leagueSlug?: string,
     excludeGameId?: number | string,
 ): Promise<PolymarketSportsEvent[]> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/sports/list');
-    const response = await fetchJson<Response<PolymarketSportsListResponse>>(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            children_tag_slug: leagueSlug,
-            children_tag_slug_type: 'league',
-        }),
-    });
-    const data = resolveFireflyResponseData(response);
+    const result = await getSportRecommendationsResult(leagueSlug, excludeGameId);
+    return result.events;
+}
 
-    if (!data) return [];
-
-    const events = [
-        ...(data.live || []),
-        ...(data.today || []),
-        ...(data.tomorrow || []),
-        ...(data.afterTomorrow || []),
-    ];
+export async function getSportRecommendationsResult(
+    leagueSlug?: string,
+    excludeGameId?: number | string,
+): Promise<SportRecommendationsResult> {
+    const sources = getRecommendationSources(leagueSlug);
     const excludeGameIdText = excludeGameId === undefined ? undefined : `${excludeGameId}`;
+    const events: PolymarketSportsEvent[] = [];
     const seen = new Set<string>();
+    let resultSource = sources[0];
 
-    return events
-        .filter((event) => {
-            if (excludeGameIdText && `${event.gameId}` === excludeGameIdText) return false;
-            if (
-                event.closed ||
-                event.game_status === 2 ||
-                event.game_status === '2' ||
-                event.game_status === 'finished'
-            ) {
-                return false;
-            }
+    for (const source of sources) {
+        const data = await getSportsEventList(source.request);
+        const sourceEvents = [
+            ...(data.live || []),
+            ...(data.today || []),
+            ...(data.tomorrow || []),
+            ...(data.afterTomorrow || []),
+        ];
 
-            const key = event.slug || event.id;
-            if (seen.has(key)) return false;
+        for (const event of sourceEvents) {
+            if (excludeGameIdText && `${event.gameId}` === excludeGameIdText) continue;
+            if (isClosedSportsEvent(event)) continue;
+            if (!formatPolymarketSportsEventForUI(event)) continue;
+
+            const key = getRecommendationEventKey(event);
+            if (seen.has(key)) continue;
             seen.add(key);
+            if (!events.length) resultSource = source;
+            events.push(event);
 
-            return true;
-        })
-        .slice(0, 5);
+            if (events.length >= MAX_RECOMMENDATIONS) {
+                return {
+                    categorySlug: resultSource.categorySlug,
+                    categoryTagType: resultSource.categoryTagType,
+                    events,
+                };
+            }
+        }
+    }
+
+    return {
+        categorySlug: resultSource.categorySlug,
+        categoryTagType: resultSource.categoryTagType,
+        events,
+    };
 }

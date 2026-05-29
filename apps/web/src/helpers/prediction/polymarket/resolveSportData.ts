@@ -67,6 +67,14 @@ function findMoneylineMarket(raw: PolymarketEvent) {
 }
 
 function resolveLeagueSlug(detail: PolymarketEvent): string | undefined {
+    const leagueId = detail.leagueId?.trim().toLowerCase();
+    if (leagueId) {
+        const leagueTag = detail.tags?.find(
+            (tag) => tag.slug?.toLowerCase() === leagueId || tag.label?.trim().toLowerCase() === leagueId,
+        );
+        return leagueTag?.slug || leagueId;
+    }
+
     const leagueName = detail.leagueName?.trim().toLowerCase();
     if (leagueName) {
         const leagueTag = detail.tags?.find(

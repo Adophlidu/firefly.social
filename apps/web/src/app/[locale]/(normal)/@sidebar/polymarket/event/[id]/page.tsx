@@ -8,7 +8,7 @@ import { SportRecommendationsSidebar } from '@/components/Prediction/Sport/Sport
 import { Section } from '@/components/Semantic/Section.js';
 import { formatPolymarketSportsEventForUI } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
-import { getSportRecommendations } from '@/providers/firefly/prediction/getSportRecommendations.js';
+import { getSportRecommendationsResult } from '@/providers/firefly/prediction/getSportRecommendations.js';
 
 export const revalidate = 60;
 
@@ -25,10 +25,12 @@ export default async function PolymarketEventSidebarPage(props: Props) {
     const sportData = detail?.sportData;
     const leagueSlug = sportData?.leagueSlug;
 
-    if (!sportData || !leagueSlug) return <DefaultRightSidebarContent />;
+    if (!sportData) return <DefaultRightSidebarContent />;
 
-    const events = await runInSafeAsync(() => getSportRecommendations(leagueSlug, sportData.gameId));
-    const recommendations = (events || []).filter((event) => !!formatPolymarketSportsEventForUI(event)).slice(0, 5);
+    const result = await runInSafeAsync(() => getSportRecommendationsResult(leagueSlug, sportData.gameId));
+    const recommendations = (result?.events || [])
+        .filter((event) => !!formatPolymarketSportsEventForUI(event))
+        .slice(0, 5);
 
     if (!recommendations.length) return <DefaultRightSidebarContent />;
 
@@ -37,7 +39,11 @@ export default async function PolymarketEventSidebarPage(props: Props) {
             <Section title="Advertisement" className="mt-[26px]">
                 <Advertisement />
             </Section>
-            <SportRecommendationsSidebar events={recommendations} leagueSlug={leagueSlug} />
+            <SportRecommendationsSidebar
+                categorySlug={result?.categorySlug || leagueSlug || 'live'}
+                categoryTagType={result?.categoryTagType}
+                events={recommendations}
+            />
         </>
     );
 }

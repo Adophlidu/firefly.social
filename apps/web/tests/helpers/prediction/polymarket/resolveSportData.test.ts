@@ -40,6 +40,46 @@ describe('resolveSportData', () => {
         expect(resolveSportData(baseEvent({ leagueName: undefined }))?.leagueSlug).toBe('nba');
     });
 
+    it('prefers leagueId when tag order puts the sport before the league', () => {
+        const result = resolveSportData(
+            baseEvent({
+                leagueId: 'mlb',
+                leagueName: undefined,
+                tags: [
+                    {
+                        id: 'sports',
+                        label: 'Sports',
+                        slug: 'sports',
+                        forceShow: false,
+                        publishedAt: '',
+                        createdAt: '',
+                        updatedAt: '',
+                    },
+                    {
+                        id: 'baseball',
+                        label: 'Baseball',
+                        slug: 'baseball',
+                        forceShow: false,
+                        publishedAt: '',
+                        createdAt: '',
+                        updatedAt: '',
+                    },
+                    {
+                        id: 'mlb',
+                        label: 'MLB',
+                        slug: 'mlb',
+                        forceShow: false,
+                        publishedAt: '',
+                        createdAt: '',
+                        updatedAt: '',
+                    },
+                ],
+            }),
+        );
+
+        expect(result?.leagueSlug).toBe('mlb');
+    });
+
     it('parses score string as fallback when score_show is empty', () => {
         const result = resolveSportData(baseEvent({ score: '1-1', score_show: [] }));
         expect(result?.scores).toEqual([{ score: [1, 1] }]);

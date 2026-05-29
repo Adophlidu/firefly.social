@@ -16,8 +16,9 @@ import { RouteResolver } from '@/helpers/RouteResolver.js';
 import type { PolymarketSportsEvent, PolymarketSportsMarketData } from '@/providers/types/Firefly.js';
 
 interface SportRecommendationsSidebarProps {
+    categorySlug: string;
+    categoryTagType?: string;
     events: PolymarketSportsEvent[];
-    leagueSlug: string;
 }
 
 interface SportRecommendationItem {
@@ -128,8 +129,9 @@ const RecommendationCard = memo<{ item: SportRecommendationItem }>(function Reco
 });
 
 export const SportRecommendationsSidebar = memo(function SportRecommendationsSidebar({
+    categorySlug,
+    categoryTagType,
     events,
-    leagueSlug,
 }: SportRecommendationsSidebarProps) {
     const items = useMemo(
         () =>
@@ -142,7 +144,11 @@ export const SportRecommendationsSidebar = memo(function SportRecommendationsSid
 
     if (!items.length) return null;
 
-    const categoryHref = RouteResolver.predictionCategory({ slug: leagueSlug, tagType: 'league', appendRoot: false });
+    const categoryHref = RouteResolver.predictionCategory({
+        slug: categorySlug,
+        tagType: categoryTagType,
+        appendRoot: false,
+    });
 
     return (
         <section className="flex flex-col gap-4">
