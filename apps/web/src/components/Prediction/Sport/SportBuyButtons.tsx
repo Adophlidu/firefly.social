@@ -46,7 +46,7 @@ export const SportBuyButtons = memo(function SportBuyButtons({
     const getOutcomeMeta = (index: number, fallbackLabel: string, fallbackColor: string) => {
         const team = outcomeTeams?.[index];
         return {
-            label: team?.abbreviation || team?.name || outcomes[index]?.label || fallbackLabel,
+            label: team?.name || team?.abbreviation || outcomes[index]?.label || fallbackLabel,
             color: team?.color || fallbackColor,
         };
     };

@@ -101,6 +101,13 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
               ? SportScoreType.Multiple
               : SportScoreType.Unknown;
 
+    // Detect draw markets: 3+ moneyline markets with one containing "draw"
+    const moneylineMarkets = detail.markets.filter(
+        (m) => m.active && m.sportsMarketType?.toLowerCase() === 'moneyline',
+    );
+    const hasDrawMarket =
+        moneylineMarkets.length >= 3 && moneylineMarkets.some((m) => m.groupItemTitle?.toLowerCase().includes('draw'));
+
     return {
         gameId,
         live: !!detail.live,
@@ -113,7 +120,7 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
         startTime: detail.startTime,
         livestreamInfo: mapLivestreamInfo(detail),
         winResult: detail.winResult,
-        isDraw: !!detail.isDraw,
+        isDraw: !!detail.isDraw || hasDrawMarket,
         leagueName: detail.leagueName,
         leagueSlug: resolveLeagueSlug(detail),
         spreadsMainLine: detail.spreadsMainLine,

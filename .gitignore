@@ -59,6 +59,7 @@ packages/*/node_modules/
 # eslint cache
 .eslintcache
 *.har
+profiling-data.*.json
 .cursor/
 .gstack/
 .claude/settings*

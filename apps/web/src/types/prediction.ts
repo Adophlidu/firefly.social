@@ -101,6 +101,7 @@ export interface BetsMarketDataForUI {
     sportsMarketType?: string;
     line?: number;
     groupTypeFF?: SportMarketGroupType;
+    closedTime?: number;
 }
 
 export interface BetsEventTagForUI {

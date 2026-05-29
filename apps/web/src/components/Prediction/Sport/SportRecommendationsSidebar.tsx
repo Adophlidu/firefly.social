@@ -31,21 +31,13 @@ interface ScheduledTimeParts {
 }
 
 function getTeamAbbreviation(team: PredictionSportsTeamForUI): string {
+    const name = team.name?.trim();
+    if (name) return name;
+
     const abbreviation = team.abbreviation?.trim();
     if (abbreviation) return abbreviation.toUpperCase();
 
-    const name = team.name.trim();
-    if (!name) return '--';
-
-    const words = name.split(/\s+/u).filter(Boolean);
-    if (words.length > 1)
-        return words
-            .map((word) => word[0])
-            .join('')
-            .slice(0, 3)
-            .toUpperCase();
-
-    return name.slice(0, 3).toUpperCase();
+    return '--';
 }
 
 function getScheduledTimeParts(event: PolymarketSportsEvent): ScheduledTimeParts | undefined {

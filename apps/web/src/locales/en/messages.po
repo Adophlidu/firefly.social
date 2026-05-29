@@ -433,6 +433,9 @@ msgstr "Requested from <0>{0}</0>"
 msgid "Opinion"
 msgstr "Opinion"
 
+msgid "Draw"
+msgstr "Draw"
+
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 

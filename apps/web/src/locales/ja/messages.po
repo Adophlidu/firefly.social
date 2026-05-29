@@ -430,6 +430,9 @@ msgstr "<0>{0}</0> からのリクエスト"
 msgid "Opinion"
 msgstr "意見"
 
+msgid "Draw"
+msgstr ""
+
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "ユーザー名は小文字、数字、ハイフン（-）のみ使用できます。ハイフンで始めることはできません"
 

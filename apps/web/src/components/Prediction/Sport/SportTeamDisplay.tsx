@@ -3,6 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
+import { Image } from '@/esm/Image.js';
 import type { SportTeam } from '@/types/prediction.js';
 
 interface SportTeamDisplayProps {
@@ -22,11 +23,16 @@ function TeamLogo({ team, size = 32 }: { team: SportTeam; size?: number }) {
             }}
         >
             {team.logo ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={team.logo} alt={team.abbreviation || ''} width={size * 0.6} height={size * 0.6} />
+                <Image
+                    unoptimized
+                    src={team.logo}
+                    alt={team.name || team.abbreviation || ''}
+                    width={size * 0.6}
+                    height={size * 0.6}
+                />
             ) : (
                 <span className="text-xs font-bold" style={{ color: team.color || '#666' }}>
-                    {(team.abbreviation || team.name || '?')[0]}
+                    {(team.name || team.abbreviation || '?')[0]}
                 </span>
             )}
         </div>
@@ -44,7 +50,7 @@ export const SportTeamDisplay = memo(function SportTeamDisplay({
                 <TeamLogo team={homeTeam} />
                 <div className="min-w-0">
                     <p className="truncate text-sm font-semibold leading-5 text-lightMain">
-                        {homeTeam.abbreviation || homeTeam.name || 'Home'}
+                        {homeTeam.name || homeTeam.abbreviation || 'Home'}
                     </p>
                     {homeTeam.record ? <p className="text-xs leading-4 text-second">{homeTeam.record}</p> : null}
                 </div>
@@ -53,7 +59,7 @@ export const SportTeamDisplay = memo(function SportTeamDisplay({
             <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
                 <div className="min-w-0 text-right">
                     <p className="truncate text-sm font-semibold leading-5 text-lightMain">
-                        {awayTeam.abbreviation || awayTeam.name || 'Away'}
+                        {awayTeam.name || awayTeam.abbreviation || 'Away'}
                     </p>
                     {awayTeam.record ? <p className="text-xs leading-4 text-second">{awayTeam.record}</p> : null}
                 </div>

@@ -91,9 +91,15 @@ function getTwitchParent() {
 export const SportPriceChart = memo(function SportPriceChart({ event }: SportPriceChartProps) {
     const sportData = event.sportData;
     const primaryMarket = getPrimaryMarket(event.markets);
+    const moneylineMarkets = useMemo(
+        () => event.markets.filter((m) => m.sportsMarketType?.toLowerCase() === 'moneyline'),
+        [event.markets],
+    );
+    const isEventEnded = !!sportData?.ended || !!event.closed;
+    const defaultTimeRange = isEventEnded ? BetsPriceTimeRange.All : BetsPriceTimeRange.OneDay;
     const [timeRange, setTimeRange] = useQueryState(
         'chart-range',
-        parseAsBetsPriceTimeRange.withDefault(BetsPriceTimeRange.OneDay).withOptions({ clearOnDefault: true }),
+        parseAsBetsPriceTimeRange.withDefault(defaultTimeRange).withOptions({ clearOnDefault: true }),
     );
     const [tab, setTab] = useQueryState(
         'chart-view',
@@ -110,12 +116,12 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
     const handleStreamClick = useCallback(() => {
         if (!livestreamPlayback) return;
         if (livestreamPlayback.type === 'embed') {
-            void setTab('stream');
+            setTab('stream');
             return;
         }
 
         openWindow(livestreamPlayback.url);
-    }, [livestreamPlayback]);
+    }, [livestreamPlayback, setTab]);
 
     if (!sportData || !primaryMarket) return null;
 
@@ -138,6 +144,11 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
                     homeTeam={sportData.homeTeam}
                     awayTeam={sportData.awayTeam}
                     timeRange={timeRange}
+                    config={{
+                        moneylineMarkets,
+                        isDraw: !!sportData.isDraw,
+                        endTime: event.endTime,
+                    }}
                 />
             )}
 

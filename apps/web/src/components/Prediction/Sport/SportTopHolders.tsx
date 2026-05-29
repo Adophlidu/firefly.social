@@ -49,8 +49,8 @@ function HolderRow({
 
 export const SportTopHolders = memo(function SportTopHolders({ platform, market, sportData }: SportTopHoldersProps) {
     const { homeTeam, awayTeam } = sportData;
-    const homeLabel = homeTeam.abbreviation || homeTeam.name || 'Home';
-    const awayLabel = awayTeam.abbreviation || awayTeam.name || 'Away';
+    const homeLabel = homeTeam.name || homeTeam.abbreviation || 'Home';
+    const awayLabel = awayTeam.name || awayTeam.abbreviation || 'Away';
     const homeColor = homeTeam.color || '#BB761B';
     const awayColor = awayTeam.color || '#87BFFF';
 

@@ -1,7 +1,6 @@
 'use client';
 
 import { BetsPriceTimeRange } from '@dimensiondev/enums';
-import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -13,8 +12,8 @@ import { Loading } from '@/components/Loading.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { formatPolymarketTimeRange } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import { getPriceHistory } from '@/providers/prediction/polymarket/getPriceHistory.js';
-import type { PriceHistoryInterval } from '@/providers/prediction/polymarket/type.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 async function importRecharts() {
@@ -50,6 +49,7 @@ interface SportPriceHistoryChartProps {
     market: BetsMarketDataForUI;
     outcomes: SportChartOutcome[];
     timeRange: BetsPriceTimeRange;
+    startTime?: string;
     onPayloadChange?: (payload?: Array<{ dataKey: string; value?: number }>) => void;
 }
 
@@ -109,107 +109,6 @@ function computeHorizontalPoints(tickCount: number, chartHeight: number) {
     return points;
 }
 
-function formatPolymarketTimeRange(
-    timeRange: BetsPriceTimeRange,
-    createTime: number,
-): {
-    fidelity?: number;
-    interval?: PriceHistoryInterval;
-} {
-    const days = dayjs().diff(createTime, 'day');
-    const hours = dayjs().diff(createTime, 'hour');
-
-    let diffMaxRange: BetsPriceTimeRange | null;
-    if (days >= 30) {
-        diffMaxRange = BetsPriceTimeRange.OneMonth;
-    } else if (days >= 7) {
-        diffMaxRange = BetsPriceTimeRange.OneWeek;
-    } else if (days >= 1) {
-        diffMaxRange = BetsPriceTimeRange.OneDay;
-    } else if (hours >= 6) {
-        diffMaxRange = BetsPriceTimeRange.SixHours;
-    } else if (hours >= 1) {
-        diffMaxRange = BetsPriceTimeRange.OneHour;
-    } else {
-        diffMaxRange = null;
-    }
-
-    let fidelity: number | undefined;
-    let interval: PriceHistoryInterval | undefined;
-    if (!!diffMaxRange && timeRange <= diffMaxRange) {
-        switch (timeRange) {
-            case BetsPriceTimeRange.OneHour: {
-                interval = '1h';
-                fidelity = 1;
-                break;
-            }
-            case BetsPriceTimeRange.SixHours: {
-                interval = '6h';
-                fidelity = 1;
-                break;
-            }
-            case BetsPriceTimeRange.OneDay: {
-                interval = '1d';
-                fidelity = 5;
-                break;
-            }
-            case BetsPriceTimeRange.OneWeek: {
-                interval = '1w';
-                fidelity = 30;
-                break;
-            }
-            case BetsPriceTimeRange.OneMonth: {
-                interval = '1m';
-                fidelity = 180;
-                break;
-            }
-            case BetsPriceTimeRange.All: {
-                interval = 'max';
-                fidelity = 720;
-                break;
-            }
-            default:
-                safeUnreachable(timeRange);
-                break;
-        }
-    } else {
-        switch (diffMaxRange) {
-            case BetsPriceTimeRange.OneHour: {
-                interval = '6h';
-                fidelity = 1;
-                break;
-            }
-            case BetsPriceTimeRange.SixHours: {
-                interval = '1d';
-                fidelity = 1;
-                break;
-            }
-            case BetsPriceTimeRange.OneDay: {
-                interval = '1w';
-                fidelity = 5;
-                break;
-            }
-            case BetsPriceTimeRange.OneWeek: {
-                interval = '1m';
-                fidelity = 30;
-                break;
-            }
-            case BetsPriceTimeRange.OneMonth: {
-                interval = 'max';
-                fidelity = 720;
-                break;
-            }
-            default: {
-                interval = '1h';
-                fidelity = 1;
-                break;
-            }
-        }
-    }
-
-    return { interval, fidelity };
-}
-
 interface SportTooltipContentProps {
     active?: boolean;
     payload?: Array<{
@@ -265,6 +164,7 @@ export const SportPriceHistoryChart = memo(function SportPriceHistoryChart({
     market,
     outcomes,
     timeRange,
+    startTime,
     onPayloadChange,
 }: SportPriceHistoryChartProps) {
     const { data, isLoading, isRefetching, isRefetchError, error, isPending, refetch } = useQuery({
@@ -273,12 +173,18 @@ export const SportPriceHistoryChart = memo(function SportPriceHistoryChart({
         retry: false,
         enabled: outcomes.length > 0,
         queryFn: async ({ signal }) => {
+            const now = Math.floor(Date.now() / 1000);
+            const createSec = startTime
+                ? Math.floor(new Date(startTime).getTime() / 1000)
+                : Math.floor((market.createTime ?? 0) / 1000);
+            const rangeParams = formatPolymarketTimeRange(timeRange, createSec, now);
+
             const histories = await Promise.all(
                 outcomes.map(async (outcome) => {
                     const response = await getPriceHistory({
                         market: outcome.id,
                         signal,
-                        ...formatPolymarketTimeRange(timeRange, market.createTime),
+                        ...rangeParams,
                     });
                     return { outcome, history: response.history || [] };
                 }),

@@ -1,7 +1,6 @@
 'use client';
 
-import type { BetsPriceTimeRange } from '@dimensiondev/enums';
-import { PredictionPlatform } from '@dimensiondev/enums';
+import { BetsPriceTimeRange, PredictionPlatform } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -17,16 +16,25 @@ import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import type { BetsMarketDataForUI, SportTeam } from '@/types/prediction.js';
 
+export interface SportChartConfig {
+    moneylineMarkets?: BetsMarketDataForUI[];
+    isDraw?: boolean;
+    isEventEnded?: boolean;
+    endTime?: number;
+}
+
 interface SportPriceLineChartProps {
     market: BetsMarketDataForUI;
     homeTeam: SportTeam;
     awayTeam: SportTeam;
     timeRange: BetsPriceTimeRange;
+    config?: SportChartConfig;
 }
 
 interface DataPoint {
     time: number;
     home: number;
+    draw: number;
     away: number;
 }
 
@@ -47,8 +55,26 @@ const fixedTicks = [1, 0.75, 0.5, 0.25, 0];
 const mutedLineColor = 'var(--color-third, #8b98a5)';
 const chartBgStyle = { '--chart-bg': 'var(--color-bg, #fff)' } as CSSProperties;
 
-function formatXAxisTime(timestamp: number) {
-    return dayjs(timestamp).format('h:mm A');
+function formatXAxisLabel(timestamp: number, timeRange: BetsPriceTimeRange) {
+    const useDate =
+        timeRange === BetsPriceTimeRange.OneWeek ||
+        timeRange === BetsPriceTimeRange.OneMonth ||
+        timeRange === BetsPriceTimeRange.All;
+    return useDate ? dayjs(timestamp).format('MMM D') : dayjs(timestamp).format('h:mm A');
+}
+
+function generateFourHourTicks(start: Date, end: Date): Date[] {
+    const ticks: Date[] = [];
+    const d = new Date(start);
+    d.setMinutes(0, 0, 0);
+    d.setHours(Math.ceil(d.getHours() / 4) * 4, 0, 0, 0);
+
+    const FOUR_HOURS_MS = 4 * 60 * 60 * 1000;
+    for (let ms = d.getTime(); ms <= end.getTime(); ms += FOUR_HOURS_MS) {
+        ticks.push(new Date(ms));
+    }
+
+    return ticks;
 }
 
 function clampPrice(value: number) {
@@ -56,43 +82,66 @@ function clampPrice(value: number) {
     return Math.max(0, Math.min(1, value));
 }
 
-function resolveLabelPositions(homeValue: number, awayValue: number) {
+function resolveLabelPositions(homeValue: number, drawValue: number, awayValue: number) {
     const minDistance = labelHeight + labelMinGap;
-    let homeTop = plotHeight * (1 - homeValue);
-    let awayTop = plotHeight * (1 - awayValue);
+    const positions = [
+        { key: 'home' as const, top: plotHeight * (1 - homeValue) },
+        { key: 'draw' as const, top: plotHeight * (1 - drawValue) },
+        { key: 'away' as const, top: plotHeight * (1 - awayValue) },
+    ];
 
-    if (Math.abs(homeTop - awayTop) < minDistance) {
-        const mid = (homeTop + awayTop) / 2;
-        const upperTop = mid - minDistance / 2;
-        const lowerTop = mid + minDistance / 2;
+    // Sort by natural position (top to bottom)
+    positions.sort((a, b) => a.top - b.top);
 
-        if (homeTop <= awayTop) {
-            homeTop = upperTop;
-            awayTop = lowerTop;
-        } else {
-            homeTop = lowerTop;
-            awayTop = upperTop;
+    // Resolve overlaps: push down from top
+    for (let idx = 1; idx < positions.length; idx += 1) {
+        if (positions[idx].top - positions[idx - 1].top < minDistance) {
+            positions[idx].top = positions[idx - 1].top + minDistance;
         }
     }
 
-    return {
-        homeTop: plotTop + Math.max(0, Math.min(homeTop, plotHeight - labelHeight)),
-        awayTop: plotTop + Math.max(0, Math.min(awayTop, plotHeight - labelHeight)),
-    };
+    // Resolve overflow: push up from bottom if any label goes below plot area
+    const maxTop = plotHeight - labelHeight;
+    for (let idx = positions.length - 1; idx > 0; idx -= 1) {
+        if (positions[idx].top > maxTop) {
+            positions[idx].top = maxTop;
+        }
+        if (positions[idx - 1].top > positions[idx].top - minDistance) {
+            positions[idx - 1].top = positions[idx].top - minDistance;
+        }
+    }
+
+    // Final clamp (shouldn't be needed but safety net)
+    for (const p of positions) {
+        p.top = Math.max(0, Math.min(p.top, maxTop));
+    }
+
+    const result: Record<string, number> = {};
+    for (const p of positions) {
+        result[`${p.key}Top`] = plotTop + p.top;
+    }
+
+    return result as { homeTop: number; drawTop: number; awayTop: number };
 }
 
 function EndDots({
     homeColor,
+    drawColor,
     awayColor,
     homeY,
+    drawY,
     awayY,
     rightEdge,
+    showDraw,
 }: {
     homeColor: string;
+    drawColor: string;
     awayColor: string;
     homeY: number;
+    drawY: number;
     awayY: number;
     rightEdge: number;
+    showDraw: boolean;
 }) {
     return (
         <g className="pointer-events-none">
@@ -101,6 +150,21 @@ function EndDots({
                 <animate attributeName="r" values="4;16;4" dur="2.25s" begin="0.7s" repeatCount="indefinite" />
                 <animate attributeName="opacity" values="0.6;0;0.6" dur="2.25s" begin="0.7s" repeatCount="indefinite" />
             </circle>
+            {showDraw ? (
+                <>
+                    <circle cx={rightEdge} cy={drawY} r={4} fill={drawColor} opacity={1} />
+                    <circle cx={rightEdge} cy={drawY} r={4} fill={drawColor}>
+                        <animate attributeName="r" values="4;16;4" dur="2.25s" begin="0.7s" repeatCount="indefinite" />
+                        <animate
+                            attributeName="opacity"
+                            values="0.6;0;0.6"
+                            dur="2.25s"
+                            begin="0.7s"
+                            repeatCount="indefinite"
+                        />
+                    </circle>
+                </>
+            ) : null}
             <circle cx={rightEdge} cy={awayY} r={4} fill={awayColor} opacity={1} />
             <circle cx={rightEdge} cy={awayY} r={4} fill={awayColor}>
                 <animate attributeName="r" values="4;16;4" dur="2.25s" begin="0.7s" repeatCount="indefinite" />
@@ -215,7 +279,9 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
     homeTeam,
     awayTeam,
     timeRange,
+    config,
 }: SportPriceLineChartProps) {
+    const { moneylineMarkets, isDraw, endTime } = config || {};
     const containerRef = useRef<HTMLDivElement>(null);
     const resizeRef = useRef<ResizeObserver | null>(null);
     const [width, setWidth] = useState(0);
@@ -223,8 +289,15 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
 
     const homeColor = homeTeam.color || '#BB761B';
     const awayColor = awayTeam.color || '#87BFFF';
+    const drawColor = '#8B5CF6';
     const homeOutcome = market.outcomes[0];
-    const awayOutcome = market.outcomes[1];
+
+    // For three-way (draw) markets, use all 3 moneyline markets.
+    // For two-way, use single market with away = 1 - home.
+    const drawMarket = isDraw
+        ? moneylineMarkets?.find((m) => m.groupItemTitle?.toLowerCase().includes('draw'))
+        : undefined;
+    const awayMarket = isDraw ? moneylineMarkets?.find((m) => m !== market && m !== drawMarket) : undefined;
 
     const handleResize = useCallback(() => {
         if (!containerRef.current) return;
@@ -250,27 +323,94 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
     useEffect(() => () => resizeRef.current?.disconnect(), []);
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ['sport', 'price-history', market.id, homeOutcome?.id, awayOutcome?.id, timeRange],
+        queryKey: ['sport', 'price-history', market.id, drawMarket?.id ?? '', awayMarket?.id ?? '', timeRange],
         staleTime: STALE_TIMES.MINUTE_2,
         retry: false,
         queryFn: async ({ signal }) => {
-            const rawData = await getBetsMarketPriceHistory(PredictionPlatform.Polymarket, {
+            // Fetch home market
+            const homeData = await getBetsMarketPriceHistory(PredictionPlatform.Polymarket, {
                 markets: [market],
                 timeRange,
                 outcomeId: homeOutcome?.id || '',
                 isSingleMarket: true,
+                endTime,
                 signal,
             });
 
-            if (!rawData?.length) return [];
+            if (isDraw && drawMarket && awayMarket) {
+                // Three-way: fetch draw and away markets separately
+                const drawOutcome = drawMarket.outcomes[0];
+                const awayOutcome = awayMarket.outcomes[0];
+                const [drawData, awayData] = await Promise.all([
+                    getBetsMarketPriceHistory(PredictionPlatform.Polymarket, {
+                        markets: [drawMarket],
+                        timeRange,
+                        outcomeId: drawOutcome?.id || '',
+                        isSingleMarket: true,
+                        endTime,
+                        signal,
+                    }),
+                    getBetsMarketPriceHistory(PredictionPlatform.Polymarket, {
+                        markets: [awayMarket],
+                        timeRange,
+                        outcomeId: awayOutcome?.id || '',
+                        isSingleMarket: true,
+                        endTime,
+                        signal,
+                    }),
+                ]);
 
-            return rawData.map((item) => {
+                // Each token's price history has different timestamps (trades
+                // happen at different moments). Forward-fill merge: collect all
+                // unique timestamps, sort them, and carry forward the last known
+                // value for each series so lines don't drop to 0 between updates.
+                const homeMap = new Map(homeData.map((i) => [i.time as number, clampPrice(Number(i[market.id]))]));
+                const drawMap = new Map(drawData.map((i) => [i.time as number, clampPrice(Number(i[drawMarket.id]))]));
+                const awayMap = new Map(awayData.map((i) => [i.time as number, clampPrice(Number(i[awayMarket.id]))]));
+
+                // Include ALL timestamps from all series. Each line starts from
+                // its own first trade, matching the Polymarket behavior.
+                const allTimes = new Set<number>();
+                for (const t of homeMap.keys()) allTimes.add(t);
+
+                for (const t of drawMap.keys()) allTimes.add(t);
+
+                for (const t of awayMap.keys()) allTimes.add(t);
+
+                const sorted = Array.from(allTimes).sort((a, b) => a - b);
+                if (!sorted.length) return [];
+
+                // Forward-fill: carry each series' last known value forward
+                let lastHome = -1 as number;
+                let lastDraw = -1 as number;
+                let lastAway = -1 as number;
+
+                const result: DataPoint[] = [];
+                for (const t of sorted) {
+                    const h = homeMap.get(t);
+                    if (h !== undefined) lastHome = h;
+                    const d = drawMap.get(t);
+                    if (d !== undefined) lastDraw = d;
+                    const a = awayMap.get(t);
+                    if (a !== undefined) lastAway = a;
+                    // Only include point when at least one series has data
+                    if (lastHome < 0 && lastDraw < 0 && lastAway < 0) continue;
+                    result.push({
+                        time: t,
+                        home: Math.max(0, lastHome),
+                        draw: Math.max(0, lastDraw),
+                        away: Math.max(0, lastAway),
+                    });
+                }
+
+                return result;
+            }
+
+            // Two-way: away = 1 - home
+            if (!homeData?.length) return [];
+            return homeData.map((item) => {
                 const home = clampPrice(Number(item[market.id]));
-                return {
-                    time: item.time as number,
-                    home,
-                    away: clampPrice(1 - home),
-                };
+                return { time: item.time as number, home, draw: 0, away: clampPrice(1 - home) };
             });
         },
     });
@@ -280,17 +420,32 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
         return data[data.length - 1].home;
     }, [data, homeOutcome?.price]);
 
+    const latestDraw = useMemo(() => {
+        if (!isDraw) return 0;
+        if (!data?.length) return clampPrice(Number.parseFloat(drawMarket?.outcomes[0]?.price || '0'));
+        return data[data.length - 1].draw;
+    }, [data, isDraw, drawMarket]);
+
     const latestAway = useMemo(() => {
-        if (!data?.length) return clampPrice(Number.parseFloat(awayOutcome?.price || '0.5'));
+        if (!data?.length) {
+            if (isDraw && awayMarket) return clampPrice(Number.parseFloat(awayMarket.outcomes[0]?.price || '0'));
+            return clampPrice(1 - latestHome);
+        }
         return data[data.length - 1].away;
-    }, [awayOutcome?.price, data]);
+    }, [data, isDraw, awayMarket, latestHome]);
+
     const activeDataIndex = data?.length ? Math.min(tooltip?.dataIndex ?? data.length - 1, data.length - 1) : -1;
     const activeDataPoint = activeDataIndex >= 0 && data?.length ? data[activeDataIndex] : null;
     const activeHome = activeDataPoint?.home ?? latestHome;
+    const activeDraw = activeDataPoint?.draw ?? latestDraw;
     const activeAway = activeDataPoint?.away ?? latestAway;
     const homePct = `${toFixedTrimmed(activeHome * 100, 1)}%`;
+    const drawPct = `${toFixedTrimmed(activeDraw * 100, 1)}%`;
     const awayPct = `${toFixedTrimmed(activeAway * 100, 1)}%`;
-    const labelPositions = useMemo(() => resolveLabelPositions(activeHome, activeAway), [activeHome, activeAway]);
+    const labelPositions = useMemo(
+        () => resolveLabelPositions(activeHome, activeDraw, activeAway),
+        [activeHome, activeDraw, activeAway],
+    );
 
     const dimensions = useMemo(() => {
         const axisX = Math.max(0, width - yAxisOffset);
@@ -303,48 +458,61 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
         };
     }, [width]);
 
-    const { xScale, yScale, xTicks, homePath, homeMutedPath, awayPath, awayMutedPath } = useMemo(() => {
-        const y = scaleLinear().range([plotHeight, 0]).domain([0, 1]);
+    const { xScale, yScale, xTicks, homePath, homeMutedPath, drawPath, drawMutedPath, awayPath, awayMutedPath } =
+        useMemo(() => {
+            const y = scaleLinear().range([plotHeight, 0]).domain([0, 1]);
 
-        if (!data?.length || dimensions.dataWidth <= 0) {
-            return {
-                xScale: scaleTime()
-                    .range([0, 1])
-                    .domain([new Date(0), new Date(1)]),
-                yScale: y,
-                xTicks: [] as Date[],
-                homePath: null as string | null,
-                homeMutedPath: null as string | null,
-                awayPath: null as string | null,
-                awayMutedPath: null as string | null,
+            if (!data?.length || dimensions.dataWidth <= 0) {
+                return {
+                    xScale: scaleTime()
+                        .range([0, 1])
+                        .domain([new Date(0), new Date(1)]),
+                    yScale: y,
+                    xTicks: [] as Date[],
+                    homePath: null as string | null,
+                    homeMutedPath: null as string | null,
+                    drawPath: null as string | null,
+                    drawMutedPath: null as string | null,
+                    awayPath: null as string | null,
+                    awayMutedPath: null as string | null,
+                };
+            }
+
+            const firstTs = new Date(data[0].time * 1000);
+            const lastTs = new Date(data[data.length - 1].time * 1000);
+            const x = scaleTime().range([0, dimensions.dataWidth]).domain([firstTs, lastTs]);
+
+            const lineGenerator = line<DataPoint>()
+                .x((d) => x(new Date(d.time * 1000)))
+                .curve(curveMonotoneX);
+            const createPath = (points: DataPoint[], key: 'home' | 'draw' | 'away') => {
+                if (points.length < 2) return null;
+                return lineGenerator.y((d) => y(d[key]))(points) ?? null;
             };
-        }
+            const selectedIndex = Math.max(0, activeDataIndex);
+            const coloredData = data.slice(0, selectedIndex + 1);
+            const mutedData = selectedIndex < data.length - 1 ? data.slice(selectedIndex) : [];
 
-        const firstTs = new Date(data[0].time * 1000);
-        const lastTs = new Date(data[data.length - 1].time * 1000);
-        const x = scaleTime().range([0, dimensions.dataWidth]).domain([firstTs, lastTs]);
+            const rawTicks =
+                timeRange === BetsPriceTimeRange.OneDay ? generateFourHourTicks(firstTs, lastTs) : x.ticks(5);
+            const edgeMargin = Math.min(40, dimensions.dataWidth * 0.1);
+            const filteredTicks = rawTicks.filter((t) => {
+                const xPos = x(t);
+                return xPos >= edgeMargin && xPos <= dimensions.dataWidth - edgeMargin;
+            });
 
-        const lineGenerator = line<DataPoint>()
-            .x((d) => x(new Date(d.time * 1000)))
-            .curve(curveMonotoneX);
-        const createPath = (points: DataPoint[], key: 'home' | 'away') => {
-            if (points.length < 2) return null;
-            return lineGenerator.y((d) => y(d[key]))(points) ?? null;
-        };
-        const selectedIndex = Math.max(0, activeDataIndex);
-        const coloredData = data.slice(0, selectedIndex + 1);
-        const mutedData = selectedIndex < data.length - 1 ? data.slice(selectedIndex) : [];
-
-        return {
-            xScale: x,
-            yScale: y,
-            xTicks: x.ticks(5),
-            homePath: createPath(coloredData, 'home'),
-            homeMutedPath: createPath(mutedData, 'home'),
-            awayPath: createPath(coloredData, 'away'),
-            awayMutedPath: createPath(mutedData, 'away'),
-        };
-    }, [activeDataIndex, data, dimensions.dataWidth]);
+            return {
+                xScale: x,
+                yScale: y,
+                xTicks: filteredTicks,
+                homePath: createPath(coloredData, 'home'),
+                homeMutedPath: createPath(mutedData, 'home'),
+                drawPath: createPath(coloredData, 'draw'),
+                drawMutedPath: createPath(mutedData, 'draw'),
+                awayPath: createPath(coloredData, 'away'),
+                awayMutedPath: createPath(mutedData, 'away'),
+            };
+        }, [activeDataIndex, data, dimensions.dataWidth, timeRange]);
 
     const handleMouseMove = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {
@@ -391,9 +559,11 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
         );
     }
 
-    const homeName = homeTeam.abbreviation || homeTeam.name || t`Home`;
-    const awayName = awayTeam.abbreviation || awayTeam.name || t`Away`;
+    const homeName = homeTeam.name || homeTeam.abbreviation || t`Home`;
+    const awayName = awayTeam.name || awayTeam.abbreviation || t`Away`;
+    const drawName = t`Draw`;
     const homeDotY = yScale(activeHome);
+    const drawDotY = yScale(activeDraw);
     const awayDotY = yScale(activeAway);
 
     return (
@@ -448,6 +618,7 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
                             <g>
                                 <ChartLinePath d={homePath} color={homeColor} />
                                 <ChartLinePath d={awayPath} color={awayColor} />
+                                {isDraw ? <ChartLinePath d={drawPath} color={drawColor} /> : null}
                                 <ChartLinePath
                                     d={homeMutedPath}
                                     color={mutedLineColor}
@@ -460,14 +631,25 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
                                     opacity={0.28}
                                     outline={false}
                                 />
+                                {isDraw ? (
+                                    <ChartLinePath
+                                        d={drawMutedPath}
+                                        color={mutedLineColor}
+                                        opacity={0.28}
+                                        outline={false}
+                                    />
+                                ) : null}
                             </g>
 
                             <EndDots
                                 homeColor={homeColor}
+                                drawColor={drawColor}
                                 awayColor={awayColor}
                                 homeY={homeDotY}
+                                drawY={drawDotY}
                                 awayY={awayDotY}
                                 rightEdge={activeX}
+                                showDraw={!!isDraw}
                             />
 
                             <g transform={`translate(0, ${plotHeight})`}>
@@ -481,7 +663,7 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
                                         fontSize={12}
                                         textAnchor="middle"
                                     >
-                                        {formatXAxisTime(tick.getTime())}
+                                        {formatXAxisLabel(tick.getTime(), timeRange)}
                                     </text>
                                 ))}
                             </g>
@@ -520,6 +702,15 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
                     top={labelPositions.homeTop}
                     left={activeX + oddsLabelOffset}
                 />
+                {isDraw ? (
+                    <SideOddsLabel
+                        name={drawName}
+                        pct={drawPct}
+                        color={drawColor}
+                        top={labelPositions.drawTop}
+                        left={activeX + oddsLabelOffset}
+                    />
+                ) : null}
                 <SideOddsLabel
                     name={awayName}
                     pct={awayPct}

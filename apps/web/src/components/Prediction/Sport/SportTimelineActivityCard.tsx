@@ -155,7 +155,7 @@ function resolveTeams(activity: BetsActivity, labels: string[]) {
 }
 
 function getButtonLabel(team: TeamViewModel, fallback: string) {
-    return team.abbreviation || team.name || fallback;
+    return team.name || team.abbreviation || fallback;
 }
 
 function getOutcomeButtonLabel(team: TeamViewModel, fallbackLabel: string | undefined, matchedTeam: boolean) {
@@ -227,12 +227,12 @@ function TeamLogo({ team }: { team: TeamViewModel }) {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                     src={team.logo}
-                    alt={team.abbreviation || team.name}
+                    alt={team.name || team.abbreviation}
                     className="size-full rounded-lg object-contain"
                 />
             ) : (
                 <span className="text-sm font-bold leading-5" style={{ color: team.color }}>
-                    {(team.abbreviation || team.name || '?').slice(0, 3)}
+                    {(team.name || team.abbreviation || '?').slice(0, 3)}
                 </span>
             )}
         </div>

@@ -430,6 +430,9 @@ msgstr "請求來自 <0>{0}</0>"
 msgid "Opinion"
 msgstr "Opinion"
 
+msgid "Draw"
+msgstr ""
+
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "使用者名稱只能包含小寫字母、數字和連字號 (-)，且不能以連字號開頭"
 

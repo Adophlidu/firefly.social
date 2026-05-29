@@ -5,16 +5,10 @@ import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 const tailZero = /\.0+$|(\.\d*[1-9])0+$/;
 
-function truncateToDecimalPlaces(num: number, digits: number): number {
-    const factor = Math.pow(10, digits);
-    return Math.trunc(num * factor) / factor;
-}
-
 export function toFixedTrimmed(num: number, fixed: number) {
     if (Number.isNaN(num)) return '0';
 
-    const truncated = truncateToDecimalPlaces(num, fixed);
-    const fixedNum = truncated.toString();
+    const fixedNum = num.toFixed(fixed);
 
     const decimalIndex = fixedNum.indexOf('.');
     if (decimalIndex === -1) {

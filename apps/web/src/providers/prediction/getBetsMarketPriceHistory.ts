@@ -1,11 +1,11 @@
 import { BetsPriceTimeRange, PredictionPlatform } from '@dimensiondev/enums';
-import { safeUnreachable, unreachable } from '@dimensiondev/utils';
+import { unreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { compact, first } from 'lodash-es';
 
 import { getOpinionMarketPriceHistory } from '@/providers/firefly/prediction/getOpinionMarketPriceHistory.js';
 import { getPriceHistory } from '@/providers/prediction/polymarket/getPriceHistory.js';
-import type { PolymarketPriceHistory, PriceHistoryInterval } from '@/providers/prediction/polymarket/type.js';
+import type { PolymarketPriceHistory } from '@/providers/prediction/polymarket/type.js';
 import type { OpinionPriceHistory } from '@/providers/types/Firefly.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
@@ -14,6 +14,7 @@ interface Options {
     timeRange: BetsPriceTimeRange;
     outcomeId: string;
     isSingleMarket?: boolean;
+    endTime?: number;
     signal?: AbortSignal;
 }
 
@@ -34,105 +35,42 @@ function formatOpinionTimeRange(timeRange: BetsPriceTimeRange) {
             unreachable(timeRange);
     }
 }
-function formatPolymarketTimeRange(
+
+export function formatPolymarketTimeRange(
     timeRange: BetsPriceTimeRange,
-    createTime: number,
+    createSec: number,
+    endSec: number,
 ): {
+    startTs?: number;
+    endTs?: number;
     fidelity?: number;
-    interval?: PriceHistoryInterval;
 } {
-    const days = dayjs().diff(createTime, 'day');
-    const hours = dayjs().diff(createTime, 'hour');
-
-    let diffMaxRange: BetsPriceTimeRange | null;
-    if (days >= 30) {
-        diffMaxRange = BetsPriceTimeRange.OneMonth;
-    } else if (days >= 7) {
-        diffMaxRange = BetsPriceTimeRange.OneWeek;
-    } else if (days >= 1) {
-        diffMaxRange = BetsPriceTimeRange.OneDay;
-    } else if (hours >= 6) {
-        diffMaxRange = BetsPriceTimeRange.SixHours;
-    } else if (hours >= 1) {
-        diffMaxRange = BetsPriceTimeRange.OneHour;
-    } else {
-        diffMaxRange = null;
-    }
-
-    let fidelity: number | undefined;
-    let interval: PriceHistoryInterval | undefined;
-    if (!!diffMaxRange && timeRange <= diffMaxRange) {
-        switch (timeRange) {
-            case BetsPriceTimeRange.OneHour: {
-                interval = '1h';
-                fidelity = 1;
-                break;
-            }
-            case BetsPriceTimeRange.SixHours: {
-                interval = '6h';
-                fidelity = 1;
-                break;
-            }
-            case BetsPriceTimeRange.OneDay: {
-                interval = '1d';
-                fidelity = 5;
-                break;
-            }
-            case BetsPriceTimeRange.OneWeek: {
-                interval = '1w';
-                fidelity = 30;
-                break;
-            }
-            case BetsPriceTimeRange.OneMonth: {
-                interval = '1m';
-                fidelity = 180;
-                break;
-            }
-            case BetsPriceTimeRange.All: {
-                interval = 'max';
-                fidelity = 720;
-                break;
-            }
-            default:
-                safeUnreachable(timeRange);
-                break;
+    switch (timeRange) {
+        case BetsPriceTimeRange.OneHour:
+            return { startTs: Math.max(createSec, endSec - 3600), endTs: endSec, fidelity: 1 };
+        case BetsPriceTimeRange.SixHours:
+            return { startTs: Math.max(createSec, endSec - 21600), endTs: endSec, fidelity: 1 };
+        case BetsPriceTimeRange.OneDay:
+            return { startTs: Math.max(createSec, endSec - 86400), endTs: endSec, fidelity: 5 };
+        case BetsPriceTimeRange.OneWeek:
+            return { startTs: Math.max(createSec, endSec - 604800), endTs: endSec, fidelity: 30 };
+        case BetsPriceTimeRange.OneMonth:
+            return { startTs: Math.max(createSec, endSec - 2592000), endTs: endSec, fidelity: 180 };
+        case BetsPriceTimeRange.All: {
+            const maxWindow = 14 * 86400;
+            const allStart = endSec - maxWindow > createSec ? endSec - maxWindow : createSec;
+            const windowMinutes = Math.round((endSec - allStart) / 60);
+            let fidelity: number;
+            if (windowMinutes < 1440) fidelity = 5;
+            else if (windowMinutes < 5040) fidelity = 15;
+            else if (windowMinutes < 10080) fidelity = 30;
+            else if (windowMinutes < 43200) fidelity = 60;
+            else fidelity = 180;
+            return { startTs: allStart, endTs: endSec, fidelity };
         }
-    } else {
-        switch (diffMaxRange) {
-            case BetsPriceTimeRange.OneHour: {
-                interval = '6h';
-                fidelity = 1;
-                break;
-            }
-            case BetsPriceTimeRange.SixHours: {
-                interval = '1d';
-                fidelity = 1;
-                break;
-            }
-            case BetsPriceTimeRange.OneDay: {
-                interval = '1w';
-                fidelity = 5;
-                break;
-            }
-            case BetsPriceTimeRange.OneWeek: {
-                interval = '1m';
-                fidelity = 30;
-                break;
-            }
-            case BetsPriceTimeRange.OneMonth: {
-                interval = 'max';
-                fidelity = 720;
-                break;
-            }
-            default: {
-                interval = '1h';
-                fidelity = 1;
-                break;
-            }
-        }
+        default:
+            return { startTs: Math.max(createSec, endSec - 86400), endTs: endSec, fidelity: 5 };
     }
-
-    return { interval, fidelity };
 }
 
 function formatOpinionPricesData(questions: OpinionPriceHistory[], outcomeId: string) {
@@ -206,7 +144,7 @@ function formatPolymarketPricesData(
 
 export async function getBetsMarketPriceHistory(
     platform: PredictionPlatform,
-    { markets, timeRange, outcomeId, isSingleMarket, signal }: Options,
+    { markets, timeRange, outcomeId, isSingleMarket, endTime, signal }: Options,
 ) {
     switch (platform) {
         case PredictionPlatform.Polymarket: {
@@ -217,10 +155,17 @@ export async function getBetsMarketPriceHistory(
                         : first(market.outcomes)?.id;
                     if (!clobId) return null;
 
+                    const now = Math.floor(Date.now() / 1000);
+                    const createSec = Math.floor((market.createTime ?? 0) / 1000);
+                    const endSec =
+                        market.closedTime && market.closedTime < Date.now()
+                            ? Math.floor(market.closedTime / 1000)
+                            : now;
+
                     return getPriceHistory({
                         market: clobId,
                         signal,
-                        ...formatPolymarketTimeRange(timeRange, market.createTime),
+                        ...formatPolymarketTimeRange(timeRange, createSec, endSec),
                     });
                 }),
             );

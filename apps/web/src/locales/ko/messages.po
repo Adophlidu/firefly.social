@@ -430,6 +430,9 @@ msgstr "<0>{0}</0>에서 요청됨"
 msgid "Opinion"
 msgstr "의견"
 
+msgid "Draw"
+msgstr ""
+
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "사용자 이름은 소문자, 숫자, 하이픈(-)만 포함할 수 있으며 하이픈(-)으로 시작할 수 없습니다"
 

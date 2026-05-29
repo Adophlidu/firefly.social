@@ -78,6 +78,7 @@ export interface PolymarketMarket {
     teamBID?: number;
     teams?: PolymarketTeam[];
     groupItemRange?: string;
+    closedTime?: string;
 }
 
 export interface PolymarketSeries {
@@ -245,7 +246,7 @@ export interface UserStatsResponse {
     joinDate: string;
 }
 
-export type PriceHistoryInterval = '1m' | '1w' | '1d' | '6h' | '1h' | 'max';
+export type PriceHistoryInterval = '1m' | '1w' | '1d' | '6h' | '1h' | 'max' | 'all';
 
 export type PolymarketEventLocale = 'zh' | 'zh-Hant' | 'ja' | 'ko';
 

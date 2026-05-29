@@ -120,8 +120,12 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
             bestAsk: market.bestAsk,
             bestBid: market.bestBid,
             groupItemThreshold: market.groupItemThreshold,
+            groupItemTitle: market.groupItemTitle,
             sportsMarketType: market.sportsMarketType,
             line: market.line,
+            closedTime: market.closedTime
+                ? new Date(market.closedTime.replace(' ', 'T').replace(/\+\d+$/, '') + 'Z').getTime()
+                : undefined,
         };
     });
 
