@@ -196,4 +196,27 @@ describe('groupSportsEventsForDisplay', () => {
         expect(result.sections.some((section) => section.events.includes(closed))).toBe(false);
         expect(result.sections.find((section) => section.id === 'today')?.events).toEqual([today]);
     });
+
+    it('omits non-displayable events from section counts', () => {
+        const displayable = displayableEvent('today-1');
+        const invalidEvents = Array.from({ length: 6 }, (_, index) => ({
+            id: `invalid-${index}`,
+            slug: `invalid-${index}`,
+            markets: [],
+        })) as unknown as PolymarketSportsEvent[];
+
+        const response = {
+            live: [],
+            today: [displayable, ...invalidEvents],
+            tomorrow: [],
+            afterTomorrow: [],
+            closed: [],
+            timezone: 'UTC',
+        } as PolymarketSportsListResponse;
+
+        const todaySection = groupSportsEventsForDisplay(response).sections.find((section) => section.id === 'today');
+
+        expect(todaySection?.events).toEqual([displayable]);
+        expect(todaySection?.events.length).toBe(1);
+    });
 });

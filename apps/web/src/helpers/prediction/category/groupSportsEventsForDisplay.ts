@@ -12,6 +12,10 @@ function isDisplayableSportsEvent(event: PolymarketSportsEvent): boolean {
     return formatPolymarketSportsEventForUI(event) !== null;
 }
 
+function filterDisplayableSportsEvents(events: PolymarketSportsEvent[]): PolymarketSportsEvent[] {
+    return events.filter(isDisplayableSportsEvent);
+}
+
 export interface SportsEventDisplaySection {
     id: string;
     title: string;
@@ -165,33 +169,37 @@ export function groupLiveSportsEventsByLeague(
 export function groupSportsEventsForDisplay(response: PolymarketSportsListResponse): SportsGamesListDisplay {
     const sections: SportsEventDisplaySection[] = [];
 
-    if (response.live.length > 0) {
+    const liveEvents = filterDisplayableSportsEvents(response.live);
+    if (liveEvents.length > 0) {
         sections.push({
             id: 'live',
             title: t`Live`,
-            events: response.live,
+            events: liveEvents,
         });
     }
 
-    if (response.today.length > 0) {
+    const todayEvents = filterDisplayableSportsEvents(response.today);
+    if (todayEvents.length > 0) {
         sections.push({
             id: 'today',
             title: t`Today`,
-            events: response.today,
+            events: todayEvents,
         });
     }
 
-    if (response.tomorrow.length > 0) {
+    const tomorrowEvents = filterDisplayableSportsEvents(response.tomorrow);
+    if (tomorrowEvents.length > 0) {
         sections.push({
             id: 'tomorrow',
             title: t`Tomorrow`,
-            events: response.tomorrow,
+            events: tomorrowEvents,
         });
     }
 
-    if (response.afterTomorrow.length > 0) {
+    const displayableAfterTomorrow = filterDisplayableSportsEvents(response.afterTomorrow);
+    if (displayableAfterTomorrow.length > 0) {
         const groupedByDate = new Map<string, PolymarketSportsEvent[]>();
-        for (const event of response.afterTomorrow) {
+        for (const event of displayableAfterTomorrow) {
             const firstMarket = event.markets?.[0] as PolymarketSportsMarketData | undefined;
             const startDate = firstMarket?.gameStartTime || event.startDate;
             const dateKey = dayjs(startDate).format('YYYY-MM-DD');
@@ -211,6 +219,6 @@ export function groupSportsEventsForDisplay(response: PolymarketSportsListRespon
 
     return {
         sections,
-        closedEvents: response.closed,
+        closedEvents: filterDisplayableSportsEvents(response.closed),
     };
 }

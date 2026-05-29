@@ -13,10 +13,22 @@ import type {
     PolymarketEventListData,
     PolymarketSportsEvent,
     PolymarketSportsListResponse,
+    PolymarketSportsMarketData,
 } from '@/providers/types/Firefly.js';
 
 function sportsEvent(id: string): PolymarketSportsEvent {
-    return { id, slug: id } as PolymarketSportsEvent;
+    return {
+        id,
+        slug: id,
+        markets: [
+            {
+                sportsMarketType: 'moneyline',
+                outcomes: '["Home","Away"]',
+                outcomePrices: '["0.4","0.6"]',
+                clobTokenIds: '["token-home","token-away"]',
+            } as PolymarketSportsMarketData,
+        ],
+    } as PolymarketSportsEvent;
 }
 
 function emptySportsResponse(): PolymarketSportsListResponse {
