@@ -9,7 +9,7 @@ import { AccountConnectButton } from '@/components/AccountConnectButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { WalletConnectButton } from '@/components/WalletConnectButton.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -34,7 +34,7 @@ export function Footer() {
                         onClick={async () => {
                             updateSidebarOpen(false);
                             await delay(300);
-                            openLoginModal();
+                            openLoginModalWithGuard();
                             await restoreFarcasterAccountsIfNeeded(farcasterAccounts);
                         }}
                     />

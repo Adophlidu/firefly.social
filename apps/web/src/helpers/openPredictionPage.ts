@@ -2,14 +2,14 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 
 import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
 import { type BetEventQuery, createBetEventPath } from '@/helpers/createBetEventPath.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export async function openPredictionPage(slug: string, options: BetEventQuery) {
     if (!useFireflyProfileStore.getState().currentProfileSession) {
-        openLoginModal();
+        openLoginModalWithGuard();
         return;
     }
     if (!useFireflyWalletStore.getState().isAuthorized) {

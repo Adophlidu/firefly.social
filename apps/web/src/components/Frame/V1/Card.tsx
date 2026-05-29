@@ -7,7 +7,7 @@ import { Button } from '@/components/Frame/V1/Button.js';
 import { Input } from '@/components/Frame/V1/Input.js';
 import { Image } from '@/components/Image.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import type { FrameButton, FrameV1 } from '@/types/frame.js';
 
 interface CardProps {
@@ -62,7 +62,7 @@ export function Card({ frame, source, readonly = false, loading = false, onButto
                                     if (button.action === ActionType.Post) {
                                         const session = getSessionFromStorageBySource(source);
                                         if (!session) {
-                                            openLoginModal({ source });
+                                            openLoginModalWithGuard({ source });
                                             return;
                                         }
                                     }

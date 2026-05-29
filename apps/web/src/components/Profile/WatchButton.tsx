@@ -10,7 +10,7 @@ import type { Address } from 'viem';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -92,7 +92,7 @@ export const WatchButton = memo(function WatchButton({
             onMouseLeave={() => setHovering(false)}
             onClick={() => {
                 if (!isLogin) {
-                    openLoginModal();
+                    openLoginModalWithGuard();
                     return;
                 }
                 mutation.mutate();

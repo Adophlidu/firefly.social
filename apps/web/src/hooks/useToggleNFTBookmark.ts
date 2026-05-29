@@ -7,7 +7,7 @@ import { FetchError } from '@/constants/error.js';
 import { usePathname } from '@/esm/navigation.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { fireflyBookmarkProvider } from '@/providers/firefly/Bookmark.js';
 
@@ -23,7 +23,7 @@ export function useToggleNFTBookmark(options: { owner: string; nftId: string; st
         mutationKey,
         mutationFn: async (hasBookmarked: boolean) => {
             if (!isLogin) {
-                openLoginModal();
+                openLoginModalWithGuard();
                 return;
             }
 

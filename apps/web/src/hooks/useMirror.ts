@@ -4,7 +4,7 @@ import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
@@ -22,7 +22,7 @@ export function useMirror(post: Post) {
         async (unmirror?: boolean) => {
             if (!postId) return;
             if (!isLogin) {
-                openLoginModal({ source });
+                openLoginModalWithGuard({ source });
                 return;
             }
 

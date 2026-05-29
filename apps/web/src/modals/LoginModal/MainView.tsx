@@ -19,6 +19,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -28,7 +29,7 @@ import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { CurrentProfilesCard } from '@/modals/LoginModal/CurrentProfilesCard.js';
 import { FireflyAccount } from '@/modals/LoginModal/FireflyAccount.js';
 import { LensCurrentProfilesCard } from '@/modals/LoginModal/LensCurrentProfilesCard.js';
-import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/refs.js';
+import type { LoginModalOpenProps } from '@/modals/LoginModal/refs.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal/refs.js';
 import { getTelegramLoginUrl } from '@/providers/firefly/auth/getTelegramLoginUrl.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
@@ -51,7 +52,7 @@ function FireflyLoginButton() {
         <button
             className="flex h-[56px] w-full items-center gap-2 rounded-lg border border-highlight bg-bg px-2 text-left text-sm text-main"
             onClick={() => {
-                LoginModalRef.close();
+                closeLoginModal();
                 captureMobileQrLoginClickEvent();
                 SignInWithFireflyAppModalRef.open();
             }}

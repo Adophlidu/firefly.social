@@ -11,7 +11,7 @@ import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
@@ -50,7 +50,7 @@ export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, 
                 onClick?.(event);
 
                 if (!isLogin) {
-                    openLoginModal();
+                    openLoginModalWithGuard();
                     return;
                 }
                 if (!isMuted) {

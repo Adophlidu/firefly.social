@@ -7,8 +7,8 @@ import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 
 interface LoginButtonProps {
     source: SocialSource | 'other';
@@ -22,11 +22,11 @@ export function LoginButton({ source }: LoginButtonProps) {
             style={{ backgroundColor: 'rgba(124, 127, 163, 0.06)' }}
             onClick={() => {
                 if (source === 'other') {
-                    LoginModalRef.open({ options: { hideSocialLogin: true, skipWaitForMetricsSyncing: false } });
+                    openLoginModal({ options: { hideSocialLogin: true, skipWaitForMetricsSyncing: false } });
                     return;
                 }
 
-                LoginModalRef.open({ source, options: { noBackButton: true, skipWaitForMetricsSyncing: false } });
+                openLoginModal({ source, options: { noBackButton: true, skipWaitForMetricsSyncing: false } });
             }}
         >
             {source === 'other' ? (

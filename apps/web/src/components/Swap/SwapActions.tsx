@@ -29,7 +29,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
@@ -61,7 +61,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
 
     const [{ loading: handleMirrorLoading }, handleMirror] = useAsyncFn(async () => {
         if (!isLoginFirefly) {
-            openLoginModal();
+            openLoginModalWithGuard();
             return;
         }
 

@@ -18,7 +18,7 @@ import { enqueueErrorMessage, enqueueMessageFromError, enqueueWarningMessage } f
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { validateSnapStructure } from '@/helpers/snap.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
@@ -183,7 +183,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                     case 'submit': {
                         const session = farcasterSessionHolder.session;
                         if (!session) {
-                            openLoginModal({ source: Source.Farcaster });
+                            openLoginModalWithGuard({ source: Source.Farcaster });
                             return;
                         }
 
@@ -301,7 +301,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                     case 'compose_cast': {
                         const session = farcasterSessionHolder.session;
                         if (!session) {
-                            openLoginModal({ source: Source.Farcaster });
+                            openLoginModalWithGuard({ source: Source.Farcaster });
                             return;
                         }
 

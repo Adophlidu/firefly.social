@@ -3,7 +3,7 @@ import { memo, type ReactNode, useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useWatchProfileFollowStatus } from '@/hooks/useWatchProfileFollowStatus.js';
@@ -57,7 +57,7 @@ export const ToggleFollowButton = memo(function ToggleFollowButton({
                     return;
                 }
                 if (!isLogin) {
-                    openLoginModal({ source: profile.source });
+                    openLoginModalWithGuard({ source: profile.source });
                     return;
                 }
                 toggleFollow.mutate();

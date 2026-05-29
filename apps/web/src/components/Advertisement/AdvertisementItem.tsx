@@ -6,7 +6,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 function isExternalLink(link: string, origin: string) {
@@ -28,7 +28,7 @@ export function AdvertisementItem({ ad, origin = '' }: { ad: Advertisement; orig
             onClick={() => {
                 switch (ad.function) {
                     case AdFunctionType.OpenScan:
-                        openLoginModal();
+                        openLoginModalWithGuard();
                         break;
                     default:
                         safeUnreachable(ad.function as never);

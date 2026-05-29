@@ -15,7 +15,7 @@ import { Link } from '@/components/Link.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
@@ -45,7 +45,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
 
     const [{ loading }, onToggle] = useAsyncFn(async () => {
         if (!isLogin) {
-            openLoginModal();
+            openLoginModalWithGuard();
             return;
         }
         if (!isMuted) {

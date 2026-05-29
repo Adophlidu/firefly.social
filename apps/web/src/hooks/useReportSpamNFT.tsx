@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { reportNFT } from '@/providers/firefly/report/reportNFT.js';
@@ -63,7 +63,7 @@ export function useReportSpamNFT() {
     return useAsyncFn(
         async (chainId: number, address: string) => {
             if (!isLoginFirefly) {
-                openLoginModal();
+                openLoginModalWithGuard();
                 return;
             }
 

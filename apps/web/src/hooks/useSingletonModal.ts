@@ -73,7 +73,7 @@ export function useSingletonModal<OpenProps, CloseProps>(
             if (detail.name !== name || !dispatchRef.current) return;
 
             const { action, props, error } = detail;
-            if (action === 'open' && props !== undefined) {
+            if (action === 'open') {
                 dispatchRef.current.open(props as OpenProps);
             } else if (action === 'close') {
                 dispatchRef.current.close((props ?? undefined) as CloseProps);

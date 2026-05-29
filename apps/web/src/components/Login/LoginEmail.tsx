@@ -21,8 +21,8 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
@@ -52,7 +52,7 @@ async function loginEmail(
         if (done) {
             enqueueSuccessMessage(<Trans>Your email is now connected.</Trans>);
         }
-        LoginModalRef.close();
+        closeLoginModal();
     } catch (error) {
         if (AbortError.is(error)) return;
         if (error instanceof ForbiddenError) {

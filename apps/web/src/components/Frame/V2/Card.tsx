@@ -12,7 +12,7 @@ import { Image } from '@/components/Image.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getCurrentProfileFromStorage, type StateProfile } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/libs/Logger.js';
@@ -142,7 +142,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
     const onClick = () => {
         const session = getSessionFromStorage(SessionType.Farcaster);
         if (!session) {
-            openLoginModal({
+            openLoginModalWithGuard({
                 source: Source.Farcaster,
             });
             return;

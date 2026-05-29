@@ -2,7 +2,8 @@ import { Trans } from '@lingui/react/macro';
 import { Outlet, rootRouteId, useMatch, useRouter, useRouterState } from '@tanstack/react-router';
 
 import { BackButton, CloseButton } from '@/components/IconButton.js';
-import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/refs.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
+import type { LoginModalOpenProps } from '@/modals/LoginModal/refs.js';
 
 export function RootView() {
     const router = useRouter();
@@ -23,7 +24,7 @@ export function RootView() {
                 {isMain || noBackButton ? (
                     <CloseButton
                         onClick={() => {
-                            LoginModalRef.close();
+                            closeLoginModal();
                         }}
                     />
                 ) : (

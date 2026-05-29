@@ -7,7 +7,7 @@ import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
@@ -34,7 +34,7 @@ export function SwapButton({ className, swapProps: swapFromProps, loginRequired 
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (loginRequired && !isLoginFirefly) {
-            openLoginModal();
+            openLoginModalWithGuard();
             return;
         }
 

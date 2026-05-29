@@ -5,9 +5,9 @@ import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 import { getArticleIdFromUrl } from '@/helpers/getArticleIdFromUrl.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { logger } from '@/libs/Logger.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getChannelById } from '@/providers/firefly/farcaster-hub/getChannelById.js';
 import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 
@@ -21,7 +21,7 @@ async function interceptFarcasterUrl(u: URL) {
             const isLoginFarcaster = !!getCurrentProfileFromStorage(Source.Farcaster);
 
             if (!isLoginFarcaster) {
-                LoginModalRef.open({
+                openLoginModal({
                     source: Source.Farcaster,
                 });
                 return true;

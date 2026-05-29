@@ -21,9 +21,9 @@ import { useRouter as useNextRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/refs.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { LogoutModalRef } from '@/modals/LogoutModal/refs.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
 import { SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal/refs.js';
@@ -128,7 +128,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                         profile,
                                         connections,
                                     });
-                                    LoginModalRef.close();
+                                    closeLoginModal();
                                     close();
                                     captureEditProfileClickEvent();
                                 }}
@@ -152,7 +152,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                         );
                                         return;
                                     }
-                                    LoginModalRef.close();
+                                    closeLoginModal();
                                     SignInToFireflyAppModalRef.open();
                                 }}
                             >
@@ -192,7 +192,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                 className="w-full"
                                 onClick={() => {
                                     close();
-                                    LoginModalRef.close();
+                                    closeLoginModal();
                                     LogoutModalRef.open();
 
                                     router.prefetch(PageRoute.Signup);

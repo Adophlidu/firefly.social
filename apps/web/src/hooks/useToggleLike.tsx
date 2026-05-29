@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { updateQueryForLikeReaction } from '@/helpers/updateQueryForLikeReaction.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
@@ -179,7 +179,7 @@ export function useToggleLike(target: LikeTarget) {
         mutationKey: [target.type, likeParams?.reactionType, likeParams?.platformId, likeParams?.reactionId],
         mutationFn: async (isLiked: boolean) => {
             if (!isLoginFirefly) {
-                openLoginModal();
+                openLoginModalWithGuard();
                 return;
             }
             if (!likeParams) return;

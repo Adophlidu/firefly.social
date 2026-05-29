@@ -26,7 +26,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -76,7 +76,7 @@ export const CurrentProfilesCard = memo<CurrentProfilesCardProps>(function Curre
 
                 if (!account.session) {
                     await delay(300);
-                    openLoginModal({
+                    openLoginModalWithGuard({
                         source,
                         options: { expectedProfile: account.profile.profileId },
                     });

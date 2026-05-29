@@ -13,7 +13,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Switch } from '@/components/Switch/index.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
@@ -34,7 +34,7 @@ function ToggleSyncSessionSwitch({
         async (value: boolean) => {
             try {
                 if (!isLogin) {
-                    openLoginModal();
+                    openLoginModalWithGuard();
                     return;
                 }
                 if (value) {

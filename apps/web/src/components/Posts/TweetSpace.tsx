@@ -18,7 +18,7 @@ import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { isToday } from '@/helpers/isToday.js';
 import { isTomorrow } from '@/helpers/isTomorrow.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { formatTwitterProfile } from '@/providers/twitter/formatTwitterProfile.js';
 import { getSpace } from '@/providers/twitter/getSpace.js';
 
@@ -180,7 +180,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                     </p>
                     <ClickableArea
                         className="rounded-full bg-[rgba(24,26,32,0.5)] px-3 py-2 text-sm leading-[18px]"
-                        onClick={() => openLoginModal()}
+                        onClick={() => openLoginModalWithGuard()}
                     >
                         <Trans>Login</Trans>
                     </ClickableArea>

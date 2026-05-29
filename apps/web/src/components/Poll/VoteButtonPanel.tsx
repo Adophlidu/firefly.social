@@ -16,7 +16,7 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Poll, PollOption } from '@/providers/types/Poll.js';
@@ -40,7 +40,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
         async (option?: PollOption) => {
             try {
                 if (!profileId) {
-                    openLoginModal({ source });
+                    openLoginModalWithGuard({ source });
                     return;
                 }
 

@@ -17,9 +17,9 @@ import { SocialLoginPage } from '@/app/[locale]/(whiteboard)/signup/pages/Social
 import { SuccessPage } from '@/app/[locale]/(whiteboard)/signup/pages/SuccessPage.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { useRouter } from '@/esm/navigation.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal/refs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
@@ -106,7 +106,7 @@ export function Signup({ initialStep }: SignupProps) {
     }, [currentProfileSession?.profileId]);
 
     if (hasFireflyAccount && !hasFinished.current && !isSyncing && !isSyncingMetrics) {
-        LoginModalRef.close();
+        closeLoginModal();
         SignInWithFireflyAppModalRef.close();
         router.replace(PageRoute.FollowingPosts);
     }

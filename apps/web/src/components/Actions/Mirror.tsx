@@ -18,7 +18,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -250,7 +250,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
 
         if (!isLogin && !loading && !anonymousPostEnabled) {
             event.preventDefault();
-            openLoginModal({ source: post.source });
+            openLoginModalWithGuard({ source: post.source });
             return;
         }
     };

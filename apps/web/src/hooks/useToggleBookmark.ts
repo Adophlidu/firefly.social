@@ -2,7 +2,7 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { BookmarkType } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -14,7 +14,7 @@ export function useToggleBookmark(source: SocialSource) {
     const isLogin = useIsLogin(source);
     return useToggleBookmarkMutation<Post>({
         isLoggedIn: isLogin === true,
-        openLogin: () => openLoginModal({ source }),
+        openLogin: () => openLoginModalWithGuard({ source }),
         getHasBookmarked: (post) => Boolean(post.hasBookmarked),
         mutationFn: async (post) => {
             const provider = resolveSocialMediaProvider(post.source);

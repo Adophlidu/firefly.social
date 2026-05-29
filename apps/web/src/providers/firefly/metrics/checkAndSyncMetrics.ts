@@ -6,10 +6,10 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { logger } from '@/libs/Logger.js';
 import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal/refs.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import type { LensSession } from '@/providers/lens/Session.js';
@@ -105,7 +105,7 @@ async function syncMetrics(account: Account, options?: Options) {
 
     let metricsPassword: string | null = null;
     if (profilesToSync.length > 0) {
-        LoginModalRef.close();
+        closeLoginModal();
         const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
             profiles: profilesToSync.filter((x) => !isSameProfile(x, account?.profile)),
         });

@@ -13,7 +13,7 @@ import { mainnet } from 'viem/chains';
 import { ActionButton } from '@/components/ActionButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -102,7 +102,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     if (!currentProfile)
         return (
             <div className="light">
-                <ActionButton className="w-full" onClick={() => openLoginModal({ source: post.source })}>
+                <ActionButton className="w-full" onClick={() => openLoginModalWithGuard({ source: post.source })}>
                     <Trans>Connect to {resolveSourceName(post.source)}</Trans>
                 </ActionButton>
             </div>

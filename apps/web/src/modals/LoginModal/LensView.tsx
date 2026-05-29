@@ -32,11 +32,11 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { logger } from '@/libs/Logger.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
@@ -141,7 +141,7 @@ export const LensView = memo(function LensView() {
             });
             if (done) {
                 await lensSessionHolder.resumeSession(account.session);
-                LoginModalRef.close();
+                closeLoginModal();
                 enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
 
                 // try re-login with privy if possible
@@ -259,7 +259,7 @@ export const LensView = memo(function LensView() {
                                             className="text-highlight"
                                             source={Source.Lens}
                                             onClick={() => {
-                                                LoginModalRef.close();
+                                                closeLoginModal();
                                             }}
                                         >
                                             sign up

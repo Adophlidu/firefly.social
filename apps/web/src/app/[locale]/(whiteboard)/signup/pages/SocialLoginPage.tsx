@@ -23,9 +23,9 @@ import { useRouter } from '@/esm/navigation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal/refs.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
 import { resumeFireflySession } from '@/services/account.js';
@@ -150,7 +150,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
                                 title={<Trans>Orb Mobile</Trans>}
                                 description={<Trans>Scan QR code to access your account</Trans>}
                                 onLogin={() => {
-                                    LoginModalRef.open({
+                                    openLoginModal({
                                         source: Source.Lens,
                                         options: {
                                             noBackButton: true,

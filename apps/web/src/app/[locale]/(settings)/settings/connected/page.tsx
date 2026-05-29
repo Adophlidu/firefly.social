@@ -10,7 +10,7 @@ import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js
 import { ThirdPartAccounts } from '@/app/[locale]/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 
 export default function Connected() {
@@ -32,7 +32,7 @@ export default function Connected() {
                         <ClickableButton
                             className="inline-flex h-10 w-full flex-col items-center justify-center md:w-[200px]"
                             onClick={() => {
-                                openLoginModal();
+                                openLoginModalWithGuard();
                             }}
                         >
                             <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current py-[11px] text-main">

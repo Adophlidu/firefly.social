@@ -23,9 +23,9 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -112,7 +112,7 @@ export function OrbView() {
 
             await lensSessionHolder.resumeSession(session);
 
-            LoginModalRef.close();
+            closeLoginModal();
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected</Trans>);
             TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
                 lens_accounts: getAccountPairs(Source.Lens),

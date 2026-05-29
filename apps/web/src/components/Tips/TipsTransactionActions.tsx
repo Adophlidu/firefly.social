@@ -24,7 +24,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
@@ -134,7 +134,7 @@ export function TipsTransactionActions({
             event.stopPropagation();
 
             if (!isLogin) {
-                openLoginModal();
+                openLoginModalWithGuard();
                 return;
             }
 

@@ -8,7 +8,7 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { TipsModalRef } from '@/modals/TipsModal/refs.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
@@ -24,7 +24,7 @@ export function TipsButton({ identity, handle, profiles }: Props) {
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         try {
             if (!isLogin) {
-                openLoginModal({ source: narrowToSocialSource(identity.source) });
+                openLoginModalWithGuard({ source: narrowToSocialSource(identity.source) });
                 return;
             }
             if (!profiles?.some((profile) => profile.identity.source === Source.Wallet)) {

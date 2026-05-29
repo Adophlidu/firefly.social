@@ -20,7 +20,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage, getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
@@ -267,7 +267,7 @@ export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ childre
             if (!frame) return;
 
             if (![ActionType.Link, ActionType.Mint].includes(button.action) && !getSessionFromStorageBySource(source)) {
-                openLoginModal({
+                openLoginModalWithGuard({
                     source,
                 });
                 return;

@@ -7,7 +7,7 @@ import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/esm/Image.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
@@ -106,7 +106,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                         WalletConnectModalRef.open();
                         return;
                     }
-                    openLoginModal({ source: isNotSocialSource ? undefined : (source as ProfileSource) });
+                    openLoginModalWithGuard({ source: isNotSocialSource ? undefined : (source as ProfileSource) });
                 }}
                 aria-label={
                     isWallet

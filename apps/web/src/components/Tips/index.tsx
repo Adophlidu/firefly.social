@@ -17,7 +17,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { TipsModalRef } from '@/modals/TipsModal/refs.js';
@@ -56,7 +56,7 @@ export function Tips({
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         try {
             if (!isLogin) {
-                openLoginModal({ source: post?.source });
+                openLoginModalWithGuard({ source: post?.source });
                 return;
             }
             const fireflyProfiles = await queryClient.fetchQuery({

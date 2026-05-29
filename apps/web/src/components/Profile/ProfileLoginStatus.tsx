@@ -9,7 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -62,7 +62,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
         <ClickableButton
             className={getButtonClassName(className)}
             onClick={() =>
-                openLoginModal({
+                openLoginModalWithGuard({
                     source: profile.source,
                     options: {
                         expectedProfile: profile.profileId,

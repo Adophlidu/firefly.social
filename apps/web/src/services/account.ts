@@ -17,13 +17,13 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { logger } from '@/libs/Logger.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal/refs.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { reportFarcasterSigner } from '@/providers/firefly/farcaster-account/reportFarcasterSigner.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
@@ -250,7 +250,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // resolve conflicted firefly sessions
     if (!skipResumeFireflyAccounts && fireflySession && !belongsTo) {
-        LoginModalRef.close();
+        closeLoginModal();
 
         const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
             account,

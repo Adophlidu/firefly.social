@@ -14,7 +14,7 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -61,7 +61,7 @@ export const PostMoreAction = memo<MoreProps>(function PostMoreAction({ post }) 
                             onClick={() => {
                                 close();
                                 if (!isLogin) {
-                                    openLoginModal();
+                                    openLoginModalWithGuard();
                                     return;
                                 }
                                 openComposeModal({

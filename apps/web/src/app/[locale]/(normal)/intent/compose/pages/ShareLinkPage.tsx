@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react';
 import { useRouter } from '@/esm/navigation.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -71,7 +71,7 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
 
     const isLogin = Object.values(currentProfiles).some((x) => !!x?.profileId);
     if (!isLogin) {
-        openLoginModal(
+        openLoginModalWithGuard(
             matchedIdentity
                 ? { source: resolveSocialSourceFromFireflyPlatform(matchedIdentity.profile.platform) }
                 : undefined,

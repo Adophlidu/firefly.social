@@ -19,7 +19,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccounts } from '@/hooks/useAccounts.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -121,7 +121,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                         ComposeModalRef.close();
                     }
                     await delay(300);
-                    openLoginModal({
+                    openLoginModalWithGuard({
                         source,
                     });
                 }}

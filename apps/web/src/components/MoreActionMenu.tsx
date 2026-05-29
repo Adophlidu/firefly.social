@@ -3,7 +3,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuButton, type MenuButtonProps, type MenuProps, Transition } from '@headlessui/react';
 import { type ElementType, Fragment, type MouseEvent, type ReactNode, useEffect } from 'react';
 
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
@@ -124,7 +124,7 @@ export function MoreActionMenu({
         event.stopPropagation();
         if (!isLogin && loginRequired) {
             event.preventDefault();
-            openLoginModal({ source });
+            openLoginModalWithGuard({ source });
         }
         buttonOnClickFromProps?.(event);
     };

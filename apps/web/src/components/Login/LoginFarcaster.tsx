@@ -37,11 +37,11 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
+import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
-import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import {
     captureFirstTimeClickInLogin,
     captureReconnectClickInLogin,
@@ -71,7 +71,7 @@ async function loginFarcaster(
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Farcaster)} account is now connected.</Trans>);
         }
 
-        LoginModalRef.close();
+        closeLoginModal();
         DraggablePopoverRef.close();
     } catch (error) {
         // skip if the error is abort error
@@ -114,7 +114,7 @@ async function loginFarcaster(
 
         // if any unhandled error occurs, close the modal
         // by this we don't need to do error handling in UI part.
-        LoginModalRef.close();
+        closeLoginModal();
         DraggablePopoverRef.close();
 
         throw error;
@@ -405,7 +405,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         <SignupEntry
                                             className="text-highlight"
                                             source={Source.Farcaster}
-                                            onClick={() => LoginModalRef.close()}
+                                            onClick={() => closeLoginModal()}
                                         >
                                             Sign up
                                         </SignupEntry>{' '}

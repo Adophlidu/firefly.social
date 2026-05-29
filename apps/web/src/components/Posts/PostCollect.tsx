@@ -18,7 +18,7 @@ import { Link } from '@/components/Link.js';
 import { FetchError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
@@ -173,7 +173,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const [{ loading: clickLoading }, handleClick] = useAsyncFn(async () => {
         if (!isLogin) {
-            openLoginModal({ source: post.source });
+            openLoginModalWithGuard({ source: post.source });
             return;
         }
 

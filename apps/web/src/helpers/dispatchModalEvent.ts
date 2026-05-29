@@ -8,6 +8,11 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'login-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
 }
 
 export function dispatchModalEvent<K extends keyof ModalEvents>(

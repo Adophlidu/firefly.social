@@ -6,7 +6,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { canReplyToPost } from '@/helpers/canReplyToPost.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveMessageForCommentDisabled } from '@/helpers/resolveMessageForCommentDisabled.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
@@ -34,7 +34,7 @@ export function useCommentPost(post: Post, disabled = false) {
 
     const handleClick = useCallback(async () => {
         if (!isLogin && !anonymousPostEnabled) {
-            openLoginModal({ source });
+            openLoginModalWithGuard({ source });
             return;
         }
         if (!commentDisabled) {

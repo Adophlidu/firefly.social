@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -22,7 +22,7 @@ export function useToggleFollow(profile: Profile) {
             if (!profile.profileId) return;
 
             if (!isLogin) {
-                openLoginModal({ source });
+                openLoginModalWithGuard({ source });
                 return;
             }
 
