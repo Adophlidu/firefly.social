@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function DownloadMobileAppModal({ ref }: Props) {
-    const [open, dispatch, mounted] = useSingletonModal(ref);
+    const [open, dispatch, mounted] = useSingletonModal(ref, { name: 'download-mobile-app-modal' });
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>

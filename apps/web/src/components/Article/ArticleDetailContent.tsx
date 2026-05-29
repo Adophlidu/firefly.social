@@ -19,12 +19,12 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
+import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
 import { openPreviewMediaModal } from '@/helpers/openPreviewMediaModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { captureArticleViewSourceClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
@@ -110,7 +110,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                                         if (!isTrusted) {
                                             const intercepted = await interceptExternalUrl(anchorEl.href);
                                             if (intercepted) return;
-                                            const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(
+                                            const confirmed = await openAndWaitForCloseConfirmLeavingModal(
                                                 anchorEl.href,
                                             );
                                             if (confirmed) openWindow(anchorEl.href);

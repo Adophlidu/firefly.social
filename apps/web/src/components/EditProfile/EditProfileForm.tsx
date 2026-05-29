@@ -25,7 +25,7 @@ import {
 } from '@/constants/limitation.js';
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
+import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';
@@ -210,7 +210,7 @@ export const EditProfileForm = memo<EditProfileFormProps>(function EditProfileFo
                                 const file = first(e.target.files);
                                 if (!file) return;
 
-                                const updatedFile = await ImageEditorModalRef.openAndWaitForClose({
+                                const updatedFile = await openAndWaitForCloseImageEditorModal({
                                     file,
                                 });
                                 if (!updatedFile) return;

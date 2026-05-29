@@ -16,6 +16,7 @@ export function PasswordModal({ ref }: Props) {
     const isMedium = useIsMedium();
     const [props, setProps] = useState<PasswordModalOpenProps>();
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'password-modal',
         onOpen: (props) => {
             setProps(props);
         },

@@ -22,7 +22,7 @@ import { SocialAvatarSelector } from '@/app/[locale]/(whiteboard)/components/Sig
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/esm/Image.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
+import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 type AvatarType = 'pfp' | 'random' | 'custom';
@@ -115,7 +115,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
             if (!file) return;
 
             inputRef.current!.value = ''; // Reset input value to allow re-uploading the same file
-            const newAvatar = await ImageEditorModalRef.openAndWaitForClose({ file });
+            const newAvatar = await openAndWaitForCloseImageEditorModal({ file });
             if (!newAvatar) return;
 
             const url = URL.createObjectURL(newAvatar);

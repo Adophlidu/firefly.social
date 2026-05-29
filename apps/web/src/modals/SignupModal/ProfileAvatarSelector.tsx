@@ -5,7 +5,7 @@ import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
+import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
 
 interface Props {
     disabled?: boolean;
@@ -33,7 +33,7 @@ export const ProfileAvatarSelector = memo<Props>(function ProfileAvatarSelector(
                     const file = first(e.target.files);
                     if (!file) return;
 
-                    const updatedFile = await ImageEditorModalRef.openAndWaitForClose({
+                    const updatedFile = await openAndWaitForCloseImageEditorModal({
                         file,
                     });
                     if (!updatedFile) return;

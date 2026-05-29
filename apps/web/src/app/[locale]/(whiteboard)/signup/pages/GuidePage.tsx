@@ -10,10 +10,10 @@ import { useEffect, useState } from 'react';
 import { ShadowInAndOut } from '@/app/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
+import { openDownloadMobileAppModal } from '@/helpers/openDownloadMobileAppModal.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
-import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/refs.js';
 
 interface GuidePageProps {
     changeStep: (step: SignupStep) => void;
@@ -79,11 +79,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                     >
                         <Trans>Sign In</Trans>
                     </SquareButton>
-                    <SquareButton
-                        className="text-black"
-                        colorMode="light"
-                        onClick={() => DownloadMobileAppModalRef.open()}
-                    >
+                    <SquareButton className="text-black" colorMode="light" onClick={() => openDownloadMobileAppModal()}>
                         <div className="flex size-full items-center justify-center gap-3">
                             <Trans>Download App</Trans>
                             <AppleIcon width={24} height={24} />

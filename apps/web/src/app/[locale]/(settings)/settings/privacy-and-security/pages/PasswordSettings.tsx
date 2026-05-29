@@ -15,8 +15,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openAndWaitForClosePasswordModal, openPasswordModal } from '@/helpers/openPasswordModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { resetPasscode } from '@/providers/firefly/metrics/resetPasscode.js';
 import { captureRemovePasscodeEvent } from '@/providers/telemetry/capturePasscodeEvent.js';
@@ -38,7 +38,7 @@ function ToggleSyncSessionSwitch({
                     return;
                 }
                 if (value) {
-                    const result = await PasswordModalRef.openAndWaitForClose({ workflow: PasswordWorkflow.Set });
+                    const result = await openAndWaitForClosePasswordModal({ workflow: PasswordWorkflow.Set });
                     if (result === true) {
                         queryClient.setQueryData(['session-sync-status', isLogin], true);
                     }
@@ -118,7 +118,7 @@ export const PasswordSettings = memo(function PasswordSettings() {
                     <ClickableButton
                         className="-mx-3 mt-2 flex w-full items-center justify-between rounded-md px-3 py-1 text-base text-main transition-colors hover:bg-bg"
                         onClick={() => {
-                            PasswordModalRef.open({ workflow: PasswordWorkflow.Change });
+                            openPasswordModal({ workflow: PasswordWorkflow.Change });
                         }}
                     >
                         <span>
@@ -129,7 +129,7 @@ export const PasswordSettings = memo(function PasswordSettings() {
                     <ClickableButton
                         className="-mx-3 mt-2 flex w-full items-center justify-between rounded-md px-3 py-1 text-base text-main transition-colors hover:bg-bg"
                         onClick={() => {
-                            PasswordModalRef.open({ workflow: PasswordWorkflow.Reset });
+                            openPasswordModal({ workflow: PasswordWorkflow.Reset });
                         }}
                     >
                         <span>

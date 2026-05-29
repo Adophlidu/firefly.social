@@ -23,12 +23,12 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatCurrency } from '@/helpers/formatCurrency.js';
+import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
 import {
     RedPacketContext,
@@ -191,7 +191,7 @@ export default memo(function ConfirmView() {
 
     const [{ loading: creatingTheme }, createTheme] = useAsyncFn(
         async (file: File) => {
-            const blob = await ImageEditorModalRef.openAndWaitForClose({
+            const blob = await openAndWaitForCloseImageEditorModal({
                 file,
                 AvatarEditorProps: {
                     border: [0, 30],

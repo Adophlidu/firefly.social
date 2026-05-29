@@ -1,7 +1,7 @@
 import { PasswordWorkflow } from '@dimensiondev/enums';
 
 import { FireflyResponseCode } from '@/constants/responseCode.js';
-import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
+import { openAndWaitForClosePasswordModal } from '@/helpers/openPasswordModal.js';
 import type { StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
@@ -20,7 +20,7 @@ export async function verifyAndGetPassword(config?: VerifyAndGetPasswordOptions)
     const status = await getMetricsStatus();
     if (!status.hasSetPasscode) {
         if (!requireSetPassword) return null;
-        const result = await PasswordModalRef.openAndWaitForClose({
+        const result = await openAndWaitForClosePasswordModal({
             workflow: PasswordWorkflow.Set,
             autoUploadMetrics,
             descriptions,
@@ -34,7 +34,7 @@ export async function verifyAndGetPassword(config?: VerifyAndGetPasswordOptions)
             return localPassword;
         }
     }
-    const result = await PasswordModalRef.openAndWaitForClose({
+    const result = await openAndWaitForClosePasswordModal({
         workflow: PasswordWorkflow.Verify,
         autoUploadMetrics,
         descriptions,

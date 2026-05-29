@@ -6,9 +6,9 @@ import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
+import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
-import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 
 type LinkProps = React.ComponentProps<typeof OriginalLink>;
 
@@ -27,7 +27,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link({ hre
                 event.preventDefault();
                 const intercepted = await interceptExternalUrl(href);
                 if (intercepted) return;
-                const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(href);
+                const confirmed = await openAndWaitForCloseConfirmLeavingModal(href);
                 if (confirmed) openWindow(href);
             }
         },

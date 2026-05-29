@@ -19,10 +19,10 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
+import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { validateSnapStructure } from '@/helpers/snap.js';
-import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Snap, SnapAction, SnapDigestedResponse, SnapFieldValues, SnapJFSPayload } from '@/types/snap.js';
@@ -284,7 +284,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
 
                     case 'open_url': {
                         const intercepted = await interceptExternalUrl(action.params.target);
-                        if (!intercepted && (await ConfirmLeavingModalRef.openAndWaitForClose(action.params.target))) {
+                        if (!intercepted && (await openAndWaitForCloseConfirmLeavingModal(action.params.target))) {
                             openWindow(action.params.target, '_blank');
                         }
                         return;
@@ -292,7 +292,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
 
                     case 'open_mini_app': {
                         const intercepted = await interceptExternalUrl(action.params.target);
-                        if (!intercepted && (await ConfirmLeavingModalRef.openAndWaitForClose(action.params.target))) {
+                        if (!intercepted && (await openAndWaitForCloseConfirmLeavingModal(action.params.target))) {
                             openWindow(action.params.target, '_blank');
                         }
                         return;

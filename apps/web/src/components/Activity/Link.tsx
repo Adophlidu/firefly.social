@@ -4,9 +4,9 @@ import { type HTMLProps, type PropsWithChildren, useCallback } from 'react';
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
+import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
 import { openUrl } from '@/helpers/openUrl.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
-import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 
 type Props = PropsWithChildren<Omit<LinkProps, 'href'>> &
     Pick<HTMLProps<HTMLAnchorElement>, 'className' | 'target'> & { href: string } & {
@@ -23,7 +23,7 @@ export function Link({ children, trusted = false, href, onClick, ...rest }: Prop
             if (!trusted && !isTrusted && !internalLink && typeof href === 'string') {
                 const intercepted = await interceptExternalUrl(href);
                 if (intercepted) return;
-                const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(href);
+                const confirmed = await openAndWaitForCloseConfirmLeavingModal(href);
                 if (!confirmed) return;
             }
             await openUrl(href);

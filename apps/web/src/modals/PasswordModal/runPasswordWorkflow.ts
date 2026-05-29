@@ -5,8 +5,8 @@ import { t } from '@lingui/core/macro';
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { closePasswordModal } from '@/helpers/openPasswordModal.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
-import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { resetPasscode } from '@/providers/firefly/metrics/resetPasscode.js';
 import { setPasscode } from '@/providers/firefly/metrics/setPasscode.js';
@@ -47,7 +47,7 @@ async function verifyPasscodeOnServer(password: string): Promise<boolean> {
             const remainTryTimes = data.remainTryTimes as number;
             if (remainTryTimes <= 0) {
                 enqueueErrorMessage(t`Multi-device login is now turned off and all previously sessions are cleared.`);
-                PasswordModalRef.close();
+                closePasswordModal();
                 queryClient.setQueryData(['session-sync-status', true], false);
                 return false;
             }

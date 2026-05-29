@@ -28,6 +28,26 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'confirm-leaving-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'password-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'image-editor-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'download-mobile-app-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
     'draggable-popover': {
         open?: unknown;
         close?: unknown;

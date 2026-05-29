@@ -13,9 +13,9 @@ import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
-import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 
 interface CollectionMoreProps extends HTMLProps<HTMLDivElement> {
     chainId: number;
@@ -55,7 +55,7 @@ export const CollectionMore = memo<CollectionMoreProps>(function CollectionMore(
                     <MenuItem>
                         <MenuButton
                             onClick={async () => {
-                                if (await ConfirmLeavingModalRef.openAndWaitForClose(externalUrl)) {
+                                if (await openAndWaitForCloseConfirmLeavingModal(externalUrl)) {
                                     openWindow(externalUrl, '_blank');
                                 }
                             }}

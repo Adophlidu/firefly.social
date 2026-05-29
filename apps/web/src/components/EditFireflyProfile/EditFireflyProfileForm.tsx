@@ -18,7 +18,7 @@ import { FormInput } from '@/components/Form/FormInput.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
+import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
 import { updateProfile } from '@/providers/firefly/endpoint/updateProfile.js';
 import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
@@ -79,7 +79,7 @@ export function EditFireflyProfileForm() {
                             const file = first(e.target.files);
                             if (!file) return;
 
-                            const updatedFile = await ImageEditorModalRef.openAndWaitForClose({
+                            const updatedFile = await openAndWaitForCloseImageEditorModal({
                                 file,
                             });
                             if (!updatedFile) return;

@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { closeConfirmModal, openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { ConfirmLeavingModalRef, type ConfirmLeavingModalRefType } from '@/modals/ConfirmLeavingModal/refs.js';
+import type { ConfirmLeavingModalRefType } from '@/modals/ConfirmLeavingModal/refs.js';
 
 const WHITELIST: Array<string | ((url: string) => boolean)> = [
     (url) => isSameOriginUrl(url, location.origin),
@@ -17,12 +17,13 @@ interface Props {
 
 export function ConfirmLeavingModal({ ref }: Props) {
     useSingletonModal(ref, {
+        name: 'confirm-leaving-modal',
         onOpen: async (url) => {
             // urls in the whitelist will not trigger the modal
             if (WHITELIST.some((x) => (typeof x === 'function' ? x(url) : isSameOriginUrl(url, x)))) {
                 setTimeout(() => {
                     closeConfirmModal(true);
-                    ConfirmLeavingModalRef.close(true);
+                    closeConfirmLeavingModal(true);
                 }, 100);
                 return;
             }
@@ -39,11 +40,11 @@ export function ConfirmLeavingModal({ ref }: Props) {
                 ),
                 onConfirm() {
                     closeConfirmModal(true);
-                    ConfirmLeavingModalRef.close(true);
+                    closeConfirmLeavingModal(true);
                 },
                 onCancel() {
                     closeConfirmModal(false);
-                    ConfirmLeavingModalRef.close(false);
+                    closeConfirmLeavingModal(false);
                 },
             });
         },

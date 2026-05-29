@@ -20,10 +20,10 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage, getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
+import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import { NeynarFrameProvider } from '@/providers/neynar/Frame.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
@@ -156,7 +156,7 @@ async function getNextFrame(
                     return null;
                 }
 
-                if (await ConfirmLeavingModalRef.openAndWaitForClose(redirectUrl)) openWindow(redirectUrl, '_blank');
+                if (await openAndWaitForCloseConfirmLeavingModal(redirectUrl)) openWindow(redirectUrl, '_blank');
                 await captureFrameActionEvent('others', frame, address);
                 return null;
             }
@@ -166,8 +166,7 @@ async function getNextFrame(
                 const intercepted = await interceptExternalUrl(button.target);
                 if (intercepted) return null;
 
-                if (await ConfirmLeavingModalRef.openAndWaitForClose(button.target))
-                    openWindow(button.target, '_blank');
+                if (await openAndWaitForCloseConfirmLeavingModal(button.target)) openWindow(button.target, '_blank');
                 await captureFrameActionEvent('others', frame, address);
                 return null;
             case ActionType.Mint: {
@@ -183,7 +182,7 @@ async function getNextFrame(
                     return null;
                 }
 
-                if (await ConfirmLeavingModalRef.openAndWaitForClose(frame.url)) {
+                if (await openAndWaitForCloseConfirmLeavingModal(frame.url)) {
                     openWindow(frame.url, '_blank');
                 }
                 return null;

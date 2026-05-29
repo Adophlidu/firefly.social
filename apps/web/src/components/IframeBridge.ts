@@ -20,11 +20,11 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
+import { openDownloadMobileAppModal } from '@/helpers/openDownloadMobileAppModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useWalletTelemetrySubscriber } from '@/hooks/useWalletTelemetrySubscriber.js';
-import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/refs.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
@@ -122,7 +122,7 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         ) => {
             IS_MOBILE_DEVICE
                 ? (window.location.href = 'https://5euxu.app.link/PHvNiyVemIb')
-                : DownloadMobileAppModalRef.open();
+                : openDownloadMobileAppModal();
         },
         [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: async (
             params: IframeBridgeRequestArguments[IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE],

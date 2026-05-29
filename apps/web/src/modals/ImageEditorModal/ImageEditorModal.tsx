@@ -24,6 +24,7 @@ const ImageEditorContent = dynamic(
 export function ImageEditorModal({ ref }: Props) {
     const [props, setProps] = useState<ImageEditorModalOpenProps>();
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'image-editor-modal',
         onOpen(props) {
             setProps(props);
         },
