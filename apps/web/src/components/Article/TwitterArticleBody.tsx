@@ -7,7 +7,7 @@ import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { TWITTER_ARTICLE_REGEX } from '@/constants/regexp.js';
-import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
+import { openPreviewMediaModal } from '@/helpers/openPreviewMediaModal.js';
 
 interface Props {
     cover?: string;
@@ -36,7 +36,7 @@ export function TwitterArticleBody({ cover, title, content, oembedUrls }: Props)
                         event.preventDefault();
 
                         if (cover)
-                            PreviewMediaModalRef.open({
+                            openPreviewMediaModal({
                                 medias: [{ type: AttachmentType.Image, uri: cover }],
                                 index: 0,
                                 source: Source.Article,

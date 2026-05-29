@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
+import { openPreviewMediaModal } from '@/helpers/openPreviewMediaModal.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
-import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface WithPreviewLinkProps {
@@ -27,7 +27,7 @@ export function WithPreviewLink({
     const isPostPage = useIsPostDetailPage();
 
     const openPreviewModal = () => {
-        PreviewMediaModalRef.open({
+        openPreviewMediaModal({
             post,
             index,
             source: post.source,

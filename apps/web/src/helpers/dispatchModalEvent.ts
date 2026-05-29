@@ -13,6 +13,11 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'preview-media-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
     'wallet-connect-modal': {
         open?: unknown;
         close?: unknown;

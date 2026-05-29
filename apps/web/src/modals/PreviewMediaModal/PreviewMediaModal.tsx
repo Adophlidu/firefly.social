@@ -27,6 +27,7 @@ export function PreviewMediaModal({ ref }: Props) {
 
     const [props, setProps] = useState<PreviewMediaModalOpenProps | null>(null);
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'preview-media-modal',
         onOpen: (props) => setProps(props),
         onClose: () => setProps(null),
     });

@@ -14,8 +14,8 @@ import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { NFTPlugin } from '@/components/Markup/plugins/NFT.js';
 import { ImageAsset, type ImageAssetProps } from '@/components/Posts/ImageAsset.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { openPreviewMediaModal } from '@/helpers/openPreviewMediaModal.js';
 import { trimify } from '@/helpers/trimify.js';
-import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import type { Pluggable } from '@/types/utility.js';
 
 const PLUGINS: Pluggable[] = [
@@ -69,7 +69,7 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                                 event.preventDefault();
                                 event.stopPropagation();
                                 if (!src) return;
-                                PreviewMediaModalRef.open({
+                                openPreviewMediaModal({
                                     index: Math.max(index, 0),
                                     medias: images.current.map((uri) => ({ type: AttachmentType.Image, uri })),
                                     source: Source.Article,
