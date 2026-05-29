@@ -14,10 +14,10 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { openEditFireflyProfileModal } from '@/helpers/openEditFireflyProfileModal.js';
+import { openLogoutModal } from '@/helpers/openLogoutModal.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { LogoutModalRef } from '@/modals/LogoutModal/refs.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
 export function FireflyAccountCard() {
@@ -82,7 +82,7 @@ export function FireflyAccountCard() {
                         <>
                             <ClickableButton
                                 className="flex size-5 items-center justify-center rounded-lg text-danger"
-                                onClick={() => LogoutModalRef.open()}
+                                onClick={() => openLogoutModal()}
                             >
                                 <LogoutIcon className="size-5 shrink-0" />
                             </ClickableButton>

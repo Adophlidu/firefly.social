@@ -17,7 +17,7 @@ import { IconButton } from '@/components/IconButton.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/refs.js';
+import { openAndWaitForCloseAddLensManagerModal } from '@/helpers/openAddLensManagerModal.js';
 import { createMemorySessionClient } from '@/providers/lens/createMemorySessionClient.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
@@ -78,7 +78,7 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
         try {
             if (!isCurrentProfile && !sessionClient) throw new Error('Failed to create session client.');
 
-            const result = await AddLensManagerModalRef.openAndWaitForClose({
+            const result = await openAndWaitForCloseAddLensManagerModal({
                 manager: privyEvm,
                 sessionClient,
                 profile,

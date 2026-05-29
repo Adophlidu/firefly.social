@@ -6,7 +6,7 @@ import { dispatchModalEvent, openAndWaitForCloseModalEvent } from '@/helpers/dis
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
-import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/refs.js';
+import { openCreateFireflyAccountGuideModal } from '@/helpers/openCreateFireflyAccountGuideModal.js';
 import type { LoginModalCloseProps, LoginModalOpenProps } from '@/modals/LoginModal/refs.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
@@ -40,5 +40,5 @@ export function openLoginModalWithGuard(props: LoginModalOpenProps | void, force
         return;
     }
 
-    CreateFireflyAccountGuideModalRef.open();
+    openCreateFireflyAccountGuideModal();
 }

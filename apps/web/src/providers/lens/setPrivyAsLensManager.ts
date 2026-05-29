@@ -4,8 +4,8 @@ import { runInSafe } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
+import { openAndWaitForCloseAddLensManagerModal } from '@/helpers/openAddLensManagerModal.js';
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
-import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/refs.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
@@ -44,7 +44,7 @@ export async function setPrivyAsLensManager(account: Account): Promise<Boolean> 
     closeLoginModal();
 
     // 6. bind manager
-    const result = await AddLensManagerModalRef.openAndWaitForClose({
+    const result = await openAndWaitForCloseAddLensManagerModal({
         profile: account.profile,
         manager: privyEvmAddress,
     });

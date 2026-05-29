@@ -11,10 +11,10 @@ import { mainnet } from 'viem/chains';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { openMyWalletsModal } from '@/helpers/openMyWalletsModal.js';
 import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
@@ -53,7 +53,7 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
                     await delay(300);
                 }
                 if (connectedNetworks.length) {
-                    MyWalletsModalRef.open();
+                    openMyWalletsModal();
                 } else {
                     openWalletConnectModal({
                         origin: ClickOrigin.NavBar,

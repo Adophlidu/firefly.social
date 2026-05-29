@@ -36,6 +36,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
     const account = props?.account;
     const avatar = useFireflyAccountAvatar();
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'disconnect-firefly-account-modal',
         onOpen: (props) => setProps(props),
     });
 

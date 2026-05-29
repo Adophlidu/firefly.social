@@ -21,6 +21,7 @@ export function FreeMintModal({ ref }: Props) {
     const [props, setProps] = useState<FreeMintModalOpenProps>();
 
     const [open, dispatch, mounted] = useSingletonModal(ref, {
+        name: 'free-mint-modal',
         onOpen: (props) => setProps(props),
         onClose: () => setProps(undefined),
     });

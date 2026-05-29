@@ -78,6 +78,51 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'tips-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'schedule-post-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'my-wallets-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'logout-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'free-mint-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'edit-cross-at-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'disconnect-firefly-account-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'create-firefly-account-guide-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'add-lens-manager-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
     'draggable-popover': {
         open?: unknown;
         close?: unknown;

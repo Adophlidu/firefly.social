@@ -7,12 +7,12 @@ import { useTimeoutFn } from 'react-use';
 
 import { usePathname } from '@/esm/navigation.js';
 import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
+import { openCreateFireflyAccountGuideModal } from '@/helpers/openCreateFireflyAccountGuideModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useWatchAccountChange } from '@/hooks/useWatchAccountChange.js';
-import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/refs.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 function removeGlobalLoading() {
@@ -41,7 +41,7 @@ export function FireflyAccountChecker() {
         if (!isForceRedirect) return;
         if (isForbiddenError) return;
         if (hasLoggedIn) {
-            CreateFireflyAccountGuideModalRef.open();
+            openCreateFireflyAccountGuideModal();
             return;
         }
         bom.location.href = PageRoute.Signup;

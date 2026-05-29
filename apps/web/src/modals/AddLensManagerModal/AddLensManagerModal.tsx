@@ -26,6 +26,7 @@ export function AddLensManagerModal({ ref }: Props) {
     const [loading, setLoading] = useState(false);
 
     const [open, dispatch, mounted] = useSingletonModal(ref, {
+        name: 'add-lens-manager-modal',
         onOpen: (props) => setProps(props),
         onClose: () => {
             setProps(undefined);

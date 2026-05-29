@@ -22,6 +22,7 @@ export function LogoutModal({ ref }: Props) {
     const router = useRouter();
 
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'logout-modal',
         async onOpen(props) {
             const accounts = compact(
                 props?.account ? [props.account] : SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts),

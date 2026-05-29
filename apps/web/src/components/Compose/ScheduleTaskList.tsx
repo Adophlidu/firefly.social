@@ -24,12 +24,12 @@ import { queryClient } from '@/configs/queryClient.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
+import { openSchedulePostModal } from '@/helpers/openSchedulePostModal.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { SchedulePostModalRef } from '@/modals/SchedulePostModal/refs.js';
 import { deleteScheduledPost } from '@/providers/firefly/post/deleteScheduledPost.js';
 import { getScheduledPosts } from '@/providers/firefly/post/getScheduledPosts.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -107,7 +107,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
         }
 
         if (isMedium) {
-            SchedulePostModalRef.open({
+            openSchedulePostModal({
                 action: 'update',
                 task,
             });

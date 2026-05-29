@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function CreateFireflyAccountGuideModal({ ref }: Props) {
-    const [open, dispatch] = useSingletonModal(ref);
+    const [open, dispatch] = useSingletonModal(ref, { name: 'create-firefly-account-guide-modal' });
 
     return (
         <Modal disableBackdropClose open={open} onClose={() => dispatch?.close()}>

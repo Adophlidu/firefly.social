@@ -7,7 +7,7 @@ import { useAsyncFn } from 'react-use';
 
 import { FetchError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';
+import { openAndWaitForCloseMyWalletsModal } from '@/helpers/openMyWalletsModal.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { verifyAndBindWallet } from '@/services/verifyAndBindWallet.js';
 
@@ -37,7 +37,7 @@ export function useVerifyAndBindWallet(
                 if (!result) {
                     if (isPrivyConnected) {
                         enqueueWarningMessage(t`Please switch the wallet you want to connect`);
-                        MyWalletsModalRef.openAndWaitForClose();
+                        openAndWaitForCloseMyWalletsModal();
                         return;
                     }
                     onError?.(new Error('This address type is not supported'));

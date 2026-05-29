@@ -13,6 +13,7 @@ interface Props {
 
 export function MyWalletsModal({ ref }: Props) {
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'my-wallets-modal',
         onOpen: () => {
             appkit.updateRemoteFeatures({ multiWallet: true });
         },

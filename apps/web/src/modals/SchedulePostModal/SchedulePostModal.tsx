@@ -19,6 +19,7 @@ export function SchedulePostModal({ ref }: Props) {
     const [task, setTask] = useState<ScheduleTask>();
 
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'schedule-post-modal',
         onOpen({ action, task }) {
             setAction(action);
             setTask(task);

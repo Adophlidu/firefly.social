@@ -10,6 +10,7 @@ import { useAsyncFn } from 'react-use';
 
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { openAndWaitForCloseEditCrossAtModal } from '@/helpers/openEditCrossAtModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -37,7 +38,7 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
 
     const [, handleEdit] = useAsyncFn(
         async (close: () => void) => {
-            const result = await EditCrossAtModalRef.openAndWaitForClose({
+            const result = await openAndWaitForCloseEditCrossAtModal({
                 profiles: profiles.filter((x) => x.platform !== FireflyPlatform.Wallet),
             });
             if (result && editor) {

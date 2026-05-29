@@ -23,9 +23,9 @@ import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openEditFireflyProfileModal } from '@/helpers/openEditFireflyProfileModal.js';
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
+import { openLogoutModal } from '@/helpers/openLogoutModal.js';
 import { openAndWaitForClosePasswordModal } from '@/helpers/openPasswordModal.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { LogoutModalRef } from '@/modals/LogoutModal/refs.js';
 import { SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal/refs.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
@@ -193,7 +193,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                 onClick={() => {
                                     close();
                                     closeLoginModal();
-                                    LogoutModalRef.open();
+                                    openLogoutModal();
 
                                     router.prefetch(PageRoute.Signup);
                                 }}

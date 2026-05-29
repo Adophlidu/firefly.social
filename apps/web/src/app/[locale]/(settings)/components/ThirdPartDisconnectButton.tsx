@@ -3,7 +3,7 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal/refs.js';
+import { openAndWaitForCloseDisconnectFireflyAccountModal } from '@/helpers/openDisconnectFireflyAccountModal.js';
 import type { Account } from '@/providers/types/Account.js';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 export function ThirdPartDisconnectButton({ account, onSucceed }: Props) {
     const [{ loading }, handleDisconnect] = useAsyncFn(async () => {
-        await DisconnectFireflyAccountModalRef.openAndWaitForClose({
+        await openAndWaitForCloseDisconnectFireflyAccountModal({
             account,
         });
         onSucceed?.();

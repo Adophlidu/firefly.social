@@ -31,6 +31,7 @@ export function EditCrossAtModal({ ref }: Props) {
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
     const [handles, setHandles] = useState<Record<SocialSource, string>>({} as Record<SocialSource, string>);
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'edit-cross-at-modal',
         onOpen: (props) => {
             setProfiles(props.profiles);
             const nextHandles = {} as Record<SocialSource, string>;

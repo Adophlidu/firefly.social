@@ -23,11 +23,11 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openAndWaitForCloseDisconnectFireflyAccountModal } from '@/helpers/openDisconnectFireflyAccountModal.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal/refs.js';
 import { checkBatchCustodyWallet } from '@/providers/firefly/endpoint/checkBatchCustodyWallet.js';
 import type { Account } from '@/providers/types/Account.js';
 
@@ -60,7 +60,7 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
             );
             return;
         }
-        await DisconnectFireflyAccountModalRef.openAndWaitForClose({
+        await openAndWaitForCloseDisconnectFireflyAccountModal({
             account,
         });
     }, [account, all, data]);

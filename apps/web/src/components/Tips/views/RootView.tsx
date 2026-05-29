@@ -8,8 +8,8 @@ import { createContext, useContext } from 'react';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { closeTipsModal } from '@/helpers/openTipsModal.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { TipsModalRef } from '@/modals/TipsModal/refs.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const OpenTipsModalContext = createContext<boolean>(false);
@@ -29,7 +29,7 @@ export function RootView() {
     };
 
     const onClose = () => {
-        TipsModalRef.close();
+        closeTipsModal();
     };
 
     const isListView = pathname === TipsRoutePath.SELECT_RECIPIENT || pathname === TipsRoutePath.SELECT_TOKEN;

@@ -65,6 +65,7 @@ export function TipsModal({ ref }: Props) {
     const { reset, update, open, recipientList } = useTipsStore();
 
     const [, dispatch] = useSingletonModal(ref, {
+        name: 'tips-modal',
         onOpen: ({ identity, handle, profiles, post, pureWallet = false }) => {
             // avoid UI flicker when closing
             reset();
