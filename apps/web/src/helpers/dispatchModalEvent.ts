@@ -18,6 +18,11 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'draggable-popover': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
 }
 
 export function dispatchModalEvent<K extends keyof ModalEvents>(

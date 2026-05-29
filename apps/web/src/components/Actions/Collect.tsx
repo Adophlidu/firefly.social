@@ -12,7 +12,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { CollectPostModalRef } from '@/modals/CollectPostModal/refs.js';
-import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CollectProps {
@@ -56,12 +56,12 @@ export const Collect = memo<CollectProps>(function Collect({
                                 post,
                             });
                         } else {
-                            DraggablePopoverRef.open({
+                            openDraggablePopover({
                                 content: (
                                     <PostCollect
                                         post={post}
                                         onClose={() => {
-                                            DraggablePopoverRef.close();
+                                            closeDraggablePopover();
                                         }}
                                     />
                                 ),

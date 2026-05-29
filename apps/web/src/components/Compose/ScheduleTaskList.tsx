@@ -28,7 +28,7 @@ import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
-import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import { SchedulePostModalRef } from '@/modals/SchedulePostModal/refs.js';
 import { deleteScheduledPost } from '@/providers/firefly/post/deleteScheduledPost.js';
 import { getScheduledPosts } from '@/providers/firefly/post/getScheduledPosts.js';
@@ -112,10 +112,8 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 task,
             });
         } else {
-            DraggablePopoverRef.open({
-                content: (
-                    <SchedulePostSettings action="update" task={task} onClose={() => DraggablePopoverRef.close()} />
-                ),
+            openDraggablePopover({
+                content: <SchedulePostSettings action="update" task={task} onClose={() => closeDraggablePopover()} />,
                 enableOverflow: false,
             });
         }

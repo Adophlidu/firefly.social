@@ -41,7 +41,7 @@ import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
-import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import {
     captureFirstTimeClickInLogin,
     captureReconnectClickInLogin,
@@ -72,7 +72,7 @@ async function loginFarcaster(
         }
 
         closeLoginModal();
-        DraggablePopoverRef.close();
+        closeDraggablePopover();
     } catch (error) {
         // skip if the error is abort error
         if (AbortError.is(error)) return;
@@ -115,7 +115,7 @@ async function loginFarcaster(
         // if any unhandled error occurs, close the modal
         // by this we don't need to do error handling in UI part.
         closeLoginModal();
-        DraggablePopoverRef.close();
+        closeDraggablePopover();
 
         throw error;
     } finally {
@@ -275,7 +275,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         if (loadingByGrantPermission || loadingByRelayService || loadingBySponsorship) return;
 
         if (IS_MOBILE_DEVICE && !signType) {
-            DraggablePopoverRef.open({
+            openDraggablePopover({
                 content: (
                     <div className="p-6">
                         <div className="text-center text-[18px] font-bold leading-[22px] text-main">
@@ -292,7 +292,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                             <ClickableButton
                                 onClick={() => {
                                     onClick(FarcasterSignType.FireflySponsorship);
-                                    DraggablePopoverRef.close();
+                                    closeDraggablePopover();
                                 }}
                                 className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
                                 aria-label="New Connect"
@@ -302,7 +302,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                             <ClickableButton
                                 onClick={() => {
                                     onClick(FarcasterSignType.RelayService);
-                                    DraggablePopoverRef.close();
+                                    closeDraggablePopover();
                                 }}
                                 className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                                 aria-label="Reconnect"

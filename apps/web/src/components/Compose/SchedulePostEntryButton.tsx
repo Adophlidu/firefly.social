@@ -14,7 +14,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import { SchedulePostModalRef } from '@/modals/SchedulePostModal/refs.js';
 import { captureSchedulePostClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -42,8 +42,8 @@ export function SchedulePostEntryButton({ className, showText, disabled = false,
                 action,
             });
         } else {
-            DraggablePopoverRef.open({
-                content: <SchedulePostSettings action={action} onClose={() => DraggablePopoverRef.close()} />,
+            openDraggablePopover({
+                content: <SchedulePostSettings action={action} onClose={() => closeDraggablePopover()} />,
                 enableOverflow: false,
             });
         }

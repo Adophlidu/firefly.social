@@ -15,6 +15,7 @@ export function DraggablePopover({ ref }: Props) {
     const timerRef = useRef<NodeJS.Timeout>(undefined);
 
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'draggable-popover',
         onOpen(props) {
             clearTimeout(timerRef.current);
             setProps({
