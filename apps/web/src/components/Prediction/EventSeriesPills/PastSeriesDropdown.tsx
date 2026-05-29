@@ -8,19 +8,13 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, memo } from 'react';
 
-import { PastResultsPreview } from '@/components/Prediction/EventSeriesPills/PastResultsPreview.js';
-import { EventResult } from '@/components/Prediction/PredictionSeries/EventResult.js';
 import { Link } from '@/esm/Link.js';
 import {
     formatPastDropdownTime,
     splitAmPmTime,
 } from '@/helpers/prediction/polymarket/eventSeriesPills/formatSeriesPillTime.js';
-import { resolveOutcomeFromUiEvent } from '@/helpers/prediction/polymarket/eventSeriesPills/toSeriesEventForPills.js';
-import type {
-    PastOutcome,
-    PastResultRow,
-    SeriesEventForPills,
-} from '@/helpers/prediction/polymarket/eventSeriesPills/types.js';
+import { resolvePastEventOutcome } from '@/helpers/prediction/polymarket/eventSeriesPills/toSeriesEventForPills.js';
+import type { PastOutcome, SeriesEventForPills } from '@/helpers/prediction/polymarket/eventSeriesPills/types.js';
 import { resolvePredictionEventUrl } from '@/helpers/resolvePredictionEventUrl.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
@@ -29,9 +23,6 @@ interface PastSeriesDropdownProps {
     pastEvents: BetsEventDataForUI[];
     pastLogic: SeriesEventForPills[];
     outcomesBySlug: Map<string, PastOutcome>;
-    pastResults: PastResultRow[];
-    isDailyUpOrDown: boolean;
-    uiBySlug: Map<string, BetsEventDataForUI>;
 }
 
 export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSeriesDropdown({
@@ -39,13 +30,10 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
     pastEvents,
     pastLogic,
     outcomesBySlug,
-    pastResults,
-    isDailyUpOrDown,
-    uiBySlug,
 }) {
     if (!pastEvents.length) return null;
 
-    const previewResolved = pastEvents.slice(0, 3).some((e) => e.markets.some((m) => !!m.resolvedOutcomeId));
+    const previewEvents = pastEvents.slice(0, 3);
 
     return (
         <Popover as="div" className="relative">
@@ -55,17 +43,12 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
                         <span className="shrink-0 whitespace-nowrap text-[10px] font-bold">
                             <Trans>Past</Trans>
                         </span>
-                        {previewResolved
-                            ? pastEvents.slice(0, 3).map((event) => <EventResult key={event.id} event={event} />)
-                            : null}
-                        <PastResultsPreview
-                            currentSlug={eventSlug}
-                            pastEvents={pastLogic}
-                            results={pastResults}
-                            outcomesBySlug={outcomesBySlug}
-                            isDailyUpOrDown={isDailyUpOrDown}
-                            uiBySlug={uiBySlug}
-                        />
+                        {previewEvents.map((event) => {
+                            const outcome = resolvePastEventOutcome(event, outcomesBySlug);
+                            return outcome ? (
+                                <PastOutcomeIcon key={event.id} outcome={outcome} className="size-[15px]" />
+                            ) : null;
+                        })}
                         <ArrowLineDown className="size-[7px] shrink-0" />
                     </PopoverButton>
                     <Transition
@@ -90,10 +73,7 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
                                         ? formatPastDropdownTime(logic, t`Today`, t`Tomorrow`)
                                         : { timeText: event.slug ?? event.id, dateText: null };
                                     const { main, period, suffix } = splitAmPmTime(timeText);
-                                    const apiOutcome = outcomesBySlug.get(event.slug ?? '');
-                                    const fallbackOutcome = resolveOutcomeFromUiEvent(event);
-                                    const showOutcome = apiOutcome || fallbackOutcome;
-                                    const isUp = (apiOutcome ?? fallbackOutcome) === 'up';
+                                    const outcome = resolvePastEventOutcome(event, outcomesBySlug);
 
                                     return (
                                         <Link
@@ -105,19 +85,8 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
                                             href={resolvePredictionEventUrl(event)}
                                             onClick={() => close()}
                                         >
-                                            {showOutcome ? (
-                                                <span
-                                                    className={classNames(
-                                                        'flex size-[14px] shrink-0 items-center justify-center rounded-full text-[8px] text-white',
-                                                        isUp ? 'bg-success' : 'bg-danger',
-                                                    )}
-                                                >
-                                                    <ArrowDownIcon
-                                                        width={15}
-                                                        height={15}
-                                                        className={classNames(isUp ? 'rotate-180' : '')}
-                                                    />
-                                                </span>
+                                            {outcome ? (
+                                                <PastOutcomeIcon outcome={outcome} className="size-[14px] text-[8px]" />
                                             ) : null}
                                             {dateText ? (
                                                 <span className="flex items-center gap-1 whitespace-nowrap">
@@ -146,3 +115,19 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
         </Popover>
     );
 });
+
+function PastOutcomeIcon({ outcome, className }: { outcome: PastOutcome; className?: string }) {
+    const isUp = outcome === 'up';
+
+    return (
+        <span
+            className={classNames(
+                'flex shrink-0 items-center justify-center rounded-full text-white',
+                isUp ? 'bg-success' : 'bg-danger',
+                className,
+            )}
+        >
+            <ArrowDownIcon width={15} height={15} className={classNames(isUp ? 'rotate-180' : '')} />
+        </span>
+    );
+}

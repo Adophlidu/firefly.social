@@ -1,4 +1,4 @@
-import type { SeriesEventForPills } from '@/helpers/prediction/polymarket/eventSeriesPills/types.js';
+import type { PastOutcome, SeriesEventForPills } from '@/helpers/prediction/polymarket/eventSeriesPills/types.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 /** Map UI event to logic-layer series pill shape. */
@@ -23,4 +23,13 @@ export function resolveOutcomeFromUiEvent(event: BetsEventDataForUI): 'up' | 'do
     if (lower === 'up' || lower === 'yes') return 'up';
     if (lower === 'down' || lower === 'no') return 'down';
     return null;
+}
+
+/** Past dropdown + button preview: API outcomes map first, then UI market resolution. */
+export function resolvePastEventOutcome(
+    event: BetsEventDataForUI,
+    outcomesBySlug: Map<string, PastOutcome>,
+): PastOutcome | null {
+    const slug = event.slug ?? '';
+    return outcomesBySlug.get(slug) ?? resolveOutcomeFromUiEvent(event);
 }

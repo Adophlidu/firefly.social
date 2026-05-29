@@ -94,7 +94,6 @@ export const EventSeriesPills = memo<EventSeriesPillsProps>(function EventSeries
 
     const pastSlugs = useMemo(() => sortedPast.map((e) => e.slug), [sortedPast]);
     const isUpDown = isPolymarketUpDownSlug(currentSlug);
-    const isDailyUpOrDown = currentSlug.includes('-up-or-down-on-');
 
     const allSeriesLogic = useMemo(() => [...sortedOpen, ...sortedPast], [sortedOpen, sortedPast]);
 
@@ -125,14 +124,6 @@ export const EventSeriesPills = memo<EventSeriesPillsProps>(function EventSeries
 
         return map;
     }, [pastResultsQuery.data?.outcomesBySlug, pastUi]);
-
-    const previewResultsQuery = usePolymarketPastResults(currentLogic, allSeriesLogic, {
-        enabled: isUpDown && pastSlugs.length > 0,
-        includeOutcomesBySlug: true,
-        count: 4,
-    });
-
-    const pastResults = previewResultsQuery.data?.results ?? [];
 
     const currentPillsUi = useMemo(() => {
         if (!currentPillsLogic?.length) return [];
@@ -170,9 +161,6 @@ export const EventSeriesPills = memo<EventSeriesPillsProps>(function EventSeries
                         pastEvents={pastUiList}
                         pastLogic={sortedPast}
                         outcomesBySlug={outcomesBySlug}
-                        pastResults={pastResults}
-                        isDailyUpOrDown={isDailyUpOrDown}
-                        uiBySlug={uiBySlug}
                     />
                     {showEnded && endedLabel ? (
                         <ClickableButton className="flex h-[30px] items-center gap-1 rounded-full bg-main px-3 text-[10px] font-bold text-primaryBottom">
