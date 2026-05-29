@@ -10,6 +10,7 @@ export function Snackbar({ ref }: Props) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     useSingletonModal(ref, {
+        name: 'snackbar',
         onOpen: async (props) => {
             const withMessage = props as { message: SnackbarMessage; options?: OptionsObject };
 

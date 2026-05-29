@@ -16,11 +16,11 @@ import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
+import { closeSnackbar } from '@/helpers/openSnackbar.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { logger } from '@/libs/Logger.js';
-import { SnackbarRef } from '@/modals/Snackbar/refs.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { updateClaimStrategy } from '@/providers/firefly/red-packet/updateClaimStrategy.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
@@ -188,7 +188,7 @@ export async function crossPost(
 
     const parentPost = Object.values(compositePost.parentPost).find((x) => x);
 
-    SnackbarRef.close({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
+    closeSnackbar({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
     const allSettled = await Promise.allSettled(
         SORTED_SOCIAL_SOURCES.map(async (source) => {
             if (!availableSources.includes(source)) return null;

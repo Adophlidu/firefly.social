@@ -10,7 +10,7 @@ import type { OptionsObject, SnackbarKey, SnackbarMessage } from '@/components/S
 import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { SnackbarRef } from '@/modals/Snackbar/refs.js';
+import { closeSnackbar, openSnackbar } from '@/helpers/openSnackbar.js';
 
 export enum MessageKey {
     COMPOSE_ERROR_NOTIFICATION_KEY = 'COMPOSE_NOTIFICATION_KEY',
@@ -38,7 +38,7 @@ function snackbarAction(key: SnackbarKey) {
         <ClickableButton
             className="flex size-6 items-center justify-center"
             onClick={() => {
-                SnackbarRef.close({ key });
+                closeSnackbar({ key });
             }}
         >
             <XMarkIcon width={20} height={20} />
@@ -66,7 +66,7 @@ const MESSAGE_FILTERS = [versionFilter, environmentFilter];
 export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOptions) {
     if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
 
-    SnackbarRef.open({
+    openSnackbar({
         message,
         options: {
             variant: 'info',
@@ -79,7 +79,7 @@ export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOp
 export function enqueueSuccessMessage(message: SnackbarMessage, options?: MessageOptions) {
     if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
 
-    SnackbarRef.open({
+    openSnackbar({
         message,
         options: {
             variant: 'success',
@@ -92,7 +92,7 @@ export function enqueueSuccessMessage(message: SnackbarMessage, options?: Messag
 export function enqueueWarningMessage(message: SnackbarMessage, options?: MessageOptions) {
     if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
 
-    SnackbarRef.open({
+    openSnackbar({
         message,
         options: {
             duration: 15 * 1000, // 15s
@@ -108,7 +108,7 @@ export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOpt
 
     const detail = options?.description || (options?.error ? getDetailedErrorMessage(options.error) : '') || '';
 
-    SnackbarRef.open({
+    openSnackbar({
         message,
         options: {
             duration: 15 * 1000, // 15s
@@ -132,7 +132,7 @@ export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsO
 
     const detailedMessage = options?.description || options?.errors?.map(getDetailedErrorMessage).join('\n').trim();
 
-    SnackbarRef.open({
+    openSnackbar({
         message,
         options: {
             duration: 15 * 1000, // 15s

@@ -73,6 +73,11 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    snackbar: {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
     'draggable-popover': {
         open?: unknown;
         close?: unknown;

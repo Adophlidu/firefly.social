@@ -1,9 +1,9 @@
 import { PermissionSnackbar } from '@/components/PermissionSnackbar.js';
 import type { SnackbarKey } from '@/components/Snackbar.js';
-import { SnackbarRef } from '@/modals/Snackbar/refs.js';
+import { openSnackbar } from '@/helpers/openSnackbar.js';
 
 export function enqueuePermissionMessage(rejected: boolean, onEnable?: () => void) {
-    SnackbarRef.open({
+    openSnackbar({
         message: `Notification permission - ${rejected ? 'Denied' : 'Granted'}`,
         options: {
             key: `notification-${rejected ? 'denied' : 'granted'}`,

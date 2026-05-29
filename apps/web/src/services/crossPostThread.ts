@@ -8,8 +8,8 @@ import { compact, difference, first } from 'lodash-es';
 import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
+import { closeSnackbar } from '@/helpers/openSnackbar.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
-import { SnackbarRef } from '@/modals/Snackbar/refs.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
@@ -100,7 +100,7 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
 
     progressCallback?.(0);
 
-    SnackbarRef.close({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
+    closeSnackbar({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
 
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
