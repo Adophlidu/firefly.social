@@ -47,3 +47,22 @@ export function dispatchModalEvent<K extends keyof ModalEvents>(
         }),
     );
 }
+
+export function openAndWaitForCloseModalEvent<K extends keyof ModalEvents>(
+    name: K,
+    payload?: unknown,
+): Promise<unknown> {
+    return new Promise((resolve, reject) => {
+        bom.document?.dispatchEvent(
+            new CustomEvent(`${EVENT_MODAL}:${name}`, {
+                detail: {
+                    name,
+                    action: 'openAndWaitForClose',
+                    props: payload,
+                    resolve,
+                    reject,
+                },
+            }),
+        );
+    });
+}

@@ -27,6 +27,8 @@ export function useSingletonModal<OpenProps, CloseProps>(
     const dispatchRef = useRef<ReturnType<T>>(null);
     const optionsRef = useRef<typeof options>(null);
     const openRef = useRef(open);
+    const pendingResolveRef = useRef<((value: unknown) => void) | null>(null);
+    const pendingRejectRef = useRef<((error: Error) => void) | null>(null);
     optionsRef.current = options;
     openRef.current = open;
 
@@ -45,11 +47,17 @@ export function useSingletonModal<OpenProps, CloseProps>(
                 optionsRef.current?.onClose?.(props, this);
                 dispatchClose(props);
                 setOpen(false);
+                pendingResolveRef.current?.(props as unknown);
+                pendingResolveRef.current = null;
+                pendingRejectRef.current = null;
             },
             abort(error) {
                 optionsRef.current?.onAbort?.(error, this);
                 dispatchAbort(error);
                 setOpen(false);
+                pendingRejectRef.current?.(error);
+                pendingResolveRef.current = null;
+                pendingRejectRef.current = null;
             },
         };
         return dispatchRef.current;
@@ -65,15 +73,21 @@ export function useSingletonModal<OpenProps, CloseProps>(
         const handleModalEvent = (event: Event) => {
             const { detail } = event as CustomEvent<{
                 name: string;
-                action: 'open' | 'close' | 'abort';
+                action: 'open' | 'close' | 'abort' | 'openAndWaitForClose';
                 props?: OpenProps | CloseProps;
                 error?: Error;
+                resolve?: (value: unknown) => void;
+                reject?: (error: Error) => void;
             }>;
 
             if (detail.name !== name || !dispatchRef.current) return;
 
             const { action, props, error } = detail;
             if (action === 'open') {
+                dispatchRef.current.open(props as OpenProps);
+            } else if (action === 'openAndWaitForClose') {
+                pendingResolveRef.current = detail.resolve ?? null;
+                pendingRejectRef.current = detail.reject ?? null;
                 dispatchRef.current.open(props as OpenProps);
             } else if (action === 'close') {
                 dispatchRef.current.close((props ?? undefined) as CloseProps);
