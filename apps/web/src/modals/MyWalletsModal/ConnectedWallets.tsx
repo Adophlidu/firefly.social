@@ -15,10 +15,10 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { type AppKitAccount, useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { AppKitAccountItem } from '@/modals/MyWalletsModal/AppKitAccountItem.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -151,7 +151,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
 
     const [{ loading }, openWallets] = useAsyncFn(async () => {
         appkit.updateRemoteFeatures({ multiWallet: true });
-        WalletConnectModalRef.open();
+        openWalletConnectModal();
     }, []);
 
     return (

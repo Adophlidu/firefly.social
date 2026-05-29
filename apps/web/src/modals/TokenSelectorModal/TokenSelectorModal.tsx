@@ -11,11 +11,11 @@ import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal/refs.js';
 import type { TokenSelectorModalOpenProps, TokenSelectorModalRefType } from '@/modals/TokenSelectorModal/refs.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 interface Props {
@@ -89,7 +89,7 @@ export function TokenSelectorModal({ ref }: Props) {
                                     switch (props.networkType) {
                                         case NetworkType.Ethereum:
                                         case NetworkType.Solana:
-                                            WalletConnectModalRef.open({ networkType: props.networkType });
+                                            openWalletConnectModal({ networkType: props.networkType });
                                             break;
                                         default:
                                             safeUnreachable(props.networkType);

@@ -17,11 +17,11 @@ import { EstimatedCost } from '@/components/Tips/EstimatedCost.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
@@ -233,7 +233,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
 export function SendWithEVM() {
     const account = useConnection();
     const onConnect = useCallback(() => {
-        WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
+        openWalletConnectModal({ networkType: NetworkType.Ethereum });
     }, []);
 
     return <SendTipsButton connected={account.isConnected} onConnect={onConnect} />;
@@ -243,7 +243,7 @@ export function SendWithSolana() {
     const provider = useSolanaWalletProvider();
 
     const onConnect = useCallback(() => {
-        WalletConnectModalRef.open({ networkType: NetworkType.Solana });
+        openWalletConnectModal({ networkType: NetworkType.Solana });
     }, []);
 
     return <SendTipsButton connected={!!provider?.publicKey} onConnect={onConnect} />;

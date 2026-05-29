@@ -7,10 +7,10 @@ import { useAsyncFn } from 'react-use';
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { MoreAction } from '@/modals/FrameViewerModal/FrameViewerMoreAction.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 interface FrameViewerModalHeaderProps {
     onClose?: () => void;
@@ -31,7 +31,7 @@ export function FrameViewerModalHeader({ props, setProps, onClose }: FrameViewer
     }, [props, setProps]);
 
     const onSwitchWallet = useCallback(() => {
-        WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
+        openWalletConnectModal({ networkType: NetworkType.Ethereum });
     }, []);
 
     const { frame } = props;

@@ -14,12 +14,12 @@ import { ActionButton } from '@/components/ActionButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -73,7 +73,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
         switch (networkType) {
             case NetworkType.Solana:
             case NetworkType.Ethereum:
-                WalletConnectModalRef.open({ networkType });
+                openWalletConnectModal({ networkType });
                 break;
             default:
                 safeUnreachable(networkType);

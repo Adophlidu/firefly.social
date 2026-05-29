@@ -6,8 +6,8 @@ import { memo, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
+import { closeWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -38,7 +38,7 @@ export default memo(function ConnectingWcView() {
             if (!address || isPrivyAddress(last(address.split(':')) || '')) return;
 
             const networkType = getNetworkTypeFromCaipAddress(address);
-            WalletConnectModalRef.close(networkType ? { networkType } : undefined);
+            closeWalletConnectModal(networkType ? { networkType } : undefined);
             captureConnectWalletEvent(EventId.CONNECT_WALLET_SUCCESS, {
                 name: location.search.name,
                 origin,

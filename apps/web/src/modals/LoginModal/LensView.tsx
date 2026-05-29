@@ -33,11 +33,11 @@ import {
 import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { logger } from '@/libs/Logger.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
@@ -192,7 +192,7 @@ export const LensView = memo(function LensView() {
                         <span
                             className="ml-1 cursor-pointer text-highlight"
                             onClick={() => {
-                                WalletConnectModalRef.open();
+                                openWalletConnectModal();
                             }}
                         >
                             current wallet
@@ -248,7 +248,7 @@ export const LensView = memo(function LensView() {
                                         <ClickableButton
                                             className="mx-1 text-highlight"
                                             onClick={() => {
-                                                WalletConnectModalRef.open();
+                                                openWalletConnectModal();
                                             }}
                                             aria-label="Change wallet"
                                         >
@@ -273,7 +273,7 @@ export const LensView = memo(function LensView() {
                                             <ClickableButton
                                                 className="mx-1 text-highlight"
                                                 onClick={() => {
-                                                    WalletConnectModalRef.open();
+                                                    openWalletConnectModal();
                                                 }}
                                                 aria-label="Change wallet"
                                             >
@@ -303,7 +303,7 @@ export const LensView = memo(function LensView() {
                 <ClickableButton
                     className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
                     onClick={() => {
-                        WalletConnectModalRef.open();
+                        openWalletConnectModal();
                     }}
                     aria-label="Connect Wallet"
                 >

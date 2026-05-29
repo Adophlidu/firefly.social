@@ -6,9 +6,9 @@ import { useConnection } from 'wagmi';
 
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 const resolver = memoizePromise(
@@ -27,7 +27,7 @@ export function useDecryptPost(post: Post) {
             if (!ENABLED_DECRYPT_SOURCES.includes(post.source)) return null;
 
             if (post.source === Source.Lens && !account.address) {
-                WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
+                openWalletConnectModal({ networkType: NetworkType.Ethereum });
                 return null;
             }
 

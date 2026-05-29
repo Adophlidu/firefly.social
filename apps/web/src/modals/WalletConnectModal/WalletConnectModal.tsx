@@ -23,6 +23,7 @@ function WalletConnectModalRoot({ ref }: Props) {
     const { setNetworkType, unsetNetworkType, setOrigin, setCustomTitle } = WalletConnectContext.useContainer();
 
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'wallet-connect-modal',
         onOpen: (props) => {
             setThemeMode(isDark ? 'dark' : 'light');
             setNetworkType(props?.networkType ? props.networkType : undefined);

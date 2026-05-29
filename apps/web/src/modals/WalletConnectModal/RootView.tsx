@@ -4,8 +4,8 @@ import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-
 
 import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { closeWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 export function RootView() {
     const router = useRouter();
@@ -24,7 +24,7 @@ export function RootView() {
         <div className="relative flex max-h-[70vh] w-[80vw] max-w-[400px] flex-col rounded-md bg-lightBottom text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom max-md:size-full max-md:max-h-screen max-md:max-w-[100vw] md:rounded-xl">
             <h3 className="relative h-14 shrink-0 pt-safe">
                 {isMain || isFinalView ? (
-                    <CloseButton onClick={() => WalletConnectModalRef.close()} className="absolute left-4 top-4" />
+                    <CloseButton onClick={() => closeWalletConnectModal()} className="absolute left-4 top-4" />
                 ) : (
                     <BackButton
                         className="absolute left-4 top-4"

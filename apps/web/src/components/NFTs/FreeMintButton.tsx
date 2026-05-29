@@ -13,10 +13,10 @@ import { useChainId, useConnection, useSwitchChain } from 'wagmi';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModal } from '@/modals/FreeMintModal/FreeMintModal.js';
 import { FreeMintModalRef } from '@/modals/FreeMintModal/refs.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { captureNFTMintClickEvent, captureNFTViewWebsiteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 
@@ -100,7 +100,7 @@ export function FreeMintButton({
     const connected = !!account.address;
     const [{ loading: handlerLoading }, handleClick] = useAsyncFn(async () => {
         if (!connected) {
-            WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
+            openWalletConnectModal({ networkType: NetworkType.Ethereum });
             return;
         }
         if (!data) return;

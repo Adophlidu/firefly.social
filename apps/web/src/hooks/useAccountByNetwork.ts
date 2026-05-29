@@ -10,7 +10,7 @@ import { first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useConnection } from 'wagmi';
 
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
+import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
 enum SolanaNetworkType {
@@ -53,7 +53,7 @@ export function useSolanaAccount() {
             address: solanaAddress ?? '',
             chainId: solana.id,
             isConnected: !!connection && !!solanaAddress,
-            connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
+            connect: () => openWalletConnectModal({ networkType: NetworkType.Solana }),
             type: isSameSolanaAddress(solanaAddress, privySolana) ? SolanaNetworkType.Privy : SolanaNetworkType.Appkit,
         };
     }, [connection, solanaAddress, privySolana]);
@@ -68,7 +68,7 @@ export function useWalletAccountAll() {
             address: account.address ?? '',
             chainId: account.chainId,
             isConnected: account.isConnected && !!account.address,
-            connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Ethereum }),
+            connect: () => openWalletConnectModal({ networkType: NetworkType.Ethereum }),
         };
         return {
             ethereum,
