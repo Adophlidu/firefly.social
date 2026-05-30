@@ -310,7 +310,7 @@ const SnackbarContent = forwardRef<
             </div>
             {onClose ? (
                 <CloseButton
-                    className="ml-4 p-2"
+                    className="ml-4 p-2 hover:bg-snackbarCloseHover"
                     size={16}
                     onClick={onClose}
                     IconProps={{ className: '!text-white' }}

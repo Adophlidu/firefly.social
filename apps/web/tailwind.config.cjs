@@ -45,6 +45,7 @@ module.exports = {
                 secondaryLine: 'var(--color-line2)',
                 lightMain: 'var(--color-light-main)',
                 lightBg: 'var(--color-light-bg)',
+                snackbarCloseHover: 'var(--color-snackbar-close-hover)',
                 lightBottom: 'var(--m-light-bottom)',
                 lightBottom80: 'var(--color-bottom80)',
                 commonDanger: 'var(--m-common-danger)',

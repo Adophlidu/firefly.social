@@ -53,6 +53,8 @@ html {
 
 :root {
     --foreground-rgb: 0 0 0; /* #000000 */
+    /* Snackbar close button hover; same in both themes (colored bg + white icon). */
+    --color-snackbar-close-hover: rgba(255, 255, 255, 0.08); /* #ffffff14 */
     --background-start-rgb: 214, 219, 220; /* #d6dbdc */
     --background-end-rgb: 255, 255, 255; /* #ffffff */
     --color-main: 7 16 27; /* #07101b */
