@@ -4,7 +4,7 @@ Package Analysis
 Application: apps/wallet
 
 Total packages: 2487
-Packages with multiple versions: 388
+Packages with multiple versions: 406
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -39,32 +39,32 @@ Packages with Multiple Versions
 *@coral-xyz/anchor@0.31.1,0.32.1
  @emotion/is-prop-valid@0.8.8,1.4.0
  @emotion/memoize@0.7.4,0.9.0
- @esbuild/aix-ppc64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/android-arm@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/android-arm64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/android-x64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/darwin-arm64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/darwin-x64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/freebsd-arm64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/freebsd-x64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-arm@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-arm64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-ia32@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-loong64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-mips64el@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-ppc64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-riscv64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-s390x@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/linux-x64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/netbsd-arm64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/netbsd-x64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/openbsd-arm64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/openbsd-x64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/openharmony-arm64@0.25.12,0.27.0
- @esbuild/sunos-x64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/win32-arm64@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/win32-ia32@0.24.2,0.25.12,0.25.4,0.27.0
- @esbuild/win32-x64@0.24.2,0.25.12,0.25.4,0.27.0
+ @esbuild/aix-ppc64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/android-arm@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/android-arm64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/android-x64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/darwin-arm64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/darwin-x64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/freebsd-arm64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/freebsd-x64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-arm@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-arm64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-ia32@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-loong64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-mips64el@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-ppc64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-riscv64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-s390x@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/linux-x64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/netbsd-arm64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/netbsd-x64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/openbsd-arm64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/openbsd-x64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/openharmony-arm64@0.25.12,0.27.0,0.27.7
+ @esbuild/sunos-x64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/win32-arm64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/win32-ia32@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
+ @esbuild/win32-x64@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
  @img/sharp-darwin-arm64@0.33.5,0.34.5
  @img/sharp-darwin-x64@0.33.5,0.34.5
  @img/sharp-libvips-darwin-arm64@1.0.4,1.2.4
@@ -110,7 +110,31 @@ Packages with Multiple Versions
  @reown/appkit-wallet@1.8.19,1.8.20
  @rolldown/pluginutils@1.0.0-beta.27,1.0.0-beta.40,1.0.0-rc.17,1.0.0-rc.3
  @rollup/pluginutils@5.1.4,5.3.0
- @rollup/rollup-linux-x64-gnu@4.60.1,4.60.3
+ @rollup/rollup-android-arm-eabi@4.60.1,4.60.4
+ @rollup/rollup-android-arm64@4.60.1,4.60.4
+ @rollup/rollup-darwin-arm64@4.60.1,4.60.4
+ @rollup/rollup-darwin-x64@4.60.1,4.60.4
+ @rollup/rollup-freebsd-arm64@4.60.1,4.60.4
+ @rollup/rollup-freebsd-x64@4.60.1,4.60.4
+ @rollup/rollup-linux-arm-gnueabihf@4.60.1,4.60.4
+ @rollup/rollup-linux-arm-musleabihf@4.60.1,4.60.4
+ @rollup/rollup-linux-arm64-gnu@4.60.1,4.60.4
+ @rollup/rollup-linux-arm64-musl@4.60.1,4.60.4
+ @rollup/rollup-linux-loong64-gnu@4.60.1,4.60.4
+ @rollup/rollup-linux-loong64-musl@4.60.1,4.60.4
+ @rollup/rollup-linux-ppc64-gnu@4.60.1,4.60.4
+ @rollup/rollup-linux-ppc64-musl@4.60.1,4.60.4
+ @rollup/rollup-linux-riscv64-gnu@4.60.1,4.60.4
+ @rollup/rollup-linux-riscv64-musl@4.60.1,4.60.4
+ @rollup/rollup-linux-s390x-gnu@4.60.1,4.60.4
+ @rollup/rollup-linux-x64-gnu@4.60.1,4.60.3,4.60.4
+ @rollup/rollup-linux-x64-musl@4.60.1,4.60.4
+ @rollup/rollup-openbsd-x64@4.60.1,4.60.4
+ @rollup/rollup-openharmony-arm64@4.60.1,4.60.4
+ @rollup/rollup-win32-arm64-msvc@4.60.1,4.60.4
+ @rollup/rollup-win32-ia32-msvc@4.60.1,4.60.4
+ @rollup/rollup-win32-x64-gnu@4.60.1,4.60.4
+ @rollup/rollup-win32-x64-msvc@4.60.1,4.60.4
  @smithy/fetch-http-handler@3.2.9,4.1.3
  @smithy/is-array-buffer@2.2.0,3.0.0
  @smithy/util-buffer-from@2.2.0,3.0.0
@@ -156,21 +180,21 @@ Packages with Multiple Versions
  @solana/transactions@4.0.0,5.4.0
  @storybook/icons@1.6.0,2.0.2
  @swc/helpers@0.5.15,0.5.18
- @tamagui/compose-refs@1.114.4,2.0.0-rc.41
- @tamagui/constants@1.114.4,2.0.0-rc.41
-*@tamagui/core@1.114.4,2.0.0-rc.41
-*@tamagui/helpers@1.114.4,2.0.0-rc.41
- @tamagui/normalize-css-color@1.114.4,2.0.0-rc.41
- @tamagui/react-native-media-driver@1.114.4,2.0.0-rc.41
-*@tamagui/react-native-svg@1.114.4,2.0.0-rc.41
- @tamagui/react-native-use-pressable@1.114.4,2.0.0-rc.41
- @tamagui/simple-hash@1.114.4,2.0.0-rc.41
- @tamagui/timer@1.114.4,2.0.0-rc.41
- @tamagui/types@1.114.4,2.0.0-rc.41
- @tamagui/use-did-finish-ssr@1.114.4,2.0.0-rc.41
- @tamagui/use-event@1.114.4,2.0.0-rc.41
- @tamagui/use-force-update@1.114.4,2.0.0-rc.41
- @tamagui/web@1.114.4,2.0.0-rc.41
+ @tamagui/compose-refs@1.114.4,2.0.0
+ @tamagui/constants@1.114.4,2.0.0
+*@tamagui/core@1.114.4,2.0.0
+*@tamagui/helpers@1.114.4,2.0.0
+ @tamagui/normalize-css-color@1.114.4,2.0.0
+ @tamagui/react-native-media-driver@1.114.4,2.0.0
+*@tamagui/react-native-svg@1.114.4,2.0.0
+ @tamagui/react-native-use-pressable@1.114.4,2.0.0
+ @tamagui/simple-hash@1.114.4,2.0.0
+ @tamagui/timer@1.114.4,2.0.0
+ @tamagui/types@1.114.4,2.0.0
+ @tamagui/use-did-finish-ssr@1.114.4,2.0.0
+ @tamagui/use-event@1.114.4,2.0.0
+ @tamagui/use-force-update@1.114.4,2.0.0
+ @tamagui/web@1.114.4,2.0.0
  @tanstack/query-core@5.100.9,5.85.9
  @types/estree@1.0.8,1.0.9
  @types/unist@2.0.11,3.0.3
@@ -182,14 +206,6 @@ Packages with Multiple Versions
  @typescript-eslint/typescript-estree@8.47.0,8.54.0
  @typescript-eslint/utils@8.47.0,8.54.0
  @typescript-eslint/visitor-keys@8.47.0,8.54.0
-*@typescript/native-preview@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
- @typescript/native-preview-darwin-arm64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
- @typescript/native-preview-darwin-x64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
- @typescript/native-preview-linux-arm@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
- @typescript/native-preview-linux-arm64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
- @typescript/native-preview-linux-x64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
- @typescript/native-preview-win32-arm64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
- @typescript/native-preview-win32-x64@7.0.0-dev.20260522.1,7.0.0-dev.20260523.1
 *@vitejs/plugin-react@4.7.0,5.2.0
  @wagmi/connectors@7.0.6,8.0.10
 *@wagmi/core@3.0.2,3.4.9
@@ -234,7 +250,7 @@ Packages with Multiple Versions
  crossws@0.3.5,0.4.4
  css-tree@1.1.3,2.2.1,2.3.1,3.1.0
  date-fns@2.30.0,3.6.0
-*dayjs@1.11.13,1.11.20
+*dayjs@1.11.13,1.11.21
  debug@2.6.9,3.2.7,4.4.3
  define-lazy-prop@2.0.0,3.0.0
  doctrine@2.1.0,3.0.0
@@ -246,7 +262,7 @@ Packages with Multiple Versions
  enhanced-resolve@5.20.1,5.21.2
  entities@4.5.0,6.0.1,7.0.1
  es-module-lexer@1.7.0,2.0.0,2.1.0
- esbuild@0.24.2,0.25.12,0.25.4,0.27.0
+ esbuild@0.24.2,0.25.12,0.25.4,0.27.0,0.27.7
  escape-string-regexp@1.0.5,2.0.0,4.0.0,5.0.0
 *eslint-config-next@16.0.11,16.2.6
 *eslint-plugin-react-hooks@5.2.0,7.0.1
@@ -270,6 +286,7 @@ Packages with Multiple Versions
  hasown@2.0.2,2.0.3
  hermes-estree@0.25.1,0.32.0,0.33.3,0.35.0
  hermes-parser@0.25.1,0.32.0,0.33.3,0.35.0
+ hono@4.12.22,4.12.23
  html-escaper@2.0.2,3.0.3
  htmlparser2@10.0.0,10.1.0
  idb-keyval@6.2.1,6.2.2
@@ -349,6 +366,7 @@ Packages with Multiple Versions
  readdirp@3.5.0,3.6.0,5.0.0
  resolve@1.22.11,1.22.12,2.0.0-next.5
  resolve-from@4.0.0,5.0.0
+ rollup@4.60.1,4.60.4
  safe-buffer@5.1.2,5.2.1
  semver@6.3.1,7.5.4,7.7.1,7.7.2,7.7.3,7.7.4
  sharp@0.33.5,0.34.5
@@ -399,7 +417,7 @@ Packages with Multiple Versions
  yargs-parser@18.1.3,21.1.1,22.0.0
  yocto-queue@0.1.0,1.2.2
 *zod@3.22.3,3.22.4,3.25.76,4.4.3
- zustand@5.0.0,5.0.13,5.0.3
+ zustand@5.0.0,5.0.13,5.0.14,5.0.3
 
 Packages with Single Version
 ----------------------------
@@ -985,30 +1003,6 @@ Packages with Single Version
  @rollup/plugin-commonjs@25.0.8
  @rollup/plugin-inject@5.0.5
  @rollup/plugin-node-resolve@15.3.1
- @rollup/rollup-android-arm-eabi@4.60.1
- @rollup/rollup-android-arm64@4.60.1
- @rollup/rollup-darwin-arm64@4.60.1
- @rollup/rollup-darwin-x64@4.60.1
- @rollup/rollup-freebsd-arm64@4.60.1
- @rollup/rollup-freebsd-x64@4.60.1
- @rollup/rollup-linux-arm-gnueabihf@4.60.1
- @rollup/rollup-linux-arm-musleabihf@4.60.1
- @rollup/rollup-linux-arm64-gnu@4.60.1
- @rollup/rollup-linux-arm64-musl@4.60.1
- @rollup/rollup-linux-loong64-gnu@4.60.1
- @rollup/rollup-linux-loong64-musl@4.60.1
- @rollup/rollup-linux-ppc64-gnu@4.60.1
- @rollup/rollup-linux-ppc64-musl@4.60.1
- @rollup/rollup-linux-riscv64-gnu@4.60.1
- @rollup/rollup-linux-riscv64-musl@4.60.1
- @rollup/rollup-linux-s390x-gnu@4.60.1
- @rollup/rollup-linux-x64-musl@4.60.1
- @rollup/rollup-openbsd-x64@4.60.1
- @rollup/rollup-openharmony-arm64@4.60.1
- @rollup/rollup-win32-arm64-msvc@4.60.1
- @rollup/rollup-win32-ia32-msvc@4.60.1
- @rollup/rollup-win32-x64-gnu@4.60.1
- @rollup/rollup-win32-x64-msvc@4.60.1
  @rspack/binding@1.7.11
  @rspack/binding-darwin-arm64@1.7.11
  @rspack/binding-darwin-x64@1.7.11
@@ -1195,16 +1189,16 @@ Packages with Single Version
  @tamagui/get-font-sized@1.114.4
  @tamagui/get-token@1.114.4
  @tamagui/group@1.114.4
- @tamagui/helpers-icon@2.0.0-rc.41
+ @tamagui/helpers-icon@2.0.0
  @tamagui/helpers-node@1.114.4
  @tamagui/helpers-tamagui@1.114.4
  @tamagui/image@1.114.4
- @tamagui/is-equal-shallow@2.0.0-rc.41
+ @tamagui/is-equal-shallow@2.0.0
  @tamagui/label@1.114.4
  @tamagui/linear-gradient@1.114.4
  @tamagui/list-item@1.114.4
-*@tamagui/lucide-icons-2@2.0.0-rc.41
- @tamagui/native@2.0.0-rc.41
+*@tamagui/lucide-icons-2@2.0.0
+ @tamagui/native@2.0.0
  @tamagui/polyfill-dev@1.114.4
  @tamagui/popover@1.114.4
  @tamagui/popper@1.114.4
@@ -1224,7 +1218,7 @@ Packages with Single Version
  @tamagui/shapes@1.114.4
  @tamagui/sheet@1.114.4
  @tamagui/shorthands@1.114.4
- @tamagui/sizable-context@2.0.0-rc.41
+ @tamagui/sizable-context@2.0.0
  @tamagui/slider@1.114.4
  @tamagui/stacks@1.114.4
  @tamagui/start-transition@1.114.4
@@ -1243,7 +1237,7 @@ Packages with Single Version
  @tamagui/use-controllable-state@1.114.4
  @tamagui/use-debounce@1.114.4
  @tamagui/use-direction@1.114.4
- @tamagui/use-element-layout@2.0.0-rc.41
+ @tamagui/use-element-layout@2.0.0
  @tamagui/use-escape-keydown@1.114.4
  @tamagui/use-keyboard-visible@1.114.4
  @tamagui/use-presence@1.114.4
@@ -1283,12 +1277,12 @@ Packages with Single Version
 *@tolgee/cli@2.16.1
  @toon-format/toon@2.2.0
  @trysound/sax@0.2.0
- @turbo/darwin-64@2.9.14
- @turbo/darwin-arm64@2.9.14
- @turbo/linux-64@2.9.14
- @turbo/linux-arm64@2.9.14
- @turbo/windows-64@2.9.14
- @turbo/windows-arm64@2.9.14
+ @turbo/darwin-64@2.9.16
+ @turbo/darwin-arm64@2.9.16
+ @turbo/linux-64@2.9.16
+ @turbo/linux-arm64@2.9.16
+ @turbo/windows-64@2.9.16
+ @turbo/windows-arm64@2.9.16
  @tybys/wasm-util@0.10.2
  @types/archy@0.0.32
  @types/argparse@1.0.38
@@ -1355,6 +1349,14 @@ Packages with Single Version
 *@typescript-eslint/eslint-plugin@8.54.0
 *@typescript-eslint/parser@8.54.0
  @typescript-eslint/type-utils@8.54.0
+*@typescript/native-preview@7.0.0-dev.20260527.2
+ @typescript/native-preview-darwin-arm64@7.0.0-dev.20260527.2
+ @typescript/native-preview-darwin-x64@7.0.0-dev.20260527.2
+ @typescript/native-preview-linux-arm@7.0.0-dev.20260527.2
+ @typescript/native-preview-linux-arm64@7.0.0-dev.20260527.2
+ @typescript/native-preview-linux-x64@7.0.0-dev.20260527.2
+ @typescript/native-preview-win32-arm64@7.0.0-dev.20260527.2
+ @typescript/native-preview-win32-x64@7.0.0-dev.20260527.2
  @ungap/structured-clone@1.3.0
  @unrs/resolver-binding-android-arm-eabi@1.11.1
  @unrs/resolver-binding-android-arm64@1.11.1
@@ -1825,7 +1827,6 @@ Packages with Single Version
  hey-listen@1.0.8
  hls.js@1.6.16
  hmac-drbg@1.0.1
- hono@4.12.22
  hookable@6.1.1
  html-encoding-sniffer@6.0.0
  html-url-attributes@3.0.1
@@ -2242,7 +2243,6 @@ Packages with Single Version
  ripemd160@2.0.3
  rolldown@1.0.0-rc.17
  rolldown-plugin-dts@0.23.2
- rollup@4.60.1
  rollup-plugin-swc3@0.10.4
  rollup-plugin-terser@7.0.2
 *rollup-plugin-visualizer@7.0.1
@@ -2390,7 +2390,7 @@ Packages with Single Version
  tsconfck@3.1.6
  tsdown@0.21.10
  tty-browserify@0.0.1
-*turbo@2.9.14
+*turbo@2.9.16
  twitter-api-v2@1.28.0
  twitter-text@3.1.0
  type-check@0.4.0

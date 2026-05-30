@@ -33,7 +33,7 @@
         "@typescript-eslint/eslint-plugin": "^8.54.0",
         "@typescript-eslint/parser": "^8.54.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.349",
-        "@typescript/native-preview": "7.0.0-dev.20260522.1",
+        "@typescript/native-preview": "7.0.0-dev.20260527.2",
         "cspell": "^7.3.9",
         "eslint": "^9.39.4",
         "eslint-config-next": "16.0.11",
@@ -50,7 +50,7 @@
         "js-yaml": "^4.1.1",
         "prettier": "^3.8.3",
         "prettier-plugin-tailwindcss": "^0.8.0",
-        "turbo": "^2.9.14"
+        "turbo": "^2.9.16"
     },
     "pnpm": {
         "resolutionMode": "time-based",
