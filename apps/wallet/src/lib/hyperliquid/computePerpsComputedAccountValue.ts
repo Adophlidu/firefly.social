@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 
-/** Mirrors `packages/rn-ui/src/store/perpsComputedAccountValue.ts` abstraction modes. */
+/** Mirrors `@dimensiondev/rn-ui`'s perpsComputedAccountValue abstraction modes. */
 export type PerpsAbstractionMode =
     | 'DEFAULT'
     | 'UNIFIED_ACCOUNT'

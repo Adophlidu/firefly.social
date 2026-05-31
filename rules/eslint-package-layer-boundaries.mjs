@@ -22,7 +22,6 @@ const LAYER_1_PACKAGES = [
     '@dimensiondev/hooks',
     '@dimensiondev/iframe-bridge',
     '@dimensiondev/native-bridge',
-    '@dimensiondev/rn-ui',
 ];
 
 /** Returns a no-restricted-imports rule config that blocks the given package names. */

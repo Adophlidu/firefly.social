@@ -1,6 +1,6 @@
 import { type CSSProperties, memo } from 'react';
 
-/** Mirrors `packages/rn-ui/src/skeletons/PerpsTradeDetailSkeleton.tsx` for lazy-route fallback only. */
+/** Mirrors `@dimensiondev/rn-ui`'s PerpsTradeDetail skeleton for lazy-route fallback only. */
 function Block({ className = '', style }: { className?: string; style?: CSSProperties }) {
     return (
         <div className={`shrink-0 rounded-lg bg-[#EDEEF2] dark:bg-[#252525] ${className}`} style={style} aria-hidden />

@@ -35,7 +35,7 @@ interface PerpsUserBundle {
 
 /**
  * Fetches Hyperliquid perp + spot account value for an EVM address via the public info API
- * (same logic as `packages/rn-ui/src/store/perpsComputedAccountValue.ts`, no perp SDK).
+ * (same logic as `@dimensiondev/rn-ui`'s perpsComputedAccountValue store, no perp SDK).
  */
 export function usePerpsComputedAccountValue(
     address: string | undefined,

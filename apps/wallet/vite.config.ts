@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { resolve } from 'node:path';
 
 import { lingui } from '@lingui/vite-plugin';
@@ -17,7 +18,9 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '/wallet-iframe';
 const NEXT_PUBLIC_VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'development';
 const PACKAGE_VERSION = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')).version as string;
 
-const rnUiTamaguiConfig = resolve(__dirname, '../../packages/rn-ui/src/tamagui.config.ts');
+// Resolve the Tamagui config from the published @dimensiondev/rn-ui package
+// (it exposes `./tamagui.config`); the wallet no longer depends on in-repo source.
+const rnUiTamaguiConfig = createRequire(import.meta.url).resolve('@dimensiondev/rn-ui/tamagui.config');
 
 export default defineConfig({
     base: BASE_PATH,
@@ -96,7 +99,6 @@ export default defineConfig({
             'react-native-webview': resolve(__dirname, 'src/shims/react-native-webview.ts'),
             pino: resolve(__dirname, 'src/shims/pino.ts'),
             '@react-native-async-storage/async-storage': resolve(__dirname, 'src/shims/async-storage.ts'),
-            '@dimensiondev/rn-ui': resolve(__dirname, '../../packages/rn-ui/src'),
         },
     },
     define: {

@@ -47,7 +47,7 @@ See `/architecture` for the full layer diagram, package list, violation examples
 **Tamagui boundary:**
 
 - ❌ NEVER import from `tamagui` or `@tamagui/*` inside `apps/wallet` or `apps/web`
-- ✅ Only `packages/rn-ui` may use Tamagui directly
+- ✅ Tamagui lives only inside the external `@dimensiondev/rn-ui` package (its own repo: `DimensionDev/firefly-rn-ui`, published to GitHub Packages)
 - ✅ Apps consume Tamagui-based UI through `@dimensiondev/rn-ui` exports (whole-screen components, hooks, `Provider`)
 - Reason: workspaces resolved different Tamagui versions (`1.114.0` vs `1.144.4`), so mixing in-app Tamagui with rn-ui's `Provider` loaded two Tamagui copies at runtime, causing React error #321 in production (`/perp-kline-chart`). Keeping Tamagui inside one package eliminates the version-split foot-gun.
 

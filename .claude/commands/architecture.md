@@ -20,7 +20,6 @@ Layer 1 (Layer 0 only):
   @dimensiondev/web3-utils
   @dimensiondev/native-bridge
   @dimensiondev/iframe-bridge
-  @dimensiondev/rn-ui
 
 Layer 2 (Layer 0 + 1):
   apps/web
