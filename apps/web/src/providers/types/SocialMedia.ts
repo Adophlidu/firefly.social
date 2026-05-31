@@ -324,6 +324,10 @@ export interface Post {
     isTruthSocial?: boolean;
     retruthed?: boolean;
 
+    // ! Just for posts from nitter (X/Twitter)
+    isAd?: boolean;
+    isAI?: boolean;
+
     __original__?: unknown;
 }
 

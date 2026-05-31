@@ -160,6 +160,9 @@ export function formatTwitterPostFromNitter(
         __original__: tweet,
     };
 
+    if (tweet.isAd) post.isAd = true;
+    if (tweet.isAI) post.isAI = true;
+
     if (tweet.threadId && tweet.threadId !== '0') {
         post.rootPostId = tweet.threadId;
     }
