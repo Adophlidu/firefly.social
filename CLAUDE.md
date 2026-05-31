@@ -77,7 +77,6 @@ For detailed guidance, invoke these commands:
 - `/commit` — Pre-checked commit workflow with conventional commit format
 - `/architecture` — Full layer rules with violation examples and fixes
 - `/i18n` — Lingui workflow, plurals, Tolgee sync
-- `/rn-ui` — `@dimensiondev/rn-ui` entry points, Provider setup, peer deps
 
 ## Agent skills
 

@@ -51,7 +51,7 @@ Don't duplicate the rules here — read the authoritative docs and use ESLint to
 - **Class names** (`classNames` from `@dimensiondev/utils` in apps/web, `cn` from `@/lib/utils.js` in apps/wallet; no `clsx`, no template literals) → `CLAUDE.md`
 - **Client/server components** (`'use client'` as the first line + blank line, then imports) → `CLAUDE.md`
 - **i18n** (Lingui macros from `@lingui/react/macro` and `@lingui/core/macro` — NOT `@lingui/macro`) → `/i18n`
-- **rn-ui imports** (whole-screen + Provider only from `@dimensiondev/rn-ui`; tamagui authored only in `packages/rn-ui/src/`) → `/rn-ui`
+- **rn-ui imports** (whole-screen + Provider only from the external `@dimensiondev/rn-ui` package; tamagui is never authored in this repo) → `CLAUDE.md` (Tamagui boundary)
 - **Commit format** (conventional commits, `FW-XXX` Jira key, no AI attribution) → `/commit`
 
 If a rule is unclear or ESLint reports it without context, open the canonical source above before guessing.
@@ -254,7 +254,7 @@ Before opening a PR:
 - [ ] User-visible strings wrapped with Lingui macros (`<Trans>` / ` t` ``)
 - [ ] Non-trivial components wrapped with `memo(function Name() { ... })`
 - [ ] `'use client'` is the first line of the file (apps/web client components only)
-- [ ] No tamagui imports outside `packages/rn-ui/src/`
+- [ ] No tamagui imports anywhere in this repo (tamagui lives only in the external `@dimensiondev/rn-ui` package)
 
 ## Detailed Guides
 
@@ -265,7 +265,6 @@ Before opening a PR:
 
 - `/architecture` — layer rules (canonical)
 - `/i18n` — Lingui workflow (canonical)
-- `/rn-ui` — rn-ui import rules (canonical)
 - `/commit` — pre-commit workflow + conventional commit format
 - `code-review-pr` — reviewer-side companion (same rule set, applied from the reviewer's POV)
 - `vercel-react-best-practices` — Vercel's React/Next.js performance rules; consult when writing React/Next.js code that touches data fetching, bundling, or re-renders

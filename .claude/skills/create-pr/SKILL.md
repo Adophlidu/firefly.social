@@ -102,7 +102,7 @@ Analyze the conversation history to extract:
 - **Design Decisions** — What approaches were considered? Why was the chosen approach picked?
 - **Trade-offs** — Any compromises or known limitations?
 - **Risk Areas** — Which parts of the change are riskiest or most complex?
-- **Surface Impact** — Which apps/packages are affected? (`apps/web`, `apps/wallet`, `packages/rn-ui`, etc.)
+- **Surface Impact** — Which apps/packages are affected? (`apps/web`, `apps/wallet`, etc.)
 - **Jira Issue** — Any `FW-{number}` issue ID mentioned in conversation or branch name. The `Check Jira Issue Key` workflow validates that the PR title contains `FW-XXX`.
 
 **Context extraction guidelines:**

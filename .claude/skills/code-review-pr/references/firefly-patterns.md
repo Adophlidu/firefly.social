@@ -185,13 +185,13 @@ Strings in files outside the Lingui scope (`app`, `configs`, `components`, `cons
 
 Firefly has three distinct UI stacks with strict boundaries:
 
-| Surface               | Stack                                                                                                                 | Where Tamagui lives                                   |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `apps/web`            | Next.js 16 + Tailwind + `classNames` from `@dimensiondev/utils`                                                       | —                                                     |
-| `apps/wallet`         | Vite SSR + `react-native-web` + **shadcn/ui** (Radix in `src/components/ui/`) + Tailwind + `cn` from `@/lib/utils.js` | — (only mounts rn-ui screens; doesn't author Tamagui) |
-| `packages/rn-ui/src/` | React Native API + Tamagui (`XStack`, `YStack`, `SizableText`, tokens like `$1`–`$10`, `$bodyMd`, `$text`)            | **Here, exclusively**                                 |
+| Surface                            | Stack                                                                                                                 | Where Tamagui lives                                   |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `apps/web`                         | Next.js 16 + Tailwind + `classNames` from `@dimensiondev/utils`                                                       | —                                                     |
+| `apps/wallet`                      | Vite SSR + `react-native-web` + **shadcn/ui** (Radix in `src/components/ui/`) + Tailwind + `cn` from `@/lib/utils.js` | — (only mounts rn-ui screens; doesn't author Tamagui) |
+| `@dimensiondev/rn-ui` (ext. repo)  | React Native API + Tamagui (`XStack`, `YStack`, `SizableText`, tokens like `$1`–`$10`, `$bodyMd`, `$text`)            | **There, exclusively** — `DimensionDev/firefly-rn-ui` |
 
-**Tamagui rule (verifiable by grep):** `tamagui` and `@tamagui/*` are imported **only** inside `packages/rn-ui/src/`. Neither `apps/web/src/` nor `apps/wallet/src/` imports them — verify with `grep -r "from ['\"]\(tamagui\|@tamagui/\)" apps/`. The Tamagui packages present in `apps/wallet/package.json` are there because rn-ui declares them as **peer dependencies**.
+**Tamagui rule (verifiable by grep):** `tamagui` and `@tamagui/*` are **never** imported in this repo — they live only inside the external `@dimensiondev/rn-ui` package (its own repo `DimensionDev/firefly-rn-ui`, published to GitHub Packages). Verify with `grep -r "from ['\"]\(tamagui\|@tamagui/\)" apps/` (expect no matches). The Tamagui packages present in `apps/wallet/package.json` are there because rn-ui declares them as **peer dependencies**.
 
 ### apps/wallet's two valid import paths into the perps subtree
 
@@ -203,11 +203,11 @@ apps/wallet consumes `@dimensiondev/rn-ui` only at the **public surface** — wh
 | Provider chain       | `Provider`, `PerpsAuthGate`, `PerpsBindingsProvider`     |
 | Type-only            | `NavigateFunc`, `ToastFn`                                |
 
-The mounting point today is `apps/wallet/src/components/Perps/PerpsProvider.tsx`. Adding new perps visuals = work inside `packages/rn-ui/src/`, then `pnpm build` rn-ui, then mount the new export in a thin apps/wallet route file.
+The mounting point today is `apps/wallet/src/components/Perps/PerpsProvider.tsx`. Adding new perps visuals = work in the external `DimensionDev/firefly-rn-ui` repo, publish a new version, then bump `@dimensiondev/rn-ui` in `apps/wallet/package.json` and mount the new export in a thin apps/wallet route file.
 
 ### `@dimensiondev/rn-ui` entry points
 
-See `/rn-ui` for the full setup. Quick rules:
+Quick rules:
 
 | Entry point                    | What it exports                              |
 | ------------------------------ | -------------------------------------------- |
@@ -215,17 +215,16 @@ See `/rn-ui` for the full setup. Quick rules:
 | `@dimensiondev/rn-ui/perps`    | Perps UI screens only                        |
 | `@dimensiondev/rn-ui/provider` | `Provider`, `config`, types                  |
 
-- ❌ **NEVER** point `package.json` exports to `src/`. Consumers can't resolve `@/` aliases inside the package; the published `dist/` has them rewritten. (apps/wallet uses Vite, not Metro — same constraint: import from package exports, not source.)
-- After making changes to `packages/rn-ui/src/`, run `pnpm build` in that package before apps/wallet picks them up.
+- Always import from the package's public exports above — never reach into its internals.
 - `Provider` is required around any subtree that renders rn-ui content, **not** at the app root.
 
 ### Common review flags
 
-- ❌ **Any** import from `tamagui` or `@tamagui/*` inside `apps/`. Tamagui authoring belongs in `packages/rn-ui/src/`.
+- ❌ **Any** import from `tamagui` or `@tamagui/*` inside `apps/`. Tamagui authoring belongs in the external `@dimensiondev/rn-ui` package, never in this repo.
 - ❌ Importing `XStack`, `YStack`, `SizableText`, or any Tamagui-derived re-export from `@dimensiondev/rn-ui` into apps/. apps/wallet should only import whole screens + providers from rn-ui.
 - ❌ Using `classNames` (from `@dimensiondev/utils`) inside apps/wallet — should be `cn` from `@/lib/utils.js`.
 - ❌ Using `cn` from `@/lib/utils.js` inside apps/web — should be `classNames` from `@dimensiondev/utils`.
-- ❌ Reaching into `packages/rn-ui/src/*` directly. Always import from `@dimensiondev/rn-ui` (or `/perps`, `/provider`).
+- ❌ Reaching into `@dimensiondev/rn-ui` internals. Always import from its public exports (`@dimensiondev/rn-ui`, `/perps`, `/provider`).
 - ❌ Treating apps/wallet as native (no `AsyncStorage`, no Expo APIs, no Metro-only assumptions).
 
 ## 8. Build & CI

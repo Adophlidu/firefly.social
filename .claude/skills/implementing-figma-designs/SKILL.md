@@ -1,6 +1,6 @@
 ---
 name: implementing-figma-designs
-description: Implements Figma designs 1:1 in Firefly using the project's component conventions (apps/web with Tailwind + classNames; apps/wallet with shadcn/ui — Radix primitives + Tailwind + cn; perps surface mounts the whole-screen exports from @dimensiondev/rn-ui). Tamagui is authored only inside packages/rn-ui — never in apps/. UI-first with mock data; wire i18n and data afterwards. Use when implementing a Figma node, page, or component into Firefly code. Complements the generic `/figma-implement-design` plugin with Firefly-specific patterns.
+description: Implements Figma designs 1:1 in Firefly using the project's component conventions (apps/web with Tailwind + classNames; apps/wallet with shadcn/ui — Radix primitives + Tailwind + cn; perps surface mounts the whole-screen exports from @dimensiondev/rn-ui). Tamagui is authored only inside the external @dimensiondev/rn-ui package — never in this repo. UI-first with mock data; wire i18n and data afterwards. Use when implementing a Figma node, page, or component into Firefly code. Complements the generic `/figma-implement-design` plugin with Firefly-specific patterns.
 allowed-tools: Read, Grep, Glob, Bash, Write, Edit, mcp__plugin_figma_figma__get_design_context, mcp__plugin_figma_figma__get_metadata, mcp__plugin_figma_figma__get_screenshot
 ---
 
@@ -38,21 +38,21 @@ During the data pass, consult the **`vercel-react-best-practices`** skill for th
 
 Both apps are **web** today — apps/wallet ships through Vite SSR, not iOS/Android. The "rn-" prefix refers to using the React Native component API (via `react-native-web`), not the deployment target.
 
-**Tamagui is authored only inside `packages/rn-ui/src/`.** Neither `apps/web` nor `apps/wallet` imports from `tamagui` / `@tamagui/*` directly — verified by grep. The Tamagui packages in `apps/wallet/package.json` are present because `@dimensiondev/rn-ui` declares them as **peer dependencies**, not because wallet code imports them.
+**Tamagui is authored only inside the external `@dimensiondev/rn-ui` package** (its own repo `DimensionDev/firefly-rn-ui`, published to GitHub Packages). Nothing in this repo imports from `tamagui` / `@tamagui/*` directly — verified by grep. The Tamagui packages in `apps/wallet/package.json` are present because `@dimensiondev/rn-ui` declares them as **peer dependencies**, not because wallet code imports them.
 
 | Surface                                       | When                                                                      | What you import                                                                                                                                                                                                       | Styling                                                                                            |
 | --------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | `apps/web` (Next.js 16)                       | Social pages, feeds, modals, profiles                                     | Local components in `apps/web/src/components/` + modals in `apps/web/src/modals/`                                                                                                                                     | Tailwind + `classNames` from `@dimensiondev/utils`                                                 |
 | `apps/wallet` (Vite SSR + `react-native-web`) | Wallet, send/receive, transaction flows, perps host shell                 | shadcn/ui primitives in `apps/wallet/src/components/ui/` (Radix-based) + feature composites in `apps/wallet/src/components/`                                                                                          | Tailwind + `cn()` from `@/lib/utils.js`; `lucide-react-native` icons                               |
 | `apps/wallet` perps routes                    | `apps/wallet/src/routes/perps.*.tsx`, `apps/wallet/src/components/Perps/` | Whole-screen + provider exports from `@dimensiondev/rn-ui`: `PerpsMarketDetail`, `PerpsTradeDetail`, `TradesHistory`, `Provider`, `PerpsAuthGate`, `PerpsBindingsProvider` (plus type-only `NavigateFunc`, `ToastFn`) | None at this layer — apps/wallet only mounts these screens; all styling is inside rn-ui's tree     |
-| `packages/rn-ui/src/`                         | The rn-ui source itself (perps screens + providers)                       | **The only place** `tamagui` / `@tamagui/*` and primitives like `XStack`, `YStack`, `SizableText` are imported                                                                                                        | Tamagui tokens (`$1`–`$10`, `$text`, `$bg`, `$bodyMd`, …) — authored here, never at consumer sites |
+| `@dimensiondev/rn-ui` (external repo)         | The rn-ui source itself (perps screens + providers) — `DimensionDev/firefly-rn-ui` | **The only place** `tamagui` / `@tamagui/*` and primitives like `XStack`, `YStack`, `SizableText` are imported                                                                                                | Tamagui tokens (`$1`–`$10`, `$text`, `$bg`, `$bodyMd`, …) — authored there, never at consumer sites |
 
 Match the surface to where the design will ship:
 
 - Web page / social feature → `apps/web`.
 - Wallet UI that isn't a perps screen → `apps/wallet` shadcn stack.
-- A perps screen visual change → contribute to `packages/rn-ui/src/`. apps/wallet just mounts the screen; it can't restyle what rn-ui exports.
-- A new perps screen to add → first decide whether it's a whole screen (build in `packages/rn-ui` and export, then mount in apps/wallet) or just an entry point/route shell (a thin file in `apps/wallet/src/routes/perps.*.tsx` that imports the rn-ui screen).
+- A perps screen visual change → contribute to the external `@dimensiondev/rn-ui` repo (`DimensionDev/firefly-rn-ui`), publish, then bump the dependency in apps/wallet. apps/wallet just mounts the screen; it can't restyle what rn-ui exports.
+- A new perps screen to add → first decide whether it's a whole screen (build in the `@dimensiondev/rn-ui` repo and export, publish, then mount in apps/wallet) or just an entry point/route shell (a thin file in `apps/wallet/src/routes/perps.*.tsx` that imports the rn-ui screen).
 
 ## Workflow
 
@@ -152,11 +152,9 @@ import type {
 } from '@dimensiondev/rn-ui';
 ```
 
-The mounting point in apps/wallet today is `apps/wallet/src/components/Perps/PerpsProvider.tsx`. Adding a new perps route means: (a) ensure the screen export exists in `packages/rn-ui/src/`, (b) add a thin route file in `apps/wallet/src/routes/perps.*.tsx` that imports it.
+The mounting point in apps/wallet today is `apps/wallet/src/components/Perps/PerpsProvider.tsx`. Adding a new perps route means: (a) ensure the screen export exists in the external `@dimensiondev/rn-ui` package (publish it from `DimensionDev/firefly-rn-ui` and bump the dependency), (b) add a thin route file in `apps/wallet/src/routes/perps.*.tsx` that imports it.
 
-**To change anything about how a perps screen looks or behaves, the work lives in `packages/rn-ui/src/`** — that's where Tamagui primitives (`XStack`, `YStack`, `SizableText`, etc.) and tokens are authored. apps/wallet can't restyle what rn-ui exports.
-
-See `/rn-ui` for the entry points, peer-dep requirements, and the source vs `dist/` resolution rule.
+**To change anything about how a perps screen looks or behaves, the work lives in the external `@dimensiondev/rn-ui` repo (`DimensionDev/firefly-rn-ui`)** — that's where Tamagui primitives (`XStack`, `YStack`, `SizableText`, etc.) and tokens are authored. apps/wallet can't restyle what rn-ui exports.
 
 ### 3. Apply Firefly's styling conventions
 
@@ -196,12 +194,12 @@ Notes:
 - Icons: `lucide-react-native` (so they render correctly through `react-native-web`). Example: `import { ArrowRight } from 'lucide-react-native';`.
 - Safe-area: `tailwindcss-safe-area` plugin provides classes like `pt-safe`, `pb-safe-bottom` for notched displays in PWA mode.
 
-#### `packages/rn-ui/src/` — Tamagui tokens (the only place Tamagui lives)
+#### `@dimensiondev/rn-ui` (external repo) — Tamagui tokens (the only place Tamagui lives)
 
-If the design you're implementing changes anything about a perps screen's visuals, the work happens in `packages/rn-ui/src/`. That's where Tamagui primitives and tokens are authored:
+If the design you're implementing changes anything about a perps screen's visuals, the work happens in the external `@dimensiondev/rn-ui` repo (`DimensionDev/firefly-rn-ui`). That's where Tamagui primitives and tokens are authored:
 
 ```tsx
-// Inside packages/rn-ui/src/...
+// Inside the @dimensiondev/rn-ui repo...
 import { XStack, YStack, SizableText } from 'tamagui';
 
 <YStack gap="$4">
@@ -217,7 +215,7 @@ Common Tamagui tokens (rn-ui authoring only):
 - Color: `$text`, `$textSubdued`, `$textDisabled`, `$bg`, `$bgSubdued`, `$border`, `$icon`
 - Font size: `$bodyXs/Sm/Md/Lg`, `$bodyMdMedium`, `$headingXs/Sm/Md/Lg/Xl/Xxl`
 
-After editing `packages/rn-ui/src/`, run `pnpm build` inside the rn-ui package so apps/wallet picks up the rebuilt `dist/`.
+After editing the `@dimensiondev/rn-ui` repo, publish a new version and bump `@dimensiondev/rn-ui` in `apps/wallet/package.json` so apps/wallet picks up the change.
 
 **Apps never import `tamagui` or `@tamagui/*` directly.** If you catch yourself wanting `XStack` / `YStack` / `SizableText` in apps/wallet or apps/web, you're in the wrong layer — either restructure as a rn-ui contribution or rebuild with shadcn (apps/wallet) / `apps/web/src/components/` (apps/web).
 
@@ -298,7 +296,7 @@ A hook cannot import a component or a modal. A service cannot import a hook. See
 ## Common Pitfalls
 
 - **Treating apps/wallet like a native RN app.** It's web (Vite SSR + `react-native-web`). No iOS/Android build, no AsyncStorage, no Metro. Standard web storage and browser APIs apply.
-- **Importing `tamagui` / `@tamagui/*` / `XStack` / `YStack` / `SizableText` anywhere in `apps/*`.** Tamagui is authored only in `packages/rn-ui/src/`. If apps/wallet needs visual change inside a perps screen, the work happens in `packages/rn-ui/src/` (then `pnpm build` rn-ui). Non-perps wallet UI is shadcn.
+- **Importing `tamagui` / `@tamagui/*` / `XStack` / `YStack` / `SizableText` anywhere in `apps/*`.** Tamagui is authored only in the external `@dimensiondev/rn-ui` package. If apps/wallet needs a visual change inside a perps screen, the work happens in the `DimensionDev/firefly-rn-ui` repo (then publish + bump the dependency). Non-perps wallet UI is shadcn.
 - **Mixing `classNames` and `cn`.** apps/web uses `classNames` from `@dimensiondev/utils`; apps/wallet uses `cn` from `@/lib/utils.js`. Don't import the other into the wrong app.
 - **Mounting a sheet per call site (rn-ui perps).** For shared/triggered-from-many-places sheets, mount **one global instance** in the perps `Provider.tsx` subtree and trigger via a jotai atom in `store/tradeForm.ts`. Don't mount per-callsite.
 - **Wrong `<Trans>` import path.** Must be `@lingui/react/macro` (or `@lingui/core/macro` for JS). Importing from `@lingui/macro` will silently break extraction.
@@ -306,5 +304,5 @@ A hook cannot import a component or a modal. A service cannot import a hook. See
 - **Forgetting `.js` extension** on `@/` imports — ESLint will reject.
 - **Adding `'use client'`** to a page component that doesn't need it. Pages should stay server components unless they use hooks/event handlers. Note: apps/wallet is SPA-style under Vite SSR — `'use client'` is a Next.js (apps/web) concept and doesn't apply to apps/wallet.
 - **`'use client'` not on the first line** of the file (apps/web only).
-- **Reaching into `packages/rn-ui/src/`** directly. Always import from the published export paths (`@dimensiondev/rn-ui`, `/perps`, `/provider`) — they point at `dist/`, where `@/` aliases are pre-resolved.
-- **Trying to author new components inside `packages/rn-ui` to satisfy an apps/wallet design**, when the design isn't actually part of the perps surface. Build it as shadcn in `apps/wallet/src/components/` instead.
+- **Reaching into `@dimensiondev/rn-ui` internals** directly. Always import from the published export paths (`@dimensiondev/rn-ui`, `/perps`, `/provider`).
+- **Trying to author new components inside `@dimensiondev/rn-ui` to satisfy an apps/wallet design**, when the design isn't actually part of the perps surface. Build it as shadcn in `apps/wallet/src/components/` instead.

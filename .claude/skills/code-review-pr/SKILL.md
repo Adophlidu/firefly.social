@@ -128,7 +128,6 @@ Run `git diff origin/main...HEAD --name-only` and match:
 | Files in `apps/web/src/components/`, `modals/`, `hooks/`, `services/`, `providers/`, `store/`, `helpers/`                          | [firefly-patterns.md] — layer rules, ESM shims, classNames, Lingui, memo                                                       |
 | Files in `apps/wallet/src/components/ui/` (shadcn), `apps/wallet/src/components/`, `apps/wallet/src/modals/`                       | [firefly-patterns.md] — shadcn/Radix conventions, Tailwind + `cn`, `react-native-web` notes                                    |
 | Files in `apps/wallet/src/routes/perps.*.tsx` or `apps/wallet/src/components/Perps/`                                               | [firefly-patterns.md] — `@dimensiondev/rn-ui` public-surface imports only (whole screens + Provider); no Tamagui at this layer |
-| Files in `packages/rn-ui/src/`                                                                                                     | [firefly-patterns.md] — the only place `tamagui` / `@tamagui/*` is imported; tokens and primitives authored here               |
 | `.github/workflows/*.yml`, scripts                                                                                                 | Build & CI section in [firefly-patterns.md]                                                                                    |
 
 **Always check** regardless of file type:

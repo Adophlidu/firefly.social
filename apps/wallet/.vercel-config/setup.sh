@@ -13,7 +13,6 @@ pnpm --filter @dimensiondev/native-bridge build
 pnpm --filter @dimensiondev/exception-tracker build
 
 # Compile i18n (messages.ts is generated, not committed)
-pnpm --filter @dimensiondev/rn-ui lingui:compile
 pnpm --filter @dimensiondev/firefly-wallet lingui:compile
 
 # Build metadata (git commit, versions, etc.)

@@ -223,7 +223,7 @@ Use this exact structure:
 
 ### Affected surface
 
-- Primary surface: apps/web (Next.js) | apps/wallet (Vite + shadcn) | packages/rn-ui (Tamagui) | <other>
+- Primary surface: apps/web (Next.js) | apps/wallet (Vite + shadcn) | <other>
 - Why this surface: <one sentence — match where the user lives>
 
 ### Files to create
@@ -294,7 +294,7 @@ For Feature plans, after extracting initial Jira context:
     > This looks like UI work but I don't see a Figma link in the Jira issue. Do you have one? (Paste the URL, or say "no Figma" if it's developer-discretion UI.)
 3. **If Bug + visual regression**, also ask whether there's a Figma showing the intended look (often there is for layout regressions; less often for behavioral bugs).
 
-When you do consult Figma, follow the conventions in the **`implementing-figma-designs`** skill — UI-first with mock data, then i18n, then data; respect firefly-specific patterns (shadcn in apps/wallet, Tailwind in apps/web, Tamagui only inside `packages/rn-ui/src/`).
+When you do consult Figma, follow the conventions in the **`implementing-figma-designs`** skill — UI-first with mock data, then i18n, then data; respect firefly-specific patterns (shadcn in apps/wallet, Tailwind in apps/web, Tamagui only inside the external `@dimensiondev/rn-ui` package — never in this repo).
 
 ## Step 5: Present plan + gate on confirmation
 
@@ -317,7 +317,7 @@ After approval:
 2. **Implement** following the plan. For each step:
     - Consult `code-quality` for in-flight rules.
     - For Figma-driven UI work, consult `implementing-figma-designs`.
-    - For perps screens, the visual work lives in `packages/rn-ui/src/` — apps/wallet just mounts the screens.
+    - For perps screens, the visual work lives in the external `@dimensiondev/rn-ui` repo (`DimensionDev/firefly-rn-ui`) — apps/wallet just mounts the published screens.
     - If a hard architectural decision comes up that wasn't in the plan, **pause and revise the plan first** — don't silently expand scope.
 3. After all code changes are in, proceed to Step 7 — **do not claim "done" yet**.
 
@@ -503,7 +503,7 @@ If verification revealed something not covered by the original plan (a new edge 
 - ❌ **Paraphrasing Jira requirements until they say something the code can satisfy.** Quote, don't twist.
 - ❌ **Treating "Improvement" as automatically Feature.** Read the description; some are regression fixes.
 - ❌ **Skipping Figma extraction when there's a link in the Jira description.** Always grab it — the design will surface details the description doesn't.
-- ❌ **Putting Tamagui primitives in apps/wallet or apps/web.** They go only in `packages/rn-ui/src/`. (Re-read `implementing-figma-designs` if tempted.)
+- ❌ **Putting Tamagui primitives in apps/wallet or apps/web.** They go only in the external `@dimensiondev/rn-ui` package — never in this repo. (Re-read `implementing-figma-designs` if tempted.)
 - ❌ **Branch name or PR title without `FW-NNNN`.** CI will block it.
 - ❌ **AI attribution lines in commit messages.** Forbidden by `CLAUDE.md` and `/commit`.
 - ❌ **Claiming "verified" without actually running the verification commands.** Pair every claim with the evidence (command + output + screenshot).
@@ -522,7 +522,6 @@ If verification revealed something not covered by the original plan (a new edge 
 - `/architecture` — canonical layer rules; cite when making structural decisions.
 - `/commit` — pre-commit checks + conventional commit + branch-name conventions.
 - `/i18n` — Lingui workflow; consult during the i18n pass.
-- `/rn-ui` — entry points for `@dimensiondev/rn-ui` (perps screens).
 - `code-quality` — author-side rule reference; the SKILL.md checklist mirrors this skill's verification section.
 - `code-review-pr` — reviewer-side companion; you don't run it here, but a reviewer will.
 - `create-pr` — opens the PR with FW-NNNN in the title once the work is done and verified.
