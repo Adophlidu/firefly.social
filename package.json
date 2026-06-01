@@ -8,6 +8,7 @@
     ],
     "scripts": {
         "dev": "turbo dev",
+        "dev:apps": "turbo dev --filter='./apps/*'",
         "build": "turbo build",
         "start": "turbo start",
         "lint": "turbo lint",

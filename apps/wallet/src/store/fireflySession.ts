@@ -24,10 +24,20 @@ export const fireflySessionStorageAtom = atomWithStorage<{
 export const fireflySessionTokenAtom = atom((get) => {
     const currentProfileSession = get(fireflySessionStorageAtom)?.state.currentProfileSession;
     if (!currentProfileSession) return null;
-    const [, _session] = currentProfileSession.split(':');
-    return (
-        parseJson<{
-            token: string;
-        }>(atob(_session))?.token ?? null
-    );
+
+    const fragments = currentProfileSession.split(':');
+
+    // JWT v3 token: fragment[6] = base64({accessToken, refreshToken, sessionId})
+    if (fragments[6]) {
+        const jwt = parseJson<{ accessToken: string }>(atob(fragments[6]));
+        if (jwt?.accessToken) return jwt.accessToken;
+    }
+
+    // Legacy fallback: fragment[1] = base64({type, token, profileId, ...})
+    if (fragments[1]) {
+        const legacy = parseJson<{ token: string }>(atob(fragments[1]));
+        if (legacy?.token) return legacy.token;
+    }
+
+    return null;
 });
