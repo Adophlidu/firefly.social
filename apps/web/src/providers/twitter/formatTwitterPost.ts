@@ -73,6 +73,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             comments: item.public_metrics?.reply_count ?? 0,
             mirrors: item.public_metrics?.retweet_count ?? 0,
             quotes: item.public_metrics?.quote_count ?? 0,
+            views: item.public_metrics?.impression_count,
         },
         timestamp: item?.created_at ? new Date(item.created_at).getTime() : Date.now(),
         mentions: mentions?.map((mention) => {
