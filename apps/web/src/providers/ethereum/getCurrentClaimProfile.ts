@@ -6,7 +6,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { CheckClaimStrategyStatusOptions } from '@/providers/types/FireflyRedPacket.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';
 
 export async function getCurrentClaimProfile(source: SocialSource) {
@@ -21,7 +21,7 @@ export async function getCurrentClaimProfile(source: SocialSource) {
               platform,
               profileId: currentProfile?.profileId,
               handle: currentProfile.handle,
-          } as FireflyRedPacketAPI.CheckClaimStrategyStatusOptions['profile'])
+          } as CheckClaimStrategyStatusOptions['profile'])
         : undefined;
 
     if (source === Source.Lens) {
@@ -31,7 +31,7 @@ export async function getCurrentClaimProfile(source: SocialSource) {
         return {
             ...profile,
             lensToken: credentials.accessToken,
-        } as FireflyRedPacketAPI.CheckClaimStrategyStatusOptions['profile'];
+        } as CheckClaimStrategyStatusOptions['profile'];
     }
 
     if (source === Source.Farcaster && farcasterSessionHolder.session) {
@@ -42,8 +42,8 @@ export async function getCurrentClaimProfile(source: SocialSource) {
             farcasterMessage: messageHash,
             farcasterSignature: messageSignature,
             farcasterSigner: signer,
-        } as FireflyRedPacketAPI.CheckClaimStrategyStatusOptions['profile'];
+        } as CheckClaimStrategyStatusOptions['profile'];
     }
 
-    return profile as FireflyRedPacketAPI.CheckClaimStrategyStatusOptions['profile'];
+    return profile as CheckClaimStrategyStatusOptions['profile'];
 }

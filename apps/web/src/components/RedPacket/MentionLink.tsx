@@ -5,17 +5,17 @@ import { LoadingBase } from '@/components/RedPacket/LoadingBase.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
 import { getUserInfoById } from '@/providers/firefly/endpoint/getUserInfoById.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { PlatformType } from '@/providers/types/FireflyRedPacket.js';
 
 interface MentionLinkProps {
-    platform: FireflyRedPacketAPI.PlatformType;
+    platform: PlatformType;
     profileId: string;
     handle?: string;
 }
 
 export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
-    const isTwitter = platform === FireflyRedPacketAPI.PlatformType.Twitter;
-    const isLens = platform === FireflyRedPacketAPI.PlatformType.Lens;
+    const isTwitter = platform === PlatformType.Twitter;
+    const isLens = platform === PlatformType.Lens;
     const { data: twitterHandle, isLoading } = useQuery({
         enabled: isTwitter && !handle,
         queryKey: ['twitter-user-info', profileId],

@@ -33,11 +33,16 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type {
+    ClaimStrategyStatus,
+    NftOwnedStrategyPayload,
+    PostReactionKind,
+} from '@/providers/types/FireflyRedPacket.js';
+import { StrategyType } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface NFTListProps {
-    nfts: FireflyRedPacketAPI.NftOwnedStrategyPayload[];
+    nfts: NftOwnedStrategyPayload[];
 }
 
 function NFTList({ nfts }: NFTListProps) {
@@ -96,10 +101,7 @@ function ResultIcon({ result }: { result: boolean }) {
     );
 }
 
-const IconMap: Record<
-    FireflyRedPacketAPI.PostReactionKind,
-    React.FunctionComponent<React.SVGAttributes<SVGElement>>
-> = {
+const IconMap: Record<PostReactionKind, React.FunctionComponent<React.SVGAttributes<SVGElement>>> = {
     like: Like,
     repost: Repost,
     quote: Repost,
@@ -110,14 +112,13 @@ const IconMap: Record<
 interface RequirementsModalProps {
     open: boolean;
     post: Post;
-    claimStrategyStatus?: FireflyRedPacketAPI.ClaimStrategyStatus[];
+    claimStrategyStatus?: ClaimStrategyStatus[];
     showResults: boolean;
     isVerifying: boolean;
     isClaiming: boolean;
     onClose: () => void;
     onVerifyAndClaim: () => void;
 }
-const StrategyType = FireflyRedPacketAPI.StrategyType;
 
 export function RequirementsModal({
     open,
@@ -138,8 +139,8 @@ export function RequirementsModal({
     };
 
     const requirements = useMemo(() => {
-        const orders = getEnumAsArray(FireflyRedPacketAPI.StrategyType).map((x) => x.value);
-        return sortBy(claimStrategyStatus, (x) => orders.indexOf(x.type as FireflyRedPacketAPI.StrategyType));
+        const orders = getEnumAsArray(StrategyType).map((x) => x.value);
+        return sortBy(claimStrategyStatus, (x) => orders.indexOf(x.type as StrategyType));
     }, [claimStrategyStatus]);
 
     return (

@@ -31,7 +31,7 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
-import type { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
+import type { RequirementType, ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export const redPacketRandomTabs = [
@@ -113,11 +113,11 @@ interface RedPacketContextValue {
     setCoverType: Dispatch<SetStateAction<CoverTabType>>;
     setFontColor: Dispatch<SetStateAction<FontColorTabType>>;
     setShareFrom: Dispatch<SetStateAction<string>>;
-    customThemes: FireflyRedPacketAPI.ThemeGroupSettings[];
-    setCustomThemes: Dispatch<SetStateAction<FireflyRedPacketAPI.ThemeGroupSettings[]>>;
-    themes: FireflyRedPacketAPI.ThemeGroupSettings[];
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
-    setTheme: Dispatch<SetStateAction<FireflyRedPacketAPI.ThemeGroupSettings | undefined>>;
+    customThemes: ThemeGroupSettings[];
+    setCustomThemes: Dispatch<SetStateAction<ThemeGroupSettings[]>>;
+    themes: ThemeGroupSettings[];
+    theme: ThemeGroupSettings;
+    setTheme: Dispatch<SetStateAction<ThemeGroupSettings | undefined>>;
     networkType: NetworkType;
     setNetworkType: Dispatch<SetStateAction<NetworkType>>;
 }
@@ -183,9 +183,9 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [message, setMessage] = useState('');
     const [shares, setShares] = useState<number>(RED_PACKET_DEFAULT_SHARES);
     const [randomType, setRandomType] = useState<RandomType>('random');
-    const [customThemes, setCustomThemes] = useState<FireflyRedPacketAPI.ThemeGroupSettings[]>([]);
+    const [customThemes, setCustomThemes] = useState<ThemeGroupSettings[]>([]);
     const { data: themes = EMPTY_LIST } = useRedPacketThemes();
-    const [theme = themes[0], setTheme] = useState<FireflyRedPacketAPI.ThemeGroupSettings>();
+    const [theme = themes[0], setTheme] = useState<ThemeGroupSettings>();
 
     const paramNetworkType: NetworkType = useLocation().search?.networkType;
     const [networkType, setNetworkType] = useState<NetworkType>(() => {

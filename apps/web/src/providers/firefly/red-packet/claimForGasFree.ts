@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { PlatformType, Response } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 export async function claimForGasFree(
@@ -9,23 +9,23 @@ export async function claimForGasFree(
     address: string,
     profile: (
         | {
-              platform: FireflyRedPacketAPI.PlatformType.Farcaster;
+              platform: PlatformType.Farcaster;
               profileId: string;
               farcasterSignature: string;
               farcasterSigner: string;
               farcasterMessage: string;
           }
         | {
-              platform: FireflyRedPacketAPI.PlatformType.Lens;
+              platform: PlatformType.Lens;
               profileId: string;
               lensToken?: string;
           }
         | {
-              platform: FireflyRedPacketAPI.PlatformType.Twitter;
+              platform: PlatformType.Twitter;
               profileId: string;
           }
         | {
-              platform: FireflyRedPacketAPI.PlatformType.Bsky;
+              platform: PlatformType.Bsky;
               profileId: string;
           }
     ) & {
@@ -35,7 +35,7 @@ export async function claimForGasFree(
 ) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/gasFreeClaimRedPacket');
     const { data } = await fireflySessionHolder.fetchWithSession<
-        FireflyRedPacketAPI.Response<{
+        Response<{
             hash: string;
         }>
     >(url, {

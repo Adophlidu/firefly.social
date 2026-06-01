@@ -9,12 +9,12 @@ import {
     useResendRedPacketCallback,
 } from '@/components/RedPacket/hooks/useResendRedPacketCallback.js';
 import { HistoryActionContext } from '@/modals/RedPacketModal/HistoryList.js';
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { FireflyRedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 
 interface Props {
     rpid: string;
     account: string;
-    redpacketStatus: FireflyRedPacketAPI.RedPacketStatus;
+    redpacketStatus: FireflyRedPacketStatus;
     chainId: number;
     networkType: NetworkType;
     resendInfo?: Omit<ResendRedPacketInfo, 'rpid' | 'chainId' | 'networkType'>;
@@ -24,12 +24,12 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
     const { actionLoading, setActionLoading } = useContext(HistoryActionContext);
 
     const statusToTransMap = {
-        [FireflyRedPacketAPI.RedPacketStatus.Send]: <Trans>Send</Trans>,
-        [FireflyRedPacketAPI.RedPacketStatus.Expired]: <Trans>Expired</Trans>,
-        [FireflyRedPacketAPI.RedPacketStatus.Empty]: <Trans>Empty</Trans>,
-        [FireflyRedPacketAPI.RedPacketStatus.Refund]: <Trans>Refunded</Trans>,
-        [FireflyRedPacketAPI.RedPacketStatus.View]: <Trans>View</Trans>,
-        [FireflyRedPacketAPI.RedPacketStatus.Refunding]: <Trans>Refund</Trans>,
+        [FireflyRedPacketStatus.Send]: <Trans>Send</Trans>,
+        [FireflyRedPacketStatus.Expired]: <Trans>Expired</Trans>,
+        [FireflyRedPacketStatus.Empty]: <Trans>Empty</Trans>,
+        [FireflyRedPacketStatus.Refund]: <Trans>Refunded</Trans>,
+        [FireflyRedPacketStatus.View]: <Trans>View</Trans>,
+        [FireflyRedPacketStatus.Refunding]: <Trans>Refund</Trans>,
     };
 
     const [{ loading: refundLoading }, refund] = useRefundCallback(rpid, { chainId, networkType });
@@ -63,9 +63,9 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
         [setActionLoading],
     );
 
-    if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.View) return null;
+    if (redpacketStatus === FireflyRedPacketStatus.View) return null;
 
-    if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Send) {
+    if (redpacketStatus === FireflyRedPacketStatus.Send) {
         return (
             <ActionButton
                 className="h-[32px] !w-[88px] min-w-[88px] !grow-0 whitespace-nowrap px-6 py-2 text-xs"
@@ -83,15 +83,13 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
             className="h-[32px] !w-[88px] min-w-[88px] !grow-0 whitespace-nowrap px-6 py-2 text-xs"
             loading={refundLoading}
             onClick={() => {
-                if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Refunding) withActionLoading(refund);
+                if (redpacketStatus === FireflyRedPacketStatus.Refunding) withActionLoading(refund);
             }}
             disabled={
                 (actionLoading && !refundLoading) ||
-                [
-                    FireflyRedPacketAPI.RedPacketStatus.Empty,
-                    FireflyRedPacketAPI.RedPacketStatus.Expired,
-                    FireflyRedPacketAPI.RedPacketStatus.Refund,
-                ].includes(redpacketStatus)
+                [FireflyRedPacketStatus.Empty, FireflyRedPacketStatus.Expired, FireflyRedPacketStatus.Refund].includes(
+                    redpacketStatus,
+                )
             }
         >
             {statusToTransMap[redpacketStatus]}

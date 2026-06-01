@@ -6,11 +6,11 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 import type { TokenType } from '@/types/rp.js';
 
 interface AmountProgressTextProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     amount: string; // bigint in str
     shares?: number;
     remainingShares?: number;

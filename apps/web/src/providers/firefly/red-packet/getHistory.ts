@@ -10,20 +10,19 @@ import urlcat from 'urlcat';
 import type { Hex } from 'viem';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type {
+    ActionType,
+    HistoryResponse,
+    RedPacketClaimedInfo,
+    RedPacketSentInfo,
+    SourceType,
+} from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 export async function getHistory<
-    T extends FireflyRedPacketAPI.ActionType,
-    R = T extends FireflyRedPacketAPI.ActionType.Claim
-        ? FireflyRedPacketAPI.RedPacketClaimedInfo
-        : FireflyRedPacketAPI.RedPacketSentInfo,
->(
-    actionType: T,
-    from: Hex,
-    platform: FireflyRedPacketAPI.SourceType,
-    indicator?: PageIndicator,
-): Promise<Pageable<R, PageIndicator>> {
+    T extends ActionType,
+    R = T extends ActionType.Claim ? RedPacketClaimedInfo : RedPacketSentInfo,
+>(actionType: T, from: Hex, platform: SourceType, indicator?: PageIndicator): Promise<Pageable<R, PageIndicator>> {
     if (!from) {
         return createPageable(EMPTY_LIST, createIndicator(indicator));
     }
@@ -34,7 +33,7 @@ export async function getHistory<
         cursor: indicator?.id,
         size: 20,
     });
-    const { data } = await fetchJson<FireflyRedPacketAPI.HistoryResponse>(url);
+    const { data } = await fetchJson<HistoryResponse>(url);
     return createPageable(
         data.list.map((v) => ({ ...v, chain_id: Number(v.chain_id) })) as R[],
         createIndicator(indicator),

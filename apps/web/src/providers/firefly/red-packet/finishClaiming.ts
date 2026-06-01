@@ -4,12 +4,12 @@ import urlcat from 'urlcat';
 
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { PlatformType, Response } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 export async function finishClaiming(
     rpid: string,
-    platform: FireflyRedPacketAPI.PlatformType,
+    platform: PlatformType,
     profileId: string,
     handle: string,
     txHash: string,
@@ -19,7 +19,7 @@ export async function finishClaiming(
     const accountId = session?.profileId
         ? `${settings.FIREFLY_ROOT_URL === FIREFLY_ROOT_URL_DEV ? 'dev' : 'prod'}:${session.profileId}`
         : undefined;
-    return fireflySessionHolder.fetch<FireflyRedPacketAPI.Response<string>>(url, {
+    return fireflySessionHolder.fetch<Response<string>>(url, {
         method: 'POST',
         body: JSON.stringify({
             rpid,

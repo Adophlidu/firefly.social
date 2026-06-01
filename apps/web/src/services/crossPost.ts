@@ -25,7 +25,7 @@ import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { updateClaimStrategy } from '@/providers/firefly/red-packet/updateClaimStrategy.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { captureCreatePollEvent } from '@/providers/telemetry/capturePollEvent.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { PostOn } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -76,7 +76,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                     : null;
             }),
         );
-        const postOn: FireflyRedPacketAPI.PostOn[] = compact(
+        const postOn: PostOn[] = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {
                 const currentProfile = getCurrentProfileFromStorage(x);
                 return postId[x] && currentProfile

@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { PlatformType } from '@/providers/types/FireflyRedPacket.js';
 
 interface Props {
     address?: string;
@@ -15,7 +15,7 @@ interface Props {
     isDarkFont?: boolean;
     shareFrom?: string;
     networkType?: NetworkType;
-    platform?: FireflyRedPacketAPI.PlatformType;
+    platform?: PlatformType;
     platformId?: string;
 }
 

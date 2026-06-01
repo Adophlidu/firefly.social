@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { Response } from '@/providers/types/Firefly.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketSentInfo } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 /**
@@ -13,6 +13,6 @@ import { settings } from '@/settings/index.js';
  */
 export async function getHistoryDataById(rpid: string) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/fromHistory', { rpid });
-    const response = await fetchJson<Response<FireflyRedPacketAPI.RedPacketSentInfo>>(url);
+    const response = await fetchJson<Response<RedPacketSentInfo>>(url);
     return resolveFireflyResponseData(response);
 }

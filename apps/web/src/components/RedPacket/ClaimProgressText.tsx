@@ -1,8 +1,8 @@
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 
 interface ClaimProgressTextProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     shares: number;
     remainingShares: number;
     ContainerStyle?: React.CSSProperties;

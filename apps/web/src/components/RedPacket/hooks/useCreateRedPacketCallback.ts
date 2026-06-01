@@ -5,12 +5,12 @@ import { useContext } from 'react';
 import { useEthereumCreateRedPacketCallback } from '@/components/RedPacket/hooks/useEthereumCreateRedPacketCallback.js';
 import { useSolanaCreateRedPacketCallback } from '@/components/RedPacket/hooks/useSolanaCreateRedPacketCallback.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimStrategy } from '@/providers/types/FireflyRedPacket.js';
 
 export function useCreateRedPacketCallback(
     shareFromName: string,
     publicKey: string,
-    claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
+    claimRequirements?: ClaimStrategy[],
 ) {
     const { networkType } = useContext(RedPacketContext);
     const createEthereumRedPacket = useEthereumCreateRedPacketCallback(shareFromName, publicKey, claimRequirements);

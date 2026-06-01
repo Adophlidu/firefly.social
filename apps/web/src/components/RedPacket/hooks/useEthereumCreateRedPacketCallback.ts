@@ -25,7 +25,7 @@ import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketCo
 import { createRedPacketParams } from '@/providers/ethereum/red-packet/createRedPacketParams.js';
 import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
-import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimStrategy, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
 
@@ -40,7 +40,7 @@ function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata 
 export function useEthereumCreateRedPacketCallback(
     shareFromName: string,
     publicKey: string,
-    claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
+    claimRequirements?: ClaimStrategy[],
 ) {
     const { randomType, message, shares, token, totalAmount, theme, networkType } = useContext(RedPacketContext);
 

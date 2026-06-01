@@ -1,4 +1,4 @@
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimStrategy } from '@/providers/types/FireflyRedPacket.js';
 
 export enum TokenType {
     Fungible = 'fungible',
@@ -13,7 +13,7 @@ export enum UsageType {
 export interface RedPacketPayload {
     publicKey?: string;
     payloadImage: string;
-    claimRequirements: FireflyRedPacketAPI.ClaimStrategy[];
+    claimRequirements: ClaimStrategy[];
     metadata: RedPacketMetadata;
 }
 

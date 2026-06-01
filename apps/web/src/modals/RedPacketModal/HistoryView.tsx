@@ -9,23 +9,21 @@ import { EvmHistoryList } from '@/modals/RedPacketModal/EvmHistoryList.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { SolanaHistoryList } from '@/modals/RedPacketModal/SolanaHistoryList.js';
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { ActionType } from '@/providers/types/FireflyRedPacket.js';
 
 export default memo(function HistoryView() {
     const { networkType } = useContext(RedPacketContext);
-    const [historyType, setHistoryType] = useState<FireflyRedPacketAPI.ActionType>(
-        FireflyRedPacketAPI.ActionType.Claim,
-    );
+    const [historyType, setHistoryType] = useState<ActionType>(ActionType.Claim);
     const { account } = useChainContext({ networkType });
 
     return (
         <div className="flex flex-1 grow flex-col bg-primaryBottom px-4 py-2">
             <div className="flex gap-2">
                 <Tabs value={historyType} onChange={setHistoryType} variant="solid" className="self-start">
-                    <Tab value={FireflyRedPacketAPI.ActionType.Claim} key="claimed">
+                    <Tab value={ActionType.Claim} key="claimed">
                         <Trans>Claimed</Trans>
                     </Tab>
-                    <Tab value={FireflyRedPacketAPI.ActionType.Send} key="sent">
+                    <Tab value={ActionType.Send} key="sent">
                         <Trans>Created</Trans>
                     </Tab>
                 </Tabs>

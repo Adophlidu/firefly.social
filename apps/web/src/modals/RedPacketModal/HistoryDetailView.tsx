@@ -11,9 +11,9 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimList } from '@/providers/types/FireflyRedPacket.js';
 
-function ClaimHistoryItem({ data, networkType }: { data: FireflyRedPacketAPI.ClaimList; networkType: NetworkType }) {
+function ClaimHistoryItem({ data, networkType }: { data: ClaimList; networkType: NetworkType }) {
     const { data: ens } = useEnsName(data.creator);
 
     return (
@@ -40,7 +40,7 @@ function ClaimHistoryItem({ data, networkType }: { data: FireflyRedPacketAPI.Cla
     );
 }
 
-function getClaimHistoryListItem(networkType: NetworkType, data?: FireflyRedPacketAPI.ClaimList) {
+function getClaimHistoryListItem(networkType: NetworkType, data?: ClaimList) {
     return data ? <ClaimHistoryItem networkType={networkType} key={data.creator} data={data} /> : null;
 }
 

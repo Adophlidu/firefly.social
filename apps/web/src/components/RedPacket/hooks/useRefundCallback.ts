@@ -10,7 +10,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketClaimedInfo, RedPacketSentInfo } from '@/providers/types/FireflyRedPacket.js';
+import { ActionType, FireflyRedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 
 export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const [, refundEVM] = useEthereumRefundCallback(rpid, overrides);
@@ -40,14 +41,12 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
                 claimer: account,
             });
             queryClient.setQueriesData(
-                { queryKey: ['redpacket-history', account.toLowerCase(), FireflyRedPacketAPI.ActionType.Send] },
+                { queryKey: ['redpacket-history', account.toLowerCase(), ActionType.Send] },
                 (
                     old:
                         | {
                               pages: Array<{
-                                  data: Array<
-                                      FireflyRedPacketAPI.RedPacketClaimedInfo | FireflyRedPacketAPI.RedPacketSentInfo
-                                  >;
+                                  data: Array<RedPacketClaimedInfo | RedPacketSentInfo>;
                               }>;
                           }
                         | undefined,
@@ -59,8 +58,7 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
                             if (!page) continue;
 
                             for (const item of page.data) {
-                                if (item.redpacket_id === rpid)
-                                    item.redpacket_status = FireflyRedPacketAPI.RedPacketStatus.Refund;
+                                if (item.redpacket_id === rpid) item.redpacket_status = FireflyRedPacketStatus.Refund;
                             }
                         }
                     });

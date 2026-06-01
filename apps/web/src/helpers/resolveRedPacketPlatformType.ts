@@ -2,14 +2,14 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { PlatformType } from '@/providers/types/FireflyRedPacket.js';
 
-export const resolveRedPacketPlatformType = createLookupTableResolver<SocialSource, FireflyRedPacketAPI.PlatformType>(
+export const resolveRedPacketPlatformType = createLookupTableResolver<SocialSource, PlatformType>(
     {
-        [Source.Lens]: FireflyRedPacketAPI.PlatformType.Lens,
-        [Source.Farcaster]: FireflyRedPacketAPI.PlatformType.Farcaster,
-        [Source.Twitter]: FireflyRedPacketAPI.PlatformType.Twitter,
-        [Source.Bsky]: FireflyRedPacketAPI.PlatformType.Bsky,
+        [Source.Lens]: PlatformType.Lens,
+        [Source.Farcaster]: PlatformType.Farcaster,
+        [Source.Twitter]: PlatformType.Twitter,
+        [Source.Bsky]: PlatformType.Bsky,
     },
     (source) => {
         throw new UnreachableError('source', source);

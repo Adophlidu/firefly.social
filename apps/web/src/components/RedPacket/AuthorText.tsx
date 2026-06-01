@@ -2,11 +2,11 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 import { UsageType } from '@/types/rp.js';
 
 interface AuthorTextProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     usage: UsageType;
     from?: string;
     ContainerStyle?: React.CSSProperties;

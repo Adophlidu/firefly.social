@@ -6,7 +6,7 @@ import urlcat from 'urlcat';
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { DEFAULT_THEME } from '@/constants/rp.js';
 import { getTheme } from '@/providers/firefly/red-packet/getTheme.js';
-import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketJSONPayload, ThemeByIdOptions, ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 
 /** pass rpid or themeId */
 export interface RedPacketCoverOptions {
@@ -45,8 +45,8 @@ export function useRedPacketCover({
             const theme = await getTheme({
                 rpid,
                 themeId,
-            } as FireflyRedPacketAPI.ThemeByIdOptions);
-            return theme ?? (DEFAULT_THEME as FireflyRedPacketAPI.ThemeGroupSettings);
+            } as ThemeByIdOptions);
+            return theme ?? (DEFAULT_THEME as ThemeGroupSettings);
         },
         select(theme) {
             if (!theme) return null;

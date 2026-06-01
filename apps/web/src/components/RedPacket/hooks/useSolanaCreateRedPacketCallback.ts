@@ -29,7 +29,7 @@ import { createWithNativeToken } from '@/providers/solana/red-packet/createWithN
 import { createWithSplToken } from '@/providers/solana/red-packet/createWithSplToken.js';
 import type { CreateWithNativeTokenContext } from '@/providers/solana/red-packet/types.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
-import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimStrategy, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
 
@@ -41,7 +41,7 @@ function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata 
 export function useSolanaCreateRedPacketCallback(
     shareFromName: string,
     publicKey: string,
-    claimRequirements: FireflyRedPacketAPI.ClaimStrategy[] | undefined,
+    claimRequirements: ClaimStrategy[] | undefined,
 ) {
     const {
         randomType,

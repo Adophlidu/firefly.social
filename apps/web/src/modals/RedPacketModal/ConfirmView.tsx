@@ -40,12 +40,13 @@ import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopov
 import { createPublicKey } from '@/providers/firefly/red-packet/createPublicKey.js';
 import { createTheme as createFireflyTheme } from '@/providers/firefly/red-packet/createTheme.js';
 import { getTheme as getFireflyTheme } from '@/providers/firefly/red-packet/getTheme.js';
-import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimStrategy, ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
+import { PlatformType, RequirementType, StrategyType } from '@/providers/types/FireflyRedPacket.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 interface ThemeVariant {
-    neutral: FireflyRedPacketAPI.ThemeGroupSettings;
-    golden: FireflyRedPacketAPI.ThemeGroupSettings;
+    neutral: ThemeGroupSettings;
+    golden: ThemeGroupSettings;
 }
 
 const PostReactionTypes = [RequirementType.Like, RequirementType.Repost, RequirementType.Comment];
@@ -104,8 +105,7 @@ export default memo(function ConfirmView() {
     const { value, loading } = useAsync(async () => {
         const postReactions = rules.filter((x) => PostReactionTypes.includes(x));
 
-        const StrategyType = FireflyRedPacketAPI.StrategyType;
-        const strategies: FireflyRedPacketAPI.ClaimStrategy[] = [];
+        const strategies: ClaimStrategy[] = [];
         if (rules) {
             if (rules.includes(RequirementType.Follow)) {
                 strategies.push({
@@ -113,19 +113,19 @@ export default memo(function ConfirmView() {
                     payload: compact([
                         currentLensProfile
                             ? {
-                                  platform: FireflyRedPacketAPI.PlatformType.Lens,
+                                  platform: PlatformType.Lens,
                                   profileId: currentLensProfile.profileId,
                               }
                             : undefined,
                         currentFarcasterProfile
                             ? {
-                                  platform: FireflyRedPacketAPI.PlatformType.Farcaster,
+                                  platform: PlatformType.Farcaster,
                                   profileId: currentFarcasterProfile.profileId,
                               }
                             : undefined,
                         currentTwitterProfile
                             ? {
-                                  platform: FireflyRedPacketAPI.PlatformType.Twitter,
+                                  platform: PlatformType.Twitter,
                                   profileId: currentTwitterProfile.profileId,
                               }
                             : undefined,

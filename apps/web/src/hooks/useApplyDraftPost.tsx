@@ -28,7 +28,7 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { getHistoryDataById } from '@/providers/firefly/red-packet/getHistoryDataById.js';
 import { getMaskTypedMessage } from '@/providers/firefly/red-packet/getMaskTypedMessage.js';
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { FireflyRedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -72,7 +72,7 @@ async function recoverCompositePost({
     const rpid = draftPost.rpPayload?.metadata?.rpid;
     if (draft.draftType === DraftPostType.Cloud && rpid) {
         const rpDetail = await runInSafeAsync(() => getHistoryDataById(rpid));
-        if (rpDetail?.redpacket_status !== FireflyRedPacketAPI.RedPacketStatus.Send) {
+        if (rpDetail?.redpacket_status !== FireflyRedPacketStatus.Send) {
             post.rpPayload = null;
             return post;
         }

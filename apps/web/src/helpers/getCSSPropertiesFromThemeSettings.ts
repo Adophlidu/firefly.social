@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ThemeSettings } from '@/providers/types/FireflyRedPacket.js';
 
 /**
  * Get CSS font properties from theme settings
@@ -9,7 +9,7 @@ import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js'
  * @param elementType
  * @returns
  */
-export function getCSSPropertiesFromThemeSettings(settings: FireflyRedPacketAPI.ThemeSettings['title1']) {
+export function getCSSPropertiesFromThemeSettings(settings: ThemeSettings['title1']) {
     return {
         color: settings.color,
         fontSize: settings.font_size,

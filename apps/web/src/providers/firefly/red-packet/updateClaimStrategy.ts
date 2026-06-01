@@ -1,14 +1,14 @@
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimPlatform, PostOn, PostReaction } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 export async function updateClaimStrategy(
     rpid: string,
-    reactions: FireflyRedPacketAPI.PostReaction[],
-    claimPlatform: FireflyRedPacketAPI.ClaimPlatform[],
-    postOn: FireflyRedPacketAPI.PostOn[],
+    reactions: PostReaction[],
+    claimPlatform: ClaimPlatform[],
+    postOn: PostOn[],
     publicKey?: string,
 ): Promise<void> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/updateClaimStrategy');

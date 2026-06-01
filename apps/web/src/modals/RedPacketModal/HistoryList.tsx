@@ -6,14 +6,14 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketClaimedInfo, RedPacketSentInfo } from '@/providers/types/FireflyRedPacket.js';
 
 export const HistoryActionContext = createContext<{
     actionLoading: boolean;
     setActionLoading: Dispatch<SetStateAction<boolean>>;
 }>({ actionLoading: false, setActionLoading: noop });
 
-type RpHistory = FireflyRedPacketAPI.RedPacketClaimedInfo | FireflyRedPacketAPI.RedPacketSentInfo;
+type RpHistory = RedPacketClaimedInfo | RedPacketSentInfo;
 interface HistoryListProps {
     data: RpHistory[];
     onEndReached: () => Promise<void>;

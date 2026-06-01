@@ -1,12 +1,12 @@
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { CreateThemeOptions, CreateThemeResponse } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
-export async function createTheme(options: FireflyRedPacketAPI.CreateThemeOptions) {
+export async function createTheme(options: CreateThemeOptions) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/createTheme');
-    const res = await fetchJson<FireflyRedPacketAPI.CreateThemeResponse>(url, {
+    const res = await fetchJson<CreateThemeResponse>(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -21,7 +21,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimStrategy, FireflyRedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 
 interface HistoryInfo {
     rp_msg: string;
@@ -38,9 +38,9 @@ interface HistoryInfo {
     total_numbers?: string;
     claim_amounts?: string;
     create_time?: number;
-    redpacket_status?: FireflyRedPacketAPI.RedPacketStatus;
+    redpacket_status?: FireflyRedPacketStatus;
     ens_name?: string;
-    claim_strategy?: FireflyRedPacketAPI.ClaimStrategy[];
+    claim_strategy?: ClaimStrategy[];
     share_from?: string;
     theme_id?: string;
     post_on?: Array<{

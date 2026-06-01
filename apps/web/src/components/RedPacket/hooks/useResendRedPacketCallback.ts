@@ -9,7 +9,7 @@ import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { closeRedPacketModal } from '@/helpers/openRedPacketModal.js';
 import { getMaskTypedMessage } from '@/providers/firefly/red-packet/getMaskTypedMessage.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimStrategy } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export interface ResendRedPacketInfo {
@@ -21,7 +21,7 @@ export interface ResendRedPacketInfo {
     tokenDecimal: number;
     totalAmounts: string;
     totalNumbers: string;
-    claimStrategy: FireflyRedPacketAPI.ClaimStrategy[];
+    claimStrategy: ClaimStrategy[];
     chainId: number;
     networkType: NetworkType;
 }

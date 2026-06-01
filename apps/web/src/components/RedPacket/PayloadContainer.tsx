@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 
 interface PayloadContainerProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     children: ReactNode;
     ContainerStyle?: React.CSSProperties;
 }
