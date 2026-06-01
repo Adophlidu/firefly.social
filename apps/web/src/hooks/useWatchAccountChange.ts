@@ -39,8 +39,7 @@ export function useWatchAccountChange() {
         listenCustomEvent(
             EVENT_FIREFLY_SESSION_EXPIRED,
             async (e) => {
-                const { account, removeFromStore = true, source } = e.detail;
-                if (!removeFromStore) return;
+                const { account, source } = e.detail;
                 if (account) {
                     await removeAccountByProfileId(account.profile.profileSource, account.profile.profileId);
                 } else if (source) {

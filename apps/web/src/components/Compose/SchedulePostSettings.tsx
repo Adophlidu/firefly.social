@@ -91,7 +91,6 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                         profile: currentLensProfile,
                         session: state.currentProfileSession as LensSession,
                     },
-                    removeFromStore: true,
                 });
                 disableSource(Source.Lens);
                 enqueueWarningMessage(<Trans>This Lens account has expired, please log in again.</Trans>);
