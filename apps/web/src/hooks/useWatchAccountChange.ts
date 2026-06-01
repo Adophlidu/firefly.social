@@ -3,7 +3,11 @@ import { bom, delay } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useEffect, useRef } from 'react';
 
-import { EVENT_FIREFLY_SESSION_EXPIRED, EVENT_FIREFLY_SESSION_REFRESHED, EVENT_FORBIDDEN } from '@/constants/event.js';
+import {
+    EVENT_FIREFLY_SESSION_EXPIRED,
+    EVENT_FIREFLY_SESSION_FORBIDDEN,
+    EVENT_FIREFLY_SESSION_REFRESHED,
+} from '@/constants/event.js';
 import { listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { enqueueForbiddenMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -20,7 +24,7 @@ export function useWatchAccountChange() {
         const abortController = new AbortController();
 
         listenCustomEvent(
-            EVENT_FORBIDDEN,
+            EVENT_FIREFLY_SESSION_FORBIDDEN,
             async () => {
                 if (!bom.location) return;
                 if (!fireflySessionHolder.session) return;

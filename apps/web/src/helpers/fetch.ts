@@ -5,7 +5,7 @@ import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { FetchError, NftScanError } from '@/constants/error.js';
-import { EVENT_FORBIDDEN } from '@/constants/event.js';
+import { EVENT_FIREFLY_SESSION_FORBIDDEN } from '@/constants/event.js';
 import { addHeaders } from '@/helpers/addHeader.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { getResponseText } from '@/helpers/getResponseText.js';
@@ -100,7 +100,7 @@ async function executeFetch(
 
     // On client side, the <AuthGuard /> warning will be triggered when a firefly api request is 403 forbidden
     if (response.status === 403 && bom.document && u && isFireflyLandApi(u)) {
-        dispatchCustomEvent(EVENT_FORBIDDEN);
+        dispatchCustomEvent(EVENT_FIREFLY_SESSION_FORBIDDEN);
         throw new ForbiddenError();
     }
 

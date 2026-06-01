@@ -3,13 +3,13 @@ import { bom } from '@dimensiondev/utils';
 
 import type {
     EVENT_FIREFLY_SESSION_EXPIRED,
+    EVENT_FIREFLY_SESSION_FORBIDDEN,
     EVENT_FIREFLY_SESSION_REFRESHED,
-    EVENT_FORBIDDEN,
 } from '@/constants/event.js';
 import type { Account } from '@/providers/types/Account.js';
 
 interface CustomEvents {
-    [EVENT_FORBIDDEN]: void;
+    [EVENT_FIREFLY_SESSION_FORBIDDEN]: void;
     [EVENT_FIREFLY_SESSION_EXPIRED]: { account?: Account; source?: SocialSource };
     /** Serialized FireflySession string — use SessionFactory.createSession() to restore. */
     [EVENT_FIREFLY_SESSION_REFRESHED]: string;
