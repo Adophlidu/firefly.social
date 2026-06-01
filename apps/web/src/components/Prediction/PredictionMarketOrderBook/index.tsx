@@ -64,16 +64,19 @@ export const PredictionMarketOrderBook = memo<PredictionMarketOrderBookProps>(fu
     }, []);
 
     const outcomeIndex = market.outcomes.findIndex((o) => o.id === outcomeId);
+    const outcome = market.outcomes[outcomeIndex];
     const [, handlePriceClick] = useAsyncFn(
         async (price: number) => {
-            if (outcomeIndex === -1 || !market.slug) return;
-            await openPredictionPage(market.slug, {
-                outcome: outcomeIndex,
+            const slug = outcome?.slug || market.slug;
+            const effectiveOutcome = outcome?.slug ? 0 : outcomeIndex;
+            if (outcomeIndex === -1 || !slug) return;
+            await openPredictionPage(slug, {
+                outcome: effectiveOutcome,
                 limitPrice: price,
                 type: 'limit',
             });
         },
-        [outcomeIndex, market.slug],
+        [outcomeIndex, market.slug, outcome?.slug],
     );
 
     const { asks, bids } = useMemo(() => {

@@ -75,6 +75,7 @@ export interface BetsMarketOutcome {
     rate?: string;
     bestAsk?: string;
     bestBid?: string;
+    slug?: string;
 }
 
 export interface BetsMarketDataForUI {
@@ -102,6 +103,7 @@ export interface BetsMarketDataForUI {
     line?: number;
     groupTypeFF?: SportMarketGroupType;
     closedTime?: number;
+    originalMoneylineMarkets?: BetsMarketDataForUI[];
 }
 
 export interface BetsEventTagForUI {

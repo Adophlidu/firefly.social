@@ -3,6 +3,7 @@ import { parseJson } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
 
 import { resolveSportData } from '@/helpers/prediction/polymarket/resolveSportData.js';
+import { matchesTeamLabel } from '@/helpers/prediction/sportScoreUtils.js';
 import { resolveCryptoFromPolymarketEvent } from '@/providers/firefly/prediction/resolveCryptoFromPolymarketEvent.js';
 import { getPredictionRecurrenceFromPolymarketEvent } from '@/providers/prediction/polymarket/resolveCryptoUpDownFromEvent.js';
 import type {
@@ -11,7 +12,12 @@ import type {
     PolymarketSportGroupedMarketItem,
 } from '@/providers/prediction/polymarket/type.js';
 import type { OpinionMarketDetail } from '@/providers/types/Firefly.js';
-import { type BetsEventDataForUI, type BetsMarketDataForUI, PredictionRecurrence } from '@/types/prediction.js';
+import {
+    type BetsEventDataForUI,
+    type BetsMarketDataForUI,
+    PredictionRecurrence,
+    type SportTeam,
+} from '@/types/prediction.js';
 
 function filterAndSortPolymarketMarkets(detail: PolymarketEvent) {
     const markets = (detail.markets || []).filter((market) => market.active);
@@ -59,11 +65,91 @@ function fixRecurrence(recurrence: PredictionRecurrence, startTime?: string, end
     return recurrence;
 }
 
+function mergeThreeWayMoneylineMarkets(
+    markets: BetsMarketDataForUI[],
+    homeTeam: SportTeam,
+    awayTeam: SportTeam,
+): BetsMarketDataForUI[] {
+    const moneylineIndices: number[] = [];
+    const moneylineMarkets: BetsMarketDataForUI[] = [];
+    markets.forEach((m, i) => {
+        if (m.sportsMarketType?.toLowerCase() === 'moneyline') {
+            moneylineIndices.push(i);
+            moneylineMarkets.push(m);
+        }
+    });
+
+    if (moneylineMarkets.length < 3) return markets;
+
+    let homeMarket: BetsMarketDataForUI | undefined;
+    let drawMarket: BetsMarketDataForUI | undefined;
+    let awayMarket: BetsMarketDataForUI | undefined;
+
+    for (const m of moneylineMarkets) {
+        const title = m.groupItemTitle || m.title;
+        if (title?.toLowerCase().includes('draw')) {
+            drawMarket = m;
+        } else if (matchesTeamLabel(homeTeam, title)) {
+            homeMarket = m;
+        } else if (matchesTeamLabel(awayTeam, title)) {
+            awayMarket = m;
+        }
+    }
+
+    if (!homeMarket || !drawMarket || !awayMarket) return markets;
+
+    const combined: BetsMarketDataForUI = {
+        id: homeMarket.id,
+        slug: homeMarket.slug,
+        conditionId: homeMarket.conditionId,
+        questionId: homeMarket.questionId,
+        title: homeMarket.title,
+        volume: moneylineMarkets.reduce((sum, m) => sum + Number.parseFloat(m.volume || '0'), 0).toString(),
+        isResolved: moneylineMarkets.every((m) => m.isResolved),
+        isClosed: moneylineMarkets.every((m) => m.isClosed),
+        createTime: homeMarket.createTime,
+        resolvedOutcomeId: homeMarket.resolvedOutcomeId,
+        image: homeMarket.image,
+        outcomes: [
+            {
+                id: homeMarket.outcomes[0]?.id || '',
+                label: homeTeam.abbreviation?.toUpperCase() || homeTeam.name || 'Home',
+                price: homeMarket.outcomes[0]?.price || '0',
+                slug: homeMarket.slug,
+            },
+            {
+                id: awayMarket.outcomes[0]?.id || '',
+                label: awayTeam.abbreviation?.toUpperCase() || awayTeam.name || 'Away',
+                price: awayMarket.outcomes[0]?.price || '0',
+                slug: awayMarket.slug,
+            },
+            {
+                id: drawMarket.outcomes[0]?.id || '',
+                label: 'Draw',
+                price: drawMarket.outcomes[0]?.price || '0',
+                slug: drawMarket.slug,
+            },
+        ],
+        statusList: homeMarket.statusList,
+        bestAsk: homeMarket.bestAsk,
+        bestBid: homeMarket.bestBid,
+        sportsMarketType: homeMarket.sportsMarketType,
+        originalMoneylineMarkets: moneylineMarkets,
+    };
+
+    const result = [...markets];
+    for (let i = moneylineIndices.length - 1; i >= 0; i -= 1) {
+        result.splice(moneylineIndices[i], 1);
+    }
+    result.splice(moneylineIndices[0], 0, combined);
+    return result;
+}
+
 export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
     const isSameImage = detail.markets?.every((market) => market.image === detail.image);
 
     const sportData = resolveSportData(detail);
-    const markets: BetsMarketDataForUI[] = filterAndSortPolymarketMarkets(detail).map((market) => {
+    let markets: BetsMarketDataForUI[] = filterAndSortPolymarketMarkets(detail).map((market) => {
         const outcomeLabels = parseJson<string[]>(market.outcomes);
         const outcomeIds = parseJson<string[]>(market.clobTokenIds);
         const prices = parseJson<string[]>(market.outcomePrices);
@@ -128,6 +214,10 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
                 : undefined,
         };
     });
+
+    if (sportData?.isDraw && sportData.homeTeam && sportData.awayTeam) {
+        markets = mergeThreeWayMoneylineMarkets(markets, sportData.homeTeam, sportData.awayTeam);
+    }
 
     const cryptoName = resolveCryptoFromPolymarketEvent(detail);
     const eventStartTime = first(detail.markets)?.eventStartTime;

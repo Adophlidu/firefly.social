@@ -46,7 +46,7 @@ export const SportBuyButtons = memo(function SportBuyButtons({
     const getOutcomeMeta = (index: number, fallbackLabel: string, fallbackColor: string) => {
         const team = outcomeTeams?.[index];
         return {
-            label: team?.name || team?.abbreviation || outcomes[index]?.label || fallbackLabel,
+            label: team?.abbreviation || team?.name || outcomes[index]?.label || fallbackLabel,
             color: team?.color || fallbackColor,
         };
     };
@@ -62,8 +62,8 @@ export const SportBuyButtons = memo(function SportBuyButtons({
             })}
         >
             <SportBuyButton
-                slug={market.slug}
-                outcome={0}
+                slug={outcomes[0]?.slug || market.slug}
+                outcome={outcomes[0]?.slug ? 0 : 0}
                 label={home.label}
                 price={outcomes[0]?.price}
                 color={home.color}
@@ -73,8 +73,8 @@ export const SportBuyButtons = memo(function SportBuyButtons({
             />
             {showDraw && outcomes[2] ? (
                 <SportBuyButton
-                    slug={market.slug}
-                    outcome={2}
+                    slug={outcomes[2]?.slug || market.slug}
+                    outcome={outcomes[2]?.slug ? 0 : 2}
                     label={draw.label}
                     price={outcomes[2].price}
                     color={draw.color}
@@ -84,8 +84,8 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                 />
             ) : null}
             <SportBuyButton
-                slug={market.slug}
-                outcome={1}
+                slug={outcomes[1]?.slug || market.slug}
+                outcome={outcomes[1]?.slug ? 0 : 1}
                 label={away.label}
                 price={outcomes[1]?.price}
                 color={away.color}
@@ -147,7 +147,7 @@ const SportBuyButton = memo(function SportBuyButton({
                 handleOpen();
             }}
         >
-            <span className="block truncate">
+            <span className="block truncate uppercase">
                 {label} {price ? formatCents(price) : ''}
             </span>
         </ClickableButton>

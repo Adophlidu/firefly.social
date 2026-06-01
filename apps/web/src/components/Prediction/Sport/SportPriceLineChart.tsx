@@ -7,12 +7,14 @@ import { useQuery } from '@tanstack/react-query';
 import { scaleLinear, scaleTime } from 'd3-scale';
 import { curveMonotoneX, line } from 'd3-shape';
 import dayjs from 'dayjs';
+import { AnimatePresence, motion } from 'framer-motion';
 import type { CSSProperties } from 'react';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { matchesTeamLabel } from '@/helpers/prediction/sportScoreUtils.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import type { BetsMarketDataForUI, SportTeam } from '@/types/prediction.js';
 
@@ -82,43 +84,82 @@ function clampPrice(value: number) {
     return Math.max(0, Math.min(1, value));
 }
 
-function resolveLabelPositions(homeValue: number, drawValue: number, awayValue: number) {
-    const minDistance = labelHeight + labelMinGap;
-    const positions = [
-        { key: 'home' as const, top: plotHeight * (1 - homeValue) },
-        { key: 'draw' as const, top: plotHeight * (1 - drawValue) },
-        { key: 'away' as const, top: plotHeight * (1 - awayValue) },
+const topMargin = 0;
+const bottomMargin = 0;
+const minDistance = labelHeight + labelMinGap;
+
+function resolveLabelPositions(homeValue: number, drawValue: number, awayValue: number, includeDraw: boolean) {
+    const entries: Array<{ key: 'home' | 'draw' | 'away'; top: number }> = [
+        { key: 'home', top: plotHeight * (1 - homeValue) },
+        { key: 'away', top: plotHeight * (1 - awayValue) },
     ];
+    if (includeDraw) {
+        entries.push({ key: 'draw', top: plotHeight * (1 - drawValue) });
+    }
 
-    // Sort by natural position (top to bottom)
-    positions.sort((a, b) => a.top - b.top);
+    // Sort by natural position (top to bottom), compute initial adjustedY
+    const sorted = [...entries]
+        .sort((a, b) => a.top - b.top)
+        .map((e) => {
+            let adjustedY = e.top - labelHeight / 2;
+            adjustedY = Math.max(Math.min(adjustedY, plotHeight - labelHeight - bottomMargin), topMargin);
+            return { data: e, targetY: e.top, adjustedY };
+        });
 
-    // Resolve overlaps: push down from top
-    for (let idx = 1; idx < positions.length; idx += 1) {
-        if (positions[idx].top - positions[idx - 1].top < minDistance) {
-            positions[idx].top = positions[idx - 1].top + minDistance;
+    // Bidirectional iterative collision resolution (up to 10 passes)
+    let changed = true;
+    let iterations = 0;
+    while (changed && iterations < 10) {
+        changed = false;
+        iterations += 1;
+
+        // Forward pass: split overlap equally
+        for (let i = 1; i < sorted.length; i += 1) {
+            const cur = sorted[i]!;
+            const prev = sorted[i - 1]!;
+            const overlap = prev.adjustedY + minDistance - cur.adjustedY;
+            if (overlap > 0) {
+                changed = true;
+                const half = overlap / 2;
+                const newPrev = Math.max(topMargin, prev.adjustedY - half);
+                const shift = prev.adjustedY - newPrev;
+                prev.adjustedY = newPrev;
+                cur.adjustedY += overlap - shift;
+            }
+        }
+
+        // Boundary enforcement
+        for (let i = 0; i < sorted.length; i += 1) {
+            const item = sorted[i]!;
+            if (item.adjustedY < topMargin) {
+                item.adjustedY = topMargin;
+
+                for (let j = i + 1; j < sorted.length; j += 1) {
+                    sorted[j]!.adjustedY = Math.max(sorted[j]!.adjustedY, sorted[j - 1]!.adjustedY + minDistance);
+                }
+            }
+            const maxBottom = plotHeight - labelHeight - bottomMargin;
+            if (item.adjustedY > maxBottom) {
+                item.adjustedY = maxBottom;
+
+                for (let j = i - 1; j >= 0; j -= 1) {
+                    sorted[j]!.adjustedY = Math.min(sorted[j]!.adjustedY, sorted[j + 1]!.adjustedY - minDistance);
+                }
+            }
         }
     }
 
-    // Resolve overflow: push up from bottom if any label goes below plot area
-    const maxTop = plotHeight - labelHeight;
-    for (let idx = positions.length - 1; idx > 0; idx -= 1) {
-        if (positions[idx].top > maxTop) {
-            positions[idx].top = maxTop;
-        }
-        if (positions[idx - 1].top > positions[idx].top - minDistance) {
-            positions[idx - 1].top = positions[idx].top - minDistance;
-        }
-    }
-
-    // Final clamp (shouldn't be needed but safety net)
-    for (const p of positions) {
-        p.top = Math.max(0, Math.min(p.top, maxTop));
+    // Final pass: enforce minimum distance
+    for (let i = 1; i < sorted.length; i += 1) {
+        const cur = sorted[i]!;
+        const prev = sorted[i - 1]!;
+        const minTop = prev.adjustedY + minDistance;
+        if (cur.adjustedY < minTop) cur.adjustedY = minTop;
     }
 
     const result: Record<string, number> = {};
-    for (const p of positions) {
-        result[`${p.key}Top`] = plotTop + p.top;
+    for (const item of sorted) {
+        result[`${item.data.key}Top`] = plotTop + item.adjustedY;
     }
 
     return result as { homeTop: number; drawTop: number; awayTop: number };
@@ -187,31 +228,37 @@ function SideOddsLabel({
     top: number;
     left: number;
 }) {
+    const textStyle: CSSProperties = {
+        color,
+        WebkitTextStroke: '3px var(--chart-bg, var(--color-bg, #fff))',
+        paintOrder: 'stroke fill',
+    };
+
     return (
-        <div className="pointer-events-none absolute z-10" style={{ left, top }}>
+        <motion.div
+            className="pointer-events-none absolute left-0 top-0 z-10"
+            initial={{ opacity: 0, x: left, y: top }}
+            animate={{
+                opacity: 1,
+                x: left,
+                y: top,
+                transition: {
+                    x: { type: 'tween', duration: 0.2, ease: 'easeOut' },
+                    y: { type: 'tween', duration: 0.2, ease: 'easeOut' },
+                    opacity: { duration: 0.15 },
+                },
+            }}
+            exit={{ opacity: 0, transition: { duration: 0.1 } }}
+        >
             <div className="flex flex-col items-start gap-[3.3px]">
-                <span
-                    className="whitespace-nowrap text-[13px] font-medium leading-[14px]"
-                    style={{
-                        color,
-                        WebkitTextStroke: '3px var(--chart-bg, var(--color-bg, #fff))',
-                        paintOrder: 'stroke',
-                    }}
-                >
+                <span className="whitespace-nowrap text-[13px] font-medium leading-[14px]" style={textStyle}>
                     {name}
                 </span>
-                <span
-                    className="whitespace-nowrap text-[26px] font-semibold leading-none"
-                    style={{
-                        color,
-                        WebkitTextStroke: '3px var(--chart-bg, var(--color-bg, #fff))',
-                        paintOrder: 'stroke',
-                    }}
-                >
+                <span className="whitespace-nowrap text-[26px] font-semibold leading-none" style={textStyle}>
                     {pct}
                 </span>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
@@ -219,19 +266,27 @@ function HoverTimeLabel({ dataPoint, left }: { dataPoint: DataPoint; left: numbe
     const time = dayjs(dataPoint.time * 1000).format('MMM D, h:mm A');
 
     return (
-        <div
+        <motion.div
             className="pointer-events-none absolute z-10 whitespace-nowrap text-[13px] font-medium leading-[18px]"
-            style={{
+            initial={{ opacity: 0 }}
+            animate={{
+                opacity: 1,
                 left,
+                transition: {
+                    opacity: { type: 'tween', duration: 0.125, ease: 'easeOut', delay: 0.02 },
+                    left: { type: 'spring', stiffness: 500, damping: 40, mass: 0.8 },
+                },
+            }}
+            exit={{ opacity: 0, transition: { duration: 0.15, ease: 'easeOut' } }}
+            style={{
                 top: 0,
                 color: 'var(--color-third, #b1b1b1)',
-                transform: 'translateX(-50%)',
                 WebkitTextStroke: '3px var(--chart-bg, var(--color-bg, #fff))',
-                paintOrder: 'stroke',
+                paintOrder: 'stroke fill',
             }}
         >
             {time}
-        </div>
+        </motion.div>
     );
 }
 
@@ -287,17 +342,31 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
     const [width, setWidth] = useState(0);
     const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
+    // When the caller passes a merged moneyline market (with originalMoneylineMarkets),
+    // resolve back to the underlying individual markets so that API calls use correct
+    // createTime / closedTime and draw/away markets can be found by groupItemTitle.
+    const chartMarket = market.originalMoneylineMarkets?.length
+        ? market.originalMoneylineMarkets.find((m) => matchesTeamLabel(homeTeam, m.groupItemTitle || m.title)) ||
+          market.originalMoneylineMarkets[0]
+        : market;
+    const resolvedMoneylineMarkets =
+        moneylineMarkets?.length === 1 && moneylineMarkets[0]?.originalMoneylineMarkets?.length
+            ? moneylineMarkets[0].originalMoneylineMarkets
+            : moneylineMarkets;
+
     const homeColor = homeTeam.color || '#BB761B';
     const awayColor = awayTeam.color || '#87BFFF';
     const drawColor = '#8B5CF6';
-    const homeOutcome = market.outcomes[0];
+    const homeOutcome = chartMarket.outcomes[0];
 
     // For three-way (draw) markets, use all 3 moneyline markets.
     // For two-way, use single market with away = 1 - home.
     const drawMarket = isDraw
-        ? moneylineMarkets?.find((m) => m.groupItemTitle?.toLowerCase().includes('draw'))
+        ? resolvedMoneylineMarkets?.find((m) => m.groupItemTitle?.toLowerCase().includes('draw'))
         : undefined;
-    const awayMarket = isDraw ? moneylineMarkets?.find((m) => m !== market && m !== drawMarket) : undefined;
+    const awayMarket = isDraw
+        ? resolvedMoneylineMarkets?.find((m) => m !== chartMarket && m !== drawMarket)
+        : undefined;
 
     const handleResize = useCallback(() => {
         if (!containerRef.current) return;
@@ -323,13 +392,13 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
     useEffect(() => () => resizeRef.current?.disconnect(), []);
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ['sport', 'price-history', market.id, drawMarket?.id ?? '', awayMarket?.id ?? '', timeRange],
+        queryKey: ['sport', 'price-history', chartMarket.id, drawMarket?.id ?? '', awayMarket?.id ?? '', timeRange],
         staleTime: STALE_TIMES.MINUTE_2,
         retry: false,
         queryFn: async ({ signal }) => {
             // Fetch home market
             const homeData = await getBetsMarketPriceHistory(PredictionPlatform.Polymarket, {
-                markets: [market],
+                markets: [chartMarket],
                 timeRange,
                 outcomeId: homeOutcome?.id || '',
                 isSingleMarket: true,
@@ -364,7 +433,7 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
                 // happen at different moments). Forward-fill merge: collect all
                 // unique timestamps, sort them, and carry forward the last known
                 // value for each series so lines don't drop to 0 between updates.
-                const homeMap = new Map(homeData.map((i) => [i.time as number, clampPrice(Number(i[market.id]))]));
+                const homeMap = new Map(homeData.map((i) => [i.time as number, clampPrice(Number(i[chartMarket.id]))]));
                 const drawMap = new Map(drawData.map((i) => [i.time as number, clampPrice(Number(i[drawMarket.id]))]));
                 const awayMap = new Map(awayData.map((i) => [i.time as number, clampPrice(Number(i[awayMarket.id]))]));
 
@@ -409,7 +478,7 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
             // Two-way: away = 1 - home
             if (!homeData?.length) return [];
             return homeData.map((item) => {
-                const home = clampPrice(Number(item[market.id]));
+                const home = clampPrice(Number(item[chartMarket.id]));
                 return { time: item.time as number, home, draw: 0, away: clampPrice(1 - home) };
             });
         },
@@ -443,7 +512,7 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
     const drawPct = `${toFixedTrimmed(activeDraw * 100, 1)}%`;
     const awayPct = `${toFixedTrimmed(activeAway * 100, 1)}%`;
     const labelPositions = useMemo(
-        () => resolveLabelPositions(activeHome, activeDraw, activeAway),
+        () => resolveLabelPositions(activeHome, activeDraw, activeAway, !!isDraw),
         [activeHome, activeDraw, activeAway],
     );
 
@@ -693,7 +762,11 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
                     </svg>
                 ) : null}
 
-                {tooltip && activeDataPoint ? <HoverTimeLabel dataPoint={activeDataPoint} left={activeX} /> : null}
+                <AnimatePresence>
+                    {tooltip && activeDataPoint ? (
+                        <HoverTimeLabel dataPoint={activeDataPoint} left={activeX + oddsLabelOffset} />
+                    ) : null}
+                </AnimatePresence>
 
                 <SideOddsLabel
                     name={homeName}
@@ -702,15 +775,17 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
                     top={labelPositions.homeTop}
                     left={activeX + oddsLabelOffset}
                 />
-                {isDraw ? (
-                    <SideOddsLabel
-                        name={drawName}
-                        pct={drawPct}
-                        color={drawColor}
-                        top={labelPositions.drawTop}
-                        left={activeX + oddsLabelOffset}
-                    />
-                ) : null}
+                <AnimatePresence>
+                    {isDraw ? (
+                        <SideOddsLabel
+                            name={drawName}
+                            pct={drawPct}
+                            color={drawColor}
+                            top={labelPositions.drawTop}
+                            left={activeX + oddsLabelOffset}
+                        />
+                    ) : null}
+                </AnimatePresence>
                 <SideOddsLabel
                     name={awayName}
                     pct={awayPct}

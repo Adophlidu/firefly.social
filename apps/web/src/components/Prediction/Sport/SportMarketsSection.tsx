@@ -26,13 +26,6 @@ const PredictionMarketOrderBook = dynamic(
     () => import('@/components/Prediction/PredictionMarketOrderBook/index.js').then((m) => m.PredictionMarketOrderBook),
     { ssr: false },
 );
-const PredictionMarketsPriceLineChart = dynamic(
-    () =>
-        import('@/components/Prediction/PredictionMarketsPriceLineChart/index.js').then(
-            (m) => m.PredictionMarketsPriceLineChart,
-        ),
-    { ssr: false },
-);
 const PredictionMarketResolution = dynamic(
     () => import('@/components/Prediction/PredictionMarketResolution.js').then((m) => m.PredictionMarketResolution),
     { ssr: false },
@@ -263,27 +256,32 @@ function SportMarketGraph({
         parseAsBetsPriceTimeRange.withDefault(defaultRange).withOptions({ clearOnDefault: true }),
     );
     const isMoneyline = market.sportsMarketType?.toLowerCase() === SportMarketGroupType.Moneyline;
+    // Only moneyline markets support draw; spread/total/other are always two-way
+    const chartConfig = isMoneyline ? config : { ...config, isDraw: false };
+    // Spread/total markets from formatSportGroupedMarketItem have createTime=0 and
+    // no closedTime.  Borrow the moneyline market's timestamps for correct API params.
+    const moneylineRef = config?.moneylineMarkets?.[0];
+    const chartMarket =
+        !isMoneyline && moneylineRef
+            ? {
+                  ...market,
+                  createTime: moneylineRef.createTime ?? market.createTime,
+                  closedTime: moneylineRef.closedTime ?? market.closedTime,
+              }
+            : market;
 
     return (
         <div className="pt-3">
-            {isMoneyline && homeTeam && awayTeam ? (
+            {homeTeam && awayTeam ? (
                 <SportPriceLineChart
-                    market={market}
+                    market={chartMarket}
                     homeTeam={homeTeam}
                     awayTeam={awayTeam}
                     timeRange={timeRange}
-                    config={config}
+                    config={chartConfig}
                 />
-            ) : (
-                <PredictionMarketsPriceLineChart
-                    markets={[market]}
-                    platform={platform}
-                    showBuyButtons={false}
-                    isActive
-                    filterResolvedMarkets={false}
-                />
-            )}
-            {isMoneyline && homeTeam && awayTeam ? (
+            ) : null}
+            {homeTeam && awayTeam ? (
                 <div className="mt-2">
                     <TimeRangeSettings
                         platform={platform}
@@ -433,21 +431,22 @@ function groupMarketsByType(markets: BetsMarketDataForUI[]): SportGroupedMarkets
 export const SportMarketsSection = memo(function SportMarketsSection({ event, sportData }: SportMarketsSectionProps) {
     const grouped = useMemo(() => groupMarketsByType(event.markets), [event.markets]);
     const { homeTeam, awayTeam, isDraw, ended, spreadsMainLine, totalsMainLine } = sportData;
-    const disabled = ended;
+    const disabled = !!ended || !!event.closed;
     const moneylineMarkets = useMemo(
         () => event.markets.filter((m) => m.sportsMarketType?.toLowerCase() === 'moneyline'),
         [event.markets],
     );
     const isEventEnded = !!sportData.ended || !!event.closed;
-    const chartConfig = useMemo<SportChartConfig>(
-        () => ({
-            moneylineMarkets,
+    const chartConfig = useMemo<SportChartConfig>(() => {
+        const mergedMoneyline = grouped.moneyline[0];
+        const chartMarkets = mergedMoneyline?.originalMoneylineMarkets || moneylineMarkets;
+        return {
+            moneylineMarkets: chartMarkets,
             isDraw,
             isEventEnded,
             endTime: event.endTime,
-        }),
-        [moneylineMarkets, isDraw, isEventEnded, event.endTime],
-    );
+        };
+    }, [grouped.moneyline, moneylineMarkets, isDraw, isEventEnded, event.endTime]);
     const sections = useMemo(
         () =>
             [
@@ -484,9 +483,7 @@ export const SportMarketsSection = memo(function SportMarketsSection({ event, sp
     );
     const [activeKey, setActiveKey] = useQueryState(
         'market',
-        parseAsStringEnum(['moneyline', 'spread', 'total'])
-            .withDefault('moneyline')
-            .withOptions({ clearOnDefault: true }),
+        parseAsString.withDefault('moneyline').withOptions({ clearOnDefault: true }),
     );
     const [line, setLine] = useQueryState('line', parseAsString.withOptions({ clearOnDefault: true }));
     const activeSectionKey = sections.some((section) => section.key === activeKey) ? activeKey : sections[0]?.key;
@@ -504,10 +501,7 @@ export const SportMarketsSection = memo(function SportMarketsSection({ event, sp
                     disabled={disabled}
                     active={section.key === activeSectionKey}
                     onActivate={() => {
-                        const key = section.key;
-                        void setActiveKey((old) =>
-                            key === 'moneyline' || key === 'spread' || key === 'total' ? key : old,
-                        );
+                        void setActiveKey(section.key);
                         void setLine(null);
                     }}
                     lineKey={section.key === activeSectionKey ? line : undefined}
@@ -615,8 +609,8 @@ const SportMarketGroupCard = memo(function SportMarketGroupCard({
                 <SportMarketDetailsTabs
                     market={selectedMarket}
                     platform={platform}
-                    homeTeam={section.type === SportMarketGroupType.Moneyline ? homeTeam : undefined}
-                    awayTeam={section.type === SportMarketGroupType.Moneyline ? awayTeam : undefined}
+                    homeTeam={homeTeam}
+                    awayTeam={awayTeam}
                     config={config}
                 />
             ) : null}

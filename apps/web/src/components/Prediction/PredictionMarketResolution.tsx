@@ -34,10 +34,10 @@ export function PredictionMarketResolution({ market }: PredictionMarketResolutio
     if (!statusList?.length) return null;
 
     const outcomeLabel =
-        market.outcomes.length === 2
-            ? Number.parseFloat(market.outcomes[0].price) >= Number.parseFloat(market.outcomes[1].price)
-                ? market.outcomes[0].label
-                : market.outcomes[1].label
+        market.outcomes.length >= 2
+            ? market.outcomes.reduce((best, cur) =>
+                  Number.parseFloat(cur.price) > Number.parseFloat(best.price) ? cur : best,
+              ).label
             : '';
 
     return (

@@ -36,6 +36,8 @@ function formatOpinionTimeRange(timeRange: BetsPriceTimeRange) {
     }
 }
 
+const POLYMARKET_MAX_WINDOW_SEC = 14 * 86400; // 14-day hard limit on the CLOB API
+
 export function formatPolymarketTimeRange(
     timeRange: BetsPriceTimeRange,
     createSec: number,
@@ -54,11 +56,15 @@ export function formatPolymarketTimeRange(
             return { startTs: Math.max(createSec, endSec - 86400), endTs: endSec, fidelity: 5 };
         case BetsPriceTimeRange.OneWeek:
             return { startTs: Math.max(createSec, endSec - 604800), endTs: endSec, fidelity: 30 };
-        case BetsPriceTimeRange.OneMonth:
-            return { startTs: Math.max(createSec, endSec - 2592000), endTs: endSec, fidelity: 180 };
+        case BetsPriceTimeRange.OneMonth: {
+            // CLOB API rejects windows > 14 days; clamp to the max allowed window.
+            const rawStart = Math.max(createSec, endSec - 2592000);
+            const startTs = Math.max(rawStart, endSec - POLYMARKET_MAX_WINDOW_SEC);
+            return { startTs, endTs: endSec, fidelity: 180 };
+        }
         case BetsPriceTimeRange.All: {
-            const maxWindow = 14 * 86400;
-            const allStart = endSec - maxWindow > createSec ? endSec - maxWindow : createSec;
+            const allStart =
+                endSec - POLYMARKET_MAX_WINDOW_SEC > createSec ? endSec - POLYMARKET_MAX_WINDOW_SEC : createSec;
             const windowMinutes = Math.round((endSec - allStart) / 60);
             let fidelity: number;
             if (windowMinutes < 1440) fidelity = 5;
