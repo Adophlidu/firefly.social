@@ -7,6 +7,7 @@ import { encodeAsciiPayload, encodeNoAsciiPayload } from '@/helpers/encodeSessio
 import { logger } from '@/libs/Logger.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
+import { exchangeLegacyFireflyToken } from '@/services/exchangeLegacyFireflyToken.js';
 import { refreshFireflyToken } from '@/services/refreshFireflyToken.js';
 
 export const FireflySessionSignature = z.object({
@@ -129,6 +130,32 @@ export class FireflySession extends BaseSession implements Session {
             // JWT token data (legacy accessToken + refresh token + session ID)
             this.jwtPayload ? encodeAsciiPayload(this.jwtPayload) : '',
         ].join(':') as `${SessionType}:${string}:${string}:${string}`;
+    }
+
+    /**
+     * Whether this is a legacy session that still authenticates with the v1
+     * token (`this.token`) and has not yet been upgraded to the v3 token pair.
+     */
+    get isLegacy(): boolean {
+        return !!this.token && !this.jwtPayload?.accessToken;
+    }
+
+    /**
+     * Seamlessly upgrades a legacy session to the v3 JWT auth by exchanging the
+     * legacy bearer token for a v3 token pair.  Mirrors {@link refresh}: only
+     * `jwtPayload` is populated — `this.token` stays read-only so it remains
+     * available as a fallback auth header and for future re-migration.
+     */
+    async upgrade(): Promise<void> {
+        if (!this.token) throw new Error('No legacy token available to upgrade this session.');
+        const data = await exchangeLegacyFireflyToken(this.token);
+        this.expiresAt = getAccessTokenExpiresAt(data.access_token_v3);
+        this.jwtPayload = {
+            ...this.jwtPayload,
+            accessToken: data.access_token_v3,
+            refreshToken: data.refresh_token_v3,
+            sessionId: data.session_id,
+        };
     }
 
     override async refresh(): Promise<void> {

@@ -5,6 +5,7 @@ import { EVENT_FIREFLY_SESSION_REFRESHED } from '@/constants/event.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import type { NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { logger } from '@/libs/Logger.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 
@@ -18,8 +19,22 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
      */
     private refreshPromise: Promise<void> | null = null;
 
+    /**
+     * Shared promise while a legacy → v3 upgrade is in-flight.
+     * Concurrent requests wait on the same upgrade rather than each exchanging their own token.
+     */
+    private upgradePromise: Promise<void> | null = null;
+
     override async fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         const session = this.sessionRequired;
+
+        // Seamless upgrade: legacy users still carry a v1 token but no v3 token
+        // pair. Exchange it for v3 tokens on the first authenticated request so
+        // they switch to the new JWT auth without noticing. The native bridge
+        // owns its own auth, so skip it there.
+        if (!nativeBridgeProvider.supported && session.isLegacy) {
+            await this.upgradeTokenOnce(session);
+        }
 
         // Proactive refresh: rotate the token before it expires so no request
         // ever hits the server with a stale token. Only applies to v3 sessions
@@ -90,6 +105,28 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
                 });
         }
         return this.refreshPromise;
+    }
+
+    /**
+     * Ensures only one legacy → v3 upgrade is in-flight at a time.
+     * Concurrent callers await the same promise and all benefit from the single exchange.
+     */
+    private upgradeTokenOnce(session: FireflySession): Promise<void> {
+        if (!this.upgradePromise) {
+            this.upgradePromise = session
+                .upgrade()
+                .then(() => dispatchCustomEvent(EVENT_FIREFLY_SESSION_REFRESHED, session.serialize()))
+                .catch((error: unknown) => {
+                    // Best-effort: the legacy token still works as a fallback auth header,
+                    // so a failed upgrade must not break the request. It will be retried on
+                    // the next request until it succeeds.
+                    logger.warn('[FireflySession] Failed to upgrade legacy session to v3', error);
+                })
+                .finally(() => {
+                    this.upgradePromise = null;
+                });
+        }
+        return this.upgradePromise;
     }
 }
 
