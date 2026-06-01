@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/tolgee",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "private": true,
     "description": "Tolgee + Lingui gettext helpers for Firefly apps (push, push-sources, pull, sync)",
     "type": "commonjs",

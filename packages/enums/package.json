@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/enums",
-    "version": "0.1.40",
+    "version": "0.1.41",
     "description": "Shared enums for Firefly projects",
     "type": "module",
     "main": "./dist/index.js",
