@@ -30,7 +30,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const response = await fetchOrbJson<SearchClubsResponse>(urlcat(ORB_QUERIES_API_URL, '/search'), {
         method: 'POST',
         body: JSON.stringify({
-            searchQuery: q,
+            query: q,
             searchType: 'GROUP',
             skip,
             limit,
