@@ -59,7 +59,7 @@ const FireflyAccessTokenPayload = z.object({
 });
 
 /** Firefly JWT v3 access token TTL in milliseconds. */
-const ACCESS_TOKEN_TTL_MS = 60 * 60 * 1000; // 1 hour
+const ACCESS_TOKEN_TTL_MS = 11 * 60 * 1000; // 1 hour
 
 /**
  * Decodes the `issued_at_ms` field from a Firefly JWT v3 access token and
@@ -161,8 +161,6 @@ export class FireflySession extends BaseSession implements Session {
     override async refresh(): Promise<void> {
         if (!this.jwtPayload?.refreshToken) throw new Error('No refresh token available for this session.');
         const data = await refreshFireflyToken(this.jwtPayload.refreshToken);
-        // Do NOT touch this.token — it holds the legacy v1 token and is read-only.
-        // Only jwtPayload is updated with the newly rotated v3 token pair.
         this.expiresAt = getAccessTokenExpiresAt(data.access_token_v3);
         this.jwtPayload = {
             ...this.jwtPayload,
