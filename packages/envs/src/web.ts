@@ -50,6 +50,8 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    /** Master switch for the JWT v3 auth. Disable to fall back to legacy v1 tokens only. */
+    NEXT_PUBLIC_FIREFLY_JWT_V3: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_IFRAME_BRIDGE: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FORCE_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FRAME_V1: z.nativeEnum(STATUS).default(STATUS.Enabled),
@@ -130,6 +132,7 @@ export const envs = {
         NEXT_PUBLIC_ACTIVITY_PARTICLE: process.env.NEXT_PUBLIC_ACTIVITY_PARTICLE,
         NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
         NEXT_PUBLIC_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_FIREFLY_DEV_API,
+        NEXT_PUBLIC_FIREFLY_JWT_V3: process.env.NEXT_PUBLIC_FIREFLY_JWT_V3,
         NEXT_PUBLIC_IFRAME_BRIDGE: process.env.NEXT_PUBLIC_IFRAME_BRIDGE,
         NEXT_PUBLIC_FORCE_SIGNUP: process.env.NEXT_PUBLIC_FORCE_SIGNUP,
         NEXT_PUBLIC_FRAME_V1: process.env.NEXT_PUBLIC_FRAME_V1,

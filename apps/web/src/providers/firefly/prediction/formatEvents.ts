@@ -141,6 +141,7 @@ function mergeThreeWayMoneylineMarkets(
     for (let i = moneylineIndices.length - 1; i >= 0; i -= 1) {
         result.splice(moneylineIndices[i], 1);
     }
+
     result.splice(moneylineIndices[0], 0, combined);
     return result;
 }

@@ -1,3 +1,5 @@
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs/web';
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 
 import { FetchError } from '@/constants/error.js';
@@ -26,6 +28,34 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
     private upgradePromise: Promise<void> | null = null;
 
     override async fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
+        // JWT v3 master switch. When enabled, run the full v3 auth flow
+        // (upgrade + refresh + v3 access token). When disabled, fall back to the
+        // legacy v1 token auth below — no upgrade, no refresh, no v3 access token.
+        if (envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled) {
+            return this.fetchWithSessionJWT<T>(url, init, options);
+        }
+
+        const authToken = nativeBridgeProvider.supported
+            ? await nativeBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
+            : this.sessionRequired.token;
+
+        return fetchJson<T>(
+            url,
+            {
+                ...init,
+                headers: { ...init?.headers, Authorization: `Bearer ${authToken}` },
+            },
+            options,
+        );
+    }
+
+    /**
+     * JWT v3 auth flow: seamlessly upgrades legacy sessions to the v3 token pair,
+     * proactively and reactively rotates the short-lived access token, and
+     * authenticates with the v3 access token (falling back to the legacy token
+     * where a v3 token isn't available yet).
+     */
+    private async fetchWithSessionJWT<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         const session = this.sessionRequired;
 
         // Seamless upgrade: legacy users still carry a v1 token but no v3 token

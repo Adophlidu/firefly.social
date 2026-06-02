@@ -1,3 +1,5 @@
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs/wallet';
 import { parseJson } from '@dimensiondev/utils';
 import { atom } from 'jotai';
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
@@ -27,8 +29,10 @@ export const fireflySessionTokenAtom = atom((get) => {
 
     const fragments = currentProfileSession.split(':');
 
-    // JWT v3 token: fragment[6] = base64({accessToken, refreshToken, sessionId})
-    if (fragments[6]) {
+    // JWT v3 token: fragment[6] = base64({accessToken, refreshToken, sessionId}).
+    // Gated by NEXT_PUBLIC_FIREFLY_JWT_V3 — when disabled, fall back to the legacy
+    // token only, fully turning off the new JWT auth.
+    if (envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled && fragments[6]) {
         const jwt = parseJson<{ accessToken: string }>(atob(fragments[6]));
         if (jwt?.accessToken) return jwt.accessToken;
     }
