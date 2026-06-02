@@ -4,6 +4,7 @@ import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { Component, type ErrorInfo } from 'react';
 
 import { type CrashProps, CrashUI, type ErrorBoundaryError } from '@/components/ErrorBoundary/Crash.js';
+import { FireflyUnauthorizedError } from '@/constants/error.js';
 
 interface ErrorBoundaryProps extends Partial<CrashProps> {
     /** Disable automatic error reporting */
@@ -23,6 +24,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     override state: ErrorBoundaryState = { error: null, reported: false };
 
     override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+        // Unauthorized errors are escalated to global-error.tsx (see render), which
+        // owns reporting + the signed-out screen. Don't report or render here.
+        if (error instanceof FireflyUnauthorizedError) {
+            return;
+        }
+
         // Skip if auto-reporting is disabled or already reported
         if (this.props.disableAutoReport || this.state.reported) {
             return;
@@ -40,6 +47,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
     override render() {
         if (!this.state.error) return <>{this.props.children}</>;
+        // Re-throw unauthorized errors so they bubble past this boundary to
+        // app/global-error.tsx, which renders the signed-out screen. Without this
+        // they'd be swallowed here as a generic crash card.
+        if (this.state.error instanceof FireflyUnauthorizedError) throw this.state.error;
         return (
             <CrashUI
                 onRetry={() => this.setState({ error: null, reported: false })}
