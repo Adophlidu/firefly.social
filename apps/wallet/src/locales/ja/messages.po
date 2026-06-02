@@ -59,6 +59,9 @@ msgstr "確認をスキップ"
 msgid "Address, ENS, or social handle"
 msgstr "アドレス、ENS、またはソーシャルハンドル"
 
+msgid "Dismiss"
+msgstr ""
+
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "リカバリーフレーズはパスワードと同じです。絶対に秘密にしてください。"
 

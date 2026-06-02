@@ -59,6 +59,9 @@ msgstr "跳過預覽"
 msgid "Address, ENS, or social handle"
 msgstr "地址、ENS 或社交帳號"
 
+msgid "Dismiss"
+msgstr ""
+
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "助記詞等同於最高控制權限，請嚴格保密。"
 

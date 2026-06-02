@@ -3,6 +3,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import type { HTMLAttributes } from 'react';
 import * as React from 'react';
 
+import { preventModalDismissOnSonner } from '@/helpers/preventModalDismissOnSonner.js';
 import { cn } from '@/lib/utils.js';
 
 const Dialog = DialogPrimitive.Root;
@@ -33,7 +34,7 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 const DialogContent = React.forwardRef<
     React.ElementRef<typeof DialogPrimitive.Content>,
     React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+>(({ className, children, onPointerDownOutside, onInteractOutside, onFocusOutside, ...props }, ref) => (
     <DialogPortal>
         <DialogPrimitive.Content
             ref={ref}
@@ -41,6 +42,18 @@ const DialogContent = React.forwardRef<
                 'fixed left-[50%] top-[50%] z-50 flex max-h-svh w-full max-w-[480px] translate-x-[-50%] translate-y-[-50%] flex-col items-center rounded-md bg-lightBottom px-6 pb-6 shadow-lg outline-none duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] dark:bg-darkBottom sm:rounded-lg md:rounded-xl',
                 className,
             )}
+            onPointerDownOutside={(event) => {
+                preventModalDismissOnSonner(event);
+                onPointerDownOutside?.(event);
+            }}
+            onInteractOutside={(event) => {
+                preventModalDismissOnSonner(event);
+                onInteractOutside?.(event);
+            }}
+            onFocusOutside={(event) => {
+                preventModalDismissOnSonner(event);
+                onFocusOutside?.(event);
+            }}
             {...props}
         >
             {children}

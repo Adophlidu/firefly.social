@@ -440,6 +440,11 @@ select {
     color: var(--color-second) !important;
 }
 
+/* Radix modal sets body { pointer-events: none }; only toasts need hits (not the full toaster region) */
+[data-sonner-toaster] [data-sonner-toast] {
+    pointer-events: auto;
+}
+
 .custom-loading-toast-content {
     flex: 1;
     min-width: 0;

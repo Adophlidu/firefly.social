@@ -59,6 +59,9 @@ msgstr "Skip reviews"
 msgid "Address, ENS, or social handle"
 msgstr "Address, ENS, or social handle"
 
+msgid "Dismiss"
+msgstr "Dismiss"
+
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "Your recovery phrase is like a password, keep it secret."
 

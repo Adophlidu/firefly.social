@@ -2,6 +2,7 @@ import CloseIcon from '@dimensiondev/assets/close.svg';
 import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 
+import { preventModalDismissOnSonner } from '@/helpers/preventModalDismissOnSonner.js';
 import { cn } from '@/lib/utils.js';
 
 type DrawerProps = React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Root> & {
@@ -51,7 +52,7 @@ type DrawerContentProps = React.ComponentPropsWithoutRef<typeof DrawerPrimitive.
 };
 
 const DrawerContent = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Content>, DrawerContentProps>(
-    ({ className, bodyClassName, children, ...props }, ref) => (
+    ({ className, bodyClassName, children, onPointerDownOutside, ...props }, ref) => (
         <DrawerPortal>
             <DrawerOverlay />
             <DrawerPrimitive.Content
@@ -61,6 +62,10 @@ const DrawerContent = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.C
                     'fixed inset-x-0 bottom-0 z-50 mt-12 flex max-h-[92svh] flex-col overflow-hidden rounded-t-xl bg-lightBottom shadow-lg transition ease-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom-1/4 dark:bg-darkBottom sm:rounded-t-2xl',
                     className,
                 )}
+                onPointerDownOutside={(event) => {
+                    preventModalDismissOnSonner(event);
+                    onPointerDownOutside?.(event);
+                }}
                 {...props}
             >
                 <div

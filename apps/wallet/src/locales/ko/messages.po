@@ -59,6 +59,9 @@ msgstr "검토 건너뛰기"
 msgid "Address, ENS, or social handle"
 msgstr "주소, ENS 또는 소셜 계정"
 
+msgid "Dismiss"
+msgstr ""
+
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "복구 구문은 비밀번호와 같으니 절대 공유하지 마세요."
 

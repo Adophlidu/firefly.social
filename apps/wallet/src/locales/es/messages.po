@@ -59,6 +59,9 @@ msgstr "Omitir revisión"
 msgid "Address, ENS, or social handle"
 msgstr "Dirección, ENS o usuario de red social"
 
+msgid "Dismiss"
+msgstr ""
+
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "Su frase de recuperación es como una contraseña, manténgala en secreto."
 
