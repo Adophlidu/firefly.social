@@ -12,9 +12,11 @@ export function useSortFireflyProfiles() {
     return useCallback(
         (source: ProfilePageSource, identity: FireflyIdentity, a: FireflyProfile, b: FireflyProfile) => {
             const getSortLevel = (profile: FireflyProfile) => {
-                if (source !== Source.Wallet && profile?.isDefault) return 5;
-                if (isSameFireflyIdentity(profile.identity, identity)) return 4;
-                if (profileAll?.[source as SocialSource]?.profileId === profile.identity.id) return 3;
+                // Keep URL identity at the highest priority so the selected tab
+                // always matches the profile currently shown in the route.
+                if (isSameFireflyIdentity(profile.identity, identity)) return 5;
+                if (profileAll?.[source as SocialSource]?.profileId === profile.identity.id) return 4;
+                if (source !== Source.Wallet && profile?.isDefault) return 3;
                 if (profile?.isDefault) return 2;
                 if ((profile?.__origin__ as WalletProfile)?.dataSource === WalletProfileDataSource.Privy) return 1;
                 return 0;
