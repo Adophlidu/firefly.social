@@ -1,4 +1,4 @@
-import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
+import { SessionType, Source, SourceInURL, STATUS } from '@dimensiondev/enums';
 
 import { encrypt } from '@/helpers/encodec.js';
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
@@ -15,6 +15,7 @@ import type {
     SocialAccountLens,
     SocialAccountTwitter,
 } from '@/types/sync.js';
+import { envs } from '@dimensiondev/envs/web';
 
 export async function syncDesktopAccounts(session: string, cryptoKey: string) {
     const fireflySession = getSessionFromStorage(SessionType.Firefly);
@@ -69,11 +70,19 @@ export async function syncDesktopAccounts(session: string, cryptoKey: string) {
         lensAccounts,
         bskyAccounts,
         fireflyAccountData: {
+            // @deprecated - for legacy session
             firefly_account_token: fireflySession.token,
             account_id: fireflySession?.payload?.accountId,
             account_uid: fireflySession?.payload?.uid,
             display_name: fireflySession?.payload?.displayName,
             avatar: fireflySession?.payload?.avatar,
+            ...(envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled && fireflySession.jwtPayload
+                ? {
+                      firefly_session_id: fireflySession.jwtPayload.sessionId,
+                      firefly_access_token: fireflySession.jwtPayload.accessToken,
+                      firefly_refresh_token: fireflySession.jwtPayload.refreshToken,
+                  }
+                : null),
         },
     } satisfies DesktopSyncPayload);
     const encryptedPayload = await encrypt(accountDataPayload, cryptoKey);

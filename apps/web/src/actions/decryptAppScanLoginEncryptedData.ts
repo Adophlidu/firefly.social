@@ -37,10 +37,7 @@ export async function decryptAppScanLoginEncryptedData(
     const allConnectionsFromAuthToken = await getAllConnectionsFromAuthToken(authData.firefly_account_token);
     const fireflyProfile = formatFireflyAccountProfileFromFireflyConnections(allConnectionsFromAuthToken.account);
     if (!fireflyProfile) return { error: 'The firefly account not found.' };
-    const fireflySession = new FireflySession(fireflyProfile.uid, authData.firefly_account_token, null, null, false, {
-        ...fireflyProfile,
-        isNew: false,
-    });
+
     const sessions: Array<FarcasterSession | LensSession | TwitterSession | BskySession> = compact(
         authData.social_accounts.map((account) => {
             const source = account.type;
@@ -85,7 +82,6 @@ export async function decryptAppScanLoginEncryptedData(
             }
         }),
     );
-
     for (const session of sessions) {
         if (session.type === SessionType.Twitter) {
             const s = session as TwitterSession;
@@ -93,6 +89,11 @@ export async function decryptAppScanLoginEncryptedData(
             s.payload.consumerSecret = HIDDEN_SECRET;
         }
     }
+
+    const fireflySession = new FireflySession(fireflyProfile.uid, authData.firefly_account_token, null, null, false, {
+        ...fireflyProfile,
+        isNew: false,
+    });
 
     return {
         fireflySession: fireflySession.serialize(),
