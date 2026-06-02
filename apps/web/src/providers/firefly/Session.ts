@@ -1,4 +1,4 @@
-import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { IS_DEVELOPMENT, IS_PRODUCTION } from '@dimensiondev/constants';
 import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
@@ -72,7 +72,7 @@ function getAccessTokenExpiresAt(accessToken: string): number {
     if (!base64url) return 0;
 
     const json = parseJson(atob(base64url.replace(/-/g, '+').replace(/_/g, '/')));
-    if (!IS_PRODUCTION) logger.info('[FireflySession] Decoding JWT access token payload', json);
+    if (IS_DEVELOPMENT) logger.info('[FireflySession] Decoding JWT access token payload', json);
 
     const result = FireflyAccessTokenPayload.safeParse(json);
     if (result.success) {
