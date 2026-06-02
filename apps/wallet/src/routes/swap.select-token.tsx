@@ -68,7 +68,9 @@ function SelectTokenPage() {
     const chainMenuRef = useRef<HTMLDivElement>(null);
 
     const isBetDeposit = from === SwapFromPage.BetDeposit;
-    const isBetPage = isBetDeposit || from === SwapFromPage.BetWithdraw;
+    const isPerpsDeposit = from === SwapFromPage.PerpsDeposit;
+    const isWalletDeposit = isBetDeposit || isPerpsDeposit;
+    const isBetPage = isWalletDeposit || from === SwapFromPage.BetWithdraw;
 
     const { data: trendingTokensForWithdraw } = useTrendingTokensForWithdraw({
         enabled: from === SwapFromPage.BetWithdraw,
@@ -91,7 +93,7 @@ function SelectTokenPage() {
         selectedWalletAddress: effectiveWalletAddress,
         currentChainId,
         hideTrending: isBetPage,
-        hideRecent: isBetDeposit,
+        hideRecent: isWalletDeposit,
         supportedChains,
     });
     const { data: withdrawSupportedTokens } = useQuery({
@@ -352,7 +354,7 @@ function SelectTokenPage() {
 
             <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
                 {(isSearchMode ? isSearching : isLoading || isLoadingChains) ? (
-                    <LoadingSkeleton hideTrending={isBetDeposit} hideRecent={isBetDeposit} />
+                    <LoadingSkeleton hideTrending={isWalletDeposit} hideRecent={isWalletDeposit} />
                 ) : hasNoResults ? (
                     <NoResultsFallback
                         className="mt-8"
@@ -374,7 +376,7 @@ function SelectTokenPage() {
                     <div className="flex flex-col gap-4">
                         {visibleMyTokens.length > 0 || foldedMyTokens.length > 0 ? (
                             <div className="flex flex-col">
-                                {isBetDeposit && isBetDeposit ? null : (
+                                {isWalletDeposit ? null : (
                                     <div className="px-3 text-[13px] font-medium leading-[17px] text-secondary">
                                         <Trans>Your tokens</Trans>
                                     </div>

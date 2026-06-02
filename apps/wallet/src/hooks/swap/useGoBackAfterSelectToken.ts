@@ -13,6 +13,8 @@ function resolveBackPath(from?: SwapFromPage): string {
             return '/bet/withdraw';
         case SwapFromPage.BetDeposit:
             return '/bet/deposit';
+        case SwapFromPage.PerpsDeposit:
+            return '/perps/deposit';
         default:
             safeUnreachable(from);
             return '/swap';

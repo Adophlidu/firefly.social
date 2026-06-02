@@ -752,6 +752,7 @@ export enum SwapFromPage {
     Swap = 'swap',
     BetWithdraw = 'bet-withdraw',
     BetDeposit = 'bet-deposit',
+    PerpsDeposit = 'perps-deposit',
 }
 
 export enum EnsNameSource {

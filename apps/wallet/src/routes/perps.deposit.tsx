@@ -1,5 +1,7 @@
+import { SwapFromPage } from '@dimensiondev/enums';
 import { removeTrailingZeros } from '@dimensiondev/utils';
-import { isLessThan, multipliedBy } from '@dimensiondev/web3/numbers';
+import { isSolanaChain } from '@dimensiondev/web3/chains';
+import { isLessThan } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { createFileRoute } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
@@ -7,26 +9,30 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import { BetLoadFailed } from '@/components/Bet/BetLoadFailed.js';
+import { DepositAmountField } from '@/components/Deposit/DepositAmountField.js';
+import { DepositFormFooter } from '@/components/Deposit/DepositFormFooter.js';
+import { DepositPayTokenRow } from '@/components/Deposit/DepositPayTokenRow.js';
+import { DepositReceiveRow } from '@/components/Deposit/DepositReceiveRow.js';
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
-import { TokenIcon } from '@/components/TokenIcon.js';
-import { Button } from '@/components/ui/button.js';
-import { useComeback } from '@/components/useComeback.js';
 import {
     ARBITRUM_CHAIN_ID,
-    ARBITRUM_USDC_ADDRESS,
-    ARBITRUM_USDC_DECIMALS,
+    arbUsdcTokenFallback,
+    HYPERLIQUID_DEPOSIT_ADDRESS,
+    isArbitrumUsdcToken,
     MIN_HYPERLIQUID_DEPOSIT_USDC,
 } from '@/constants/hyperliquid.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
+import { useCheckGasForDeposit } from '@/hooks/bet/useCheckGasForDeposit.js';
+import { DepositAmountInputType } from '@/hooks/deposit/depositAmountInputType.js';
+import { useDepositAmountConversion } from '@/hooks/deposit/useDepositAmountConversion.js';
 import { useCheckGasForPerpsArbUsdcDeposit } from '@/hooks/perps/useCheckGasForPerpsArbUsdcDeposit.js';
-import { useDepositArbitrumUsdcToHyperliquid } from '@/hooks/perps/useDepositArbitrumUsdcToHyperliquid.js';
+import { useDepositToHyperliquid } from '@/hooks/perps/useDepositToHyperliquid.js';
+import { usePerpsDepositToken } from '@/hooks/perps/usePerpsDepositToken.js';
+import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
+import { useSwapQuoteCore } from '@/hooks/swap/useSwapQuoteCore.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
-import { useTokenBalance } from '@/hooks/useTokenBalance.js';
-import { cn } from '@/lib/utils.js';
 
 export const Route = createFileRoute('/perps/deposit')({
     component: PerpsDepositPage,
@@ -51,32 +57,73 @@ function PerpsDepositClient() {
     const isSubmittingRef = useRef(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [value, setValue] = useState('');
-    const comeback = useComeback('/perps');
+    const [inputType, setInputType] = useState(DepositAmountInputType.Usd);
 
-    const { evmAddress, isLoading: isEmbeddedWalletLoading, isPrivyReady } = useEmbeddedWalletAddresses();
-    const { inputProps } = useDecimalInput({ value, onValueChange: setValue, maxDecimals: ARBITRUM_USDC_DECIMALS });
+    const {
+        token: depositToken,
+        isLoading: isDepositTokenLoading,
+        isBalanceLoading,
+        isDefaultTokenLoading,
+        receiveToken,
+    } = usePerpsDepositToken();
 
-    const { data: usdcToken, isLoading: isBalanceLoading } = useTokenBalance({
-        walletAddress: evmAddress,
-        address: ARBITRUM_USDC_ADDRESS,
-        chainId: ARBITRUM_CHAIN_ID,
+    const maxDecimals = inputType === DepositAmountInputType.Amount && depositToken ? depositToken.decimals : 2;
+    const { inputProps } = useDecimalInput({ value, onValueChange: setValue, maxDecimals });
+    const {
+        evmAddress,
+        solanaAddress,
+        isLoading: isEmbeddedWalletLoading,
+        isPrivyReady,
+    } = useEmbeddedWalletAddresses();
+
+    const isSameToken = depositToken ? isArbitrumUsdcToken(depositToken.chainId, depositToken.address) : false;
+    const { amount, usdValue } = useDepositAmountConversion({
+        value,
+        inputType,
+        depositToken,
+        isSameAsReceiveToken: isSameToken,
     });
 
-    const amount = value || '0';
-    const { isInsufficientGas, isLoading: isGasLoading } = useCheckGasForPerpsArbUsdcDeposit({
+    const embeddedAddress = !depositToken ? null : isSolanaChain(depositToken.chainId) ? solanaAddress : evmAddress;
+    const { quote, isLoading: isQuoteLoading } = useSwapQuoteCore({
+        fromToken: depositToken,
+        toToken: receiveToken,
+        fromAmount: amount,
+        slippage: 'auto',
+        fromChainId: depositToken?.chainId ?? null,
+        toChainId: ARBITRUM_CHAIN_ID,
+        walletAddress: embeddedAddress,
+        recipientAddress: HYPERLIQUID_DEPOSIT_ADDRESS,
+        enabled: !!depositToken && !!embeddedAddress && !isSameToken,
+    });
+
+    const { isInsufficientGas: isSwapGasInsufficient, isLoading: isSwapGasLoading } = useCheckGasForDeposit({
+        depositToken,
         amount,
-        walletAddress: evmAddress,
+        quote: isSameToken ? null : quote,
     });
+    const { isInsufficientGas: isTransferGasInsufficient, isLoading: isTransferGasLoading } =
+        useCheckGasForPerpsArbUsdcDeposit({
+            amount,
+            walletAddress: evmAddress,
+            enabled: isSameToken,
+        });
 
-    const isInsufficientBalance = usdcToken ? isLessThan(usdcToken.balance ?? '0', amount) : false;
-    const isLessThanMinimum = isLessThan(amount, String(MIN_HYPERLIQUID_DEPOSIT_USDC));
+    const isInsufficientGas = isSameToken ? isTransferGasInsufficient : isSwapGasInsufficient;
+    const isGasLoading = isSameToken ? isTransferGasLoading : isSwapGasLoading;
+
+    const isInsufficientBalance = depositToken ? isLessThan(depositToken.balance ?? '0', amount) : false;
+    const receivedUsdc = isSameToken ? usdValue : (quote?.toAmount ?? '0');
+    const isLessThanMinimum = isLessThan(receivedUsdc, String(MIN_HYPERLIQUID_DEPOSIT_USDC));
     const disabled =
         !value ||
         isInsufficientBalance ||
         isLessThanMinimum ||
         isInsufficientGas ||
         isGasLoading ||
-        !usdcToken ||
+        isQuoteLoading ||
+        !depositToken ||
+        isDepositTokenLoading ||
         isBalanceLoading;
 
     const buttonLabel = useMemo(() => {
@@ -92,11 +139,18 @@ function PerpsDepositClient() {
         return <Trans>Add Funds</Trans>;
     }, [isLessThanMinimum, isInsufficientGas, isInsufficientBalance, value]);
 
-    const { mutateAsync, isPending } = useDepositArbitrumUsdcToHyperliquid({
+    const { mutateAsync, isPending } = useDepositToHyperliquid({
+        depositToken: depositToken ?? undefined,
+        amount,
         toastId: TOAST_ID,
         onSettled: () => {
             isSubmittingRef.current = false;
         },
+    });
+
+    const goToSelectToken = useGoToSelectToken({
+        side: 'pay',
+        from: SwapFromPage.PerpsDeposit,
     });
 
     useEffect(() => {
@@ -106,145 +160,90 @@ function PerpsDepositClient() {
         };
     }, []);
 
-    if (isEmbeddedWalletLoading || !evmAddress || !isPrivyReady) {
+    if (isEmbeddedWalletLoading || !evmAddress || !isPrivyReady || isDefaultTokenLoading) {
         return <LoadingPanel />;
     }
 
-    const receivedUsdText = formatTokenUSD(amount, { minDisplay: 0.01 });
+    const receivedUsdText = formatTokenUSD(receivedUsdc, { minDisplay: 0.01 });
+    const amountToggleText = inputType === DepositAmountInputType.Amount ? formatTokenUSD(usdValue) : amount;
+    const isReceiveAmountLoading = isSameToken ? false : isQuoteLoading;
 
     return (
         <div className="flex min-h-0 w-full flex-1 flex-col items-center px-4">
-            <div className="flex h-[60px] w-full items-center gap-3">
-                <TokenIcon
-                    size={36}
-                    badgeSize={16}
-                    className="shrink-0"
-                    badgeClassName="bg-white"
-                    chainId={ARBITRUM_CHAIN_ID}
-                    icon={usdcToken?.logoURI}
-                    symbol="USDC"
-                    name="USD Coin"
-                />
-                <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1">
-                        <span className="text-sm font-semibold text-main">USDC</span>
-                    </div>
-                    {isBalanceLoading ? (
-                        <div className="h-[14px] w-8 animate-pulse bg-lightBg" />
-                    ) : (
-                        <span className="text-xs font-medium text-second">
-                            <Trans>
-                                {formatTokenItemAmount(usdcToken?.balance ?? '0')} USDC in your Firefly wallet
-                            </Trans>
-                        </span>
-                    )}
-                </div>
-                {isBalanceLoading ? (
-                    <div className="h-5 w-7 animate-pulse bg-lightBg" />
-                ) : (
-                    <span className="shrink-0 text-sm font-semibold text-main">
-                        {usdcToken?.balance
-                            ? formatTokenUSD(multipliedBy(usdcToken.balance, usdcToken.price ?? 1).toString())
-                            : '$0'}
-                    </span>
-                )}
-            </div>
-
-            <label
-                className="relative flex min-h-0 w-full flex-1 flex-col items-center justify-center gap-2"
-                htmlFor="perps-deposit-amount"
-            >
-                <input
-                    id="perps-deposit-amount"
-                    {...inputProps}
-                    value={inputProps.value ? `$${inputProps.value}` : inputProps.value}
-                    autoComplete="off"
-                    ref={inputRef}
-                    autoFocus
-                    className={cn(
-                        'h-10 w-full border-none text-center text-[40px] font-bold leading-10 outline-none focus:outline-none focus:ring-0',
-                        {
-                            'text-danger': isInsufficientBalance,
-                        },
-                    )}
-                    placeholder="$0"
-                />
-            </label>
-
-            <div className="w-full space-y-4 pb-4">
-                <div className="flex h-[60px] w-full items-center">
-                    <TokenIcon
-                        size={36}
-                        badgeSize={16}
-                        className="shrink-0"
-                        badgeClassName="bg-white"
+            <DepositPayTokenRow
+                token={depositToken}
+                isLoading={isDepositTokenLoading}
+                isBalanceLoading={isBalanceLoading}
+                onSelect={goToSelectToken}
+            />
+            <DepositAmountField
+                id="perps-deposit-amount"
+                inputRef={inputRef}
+                inputProps={inputProps}
+                inputType={inputType}
+                placeholder={inputType === DepositAmountInputType.Amount ? '0' : '$0'}
+                isInsufficientBalance={isInsufficientBalance}
+                showUsdPrefix
+                toggle={
+                    depositToken && !isSameToken
+                        ? {
+                              payToken: { logoUrl: depositToken.logoUrl },
+                              receiveToken: { logoUrl: arbUsdcTokenFallback.logoURI },
+                              secondaryText: amountToggleText,
+                              onToggle: () => {
+                                  setValue(
+                                      removeTrailingZeros(
+                                          inputType === DepositAmountInputType.Amount ? usdValue : amount,
+                                      ),
+                                  );
+                                  setInputType((prev) =>
+                                      prev === DepositAmountInputType.Amount
+                                          ? DepositAmountInputType.Usd
+                                          : DepositAmountInputType.Amount,
+                                  );
+                              },
+                          }
+                        : null
+                }
+            />
+            <DepositFormFooter
+                receiveRow={
+                    <DepositReceiveRow
                         chainId={ARBITRUM_CHAIN_ID}
-                        icon={usdcToken?.logoURI}
-                        symbol="USDC"
-                        name="USD Coin"
+                        icon={arbUsdcTokenFallback.logoURI}
+                        symbol={arbUsdcTokenFallback.symbol}
+                        name={arbUsdcTokenFallback.name}
+                        subtitle={<Trans>into your perps account</Trans>}
+                        amountText={receivedUsdText}
+                        isAmountLoading={isReceiveAmountLoading}
                     />
-                    <div className="ml-4 flex w-full min-w-0 flex-col justify-start text-left">
-                        <div className="h-5 w-full truncate text-sm font-semibold">
-                            <Trans>Receive</Trans>
-                        </div>
-                        <div className="w-full text-xs font-medium leading-3 text-second">
-                            <Trans>into your perps account</Trans>
-                        </div>
-                    </div>
-                    {isGasLoading && value ? (
-                        <div className="ml-auto h-5 w-10 animate-pulse bg-lightBg" />
-                    ) : (
-                        <div className="ml-auto text-sm font-semibold">{receivedUsdText || '-'}</div>
-                    )}
-                </div>
-
-                <div className="flex items-center justify-between gap-4">
-                    {[0.25, 0.5, 0.75, 1].map((rate) => (
-                        <button
-                            key={rate}
-                            type="button"
-                            className="h-8 w-[70px] rounded-full bg-lightBg text-center font-semibold leading-8 duration-75 active:scale-95 active:bg-main/10"
-                            onClick={() => {
-                                if (!usdcToken?.balance) return;
-                                const maxBn = BigNumber(usdcToken.balance);
-                                const portion = maxBn
-                                    .times(Math.min(rate, 0.95))
-                                    .decimalPlaces(ARBITRUM_USDC_DECIMALS, BigNumber.ROUND_DOWN);
-                                setValue(removeTrailingZeros(portion.toFixed()));
-                            }}
-                        >
-                            {rate === 1 ? <Trans>Max</Trans> : `${rate * 100}%`}
-                        </button>
-                    ))}
-                </div>
-
-                <Button
-                    variant="primary"
-                    size="lg"
-                    className="h-12 w-full rounded-full"
-                    disabled={disabled || isPending}
-                    loading={isPending}
-                    onClick={() => {
-                        if (isSubmittingRef.current || isPending) return;
-                        isSubmittingRef.current = true;
-                        void mutateAsync(amount)
-                            .then(() => {
-                                toast.dismiss(TOAST_ID);
-                                toast.success(
-                                    <Trans>Deposit submitted. Funds will appear on Hyperliquid shortly.</Trans>,
-                                );
-                                comeback();
-                            })
-                            .catch((error: unknown) => {
-                                toast.dismiss(TOAST_ID);
-                                const { message: userHint, details } = getUserFacingErrorMessage(error);
-                                toast.error(<Trans>Deposit failed.</Trans>, { description: userHint || details });
-                            });
-                    }}
-                >
-                    {buttonLabel}
-                </Button>
-            </div>
+                }
+                onQuickAmountPick={(rate) => {
+                    if (!depositToken?.balance) return;
+                    const maxBn = BigNumber(depositToken.balance);
+                    const cappedRate = rate === 1 ? Math.min(rate, 0.95) : rate;
+                    const portion = maxBn.times(cappedRate).decimalPlaces(depositToken.decimals, BigNumber.ROUND_DOWN);
+                    const newAmount = removeTrailingZeros(portion.toFixed());
+                    setValue(
+                        removeTrailingZeros(
+                            inputType === DepositAmountInputType.Amount
+                                ? newAmount
+                                : BigNumber(newAmount)
+                                      .times(depositToken.price ?? 1)
+                                      .decimalPlaces(maxDecimals, BigNumber.ROUND_DOWN)
+                                      .toFixed(),
+                        ),
+                    );
+                }}
+                buttonLabel={buttonLabel}
+                disabled={disabled}
+                loading={isPending}
+                onSubmit={() => {
+                    if (isSubmittingRef.current || isPending) return;
+                    isSubmittingRef.current = true;
+                    void mutateAsync();
+                }}
+            />
         </div>
     );
 }

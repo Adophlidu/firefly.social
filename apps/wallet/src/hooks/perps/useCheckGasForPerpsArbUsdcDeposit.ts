@@ -17,9 +17,10 @@ import { FreeGasTxType } from '@/providers/types/FreeGas.js';
 interface Params {
     amount: string;
     walletAddress: string | null | undefined;
+    enabled?: boolean;
 }
 
-export function useCheckGasForPerpsArbUsdcDeposit({ amount, walletAddress }: Params) {
+export function useCheckGasForPerpsArbUsdcDeposit({ amount, walletAddress, enabled = true }: Params) {
     const chainId = ARBITRUM_CHAIN_ID;
     const embedded = walletAddress ?? null;
 
@@ -31,7 +32,7 @@ export function useCheckGasForPerpsArbUsdcDeposit({ amount, walletAddress }: Par
     const { data: feeInfo, isLoading: isEstimatingGas } = useQuery({
         queryKey: ['perps-deposit-gas-fee', embedded, amount],
         staleTime: 60_000,
-        enabled: Boolean(embedded && amountPositive),
+        enabled: enabled && Boolean(embedded && amountPositive),
         queryFn: async () => {
             const parsedValue = parseUnits(amount, ARBITRUM_USDC_DECIMALS);
             const client = createWagmiPublicClient(chainId, resolvePublicRpcUrl(chainId));

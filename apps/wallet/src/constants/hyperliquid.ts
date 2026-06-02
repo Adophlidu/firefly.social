@@ -1,5 +1,8 @@
+import { NetworkType } from '@dimensiondev/enums';
 import type { Address } from 'viem';
 import { arbitrum } from 'viem/chains';
+
+import type { SwapToken } from '@/providers/swap/types.js';
 
 // -----------------------------------------------------------------------------
 // L1 Info API (no SDK)
@@ -39,6 +42,21 @@ export const HYPERLIQUID_DEPOSIT_ADDRESS = '0x2df1c51e09aecf9cacb7bc98cb1742757f
 
 /** Minimum deposit in USDC (UI convention aligned with OneKey). */
 export const MIN_HYPERLIQUID_DEPOSIT_USDC = 5;
+
+export const arbUsdcTokenFallback: SwapToken = {
+    address: ARBITRUM_USDC_ADDRESS,
+    symbol: 'USDC',
+    name: 'USD Coin',
+    decimals: ARBITRUM_USDC_DECIMALS,
+    chainId: ARBITRUM_CHAIN_ID,
+    logoURI: 'https://sdk-cdn.fun.xyz/images/usdc.svg',
+    price: 1,
+    networkType: NetworkType.Ethereum,
+};
+
+export function isArbitrumUsdcToken(chainId: number, address: string | undefined): boolean {
+    return chainId === ARBITRUM_CHAIN_ID && address?.toLowerCase() === ARBITRUM_USDC_ADDRESS.toLowerCase();
+}
 
 export const TERMS_URL = 'https://app.hyperliquid.xyz/terms';
 export const PRIVACY_URL = 'https://app.hyperliquid.xyz/privacyPolicy';

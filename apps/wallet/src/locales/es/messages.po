@@ -94,8 +94,8 @@ msgstr "Reclamar ganancias"
 msgid "Transaction nonce error. Please try again."
 msgstr "Error de nonce en la transacción. Inténtelo nuevamente."
 
-#. placeholder {0}: formatTokenItemAmount(depositToken.balance ?? '0')
-#. placeholder {1}: depositToken.symbol
+#. placeholder {0}: formatTokenItemAmount(token.balance ?? '0')
+#. placeholder {1}: token.symbol
 msgid "{0} {1} in your Firefly wallet"
 msgstr "{0} {1} en su billetera Firefly"
 
@@ -152,10 +152,6 @@ msgstr "Omitir"
 
 msgid "Copied"
 msgstr "Copiado"
-
-#. placeholder {0}: formatTokenItemAmount(usdcToken?.balance ?? '0')
-msgid "{0} USDC in your Firefly wallet"
-msgstr "{0} USDC en su billetera Firefly"
 
 msgid "Total"
 msgstr "Total"

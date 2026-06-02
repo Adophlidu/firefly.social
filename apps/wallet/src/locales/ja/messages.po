@@ -94,8 +94,8 @@ msgstr "賞金を受け取る"
 msgid "Transaction nonce error. Please try again."
 msgstr "トランザクション Nonce エラーです。再試行してください。"
 
-#. placeholder {0}: formatTokenItemAmount(depositToken.balance ?? '0')
-#. placeholder {1}: depositToken.symbol
+#. placeholder {0}: formatTokenItemAmount(token.balance ?? '0')
+#. placeholder {1}: token.symbol
 msgid "{0} {1} in your Firefly wallet"
 msgstr "Firefly ウォレット内に {0} {1}"
 
@@ -152,10 +152,6 @@ msgstr "スキップ"
 
 msgid "Copied"
 msgstr "コピーしました"
-
-#. placeholder {0}: formatTokenItemAmount(usdcToken?.balance ?? '0')
-msgid "{0} USDC in your Firefly wallet"
-msgstr "Firefly ウォレット内に {0} USDC"
 
 msgid "Total"
 msgstr "合計"
