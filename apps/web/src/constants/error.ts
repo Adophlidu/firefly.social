@@ -70,6 +70,19 @@ export class FetchError extends Error {
     }
 }
 
+/**
+ * Thrown when a Firefly API request fails auth unrecoverably — i.e. a 401 that
+ * survived a token refresh (the refresh token itself is expired/revoked).
+ * Surfaced to the global error boundary to render the signed-out screen.
+ */
+export class FireflyUnauthorizedError extends Error {
+    override name = 'FireflyUnauthorizedError';
+
+    constructor(message?: string) {
+        super(message ?? 'Firefly session is unauthorized.');
+    }
+}
+
 export class FarcasterPatchSignerError extends Error {
     override name = 'FarcasterPatchSignerError';
 

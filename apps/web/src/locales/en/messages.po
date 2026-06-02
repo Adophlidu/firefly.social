@@ -5153,6 +5153,9 @@ msgstr "Security & Privacy"
 msgid "Loading..."
 msgstr "Loading..."
 
+msgid "Your session has expired. Please sign in again."
+msgstr "Your session has expired. Please sign in again."
+
 msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
 msgstr "Donated {formattedAmount} {symbol} to DeFiUnited"
 

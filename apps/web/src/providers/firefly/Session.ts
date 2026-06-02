@@ -59,7 +59,7 @@ const FireflyAccessTokenPayload = z.object({
 });
 
 /** Firefly JWT v3 access token TTL in milliseconds. */
-const ACCESS_TOKEN_TTL_MS = 11 * 60 * 1000; // 1 hour
+const ACCESS_TOKEN_TTL_MS = 15 * 60 * 1000; // 15 minutes for testing
 
 /**
  * Decodes the `issued_at_ms` field from a Firefly JWT v3 access token and

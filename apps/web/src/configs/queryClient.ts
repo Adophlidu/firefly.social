@@ -7,6 +7,7 @@ import { MutationCache, QueryCache, QueryClient, type QueryClientConfig } from '
 const IGNORED_ERROR_NAMES = [
     'AbortError', // User-cancelled requests
     'ForbiddenError', // Handled by AuthGuard
+    'FireflyUnauthorizedError', // Handled by the signed-out screen (global-error boundary)
     'SessionExpiredError', // Handled by session management
     'AccountSuspendedError', // Handled by SuspendedAccountFallback
 ];

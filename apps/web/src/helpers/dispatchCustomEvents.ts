@@ -5,6 +5,7 @@ import type {
     EVENT_FIREFLY_SESSION_EXPIRED,
     EVENT_FIREFLY_SESSION_FORBIDDEN,
     EVENT_FIREFLY_SESSION_REFRESHED,
+    EVENT_FIREFLY_SESSION_UNAUTHORIZED,
 } from '@/constants/event.js';
 import type { Account } from '@/providers/types/Account.js';
 
@@ -13,6 +14,8 @@ interface CustomEvents {
     [EVENT_FIREFLY_SESSION_EXPIRED]: { account?: Account; source?: SocialSource };
     /** Serialized FireflySession string — use SessionFactory.createSession() to restore. */
     [EVENT_FIREFLY_SESSION_REFRESHED]: string;
+    /** Fired once when the session is unrecoverably unauthorized (401 survived a refresh). */
+    [EVENT_FIREFLY_SESSION_UNAUTHORIZED]: void;
     'hls-player-play': HTMLVideoElement;
 }
 

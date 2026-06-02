@@ -5127,6 +5127,9 @@ msgstr "安全与隐私"
 msgid "Loading..."
 msgstr "加载中..."
 
+msgid "Your session has expired. Please sign in again."
+msgstr ""
+
 msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
 msgstr ""
 

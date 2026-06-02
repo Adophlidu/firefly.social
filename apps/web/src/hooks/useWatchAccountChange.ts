@@ -7,6 +7,7 @@ import {
     EVENT_FIREFLY_SESSION_EXPIRED,
     EVENT_FIREFLY_SESSION_FORBIDDEN,
     EVENT_FIREFLY_SESSION_REFRESHED,
+    EVENT_FIREFLY_SESSION_UNAUTHORIZED,
 } from '@/constants/event.js';
 import { listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { enqueueForbiddenMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -36,6 +37,24 @@ export function useWatchAccountChange() {
                 await delay(5000);
 
                 bom.location.href = PageRoute.Signup;
+            },
+            { signal: abortController.signal },
+        );
+
+        let handledUnauthorized = false;
+        listenCustomEvent(
+            EVENT_FIREFLY_SESSION_UNAUTHORIZED,
+            async () => {
+                // SessionHolder already dedupes the dispatch, but guard here too in
+                // case the listener is re-registered before navigation completes.
+                if (handledUnauthorized) return;
+                handledUnauthorized = true;
+
+                enqueueWarningMessage(t`Your session has expired. Please sign in again.`);
+                // Clear every local session so the next visit starts clean. This runs
+                // in-app (signOut + stores live inside the providers); the global-error
+                // signed-out screen only handles the "Go to login" navigation.
+                await removeAllAccounts();
             },
             { signal: abortController.signal },
         );

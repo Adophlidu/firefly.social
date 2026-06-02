@@ -5127,6 +5127,9 @@ msgstr "セキュリティとプライバシー"
 msgid "Loading..."
 msgstr "読み込み中..."
 
+msgid "Your session has expired. Please sign in again."
+msgstr ""
+
 msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
 msgstr ""
 

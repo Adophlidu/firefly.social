@@ -9,6 +9,7 @@ import { useAgent } from '@/components/AgentProvider.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
+import { SessionUnauthorizedBoundaryTrigger } from '@/components/SessionUnauthorizedBoundaryTrigger.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 
@@ -45,6 +46,9 @@ export function LayoutBody({ locale, children }: LayoutBodyProps) {
     const agent = useAgent();
     return (
         <>
+            {/* Kept above <Providers> and {children} so an unauthorized throw bubbles
+                straight to app/global-error.tsx, past every segment-level error.tsx. */}
+            <SessionUnauthorizedBoundaryTrigger />
             <Providers locale={locale}>
                 <RouteProgressBar
                     height="2px"
