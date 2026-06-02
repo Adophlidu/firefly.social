@@ -1,10 +1,15 @@
 /* cspell:disable */
 
-import { type ChainControllerState, CoreChainController, CoreRouterController, type WcWallet } from '@reown/appkit';
+import type { ChainControllerState, WcWallet } from '@reown/appkit';
+import {
+    ChainController as CoreChainController,
+    ConnectorController as CoreConnectorController,
+    RouterController as CoreRouterController,
+} from '@reown/appkit-controllers';
 import urlcat from 'urlcat';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { WalletId } from '@/constants/reown.js';
+import { walletConnectId, WalletId } from '@/constants/reown.js';
 import { findConnectorByWallet } from '@/modals/WalletConnectModal/findConnectorByWallet.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 
@@ -84,16 +89,28 @@ function redirectSolanaLinkInNeed(id: string, namespace: ChainControllerState['a
 
 export function selectWallet(wallet: WcWallet) {
     const connector = findConnectorByWallet(wallet);
-
-    if (wallet.id === WalletId.Phantom && IS_MOBILE_DEVICE) {
-        redirectSolanaLinkInNeed(connector?.explorerId || wallet.id, 'solana');
-    }
+    const walletName = encodeURIComponent(wallet.name || '');
 
     if (connector) {
+        if (wallet.id === WalletId.Phantom && IS_MOBILE_DEVICE) {
+            // Phantom on mobile should use WC flow to open the wallet app, not external injected detection view.
+            if (connector.type !== 'INJECTED') {
+                const wcConnector = CoreConnectorController.state.connectors.find((x) => x.id === walletConnectId);
+                if (wcConnector) {
+                    CoreConnectorController.setActiveConnector(wcConnector);
+                }
+                CoreRouterController.state.data = { wallet };
+                walletRouter.navigate({ to: urlcat('/connecting-wc', { name: walletName }) });
+                return;
+            }
+            // Let AppKit handle WC mobile deep-link with wcUri; only keep custom deeplink for injected Phantom.
+            redirectSolanaLinkInNeed(connector.explorerId || wallet.id, 'solana');
+        }
+
         CoreRouterController.state.data = { connector, wallet };
         walletRouter.navigate({ to: urlcat('/connecting', { name: encodeURIComponent(connector.name || '') }) });
     } else {
         CoreRouterController.state.data = { wallet };
-        walletRouter.navigate({ to: urlcat('/connecting-wc', { name: encodeURIComponent(wallet.name || '') }) });
+        walletRouter.navigate({ to: urlcat('/connecting-wc', { name: walletName }) });
     }
 }

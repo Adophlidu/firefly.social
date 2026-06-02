@@ -45,6 +45,7 @@
         "@radix-ui/react-tooltip": "^1.2.8",
         "@radix-ui/react-visually-hidden": "^1.2.4",
         "@reown/appkit": "1.8.20",
+        "@reown/appkit-controllers": "1.8.20",
         "@reown/appkit-adapter-solana": "1.8.20",
         "@reown/appkit-adapter-wagmi": "1.8.20",
         "@solana-program/memo": "^0.8.0",

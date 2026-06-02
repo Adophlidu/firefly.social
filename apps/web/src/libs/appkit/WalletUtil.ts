@@ -1,10 +1,10 @@
+import type { WcWallet } from '@reown/appkit';
 import {
-    CoreConnectorController,
+    ConnectorController as CoreConnectorController,
     CoreHelperUtil,
-    CoreOptionsController,
-    CoreStorageUtil,
-    type WcWallet,
-} from '@reown/appkit';
+    OptionsController as CoreOptionsController,
+    StorageUtil as CoreStorageUtil,
+} from '@reown/appkit-controllers';
 
 export const WalletUtil = {
     filterOutDuplicatesByRDNS(wallets: WcWallet[]) {

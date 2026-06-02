@@ -1,8 +1,8 @@
-import { getNetworkTypeFromCaipAddress } from '@dimensiondev/web3/utils';
-import { CoreChainController } from '@reown/appkit';
+import { getNetworkTypeFromCaipAddress, isSameAddress } from '@dimensiondev/web3/utils';
+import { ChainController as CoreChainController } from '@reown/appkit-controllers';
 import { useLocation } from '@tanstack/react-router';
 import { last } from 'lodash-es';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useConnection } from 'wagmi';
 import { reconnect } from 'wagmi/actions';
 
@@ -19,34 +19,56 @@ export default memo(function ConnectingView() {
     const { origin } = WalletConnectContext.useContainer();
     const wagmiAccount = useConnection();
     const wagmiConnectedRef = useRef(wagmiAccount.isConnected);
+    const completedRef = useRef(false);
+    const initialAddressRef = useRef(CoreChainController.state.activeCaipAddress);
     wagmiConnectedRef.current = wagmiAccount.isConnected;
 
-    useEffect(
-        () =>
-            CoreChainController.subscribeKey('activeCaipAddress', async (address) => {
-                if (!address || isPrivyAddress(last(address.split(':')) || '')) return;
+    const handleConnectedAddress = useCallback(
+        async (address?: string) => {
+            if (completedRef.current || !address || isPrivyAddress(last(address.split(':')) || '')) return;
+            if (isSameAddress(address, initialAddressRef.current)) return;
 
-                const networkType = getNetworkTypeFromCaipAddress(address);
+            completedRef.current = true;
+            const networkType = getNetworkTypeFromCaipAddress(address);
 
-                if (address.startsWith('eip155:') && !wagmiConnectedRef.current) {
-                    try {
-                        await reconnect(wagmiConfig);
-                    } catch {
-                        // reconnect may fail if no connectors have stored state
-                    }
+            if (address.startsWith('eip155:') && !wagmiConnectedRef.current) {
+                try {
+                    await reconnect(wagmiConfig);
+                } catch {
+                    // reconnect may fail if no connectors have stored state
                 }
+            }
 
-                closeWalletConnectModal(networkType ? { networkType } : undefined);
-                captureConnectWalletEvent(EventId.CONNECT_WALLET_SUCCESS, {
-                    origin,
-                    name: location.search.name,
-                    address,
-                    connect_time: now,
-                    connect_success_time: Date.now(),
-                });
-            }),
-        [location, now, origin],
+            closeWalletConnectModal(networkType ? { networkType } : undefined);
+            captureConnectWalletEvent(EventId.CONNECT_WALLET_SUCCESS, {
+                origin,
+                name: location.search.name,
+                address,
+                connect_time: now,
+                connect_success_time: Date.now(),
+            });
+        },
+        [location.search.name, now, origin],
     );
+
+    useEffect(() => {
+        const onResume = () => handleConnectedAddress(CoreChainController.state.activeCaipAddress);
+        const onVisibilityChange = () => {
+            if (document.visibilityState === 'visible') onResume();
+        };
+
+        const unsubscribe = CoreChainController.subscribeKey('activeCaipAddress', handleConnectedAddress);
+        onResume();
+
+        window.addEventListener('focus', onResume);
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        return () => {
+            unsubscribe();
+            window.removeEventListener('focus', onResume);
+            document.removeEventListener('visibilitychange', onVisibilityChange);
+        };
+    }, [handleConnectedAddress]);
 
     return <w3m-connecting-external-view />;
 });

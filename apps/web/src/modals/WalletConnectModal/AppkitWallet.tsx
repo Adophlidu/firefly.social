@@ -1,4 +1,8 @@
-import { CoreAssetUtil, CoreConnectionController, CoreRouterController } from '@reown/appkit';
+import {
+    AssetUtil as CoreAssetUtil,
+    ConnectionController as CoreConnectionController,
+    RouterController as CoreRouterController,
+} from '@reown/appkit-controllers';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 

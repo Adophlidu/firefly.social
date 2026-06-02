@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/react/macro';
+import type { Connector } from '@reown/appkit';
 import {
-    type Connector,
-    CoreAssetUtil,
-    CoreConnectorController,
+    AssetUtil as CoreAssetUtil,
+    ConnectorController as CoreConnectorController,
     CoreHelperUtil,
-    CoreRouterController,
-} from '@reown/appkit';
+    RouterController as CoreRouterController,
+} from '@reown/appkit-controllers';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';

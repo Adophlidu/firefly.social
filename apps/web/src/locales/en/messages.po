@@ -1274,9 +1274,6 @@ msgstr "Verified addresses"
 msgid "Buy {secondOutcome}"
 msgstr "Buy {secondOutcome}"
 
-msgid "The error has been reported automatically."
-msgstr "The error has been reported automatically."
-
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 
@@ -1575,9 +1572,6 @@ msgstr "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
-
-msgid "Try to recover"
-msgstr "Try to recover"
 
 msgid "Custom amount"
 msgstr "Custom amount"

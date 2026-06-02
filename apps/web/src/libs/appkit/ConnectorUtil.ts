@@ -1,12 +1,11 @@
+import type { ConnectorWithProviders, WcWallet } from '@reown/appkit';
 import {
-    type ConnectorWithProviders,
-    CoreApiController,
-    CoreConnectionController,
+    ApiController as CoreApiController,
+    ConnectionController as CoreConnectionController,
     CoreHelperUtil,
-    CoreOptionsController,
-    CoreStorageUtil,
-    type WcWallet,
-} from '@reown/appkit';
+    OptionsController as CoreOptionsController,
+    StorageUtil as CoreStorageUtil,
+} from '@reown/appkit-controllers';
 
 import { WalletUtil } from '@/libs/appkit/WalletUtil.js';
 

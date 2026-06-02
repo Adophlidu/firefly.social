@@ -18,7 +18,7 @@ export const headersConfig: NonNullable<NextConfig['headers']> = async () => {
                 },
                 {
                     key: 'X-Frame-Options',
-                    value: process.env.NODE_ENV === 'development' ? 'DENY' : 'SAMEORIGIN',
+                    value: 'SAMEORIGIN',
                 },
                 {
                     key: 'X-Content-Type-Options',

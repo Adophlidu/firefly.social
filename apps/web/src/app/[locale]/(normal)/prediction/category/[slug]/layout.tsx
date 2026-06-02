@@ -5,6 +5,6 @@ export const metadata: Metadata = {
     title: 'Prediction Category',
 };
 
-export default function PredictionCategoryLayout(props: LayoutProps) {
+export default function PredictionCategoryLayout(props: LayoutProps<{}>) {
     return props.children;
 }

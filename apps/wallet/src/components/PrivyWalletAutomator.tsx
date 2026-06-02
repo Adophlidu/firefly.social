@@ -1,6 +1,6 @@
 import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { CoreConnectionController } from '@reown/appkit';
+import { ConnectionController as CoreConnectionController } from '@reown/appkit-controllers';
 import { useQuery } from '@tanstack/react-query';
 import { ClientOnly } from '@tanstack/react-router';
 import { useAtom, useAtomValue } from 'jotai';

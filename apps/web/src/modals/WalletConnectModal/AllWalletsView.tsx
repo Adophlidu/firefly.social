@@ -1,4 +1,4 @@
-import { CoreConnectorController } from '@reown/appkit';
+import { ConnectorController as CoreConnectorController } from '@reown/appkit-controllers';
 import { memo, useEffect } from 'react';
 
 import { selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';

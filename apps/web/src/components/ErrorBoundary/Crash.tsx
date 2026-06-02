@@ -1,7 +1,6 @@
 'use client';
 
 import { envs } from '@dimensiondev/envs/web';
-import { Trans } from '@lingui/react/macro';
 
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
@@ -49,18 +48,16 @@ Developer Settings: ${developmentAPI}
                     <div className="mb-2 select-text">
                         {error.type}: {error.message}
                     </div>
-                    <div className="mb-2 text-sm text-green-600">
-                        <Trans>The error has been reported automatically.</Trans>
-                    </div>
+                    <div className="mb-2 text-sm text-green-600">The error has been reported automatically.</div>
                     <div className="flex gap-2">
                         <button className="rounded-md border border-blue-500 px-2 py-1 text-blue-500" onClick={onRetry}>
-                            <Trans>Try to recover</Trans>
+                            Try to recover
                         </button>
                         <button
                             className="rounded-md border border-blue-500 px-2 py-1 text-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
                             onClick={copied ? undefined : () => handleCopy()}
                         >
-                            {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
+                            {copied ? 'Copied' : 'Copy'}
                         </button>
                     </div>
                 </div>

@@ -1,16 +1,16 @@
 import ScanIcon from '@dimensiondev/assets/scan.svg';
 import {
-    CoreAssetController,
-    CoreAssetUtil,
-    CoreConnectionController,
-    CoreConnectorController,
+    AssetController as CoreAssetController,
+    AssetUtil as CoreAssetUtil,
+    ConnectionController as CoreConnectionController,
+    ConnectorController as CoreConnectorController,
     CoreHelperUtil,
-    CoreRouterController,
-} from '@reown/appkit';
+    RouterController as CoreRouterController,
+} from '@reown/appkit-controllers';
 import { memo, useEffect, useState } from 'react';
 import urlcat from 'urlcat';
 
-import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
+import { walletConnectIcon, walletConnectId, WalletId } from '@/constants/reown.js';
 import type { AppkitConnectorItem } from '@/hooks/appkit/useAppkitWalletList.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { WalletItem } from '@/modals/WalletConnectModal/WalletItem.js';
@@ -35,10 +35,32 @@ function getConnectorNamespaces(item: AppkitConnectorItem) {
 function onConnectorClick(item: AppkitConnectorItem) {
     const { connector, subtype } = item;
     const connectorName = connector.name ? encodeURIComponent(connector.name) : undefined;
+    const isMobile = CoreHelperUtil.isMobile();
+    const isPhantom =
+        connector.explorerId === WalletId.Phantom ||
+        connector.explorerWallet?.id === WalletId.Phantom ||
+        connector.info?.rdns === 'app.phantom' ||
+        (connector.name || '').toLowerCase() === 'phantom';
+
+    if (isMobile && isPhantom && subtype !== 'walletConnect') {
+        const wcConnector = CoreConnectorController.state.connectors.find((x) => x.id === walletConnectId);
+        if (wcConnector) {
+            CoreConnectorController.setActiveConnector(wcConnector);
+        }
+        if (connector.explorerWallet) {
+            CoreRouterController.state.data = { wallet: connector.explorerWallet, redirectView: undefined };
+        } else {
+            CoreRouterController.state.data = { redirectView: undefined };
+        }
+        walletRouter.navigate({
+            to: urlcat('/connecting-wc', { name: connectorName }),
+        });
+        return;
+    }
 
     if (subtype === 'walletConnect') {
         CoreConnectorController.setActiveConnector(connector);
-        if (CoreHelperUtil.isMobile()) {
+        if (isMobile) {
             walletRouter.navigate({ to: '/all-wallets' });
         } else {
             CoreRouterController.state.data = { redirectView: undefined };

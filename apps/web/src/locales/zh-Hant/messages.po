@@ -1268,9 +1268,6 @@ msgstr "已驗證地址"
 msgid "Buy {secondOutcome}"
 msgstr "購買 {secondOutcome}"
 
-msgid "The error has been reported automatically."
-msgstr "錯誤已自動報告。"
-
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "此錢包來自公開數據或我們的算法，請先添加錢包再設為主要錢包。"
 
@@ -1568,9 +1565,6 @@ msgstr "在 {3} 回覆 <0>@{0}</0>、<1>@{1}</1> 及 <2>其他{2}人</2>"
 
 msgid "Connect Wallet"
 msgstr "連接錢包"
-
-msgid "Try to recover"
-msgstr "嘗試恢復"
 
 msgid "Custom amount"
 msgstr "自訂數額"

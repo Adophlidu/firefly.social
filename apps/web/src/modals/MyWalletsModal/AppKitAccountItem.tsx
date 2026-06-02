@@ -6,8 +6,11 @@ import { ConnectionSource, NetworkType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
-import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
 import { type AppKitNetwork, mainnet, solana } from '@reown/appkit/networks';
+import {
+    ConnectionController as CoreConnectionController,
+    ConnectorController as CoreConnectorController,
+} from '@reown/appkit-controllers';
 import type { FunctionComponent, SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
 

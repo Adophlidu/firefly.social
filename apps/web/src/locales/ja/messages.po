@@ -1268,9 +1268,6 @@ msgstr "認証済みアドレス"
 msgid "Buy {secondOutcome}"
 msgstr "{secondOutcome} を購入"
 
-msgid "The error has been reported automatically."
-msgstr "エラーは自動的に報告されました。"
-
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "公開されている検証可能なデータレジストリまたは当社のアルゴリズムから取得したウォレットです。プライマリウォレットとして設定するには、このウォレットを追加してください。"
 
@@ -1568,9 +1565,6 @@ msgstr "{3} で <0>@{0}</0>、<1>@{1}</1>、<2>他 {2} 人</2> に返信中"
 
 msgid "Connect Wallet"
 msgstr "ウォレットを接続"
-
-msgid "Try to recover"
-msgstr "復旧を試す"
 
 msgid "Custom amount"
 msgstr "カスタム金額"

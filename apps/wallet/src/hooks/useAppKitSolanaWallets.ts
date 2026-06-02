@@ -1,11 +1,11 @@
 import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
-import {
-    CoreAssetUtil,
-    CoreConnectionController,
-    CoreConnectionControllerUtil,
-    CoreConnectorController,
-} from '@reown/appkit';
 import type { Connection } from '@reown/appkit/react';
+import {
+    AssetUtil as CoreAssetUtil,
+    ConnectionController as CoreConnectionController,
+    ConnectionControllerUtil as CoreConnectionControllerUtil,
+    ConnectorController as CoreConnectorController,
+} from '@reown/appkit-controllers';
 import { useEffect, useMemo, useState } from 'react';
 
 export interface AppKitSolanaWallet {

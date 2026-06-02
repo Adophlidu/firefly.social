@@ -7,8 +7,11 @@ import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/
 import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
-import { CoreConnectionController, CoreProviderController } from '@reown/appkit';
 import type { Provider as SolanaProvider } from '@reown/appkit-adapter-solana';
+import {
+    ConnectionController as CoreConnectionController,
+    ProviderController as CoreProviderController,
+} from '@reown/appkit-controllers';
 import bs58 from 'bs58';
 import { useAtomValue } from 'jotai';
 import { type ReactNode, useState } from 'react';

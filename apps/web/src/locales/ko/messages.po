@@ -1268,9 +1268,6 @@ msgstr "인증된 주소"
 msgid "Buy {secondOutcome}"
 msgstr "{secondOutcome} 매수"
 
-msgid "The error has been reported automatically."
-msgstr "오류가 자동으로 보고되었습니다."
-
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "공개 검증 데이터 레지스트리 또는 당사 알고리즘에서 가져온 지갑입니다. 기본 지갑으로 설정하려면 이 지갑을 추가하세요."
 
@@ -1568,9 +1565,6 @@ msgstr "{3}에서 <0>@{0}</0>, <1>@{1}</1> 및 <2>외 {2}명</2>에게 답글 �
 
 msgid "Connect Wallet"
 msgstr "지갑 연결"
-
-msgid "Try to recover"
-msgstr "복구 시도"
 
 msgid "Custom amount"
 msgstr "사용자 지정 금액"

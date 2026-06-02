@@ -1,4 +1,7 @@
-import { CoreChainController, CoreConnectorController } from '@reown/appkit';
+import {
+    ChainController as CoreChainController,
+    ConnectorController as CoreConnectorController,
+} from '@reown/appkit-controllers';
 
 export function findConnectorByWallet(wallet: { id: string; rdns?: string | null }) {
     const namespace = CoreChainController.state.activeChain;

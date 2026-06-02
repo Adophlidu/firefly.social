@@ -1,14 +1,14 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ConnectionSource, NetworkType } from '@dimensiondev/enums';
 import { getAddressType, isSameAddress } from '@dimensiondev/web3/utils';
-import {
-    CoreAssetUtil,
-    CoreChainController,
-    CoreConnectionController,
-    CoreConnectionControllerUtil,
-    CoreConnectorController,
-} from '@reown/appkit';
 import type { CaipAddress, Connection } from '@reown/appkit/react';
+import {
+    AssetUtil as CoreAssetUtil,
+    ChainController as CoreChainController,
+    ConnectionController as CoreConnectionController,
+    ConnectionControllerUtil as CoreConnectionControllerUtil,
+    ConnectorController as CoreConnectorController,
+} from '@reown/appkit-controllers';
 import { compact } from 'lodash-es';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 

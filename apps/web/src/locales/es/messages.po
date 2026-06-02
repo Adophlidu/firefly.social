@@ -1274,9 +1274,6 @@ msgstr "Direcciones verificadas"
 msgid "Buy {secondOutcome}"
 msgstr "Comprar {secondOutcome}"
 
-msgid "The error has been reported automatically."
-msgstr "El error se ha reportado automáticamente."
-
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "Es una billetera recuperada de registros públicos de datos verificables o de nuestro algoritmo de entidad. Por favor añade esta billetera para establecerla como billetera principal."
 
@@ -1575,9 +1572,6 @@ msgstr "Respondiendo a <0>@{0}</0>, <1>@{1}</1> y <2>{2} más</2> en {3}"
 
 msgid "Connect Wallet"
 msgstr "Conectar billetera"
-
-msgid "Try to recover"
-msgstr "Intentar recuperar"
 
 msgid "Custom amount"
 msgstr "Cantidad personalizada"

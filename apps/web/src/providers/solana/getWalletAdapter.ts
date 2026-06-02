@@ -2,7 +2,7 @@
 
 import type { web3 } from '@coral-xyz/anchor';
 import { NetworkType } from '@dimensiondev/enums';
-import { CoreProviderController } from '@reown/appkit';
+import { ProviderController as CoreProviderController } from '@reown/appkit-controllers';
 import type { Provider } from '@reown/appkit-utils/solana';
 
 import { WalletNotConnectedError } from '@/constants/error.js';

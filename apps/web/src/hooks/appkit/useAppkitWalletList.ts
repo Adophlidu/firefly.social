@@ -1,10 +1,9 @@
+import type { ConnectorWithProviders, WcWallet } from '@reown/appkit';
 import {
-    type ConnectorWithProviders,
-    CoreApiController,
-    CoreConnectorController,
+    ApiController as CoreApiController,
+    ConnectorController as CoreConnectorController,
     CoreHelperUtil,
-    type WcWallet,
-} from '@reown/appkit';
+} from '@reown/appkit-controllers';
 import { useEffect, useMemo, useState } from 'react';
 
 import { walletConnectId } from '@/constants/reown.js';

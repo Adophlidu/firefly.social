@@ -1,8 +1,11 @@
-import { getNetworkTypeFromCaipAddress } from '@dimensiondev/web3/utils';
-import { CoreChainController, CoreRouterController } from '@reown/appkit';
+import { getNetworkTypeFromCaipAddress, isSameAddress } from '@dimensiondev/web3/utils';
+import {
+    ChainController as CoreChainController,
+    RouterController as CoreRouterController,
+} from '@reown/appkit-controllers';
 import { useLocation } from '@tanstack/react-router';
 import { last } from 'lodash-es';
-import { memo, useEffect } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import urlcat from 'urlcat';
 
 import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
@@ -32,11 +35,15 @@ function rewriteAppKitRouter() {
 export default memo(function ConnectingWcView() {
     const location = useLocation();
     const { origin } = WalletConnectContext.useContainer();
+    const completedRef = useRef(false);
+    const initialAddressRef = useRef(CoreChainController.state.activeCaipAddress);
 
-    useEffect(() => {
-        const unsubscribe = CoreChainController.subscribeKey('activeCaipAddress', (address) => {
-            if (!address || isPrivyAddress(last(address.split(':')) || '')) return;
+    const handleConnectedAddress = useCallback(
+        (address?: string) => {
+            if (completedRef.current || !address || isPrivyAddress(last(address.split(':')) || '')) return;
+            if (isSameAddress(address, initialAddressRef.current)) return;
 
+            completedRef.current = true;
             const networkType = getNetworkTypeFromCaipAddress(address);
             closeWalletConnectModal(networkType ? { networkType } : undefined);
             captureConnectWalletEvent(EventId.CONNECT_WALLET_SUCCESS, {
@@ -46,14 +53,30 @@ export default memo(function ConnectingWcView() {
                 connect_time: location.search.now,
                 connect_success_time: Date.now(),
             });
-        });
+        },
+        [location.search.name, location.search.now, origin],
+    );
+
+    useEffect(() => {
+        const onResume = () => handleConnectedAddress(CoreChainController.state.activeCaipAddress);
+        const onVisibilityChange = () => {
+            if (document.visibilityState === 'visible') onResume();
+        };
+
+        const unsubscribe = CoreChainController.subscribeKey('activeCaipAddress', handleConnectedAddress);
         const unsubscribeRouter = rewriteAppKitRouter();
+        onResume();
+
+        window.addEventListener('focus', onResume);
+        document.addEventListener('visibilitychange', onVisibilityChange);
 
         return () => {
             unsubscribe();
             unsubscribeRouter();
+            window.removeEventListener('focus', onResume);
+            document.removeEventListener('visibilitychange', onVisibilityChange);
         };
-    }, [location, origin]);
+    }, [handleConnectedAddress]);
 
     return <w3m-connecting-wc-view />;
 });

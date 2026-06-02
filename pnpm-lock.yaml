@@ -41,9 +41,6 @@ patchedDependencies:
   '@lexical/react@0.18.0':
     hash: ghdbhcm7dq6jsqa6um6vsyfuny
     path: patches/@lexical__react@0.18.0.patch
-  '@reown/appkit@1.8.20':
-    hash: e6l33hvgqikb4l3rbar3hkasvu
-    path: patches/@reown__appkit@1.8.20.patch
   '@safe-global/safe-apps-sdk@9.1.0':
     hash: crgn36jmq7cb2puz3k7v4kzs2a
     path: patches/@safe-global__safe-apps-sdk@9.1.0.patch
@@ -211,13 +208,16 @@ importers:
         version: 1.2.4(@types/react-dom@19.2.3)(@types/react@19.2.15)(react-dom@19.2.6)(react@19.2.6)
       '@reown/appkit':
         specifier: 1.8.20
-        version: 1.8.20(patch_hash=e6l33hvgqikb4l3rbar3hkasvu)(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
+        version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-adapter-solana':
         specifier: 1.8.20
         version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-adapter-wagmi':
         specifier: 1.8.20
         version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(@wagmi/core@3.4.9)(accounts@0.8.10)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(viem@2.48.11)(wagmi@3.1.4)(zod@3.25.76)
+      '@reown/appkit-controllers':
+        specifier: 1.8.20
+        version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@solana-program/memo':
         specifier: ^0.8.0
         version: 0.8.0(@solana/kit@4.0.0)
@@ -623,13 +623,16 @@ importers:
         version: 1.7.5
       '@reown/appkit':
         specifier: 1.8.20
-        version: 1.8.20(patch_hash=e6l33hvgqikb4l3rbar3hkasvu)(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
+        version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-adapter-solana':
         specifier: 1.8.20
         version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-adapter-wagmi':
         specifier: 1.8.20
         version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(@wagmi/core@3.4.9)(accounts@0.8.10)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(viem@2.48.11)(wagmi@3.1.4)(zod@3.25.76)
+      '@reown/appkit-controllers':
+        specifier: 1.8.20
+        version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-utils':
         specifier: 1.8.20
         version: 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(valtio@2.1.7)(zod@3.25.76)
@@ -8013,7 +8016,7 @@ packages:
         optional: true
     dependencies:
       '@cfworker/json-schema': 4.1.1
-      zod: 4.4.3
+      zod: 4.3.6
     dev: false
 
   /@module-federation/error-codes@0.22.0:
@@ -9949,7 +9952,7 @@ packages:
   /@reown/appkit-adapter-solana@1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76):
     resolution: {integrity: sha512-Rtyy0eLZZLeO3r6yQM3qwgA7YqxZZLbbJUOW70w8mpNSh/B9Cw6k1nm7y9fKrikwbzzXUs0mp+myvdeFFO6l2w==}
     dependencies:
-      '@reown/appkit': 1.8.20(patch_hash=e6l33hvgqikb4l3rbar3hkasvu)(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
+      '@reown/appkit': 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-common': 1.8.20(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-controllers': 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-polyfills': 1.8.20
@@ -10009,7 +10012,7 @@ packages:
       viem: '>=2.45.0'
       wagmi: '>=2.19.5'
     dependencies:
-      '@reown/appkit': 1.8.20(patch_hash=e6l33hvgqikb4l3rbar3hkasvu)(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
+      '@reown/appkit': 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-common': 1.8.20(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-controllers': 1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       '@reown/appkit-polyfills': 1.8.20
@@ -10322,7 +10325,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@reown/appkit@1.8.20(patch_hash=e6l33hvgqikb4l3rbar3hkasvu)(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76):
+  /@reown/appkit@1.8.20(@types/react@19.2.15)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(zod@3.25.76):
     resolution: {integrity: sha512-+OI1TWg3XcMRhZ5RGVF0+AjkUvTPpODP6HFIgmxsV8HCf6bfE+jaYYE+JJcaz05TYJJ2TCXSYDyRfRvjSUzMzg==}
     dependencies:
       '@reown/appkit-common': 1.8.20(typescript@5.9.3)(zod@3.25.76)
@@ -10372,7 +10375,6 @@ packages:
       - utf-8-validate
       - zod
     dev: false
-    patched: true
 
   /@rolldown/binding-android-arm64@1.0.0-rc.17:
     resolution: {integrity: sha512-s70pVGhw4zqGeFnXWvAzJDlvxhlRollagdCCKRgOsgUOH3N1l0LIxf83AtGzmb5SiVM4Hjl5HyarMRfdfj3DaQ==}
@@ -30174,6 +30176,10 @@ packages:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
     dev: false
 
+  /zod@4.3.6:
+    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+    dev: false
+
   /zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
@@ -30287,7 +30293,9 @@ time:
   /@radix-ui/react-slot@1.2.4: '2025-11-04T17:57:12.242Z'
   /@reown/appkit-adapter-solana@1.8.20: '2026-05-20T09:41:01.404Z'
   /@reown/appkit-adapter-wagmi@1.8.20: '2026-05-20T09:41:01.660Z'
+  /@reown/appkit-controllers@1.8.20: '2026-05-20T09:41:08.082Z'
   /@reown/appkit-utils@1.8.20: '2026-05-20T09:41:01.630Z'
+  /@reown/appkit@1.8.20: '2026-05-20T09:41:01.577Z'
   /@solana/wallet-adapter-phantom@0.9.29: '2026-04-01T15:55:39.866Z'
   /@tamagui/config@1.114.4: '2024-10-13T01:07:50.962Z'
   /@tamagui/core@1.114.4: '2024-10-13T01:07:47.534Z'

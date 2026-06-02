@@ -1,6 +1,6 @@
 import type { NetworkType } from '@dimensiondev/enums';
 import { ClickOrigin } from '@dimensiondev/enums';
-import { CoreApiController } from '@reown/appkit';
+import { ApiController as CoreApiController } from '@reown/appkit-controllers';
 import { useEffect, useState } from 'react';
 import { createContainer } from 'unstated-next';
 

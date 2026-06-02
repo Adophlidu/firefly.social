@@ -90,7 +90,6 @@
         "patchedDependencies": {
             "@lens-protocol/client@0.0.0-canary-20250430134539": "patches/@lens-protocol__client@0.0.0-canary-20250430134539.patch",
             "@lexical/react@0.18.0": "patches/@lexical__react@0.18.0.patch",
-            "@reown/appkit@1.8.20": "patches/@reown__appkit@1.8.20.patch",
             "@tippyjs/react@4.2.6": "patches/@tippyjs__react@4.2.6.patch",
             "dayjs-twitter@0.5.0": "patches/dayjs-twitter@0.5.0.patch",
             "eslint-plugin-tailwindcss@3.18.2": "patches/eslint-plugin-tailwindcss@3.18.2.patch",

@@ -1,5 +1,8 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
+import {
+    ConnectionController as CoreConnectionController,
+    ConnectorController as CoreConnectorController,
+} from '@reown/appkit-controllers';
 
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
