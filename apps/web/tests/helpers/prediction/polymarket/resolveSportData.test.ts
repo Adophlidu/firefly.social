@@ -106,4 +106,46 @@ describe('resolveSportData', () => {
         const result = resolveSportData(baseEvent());
         expect(result?.scores).toEqual([]);
     });
+
+    describe('ended detection fallbacks', () => {
+        it('detects ended via gameStatus = "finished"', () => {
+            const result = resolveSportData(baseEvent({ ended: false, gameStatus: 'finished' }));
+            expect(result?.ended).toBe(true);
+        });
+
+        it('detects ended via gameStatus = "2"', () => {
+            const result = resolveSportData(baseEvent({ ended: false, gameStatus: '2' }));
+            expect(result?.ended).toBe(true);
+        });
+
+        it('detects ended via finishedTimestamp', () => {
+            const result = resolveSportData(baseEvent({ ended: false, finishedTimestamp: '2026-05-21T22:00:00Z' }));
+            expect(result?.ended).toBe(true);
+        });
+
+        it('does not mark as ended when gameStatus = "live"', () => {
+            const result = resolveSportData(baseEvent({ ended: false, gameStatus: 'live' }));
+            expect(result?.ended).toBe(false);
+        });
+
+        it('does not mark as ended when no signals present', () => {
+            const result = resolveSportData(baseEvent({ ended: false }));
+            expect(result?.ended).toBe(false);
+        });
+
+        it('explicit ended = true still works', () => {
+            const result = resolveSportData(baseEvent({ ended: true }));
+            expect(result?.ended).toBe(true);
+        });
+
+        it('detects ended via closed + winResult (ATP tennis fallback)', () => {
+            const result = resolveSportData(baseEvent({ ended: false, closed: true, winResult: 0 }));
+            expect(result?.ended).toBe(true);
+        });
+
+        it('does not mark as ended when closed but no winResult', () => {
+            const result = resolveSportData(baseEvent({ ended: false, closed: true }));
+            expect(result?.ended).toBe(false);
+        });
+    });
 });

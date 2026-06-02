@@ -27,7 +27,16 @@ export default async function PolymarketEventSidebarPage(props: Props) {
 
     if (!sportData) return <DefaultRightSidebarContent />;
 
-    const result = await runInSafeAsync(() => getSportRecommendationsResult(leagueSlug, sportData.gameId));
+    const sportTagSlugs = detail?.tags
+        ?.filter((tag) => {
+            const slug = tag.slug?.toLowerCase();
+            return slug && !['sports', 'games'].includes(slug);
+        })
+        .map((tag) => tag.slug!.toLowerCase());
+
+    const result = await runInSafeAsync(() =>
+        getSportRecommendationsResult(leagueSlug, sportData.gameId, sportTagSlugs),
+    );
     const recommendations = (result?.events || [])
         .filter((event) => !!formatPolymarketSportsEventForUI(event))
         .slice(0, 5);

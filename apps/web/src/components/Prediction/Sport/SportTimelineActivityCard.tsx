@@ -452,7 +452,7 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
     } = resolveTeams(activity, labels);
     const slug = activity.rawData?.slug || activity.slug;
     const winner = resolveWinner(activity);
-    const isFinal = !!sport.ended;
+    const isFinal = !!sport.ended || !!sport.closed;
     const canShowButtons = !isFinal && activity.platform === PredictionPlatform.Polymarket;
 
     const homeOutcome: OutcomeViewModel = {

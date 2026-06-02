@@ -113,4 +113,69 @@ describe('getSportRecommendationsResult', () => {
             expect.objectContaining({ slug: 'live-game' }),
         ]);
     });
+
+    it('filters live fallback events by sport tag when sportTagSlugs is provided', async () => {
+        mockedGetSportsEventList.mockResolvedValueOnce(createSportsListResponse()).mockResolvedValueOnce(
+            createSportsListResponse({
+                live: [
+                    createSportsEvent({
+                        id: 'rugby-match',
+                        tags: [{ id: '1', label: 'Rugby', slug: 'rugby' }] as any,
+                    }),
+                    createSportsEvent({
+                        id: 'esports-match',
+                        tags: [{ id: '2', label: 'Esports', slug: 'esports' }] as any,
+                    }),
+                    createSportsEvent({
+                        id: 'football-match',
+                        tags: [{ id: '3', label: 'American Football', slug: 'american-football' }] as any,
+                    }),
+                ],
+            }),
+        );
+
+        const result = await getSportRecommendationsResult('nfl', 'current-game', ['rugby', 'american-football']);
+
+        expect(result.events.map((event) => event.slug)).toEqual(['rugby-match', 'football-match']);
+    });
+
+    it('does not filter live fallback events when sportTagSlugs is not provided', async () => {
+        mockedGetSportsEventList.mockResolvedValueOnce(createSportsListResponse()).mockResolvedValueOnce(
+            createSportsListResponse({
+                live: [
+                    createSportsEvent({
+                        id: 'rugby-match',
+                        tags: [{ id: '1', label: 'Rugby', slug: 'rugby' }] as any,
+                    }),
+                    createSportsEvent({
+                        id: 'esports-match',
+                        tags: [{ id: '2', label: 'Esports', slug: 'esports' }] as any,
+                    }),
+                ],
+            }),
+        );
+
+        const result = await getSportRecommendationsResult('nfl', 'current-game');
+
+        expect(result.events.map((event) => event.slug)).toEqual(['rugby-match', 'esports-match']);
+    });
+
+    it('passes through events with no tags when sportTagSlugs is provided', async () => {
+        mockedGetSportsEventList.mockResolvedValueOnce(createSportsListResponse()).mockResolvedValueOnce(
+            createSportsListResponse({
+                live: [
+                    createSportsEvent({ id: 'no-tags-match' }),
+                    createSportsEvent({
+                        id: 'esports-match',
+                        tags: [{ id: '2', label: 'Esports', slug: 'esports' }] as any,
+                    }),
+                ],
+            }),
+        );
+
+        const result = await getSportRecommendationsResult('nfl', 'current-game', ['rugby']);
+
+        // no-tags-match passes through (graceful degradation), esports-match is filtered out
+        expect(result.events.map((event) => event.slug)).toEqual(['no-tags-match']);
+    });
 });

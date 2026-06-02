@@ -89,6 +89,17 @@ function resolveLeagueSlug(detail: PolymarketEvent): string | undefined {
     })?.slug;
 }
 
+function isMatchEnded(detail: PolymarketEvent): boolean {
+    if (detail.ended) return true;
+    const gameStatus = detail.gameStatus;
+    if (gameStatus === 'finished' || gameStatus === '2') return true;
+    if (detail.finishedTimestamp) return true;
+    // Some sport events (e.g. ATP tennis) never set ended/gameStatus/finishedTimestamp,
+    // but do set closed=true with a winResult when the match completes.
+    if (detail.gameId && detail.closed && detail.winResult !== undefined) return true;
+    return false;
+}
+
 export function resolveSportData(detail: PolymarketEvent): SportEventData | undefined {
     const gameId = detail.gameId;
     if (!gameId) return undefined;
@@ -119,7 +130,7 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
     return {
         gameId,
         live: !!detail.live,
-        ended: !!detail.ended,
+        ended: isMatchEnded(detail),
         homeTeam,
         awayTeam,
         scores: mapScores(detail),

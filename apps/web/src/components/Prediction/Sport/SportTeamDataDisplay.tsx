@@ -216,7 +216,7 @@ function LiveStatus({ period }: { period?: string }) {
 function FinalStatus() {
     return (
         <div className="flex h-6 items-center justify-center">
-            <span className="text-xs font-medium leading-[14px] text-lightMain">
+            <span className="rounded bg-[#f0f0f0] px-1.5 py-0.5 text-xs font-bold text-second dark:bg-[#3a3a3a]">
                 <Trans>FINAL</Trans>
             </span>
         </div>

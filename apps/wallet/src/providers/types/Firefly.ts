@@ -921,6 +921,8 @@ export interface PolymarketMarket {
     teamAID?: number;
     teamBID?: number;
     teams?: PolymarketTeam[];
+    /** Draw games: 0 home, 1 draw, 2 away (set by backend). */
+    groupTypeFF?: number;
     groupItemRange?: string;
     feesEnabled?: boolean;
     feeSchedule?: {

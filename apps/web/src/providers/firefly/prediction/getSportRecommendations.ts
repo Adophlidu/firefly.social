@@ -52,17 +52,20 @@ function isClosedSportsEvent(event: PolymarketSportsEvent) {
 export async function getSportRecommendations(
     leagueSlug?: string,
     excludeGameId?: number | string,
+    sportTagSlugs?: string[],
 ): Promise<PolymarketSportsEvent[]> {
-    const result = await getSportRecommendationsResult(leagueSlug, excludeGameId);
+    const result = await getSportRecommendationsResult(leagueSlug, excludeGameId, sportTagSlugs);
     return result.events;
 }
 
 export async function getSportRecommendationsResult(
     leagueSlug?: string,
     excludeGameId?: number | string,
+    sportTagSlugs?: string[],
 ): Promise<SportRecommendationsResult> {
     const sources = getRecommendationSources(leagueSlug);
     const excludeGameIdText = excludeGameId === undefined ? undefined : `${excludeGameId}`;
+    const normalizedSportTags = sportTagSlugs?.map((s) => s.toLowerCase());
     const events: PolymarketSportsEvent[] = [];
     const seen = new Set<string>();
     let resultSource = sources[0];
@@ -80,6 +83,12 @@ export async function getSportRecommendationsResult(
             if (excludeGameIdText && `${event.gameId}` === excludeGameIdText) continue;
             if (isClosedSportsEvent(event)) continue;
             if (!formatPolymarketSportsEventForUI(event)) continue;
+
+            // Filter live fallback events by sport category tags
+            if (normalizedSportTags?.length && source.categorySlug === LIVE_CATEGORY_SLUG) {
+                const eventTagSlugs = event.tags?.map((t) => t.slug?.toLowerCase()).filter(Boolean) ?? [];
+                if (eventTagSlugs.length && !eventTagSlugs.some((t) => normalizedSportTags.includes(t))) continue;
+            }
 
             const key = getRecommendationEventKey(event);
             if (seen.has(key)) continue;

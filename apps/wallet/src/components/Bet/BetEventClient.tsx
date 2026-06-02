@@ -547,9 +547,9 @@ export default function BetEventClient({ id }: { id: string }) {
                     }}
                 >
                     <div className="size-10 rounded-lg bg-lightBg">
-                        {data?.resolvedImage ? (
+                        {pageConfig?.image || data?.resolvedImage ? (
                             <Image
-                                src={data.resolvedImage}
+                                src={pageConfig?.image || data?.resolvedImage || ''}
                                 fallback={betImageFallback}
                                 alt={id}
                                 className="size-10 rounded-lg object-cover"
@@ -560,7 +560,14 @@ export default function BetEventClient({ id }: { id: string }) {
                             <RandomIcon width={40} height={40} className="rounded-lg outline outline-lightLineSecond" />
                         )}
                     </div>
-                    <div className="text-sm font-semibold">{pageConfig?.pageTitle || data?.question || id}</div>
+                    <div className="flex min-w-0 flex-1 flex-col gap-1 text-sm font-semibold leading-[18px]">
+                        <p className="max-h-[18px] w-full truncate text-secondary">
+                            {pageConfig?.pageTitle || data?.question || id}
+                        </p>
+                        <p className="max-h-[18px] w-full truncate text-primary">
+                            {pageConfig?.selectedOutcomeTitle || outcome}
+                        </p>
+                    </div>
                 </button>
                 <Button size="icon" variant="ghost" onClick={() => navigate({ to: '/bet', replace: true })}>
                     <CloseIcon width={24} height={24} className="size-6" />

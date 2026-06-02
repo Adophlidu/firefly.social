@@ -64,6 +64,17 @@ function getLiveScoreLabel(model: PredictionSportsCellViewModel): string {
     return 'LIVE';
 }
 
+function getFinishedScoreLabel(model: PredictionSportsCellViewModel): string {
+    const homeScore = model.homeTeam.score;
+    const awayScore = model.awayTeam.score;
+
+    if (typeof homeScore === 'number' && typeof awayScore === 'number') {
+        return `${homeScore} - ${awayScore}`;
+    }
+
+    return '';
+}
+
 function TeamColumn({ team }: { team: PredictionSportsTeamForUI }) {
     const label = getTeamAbbreviation(team);
 
@@ -108,6 +119,13 @@ const RecommendationCard = memo<{ item: SportRecommendationItem }>(function Reco
                                     <span className="min-w-0 truncate text-second">{model.statusLabel}</span>
                                 </>
                             ) : null}
+                        </span>
+                    </>
+                ) : model.gamePhase === 'finished' ? (
+                    <>
+                        <span className="text-xl font-bold leading-6 text-main">{getFinishedScoreLabel(model)}</span>
+                        <span className="rounded bg-[#f0f0f0] px-1.5 py-0.5 text-xs font-bold text-second dark:bg-[#3a3a3a]">
+                            <Trans>FINAL</Trans>
                         </span>
                     </>
                 ) : (
