@@ -568,6 +568,5 @@ export class FireflyEndpoint extends Fetch {
         });
         return resolveFireflyResponseData(result.data);
     }
-
     // #endregion
 }

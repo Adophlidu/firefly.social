@@ -1,4 +1,4 @@
-import { IS_DEVELOPMENT, IS_PRODUCTION } from '@dimensiondev/constants';
+import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
@@ -6,9 +6,9 @@ import { z } from 'zod';
 import { encodeAsciiPayload, encodeNoAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { logger } from '@/libs/Logger.js';
 import { BaseSession } from '@/providers/base/Session.js';
+import { exchangeLegacyFireflyToken } from '@/providers/firefly/endpoint/exchangeLegacyFireflyToken.js';
+import { refreshFireflyToken } from '@/providers/firefly/endpoint/refreshFireflyToken.js';
 import type { Session } from '@/providers/types/Session.js';
-import { exchangeLegacyFireflyToken } from '@/services/exchangeLegacyFireflyToken.js';
-import { refreshFireflyToken } from '@/services/refreshFireflyToken.js';
 
 export const FireflySessionSignature = z.object({
     address: z.string(),

@@ -130,6 +130,9 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
             this.refreshPromise = session
                 .refresh()
                 .then(() => dispatchCustomEvent(EVENT_FIREFLY_SESSION_REFRESHED, session.serialize()))
+                .catch((error: unknown) => {
+                    logger.warn('[FireflySession] Failed to refresh token', error);
+                })
                 .finally(() => {
                     this.refreshPromise = null;
                 });
@@ -147,9 +150,6 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
                 .upgrade()
                 .then(() => dispatchCustomEvent(EVENT_FIREFLY_SESSION_REFRESHED, session.serialize()))
                 .catch((error: unknown) => {
-                    // Best-effort: the legacy token still works as a fallback auth header,
-                    // so a failed upgrade must not break the request. It will be retried on
-                    // the next request until it succeeds.
                     logger.warn('[FireflySession] Failed to upgrade legacy session to v3', error);
                 })
                 .finally(() => {
