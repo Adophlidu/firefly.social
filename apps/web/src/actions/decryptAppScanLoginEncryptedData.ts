@@ -34,7 +34,9 @@ export async function decryptAppScanLoginEncryptedData(
     const authData = parseJson<AuthDataFromApp>(decryptedData);
     if (!authData) return { error: 'Decryption failed.' };
 
-    const allConnectionsFromAuthToken = await getAllConnectionsFromAuthToken(authData.firefly_account_token);
+    const allConnectionsFromAuthToken = await getAllConnectionsFromAuthToken(
+        authData.firefly_access_token ?? authData.firefly_account_token,
+    );
     const fireflyProfile = formatFireflyAccountProfileFromFireflyConnections(allConnectionsFromAuthToken.account);
     if (!fireflyProfile) return { error: 'The firefly account not found.' };
 
@@ -90,10 +92,24 @@ export async function decryptAppScanLoginEncryptedData(
         }
     }
 
-    const fireflySession = new FireflySession(fireflyProfile.uid, authData.firefly_account_token, null, null, false, {
-        ...fireflyProfile,
-        isNew: false,
-    });
+    const fireflySession = new FireflySession(
+        fireflyProfile.uid,
+        authData.firefly_access_token ?? authData.firefly_account_token,
+        null,
+        null,
+        false,
+        {
+            ...fireflyProfile,
+            isNew: false,
+        },
+        authData.firefly_access_token
+            ? {
+                  sessionId: authData.firefly_session_id,
+                  accessToken: authData.firefly_access_token,
+                  refreshToken: authData.firefly_refresh_token,
+              }
+            : null,
+    );
 
     return {
         fireflySession: fireflySession.serialize(),

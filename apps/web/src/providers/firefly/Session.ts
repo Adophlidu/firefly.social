@@ -93,9 +93,9 @@ export class FireflySession extends BaseSession implements Session {
          * @deprecated
          * This field always false. Use `payload.isNew` instead
          */
-        public isNew?: boolean,
-        public payload?: z.infer<typeof FireflySessionPayload>,
-        public jwtPayload?: z.infer<typeof FireflyJwtPayload>,
+        public isNew: boolean,
+        public payload: z.infer<typeof FireflySessionPayload> | null,
+        public jwtPayload: z.infer<typeof FireflyJwtPayload> | null,
     ) {
         // expiresAt is derived from the v3 access token (carries issued_at_ms).
         // session.token holds the legacy v1 token and is read-only going forward.

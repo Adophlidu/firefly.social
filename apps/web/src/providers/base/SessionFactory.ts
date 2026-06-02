@@ -194,7 +194,7 @@ export class SessionFactory {
                         signature,
                         false, // @deprecated
                         payload,
-                        jwtPayloadParsed?.data,
+                        jwtPayloadParsed?.data ?? null,
                     );
                 }
                 case SessionType.Apple:

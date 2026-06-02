@@ -1,4 +1,5 @@
 import { SessionType, Source, SourceInURL, STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs/web';
 
 import { encrypt } from '@/helpers/encodec.js';
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
@@ -15,7 +16,6 @@ import type {
     SocialAccountLens,
     SocialAccountTwitter,
 } from '@/types/sync.js';
-import { envs } from '@dimensiondev/envs/web';
 
 export async function syncDesktopAccounts(session: string, cryptoKey: string) {
     const fireflySession = getSessionFromStorage(SessionType.Firefly);
@@ -63,27 +63,34 @@ export async function syncDesktopAccounts(session: string, cryptoKey: string) {
         }),
     );
 
+    const fireflyAccountData = {
+        firefly_account_token: fireflySession.token,
+        account_id: fireflySession.payload?.accountId,
+        account_uid: fireflySession.payload?.uid,
+        display_name: fireflySession.payload?.displayName,
+        avatar: fireflySession.payload?.avatar,
+    };
+
     // Prepare and encrypt the account data payload on client
     const accountDataPayload = JSON.stringify({
         twitterAccounts,
         farcasterAccounts,
         lensAccounts,
         bskyAccounts,
-        fireflyAccountData: {
-            // @deprecated - for legacy session
-            firefly_account_token: fireflySession.token,
-            account_id: fireflySession?.payload?.accountId,
-            account_uid: fireflySession?.payload?.uid,
-            display_name: fireflySession?.payload?.displayName,
-            avatar: fireflySession?.payload?.avatar,
-            ...(envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled && fireflySession.jwtPayload
+        fireflyAccountData:
+            envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled && fireflySession.jwtPayload
                 ? {
+                      ...fireflyAccountData,
+
+                      // remove the legacy token
+                      firefly_account_token: '',
+
+                      // jwt
                       firefly_session_id: fireflySession.jwtPayload.sessionId,
                       firefly_access_token: fireflySession.jwtPayload.accessToken,
                       firefly_refresh_token: fireflySession.jwtPayload.refreshToken,
                   }
-                : null),
-        },
+                : fireflyAccountData,
     } satisfies DesktopSyncPayload);
     const encryptedPayload = await encrypt(accountDataPayload, cryptoKey);
 

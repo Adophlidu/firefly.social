@@ -38,8 +38,14 @@ export interface SocialAccountBsky {
 export type SocialAccount = SocialAccountTwitter | SocialAccountFarcaster | SocialAccountLens | SocialAccountBsky;
 
 export interface AuthDataFromApp {
+    // @deprecated - for legacy session
     firefly_account_token: string;
     social_accounts: SocialAccount[];
+
+    // jwt
+    firefly_session_id?: string;
+    firefly_access_token?: string;
+    firefly_refresh_token?: string;
 }
 
 export interface AuthDataToUpload extends AuthDataFromApp {

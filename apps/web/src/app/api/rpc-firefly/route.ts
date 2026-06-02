@@ -68,7 +68,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
 
         // Create a minimal FireflySession with the provided token
         // We use a dummy accountId since we only need the token for API calls
-        const session = new FireflySession('dummy-account-id', token, null, null);
+        const session = new FireflySession('dummy-account-id', token, null, null, false, null, null);
         fireflySessionHolder.resumeSession(session);
     }
 
