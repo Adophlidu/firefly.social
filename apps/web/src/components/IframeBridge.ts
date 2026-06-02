@@ -11,6 +11,7 @@ import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
+import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { useRouter } from '@/esm/navigation.js';
 import {
     enqueueErrorMessage,
@@ -29,9 +30,38 @@ import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import type { Chars } from '@/types/chars.js';
 
 interface FollowAccountsData {
     accounts: Array<{ source: SocialSource; handle: string; profileId: string }>;
+}
+
+const FIREFLY_MENTION_IN_TEXT_RE = /@firefly(?![A-Za-z0-9_./-])/gi;
+
+function transformComposeTextToChars(text: string): Chars {
+    const matches = Array.from(text.matchAll(FIREFLY_MENTION_IN_TEXT_RE));
+    if (!matches.length) return text;
+
+    const result: Array<string | typeof FIREFLY_MENTION> = [];
+    let lastIndex = 0;
+
+    for (const match of matches) {
+        if (match.index === undefined) continue;
+        if (match.index > lastIndex) {
+            result.push(text.slice(lastIndex, match.index));
+        }
+        result.push({
+            ...FIREFLY_MENTION,
+            content: match[0],
+        });
+        lastIndex = match.index + match[0].length;
+    }
+
+    if (lastIndex < text.length) {
+        result.push(text.slice(lastIndex));
+    }
+
+    return result;
 }
 
 /**
@@ -92,7 +122,8 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
             );
         },
         [IframeBridgeMethod.COMPOSE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.COMPOSE]) => {
-            const result = await openAndWaitForCloseComposeModal({ type: 'compose', chars: params.text });
+            const chars = transformComposeTextToChars(params.text);
+            const result = await openAndWaitForCloseComposeModal({ type: 'compose', chars });
             if (result) return result.post?.postId;
             return undefined;
         },
