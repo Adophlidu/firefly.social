@@ -9,6 +9,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { sum, uniqBy } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
+import { queryMutedProfiles } from '@/batches/queryMutedProfiles.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -18,7 +19,6 @@ import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollowsInPage } from '@/services/getSuggestedFollows.js';
-import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 
 interface Props {
     source: SocialSource;

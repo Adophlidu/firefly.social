@@ -6,10 +6,10 @@ import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
+import { getPostPublishPlatformInfo } from '@/batches/getPostPublishPlatformInfo.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostPublishPlatformInfo } from '@/services/getPostPublishPlatformInfo.js';
 
 interface Props {
     post: Post;

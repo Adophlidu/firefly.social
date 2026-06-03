@@ -4,11 +4,11 @@ import { runInSafe, runInSafeAsync } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { compact, uniqBy } from 'lodash-es';
 
+import { checkFifaCampAccounts } from '@/batches/checkFifaCampAccounts.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { getFifaCampAvatarFromInfo } from '@/helpers/isFifaCampAvatarEligible.js';
 import { isWorldCupEnabled } from '@/helpers/isWorldCupEnabled.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
-import { checkFifaCampAccounts } from '@/providers/firefly/endpoint/checkFifaCampAccounts.js';
 import type { FifaCampAccountInfo } from '@/providers/types/Firefly.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';

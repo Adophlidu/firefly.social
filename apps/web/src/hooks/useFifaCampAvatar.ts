@@ -1,10 +1,10 @@
 import type { ProfilePageSource } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 
+import { checkFifaCampAccount } from '@/batches/checkFifaCampAccounts.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getFifaCampAvatarFromInfo } from '@/helpers/isFifaCampAvatarEligible.js';
 import { isWorldCupEnabled } from '@/helpers/isWorldCupEnabled.js';
-import { checkFifaCampAccount } from '@/providers/firefly/endpoint/checkFifaCampAccounts.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 type FifaCampProfileInput =

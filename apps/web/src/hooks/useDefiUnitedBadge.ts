@@ -6,7 +6,7 @@ import {
     type BadgeLevelPlatform,
     type DefiUnitedBadgeInfo,
     fetchDefiUnitedBadgeLevel,
-} from '@/providers/firefly/worker/fetchDefiUnitedBadgeLevel.js';
+} from '@/batches/fetchDefiUnitedBadgeLevel.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 const SOURCE_TO_PLATFORM: Partial<Record<Source, BadgeLevelPlatform>> = {

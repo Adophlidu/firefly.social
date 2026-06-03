@@ -2,8 +2,8 @@ import type { ProfilePageSource } from '@dimensiondev/enums';
 import { SparksAccountStatus } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 
+import { checkGenesisSparksAccount } from '@/batches/checkGenesisSparksAccounts.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { checkGenesisSparksAccount } from '@/providers/firefly/endpoint/checkGenesisSparksAccounts.js';
 
 const checkedAccountIds = new Set<string>();
 

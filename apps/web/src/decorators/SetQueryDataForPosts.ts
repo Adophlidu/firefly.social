@@ -3,11 +3,11 @@ import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
+import { queryMutedProfiles } from '@/batches/queryMutedProfiles.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
-import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = [

@@ -12,6 +12,7 @@ import { useMemo } from 'react';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { queryMutedProfiles } from '@/batches/queryMutedProfiles.js';
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
@@ -25,7 +26,6 @@ import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
-import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 

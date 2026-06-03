@@ -1,9 +1,9 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 
+import { queryMutedProfiles } from '@/batches/queryMutedProfiles.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
-import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = [
