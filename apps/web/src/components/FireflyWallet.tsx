@@ -20,6 +20,8 @@ import { usePathname } from '@/esm/navigation.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -71,6 +73,14 @@ export function FireflyWallet() {
             updateFireflyWalletIsOpen(false);
         }
     }, [isHidePath, isOpen, updateFireflyWalletIsOpen]);
+
+    useUpdateEffect(() => {
+        if (isOpen) {
+            captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
+                wallet_address: privyConnections[0]?.address ?? '',
+            });
+        }
+    }, [isOpen, privyConnections]);
 
     if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
 

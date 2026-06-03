@@ -6,7 +6,7 @@ import { InvalidPolymarketAccountError } from '@/constants/error.js';
 
 interface ErrorBoundaryProps {
     children: ReactNode;
-    fallback: (props: ErrorPageProps) => ReactNode;
+    fallback: React.ComponentType<ErrorPageProps>;
     /** If provided, called instead of the default captureException. */
     catch?: (error: Error, info: React.ErrorInfo) => void;
 }
@@ -41,10 +41,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
         const { error } = this.state;
 
         if (error) {
-            return this.props.fallback({
-                error,
-                reset: this.resetError,
-            });
+            const FallbackComponent = this.props.fallback;
+            return <FallbackComponent error={error} reset={this.resetError} />;
         }
 
         return this.props.children;

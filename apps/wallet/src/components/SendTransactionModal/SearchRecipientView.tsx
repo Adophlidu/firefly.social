@@ -28,6 +28,7 @@ import { RecipientItem, type RecipientItemProps } from '@/components/SendTransac
 import { type FormValues, RoutePath } from '@/components/SendTransactionModal/types.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflyWorkerEndpoint } from '@/providers/firefly/worker.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
@@ -75,6 +76,14 @@ export function SearchRecipientView() {
                     });
                     return;
                 }
+                captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_SELECT, {
+                    chain_id: token.chainId,
+                    recipient_type: recipient.source ? 'social_user' : 'onchain_address',
+                    target_firefly_account_id: recipient.fireflyId ?? undefined,
+                    target_social_handle: recipient.handle ?? undefined,
+                    target_wallet_address: recipient.address,
+                    target_ens: recipient.ens ?? undefined,
+                });
                 setValue('recipient', recipient);
                 setValue('to', recipient.address, {
                     shouldValidate: true,

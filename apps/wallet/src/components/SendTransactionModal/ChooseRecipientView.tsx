@@ -6,6 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { Navigate, useLocation, useRouter } from '@tanstack/react-router';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
@@ -21,6 +22,7 @@ import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFirefly
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { filterAndSortWalletProfiles, isFireflyVerified } from '@/helpers/sortWalletProfiles.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
@@ -28,9 +30,18 @@ export function ChooseRecipientView() {
     const { setValue, control } = useFormContext<FormValues>();
     const token = useWatch({ control, name: 'token' });
     const { state } = useLocation();
-    const recipient = (state as unknown as { recipient: RecipientItemProps }).recipient;
+    const recipient = (state as unknown as { recipient?: RecipientItemProps })?.recipient;
     const router = useRouter();
-    if (!state || !isSocialRecipient(recipient)) {
+
+    useEffect(() => {
+        if (!recipient) return;
+        captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_CHANGE_WALLET_CLICK, {
+            target_firefly_account_id: recipient.fireflyId ?? undefined,
+            target_social_handle: recipient.handle ?? undefined,
+        });
+    }, [recipient, recipient?.fireflyId, recipient?.handle]);
+
+    if (!state || !recipient || !isSocialRecipient(recipient)) {
         return <Navigate to={RoutePath.Form} />;
     }
     return (
@@ -51,9 +62,22 @@ export function ChooseRecipientView() {
             <ChooseRecipient
                 recipient={recipient}
                 networkType={token.networkType}
-                onClick={(recipient) => {
-                    setValue('recipient', recipient);
-                    setValue('to', recipient.address);
+                onClick={(chosenRecipient) => {
+                    captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_SELECT, {
+                        chain_id: token.chainId,
+                        recipient_type: 'social_user',
+                        target_firefly_account_id: chosenRecipient.fireflyId ?? undefined,
+                        target_social_handle: chosenRecipient.handle ?? undefined,
+                        target_wallet_address: chosenRecipient.address,
+                        target_ens: chosenRecipient.ens ?? undefined,
+                    });
+                    captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_WALLET_CHANGE, {
+                        target_firefly_account_id: chosenRecipient.fireflyId ?? undefined,
+                        target_social_handle: chosenRecipient.handle ?? undefined,
+                        target_wallet_address: chosenRecipient.address,
+                    });
+                    setValue('recipient', chosenRecipient);
+                    setValue('to', chosenRecipient.address);
                     router.navigate({ to: RoutePath.Form });
                 }}
             />

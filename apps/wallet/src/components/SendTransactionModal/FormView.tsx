@@ -49,6 +49,7 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useAutoHeightTextarea } from '@/hooks/useAutoHeightTextarea.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { cn } from '@/lib/utils.js';
@@ -245,6 +246,21 @@ function Form() {
                 }
 
                 const to = values.to;
+                const walletAddress = networkType === NetworkType.Ethereum ? evmAddress : solanaAddress;
+                const walletType = networkType === NetworkType.Ethereum ? ('evm' as const) : ('sol' as const);
+                const recipientType = values.recipient?.source
+                    ? ('social_user' as const)
+                    : ('onchain_address' as const);
+
+                captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_TRANSACTION_CALL, {
+                    txn_type: 'transfer',
+                    firefly_wallet_address: walletAddress,
+                    firefly_wallet_type: walletType,
+                    use_firefly_transfer: true,
+                    recipient_type: recipientType,
+                    recipient_social_handle: values.recipient?.handle ?? undefined,
+                });
+
                 const transfer = resolveTransferProvider(networkType);
                 let connector: Awaited<ReturnType<typeof resolveEvmConnector>> = null;
                 let signingWallet: ReturnType<typeof resolveSwapEvmSigningWallet> = null;
@@ -263,26 +279,36 @@ function Form() {
                     amount: values.amount,
                     connector: connector ?? undefined,
                 });
+
+                const chainId = values.token.chainId;
+
+                captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_TRANSACTION_SUBMIT_SUCCESS, {
+                    txn_type: 'transfer',
+                    txn_hash: hash,
+                    firefly_wallet_address: walletAddress,
+                    firefly_wallet_type: walletType,
+                    chain_id: chainId,
+                    target_wallet_address: to,
+                    use_firefly_transfer: true,
+                    recipient_type: recipientType,
+                    recipient_social_handle: values.recipient?.handle ?? undefined,
+                    token_symbol: values.token.symbol,
+                    token_amount: Number(values.amount),
+                });
+
+                captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_SUCCESS, {
+                    wallet_address: walletAddress,
+                    target_wallet_address: to,
+                    target_firefly_account_id: values.recipient?.fireflyId ?? undefined,
+                    amount: Number(values.amount),
+                    currency: values.token.symbol,
+                    chain_id: chainId,
+                });
+
                 router.navigate({
                     to: RoutePath.Success,
                     state: { ...values, hash } as unknown as HistoryState,
                 });
-                let address: string | undefined;
-                switch (networkType) {
-                    case NetworkType.Ethereum:
-                        address = evmAddress!;
-                        break;
-                    case NetworkType.Solana:
-                        address = solanaAddress;
-                        break;
-                    default:
-                        safeUnreachable(networkType);
-                        return;
-                }
-
-                if (!address) return;
-
-                // TODO: capture firefly wallet event
             } catch (error) {
                 router.navigate({
                     to: RoutePath.Failed,

@@ -16,9 +16,7 @@ import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
-import { EventId } from '@/providers/types/Telemetry.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function WalletActions({ profile }: { profile: WalletProfile }) {
@@ -35,10 +33,6 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
             <ClickableButton
                 onClick={() => {
                     if (!profile.dataSource) return;
-                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
-                        wallet_address: profile.address,
-                        MPC_type: WalletProfileDataSource.Privy,
-                    });
 
                     switch (profile.dataSource) {
                         case WalletProfileDataSource.Particle:

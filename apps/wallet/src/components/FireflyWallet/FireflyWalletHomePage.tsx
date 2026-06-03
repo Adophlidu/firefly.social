@@ -12,6 +12,7 @@ import { FireflyWalletHomePageUI } from '@/components/FireflyWallet/FireflyWalle
 import { PerpsEntry } from '@/components/Perps/PerpsEntry.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { ModalType } from '@/configs/modalRoutes.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useTotalBalance } from '@/hooks/useTotalBalance.js';
 import { resetSwapWalletContext } from '@/store/swap/swapState.js';
 
@@ -25,6 +26,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
     const currentPathname = location.pathname;
 
     const openReceiveModal = useCallback(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_RECEIVE_CLICK, {});
         navigate({
             to: location.pathname,
             search: { modal: ModalType.Receive },
@@ -40,6 +42,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
     }, []);
 
     const openSwap = useCallback(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SWAP_CLICK, {});
         resetSwapCtx();
         navigate({ to: '/swap' });
     }, [navigate, resetSwapCtx]);
@@ -52,6 +55,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                 className="w-full max-w-[800px]"
                 onReceive={openReceiveModal}
                 onSend={() => {
+                    captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_CLICK, {});
                     navigate({ to: '/send/tokens' });
                 }}
                 onSwap={openSwap}
@@ -62,7 +66,14 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
             </FireflyWalletHomePageUI>
             <Tabs
                 value={currentPathname}
-                onValueChange={(value) => navigate({ to: value, resetScroll: false })}
+                onValueChange={(value) => {
+                    if (value === '/transactions') {
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_TRANSACTIONS_TAB_CLICK, {});
+                    } else if (value === '/') {
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_TOKENS_TAB_CLICK, {});
+                    }
+                    navigate({ to: value, resetScroll: false });
+                }}
                 className="sticky top-0 z-10 mb-2 mt-4 w-full max-w-[800px] bg-primaryBottom px-4"
             >
                 <TabsList variant="second" className="w-full">

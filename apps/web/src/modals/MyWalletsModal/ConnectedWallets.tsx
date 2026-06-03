@@ -1,7 +1,7 @@
 import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
-import { ConnectionSource, NetworkType, WalletProfileDataSource } from '@dimensiondev/enums';
+import { ConnectionSource, NetworkType } from '@dimensiondev/enums';
 import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -20,8 +20,6 @@ import { type AppKitAccount, useAppKitAccounts, usePrivyAppKitAccounts } from '@
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { AppKitAccountItem } from '@/modals/MyWalletsModal/AppKitAccountItem.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
-import { EventId } from '@/providers/types/Telemetry.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -49,10 +47,6 @@ const FireflyWalletPanel = memo<Props>(function FireflyWalletPanel({ onOpenWalle
             <button
                 className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                 onClick={() => {
-                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
-                        wallet_address: privyAccounts[0]?.address,
-                        MPC_type: WalletProfileDataSource.Privy,
-                    });
                     updateFireflyWalletIsOpen(true);
                 }}
             >
