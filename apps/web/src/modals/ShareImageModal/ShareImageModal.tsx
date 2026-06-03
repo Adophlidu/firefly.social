@@ -32,6 +32,7 @@ export function ShareImageModal({ ref }: Props) {
     const isMedium = useIsMedium();
 
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'share-image-modal',
         onOpen: (props) => {
             aspectRatio = props.aspectRatio || '1 / 1';
             setProps(props);

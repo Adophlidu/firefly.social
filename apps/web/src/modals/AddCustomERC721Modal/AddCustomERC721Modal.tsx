@@ -142,6 +142,7 @@ interface Props {
 export function AddCustomERC721Modal({ ref }: Props) {
     const [props, setProps] = useState<AddCustomERC721ModalOpenProps | undefined>();
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'add-custom-erc721-modal',
         onOpen(props) {
             setProps(props);
         },

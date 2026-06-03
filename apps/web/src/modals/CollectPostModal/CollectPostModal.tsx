@@ -21,6 +21,7 @@ interface Props {
 export function CollectPostModal({ ref }: Props) {
     const [props, setProps] = useState<CollectPostModalOpenProps>();
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'collect-post-modal',
         onOpen: (props) => {
             setProps({
                 post: props.post,

@@ -180,6 +180,7 @@ interface Props {
 export function AddCustomERC20Modal({ ref }: Props) {
     const [props, setProps] = useState<AddCustomERC20ModalOpenProps | undefined>();
     const [open, dispatch, mounted] = useSingletonModal(ref, {
+        name: 'add-custom-erc20-modal',
         onOpen(props) {
             setProps(props);
         },

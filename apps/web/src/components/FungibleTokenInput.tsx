@@ -22,7 +22,7 @@ import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { TokenSelectorModalRef } from '@/modals/TokenSelectorModal/refs.js';
+import { openAndWaitForCloseTokenSelectorModal } from '@/helpers/openTokenSelectorModal.js';
 
 const MIN_AMOUNT_LENGTH = 1;
 const MAX_AMOUNT_LENGTH = 79;
@@ -54,7 +54,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
 }) {
     const handleTokenChange = useCallback(async () => {
         if (!account) return;
-        const picked = await TokenSelectorModalRef.openAndWaitForClose({
+        const picked = await openAndWaitForCloseTokenSelectorModal({
             networkType,
             address: account,
             validChainIds: rpSupportedChains.map((chain) => chain.id),

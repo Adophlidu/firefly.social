@@ -11,8 +11,8 @@ import { memo } from 'react';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal/refs.js';
-import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/refs.js';
+import { openRecoveryPhraseModal } from '@/helpers/openRecoveryPhraseModal.js';
+import { openVerifiedAddressModal } from '@/helpers/openVerifiedAddressModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
@@ -38,7 +38,7 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
                     {({ close }) => (
                         <MenuButton
                             onClick={() => {
-                                VerifiedAddressModalRef.open({
+                                openVerifiedAddressModal({
                                     fid: profile.profileId,
                                 });
                                 close();
@@ -57,7 +57,7 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
                             <MenuButton
                                 onClick={() => {
                                     close();
-                                    RecoveryPhraseModalRef.open({
+                                    openRecoveryPhraseModal({
                                         fid: profile.profileId,
                                     });
                                 }}

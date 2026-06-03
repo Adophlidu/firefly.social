@@ -29,6 +29,7 @@ export function SignupModal({ ref }: Props) {
     const [props, setProps] = useState<SignupModalOpenProps>();
     const [loading, setLoading] = useState(false);
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'signup-modal',
         onOpen: (props) => {
             setProps(props);
         },

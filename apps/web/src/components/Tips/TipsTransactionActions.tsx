@@ -26,13 +26,13 @@ import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
 import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openShareImageModal } from '@/helpers/openShareImageModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import type { ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
-import { ShareImageModalRef } from '@/modals/ShareImageModal/refs.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import type { TipsLikeStatusData } from '@/providers/types/Firefly.js';
@@ -207,7 +207,7 @@ export function TipsTransactionActions({
                                 <MenuButton
                                     onClick={() => {
                                         close();
-                                        ShareImageModalRef.open({
+                                        openShareImageModal({
                                             imageUrl: urlcat(SITE_URL, 'api/og/tip/:hash/image', {
                                                 hash: txHash,
                                                 view,

@@ -5,7 +5,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { EditProfileModalRef } from '@/modals/EditProfileModal/refs.js';
+import { openEditProfileModal } from '@/helpers/openEditProfileModal.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -23,7 +23,7 @@ export function EditProfileButton({ profile, variant = 'text', className, ref, .
         <ClickableButton
             {...props}
             onClick={() => {
-                EditProfileModalRef.open({ profile });
+                openEditProfileModal({ profile });
                 captureEditProfileClickEvent();
             }}
             className={classNames(

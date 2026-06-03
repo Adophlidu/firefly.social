@@ -16,6 +16,7 @@ interface Props {
 export function EditProfileModal({ ref }: Props) {
     const [profile, setProfile] = useState<Profile | undefined>(undefined);
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'edit-profile-modal',
         onOpen: (props) => {
             setProfile(props.profile);
         },

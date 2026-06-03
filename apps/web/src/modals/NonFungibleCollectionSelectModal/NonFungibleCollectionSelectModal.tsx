@@ -11,8 +11,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { openAddCustomERC721Modal } from '@/helpers/openAddCustomERC721Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal/refs.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import type {
     NonFungibleCollectionSelectModalOpenProps,
@@ -71,7 +71,7 @@ export function NonFungibleCollectionSelectModal({ ref }: Props) {
                     <ClickableButton
                         className="absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
                         onClick={() => {
-                            AddCustomERC721ModalRef.open({
+                            openAddCustomERC721Modal({
                                 initialChainId: props.initialAddTokenChainId ?? chainId,
                             });
                         }}

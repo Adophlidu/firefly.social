@@ -1,7 +1,7 @@
-type DismissibleLayerEvent = {
+interface DismissibleLayerEvent {
     target: EventTarget | null;
     preventDefault: () => void;
-};
+}
 
 export function isSonnerInteractionTarget(target: EventTarget | null): boolean {
     return target instanceof Element && target.closest('[data-sonner-toaster]') !== null;

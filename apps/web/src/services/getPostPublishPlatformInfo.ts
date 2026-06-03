@@ -35,6 +35,7 @@ async function fetcher(payloads: PostPayload[]): Promise<Record<string, boolean>
     const result: Record<string, boolean> = {};
     for (const [source, record] of records) {
         if (!record?.posts) continue;
+
         for (const [postId, published] of Object.entries(record.posts)) {
             result[makeKey(source, postId)] = published;
         }

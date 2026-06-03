@@ -28,7 +28,9 @@ interface Props {
 }
 
 export const SignInToFireflyAppModal = memo(function SignInToFireflyAppModal({ ref }: Props) {
-    const [open, dispatch] = useSingletonModal(ref);
+    const [open, dispatch] = useSingletonModal(ref, {
+        name: 'sign-in-to-firefly-app-modal',
+    });
     const queryClient = useQueryClient();
     const onClose = useCallback(async () => {
         dispatch?.close();

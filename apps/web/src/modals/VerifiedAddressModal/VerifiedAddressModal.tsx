@@ -17,6 +17,7 @@ interface Props {
 export function VerifiedAddressModal({ ref }: Props) {
     const [props, setProps] = useState<VerifiedAddressModalProps | void>();
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'verified-address-modal',
         onOpen: (props) => setProps(props),
     });
     const contentRef = useRef<HTMLDivElement>(null);

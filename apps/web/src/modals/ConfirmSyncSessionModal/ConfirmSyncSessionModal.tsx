@@ -18,6 +18,7 @@ interface Props {
 export function ConfirmSyncSessionModal({ ref }: Props) {
     const [profiles, setProfiles] = useState<Profile[]>([]);
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'confirm-sync-session-modal',
         onOpen: async ({ profiles }) => {
             setProfiles(profiles);
         },

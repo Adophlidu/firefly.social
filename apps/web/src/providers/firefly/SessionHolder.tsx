@@ -123,6 +123,7 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
         options?: NextFetchersOptions,
     ): Promise<T> {
         await this.refreshTokenOnce(session);
+
         try {
             return await this.fetchWithToken<T>(url, resolveToken(session), init, options);
         } catch (error) {

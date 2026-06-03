@@ -26,6 +26,7 @@ export function AddWalletModal({ ref }: Props) {
         connections: EMPTY_LIST,
     });
     const [open, dispatch, mounted] = useSingletonModal(ref, {
+        name: 'add-wallet-modal',
         onOpen: (props) => {
             setProps(props);
         },

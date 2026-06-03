@@ -28,6 +28,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
     const [showPhrase, setShowPhrase] = useState(false);
 
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'recovery-phrase-modal',
         onOpen: (props) => {
             setProps(props);
             setShowPhrase(false);

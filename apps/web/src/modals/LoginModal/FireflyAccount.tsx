@@ -25,8 +25,8 @@ import { openEditFireflyProfileModal } from '@/helpers/openEditFireflyProfileMod
 import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { openLogoutModal } from '@/helpers/openLogoutModal.js';
 import { openAndWaitForClosePasswordModal } from '@/helpers/openPasswordModal.js';
+import { openSignInToFireflyAppModal } from '@/helpers/openSignInToFireflyAppModal.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal/refs.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import { captureMultiDeviceLoginClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
@@ -153,7 +153,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                         return;
                                     }
                                     closeLoginModal();
-                                    SignInToFireflyAppModalRef.open();
+                                    openSignInToFireflyAppModal();
                                 }}
                             >
                                 <ScanIcon width={18} height={18} />

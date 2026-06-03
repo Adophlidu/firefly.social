@@ -11,10 +11,10 @@ import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
+import { openAddCustomERC20Modal } from '@/helpers/openAddCustomERC20Modal.js';
 import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal/refs.js';
 import type { TokenSelectorModalOpenProps, TokenSelectorModalRefType } from '@/modals/TokenSelectorModal/refs.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -29,6 +29,7 @@ export function TokenSelectorModal({ ref }: Props) {
     const account = useAccountByNetwork(props?.networkType);
 
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'token-selector-modal',
         onOpen: (newProps) => setProps(newProps),
         onClose: () => setProps(undefined),
     });
@@ -62,7 +63,7 @@ export function TokenSelectorModal({ ref }: Props) {
                         <ClickableButton
                             className="absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
                             onClick={() => {
-                                AddCustomERC20ModalRef.open({
+                                openAddCustomERC20Modal({
                                     validChainIds: props.validChainIds,
                                     initialChainId: props.initialAddTokenChainId ?? chainId,
                                 });

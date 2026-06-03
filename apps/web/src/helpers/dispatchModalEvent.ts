@@ -128,6 +128,66 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'verified-address-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'token-selector-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'signup-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'sign-in-to-firefly-app-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'share-image-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'recovery-phrase-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'edit-profile-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'confirm-sync-session-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'collect-post-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'add-wallet-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'add-custom-erc721-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
+    'add-custom-erc20-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
 }
 
 export function dispatchModalEvent<K extends keyof ModalEvents>(
