@@ -1,7 +1,7 @@
 import { type ForwardedRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 import { EVENT_MODAL } from '@/constants/event.js';
-import type { ModalEvents } from '@/helpers/dispatchModalEvent.js';
+import type { ModalEvents } from '@/controllers/dispatchModalEvent.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 interface SingleModalOptions<OpenProps, CloseProps> {

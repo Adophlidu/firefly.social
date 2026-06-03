@@ -10,8 +10,8 @@ import { compact, first, last } from 'lodash-es';
 import { useCallback } from 'react';
 
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { useRouter } from '@/esm/navigation.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

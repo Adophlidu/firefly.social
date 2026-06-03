@@ -8,9 +8,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
 import type { OptionsObject, SnackbarKey, SnackbarMessage } from '@/components/Snackbar.js';
 import { WarnSnackbar } from '@/components/WarnSnackbar.js';
+import { closeSnackbar, openSnackbar } from '@/controllers/openSnackbar.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { closeSnackbar, openSnackbar } from '@/helpers/openSnackbar.js';
 
 export enum MessageKey {
     COMPOSE_ERROR_NOTIFICATION_KEY = 'COMPOSE_NOTIFICATION_KEY',

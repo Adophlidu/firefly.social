@@ -2,8 +2,8 @@ import { AsyncStatus, Source } from '@dimensiondev/enums';
 import { memo, type ReactNode, useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useWatchProfileFollowStatus } from '@/hooks/useWatchProfileFollowStatus.js';

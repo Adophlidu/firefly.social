@@ -20,9 +20,9 @@ import { useAsyncFn } from 'react-use';
 import { ImageWithLoading } from '@/app/[locale]/(whiteboard)/components/Signup/ImageWithLoading.js';
 import { SocialAvatarSelector } from '@/app/[locale]/(whiteboard)/components/Signup/SocialAvatarSelector.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { openAndWaitForCloseImageEditorModal } from '@/controllers/openImageEditorModal.js';
 import { Image } from '@/esm/Image.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 type AvatarType = 'pfp' | 'random' | 'custom';

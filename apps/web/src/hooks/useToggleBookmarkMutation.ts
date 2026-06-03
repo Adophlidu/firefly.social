@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 
 import type { SnackbarMessage } from '@/components/Snackbar.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 
 export interface UseToggleBookmarkMutationOptions<T> {
     isLoggedIn: boolean;

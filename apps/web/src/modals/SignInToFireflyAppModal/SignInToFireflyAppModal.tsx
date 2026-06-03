@@ -12,9 +12,9 @@ import urlcat from 'urlcat';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { Link } from '@/esm/Link.js';
 import { generateCryptoKey } from '@/helpers/generateCryptoKey.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { usePollingSyncChannelStatus } from '@/hooks/usePollingSyncChannelStatus.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SignInToFireflyAppModalRefType } from '@/modals/SignInToFireflyAppModal/refs.js';

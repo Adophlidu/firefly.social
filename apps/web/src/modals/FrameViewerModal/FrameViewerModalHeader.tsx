@@ -7,7 +7,7 @@ import { useAsyncFn } from 'react-use';
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
-import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { MoreAction } from '@/modals/FrameViewerModal/FrameViewerMoreAction.js';

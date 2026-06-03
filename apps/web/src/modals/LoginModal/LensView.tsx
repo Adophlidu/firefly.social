@@ -24,6 +24,8 @@ import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
+import { closeLoginModal } from '@/controllers/openLoginModal.js';
+import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import {
     enqueueForbiddenMessage,
     enqueueMessageFromError,
@@ -32,8 +34,6 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { closeLoginModal } from '@/helpers/openLoginModal.js';
-import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';

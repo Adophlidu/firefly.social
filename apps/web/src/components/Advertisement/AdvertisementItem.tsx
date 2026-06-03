@@ -6,7 +6,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 function isExternalLink(link: string, origin: string) {

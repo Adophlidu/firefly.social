@@ -12,7 +12,7 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
+import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { captureShareIconClickEvent, type ShareIconCellType } from '@/providers/telemetry/captureClickEvent.js';
 
 interface ShareActionProps {

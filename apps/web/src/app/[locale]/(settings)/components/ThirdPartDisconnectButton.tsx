@@ -3,7 +3,7 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { openAndWaitForCloseDisconnectFireflyAccountModal } from '@/helpers/openDisconnectFireflyAccountModal.js';
+import { openAndWaitForCloseDisconnectFireflyAccountModal } from '@/controllers/openDisconnectFireflyAccountModal.js';
 import type { Account } from '@/providers/types/Account.js';
 
 interface Props {

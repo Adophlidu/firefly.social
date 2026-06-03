@@ -7,8 +7,8 @@ import { memo } from 'react';
 import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 

@@ -4,10 +4,10 @@ import { t } from '@lingui/core/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
 import { FetchError } from '@/constants/error.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { usePathname } from '@/esm/navigation.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { fireflyBookmarkProvider } from '@/providers/firefly/Bookmark.js';
 

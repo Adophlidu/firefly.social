@@ -6,8 +6,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { reportArticle } from '@/providers/firefly/report/reportArticle.js';
 import type { Article } from '@/providers/types/Article.js';
 

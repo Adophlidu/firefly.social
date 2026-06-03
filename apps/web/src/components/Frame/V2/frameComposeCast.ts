@@ -1,9 +1,9 @@
 import { Source } from '@dimensiondev/enums';
 import type { MiniAppHost } from '@farcaster/miniapp-host';
 
+import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.js';
+import { closeFrameViewerModal } from '@/controllers/openFrameViewerModal.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
-import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
-import { closeFrameViewerModal } from '@/helpers/openFrameViewerModal.js';
 import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 
 export const frameComposeCast = async function (options) {

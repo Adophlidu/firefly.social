@@ -15,9 +15,9 @@ import { useConnection } from 'wagmi';
 
 import { IconButton } from '@/components/IconButton.js';
 import { STALE_TIMES } from '@/constants/query.js';
+import { openAndWaitForCloseAddLensManagerModal } from '@/controllers/openAddLensManagerModal.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { openAndWaitForCloseAddLensManagerModal } from '@/helpers/openAddLensManagerModal.js';
 import { createMemorySessionClient } from '@/providers/lens/createMemorySessionClient.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';

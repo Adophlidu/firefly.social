@@ -6,7 +6,7 @@ import { ProviderController as CoreProviderController } from '@reown/appkit-cont
 import type { Provider } from '@reown/appkit-utils/solana';
 
 import { WalletNotConnectedError } from '@/constants/error.js';
-import { openAndWaitForCloseWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import { openAndWaitForCloseWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/refs.js';
 
 export function getWalletAdapter() {

@@ -10,7 +10,7 @@ import type { Address } from 'viem';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

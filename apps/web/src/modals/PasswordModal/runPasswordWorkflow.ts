@@ -4,8 +4,8 @@ import { t } from '@lingui/core/macro';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
+import { closePasswordModal } from '@/controllers/openPasswordModal.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { closePasswordModal } from '@/helpers/openPasswordModal.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { resetPasscode } from '@/providers/firefly/metrics/resetPasscode.js';

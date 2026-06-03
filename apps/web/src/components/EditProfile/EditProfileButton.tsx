@@ -5,7 +5,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { openEditProfileModal } from '@/helpers/openEditProfileModal.js';
+import { openEditProfileModal } from '@/controllers/openEditProfileModal.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

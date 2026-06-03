@@ -10,9 +10,9 @@ import { useHover } from 'usehooks-ts';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { Link } from '@/esm/Link.js';
 import { useRouter } from '@/esm/navigation.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
 
 interface ToggleEnableButtonProps {

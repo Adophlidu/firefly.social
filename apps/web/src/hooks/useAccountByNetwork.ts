@@ -10,7 +10,7 @@ import { first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useConnection } from 'wagmi';
 
-import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
 enum SolanaNetworkType {

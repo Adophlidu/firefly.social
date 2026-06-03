@@ -7,7 +7,7 @@ import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';

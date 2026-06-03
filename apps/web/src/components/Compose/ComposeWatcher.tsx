@@ -3,8 +3,8 @@
 import { AsyncStatus } from '@dimensiondev/enums';
 import { memo, useEffect, useRef } from 'react';
 
+import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { useSearchParams } from '@/esm/navigation.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

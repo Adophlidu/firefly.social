@@ -8,13 +8,13 @@ import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
 import { CreateScheduleError } from '@/constants/error.js';
+import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';

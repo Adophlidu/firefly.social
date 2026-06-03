@@ -3,8 +3,8 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';

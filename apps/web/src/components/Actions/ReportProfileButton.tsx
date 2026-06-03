@@ -7,8 +7,8 @@ import { useAsyncFn } from 'react-use';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

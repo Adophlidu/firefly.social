@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-router';
 
 import { BackButton, CloseButton } from '@/components/IconButton.js';
-import { closeRedPacketModal } from '@/helpers/openRedPacketModal.js';
+import { closeRedPacketModal } from '@/controllers/openRedPacketModal.js';
 import { RedPacketProvider } from '@/modals/RedPacketModal/RedPacketContext.js';
 
 export function RootView() {

@@ -2,11 +2,11 @@
 
 import { forwardRef, useCallback } from 'react';
 
+import { openAndWaitForCloseConfirmLeavingModal } from '@/controllers/openConfirmLeavingModal.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
-import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
 

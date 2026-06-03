@@ -9,9 +9,9 @@ import { memo, type ReactNode } from 'react';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useToggleNFTBookmark } from '@/hooks/useToggleNFTBookmark.js';
 

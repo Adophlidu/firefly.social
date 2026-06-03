@@ -16,6 +16,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { InvalidOrbPermissionError } from '@/constants/error.js';
 import { FAKE_REFRESH_TOKEN } from '@/constants/lens.js';
+import { closeLoginModal } from '@/controllers/openLoginModal.js';
 import { Link } from '@/esm/Link.js';
 import {
     enqueueForbiddenMessage,
@@ -23,7 +24,6 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';

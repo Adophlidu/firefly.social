@@ -6,10 +6,10 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
+import { openComposeModal } from '@/controllers/openComposeModal.js';
+import { openConfirmModal } from '@/controllers/openConfirmModal.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
-import { openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

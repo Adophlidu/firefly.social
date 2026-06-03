@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
+import { openPreviewMediaModal } from '@/controllers/openPreviewMediaModal.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
-import { openPreviewMediaModal } from '@/helpers/openPreviewMediaModal.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

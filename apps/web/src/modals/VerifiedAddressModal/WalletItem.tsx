@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 
 interface WalletItemProps {

@@ -7,9 +7,9 @@ import { useAsyncFn } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { closeConfirmModal, openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { useRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { closeConfirmModal, openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { deleteAccount } from '@/providers/firefly/auth/deleteAccount.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureAccountDeleteEvent } from '@/providers/telemetry/captureAccountEvent.js';

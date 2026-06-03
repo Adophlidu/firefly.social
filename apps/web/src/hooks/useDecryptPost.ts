@@ -4,9 +4,9 @@ import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 import { useConnection } from 'wagmi';
 
+import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

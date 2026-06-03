@@ -16,10 +16,10 @@ import { useChainId, useSwitchChain } from 'wagmi';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { openAndWaitForCloseRedPacketModal } from '@/controllers/openRedPacketModal.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { openAndWaitForCloseRedPacketModal } from '@/helpers/openRedPacketModal.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';

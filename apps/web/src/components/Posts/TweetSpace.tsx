@@ -16,9 +16,9 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { isToday } from '@/helpers/isToday.js';
 import { isTomorrow } from '@/helpers/isTomorrow.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { formatTwitterProfile } from '@/providers/twitter/formatTwitterProfile.js';
 import { getSpace } from '@/providers/twitter/getSpace.js';
 

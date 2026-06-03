@@ -8,6 +8,7 @@ import { compact, difference, first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SessionExpiredError } from '@/constants/error.js';
+import { closeSnackbar } from '@/controllers/openSnackbar.js';
 import { canQuotePost } from '@/helpers/canQuotePost.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
@@ -16,7 +17,6 @@ import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
-import { closeSnackbar } from '@/helpers/openSnackbar.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';

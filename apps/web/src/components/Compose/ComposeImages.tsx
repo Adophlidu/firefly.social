@@ -8,8 +8,8 @@ import { type HTMLProps, memo, useCallback } from 'react';
 
 import { SingleImage } from '@/components/Posts/SingleImage.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

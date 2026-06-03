@@ -15,13 +15,13 @@ import { z } from 'zod';
 
 import { Card } from '@/components/Frame/V1/Card.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { openAndWaitForCloseConfirmLeavingModal } from '@/controllers/openConfirmLeavingModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage, getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
-import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';

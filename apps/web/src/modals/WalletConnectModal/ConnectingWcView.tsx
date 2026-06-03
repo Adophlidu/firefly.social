@@ -8,8 +8,8 @@ import { last } from 'lodash-es';
 import { memo, useCallback, useEffect, useRef } from 'react';
 import urlcat from 'urlcat';
 
+import { closeWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
-import { closeWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';

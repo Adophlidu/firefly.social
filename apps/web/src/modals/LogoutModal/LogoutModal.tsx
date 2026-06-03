@@ -7,9 +7,9 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { LogoutModalRefType } from '@/modals/LogoutModal/refs.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/services/account.js';

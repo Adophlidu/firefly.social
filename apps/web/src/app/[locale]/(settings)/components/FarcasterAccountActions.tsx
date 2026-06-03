@@ -11,8 +11,8 @@ import { memo } from 'react';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { openRecoveryPhraseModal } from '@/helpers/openRecoveryPhraseModal.js';
-import { openVerifiedAddressModal } from '@/helpers/openVerifiedAddressModal.js';
+import { openRecoveryPhraseModal } from '@/controllers/openRecoveryPhraseModal.js';
+import { openVerifiedAddressModal } from '@/controllers/openVerifiedAddressModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {

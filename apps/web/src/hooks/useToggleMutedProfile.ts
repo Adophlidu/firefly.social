@@ -2,8 +2,8 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

@@ -10,7 +10,7 @@ import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js
 import { ThirdPartAccounts } from '@/app/[locale]/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 
 export default function Connected() {

@@ -7,8 +7,8 @@ import { useConnection } from 'wagmi';
 import { reconnect } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { closeWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
-import { closeWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';

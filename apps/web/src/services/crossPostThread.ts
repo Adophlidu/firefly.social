@@ -5,10 +5,10 @@ import { delay, safeUnreachable } from '@dimensiondev/utils';
 import { plural, t } from '@lingui/core/macro';
 import { compact, difference, first } from 'lodash-es';
 
+import { closeSnackbar } from '@/controllers/openSnackbar.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
-import { closeSnackbar } from '@/helpers/openSnackbar.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

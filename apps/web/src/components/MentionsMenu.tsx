@@ -10,7 +10,7 @@ import { useAsyncFn } from 'react-use';
 
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { openAndWaitForCloseEditCrossAtModal } from '@/helpers/openEditCrossAtModal.js';
+import { openAndWaitForCloseEditCrossAtModal } from '@/controllers/openEditCrossAtModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';

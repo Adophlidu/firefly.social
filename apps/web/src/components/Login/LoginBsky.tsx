@@ -23,13 +23,13 @@ import { createLoginBskyFormResolver, type loginBskySchema } from '@/components/
 import { formatBskyLoginIdentifier } from '@/components/Login/formatBskyLoginIdentifier.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
+import { closeLoginModal } from '@/controllers/openLoginModal.js';
 import {
     enqueueForbiddenMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { createBskyPublicAgent } from '@/providers/bsky/createBskyAgent.js';

@@ -4,7 +4,7 @@ import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-
 
 import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { closeWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import { closeWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 
 export function RootView() {

@@ -6,8 +6,8 @@ import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 
 import { FetchError } from '@/constants/error.js';
+import { openAndWaitForCloseMyWalletsModal } from '@/controllers/openMyWalletsModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { openAndWaitForCloseMyWalletsModal } from '@/helpers/openMyWalletsModal.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { verifyAndBindWallet } from '@/services/verifyAndBindWallet.js';
 

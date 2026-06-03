@@ -30,6 +30,8 @@ import {
     FireflyAlreadyBoundError,
     FireflyBindTimeoutError,
 } from '@/constants/error.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/controllers/openDraggablePopover.js';
+import { closeLoginModal } from '@/controllers/openLoginModal.js';
 import {
     enqueueForbiddenMessage,
     enqueueInfoMessage,
@@ -37,8 +39,6 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
-import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';

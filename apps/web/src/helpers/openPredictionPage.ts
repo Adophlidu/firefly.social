@@ -1,8 +1,8 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 
 import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { type BetEventQuery, createBetEventPath } from '@/helpers/createBetEventPath.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

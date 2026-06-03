@@ -13,7 +13,7 @@ import { SanitizerDiv } from '@/components/DomPurify.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-import { openPreviewMediaModal } from '@/helpers/openPreviewMediaModal.js';
+import { openPreviewMediaModal } from '@/controllers/openPreviewMediaModal.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Article } from '@/providers/types/Article.js';

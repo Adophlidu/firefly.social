@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
-import { closeRedPacketModal } from '@/helpers/openRedPacketModal.js';
+import { closeRedPacketModal } from '@/controllers/openRedPacketModal.js';
 import { getMaskTypedMessage } from '@/providers/firefly/red-packet/getMaskTypedMessage.js';
 import type { ClaimStrategy } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

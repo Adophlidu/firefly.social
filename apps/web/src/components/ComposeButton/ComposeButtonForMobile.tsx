@@ -5,10 +5,10 @@ import ReplyIcon from '@dimensiondev/assets/reply.svg';
 import { PageRoute, Source } from '@dimensiondev/enums';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

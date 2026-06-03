@@ -1,10 +1,10 @@
 import type { LinkProps } from 'next/link.js';
 import { type HTMLProps, type PropsWithChildren, useCallback } from 'react';
 
+import { openAndWaitForCloseConfirmLeavingModal } from '@/controllers/openConfirmLeavingModal.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
-import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
 import { openUrl } from '@/helpers/openUrl.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
 

@@ -9,7 +9,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useDiscoverStoreWithTab } from '@/hooks/useDiscoverStoreWithTab.js';

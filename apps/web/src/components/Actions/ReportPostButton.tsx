@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {

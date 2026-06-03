@@ -12,10 +12,10 @@ import { ContentCard } from '@/app/[locale]/(settings)/settings/privacy-and-secu
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Switch } from '@/components/Switch/index.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
+import { openAndWaitForClosePasswordModal, openPasswordModal } from '@/controllers/openPasswordModal.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
-import { openAndWaitForClosePasswordModal, openPasswordModal } from '@/helpers/openPasswordModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { resetPasscode } from '@/providers/firefly/metrics/resetPasscode.js';

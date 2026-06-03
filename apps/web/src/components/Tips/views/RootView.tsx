@@ -8,7 +8,7 @@ import { createContext, useContext } from 'react';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { closeTipsModal } from '@/helpers/openTipsModal.js';
+import { closeTipsModal } from '@/controllers/openTipsModal.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 

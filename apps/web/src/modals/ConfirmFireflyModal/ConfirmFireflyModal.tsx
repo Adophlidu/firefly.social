@@ -5,11 +5,11 @@ import { useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { closeConfirmFireflyModal } from '@/controllers/openConfirmFireflyModal.js';
+import { closeConfirmModal, openConfirmModal } from '@/controllers/openConfirmModal.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { closeConfirmFireflyModal } from '@/helpers/openConfirmFireflyModal.js';
-import { closeConfirmModal, openConfirmModal } from '@/helpers/openConfirmModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

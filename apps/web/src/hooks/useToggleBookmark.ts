@@ -2,7 +2,7 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { BookmarkType } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

@@ -6,11 +6,11 @@ import { CharTag, FireflyPlatform } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 import { useEffect, useRef } from 'react';
 
+import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

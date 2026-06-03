@@ -6,10 +6,10 @@ import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
+import { openTipsModal } from '@/controllers/openTipsModal.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
-import { openTipsModal } from '@/helpers/openTipsModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 

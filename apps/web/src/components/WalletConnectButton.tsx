@@ -11,8 +11,8 @@ import { mainnet } from 'viem/chains';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { openMyWalletsModal } from '@/helpers/openMyWalletsModal.js';
-import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import { openMyWalletsModal } from '@/controllers/openMyWalletsModal.js';
+import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';

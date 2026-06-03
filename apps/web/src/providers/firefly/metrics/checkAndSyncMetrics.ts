@@ -2,12 +2,12 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 
+import { openAndWaitForCloseConfirmSyncSessionModal } from '@/controllers/openConfirmSyncSessionModal.js';
+import { closeLoginModal } from '@/controllers/openLoginModal.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { openAndWaitForCloseConfirmSyncSessionModal } from '@/helpers/openConfirmSyncSessionModal.js';
-import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { logger } from '@/libs/Logger.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';

@@ -15,13 +15,13 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendPasscodeButton } from '@/components/Login/SendPasscodeButton.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
+import { closeLoginModal } from '@/controllers/openLoginModal.js';
 import {
     enqueueForbiddenMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';

@@ -5,7 +5,7 @@ import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js';
-import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
+import { openAndWaitForCloseImageEditorModal } from '@/controllers/openImageEditorModal.js';
 
 interface Props {
     disabled?: boolean;

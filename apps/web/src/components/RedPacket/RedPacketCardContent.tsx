@@ -30,12 +30,12 @@ import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { openComposeModal } from '@/controllers/openComposeModal.js';
+import { openRedPacketModal } from '@/controllers/openRedPacketModal.js';
 import { Image } from '@/esm/Image.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
-import { openRedPacketModal } from '@/helpers/openRedPacketModal.js';
 import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';

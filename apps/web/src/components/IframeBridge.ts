@@ -12,6 +12,9 @@ import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
+import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.js';
+import { openDownloadMobileAppModal } from '@/controllers/openDownloadMobileAppModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useRouter } from '@/esm/navigation.js';
 import {
     enqueueErrorMessage,
@@ -20,9 +23,6 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { openAndWaitForCloseComposeModal } from '@/helpers/openComposeModal.js';
-import { openDownloadMobileAppModal } from '@/helpers/openDownloadMobileAppModal.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useWalletTelemetrySubscriber } from '@/hooks/useWalletTelemetrySubscriber.js';

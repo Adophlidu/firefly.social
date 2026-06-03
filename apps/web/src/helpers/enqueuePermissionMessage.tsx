@@ -1,6 +1,6 @@
 import { PermissionSnackbar } from '@/components/PermissionSnackbar.js';
 import type { SnackbarKey } from '@/components/Snackbar.js';
-import { openSnackbar } from '@/helpers/openSnackbar.js';
+import { openSnackbar } from '@/controllers/openSnackbar.js';
 
 export function enqueuePermissionMessage(rejected: boolean, onEnable?: () => void) {
     openSnackbar({

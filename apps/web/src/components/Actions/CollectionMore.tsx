@@ -13,7 +13,7 @@ import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { openAndWaitForCloseConfirmLeavingModal } from '@/helpers/openConfirmLeavingModal.js';
+import { openAndWaitForCloseConfirmLeavingModal } from '@/controllers/openConfirmLeavingModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
 

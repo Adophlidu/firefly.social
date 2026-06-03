@@ -9,8 +9,8 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { openAndWaitForCloseLoginModal } from '@/controllers/openLoginModal.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { openAndWaitForCloseLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getTelegramLoginUrl } from '@/providers/firefly/auth/getTelegramLoginUrl.js';
 

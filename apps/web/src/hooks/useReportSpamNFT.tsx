@@ -5,9 +5,9 @@ import { type Draft, produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { reportNFT } from '@/providers/firefly/report/reportNFT.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';

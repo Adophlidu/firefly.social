@@ -10,8 +10,8 @@ import { useChainId } from 'wagmi';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { openAddCustomERC721Modal } from '@/controllers/openAddCustomERC721Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { openAddCustomERC721Modal } from '@/helpers/openAddCustomERC721Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import type {

@@ -3,9 +3,9 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import { runInSafe } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 
+import { openAndWaitForCloseAddLensManagerModal } from '@/controllers/openAddLensManagerModal.js';
+import { closeLoginModal } from '@/controllers/openLoginModal.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
-import { openAndWaitForCloseAddLensManagerModal } from '@/helpers/openAddLensManagerModal.js';
-import { closeLoginModal } from '@/helpers/openLoginModal.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';

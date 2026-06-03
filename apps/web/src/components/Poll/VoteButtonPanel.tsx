@@ -10,13 +10,13 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { WalletAddressMismatchError } from '@/constants/error.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import {
     enqueueErrorMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Poll, PollOption } from '@/providers/types/Poll.js';

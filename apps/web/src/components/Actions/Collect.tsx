@@ -9,9 +9,9 @@ import { memo } from 'react';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { PostCollect } from '@/components/Posts/PostCollect.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { openCollectPostModal } from '@/controllers/openCollectPostModal.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/controllers/openDraggablePopover.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { openCollectPostModal } from '@/helpers/openCollectPostModal.js';
-import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

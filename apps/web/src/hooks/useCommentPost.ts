@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import { STALE_TIMES } from '@/constants/query.js';
+import { openComposeModal } from '@/controllers/openComposeModal.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { canReplyToPost } from '@/helpers/canReplyToPost.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveMessageForCommentDisabled } from '@/helpers/resolveMessageForCommentDisabled.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';

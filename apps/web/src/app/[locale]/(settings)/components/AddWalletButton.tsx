@@ -6,8 +6,8 @@ import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { openAndWaitForCloseAddWalletModal } from '@/helpers/openAddWalletModal.js';
-import { openAndWaitForCloseWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import { openAndWaitForCloseAddWalletModal } from '@/controllers/openAddWalletModal.js';
+import { openAndWaitForCloseWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 

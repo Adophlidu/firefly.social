@@ -6,7 +6,7 @@ import type { Config } from 'wagmi';
 import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
 
 import { SwitchChainError } from '@/constants/error.js';
-import { openAndWaitForCloseWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import { openAndWaitForCloseWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/refs.js';
 
 function resolveExpectChainId(error: ConnectorChainMismatchError) {

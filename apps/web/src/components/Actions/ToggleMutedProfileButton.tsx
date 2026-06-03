@@ -5,7 +5,7 @@ import { memo } from 'react';
 
 import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

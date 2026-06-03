@@ -21,8 +21,8 @@ import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
+import { openAndWaitForCloseTokenSelectorModal } from '@/controllers/openTokenSelectorModal.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { openAndWaitForCloseTokenSelectorModal } from '@/helpers/openTokenSelectorModal.js';
 
 const MIN_AMOUNT_LENGTH = 1;
 const MAX_AMOUNT_LENGTH = 79;

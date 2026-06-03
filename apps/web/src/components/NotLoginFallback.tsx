@@ -6,9 +6,9 @@ import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
+import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { Image } from '@/esm/Image.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
-import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';

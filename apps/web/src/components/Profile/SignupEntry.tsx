@@ -5,7 +5,7 @@ import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { openSignupModal } from '@/helpers/openSignupModal.js';
+import { openSignupModal } from '@/controllers/openSignupModal.js';
 import { captureSocialSignupEntryClickEvent } from '@/providers/telemetry/captureSocialAccountSignupEvent.js';
 
 interface SignupEntryProps extends ClickableButtonProps {

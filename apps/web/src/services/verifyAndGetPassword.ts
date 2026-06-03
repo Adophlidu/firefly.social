@@ -1,7 +1,7 @@
 import { PasswordWorkflow } from '@dimensiondev/enums';
 
 import { FireflyResponseCode } from '@/constants/responseCode.js';
-import { openAndWaitForClosePasswordModal } from '@/helpers/openPasswordModal.js';
+import { openAndWaitForClosePasswordModal } from '@/controllers/openPasswordModal.js';
 import type { StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';

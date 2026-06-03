@@ -24,8 +24,8 @@ import {
     MIN_PROFILE_BIO_SIZE,
 } from '@/constants/limitation.js';
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
+import { openAndWaitForCloseImageEditorModal } from '@/controllers/openImageEditorModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openAndWaitForCloseImageEditorModal } from '@/helpers/openImageEditorModal.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';

@@ -11,8 +11,8 @@ import { type HTMLProps, useCallback } from 'react';
 
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { closeDraggablePopover, openDraggablePopover } from '@/helpers/openDraggablePopover.js';
-import { openSchedulePostModal } from '@/helpers/openSchedulePostModal.js';
+import { closeDraggablePopover, openDraggablePopover } from '@/controllers/openDraggablePopover.js';
+import { openSchedulePostModal } from '@/controllers/openSchedulePostModal.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

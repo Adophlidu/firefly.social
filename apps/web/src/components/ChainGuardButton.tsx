@@ -9,7 +9,7 @@ import { switchChain } from 'wagmi/actions';
 
 import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { openWalletConnectModal } from '@/helpers/openWalletConnectModal.js';
+import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 
 interface ChainGuardButtonProps extends ActionButtonProps {

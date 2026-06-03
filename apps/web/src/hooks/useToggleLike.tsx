@@ -3,8 +3,8 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { updateQueryForLikeReaction } from '@/helpers/updateQueryForLikeReaction.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';

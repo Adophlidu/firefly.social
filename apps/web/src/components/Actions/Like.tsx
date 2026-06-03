@@ -6,8 +6,8 @@ import { memo, useCallback } from 'react';
 
 import { LikeButtonUI } from '@/components/Actions/LikeButtonUI.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { openLoginModalWithGuard } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';

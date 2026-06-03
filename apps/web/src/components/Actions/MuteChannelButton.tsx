@@ -7,8 +7,8 @@ import { memo } from 'react';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
+import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { openAndWaitForCloseConfirmModal } from '@/helpers/openConfirmModal.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children' | 'onToggle'> {

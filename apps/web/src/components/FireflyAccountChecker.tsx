@@ -5,9 +5,9 @@ import { bom } from '@dimensiondev/utils';
 import { useEffect } from 'react';
 import { useTimeoutFn } from 'react-use';
 
+import { openCreateFireflyAccountGuideModal } from '@/controllers/openCreateFireflyAccountGuideModal.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
-import { openCreateFireflyAccountGuideModal } from '@/helpers/openCreateFireflyAccountGuideModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';

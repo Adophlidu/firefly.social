@@ -16,9 +16,9 @@ import { PageBackground } from '@/app/[locale]/(whiteboard)/signup/pages/PageBac
 import { SocialLoginPage } from '@/app/[locale]/(whiteboard)/signup/pages/SocialLoginPage.js';
 import { SuccessPage } from '@/app/[locale]/(whiteboard)/signup/pages/SuccessPage.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { closeLoginModal } from '@/controllers/openLoginModal.js';
+import { closeSignInWithFireflyAppModal } from '@/controllers/openSignInWithFireflyAppModal.js';
 import { useRouter } from '@/esm/navigation.js';
-import { closeLoginModal } from '@/helpers/openLoginModal.js';
-import { closeSignInWithFireflyAppModal } from '@/helpers/openSignInWithFireflyAppModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

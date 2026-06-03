@@ -7,7 +7,7 @@ import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { openLoginModal } from '@/controllers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 interface LoginButtonProps {
