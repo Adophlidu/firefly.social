@@ -13,26 +13,46 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { Link } from '@/esm/Link.js';
 import { useParams } from '@/esm/navigation.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
+import { getEventSlugListForWeb } from '@/providers/firefly/prediction/getEventSlugList.js';
 import { POLYMARKET_FIREFLY_SLUG } from '@/providers/prediction/polymarket/constants.js';
 import { captureExplorePredictionsCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
+import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     className?: string;
 }
 
-const SLUG_WHITELIST = ['trending', 'new'];
+// https://mask.atlassian.net/browse/MX-18286
+const FIXED_SLUGS: PolymarketEventSlugListData[] = [
+    {
+        slug: 'trending',
+        label: 'Trending',
+        icon_day: '',
+        icon_night: '',
+        sub_slug: [],
+    },
+    {
+        slug: 'new',
+        label: 'New',
+        icon_day: '',
+        icon_night: '',
+        sub_slug: [],
+    },
+];
 
 export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ className }) {
     const { source } = useParams<{ source: string }>();
     const [subSlug] = useQueryState('subSlug', { defaultValue: '' });
 
     const { data } = useQuery({
-        queryKey: ['bets', 'slugs-list'],
-        queryFn: () => getEventSlugList(),
-        staleTime: STALE_TIMES.INFINITY,
+        queryKey: ['bets', 'slugs-list-web'],
+        queryFn: () => getEventSlugListForWeb(),
+        staleTime: STALE_TIMES.MINUTE_10,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
+        select: (data) => {
+            return [...FIXED_SLUGS, ...(data || EMPTY_LIST)];
+        },
     });
 
     const activeTabRef = useRef<HTMLAnchorElement>(null);
@@ -55,7 +75,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                 ...filteredData,
             ];
         }
-        return filteredData.filter((x) => SLUG_WHITELIST.includes(x.slug));
+        return filteredData;
     }, [data, source, isFireflySlugPage]);
 
     useLayoutEffect(() => {

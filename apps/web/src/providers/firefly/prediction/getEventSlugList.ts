@@ -10,3 +10,9 @@ export async function getEventSlugList() {
     const response = await fireflySessionHolder.fetch<Response<PolymarketEventSlugListData[]>>(url);
     return resolveFireflyResponseData(response);
 }
+
+export async function getEventSlugListForWeb() {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/web/slugs/list');
+    const response = await fireflySessionHolder.fetch<Response<PolymarketEventSlugListData[]>>(url);
+    return resolveFireflyResponseData(response);
+}
