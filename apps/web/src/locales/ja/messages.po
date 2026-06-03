@@ -95,9 +95,6 @@ msgstr "均等分割"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>純資産</0>"
 
-msgid "Cash"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "{0} での引用に失敗しました。"
@@ -2813,9 +2810,6 @@ msgstr "NFT がブックマークに追加されました"
 msgid "# year"
 msgid_plural "# years"
 msgstr[0] "# 年"
-
-msgid "Deposit"
-msgstr ""
 
 msgid "<0/> Loading"
 msgstr "<0/> 読み込み中"

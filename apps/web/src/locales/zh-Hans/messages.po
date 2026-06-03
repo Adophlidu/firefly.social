@@ -95,9 +95,6 @@ msgstr "平均分配"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>净资产</0>"
 
-msgid "Cash"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "在 {0} 引用失败。"
@@ -2813,9 +2810,6 @@ msgstr "NFT 已添加到收藏夹"
 msgid "# year"
 msgid_plural "# years"
 msgstr[0] "# 年"
-
-msgid "Deposit"
-msgstr ""
 
 msgid "<0/> Loading"
 msgstr "<0/> 加载中"

@@ -95,9 +95,6 @@ msgstr "균등 분배"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>순자산</0>"
 
-msgid "Cash"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "{0}에서 인용에 실패했습니다."
@@ -2813,9 +2810,6 @@ msgstr "NFT가 북마크에 추가되었습니다"
 msgid "# year"
 msgid_plural "# years"
 msgstr[0] "# 년"
-
-msgid "Deposit"
-msgstr ""
 
 msgid "<0/> Loading"
 msgstr "<0/> 로딩 중"

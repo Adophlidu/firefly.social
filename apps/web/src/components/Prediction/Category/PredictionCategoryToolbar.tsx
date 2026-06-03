@@ -3,15 +3,15 @@
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import { PredictionCategoryWalletEntry } from '@/components/Prediction/Category/PredictionCategoryWalletEntry.js';
+import { Comeback } from '@/components/Comeback.js';
 
 export const PredictionCategoryToolbar = memo(function PredictionCategoryToolbar() {
     return (
-        <div className="flex h-[60px] w-full items-center px-4 pt-2.5 max-md:hidden">
-            <h1 className="truncate text-xl font-black text-main">
+        <div className="flex h-[60px] items-center gap-7 border-b border-line bg-primaryBottom px-4">
+            <Comeback className="text-lightMain" />
+            <span className="truncate text-xl font-black text-lightMain">
                 <Trans>Predictions</Trans>
-            </h1>
-            <PredictionCategoryWalletEntry />
+            </span>
         </div>
     );
 });

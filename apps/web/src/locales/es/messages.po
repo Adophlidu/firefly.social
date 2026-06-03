@@ -96,9 +96,6 @@ msgstr "Reparto Igual"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>Patrimonio neto</0>"
 
-msgid "Cash"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "No se pudo citar en {0}."
@@ -2829,9 +2826,6 @@ msgid "# year"
 msgid_plural "# years"
 msgstr[0] "# año"
 msgstr[1] "# años"
-
-msgid "Deposit"
-msgstr ""
 
 msgid "<0/> Loading"
 msgstr "<0/> Cargando"

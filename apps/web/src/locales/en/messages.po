@@ -96,9 +96,6 @@ msgstr "Equal Split"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>Net worth</0>"
 
-msgid "Cash"
-msgstr "Cash"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "Failed to quote on {0}."
@@ -2829,9 +2826,6 @@ msgid "# year"
 msgid_plural "# years"
 msgstr[0] "# year"
 msgstr[1] "# years"
-
-msgid "Deposit"
-msgstr "Deposit"
 
 msgid "<0/> Loading"
 msgstr "<0/> Loading"

@@ -19,7 +19,6 @@ import { GenesisSparksMenu } from '@/components/SideBar/GenesisSparksMenu.js';
 import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
-import { PredictionMenu } from '@/components/SideBar/PredictionMenu.js';
 import { Profile } from '@/components/SideBar/Profile.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -54,12 +53,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             {
                                 href: PageRoute.Explore,
                                 name: <Trans>Explore</Trans>,
-                                match: () => pathname.startsWith(PageRoute.Explore),
-                            },
-                            {
-                                href: PageRoute.PredictionCategory,
-                                name: <Trans>Predictions</Trans>,
-                                match: () => pathname.startsWith(PageRoute.PredictionCategory),
+                                match: () =>
+                                    [PageRoute.Explore, PageRoute.PredictionCategory].some((p) =>
+                                        pathname.startsWith(p),
+                                    ),
                             },
                             {
                                 href: PageRoute.Notifications,
@@ -131,9 +128,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         ),
                                         [PageRoute.Explore]: (
                                             <ExploreEntranceMenu isSelected={isSelected} collapsed={collapsed} />
-                                        ),
-                                        [PageRoute.PredictionCategory]: (
-                                            <PredictionMenu isSelected={isSelected} collapsed={collapsed} />
                                         ),
                                     }[item.href] ?? (
                                         <BaseMenuItem

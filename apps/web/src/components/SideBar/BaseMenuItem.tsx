@@ -16,7 +16,7 @@ export function BaseMenuItem({ isSelected, collapsed, href, icon, menuName, ...r
         <Link
             {...rest}
             href={href}
-            className={classNames('sidebar-nav-link group flex w-full text-lg leading-6 outline-none md:pl-2', {
+            className={classNames('sidebar-nav-link flex w-full text-lg leading-6 outline-none md:pl-2', {
                 'font-bold': isSelected,
             })}
         >

@@ -95,9 +95,6 @@ msgstr "均分"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>淨值</0>"
 
-msgid "Cash"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "在 {0} 引用失敗。"
@@ -2813,9 +2810,6 @@ msgstr "NFT 已加入書籤"
 msgid "# year"
 msgid_plural "# years"
 msgstr[0] "# 年"
-
-msgid "Deposit"
-msgstr ""
 
 msgid "<0/> Loading"
 msgstr "<0/> 載入中"
