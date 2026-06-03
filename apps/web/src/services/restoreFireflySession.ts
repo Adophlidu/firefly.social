@@ -1,5 +1,6 @@
 import { NOT_DEPEND_SECRET } from '@dimensiondev/constants/static';
-import { SessionType } from '@dimensiondev/enums';
+import { SessionType, STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs/web';
 import { NotAllowedError, safeUnreachable, TimeoutError, UnreachableError } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -26,6 +27,8 @@ import type { ResponseJson } from '@/types/utility.js';
 type LoginData = NonNullable<LoginResponse['data']>;
 
 function createFireflySessionFromLoginData(data: LoginData, parent: Session): FireflySession {
+    const v3Enabled = envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled;
+
     // Prefer v3 access token; fall back to legacy token while backend compat is active.
     return new FireflySession(
         data.uid ?? data.accountId,
@@ -34,7 +37,7 @@ function createFireflySessionFromLoginData(data: LoginData, parent: Session): Fi
          * only used for restoring session from storage
          * use empty string for new sessions
          */
-        '',
+        v3Enabled ? '' : data.accessToken,
         parent,
         null,
         false,
