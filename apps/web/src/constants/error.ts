@@ -81,6 +81,13 @@ export class FireflyUnauthorizedError extends Error {
     constructor(message?: string) {
         super(message ?? 'Firefly session is unauthorized.');
     }
+
+    static is(error: unknown): error is FireflyUnauthorizedError {
+        return (
+            error instanceof FireflyUnauthorizedError ||
+            (error instanceof Error && error.name === 'FireflyUnauthorizedError')
+        );
+    }
 }
 
 export class FarcasterPatchSignerError extends Error {

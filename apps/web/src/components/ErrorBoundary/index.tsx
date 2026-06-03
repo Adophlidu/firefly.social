@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
         // Unauthorized errors are escalated to global-error.tsx (see render), which
         // owns reporting + the signed-out screen. Don't report or render here.
-        if (error instanceof FireflyUnauthorizedError) {
+        if (FireflyUnauthorizedError.is(error)) {
             return;
         }
 
@@ -50,7 +50,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         // Re-throw unauthorized errors so they bubble past this boundary to
         // app/global-error.tsx, which renders the signed-out screen. Without this
         // they'd be swallowed here as a generic crash card.
-        if (this.state.error instanceof FireflyUnauthorizedError) throw this.state.error;
+        if (FireflyUnauthorizedError.is(this.state.error)) throw this.state.error;
         return (
             <CrashUI
                 onRetry={() => this.setState({ error: null, reported: false })}

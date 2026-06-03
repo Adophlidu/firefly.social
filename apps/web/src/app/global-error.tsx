@@ -39,7 +39,7 @@ const bodyStyle = {
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     // Detect by name rather than instanceof: a duplicated module across the boundary
     // would break the prototype chain, but the name survives serialization.
-    const isUnauthorized = error?.name === new FireflyUnauthorizedError().name;
+    const isUnauthorized = FireflyUnauthorizedError.is(error);
 
     useReportErrorOnce(error, {
         exceptionId: ExceptionId.UI_CRASH,
