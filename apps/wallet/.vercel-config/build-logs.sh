@@ -10,21 +10,6 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(git -C "$HERE" rev-parse --show-toplevel)"
 WALLET_ROOT="$ROOT/apps/wallet"
 
-# Function to get the latest commit hash
-get_latest_commit_hash() {
-  git rev-parse HEAD 2>/dev/null || echo "unknown"
-}
-
-# Function to get the latest commit message
-get_latest_commit_message() {
-  git log -1 --pretty=%B 2>/dev/null | sed 's/^/    /' || echo "    (unable to retrieve commit message)"
-}
-
-# Function to check if the latest commit has a tag and get the tag name
-get_latest_commit_tag() {
-  git describe --tags --exact-match 2>/dev/null || true
-}
-
 # Function to get the version from package.json
 get_package_version() {
   cat "$WALLET_ROOT/package.json" \
@@ -55,11 +40,6 @@ output_file="$WALLET_ROOT/public/next-debug.log"
 if [ -f "$WALLET_ROOT/package.json" ]; then
 
   # Get build information
-  commit_hash=$(get_latest_commit_hash)
-  commit_message=$(get_latest_commit_message)
-  commit_tag=$(get_latest_commit_tag)
-  # Use VERCEL_GIT_COMMIT_REF in Vercel CI, fallback to local branch in dev
-  commit_branch=${VERCEL_GIT_COMMIT_REF:-$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")}
   version=$(get_package_version)
   node_version=$(get_node_version)
   pnpm_version=$(get_pnpm_version)
@@ -74,14 +54,27 @@ if [ -f "$WALLET_ROOT/package.json" ]; then
   echo "Node.js Version: $node_version" >> "$output_file"
   echo "PNPM Version: $pnpm_version" >> "$output_file"
   echo "Application Version: v$version" >> "$output_file"
-  echo "Latest Commit Branch: $commit_branch" >> "$output_file"
-  if [ -n "$commit_tag" ]; then
-    echo "Latest Commit Tag: $commit_tag" >> "$output_file"
-  fi
-  echo "Latest Commit Hash: $commit_hash" >> "$output_file"
-  echo "Latest Commit Message:" >> "$output_file"
+
+  # Append client-exposed (NEXT_PUBLIC_*) environment variables, sorted by name.
+  # This file is served from public/, so to avoid leaking secrets we only print:
+  #   - feature-flag envs whose value is exactly "enabled" or "disabled"
+  #   - NEXT_PUBLIC_VERCEL_GIT_COMMIT_* git metadata (non-secret)
+  # All other NEXT_PUBLIC_* vars (which may hold secrets) are omitted.
+  external_envs=$(env | grep '^NEXT_PUBLIC_' | while IFS='=' read -r name value; do
+    if [[ "$name" == NEXT_PUBLIC_VERCEL_GIT_COMMIT_* ]]; then
+      echo "$name=$value"
+    elif [[ "$value" == "enabled" || "$value" == "disabled" ]]; then
+      echo "$name=$value"
+    fi
+  done | sort || true)
   echo "" >> "$output_file"
-  echo "$commit_message" >> "$output_file"
+  echo "External Envs (NEXT_PUBLIC_*)" >> "$output_file"
+  echo "-----------------------------" >> "$output_file"
+  if [ -n "$external_envs" ]; then
+    echo "$external_envs" >> "$output_file"
+  else
+    echo "(none)" >> "$output_file"
+  fi
 
 else
   echo "Error: package.json not found. Make sure you are in the correct directory."
