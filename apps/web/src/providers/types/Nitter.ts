@@ -34,6 +34,10 @@ export type GetProfileResponse = Response<{
 export type GetUserTimelineResponse = Response<{
     pagination: Pagination;
     timeline: Tweet[];
+    // Present only on the first page (no cursor) of the default tab. The pinned
+    // tweet is a byproduct of the first-page timeline fetch, so Nitter returns it
+    // here to avoid a redundant upstream fetch via the profile endpoint.
+    pinned?: Tweet;
 }>;
 
 export type SearchResponse = Response<{

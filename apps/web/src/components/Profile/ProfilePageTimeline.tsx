@@ -3,7 +3,9 @@
 import { SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN } from '@dimensiondev/constants/computed';
 import type { ProfileCategory, WalletProfileCategory } from '@dimensiondev/enums';
 import { SocialProfileCategory, Source } from '@dimensiondev/enums';
+import { Suspense } from 'react';
 
+import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { PinnedPost } from '@/components/Posts/PinnedPost.js';
 import { SocialProfileContentList } from '@/components/Profile/SocialProfileContentList.js';
@@ -26,18 +28,20 @@ export function ProfilePageTimeline({
         return (
             <>
                 {showPinnedPost ? <PinnedPost profileId={identity.id} source={identity.source} /> : null}
-                <LoginRequiredGuard
-                    source={identity.source}
-                    required={SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN[identity.source].includes(
-                        category as SocialProfileCategory,
-                    )}
-                >
-                    <SocialProfileContentList
-                        type={category as SocialProfileCategory}
+                <Suspense fallback={<Loading className="!min-h-[unset] flex-1 py-2" />}>
+                    <LoginRequiredGuard
                         source={identity.source}
-                        profileId={identity.id}
-                    />
-                </LoginRequiredGuard>
+                        required={SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN[identity.source].includes(
+                            category as SocialProfileCategory,
+                        )}
+                    >
+                        <SocialProfileContentList
+                            type={category as SocialProfileCategory}
+                            source={identity.source}
+                            profileId={identity.id}
+                        />
+                    </LoginRequiredGuard>
+                </Suspense>
             </>
         );
     }

@@ -460,7 +460,11 @@ class NitterSocialMedia implements Provider {
     @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async getPinnedPost(profileId: string): Promise<Post | null> {
         const username = await getTwitterHandleById(profileId);
-        const { pinned } = await NitterAPIProvider.getProfileByHandle(username);
+        // The pinned tweet rides along with the first-page timeline, so this shares
+        // a single fetch with getPostsByProfileId instead of hitting the heavier
+        // profile endpoint and triggering a redundant upstream fetch.
+        const { pinned } = await NitterAPIProvider.getUserTimelineByHandle(username);
+        if (!pinned) return null;
         return patchPostClientToFirefly(formatTwitterPostFromNitter(pinned));
     }
 

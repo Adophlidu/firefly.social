@@ -56,10 +56,12 @@ class NitterAPI {
         return resolveNitterJsonResponse(url, response);
     }
 
-    @MemoizePromise((handle) => handle)
+    @MemoizePromise((handle) => handle.toLowerCase())
     async getProfileByHandle(handle: string) {
+        // Normalize case-insensitive X handles so differently-cased callers share one fetch.
+        const normalizedHandle = handle.toLowerCase();
         const url = urlcat(FIREFLY_NITTER_URL, '/api/:handle/profile', {
-            handle,
+            handle: normalizedHandle,
         });
         const response = await fetchJson<GetProfileResponse>(
             url,
@@ -72,14 +74,19 @@ class NitterAPI {
         );
 
         if (response.error_type === 'not_found') {
-            throw new NotFoundError(`The twitter profile not found with handle: ${handle}`);
+            throw new NotFoundError(`The twitter profile not found with handle: ${normalizedHandle}`);
         }
 
         const data = resolveNitterJsonResponse(url, response);
-        if (data.user.suspended) throw new AccountSuspendedError(handle, Source.Twitter);
+        if (data.user.suspended) throw new AccountSuspendedError(normalizedHandle, Source.Twitter);
         return data;
     }
 
+    // Normalize the cache key so every churned timeline call (profileId handle →
+    // numeric id, forceTwitterOfficial flips) and the pinned-post call share one
+    // memoized request: lowercase the case-insensitive handle, treat empty cursor
+    // as none.
+    @MemoizePromise((handle, options) => `${handle.toLowerCase()}-${options?.tab ?? ''}-${options?.cursor || ''}`)
     async getUserTimelineByHandle(
         handle: string,
         options?: {
@@ -87,16 +94,19 @@ class NitterAPI {
             cursor?: string;
         },
     ) {
+        const normalizedHandle = handle.toLowerCase();
+        const cursor = options?.cursor || undefined;
         const url = options?.tab
             ? urlcat(FIREFLY_NITTER_URL, '/api/:handle/:tab', {
-                  handle,
+                  handle: normalizedHandle,
                   tab: options.tab,
-                  cursor: options?.cursor,
+                  cursor,
               })
             : urlcat(FIREFLY_NITTER_URL, '/api/:handle', {
-                  handle,
-                  cursor: options?.cursor,
+                  handle: normalizedHandle,
+                  cursor,
               });
+
         const response = await fetchJson<GetUserTimelineResponse>(url, {
             next: {
                 revalidate: 1,
