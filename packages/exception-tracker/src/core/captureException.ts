@@ -35,6 +35,10 @@ export function captureException(exceptionId: ExceptionId, error: unknown, tags?
         farcaster_id: userContext.farcaster_id,
         bsky_id: userContext.bsky_id,
 
+        // wallet parameters
+        evm_wallet_address: userContext.evm_wallet_address,
+        solana_wallet_address: userContext.solana_wallet_address,
+
         // tags
         tags,
     });

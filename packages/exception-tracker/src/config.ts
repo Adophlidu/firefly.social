@@ -4,6 +4,8 @@ export interface UserContext {
     lens_handle?: string;
     farcaster_id?: string;
     bsky_id?: string;
+    evm_wallet_address?: string;
+    solana_wallet_address?: string;
 }
 
 export interface ClientReportConfig {

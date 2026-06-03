@@ -44,6 +44,10 @@ export interface ExceptionPayload {
     farcaster_id?: string;
     bsky_id?: string;
 
+    // wallet parameters
+    evm_wallet_address?: string;
+    solana_wallet_address?: string;
+
     // tags
     tags?: ExceptionTags;
 }
