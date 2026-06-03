@@ -1,3 +1,5 @@
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs/wallet';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { Md5, runInSafeAsync, UserRejectionError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
@@ -14,6 +16,9 @@ import { store } from '@/store/index.js';
 import { pinCodeAtom } from '@/store/pinCode.js';
 
 async function ensurePinCode(forceRequired = false) {
+    // Frontend kill switch: when disabled, never require a PIN code.
+    if (envs.external.NEXT_PUBLIC_PIN_CODE !== STATUS.Enabled) return;
+
     const pinConfig = await runInSafeAsync(() =>
         queryClient.fetchQuery({
             ...getSecuritySettingsQuery(),

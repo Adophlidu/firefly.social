@@ -5,7 +5,8 @@ import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import ReloadIcon from '@dimensiondev/assets/reload.svg';
 import SecurityIcon from '@dimensiondev/assets/security-solid.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
-import { NetworkType, PageRoute, WalletSource } from '@dimensiondev/enums';
+import { NetworkType, PageRoute, STATUS, WalletSource } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs/web';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
@@ -136,24 +137,26 @@ export function FireflyWallet() {
                                                 </button>
                                             )}
                                         </MenuItem>
-                                        <MenuItem>
-                                            {({ close }) => (
-                                                <button
-                                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 hover:bg-bg"
-                                                    onClick={() => {
-                                                        close();
-                                                        iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
-                                                            path: '/security',
-                                                        });
-                                                    }}
-                                                >
-                                                    <SecurityIcon width={18} height={18} className="-scale-x-100" />
-                                                    <span className="text-base font-bold">
-                                                        <Trans>Security & Privacy</Trans>
-                                                    </span>
-                                                </button>
-                                            )}
-                                        </MenuItem>
+                                        {envs.external.NEXT_PUBLIC_PIN_CODE === STATUS.Enabled ? (
+                                            <MenuItem>
+                                                {({ close }) => (
+                                                    <button
+                                                        className="flex cursor-pointer items-center gap-2 px-3 py-1 hover:bg-bg"
+                                                        onClick={() => {
+                                                            close();
+                                                            iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
+                                                                path: '/security',
+                                                            });
+                                                        }}
+                                                    >
+                                                        <SecurityIcon width={18} height={18} className="-scale-x-100" />
+                                                        <span className="text-base font-bold">
+                                                            <Trans>Security & Privacy</Trans>
+                                                        </span>
+                                                    </button>
+                                                )}
+                                            </MenuItem>
+                                        ) : null}
                                     </MenuItems>
                                 </MoreActionMenu>
                             ) : null}
