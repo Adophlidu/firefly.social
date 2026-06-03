@@ -564,7 +564,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         <p className="max-h-[18px] w-full truncate text-secondary">
                             {pageConfig?.pageTitle || data?.question || id}
                         </p>
-                        <p className="max-h-[18px] w-full truncate text-primary">
+                        <p className="max-h-[18px] w-full truncate text-main">
                             {pageConfig?.selectedOutcomeTitle || outcome}
                         </p>
                     </div>
