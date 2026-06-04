@@ -81,7 +81,7 @@ export enum EventId {
 
     // share id
     PAGE_LOAD_SHARE_ID_DETECTED = 'page_load_share_id_detected',
-    SHARE_ICON_CLICK = 'Share_icon_click',
+    SHARE_ICON_CLICK = 'share_icon_click',
 
     // poll
     CREATE_ORB_POLL_SUCCESS = 'orb_poll_create_success',
