@@ -154,9 +154,11 @@ export function FireflyWallet() {
                                                         className="flex cursor-pointer items-center gap-2 px-3 py-1 hover:bg-bg"
                                                         onClick={() => {
                                                             close();
-                                                            iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
-                                                                path: '/security',
-                                                            });
+                                                            iframeBridgeProvider.request(
+                                                                IframeBridgeMethod.NAVIGATE,
+                                                                { path: '/security' },
+                                                                { targetIframeId: FIREFLY_WALLET_IFRAME_ID },
+                                                            );
                                                         }}
                                                     >
                                                         <SecurityIcon width={18} height={18} className="-scale-x-100" />

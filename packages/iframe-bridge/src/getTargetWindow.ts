@@ -57,7 +57,12 @@ function isSameOrigin(win: Window): boolean {
     }
 }
 
-export async function getTargetWindow(): Promise<Window | null> {
+export interface GetTargetWindowOptions {
+    /** When the host page targets a specific child iframe, pass its element id. */
+    iframeId?: string;
+}
+
+export async function getTargetWindow(options?: GetTargetWindowOptions): Promise<Window | null> {
     if (!bom.window) {
         console.warn(`[iframe-bridge] Window object is not available.`);
         return null;
@@ -74,18 +79,28 @@ export async function getTargetWindow(): Promise<Window | null> {
             return null;
         }
 
-        // Find the first same-origin iframe
-        const iframes = bom.document.querySelectorAll('iframe');
-        for (const iframe of iframes) {
-            if (iframe.contentWindow && isSameOrigin(iframe.contentWindow)) {
+        if (options?.iframeId) {
+            const iframe = bom.document.getElementById(options.iframeId);
+            if (iframe instanceof HTMLIFrameElement && iframe.contentWindow && isSameOrigin(iframe.contentWindow)) {
                 targetWindow = iframe.contentWindow;
-                break;
+            } else {
+                console.warn(`[iframe-bridge] Same-origin iframe not found for id: ${options.iframeId}`);
+                return null;
             }
-        }
+        } else {
+            // Find the first same-origin iframe
+            const iframes = bom.document.querySelectorAll('iframe');
+            for (const iframe of iframes) {
+                if (iframe.contentWindow && isSameOrigin(iframe.contentWindow)) {
+                    targetWindow = iframe.contentWindow;
+                    break;
+                }
+            }
 
-        if (!targetWindow) {
-            console.warn(`[iframe-bridge] No same-origin iframe found in the document.`);
-            return null;
+            if (!targetWindow) {
+                console.warn(`[iframe-bridge] No same-origin iframe found in the document.`);
+                return null;
+            }
         }
     }
 

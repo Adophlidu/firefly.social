@@ -5,6 +5,7 @@ import {
 } from '@dimensiondev/iframe-bridge';
 import { useCallback } from 'react';
 
+import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function useOpenFireflyWallet() {
@@ -13,7 +14,9 @@ export function useOpenFireflyWallet() {
         (param?: IframeBridgeRequestArguments[IframeBridgeMethod.NAVIGATE]) => {
             updateFireflyWalletIsOpen(true);
             if (param) {
-                iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, param);
+                iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, param, {
+                    targetIframeId: FIREFLY_WALLET_IFRAME_ID,
+                });
             }
         },
         [updateFireflyWalletIsOpen],

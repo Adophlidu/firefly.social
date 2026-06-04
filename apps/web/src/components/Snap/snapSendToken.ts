@@ -2,6 +2,7 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
+import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { logger } from '@/libs/Logger.js';
 import { getProfileById } from '@/providers/firefly/farcaster-hub/getProfileById.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -46,5 +47,5 @@ export async function snapOpenSendToken(params: SnapSendTokenAction['params']): 
     });
 
     useGlobalState.getState().updateFireflyWalletIsOpen(true);
-    iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, { path });
+    iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, { path }, { targetIframeId: FIREFLY_WALLET_IFRAME_ID });
 }

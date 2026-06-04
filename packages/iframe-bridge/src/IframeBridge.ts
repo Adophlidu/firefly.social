@@ -36,8 +36,11 @@ async function sendMessage<T extends IframeBridgeMethod>(
     method: T,
     id: string,
     params: IframeBridgeRequestArguments[T],
+    options?: IframeBridgeRequestOptions,
 ) {
-    const targetWindow = await getTargetWindow();
+    const targetWindow = await getTargetWindow(
+        options?.targetIframeId ? { iframeId: options.targetIframeId } : undefined,
+    );
     if (!targetWindow) {
         console.warn(`[iframe-bridge] Target window is not available for method: ${method}`);
         return;
@@ -104,7 +107,7 @@ export class IframeBridgeProvider {
         const requestId = uniqueId('iframe-bridge');
 
         if (REQUEST_ONLY_METHODS.includes(method) && !options?.awaitResponse) {
-            await sendMessage(method, requestId, params);
+            await sendMessage(method, requestId, params, options);
             return Promise.resolve() as unknown as Promise<IframeBridgeResponseResult[T]>;
         }
 
@@ -120,7 +123,7 @@ export class IframeBridgeProvider {
                 this.installMessageListener();
 
                 // dispatch the request
-                sendMessage(method, requestId, params as IframeBridgeRequestArguments[T]).catch(reject);
+                sendMessage(method, requestId, params as IframeBridgeRequestArguments[T], options).catch(reject);
             }),
             3 * 60 * 1000 /* 3 minute */,
             `[iframe-bridge] request ${method} timeout.`,

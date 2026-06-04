@@ -47,6 +47,8 @@ export interface IframeBridgeMessage {
 
 export interface IframeBridgeRequestOptions {
     awaitResponse?: boolean;
+    /** When the host page targets a specific child iframe (e.g. wallet), pass its element id. */
+    targetIframeId?: string;
 }
 
 export interface IframeBridgeRequestArguments {

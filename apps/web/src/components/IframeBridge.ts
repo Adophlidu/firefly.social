@@ -10,6 +10,7 @@ import {
 import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
 
+import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.js';
@@ -161,10 +162,14 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
             // Open wallet panel and forward navigation to wallet iframe
             // (same pattern as useOpenFireflyWallet hook)
             useGlobalState.getState().updateFireflyWalletIsOpen(true);
-            iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
-                path: params.path,
-                replace: params.replace,
-            });
+            iframeBridgeProvider.request(
+                IframeBridgeMethod.NAVIGATE,
+                {
+                    path: params.path,
+                    replace: params.replace,
+                },
+                { targetIframeId: FIREFLY_WALLET_IFRAME_ID },
+            );
         },
         [IframeBridgeMethod.FIREFLY_WALLET_OPEN]: async () => {
             useGlobalState.getState().updateFireflyWalletIsOpen(true);

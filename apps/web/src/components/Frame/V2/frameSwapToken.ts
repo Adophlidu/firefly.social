@@ -4,6 +4,7 @@ import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import type { MiniAppHost } from '@farcaster/miniapp-host';
 import { getAccount } from '@wagmi/core';
 
+import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { logger } from '@/libs/Logger.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
@@ -45,7 +46,13 @@ export const frameSwapToken = async function frameSwapToken(options) {
     const swapPath = `/swap?${params.toString()}`;
 
     useGlobalState.getState().updateFireflyWalletIsOpen(true);
-    iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, { path: swapPath });
+    iframeBridgeProvider.request(
+        IframeBridgeMethod.NAVIGATE,
+        { path: swapPath },
+        {
+            targetIframeId: FIREFLY_WALLET_IFRAME_ID,
+        },
+    );
 
     // TODO We can't get the result of the swap yet.
     return {
