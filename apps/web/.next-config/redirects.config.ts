@@ -17,5 +17,10 @@ export const redirectsConfig: NonNullable<NextConfig['redirects']> = async () =>
             destination: '/following/trades',
             permanent: true,
         },
+        {
+            source: '/prediction/category',
+            destination: '/prediction/category/trending',
+            permanent: true,
+        },
     ];
 };
