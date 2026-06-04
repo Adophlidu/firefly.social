@@ -12,6 +12,7 @@ import urlcat from 'urlcat';
 import { useDebounceValue } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
+import { FAKE_REFRESH_TOKEN } from '@/constants/lens.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -23,12 +24,15 @@ import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 import type { GetClubsData, SearchClubsData } from '@/providers/orb/type.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 interface SearchExtraOptions {
     hasRedPacket: boolean;
+    isOrb: boolean;
     profileId?: string;
     selectedChannel?: Channel | null;
 }
@@ -160,7 +164,7 @@ function orderLensClubs({
 async function searchChannels(
     source: SocialSource,
     keyword: string,
-    { hasRedPacket, profileId, selectedChannel }: SearchExtraOptions,
+    { hasRedPacket, isOrb, profileId, selectedChannel }: SearchExtraOptions,
 ) {
     const provider = resolveSocialMediaProvider(source);
     if (source === Source.Lens && keyword) {
@@ -177,8 +181,8 @@ async function searchChannels(
     if (source === Source.Lens && !keyword) {
         const [orbAdminClubs, orbJoinedClubs, lensOwnedClubs, lensAdminClubs, lensJoinedClubs] =
             await Promise.allSettled([
-                fetchOrbClubs('MY_ADMIN_CLUBS', profileId),
-                fetchOrbClubs('MY_CLUBS', profileId),
+                isOrb ? fetchOrbClubs('MY_ADMIN_CLUBS', profileId) : EMPTY_LIST,
+                isOrb ? fetchOrbClubs('MY_CLUBS', profileId) : EMPTY_LIST,
                 fetchLensManagedClubs(profileId, true),
                 fetchLensManagedClubs(profileId, false),
                 fetchLensJoinedClubs(profileId),
@@ -238,12 +242,15 @@ export function useSearchChannels(
     const [debouncedKeyword] = useDebounceValue(keyword, 300);
     const profilesAll = useCurrentProfilesAll();
     const profileIds = SORTED_CHANNEL_SOURCES.map((x) => profilesAll[x]?.profileId);
+    const currentLensSession = useLensProfileStore.use.currentProfileSession() as LensSession | null;
+    const isOrb = currentLensSession?.refreshToken === FAKE_REFRESH_TOKEN;
 
     return useQuery({
-        queryKey: ['search-channels', source, debouncedKeyword, profileIds, hasRedPacket, selectedChannel?.id],
+        queryKey: ['search-channels', source, debouncedKeyword, profileIds, hasRedPacket, selectedChannel?.id, isOrb],
         queryFn: async () => {
             return searchChannels(source, debouncedKeyword, {
                 hasRedPacket,
+                isOrb,
                 profileId: profilesAll[source]?.profileId,
                 selectedChannel,
             });
