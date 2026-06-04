@@ -1,8 +1,8 @@
 {
-    "/penalty-game": {
-        "staging": "https://firefly-world-cup-penalty-game.vercel.app/penalty-game",
-        "canary": "https://firefly-world-cup-penalty-game.vercel.app/penalty-game",
-        "production": "https://firefly-world-cup-penalty-game.vercel.app/penalty-game"
+    "/freekick-challenge": {
+        "staging": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge",
+        "canary": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge",
+        "production": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge"
     },
     "/particle-recovery": {
         "staging": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
