@@ -4,6 +4,7 @@ import { bom, NotFoundError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { AccountSuspendedError, NitterError } from '@/constants/error.js';
+import { DedupPromise } from '@/decorators/DedupPromise.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -82,11 +83,9 @@ class NitterAPI {
         return data;
     }
 
-    // Normalize the cache key so every churned timeline call (profileId handle →
-    // numeric id, forceTwitterOfficial flips) and the pinned-post call share one
-    // memoized request: lowercase the case-insensitive handle, treat empty cursor
-    // as none.
-    @MemoizePromise((handle, options) => `${handle.toLowerCase()}-${options?.tab ?? ''}-${options?.cursor || ''}`)
+    // Share one fetch between the timeline and pinned-post queries on mount.
+    // Normalize the key: lowercase handle, empty cursor as none.
+    @DedupPromise((handle, options) => `${handle.toLowerCase()}-${options?.tab ?? ''}-${options?.cursor || ''}`)
     async getUserTimelineByHandle(
         handle: string,
         options?: {
