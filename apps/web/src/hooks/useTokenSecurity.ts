@@ -1,6 +1,6 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-import { getTokenSecurity } from '@/providers/goplus/getTokenSecurity.js';
+import { getTokenSecurity } from '@/batches/getTokenSecurity.js';
 
 export function useTokenSecurity(chainId: number | undefined, address: string | undefined) {
     return useQuery({
