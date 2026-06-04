@@ -1,29 +1,18 @@
 'use client';
 
-import { PredictionPlatform, ScrollListKey, Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
+import { useCallback } from 'react';
 
-import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { PredictionPolymarketListItem } from '@/components/Prediction/PredictionPolymarketListItem.js';
 import { useSearchParams } from '@/esm/navigation.js';
-import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
+import { usePolymarketListSportsPrices } from '@/hooks/prediction/usePolymarketListSportsPrices.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
 import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
-
-function getBetsItemContent(_: number, data: PolymarketEventListData) {
-    return (
-        <div className="pb-4" key={data.id}>
-            <BetItem
-                event={formatPolymarketEventListData(data)}
-                openLinkInNewTab={false}
-                platform={PredictionPlatform.Polymarket}
-            />
-        </div>
-    );
-}
 
 interface Props {
     source: string;
@@ -51,6 +40,20 @@ export function PredictionList({ source }: Props) {
             ),
     });
 
+    const items = queryResult.data;
+    const liveMarketPrices = usePolymarketListSportsPrices(items);
+
+    const itemContent = useCallback(
+        (_: number, data: PolymarketEventListData) => (
+            <PredictionPolymarketListItem
+                data={data}
+                liveMarketPrices={liveMarketPrices}
+                sportsCellClassName="hover:!bg-bg"
+            />
+        ),
+        [liveMarketPrices],
+    );
+
     return (
         <div className="px-4 py-2">
             <ListInPage
@@ -59,7 +62,7 @@ export function PredictionList({ source }: Props) {
                 VirtualListProps={{
                     listKey: `${ScrollListKey.Prediction}:explore:${source}`,
                     computeItemKey: (_, item) => item.id,
-                    itemContent: getBetsItemContent,
+                    itemContent,
                 }}
                 NoResultsFallbackProps={{
                     message: <Trans>No predictions found</Trans>,

@@ -120,9 +120,87 @@ function normalizeRecord(record: string | undefined): string | undefined {
     return trimmed.length > 0 ? trimmed : undefined;
 }
 
-function resolveGamePhase(gameStatus: PolymarketSportsEvent['game_status']): PredictionSportsGamePhase {
-    if (gameStatus === 0 || gameStatus === '0' || gameStatus === 'live') return 'live';
-    if (gameStatus === 2 || gameStatus === '2' || gameStatus === 'finished') return 'finished';
+/** Detail API uses camelCase; explore list often uses snake_case only. */
+type PolymarketSportsEventPayload = PolymarketSportsEvent & {
+    ended?: boolean;
+    live?: boolean;
+    gameStatus?: string | number;
+    finishedTimestamp?: string;
+};
+
+function readGameStatus(event: PolymarketSportsEvent): string | number | undefined {
+    const payload = event as PolymarketSportsEventPayload;
+    return event.game_status ?? payload.gameStatus;
+}
+
+function isLiveGameStatus(gameStatus: string | number | undefined): boolean {
+    return gameStatus === 0 || gameStatus === '0' || gameStatus === 'live';
+}
+
+function isFinishedGameStatus(gameStatus: string | number | undefined): boolean {
+    return gameStatus === 2 || gameStatus === '2' || gameStatus === 'finished';
+}
+
+function getEventStartTime(event: PolymarketSportsEvent): string | undefined {
+    return findMoneylineMarket(event)?.gameStartTime || event.startDate;
+}
+
+function isScheduledInFuture(event: PolymarketSportsEvent): boolean {
+    const start = getEventStartTime(event);
+    if (!start) return false;
+    const startMs = new Date(start).getTime();
+    if (Number.isNaN(startMs)) return false;
+    return startMs > Date.now();
+}
+
+function getLatestScores(event: PolymarketSportsEvent): number[] | undefined {
+    return event.score_show?.at(-1)?.score;
+}
+
+/** Non-tie final score; avoids treating placeholder 0-0 + winResult as ended. */
+function hasDecisiveFinalScore(scores: number[] | undefined): boolean {
+    if (!scores || scores.length < 2) return false;
+    const [home, away] = scores;
+    if (!Number.isFinite(home) || !Number.isFinite(away)) return false;
+    if (home === 0 && away === 0) return false;
+    return home !== away;
+}
+
+/**
+ * Align with resolveSportData `isMatchEnded`, plus a narrow list fallback when
+ * explore uses `closed: false` but the API sets winResult + real final scores.
+ */
+export function isPolymarketSportsGameFinished(event: PolymarketSportsEvent): boolean {
+    if (isScheduledInFuture(event)) return false;
+
+    const payload = event as PolymarketSportsEventPayload;
+    if (payload.ended) return true;
+
+    const gameStatus = readGameStatus(event);
+    if (isFinishedGameStatus(gameStatus)) return true;
+    if (payload.finishedTimestamp) return true;
+
+    if (event.gameId && event.closed && event.winResult !== undefined) return true;
+
+    // Trending list: same as detail for closed=false — require decisive scores, not winResult alone.
+    if (
+        event.gameId &&
+        event.winResult !== undefined &&
+        !isLiveGameStatus(gameStatus) &&
+        !payload.live &&
+        hasDecisiveFinalScore(getLatestScores(event))
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+function resolveGamePhase(event: PolymarketSportsEvent): PredictionSportsGamePhase {
+    const payload = event as PolymarketSportsEventPayload;
+    const gameStatus = readGameStatus(event);
+    if (isLiveGameStatus(gameStatus) || payload.live) return 'live';
+    if (isPolymarketSportsGameFinished(event)) return 'finished';
     return 'scheduled';
 }
 
@@ -271,7 +349,7 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
     const { homeMarket, drawMarket, awayMarket } = resolveThreeWayMarkets(moneylineMarkets, homeTeamData, awayTeamData);
     if (!homeMarket || !drawMarket || !awayMarket) return null;
 
-    const gamePhase = resolveGamePhase(event.game_status);
+    const gamePhase = resolveGamePhase(event);
     const latestScores = event.score_show?.at(-1)?.score;
     const finishedFlags =
         gamePhase === 'finished' ? resolveThreeWayFinishedFlags(event.winResult) : { home: {}, away: {}, draw: {} };
@@ -334,6 +412,20 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
     };
 }
 
+/** Same encoding as SportFinalScore / resolveThreeWayFinishedFlags: 0 = home, 2 = away. */
+function resolveBinaryWinnerIndex(winResult: number | undefined, scores: number[] | undefined): number | undefined {
+    if (winResult === 0) return 0;
+    if (winResult === 2) return 1;
+    if (!scores || scores.length < 2) return undefined;
+
+    const homeScore = scores[0];
+    const awayScore = scores[1];
+    if (typeof homeScore !== 'number' || typeof awayScore !== 'number') return undefined;
+    if (homeScore > awayScore) return 0;
+    if (awayScore > homeScore) return 1;
+    return undefined;
+}
+
 function getTeamsFromMarket(
     market: PolymarketSportsMarketData,
     scores: number[] | undefined,
@@ -342,11 +434,11 @@ function getTeamsFromMarket(
     const labels = parsePolymarketStringArray(market.outcomes);
     const prices = parsePolymarketStringArray(market.outcomePrices);
     const tokenIds = parsePolymarketStringArray(market.clobTokenIds);
+    const winnerIndex = resolveBinaryWinnerIndex(winResult, scores);
 
     return labels.map((name, index) => {
-        const teamIndex = index + 1;
-        const isWinner = winResult === teamIndex;
-        const isLoser = winResult !== undefined && winResult > 0 && winResult !== teamIndex;
+        const isWinner = winnerIndex === index;
+        const isLoser = winnerIndex !== undefined && winnerIndex !== index;
 
         return normalizeTeam(market.teams?.[index], name, prices[index], scores?.[index], {
             assetId: tokenIds[index]?.trim() || undefined,
@@ -366,7 +458,7 @@ export function formatPolymarketSportsEventForUI(event: PolymarketSportsEvent): 
     const moneyline = findMoneylineMarket(event);
     if (!moneyline) return null;
 
-    const gamePhase = resolveGamePhase(event.game_status);
+    const gamePhase = resolveGamePhase(event);
     const latestScores = event.score_show?.at(-1)?.score;
     const teams = getTeamsFromMarket(moneyline, latestScores, gamePhase === 'finished' ? event.winResult : undefined);
     if (teams.length < 2) return null;

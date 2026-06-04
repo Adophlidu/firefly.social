@@ -5,10 +5,11 @@ import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { PredictionPolymarketListItem } from '@/components/Prediction/PredictionPolymarketListItem.js';
 import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import {
     getCategoryPropsTagSlug,
@@ -16,6 +17,7 @@ import {
 } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { shouldShowGamesPropsTabs } from '@/helpers/prediction/category/shouldShowGamesTab.js';
+import { usePolymarketListSportsPrices } from '@/hooks/prediction/usePolymarketListSportsPrices.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
 import { GAMMA_EVENTS_PAGE_SIZE, getGammaEvents } from '@/providers/firefly/prediction/getGammaEvents.js';
 import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
@@ -111,6 +113,16 @@ const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(functi
             ),
     });
 
+    const items = queryResult.data;
+    const liveMarketPrices = usePolymarketListSportsPrices(items);
+
+    const itemContent = useCallback(
+        (_: number, data: PolymarketEventListData) => (
+            <PredictionPolymarketListItem data={data} liveMarketPrices={liveMarketPrices} />
+        ),
+        [liveMarketPrices],
+    );
+
     return (
         <div className="px-4 py-2">
             <ListInPage
@@ -119,7 +131,7 @@ const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(functi
                 VirtualListProps={{
                     listKey: `${ScrollListKey.Prediction}:category:${slug}:${subSlug ?? ''}`,
                     computeItemKey: (_, item) => item.id,
-                    itemContent: getBetsItemContent,
+                    itemContent,
                 }}
                 NoResultsFallbackProps={{
                     message: <Trans>No predictions found</Trans>,

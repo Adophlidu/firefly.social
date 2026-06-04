@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
     formatPolymarketSportsEventForUI,
     formatPriceCents,
+    isPolymarketSportsGameFinished,
     normalizeSportsOutcomeDisplayPrice,
     parseSportsPriceCentsLabel,
     resolveSportsLivestreamUrl,
@@ -196,5 +197,179 @@ describe('formatPolymarketSportsEventForUI', () => {
         expect(model?.homeTeam.marketSlug).toBe('arsenal-chelsea-ml');
         expect(model?.homeTeam.outcomeIndex).toBe(0);
         expect(model?.awayTeam.outcomeIndex).toBe(1);
+    });
+
+    it('treats closed games with gameId as finished when game_status is stale', () => {
+        const event = baseEvent({
+            gameId: 'nba-game-1',
+            closed: true,
+            game_status: 1,
+            winResult: 0,
+            score_show: [{ score: [110, 98] }],
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'lakers-celtics-ml',
+                    outcomes: '["Lakers","Celtics"]',
+                    outcomePrices: '["0.99","0.01"]',
+                    gameStartTime: '2026-05-20T22:00:00Z',
+                    teams: [{ name: 'Lakers' }, { name: 'Celtics' }],
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.gamePhase).toBe('finished');
+        expect(model?.statusLabel).toBe('FINAL');
+        expect(model?.homeTeam.score).toBe(110);
+        expect(model?.homeTeam.isWinner).toBe(true);
+        expect(model?.awayTeam.isLoser).toBe(true);
+    });
+
+    it('marks away winner when winResult is 2', () => {
+        const event = baseEvent({
+            gameId: 'nba-game-away',
+            closed: true,
+            game_status: 2,
+            winResult: 2,
+            score_show: [{ score: [98, 110] }],
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'lakers-celtics-ml',
+                    outcomes: '["Lakers","Celtics"]',
+                    outcomePrices: '["0.01","0.99"]',
+                    teams: [{ name: 'Lakers' }, { name: 'Celtics' }],
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.homeTeam.isLoser).toBe(true);
+        expect(model?.awayTeam.isWinner).toBe(true);
+    });
+
+    it('infers winner from scores when winResult is missing on a finished game', () => {
+        const event = {
+            ...baseEvent({
+                gameId: 'nba-game-scores',
+                score_show: [{ score: [110, 98] }],
+                markets: [
+                    {
+                        sportsMarketType: 'moneyline',
+                        outcomes: '["Lakers","Celtics"]',
+                        outcomePrices: '["0.99","0.01"]',
+                        teams: [{ name: 'Lakers' }, { name: 'Celtics' }],
+                    },
+                ] as PolymarketSportsMarketData[],
+            }),
+            ended: true,
+        } as PolymarketSportsEvent;
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.gamePhase).toBe('finished');
+        expect(model?.homeTeam.isWinner).toBe(true);
+        expect(model?.awayTeam.isLoser).toBe(true);
+    });
+
+    it('treats explore-list ended games as finished when closed is false but winResult and final scores are set', () => {
+        const event = baseEvent({
+            gameId: 'nba-game-2',
+            closed: false,
+            game_status: 1,
+            winResult: 0,
+            score_show: [{ score: [110, 98] }],
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'lakers-celtics-ml',
+                    outcomes: '["Lakers","Celtics"]',
+                    outcomePrices: '["0.99","0.01"]',
+                    gameStartTime: '2026-05-20T22:00:00Z',
+                    teams: [{ name: 'Lakers' }, { name: 'Celtics' }],
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(isPolymarketSportsGameFinished(event)).toBe(true);
+        expect(model?.gamePhase).toBe('finished');
+        expect(model?.homeTeam.isWinner).toBe(true);
+        expect(model?.awayTeam.isLoser).toBe(true);
+    });
+
+    it('does not treat upcoming games as finished when list has winResult and 0-0 scores', () => {
+        const event = baseEvent({
+            slug: 'nba-nyk-sas-2026-06-05',
+            gameId: 'nba-nyk-sas',
+            closed: false,
+            game_status: 1,
+            winResult: 2,
+            score_show: [{ score: [0, 0] }],
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'nba-nyk-sas-ml',
+                    outcomes: '["Knicks","Spurs"]',
+                    outcomePrices: '["0.48","0.52"]',
+                    gameStartTime: '2099-06-05T00:00:00Z',
+                    teams: [
+                        { name: 'Knicks', abbreviation: 'NYK' },
+                        { name: 'Spurs', abbreviation: 'SAS' },
+                    ],
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(isPolymarketSportsGameFinished(event)).toBe(false);
+        expect(model?.gamePhase).toBe('scheduled');
+        expect(model?.statusLabel).toBeUndefined();
+        expect(model?.homeTeam.isWinner).not.toBe(true);
+        expect(model?.awayTeam.isWinner).not.toBe(true);
+    });
+
+    it('treats camelCase ended and gameStatus as finished on list-shaped payloads', () => {
+        const event = {
+            ...baseEvent({
+                gameId: 'nba-game-3',
+                closed: false,
+                game_status: 1,
+                markets: [
+                    {
+                        sportsMarketType: 'moneyline',
+                        outcomes: '["Lakers","Celtics"]',
+                        outcomePrices: '["0.5","0.5"]',
+                        teams: [{ name: 'Lakers' }, { name: 'Celtics' }],
+                    },
+                ] as PolymarketSportsMarketData[],
+            }),
+            ended: true,
+        } as PolymarketSportsEvent;
+
+        expect(formatPolymarketSportsEventForUI(event)?.gamePhase).toBe('finished');
+
+        const viaGameStatus = {
+            ...baseEvent({
+                gameId: 'nba-game-4',
+                closed: false,
+                markets: [
+                    {
+                        sportsMarketType: 'moneyline',
+                        outcomes: '["Lakers","Celtics"]',
+                        outcomePrices: '["0.5","0.5"]',
+                        teams: [{ name: 'Lakers' }, { name: 'Celtics' }],
+                    },
+                ] as PolymarketSportsMarketData[],
+            }),
+            gameStatus: 'finished',
+        } as PolymarketSportsEvent;
+
+        expect(formatPolymarketSportsEventForUI(viaGameStatus)?.gamePhase).toBe('finished');
     });
 });

@@ -25,15 +25,21 @@ import { RouteResolver } from '@/helpers/RouteResolver.js';
 
 interface Props {
     model: PredictionSportsCellViewModel;
+    className?: string;
 }
 
-export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ model }) {
+export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ model, className }) {
     const eventHref = RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, model.eventSlug, {
         appendRoot: false,
     });
 
     return (
-        <div className="relative flex flex-col gap-3 rounded-2xl border border-line bg-lightBottom p-4 transition-colors hover:opacity-95 dark:bg-darkBottom">
+        <div
+            className={classNames(
+                'relative flex flex-col gap-3 rounded-2xl border border-line bg-lightBottom p-4 transition-colors hover:opacity-95 dark:bg-darkBottom',
+                className,
+            )}
+        >
             <Link
                 href={eventHref}
                 className="absolute inset-0 z-0 rounded-2xl"
