@@ -549,7 +549,7 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
     const awaySlug = marketOutcomes?.away?.slug ?? slug;
 
     return (
-        <div className="mt-1.5 rounded-2xl border border-line p-3 md:p-4">
+        <div className="mt-2 rounded-2xl border border-line p-3 md:p-4">
             <div className="grid w-full grid-cols-[minmax(84px,156px)_minmax(88px,1fr)_minmax(84px,156px)] items-center gap-2">
                 <TeamColumn team={homeTeam} isLoser={winner === 'away'} />
                 <CenterColumn activity={activity} outcomes={outcomes} winner={winner} />

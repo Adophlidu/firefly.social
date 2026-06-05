@@ -4855,9 +4855,6 @@ msgstr "訊息"
 msgid "Token holder of any one below"
 msgstr "擁有以下任意代幣"
 
-msgid "World Cup"
-msgstr "世界盃"
-
 msgid "Text"
 msgstr "純文字"
 

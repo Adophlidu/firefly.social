@@ -10,6 +10,7 @@ import { PredictionActivityRate } from '@/components/Prediction/PredictionActivi
 import { PredictionActivityResult } from '@/components/Prediction/PredictionActivityResult.js';
 import { PredictionActivityTxType } from '@/components/Prediction/PredictionActivityTxType.js';
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
+import { SportBetInfoPills } from '@/components/Prediction/Sport/SportBetInfoPills.js';
 import { SportTimelineActivityCard } from '@/components/Prediction/Sport/SportTimelineActivityCard.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
@@ -51,12 +52,13 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
     const content = activity.sportData ? (
         <>
             <PredictionActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
+            <SportBetInfoPills activity={activity} />
             <SportTimelineActivityCard activity={activity} />
         </>
     ) : (
         <>
             <PredictionActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
-            <div className="mt-1.5 rounded-2xl border border-line p-4">
+            <div className="mt-2 rounded-2xl border border-line p-4">
                 <div className="flex gap-x-2">
                     <PredictionEventImage
                         platform={activity.platform}
@@ -91,7 +93,7 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
     );
 
     return (
-        <div className={classNames('mt-1.5 block flex-1', className)} style={containerStyle}>
+        <div className={classNames('mt-2 block flex-1', className)} style={containerStyle}>
             {wrapper ? wrapper(content) : content}
         </div>
     );

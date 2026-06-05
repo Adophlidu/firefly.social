@@ -4855,9 +4855,6 @@ msgstr "메시지"
 msgid "Token holder of any one below"
 msgstr "아래 토큰 중 하나의 보유자"
 
-msgid "World Cup"
-msgstr "월드컵"
-
 msgid "Text"
 msgstr "텍스트"
 

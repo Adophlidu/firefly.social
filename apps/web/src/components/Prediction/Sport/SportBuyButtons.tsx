@@ -202,7 +202,7 @@ const SportBuyButton = memo(function SportBuyButton({
                         handleOpen();
                     }}
                 >
-                    <span className="min-w-0 shrink-0 truncate uppercase" ref={ref}>
+                    <span className="min-w-0 truncate uppercase" ref={ref}>
                         {label}
                     </span>
                     <span className="shrink-0">{price ? formatCents(price) : ''}</span>
