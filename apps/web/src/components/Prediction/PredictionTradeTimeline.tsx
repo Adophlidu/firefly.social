@@ -82,12 +82,12 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
     marketIds,
     eventSlug,
 }) {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const [isFollowing, setIsFollowing] = useQueryState('isFollowing', parseAsBoolean.withDefault(false));
 
     return (
         <div className="min-h-[512px] space-y-4">
-            {isLoginFirefly ? (
+            {isLogin ? (
                 <div className="m-4 mb-0 inline-flex h-7 rounded-md border border-secondaryLine text-xs">
                     <ClickableButton
                         className={classNames(
@@ -128,7 +128,7 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
                     <PredictionTradeTimelineContent
                         platform={platform}
                         marketIds={marketIds}
-                        isFollowing={isLoginFirefly ? isFollowing : false}
+                        isFollowing={isLogin ? isFollowing : false}
                     />
                 </Suspense>
             </ErrorBoundary>

@@ -55,7 +55,7 @@ export function SwapTimeline({
     NoResultsFallbackProps,
     onActivitiesUpdate,
 }: SwapTimelineProps) {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const profileIds = useCurrentProfileIds();
     const { selectedChainId } = useTransactionsStateStore();
     const chainId = ignoreFilters ? propChainId : propChainId || selectedChainId;
@@ -68,7 +68,7 @@ export function SwapTimeline({
         queryKey,
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
-            if ((isFollowing && !isLoginFirefly) || (!isFollowing && !address)) return null;
+            if ((isFollowing && !isLogin) || (!isFollowing && !address)) return null;
 
             if (!isFollowing && address) {
                 return getSwapTimelineByAddress(
@@ -97,7 +97,7 @@ export function SwapTimeline({
         };
     }, [onActivitiesUpdate, queryResult.data]);
 
-    if (!isLoginFirefly && isFollowing) {
+    if (!isLogin && isFollowing) {
         return <NotLoginFallback source={Source.Swap} />;
     }
 

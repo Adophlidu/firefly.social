@@ -46,8 +46,9 @@ interface Props {
 export function LoginModal({ ref }: Props) {
     const isMedium = useIsMedium();
     const routerRef = useRef(createLoginRouter());
-    const isLoginFirefly = useIsLoginFirefly();
     const [props, setProps] = useState<LoginModalOpenProps | null>(null);
+
+    const isLogin = useIsLoginFirefly();
 
     const [open, dispatch] = useSingletonModal(ref, {
         name: 'login-modal',
@@ -66,7 +67,7 @@ export function LoginModal({ ref }: Props) {
                 });
             } else {
                 routerRef.current = createLoginRouter();
-                routerRef.current.history.replace(urlcat('/main', { isLogin: isLoginFirefly }));
+                routerRef.current.history.replace(urlcat('/main', { isLogin }));
             }
         },
         onClose: () => {

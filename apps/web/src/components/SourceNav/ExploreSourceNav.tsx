@@ -14,8 +14,8 @@ import { SourceNav } from '@/components/SourceNav/SourceNav.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
 import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useExploreTrendingFilterStore } from '@/store/useExploreTrendingFilterStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 
 const exploreTokenChainList = [
     {
@@ -46,13 +46,13 @@ interface Props extends HTMLProps<HTMLDivElement> {
 }
 
 export const ExploreSourceNav = memo<Props>(function ExploreSourceNav({ explore, source, ...rest }) {
-    const currentBskyProfile = useCurrentProfile(Source.Bsky);
+    const currentProfile = useBskyProfileStore.use.currentProfile();
     const sources = useMemo(() => {
         const allSources = EXPLORE_SOURCES[explore];
-        return explore === ExploreType.TopProfiles && !currentBskyProfile
+        return explore === ExploreType.TopProfiles && !currentProfile
             ? allSources?.filter((x) => x !== Source.Bsky)
             : allSources;
-    }, [currentBskyProfile, explore]);
+    }, [currentProfile, explore]);
     const { selectedChainId, selectedTimeRange, setSelectedChainId, setSelectedTimeRange } =
         useExploreTrendingFilterStore();
 

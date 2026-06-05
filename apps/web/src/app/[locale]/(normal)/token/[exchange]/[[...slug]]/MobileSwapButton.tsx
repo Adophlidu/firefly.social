@@ -12,10 +12,10 @@ interface Props extends Omit<SwapButtonProps, 'swapProps'> {
 }
 
 export const MobileSwapButton = memo(function MobileSwapButton({ token, ...props }: Props) {
-    const isLoggedIn = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const tradeInfo = useTradeInfo(token);
     const tradeChainId = tradeInfo.chainId;
-    if (!tradeInfo.tradable || !isLoggedIn) return null;
+    if (!tradeInfo.tradable || !isLogin) return null;
 
     return (
         <SwapButton

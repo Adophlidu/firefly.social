@@ -54,7 +54,7 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
         queryFn: !privyEvm ? skipToken : () => getProfilesByAddress(privyEvm),
     });
     const { data: signerAddress } = useQuery({
-        queryKey: [Source.Lens, 'signer', account?.session.token],
+        queryKey: [Source.Lens, 'signer', account?.session.profileId],
         staleTime: 0,
         enabled: !disabled,
         queryFn: !account

@@ -12,11 +12,11 @@ import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWalle
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function useIsCreatedPrivyWallet() {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const { currentProfileSession } = useFireflyProfileStore();
     const { connections, isLoading: isLoadingPrivyConnections } = usePrivyConnections();
     const isCreatedPrivyWallet = connections.length >= 2;
-    const enabled = !isLoadingPrivyConnections && isLoginFirefly && !isCreatedPrivyWallet;
+    const enabled = !isLoadingPrivyConnections && isLogin && !isCreatedPrivyWallet;
 
     const { isLoading, error } = useQuery({
         queryKey: ['create-privy-wallet', currentProfileSession?.profileId, enabled],

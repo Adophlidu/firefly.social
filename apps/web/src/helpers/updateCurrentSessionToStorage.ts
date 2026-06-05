@@ -1,4 +1,4 @@
-import type { ProfileSource, SocialSource } from '@dimensiondev/enums';
+import type { ProfileSource } from '@dimensiondev/enums';
 import { bom, parseJson } from '@dimensiondev/utils';
 import type { z } from 'zod';
 
@@ -42,7 +42,7 @@ function updateProfileStorage(source: ProfileSource, session: Session) {
     });
 }
 
-export function updateCurrentSessionToStorage(source: SocialSource, session: Session) {
+export function updateCurrentSessionToStorage(source: ProfileSource, session: Session) {
     try {
         updateProfileStorage(source, session);
     } catch (error) {

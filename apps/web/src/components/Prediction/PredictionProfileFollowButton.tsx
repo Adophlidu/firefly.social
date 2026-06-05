@@ -24,9 +24,9 @@ interface Props {
 }
 
 export const PredictionProfileFollowButton = memo<Props>(function PredictionProfileFollowButton({ address, platform }) {
+    const isLogin = useIsLoginFirefly();
     const profiles = useCurrentFireflyProfilesAll();
     const profilesAll = useCurrentProfilesAll();
-    const isLoginFirefly = useIsLoginFirefly();
     const { source, profileId, name, isLoading } = usePredictionProfileData({ platform, address });
 
     const { data, isLoading: isProfileLoading } = useQuery({
@@ -56,11 +56,11 @@ export const PredictionProfileFollowButton = memo<Props>(function PredictionProf
     }, [source, profileId, profiles]);
 
     const onBetProfileFollowButtonClick = useCallback(() => {
-        if (!isLoginFirefly || (isSocialSource(source) && !profilesAll[source]?.profileId))
+        if (!isLogin || (isSocialSource(source) && !profilesAll[source]?.profileId))
             return captureBetProfileFollowEvent(platform, 'login');
         if (isSocialSource(source) || source === Source.Wallet) return captureBetProfileFollowEvent(platform, source);
         return captureBetProfileFollowEvent(platform, 'proxy_wallet');
-    }, [source, platform, isLoginFirefly, profilesAll]);
+    }, [source, platform, isLogin, profilesAll]);
 
     if (isLoading || isRelatedProfile || isProfileLoading) return null;
     if (socialProfile) {

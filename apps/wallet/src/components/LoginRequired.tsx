@@ -8,9 +8,9 @@ import { useIsPublicRoute } from '@/hooks/useIsPublicRoute.js';
 
 export function LoginRequired({ children }: PropsWithChildren) {
     const isPublicRoute = useIsPublicRoute();
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     if (isPublicRoute) return children;
-    if (!isLoginFirefly) {
+    if (!isLogin) {
         return (
             <div className="flex h-48 w-full flex-col items-center justify-center">
                 <Button asChild>

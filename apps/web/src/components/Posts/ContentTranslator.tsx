@@ -41,7 +41,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
         original: null,
         target: null,
     });
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
 
     const [_, handleDetect] = useAsyncFn(async () => {
         const originalLanguage = (await runInSafeAsync(() => detectLanguage(content))) || null;
@@ -63,11 +63,11 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     }, [content, translationConfig]);
 
     useEffect(() => {
-        if (!isLoginFirefly || !isValidContentToTranslate(content) || detected.current) return;
+        if (!isLogin || !isValidContentToTranslate(content) || detected.current) return;
         handleDetect();
-    }, [content, isLoginFirefly, handleDetect]);
+    }, [content, isLogin, handleDetect]);
 
-    if (!isLoginFirefly || !translationConfig.target) return null;
+    if (!isLogin || !translationConfig.target) return null;
 
     const translatedText = data?.translatedText;
     const contentLanguage = data?.contentLanguage;

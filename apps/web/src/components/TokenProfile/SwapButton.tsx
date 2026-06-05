@@ -28,12 +28,12 @@ export interface SwapButtonProps extends ClickableButtonProps {
 }
 
 export function SwapButton({ className, swapProps: swapFromProps, loginRequired = false, ...rest }: SwapButtonProps) {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const openFireflyWallet = useOpenFireflyWallet();
     const { ethereum, solana } = useWalletAccountAll();
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
-        if (loginRequired && !isLoginFirefly) {
+        if (loginRequired && !isLogin) {
             openLoginModalWithGuard();
             return;
         }
@@ -53,7 +53,7 @@ export function SwapButton({ className, swapProps: swapFromProps, loginRequired 
         const swapPath = `/swap?${query}`;
 
         openFireflyWallet({ path: swapPath });
-    }, [loginRequired, isLoginFirefly, swapFromProps, openFireflyWallet, ethereum.address, solana.address]);
+    }, [loginRequired, isLogin, swapFromProps, openFireflyWallet, ethereum.address, solana.address]);
 
     return (
         <ClickableButton

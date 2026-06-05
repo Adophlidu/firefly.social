@@ -28,7 +28,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 export const FIREFLY_WALLET_IFRAME_ID = `firefly-wallet-iframe`;
 
 export function FireflyWallet() {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const isOpen = useGlobalState.use.fireflyWalletIsOpen();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
     const pathname = usePathname();
@@ -82,7 +82,7 @@ export function FireflyWallet() {
         }
     }, [isOpen, privyConnections]);
 
-    if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
+    if (!isLogin || !isCreatedPrivyWallet) return null;
 
     return (
         <>

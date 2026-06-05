@@ -172,13 +172,13 @@ function captureLikeEvent({ type, data }: LikeTarget, liked: boolean) {
 }
 
 export function useToggleLike(target: LikeTarget) {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const likeParams = resolveLikeParams(target);
 
     return useMutation({
         mutationKey: [target.type, likeParams?.reactionType, likeParams?.platformId, likeParams?.reactionId],
         mutationFn: async (isLiked: boolean) => {
-            if (!isLoginFirefly) {
+            if (!isLogin) {
                 openLoginModalWithGuard();
                 return;
             }

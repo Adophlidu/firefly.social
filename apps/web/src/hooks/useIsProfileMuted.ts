@@ -10,11 +10,11 @@ import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const isLoginBsky = useIsLogin(Source.Bsky);
 
     const validParameters = !!source && !!profileId && enabled;
-    const canQuery = validParameters && ((source === Source.Bsky && isLoginBsky) || isLoginFirefly);
+    const canQuery = validParameters && ((source === Source.Bsky && isLoginBsky) || isLogin);
 
     const { data } = useQuery({
         enabled: canQuery,

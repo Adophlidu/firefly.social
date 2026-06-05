@@ -57,7 +57,7 @@ export const CurrentProfilesCard = memo<CurrentProfilesCardProps>(function Curre
 }) {
     const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
 
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
     const router = useRouter();
     const pathname = usePathname();
@@ -135,8 +135,8 @@ export const CurrentProfilesCard = memo<CurrentProfilesCardProps>(function Curre
                     'flex w-full items-center justify-between p-2',
                     isExceed ? 'cursor-not-allowed' : 'cursor-pointer',
                     {
-                        'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
-                        'border-b border-secondaryLine': isLoginFirefly && profileStore[source].accounts.length > 0,
+                        'bg-bg': !isLogin ? index % 2 === 0 : true,
+                        'border-b border-secondaryLine': isLogin && profileStore[source].accounts.length > 0,
                     },
                 )}
                 disabled={switchLoading || loading}

@@ -95,9 +95,9 @@ export const useComposeDraftStateStore = createSelectors(useComposeStateBase);
 
 export function useComposeDraftState() {
     const { drafts, removeDraft, getDrafts, removeTempDrafts, addDraft } = useComposeDraftStateStore();
-    const currentProfileId = useFireflyProfileStore.use.currentProfileSession()?.profileId ?? null;
+    const { currentProfileSession } = useFireflyProfileStore();
 
-    const result = useMemo(() => getDrafts(), [drafts, currentProfileId, getDrafts]);
+    const result = useMemo(() => getDrafts(), [drafts, currentProfileSession?.profileId, getDrafts]);
 
     return {
         drafts: result,

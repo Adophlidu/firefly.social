@@ -20,10 +20,10 @@ export function getPrivyWalletConnectionsQuery() {
 }
 
 export function usePrivyConnections() {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const { data, ...query } = useQuery({
         ...getPrivyWalletConnectionsQuery(),
-        enabled: isLoginFirefly,
+        enabled: isLogin,
     });
     return {
         connections: data ?? EMPTY_LIST,

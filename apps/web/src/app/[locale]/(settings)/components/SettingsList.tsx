@@ -14,18 +14,18 @@ interface SettingLink {
 }
 
 export function SettingsList() {
-    const isLoggedIn = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
 
     const settingLinks: SettingLink[] = [
         { name: <Trans>General</Trans>, link: '/general' },
-        { name: <Trans>Connected wallets</Trans>, link: '/wallets', isHidden: !isLoggedIn },
-        { name: <Trans>Connected accounts</Trans>, link: '/connected', isHidden: !isLoggedIn },
-        { name: <Trans>Notifications</Trans>, link: '/notification-settings', isHidden: !isLoggedIn },
-        { name: <Trans>Content preference</Trans>, link: '/preference', isHidden: !isLoggedIn },
+        { name: <Trans>Connected wallets</Trans>, link: '/wallets', isHidden: !isLogin },
+        { name: <Trans>Connected accounts</Trans>, link: '/connected', isHidden: !isLogin },
+        { name: <Trans>Notifications</Trans>, link: '/notification-settings', isHidden: !isLogin },
+        { name: <Trans>Content preference</Trans>, link: '/preference', isHidden: !isLogin },
         {
             name: <Trans>Privacy and security</Trans>,
             link: '/privacy-and-security',
-            isHidden: !isLoggedIn,
+            isHidden: !isLogin,
             relatedLinks: ['/settings/mutes'],
         },
         { name: <Trans>More</Trans>, link: '/more' },

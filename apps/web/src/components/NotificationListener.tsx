@@ -12,12 +12,12 @@ import { listenNotifications, stopListenNotifications } from '@/services/listenN
 
 export function NotificationListener() {
     const isSyncing = useAsyncStatusAll();
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const recordWithNew = useNewestNotification();
     const pathname = usePathname();
 
     const isNotificationPage = isRoutePathname(pathname, PageRoute.Notifications);
-    const shouldNotListen = !isLoginFirefly || isNotificationPage || !!recordWithNew;
+    const shouldNotListen = !isLogin || isNotificationPage || !!recordWithNew;
 
     useEffect(() => {
         if (isSyncing) return;

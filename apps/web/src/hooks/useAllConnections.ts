@@ -6,11 +6,11 @@ import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 
 export function useAllConnections(options?: { enabled?: boolean }) {
-    const isLoginFirefly = useIsLoginFirefly();
-    const queryResult = useQuery({ ...queryMyAllConnections, enabled: isLoginFirefly ?? options?.enabled });
+    const isLogin = useIsLoginFirefly();
+    const queryResult = useQuery({ ...queryMyAllConnections, enabled: isLogin ?? options?.enabled });
 
     return {
         ...queryResult,
-        data: !isLoginFirefly ? undefined : queryResult.data,
+        data: !isLogin ? undefined : queryResult.data,
     };
 }

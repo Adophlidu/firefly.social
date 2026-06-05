@@ -16,9 +16,9 @@ export function useAnonymousPostAvailability(): {
     canPost: boolean;
     sources: SocialSource[];
 } {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const enabled =
-        isLoginFirefly &&
+        isLogin &&
         envs.external.NEXT_PUBLIC_POST_BY_ANONYMOUS === STATUS.Enabled &&
         SUPPORTED_ANONYMOUS_POST_SOURCES.length > 0;
 

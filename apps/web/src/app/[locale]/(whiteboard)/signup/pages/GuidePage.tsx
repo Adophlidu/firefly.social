@@ -80,7 +80,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                         <Trans>Sign In</Trans>
                     </SquareButton>
                     <SquareButton className="text-black" colorMode="light" onClick={() => openDownloadMobileAppModal()}>
-                        <div className="flex size-full items-center justify-center gap-3">
+                        <div className="flex size-full items-center justify-center gap-1">
                             <Trans>Download App</Trans>
                             <AppleIcon width={24} height={24} />
                             <GoogleStoreIcon className="mt-1" width={18} height={19} />

@@ -26,7 +26,7 @@ export function FireflyAccountChecker() {
     const isSyncing = useAsyncStatusAll();
     const { hasFireflyAccount, isLoading } = useCheckFireflyAccount();
     const profiles = useCurrentProfiles();
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const { accounts } = useThirdPartyProfileStore();
     const pathname = usePathname();
     const { isForbiddenError } = useWatchAccountChange();
@@ -48,7 +48,7 @@ export function FireflyAccountChecker() {
     }, [pathname, hasFireflyAccount, isLoading, isForceRedirect, hasLoggedIn, isForbiddenError]);
 
     const showLoading = (((!hasFireflyAccount && !hasLoggedIn) || isLoading) && isForceRedirect) || isSyncing;
-    if (!showLoading || !isLoginFirefly) {
+    if (!showLoading || !isLogin) {
         removeGlobalLoading();
     }
 

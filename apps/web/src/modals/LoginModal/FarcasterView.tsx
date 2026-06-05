@@ -22,9 +22,9 @@ function useSignType() {
         expectedSignType?: FarcasterSignType;
     };
     const returnSignType = signType || expectedSignType;
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const { data, isLoading } = useAllConnections({
-        enabled: isLoginFirefly && !returnSignType,
+        enabled: isLogin && !returnSignType,
     });
     const defaultSignType = !IS_MOBILE_DEVICE
         ? resolveFarcasterDefaultSignType(data?.social.Farcaster.connected.length)

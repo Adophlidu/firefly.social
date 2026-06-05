@@ -26,12 +26,12 @@ const IconMap: Record<NetworkType, string | undefined> = {
 };
 
 export const WalletConnectButton = memo<WalletConnectButtonProps>(function WalletConnectButton({ className, ...rest }) {
+    const isLogin = useIsLoginFirefly();
     const { ethereum, solana } = useWalletAccountAll();
     const { sidebarOpen, updateSidebarOpen } = useNavigatorState();
-    const isLoginFirefly = useIsLoginFirefly();
     const { isAuthorized, wallets } = useFireflyWalletStore();
 
-    const privyConnected = isLoginFirefly && isAuthorized;
+    const privyConnected = isLogin && isAuthorized;
     const connectedNetworks = useMemo(
         () =>
             compact([

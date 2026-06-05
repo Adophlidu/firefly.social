@@ -79,7 +79,7 @@ export function MainView() {
     const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
     const [isOpenFireflyAccountMenu, setIsOpenFireflyAccountMenu] = useState(false);
 
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
     const { data: allConnections, connectionLoading, connections } = useAllConnectionsFormattedWithProfiles();
 
@@ -149,7 +149,7 @@ export function MainView() {
             >
                 {hideSocialLogin ? null : (
                     <>
-                        {isLoginFirefly ? (
+                        {isLogin ? (
                             connectionLoading ? (
                                 <FireflyAccountLoadingSkeleton />
                             ) : (
@@ -194,7 +194,7 @@ export function MainView() {
                                     className={classNames(
                                         'flex w-full cursor-pointer items-center justify-between p-2',
                                         {
-                                            'bg-bg': !profile || (index % 2 === 0 && !isLoginFirefly),
+                                            'bg-bg': !profile || (index % 2 === 0 && !isLogin),
                                         },
                                     )}
                                     onClick={() => {

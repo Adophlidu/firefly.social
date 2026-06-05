@@ -47,7 +47,7 @@ interface SwapActionsProps {
 }
 
 export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activity, isDetail = false }) {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
     const shareUrl = useShareUrl(urlcat(SITE_URL, resolveTxPageUrl(activity.hash, activity.chain_id)));
 
     const { data = activity } = useQuery({
@@ -61,7 +61,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
     });
 
     const [{ loading: handleMirrorLoading }, handleMirror] = useAsyncFn(async () => {
-        if (!isLoginFirefly) {
+        if (!isLogin) {
             openLoginModalWithGuard();
             return;
         }
@@ -100,7 +100,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                 });
             }
         }
-    }, [isLoginFirefly, shareUrl, activity]);
+    }, [isLogin, shareUrl, activity]);
 
     return (
         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>

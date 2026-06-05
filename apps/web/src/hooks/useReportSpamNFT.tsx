@@ -58,11 +58,11 @@ function filterOutActivities(address: string) {
 }
 
 export function useReportSpamNFT() {
-    const isLoginFirefly = useIsLoginFirefly();
+    const isLogin = useIsLoginFirefly();
 
     return useAsyncFn(
         async (chainId: number, address: string) => {
-            if (!isLoginFirefly) {
+            if (!isLogin) {
                 openLoginModalWithGuard();
                 return;
             }
@@ -87,6 +87,6 @@ export function useReportSpamNFT() {
                 throw error;
             }
         },
-        [isLoginFirefly],
+        [isLogin],
     );
 }
