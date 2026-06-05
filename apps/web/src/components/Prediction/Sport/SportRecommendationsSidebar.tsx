@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { memo, useMemo } from 'react';
 
-import { Image } from '@/esm/Image.js';
+import { Image } from '@/components/Image.js';
 import { Link } from '@/esm/Link.js';
 import {
     formatPolymarketSportsEventForUI,
@@ -81,7 +81,16 @@ function TeamColumn({ team }: { team: PredictionSportsTeamForUI }) {
     return (
         <div className="flex w-12 shrink-0 flex-col items-center gap-2">
             {team.logo ? (
-                <Image src={team.logo} alt="" width={48} height={48} className="size-12 rounded-lg object-cover" />
+                <div className="overflow-hidden rounded-lg">
+                    <Image
+                        src={team.logo}
+                        alt=""
+                        width={48}
+                        height={48}
+                        className="size-12 object-contain"
+                        fallback="square"
+                    />
+                </div>
             ) : (
                 <span className="flex size-12 items-center justify-center rounded-lg bg-bg text-sm font-semibold text-second">
                     {label[0]}

@@ -10,6 +10,7 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SportTennisScoreValue } from '@/components/Prediction/Sport/SportTennisScoreValue.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { formatPriceCents } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
@@ -429,7 +430,9 @@ function SportTimelineOutcomeButton({ slug, outcome }: { slug?: string; outcome:
                 handleOpenPredictionPage();
             }}
         >
-            <span className="min-w-0 truncate font-medium uppercase opacity-80">{outcome.label}</span>
+            <TextOverflowTooltip content={outcome.label}>
+                <span className="min-w-0 truncate font-medium uppercase opacity-80">{outcome.label}</span>
+            </TextOverflowTooltip>
             <span className="shrink-0 font-bold">{formatPriceCents(outcome.price)}</span>
         </ClickableButton>
     );

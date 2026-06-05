@@ -5,18 +5,28 @@ import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
+import { SportMarketGroupType } from '@/types/prediction.js';
+
+function extractSpreadValue(label: string): string | undefined {
+    const match = label.match(/([+-]?\d+\.?\d*)\s*$/);
+    return match?.[1];
+}
 
 interface SportBuyButtonsProps {
     market: BetsMarketDataForUI;
     homeTeam?: { abbreviation?: string; color?: string };
     awayTeam?: { abbreviation?: string; color?: string };
     outcomeTeams?: Array<{ abbreviation?: string; color?: string; name?: string } | undefined>;
+    sectionType?: SportMarketGroupType;
+    eventSlug?: string;
     showDraw?: boolean;
     disabled?: boolean;
     size?: 'default' | 'compact';
     variant?: 'soft' | 'solid';
+    softColor?: boolean;
     responsiveFullWidth?: boolean;
 }
 
@@ -32,10 +42,13 @@ export const SportBuyButtons = memo(function SportBuyButtons({
     homeTeam,
     awayTeam,
     outcomeTeams,
+    sectionType,
+    eventSlug,
     showDraw,
     disabled,
     size,
     variant = 'soft',
+    softColor,
     responsiveFullWidth,
 }: SportBuyButtonsProps) {
     const outcomes = market.outcomes;
@@ -43,10 +56,13 @@ export const SportBuyButtons = memo(function SportBuyButtons({
     if (isResolved || disabled) return null;
 
     const compact = size === 'compact' || !!showDraw;
+    const isSpread = sectionType === SportMarketGroupType.Spread;
     const getOutcomeMeta = (index: number, fallbackLabel: string, fallbackColor: string) => {
         const team = outcomeTeams?.[index];
+        const defaultLabel = team?.abbreviation || team?.name || outcomes[index]?.label || fallbackLabel;
+        const spreadLabel = isSpread ? extractSpreadValue(outcomes[index]?.label || '') || defaultLabel : defaultLabel;
         return {
-            label: team?.abbreviation || team?.name || outcomes[index]?.label || fallbackLabel,
+            label: spreadLabel,
             color: team?.color || fallbackColor,
         };
     };
@@ -69,6 +85,9 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                 color={home.color}
                 compact={compact}
                 variant={variant}
+                softColor={softColor}
+                conditionId={market.conditionId}
+                eventSlug={eventSlug}
                 responsiveFullWidth={responsiveFullWidth}
             />
             {showDraw && outcomes[2] ? (
@@ -80,6 +99,9 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                     color={draw.color}
                     compact={compact}
                     variant={variant}
+                    softColor={softColor}
+                    conditionId={market.conditionId}
+                    eventSlug={eventSlug}
                     responsiveFullWidth={responsiveFullWidth}
                 />
             ) : null}
@@ -91,6 +113,9 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                 color={away.color}
                 compact={compact}
                 variant={variant}
+                softColor={softColor}
+                conditionId={market.conditionId}
+                eventSlug={eventSlug}
                 responsiveFullWidth={responsiveFullWidth}
             />
         </div>
@@ -105,6 +130,9 @@ interface SportBuyButtonProps {
     color: string;
     compact?: boolean;
     variant: 'soft' | 'solid';
+    softColor?: boolean;
+    conditionId?: string;
+    eventSlug?: string;
     responsiveFullWidth?: boolean;
 }
 
@@ -116,12 +144,15 @@ const SportBuyButton = memo(function SportBuyButton({
     color,
     compact,
     variant,
+    softColor,
+    conditionId,
+    eventSlug,
     responsiveFullWidth,
 }: SportBuyButtonProps) {
     const [{ loading }, handleOpen] = useAsyncFn(async () => {
         if (!slug) return;
-        await openPredictionPage(slug, { outcome });
-    }, [slug, outcome]);
+        await openPredictionPage(slug, { outcome, conditionId, eventSlug });
+    }, [slug, outcome, conditionId, eventSlug]);
 
     return (
         <ClickableButton
@@ -135,9 +166,14 @@ const SportBuyButton = memo(function SportBuyButton({
                 variant === 'soft' ? (compact ? 'max-w-[100px] flex-none' : 'flex-1') : '',
             )}
             style={
-                variant === 'solid'
-                    ? { backgroundColor: color, color: '#fff' }
-                    : { backgroundColor: `${color}20`, color }
+                softColor
+                    ? {
+                          backgroundColor: 'rgb(var(--color-bg03, 230 230 237))',
+                          color: 'var(--color-light-main, #181818)',
+                      }
+                    : variant === 'soft'
+                      ? { backgroundColor: `${color}20`, color }
+                      : { backgroundColor: color, color: '#fff' }
             }
             data-prevent-progress
             type="button"
@@ -147,9 +183,11 @@ const SportBuyButton = memo(function SportBuyButton({
                 handleOpen();
             }}
         >
-            <span className="block truncate uppercase">
-                {label} {price ? formatCents(price) : ''}
-            </span>
+            <TextOverflowTooltip content={`${label} ${price ? formatCents(price) : ''}`}>
+                <span className="block truncate uppercase">
+                    {label} {price ? formatCents(price) : ''}
+                </span>
+            </TextOverflowTooltip>
         </ClickableButton>
     );
 });

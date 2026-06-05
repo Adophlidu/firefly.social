@@ -10,6 +10,7 @@ import { memo, useMemo } from 'react';
 import { TimeRangeSettings } from '@/components/Prediction/PredictionMarketsPriceLineChart/TimeRangeSettings.js';
 import { SportBuyButtons } from '@/components/Prediction/Sport/SportBuyButtons.js';
 import type { SportChartConfig } from '@/components/Prediction/Sport/SportPriceLineChart.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatLine, matchesTeamLabel } from '@/helpers/prediction/sportScoreUtils.js';
@@ -47,7 +48,9 @@ function MarketTitle({ title, markets }: { title: React.ReactNode; markets: Bets
     const vol = formatSectionVolume(markets);
     return (
         <div className="min-w-0 max-md:flex max-md:w-full max-md:items-start max-md:justify-between max-md:gap-3">
-            <h3 className="min-w-0 truncate text-[13px] font-semibold leading-[17px] text-lightMain">{title}</h3>
+            <TextOverflowTooltip content={title}>
+                <h3 className="min-w-0 truncate text-[13px] font-semibold leading-[17px] text-lightMain">{title}</h3>
+            </TextOverflowTooltip>
             {vol ? <p className="shrink-0 text-xs leading-4 text-second max-md:text-right">{vol}</p> : null}
         </div>
     );
@@ -129,32 +132,19 @@ function resolveOutcomeTeams(
     return market.outcomes.map((outcome) => resolveOutcomeTeam(outcome.label, homeTeam, awayTeam));
 }
 
-function getTeamShortLabel(team: SportEventData['homeTeam'] | undefined): string | undefined {
-    return team?.name || team?.abbreviation?.toUpperCase();
-}
-
 interface SportLineOption {
     key: string;
     label: string;
     market: BetsMarketDataForUI;
 }
 
-function createSportLineOptions(
-    sectionType: SportMarketGroupType,
-    markets: BetsMarketDataForUI[],
-    homeTeam: SportEventData['homeTeam'],
-    awayTeam: SportEventData['awayTeam'],
-): SportLineOption[] {
+function createSportLineOptions(sectionType: SportMarketGroupType, markets: BetsMarketDataForUI[]): SportLineOption[] {
     return markets
         .map((market, index) => {
             const line = getMarketLine(market);
-            const firstOutcomeTeam = resolveOutcomeTeam(market.outcomes[0]?.label, homeTeam, awayTeam);
-            const firstOutcomeLabel = getTeamShortLabel(firstOutcomeTeam);
             const label =
                 sectionType === SportMarketGroupType.Spread
-                    ? firstOutcomeLabel
-                        ? `${firstOutcomeLabel} ${formatLine(line)}`
-                        : formatLine(line)
+                    ? String(Math.abs(line))
                     : sectionType === SportMarketGroupType.Total
                       ? formatLine(line, false)
                       : formatLine(line);
@@ -481,12 +471,9 @@ export const SportMarketsSection = memo(function SportMarketsSection({ event, sp
             ].filter((section) => section.markets.length > 0),
         [grouped.moneyline, grouped.other, grouped.spread, grouped.total, spreadsMainLine, totalsMainLine],
     );
-    const [activeKey, setActiveKey] = useQueryState(
-        'market',
-        parseAsString.withDefault('moneyline').withOptions({ clearOnDefault: true }),
-    );
+    const [activeKey, setActiveKey] = useQueryState('market', parseAsString.withOptions({ clearOnDefault: true }));
     const [line, setLine] = useQueryState('line', parseAsString.withOptions({ clearOnDefault: true }));
-    const activeSectionKey = sections.some((section) => section.key === activeKey) ? activeKey : sections[0]?.key;
+    const activeSectionKey = activeKey && sections.some((section) => section.key === activeKey) ? activeKey : undefined;
 
     return (
         <div className="flex flex-col gap-3 p-4">
@@ -501,12 +488,18 @@ export const SportMarketsSection = memo(function SportMarketsSection({ event, sp
                     disabled={disabled}
                     active={section.key === activeSectionKey}
                     onActivate={() => {
-                        void setActiveKey(section.key);
-                        void setLine(null);
+                        if (activeSectionKey === section.key) {
+                            void setActiveKey(null);
+                            void setLine(null);
+                        } else {
+                            void setActiveKey(section.key);
+                            void setLine(null);
+                        }
                     }}
                     lineKey={section.key === activeSectionKey ? line : undefined}
                     onLineChange={setLine}
                     config={chartConfig}
+                    eventSlug={event.slug}
                 />
             ))}
         </div>
@@ -533,6 +526,7 @@ interface SportMarketGroupCardProps {
     lineKey?: string | null;
     onLineChange: (value: string | null) => void;
     config?: SportChartConfig;
+    eventSlug?: string;
 }
 
 const SportMarketGroupCard = memo(function SportMarketGroupCard({
@@ -547,11 +541,12 @@ const SportMarketGroupCard = memo(function SportMarketGroupCard({
     lineKey,
     onLineChange,
     config,
+    eventSlug,
 }: SportMarketGroupCardProps) {
     const usesLineOptions = section.type === SportMarketGroupType.Spread || section.type === SportMarketGroupType.Total;
     const lineOptions = useMemo(
-        () => (usesLineOptions ? createSportLineOptions(section.type, section.markets, homeTeam, awayTeam) : []),
-        [awayTeam, homeTeam, section.markets, section.type, usesLineOptions],
+        () => (usesLineOptions ? createSportLineOptions(section.type, section.markets) : []),
+        [section.markets, section.type, usesLineOptions],
     );
     const defaultMarket = useMemo(
         () => (usesLineOptions ? findDefaultMarket(section.markets, section.mainLine) : section.markets[0]),
@@ -587,9 +582,12 @@ const SportMarketGroupCard = memo(function SportMarketGroupCard({
                         homeTeam={section.type === SportMarketGroupType.Moneyline ? homeTeam : undefined}
                         awayTeam={section.type === SportMarketGroupType.Moneyline ? awayTeam : undefined}
                         outcomeTeams={outcomeTeams}
+                        sectionType={section.type}
+                        eventSlug={eventSlug}
                         showDraw={section.type === SportMarketGroupType.Moneyline ? showDraw : undefined}
                         disabled={disabled}
                         variant="solid"
+                        softColor={section.type === SportMarketGroupType.Spread && !active}
                         responsiveFullWidth
                     />
                 ) : null}

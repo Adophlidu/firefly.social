@@ -1,5 +1,6 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { cache } from 'react';
 import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -42,7 +43,7 @@ interface Options {
     isMutil: boolean;
 }
 
-export async function getEventDetail(
+export const getEventDetail = cache(async function getEventDetail(
     platform: PredictionPlatform,
     { id, isMutil }: Options,
 ): Promise<BetsEventDataForUI | null> {
@@ -73,4 +74,4 @@ export async function getEventDetail(
             safeUnreachable(platform);
             return null;
     }
-}
+});

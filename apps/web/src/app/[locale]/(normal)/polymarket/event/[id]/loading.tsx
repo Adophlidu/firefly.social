@@ -1,5 +1,5 @@
-import { Loading } from '@/components/Loading.js';
+import { SportEventDetailSkeleton } from '@/components/Prediction/Sport/SportEventDetailSkeleton.js';
 
 export default function LoadingPage() {
-    return <Loading />;
+    return <SportEventDetailSkeleton />;
 }
