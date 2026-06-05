@@ -9,7 +9,6 @@ import { type PropsWithChildren, useCallback, useState } from 'react';
 import { BetEntry } from '@/components/Bet/BetEntry.js';
 import { DepositModal } from '@/components/DepositModal/index.js';
 import { FireflyWalletHomePageUI } from '@/components/FireflyWallet/FireflyWalletHomePageUI.js';
-import { PerpsEntry } from '@/components/Perps/PerpsEntry.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { ModalType } from '@/configs/modalRoutes.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
@@ -62,7 +61,6 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                 onFund={openDepositModal}
             >
                 <BetEntry className="mt-3" />
-                <PerpsEntry className="mt-3" />
             </FireflyWalletHomePageUI>
             <Tabs
                 value={currentPathname}
