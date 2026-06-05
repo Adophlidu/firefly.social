@@ -589,6 +589,7 @@ const SportMarketGroupCard = memo(function SportMarketGroupCard({
                         variant="solid"
                         softColor={section.type === SportMarketGroupType.Spread && !active}
                         responsiveFullWidth
+                        line={selectedMarket.line}
                     />
                 ) : null}
             </div>

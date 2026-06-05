@@ -7,12 +7,20 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 import { SportMarketGroupType } from '@/types/prediction.js';
 
 function extractSpreadValue(label: string): string | undefined {
     const match = label.match(/([+-]?\d+\.?\d*)\s*$/);
     return match?.[1];
+}
+
+function formatSpreadLabel(line: number, index: number): string {
+    const absLine = Math.abs(line);
+    // outcome 0 gets the sign of line, outcome 1 gets the opposite
+    const positive = index === 0 ? line >= 0 : line < 0;
+    return positive ? `+${absLine}` : `-${absLine}`;
 }
 
 interface SportBuyButtonsProps {
@@ -28,6 +36,7 @@ interface SportBuyButtonsProps {
     variant?: 'soft' | 'solid';
     softColor?: boolean;
     responsiveFullWidth?: boolean;
+    line?: number;
 }
 
 function formatCents(price: string): string {
@@ -50,6 +59,7 @@ export const SportBuyButtons = memo(function SportBuyButtons({
     variant = 'soft',
     softColor,
     responsiveFullWidth,
+    line,
 }: SportBuyButtonsProps) {
     const outcomes = market.outcomes;
     const isResolved = market.isResolved || market.isClosed;
@@ -59,8 +69,14 @@ export const SportBuyButtons = memo(function SportBuyButtons({
     const isSpread = sectionType === SportMarketGroupType.Spread;
     const getOutcomeMeta = (index: number, fallbackLabel: string, fallbackColor: string) => {
         const team = outcomeTeams?.[index];
-        const defaultLabel = team?.abbreviation || team?.name || outcomes[index]?.label || fallbackLabel;
-        const spreadLabel = isSpread ? extractSpreadValue(outcomes[index]?.label || '') || defaultLabel : defaultLabel;
+        const abbreviation = team?.abbreviation || team?.name;
+        const defaultLabel = abbreviation || outcomes[index]?.label || fallbackLabel;
+        const spreadLabel =
+            isSpread && line != null // eslint-disable-line eqeqeq -- != null narrows both null and undefined
+                ? [abbreviation, formatSpreadLabel(line, index)].filter(Boolean).join(' ')
+                : isSpread
+                  ? extractSpreadValue(outcomes[index]?.label || '') || defaultLabel
+                  : defaultLabel;
         return {
             label: spreadLabel,
             color: team?.color || fallbackColor,
@@ -149,45 +165,49 @@ const SportBuyButton = memo(function SportBuyButton({
     eventSlug,
     responsiveFullWidth,
 }: SportBuyButtonProps) {
+    const isDarkMode = useIsDarkMode();
     const [{ loading }, handleOpen] = useAsyncFn(async () => {
         if (!slug) return;
         await openPredictionPage(slug, { outcome, conditionId, eventSlug });
     }, [slug, outcome, conditionId, eventSlug]);
 
     return (
-        <ClickableButton
-            className={classNames(
-                'min-w-0 overflow-hidden rounded-lg px-2 py-1.5 text-sm font-bold leading-6',
-                variant === 'solid'
-                    ? classNames(compact ? 'w-[100px] flex-none' : 'w-32 flex-none', {
-                          'max-md:w-auto max-md:flex-1': !!responsiveFullWidth,
-                      })
-                    : '',
-                variant === 'soft' ? (compact ? 'max-w-[100px] flex-none' : 'flex-1') : '',
+        <TextOverflowTooltip content={<span className="text-sm font-bold uppercase">{label}</span>}>
+            {(ref) => (
+                <ClickableButton
+                    className={classNames(
+                        'flex min-w-0 items-center justify-center gap-1 overflow-hidden rounded-lg px-2 py-1.5 text-sm font-bold leading-6',
+                        variant === 'solid'
+                            ? classNames(compact ? 'w-[100px] flex-none' : 'w-32 flex-none', {
+                                  'max-md:w-auto max-md:flex-1': !!responsiveFullWidth,
+                              })
+                            : '',
+                        variant === 'soft' ? (compact ? 'max-w-[100px] flex-none' : 'flex-1') : '',
+                    )}
+                    style={
+                        softColor
+                            ? {
+                                  backgroundColor: isDarkMode ? 'rgb(38 42 52)' : 'rgb(230 230 237)',
+                                  color: 'var(--color-light-main, #181818)',
+                              }
+                            : variant === 'soft'
+                              ? { backgroundColor: `${color}20`, color }
+                              : { backgroundColor: color, color: '#fff' }
+                    }
+                    data-prevent-progress
+                    type="button"
+                    loading={loading}
+                    onClick={() => {
+                        if (!slug || loading) return;
+                        handleOpen();
+                    }}
+                >
+                    <span className="min-w-0 shrink-0 truncate uppercase" ref={ref}>
+                        {label}
+                    </span>
+                    <span className="shrink-0">{price ? formatCents(price) : ''}</span>
+                </ClickableButton>
             )}
-            style={
-                softColor
-                    ? {
-                          backgroundColor: 'rgb(var(--color-bg03, 230 230 237))',
-                          color: 'var(--color-light-main, #181818)',
-                      }
-                    : variant === 'soft'
-                      ? { backgroundColor: `${color}20`, color }
-                      : { backgroundColor: color, color: '#fff' }
-            }
-            data-prevent-progress
-            type="button"
-            loading={loading}
-            onClick={() => {
-                if (!slug || loading) return;
-                handleOpen();
-            }}
-        >
-            <TextOverflowTooltip content={`${label} ${price ? formatCents(price) : ''}`}>
-                <span className="block truncate uppercase">
-                    {label} {price ? formatCents(price) : ''}
-                </span>
-            </TextOverflowTooltip>
-        </ClickableButton>
+        </TextOverflowTooltip>
     );
 });

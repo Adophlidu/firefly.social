@@ -21,12 +21,11 @@ import {
     getTieBreakValue,
     matchesTeamLabel,
 } from '@/helpers/prediction/sportScoreUtils.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { BetsActivity, SportActivityScore, SportActivityTeam } from '@/providers/types/Firefly.js';
 
 const HOME_FALLBACK_COLOR = '#3DC233';
 const AWAY_FALLBACK_COLOR = '#FF3545';
-const DRAW_BACKGROUND = 'rgb(var(--color-bg03, 232 232 232))';
-
 interface SportTimelineActivityCardProps {
     activity: BetsActivity;
 }
@@ -256,6 +255,7 @@ function TeamColumn({ team, isLoser }: { team: TeamViewModel; isLoser?: boolean 
 }
 
 function ProbabilityBar({ outcomes }: { outcomes: OutcomeViewModel[] }) {
+    const isDarkMode = useIsDarkMode();
     const total = outcomes.reduce((sum, outcome) => sum + getNumericPrice(outcome.price), 0);
     if (total <= 0) return null;
 
@@ -277,7 +277,11 @@ function ProbabilityBar({ outcomes }: { outcomes: OutcomeViewModel[] }) {
                             className="h-full min-w-1"
                             style={{
                                 width: `${width}%`,
-                                backgroundColor: outcome.draw ? DRAW_BACKGROUND : outcome.color,
+                                backgroundColor: outcome.draw
+                                    ? isDarkMode
+                                        ? 'rgb(38 42 52)'
+                                        : 'rgb(230 230 237)'
+                                    : outcome.color,
                             }}
                         />
                     );
@@ -407,6 +411,7 @@ function CenterColumn({
 }
 
 function SportTimelineOutcomeButton({ slug, outcome }: { slug?: string; outcome: OutcomeViewModel }) {
+    const isDarkMode = useIsDarkMode();
     const canOpen = !!slug && outcome.outcomeIndex !== undefined;
     const [{ loading }, handleOpenPredictionPage] = useAsyncFn(async () => {
         if (!slug || outcome.outcomeIndex === undefined) return;
@@ -418,7 +423,10 @@ function SportTimelineOutcomeButton({ slug, outcome }: { slug?: string; outcome:
             className="flex h-9 w-full items-center justify-center gap-1 overflow-hidden rounded-lg px-2 text-xs leading-6 disabled:opacity-60 md:text-sm"
             style={
                 outcome.draw
-                    ? { backgroundColor: DRAW_BACKGROUND, color: 'var(--color-light-main, #181818)' }
+                    ? {
+                          backgroundColor: isDarkMode ? 'rgb(38 42 52)' : 'rgb(230 230 237)',
+                          color: 'var(--color-light-main, #181818)',
+                      }
                     : { backgroundColor: outcome.color, color: '#fff' }
             }
             data-prevent-progress
@@ -441,6 +449,7 @@ function SportTimelineOutcomeButton({ slug, outcome }: { slug?: string; outcome:
 export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(function SportTimelineActivityCard({
     activity,
 }) {
+    const isDarkMode = useIsDarkMode();
     const sport = activity.sportData;
     if (!sport) return null;
 
@@ -476,7 +485,7 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
                   label: t`DRAW`,
                   price: prices[drawIndex],
                   outcomeIndex: drawIndex,
-                  color: DRAW_BACKGROUND,
+                  color: isDarkMode ? 'rgb(38 42 52)' : 'rgb(230 230 237)',
                   draw: true,
               }
             : undefined;

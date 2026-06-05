@@ -7,11 +7,12 @@ import { Trans } from '@lingui/react/macro';
 import { type CSSProperties, memo, type MouseEvent, type ReactNode, type SVGProps } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
 import { SportTeamAvatar } from '@/components/Prediction/Sport/SportTeamAvatar.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { useRouter } from '@/esm/navigation.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import {
@@ -251,7 +252,7 @@ const AnimatedPriceCents = memo<{ priceCents: string; className?: string }>(func
     );
 });
 
-interface SportsOutcomePriceButtonProps {
+interface SportsOutcomePriceButtonProps extends ClickableButtonProps {
     marketSlug?: string;
     outcomeIndex?: number;
     className: string;
@@ -265,6 +266,7 @@ const SportsOutcomePriceButton = memo<SportsOutcomePriceButtonProps>(function Sp
     className,
     style,
     children,
+    ...rest
 }) {
     const [{ loading }, handleOpen] = useAsyncFn(async () => {
         if (!marketSlug) return;
@@ -283,6 +285,7 @@ const SportsOutcomePriceButton = memo<SportsOutcomePriceButtonProps>(function Sp
                 if (!marketSlug || loading) return;
                 void handleOpen();
             }}
+            {...rest}
         >
             {children}
         </ClickableButton>
@@ -317,18 +320,28 @@ const OutcomePriceButton = memo<{
     const abbreviation = team.abbreviation?.toUpperCase();
 
     return (
-        <SportsOutcomePriceButton
-            marketSlug={team.marketSlug}
-            outcomeIndex={team.outcomeIndex}
-            className={classNames(
-                'flex items-center justify-center gap-1 rounded-lg px-2 text-sm text-white',
-                team.color ? '' : 'bg-highlight',
-                className,
-            )}
-            style={team.color ? { backgroundColor: team.color } : undefined}
-        >
-            {abbreviation ? <span className="min-w-0 truncate font-medium opacity-80">{abbreviation}</span> : null}
-            <AnimatedPriceCents className="font-bold" priceCents={team.priceCents} />
-        </SportsOutcomePriceButton>
+        <TextOverflowTooltip content={<span className="text-sm font-bold uppercase">{abbreviation || team.name}</span>}>
+            {(ref) => {
+                return (
+                    <SportsOutcomePriceButton
+                        marketSlug={team.marketSlug}
+                        outcomeIndex={team.outcomeIndex}
+                        className={classNames(
+                            'flex items-center justify-center gap-1 rounded-lg px-2 text-sm text-white',
+                            team.color ? '' : 'bg-highlight',
+                            className,
+                        )}
+                        style={team.color ? { backgroundColor: team.color } : undefined}
+                    >
+                        {abbreviation ? (
+                            <span className="min-w-0 truncate font-medium opacity-80" ref={ref}>
+                                {abbreviation}
+                            </span>
+                        ) : null}
+                        <AnimatedPriceCents className="font-bold" priceCents={team.priceCents} />
+                    </SportsOutcomePriceButton>
+                );
+            }}
+        </TextOverflowTooltip>
     );
 });
