@@ -1292,6 +1292,19 @@ export interface SportActivityData {
     winResult?: number;
 }
 
+/** A single moneyline market within a game (from gameData.markets). */
+export interface SportActivityGameMarket {
+    id?: string;
+    slug?: string;
+    conditionId?: string;
+    outcomes?: string; // JSON array e.g. '["Yes", "No"]'
+    outcomePrices?: string; // JSON array e.g. '["0.695", "0.305"]'
+    groupItemTitle?: string;
+    groupTypeFF?: number; // 0=home, 1=draw, 2=away
+    active?: boolean;
+    closed?: boolean;
+}
+
 export interface SportActivityGameData extends Omit<
     SportActivityData,
     'livestreamInfo' | 'periodShow' | 'scoreShow' | 'scoreType'
@@ -1311,6 +1324,7 @@ export interface SportActivityGameData extends Omit<
     scoreShow?: SportActivityScore[];
     score_type?: number;
     scoreType?: number;
+    markets?: SportActivityGameMarket[];
 }
 
 export interface Project {

@@ -22,7 +22,12 @@ import {
     matchesTeamLabel,
 } from '@/helpers/prediction/sportScoreUtils.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import type { BetsActivity, SportActivityScore, SportActivityTeam } from '@/providers/types/Firefly.js';
+import type {
+    BetsActivity,
+    SportActivityGameData,
+    SportActivityScore,
+    SportActivityTeam,
+} from '@/providers/types/Firefly.js';
 
 const HOME_FALLBACK_COLOR = '#3DC233';
 const AWAY_FALLBACK_COLOR = '#FF3545';
@@ -154,8 +159,54 @@ function resolveTeams(activity: BetsActivity, labels: string[]) {
     };
 }
 
+interface MarketOutcome {
+    slug: string;
+    price: string;
+    groupTypeFF: number;
+    active?: boolean;
+    closed?: boolean;
+}
+
+function resolveMarketOutcomes(activity: BetsActivity) {
+    const markets = (activity.gameData as SportActivityGameData | undefined)?.markets;
+    if (!markets?.length) return null;
+
+    const parsed = markets
+        .map((m) => {
+            const prices = parseStringArray(m.outcomePrices);
+            if (!m.slug || !prices[0]) return null;
+            return {
+                slug: m.slug,
+                price: prices[0], // "Yes" price of this market
+                groupTypeFF: m.groupTypeFF ?? -1,
+                active: m.active,
+                closed: m.closed,
+            } as MarketOutcome;
+        })
+        .filter((m): m is MarketOutcome => m !== null);
+
+    if (parsed.length < 2) return null;
+
+    const home = parsed.find((m) => m.groupTypeFF === 0);
+    const draw = parsed.find((m) => m.groupTypeFF === 1);
+    const away = parsed.find((m) => m.groupTypeFF === 2);
+
+    // Fallback: if groupTypeFF is missing, use array order (0=home, 1=draw, 2=away)
+    return {
+        home: home ?? { ...parsed[0], groupTypeFF: 0 },
+        draw: draw ?? (parsed.length === 3 ? { ...parsed[1], groupTypeFF: 1 } : undefined),
+        away:
+            away ??
+            (parsed.length === 3
+                ? { ...parsed[2], groupTypeFF: 2 }
+                : parsed[1]
+                  ? { ...parsed[1], groupTypeFF: 2 }
+                  : undefined),
+    };
+}
+
 function getButtonLabel(team: TeamViewModel, fallback: string) {
-    return team.name || team.abbreviation || fallback;
+    return team.abbreviation || team.name || fallback;
 }
 
 function getOutcomeButtonLabel(team: TeamViewModel, fallbackLabel: string | undefined, matchedTeam: boolean) {
@@ -467,29 +518,35 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
     const isFinal = !!sport.ended || !!sport.closed;
     const canShowButtons = !isFinal && activity.platform === PredictionPlatform.Polymarket;
 
+    const marketOutcomes = resolveMarketOutcomes(activity);
+
     const homeOutcome: OutcomeViewModel = {
         label: getOutcomeButtonLabel(homeTeam, labels[homeOutcomeMeta.index], homeOutcomeMeta.matched),
-        price: prices[homeOutcomeMeta.index],
-        outcomeIndex: homeOutcomeMeta.index,
+        price: marketOutcomes?.home?.price ?? prices[homeOutcomeMeta.index],
+        outcomeIndex: marketOutcomes?.home ? 0 : homeOutcomeMeta.index,
         color: homeTeam.color,
     };
     const awayOutcome: OutcomeViewModel = {
         label: getOutcomeButtonLabel(awayTeam, labels[awayOutcomeMeta.index], awayOutcomeMeta.matched),
-        price: prices[awayOutcomeMeta.index],
-        outcomeIndex: awayOutcomeMeta.index,
+        price: marketOutcomes?.away?.price ?? prices[awayOutcomeMeta.index],
+        outcomeIndex: marketOutcomes?.away ? 0 : awayOutcomeMeta.index,
         color: awayTeam.color,
     };
     const drawOutcome =
-        sport.isDraw && drawIndex !== undefined
+        sport.isDraw && (drawIndex !== undefined || marketOutcomes?.draw)
             ? {
                   label: t`DRAW`,
-                  price: prices[drawIndex],
-                  outcomeIndex: drawIndex,
+                  price: marketOutcomes?.draw?.price ?? (drawIndex !== undefined ? prices[drawIndex] : undefined),
+                  outcomeIndex: marketOutcomes?.draw ? 0 : drawIndex,
                   color: isDarkMode ? 'rgb(38 42 52)' : 'rgb(230 230 237)',
                   draw: true,
               }
             : undefined;
     const outcomes = drawOutcome ? [homeOutcome, drawOutcome, awayOutcome] : [homeOutcome, awayOutcome];
+
+    const homeSlug = marketOutcomes?.home?.slug ?? slug;
+    const drawSlug = marketOutcomes?.draw?.slug ?? slug;
+    const awaySlug = marketOutcomes?.away?.slug ?? slug;
 
     return (
         <div className="mt-1.5 rounded-2xl border border-line p-3 md:p-4">
@@ -499,10 +556,10 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
                 <TeamColumn team={awayTeam} isLoser={winner === 'home'} />
             </div>
             {canShowButtons ? (
-                <div className={classNames('mt-2 grid gap-2', drawOutcome ? 'grid-cols-3' : 'grid-cols-2')}>
-                    <SportTimelineOutcomeButton slug={slug} outcome={homeOutcome} />
-                    {drawOutcome ? <SportTimelineOutcomeButton slug={slug} outcome={drawOutcome} /> : null}
-                    <SportTimelineOutcomeButton slug={slug} outcome={awayOutcome} />
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                    <SportTimelineOutcomeButton slug={homeSlug} outcome={homeOutcome} />
+                    {drawOutcome ? <SportTimelineOutcomeButton slug={drawSlug} outcome={drawOutcome} /> : <div />}
+                    <SportTimelineOutcomeButton slug={awaySlug} outcome={awayOutcome} />
                 </div>
             ) : null}
         </div>
