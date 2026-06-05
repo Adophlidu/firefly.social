@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 
 import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementSkeleton.js';
 import { Advertisement } from '@/components/Advertisement/index.js';
+import { DefaultRightSidebarContent } from '@/components/DefaultRightSidebarContent.js';
 import { SportRecommendationsSidebarLoader } from '@/components/Prediction/Sport/SportRecommendationsSidebarLoader.js';
 import { Section } from '@/components/Semantic/Section.js';
 
@@ -20,7 +21,7 @@ export default async function PolymarketEventSidebarPage(props: Props) {
                     <Advertisement />
                 </Suspense>
             </Section>
-            <SportRecommendationsSidebarLoader id={id} />
+            <SportRecommendationsSidebarLoader id={id} fallback={<DefaultRightSidebarContent />} />
         </>
     );
 }

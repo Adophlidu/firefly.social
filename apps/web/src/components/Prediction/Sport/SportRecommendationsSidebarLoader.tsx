@@ -2,9 +2,8 @@
 
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
-import { memo, useMemo } from 'react';
+import { type ReactNode, memo, useMemo } from 'react';
 
-import { DefaultRightSidebarContent } from '@/components/DefaultRightSidebarContent.js';
 import { SportRecommendationsSidebar } from '@/components/Prediction/Sport/SportRecommendationsSidebar.js';
 import { SportRecommendationsSkeleton } from '@/components/Prediction/Sport/SportRecommendationsSkeleton.js';
 import { STALE_TIMES } from '@/constants/query.js';
@@ -14,10 +13,12 @@ import { getSportRecommendationsResult } from '@/providers/firefly/prediction/ge
 
 interface SportRecommendationsSidebarLoaderProps {
     id: string;
+    fallback?: ReactNode;
 }
 
 export const SportRecommendationsSidebarLoader = memo(function SportRecommendationsSidebarLoader({
     id,
+    fallback,
 }: SportRecommendationsSidebarLoaderProps) {
     // fetch event detail to get sport data (league, gameId, tags)
     const { data: detail, isLoading: detailLoading } = useQuery({
@@ -56,7 +57,7 @@ export const SportRecommendationsSidebarLoader = memo(function SportRecommendati
 
     const isLoading = detailLoading || recommendationsLoading;
 
-    if (!isLoading && (!sportData || !recommendations.length)) return <DefaultRightSidebarContent />;
+    if (!isLoading && (!sportData || !recommendations.length)) return <>{fallback ?? null}</>;
     if (isLoading) return <SportRecommendationsSkeleton />;
 
     return (
