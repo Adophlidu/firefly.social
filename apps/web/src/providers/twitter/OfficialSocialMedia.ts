@@ -740,7 +740,15 @@ class OfficialSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        // The X API v2 has no media-only timeline, so reuse the user timeline (which carries
+        // media expansions) and let the gallery filter by attachments client-side.
+        const url = urlcat(`/api/twitter/userTimeline/${profileId}`, {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2PaginableTimelineResult>>(url);
+        const data = resolveTwitterResponseData(response);
+        return formatTweetsPage(data, indicator);
     }
 
     async createAccount(profile: ProfileForSignup): Promise<Account> {

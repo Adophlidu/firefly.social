@@ -12,7 +12,8 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { TwitterMediaGalleryItem } from '@/components/Profile/TwitterMediaGalleryItem.js';
 import { hasPostPreviewAttachments } from '@/helpers/getPostPreviewAttachments.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -42,13 +43,22 @@ interface TwitterMediaGalleryListProps {
 }
 
 export function TwitterMediaGalleryList({ profileId }: TwitterMediaGalleryListProps) {
+    const isLogin = useIsLogin(Source.Twitter);
     const isProtected = useIsProfileProtected(Source.Twitter, profileId);
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', Source.Twitter, 'posts-of', 'medias', profileId],
+        queryKey: ['posts', Source.Twitter, 'posts-of', 'medias', profileId, isLogin],
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
-            const provider = resolveSocialMediaProvider(Source.Twitter, { [Source.Twitter]: 'nitter' });
+            // Prefer the official X API for media when signed in (the nitter media endpoint is
+            // unreliable); fall back to nitter otherwise. Keep the provider consistent across
+            // pages by deriving it from the cursor format.
+            const provider = resolveSocialMediaProvider(
+                Source.Twitter,
+                resolveProviderOptions(Source.Twitter, pageParam) ?? {
+                    [Source.Twitter]: isLogin ? 'twitter' : 'nitter',
+                },
+            );
             return provider.getMediaPostsByProfileId(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',

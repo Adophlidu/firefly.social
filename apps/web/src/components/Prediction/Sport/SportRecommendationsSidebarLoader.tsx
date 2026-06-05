@@ -2,7 +2,7 @@
 
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
-import { type ReactNode, memo, useMemo } from 'react';
+import { memo, type ReactNode, useMemo } from 'react';
 
 import { SportRecommendationsSidebar } from '@/components/Prediction/Sport/SportRecommendationsSidebar.js';
 import { SportRecommendationsSkeleton } from '@/components/Prediction/Sport/SportRecommendationsSkeleton.js';
