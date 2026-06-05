@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 export const SportRecommendationsSkeleton = memo(function SportRecommendationsSkeleton() {
     return (
-        <section className="flex animate-pulse flex-col gap-4">
+        <section className="mt-4 flex animate-pulse flex-col gap-4">
             <div className="flex items-center justify-between px-3">
                 <div className="h-6 w-28 rounded bg-bg" />
                 <div className="h-5 w-12 rounded bg-bg" />

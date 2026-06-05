@@ -13,11 +13,13 @@ import { getSportRecommendationsResult } from '@/providers/firefly/prediction/ge
 
 interface SportRecommendationsSidebarLoaderProps {
     id: string;
+    advertisement?: ReactNode;
     fallback?: ReactNode;
 }
 
 export const SportRecommendationsSidebarLoader = memo(function SportRecommendationsSidebarLoader({
     id,
+    advertisement,
     fallback,
 }: SportRecommendationsSidebarLoaderProps) {
     // fetch event detail to get sport data (league, gameId, tags)
@@ -61,10 +63,13 @@ export const SportRecommendationsSidebarLoader = memo(function SportRecommendati
     if (isLoading) return <SportRecommendationsSkeleton />;
 
     return (
-        <SportRecommendationsSidebar
-            categorySlug={result?.categorySlug || leagueSlug || 'live'}
-            categoryTagType={result?.categoryTagType}
-            events={recommendations}
-        />
+        <>
+            {advertisement}
+            <SportRecommendationsSidebar
+                categorySlug={result?.categorySlug || leagueSlug || 'live'}
+                categoryTagType={result?.categoryTagType}
+                events={recommendations}
+            />
+        </>
     );
 });
