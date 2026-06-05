@@ -1,12 +1,12 @@
 import { NOTIFICATION_PERMISSION_KEY } from '@dimensiondev/constants/static';
 import { SessionType } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
-import { runInSafeAsync } from '@dimensiondev/utils';
 import { getToken } from 'firebase/messaging';
 
 import { firebaseClient } from '@/configs/firebaseClient.js';
 import { enqueuePermissionMessage } from '@/helpers/enqueuePermissionMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { logger } from '@/libs/Logger.js';
 import { uploadNotificationSubscription } from '@/providers/firefly/endpoint/uploadNotificationSubscription.js';
 
 interface Options {
@@ -62,13 +62,16 @@ export async function setupFirebaseFcmConnection(
     }
     if (!permission.granted) return;
 
-    await runInSafeAsync(async () => {
+    try {
         await firebaseClient.init();
         const token = await getToken(firebaseClient.firebaseFcm, {
             vapidKey: envs.external.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
         });
+        logger.info('[firebase] FCM token obtained', { token });
         if (!token) return;
 
         await uploadNotificationSubscription(token, '');
-    });
+    } catch (error) {
+        logger.error('[firebase] Failed to setup FCM connection', error);
+    }
 }
