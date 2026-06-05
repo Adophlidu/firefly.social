@@ -5,7 +5,7 @@ import { classNames } from '@dimensiondev/utils';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { parseAsString, parseAsStringEnum, useQueryState } from 'nuqs';
-import { memo, useMemo } from 'react';
+import { memo, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { TimeRangeSettings } from '@/components/Prediction/PredictionMarketsPriceLineChart/TimeRangeSettings.js';
 import { SportBuyButtons } from '@/components/Prediction/Sport/SportBuyButtons.js';
@@ -139,26 +139,26 @@ interface SportLineOption {
 }
 
 function createSportLineOptions(sectionType: SportMarketGroupType, markets: BetsMarketDataForUI[]): SportLineOption[] {
-    return markets
-        .map((market, index) => {
-            const line = getMarketLine(market);
-            const label =
-                sectionType === SportMarketGroupType.Spread
-                    ? String(Math.abs(line))
-                    : sectionType === SportMarketGroupType.Total
-                      ? formatLine(line, false)
-                      : formatLine(line);
+    const options: SportLineOption[] = markets.map((market, index) => {
+        const line = getMarketLine(market);
+        const label =
+            sectionType === SportMarketGroupType.Spread
+                ? String(Math.abs(line))
+                : sectionType === SportMarketGroupType.Total
+                  ? formatLine(line, false)
+                  : formatLine(line);
 
-            return {
-                key: market.id || market.conditionId || `${line}:${index}`,
-                label,
-                market,
-            };
-        })
-        .toSorted((a, b) => {
-            const lineDiff = getMarketLine(a.market) - getMarketLine(b.market);
-            return lineDiff === 0 ? a.label.localeCompare(b.label) : lineDiff;
-        });
+        return {
+            key: market.id || market.conditionId || `${line}:${index}`,
+            label,
+            market,
+        };
+    });
+
+    return options.sort((a, b) => {
+        const diff = parseFloat(a.label) - parseFloat(b.label);
+        return diff === 0 ? a.label.localeCompare(b.label) : diff;
+    });
 }
 
 function SportLineSwitcher({
@@ -172,6 +172,22 @@ function SportLineSwitcher({
     onSelect: (key: string) => void;
     flushBottom?: boolean;
 }) {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+        const container = scrollRef.current;
+        if (!container) return;
+
+        const activeButton = container.querySelector<HTMLButtonElement>(`[data-line-key="${CSS.escape(selectedKey)}"]`);
+        if (!activeButton) return;
+
+        activeButton.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center',
+        });
+    }, [selectedKey]);
+
     if (options.length <= 1) return null;
 
     const currentIndex = Math.max(
@@ -198,22 +214,25 @@ function SportLineSwitcher({
             >
                 <ChevronLeftIcon className="size-4" />
             </button>
-            <div className="no-scrollbar flex min-w-0 flex-1 items-center justify-center gap-2 overflow-x-auto px-1">
-                {options.map((option) => (
-                    <button
-                        key={option.key}
-                        type="button"
-                        className={classNames(
-                            'shrink-0 rounded-full px-2 py-1 text-sm leading-[18px]',
-                            option.key === selectedKey
-                                ? 'font-semibold text-main'
-                                : 'font-medium text-second opacity-80 hover:bg-lightBg hover:text-main',
-                        )}
-                        onClick={() => onSelect(option.key)}
-                    >
-                        {option.label}
-                    </button>
-                ))}
+            <div ref={scrollRef} className="no-scrollbar flex min-w-0 flex-1 items-center gap-2 overflow-x-auto px-1">
+                <div className="mx-auto flex items-center gap-2">
+                    {options.map((option) => (
+                        <button
+                            key={option.key}
+                            type="button"
+                            data-line-key={option.key}
+                            className={classNames(
+                                'shrink-0 rounded-full px-2 py-1 text-sm leading-[18px]',
+                                option.key === selectedKey
+                                    ? 'font-semibold text-main'
+                                    : 'font-medium text-second opacity-80 hover:bg-lightBg hover:text-main',
+                            )}
+                            onClick={() => onSelect(option.key)}
+                        >
+                            {option.label}
+                        </button>
+                    ))}
+                </div>
             </div>
             <button
                 type="button"

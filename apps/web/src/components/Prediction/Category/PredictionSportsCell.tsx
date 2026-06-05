@@ -216,7 +216,7 @@ const TeamInfoRow = memo<{
                 <span
                     className={classNames(
                         'flex h-9 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold',
-                        team.isWinner ? 'bg-main text-white' : 'bg-bg text-main',
+                        team.isWinner ? 'bg-main text-white dark:bg-bg' : 'bg-bg text-main',
                     )}
                 >
                     {team.score}
