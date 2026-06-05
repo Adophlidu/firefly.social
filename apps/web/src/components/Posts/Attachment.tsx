@@ -5,7 +5,7 @@ import Music from '@dimensiondev/assets/music.svg';
 import Play from '@dimensiondev/assets/play.svg';
 import { SUPPORTED_MULTIPLE_EMBED_SOURCES, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@dimensiondev/constants/computed';
 import { IMAGE_KIT_ATTACHMENT } from '@dimensiondev/constants/static';
-import { AttachmentType, Source } from '@dimensiondev/enums';
+import { AttachmentType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
@@ -135,7 +135,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                 <WithPreviewLink
                     post={post}
                     index={0}
-                    useModal={post.source === Source.Twitter}
                     disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(asset.type)}
                 >
                     {asset.type === AttachmentType.Image ? (
@@ -197,7 +196,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 <WithPreviewLink
                                     post={post}
                                     index={index}
-                                    useModal={post.source === Source.Twitter}
                                     disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(attachment.type)}
                                 >
                                     {attachment.type === AttachmentType.Image ? (

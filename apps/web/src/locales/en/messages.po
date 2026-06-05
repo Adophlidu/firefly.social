@@ -963,6 +963,9 @@ msgstr "Failed to set password."
 msgid "Explore"
 msgstr "Explore"
 
+msgid "Show"
+msgstr "Show"
+
 msgid "Show Less"
 msgstr "Show Less"
 
@@ -4560,6 +4563,9 @@ msgstr "The contract owner has restrictions on trading cooldown."
 
 msgid "Replying to"
 msgstr "Replying to"
+
+msgid "Hide"
+msgstr "Hide"
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })

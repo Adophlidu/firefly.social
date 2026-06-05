@@ -36,6 +36,7 @@ export function WithPreviewLink({
 
     return !disablePreview && !useModal ? (
         <Link
+            className="outline-none"
             prefetch={prefetch}
             href={getPostImageUrl(post, index, isPostPage)}
             scroll={false}

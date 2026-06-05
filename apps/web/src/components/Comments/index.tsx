@@ -21,6 +21,7 @@ interface CommentListProps {
     postId: string;
     source: SocialSource;
     excludePostIds?: string[];
+    customScrollParent?: HTMLElement | null;
 }
 
 const CommentListComponents = {
@@ -31,6 +32,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({
     postId,
     source,
     excludePostIds = EMPTY_LIST,
+    customScrollParent,
 }) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'comments', postId],
@@ -75,6 +77,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({
                         getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, { isComment: true }),
                     context,
                     components: CommentListComponents,
+                    ...(customScrollParent ? { customScrollParent, useWindowScroll: false } : undefined),
                 }}
                 NoResultsFallbackProps={{
                     icon: <MessagesIcon width={24} height={24} />,

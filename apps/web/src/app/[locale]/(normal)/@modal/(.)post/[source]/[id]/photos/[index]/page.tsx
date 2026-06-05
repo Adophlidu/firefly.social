@@ -52,7 +52,7 @@ export default function Page(props: Props) {
     return (
         <Modal open disableDialogClose={false} enableBackdrop={false} onClose={() => router.back()}>
             <div
-                className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
+                className="preview-actions fixed inset-0 flex transform-none bg-black/90 bg-opacity-90 outline-none transition-all"
                 onClick={isMedium ? () => router.back() : undefined}
             >
                 <PreviewMediaModalContent

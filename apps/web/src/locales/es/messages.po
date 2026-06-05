@@ -963,6 +963,9 @@ msgstr "No se pudo establecer la contraseña."
 msgid "Explore"
 msgstr "Explorar"
 
+msgid "Show"
+msgstr ""
+
 msgid "Show Less"
 msgstr "Mostrar Menos"
 
@@ -4560,6 +4563,9 @@ msgstr "El propietario del contrato tiene restricciones sobre el periodo de enfr
 
 msgid "Replying to"
 msgstr "Respondiendo a"
+
+msgid "Hide"
+msgstr ""
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })

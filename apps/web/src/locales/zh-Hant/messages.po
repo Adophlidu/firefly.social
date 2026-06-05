@@ -958,6 +958,9 @@ msgstr "密碼設定失敗。"
 msgid "Explore"
 msgstr "探索"
 
+msgid "Show"
+msgstr ""
+
 msgid "Show Less"
 msgstr "折疊"
 
@@ -4537,6 +4540,9 @@ msgstr "合約擁有者對交易冷卻時間有限制。"
 
 msgid "Replying to"
 msgstr "正在回覆"
+
+msgid "Hide"
+msgstr ""
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })

@@ -958,6 +958,9 @@ msgstr "パスワードの設定に失敗しました。"
 msgid "Explore"
 msgstr "探索"
 
+msgid "Show"
+msgstr ""
+
 msgid "Show Less"
 msgstr "表示を減らす"
 
@@ -4537,6 +4540,9 @@ msgstr "コントラクトオーナーは取引クールダウンに制限を設
 
 msgid "Replying to"
 msgstr "返信先"
+
+msgid "Hide"
+msgstr ""
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })

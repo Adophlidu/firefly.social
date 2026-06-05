@@ -958,6 +958,9 @@ msgstr "비밀번호 설정에 실패했습니다."
 msgid "Explore"
 msgstr "탐색"
 
+msgid "Show"
+msgstr ""
+
 msgid "Show Less"
 msgstr "접기"
 
@@ -4537,6 +4540,9 @@ msgstr "컨트랙트 소유자에게 거래 쿨다운 제한이 있습니다."
 
 msgid "Replying to"
 msgstr "답글 대상"
+
+msgid "Hide"
+msgstr ""
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })

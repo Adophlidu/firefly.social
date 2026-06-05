@@ -22,6 +22,7 @@ export const PreviewContent = memo<PreviewContentProps>(function PreviewContent(
                 alt={asset.title ?? asset.uri}
                 width={1000}
                 height={1000}
+                onClick={(e) => e.stopPropagation()}
                 className="max-h-[calc(100vh-110px)] w-auto object-contain max-md:h-[calc(calc(100vh-env(safe-area-inset-bottom)-env(safe-area-inset-top)-90px))] max-md:max-w-[calc(100%-30px)]"
             />
         );
@@ -29,7 +30,7 @@ export const PreviewContent = memo<PreviewContentProps>(function PreviewContent(
 
     if (asset.type === AttachmentType.AnimatedGif) {
         return (
-            <div className="w-[85vw]">
+            <div className="w-[85vw]" onClick={(e) => e.stopPropagation()}>
                 <VideoAsset asset={asset} source={source} autoPlay />
             </div>
         );
@@ -40,6 +41,7 @@ export const PreviewContent = memo<PreviewContentProps>(function PreviewContent(
         return (
             <div
                 className="overflow-hidden rounded-2xl"
+                onClick={(e) => e.stopPropagation()}
                 style={{
                     width: `min(85vw, calc((100vh - 110px) * ${aspectRatio}))`,
                     aspectRatio: `${asset.width ?? 16} / ${asset.height ?? 9}`,

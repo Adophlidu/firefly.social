@@ -2,9 +2,12 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { AttachmentType, type SocialSourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
+import { getPostDetailQuery } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PreviewImageModal } from '@/components/PreviewImageModal.js';
+import { queryClientConfig } from '@/configs/queryClient.js';
 import { GALLERY_MEDIA_TYPES } from '@/helpers/getPostPreviewAttachments.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -29,7 +32,18 @@ export default async function Photo(props: Props) {
         post.metadata.content?.attachments?.filter((x) => GALLERY_MEDIA_TYPES.includes(x.type)) ?? EMPTY_LIST;
 
     const assets = asset?.type === AttachmentType.Image && attachments.length === 1 ? [asset] : attachments;
+
+    const queryClient = new QueryClient(queryClientConfig);
+    queryClient.setQueryData(getPostDetailQuery(currentSource, postId).queryKey, post);
+
     return (
-        <PreviewImageModal postId={postId} assets={assets} source={source} index={Number.isNaN(+index) ? 0 : +index} />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <PreviewImageModal
+                postId={postId}
+                assets={assets}
+                source={source}
+                index={Number.isNaN(+index) ? 0 : +index}
+            />
+        </HydrationBoundary>
     );
 }
