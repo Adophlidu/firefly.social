@@ -32,7 +32,6 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -49,6 +48,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { addAccount } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 export const LensViewBeforeLoad = () => {
     return {
@@ -77,6 +77,7 @@ export const LensView = memo(function LensView() {
     const { data: canBindMoreAccount } = useCanBindMoreAccount(Source.Lens);
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 
+    const currentLensAccounts = useLensProfileStore.use.accounts();
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
 
     const {
@@ -114,8 +115,7 @@ export const LensView = memo(function LensView() {
         },
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
-            const allProfiles = getProfilesFromStorage(Source.Lens, true);
-            const list = profiles.filter((x) => !allProfiles.some((y) => isSameProfile(x, y)));
+            const list = profiles.filter((x) => !currentLensAccounts.some((y) => isSameProfile(x, y.profile)));
             if (expectedProfile) return list.sort((x) => (x.profileId === expectedProfile ? -1 : 0));
             return list;
         },
