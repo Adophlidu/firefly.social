@@ -6,7 +6,7 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { SearchType, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 import { getPostDetailQuery, getPostThreadQuery } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
@@ -25,6 +25,7 @@ import { Section } from '@/components/Semantic/Section.js';
 import { TweetUnavailableError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { useFixedScrollInToViewBeforeUserInteraction } from '@/hooks/useFixedScrollInToViewBeforeUserInteraction.js';
 
 interface Props {
     id: string;
@@ -36,6 +37,7 @@ export function PageDetail({ id: postId, source }: Props) {
 
     const { data: post } = useSuspenseQuery(getPostDetailQuery(source, postId));
     const { data: threads } = useSuspenseQuery(getPostThreadQuery(source, postId, post));
+    const [threadsRef, setThreadsRef] = useState<Record<string, HTMLElement | null>>({});
 
     const isUnavailableTweet =
         post?.source === Source.Twitter && post.metadata.content?.content === TweetUnavailableError.message;
@@ -45,6 +47,8 @@ export function PageDetail({ id: postId, source }: Props) {
             enqueueWarningMessage(TweetUnavailableError.message);
         }
     }, [isUnavailableTweet]);
+
+    useFixedScrollInToViewBeforeUserInteraction(true, threadsRef[postId]);
 
     // Check for null after queries - useSuspenseQuery handles loading states
     if (!post) notFound();
@@ -69,16 +73,21 @@ export function PageDetail({ id: postId, source }: Props) {
             ) : null}
             {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
                 <article className="px-4 py-3">
-                    {allPosts.map((post, index) => (
-                        <ThreadBody
-                            isDetail
-                            post={post}
-                            disableAnimate
-                            showTranslate
-                            key={post.postId}
-                            isLast={index === allPosts.length - 1}
-                        />
-                    ))}
+                    {allPosts.map((post, index) => {
+                        return (
+                            <ThreadBody
+                                isDetail
+                                post={post}
+                                disableAnimate
+                                showTranslate
+                                key={post.postId}
+                                isLast={index === allPosts.length - 1}
+                                ref={(ref) => {
+                                    setThreadsRef((prev) => ({ ...prev, [post.postId]: ref }));
+                                }}
+                            />
+                        );
+                    })}
                 </article>
             ) : (
                 <>
@@ -108,7 +117,13 @@ export function PageDetail({ id: postId, source }: Props) {
             <Section title="Post Comments">
                 <NoSSR>
                     <ErrorBoundary>
-                        <Suspense fallback={<Loading />}>
+                        <Suspense
+                            fallback={
+                                <div className="min-h-lvh">
+                                    <Loading />
+                                </div>
+                            }
+                        >
                             <CommentList
                                 postId={post.postId}
                                 source={source}

@@ -133,6 +133,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 }
                 return;
             }}
+            data-href={postLink}
         >
             <ShareButtonWithAnimationContext.Provider value={hover}>
                 {header}
