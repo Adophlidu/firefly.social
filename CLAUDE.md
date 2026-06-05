@@ -59,9 +59,9 @@ See `/architecture` for the full layer diagram, package list, violation examples
 
 ## Git
 
-- **Base branch**: `main`
+- **Base branch**: `origin/main`
 - **Commit format**: `feat(scope): description` / `fix(scope):` / `chore(scope):`
-- ❌ NEVER commit directly to `main` or `released` — create a feature branch first (`feat/...`, `fix/...`, etc.)
+- ❌ NEVER commit directly to `origin/main` or `released` — create a feature branch first (`feat/...`, `fix/...`, etc.)
 - ❌ Do NOT include AI tool attribution lines in commit messages
 - cspell checks commit messages — add new technical terms to `cspell.json`
 
