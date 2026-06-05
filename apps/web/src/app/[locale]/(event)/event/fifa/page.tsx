@@ -19,14 +19,14 @@ export async function generateMetadata(): Promise<Metadata> {
             title: 'FIFA Prediction Festival',
             description:
                 'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $25,000 prize pool!',
-            images: ['https://media.firefly.land/uploads/b38621e8-5869-449f-bb65-7f7a63fd115c.png'],
+            images: ['https://media.firefly.land/uploads/6ba41324-3a94-4a48-8536-eab2c66338a2.png'],
         },
         twitter: {
             card: 'summary_large_image',
             title: 'FIFA Prediction Festival',
             description:
                 'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $25,000 prize pool!',
-            images: ['https://media.firefly.land/uploads/b38621e8-5869-449f-bb65-7f7a63fd115c.png'],
+            images: ['https://media.firefly.land/uploads/6ba41324-3a94-4a48-8536-eab2c66338a2.png'],
         },
         manifest: '/site.webmanifest',
         icons: [
