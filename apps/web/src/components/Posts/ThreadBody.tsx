@@ -28,11 +28,12 @@ export interface ThreadBodyProps {
     index?: number;
     showTranslate?: boolean;
     isDetail?: boolean;
+    hideAttachments?: boolean;
 }
 
 export const ThreadBody = memo(
     forwardRef<HTMLElement, ThreadBodyProps>(function ThreadBody(
-        { post, disableAnimate, isLast = false, showTranslate = false, isDetail, listKey, index },
+        { post, disableAnimate, isLast = false, showTranslate = false, isDetail, listKey, index, hideAttachments },
         ref,
     ) {
         const router = useRouter();
@@ -110,6 +111,7 @@ export const ThreadBody = memo(
                             disablePadding
                             showTranslate={showTranslate}
                             isDetail={isDetail}
+                            hideAttachments={hideAttachments}
                             fireflyArticleToggle={!!isDetail && !isLast && !isSamePost}
                         />
                         <NoSSR mode="mounted">

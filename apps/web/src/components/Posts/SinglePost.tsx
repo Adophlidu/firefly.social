@@ -38,6 +38,7 @@ export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     showChannelTag?: boolean;
     header?: ReactNode;
     keepMutedSpace?: boolean;
+    hideAttachments?: boolean;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
@@ -52,6 +53,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     className,
     header,
     keepMutedSpace,
+    hideAttachments,
 }) {
     const router = useRouter();
     const pathname = usePathname();
@@ -157,6 +159,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                     showTranslate={showTranslate}
                     isDetail={isDetail}
                     isComment={isComment}
+                    hideAttachments={hideAttachments}
                     fireflyArticleToggle={!!isPostPage && !postLink.includes(pathname)}
                     listKey={listKey}
                     index={index}

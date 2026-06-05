@@ -69,12 +69,20 @@ function PostMediaSidebarContent({
                             showTranslate
                             key={p.postId}
                             isLast={index === allPosts.length - 1}
+                            hideAttachments={p.postId === post.postId}
                         />
                     ))}
                 </article>
             ) : (
                 <>
-                    <SinglePost post={post} className="border-b-0" disableAnimate isDetail showTranslate />
+                    <SinglePost
+                        post={post}
+                        className="border-b-0"
+                        disableAnimate
+                        isDetail
+                        showTranslate
+                        hideAttachments
+                    />
 
                     <Section title="Post Statistics And Actions">
                         <NoSSR>

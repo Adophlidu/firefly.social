@@ -54,6 +54,8 @@ export interface PostBodyContentProps {
     isInCompose?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
+    /** Hide the post's own media attachments when they are already previewed elsewhere. */
+    hideAttachments?: boolean;
     showTranslate?: boolean;
     fireflyArticleToggle?: boolean;
     listKey?: string;
@@ -78,6 +80,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
         disablePadding = false,
         showTranslate = false,
         isInCompose = false,
+        hideAttachments = false,
         listKey,
         index,
     } = props;
@@ -296,7 +299,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 ) : null
             ) : null}
 
-            {showAttachments ? (
+            {showAttachments && !hideAttachments ? (
                 <Attachments post={post} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
 
