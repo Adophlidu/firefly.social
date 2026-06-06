@@ -117,7 +117,10 @@ function formatVolumeLabel(volume: number | undefined): string | undefined {
 function normalizeRecord(record: string | undefined): string | undefined {
     if (!record) return undefined;
     const trimmed = record.replaceAll('(', '').replaceAll(')', '').trim();
-    return trimmed.length > 0 ? trimmed : undefined;
+    if (trimmed.length === 0) return undefined;
+    // (U+002D HYPHEN-MINUS) and (U+2013 EN DASH)
+    if (/^0\s*[-–]\s*0$/.test(trimmed)) return undefined;
+    return trimmed;
 }
 
 /** Detail API uses camelCase; explore list often uses snake_case only. */
@@ -365,7 +368,7 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
     } else if (gamePhase === 'finished') {
         statusLabel = event.period_show?.toUpperCase() === 'FINAL' ? event.period_show : 'FINAL';
     } else if (startTimeMs) {
-        scheduledTimeLabel = dayjs(startTimeMs).format('h:mm A');
+        scheduledTimeLabel = dayjs(startTimeMs).format('MMM D, h:mm A');
     }
 
     return {
@@ -376,7 +379,7 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
             homeTeamData,
             homeTeamData.name ?? 'Home',
             getMarketYesPrice(homeMarket),
-            latestScores?.[0],
+            gamePhase === 'scheduled' ? undefined : latestScores?.[0],
             {
                 assetId: getMarketYesAssetId(homeMarket),
                 marketSlug: homeMarket.slug,
@@ -388,7 +391,7 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
             awayTeamData,
             awayTeamData.name ?? 'Away',
             getMarketYesPrice(awayMarket),
-            latestScores?.[1],
+            gamePhase === 'scheduled' ? undefined : latestScores?.[1],
             {
                 assetId: getMarketYesAssetId(awayMarket),
                 marketSlug: awayMarket.slug,
@@ -460,7 +463,8 @@ export function formatPolymarketSportsEventForUI(event: PolymarketSportsEvent): 
 
     const gamePhase = resolveGamePhase(event);
     const latestScores = event.score_show?.at(-1)?.score;
-    const teams = getTeamsFromMarket(moneyline, latestScores, gamePhase === 'finished' ? event.winResult : undefined);
+    const scores = gamePhase === 'scheduled' ? undefined : latestScores;
+    const teams = getTeamsFromMarket(moneyline, scores, gamePhase === 'finished' ? event.winResult : undefined);
     if (teams.length < 2) return null;
 
     const startDate = moneyline.gameStartTime || event.startDate;
@@ -474,7 +478,7 @@ export function formatPolymarketSportsEventForUI(event: PolymarketSportsEvent): 
     } else if (gamePhase === 'finished') {
         statusLabel = event.period_show?.toUpperCase() === 'FINAL' ? event.period_show : 'FINAL';
     } else if (startTimeMs) {
-        scheduledTimeLabel = dayjs(startTimeMs).format('h:mm A');
+        scheduledTimeLabel = dayjs(startTimeMs).format('MMM D, h:mm A');
     }
 
     return {
