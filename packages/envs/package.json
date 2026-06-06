@@ -43,7 +43,7 @@
         "zod": "^3.25.76"
     },
     "devDependencies": {
-        "@typescript/native-preview": "7.0.0-dev.20260527.2",
+        "@typescript/native-preview": "7.0.0-dev.20260605.1",
         "tsdown": "^0.21.10"
     },
     "peerDependencies": {

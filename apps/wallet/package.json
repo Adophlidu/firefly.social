@@ -105,7 +105,7 @@
         "zod": "^3.25.76"
     },
     "devDependencies": {
-        "@typescript/native-preview": "7.0.0-dev.20260527.2",
+        "@typescript/native-preview": "7.0.0-dev.20260605.1",
         "@dimensiondev/tolgee": "workspace:^",
         "@lingui/cli": "^5.9.5",
         "@lingui/conf": "^5.9.5",
