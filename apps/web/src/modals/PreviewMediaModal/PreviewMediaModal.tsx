@@ -18,7 +18,7 @@ const PreviewMediaModalContent = dynamic(
     () => import('@/modals/PreviewMediaModal/PreviewMediaModalContent.js').then((m) => m.PreviewMediaModalContent),
     {
         ssr: false,
-        loading: () => <Loading />,
+        loading: () => <Loading className="flex-1 !text-white" />,
     },
 );
 

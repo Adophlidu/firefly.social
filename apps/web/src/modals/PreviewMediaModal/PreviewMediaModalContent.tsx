@@ -6,7 +6,8 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { AttachmentType, type Source } from '@dimensiondev/enums';
 import { ArrowLeftIcon, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/core/macro';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
+import type { Swiper as SwiperClass } from 'swiper';
 import { Keyboard, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -29,10 +30,10 @@ export interface PreviewMediaModalContentProps {
 }
 
 export function PreviewMediaModalContent({ onClose, post, source, medias, index }: PreviewMediaModalContentProps) {
-    const prevRef = useRef<HTMLButtonElement>(null);
-    const nextRef = useRef<HTMLButtonElement>(null);
     const isMedium = useIsMedium();
     const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [swiper, setSwiper] = useState<SwiperClass | null>(null);
+    const [activeIndex, setActiveIndex] = useState(index);
 
     const assets = useMemo(() => {
         if (medias) return medias;
@@ -84,19 +85,12 @@ export function PreviewMediaModalContent({ onClose, post, source, medias, index 
                 ) : null}
                 <div className="flex w-full text-main">
                     <Swiper
+                        className="w-full min-w-0"
                         modules={[Navigation, Keyboard]}
-                        navigation={{
-                            prevEl: prevRef.current,
-                            nextEl: nextRef.current,
-                        }}
-                        onBeforeInit={(swiper) => {
-                            if (typeof swiper.params.navigation === 'object') {
-                                swiper.params.navigation.prevEl = prevRef.current;
-                                swiper.params.navigation.nextEl = nextRef.current;
-                            }
-                        }}
                         keyboard
                         initialSlide={index}
+                        onSwiper={setSwiper}
+                        onSlideChange={(instance) => setActiveIndex(instance.activeIndex)}
                     >
                         {assets.map((asset, key) => {
                             return (
@@ -109,24 +103,40 @@ export function PreviewMediaModalContent({ onClose, post, source, medias, index 
                                 </SwiperSlide>
                             );
                         })}
-                        <ClickableButton
-                            ref={prevRef}
-                            className="prev-button absolute left-[50px] top-1/2 z-50 max-md:hidden"
-                            aria-label="Previous media"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
-                        </ClickableButton>
-                        <ClickableButton
-                            ref={nextRef}
-                            className="next-button absolute right-[50px] top-1/2 z-50 max-md:hidden"
-                            aria-label="Next media"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
-                        </ClickableButton>
                     </Swiper>
                 </div>
+                {assets.length > 1 && activeIndex > 0 ? (
+                    <ClickableButton
+                        className="absolute left-[50px] top-1/2 z-50 -translate-y-1/2 max-md:hidden"
+                        aria-label="Previous media"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            swiper?.slidePrev();
+                        }}
+                    >
+                        <ArrowLeftIcon
+                            width={36}
+                            height={36}
+                            className="rounded-full p-1.5 !text-white hover:bg-white/20"
+                        />
+                    </ClickableButton>
+                ) : null}
+                {assets.length > 1 && activeIndex < assets.length - 1 ? (
+                    <ClickableButton
+                        className="absolute right-[50px] top-1/2 z-50 -translate-y-1/2 max-md:hidden"
+                        aria-label="Next media"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            swiper?.slideNext();
+                        }}
+                    >
+                        <ArrowRightIcon
+                            width={36}
+                            height={36}
+                            className="rounded-full p-1.5 !text-white hover:bg-white/20"
+                        />
+                    </ClickableButton>
+                ) : null}
             </div>
 
             {isMedium && sidebarOpen && post && isSocialSource(source) ? (

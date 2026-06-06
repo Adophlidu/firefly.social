@@ -6,7 +6,7 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { SearchType, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 
 import { getPostDetailQuery, getPostThreadQuery } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
@@ -22,10 +22,12 @@ import { PostDetailEffect } from '@/components/PostDetailEffect.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { TweetUnavailableError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useFixedScrollInToViewBeforeUserInteraction } from '@/hooks/useFixedScrollInToViewBeforeUserInteraction.js';
+import { getPostById } from '@/services/getPostById.js';
 
 interface Props {
     id: string;
@@ -47,6 +49,26 @@ export function PageDetail({ id: postId, source }: Props) {
             enqueueWarningMessage(TweetUnavailableError.message);
         }
     }, [isUnavailableTweet]);
+
+    // X media is only resolvable with the user's session, so a server-rendered (hydrated) tweet
+    // can arrive without attachments. Re-fetch once on the client and patch the cache only when the
+    // authenticated response actually carries media, so the detail page doesn't render text-only.
+    const postHasMedia = !!(post?.metadata.content?.attachments?.length || post?.metadata.content?.asset);
+    const revalidatedMediaRef = useRef(false);
+    useEffect(() => {
+        if (post?.source !== Source.Twitter || postHasMedia || isUnavailableTweet) return;
+        if (revalidatedMediaRef.current) return;
+        revalidatedMediaRef.current = true;
+
+        getPostById(source, postId)
+            .then((fresh) => {
+                const freshHasMedia = !!(
+                    fresh?.metadata.content?.attachments?.length || fresh?.metadata.content?.asset
+                );
+                if (freshHasMedia) queryClient.setQueryData(getPostDetailQuery(source, postId).queryKey, fresh);
+            })
+            .catch(() => {});
+    }, [post?.source, postHasMedia, isUnavailableTweet, source, postId]);
 
     useFixedScrollInToViewBeforeUserInteraction(true, threadsRef[postId]);
 
