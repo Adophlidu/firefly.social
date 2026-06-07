@@ -1,6 +1,7 @@
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
+import type { GetTokenOptions } from '@dimensiondev/workers-token';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
@@ -15,7 +16,6 @@ import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
-import type { GetTokenOptions } from '@/providers/types/Firefly.js';
 
 const QueryOptionsSchema = z.object({
     address: z.string().optional(),

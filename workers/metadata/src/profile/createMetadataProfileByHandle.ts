@@ -1,12 +1,12 @@
 import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/workers-shared/constants/metadata.js';
 import { createPageTitleOG } from '@dimensiondev/workers-shared/helpers/createPageTitleOG.js';
-import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import { fetchFireflyRpc } from '@dimensiondev/workers-shared/helpers/fetchFireflyRpc.js';
 import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { FireflyProfile } from '@dimensiondev/workers-shared/types/firefly.js';
 import type { Context } from 'hono';
 
+import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/metadata/src/profile/getProfileUrl.js';
 
 export async function createMetadataProfileByHandle(

@@ -1,8 +1,8 @@
-import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import { resolveSiteUrl } from '@dimensiondev/workers-shared/helpers/resolveSiteUrl.js';
 import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { Context } from 'hono';
 
+import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 import type { SparksProfile } from '@/metadata/src/sparks-account/types.js';
 
 export function createSparksAccountMetadata(profile: SparksProfile, pathname: string, c: Context) {

@@ -1,15 +1,12 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
-import urlcat from 'urlcat';
+import type { CoinGeckoToken, GetTokenOptions } from '@dimensiondev/workers-token';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
-import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import type { GetTokenOptions } from '@/providers/types/Firefly.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { tokenWorker } from '@/providers/firefly/worker/clients.js';
 
 export async function searchToken(options: GetTokenOptions): Promise<CoinGeckoToken | null> {
-    const response = await fetchJson<ResponseJson<CoinGeckoToken | null>>(
-        urlcat(FIREFLY_WORKER_HOST, '/token/search', options),
-    );
-    return resolveResponseData(response);
+    const res = await tokenWorker.token.search.$get({
+        query: options as Record<string, string>,
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.success ? (json.data as CoinGeckoToken | null) : null;
 }

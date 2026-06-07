@@ -8,3 +8,5 @@ export const MediaTokenSchema = z.object({
     bucket: z.string(),
     cdnHost: z.string(),
 });
+
+export type MediaToken = z.infer<typeof MediaTokenSchema>;

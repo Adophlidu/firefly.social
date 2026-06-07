@@ -1,21 +1,22 @@
 import type { Metadata } from 'next';
-import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
+import { metadataWorker } from '@/providers/firefly/worker/clients.js';
+import { settings } from '@/settings/index.js';
 
 export async function createTransactionMetadata(chainId: number, hash: string, pathname: string): Promise<Metadata> {
     try {
-        const response = await fetchMetadataApi(
-            urlcat('/metadata-v2/transaction', {
-                chainId,
-                hash,
-                pathname,
-            }),
+        const res = await metadataWorker['metadata-v2'].transaction.$get(
+            { query: { chainId: String(chainId), hash, pathname } },
+            { headers: { 'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false' } },
         );
-        const metadata = resolveResponseData(response);
-        return metadata;
+        if (!res.ok)
+            return createSiteMetadata(pathname, {
+                description: `Stay ahead of the curve with real-time on-chain activity: token swaps, trades, bets, and more.`,
+            });
+        const json = await res.json();
+        return resolveResponseData(json);
     } catch (_error) {
         return createSiteMetadata(pathname, {
             description: `Stay ahead of the curve with real-time on-chain activity: token swaps, trades, bets, and more.`,

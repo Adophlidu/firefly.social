@@ -1,22 +1,18 @@
 import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
-import {
-    createSuccessResponseJson,
-    createZodErrorResponseJson,
-} from '@dimensiondev/workers-shared/helpers/createResponseJson.js';
-import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
+import { createZodErrorResponseJson } from '@dimensiondev/workers-shared/helpers/createResponseJson.js';
 import { getOrigin } from '@dimensiondev/workers-shared/helpers/getOrigin.js';
 import { withCache } from '@dimensiondev/workers-shared/middlewares/withCache.js';
-import { withErrorHandler } from '@dimensiondev/workers-shared/middlewares/withErrorHandler.js';
+import { withHono } from '@dimensiondev/workers-shared/middlewares/withHono.js';
 import { Pathname } from '@dimensiondev/workers-shared/schemas/Pathname.js';
 import { zValidator } from '@hono/zod-validator';
 import type { Context } from 'hono';
 import { Hono } from 'hono';
+import type { Metadata } from 'next';
 import z from 'zod';
 
+import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 import { createMetadataNft } from '@/metadata/src/nft/createMetadataNft.js';
 import { parseChainId } from '@/metadata/src/nft/parseChainId.js';
-
-type Metadata = Record<string, unknown>;
 
 const VERSION = 1;
 
@@ -26,8 +22,6 @@ const QuerySchema = z.object({
     tokenId: z.string(),
     pathname: Pathname,
 });
-
-const NftMetadataRoute = new Hono<{ Bindings: { METADATA_CACHE: KVNamespace } }>();
 
 function getCacheKey(
     pathname: string,
@@ -39,7 +33,7 @@ function getCacheKey(
     return `metadata:nft:${VERSION}:${getOrigin(c)}:${pathname}_${chainIdOrCollectionId}_${addressOrTokenId}_${tokenId}`;
 }
 
-NftMetadataRoute.get(
+const NftMetadataRoute = new Hono<{ Bindings: { METADATA_CACHE: KVNamespace } }>().get(
     '/nft',
     zValidator('query', QuerySchema, (result) => {
         if (!result.success) {
@@ -49,10 +43,10 @@ NftMetadataRoute.get(
         }
     }),
     (c) =>
-        withErrorHandler(async () => {
+        withHono(c, async () => {
             const { pathname, addressOrTokenId, chainIdOrCollectionId, tokenId } = c.req.valid('query');
             const cacheKey = getCacheKey(pathname, chainIdOrCollectionId, addressOrTokenId, tokenId, c);
-            const metadata = await withCache<Metadata>({
+            return withCache<Metadata>({
                 context: c,
                 ttl: ONE_MONTH,
                 getKey: () => cacheKey,
@@ -71,7 +65,6 @@ NftMetadataRoute.get(
                     return createSiteMetadata(`/nft/${chainIdOrCollectionId}/${addressOrTokenId}/${tokenId}`);
                 },
             });
-            return createSuccessResponseJson(metadata);
         }),
 );
 

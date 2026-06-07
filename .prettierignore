@@ -15,12 +15,13 @@ build/
 pnpm-lock.yaml
 patches/
 
-# Next applications
-apps/**/.next/
-
 # Ignore codegen
 *.gen.ts
 
 # Ignore agents
-.cursor
 .claude
+.cursor
+.gstack
+
+# Next applications
+apps/**/.next/

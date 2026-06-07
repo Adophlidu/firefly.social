@@ -1,22 +1,14 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
-import urlcat from 'urlcat';
+import type { MediaToken } from '@dimensiondev/workers-s3';
 
 import { blobToBase64 } from '@/helpers/blobToBase64.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
-import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import type { S3ConnectionConfig } from '@/providers/types/Firefly.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { s3Worker } from '@/providers/firefly/worker/clients.js';
 
-export async function uploadToS3ByBase64(file: File, fileKey: string, s3Config: S3ConnectionConfig) {
-    const response = await fetchJson<ResponseJson<{ url: string }>>(urlcat(FIREFLY_WORKER_HOST, '/s3/upload/upload'), {
-        method: 'POST',
-        body: JSON.stringify({
-            file: await blobToBase64(file),
-            fileKey,
-            mediaToken: s3Config,
-        }),
+export async function uploadToS3ByBase64(file: File, fileKey: string, mediaToken: MediaToken) {
+    const res = await s3Worker.s3.upload.upload.$post({
+        json: { file: await blobToBase64(file), fileKey, mediaToken },
     });
-
-    const { url } = resolveResponseData(response);
-    return url;
+    if (!res.ok) throw new Error('Failed to upload file to S3.');
+    const json = await res.json();
+    if (!json.success) throw new Error('Failed to upload file to S3.');
+    return json.data.url;
 }

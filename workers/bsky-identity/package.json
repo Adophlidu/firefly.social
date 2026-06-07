@@ -5,12 +5,17 @@
     "type": "module",
     "scripts": {
         "build": "wrangler build --config wrangler.jsonc",
+        "types": "tsc -p tsconfig.types.json",
         "deploy": "wrangler deploy --config wrangler.jsonc",
         "dev": "wrangler dev --config wrangler.jsonc",
         "typecheck": "tsgo --noEmit"
     },
     "exports": {
-        "./*": "./src/*"
+        "./*": "./src/*",
+        ".": {
+            "types": "./types/index.d.ts",
+            "import": "./src/index.ts"
+        }
     },
     "dependencies": {
         "@dimensiondev/workers-shared": "workspace:*",

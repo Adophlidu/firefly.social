@@ -1,24 +1,17 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
-import urlcat from 'urlcat';
+import type { SuggestedChannel } from '@dimensiondev/workers-ui-suggested-channels';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
-import { resolveResponseData } from '@/helpers/resolveResponseData.js';
+import { formatSuggestedChannel } from '@/helpers/formatSuggestedChannel.js';
+import { uiSuggestedChannelsWorker } from '@/providers/firefly/worker/clients.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import type { ResponseJson } from '@/types/utility.js';
 
-function fetchInterfaceApi<T>(pathname: string, init?: RequestInit) {
-    return fetchJson<ResponseJson<T>>(urlcat(FIREFLY_WORKER_HOST, pathname), {
-        ...init,
-        headers: {
-            ...init?.headers,
-            'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false',
-        },
-    });
-}
-
-export async function getTrendingChannels() {
-    const response = await fetchInterfaceApi<Channel[]>('/ui/suggested-channels');
-    const channels = resolveResponseData(response);
-    return channels;
+export async function getTrendingChannels(): Promise<Channel[]> {
+    const res = await uiSuggestedChannelsWorker.ui['suggested-channels'].$get(
+        { query: {} },
+        { headers: { 'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false' } },
+    );
+    if (!res.ok) return [];
+    const json = await res.json();
+    if (!json.success) return [];
+    return (json.data as SuggestedChannel[]).map(formatSuggestedChannel);
 }

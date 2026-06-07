@@ -1,27 +1,10 @@
+import type { LinkDigested as WorkerLinkDigested } from '@dimensiondev/workers-oembed';
 import type { Hex } from 'viem';
 
-interface OpenGraphImage {
-    url: string;
-    width: number;
-    height: number;
-}
+export type { OpenGraph, OpenGraphImage } from '@dimensiondev/workers-oembed';
 
-export interface LinkDigested {
-    og: OpenGraph;
+export interface LinkDigested extends WorkerLinkDigested {
     payload?: MirrorPayload | null;
-}
-
-export interface OpenGraph {
-    type: 'website';
-    url: string;
-    favicon: string;
-    title: string | null;
-    description: string | null;
-    site: string | null;
-    image: OpenGraphImage | null;
-    isLarge: boolean;
-    html: string | null;
-    locale: string | null;
 }
 
 export enum PayloadType {

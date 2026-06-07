@@ -26,6 +26,7 @@ import type {
     WalletSource,
     WatchType,
 } from '@dimensiondev/enums';
+import type { MediaToken } from '@dimensiondev/workers-s3';
 import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
@@ -405,14 +406,7 @@ export type CommentsResponse = Response<{
     cursor: string;
 }>;
 
-export interface S3ConnectionConfig {
-    bucket: string;
-    cdnHost: string;
-    region: string;
-    accessKeyId: string;
-    secretAccessKey: string;
-    sessionToken: string;
-}
+export type S3ConnectionConfig = MediaToken;
 export type UploadMediaTokenResponse = Response<S3ConnectionConfig>;
 
 export type FriendshipResponse = Response<{

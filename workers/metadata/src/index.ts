@@ -1,3 +1,4 @@
+import { onError } from '@dimensiondev/workers-shared/middlewares/onError.js';
 import { withCors } from '@dimensiondev/workers-shared/middlewares/withCors.js';
 import { Hono } from 'hono';
 import { prettyJSON } from 'hono/pretty-json';
@@ -16,28 +17,22 @@ import { TokenMetadataRoute } from '@/metadata/src/token/route.js';
 import { TransactionMetadataRoute } from '@/metadata/src/transaction/route.js';
 import { WalletProfileMetadataRoute } from '@/metadata/src/wallet-profile/route.js';
 
-const app = new Hono();
+const metadataV2 = new Hono()
+    .route('/', ArticleMetadataRoute)
+    .route('/', ChannelMetadataRoute)
+    .route('/', CollectionMetadataRoute)
+    .route('/', EventMetadataRoute)
+    .route('/', FireflyProfileMetadataRoute)
+    .route('/', NftMetadataRoute)
+    .route('/', PostMetadataRoute)
+    .route('/', PredictionMetadataRoute)
+    .route('/', ProfileMetadataRoute)
+    .route('/', SparksAccountMetadataRoute)
+    .route('/', TokenMetadataRoute)
+    .route('/', TransactionMetadataRoute)
+    .route('/', WalletProfileMetadataRoute);
 
-app.use(prettyJSON());
-app.use(withCors());
-
-const metadataV2 = new Hono();
-
-metadataV2.route('/', ArticleMetadataRoute);
-metadataV2.route('/', ChannelMetadataRoute);
-metadataV2.route('/', CollectionMetadataRoute);
-metadataV2.route('/', EventMetadataRoute);
-metadataV2.route('/', FireflyProfileMetadataRoute);
-metadataV2.route('/', NftMetadataRoute);
-metadataV2.route('/', PostMetadataRoute);
-metadataV2.route('/', PredictionMetadataRoute);
-metadataV2.route('/', ProfileMetadataRoute);
-metadataV2.route('/', SparksAccountMetadataRoute);
-metadataV2.route('/', TokenMetadataRoute);
-metadataV2.route('/', TransactionMetadataRoute);
-metadataV2.route('/', WalletProfileMetadataRoute);
-
-app.route('/metadata-v2', metadataV2);
+const app = new Hono().use(prettyJSON()).use(withCors()).route('/metadata-v2', metadataV2).onError(onError);
 
 export default app;
 export type AppType = typeof app;

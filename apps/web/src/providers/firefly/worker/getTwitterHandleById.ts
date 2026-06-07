@@ -1,37 +1,19 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
-import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
+import { xIdentityWorker } from '@/providers/firefly/worker/clients.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { ResponseJson } from '@/types/utility.js';
-
-type GetTwitterHandleByIdResponse = ResponseJson<{
-    username: string;
-}>;
 
 export async function getTwitterHandleById(id: string) {
-    // id is supposed to be numerical, but just in case
     if (!isNumericalProfileId(id)) return id;
-    // /x-identity will might fail.
     const profile = queryClient.getQueriesData<Profile>({ queryKey: ['profile', Source.Twitter] }).find((x) => {
         x[1]?.profileId === id;
     });
     if (profile?.[1]?.handle) return profile[1].handle;
-    const response = await fetchJson<GetTwitterHandleByIdResponse>(
-        urlcat(FIREFLY_WORKER_HOST, `/x-identity`, {
-            id,
-        }),
-        {
-            next: {
-                revalidate: 3600,
-            },
-        },
-    );
-    if (!response.success) {
-        throw new Error(`Failed to get twitter handle by id: ${id}`);
-    }
-    return response.data.username;
+    const res = await xIdentityWorker['x-identity'].$get({ query: { id } });
+    if (!res.ok) throw new Error(`Failed to get twitter handle by id: ${id}`);
+    const json = await res.json();
+    if (!json.success) throw new Error(`Failed to get twitter handle by id: ${id}`);
+    return json.data.username;
 }

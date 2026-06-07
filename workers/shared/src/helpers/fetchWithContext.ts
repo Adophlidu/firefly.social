@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 
 import { FIREFLY_WORKER_URL } from '@/shared/src/constants/metadata.js';
-import { parseUrl } from '@/shared/src/helpers/parseUrl';
+import { parseUrl } from '@/shared/src/helpers/parseUrl.js';
 
 const DEFAULT_UA = 'Mozilla/5.0 (compatible; Firefly/1.0)';
 

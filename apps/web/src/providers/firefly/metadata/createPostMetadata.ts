@@ -4,7 +4,8 @@ import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
+import { metadataWorker } from '@/providers/firefly/worker/clients.js';
+import { settings } from '@/settings/index.js';
 
 export async function createPostMetadata(
     source: string,
@@ -15,16 +16,25 @@ export async function createPostMetadata(
     const ogImageUrl = urlcat(SITE_URL, '/api/og/post/:source/:postId/image', { source, postId });
 
     try {
-        const response = await fetchMetadataApi(
-            urlcat('/metadata-v2/post', {
-                source,
-                postId,
-                pathname,
-                ...searchParams,
-            }),
+        const res = await metadataWorker['metadata-v2'].post.$get(
+            {
+                query: {
+                    source,
+                    postId,
+                    pathname,
+                    s: searchParams?.s as string | undefined,
+                    sid: searchParams?.sid as string | undefined,
+                },
+            },
+            { headers: { 'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false' } },
         );
-        const metadata = resolveResponseData(response);
-        return metadata;
+        if (!res.ok)
+            return createSiteMetadata(pathname, {
+                openGraph: { images: [ogImageUrl] },
+                twitter: { images: [ogImageUrl] },
+            });
+        const json = await res.json();
+        return resolveResponseData(json);
     } catch (error) {
         return createSiteMetadata(pathname, {
             openGraph: { images: [ogImageUrl] },

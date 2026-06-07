@@ -6,9 +6,7 @@ import type { Context } from 'hono';
 import { getCoinMarketInfosByIds } from '@/token/src/getCoinsByIds.js';
 import { searchTokenInfos } from '@/token/src/searchTokenInfos.js';
 import { searchTokensByAddress } from '@/token/src/searchTokensByAddress.js';
-import type { CoinGeckoCoinMarketInfo, SearchableToken } from '@/token/src/types.js';
-
-type TokenWithMarket = SearchableToken & { market?: Partial<CoinGeckoCoinMarketInfo> };
+import type { SearchableToken, TokenWithMarket } from '@/token/src/types.js';
 
 async function searchByAddress(address: string, context: Context): Promise<SearchableToken[]> {
     try {

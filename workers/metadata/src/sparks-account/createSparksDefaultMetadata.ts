@@ -1,7 +1,8 @@
-import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import { resolveSiteUrl } from '@dimensiondev/workers-shared/helpers/resolveSiteUrl.js';
 import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { Context } from 'hono';
+
+import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 
 export function createSparksDefaultMetadata(pathname: string, c: Context) {
     const title = 'Are you the next Genesis Sparks✨ on Firefly?';

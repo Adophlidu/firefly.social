@@ -293,6 +293,8 @@ export interface SearchableToken {
     fdv?: number;
 }
 
+export type TokenWithMarket = SearchableToken & { market?: Partial<CoinGeckoCoinMarketInfo> };
+
 export interface DetectedAddress {
     type: 'eth' | 'solana';
     chain: string;

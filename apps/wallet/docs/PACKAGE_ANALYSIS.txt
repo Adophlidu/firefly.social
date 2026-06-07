@@ -4,7 +4,7 @@ Package Analysis
 Application: apps/wallet
 
 Total packages: 2453
-Packages with multiple versions: 398
+Packages with multiple versions: 397
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -280,7 +280,6 @@ Packages with Multiple Versions
  hasown@2.0.2,2.0.3
  hermes-estree@0.25.1,0.32.0,0.33.3,0.35.0
  hermes-parser@0.25.1,0.32.0,0.33.3,0.35.0
- hono@4.12.22,4.12.23
  html-escaper@2.0.2,3.0.3
  htmlparser2@10.0.0,10.1.0
  idb-keyval@6.2.1,6.2.2
@@ -1801,6 +1800,7 @@ Packages with Single Version
  hey-listen@1.0.8
  hls.js@1.6.16
  hmac-drbg@1.0.1
+ hono@4.12.23
  hookable@6.1.1
  html-encoding-sniffer@6.0.0
  html-url-attributes@3.0.1

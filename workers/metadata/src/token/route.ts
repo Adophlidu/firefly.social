@@ -1,15 +1,11 @@
 import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
 import { createPageTitleOG } from '@dimensiondev/workers-shared/helpers/createPageTitleOG.js';
-import {
-    createSuccessResponseJson,
-    createZodErrorResponseJson,
-} from '@dimensiondev/workers-shared/helpers/createResponseJson.js';
-import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
+import { createZodErrorResponseJson } from '@dimensiondev/workers-shared/helpers/createResponseJson.js';
 import { getOrigin } from '@dimensiondev/workers-shared/helpers/getOrigin.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/workers-shared/helpers/isAddress.js';
 import { resolveSiteUrl } from '@dimensiondev/workers-shared/helpers/resolveSiteUrl.js';
 import { withCache } from '@dimensiondev/workers-shared/middlewares/withCache.js';
-import { withErrorHandler } from '@dimensiondev/workers-shared/middlewares/withErrorHandler.js';
+import { withHono } from '@dimensiondev/workers-shared/middlewares/withHono.js';
 import { AddressSchema } from '@dimensiondev/workers-shared/schemas/Address.js';
 import { ChainIdSchema } from '@dimensiondev/workers-shared/schemas/ChainId.js';
 import { Pathname } from '@dimensiondev/workers-shared/schemas/Pathname.js';
@@ -18,6 +14,8 @@ import { zValidator } from '@hono/zod-validator';
 import type { Context } from 'hono';
 import { Hono } from 'hono';
 import z from 'zod';
+
+import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 
 const VERSION = 3;
 
@@ -29,13 +27,11 @@ const QuerySchema = z.object({
     isCoinId: z.coerce.boolean().optional(),
 });
 
-const TokenMetadataRoute = new Hono<{ Bindings: { METADATA_CACHE: KVNamespace } }>();
-
 function getCacheKey(keyword: string, pathname: string, c: Context, chainId = 0, address = '0x0', isCoinId = false) {
     return `metadata:token:${VERSION}:${getOrigin(c)}:${keyword}_${pathname}_${chainId}_${address}_${isCoinId}`;
 }
 
-TokenMetadataRoute.get(
+const TokenMetadataRoute = new Hono<{ Bindings: { METADATA_CACHE: KVNamespace } }>().get(
     '/token',
     zValidator('query', QuerySchema, (result) => {
         if (!result.success) {
@@ -45,10 +41,10 @@ TokenMetadataRoute.get(
         }
     }),
     (c) =>
-        withErrorHandler(async () => {
+        withHono(c, async () => {
             const { keyword, pathname, chainId, address, isCoinId } = c.req.valid('query');
             const cacheKey = getCacheKey(keyword, pathname, c, chainId, address, isCoinId);
-            const metadata = await withCache<ReturnType<typeof createSiteMetadata>>({
+            return withCache<ReturnType<typeof createSiteMetadata>>({
                 context: c,
                 ttl: ONE_MONTH,
                 getKey: () => cacheKey,
@@ -89,7 +85,6 @@ TokenMetadataRoute.get(
                     });
                 },
             });
-            return createSuccessResponseJson(metadata);
         }),
 );
 

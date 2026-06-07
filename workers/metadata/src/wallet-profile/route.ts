@@ -1,11 +1,8 @@
 import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
-import {
-    createErrorResponseJsonFromError,
-    createSuccessResponseJson,
-    createZodErrorResponseJson,
-} from '@dimensiondev/workers-shared/helpers/createResponseJson.js';
+import { createZodErrorResponseJson } from '@dimensiondev/workers-shared/helpers/createResponseJson.js';
 import { getOrigin } from '@dimensiondev/workers-shared/helpers/getOrigin.js';
 import { withCache } from '@dimensiondev/workers-shared/middlewares/withCache.js';
+import { withHono } from '@dimensiondev/workers-shared/middlewares/withHono.js';
 import { Pathname } from '@dimensiondev/workers-shared/schemas/Pathname.js';
 import { zValidator } from '@hono/zod-validator';
 import type { Context } from 'hono';
@@ -21,13 +18,11 @@ const QuerySchema = z.object({
     pathname: Pathname,
 });
 
-const WalletProfileMetadataRoute = new Hono<{ Bindings: { METADATA_CACHE: KVNamespace } }>();
-
 function getCacheKey(addressOrEns: string, pathname: string, c: Context) {
     return `metadata:wallet-profile:${VERSION}:${getOrigin(c)}:${addressOrEns}_${pathname}`;
 }
 
-WalletProfileMetadataRoute.get(
+const WalletProfileMetadataRoute = new Hono<{ Bindings: { METADATA_CACHE: KVNamespace } }>().get(
     '/wallet-profile',
     zValidator('query', QuerySchema, (result) => {
         if (!result.success) {
@@ -36,11 +31,11 @@ WalletProfileMetadataRoute.get(
             });
         }
     }),
-    async (c) => {
-        try {
+    (c) =>
+        withHono(c, async () => {
             const { addressOrEns, pathname } = c.req.valid('query');
             const cacheKey = getCacheKey(addressOrEns, pathname, c);
-            const metadata = await withCache<Awaited<ReturnType<typeof createMetadataWalletProfile>>>({
+            return withCache<Awaited<ReturnType<typeof createMetadataWalletProfile>>>({
                 context: c,
                 ttl: ONE_MONTH,
                 getKey: () => cacheKey,
@@ -49,11 +44,7 @@ WalletProfileMetadataRoute.get(
                     return createMetadataWalletProfile(addressOrEns, pathname, c);
                 },
             });
-            return createSuccessResponseJson(metadata);
-        } catch (error) {
-            return createErrorResponseJsonFromError(error);
-        }
-    },
+        }),
 );
 
 export { WalletProfileMetadataRoute };

@@ -69,8 +69,12 @@
             "dependsOn": ["^build"],
             "inputs": ["src/**/*.tsx", "src/**/*.ts", "tests/**/*.ts", "tests/**/*.tsx"]
         },
+        "types": {
+            "dependsOn": ["^build"],
+            "outputs": ["types/**"]
+        },
         "typecheck": {
-            "dependsOn": ["^build"]
+            "dependsOn": ["^build", "^types"]
         }
     }
 }

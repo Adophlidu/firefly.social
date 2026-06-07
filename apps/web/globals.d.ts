@@ -1,3 +1,26 @@
+// Minimal stubs so TypeScript can resolve worker AppType imports without pulling in @cloudflare/workers-types
+interface KVNamespace {
+    get(key: string, options?: unknown): Promise<string | null>;
+    put(key: string, value: string | ArrayBuffer, options?: unknown): Promise<void>;
+    delete(key: string): Promise<void>;
+    list(options?: unknown): Promise<{ keys: Array<{ name: string }>; list_complete: boolean; cursor: string }>;
+}
+
+interface ElementHandlers {
+    element?(el: { getAttribute(name: string): string | null; setAttribute(name: string, value: string): void }): void;
+    text?(text: { text: string; lastInTextNode: boolean }): void;
+    comments?(comment: { text: string }): void;
+}
+
+interface HTMLRewriter {
+    on(selector: string, handlers: ElementHandlers): this;
+    transform(response: Response): Response;
+}
+
+declare const HTMLRewriter: {
+    new (): HTMLRewriter;
+};
+
 interface Navigator {
     virtualKeyboard: {
         boundingRect: DOMRect;

@@ -7,6 +7,7 @@ import type { FireflyChannel } from '@dimensiondev/workers-shared/types/firefly.
 import type { Context } from 'hono';
 
 import { mergeLists } from '@/ui-suggested-channels/src/mergeLists.js';
+import type { SuggestedChannel } from '@/ui-suggested-channels/src/types.js';
 
 const suggestedLensGroups = [
     { name: 'orb', id: '0xB49d9dBbaC3aCbd5C263f5C204Ad9CF859f54869' },
@@ -31,10 +32,14 @@ async function getTrendingChannelsBySource(source: SocialSource, count: number, 
                   .then((x) => x.data)
                   .catch(() => [])
             : [];
-    return [...fixedChannels, ...restChannels].slice(0, count);
+    return [...fixedChannels, ...restChannels].slice(0, count).map((channel) => ({ ...channel, source }));
 }
 
-export async function getTrendingChannels(sources: SocialSource[], count: number, c: Context) {
+export async function getTrendingChannels(
+    sources: SocialSource[],
+    count: number,
+    c: Context,
+): Promise<SuggestedChannel[]> {
     const result = await Promise.allSettled(sources.map((source) => getTrendingChannelsBySource(source, count, c)));
     return mergeLists(...compact(result.map((x) => (x.status === 'fulfilled' ? x.value : null))));
 }

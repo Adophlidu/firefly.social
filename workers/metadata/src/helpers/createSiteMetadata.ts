@@ -1,7 +1,10 @@
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/shared/src/constants/metadata.js';
-import { urlcat } from '@/shared/src/helpers/urlcat.js';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@dimensiondev/workers-shared/constants/metadata.js';
+import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 
-export function createSiteMetadata(pathname: string, metadata?: Record<string, unknown>) {
+export function createSiteMetadata(
+    pathname: string,
+    metadata?: { title?: string; description?: string } & Record<string, unknown>,
+) {
     const title = metadata?.title ?? SITE_NAME;
     const description = metadata?.description ?? SITE_DESCRIPTION;
 

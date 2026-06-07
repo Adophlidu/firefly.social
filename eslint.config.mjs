@@ -37,6 +37,7 @@ export default defineConfig([
         'apps/**/src/locales/**',
         'packages/**/src/locales/**',
         'workers/**/dist/**',
+        'workers/**/types/**',
         '*.config.ts',
         '**/*.config.js',
         '**/*.config.cjs',

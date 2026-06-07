@@ -1,12 +1,8 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
-import urlcat from 'urlcat';
-
-import { fetchJson } from '@/helpers/fetchJson.js';
-import type { IframeBlockerResponse } from '@/types/frame.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { iframeBlockerWorker } from '@/providers/firefly/worker/clients.js';
 
 export async function checkMiniAppBlocking(link: string, signal?: AbortSignal) {
-    const url = urlcat(FIREFLY_WORKER_HOST, '/iframe-blocker/check', { link });
-    const response = await fetchJson<ResponseJson<IframeBlockerResponse>>(url, { signal });
-    return response.success ? response.data : null;
+    const res = await iframeBlockerWorker['iframe-blocker'].check.$get({ query: { link } }, { init: { signal } });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.success ? json.data : null;
 }

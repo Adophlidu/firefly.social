@@ -1,35 +1,23 @@
 import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
-import urlcat from 'urlcat';
+import type { MediaToken } from '@dimensiondev/workers-s3';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
-import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import type { S3ConnectionConfig, UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { s3Worker } from '@/providers/firefly/worker/clients.js';
 
-async function initUpload(options: { fileKey: string; contentType: string; mediaToken: S3ConnectionConfig }) {
-    const result = await fetchJson<ResponseJson<{ uploadId: string }>>(
-        urlcat(FIREFLY_WORKER_HOST, '/s3/upload-chunk/initiate'),
-        {
-            method: 'POST',
-            body: JSON.stringify(options),
-        },
-    );
-    return resolveResponseData(result, 'Failed to initiate S3 upload.');
+async function initUpload(options: { fileKey: string; contentType: string; mediaToken: MediaToken }) {
+    const res = await s3Worker.s3['upload-chunk'].initiate.$post({ json: options });
+    if (!res.ok) throw new Error('Failed to initiate S3 upload.');
+    const json = await res.json();
+    if (!json.success) throw new Error('Failed to initiate S3 upload.');
+    return json.data;
 }
 
-async function uploadChunks(file: File, id: string, fileKey: string, tokenData: S3ConnectionConfig) {
+async function uploadChunks(file: File, id: string, fileKey: string, tokenData: MediaToken) {
     const chunkSize = 5 * 1024 * 1024; // 5MB
     const buffer = await file.arrayBuffer();
     const chunks: ArrayBuffer[] = [];
     const chunksCount = Math.ceil(buffer.byteLength / chunkSize);
-    const pendingUploads = new Set<{
-        index: number;
-        promise: Promise<void>;
-    }>();
-    const uploadedParts: Array<{
-        ETag: string;
-        PartNumber: number;
-    }> = [];
+    const pendingUploads = new Set<{ index: number; promise: Promise<unknown> }>();
+    const uploadedParts: Array<{ ETag: string; PartNumber: number }> = [];
     let index = 0;
 
     for (let i = 0; i < chunksCount; i += 1) {
@@ -38,8 +26,9 @@ async function uploadChunks(file: File, id: string, fileKey: string, tokenData: 
         chunks.push(buffer.slice(start, end));
     }
 
+    // Binary body + custom headers — not RPC-typed, keep as raw fetch
     while (chunks.length) {
-        const chunkResponse = fetch(urlcat(FIREFLY_WORKER_HOST, '/s3/upload-chunk/chunk'), {
+        const chunkResponse = fetch(`${FIREFLY_WORKER_HOST}/s3/upload-chunk/chunk`, {
             method: 'POST',
             body: chunks.shift(),
             headers: {
@@ -48,19 +37,14 @@ async function uploadChunks(file: File, id: string, fileKey: string, tokenData: 
                 'X-File-Key': fileKey,
                 'X-Media-Token': JSON.stringify(tokenData),
             },
-        }).then((res) => res.json());
-        const task = { index: index + 1, promise: chunkResponse };
+        }).then((res) => res.json() as Promise<{ success: boolean; data: { etag: string; partNumber: number } }>);
+        const task = { index: index + 1, promise: chunkResponse as Promise<unknown> };
 
         pendingUploads.add(task);
-        task.promise.finally(() => {
-            pendingUploads.delete(task);
-        });
-        task.promise.then((res: ResponseJson<{ etag: string; partNumber: number }>) => {
-            const result = resolveResponseData(res, `Failed to upload chunk.`);
-            uploadedParts.push({
-                ETag: result.etag,
-                PartNumber: result.partNumber,
-            });
+        task.promise.finally(() => pendingUploads.delete(task));
+        (chunkResponse as Promise<{ success: boolean; data: { etag: string; partNumber: number } }>).then((res) => {
+            if (!res.success) throw new Error('Failed to upload chunk.');
+            uploadedParts.push({ ETag: res.data.etag, PartNumber: res.data.partNumber });
         });
 
         index += 1;
@@ -70,7 +54,6 @@ async function uploadChunks(file: File, id: string, fileKey: string, tokenData: 
     }
 
     await Promise.all([...pendingUploads].map((x) => x.promise));
-
     return uploadedParts.sort((a, b) => a.PartNumber - b.PartNumber);
 }
 
@@ -78,30 +61,19 @@ async function completeUpload(
     uploadId: string,
     fileKey: string,
     parts: Array<{ ETag: string; PartNumber: number }>,
-    tokenData: Required<UploadMediaTokenResponse>['data'],
+    mediaToken: MediaToken,
 ) {
-    const completeResponse = await fetchJson<ResponseJson<{ url: string }>>(
-        urlcat(FIREFLY_WORKER_HOST, '/s3/upload-chunk/complete'),
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                uploadId,
-                fileKey,
-                parts,
-                mediaToken: tokenData,
-            }),
-        },
-    );
-
-    return resolveResponseData(completeResponse).url;
+    const res = await s3Worker.s3['upload-chunk'].complete.$post({
+        json: { uploadId, fileKey, parts, mediaToken },
+    });
+    if (!res.ok) throw new Error('Failed to complete S3 upload.');
+    const json = await res.json();
+    if (!json.success) throw new Error('Failed to complete S3 upload.');
+    return json.data.url;
 }
 
-export async function uploadToS3ByChunk(file: File, fileKey: string, s3Config: S3ConnectionConfig) {
-    const initResult = await initUpload({
-        fileKey,
-        contentType: file.type,
-        mediaToken: s3Config,
-    });
-    const uploadedParts = await uploadChunks(file, initResult.uploadId, fileKey, s3Config);
-    return completeUpload(initResult.uploadId, fileKey, uploadedParts, s3Config);
+export async function uploadToS3ByChunk(file: File, fileKey: string, mediaToken: MediaToken) {
+    const initResult = await initUpload({ fileKey, contentType: file.type, mediaToken });
+    const uploadedParts = await uploadChunks(file, initResult.uploadId, fileKey, mediaToken);
+    return completeUpload(initResult.uploadId, fileKey, uploadedParts, mediaToken);
 }

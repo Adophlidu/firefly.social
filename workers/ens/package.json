@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "build": "wrangler build --config wrangler.jsonc",
+        "types": "tsc -p tsconfig.types.json",
         "deploy": "wrangler deploy --config wrangler.jsonc",
         "dev": "wrangler dev --config wrangler.jsonc",
         "typecheck": "tsgo --noEmit"
@@ -24,5 +25,12 @@
     },
     "peerDependencies": {
         "typescript": ">=5.0.0"
+    },
+    "exports": {
+        "./*": "./src/*",
+        ".": {
+            "types": "./types/index.d.ts",
+            "import": "./src/index.ts"
+        }
     }
 }

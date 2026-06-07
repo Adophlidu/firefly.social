@@ -2,21 +2,21 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { getClassifyPostLinks } from '@/providers/firefly/worker/getClassifyPostLinks.js';
 
-const { fetchJson } = vi.hoisted(() => ({
-    fetchJson: vi.fn(),
-}));
+const { ogGet } = vi.hoisted(() => ({ ogGet: vi.fn() }));
 
-vi.mock('@dimensiondev/constants/static', () => ({
-    FIREFLY_WORKER_HOST: 'https://worker.firefly.test',
-}));
-
-vi.mock('@/helpers/fetchJson.js', () => ({
-    fetchJson,
+vi.mock('@/providers/firefly/worker/clients.js', () => ({
+    ogWorker: {
+        og: {
+            urls: {
+                $get: ogGet,
+            },
+        },
+    },
 }));
 
 describe('getClassifyPostLinks', () => {
     beforeEach(() => {
-        fetchJson.mockReset();
+        ogGet.mockReset();
     });
 
     it('normalizes firefly sharer links before classifying and maps the result back to the original url', async () => {
@@ -24,15 +24,18 @@ describe('getClassifyPostLinks', () => {
         const normalizedUrl = 'https://firefly.social/post/x/2044966982446129352';
         const quote = { postId: '2044966982446129352' } as any;
 
-        fetchJson.mockResolvedValue({
-            success: true,
-            data: [{ url: normalizedUrl, result: { quote } }],
+        ogGet.mockResolvedValue({
+            ok: true,
+            json: async () => ({
+                success: true,
+                data: [{ url: normalizedUrl, result: { quote } }],
+            }),
         });
 
         const result = await getClassifyPostLinks([originalUrl]);
 
-        expect(fetchJson).toHaveBeenCalledWith(expect.stringContaining(encodeURIComponent(normalizedUrl)));
-        expect(fetchJson).not.toHaveBeenCalledWith(expect.stringContaining(encodeURIComponent(originalUrl)));
+        expect(ogGet).toHaveBeenCalledWith({ query: { urls: normalizedUrl } });
+        expect(ogGet).not.toHaveBeenCalledWith({ query: { urls: originalUrl } });
         expect(result).toEqual([{ url: originalUrl, result: { quote } }]);
     });
 
@@ -40,14 +43,17 @@ describe('getClassifyPostLinks', () => {
         const originalUrl = 'https://firefly.social/post/x/123?sid=abc';
         const normalizedUrl = 'https://firefly.social/post/x/123';
 
-        fetchJson.mockResolvedValue({
-            success: true,
-            data: [
-                {
-                    url: normalizedUrl,
-                    result: { oembed: { og: { url: normalizedUrl, title: 'Test' } } },
-                },
-            ],
+        ogGet.mockResolvedValue({
+            ok: true,
+            json: async () => ({
+                success: true,
+                data: [
+                    {
+                        url: normalizedUrl,
+                        result: { oembed: { og: { url: normalizedUrl, title: 'Test' } } },
+                    },
+                ],
+            }),
         });
 
         const result = await getClassifyPostLinks([originalUrl]);

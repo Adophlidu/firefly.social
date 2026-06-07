@@ -1,6 +1,7 @@
 'use client';
 
 import { TokenPlatformType } from '@dimensiondev/enums';
+import type { TokenWithMarket } from '@dimensiondev/workers-token';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { redirect } from 'next/navigation.js';
@@ -9,7 +10,7 @@ import { useState } from 'react';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
-import { searchTokens, type TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
+import { searchTokensBulk } from '@/providers/firefly/worker/searchTokensBulk.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SearchTokenContent() {
@@ -20,7 +21,7 @@ export function SearchTokenContent() {
         queryKey: ['search-tokens', searchKeyword],
         queryFn: async () => {
             if (!searchKeyword) return [];
-            return searchTokens(searchKeyword, true);
+            return searchTokensBulk(searchKeyword, true);
         },
         select(tokens) {
             if (!tokens) return [];

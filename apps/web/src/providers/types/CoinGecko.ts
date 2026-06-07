@@ -3,35 +3,7 @@ import type { Address } from 'viem';
 
 import type { Runtime } from '@/providers/types/Trending.js';
 
-export interface CoinGeckoToken {
-    id: string | null;
-    chainId?: number;
-    address?: string;
-    symbol: string;
-    name: string;
-    price?: number;
-    changePercent24h?: number;
-    type: 'FungibleToken';
-    logoURL: string;
-    rank?: number;
-    socialLinks?: {
-        /** url */
-        website: string;
-        twitter: string;
-        telegram?: string;
-    };
-    /**
-     * @see TokenWithMarketData['platform_info']
-     * Only provided by Firefly's API
-     */
-    platform_info?: Array<{
-        chain_name: string;
-        token_address: string;
-        decimals: number;
-        swap: number;
-        chain_id: number;
-    }>;
-}
+export type { CoinGeckoCoinMarketInfo, CoinGeckoToken } from '@dimensiondev/workers-token';
 
 export interface CoinGeckoCoinInfo {
     asset_platform_id: string;
@@ -130,36 +102,6 @@ export interface CoinGeckoPlatform {
         thumb: string;
         small: string;
     };
-}
-
-export interface CoinGeckoCoinMarketInfo {
-    ath: number;
-    ath_change_percentage: number;
-    ath_date: string;
-    atl: number;
-    atl_change_percentage: number;
-    atl_date: string;
-    circulating_supply: number;
-    current_price: number;
-    fully_diluted_valuation: number;
-    high_24h: number;
-    id: string;
-    image: string;
-    last_updated: string;
-    low_24h: number;
-    market_cap: number;
-    market_cap_change_24h: number;
-    market_cap_change_percentage_24h: number;
-    market_cap_rank: number | null;
-    market_cap_rank_with_rehypothecated?: number | null;
-    max_supply: number;
-    name: string;
-    price_change_24h: number;
-    price_change_percentage_24h: number;
-    roi: unknown;
-    symbol: string;
-    total_supply: number;
-    total_volume: number;
 }
 
 export type Price = Partial<Record<CurrencyType, string>>;

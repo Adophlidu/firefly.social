@@ -723,6 +723,9 @@ importers:
       hls.js:
         specifier: ^1.6.16
         version: 1.6.16
+      hono:
+        specifier: ^4.8.5
+        version: 4.12.23
       immer:
         specifier: ^10.2.0
         version: 10.2.0
@@ -850,6 +853,30 @@ importers:
       '@dimensiondev/tolgee':
         specifier: workspace:^
         version: link:../../packages/tolgee
+      '@dimensiondev/workers-iframe-blocker':
+        specifier: workspace:*
+        version: link:../../workers/iframe-blocker
+      '@dimensiondev/workers-metadata':
+        specifier: workspace:*
+        version: link:../../workers/metadata
+      '@dimensiondev/workers-oembed':
+        specifier: workspace:*
+        version: link:../../workers/oembed
+      '@dimensiondev/workers-og':
+        specifier: workspace:*
+        version: link:../../workers/og
+      '@dimensiondev/workers-s3':
+        specifier: workspace:*
+        version: link:../../workers/s3
+      '@dimensiondev/workers-token':
+        specifier: workspace:*
+        version: link:../../workers/token
+      '@dimensiondev/workers-ui-suggested-channels':
+        specifier: workspace:*
+        version: link:../../workers/ui-suggested-channels
+      '@dimensiondev/workers-x-identity':
+        specifier: workspace:*
+        version: link:../../workers/x-identity
       '@lingui/cli':
         specifier: ^5.9.5
         version: 5.9.5(typescript@5.9.3)
@@ -1498,6 +1525,9 @@ importers:
       hono:
         specifier: ^4.12.23
         version: 4.12.23
+      next:
+        specifier: 16.2.6
+        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -17593,10 +17623,10 @@ packages:
         optional: true
     dependencies:
       '@wagmi/core': 3.4.9(@tanstack/query-core@5.100.9)(@types/react@19.2.16)(accounts@0.8.10)(immer@10.2.0)(react@19.2.6)(typescript@5.9.3)(viem@2.48.11)
-      hono: 4.12.22
+      hono: 4.12.23
       idb-keyval: 6.2.2
       mipd: 0.0.7(typescript@5.9.3)
-      mppx: 0.6.5(hono@4.12.22)(typescript@5.9.3)(viem@2.48.11)
+      mppx: 0.6.5(hono@4.12.23)(typescript@5.9.3)(viem@2.48.11)
       ox: 0.14.20(typescript@5.9.3)(zod@4.4.3)
       react: 19.2.6
       viem: 2.48.11(typescript@5.9.3)(zod@3.25.76)
@@ -21836,11 +21866,6 @@ packages:
       minimalistic-crypto-utils: 1.0.1
     dev: true
 
-  /hono@4.12.22:
-    resolution: {integrity: sha512-7fvVPbB92zNRsQke+uiRGwtTuef0tB2Dg4hWxYfFNvkQhIltWoyi0ONReM5LWA+jJWS3nfT5lTq+qbsIpX0IQw==}
-    engines: {node: '>=16.9.0'}
-    dev: false
-
   /hono@4.12.23:
     resolution: {integrity: sha512-eIaZ9qDgu7XV0pxOCrg7/WhnQ6Ivm22UcxhXx/A3dcbqbbYgBEkc6e/J/s7j2tS96zoB0S9VBdLwQNCWwUo4LA==}
     engines: {node: '>=16.9.0'}
@@ -24299,7 +24324,7 @@ packages:
       tslib: 2.8.1
     dev: false
 
-  /mppx@0.6.5(hono@4.12.22)(typescript@5.9.3)(viem@2.48.11):
+  /mppx@0.6.5(hono@4.12.23)(typescript@5.9.3)(viem@2.48.11):
     resolution: {integrity: sha512-av6EDYiR7eqpRW3vERfEPPJITrRH3D5gyeATnQNU6CC/eI48FnwsS2shghdra1Ev5CgUDm5f1+sOlgpA/YPYYg==}
     hasBin: true
     peerDependencies:
@@ -24318,7 +24343,7 @@ packages:
       hono:
         optional: true
     dependencies:
-      hono: 4.12.22
+      hono: 4.12.23
       incur: 0.3.25
       ox: 0.14.15(typescript@5.9.3)(zod@4.4.3)
       viem: 2.48.11(typescript@5.9.3)(zod@3.25.76)
@@ -30383,6 +30408,7 @@ time:
   /lightweight-charts@5.2.0: '2026-04-24T15:26:51.830Z'
   /motion@12.38.0: '2026-03-17T08:27:20.523Z'
   /next-auth@4.24.14: '2026-04-14T21:04:58.017Z'
+  /next@16.2.6: '2026-05-07T19:01:54.751Z'
   /nuqs@2.8.9: '2026-02-27T15:51:04.508Z'
   /postcss@8.5.15: '2026-05-19T09:51:29.843Z'
   /prettier-plugin-tailwindcss@0.8.0: '2026-04-27T13:57:20.483Z'

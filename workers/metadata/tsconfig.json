@@ -1,4 +1,11 @@
 {
     "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+        "paths": {
+            "@/*": ["../*"],
+            "next": ["./node_modules/next/index.d.ts"],
+            "next/*": ["./node_modules/next/*.d.ts"]
+        }
+    },
     "include": ["src/**/*"]
 }

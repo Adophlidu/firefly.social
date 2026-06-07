@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
+import { metadataWorker } from '@/providers/firefly/worker/clients.js';
+import { settings } from '@/settings/index.js';
 
 export async function createEventMetadata(
     eventName: string,
@@ -11,15 +11,13 @@ export async function createEventMetadata(
     replaceName?: string,
 ): Promise<Metadata> {
     try {
-        const response = await fetchMetadataApi(
-            urlcat('/metadata-v2/event', {
-                name: eventName,
-                pathname,
-                replaceName,
-            }),
+        const res = await metadataWorker['metadata-v2'].event.$get(
+            { query: { name: eventName, pathname, replaceName } },
+            { headers: { 'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false' } },
         );
-        const metadata = resolveResponseData(response);
-        return metadata;
+        if (!res.ok) return createSiteMetadata(pathname);
+        const json = await res.json();
+        return resolveResponseData(json);
     } catch (error) {
         return createSiteMetadata(pathname);
     }

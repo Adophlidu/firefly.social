@@ -18,6 +18,7 @@ import type { ClassifyPostLinkResult } from '@/providers/firefly/worker/getClass
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Chars } from '@/types/chars.js';
 import type { ComposeType } from '@/types/compose.js';
+import type { Frame } from '@/types/frame.js';
 
 /**
  * Returns a stable identity key for a classified result so that two different
@@ -176,7 +177,13 @@ function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: 
     return (
         <>
             {frames.length > 1 ? (
-                <FrameSwiper frames={frames.map((x) => ({ frame: x.result.frame!, url: x.url }))} post={post} />
+                <FrameSwiper
+                    frames={frames.map((x) => ({
+                        frame: x.result.frame as Frame,
+                        url: x.url,
+                    }))}
+                    post={post}
+                />
             ) : null}
             {compact([...otherLinks, lastOpenGraph]).map((x) => (
                 <PostLinkContent key={x.url} data={x.result} url={x.url} post={post} isInCompose={isInCompose} />

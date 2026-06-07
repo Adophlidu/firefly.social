@@ -1,31 +1,24 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { parseUrl } from '@dimensiondev/utils';
 import { isValidDomainEthereum } from '@dimensiondev/web3/utils';
-import urlcat from 'urlcat';
+import type { LinkDigested } from '@dimensiondev/workers-oembed';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { removeSharerParam } from '@/helpers/sharerUrl.js';
+import { oembedWorker } from '@/providers/firefly/worker/clients.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { LinkDigested } from '@/types/og.js';
-import type { ResponseJson } from '@/types/utility.js';
 
-// We are confident that these hosts will not be used for frame links
 const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];
 
 function isValidPostLink(url: string, enableFilter = false) {
     const parsed = parseUrl(url);
     if (!parsed) return false;
 
-    // such as ens domains
     if (isValidDomainEthereum(url)) return false;
 
-    // file extension
     // The ipfs link can sometimes be domain/pathname?fileName=xxx.jpg.
     if (/\.\w{1,6}$/i.test(parsed.pathname)) return false;
 
-    // ignore hosts
     if (
         enableFilter &&
         IGNORE_HOSTS.some((pattern) =>
@@ -44,10 +37,8 @@ export async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): 
     const normalizedUrl = removeSharerParam(url);
     if (!normalizedUrl || !isValidPostLink(normalizedUrl)) return null;
 
-    const response = await fetchJson<ResponseJson<LinkDigested>>(
-        urlcat(FIREFLY_WORKER_HOST, '/oembed', {
-            link: normalizedUrl,
-        }),
-    );
-    return response.success ? response.data : null;
+    const res = await oembedWorker.oembed.$get({ query: { link: normalizedUrl } });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.success ? (json.data as LinkDigested) : null;
 }

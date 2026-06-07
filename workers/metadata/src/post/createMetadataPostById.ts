@@ -3,7 +3,6 @@ import { Source, SourceInURL } from '@dimensiondev/enums';
 import { digestDocumentUrl } from '@dimensiondev/workers-oembed/digestDocumentUrl.js';
 import { SITE_DESCRIPTION, SITE_NAME } from '@dimensiondev/workers-shared/constants/metadata.js';
 import { compact } from '@dimensiondev/workers-shared/helpers/compact.js';
-import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import { fetchFireflyRpc } from '@dimensiondev/workers-shared/helpers/fetchFireflyRpc.js';
 import { resolveSiteUrl } from '@dimensiondev/workers-shared/helpers/resolveSiteUrl.js';
 import { runInSafeAsync } from '@dimensiondev/workers-shared/helpers/runInSafe.js';
@@ -11,6 +10,7 @@ import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { FireflyPost } from '@dimensiondev/workers-shared/types/firefly.js';
 import type { Context } from 'hono';
 
+import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 import { getPostPathname } from '@/metadata/src/post/getPostPathname.js';
 import { extractTwitterProfileByOpengraphTitle } from '@/metadata/src/post/getTwitterProfileByOG.js';
 

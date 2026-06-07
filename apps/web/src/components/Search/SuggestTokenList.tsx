@@ -12,7 +12,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import { searchTokens } from '@/providers/firefly/worker/searchTokens.js';
+import { searchTokensBulk } from '@/providers/firefly/worker/searchTokensBulk.js';
 
 interface SuggestTokenListProps {
     query: string;
@@ -25,7 +25,7 @@ export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestToke
         staleTime: STALE_TIMES.MINUTE_5,
 
         queryFn: async () => {
-            const data = await searchTokens(query, true);
+            const data = await searchTokensBulk(query, true);
             return data;
         },
         select: (data) => {

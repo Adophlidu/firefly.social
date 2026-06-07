@@ -1,7 +1,7 @@
 import { createPageTitleOG } from '@dimensiondev/workers-shared/helpers/createPageTitleOG.js';
-import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import type { Context } from 'hono';
 
+import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 import { getNftDetail } from '@/metadata/src/nft/getNftDetail.js';
 import { resolveNFTUrl } from '@/metadata/src/nft/resolveNFTUrl.js';
 

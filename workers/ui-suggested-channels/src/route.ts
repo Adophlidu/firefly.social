@@ -1,11 +1,6 @@
 import { Source } from '@dimensiondev/enums';
 import { ONE_HOUR } from '@dimensiondev/workers-shared/constants/duration.js';
-import {
-    createSuccessResponseJson,
-    createZodErrorResponseJson,
-} from '@dimensiondev/workers-shared/helpers/createResponseJson.js';
 import { withCache } from '@dimensiondev/workers-shared/middlewares/withCache.js';
-import { withErrorHandler } from '@dimensiondev/workers-shared/middlewares/withErrorHandler.js';
 import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
 import { z } from 'zod';
@@ -14,37 +9,30 @@ import { getTrendingChannels } from '@/ui-suggested-channels/src/getSuggestedCha
 
 const VERSION = 1;
 
-const SuggestedChannelsRoute = new Hono<{ Bindings: { UI_CACHE: KVNamespace } }>();
-
 const QuerySchema = z.object({});
 
 function getCacheKey() {
     return `suggested-channels:${VERSION}`;
 }
 
-SuggestedChannelsRoute.get(
+const SuggestedChannelsRoute = new Hono<{ Bindings: { UI_CACHE: KVNamespace } }>().get(
     '/suggested-channels',
-    zValidator('query', QuerySchema, (result) => {
+    zValidator('query', QuerySchema, (result, c) => {
         if (!result.success) {
-            return createZodErrorResponseJson(result.error, {
-                status: 400,
-            });
+            return c.json({ success: false, error: { code: 40001, message: result.error.message } }, 400);
         }
+        return;
     }),
-    (c) =>
-        withErrorHandler(async () => {
-            const result = await withCache({
-                context: c,
-                ttl: ONE_HOUR,
-                getKey: () => getCacheKey(),
-                getCache: () => c.env.UI_CACHE,
-                compute: async () => {
-                    const channels = await getTrendingChannels([Source.Farcaster, Source.Lens, Source.Bsky], 3, c);
-                    return channels;
-                },
-            });
-            return createSuccessResponseJson(result);
-        }),
+    async (c) => {
+        const result = await withCache({
+            context: c,
+            ttl: ONE_HOUR,
+            getKey: () => getCacheKey(),
+            getCache: () => c.env.UI_CACHE,
+            compute: async () => getTrendingChannels([Source.Farcaster, Source.Lens, Source.Bsky], 3, c),
+        });
+        return c.json({ success: true, data: result });
+    },
 );
 
 export { SuggestedChannelsRoute };

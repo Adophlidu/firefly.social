@@ -5,7 +5,8 @@ import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
+import { metadataWorker } from '@/providers/firefly/worker/clients.js';
+import { settings } from '@/settings/index.js';
 
 export async function createPredictionEventMetadata(
     id: string,
@@ -16,16 +17,17 @@ export async function createPredictionEventMetadata(
     const ogImageUrl = urlcat(SITE_URL, '/api/og/prediction/event/:platform/:id/image', { platform, id });
 
     try {
-        const response = await fetchMetadataApi(
-            urlcat('/metadata-v2/prediction-event', {
-                id,
-                platform,
-                type,
-                pathname,
-            }),
+        const res = await metadataWorker['metadata-v2']['prediction-event'].$get(
+            { query: { id, platform, type, pathname } },
+            { headers: { 'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false' } },
         );
-        const metadata = resolveResponseData(response);
-        return metadata;
+        if (!res.ok)
+            return createSiteMetadata(pathname, {
+                openGraph: { images: [ogImageUrl] },
+                twitter: { images: [ogImageUrl] },
+            });
+        const json = await res.json();
+        return resolveResponseData(json);
     } catch (error) {
         return createSiteMetadata(pathname, {
             openGraph: { images: [ogImageUrl] },

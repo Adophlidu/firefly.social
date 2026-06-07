@@ -53,6 +53,9 @@ rewrite.config.dev.json
 packages/*/dist/
 packages/*/node_modules/
 
+# workers generated type declarations
+workers/*/types/
+
 # image comparison artifacts
 .image-comparison/
 

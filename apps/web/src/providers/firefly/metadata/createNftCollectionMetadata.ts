@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
+import { metadataWorker } from '@/providers/firefly/worker/clients.js';
+import { settings } from '@/settings/index.js';
 
 export async function createNftCollectionMetadata(
     chainIdOrCollectionId: string,
@@ -11,15 +11,13 @@ export async function createNftCollectionMetadata(
     pathname: string,
 ): Promise<Metadata> {
     try {
-        const response = await fetchMetadataApi(
-            urlcat('/metadata-v2/nft-collection', {
-                chainIdOrCollectionId,
-                addressOrTokenId,
-                pathname,
-            }),
+        const res = await metadataWorker['metadata-v2']['nft-collection'].$get(
+            { query: { chainIdOrCollectionId, addressOrTokenId, pathname } },
+            { headers: { 'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false' } },
         );
-        const metadata = resolveResponseData(response);
-        return metadata;
+        if (!res.ok) return createSiteMetadata(pathname);
+        const json = await res.json();
+        return resolveResponseData(json);
     } catch (error) {
         return createSiteMetadata(pathname);
     }

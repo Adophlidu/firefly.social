@@ -1,9 +1,9 @@
 import { TipsDetailViewType } from '@dimensiondev/enums';
-import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import { resolveSiteUrl } from '@dimensiondev/workers-shared/helpers/resolveSiteUrl.js';
 import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { Context } from 'hono';
 
+import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 import { getMaintainAccountInfo } from '@/metadata/src/transaction/getMaintainAccountInfo.js';
 import type { TipsDetail } from '@/metadata/src/transaction/types.js';
 

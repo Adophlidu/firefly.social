@@ -5,12 +5,17 @@
     "type": "module",
     "scripts": {
         "build": "wrangler build --config wrangler.jsonc",
+        "types": "tsc -p tsconfig.types.json",
         "deploy": "wrangler deploy --config wrangler.jsonc",
         "dev": "wrangler dev --config wrangler.jsonc",
         "typecheck": "tsgo --noEmit"
     },
     "exports": {
-        "./*": "./src/*"
+        "./*": "./src/*",
+        ".": {
+            "types": "./types/index.d.ts",
+            "import": "./src/index.ts"
+        }
     },
     "dependencies": {
         "@dimensiondev/enums": "workspace:^",
@@ -22,6 +27,7 @@
         "@hono/zod-validator": "^0.7.6",
         "bs58": "^6.0.0",
         "hono": "^4.12.23",
+        "next": "16.2.6",
         "viem": "^2.48.11",
         "zod": "^4.0.17"
     },

@@ -1,11 +1,8 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { uniq } from 'lodash-es';
-import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
-import type { GetClassifyPostLinksResponse } from '@/providers/firefly/worker/getClassifyPostLinks.js';
+import { ogWorker } from '@/providers/firefly/worker/clients.js';
 
 export async function prefetchPostLinks(urlGroups: string[][]) {
     return runInSafeAsync(async () => {
@@ -16,11 +13,9 @@ export async function prefetchPostLinks(urlGroups: string[][]) {
         });
         if (notCachedUrls.length <= 0) return;
 
-        const response = await fetchJson<GetClassifyPostLinksResponse>(
-            urlcat(FIREFLY_WORKER_HOST, '/og', {
-                'cache-urls': notCachedUrls.join(','),
-            }),
-        );
+        const res = await ogWorker.og['cache-urls'].$get({ query: { 'cache-urls': notCachedUrls.join(',') } });
+        if (!res.ok) return;
+        const response = await res.json();
         if (!response.success) return;
 
         for (const urls of urlGroups) {
