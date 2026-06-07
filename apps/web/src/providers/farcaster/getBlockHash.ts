@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { SOLANA_RPC_URL } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
@@ -20,7 +21,7 @@ export async function getSolanaBlockHash(): Promise<string> {
         const connection = new web3.Connection(
             getSolanaRPCUrl({
                 useDevCluster: envs.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled,
-                httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL,
+                httpUrl: SOLANA_RPC_URL,
             }),
             'confirmed',
         );

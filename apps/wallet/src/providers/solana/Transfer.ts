@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { envs } from '@dimensiondev/envs/wallet';
+import { SOLANA_RPC_URL } from '@dimensiondev/constants/static';
 import { solana } from '@dimensiondev/web3/chains';
 import {
     isGreaterThan,
@@ -25,10 +25,7 @@ import type { Token, TransactionOptions, TransferProvider } from '@/providers/ty
 const defaultFee = 0.00001 * web3.LAMPORTS_PER_SOL * 1.3; // 0.000008 SOL with a buffer
 
 export class SolanaTransfer implements TransferProvider {
-    private _connection = new web3.Connection(
-        getSolanaRPCUrl({ httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL }),
-        'confirmed',
-    );
+    private _connection = new web3.Connection(getSolanaRPCUrl({ httpUrl: SOLANA_RPC_URL }), 'confirmed');
 
     get connection() {
         return this._connection;

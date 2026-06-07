@@ -106,9 +106,6 @@ export default defineConfig({
         'process.env.COMMIT_HASH': JSON.stringify(process.env.COMMIT_HASH ?? ''),
         'process.env.NEXT_PUBLIC_BASE_PATH': JSON.stringify(BASE_PATH),
         'process.env.NEXT_PUBLIC_VERCEL_ENV': JSON.stringify(NEXT_PUBLIC_VERCEL_ENV),
-        'process.env.NEXT_PUBLIC_MAINNET_RPC_URL': JSON.stringify(process.env.NEXT_PUBLIC_MAINNET_RPC_URL),
-        'process.env.NEXT_PUBLIC_OPTIMISM_RPC_URL': JSON.stringify(process.env.NEXT_PUBLIC_OPTIMISM_RPC_URL),
-        'process.env.NEXT_PUBLIC_POLYGON_RPC_URL': JSON.stringify(process.env.NEXT_PUBLIC_POLYGON_RPC_URL),
     },
     build: {},
     optimizeDeps: {

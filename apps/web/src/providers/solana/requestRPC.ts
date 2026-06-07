@@ -1,3 +1,4 @@
+import { SOLANA_RPC_URL } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
@@ -14,7 +15,7 @@ export async function requestRPC<T = unknown>(chainId: number, options: RpcOptio
     const response = await fetchJson<T & { error: unknown; message?: string }>(
         getSolanaRPCUrl({
             useDevCluster: envs.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled,
-            httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL,
+            httpUrl: SOLANA_RPC_URL,
         }),
         {
             method: 'POST',

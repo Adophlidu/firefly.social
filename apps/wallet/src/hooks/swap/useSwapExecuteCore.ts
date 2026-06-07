@@ -1,7 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
-import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
+import { PRIVY_CONNECTOR_ID, SOLANA_RPC_URL } from '@dimensiondev/constants/static';
 import { SwapAccessPath } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs/wallet';
 import { delay } from '@dimensiondev/utils';
 import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
@@ -229,10 +228,7 @@ async function executeSolanaSwap({
         const provider = CoreProviderController.state.providers.solana as SolanaProvider;
         if (!provider) throw new Error('AppKit Solana provider not available');
 
-        const connection = new web3.Connection(
-            getSolanaRPCUrl({ httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL }),
-            'confirmed',
-        );
+        const connection = new web3.Connection(getSolanaRPCUrl({ httpUrl: SOLANA_RPC_URL }), 'confirmed');
         const signature = await provider.sendTransaction(transaction, connection);
         hash = typeof signature === 'string' ? signature : bs58.encode(signature);
     } else {
@@ -249,10 +245,7 @@ async function executeSolanaSwap({
     // Wait for on-chain confirmation by polling signature status.
     // Using getLatestBlockhash AFTER broadcast is unreliable — lastValidBlockHeight
     // may already be in the past, causing confirmTransaction to reject a succeeded tx.
-    const connection = new web3.Connection(
-        getSolanaRPCUrl({ httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL }),
-        'confirmed',
-    );
+    const connection = new web3.Connection(getSolanaRPCUrl({ httpUrl: SOLANA_RPC_URL }), 'confirmed');
     let confirmed = false;
     for (let i = 0; i < 60; i += 1) {
         const statuses = await connection.getSignatureStatuses([hash]);

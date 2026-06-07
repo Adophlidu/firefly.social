@@ -1,4 +1,4 @@
-import { envs } from '@dimensiondev/envs/wallet';
+import { SOLANA_RPC_URL } from '@dimensiondev/constants/static';
 
 import { JsonRPC } from '@/lib/JsonRpc.js';
 
@@ -53,4 +53,4 @@ interface ProgramAccount {
     pubkey: string;
 }
 
-export const solanaRPC = JsonRPC.createProxy<SolanaRPCInterface>(envs.external.NEXT_PUBLIC_SOLANA_RPC_URL);
+export const solanaRPC = JsonRPC.createProxy<SolanaRPCInterface>(SOLANA_RPC_URL);

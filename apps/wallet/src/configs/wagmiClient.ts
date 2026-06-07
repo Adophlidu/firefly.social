@@ -1,3 +1,4 @@
+import { ETHEREUM_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL } from '@dimensiondev/constants/static';
 import { envs } from '@dimensiondev/envs/wallet';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
@@ -70,9 +71,9 @@ export const wagmiAdapter = new WagmiAdapter({
     projectId: envs.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     networks: wagmiNetworks,
     transports: {
-        [mainnet.id]: http(envs.external.NEXT_PUBLIC_MAINNET_RPC_URL),
-        [optimism.id]: http(envs.external.NEXT_PUBLIC_OPTIMISM_RPC_URL),
-        [polygon.id]: http(envs.external.NEXT_PUBLIC_POLYGON_RPC_URL),
+        [mainnet.id]: http(ETHEREUM_RPC_URL),
+        [optimism.id]: http(OPTIMISM_RPC_URL),
+        [polygon.id]: http(POLYGON_RPC_URL),
         [fantom.id]: http('https://rpc.ftm.tools'),
     },
     storage,

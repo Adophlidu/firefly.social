@@ -1218,6 +1218,9 @@ importers:
       '@coral-xyz/anchor':
         specifier: ^0.31.1
         version: 0.31.1(typescript@5.9.3)
+      '@dimensiondev/constants':
+        specifier: workspace:^
+        version: link:../constants
       '@dimensiondev/enums':
         specifier: workspace:^
         version: link:../enums

@@ -76,6 +76,7 @@
         "access": "restricted"
     },
     "dependencies": {
+        "@dimensiondev/constants": "workspace:^",
         "@dimensiondev/enums": "workspace:^",
         "@coral-xyz/anchor": "^0.31.1",
         "bignumber.js": "9.3.1",

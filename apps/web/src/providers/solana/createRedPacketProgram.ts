@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import { Program, web3 } from '@coral-xyz/anchor';
+import { SOLANA_RPC_URL } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
@@ -33,7 +34,7 @@ export function createRedPacketProgram(chainId: number, requireWallet = false, f
     const connection = new web3.Connection(
         getSolanaRPCUrl({
             useDevCluster: envs.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled,
-            httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL,
+            httpUrl: SOLANA_RPC_URL,
         }),
         'confirmed',
     );

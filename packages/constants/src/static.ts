@@ -146,3 +146,13 @@ export const PRIVY_CONNECTOR_ID = 'firefly-backend-wallet';
 export const MAX_DECIMALS_PERPS = 6;
 export const MAX_DECIMALS_SPOT = 8;
 export const MAX_SIGNIFICANT_FIGURES = 5;
+
+// RPC URLs
+export const ETHEREUM_RPC_URL =
+    'https://thrumming-flashy-replica.quiknode.pro/a5385e01c5d86056ee9c58742ad2a42d78f77e7a';
+export const OPTIMISM_RPC_URL =
+    'https://thrumming-flashy-replica.optimism.quiknode.pro/a5385e01c5d86056ee9c58742ad2a42d78f77e7a';
+export const POLYGON_RPC_URL =
+    'https://thrumming-flashy-replica.matic.quiknode.pro/a5385e01c5d86056ee9c58742ad2a42d78f77e7a';
+export const SOLANA_RPC_URL =
+    'https://twilight-icy-fog.solana-mainnet.quiknode.pro/95201eba4c05903e956afc5bb7f4cb0c0f007b60';
