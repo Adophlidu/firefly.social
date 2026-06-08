@@ -1,6 +1,9 @@
 import '@/globals.css';
 
-import { createRootRoute, HeadContent, Outlet, ScriptOnce, Scripts } from '@tanstack/react-router';
+import { APP_BASE_PATH } from '@dimensiondev/envs/wallet';
+import { createRootRoute, HeadContent, Outlet, ScriptOnce, Scripts, useLocation } from '@tanstack/react-router';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { NuqsAdapter } from 'nuqs/adapters/react';
 import type { ReactNode } from 'react';
 import { z } from 'zod';
@@ -16,7 +19,6 @@ import { RouteChangedHandler } from '@/components/RouteChangedHandler.js';
 import { ThemeHandler } from '@/components/ThemeHandler.js';
 import { Toaster } from '@/components/ui/sonner.js';
 import { TooltipProvider } from '@/components/ui/tooltip.js';
-import { VercelSpeedInsights } from '@/components/VercelSpeedInsights.js';
 import { ModalType } from '@/configs/modalRoutes.js';
 import { Modals } from '@/modals/index.js';
 
@@ -48,6 +50,9 @@ function RootLayout() {
 }
 
 function RootDocument({ children }: { children: ReactNode }) {
+    const { pathname } = useLocation();
+    const route = `${APP_BASE_PATH}${pathname}`;
+
     return (
         <html lang="en" className="overscroll-contain" suppressHydrationWarning>
             <head>
@@ -89,7 +94,8 @@ function RootDocument({ children }: { children: ReactNode }) {
                         </ClientProviders>
                     </LinguiClientProvider>
                 </div>
-                <VercelSpeedInsights />
+                <SpeedInsights route={route} />
+                <Analytics route={route} path={route} />
                 <Scripts />
             </body>
         </html>
