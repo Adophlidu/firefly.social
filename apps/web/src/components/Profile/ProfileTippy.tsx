@@ -31,6 +31,11 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ iden
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
+                // Snappier than the shared 1000ms default: show after a short intent delay,
+                // hide almost immediately. The small hide delay keeps the card reachable when
+                // moving the cursor from the trigger into the interactive popover.
+                delay={[300, 100]}
+                duration={200}
                 onTrigger={() => {
                     setEnabled(true);
                 }}

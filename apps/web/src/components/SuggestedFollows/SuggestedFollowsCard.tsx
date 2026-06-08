@@ -160,7 +160,7 @@ export function SuggestedFollowsCard() {
                     updateOnWindowResize={false}
                     resizeObserver={false}
                     wrapperClass="!box-border"
-                    autoplay={{ delay: 5000 }}
+                    autoplay={{ delay: 5000, pauseOnMouseEnter: true, disableOnInteraction: false }}
                     modules={[Autoplay, EffectCoverflow]}
                 >
                     {suggestedFollowsWithStats.map((profile, key) => (
