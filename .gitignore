@@ -37,6 +37,9 @@ rewrite.config.dev.json
 # vercel
 .vercel
 
+# jira
+.jira
+
 # typescript
 *.tsbuildinfo
 
