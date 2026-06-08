@@ -483,7 +483,7 @@ msgid "Enter amount"
 msgstr "輸入金額"
 
 msgid "A pin code is required to perform this action. Please enable it in your security settings."
-msgstr ""
+msgstr "執行此操作需要 PIN 碼。請在安全性設定中將其啟用。"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
@@ -676,7 +676,7 @@ msgid "Email"
 msgstr "信箱"
 
 msgid "Issue reported."
-msgstr ""
+msgstr "問題已回報。"
 
 msgid "PnL"
 msgstr "盈虧"
