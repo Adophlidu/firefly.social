@@ -13,6 +13,8 @@
         "start": "turbo start",
         "lint": "turbo lint",
         "test": "turbo test",
+        "test:e2e": "playwright test",
+        "test:e2e:ci": "playwright test --config=playwright.hermetic.config.ts",
         "typecheck": "turbo typecheck",
         "clean": "turbo clean && rm -rf node_modules",
         "lingui": "pnpm -r --filter='./apps/*' run lingui",
@@ -30,6 +32,7 @@
     },
     "devDependencies": {
         "@next/eslint-plugin-next": "^16.0.11",
+        "@playwright/test": "^1.60.0",
         "@types/node": "22.19.19",
         "@typescript-eslint/eslint-plugin": "^8.54.0",
         "@typescript-eslint/parser": "^8.54.0",

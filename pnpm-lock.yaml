@@ -74,6 +74,9 @@ importers:
       '@next/eslint-plugin-next':
         specifier: ^16.0.11
         version: 16.0.11
+      '@playwright/test':
+        specifier: ^1.60.0
+        version: 1.60.0
       '@types/node':
         specifier: 22.19.19
         version: 22.19.19
@@ -755,7 +758,7 @@ importers:
         version: 4.17.23
       next:
         specifier: 16.2.6
-        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+        version: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       next-auth:
         specifier: ^4.24.14
         version: 4.24.14(next@16.2.6)(nodemailer@7.0.13)(react-dom@19.2.6)(react@19.2.6)
@@ -1533,7 +1536,7 @@ importers:
         version: 4.12.23
       next:
         specifier: 16.2.6
-        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+        version: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -4459,7 +4462,7 @@ packages:
     dependencies:
       '@bprogress/core': 1.3.4
       '@bprogress/react': 1.2.7(patch_hash=pqbathbadstgzzeijmjtors36m)(react-dom@19.2.6)(react@19.2.6)
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
     dev: false
@@ -8309,7 +8312,7 @@ packages:
     dependencies:
       '@lingui/core': 5.9.5(@lingui/babel-plugin-lingui-macro@5.9.5)(babel-plugin-macros@3.1.0)
       '@swc/core': 1.15.33(@swc/helpers@0.5.18)
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
     dev: true
 
   /@lingui/vite-plugin@5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3)(vite@7.3.3):
@@ -8841,7 +8844,7 @@ packages:
       next: ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0-beta.0
       react: 19.2.6
     dependencies:
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       react: 19.2.6
       third-party-capital: 1.0.20
     dev: false
@@ -10428,6 +10431,13 @@ packages:
     engines: {node: '>=14'}
     optional: true
 
+  /@playwright/test@1.60.0:
+    resolution: {integrity: sha512-O71yZIbAh/PxDMNGns37GHBIfrVkEVyn+AXyIa5dOTfb4/xNvRWV+Vv/NMbNCtODB/pO7vLlF2OTmMVLhmr7Ag==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dependencies:
+      playwright: 1.60.0
+
   /@polka/url@1.0.0-next.29:
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
@@ -11275,7 +11285,7 @@ packages:
       hermes-parser: 0.32.0
       invariant: 2.2.4
       nullthrows: 1.1.1
-      tinyglobby: 0.2.16
+      tinyglobby: 0.2.17
       yargs: 17.7.2
     dev: false
 
@@ -11290,7 +11300,7 @@ packages:
       hermes-parser: 0.33.3
       invariant: 2.2.4
       nullthrows: 1.1.1
-      tinyglobby: 0.2.16
+      tinyglobby: 0.2.17
       yargs: 17.7.2
     dev: false
 
@@ -11313,7 +11323,7 @@ packages:
       metro: 0.83.5
       metro-config: 0.83.5
       metro-core: 0.83.5
-      semver: 7.7.4
+      semver: 7.8.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -12009,6 +12019,7 @@ packages:
 
   /@rolldown/pluginutils@1.0.0-rc.17:
     resolution: {integrity: sha512-n8iosDOt6Ig1UhJ2AYqoIhHWh/isz0xpicHTzpKBeotdVsTEcxsSA/i3EVM7gQAj0rU27OLAxCjzlj15IWY7bg==}
+    dev: true
 
   /@rolldown/pluginutils@1.0.0-rc.3:
     resolution: {integrity: sha512-eybk3TjzzzV97Dlj5c+XrBFW57eTNhzod66y9HrBlzJ6NsCrWCp/2kaPS3K9wJmurBC0Tdw4yPjXKZqlznim3Q==}
@@ -15052,7 +15063,7 @@ packages:
       '@storybook/builder-vite': 10.0.8(esbuild@0.27.7)(rollup@4.60.4)(storybook@10.0.8)(vite@7.3.3)(webpack@5.106.2)
       '@storybook/react': 10.0.8(react-dom@19.2.6)(react@19.2.6)(storybook@10.0.8)(typescript@5.9.3)
       '@storybook/react-vite': 10.0.8(esbuild@0.27.7)(react-dom@19.2.6)(react@19.2.6)(rollup@4.60.4)(storybook@10.0.8)(typescript@5.9.3)(vite@7.3.3)(webpack@5.106.2)
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
       storybook: 10.0.8(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6)(react@19.2.6)(vite@7.3.3)
@@ -16938,7 +16949,7 @@ packages:
       react: 19.2.6
     dependencies:
       '@tanstack/react-query': 5.85.9(react@19.2.6)
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       react: 19.2.6
     dev: false
 
@@ -18251,7 +18262,7 @@ packages:
       vue-router:
         optional: true
     dependencies:
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       nuxt: 4.4.7(@types/node@22.19.19)(@vercel/kv@1.0.1)(eslint@9.39.4)(rollup@4.60.4)(typescript@5.9.3)(vite@7.3.3)
       react: 19.2.6
       vue: 3.5.35(typescript@5.9.3)
@@ -18346,7 +18357,7 @@ packages:
       vue-router:
         optional: true
     dependencies:
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       nuxt: 4.4.7(@types/node@22.19.19)(@vercel/kv@1.0.1)(eslint@9.39.4)(rollup@4.60.4)(typescript@5.9.3)(vite@7.3.3)
       react: 19.2.6
       vue: 3.5.35(typescript@5.9.3)
@@ -18410,7 +18421,7 @@ packages:
       '@babel/core': 7.29.0
       '@babel/plugin-syntax-typescript': 7.28.6(@babel/core@7.29.0)
       '@babel/plugin-transform-typescript': 7.28.6(@babel/core@7.29.0)
-      '@rolldown/pluginutils': 1.0.0-rc.17
+      '@rolldown/pluginutils': 1.0.1
       '@vue/babel-plugin-jsx': 2.0.1(@babel/core@7.29.0)
       vite: 7.3.3(@types/node@22.19.19)(jiti@2.7.0)
       vue: 3.5.35(typescript@5.9.3)
@@ -23686,6 +23697,12 @@ packages:
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
+  /fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    optional: true
+
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -25563,32 +25580,6 @@ packages:
       uhyphen: 0.2.0
     dev: false
 
-  /listhen@1.10.0:
-    resolution: {integrity: sha512-kfz4C0OrC6IpaVMtYDJtf6PFjurxe9NBBoDAh/o2p587INryFOO4DQ9OetbCdDrWFt1m1CJKvYrzkGsuPHw8nQ==}
-    hasBin: true
-    dependencies:
-      '@parcel/watcher': 2.5.6
-      '@parcel/watcher-wasm': 2.5.6
-      citty: 0.2.2
-      consola: 3.4.2
-      crossws: 0.4.4(srvx@0.10.1)
-      defu: 6.1.7
-      get-port-please: 3.2.0
-      h3: 1.15.11
-      http-shutdown: 1.2.2
-      jiti: 2.7.0
-      mlly: 1.8.2
-      node-forge: 1.4.0
-      pathe: 2.0.3
-      std-env: 4.1.0
-      tinyclip: 0.1.14
-      ufo: 1.6.4
-      untun: 0.1.3
-      uqr: 0.1.3
-    transitivePeerDependencies:
-      - srvx
-    dev: false
-
   /listhen@1.10.0(srvx@0.11.15):
     resolution: {integrity: sha512-kfz4C0OrC6IpaVMtYDJtf6PFjurxe9NBBoDAh/o2p587INryFOO4DQ9OetbCdDrWFt1m1CJKvYrzkGsuPHw8nQ==}
     hasBin: true
@@ -26105,7 +26096,7 @@ packages:
       metro-cache: 0.83.5
       metro-core: 0.83.5
       metro-runtime: 0.83.5
-      yaml: 2.8.4
+      yaml: 2.9.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -26123,7 +26114,7 @@ packages:
       metro-cache: 0.84.4
       metro-core: 0.84.4
       metro-runtime: 0.84.4
-      yaml: 2.8.4
+      yaml: 2.9.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -26996,7 +26987,7 @@ packages:
       '@panva/hkdf': 1.2.1
       cookie: 0.7.2
       jose: 4.15.9
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       nodemailer: 7.0.13
       oauth: 0.9.15
       openid-client: 5.7.1
@@ -27007,7 +26998,7 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6):
+  /next@16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6):
     resolution: {integrity: sha512-qOVgKJg1+At15NpeUP+eJgCHvTCgXsogweq87Ri/Ix7PkqQHg4sdaXmSFqKlgaIXE4kW0g25LE68W87UANlHtw==}
     engines: {node: '>=20.9.0'}
     hasBin: true
@@ -27029,6 +27020,7 @@ packages:
         optional: true
     dependencies:
       '@next/env': 16.2.6
+      '@playwright/test': 1.60.0
       '@swc/helpers': 0.5.15
       baseline-browser-mapping: 2.10.27
       caniuse-lite: 1.0.30001792
@@ -27166,7 +27158,7 @@ packages:
       jiti: 2.7.0
       klona: 2.0.6
       knitwork: 1.3.0
-      listhen: 1.10.0
+      listhen: 1.10.0(srvx@0.11.15)
       magic-string: 0.30.21
       magicast: 0.5.3
       mime: 4.1.0
@@ -27391,7 +27383,7 @@ packages:
     dependencies:
       '@standard-schema/spec': 1.0.0
       '@tanstack/react-router': 1.169.2(react-dom@19.2.6)(react@19.2.6)
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       react: 19.2.6
     dev: false
 
@@ -27680,7 +27672,7 @@ packages:
     dependencies:
       citty: 0.2.2
       pathe: 2.0.3
-      tinyexec: 1.1.1
+      tinyexec: 1.2.4
     dev: false
 
   /oauth@0.9.15:
@@ -28573,6 +28565,20 @@ packages:
       pathe: 2.0.3
     dev: false
 
+  /playwright-core@1.60.0:
+    resolution: {integrity: sha512-9bW6zvX/m0lEbgTKJ6YppOKx8H3VOPBMOCFh2irXFOT4BbHgrx5hPjwJYLT40Lu+4qtD36qKc/Hn56StUW57IA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  /playwright@1.60.0:
+    resolution: {integrity: sha512-hheHdokM8cdqCb0lcE3s+zT4t4W+vvjpGxsZlDnikarzx8tSzMebh3UiFtgqwFwnTnjYQcsyMF8ei2mCO/tpeA==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dependencies:
+      playwright-core: 1.60.0
+    optionalDependencies:
+      fsevents: 2.3.2
+
   /pluralize@8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
@@ -29419,7 +29425,7 @@ packages:
   /react-devtools-core@6.1.5:
     resolution: {integrity: sha512-ePrwPfxAnB+7hgnEr8vpKxL9cmnp7F322t8oqcPshbIQQhDKgFDW4tjhF2wjVbdXF9O/nyuy3sQWd9JGpiLPvA==}
     dependencies:
-      shell-quote: 1.8.3
+      shell-quote: 1.8.4
       ws: 7.5.10
     transitivePeerDependencies:
       - bufferutil
@@ -29542,7 +29548,7 @@ packages:
       react-native: 0.84.1(@babel/core@7.29.0)(@react-native/metro-config@0.85.3)(@types/react@19.2.16)(react@19.2.6)
       react-native-is-edge-to-edge: 1.3.1(react-native@0.84.1)(react@19.2.6)
       react-native-worklets: 0.8.3(@babel/core@7.29.0)(@react-native/metro-config@0.85.3)(react-native@0.84.1)(react@19.2.6)
-      semver: 7.7.4
+      semver: 7.8.2
     dev: false
 
   /react-native-svg@15.15.5(react-native@0.84.1)(react@19.2.6):
@@ -29619,7 +29625,7 @@ packages:
       convert-source-map: 2.0.0
       react: 19.2.6
       react-native: 0.84.1(@babel/core@7.29.0)(@react-native/metro-config@0.85.3)(@types/react@19.2.16)(react@19.2.6)
-      semver: 7.7.4
+      semver: 7.8.2
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -29666,9 +29672,9 @@ packages:
       react-refresh: 0.14.2
       regenerator-runtime: 0.13.11
       scheduler: 0.27.0
-      semver: 7.7.4
+      semver: 7.8.2
       stacktrace-parser: 0.1.11
-      tinyglobby: 0.2.16
+      tinyglobby: 0.2.17
       whatwg-fetch: 3.6.20
       ws: 7.5.10
       yargs: 17.7.2
@@ -30517,7 +30523,6 @@ packages:
     resolution: {integrity: sha512-c8jsqUZm3omBOI66G90z1Dyw5z622G8oLG+omfsHBJf3CWQTlOcwOjvOG6wtiNfW6anKm/eA39LMwMtMez2TiQ==}
     engines: {node: '>=10'}
     hasBin: true
-    dev: false
 
   /send@0.19.2:
     resolution: {integrity: sha512-VMbMxbDeehAxpOtWJXlcUS5E8iXh6QmN+BkRX1GARS3wRaXEEgzCcB10gTQazO42tpNIya8xIyNx8fll1OFPrg==}
@@ -30760,11 +30765,6 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-
-  /shell-quote@1.8.3:
-    resolution: {integrity: sha512-ObmnIF4hXNg1BqhnHmgbDETF8dLPCggZWBjkQfhZpbszZnYur5DUljTcCHii5LC3J5E0yeO/1LIMyH+UvHQgyw==}
-    engines: {node: '>= 0.4'}
-    dev: false
 
   /shell-quote@1.8.4:
     resolution: {integrity: sha512-VsC6n6vz1ihYYyZZwX7YZSF5l5x36ca17OC+a69h94YqB7X6XLwf+5MOgynYir2SLFUbl8gIYvBo8K8RoNQ6bQ==}
@@ -31111,7 +31111,7 @@ packages:
       open: 10.2.0
       prettier: 3.8.3
       recast: 0.23.11
-      semver: 7.7.4
+      semver: 7.8.2
       use-sync-external-store: 1.5.0(react@19.2.6)
       ws: 8.20.0(bufferutil@4.1.0)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -31870,6 +31870,7 @@ packages:
   /tinyexec@1.1.1:
     resolution: {integrity: sha512-VKS/ZaQhhkKFMANmAOhhXVoIfBXblQxGX1myCQ2faQrfmobMftXeJPcZGp0gS07ocvGJWDLZGyOZDadDBqYIJg==}
     engines: {node: '>=18'}
+    dev: true
 
   /tinyexec@1.2.4:
     resolution: {integrity: sha512-SHf/r48b7vOrjve9PxJo3MN5v5yuyjHvdUcrQffT3WXMUfnGmHDVbC4k3sHJaJTgZCwpUplIaAo5ANtMyp3YHg==}
@@ -33307,7 +33308,7 @@ packages:
       image-size: 2.0.2
       magic-string: 0.30.21
       module-alias: 2.2.3
-      next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6)(react@19.2.6)
+      next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6)(react@19.2.6)
       storybook: 10.0.8(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6)(react@19.2.6)(vite@7.3.3)
       ts-dedent: 2.2.0
       vite: 7.3.3(@types/node@22.19.19)(jiti@2.7.0)

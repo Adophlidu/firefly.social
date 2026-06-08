@@ -47,6 +47,7 @@ export default defineConfig([
         'vitest.config.ts',
         'setups',
         'rules',
+        'e2e/**',
         'packages/tolgee/**',
         'packages/**/dist',
         'packages/**/node_modules',

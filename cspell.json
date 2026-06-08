@@ -198,6 +198,7 @@
         "SYSTOGGLEMORE",
         "tako",
         "takocast",
+        "testgen",
         "Thirdweb",
         "tiktok",
         "tinycolor",
@@ -557,6 +558,8 @@
     ],
     "flagWords": [],
     "ignorePaths": [
+        ".claude/**",
+        "e2e/**",
         "*.log",
         "*.svg",
         ".next/**",

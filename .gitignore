@@ -72,6 +72,8 @@ profiling-data.*.json
 .claude/worktrees/
 
 .playwright-mcp/
+test-results/
+playwright-report/
 docs/agents/
 
 .venv-translate/

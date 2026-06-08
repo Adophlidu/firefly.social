@@ -3,7 +3,7 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2685
+Total packages: 2688
 Packages with multiple versions: 485
 
 Legend:
@@ -326,6 +326,7 @@ Packages with Multiple Versions
  flat-cache@3.2.0,4.0.1
  framer-motion@12.38.0,6.5.1
  fresh@0.5.2,2.0.0
+ fsevents@2.3.2,2.3.3
  fuse.js@7.1.0,7.4.2
  get-stream@6.0.1,8.0.1
  get-tsconfig@4.13.0,4.14.0
@@ -438,7 +439,6 @@ Packages with Multiple Versions
  serialize-javascript@4.0.0,7.0.5
  serve-static@1.16.3,2.2.1
  sharp@0.33.5,0.34.5
- shell-quote@1.8.3,1.8.4
  signal-exit@3.0.7,4.1.0
  sirv@2.0.4,3.0.2
  slash@3.0.0,4.0.0,5.1.0
@@ -1008,6 +1008,7 @@ Packages with Single Version
  @phosphor-icons/webcomponents@2.1.5
  @pinojs/redact@0.4.0
  @pkgjs/parseargs@0.11.0
+*@playwright/test@1.60.0
  @polka/url@1.0.0-next.29
  @popperjs/core@2.11.8
  @poppinss/colors@4.1.6
@@ -1913,7 +1914,6 @@ Packages with Single Version
  franc-min@6.2.0
  fs-extra@11.3.4
  fs.realpath@1.0.0
- fsevents@2.3.3
  function-bind@1.1.2
  function.prototype.name@1.1.8
  functions-have-names@1.2.3
@@ -2284,6 +2284,8 @@ Packages with Single Version
  pino-abstract-transport@3.0.0
  pino-std-serializers@7.1.0
  pirates@4.0.7
+ playwright@1.60.0
+ playwright-core@1.60.0
  pluralize@8.0.0
  plurals-cldr@2.0.1
  plyr@3.8.4
@@ -2456,6 +2458,7 @@ Packages with Single Version
  sha.js@2.4.12
  shebang-command@2.0.0
  shebang-regex@3.0.0
+ shell-quote@1.8.4
  side-channel@1.1.0
  side-channel-list@1.0.0
  side-channel-map@1.0.1
