@@ -99,6 +99,9 @@ msgstr "Transaction nonce error. Please try again."
 msgid "{0} {1} in your Firefly wallet"
 msgstr "{0} {1} in your Firefly wallet"
 
+msgid "Failed to deposit."
+msgstr "Failed to deposit."
+
 msgid "Pay"
 msgstr "Pay"
 
@@ -220,6 +223,9 @@ msgstr "Market not found"
 msgid "See details"
 msgstr "See details"
 
+msgid "Your deposit has been credited to your account."
+msgstr "Your deposit has been credited to your account."
+
 msgid "Won"
 msgstr "Won"
 
@@ -232,6 +238,9 @@ msgstr "Price"
 
 msgid "Enable skip reviews"
 msgstr "Enable skip reviews"
+
+msgid "Your Tron(TRC-20) Address"
+msgstr "Your Tron(TRC-20) Address"
 
 msgid "Connection taking longer than expected"
 msgstr "Connection taking longer than expected"
@@ -437,6 +446,9 @@ msgstr "Added"
 msgid "Reload"
 msgstr "Reload"
 
+msgid "Deposit detected and processing..."
+msgstr "Deposit detected and processing..."
+
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
 msgstr "{0, plural, one {# share} other {# shares}}"
@@ -604,6 +616,9 @@ msgstr "Interacted"
 
 msgid "The address could not be found."
 msgstr "The address could not be found."
+
+msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
+msgstr "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
 
 msgid "Add"
 msgstr "Add"

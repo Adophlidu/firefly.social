@@ -99,6 +99,9 @@ msgstr "Error de nonce en la transacción. Inténtelo nuevamente."
 msgid "{0} {1} in your Firefly wallet"
 msgstr "{0} {1} en su billetera Firefly"
 
+msgid "Failed to deposit."
+msgstr ""
+
 msgid "Pay"
 msgstr "Pagar"
 
@@ -220,6 +223,9 @@ msgstr "Mercado no encontrado"
 msgid "See details"
 msgstr "Ver detalles"
 
+msgid "Your deposit has been credited to your account."
+msgstr ""
+
 msgid "Won"
 msgstr "Ganado"
 
@@ -232,6 +238,9 @@ msgstr "Precio"
 
 msgid "Enable skip reviews"
 msgstr "Habilitar omisión de revisión"
+
+msgid "Your Tron(TRC-20) Address"
+msgstr ""
 
 msgid "Connection taking longer than expected"
 msgstr "La conexión está tardando más de lo esperado"
@@ -437,6 +446,9 @@ msgstr "Agregado"
 msgid "Reload"
 msgstr "Recargar"
 
+msgid "Deposit detected and processing..."
+msgstr ""
+
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
 msgstr "{0, plural, one {# acción} other {# acciones}}"
@@ -604,6 +616,9 @@ msgstr "Interactuado"
 
 msgid "The address could not be found."
 msgstr "No se pudo encontrar la dirección."
+
+msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
+msgstr ""
 
 msgid "Add"
 msgstr "Agregar"

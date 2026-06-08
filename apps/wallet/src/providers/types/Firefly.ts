@@ -396,6 +396,41 @@ export interface WithdrawSupportedToken {
 
 export type WithdrawSupportedTokensResponse = Response<WithdrawSupportedToken[]>;
 
+export interface DepositSupportedToken {
+    token_address: string | null;
+    chain_id: string | null;
+    chain_name: string | null;
+    token_decimals: string | null;
+    token_symbol: string | null;
+    token_name: string | null;
+    token_icon: string | null;
+    min_deposit_usd: number | null;
+    min_checkout_usd: number | null;
+}
+
+export type DepositSupportedTokensResponse = Response<DepositSupportedToken[]>;
+
+export type TronDepositTransactionStatus = 'deposit_detected' | 'processing' | 'completed' | 'failed' | 'fail';
+
+export interface TronDepositTransaction {
+    from_chain_id: string | null;
+    from_token_address: string | null;
+    from_amount_base_unit: string | null;
+    to_chain_id: string | null;
+    to_token_address: string | null;
+    status: TronDepositTransactionStatus;
+    tx_hash: string | null;
+    created_time_ms: number | null;
+}
+
+export interface TronDepositStatus {
+    address: string | null;
+    status: string | null;
+    transactions: TronDepositTransaction[];
+}
+
+export type DepositStatusResponse = Response<TronDepositStatus>;
+
 export interface CreatePolymarketOrderResult {
     orderId: string;
     takingAmount: string;

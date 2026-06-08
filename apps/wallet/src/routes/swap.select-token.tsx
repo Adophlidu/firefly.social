@@ -1,4 +1,5 @@
 import GlobeIcon from '@dimensiondev/assets/global.svg';
+import QrCodeIcon from '@dimensiondev/assets/qrcode.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
 import { SwapFromPage } from '@dimensiondev/enums';
@@ -7,15 +8,16 @@ import { formatTokenAddress, isNativeTokenOrSameAddress } from '@dimensiondev/we
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { createFileRoute, useSearch } from '@tanstack/react-router';
+import { createFileRoute, useLocation, useNavigate, useSearch } from '@tanstack/react-router';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
-import { NavigationBar } from '@/components/NavigationBar.js';
+import { NavigationBar, NavigationBarRight } from '@/components/NavigationBar.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
+import { ModalType } from '@/configs/modalRoutes.js';
 import { POLYMARKET_DEPOSIT_EVM_CHAIN_IDS } from '@/constants/ethereum.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
@@ -43,6 +45,8 @@ export const Route = createFileRoute('/swap/select-token')({
 
 function SelectTokenPage() {
     const { side, from } = useSearch({ from: '/swap/select-token' }) as Partial<SelectTokenSearch>;
+    const navigate = useNavigate();
+    const location = useLocation();
     const goBack = useGoBackAfterSelectToken(from);
     const setFromAmount = useSetAtom(fromAmountAtom);
     const setFromToken = useSetAtom(setFromTokenAtom);
@@ -246,6 +250,23 @@ function SelectTokenPage() {
             <div className="shrink-0 bg-primaryBottom">
                 <NavigationBar onBack={() => goBack()}>
                     <Trans>Select Token</Trans>
+                    {isBetDeposit ? (
+                        <NavigationBarRight>
+                            <button
+                                type="button"
+                                className="flex items-center justify-center rounded-md p-1 text-main hover:bg-lightBg"
+                                onClick={() => {
+                                    navigate({
+                                        to: location.pathname,
+                                        search: { ...location.search, modal: ModalType.Receive },
+                                        replace: true,
+                                    });
+                                }}
+                            >
+                                <QrCodeIcon width={24} height={24} />
+                            </button>
+                        </NavigationBarRight>
+                    ) : null}
                 </NavigationBar>
 
                 <div className="flex flex-col gap-2 px-3 pb-2">

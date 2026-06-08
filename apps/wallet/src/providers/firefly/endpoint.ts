@@ -14,6 +14,8 @@ import {
     type CreatePolymarketLimitOrderResponse,
     type CreatePolymarketMarketOrderBody,
     type CreatePolymarketMarketOrderResponse,
+    type DepositStatusResponse,
+    type DepositSupportedTokensResponse,
     ErrorCode,
     type GetCollectionResponse,
     type GetMultiChainTokenListResponse,
@@ -566,6 +568,27 @@ export class FireflyEndpoint extends Fetch {
             privy_code_hash: codeHash,
             value: enabled,
         });
+        return resolveFireflyResponseData(result.data);
+    }
+    // #endregion
+
+    // #region Tron deposit
+    async getPolymarketDepositAddress() {
+        const result = await this.post<Response<{ tron: string | null }>>('/polymarket/v1/polymarket/deposit/address');
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getPolymarketDepositSupportedTokens() {
+        const result = await this.get<DepositSupportedTokensResponse>(
+            '/polymarket/v1/polymarket/deposit/supported_tokens',
+        );
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getPolymarketDepositStatus(address: string) {
+        const result = await this.get<DepositStatusResponse>(
+            urlcat('/polymarket/v1/polymarket/deposit/status', { address }),
+        );
         return resolveFireflyResponseData(result.data);
     }
     // #endregion

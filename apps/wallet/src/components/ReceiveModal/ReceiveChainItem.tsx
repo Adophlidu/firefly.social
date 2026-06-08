@@ -13,23 +13,34 @@ export interface ReceiveChainItemProps extends Pick<HTMLProps<'div'>, 'className
     chainId: number;
     name: ReactNode;
     address: string;
+    icon?: string;
+    minDepositUsd?: number | null;
     onClickQrCodeButton?: () => void;
+    tokenIcon?: string | null;
+    variant?: 'tron-deposit';
 }
 
-export function ReceiveChainItem({ chainId, name, address, onClickQrCodeButton, className }: ReceiveChainItemProps) {
+export function ReceiveChainItem({
+    chainId,
+    name,
+    address,
+    icon,
+    onClickQrCodeButton,
+    className,
+}: ReceiveChainItemProps) {
     const [copied, handleCopy] = useCopyText(address);
     return (
         <div className={cn('flex w-full items-center justify-between rounded-2xl bg-bg p-3', className)}>
-            <div className="flex space-x-2 text-left">
-                <ChainIcon chainId={chainId} className="size-10 shrink-0 !bg-transparent" size={40} />
-                <div>
+            <div className="flex min-w-0 gap-2 text-left">
+                <ChainIcon chainId={chainId} icon={icon} className="size-10 shrink-0 !bg-transparent" size={40} />
+                <div className="truncate">
                     <div className="h-[22px] text-medium font-semibold leading-[22px]">{name}</div>
-                    <div className="h-[18px] text-sm font-normal leading-[18px] text-second">
+                    <div className="h-[18px] truncate text-sm font-normal leading-[18px] text-second">
                         {formatAddress(address, 4)}
                     </div>
                 </div>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex gap-2">
                 <ClickableButton
                     className="inline-flex size-8 items-center justify-center rounded-full bg-secondaryLine duration-100 hover:scale-105 active:scale-95"
                     onClick={onClickQrCodeButton}

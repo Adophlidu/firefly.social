@@ -99,6 +99,9 @@ msgstr "交易隨機數 (Nonce) 錯誤，請重試。"
 msgid "{0} {1} in your Firefly wallet"
 msgstr "您的 Firefly 錢包中有 {0} {1}"
 
+msgid "Failed to deposit."
+msgstr ""
+
 msgid "Pay"
 msgstr "支付"
 
@@ -220,6 +223,9 @@ msgstr "未找到相關市場"
 msgid "See details"
 msgstr "查看詳情"
 
+msgid "Your deposit has been credited to your account."
+msgstr ""
+
 msgid "Won"
 msgstr "盈利"
 
@@ -232,6 +238,9 @@ msgstr "價格"
 
 msgid "Enable skip reviews"
 msgstr "開啟跳過預覽"
+
+msgid "Your Tron(TRC-20) Address"
+msgstr ""
 
 msgid "Connection taking longer than expected"
 msgstr "連接時間較長，請稍候"
@@ -437,6 +446,9 @@ msgstr "已新增"
 msgid "Reload"
 msgstr "重新載入"
 
+msgid "Deposit detected and processing..."
+msgstr ""
+
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
 msgstr "{0, plural, one {# 份} other {# 份}}"
@@ -604,6 +616,9 @@ msgstr "已互動"
 
 msgid "The address could not be found."
 msgstr "找不到該地址。"
+
+msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
+msgstr ""
 
 msgid "Add"
 msgstr "新增"

@@ -21,6 +21,10 @@ export function isValidAddressEthereum(address: string | null | undefined): addr
     return isAddress(address_ as Address);
 }
 
+export function isValidAddressTron(address: string | null | undefined): boolean {
+    return /^T[1-9A-HJ-NP-Za-km-z]{33}$/.test(address ?? '');
+}
+
 /** Sui token address uses <package>::<module>::<struct>. */
 export function isValidTokenAddressSui(address?: string): boolean {
     if (!address) return false;
@@ -32,5 +36,5 @@ export function isValidTokenAddressSui(address?: string): boolean {
 }
 
 export function isValidAddress(address: string | null | undefined, strict = true): boolean {
-    return isValidAddressSolana(address, strict) || isValidAddressEthereum(address);
+    return isValidAddressSolana(address, strict) || isValidAddressEthereum(address) || isValidAddressTron(address);
 }

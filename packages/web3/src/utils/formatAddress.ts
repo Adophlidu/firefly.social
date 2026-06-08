@@ -4,6 +4,7 @@ import {
     isValidAddress,
     isValidAddressEthereum,
     isValidAddressSolana,
+    isValidAddressTron,
     isValidTokenAddressSui,
 } from '@/utils/isValidAddress.js';
 
@@ -13,8 +14,10 @@ type Formatter = (address: string, size?: number, offset?: Offset, strict?: bool
 
 const solanaCache = new Map<string, string>();
 const ethereumCache = new Map<string, string>();
+const tronCache = new Map<string, string>();
 
 export function formatAddress(address: string, size?: number, offset?: Offset, strict = true) {
+    if (isValidAddressTron(address)) return formatAddressTron(address, size);
     if (isValidAddressSolana(address, strict)) return formatAddressSolana(address, size, offset, strict);
     if (isValidAddressEthereum(address)) return formatAddressEthereum(address, size, offset);
     if (isValidTokenAddressSui(address)) return formatTokenAddressSui(address);
@@ -56,6 +59,20 @@ export const formatAddressEthereum: Formatter = function formatEthereumAddress(a
         : address;
 
     ethereumCache.set(cacheKey, result);
+    return result;
+};
+
+export const formatAddressTron: Formatter = function formatTronAddress(address: string, size = 0) {
+    const cacheKey = `${address}.${size}`;
+    const cached = tronCache.get(cacheKey);
+    if (cached) return cached;
+
+    const result =
+        isValidAddressTron(address) && size > 0 && size < 17
+            ? `${address.slice(0, size)}...${address.slice(-size)}`
+            : address;
+
+    tronCache.set(cacheKey, result);
     return result;
 };
 

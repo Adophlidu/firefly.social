@@ -1,5 +1,5 @@
 import { useLocation, useRouter } from '@tanstack/react-router';
-import { lazy, Suspense, useCallback, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
 import { ModalType } from '@/configs/modalRoutes.js';
 
@@ -24,30 +24,27 @@ export function ModalRouteLayer() {
     // To enable smooth closing
     const [closingModals, setClosingModals] = useState<string[]>([]);
 
-    const handleClose = useCallback(
-        (modalType: string, skipRedirect?: boolean) => {
-            if (!skipRedirect) {
-                // Remove modal param while preserving other search params
-                const currentSearch = { ...(location.search as Record<string, unknown>) };
-                delete currentSearch.modal;
-                const searchString = new URLSearchParams(
-                    Object.entries(currentSearch).reduce<Record<string, string>>((acc, [k, v]) => {
-                        if (v !== undefined && v !== null) {
-                            acc[k] = typeof v === 'object' ? JSON.stringify(v) : `${v as string | number | boolean}`;
-                        }
-                        return acc;
-                    }, {}),
-                ).toString();
-                const newPath = searchString ? `${location.pathname}?${searchString}` : location.pathname;
-                setClosingModals((closingModals) => [...closingModals, modalType]);
-                router.navigate({ to: newPath });
-            }
-            setTimeout(() => {
-                setClosingModals((closingModals) => closingModals.filter((m) => m !== modalType));
-            }, 300);
-        },
-        [location.pathname, location.search, router],
-    );
+    function handleClose(modalType: string, skipRedirect?: boolean) {
+        if (!skipRedirect) {
+            // Remove modal param while preserving other search params
+            const currentSearch = { ...(location.search as Record<string, unknown>) };
+            delete currentSearch.modal;
+            const searchString = new URLSearchParams(
+                Object.entries(currentSearch).reduce<Record<string, string>>((acc, [k, v]) => {
+                    if (v !== undefined && v !== null) {
+                        acc[k] = typeof v === 'object' ? JSON.stringify(v) : `${v as string | number | boolean}`;
+                    }
+                    return acc;
+                }, {}),
+            ).toString();
+            const newPath = searchString ? `${location.pathname}?${searchString}` : location.pathname;
+            setClosingModals((closingModals) => [...closingModals, modalType]);
+            router.navigate({ to: newPath, replace: true });
+        }
+        setTimeout(() => {
+            setClosingModals((closingModals) => closingModals.filter((m) => m !== modalType));
+        }, 300);
+    }
 
     if (modalType === ModalType.Receive || closingModals.includes(ModalType.Receive))
         return (
