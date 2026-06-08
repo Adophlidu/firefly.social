@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
     entry: ['src/runtime.ts', 'src/static.ts', 'src/computed.ts'],
+    format: ['esm', 'cjs'],
     fixedExtension: false,
     dts: true,
     clean: true,
