@@ -95,7 +95,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                     <div className="flex items-center gap-2">
                         <Link
                             href={url}
-                            className="block min-w-0 cursor-pointer truncate text-xl leading-6 text-lightMain"
+                            className="block min-w-0 cursor-pointer truncate text-xl leading-6 text-lightMain hover:underline"
                         >
                             {profile.displayName}
                         </Link>

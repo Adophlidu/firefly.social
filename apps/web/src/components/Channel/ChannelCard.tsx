@@ -79,7 +79,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                     <div className="flex items-center gap-[6px] whitespace-nowrap">
                         <span
                             onClick={handleNavigateToDetail}
-                            className="cursor-pointer overflow-auto truncate text-lg font-bold text-lightMain"
+                            className="cursor-pointer overflow-auto truncate text-lg font-bold text-lightMain hover:underline"
                         >
                             {channel.name}
                         </span>

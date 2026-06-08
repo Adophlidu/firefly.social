@@ -40,7 +40,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                             prefetch={false}
                             className="link-overlay mr-0.5 max-w-full cursor-pointer truncate text-medium text-main"
                         >
-                            {profile.displayName}
+                            <span className="relative z-1 hover:underline">{profile.displayName}</span>
                         </Link>
                     </ProfileTippy>
                     <SocialSourceIcon source={profile.source} size={15} className="shrink-0" />

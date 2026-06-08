@@ -103,7 +103,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
                         <Link
                             href={profileLink}
-                            className="mr-1 truncate text-medium font-bold leading-5 text-main"
+                            className="mr-1 truncate text-medium font-bold leading-5 text-main hover:underline"
                             onClick={stopPropagation}
                         >
                             {author.highlighted || highlighted ? (
