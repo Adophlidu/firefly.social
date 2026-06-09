@@ -80,9 +80,13 @@ const auth = new FireflyAuthClient({
     proactiveRefreshThresholdMs: 10 * 60 * 1000, // default: 10m
     storageKey: 'firefly-state', // default
     storage: localStorage, // default: ambient localStorage; supply any { getItem, setItem }
+    autoUpgrade: true, // default; upgrade legacy sessions to JWT v3 when no v3 token exists
     debug: false,
 });
 ```
+
+Set `autoUpgrade: false` to disable the legacy→v3 upgrade and keep serving the
+legacy access token as-is (backward compatibility).
 
 Pass `storage: null` to disable web storage entirely (native-only contexts).
 
@@ -92,8 +96,9 @@ Pass `storage: null` to disable web storage entirely (native-only contexts).
   Tokens are refreshed before expiry via `POST /v3/auth/refreshJWT`, rotated under
   an origin-wide [Web Lock](https://developer.mozilla.org/docs/Web/API/Web_Locks_API)
   (`firefly:jwt:token`) so concurrent tabs/sub-sites don't burn the single-use
-  refresh token, and written back so siblings adopt the rotated pair. Legacy-only
-  sessions are upgraded via `exchangeLegacyJWT` on first use.
+  refresh token, and written back so siblings adopt the rotated pair. When no v3
+  token is in storage and `autoUpgrade` is on (default), the legacy access token
+  is upgraded via `exchangeLegacyJWT` on first use; otherwise it is served as-is.
 - **Native** (inside the Firefly app webview): on builds that support
   `GET_REFRESH_TOKEN`, the refresh token is obtained from the native bridge and
   this package maintains rotation in memory (a 401 re-seeds from the bridge once).

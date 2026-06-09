@@ -1,47 +1,30 @@
+import { FireflyAuthClient } from '@dimensiondev/auth';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/wallet';
-import { parseJson } from '@dimensiondev/utils';
 import { atom } from 'jotai';
-import { atomWithStorage, createJSONStorage } from 'jotai/utils';
 
-interface FireflySession {
-    status: string;
-    accounts: unknown[] | null;
-    currentProfile: unknown | null;
-    currentProfileSession: string;
-}
+import { store } from '@/store/index.js';
 
-export const fireflySessionStorageAtom = atomWithStorage<{
-    state: FireflySession;
-    version: number;
-} | null>(
-    'firefly-state',
-    null,
-    typeof window !== 'undefined' ? createJSONStorage(() => window.localStorage) : undefined,
-    {
-        getOnInit: true,
-    },
-);
-
-export const fireflySessionTokenAtom = atom((get) => {
-    const currentProfileSession = get(fireflySessionStorageAtom)?.state.currentProfileSession;
-    if (!currentProfileSession) return null;
-
-    const fragments = currentProfileSession.split(':');
-
-    // JWT v3 token: fragment[6] = base64({accessToken, refreshToken, sessionId}).
-    // Gated by NEXT_PUBLIC_FIREFLY_JWT_V3 — when disabled, fall back to the legacy
-    // token only, fully turning off the new JWT auth.
-    if (envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled && fragments[6]) {
-        const jwt = parseJson<{ accessToken: string }>(atob(fragments[6]));
-        if (jwt?.accessToken) return jwt.accessToken;
-    }
-
-    // Legacy fallback: fragment[1] = base64({type, token, profileId, ...})
-    if (fragments[1]) {
-        const legacy = parseJson<{ token: string }>(atob(fragments[1]));
-        if (legacy?.token) return legacy.token;
-    }
-
-    return null;
+/**
+ * Single client that maintains the freshest Firefly access token — JWT v3
+ * refresh and rotation, legacy→v3 auto-upgrade, and the native bridge — reading
+ * the shared `firefly-state` session. `autoUpgrade` follows the JWT v3 rollout
+ * flag: when disabled, the legacy access token is served as-is.
+ */
+export const fireflyAuthClient = new FireflyAuthClient({
+    fireflyRootUrl: envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
+    autoUpgrade: envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled,
 });
+
+const accessTokenAtom = atom<string | null>(null);
+
+/** Freshest Firefly access token, maintained by {@link fireflyAuthClient}; `null` when signed out. */
+export const fireflySessionTokenAtom = atom((get) => get(accessTokenAtom));
+
+// Mirror the client's freshest token into the atom so the existing synchronous
+// consumers (auth headers, login gate) react to refresh/rotation/sign-out.
+if (typeof window !== 'undefined') {
+    const sync = (token: string | null) => store.set(accessTokenAtom, token);
+    fireflyAuthClient.subscribe(sync);
+    void fireflyAuthClient.getAccessToken().then(sync);
+}

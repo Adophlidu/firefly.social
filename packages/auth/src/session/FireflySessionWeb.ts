@@ -26,19 +26,22 @@ export class FireflySessionWeb extends FireflySession {
         const snapshot = readFireflySnapshot(this.ctx);
         if (!snapshot) return null;
 
-        // Legacy-only session: upgrade to a v3 token pair so it can be refreshed.
-        if (!snapshot.jwt?.accessToken && snapshot.legacyToken) {
-            return this.refreshOnce();
+        // No v3 token in storage: auto-upgrade the legacy token to a v3 pair, or
+        // (when auto-upgrade is off) serve the legacy token as-is.
+        if (!snapshot.jwt?.accessToken) {
+            if (this.ctx.config.autoUpgrade && snapshot.legacyToken) return this.refreshOnce();
+            const token = snapshot.legacyToken ?? null;
+            this.notify(token);
+            return token;
         }
 
         // Rotate before expiry so no request ever leaves with a stale token.
-        if (snapshot.jwt?.refreshToken && shouldProactivelyRefresh(snapshot.expiresAt, this.ctx)) {
+        if (snapshot.jwt.refreshToken && shouldProactivelyRefresh(snapshot.expiresAt, this.ctx)) {
             return this.refreshOnce();
         }
 
-        const token = snapshot.jwt?.accessToken ?? snapshot.legacyToken ?? null;
-        this.notify(token);
-        return token;
+        this.notify(snapshot.jwt.accessToken);
+        return snapshot.jwt.accessToken;
     }
 
     protected override async rotate(): Promise<string | null> {
@@ -81,10 +84,12 @@ export class FireflySessionWeb extends FireflySession {
         });
     }
 
-    /** Rotate via the refresh token, or upgrade a legacy-only session. */
+    /** Rotate via the refresh token, or upgrade a legacy session when enabled. */
     private rotateTokens(snapshot: FireflySnapshot): Promise<FireflyTokenData> {
         if (snapshot.jwt?.refreshToken) return refreshFireflyToken(snapshot.jwt.refreshToken, this.ctx.config);
-        if (snapshot.legacyToken) return exchangeLegacyFireflyToken(snapshot.legacyToken, this.ctx.config);
+        if (this.ctx.config.autoUpgrade && snapshot.legacyToken) {
+            return exchangeLegacyFireflyToken(snapshot.legacyToken, this.ctx.config);
+        }
         throw new Error('No refresh or legacy token available to rotate this session.');
     }
 
