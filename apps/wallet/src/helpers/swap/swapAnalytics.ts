@@ -25,6 +25,33 @@ export enum WalletTelemetryEventId {
     WALLET_SEND_RECIPIENT_SELECT = 'Firefly_wallet_send_recipient_select',
     WALLET_SEND_RECIPIENT_CHANGE_WALLET_CLICK = 'Firefly_wallet_send_recipient_change_wallet_click',
     WALLET_SEND_RECIPIENT_WALLET_CHANGE = 'Firefly_wallet_send_recipient_wallet_change',
+
+    // bets/predict events
+    BETS_ACCOUNT_OPEN_SUCCESS = 'bets_account_open_success',
+    BETS_ADD_FUNDS_OPEN_SUCCESS = 'bets_add_funds_open_success',
+    BETS_ADD_FUNDS_CLICK = 'bets_add_funds_click',
+    BETS_WITHDRAW_FUNDS_OPEN_SUCCESS = 'bets_withdraw_funds_open_success',
+    BETS_WITHDRAW_FUNDS_CLICK = 'bets_withdraw_funds_click',
+    BETS_POSITIONS_LIST_OPEN_SUCCESS = 'bets_positions_list_open_success',
+    BETS_ORDERS_LIST_OPEN_SUCCESS = 'bets_orders_list_open_success',
+    BETS_ORDER_CANCEL_CLICK = 'bets_order_cancel_click',
+    BETS_ORDER_CANCEL_CONFIRM_CLICK = 'bets_order_cancel_confirm_click',
+    BETS_POSITION_CLOSE_OPEN_SUCCESS = 'bets_position_close_open_success',
+    BETS_POSITION_CLOSE_CLICK = 'bets_position_close_click',
+    BETS_CLAIM_PROCEEDS_OPEN_SUCCESS = 'bets_claim_proceeds_open_success',
+    BETS_CLAIM_PROCEEDS_CLICK = 'bets_claim_proceeds_click',
+    BETS_EXPLORE_BETS_OPEN_SUCCESS = 'bets_explore_bets_open_success',
+    BETS_RECENT_ACTIVITY_OPEN_SUCCESS = 'bets_recent_activity_open_success',
+    BETS_MARKET_BUY_OPEN_SUCCESS = 'bets_market_buy_open_success',
+    BETS_MARKET_BUY_CLICK = 'bets_market_buy_click',
+    BETS_MARKET_ORDER_TYPE_CHANGE_CLICK = 'bets_market_order_type_change_click',
+    BETS_MARKET_QUICK_BUY_OPEN_SUCCESS = 'bets_market_quick_buy_open_success',
+    BETS_MARKET_QUICK_BUY_CONFIRM_CLICK = 'bets_market_quick_buy_confirm_click',
+    BETS_POSITION_SELL_OPEN_SUCCESS = 'bets_position_sell_open_success',
+    BETS_POSITION_SELL_CLICK = 'bets_position_sell_click',
+    BETS_VIEW_PRIVATE_KEY_PANEL_OPEN = 'bets_view_private_key_panel_open',
+    BETS_SHOW_PRIVATE_KEY = 'bets_show_private_key',
+    BETS_PRIVATE_KEY_COPY_CLICK = 'bets_private_key_copy_click',
 }
 
 export function captureWalletTelemetryEvent(event: WalletTelemetryEventId, params: Record<string, unknown>) {

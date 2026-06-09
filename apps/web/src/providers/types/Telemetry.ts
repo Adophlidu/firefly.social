@@ -347,6 +347,44 @@ export enum EventId {
     POLYMARKET_PROFILE_FOLLOW_CLICK = 'polymarket_profile_follow_click',
     OPINION_PROFILE_FOLLOW_CLICK = 'opinion_profile_follow_click',
 
+    // polymarket exploration & detail page
+    POLYMARKET_HOME_CATEGORY_CLICK = 'polymarket_home_category_click',
+    POLYMARKET_HOME_SPORT_TYPE_CLICK = 'polymarket_home_sport_type_click',
+    POLYMARKET_SEARCH_TOPIC_CLICK = 'polymarket_search_topic_click',
+    POLYMARKET_EVENT_CRYPTO_RECURRENCE_CLICK = 'polymarket_event_crypto_recurrence_click',
+    POLYMARKET_EVENT_CHART_CHANGE = 'polymarket_event_chart_change',
+    POLYMARKET_ORDER_CLICK = 'polymarket_order_click',
+    POLYMARKET_EVENT_TRADES_PROFILE_CLICK = 'polymarket_event_trades_profile_click',
+    OPINION_EVENT_TRADES_PROFILE_CLICK = 'opinion_event_trades_profile_click',
+
+    // bets wallet
+    BETS_ACCOUNT_OPEN_SUCCESS = 'bets_account_open_success',
+    BETS_ADD_FUNDS_OPEN_SUCCESS = 'bets_add_funds_open_success',
+    BETS_ADD_FUNDS_CLICK = 'bets_add_funds_click',
+    BETS_WITHDRAW_FUNDS_OPEN_SUCCESS = 'bets_withdraw_funds_open_success',
+    BETS_WITHDRAW_FUNDS_CLICK = 'bets_withdraw_funds_click',
+    BETS_POSITIONS_LIST_OPEN_SUCCESS = 'bets_positions_list_open_success',
+    BETS_ORDERS_LIST_OPEN_SUCCESS = 'bets_orders_list_open_success',
+    BETS_ORDER_CANCEL_CLICK = 'bets_order_cancel_click',
+    BETS_ORDER_CANCEL_CONFIRM_CLICK = 'bets_order_cancel_confirm_click',
+    BETS_POSITION_CLOSE_OPEN_SUCCESS = 'bets_position_close_open_success',
+    BETS_POSITION_CLOSE_CLICK = 'bets_position_close_click',
+    BETS_CLAIM_PROCEEDS_OPEN_SUCCESS = 'bets_claim_proceeds_open_success',
+    BETS_CLAIM_PROCEEDS_CLICK = 'bets_claim_proceeds_click',
+    BETS_EXPLORE_BETS_OPEN_SUCCESS = 'bets_explore_bets_open_success',
+    BETS_RECENT_ACTIVITY_OPEN_SUCCESS = 'bets_recent_activity_open_success',
+    BETS_MARKET_BUY_OPEN_SUCCESS = 'bets_market_buy_open_success',
+    BETS_MARKET_BUY_CLICK = 'bets_market_buy_click',
+    BETS_MARKET_ORDER_TYPE_CHANGE_CLICK = 'bets_market_order_type_change_click',
+    BETS_MARKET_QUICK_BUY_OPEN_SUCCESS = 'bets_market_quick_buy_open_success',
+    BETS_MARKET_QUICK_BUY_CONFIRM_CLICK = 'bets_market_quick_buy_confirm_click',
+    BETS_POSITION_SELL_OPEN_SUCCESS = 'bets_position_sell_open_success',
+    BETS_POSITION_SELL_CLICK = 'bets_position_sell_click',
+    BETS_LEADERBOARD_OPEN_SUCCESS = 'bets_leaderboard_open_success',
+    BETS_VIEW_PRIVATE_KEY_PANEL_OPEN = 'bets_view_private_key_panel_open',
+    BETS_SHOW_PRIVATE_KEY = 'bets_show_private_key',
+    BETS_PRIVATE_KEY_COPY_CLICK = 'bets_private_key_copy_click',
+
     // bookmarks tab click
     BOOKMARK_FARCASTER_TAB_CLICK = 'bookmark_farcaster_click',
     BOOKMARK_LENS_TAB_CLICK = 'bookmark_lens_click',
@@ -2123,6 +2161,177 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             follow_type: SocialSource | Source.Wallet | 'login' | 'proxy_wallet';
         };
+    };
+
+    // polymarket exploration & detail page
+    [EventId.POLYMARKET_HOME_CATEGORY_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            category_slug: string;
+            category_name: string;
+            category_level: 1 | 2 | 3;
+        };
+    };
+    [EventId.POLYMARKET_HOME_SPORT_TYPE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            sport_type: 'games' | 'props';
+            category_slug: string;
+        };
+    };
+    [EventId.POLYMARKET_SEARCH_TOPIC_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            topic_label: string;
+        };
+    };
+    [EventId.POLYMARKET_EVENT_CRYPTO_RECURRENCE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            event_slug: string;
+            recurrence_type: 'past' | 'more';
+        };
+    };
+    [EventId.POLYMARKET_EVENT_CHART_CHANGE]: {
+        type: EventType.Interact;
+        parameters: {
+            event_slug: string;
+            change_type: 'time_range' | 'chart_type' | 'market_filter';
+            time_range?: string;
+            chart_type?: string;
+        };
+    };
+    [EventId.POLYMARKET_ORDER_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            market_slug: string;
+            outcome: number;
+            source?: string;
+        };
+    };
+    [EventId.POLYMARKET_EVENT_TRADES_PROFILE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            event_slug: string;
+            target_proxy_wallet_address: string;
+        };
+    };
+    [EventId.OPINION_EVENT_TRADES_PROFILE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            event_slug: string;
+            target_proxy_wallet_address: string;
+        };
+    };
+
+    // bets wallet
+    [EventId.BETS_ACCOUNT_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_ADD_FUNDS_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_ADD_FUNDS_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_WITHDRAW_FUNDS_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_WITHDRAW_FUNDS_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_POSITIONS_LIST_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_ORDERS_LIST_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_ORDER_CANCEL_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            order_id?: string;
+        };
+    };
+    [EventId.BETS_ORDER_CANCEL_CONFIRM_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            order_id?: string;
+        };
+    };
+    [EventId.BETS_POSITION_CLOSE_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_POSITION_CLOSE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_CLAIM_PROCEEDS_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_CLAIM_PROCEEDS_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_EXPLORE_BETS_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_RECENT_ACTIVITY_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_MARKET_BUY_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_MARKET_BUY_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_MARKET_ORDER_TYPE_CHANGE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_MARKET_QUICK_BUY_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_MARKET_QUICK_BUY_CONFIRM_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_POSITION_SELL_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_POSITION_SELL_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_LEADERBOARD_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_VIEW_PRIVATE_KEY_PANEL_OPEN]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_SHOW_PRIVATE_KEY]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+    [EventId.BETS_PRIVATE_KEY_COPY_CLICK]: {
+        type: EventType.Interact;
+        parameters: {};
     };
 }
 

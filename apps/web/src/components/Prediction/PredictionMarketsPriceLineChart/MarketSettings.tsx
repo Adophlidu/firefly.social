@@ -9,9 +9,14 @@ import type { BetsMarketWithSettings } from '@/types/prediction.js';
 interface MarketSettingsProps {
     markets: BetsMarketWithSettings[];
     onMarketsChange: (markets: BetsMarketWithSettings[]) => void;
+    eventSlug?: string;
 }
 
-export const MarketSettings = memo<MarketSettingsProps>(function MarketSettings({ markets, onMarketsChange }) {
+export const MarketSettings = memo<MarketSettingsProps>(function MarketSettings({
+    markets,
+    onMarketsChange,
+    eventSlug,
+}) {
     const toggleMarketSelection = useCallback(
         (marketId: string, selected: boolean) => {
             onMarketsChange(
@@ -51,7 +56,11 @@ export const MarketSettings = memo<MarketSettingsProps>(function MarketSettings(
                             style={{ height: 48 * markets.length + 32 + 22 }}
                             className="no-scrollbar absolute bottom-full right-0 z-30 w-[400px] !max-w-[80vw] translate-y-3 space-y-3 rounded-lg bg-lightBottom p-4 text-medium shadow-popover [--anchor-max-height:266px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
-                            <MarketsSelectionPanel markets={markets} toggleMarketSelection={toggleMarketSelection} />
+                            <MarketsSelectionPanel
+                                markets={markets}
+                                toggleMarketSelection={toggleMarketSelection}
+                                eventSlug={eventSlug}
+                            />
                         </PopoverPanel>
                     </Transition>
                 </>

@@ -10,6 +10,7 @@ import { buildPredictionCategoryHrefForPrimary } from '@/helpers/prediction/cate
 import { PREDICTION_CATEGORY_SCROLL_KEY_ATTR } from '@/helpers/prediction/category/getCategoryScrollKey.js';
 import { partitionPrimaryCategorySlugs } from '@/helpers/prediction/category/partitionCategorySlugs.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
+import { capturePolymarketHomeCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
 interface Props {
@@ -22,6 +23,7 @@ function PrimaryTab({ item, isActive }: { item: PolymarketEventSlugListData; isA
         <Link
             replace
             href={buildPredictionCategoryHrefForPrimary(item)}
+            onClick={() => capturePolymarketHomeCategoryClick(item.slug, item.label, 1)}
             {...{ [PREDICTION_CATEGORY_SCROLL_KEY_ATTR]: item.slug }}
             className={classNames(
                 'flex h-12 shrink-0 items-center border-b-4 text-base font-bold transition-colors',

@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 
 function SkeletonLine({ className }: { className: string }) {
     return <div className={`animate-pulse rounded bg-lightBg ${className}`} />;
@@ -44,6 +46,10 @@ export const Route = createFileRoute('/bet/_home/history')({
 });
 
 function HistoryPage() {
+    useEffect(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_RECENT_ACTIVITY_OPEN_SUCCESS, {});
+    }, []);
+
     return (
         <Suspense fallback={<HistorySkeleton />}>
             <History />

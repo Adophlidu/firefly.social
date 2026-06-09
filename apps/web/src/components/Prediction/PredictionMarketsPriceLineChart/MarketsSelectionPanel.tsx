@@ -8,11 +8,13 @@ import { useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { MAX_MARKETS_COUNT_SELECTABLE } from '@/constants/bets.js';
+import { capturePolymarketEventChartChange } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsMarketWithSettings } from '@/types/prediction.js';
 
 interface MarketsSelectionPanelProps {
     markets: BetsMarketWithSettings[];
     toggleMarketSelection: (marketId: string, selected: boolean) => void;
+    eventSlug?: string;
 }
 
 const MARKET_ITEM_CLASSNAME = 'price-chart-market-item';
@@ -20,6 +22,7 @@ const MARKET_ITEM_CLASSNAME = 'price-chart-market-item';
 export const MarketsSelectionPanel = memo<MarketsSelectionPanelProps>(function MarketsSelectionPanel({
     markets,
     toggleMarketSelection,
+    eventSlug,
 }) {
     const selectedLength = markets.filter((m) => m.selected).length;
 
@@ -56,6 +59,7 @@ export const MarketsSelectionPanel = memo<MarketsSelectionPanelProps>(function M
                     }}
                     onClick={() => {
                         if (market.selected || selectedLength >= MAX_MARKETS_COUNT_SELECTABLE) return;
+                        if (eventSlug) capturePolymarketEventChartChange(eventSlug, 'market_filter');
                         toggleMarketSelection(market.id, true);
                     }}
                 >

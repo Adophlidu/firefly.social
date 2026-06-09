@@ -17,6 +17,7 @@ import {
 import { partitionSecondaryCategorySlugs } from '@/helpers/prediction/category/partitionCategorySlugs.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { hasTertiaryCategories } from '@/helpers/prediction/category/resolveCategorySlugIcon.js';
+import { capturePolymarketHomeCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
 interface Props {
@@ -38,6 +39,7 @@ function SecondaryChipLink({ item, isActive }: { item: PolymarketEventSlugListDa
         <Link
             replace
             href={buildPredictionCategoryHref(item)}
+            onClick={() => capturePolymarketHomeCategoryClick(item.slug, item.label, 2)}
             {...{ [PREDICTION_CATEGORY_SCROLL_KEY_ATTR]: item.slug }}
             className={secondaryChipClassName(isActive)}
         >

@@ -20,6 +20,7 @@ import { DepositReceiveRow } from '@/components/Deposit/DepositReceiveRow.js';
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useAddFunds } from '@/hooks/bet/useAddFunds.js';
 import { useCheckGasForDeposit } from '@/hooks/bet/useCheckGasForDeposit.js';
 import { pusdTokenFallback, useDepositToken } from '@/hooks/bet/useTokenDetail.js';
@@ -41,6 +42,10 @@ export const Route = createFileRoute('/bet/deposit')({
 const TOAST_ID = 'polymarket-deposit';
 
 function DepositPage() {
+    useEffect(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ADD_FUNDS_OPEN_SUCCESS, {});
+    }, []);
+
     return (
         <>
             <NavigationBar>
@@ -244,6 +249,7 @@ function DepositClient() {
                 onSubmit={() => {
                     if (isSubmittingRef.current || isPending) return;
                     isSubmittingRef.current = true;
+                    captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ADD_FUNDS_CLICK, {});
                     void mutateAsync();
                 }}
             />

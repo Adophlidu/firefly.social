@@ -14,6 +14,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SEARCH_PREDICTION_EVENT_STATUS_OPTIONS } from '@/components/Search/SearchPredictionEventStatusTabs.js';
 import type { PredictionSearchTag } from '@/providers/firefly/prediction/searchPrediction.js';
+import { capturePolymarketSearchTopicClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import {
     type SearchPredictionEventStatus,
     useSearchPredictionEventStatus,
@@ -93,12 +94,13 @@ export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilte
                                 <TopicPill
                                     key={topic.id || topic.label}
                                     topic={topic}
-                                    onClick={() =>
+                                    onClick={() => {
+                                        capturePolymarketSearchTopicClick(topic.label);
                                         updateState({
                                             q: topic.label,
                                             type: SearchType.Prediction,
-                                        })
-                                    }
+                                        });
+                                    }}
                                 />
                             ))}
                         </div>

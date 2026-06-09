@@ -6,6 +6,7 @@ import { DialogOrDrawer, DialogOrDrawerContent, DialogOrDrawerFooter } from '@/c
 import { Button } from '@/components/ui/button.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSDConditional } from '@/helpers/formatTokenUSDConditional.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { pusdTokenFallback } from '@/hooks/bet/useTokenDetail.js';
 import { cn } from '@/lib/utils.js';
 
@@ -110,7 +111,13 @@ export function QuickBuyConfirmDialog({
                             className="h-12 w-full rounded-full"
                             disabled={Boolean(confirmDisabled) || Boolean(confirming)}
                             loading={confirming}
-                            onClick={onConfirm}
+                            onClick={() => {
+                                captureWalletTelemetryEvent(
+                                    WalletTelemetryEventId.BETS_MARKET_QUICK_BUY_CONFIRM_CLICK,
+                                    {},
+                                );
+                                onConfirm();
+                            }}
                         >
                             <span className="flex min-w-0 items-center justify-center gap-1">
                                 <span className="shrink-0">

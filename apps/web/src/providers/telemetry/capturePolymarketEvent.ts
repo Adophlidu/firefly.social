@@ -223,3 +223,73 @@ export function captureOpinionProfileDetailClick(params: OpinionProfileClickPara
         return TelemetryProvider.captureEvent(EventId.PROFILE_WALLET_OPINION_PROFILE_CLICK, params);
     });
 }
+
+// Polymarket home category click
+export function capturePolymarketHomeCategoryClick(categorySlug: string, categoryName: string, level: 1 | 2 | 3) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_HOME_CATEGORY_CLICK, {
+        category_slug: categorySlug,
+        category_name: categoryName,
+        category_level: level,
+    });
+}
+
+// Polymarket home sport type click
+export function capturePolymarketHomeSportTypeClick(sportType: 'games' | 'props', categorySlug: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_HOME_SPORT_TYPE_CLICK, {
+        sport_type: sportType,
+        category_slug: categorySlug,
+    });
+}
+
+// Polymarket search topic click
+export function capturePolymarketSearchTopicClick(topicLabel: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_SEARCH_TOPIC_CLICK, {
+        topic_label: topicLabel,
+    });
+}
+
+// Polymarket event crypto recurrence click
+export function capturePolymarketEventCryptoRecurrenceClick(eventSlug: string, recurrenceType: 'past' | 'more') {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_CRYPTO_RECURRENCE_CLICK, {
+        event_slug: eventSlug,
+        recurrence_type: recurrenceType,
+    });
+}
+
+// Polymarket event chart change
+export function capturePolymarketEventChartChange(
+    eventSlug: string,
+    changeType: 'time_range' | 'chart_type' | 'market_filter',
+    extra?: { time_range?: string; chart_type?: string },
+) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_CHART_CHANGE, {
+        event_slug: eventSlug,
+        change_type: changeType,
+        ...extra,
+    });
+}
+
+// Polymarket order click
+export function capturePolymarketOrderClick(marketSlug: string, outcome: number, source?: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_ORDER_CLICK, {
+        market_slug: marketSlug,
+        outcome,
+        source,
+    });
+}
+
+// Polymarket event trades profile click
+export function capturePolymarketEventTradesProfileClick(eventSlug: string, targetProxyWalletAddress: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_TRADES_PROFILE_CLICK, {
+        event_slug: eventSlug,
+        target_proxy_wallet_address: targetProxyWalletAddress,
+    });
+}
+
+// Opinion event trades profile click
+export function captureOpinionEventTradesProfileClick(eventSlug: string, targetProxyWalletAddress: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.OPINION_EVENT_TRADES_PROFILE_CLICK, {
+        event_slug: eventSlug,
+        target_proxy_wallet_address: targetProxyWalletAddress,
+    });
+}

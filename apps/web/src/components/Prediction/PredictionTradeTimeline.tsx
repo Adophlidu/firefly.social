@@ -24,15 +24,15 @@ interface Props {
     eventSlug?: string;
 }
 
-function getTradeItem(trade: BetsActivity, platform: PredictionPlatform) {
-    return <PredictionTradeTimelineItem trade={trade} platform={platform} />;
+function getTradeItem(trade: BetsActivity, platform: PredictionPlatform, eventSlug?: string) {
+    return <PredictionTradeTimelineItem trade={trade} platform={platform} eventSlug={eventSlug} />;
 }
 
 const PredictionTradeTimelineContent = memo<
     Props & {
         isFollowing: boolean;
     }
->(function PredictionTradeTimelineContent({ platform, marketIds, isFollowing }) {
+>(function PredictionTradeTimelineContent({ platform, marketIds, eventSlug, isFollowing }) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['bets', 'trades-timeline', platform, marketIds.join(','), `${isFollowing}`],
         staleTime: STALE_TIMES.MINUTE_2,
@@ -66,7 +66,7 @@ const PredictionTradeTimelineContent = memo<
                 useWindowScroll: true,
                 listKey: `${ScrollListKey.Prediction}:trades-timeline:${tabKey}`,
                 computeItemKey: (index, trade) => `${trade.slug}-${tabKey}-${index}`,
-                itemContent: (index, trade) => getTradeItem(trade, platform),
+                itemContent: (index, trade) => getTradeItem(trade, platform, eventSlug),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',
@@ -128,6 +128,7 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
                     <PredictionTradeTimelineContent
                         platform={platform}
                         marketIds={marketIds}
+                        eventSlug={eventSlug}
                         isFollowing={isLogin ? isFollowing : false}
                     />
                 </Suspense>

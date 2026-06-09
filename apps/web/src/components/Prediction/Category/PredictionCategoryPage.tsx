@@ -161,6 +161,7 @@ export function PredictionCategoryPage({ slug }: Props) {
                     tab={effectiveTab}
                     availableTabs={tabAvailability.showTabSwitcher ? tabAvailability.availableTabs : []}
                     onTabChange={handleTabChange}
+                    categorySlug={context.activeItem.slug}
                 />
             ) : null}
             <div className={!showCategoryHeader ? 'pt-3' : ''}>

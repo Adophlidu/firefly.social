@@ -13,17 +13,31 @@ import { isSocialSource } from '@/helpers/isSource.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { resolveBetActivityTraderInfo } from '@/helpers/resolveTraderInfoForBetActivity.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import {
+    captureOpinionEventTradesProfileClick,
+    capturePolymarketEventTradesProfileClick,
+} from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 interface PredictionTradeTimelineItemProps {
     trade: BetsActivity;
     platform: PredictionPlatform;
+    eventSlug?: string;
 }
 
-export function PredictionTradeTimelineItem({ trade, platform }: PredictionTradeTimelineItemProps) {
+export function PredictionTradeTimelineItem({ trade, platform, eventSlug }: PredictionTradeTimelineItemProps) {
     const walletAddress = trade.proxyWallet || trade.wallet;
     const addressName = formatAddress(walletAddress, 4);
     const betsProfileUrl = RouteResolver.betsProfile(walletAddress, { platform });
+
+    const handleProfileClick = () => {
+        if (!eventSlug || !walletAddress) return;
+        if (platform === PredictionPlatform.Polymarket) {
+            capturePolymarketEventTradesProfileClick(eventSlug, walletAddress);
+        } else {
+            captureOpinionEventTradesProfileClick(eventSlug, walletAddress);
+        }
+    };
     const marketTitle =
         platform === PredictionPlatform.Polymarket ? trade.rawData?.groupItemTitle || trade.title : trade.title;
     const usdValue = multipliedBy(trade.size, trade.price).toNumber();
@@ -31,7 +45,7 @@ export function PredictionTradeTimelineItem({ trade, platform }: PredictionTrade
 
     return (
         <div className="flex items-center gap-2 border-b border-line px-4 py-3">
-            <Link href={betsProfileUrl} target="_blank" className="relative">
+            <Link href={betsProfileUrl} target="_blank" className="relative" onClick={handleProfileClick}>
                 <Avatar src={avatarUrl} size={36} alt={walletAddress} />
                 {isSocialSource(source) ? (
                     <ProfileSourceIcon
@@ -44,7 +58,12 @@ export function PredictionTradeTimelineItem({ trade, platform }: PredictionTrade
             <div className="text-sm font-medium text-second">
                 {trade.side === 'buy' ? (
                     <Trans>
-                        <Link href={betsProfileUrl} target="_blank" className="text-main hover:underline">
+                        <Link
+                            href={betsProfileUrl}
+                            target="_blank"
+                            className="text-main hover:underline"
+                            onClick={handleProfileClick}
+                        >
                             {displayName}
                         </Link>{' '}
                         Bought{' '}
@@ -62,7 +81,12 @@ export function PredictionTradeTimelineItem({ trade, platform }: PredictionTrade
                     </Trans>
                 ) : (
                     <Trans>
-                        <Link href={betsProfileUrl} target="_blank" className="text-main hover:underline">
+                        <Link
+                            href={betsProfileUrl}
+                            target="_blank"
+                            className="text-main hover:underline"
+                            onClick={handleProfileClick}
+                        >
                             {trade.displayInfo?.ensHandle || addressName}
                         </Link>{' '}
                         Sold{' '}

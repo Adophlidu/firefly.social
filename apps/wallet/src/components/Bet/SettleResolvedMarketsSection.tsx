@@ -7,6 +7,7 @@ import type { Address } from 'viem';
 import { DialogOrDrawer, DialogOrDrawerTrigger } from '@/components/DialogOrDrawer.js';
 import { Image } from '@/components/Image.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { getPolymarketClaimableProceedsQueryOptions } from '@/queries/firefly/getPolymarketClaimableProceedsQueryOptions.js';
 
 const SettleResolvedMarketsModal = lazy(() =>
@@ -32,6 +33,9 @@ export function SettleResolvedMarketsSection({ proxyAddress }: { proxyAddress: A
                 <button
                     type="button"
                     className="box-border flex w-full items-center justify-between gap-3 rounded-xl border border-success/20 bg-[radial-gradient(circle_at_0%_100%,#e9ffe6_0%,#ffffff_58%)] p-4 font-inter shadow-[0_8px_8px_rgba(0,0,0,0.08)] dark:bg-lightBg dark:bg-none"
+                    onClick={() =>
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_CLAIM_PROCEEDS_OPEN_SUCCESS, {})
+                    }
                 >
                     <span className="flex flex-col items-start justify-center text-left">
                         <span className="text-sm font-semibold leading-5 text-success">{totalWonText}</span>

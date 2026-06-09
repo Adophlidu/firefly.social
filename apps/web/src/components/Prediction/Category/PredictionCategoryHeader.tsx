@@ -10,6 +10,7 @@ interface Props {
     tab: PredictionCategoryTab;
     availableTabs: PredictionCategoryTab[];
     onTabChange: (tab: PredictionCategoryTab) => void;
+    categorySlug?: string;
 }
 
 export const PredictionCategoryHeader = memo<Props>(function PredictionCategoryHeader({
@@ -17,11 +18,17 @@ export const PredictionCategoryHeader = memo<Props>(function PredictionCategoryH
     tab,
     availableTabs,
     onTabChange,
+    categorySlug,
 }) {
     return (
         <div className="flex items-center justify-between gap-3 px-4 py-3">
             <h1 className="min-w-0 truncate text-2xl font-black text-main">{title}</h1>
-            <PredictionCategoryTabs tab={tab} availableTabs={availableTabs} onTabChange={onTabChange} />
+            <PredictionCategoryTabs
+                tab={tab}
+                availableTabs={availableTabs}
+                onTabChange={onTabChange}
+                categorySlug={categorySlug}
+            />
         </div>
     );
 });

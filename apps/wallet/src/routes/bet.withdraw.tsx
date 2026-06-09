@@ -23,6 +23,7 @@ import { Button } from '@/components/ui/button.js';
 import { useComeback } from '@/components/useComeback.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
 import { waitForPolymarketWithdraw } from '@/helpers/waitForPolymarketWithdraw.js';
 import { useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
@@ -46,6 +47,10 @@ export const Route = createFileRoute('/bet/withdraw')({
 });
 
 function WithdrawPage() {
+    useEffect(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_WITHDRAW_FUNDS_OPEN_SUCCESS, {});
+    }, []);
+
     return (
         <>
             <NavigationBar>
@@ -299,6 +304,7 @@ function WithdrawClient() {
                     onClick={() => {
                         if (isSubmittingRef.current || isPending) return;
                         isSubmittingRef.current = true;
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_WITHDRAW_FUNDS_CLICK, {});
                         mutate();
                     }}
                 >

@@ -1,12 +1,13 @@
 import { Trans } from '@lingui/react/macro';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { z } from 'zod';
 
 import { BetError } from '@/components/Bet/BetError.js';
 import { BetEventLoading } from '@/components/Bet/BetEventLoading.js';
 import { Button } from '@/components/ui/button.js';
 import { MarketNotFoundError } from '@/constants/error.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 
 // Lazy load the client component
 const BetEventClient = lazy(() => import('@/components/Bet/BetEventClient.js'));
@@ -32,6 +33,15 @@ export const Route = createFileRoute('/bet/event/$id')({
 
 function BetEventPage() {
     const { id } = Route.useParams();
+    const { side } = Route.useSearch();
+
+    useEffect(() => {
+        if (side === 'buy') {
+            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_BUY_OPEN_SUCCESS, {});
+        } else if (side === 'sell') {
+            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_OPEN_SUCCESS, {});
+        }
+    }, [side]);
 
     return (
         <Suspense fallback={<BetEventLoading />}>

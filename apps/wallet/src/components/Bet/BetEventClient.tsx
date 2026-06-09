@@ -31,6 +31,7 @@ import {
 } from '@/helpers/polymarketPositionsCache.js';
 import { computePolymarketMarketBuyFeeUsd, parsePolymarketTakerFeeRate } from '@/helpers/polymarketTakerFee.js';
 import { resolveBetEventPageConfig } from '@/helpers/resolveBetEventPageConfig.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import {
@@ -577,6 +578,7 @@ export default function BetEventClient({ id }: { id: string }) {
                 <Tabs
                     value={side}
                     onValueChange={(x) => {
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_ORDER_TYPE_CHANGE_CLICK, {});
                         setQueryParams({ side: x as Side });
                     }}
                 >
@@ -591,11 +593,12 @@ export default function BetEventClient({ id }: { id: string }) {
                 </Tabs>
                 <button
                     className="flex items-center space-x-1 text-sm font-medium"
-                    onClick={() =>
+                    onClick={() => {
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_ORDER_TYPE_CHANGE_CLICK, {});
                         setQueryParams({
                             orderType: orderType === OrderType.Market ? OrderType.Limit : OrderType.Market,
-                        })
-                    }
+                        });
+                    }}
                 >
                     {orderType === OrderType.Market ? (
                         <span>

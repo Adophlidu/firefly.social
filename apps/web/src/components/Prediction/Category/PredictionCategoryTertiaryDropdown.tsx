@@ -11,6 +11,7 @@ import { PredictionCategorySlugIcon } from '@/components/Prediction/Category/Pre
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
 import { PREDICTION_CATEGORY_SCROLL_KEY_ATTR } from '@/helpers/prediction/category/getCategoryScrollKey.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
+import { capturePolymarketHomeCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
 interface Props {
@@ -63,6 +64,9 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                                             replace
                                             key={tertiary.slug}
                                             href={buildPredictionCategoryHref(tertiary, item)}
+                                            onClick={() =>
+                                                capturePolymarketHomeCategoryClick(tertiary.slug, tertiary.label, 3)
+                                            }
                                             className={classNames(
                                                 'flex items-center gap-2 rounded-xl p-2 text-sm font-medium text-main transition-colors hover:bg-lightBg',
                                                 isActive ? 'bg-bg' : '',

@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys, optimisticRemovePosition } from '@/helpers/polymarketPositionsCache.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import { cn } from '@/lib/utils.js';
 import type { PolymarketPosition } from '@/providers/types/Firefly.js';
@@ -182,7 +183,10 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
                         variant="primary"
                         className="h-10 w-full rounded-full font-bold"
                         loading={isPending}
-                        onClick={() => mutate()}
+                        onClick={() => {
+                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_CLAIM_PROCEEDS_CLICK, {});
+                            mutate();
+                        }}
                     >
                         {primaryButtonText}
                     </Button>

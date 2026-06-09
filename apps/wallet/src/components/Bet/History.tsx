@@ -41,6 +41,7 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import { cn } from '@/lib/utils.js';
 import {
@@ -187,6 +188,12 @@ function ClosedPositionsHistory() {
                             <button
                                 type="button"
                                 className="flex h-9 items-center gap-1 rounded-2xl border border-line px-4 text-sm font-medium leading-[18px] text-main"
+                                onClick={() =>
+                                    captureWalletTelemetryEvent(
+                                        WalletTelemetryEventId.BETS_POSITION_CLOSE_OPEN_SUCCESS,
+                                        {},
+                                    )
+                                }
                             >
                                 <ArchiveIcon className="size-3.5" />
                                 <Trans>Close all the losses</Trans>
@@ -541,7 +548,10 @@ function CloseLossesDialog({
                         className="h-10 w-full shrink-0 rounded-full font-bold"
                         loading={isPending}
                         disabled={isPending || !claimItems.length}
-                        onClick={() => mutate()}
+                        onClick={() => {
+                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_CLOSE_CLICK, {});
+                            mutate();
+                        }}
                     >
                         <Trans>Close losses</Trans>
                     </Button>

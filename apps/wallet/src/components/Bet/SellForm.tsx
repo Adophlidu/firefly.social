@@ -15,6 +15,7 @@ import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { cn } from '@/lib/utils.js';
 import { getAvailableSharesByConditionIdQueryOptions } from '@/queries/firefly/getAvailableSharesByConditionIdQueryOptions.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -172,6 +173,7 @@ export function SellMarketForm({
                     loading={loading}
                     onClick={() => {
                         if (submitDisabled) return;
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {});
                         return onSubmit({
                             shares: sharesBN.toNumber(),
                             fullSell:
@@ -359,6 +361,7 @@ export function SellLimitForm({
                     loading={loading}
                     onClick={() => {
                         if (submitDisabled) return;
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {});
                         return onSubmit({ shares: sharesBN.toNumber(), limitPrice: limitPriceDollars.toNumber() });
                     }}
                 >

@@ -5,7 +5,7 @@ import SecurityIcon from '@dimensiondev/assets/security.svg';
 import WarningIcon from '@dimensiondev/assets/warning.svg';
 import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useConnectors, useSignMessage } from 'wagmi';
 
@@ -17,11 +17,16 @@ import {
 } from '@/components/DialogOrDrawer.js';
 import { Button } from '@/components/ui/button.js';
 import type { RouteModalProps } from '@/configs/modalRoutes.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 function ExportPrivateKeyResult({ privateKey }: { privateKey: string }) {
     const [copied, handleCopy] = useCopyText('');
+    const onCopy = () => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_PRIVATE_KEY_COPY_CLICK, {});
+        handleCopy(privateKey);
+    };
     return (
         <div className="flex h-[252px] flex-col items-center justify-center gap-6">
             <div className="flex items-center gap-2">
@@ -32,12 +37,12 @@ function ExportPrivateKeyResult({ privateKey }: { privateKey: string }) {
             </div>
             <div
                 className="cursor-pointer break-all rounded-2xl border px-6 py-3 text-center text-sm font-semibold"
-                onClick={() => handleCopy(privateKey)}
+                onClick={onCopy}
                 role="button"
             >
                 {privateKey}
             </div>
-            <div className="flex cursor-pointer items-center gap-2" onClick={() => handleCopy(privateKey)}>
+            <div className="flex cursor-pointer items-center gap-2" onClick={onCopy}>
                 {copied ? <CheckIcon width={16} height={16} /> : <CopyIcon width={16} height={16} />}
                 <span className="text-sm font-semibold text-second">
                     {copied ? <Trans>Copied</Trans> : <Trans>Copy to clipboard</Trans>}
@@ -52,6 +57,12 @@ export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalPr
     const { mutateAsync: signMessage } = useSignMessage();
     const connectors = useConnectors();
     const [privateKey, setPrivateKey] = useState('');
+
+    useEffect(() => {
+        if (open) {
+            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_VIEW_PRIVATE_KEY_PANEL_OPEN, {});
+        }
+    }, [open]);
 
     const [{ loading: exporting }, exportPrivateKey] = useAsyncFn(async () => {
         const message = `Export Polymarket Private Key ${Date.now()}`;
@@ -112,6 +123,7 @@ export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalPr
                                 <Button
                                     className="font-bold"
                                     onClick={async () => {
+                                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_SHOW_PRIVATE_KEY, {});
                                         setConfirmed(true);
                                         const pk = await exportPrivateKey();
                                         if (pk) setPrivateKey(pk);

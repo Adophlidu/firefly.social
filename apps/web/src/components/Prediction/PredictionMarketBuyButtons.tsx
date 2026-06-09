@@ -13,6 +13,7 @@ import { PredictionContext } from '@/components/Prediction/PredictionContext.js'
 import { STALE_TIMES } from '@/constants/query.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { getPolymarketOrderBooks } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';
+import { capturePolymarketOrderClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketBuyButtonsProps {
@@ -90,6 +91,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         data-prevent-progress
                         onClick={() => {
                             if (market.slug) {
+                                capturePolymarketOrderClick(market.slug, i);
                                 openPredictionPage(market.slug, { outcome: i });
                             }
                         }}

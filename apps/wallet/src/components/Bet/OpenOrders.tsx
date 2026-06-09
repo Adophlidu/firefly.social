@@ -29,6 +29,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Button } from '@/components/ui/button.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import type { PolymarketOpenOrderDetail } from '@/providers/types/Firefly.js';
@@ -165,6 +166,7 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
                     variant="outline"
                     size="lg"
                     className={cn('h-10 w-full rounded-[10px] border-third text-main active:scale-[0.99]')}
+                    onClick={() => captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ORDER_CANCEL_CLICK, {})}
                 >
                     <Trans>Cancel</Trans>
                 </Button>
@@ -255,6 +257,7 @@ function CancelPolymarketOrderModal({
                         className="h-12 w-full rounded-full"
                         loading={isPending}
                         onClick={async () => {
+                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ORDER_CANCEL_CONFIRM_CLICK, {});
                             await mutateAsync();
                             setOpen(false);
                         }}

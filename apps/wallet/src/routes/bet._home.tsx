@@ -9,7 +9,7 @@ import { isZero } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from '@tanstack/react-router';
-import { Suspense, useCallback } from 'react';
+import { Suspense, useCallback, useEffect } from 'react';
 import { toast } from 'sonner';
 import type { Address } from 'viem';
 
@@ -24,6 +24,7 @@ import { InvalidPolymarketAccountError } from '@/constants/error.js';
 import { formatPercentRate } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { usePolymarketBalance } from '@/hooks/usePolymarketBalance.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
@@ -50,6 +51,13 @@ export const Route = createFileRoute('/bet/_home')({
     errorComponent: BetError,
 });
 
+function PositionsTelemetry() {
+    useEffect(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITIONS_LIST_OPEN_SUCCESS, {});
+    }, []);
+    return null;
+}
+
 function BetHomeLayout() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -75,6 +83,7 @@ function BetHomeLayout() {
     return (
         <div className="flex w-full flex-1 flex-col items-center">
             <BetNavigationBar />
+            <PositionsTelemetry />
             <div className="flex min-h-[calc(100vh+460px-44px)] w-full flex-col items-center">
                 <ErrorBoundary fallback={betHomeErrorFallback} catch={betHomeCatchHandler}>
                     <Suspense fallback={<HeaderLoading className="px-4 pb-[78px]" />}>
@@ -126,6 +135,10 @@ function TabNavigation() {
 }
 
 export function ClientLayout() {
+    useEffect(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ACCOUNT_OPEN_SUCCESS, {});
+    }, []);
+
     const queryClient = useQueryClient();
     const { data } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const proxyAddress = data.proxyAddress;

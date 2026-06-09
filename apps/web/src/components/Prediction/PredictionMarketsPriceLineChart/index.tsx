@@ -36,6 +36,7 @@ interface PredictionMarketsPriceLineChartProps {
     showBuyButtons?: boolean;
     filterResolvedMarkets?: boolean;
     className?: string;
+    eventSlug?: string;
 }
 
 const lineColors = ['#FF209B', '#5E69FF', '#FF372B', '#FFAA16', '#00D2FF', '#00FF85', '#FF6EC4', '#8C56FF'];
@@ -70,6 +71,7 @@ export function PredictionMarketsPriceLineChart({
     showBuyButtons = true,
     filterResolvedMarkets = true,
     className,
+    eventSlug,
 }: PredictionMarketsPriceLineChartProps) {
     const [outcomeId, setOutcomeId] = useState(first(markets)?.outcomes?.[0]?.id || '');
     const [timeRange, setTimeRange] = useState(BetsPriceTimeRange.All);
@@ -139,9 +141,18 @@ export function PredictionMarketsPriceLineChart({
                     onPayloadChange={setPayload}
                 />
                 <div className="mt-4 flex items-start gap-3">
-                    <TimeRangeSettings platform={platform} timeRange={timeRange} onTimeRangeChange={setTimeRange} />
+                    <TimeRangeSettings
+                        platform={platform}
+                        timeRange={timeRange}
+                        onTimeRangeChange={setTimeRange}
+                        eventSlug={eventSlug}
+                    />
                     {markets.length > 1 ? (
-                        <MarketSettings markets={marketsWithSettings} onMarketsChange={setMarketsWithSettings} />
+                        <MarketSettings
+                            markets={marketsWithSettings}
+                            onMarketsChange={setMarketsWithSettings}
+                            eventSlug={eventSlug}
+                        />
                     ) : (
                         <ClickableButton
                             className="-mt-1 flex size-6 items-center justify-center rounded hover:bg-bg"

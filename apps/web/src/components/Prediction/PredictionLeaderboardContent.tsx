@@ -9,10 +9,13 @@ import {
 } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionLeaderboardItem } from '@/components/Prediction/PredictionLeaderboardItem.js';
 import { getPolymarketRank, type PolymarketRankItem } from '@/providers/firefly/prediction/getPolymarketRank.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 function getPredictionLeaderboardItem(index: number, tab: BetsLeaderboardTab, item: PolymarketRankItem) {
     const itemRank = item.rank ?? index + 1;
@@ -26,6 +29,10 @@ interface PredictionLeaderboardContentProps {
 }
 
 export function PredictionLeaderboardContent({ tab, period, order }: PredictionLeaderboardContentProps) {
+    useEffect(() => {
+        TelemetryProvider.captureEventInSafe(EventId.BETS_LEADERBOARD_OPEN_SUCCESS, {});
+    }, []);
+
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['polymarket-rank', tab, period, order],
         queryFn: async ({ pageParam }) => {

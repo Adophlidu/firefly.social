@@ -16,6 +16,7 @@ import {
 import { resolvePastEventOutcome } from '@/helpers/prediction/polymarket/eventSeriesPills/toSeriesEventForPills.js';
 import type { PastOutcome, SeriesEventForPills } from '@/helpers/prediction/polymarket/eventSeriesPills/types.js';
 import { resolvePredictionEventUrl } from '@/helpers/resolvePredictionEventUrl.js';
+import { capturePolymarketEventCryptoRecurrenceClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PastSeriesDropdownProps {
@@ -39,7 +40,10 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
         <Popover as="div" className="relative">
             {({ close }) => (
                 <>
-                    <PopoverButton className="flex h-[30px] items-center gap-2 rounded-full border border-secondaryLine px-2.5 focus:outline-none">
+                    <PopoverButton
+                        className="flex h-[30px] items-center gap-2 rounded-full border border-secondaryLine px-2.5 focus:outline-none"
+                        onClick={() => capturePolymarketEventCryptoRecurrenceClick(eventSlug, 'past')}
+                    >
                         <span className="shrink-0 whitespace-nowrap text-[10px] font-bold">
                             <Trans>Past</Trans>
                         </span>

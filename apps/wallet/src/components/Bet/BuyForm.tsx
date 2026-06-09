@@ -32,6 +32,7 @@ import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInput
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
 import { computePolymarketMarketBuyFeeUsd, parsePolymarketTakerFeeRate } from '@/helpers/polymarketTakerFee.js';
 import { switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { cn } from '@/lib/utils.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -273,8 +274,14 @@ export function BuyMarketForm({
     const runNormalBuy = useCallback(async () => {
         if (submitDisabled) return;
         if (loading || isQuickBuying) return;
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_BUY_CLICK, {});
         return onSubmit(amount);
     }, [amount, isQuickBuying, loading, onSubmit, submitDisabled]);
+
+    const handleQuickBuyOpen = useCallback(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_QUICK_BUY_OPEN_SUCCESS, {});
+        setQuickBuyConfirmOpen(true);
+    }, []);
 
     return (
         <div className="flex w-full flex-1 flex-col">
@@ -390,7 +397,7 @@ export function BuyMarketForm({
                             className="h-12 w-full rounded-full"
                             disabled={Boolean(submitDisabled) || !canQuickBuy || isQuickBuying || loading}
                             loading={isQuickBuying}
-                            onClick={() => setQuickBuyConfirmOpen(true)}
+                            onClick={handleQuickBuyOpen}
                         >
                             <LightningIcon width={18} height={18} className="shrink-0" />
                             <Trans>Quick Buy</Trans>
@@ -545,11 +552,17 @@ export function BuyLimitForm({
     const runNormalBuy = useCallback(async () => {
         if (submitDisabled) return;
         if (loading || isQuickBuying) return;
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_BUY_CLICK, {});
         return onSubmit({
             shares: Number(shares),
             limitPrice: limitPriceDollars.toNumber(),
         });
     }, [isQuickBuying, limitPriceDollars, loading, onSubmit, shares, submitDisabled]);
+
+    const handleQuickBuyOpen = useCallback(() => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_QUICK_BUY_OPEN_SUCCESS, {});
+        setQuickBuyConfirmOpen(true);
+    }, []);
 
     function setSharesByDelta(delta: BigNumber.Value | 'max') {
         if (delta === 'max') {
@@ -690,7 +703,7 @@ export function BuyLimitForm({
                             className="h-12 w-full rounded-full"
                             disabled={Boolean(submitDisabled) || !canQuickBuy || isQuickBuying || loading}
                             loading={isQuickBuying}
-                            onClick={() => setQuickBuyConfirmOpen(true)}
+                            onClick={handleQuickBuyOpen}
                         >
                             <LightningIcon width={18} height={18} className="shrink-0" />
                             <Trans>Quick Buy</Trans>

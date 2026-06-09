@@ -6,12 +6,14 @@ import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { capturePolymarketEventChartChange } from '@/providers/telemetry/capturePolymarketEvent.js';
 
 interface TimeRangeSettingsProps {
     platform: PredictionPlatform;
     timeRange: BetsPriceTimeRange;
     onTimeRangeChange: (timeRange: BetsPriceTimeRange) => void;
     className?: string;
+    eventSlug?: string;
 }
 
 function TimeRangeLabel({ timeRange }: { timeRange: BetsPriceTimeRange }) {
@@ -39,6 +41,7 @@ export const TimeRangeSettings = memo<TimeRangeSettingsProps>(function TimeRange
     timeRange,
     onTimeRangeChange,
     className,
+    eventSlug,
 }) {
     const timeRanges = useMemo(
         () =>
@@ -73,6 +76,8 @@ export const TimeRangeSettings = memo<TimeRangeSettingsProps>(function TimeRange
                     )}
                     onClick={() => {
                         if (range === timeRange) return;
+                        if (eventSlug)
+                            capturePolymarketEventChartChange(eventSlug, 'time_range', { time_range: String(range) });
                         onTimeRangeChange(range);
                     }}
                 >
