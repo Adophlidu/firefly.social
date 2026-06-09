@@ -1,4 +1,4 @@
-import type { FireflyAuthMode, StorageAdapter } from '@/types.js';
+import type { FireflyAuthMode, FireflyAuthPolicy, StorageAdapter } from '@/types.js';
 
 /** Production Firefly API root. The refresh endpoint lives under `/v3/auth`. */
 const DEFAULT_FIREFLY_ROOT_URL = 'https://api.firefly.land';
@@ -14,6 +14,15 @@ const DEFAULT_PROACTIVE_REFRESH_THRESHOLD_MS = 10 * 60 * 1000; // 10 minutes
 
 /** localStorage key the Firefly app persists its profile/session store under. */
 const DEFAULT_STORAGE_KEY = 'firefly-state';
+
+/**
+ * Network timeout (ms) for a token rotation request. Bounds how long the
+ * origin-wide rotation lock is held, so a hung refresh in one sub-site cannot
+ * block token access in the others. Generous on purpose: aborting an in-flight
+ * rotation that already rotated server-side would strand the (single-use)
+ * refresh token.
+ */
+const DEFAULT_REQUEST_TIMEOUT_MS = 30 * 1000; // 30 seconds
 
 /** User-facing options for {@link FireflyAuthClient}; every field is optional. */
 export interface FireflyAuthClientOptions {
@@ -39,13 +48,16 @@ export interface FireflyAuthClientOptions {
      */
     storage?: StorageAdapter | null;
     /**
-     * Auto-upgrade legacy sessions to JWT v3. When `true` (default) and no v3
-     * token is found in storage, the package reaches for the legacy access token
-     * and upgrades it to a v3 token pair (then maintains it like any v3 session).
-     * When `false`, auto-upgrade is disabled: the legacy access token is served
-     * as-is for backward compatibility.
+     * Which access token to serve. `'auto'` (default) upgrades a legacy-only
+     * session to JWT v3 and otherwise uses the existing v3 token; `'jwt'` uses
+     * only the v3 token; `'legacy'` uses only the legacy token (as-is).
      */
-    autoUpgrade?: boolean;
+    policy?: FireflyAuthPolicy;
+    /**
+     * Network timeout (ms) for a token rotation request. Bounds how long the
+     * origin-wide rotation lock is held across sub-sites. Default: 30s.
+     */
+    requestTimeoutMs?: number;
     /** Emit verbose `info` logs. Warnings/errors are always logged. Default: false. */
     debug?: boolean;
 }
@@ -58,7 +70,8 @@ export interface ResolvedConfig {
     proactiveRefreshThresholdMs: number;
     storageKey: string;
     storage: StorageAdapter | null;
-    autoUpgrade: boolean;
+    policy: FireflyAuthPolicy;
+    requestTimeoutMs: number;
     debug: boolean;
 }
 
@@ -86,7 +99,8 @@ export function resolveConfig(options: FireflyAuthClientOptions = {}): ResolvedC
         storageKey: options.storageKey ?? DEFAULT_STORAGE_KEY,
         // Respect an explicit `null` (disable storage); only fall back when omitted.
         storage: options.storage !== undefined ? options.storage : resolveDefaultStorage(),
-        autoUpgrade: options.autoUpgrade ?? true,
+        policy: options.policy ?? 'auto',
+        requestTimeoutMs: options.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS,
         debug: options.debug ?? false,
     };
 }

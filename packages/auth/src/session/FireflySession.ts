@@ -9,13 +9,17 @@ export const TOKEN_LOCK = 'firefly:jwt:token';
  * freshest token to consumers.
  *
  * Shared, environment-agnostic machinery lives here — subscriber fan-out and
- * single-flight refresh dedupe. Subclasses ({@link FireflySessionWeb},
- * {@link FireflySessionNative}) provide the environment-specific token source
- * via {@link getAccessToken} and {@link rotate}.
+ * single-flight dedupe for the two rotation kinds (refresh and legacy upgrade).
+ * Subclasses ({@link FireflySessionWeb}, {@link FireflySessionNative}) provide
+ * the environment-specific token source via {@link getAccessToken},
+ * {@link rotate}, and (optionally) {@link upgrade}.
  */
 export abstract class FireflySession {
-    /** In-tab refresh dedupe: concurrent callers await a single rotation. */
+    /** In-flight refresh, so concurrent callers in this instance share one rotation. */
     private refreshPromise: Promise<string | null> | null = null;
+
+    /** In-flight legacy→v3 upgrade, deduped independently of {@link refreshPromise}. */
+    private upgradePromise: Promise<string | null> | null = null;
 
     private listeners = new Set<AccessTokenListener>();
     private lastNotified: string | null = null;
@@ -29,11 +33,18 @@ export abstract class FireflySession {
     abstract getAccessToken(): Promise<string | null>;
 
     /**
-     * Perform an actual token rotation and return the new access token. Always
-     * invoked through {@link refreshOnce} so concurrent callers share a single
-     * in-flight rotation.
+     * Rotate the v3 token pair and return the new access token. Always invoked
+     * through {@link refreshOnce} so concurrent callers share one rotation.
      */
     protected abstract rotate(): Promise<string | null>;
+
+    /**
+     * Upgrade a legacy session to a v3 token pair. Defaults to {@link rotate};
+     * the web session overrides it with the legacy-token exchange.
+     */
+    protected upgrade(): Promise<string | null> {
+        return this.rotate();
+    }
 
     /**
      * Force a refresh now and return the new token. Call after a request fails
@@ -60,6 +71,14 @@ export abstract class FireflySession {
             this.refreshPromise = null;
         });
         return this.refreshPromise;
+    }
+
+    /** Single-flight wrapper around {@link upgrade}. */
+    protected upgradeOnce(): Promise<string | null> {
+        this.upgradePromise ??= this.upgrade().finally(() => {
+            this.upgradePromise = null;
+        });
+        return this.upgradePromise;
     }
 
     /** Notify subscribers when the freshest access token changes. */

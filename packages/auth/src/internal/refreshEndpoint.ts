@@ -42,6 +42,16 @@ function unwrap<T>(response: FireflyResponse<T>): T {
 }
 
 /**
+ * Abort signal that fires after the configured request timeout, so a rotation
+ * call can't hold the origin-wide lock indefinitely. `undefined` where
+ * `AbortSignal.timeout` is unavailable (the request then runs without a timeout).
+ */
+function timeoutSignal(config: ResolvedConfig): AbortSignal | undefined {
+    if (typeof AbortSignal === 'undefined' || typeof AbortSignal.timeout !== 'function') return undefined;
+    return AbortSignal.timeout(config.requestTimeoutMs);
+}
+
+/**
  * Exchange a Firefly v3 refresh token for a fresh token pair via
  * `POST /v3/auth/refreshJWT`.  The refresh token is single-use and rotated:
  * the response carries the next one.
@@ -52,6 +62,7 @@ export async function refreshFireflyToken(refreshToken: string, config: Resolved
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ refresh_token: refreshToken }),
+        signal: timeoutSignal(config),
     });
     if (!res.ok) throw new HttpError(`refreshJWT failed: ${res.status}`, res.status);
     return unwrap((await res.json()) as FireflyResponse<FireflyTokenData>);
@@ -70,6 +81,7 @@ export async function exchangeLegacyFireflyToken(
     const res = await fetch(url, {
         method: 'POST',
         headers: { Authorization: `Bearer ${legacyToken}` },
+        signal: timeoutSignal(config),
     });
     if (!res.ok) throw new HttpError(`exchangeLegacyJWT failed: ${res.status}`, res.status);
     return unwrap((await res.json()) as FireflyResponse<FireflyTokenData>);

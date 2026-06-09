@@ -7,13 +7,13 @@ import { store } from '@/store/index.js';
 
 /**
  * Single client that maintains the freshest Firefly access token — JWT v3
- * refresh and rotation, legacy→v3 auto-upgrade, and the native bridge — reading
- * the shared `firefly-state` session. `autoUpgrade` follows the JWT v3 rollout
- * flag: when disabled, the legacy access token is served as-is.
+ * refresh and rotation, legacy→v3 upgrade, and the native bridge — reading the
+ * shared `firefly-state` session. The policy follows the JWT v3 rollout flag:
+ * `auto` (upgrade + v3) when enabled, `legacy` (serve the legacy token) otherwise.
  */
 export const fireflyAuthClient = new FireflyAuthClient({
     fireflyRootUrl: envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
-    autoUpgrade: envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled,
+    policy: envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled ? 'auto' : 'legacy',
 });
 
 const accessTokenAtom = atom<string | null>(null);

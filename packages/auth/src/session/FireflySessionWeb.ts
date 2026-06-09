@@ -12,9 +12,9 @@ import type { FireflySnapshot, JwtPayload } from '@/types.js';
  *
  * Tokens are refreshed before expiry, rotated under an origin-wide Web Lock so
  * concurrent tabs/sub-sites don't burn the single-use refresh token, and
- * written back so siblings adopt the rotated pair. Legacy-only sessions are
- * upgraded to a v3 token pair on first use. A `storage` listener propagates
- * cross-tab login/logout/rotation to subscribers.
+ * written back so siblings adopt the rotated pair. Under the `auto` policy a
+ * legacy-only session is upgraded to a v3 token pair on first use. A `storage`
+ * listener propagates cross-tab login/logout/rotation to subscribers.
  */
 export class FireflySessionWeb extends FireflySession {
     constructor(ctx: AuthContext) {
@@ -26,14 +26,22 @@ export class FireflySessionWeb extends FireflySession {
         const snapshot = readFireflySnapshot(this.ctx);
         if (!snapshot) return null;
 
-        // No v3 token in storage: auto-upgrade the legacy token to a v3 pair, or
-        // (when auto-upgrade is off) serve the legacy token as-is.
-        if (!snapshot.jwt?.accessToken) {
-            if (this.ctx.config.autoUpgrade && snapshot.legacyToken) return this.refreshOnce();
+        const { policy } = this.ctx.config;
+
+        // `legacy`: only ever use the legacy access token, served as-is.
+        if (policy === 'legacy') {
             const token = snapshot.legacyToken ?? null;
             this.notify(token);
             return token;
         }
+
+        // `auto`: upgrade a legacy-only session to a v3 token pair first.
+        if (policy === 'auto' && !snapshot.jwt?.accessToken && snapshot.legacyToken) {
+            return this.upgradeOnce();
+        }
+
+        // `jwt` (and `auto` once a v3 token exists): use/refresh the v3 token.
+        if (!snapshot.jwt?.accessToken) return null;
 
         // Rotate before expiry so no request ever leaves with a stale token.
         if (snapshot.jwt.refreshToken && shouldProactivelyRefresh(snapshot.expiresAt, this.ctx)) {
@@ -44,14 +52,37 @@ export class FireflySessionWeb extends FireflySession {
         return snapshot.jwt.accessToken;
     }
 
-    protected override async rotate(): Promise<string | null> {
+    /** Rotate the v3 token pair via the refresh token. */
+    protected override rotate(): Promise<string | null> {
+        return this.rotateExclusively((snapshot) => {
+            if (!snapshot.jwt?.refreshToken) throw new Error('No refresh token available to rotate this session.');
+            return refreshFireflyToken(snapshot.jwt.refreshToken, this.ctx.config);
+        });
+    }
+
+    /** Exchange the legacy token for a v3 token pair. */
+    protected override upgrade(): Promise<string | null> {
+        return this.rotateExclusively((snapshot) => {
+            if (!snapshot.legacyToken) throw new Error('No legacy token available to upgrade this session.');
+            return exchangeLegacyFireflyToken(snapshot.legacyToken, this.ctx.config);
+        });
+    }
+
+    /**
+     * Run a rotation under the origin-wide lock. After acquiring it, adopt a
+     * sibling tab/sub-site's already-rotated token (the single-use refresh token
+     * would otherwise 401); otherwise rotate, persist, and notify. On failure,
+     * fall back to whatever the storage currently holds.
+     */
+    private async rotateExclusively(
+        rotate: (snapshot: FireflySnapshot) => Promise<FireflyTokenData>,
+    ): Promise<string | null> {
         const before = readFireflySnapshot(this.ctx);
         if (!before) return null;
 
         const startedAccessToken = before.jwt?.accessToken;
 
         return withTokenLock(TOKEN_LOCK, async () => {
-            // A sibling tab/sub-site may have rotated while we waited for the lock.
             const fresh = readFireflySnapshot(this.ctx);
             if (
                 fresh?.jwt?.accessToken &&
@@ -63,7 +94,7 @@ export class FireflySessionWeb extends FireflySession {
             }
 
             try {
-                const data = await this.rotateTokens(fresh ?? before);
+                const data = await rotate(fresh ?? before);
                 const jwt: JwtPayload = {
                     accessToken: data.access_token_v3,
                     refreshToken: data.refresh_token_v3,
@@ -74,23 +105,13 @@ export class FireflySessionWeb extends FireflySession {
                 this.notify(data.access_token_v3);
                 return data.access_token_v3;
             } catch (error) {
-                this.ctx.logger.warn('Web token refresh failed', error);
-                // Fall back to whatever the storage currently holds.
+                this.ctx.logger.warn('Web token rotation failed', error);
                 const fallback = readFireflySnapshot(this.ctx);
                 const token = fallback?.jwt?.accessToken ?? fallback?.legacyToken ?? null;
                 this.notify(token);
                 return token;
             }
         });
-    }
-
-    /** Rotate via the refresh token, or upgrade a legacy session when enabled. */
-    private rotateTokens(snapshot: FireflySnapshot): Promise<FireflyTokenData> {
-        if (snapshot.jwt?.refreshToken) return refreshFireflyToken(snapshot.jwt.refreshToken, this.ctx.config);
-        if (this.ctx.config.autoUpgrade && snapshot.legacyToken) {
-            return exchangeLegacyFireflyToken(snapshot.legacyToken, this.ctx.config);
-        }
-        throw new Error('No refresh or legacy token available to rotate this session.');
     }
 
     /**

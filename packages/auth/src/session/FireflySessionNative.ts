@@ -34,9 +34,9 @@ export class FireflySessionNative extends FireflySession {
     }
 
     protected override async rotate(): Promise<string | null> {
-        // Older builds can't hand us a refresh token: the host app keeps the
-        // access token fresh, so just ask for the current one.
-        if (!(await this.supportsRefreshToken())) {
+        // The `legacy` policy, or older builds without GET_REFRESH_TOKEN: the
+        // host app owns token freshness, so just ask for the current token.
+        if (this.ctx.config.policy === 'legacy' || !(await this.supportsRefreshToken())) {
             return this.refreshViaAuthorization();
         }
         return this.rotateViaRefreshToken();

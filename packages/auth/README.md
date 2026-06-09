@@ -80,13 +80,18 @@ const auth = new FireflyAuthClient({
     proactiveRefreshThresholdMs: 10 * 60 * 1000, // default: 10m
     storageKey: 'firefly-state', // default
     storage: localStorage, // default: ambient localStorage; supply any { getItem, setItem }
-    autoUpgrade: true, // default; upgrade legacy sessions to JWT v3 when no v3 token exists
+    policy: 'auto', // 'auto' | 'jwt' | 'legacy'; which access token to serve (see below)
+    requestTimeoutMs: 30 * 1000, // default; bounds how long a rotation holds the cross-sub-site lock
     debug: false,
 });
 ```
 
-Set `autoUpgrade: false` to disable the legacy→v3 upgrade and keep serving the
-legacy access token as-is (backward compatibility).
+`policy` selects which token to serve:
+
+- `auto` (default) — upgrade a legacy-only session to JWT v3, otherwise use the
+  existing v3 token.
+- `jwt` — use only the JWT v3 access token (rotating/refreshing it); `null` if absent.
+- `legacy` — use only the legacy access token, as-is (no upgrade or refresh).
 
 Pass `storage: null` to disable web storage entirely (native-only contexts).
 
@@ -96,9 +101,9 @@ Pass `storage: null` to disable web storage entirely (native-only contexts).
   Tokens are refreshed before expiry via `POST /v3/auth/refreshJWT`, rotated under
   an origin-wide [Web Lock](https://developer.mozilla.org/docs/Web/API/Web_Locks_API)
   (`firefly:jwt:token`) so concurrent tabs/sub-sites don't burn the single-use
-  refresh token, and written back so siblings adopt the rotated pair. When no v3
-  token is in storage and `autoUpgrade` is on (default), the legacy access token
-  is upgraded via `exchangeLegacyJWT` on first use; otherwise it is served as-is.
+  refresh token, and written back so siblings adopt the rotated pair. Under the
+  `auto` policy, a legacy-only session is upgraded via `exchangeLegacyJWT` on
+  first use; `legacy` serves the legacy token as-is, `jwt` uses only v3.
 - **Native** (inside the Firefly app webview): on builds that support
   `GET_REFRESH_TOKEN`, the refresh token is obtained from the native bridge and
   this package maintains rotation in memory (a 401 re-seeds from the bridge once).

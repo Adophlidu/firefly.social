@@ -7,6 +7,15 @@
 export type FireflyAuthMode = 'auto' | 'web' | 'native';
 
 /**
+ * Which access token to serve from storage:
+ * - `legacy`: only the legacy access token (returned as-is, never upgraded).
+ * - `jwt`: only the JWT v3 access token (rotated/refreshed); `null` if absent.
+ * - `auto` (default): upgrade a legacy-only session to JWT v3, otherwise use the
+ *   existing JWT v3 token.
+ */
+export type FireflyAuthPolicy = 'legacy' | 'jwt' | 'auto';
+
+/**
  * Minimal synchronous key/value storage abstraction.
  *
  * Mirrors the slice of the Web Storage API (`localStorage`) that this package
