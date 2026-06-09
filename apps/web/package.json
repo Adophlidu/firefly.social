@@ -31,6 +31,7 @@
         "@bprogress/next": "^3.2.12",
         "@coral-xyz/anchor": "^0.32.1",
         "@dimensiondev/assets": "workspace:^",
+        "@dimensiondev/auth": "workspace:^",
         "@dimensiondev/constants": "workspace:^",
         "@dimensiondev/enums": "workspace:^",
         "@dimensiondev/envs": "workspace:^",

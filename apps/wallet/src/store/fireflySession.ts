@@ -14,6 +14,9 @@ import { store } from '@/store/index.js';
 export const fireflyAuthClient = new FireflyAuthClient({
     fireflyRootUrl: envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
     policy: envs.external.NEXT_PUBLIC_FIREFLY_JWT_V3 === STATUS.Enabled ? 'auto' : 'legacy',
+    // `globalThis.process` guards the Vite client bundle (no `process` there); resolves the
+    // secret only server-side, and the package drops the header when it is undefined.
+    headers: { 'x-vercel-protection-bypass': globalThis.process?.env?.VERCEL_AUTOMATION_BYPASS_SECRET },
 });
 
 const accessTokenAtom = atom<string | null>(null);

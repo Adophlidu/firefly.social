@@ -82,6 +82,10 @@ const auth = new FireflyAuthClient({
     storage: localStorage, // default: ambient localStorage; supply any { getItem, setItem }
     policy: 'auto', // 'auto' | 'jwt' | 'legacy'; which access token to serve (see below)
     requestTimeoutMs: 30 * 1000, // default; bounds how long a rotation holds the cross-sub-site lock
+    headers: {
+        'x-vercel-protection-bypass':
+            process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+    }, // extra headers on rotation requests; undefined values dropped
     debug: false,
 });
 ```
@@ -113,3 +117,16 @@ Pass `storage: null` to disable web storage entirely (native-only contexts).
   expiry.
 
 Either way, consumers only ever see the newest access token.
+
+## Utilities
+
+`getAccessTokenExpiresAt(accessToken, ttlMs?)` decodes the `issued_at_ms` claim
+from a Firefly JWT v3 access token and returns its absolute expiry (ms epoch), or
+`0` for a legacy token. Useful for consumers that persist Firefly sessions
+themselves and need to stamp the same expiry the package reads back:
+
+```ts
+import { getAccessTokenExpiresAt } from '@dimensiondev/auth';
+
+const expiresAt = getAccessTokenExpiresAt(accessToken); // defaults to the 15m TTL
+```

@@ -71,7 +71,7 @@ export class FireflySessionNative extends FireflySession {
             const token = await nativeBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {});
             if (token) {
                 this.accessToken = token;
-                this.expiresAt = getAccessTokenExpiresAt(token, this.ctx);
+                this.expiresAt = getAccessTokenExpiresAt(token, this.ctx.config.accessTokenTtlMs);
                 this.notify(this.accessToken);
             }
         } catch (error) {
@@ -101,7 +101,7 @@ export class FireflySessionNative extends FireflySession {
     private applyTokens(data: FireflyTokenData): void {
         this.accessToken = data.access_token_v3;
         this.refreshToken = data.refresh_token_v3;
-        this.expiresAt = getAccessTokenExpiresAt(data.access_token_v3, this.ctx);
+        this.expiresAt = getAccessTokenExpiresAt(data.access_token_v3, this.ctx.config.accessTokenTtlMs);
         this.notify(this.accessToken);
     }
 

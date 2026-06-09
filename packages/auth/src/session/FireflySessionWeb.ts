@@ -100,7 +100,7 @@ export class FireflySessionWeb extends FireflySession {
                     refreshToken: data.refresh_token_v3,
                     sessionId: data.session_id,
                 };
-                const expiresAt = getAccessTokenExpiresAt(data.access_token_v3, this.ctx);
+                const expiresAt = getAccessTokenExpiresAt(data.access_token_v3, this.ctx.config.accessTokenTtlMs);
                 writeRotatedTokens(jwt, expiresAt, this.ctx);
                 this.notify(data.access_token_v3);
                 return data.access_token_v3;

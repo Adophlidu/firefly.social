@@ -51,6 +51,16 @@ function timeoutSignal(config: ResolvedConfig): AbortSignal | undefined {
     return AbortSignal.timeout(config.requestTimeoutMs);
 }
 
+/** Merge the configured extra headers under `base` (base wins), dropping undefined values. */
+function buildHeaders(config: ResolvedConfig, base: Record<string, string>): Record<string, string> {
+    const headers: Record<string, string> = {};
+    for (const [key, value] of Object.entries(config.headers)) {
+        if (value !== undefined) headers[key] = value;
+    }
+
+    return { ...headers, ...base };
+}
+
 /**
  * Exchange a Firefly v3 refresh token for a fresh token pair via
  * `POST /v3/auth/refreshJWT`.  The refresh token is single-use and rotated:
@@ -60,7 +70,7 @@ export async function refreshFireflyToken(refreshToken: string, config: Resolved
     const url = joinUrl(config.fireflyRootUrl, '/v3/auth/refreshJWT');
     const res = await fetch(url, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: buildHeaders(config, { 'content-type': 'application/json' }),
         body: JSON.stringify({ refresh_token: refreshToken }),
         signal: timeoutSignal(config),
     });
@@ -80,7 +90,7 @@ export async function exchangeLegacyFireflyToken(
     const url = joinUrl(config.fireflyRootUrl, '/v3/auth/exchangeLegacyJWT');
     const res = await fetch(url, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${legacyToken}` },
+        headers: buildHeaders(config, { Authorization: `Bearer ${legacyToken}` }),
         signal: timeoutSignal(config),
     });
     if (!res.ok) throw new HttpError(`exchangeLegacyJWT failed: ${res.status}`, res.status);

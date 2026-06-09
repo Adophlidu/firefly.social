@@ -1,13 +1,8 @@
+import { DEFAULT_ACCESS_TOKEN_TTL_MS } from '@/internal/jwt.js';
 import type { FireflyAuthMode, FireflyAuthPolicy, StorageAdapter } from '@/types.js';
 
 /** Production Firefly API root. The refresh endpoint lives under `/v3/auth`. */
 const DEFAULT_FIREFLY_ROOT_URL = 'https://api.firefly.land';
-
-/**
- * Firefly JWT v3 access-token TTL in milliseconds.  The access token itself
- * carries `issued_at_ms`; absolute expiry is `issued_at_ms + ttl`.
- */
-const DEFAULT_ACCESS_TOKEN_TTL_MS = 15 * 60 * 1000; // 15 minutes
 
 /** Refresh the access token this many ms before it actually expires. */
 const DEFAULT_PROACTIVE_REFRESH_THRESHOLD_MS = 10 * 60 * 1000; // 10 minutes
@@ -58,6 +53,12 @@ export interface FireflyAuthClientOptions {
      * origin-wide rotation lock is held across sub-sites. Default: 30s.
      */
     requestTimeoutMs?: number;
+    /**
+     * Extra headers sent with the Firefly token-rotation requests
+     * (`refreshJWT` / `exchangeLegacyJWT`). Entries with an `undefined` value
+     * are dropped, so e.g. `process.env.X` is safe to pass directly.
+     */
+    headers?: Record<string, string | undefined>;
     /** Emit verbose `info` logs. Warnings/errors are always logged. Default: false. */
     debug?: boolean;
 }
@@ -72,6 +73,7 @@ export interface ResolvedConfig {
     storage: StorageAdapter | null;
     policy: FireflyAuthPolicy;
     requestTimeoutMs: number;
+    headers: Record<string, string | undefined>;
     debug: boolean;
 }
 
@@ -101,6 +103,7 @@ export function resolveConfig(options: FireflyAuthClientOptions = {}): ResolvedC
         storage: options.storage !== undefined ? options.storage : resolveDefaultStorage(),
         policy: options.policy ?? 'auto',
         requestTimeoutMs: options.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS,
+        headers: options.headers ?? {},
         debug: options.debug ?? false,
     };
 }
