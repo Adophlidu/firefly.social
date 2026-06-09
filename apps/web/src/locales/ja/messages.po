@@ -268,6 +268,9 @@ msgstr "アップロードに失敗しました。動画のサイズが {0} を�
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "コントラクトオーナーは他のアドレスのトークン残高を変更する権限を持っていません。"
 
+msgid "Completed Match"
+msgstr ""
+
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>時価総額 = 現在価格 x 流通供給量</0><1>とは、暗号通貨の流通供給量の合計市場価値を指します。これは株式市場の指標に似ており、1 株あたりの価格に市場の発行済株式数 (内部関係者や政府によって所有および拘束されていない) を乗じたものです。</1>"
 
@@ -447,6 +450,9 @@ msgstr "入力したユーザー名またはパスワードが正しくありま
 
 msgid "Turn off"
 msgstr "オフにする"
+
+msgid "Winner"
+msgstr ""
 
 msgid "Price to beat"
 msgstr "超えるべき価格"
@@ -885,6 +891,9 @@ msgstr "笑顔になれることを願っています。"
 msgid "Firefly wallet"
 msgstr "Firefly ウォレット"
 
+msgid "Threes"
+msgstr ""
+
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
 msgstr "予約投稿は {0} でのみ利用可能です"
@@ -1101,6 +1110,9 @@ msgstr "価格・変動率（24時間）"
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr "この GIF ソースはサポートされていません。サポートされているソース: {0}"
+
+msgid "Game Lines"
+msgstr ""
 
 msgid "Remove Address"
 msgstr "アドレスを削除"
@@ -1537,6 +1549,9 @@ msgstr "{0} への報告の送信に失敗しました。"
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
 msgstr "<0/> <1>があなたの </1><2>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</2> にいいねしました"
+
+msgid "Points"
+msgstr ""
 
 msgid "Insufficient funds"
 msgstr "残高不足"
@@ -2112,8 +2127,14 @@ msgstr "ユーザー名は {extra} 文字以上にしてください"
 msgid "Received"
 msgstr "受信済み"
 
+msgid "First Set"
+msgstr ""
+
 msgid "Privacy and security"
 msgstr "プライバシーとセキュリティ"
+
+msgid "Rebounds"
+msgstr ""
 
 msgid "Create your Firefly Profile"
 msgstr "Firefly プロフィールを作成"
@@ -2167,6 +2188,10 @@ msgstr "一致するコレクションがありません"
 
 msgid "Canceled"
 msgstr "キャンセル済み"
+
+#. placeholder {0}: m[1]
+msgid "Map {0}"
+msgstr ""
 
 msgid "No content for the last two weeks."
 msgstr "過去 2 週間のコンテンツはありません。"
@@ -2913,6 +2938,9 @@ msgstr "プライバシーポリシー"
 msgid "Refresh"
 msgstr "更新"
 
+msgid "Series Lines"
+msgstr ""
+
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>送信</0><1/><2>宛先</2><3><4>{0}</4></3>"
@@ -2992,6 +3020,12 @@ msgstr "以前 Farcaster でログインしたことがある場合は再接続�
 msgid "Scan QR code to access your account"
 msgstr "QR コードをスキャンしてアカウントにアクセス"
 
+msgid "Total Maps"
+msgstr ""
+
+msgid "Set Handicap"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3023,6 +3057,9 @@ msgstr "コレクト者"
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止されています。権限を確認してください。"
 
+msgid "1st Half"
+msgstr ""
+
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
 msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
@@ -3052,6 +3089,10 @@ msgstr "期限切れ"
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "アップロードに失敗しました。GIF のサイズが {0} を超えています"
+
+#. placeholder {0}: m[1]
+msgid "Q{0}"
+msgstr ""
 
 msgid "{days}d left"
 msgstr "残り {days} 日"
@@ -3451,6 +3492,9 @@ msgstr "Farcaster でアドレスが削除されました"
 msgid "Failed to switch wallet. Please try again"
 msgstr "ウォレットの切り替えに失敗しました。もう一度お試しください"
 
+msgid "Exact Score"
+msgstr ""
+
 msgid "Like / Repost / Comment"
 msgstr "いいね / リポスト / コメント"
 
@@ -3517,6 +3561,10 @@ msgstr "ダークモード"
 msgid "Just now"
 msgstr "たった今"
 
+#. placeholder {0}: m[1]
+msgid "Game {0}"
+msgstr ""
+
 msgid "Mine"
 msgstr "マイ"
 
@@ -3530,6 +3578,9 @@ msgstr "このトークンのウェブサイトに承認を与えると、資産
 
 msgid "Your Firefly Identity is now active."
 msgstr "あなたの Firefly ID が有効になりました。"
+
+msgid "Map Handicap"
+msgstr ""
 
 msgid "Create a Post"
 msgstr "投稿を作成"
@@ -3790,6 +3841,9 @@ msgstr "購入"
 msgid "Select Chain"
 msgstr "チェーンを選択"
 
+msgid "Assists"
+msgstr ""
+
 msgid "Edit Profile"
 msgstr "プロフィールを編集"
 
@@ -3891,6 +3945,9 @@ msgstr "入力したパスワードが正しくありません。もう一度お
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "自己破壊機能が含まれています。プロジェクトオーナーがコントラクトを破壊できる可能性があります。"
+
+msgid "Total Sets"
+msgstr ""
 
 msgid "Enable now"
 msgstr "今すぐ有効化"
@@ -4067,6 +4124,9 @@ msgstr "UID: {0}"
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "オーナーは各指定アドレスに異なる税率を設定できます。"
 
+msgid "Game Winner"
+msgstr ""
+
 msgid "View on explorer"
 msgstr "エクスプローラーで表示"
 
@@ -4155,6 +4215,9 @@ msgstr "<0>カメラアプリ</0><1/>で QR コードをスキャンし、<2>編
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Halftime Result"
+msgstr ""
 
 msgid "Post has been encrypted"
 msgstr "投稿は暗号化されました"
@@ -4361,6 +4424,12 @@ msgstr "フィッシング行為は関与していません。"
 
 msgid "Contract source code not verified"
 msgstr "コントラクトのソースコードが未検証"
+
+msgid "Game Handicap"
+msgstr ""
+
+msgid "Total Games"
+msgstr ""
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT がブックマークから削除されました"
@@ -4772,6 +4841,9 @@ msgstr "<0>{0}</0><1>時価総額</1>{1}"
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
 msgstr "6桁のパスワードをリセットすると、以前に暗号化されたすべてのログインセッションがクリアされます。"
 
+msgid "Map Winner"
+msgstr ""
+
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
 msgstr "{sourceName} で #{0} を退出しました"
@@ -5012,6 +5084,9 @@ msgstr "フォロー中"
 msgid "Trending Token"
 msgstr "トレンドトークン"
 
+msgid "Both Teams To Score"
+msgstr ""
+
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "参加について皆に伝える投稿を作成してください。提案が有効な間は投票を変更できます。"
 
@@ -5221,6 +5296,9 @@ msgstr "エンゲージメントを表示"
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
 msgstr "残高: {0} {1}"
+
+msgid "NRFI"
+msgstr ""
 
 msgid "Multi-device login"
 msgstr "マルチデバイスログイン"

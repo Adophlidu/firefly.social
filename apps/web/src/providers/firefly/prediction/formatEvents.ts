@@ -191,6 +191,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
             questionId: market.id,
             volume: market.volume,
             title: market.groupItemTitle || market.question,
+            question: market.question,
             isResolved,
             resolvedOutcomeId:
                 isResolved && outcomes?.length === 2

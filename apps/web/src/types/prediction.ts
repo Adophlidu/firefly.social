@@ -225,6 +225,18 @@ export interface SportEventData {
     leagueSlug?: string;
     spreadsMainLine?: number;
     totalsMainLine?: number;
+    sportCategory?: SportCategory;
+}
+
+export enum SportCategory {
+    Default = 'default',
+    Soccer = 'soccer',
+    Tennis = 'tennis',
+    Baseball = 'baseball',
+    EsportDota2 = 'esport_dota2',
+    EsportValorant = 'esport_valorant',
+    EsportCs2 = 'esport_cs2',
+    EsportLol = 'esport_lol',
 }
 
 export enum SportMarketGroupType {

@@ -268,6 +268,9 @@ msgstr "上傳失敗。影片大小超過 {0}"
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "合約所有者無權修改其他地址的代幣餘額。"
 
+msgid "Completed Match"
+msgstr ""
+
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 當前價格 × 流通供應量</0><1>指加密貨幣流通供應的總市場價值，類似於股票市場中流通股（非內部或政府鎖定股）的市值計算。</1>"
 
@@ -447,6 +450,9 @@ msgstr "抱歉，您輸入的用戶名或密碼不正確"
 
 msgid "Turn off"
 msgstr "關閉"
+
+msgid "Winner"
+msgstr ""
 
 msgid "Price to beat"
 msgstr "目标价格"
@@ -885,6 +891,9 @@ msgstr "希望這能讓你展現笑容。"
 msgid "Firefly wallet"
 msgstr "Firefly 錢包"
 
+msgid "Threes"
+msgstr ""
+
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
 msgstr "預約發佈僅支援 {0}"
@@ -1101,6 +1110,9 @@ msgstr "價格 · 漲跌幅(24h)"
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr "不支援GIF來源。支援來源：{0}"
+
+msgid "Game Lines"
+msgstr ""
 
 msgid "Remove Address"
 msgstr "移除地址"
@@ -1537,6 +1549,9 @@ msgstr "在 {0} 提交檢舉失敗"
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
 msgstr "<0/> <1>讚好咗你嘅 </1><2>{0, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {內容}}</2>"
+
+msgid "Points"
+msgstr ""
 
 msgid "Insufficient funds"
 msgstr "資金不足"
@@ -2112,8 +2127,14 @@ msgstr "使用者名稱長度至少需為 {extra} 個字元"
 msgid "Received"
 msgstr "收到"
 
+msgid "First Set"
+msgstr ""
+
 msgid "Privacy and security"
 msgstr "隱私與安全"
+
+msgid "Rebounds"
+msgstr ""
 
 msgid "Create your Firefly Profile"
 msgstr "建立 Firefly 個人檔案"
@@ -2167,6 +2188,10 @@ msgstr "無符合的系列"
 
 msgid "Canceled"
 msgstr "已取消"
+
+#. placeholder {0}: m[1]
+msgid "Map {0}"
+msgstr ""
 
 msgid "No content for the last two weeks."
 msgstr "近兩週無內容"
@@ -2913,6 +2938,9 @@ msgstr "隱私政策"
 msgid "Refresh"
 msgstr "刷新"
 
+msgid "Series Lines"
+msgstr ""
+
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>已發送</0><1/><2>至</2><3><4>{0}</4></3>"
@@ -2992,6 +3020,12 @@ msgstr "如果你之前使用 Farcaster 登入過，請重新連接。<0/>第一
 msgid "Scan QR code to access your account"
 msgstr "掃碼登入帳戶"
 
+msgid "Total Maps"
+msgstr ""
+
+msgid "Set Handicap"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3023,6 +3057,9 @@ msgstr "收集者"
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止訪問，請檢查權限。"
 
+msgid "1st Half"
+msgstr ""
+
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
 msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
@@ -3052,6 +3089,10 @@ msgstr "已過期"
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "GIF 大小超過 {0} 上傳失敗"
+
+#. placeholder {0}: m[1]
+msgid "Q{0}"
+msgstr ""
 
 msgid "{days}d left"
 msgstr "剩餘 {days} 日"
@@ -3451,6 +3492,9 @@ msgstr "地址已從 Farcaster 移除"
 msgid "Failed to switch wallet. Please try again"
 msgstr "切換錢包失敗。請再試一次"
 
+msgid "Exact Score"
+msgstr ""
+
 msgid "Like / Repost / Comment"
 msgstr "按讚/轉發/留言"
 
@@ -3517,6 +3561,10 @@ msgstr "暗黑模式"
 msgid "Just now"
 msgstr "剛剛"
 
+#. placeholder {0}: m[1]
+msgid "Game {0}"
+msgstr ""
+
 msgid "Mine"
 msgstr "我的交易"
 
@@ -3530,6 +3578,9 @@ msgstr "授權此代幣給此網站，可能導致資產損失。"
 
 msgid "Your Firefly Identity is now active."
 msgstr "你的 Firefly 身份已啟用"
+
+msgid "Map Handicap"
+msgstr ""
 
 msgid "Create a Post"
 msgstr "創建貼文"
@@ -3790,6 +3841,9 @@ msgstr "購買"
 msgid "Select Chain"
 msgstr "選擇鏈"
 
+msgid "Assists"
+msgstr ""
+
 msgid "Edit Profile"
 msgstr "編輯個人檔案"
 
@@ -3891,6 +3945,9 @@ msgstr "您輸入的密碼不正確，請重試。"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毀功能，項目方可能具備合約銷毀權限。"
+
+msgid "Total Sets"
+msgstr ""
 
 msgid "Enable now"
 msgstr "立即啟用"
@@ -4067,6 +4124,9 @@ msgstr "UID: {0}"
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "擁有者可以為每個指定地址設定不同的稅率。"
 
+msgid "Game Winner"
+msgstr ""
+
 msgid "View on explorer"
 msgstr "在區塊瀏覽器查看"
 
@@ -4155,6 +4215,9 @@ msgstr "使用<0>相機應用</0><1/>掃描QR碼並授予<2>編輯權限</2>以�
 
 msgid "Save"
 msgstr "儲存"
+
+msgid "Halftime Result"
+msgstr ""
 
 msgid "Post has been encrypted"
 msgstr "貼文已經被加密"
@@ -4361,6 +4424,12 @@ msgstr "未檢測到釣魚活動。"
 
 msgid "Contract source code not verified"
 msgstr "合約源代碼未驗證"
+
+msgid "Game Handicap"
+msgstr ""
+
+msgid "Total Games"
+msgstr ""
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT 已從書籤移除"
@@ -4772,6 +4841,9 @@ msgstr "<0>{0}</0><1>市值</1>{1}"
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
 msgstr "重設 6 位數字密碼將清除所有已加密的登入授權。"
 
+msgid "Map Winner"
+msgstr ""
+
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
 msgstr "在 {sourceName} 退出了 #{0}"
@@ -5012,6 +5084,9 @@ msgstr "正在追蹤"
 msgid "Trending Token"
 msgstr "熱門代幣"
 
+msgid "Both Teams To Score"
+msgstr ""
+
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "發貼分享參與過程，提案期間可變更投票。"
 
@@ -5221,6 +5296,9 @@ msgstr "查看互動數據"
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
 msgstr "餘額： {0} {1}"
+
+msgid "NRFI"
+msgstr ""
 
 msgid "Multi-device login"
 msgstr "多裝置登入"

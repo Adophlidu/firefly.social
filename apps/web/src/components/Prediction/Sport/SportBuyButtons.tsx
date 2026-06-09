@@ -23,6 +23,14 @@ function formatSpreadLabel(line: number, index: number): string {
     return positive ? `+${absLine}` : `-${absLine}`;
 }
 
+/**
+ * Abbreviate Over/Under labels on total-type buy buttons.
+ * "Over 2.5" → "O 2.5", "Under 2.5" → "U 2.5"
+ */
+function abbreviateOutcomeLabel(label: string): string {
+    return label.replace(/^Over\s+/i, 'O ').replace(/^Under\s+/i, 'U ');
+}
+
 interface SportBuyButtonsProps {
     market: BetsMarketDataForUI;
     homeTeam?: { abbreviation?: string; color?: string };
@@ -67,6 +75,7 @@ export const SportBuyButtons = memo(function SportBuyButtons({
 
     const compact = size === 'compact' || !!showDraw;
     const isSpread = sectionType === SportMarketGroupType.Spread;
+    const isTotal = sectionType === SportMarketGroupType.Total;
     const getOutcomeMeta = (index: number, fallbackLabel: string, fallbackColor: string) => {
         const team = outcomeTeams?.[index];
         const abbreviation = team?.abbreviation || team?.name;
@@ -77,8 +86,10 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                 : isSpread
                   ? extractSpreadValue(outcomes[index]?.label || '') || defaultLabel
                   : defaultLabel;
+        // Abbreviate Over/Under for total-type markets
+        const finalLabel = isTotal ? abbreviateOutcomeLabel(spreadLabel) : spreadLabel;
         return {
-            label: spreadLabel,
+            label: finalLabel,
             color: team?.color || fallbackColor,
         };
     };

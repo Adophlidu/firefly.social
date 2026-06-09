@@ -1,5 +1,6 @@
 import { parseJson } from '@dimensiondev/utils';
 
+import { classifySport } from '@/helpers/prediction/sportClassify.js';
 import {
     type PolymarketEvent,
     type PolymarketScore,
@@ -144,5 +145,6 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
         leagueSlug: resolveLeagueSlug(detail),
         spreadsMainLine: detail.spreadsMainLine,
         totalsMainLine: detail.totalsMainLine,
+        sportCategory: classifySport(detail.sportId, detail.leagueName, detail.tags),
     };
 }

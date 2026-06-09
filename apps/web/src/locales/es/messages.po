@@ -270,6 +270,9 @@ msgstr "No se pudo subir. El tamaño del vídeo supera {0}"
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "No se ha encontrado que el propietario del contrato tenga la autoridad para modificar el saldo de tokens en otras direcciones."
 
+msgid "Completed Match"
+msgstr ""
+
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Capitalización de mercado = Precio actual x Suministro en circulación</0><1>Se refiere al valor total de mercado del suministro en circulación de una criptomoneda. Es similar a la medida del mercado de valores de multiplicar el precio por acción por las acciones disponibles en el mercado (no retenidas ni bloqueadas por personas con información privilegiada o por gobiernos)</1>"
 
@@ -450,6 +453,9 @@ msgstr "Lo sentimos, el nombre de usuario o la contraseña que ingresaste es inc
 
 msgid "Turn off"
 msgstr "Apagar"
+
+msgid "Winner"
+msgstr ""
 
 msgid "Price to beat"
 msgstr "Precio a batir"
@@ -890,6 +896,9 @@ msgstr "Espero que esto provoque una sonrisa."
 msgid "Firefly wallet"
 msgstr "Cartera Firefly"
 
+msgid "Threes"
+msgstr ""
+
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
 msgstr "Las publicaciones programadas solo están disponibles en {0}"
@@ -1106,6 +1115,9 @@ msgstr "Precio · Cambio(24h)"
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr "Origen de GIF no compatible. Orígenes compatibles: {0}"
+
+msgid "Game Lines"
+msgstr ""
 
 msgid "Remove Address"
 msgstr "Eliminar Dirección"
@@ -1544,6 +1556,9 @@ msgstr "No se pudo enviar la denuncia sobre {0}."
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
 msgstr "<0/> <1>le gustó tu </1><2>{0, select, Post {publicación {post}} Comment {comentario {comment}} Quote {cita {quote}} Mirror {republicación {repost}} other {publicación {post}}}</2>"
+
+msgid "Points"
+msgstr ""
 
 msgid "Insufficient funds"
 msgstr "Fondos insuficientes"
@@ -2122,8 +2137,14 @@ msgstr "El nombre de usuario debe tener al menos {extra} caracteres"
 msgid "Received"
 msgstr "Recibido"
 
+msgid "First Set"
+msgstr ""
+
 msgid "Privacy and security"
 msgstr "Privacidad y seguridad"
+
+msgid "Rebounds"
+msgstr ""
 
 msgid "Create your Firefly Profile"
 msgstr "Crea tu perfil de Firefly"
@@ -2178,6 +2199,10 @@ msgstr "No hay colecciones coincidentes"
 
 msgid "Canceled"
 msgstr "Cancelado"
+
+#. placeholder {0}: m[1]
+msgid "Map {0}"
+msgstr ""
 
 msgid "No content for the last two weeks."
 msgstr "No hay contenido en las últimas dos semanas."
@@ -2930,6 +2955,9 @@ msgstr "Política de Privacidad"
 msgid "Refresh"
 msgstr "Actualizar"
 
+msgid "Series Lines"
+msgstr ""
+
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>Enviado</0><1/><2>a</2><3><4>{0}</4></3>"
@@ -3009,6 +3037,12 @@ msgstr "Reconéctate si ya has usado Farcaster para iniciar sesión antes.<0/>¿
 msgid "Scan QR code to access your account"
 msgstr "Escanea el código QR para acceder a tu cuenta"
 
+msgid "Total Maps"
+msgstr ""
+
+msgid "Set Handicap"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3040,6 +3074,9 @@ msgstr "Recogido por"
 msgid "Forbidden. Please check your permissions."
 msgstr "Prohibido. Por favor comprueba tus permisos."
 
+msgid "1st Half"
+msgstr ""
+
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
 msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
@@ -3069,6 +3106,10 @@ msgstr "Caducado"
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "No se pudo subir. El tamaño del Gif supera {0}"
+
+#. placeholder {0}: m[1]
+msgid "Q{0}"
+msgstr ""
 
 msgid "{days}d left"
 msgstr "{days}d restantes"
@@ -3471,6 +3512,9 @@ msgstr "Dirección eliminada en Farcaster"
 msgid "Failed to switch wallet. Please try again"
 msgstr "No se pudo cambiar el monedero. Por favor, inténtelo de nuevo."
 
+msgid "Exact Score"
+msgstr ""
+
 msgid "Like / Repost / Comment"
 msgstr "Me gusta / Repostear / Comentar"
 
@@ -3537,6 +3581,10 @@ msgstr "Modo Oscuro"
 msgid "Just now"
 msgstr "Ahora mismo"
 
+#. placeholder {0}: m[1]
+msgid "Game {0}"
+msgstr ""
+
 msgid "Mine"
 msgstr "Mis"
 
@@ -3550,6 +3598,9 @@ msgstr "Podrías perder tus activos si apruebas el sitio web de este token."
 
 msgid "Your Firefly Identity is now active."
 msgstr "Tu identidad de Firefly ahora está activa."
+
+msgid "Map Handicap"
+msgstr ""
 
 msgid "Create a Post"
 msgstr "Crear una publicación"
@@ -3812,6 +3863,9 @@ msgstr "Comprar"
 msgid "Select Chain"
 msgstr "Seleccionar cadena"
 
+msgid "Assists"
+msgstr ""
+
 msgid "Edit Profile"
 msgstr "Editar perfil"
 
@@ -3914,6 +3968,9 @@ msgstr "La contraseña que ingresaste es incorrecta. Por favor, inténtalo de nu
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "La función de autodestrucción está incluida. El propietario del proyecto puede tener la capacidad de destruir el contrato."
+
+msgid "Total Sets"
+msgstr ""
 
 msgid "Enable now"
 msgstr "Activar ahora"
@@ -4090,6 +4147,9 @@ msgstr "ID de usuario: {0}"
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "El propietario puede establecer una tasa impositiva distinta para cada dirección asignada."
 
+msgid "Game Winner"
+msgstr ""
+
 msgid "View on explorer"
 msgstr "Ver en el explorador"
 
@@ -4178,6 +4238,9 @@ msgstr "Escanea el código QR con la <0>aplicación de la cámara</0> <1/>y conc
 
 msgid "Save"
 msgstr "Guardar"
+
+msgid "Halftime Result"
+msgstr ""
 
 msgid "Post has been encrypted"
 msgstr "La publicación ha sido cifrada"
@@ -4384,6 +4447,12 @@ msgstr "No hay actividades de phishing involucradas."
 
 msgid "Contract source code not verified"
 msgstr "Código Fuente Del Contrato No Verificado"
+
+msgid "Game Handicap"
+msgstr ""
+
+msgid "Total Games"
+msgstr ""
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT eliminado de tus Marcadores"
@@ -4797,6 +4866,9 @@ msgstr "<0>{0}</0><1>CM</1>{1}"
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
 msgstr "Restablecer su contraseña de 6 dígitos borrará todas las sesiones de inicio de sesión previamente cifradas."
 
+msgid "Map Winner"
+msgstr ""
+
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
 msgstr "Saliste de #{0} en {sourceName}"
@@ -5037,6 +5109,9 @@ msgstr "Siguiendo"
 msgid "Trending Token"
 msgstr "Token de Tendencia"
 
+msgid "Both Teams To Score"
+msgstr ""
+
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "Crea una publicación para contarles a todos sobre tu participación. Los votos se pueden cambiar mientras la propuesta esté activa."
 
@@ -5248,6 +5323,9 @@ msgstr "Ver interacciones"
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
 msgstr "Saldo: {0} {1}"
+
+msgid "NRFI"
+msgstr ""
 
 msgid "Multi-device login"
 msgstr "Inicio de sesión multi-dispositivo"

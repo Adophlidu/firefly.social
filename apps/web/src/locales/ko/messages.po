@@ -268,6 +268,9 @@ msgstr "업로드에 실패했습니다. 동영상 크기가 {0}을(를) 초과�
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "컨트랙트 소유자가 다른 주소의 토큰 잔액을 수정할 권한이 없는 것으로 확인되었습니다."
 
+msgid "Completed Match"
+msgstr ""
+
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>시가총액 = 현재 가격 x 유통량</0><1>은 암호화폐 유통량의 총 시장 가치를 나타냅니다. 이는 주당 가격에 시장에 발행된 주식(내부자, 정부가 소유하고 보유하지 않은 주식)을 곱한 주식 시장 측정치와 유사합니다.</1>"
 
@@ -447,6 +450,9 @@ msgstr "죄송합니다. 입력하신 사용자 이름 또는 비밀번호가 �
 
 msgid "Turn off"
 msgstr "끄기"
+
+msgid "Winner"
+msgstr ""
 
 msgid "Price to beat"
 msgstr "넘어야 할 가격"
@@ -885,6 +891,9 @@ msgstr "이것이 미소를 가져다주길 바랍니다."
 msgid "Firefly wallet"
 msgstr "Firefly 지갑"
 
+msgid "Threes"
+msgstr ""
+
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
 msgstr "예약 게시물은 {0}에서만 사용할 수 있습니다"
@@ -1101,6 +1110,9 @@ msgstr "가격 · 변동(24h)"
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr "GIF 출처가 지원되지 않습니다. 지원되는 출처: {0}"
+
+msgid "Game Lines"
+msgstr ""
 
 msgid "Remove Address"
 msgstr "주소 삭제"
@@ -1537,6 +1549,9 @@ msgstr "{0}에 신고 제출에 실패했습니다."
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
 msgstr "<0/> <1>님이 회원님의 </1><2>{0, select, Post {게시물} Comment {댓글} Quote {인용} Mirror {리포스트} other {게시물}}</2>에 좋아요를 눌렀습니다"
+
+msgid "Points"
+msgstr ""
 
 msgid "Insufficient funds"
 msgstr "잔액 부족"
@@ -2112,8 +2127,14 @@ msgstr "사용자 이름은 최소 {extra}자 이상이어야 합니다"
 msgid "Received"
 msgstr "수신됨"
 
+msgid "First Set"
+msgstr ""
+
 msgid "Privacy and security"
 msgstr "개인정보 및 보안"
+
+msgid "Rebounds"
+msgstr ""
 
 msgid "Create your Firefly Profile"
 msgstr "Firefly 프로필 만들기"
@@ -2167,6 +2188,10 @@ msgstr "일치하는 컬렉션이 없습니다"
 
 msgid "Canceled"
 msgstr "취소됨"
+
+#. placeholder {0}: m[1]
+msgid "Map {0}"
+msgstr ""
 
 msgid "No content for the last two weeks."
 msgstr "지난 2주간 콘텐츠가 없습니다."
@@ -2913,6 +2938,9 @@ msgstr "개인정보 처리방침"
 msgid "Refresh"
 msgstr "새로고침"
 
+msgid "Series Lines"
+msgstr ""
+
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>전송</0><1/><2>대상</2><3><4>{0}</4></3>"
@@ -2992,6 +3020,12 @@ msgstr "이전에 Farcaster로 로그인한 적이 있다면 다시 연결하세
 msgid "Scan QR code to access your account"
 msgstr "QR 코드를 스캔하여 계정에 접속하세요"
 
+msgid "Total Maps"
+msgstr ""
+
+msgid "Set Handicap"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3023,6 +3057,9 @@ msgstr "수집자"
 msgid "Forbidden. Please check your permissions."
 msgstr "금지되었습니다. 권한을 확인해 주세요."
 
+msgid "1st Half"
+msgstr ""
+
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
 msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
@@ -3052,6 +3089,10 @@ msgstr "만료됨"
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "업로드에 실패했습니다. GIF 크기가 {0}을(를) 초과합니다"
+
+#. placeholder {0}: m[1]
+msgid "Q{0}"
+msgstr ""
 
 msgid "{days}d left"
 msgstr "{days}일 남음"
@@ -3451,6 +3492,9 @@ msgstr "Farcaster에서 주소가 제거됨"
 msgid "Failed to switch wallet. Please try again"
 msgstr "지갑 전환에 실패했습니다. 다시 시도해 주세요"
 
+msgid "Exact Score"
+msgstr ""
+
 msgid "Like / Repost / Comment"
 msgstr "좋아요 / 리포스트 / 댓글"
 
@@ -3517,6 +3561,10 @@ msgstr "다크 모드"
 msgid "Just now"
 msgstr "방금"
 
+#. placeholder {0}: m[1]
+msgid "Game {0}"
+msgstr ""
+
 msgid "Mine"
 msgstr "내 거래"
 
@@ -3530,6 +3578,9 @@ msgstr "이 토큰 웹사이트에 승인을 부여하면 자산을 잃을 수 �
 
 msgid "Your Firefly Identity is now active."
 msgstr "Firefly ID가 활성화되었습니다."
+
+msgid "Map Handicap"
+msgstr ""
 
 msgid "Create a Post"
 msgstr "게시물 작성"
@@ -3790,6 +3841,9 @@ msgstr "매수"
 msgid "Select Chain"
 msgstr "체인 선택"
 
+msgid "Assists"
+msgstr ""
+
 msgid "Edit Profile"
 msgstr "프로필 편집"
 
@@ -3891,6 +3945,9 @@ msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 �
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "자기 파괴 기능이 포함되어 있습니다. 프로젝트 소유자가 컨트랙트를 파괴할 수 있습니다."
+
+msgid "Total Sets"
+msgstr ""
 
 msgid "Enable now"
 msgstr "지금 활성화"
@@ -4067,6 +4124,9 @@ msgstr "UID: {0}"
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "소유자는 지정된 각 주소에 다른 세율을 설정할 수 있습니다."
 
+msgid "Game Winner"
+msgstr ""
+
 msgid "View on explorer"
 msgstr "익스플로러에서 보기"
 
@@ -4155,6 +4215,9 @@ msgstr "<0>카메라 앱</0>으로 QR 코드를 스캔하고 <2>편집 권한</2
 
 msgid "Save"
 msgstr "저장"
+
+msgid "Halftime Result"
+msgstr ""
 
 msgid "Post has been encrypted"
 msgstr "게시물이 암호화되었습니다"
@@ -4361,6 +4424,12 @@ msgstr "피싱 활동이 관련되어 있지 않습니다."
 
 msgid "Contract source code not verified"
 msgstr "컨트랙트 소스 코드 미검증"
+
+msgid "Game Handicap"
+msgstr ""
+
+msgid "Total Games"
+msgstr ""
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT가 북마크에서 제거되었습니다"
@@ -4772,6 +4841,9 @@ msgstr "<0>{0}</0><1>시가총액</1>{1}"
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
 msgstr "6자리 비밀번호를 재설정하면 이전에 암호화된 모든 로그인 세션이 삭제됩니다."
 
+msgid "Map Winner"
+msgstr ""
+
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
 msgstr "{sourceName}에서 #{0}을(를) 나감"
@@ -5012,6 +5084,9 @@ msgstr "팔로잉"
 msgid "Trending Token"
 msgstr "인기 토큰"
 
+msgid "Both Teams To Score"
+msgstr ""
+
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "참여에 대해 모두에게 알리는 게시물을 작성하세요. 제안이 활성화된 동안 투표를 변경할 수 있습니다."
 
@@ -5221,6 +5296,9 @@ msgstr "참여 보기"
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
 msgstr "잔액: {0} {1}"
+
+msgid "NRFI"
+msgstr ""
 
 msgid "Multi-device login"
 msgstr "다중 기기 로그인"
