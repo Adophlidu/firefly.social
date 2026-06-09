@@ -47,6 +47,13 @@ const calculateRatio = (market: BetsMarketDataForUI): number => {
     return Math.max(0, Math.min(1, ratio));
 };
 
+const isMarketDecided = (market: BetsMarketDataForUI): boolean => {
+    return market.outcomes.some((outcome) => {
+        const price = Number.parseFloat(outcome.price ?? '0');
+        return !Number.isNaN(price) && price >= 1;
+    });
+};
+
 const formatPriceCents = (price: string | null): string => {
     if (!price) return '50¢';
 
@@ -268,7 +275,25 @@ export const BetItem = memo(function BetItem({
         );
     }, [isResolved, isMultiMarket, eventClosed, eventArchived, endTime]);
 
-    const displayedMarkets = sortedMarkets.slice(0, MAX_DISPLAYED_MARKETS);
+    const displayedMarkets = useMemo(() => {
+        // Single-market events: keep existing behavior
+        if (!isMultiMarket) return sortedMarkets.slice(0, MAX_DISPLAYED_MARKETS);
+
+        // Multi-market: exclude resolved, closed, and 100%-decided markets
+        const eligible = sortedMarkets.filter((m) => !m.isResolved && !m.isClosed && !isMarketDecided(m));
+
+        // Sort by win ratio descending (highest percentage first) — matches detail page
+        const sorted = [...eligible].sort((a, b) => calculateRatio(b) - calculateRatio(a));
+
+        if (sorted.length >= MAX_DISPLAYED_MARKETS) {
+            return sorted.slice(0, MAX_DISPLAYED_MARKETS);
+        }
+
+        // Fallback: not enough eligible, fill remaining slots from full sorted list
+        const usedIds = new Set(sorted.map((m) => m.id));
+        const fallback = sortedMarkets.filter((m) => !usedIds.has(m.id));
+        return [...sorted, ...fallback].slice(0, MAX_DISPLAYED_MARKETS);
+    }, [sortedMarkets, isMultiMarket]);
     const activeMarkets = sortedMarkets.filter((market) => market.active ?? (!market.isClosed && !market.isResolved));
     const remainingCount = Math.max(0, activeMarkets.length - MAX_DISPLAYED_MARKETS);
     const series = event.series ? first(event.series) : undefined;
