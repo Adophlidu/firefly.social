@@ -39,6 +39,7 @@ export enum SupportedMethod {
     SET_PRIMARY_BUTTON = 'setPrimaryButton',
     GET_FRAME_CONTEXT = 'getFrameContext',
     SET_FRAME_READY_OPTIONS = 'setFrameReadyOptions',
+    GET_REFRESH_TOKEN = 'getRefreshToken',
     GET_CHAIN_ID = 'getChainId',
     SIGN_TRANSACTION = 'signTransaction',
     SEND_TRANSACTION = 'sendTransaction',
@@ -112,6 +113,7 @@ export interface RequestArguments {
     [SupportedMethod.GET_AUTHORIZATION]: {};
     [SupportedMethod.GET_THEME]: {};
     [SupportedMethod.GET_LANGUAGE]: {};
+    [SupportedMethod.GET_REFRESH_TOKEN]: {};
     [SupportedMethod.GET_CHAIN_ID]: {
         type: Network;
     };
@@ -266,6 +268,7 @@ export interface ResponseResult {
             originalUrl: string;
         };
     };
+    [SupportedMethod.GET_REFRESH_TOKEN]: string;
     [SupportedMethod.GET_CHAIN_ID]: string;
     [SupportedMethod.SIGN_TRANSACTION]: string;
     [SupportedMethod.SEND_TRANSACTION]: string;

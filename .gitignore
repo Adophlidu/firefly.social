@@ -68,6 +68,8 @@ workers/*/types/
 profiling-data.*.json
 .cursor/
 .gstack/
+.agents/
+.codex/
 .claude/settings*
 .claude/worktrees/
 
