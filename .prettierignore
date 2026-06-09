@@ -20,8 +20,13 @@ patches/
 
 # Ignore agents
 .claude
+.codex
 .cursor
 .gstack
+.agents
 
 # Next applications
 apps/**/.next/
+
+# workers
+.wrangler

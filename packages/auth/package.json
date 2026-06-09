@@ -1,0 +1,60 @@
+{
+    "name": "@dimensiondev/auth",
+    "version": "0.1.0",
+    "description": "Firefly session access-token provider for sub-sites under firefly.social/*",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./react": {
+            "types": "./dist/react.d.ts",
+            "import": "./dist/react.js",
+            "require": "./dist/react.cjs"
+        }
+    },
+    "files": [
+        "dist",
+        "src",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsdown",
+        "dev": "tsdown --watch",
+        "typecheck": "tsgo --noEmit",
+        "clean": "rm -rf dist"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DimensionDev/firefly.mask.social",
+        "directory": "packages/auth"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "restricted"
+    },
+    "dependencies": {
+        "@dimensiondev/native-bridge": "workspace:^",
+        "@dimensiondev/utils": "workspace:^"
+    },
+    "peerDependencies": {
+        "react": ">=18",
+        "typescript": ">=5.0.0"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@types/react": "19.2.14",
+        "@typescript/native-preview": "7.0.0-dev.20260605.1",
+        "tsdown": "^0.21.10"
+    }
+}
