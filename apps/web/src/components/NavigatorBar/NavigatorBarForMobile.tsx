@@ -35,6 +35,10 @@ const changeBodyOverflow = (overflow: 'auto' | 'hidden') => {
     if (IS_FIREFOX) document.body.style.overflowY = overflow;
 };
 
+function getNavigatorTitle() {
+    return first(document.title.split(' '));
+}
+
 export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     enableFixedBack = false,
     enableSearch = true,
@@ -75,7 +79,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
         const onPopState = () => {
             setTimeout(() => {
-                const currentTitle = first(document.title.split(' '));
+                const currentTitle = getNavigatorTitle();
                 if (currentTitle) setTitle(currentTitle);
             }, 0);
         };
@@ -88,11 +92,15 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     }, []);
 
     useLayoutEffect(() => {
-        const observer = new MutationObserver(() => {
-            const title = first(document.title.split(' '));
+        const updateTitle = () => {
+            const title = getNavigatorTitle();
             if (!title) return;
             setTitle(title);
-        });
+        };
+
+        updateTitle();
+        const animationFrame = requestAnimationFrame(updateTitle);
+        const observer = new MutationObserver(updateTitle);
 
         observer.observe(document.head, {
             childList: true,
@@ -100,6 +108,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             subtree: true,
         });
         return () => {
+            cancelAnimationFrame(animationFrame);
             observer.disconnect();
         };
     }, [pathname]);

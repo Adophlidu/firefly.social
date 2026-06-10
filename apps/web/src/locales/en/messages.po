@@ -767,6 +767,9 @@ msgstr "Scan and Get Firefly Mobile App"
 msgid "Undo repost"
 msgstr "Undo repost"
 
+msgid "Prediction"
+msgstr "Prediction"
+
 msgid "Tokens"
 msgstr "Tokens"
 

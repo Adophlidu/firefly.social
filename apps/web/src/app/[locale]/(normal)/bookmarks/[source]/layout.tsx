@@ -1,11 +1,14 @@
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { classNames } from '@dimensiondev/utils';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { BookmarkSourceTabs } from '@/app/[locale]/(normal)/bookmarks/[source]/BookmarkSourceTabs.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
 import { notFound } from '@/esm/navigation/server.js';
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
@@ -22,6 +25,12 @@ const BOOKMARK_SOURCE_PARAMS: SourceInURL[] = [
 
 export function generateStaticParams() {
     return BOOKMARK_SOURCE_PARAMS.map((source) => ({ source }));
+}
+
+export async function generateMetadata() {
+    return createSiteMetadata('/bookmarks', {
+        title: await createPageTitleSSR(msg`Bookmarks`),
+    });
 }
 
 interface Props extends LayoutProps<{ source: string; locale: string }> {}

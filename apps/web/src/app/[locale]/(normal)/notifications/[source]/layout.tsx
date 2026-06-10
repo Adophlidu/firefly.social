@@ -1,12 +1,15 @@
 import type { NotificationSourceInURL } from '@dimensiondev/enums';
 import { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
 import { NotificationTabs } from '@/components/Notification/NotificationTabs.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveNotificationSource } from '@/helpers/resolveSourceInUrl.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 
@@ -20,6 +23,12 @@ const NOTIFICATION_SOURCE_PARAMS: string[] = [
 
 export function generateStaticParams() {
     return NOTIFICATION_SOURCE_PARAMS.map((source) => ({ source }));
+}
+
+export async function generateMetadata() {
+    return createSiteMetadata('/notifications', {
+        title: await createPageTitleSSR(msg`Notifications`),
+    });
 }
 
 interface Props extends LayoutProps<{ source: string; locale: string }> {}

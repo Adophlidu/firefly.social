@@ -763,6 +763,9 @@ msgstr "QR コードをスキャンして Firefly モバイルアプリをダウ
 msgid "Undo repost"
 msgstr "リポストを取り消す"
 
+msgid "Prediction"
+msgstr ""
+
 msgid "Tokens"
 msgstr "トークン"
 

@@ -1,9 +1,14 @@
 import type { LayoutProps } from '@dimensiondev/types';
-import type { Metadata } from 'next';
+import { msg } from '@lingui/core/macro';
 
-export const metadata: Metadata = {
-    title: 'Prediction Category',
-};
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+
+export async function generateMetadata() {
+    return createSiteMetadata('/prediction/category', {
+        title: await createPageTitleSSR(msg`Predictions`),
+    });
+}
 
 export default function PredictionCategoryLayout(props: LayoutProps<{}>) {
     return props.children;

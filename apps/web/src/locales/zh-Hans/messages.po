@@ -763,6 +763,9 @@ msgstr "扫描二维码下载 Firefly 移动端应用"
 msgid "Undo repost"
 msgstr "取消转发"
 
+msgid "Prediction"
+msgstr ""
+
 msgid "Tokens"
 msgstr "代币"
 

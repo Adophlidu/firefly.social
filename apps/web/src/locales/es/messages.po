@@ -767,6 +767,9 @@ msgstr "Escanea y Obtén la App Móvil de Firefly"
 msgid "Undo repost"
 msgstr "Deshacer republicación"
 
+msgid "Prediction"
+msgstr ""
+
 msgid "Tokens"
 msgstr "Tokens"
 
