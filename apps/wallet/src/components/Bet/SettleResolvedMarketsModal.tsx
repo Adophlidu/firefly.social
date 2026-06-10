@@ -11,6 +11,7 @@ import type { Address, Hash } from 'viem';
 import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
 
+import { PositionShareEntry } from '@/components/Bet/PositionShare.js';
 import { DialogOrDrawerContent, DialogOrDrawerHeader, DialogOrDrawerTitle } from '@/components/DialogOrDrawer.js';
 import { Image } from '@/components/Image.js';
 import { Button } from '@/components/ui/button.js';
@@ -18,6 +19,7 @@ import { formatPercentRateMin } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
+import { fallbackShareIdentity, getWinningsShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import type { PolymarketClaimV2Item, PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
@@ -110,12 +112,20 @@ export function SettleResolvedMarketsModal({
         },
     });
 
+    const sharePayload = getWinningsShareImagePayload(
+        winningItems,
+        totalWinAmount,
+        proxyAddress,
+        fallbackShareIdentity(proxyAddress),
+    );
+
     return (
         <DialogOrDrawerContent className="w-full gap-4 rounded-t-2xl">
-            <DialogOrDrawerHeader className="shrink-0 !flex-row py-5">
+            <DialogOrDrawerHeader className="shrink-0 !flex-row items-center py-5">
                 <DialogOrDrawerTitle className="flex justify-start">
                     <Trans>Claim all the winnings</Trans>
                 </DialogOrDrawerTitle>
+                {sharePayload ? <PositionShareEntry payload={sharePayload} className="ml-2" /> : null}
             </DialogOrDrawerHeader>
 
             <div className="flex flex-col gap-6">

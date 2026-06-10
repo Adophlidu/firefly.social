@@ -3,6 +3,11 @@ import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonM
 export interface ShareImageModalOpenProps {
     imageUrl: string;
     aspectRatio?: string; // optimize CLS with this
+    fileName?: string;
+    /** Shows a Copy button (clipboard PNG) when the browser supports it. */
+    enableCopy?: boolean;
+    /** Shows a Post button; the modal closes before invoking it. */
+    onPost?: () => void;
 }
 
 export type ShareImageModalCloseProps = void;

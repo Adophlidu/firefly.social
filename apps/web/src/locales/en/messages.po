@@ -2019,6 +2019,9 @@ msgstr "Active"
 msgid "Translated from {contentLanguage}"
 msgstr "Translated from {contentLanguage}"
 
+msgid "Post with image"
+msgstr "Post with image"
+
 msgid "Failed to open miniapp"
 msgstr "Failed to open miniapp"
 
@@ -2289,6 +2292,9 @@ msgstr "Follow {handleOrEnsOrAddress}"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
+
+msgid "Failed to copy image. Please try again later."
+msgstr "Failed to copy image. Please try again later."
 
 msgid "Failed Post"
 msgstr "Failed Post"
@@ -2987,6 +2993,9 @@ msgstr "Claimed lucky drop with {0} {symbol} successfully"
 
 msgid "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
 msgstr "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
+
+msgid "Failed to generate the share image. Please try again."
+msgstr "Failed to generate the share image. Please try again."
 
 msgid "Time"
 msgstr "Time"

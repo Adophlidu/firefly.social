@@ -23,6 +23,7 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
+import { fetchImageAsMediaObject } from '@/helpers/fetchImageAsMediaObject.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -124,7 +125,10 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         },
         [IframeBridgeMethod.COMPOSE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.COMPOSE]) => {
             const chars = transformComposeTextToChars(params.text);
-            const result = await openAndWaitForCloseComposeModal({ type: 'compose', chars });
+            const images = params.imageUrls?.length
+                ? await Promise.all(params.imageUrls.slice(0, 4).map((url) => fetchImageAsMediaObject(url)))
+                : undefined;
+            const result = await openAndWaitForCloseComposeModal({ type: 'compose', chars, images });
             if (result) return result.post?.postId;
             return undefined;
         },

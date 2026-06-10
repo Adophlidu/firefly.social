@@ -4,16 +4,19 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
-import { type PropsWithChildren, type ReactNode, useMemo } from 'react';
+import { type PropsWithChildren, type ReactNode, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 import { PositionClaimModal } from '@/components/Bet/PositionClaimModal.js';
+import { PositionShareEntry, PositionShareSheet } from '@/components/Bet/PositionShare.js';
 import { Image } from '@/components/Image.js';
 import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { formatPercentRate } from '@/helpers/formatPercentRate.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { fallbackShareIdentity, getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js';
+import { useLongPress } from '@/hooks/useLongPress.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import type { PolymarketPosition } from '@/providers/types/Firefly.js';
@@ -22,6 +25,12 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
     const navigate = useNavigate();
     const marketSlug = position.marketSlug;
     const eventSlug = position.event_slugs?.[0] ?? '';
+
+    const [shareSheetOpen, setShareSheetOpen] = useState(false);
+    const sharePayload = getPositionShareImagePayload(position, fallbackShareIdentity(position.wallet || ''));
+    const longPressHandlers = useLongPress(() => {
+        if (sharePayload) setShareSheetOpen(true);
+    });
 
     // Fetch market data to get tokenIds for determining outcome index
     const { data: marketTokenIds, isLoading: isLoadingTokenIds } = useQuery({
@@ -102,7 +111,13 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
     };
 
     return (
-        <div className="w-full space-y-3 rounded-xl border border-line p-3">
+        <div
+            className="group w-full space-y-3 rounded-xl border border-line p-3"
+            {...(sharePayload ? longPressHandlers : null)}
+        >
+            {sharePayload ? (
+                <PositionShareSheet payload={sharePayload} open={shareSheetOpen} onOpenChange={setShareSheetOpen} />
+            ) : null}
             <button type="button" className="w-full space-y-3 text-left" onClick={() => navigateToDetail()}>
                 <div className="grid h-10 grid-cols-[40px_1fr] grid-rows-[40px] gap-2 text-sm font-semibold leading-5">
                     <div className="size-10 overflow-hidden rounded-lg bg-lightBg">
@@ -115,7 +130,15 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
                             className="size-full object-cover"
                         />
                     </div>
-                    <div className="line-clamp-2">{position.title}</div>
+                    <div className="flex items-start gap-1">
+                        <div className="line-clamp-2 min-w-0 flex-1">{position.title}</div>
+                        {sharePayload ? (
+                            <PositionShareEntry
+                                payload={sharePayload}
+                                className="max-md:hidden md:opacity-0 md:group-hover:opacity-100"
+                            />
+                        ) : null}
+                    </div>
                 </div>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                     <Item field={<Trans>{formatTokenItemAmount(position.shares, 2)} shares</Trans>}>

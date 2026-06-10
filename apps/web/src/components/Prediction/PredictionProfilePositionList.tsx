@@ -10,8 +10,10 @@ import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { memo, type ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
+import { resolveShareIdentityFromWalletProfile } from '@/components/Prediction/getPolymarketSharePayload.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
+import type { PolymarketShareIdentity } from '@/helpers/polymarketShareImage.js';
 import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
 import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -30,6 +32,7 @@ interface Options {
     index: number;
     positionData: PredictionPositionDataForUI;
     showAction: boolean;
+    shareIdentity?: PolymarketShareIdentity | null;
 }
 
 const getPositionItem = ({
@@ -39,6 +42,7 @@ const getPositionItem = ({
     showAction,
     predictionProfile,
     fireflyAccountId,
+    shareIdentity,
 }: Options) => {
     return (
         <div key={`${positionData.Id}-${index}`} className="pb-4">
@@ -47,6 +51,7 @@ const getPositionItem = ({
                 platform={platform}
                 positionData={positionData}
                 showAction={showAction}
+                shareIdentity={shareIdentity}
                 targetProfileInfo={{
                     address: predictionProfile.wallet,
                     proxyAddress: predictionProfile.proxy,
@@ -97,6 +102,14 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
 
     const { data: socialProfile } = useProxyWalletInfo(platform, proxyAddress);
     const fireflyAccountId = socialProfile?.fireflyAccountId;
+    const shareIdentity = useMemo(
+        () =>
+            resolveShareIdentityFromWalletProfile(socialProfile, {
+                name: predictionProfile.platform_name,
+                avatar: predictionProfile.platform_avatar,
+            }),
+        [socialProfile, predictionProfile.platform_name, predictionProfile.platform_avatar],
+    );
 
     const fetchAddress = proxyAddress || address;
 
@@ -169,6 +182,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                                     platform,
                                     predictionProfile,
                                     fireflyAccountId,
+                                    shareIdentity,
                                 }),
                             context: {
                                 isScrollable: false,
@@ -218,6 +232,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                                             platform,
                                             predictionProfile,
                                             fireflyAccountId,
+                                            shareIdentity,
                                         }),
                                     )}
                                 </div>

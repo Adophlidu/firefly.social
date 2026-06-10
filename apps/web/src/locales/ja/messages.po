@@ -2009,6 +2009,9 @@ msgstr "アクティブ"
 msgid "Translated from {contentLanguage}"
 msgstr "{contentLanguage} から翻訳"
 
+msgid "Post with image"
+msgstr ""
+
 msgid "Failed to open miniapp"
 msgstr "ミニアプリを開けませんでした"
 
@@ -2277,6 +2280,9 @@ msgstr "{handleOrEnsOrAddress} をフォロー"
 
 msgid "You can save this to send later from your drafts."
 msgstr "下書きに保存して後で送信できます。"
+
+msgid "Failed to copy image. Please try again later."
+msgstr ""
 
 msgid "Failed Post"
 msgstr "投稿失敗"
@@ -2970,6 +2976,9 @@ msgstr "{0} {symbol} のラッキードロップの受け取りに成功しま�
 
 msgid "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
 msgstr "失敗した予約投稿では、テキストコンテンツのみ復元できます。<0/>クロス @、メディアのアップロードなどを再度行ってください。"
+
+msgid "Failed to generate the share image. Please try again."
+msgstr ""
 
 msgid "Time"
 msgstr "時間"

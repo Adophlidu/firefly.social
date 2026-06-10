@@ -229,6 +229,9 @@ msgstr ""
 msgid "Won"
 msgstr "Ganado"
 
+msgid "Failed to load image."
+msgstr ""
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
 msgstr "{0} acciones disponibles"
@@ -323,6 +326,9 @@ msgstr "La transacción fue rechazada."
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Share position"
+msgstr ""
+
 msgid "to"
 msgstr "a"
 
@@ -386,6 +392,9 @@ msgstr "Volver a las apuestas"
 msgid "Please login to view security settings."
 msgstr "Inicie sesión para ver la configuración de seguridad."
 
+msgid "Post with image"
+msgstr ""
+
 msgid "on"
 msgstr "en"
 
@@ -421,6 +430,9 @@ msgstr "de"
 
 msgid "Set PIN Code"
 msgstr "Establecer PIN"
+
+msgid "Failed to copy image. Please try again later."
+msgstr ""
 
 msgid "Order cancelled"
 msgstr "Orden cancelada"
@@ -600,6 +612,9 @@ msgstr "Actualizar"
 msgid "Receive"
 msgstr "Recibir"
 
+msgid "Failed to generate the share image. Please try again."
+msgstr ""
+
 msgid "Time"
 msgstr "Hora"
 
@@ -629,6 +644,9 @@ msgstr "Confirmar nuevo PIN"
 msgid "Sort closed positions"
 msgstr "Ordenar posiciones cerradas"
 
+msgid "Share image"
+msgstr ""
+
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • Ganó <0>{wonText}({pctText})</0>"
 
@@ -641,6 +659,9 @@ msgstr "Fecha"
 
 msgid "Resend"
 msgstr "Reenviar"
+
+msgid "Download"
+msgstr ""
 
 msgid "Insufficient Balance"
 msgstr "Saldo insuficiente"
@@ -781,6 +802,9 @@ msgstr "Polymarket V2 ya está activo. Libere su saldo disponible de {releaseAmo
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "From <0>{0}</0>"
 msgstr "De <0>{0}</0>"
+
+msgid "Failed to download image. Please try again later."
+msgstr ""
 
 msgid "into your predict wallet"
 msgstr "en su billetera de predicciones"
@@ -992,6 +1016,9 @@ msgstr "El PIN es extremadamente seguro."
 msgid "Add Funds"
 msgstr "Agregar fondos"
 
+msgid "Post"
+msgstr ""
+
 msgid "NFT Sent Failed"
 msgstr "Error al enviar NFT"
 
@@ -1026,6 +1053,9 @@ msgstr "Seguridad y privacidad"
 
 msgid "Approve"
 msgstr "Aprobar"
+
+msgid "Share"
+msgstr ""
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"

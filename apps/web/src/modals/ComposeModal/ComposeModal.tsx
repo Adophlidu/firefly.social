@@ -73,6 +73,7 @@ function ComposeModalUI({ ref }: Props) {
         cursor,
         type,
         addUrl,
+        addImage,
         updateType,
         updateAvailableSources,
         updateParentPost,
@@ -101,6 +102,7 @@ function ComposeModalUI({ ref }: Props) {
             chars,
             channel,
             embeds,
+            images,
             initialPath,
             isFailedSchedulePost,
             isAnonymous,
@@ -126,6 +128,7 @@ function ComposeModalUI({ ref }: Props) {
             if (isAnonymous) toggleAnonymous(true);
             if (initialPath) router.navigate({ to: initialPath });
             embeds?.forEach((embedUrl) => addUrl(embedUrl));
+            images?.forEach((image, index) => addImage(image, index));
             if (isFailedSchedulePost) updateIsFailedSchedulePost(true);
             if (disableSchedule) {
                 clearScheduleTime();

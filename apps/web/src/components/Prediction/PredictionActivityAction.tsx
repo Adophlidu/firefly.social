@@ -1,10 +1,11 @@
-import { Source } from '@dimensiondev/enums';
-import { memo, useCallback } from 'react';
+import { PredictionPlatform, Source } from '@dimensiondev/enums';
+import { memo, useCallback, useMemo } from 'react';
 import type { Address } from 'viem';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ShareAction } from '@/components/Actions/ShareAction.js';
+import { getActivityShareImagePayload } from '@/components/Prediction/getPolymarketSharePayload.js';
 import { Tips } from '@/components/Tips/index.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
@@ -33,6 +34,14 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
         : (activity.url ?? '');
     const polymarketUrl = useShareUrl(basePolymarketUrl);
 
+    const shareImage = useMemo(
+        () =>
+            activity.platform === PredictionPlatform.Polymarket && polymarketUrl
+                ? getActivityShareImagePayload(activity, polymarketUrl)
+                : null,
+        [activity, polymarketUrl],
+    );
+
     const handleBookmark = useCallback(() => {
         toggleBookmark(activity);
     }, [toggleBookmark, activity]);
@@ -57,7 +66,7 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
                     className="hover:bg-fireflyBrand/[.20] inline-flex size-7 items-center justify-center rounded-full"
                     pureWallet
                 />
-                <ShareAction link={polymarketUrl} cellType="Prediction" />
+                <ShareAction link={polymarketUrl} cellType="Prediction" shareImage={shareImage} />
             </div>
         </div>
     );

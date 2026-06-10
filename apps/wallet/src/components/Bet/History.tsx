@@ -23,6 +23,7 @@ import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
 
 import { BetEmptyState } from '@/components/Bet/BetEmptyState.js';
+import { PositionShareEntry, PositionShareSheet } from '@/components/Bet/PositionShare.js';
 import {
     DialogOrDrawer,
     DialogOrDrawerClose,
@@ -41,7 +42,9 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
+import { fallbackShareIdentity, getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
+import { useLongPress } from '@/hooks/useLongPress.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import { cn } from '@/lib/utils.js';
 import {
@@ -342,6 +345,15 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
         : position.pnl_rate;
     const isWon = position.pnl > 0;
 
+    const [shareSheetOpen, setShareSheetOpen] = useState(false);
+    const sharePayload = getPositionShareImagePayload(
+        { ...position, is_closed: true },
+        fallbackShareIdentity(position.wallet || ''),
+    );
+    const longPressHandlers = useLongPress(() => {
+        if (sharePayload) setShareSheetOpen(true);
+    });
+
     const navigateToDetail = () => {
         const eventSlug = position.event_slugs?.[0];
         if (!eventSlug) return;
@@ -351,7 +363,10 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
     };
 
     return (
-        <div className="w-full rounded-xl border border-line p-4">
+        <div className="group w-full rounded-xl border border-line p-4" {...(sharePayload ? longPressHandlers : null)}>
+            {sharePayload ? (
+                <PositionShareSheet payload={sharePayload} open={shareSheetOpen} onOpenChange={setShareSheetOpen} />
+            ) : null}
             <button type="button" className="flex w-full items-center gap-2 text-left" onClick={navigateToDetail}>
                 <div className="size-8 shrink-0 overflow-hidden rounded-md bg-lightBg">
                     <Image
@@ -366,6 +381,12 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
                 <div className="line-clamp-2 min-w-0 flex-1 text-sm font-semibold leading-5 text-main">
                     {position.title || '-'}
                 </div>
+                {sharePayload ? (
+                    <PositionShareEntry
+                        payload={sharePayload}
+                        className="max-md:hidden md:opacity-0 md:group-hover:opacity-100"
+                    />
+                ) : null}
             </button>
             <div className="mt-3 flex items-center justify-between gap-6">
                 <div className="flex min-w-0 items-center gap-1">

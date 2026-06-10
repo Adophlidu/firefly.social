@@ -11,23 +11,28 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
+import { PolymarketShareMenuItems } from '@/components/Prediction/PolymarketShareMenuItems.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { openComposeModal } from '@/controllers/openComposeModal.js';
+import type { PolymarketShareImagePayload } from '@/hooks/prediction/usePolymarketShareImageActions.js';
 import { captureShareIconClickEvent, type ShareIconCellType } from '@/providers/telemetry/captureClickEvent.js';
 
 interface ShareActionProps {
     link: string;
     onClick?: () => void;
     cellType?: ShareIconCellType;
+    /** FW-7696 — renders "Post with image" / "Share image" above the link options. */
+    shareImage?: PolymarketShareImagePayload | null;
 }
 
-export const ShareAction = memo(function ShareAction({ link, onClick, cellType }: ShareActionProps) {
+export const ShareAction = memo(function ShareAction({ link, onClick, cellType, shareImage }: ShareActionProps) {
     return (
         <MoreActionMenu
             className="z-10"
             button={
                 <Tooltip content={<Trans>Share</Trans>} placement="top">
                     <motion.span
+                        data-testid={cellType === 'Prediction' ? 'prediction-activity-share' : undefined}
                         onClick={() => {
                             if (cellType) captureShareIconClickEvent(cellType);
                             onClick?.();
@@ -41,6 +46,7 @@ export const ShareAction = memo(function ShareAction({ link, onClick, cellType }
             }
         >
             <MenuGroup>
+                {shareImage ? <PolymarketShareMenuItems payload={shareImage} /> : null}
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton

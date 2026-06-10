@@ -2019,6 +2019,9 @@ msgstr "Activo"
 msgid "Translated from {contentLanguage}"
 msgstr "Traducido de {contentLanguage}"
 
+msgid "Post with image"
+msgstr ""
+
 msgid "Failed to open miniapp"
 msgstr "No se pudo abrir la miniapp"
 
@@ -2289,6 +2292,9 @@ msgstr "Seguir a {handleOrEnsOrAddress}"
 
 msgid "You can save this to send later from your drafts."
 msgstr "Puedes guardar esto para enviarlo más tarde desde tus borradores."
+
+msgid "Failed to copy image. Please try again later."
+msgstr ""
 
 msgid "Failed Post"
 msgstr "Publicación Fallida"
@@ -2987,6 +2993,9 @@ msgstr "Reclamado botín de la suerte con {0} {symbol} con éxito"
 
 msgid "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
 msgstr "Para una publicación programada fallida, solo se puede restaurar el contenido de texto. Por favor vuelva a hacer el<0/>cruce de @, las subidas de medios y otras acciones."
+
+msgid "Failed to generate the share image. Please try again."
+msgstr ""
 
 msgid "Time"
 msgstr "Hora"

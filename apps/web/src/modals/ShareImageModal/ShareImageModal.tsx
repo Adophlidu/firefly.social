@@ -55,6 +55,9 @@ export function ShareImageModal({ ref }: Props) {
                     <ShareImageModalContent
                         imageUrl={props.imageUrl}
                         aspectRatio={props.aspectRatio}
+                        fileName={props.fileName}
+                        enableCopy={props.enableCopy}
+                        onPost={props.onPost}
                         onClose={onClose}
                     />
                 </div>
@@ -65,7 +68,14 @@ export function ShareImageModal({ ref }: Props) {
     return (
         <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0 !pt-6">
             <div className="px-3 pb-6 text-medium text-lightMain">
-                <ShareImageModalContent imageUrl={props.imageUrl} aspectRatio={props.aspectRatio} onClose={onClose} />
+                <ShareImageModalContent
+                    imageUrl={props.imageUrl}
+                    aspectRatio={props.aspectRatio}
+                    fileName={props.fileName}
+                    enableCopy={props.enableCopy}
+                    onPost={props.onPost}
+                    onClose={onClose}
+                />
             </div>
         </Popover>
     );

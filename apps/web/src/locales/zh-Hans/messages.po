@@ -2009,6 +2009,9 @@ msgstr "进行中"
 msgid "Translated from {contentLanguage}"
 msgstr "翻译自{contentLanguage}"
 
+msgid "Post with image"
+msgstr ""
+
 msgid "Failed to open miniapp"
 msgstr "打开 miniapp 失败"
 
@@ -2277,6 +2280,9 @@ msgstr "关注 {handleOrEnsOrAddress}"
 
 msgid "You can save this to send later from your drafts."
 msgstr "你可以先保存至草稿后再发布。"
+
+msgid "Failed to copy image. Please try again later."
+msgstr ""
 
 msgid "Failed Post"
 msgstr "发布失败"
@@ -2970,6 +2976,9 @@ msgstr "成功领取 {0}{symbol} 红包"
 
 msgid "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
 msgstr "发布失败的定时帖，仅可恢复文本内容。请重新进行<0/>跨平台 @、媒体上传等操作。"
+
+msgid "Failed to generate the share image. Please try again."
+msgstr ""
 
 msgid "Time"
 msgstr "时间"

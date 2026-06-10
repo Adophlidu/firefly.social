@@ -229,6 +229,9 @@ msgstr ""
 msgid "Won"
 msgstr "勝利"
 
+msgid "Failed to load image."
+msgstr ""
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
 msgstr "{0} 口利用可能"
@@ -323,6 +326,9 @@ msgstr "トランザクションが拒否されました。"
 msgid "Cancel"
 msgstr "キャンセル"
 
+msgid "Share position"
+msgstr ""
+
 msgid "to"
 msgstr "宛先"
 
@@ -386,6 +392,9 @@ msgstr "ベットに戻る"
 msgid "Please login to view security settings."
 msgstr "セキュリティ設定を表示するにはログインしてください。"
 
+msgid "Post with image"
+msgstr ""
+
 msgid "on"
 msgstr "で"
 
@@ -421,6 +430,9 @@ msgstr "送付元"
 
 msgid "Set PIN Code"
 msgstr "PIN コードを設定"
+
+msgid "Failed to copy image. Please try again later."
+msgstr ""
 
 msgid "Order cancelled"
 msgstr "注文をキャンセルしました"
@@ -600,6 +612,9 @@ msgstr "更新"
 msgid "Receive"
 msgstr "受け取る"
 
+msgid "Failed to generate the share image. Please try again."
+msgstr ""
+
 msgid "Time"
 msgstr "時間"
 
@@ -629,6 +644,9 @@ msgstr "新しい PIN を確認"
 msgid "Sort closed positions"
 msgstr "クローズドポジションを並び替え"
 
+msgid "Share image"
+msgstr ""
+
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • 勝利 <0>{wonText}({pctText})</0>"
 
@@ -641,6 +659,9 @@ msgstr "日付"
 
 msgid "Resend"
 msgstr "再送信"
+
+msgid "Download"
+msgstr ""
 
 msgid "Insufficient Balance"
 msgstr "残高不足"
@@ -781,6 +802,9 @@ msgstr "Polymarket V2 が公開されました。予測を継続するために�
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "From <0>{0}</0>"
 msgstr "<0>{0}</0> から"
+
+msgid "Failed to download image. Please try again later."
+msgstr ""
 
 msgid "into your predict wallet"
 msgstr "予測ウォレットへ"
@@ -992,6 +1016,9 @@ msgstr "PIN は非常に強固です。"
 msgid "Add Funds"
 msgstr "入金"
 
+msgid "Post"
+msgstr ""
+
 msgid "NFT Sent Failed"
 msgstr "NFT の送信に失敗しました"
 
@@ -1026,6 +1053,9 @@ msgstr "セキュリティとプライバシー"
 
 msgid "Approve"
 msgstr "承認"
+
+msgid "Share"
+msgstr ""
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"

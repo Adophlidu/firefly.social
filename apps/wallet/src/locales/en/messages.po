@@ -229,6 +229,9 @@ msgstr "Your deposit has been credited to your account."
 msgid "Won"
 msgstr "Won"
 
+msgid "Failed to load image."
+msgstr "Failed to load image."
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
 msgstr "{0} shares available"
@@ -323,6 +326,9 @@ msgstr "Transaction was rejected."
 msgid "Cancel"
 msgstr "Cancel"
 
+msgid "Share position"
+msgstr "Share position"
+
 msgid "to"
 msgstr "to"
 
@@ -386,6 +392,9 @@ msgstr "Back to Bets"
 msgid "Please login to view security settings."
 msgstr "Please login to view security settings."
 
+msgid "Post with image"
+msgstr "Post with image"
+
 msgid "on"
 msgstr "on"
 
@@ -421,6 +430,9 @@ msgstr "from"
 
 msgid "Set PIN Code"
 msgstr "Set PIN Code"
+
+msgid "Failed to copy image. Please try again later."
+msgstr "Failed to copy image. Please try again later."
 
 msgid "Order cancelled"
 msgstr "Order cancelled"
@@ -600,6 +612,9 @@ msgstr "Refresh"
 msgid "Receive"
 msgstr "Receive"
 
+msgid "Failed to generate the share image. Please try again."
+msgstr "Failed to generate the share image. Please try again."
+
 msgid "Time"
 msgstr "Time"
 
@@ -629,6 +644,9 @@ msgstr "Confirm new PIN"
 msgid "Sort closed positions"
 msgstr "Sort closed positions"
 
+msgid "Share image"
+msgstr "Share image"
+
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • Won <0>{wonText}({pctText})</0>"
 
@@ -641,6 +659,9 @@ msgstr "Date"
 
 msgid "Resend"
 msgstr "Resend"
+
+msgid "Download"
+msgstr "Download"
 
 msgid "Insufficient Balance"
 msgstr "Insufficient Balance"
@@ -781,6 +802,9 @@ msgstr "Polymarket V2 is now live. Release your available balance of {releaseAmo
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "From <0>{0}</0>"
 msgstr "From <0>{0}</0>"
+
+msgid "Failed to download image. Please try again later."
+msgstr "Failed to download image. Please try again later."
 
 msgid "into your predict wallet"
 msgstr "into your predict wallet"
@@ -992,6 +1016,9 @@ msgstr "PIN is extremely strong."
 msgid "Add Funds"
 msgstr "Add Funds"
 
+msgid "Post"
+msgstr "Post"
+
 msgid "NFT Sent Failed"
 msgstr "NFT Sent Failed"
 
@@ -1026,6 +1053,9 @@ msgstr "Security & Privacy"
 
 msgid "Approve"
 msgstr "Approve"
+
+msgid "Share"
+msgstr "Share"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"

@@ -97,6 +97,8 @@ export interface IframeBridgeRequestOptions {
 export interface IframeBridgeRequestArguments {
     [IframeBridgeMethod.COMPOSE]: {
         text: Chars;
+        /** Remote images (e.g. the FW-7696 position share image) the host fetches and attaches to the compose editor. */
+        imageUrls?: string[];
     };
     [IframeBridgeMethod.ENQUEUE_MESSAGE]: {
         type: 'success' | 'error' | 'info' | 'warning';

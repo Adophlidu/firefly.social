@@ -6,12 +6,21 @@ import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames, removeTrailingZeros, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, isUndefined } from 'lodash-es';
+import { useState } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
+import { getPositionShareImagePayload } from '@/components/Prediction/getPolymarketSharePayload.js';
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
+import {
+    PredictionPositionShareButton,
+    PredictionPositionShareSheet,
+} from '@/components/Prediction/PredictionPositionShare.js';
 import { Image } from '@/esm/Image.js';
+import type { PolymarketShareIdentity } from '@/helpers/polymarketShareImage.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
+import { useLongPress } from '@/hooks/useLongPress.js';
 import {
     captureOpinionProfilePositionsEventClick,
     capturePolymarketProfilePositionsEventClick,
@@ -22,6 +31,8 @@ interface PredictionPositionItemProps {
     platform: PredictionPlatform;
     positionData: PredictionPositionDataForUI;
     showAction?: boolean;
+    /** FW-7696 — the position owner's identity rendered on the share image. */
+    shareIdentity?: PolymarketShareIdentity | null;
     targetProfileInfo?: {
         address: string;
         proxyAddress?: string;
@@ -64,8 +75,24 @@ export function PredictionPositionItem({
     positionData: position,
     platform,
     showAction,
+    shareIdentity,
     targetProfileInfo,
 }: PredictionPositionItemProps) {
+    const [shareSheetOpen, setShareSheetOpen] = useState(false);
+    const sharerUid = useCurrentFireflyAccountUID();
+    const sharePayload =
+        platform === PredictionPlatform.Polymarket
+            ? getPositionShareImagePayload(
+                  position,
+                  shareIdentity ?? null,
+                  sharerUid,
+                  targetProfileInfo?.proxyAddress || targetProfileInfo?.address,
+              )
+            : null;
+    const longPressHandlers = useLongPress(() => {
+        if (sharePayload) setShareSheetOpen(true);
+    });
+
     const displayTitle =
         platform === PredictionPlatform.Opinion
             ? compact([position.parent_title, position.title]).join(' - ')
@@ -74,6 +101,20 @@ export function PredictionPositionItem({
 
     const isGreen = position.outcomeIndex === 0 || ['yes', 'up'].includes(position.vote_status.toLowerCase());
     const eventUrl = resolveEventUrl(platform, position);
+
+    const shareEntry = sharePayload ? (
+        <PredictionPositionShareButton
+            payload={sharePayload}
+            className="shrink-0 max-md:hidden md:opacity-0 md:group-hover:opacity-100"
+        />
+    ) : null;
+    const shareSheet = sharePayload ? (
+        <PredictionPositionShareSheet
+            payload={sharePayload}
+            open={shareSheetOpen}
+            onClose={() => setShareSheetOpen(false)}
+        />
+    ) : null;
 
     const handleEventClick = () => {
         if (!targetProfileInfo) return;
@@ -109,7 +150,13 @@ export function PredictionPositionItem({
         const pnlRate = Math.max(-1, totalTrade > 0 ? position.pnl / totalTrade : position.pnl_rate);
 
         return (
-            <div key={position.Id} className="flex w-full flex-col gap-3 rounded-xl border border-line p-3">
+            <div
+                key={position.Id}
+                data-testid="prediction-position-item"
+                className="group flex w-full flex-col gap-3 rounded-xl border border-line p-3"
+                {...(sharePayload ? longPressHandlers : null)}
+            >
+                {shareSheet}
                 <div className="flex w-full items-center gap-2">
                     <div className="size-10 shrink-0 overflow-hidden rounded-lg">
                         {position.image ? (
@@ -123,19 +170,22 @@ export function PredictionPositionItem({
                         ) : null}
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                        {eventUrl ? (
-                            <Link
-                                href={eventUrl}
-                                onClick={handleEventClick}
-                                className="line-clamp-2 min-w-0 break-words text-sm font-semibold leading-5 text-main hover:underline"
-                            >
-                                {displayTitle}
-                            </Link>
-                        ) : (
-                            <h3 className="line-clamp-2 min-w-0 break-words text-sm font-semibold leading-5 text-main">
-                                {displayTitle}
-                            </h3>
-                        )}
+                        <div className="flex min-w-0 items-start gap-1">
+                            {eventUrl ? (
+                                <Link
+                                    href={eventUrl}
+                                    onClick={handleEventClick}
+                                    className="line-clamp-2 min-w-0 flex-1 break-words text-sm font-semibold leading-5 text-main hover:underline"
+                                >
+                                    {displayTitle}
+                                </Link>
+                            ) : (
+                                <h3 className="line-clamp-2 min-w-0 flex-1 break-words text-sm font-semibold leading-5 text-main">
+                                    {displayTitle}
+                                </h3>
+                            )}
+                            {shareEntry}
+                        </div>
                         <div className="flex min-w-0 items-center gap-1">
                             <span
                                 className={classNames(
@@ -188,7 +238,13 @@ export function PredictionPositionItem({
     }
 
     return (
-        <div key={position.Id} className="flex flex-col items-start gap-3 rounded-xl border border-line p-3">
+        <div
+            key={position.Id}
+            data-testid="prediction-position-item"
+            className="group flex flex-col items-start gap-3 rounded-xl border border-line p-3"
+            {...(sharePayload ? longPressHandlers : null)}
+        >
+            {shareSheet}
             <div className="flex w-full gap-2">
                 <div className="size-10 shrink-0">
                     {position.image ? (
@@ -202,17 +258,22 @@ export function PredictionPositionItem({
                     ) : null}
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col">
-                    {eventUrl ? (
-                        <Link
-                            href={eventUrl}
-                            onClick={handleEventClick}
-                            className="line-clamp-5 w-full break-words text-sm font-bold text-main hover:underline"
-                        >
-                            {displayTitle}
-                        </Link>
-                    ) : (
-                        <h3 className="line-clamp-5 w-full break-words text-sm font-bold text-main">{displayTitle}</h3>
-                    )}
+                    <div className="flex min-w-0 items-start gap-1">
+                        {eventUrl ? (
+                            <Link
+                                href={eventUrl}
+                                onClick={handleEventClick}
+                                className="line-clamp-5 min-w-0 flex-1 break-words text-sm font-bold text-main hover:underline"
+                            >
+                                {displayTitle}
+                            </Link>
+                        ) : (
+                            <h3 className="line-clamp-5 min-w-0 flex-1 break-words text-sm font-bold text-main">
+                                {displayTitle}
+                            </h3>
+                        )}
+                        {shareEntry}
+                    </div>
                     <div className="flex items-center gap-2">
                         <div
                             className={classNames(

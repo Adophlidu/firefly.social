@@ -2009,6 +2009,9 @@ msgstr "활성"
 msgid "Translated from {contentLanguage}"
 msgstr "{contentLanguage}에서 번역됨"
 
+msgid "Post with image"
+msgstr ""
+
 msgid "Failed to open miniapp"
 msgstr "미니앱을 열지 못했습니다"
 
@@ -2277,6 +2280,9 @@ msgstr "{handleOrEnsOrAddress} 팔로우"
 
 msgid "You can save this to send later from your drafts."
 msgstr "임시 저장함에 저장해 나중에 보낼 수 있습니다."
+
+msgid "Failed to copy image. Please try again later."
+msgstr ""
 
 msgid "Failed Post"
 msgstr "게시 실패"
@@ -2970,6 +2976,9 @@ msgstr "{0} {symbol} 럭키 드롭을 성공적으로 수령했습니다"
 
 msgid "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
 msgstr "실패한 예약 게시물은 텍스트만 복원할 수 있습니다. <0/>교차 @, 미디어 업로드 등을 다시 진행해 주세요."
+
+msgid "Failed to generate the share image. Please try again."
+msgstr ""
 
 msgid "Time"
 msgstr "시간"
