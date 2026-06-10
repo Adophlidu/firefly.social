@@ -3,8 +3,8 @@ Package Analysis
 
 Application: apps/web
 
-Total packages: 2678
-Packages with multiple versions: 455
+Total packages: 2680
+Packages with multiple versions: 435
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -79,86 +79,56 @@ Packages with Multiple Versions
 *@lingui/format-po-gettext@5.5.2,5.9.5
  @lingui/message-utils@5.5.2,5.9.5
  @napi-rs/wasm-runtime@0.2.12,1.0.7,1.1.4
- @next/env@16.0.0,16.2.6
-*@next/eslint-plugin-next@16.0.11,16.2.6
+ @next/env@16.0.0,16.2.7
+*@next/eslint-plugin-next@16.0.11,16.2.7
  @noble/hashes@1.4.0,1.7.0,1.8.0,2.0.1
- @oxc-minify/binding-android-arm-eabi@0.110.0,0.133.0
- @oxc-minify/binding-android-arm64@0.110.0,0.133.0
- @oxc-minify/binding-darwin-arm64@0.110.0,0.133.0
- @oxc-minify/binding-darwin-x64@0.110.0,0.133.0
- @oxc-minify/binding-freebsd-x64@0.110.0,0.133.0
- @oxc-minify/binding-linux-arm-gnueabihf@0.110.0,0.133.0
- @oxc-minify/binding-linux-arm-musleabihf@0.110.0,0.133.0
- @oxc-minify/binding-linux-arm64-gnu@0.110.0,0.133.0
- @oxc-minify/binding-linux-arm64-musl@0.110.0,0.133.0
- @oxc-minify/binding-linux-ppc64-gnu@0.110.0,0.133.0
- @oxc-minify/binding-linux-riscv64-gnu@0.110.0,0.133.0
- @oxc-minify/binding-linux-riscv64-musl@0.110.0,0.133.0
- @oxc-minify/binding-linux-s390x-gnu@0.110.0,0.133.0
- @oxc-minify/binding-linux-x64-gnu@0.110.0,0.133.0
- @oxc-minify/binding-linux-x64-musl@0.110.0,0.133.0
- @oxc-minify/binding-openharmony-arm64@0.110.0,0.133.0
- @oxc-minify/binding-wasm32-wasi@0.110.0,0.133.0
- @oxc-minify/binding-win32-arm64-msvc@0.110.0,0.133.0
- @oxc-minify/binding-win32-ia32-msvc@0.110.0,0.133.0
- @oxc-minify/binding-win32-x64-msvc@0.110.0,0.133.0
- @oxc-project/types@0.127.0,0.133.0
- @oxc-transform/binding-android-arm-eabi@0.110.0,0.133.0
- @oxc-transform/binding-android-arm64@0.110.0,0.133.0
- @oxc-transform/binding-darwin-arm64@0.110.0,0.133.0
- @oxc-transform/binding-darwin-x64@0.110.0,0.133.0
- @oxc-transform/binding-freebsd-x64@0.110.0,0.133.0
- @oxc-transform/binding-linux-arm-gnueabihf@0.110.0,0.133.0
- @oxc-transform/binding-linux-arm-musleabihf@0.110.0,0.133.0
- @oxc-transform/binding-linux-arm64-gnu@0.110.0,0.133.0
- @oxc-transform/binding-linux-arm64-musl@0.110.0,0.133.0
- @oxc-transform/binding-linux-ppc64-gnu@0.110.0,0.133.0
- @oxc-transform/binding-linux-riscv64-gnu@0.110.0,0.133.0
- @oxc-transform/binding-linux-riscv64-musl@0.110.0,0.133.0
- @oxc-transform/binding-linux-s390x-gnu@0.110.0,0.133.0
- @oxc-transform/binding-linux-x64-gnu@0.110.0,0.133.0
- @oxc-transform/binding-linux-x64-musl@0.110.0,0.133.0
- @oxc-transform/binding-openharmony-arm64@0.110.0,0.133.0
- @oxc-transform/binding-wasm32-wasi@0.110.0,0.133.0
- @oxc-transform/binding-win32-arm64-msvc@0.110.0,0.133.0
- @oxc-transform/binding-win32-ia32-msvc@0.110.0,0.133.0
- @oxc-transform/binding-win32-x64-msvc@0.110.0,0.133.0
+ @oxc-project/types@0.127.0,0.133.0,0.134.0
  @poppinss/dumper@0.6.5,0.7.0
- @radix-ui/react-primitive@2.1.3,2.1.4
- @radix-ui/react-slot@1.2.3,1.2.4
- @radix-ui/react-visually-hidden@1.2.3,1.2.4
+ @radix-ui/primitive@1.1.3,1.1.4
+ @radix-ui/react-arrow@1.1.7,1.1.9
+ @radix-ui/react-collection@1.1.7,1.1.9
+ @radix-ui/react-compose-refs@1.1.2,1.1.3
+ @radix-ui/react-context@1.1.2,1.1.4
+ @radix-ui/react-direction@1.1.1,1.1.2
+ @radix-ui/react-dismissable-layer@1.1.11,1.1.12
+ @radix-ui/react-focus-guards@1.1.3,1.1.4
+ @radix-ui/react-focus-scope@1.1.7,1.1.9
+ @radix-ui/react-id@1.1.1,1.1.2
+ @radix-ui/react-popper@1.2.8,1.3.0
+ @radix-ui/react-portal@1.1.11,1.1.9
+ @radix-ui/react-primitive@2.1.3,2.1.5
+ @radix-ui/react-slot@1.2.3,1.2.5
+ @radix-ui/react-use-callback-ref@1.1.1,1.1.2
+ @radix-ui/react-use-controllable-state@1.2.2,1.2.3
+ @radix-ui/react-use-effect-event@0.0.2,0.0.3
+ @radix-ui/react-use-escape-keydown@1.1.1,1.1.2
+ @radix-ui/react-use-layout-effect@1.1.1,1.1.2
+ @radix-ui/react-use-rect@1.1.1,1.1.2
+ @radix-ui/react-use-size@1.1.1,1.1.2
+ @radix-ui/react-visually-hidden@1.2.3,1.2.5
+ @radix-ui/rect@1.1.1,1.1.2
  @react-native/codegen@0.84.1,0.85.3
  @react-native/js-polyfills@0.84.1,0.85.3
  @react-native/normalize-colors@0.74.89,0.84.1
+ @rolldown/binding-android-arm64@1.0.0-rc.17,1.1.0
+ @rolldown/binding-darwin-arm64@1.0.0-rc.17,1.1.0
+ @rolldown/binding-darwin-x64@1.0.0-rc.17,1.1.0
+ @rolldown/binding-freebsd-x64@1.0.0-rc.17,1.1.0
+ @rolldown/binding-linux-arm-gnueabihf@1.0.0-rc.17,1.1.0
+ @rolldown/binding-linux-arm64-gnu@1.0.0-rc.17,1.1.0
+ @rolldown/binding-linux-arm64-musl@1.0.0-rc.17,1.1.0
+ @rolldown/binding-linux-ppc64-gnu@1.0.0-rc.17,1.1.0
+ @rolldown/binding-linux-s390x-gnu@1.0.0-rc.17,1.1.0
+ @rolldown/binding-linux-x64-gnu@1.0.0-rc.17,1.1.0
+ @rolldown/binding-linux-x64-musl@1.0.0-rc.17,1.1.0
+ @rolldown/binding-openharmony-arm64@1.0.0-rc.17,1.1.0
+ @rolldown/binding-wasm32-wasi@1.0.0-rc.17,1.1.0
+ @rolldown/binding-win32-arm64-msvc@1.0.0-rc.17,1.1.0
+ @rolldown/binding-win32-x64-msvc@1.0.0-rc.17,1.1.0
  @rolldown/pluginutils@1.0.0-beta.40,1.0.0-rc.17,1.0.0-rc.3,1.0.1
 *@rollup/plugin-commonjs@25.0.8,29.0.3
 *@rollup/plugin-node-resolve@15.3.1,16.0.3
  @rollup/pluginutils@5.1.4,5.3.0
- @rollup/rollup-android-arm-eabi@4.60.1,4.60.4
- @rollup/rollup-android-arm64@4.60.1,4.60.4
- @rollup/rollup-darwin-arm64@4.60.1,4.60.4
- @rollup/rollup-darwin-x64@4.60.1,4.60.4
- @rollup/rollup-freebsd-arm64@4.60.1,4.60.4
- @rollup/rollup-freebsd-x64@4.60.1,4.60.4
- @rollup/rollup-linux-arm-gnueabihf@4.60.1,4.60.4
- @rollup/rollup-linux-arm-musleabihf@4.60.1,4.60.4
- @rollup/rollup-linux-arm64-gnu@4.60.1,4.60.4
- @rollup/rollup-linux-arm64-musl@4.60.1,4.60.4
- @rollup/rollup-linux-loong64-gnu@4.60.1,4.60.4
- @rollup/rollup-linux-loong64-musl@4.60.1,4.60.4
- @rollup/rollup-linux-ppc64-gnu@4.60.1,4.60.4
- @rollup/rollup-linux-ppc64-musl@4.60.1,4.60.4
- @rollup/rollup-linux-riscv64-gnu@4.60.1,4.60.4
- @rollup/rollup-linux-riscv64-musl@4.60.1,4.60.4
- @rollup/rollup-linux-s390x-gnu@4.60.1,4.60.4
- @rollup/rollup-linux-x64-gnu@4.60.1,4.60.4
- @rollup/rollup-linux-x64-musl@4.60.1,4.60.4
- @rollup/rollup-openbsd-x64@4.60.1,4.60.4
- @rollup/rollup-openharmony-arm64@4.60.1,4.60.4
- @rollup/rollup-win32-arm64-msvc@4.60.1,4.60.4
- @rollup/rollup-win32-ia32-msvc@4.60.1,4.60.4
- @rollup/rollup-win32-x64-gnu@4.60.1,4.60.4
- @rollup/rollup-win32-x64-msvc@4.60.1,4.60.4
  @smithy/fetch-http-handler@3.2.9,4.1.3
  @smithy/is-array-buffer@2.2.0,3.0.0
  @smithy/util-buffer-from@2.2.0,3.0.0
@@ -222,13 +192,23 @@ Packages with Multiple Versions
  @types/estree@1.0.8,1.0.9
  @types/unist@2.0.11,3.0.3
  @types/ws@7.4.7,8.18.1
+*@typescript-eslint/eslint-plugin@8.54.0,8.61.0
+*@typescript-eslint/parser@8.54.0,8.61.0
+ @typescript-eslint/project-service@8.54.0,8.61.0
+ @typescript-eslint/scope-manager@8.54.0,8.61.0
+ @typescript-eslint/tsconfig-utils@8.54.0,8.61.0
+ @typescript-eslint/type-utils@8.54.0,8.61.0
+ @typescript-eslint/types@8.54.0,8.61.0
+ @typescript-eslint/typescript-estree@8.54.0,8.61.0
+ @typescript-eslint/utils@8.54.0,8.61.0
+ @typescript-eslint/visitor-keys@8.54.0,8.61.0
  @vitest/expect@3.2.4,3.2.6
  @vitest/pretty-format@3.2.4,3.2.6
  @vitest/spy@3.2.4,3.2.6
  @vitest/utils@3.2.4,3.2.6
  @wagmi/connectors@7.0.6,8.0.10
 *@wagmi/core@3.0.2,3.4.9
- @walletconnect/types@2.23.0,2.23.7
+ @walletconnect/types@2.23.7,2.23.9
  abitype@1.0.6,1.2.3
  acorn@8.14.0,8.16.0
  acorn-walk@8.3.2,8.3.5
@@ -272,7 +252,7 @@ Packages with Multiple Versions
 *core-js@2.6.12,3.49.0
  cosmiconfig@7.1.0,8.0.0,8.3.6,9.0.1
 *cross-fetch@3.2.0,4.1.0
- crossws@0.3.5,0.4.4
+ crossws@0.3.5,0.4.4,0.4.5
  css-tree@1.1.3,2.2.1,3.1.0
 *date-fns@2.30.0,3.6.0
 *dayjs@1.11.13,1.11.21
@@ -290,10 +270,10 @@ Packages with Multiple Versions
  es-module-lexer@1.7.0,2.0.0,2.1.0
 *esbuild@0.24.2,0.25.12,0.27.0,0.27.7,0.28.0
  escape-string-regexp@1.0.5,2.0.0,4.0.0,5.0.0
-*eslint-config-next@16.0.11,16.2.6
+*eslint-config-next@16.0.11,16.2.7
 *eslint-plugin-react-hooks@5.2.0,7.0.1
  eslint-scope@5.1.1,8.4.0
- eslint-visitor-keys@3.4.3,4.2.1
+ eslint-visitor-keys@3.4.3,4.2.1,5.0.1
  estraverse@4.3.0,5.3.0
  estree-walker@2.0.2,3.0.3
  eventemitter3@4.0.7,5.0.1,5.0.4
@@ -314,11 +294,12 @@ Packages with Multiple Versions
  globals@14.0.0,16.4.0
  globby@13.2.2,16.2.0
  gzip-size@6.0.0,7.0.0
- h3@1.15.11,2.0.1-rc.20
+ h3@1.15.11,2.0.1-rc.20,2.0.1-rc.22
  hash-base@3.0.5,3.1.2
  hasown@2.0.2,2.0.3
  hermes-estree@0.25.1,0.32.0,0.33.3,0.35.0
  hermes-parser@0.25.1,0.32.0,0.33.3,0.35.0
+*hono@4.12.23,4.12.25
  hookable@5.5.3,6.1.1
  html-escaper@2.0.2,3.0.3
  htmlparser2@10.0.0,10.1.0
@@ -338,10 +319,10 @@ Packages with Multiple Versions
  isarray@1.0.0,2.0.5
  isexe@2.0.0,4.0.0
  jest-worker@26.6.2,27.5.1,29.7.0
- jiti@1.21.7,2.6.1,2.7.0
+ jiti@1.21.7,2.7.0
  jose@4.15.9,6.1.3
  js-tokens@4.0.0,9.0.1
-*js-yaml@3.14.2,4.1.1
+*js-yaml@3.14.2,4.2.0
  json-schema-traverse@0.4.1,1.0.0
  json5@1.0.2,2.2.3
  loader-runner@4.3.1,4.3.2
@@ -380,8 +361,6 @@ Packages with Multiple Versions
  onetime@5.1.2,6.0.0
  open@10.2.0,11.0.0,7.4.2,8.4.2
  ox@0.14.15,0.14.20,0.4.4,0.6.9,0.9.3
- oxc-minify@0.110.0,0.133.0
- oxc-transform@0.110.0,0.133.0
  p-limit@2.3.0,3.1.0,4.0.0
  p-locate@4.1.0,5.0.0,6.0.0
  pako@0.2.9,1.0.11,2.1.0
@@ -407,7 +386,7 @@ Packages with Multiple Versions
  readdirp@3.5.0,3.6.0,5.0.0
  resolve@1.22.11,1.22.12,2.0.0-next.5
  resolve-from@4.0.0,5.0.0
-*rollup@4.60.1,4.60.4
+ rolldown@1.0.0-rc.17,1.1.0
  safe-buffer@5.1.2,5.2.1
  semver@6.3.1,7.7.1,7.7.2,7.7.4,7.8.2
  send@0.19.2,1.2.1
@@ -416,7 +395,7 @@ Packages with Multiple Versions
  sirv@2.0.4,3.0.2
  slash@3.0.0,4.0.0,5.1.0
  source-map@0.5.6,0.5.7,0.6.1,0.7.6
- srvx@0.10.1,0.11.15
+ srvx@0.11.15,0.11.16
  statuses@1.5.0,2.0.2
  std-env@3.9.0,4.1.0
  string_decoder@1.1.1,1.3.0
@@ -433,6 +412,7 @@ Packages with Multiple Versions
  tinyexec@0.3.2,1.2.4
  tinyglobby@0.2.15,0.2.16,0.2.17
  tr46@0.0.3,6.0.0
+ ts-api-utils@2.4.0,2.5.0
  tsconfig-paths@3.15.0,4.2.0
  tslib@1.14.1,2.8.1
 *twemoji-parser@11.0.2,14.0.0
@@ -444,7 +424,7 @@ Packages with Multiple Versions
  unist-util-is@2.1.3,6.0.0
  unist-util-visit-parents@2.0.1,6.0.1
  unplugin@2.3.11,3.0.0
- unstorage@1.17.4,1.17.5,2.0.0-alpha.7
+ unstorage@1.17.5,2.0.0-alpha.7
  uuid@8.3.2,9.0.1
  vite-node@3.2.4,5.3.0
  vite-tsconfig-paths@5.1.4,6.1.1
@@ -890,7 +870,7 @@ Packages with Single Version
  @motionone/generators@10.18.0
  @motionone/types@10.17.1
  @motionone/utils@10.18.0
- @msgpack/msgpack@3.1.2
+ @msgpack/msgpack@3.1.3
 *@napi-rs/image@1.7.0
  @napi-rs/image-android-arm-eabi@1.7.0
  @napi-rs/image-android-arm64@1.7.0
@@ -918,16 +898,16 @@ Packages with Single Version
  @napi-rs/magic-string-win32-arm64-msvc@0.3.4
  @napi-rs/magic-string-win32-ia32-msvc@0.3.4
  @napi-rs/magic-string-win32-x64-msvc@0.3.4
-*@next/bundle-analyzer@16.2.6
- @next/swc-darwin-arm64@16.2.6
- @next/swc-darwin-x64@16.2.6
- @next/swc-linux-arm64-gnu@16.2.6
- @next/swc-linux-arm64-musl@16.2.6
- @next/swc-linux-x64-gnu@16.2.6
- @next/swc-linux-x64-musl@16.2.6
- @next/swc-win32-arm64-msvc@16.2.6
- @next/swc-win32-x64-msvc@16.2.6
-*@next/third-parties@16.2.6
+*@next/bundle-analyzer@16.2.7
+ @next/swc-darwin-arm64@16.2.7
+ @next/swc-darwin-x64@16.2.7
+ @next/swc-linux-arm64-gnu@16.2.7
+ @next/swc-linux-arm64-musl@16.2.7
+ @next/swc-linux-x64-gnu@16.2.7
+ @next/swc-linux-x64-musl@16.2.7
+ @next/swc-win32-arm64-msvc@16.2.7
+ @next/swc-win32-x64-msvc@16.2.7
+*@next/third-parties@16.2.7
  @nktkas/hyperliquid@0.32.2
  @nktkas/rews@2.0.2
  @noble/ciphers@1.3.0
@@ -951,6 +931,26 @@ Packages with Single Version
  @oozcitak/infra@2.0.2
  @oozcitak/url@3.0.0
  @oozcitak/util@10.0.0
+ @oxc-minify/binding-android-arm-eabi@0.133.0
+ @oxc-minify/binding-android-arm64@0.133.0
+ @oxc-minify/binding-darwin-arm64@0.133.0
+ @oxc-minify/binding-darwin-x64@0.133.0
+ @oxc-minify/binding-freebsd-x64@0.133.0
+ @oxc-minify/binding-linux-arm-gnueabihf@0.133.0
+ @oxc-minify/binding-linux-arm-musleabihf@0.133.0
+ @oxc-minify/binding-linux-arm64-gnu@0.133.0
+ @oxc-minify/binding-linux-arm64-musl@0.133.0
+ @oxc-minify/binding-linux-ppc64-gnu@0.133.0
+ @oxc-minify/binding-linux-riscv64-gnu@0.133.0
+ @oxc-minify/binding-linux-riscv64-musl@0.133.0
+ @oxc-minify/binding-linux-s390x-gnu@0.133.0
+ @oxc-minify/binding-linux-x64-gnu@0.133.0
+ @oxc-minify/binding-linux-x64-musl@0.133.0
+ @oxc-minify/binding-openharmony-arm64@0.133.0
+ @oxc-minify/binding-wasm32-wasi@0.133.0
+ @oxc-minify/binding-win32-arm64-msvc@0.133.0
+ @oxc-minify/binding-win32-ia32-msvc@0.133.0
+ @oxc-minify/binding-win32-x64-msvc@0.133.0
  @oxc-parser/binding-android-arm-eabi@0.133.0
  @oxc-parser/binding-android-arm64@0.133.0
  @oxc-parser/binding-darwin-arm64@0.133.0
@@ -971,6 +971,26 @@ Packages with Single Version
  @oxc-parser/binding-win32-arm64-msvc@0.133.0
  @oxc-parser/binding-win32-ia32-msvc@0.133.0
  @oxc-parser/binding-win32-x64-msvc@0.133.0
+ @oxc-transform/binding-android-arm-eabi@0.133.0
+ @oxc-transform/binding-android-arm64@0.133.0
+ @oxc-transform/binding-darwin-arm64@0.133.0
+ @oxc-transform/binding-darwin-x64@0.133.0
+ @oxc-transform/binding-freebsd-x64@0.133.0
+ @oxc-transform/binding-linux-arm-gnueabihf@0.133.0
+ @oxc-transform/binding-linux-arm-musleabihf@0.133.0
+ @oxc-transform/binding-linux-arm64-gnu@0.133.0
+ @oxc-transform/binding-linux-arm64-musl@0.133.0
+ @oxc-transform/binding-linux-ppc64-gnu@0.133.0
+ @oxc-transform/binding-linux-riscv64-gnu@0.133.0
+ @oxc-transform/binding-linux-riscv64-musl@0.133.0
+ @oxc-transform/binding-linux-s390x-gnu@0.133.0
+ @oxc-transform/binding-linux-x64-gnu@0.133.0
+ @oxc-transform/binding-linux-x64-musl@0.133.0
+ @oxc-transform/binding-openharmony-arm64@0.133.0
+ @oxc-transform/binding-wasm32-wasi@0.133.0
+ @oxc-transform/binding-win32-arm64-msvc@0.133.0
+ @oxc-transform/binding-win32-ia32-msvc@0.133.0
+ @oxc-transform/binding-win32-x64-msvc@0.133.0
  @panva/hkdf@1.2.1
  @parcel/watcher@2.5.6
  @parcel/watcher-android-arm64@2.5.6
@@ -1006,34 +1026,14 @@ Packages with Single Version
  @protobufjs/utf8@1.1.1
  @quansync/fs@1.0.0
  @radix-ui/number@1.1.1
- @radix-ui/primitive@1.1.3
- @radix-ui/react-arrow@1.1.7
- @radix-ui/react-collection@1.1.7
- @radix-ui/react-compose-refs@1.1.2
- @radix-ui/react-context@1.1.2
- @radix-ui/react-dialog@1.1.15
- @radix-ui/react-direction@1.1.1
- @radix-ui/react-dismissable-layer@1.1.11
- @radix-ui/react-focus-guards@1.1.3
- @radix-ui/react-focus-scope@1.1.7
- @radix-ui/react-id@1.1.1
- @radix-ui/react-popper@1.2.8
- @radix-ui/react-portal@1.1.9
- @radix-ui/react-presence@1.1.5
- @radix-ui/react-roving-focus@1.1.11
+ @radix-ui/react-dialog@1.1.16
+ @radix-ui/react-presence@1.1.6
+ @radix-ui/react-roving-focus@1.1.12
  @radix-ui/react-select@2.2.6
  @radix-ui/react-switch@1.2.6
- @radix-ui/react-tabs@1.1.13
- @radix-ui/react-tooltip@1.2.8
- @radix-ui/react-use-callback-ref@1.1.1
- @radix-ui/react-use-controllable-state@1.2.2
- @radix-ui/react-use-effect-event@0.0.2
- @radix-ui/react-use-escape-keydown@1.1.1
- @radix-ui/react-use-layout-effect@1.1.1
+ @radix-ui/react-tabs@1.1.14
+ @radix-ui/react-tooltip@1.2.9
  @radix-ui/react-use-previous@1.1.1
- @radix-ui/react-use-rect@1.1.1
- @radix-ui/react-use-size@1.1.1
- @radix-ui/rect@1.1.1
  @react-aria/focus@3.21.5
  @react-aria/interactions@3.27.1
  @react-aria/ssr@3.9.10
@@ -1064,26 +1064,36 @@ Packages with Single Version
  @reown/appkit-ui@1.8.20
 *@reown/appkit-utils@1.8.20
  @reown/appkit-wallet@1.8.20
- @rolldown/binding-android-arm64@1.0.0-rc.17
- @rolldown/binding-darwin-arm64@1.0.0-rc.17
- @rolldown/binding-darwin-x64@1.0.0-rc.17
- @rolldown/binding-freebsd-x64@1.0.0-rc.17
- @rolldown/binding-linux-arm-gnueabihf@1.0.0-rc.17
- @rolldown/binding-linux-arm64-gnu@1.0.0-rc.17
- @rolldown/binding-linux-arm64-musl@1.0.0-rc.17
- @rolldown/binding-linux-ppc64-gnu@1.0.0-rc.17
- @rolldown/binding-linux-s390x-gnu@1.0.0-rc.17
- @rolldown/binding-linux-x64-gnu@1.0.0-rc.17
- @rolldown/binding-linux-x64-musl@1.0.0-rc.17
- @rolldown/binding-openharmony-arm64@1.0.0-rc.17
- @rolldown/binding-wasm32-wasi@1.0.0-rc.17
- @rolldown/binding-win32-arm64-msvc@1.0.0-rc.17
- @rolldown/binding-win32-x64-msvc@1.0.0-rc.17
  @rollup/plugin-alias@6.0.0
  @rollup/plugin-inject@5.0.5
  @rollup/plugin-json@6.1.0
  @rollup/plugin-replace@6.0.3
  @rollup/plugin-terser@1.0.0
+ @rollup/rollup-android-arm-eabi@4.60.4
+ @rollup/rollup-android-arm64@4.60.4
+ @rollup/rollup-darwin-arm64@4.60.4
+ @rollup/rollup-darwin-x64@4.60.4
+ @rollup/rollup-freebsd-arm64@4.60.4
+ @rollup/rollup-freebsd-x64@4.60.4
+ @rollup/rollup-linux-arm-gnueabihf@4.60.4
+ @rollup/rollup-linux-arm-musleabihf@4.60.4
+ @rollup/rollup-linux-arm64-gnu@4.60.4
+ @rollup/rollup-linux-arm64-musl@4.60.4
+ @rollup/rollup-linux-loong64-gnu@4.60.4
+ @rollup/rollup-linux-loong64-musl@4.60.4
+ @rollup/rollup-linux-ppc64-gnu@4.60.4
+ @rollup/rollup-linux-ppc64-musl@4.60.4
+ @rollup/rollup-linux-riscv64-gnu@4.60.4
+ @rollup/rollup-linux-riscv64-musl@4.60.4
+ @rollup/rollup-linux-s390x-gnu@4.60.4
+ @rollup/rollup-linux-x64-gnu@4.60.4
+ @rollup/rollup-linux-x64-musl@4.60.4
+ @rollup/rollup-openbsd-x64@4.60.4
+ @rollup/rollup-openharmony-arm64@4.60.4
+ @rollup/rollup-win32-arm64-msvc@4.60.4
+ @rollup/rollup-win32-ia32-msvc@4.60.4
+ @rollup/rollup-win32-x64-gnu@4.60.4
+ @rollup/rollup-win32-x64-msvc@4.60.4
  @rspack/binding@1.7.11
  @rspack/binding-darwin-arm64@1.7.11
  @rspack/binding-darwin-x64@1.7.11
@@ -1189,15 +1199,15 @@ Packages with Single Version
  @statoscope/webpack-stats-extension-package-info@5.29.0
  @statoscope/webpack-ui@5.29.0
  @stomp/stompjs@7.3.0
-*@storybook/addon-docs@10.2.10
- @storybook/builder-vite@10.2.10
- @storybook/csf-plugin@10.2.10
+*@storybook/addon-docs@10.2.19
+ @storybook/builder-vite@10.2.19
+ @storybook/csf-plugin@10.2.19
  @storybook/global@5.0.0
  @storybook/icons@2.0.2
-*@storybook/nextjs-vite@10.2.10
-*@storybook/react@10.2.10
- @storybook/react-dom-shim@10.2.10
- @storybook/react-vite@10.2.10
+*@storybook/nextjs-vite@10.2.19
+*@storybook/react@10.2.19
+ @storybook/react-dom-shim@10.2.19
+ @storybook/react-vite@10.2.19
  @svgr/babel-plugin-add-jsx-attribute@8.0.0
  @svgr/babel-plugin-remove-jsx-attribute@8.0.0
  @svgr/babel-plugin-remove-jsx-empty-expression@8.0.0
@@ -1405,11 +1415,11 @@ Packages with Single Version
 *@types/mdast@4.0.4
  @types/mdx@2.0.13
  @types/ms@2.1.0
-*@types/node@22.19.19
+*@types/node@22.19.20
  @types/pako@2.0.3
  @types/parse-json@4.0.2
  @types/punycode@2.1.4
-*@types/react@19.2.16
+*@types/react@19.2.17
 *@types/react-avatar-editor@13.0.4
 *@types/react-dom@19.2.3
  @types/resolve@1.20.2
@@ -1419,28 +1429,18 @@ Packages with Single Version
 *@types/twemoji-parser@13.1.4
 *@types/twitter-text@3.1.10
  @types/uuid@8.3.4
- @types/web@0.0.349
+ @types/web@0.0.350
  @types/webpack@5.28.5
  @types/yargs@17.0.33
  @types/yargs-parser@21.0.3
-*@typescript-eslint/eslint-plugin@8.54.0
-*@typescript-eslint/parser@8.54.0
- @typescript-eslint/project-service@8.54.0
- @typescript-eslint/scope-manager@8.54.0
- @typescript-eslint/tsconfig-utils@8.54.0
- @typescript-eslint/type-utils@8.54.0
- @typescript-eslint/types@8.54.0
- @typescript-eslint/typescript-estree@8.54.0
- @typescript-eslint/utils@8.54.0
- @typescript-eslint/visitor-keys@8.54.0
-*@typescript/native-preview@7.0.0-dev.20260605.1
- @typescript/native-preview-darwin-arm64@7.0.0-dev.20260605.1
- @typescript/native-preview-darwin-x64@7.0.0-dev.20260605.1
- @typescript/native-preview-linux-arm@7.0.0-dev.20260605.1
- @typescript/native-preview-linux-arm64@7.0.0-dev.20260605.1
- @typescript/native-preview-linux-x64@7.0.0-dev.20260605.1
- @typescript/native-preview-win32-arm64@7.0.0-dev.20260605.1
- @typescript/native-preview-win32-x64@7.0.0-dev.20260605.1
+*@typescript/native-preview@7.0.0-dev.20260609.1
+ @typescript/native-preview-darwin-arm64@7.0.0-dev.20260609.1
+ @typescript/native-preview-darwin-x64@7.0.0-dev.20260609.1
+ @typescript/native-preview-linux-arm@7.0.0-dev.20260609.1
+ @typescript/native-preview-linux-arm64@7.0.0-dev.20260609.1
+ @typescript/native-preview-linux-x64@7.0.0-dev.20260609.1
+ @typescript/native-preview-win32-arm64@7.0.0-dev.20260609.1
+ @typescript/native-preview-win32-x64@7.0.0-dev.20260609.1
  @ungap/structured-clone@1.3.0
  @unhead/vue@2.1.15
  @unrs/resolver-binding-android-arm-eabi@1.11.1
@@ -1496,7 +1496,7 @@ Packages with Single Version
  @wallet-standard/base@1.1.0
  @wallet-standard/features@1.1.0
  @wallet-standard/wallet@1.1.0
- @walletconnect/core@2.23.0
+ @walletconnect/core@2.23.9
  @walletconnect/environment@1.0.1
  @walletconnect/events@1.0.1
  @walletconnect/heartbeat@1.2.2
@@ -1506,14 +1506,14 @@ Packages with Single Version
  @walletconnect/jsonrpc-utils@1.0.8
  @walletconnect/jsonrpc-ws-connection@1.0.16
  @walletconnect/keyvaluestorage@1.1.1
- @walletconnect/logger@3.0.0
+ @walletconnect/logger@3.0.2
  @walletconnect/relay-api@1.0.11
  @walletconnect/relay-auth@1.1.0
  @walletconnect/safe-json@1.0.2
- @walletconnect/sign-client@2.23.0
+ @walletconnect/sign-client@2.23.9
  @walletconnect/time@1.0.2
- @walletconnect/universal-provider@2.23.0
- @walletconnect/utils@2.23.0
+ @walletconnect/universal-provider@2.23.9
+ @walletconnect/utils@2.23.9
  @walletconnect/window-getters@1.0.1
  @walletconnect/window-metadata@1.0.1
  @webassemblyjs/ast@1.14.1
@@ -1799,6 +1799,7 @@ Packages with Single Version
  encode-utf8@1.0.3
  encoding-sniffer@0.2.1
  env-paths@2.2.1
+ env-runner@0.1.9
  error-ex@1.3.2
  error-stack-parser@2.1.4
  error-stack-parser-es@1.0.5
@@ -1811,7 +1812,7 @@ Packages with Single Version
  es-set-tostringtag@2.1.0
  es-shim-unscopables@1.1.0
  es-to-primitive@1.3.0
- es-toolkit@1.39.3
+ es-toolkit@1.44.0
  es6-promise@4.2.8
  es6-promisify@5.0.0
  esbuild-plugin-es5@2.1.1
@@ -1827,7 +1828,7 @@ Packages with Single Version
 *eslint-plugin-no-relative-import-paths@1.6.1
 *eslint-plugin-react@7.37.5
 *eslint-plugin-simple-import-sort@12.1.1
-*eslint-plugin-storybook@10.2.10
+*eslint-plugin-storybook@10.4.2
 *eslint-plugin-tailwindcss@3.18.2
 *eslint-plugin-unicorn@62.0.0
 *eslint-plugin-unused-imports@4.4.1
@@ -1939,7 +1940,6 @@ Packages with Single Version
  hey-listen@1.0.8
 *hls.js@1.6.16
  hmac-drbg@1.0.1
-*hono@4.12.23
  html-encoding-sniffer@6.0.0
  html-url-attributes@3.0.1
  http-errors@2.0.1
@@ -2193,10 +2193,10 @@ Packages with Single Version
  natural-compare@1.4.0
  negotiator@1.0.0
  neo-async@2.6.2
-*next@16.2.6
+*next@16.2.7
 *next-auth@4.24.14
- nf3@0.3.16
- nitro@3.0.1-alpha.2
+ nf3@0.3.17
+ nitro@3.0.260603-beta
  nitropack@2.13.4
  no-case@3.0.4
  node-addon-api@7.1.1
@@ -2228,6 +2228,7 @@ Packages with Single Version
  object.values@1.2.1
  observable-fns@0.6.1
  obug@2.1.1
+ ocache@0.1.4
  ohash@2.0.11
  oidc-token-hash@5.1.0
  on-change@6.0.2
@@ -2242,7 +2243,9 @@ Packages with Single Version
  os-browserify@0.3.0
  outdent@0.8.0
  own-keys@1.0.1
+ oxc-minify@0.133.0
  oxc-parser@0.133.0
+ oxc-transform@0.133.0
  oxc-walker@1.0.0
  p-try@2.2.0
  parse-asn1@5.1.9
@@ -2344,7 +2347,7 @@ Packages with Single Version
  range-parser@1.2.1
  rangetouch@2.0.1
  rc9@3.0.1
-*react@19.2.6
+*react@19.2.7
  react-aptor@2.0.0
 *react-avatar-editor@13.0.2
  react-call@1.8.2
@@ -2352,7 +2355,7 @@ Packages with Single Version
  react-devtools-core@6.1.5
  react-docgen@8.0.2
  react-docgen-typescript@2.2.2
-*react-dom@19.2.6
+*react-dom@19.2.7
  react-error-boundary@3.1.4
  react-freeze@1.0.4
 *react-hook-form@7.53.2
@@ -2405,8 +2408,8 @@ Packages with Single Version
  reusify@1.1.0
  rimraf@3.0.2
  ripemd160@2.0.3
- rolldown@1.0.0-rc.17
  rolldown-plugin-dts@0.23.2
+*rollup@4.60.4
 *rollup-plugin-swc3@0.10.4
 *rollup-plugin-terser@7.0.2
  rollup-plugin-visualizer@7.0.1
@@ -2558,7 +2561,6 @@ Packages with Single Version
  trigram-utils@2.0.1
  trim-lines@3.0.1
  trough@2.2.0
- ts-api-utils@2.4.0
  ts-dedent@2.2.0
  ts-easing@0.2.0
  ts-interface-checker@0.1.13
@@ -2635,7 +2637,7 @@ Packages with Single Version
  vfile-message@4.0.2
  victory-vendor@36.9.2
 *viem@2.48.11
-*vite@7.3.3
+*vite@7.3.5
  vite-dev-rpc@2.0.0
  vite-hot-client@2.2.0
  vite-plugin-checker@0.14.1

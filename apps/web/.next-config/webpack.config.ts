@@ -1,29 +1,15 @@
 /* cspell:disable */
+/* eslint-disable no-relative-import-paths/no-relative-import-paths */
+
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
 import { resolve } from 'path';
 
+import { svgrOptions } from './svgrOptions';
+
 const require = createRequire(import.meta.url);
 
 const projectRoot = resolve(import.meta.dirname, '..');
-
-export const svgrOptions = {
-    ref: true,
-    svgoConfig: {
-        plugins: [
-            {
-                name: 'preset-default',
-                params: {
-                    overrides: {
-                        // disable plugins
-                        removeViewBox: false,
-                    },
-                },
-            },
-            'prefixIds',
-        ],
-    },
-};
 
 export const webpackConfig: NonNullable<NextConfig['webpack']> = (config, context) => {
     if (!config.plugins) config.plugins = [];

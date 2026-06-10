@@ -86,7 +86,7 @@
         "wagmi": "^3.1.4"
     },
     "devDependencies": {
-        "@typescript/native-preview": "7.0.0-dev.20260605.1",
+        "@typescript/native-preview": "7.0.0-dev.20260609.1",
         "@types/punycode": "^2.1.4",
         "tsdown": "^0.21.10"
     },

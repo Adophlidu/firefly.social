@@ -3,7 +3,9 @@ import { fileURLToPath } from 'node:url';
 
 import { type StorybookConfig } from '@storybook/nextjs-vite';
 import { type Plugin } from 'vite';
-import svgr from 'vite-plugin-svgr';
+import svgr, { type VitePluginSvgrOptions } from 'vite-plugin-svgr';
+
+import { svgrOptions } from '../.next-config/svgrOptions.js';
 
 const config: StorybookConfig = {
     stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -35,23 +37,7 @@ const config: StorybookConfig = {
                 {
                     ...svgr({
                         include: '**/*.svg',
-                        svgrOptions: {
-                            ref: true,
-                            svgoConfig: {
-                                plugins: [
-                                    {
-                                        name: 'preset-default',
-                                        params: {
-                                            overrides: {
-                                                // disable plugins
-                                                removeViewBox: false,
-                                            },
-                                        },
-                                    },
-                                    'prefixIds',
-                                ],
-                            },
-                        },
+                        svgrOptions: svgrOptions as VitePluginSvgrOptions['svgrOptions'],
                     }),
                     enforce: 'pre',
                 },

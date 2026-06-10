@@ -27,7 +27,6 @@ export const Route = createFileRoute('/bet/event/$id')({
     component: BetEventPage,
     pendingComponent: BetEventLoading,
     errorComponent: BetEventError,
-    notFoundComponent: BetEventNotFound,
     validateSearch: betEventSearchSchema,
 });
 

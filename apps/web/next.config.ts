@@ -9,7 +9,8 @@ import { headersConfig } from './.next-config/headers.config';
 import { imagesConfig } from './.next-config/images.config';
 import { redirectsConfig } from './.next-config/redirects.config';
 import { rewritesConfig } from './.next-config/rewrites.config';
-import { svgrOptions, webpackConfig } from './.next-config/webpack.config';
+import { svgrOptions } from './.next-config/svgrOptions';
+import { webpackConfig } from './.next-config/webpack.config';
 
 const require = createRequire(import.meta.url);
 
