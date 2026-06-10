@@ -27,9 +27,9 @@ spec.md + checklist.md  (the contract)
 
 ## Inputs
 
-- `node_modules/.cache/ff-task/<key>/spec.md` — requirement, acceptance criteria (`AC-N` IDs), surface, design ref.
-- `node_modules/.cache/ff-task/<key>/checklist.md` — the acceptance/UI checklist.
-- `node_modules/.cache/ff-task/<key>/coverage.md` — the traceability matrix. **You fill the Test column.**
+- `.ff-task/<key>/spec.md` — requirement, acceptance criteria (`AC-N` IDs), surface, design ref.
+- `.ff-task/<key>/checklist.md` — the acceptance/UI checklist.
+- `.ff-task/<key>/coverage.md` — the traceability matrix. **You fill the Test column.**
 
 Read all three first. Work **AC-by-AC**: every `AC-N` must end up with either a test file in its
 `coverage.md` row, or the literal `visual-only` marker (covered by the Phase 6 Figma walk). If a

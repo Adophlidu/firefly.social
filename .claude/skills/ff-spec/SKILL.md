@@ -4,7 +4,7 @@ description: >
   Product/PM role for the /ff-task pipeline. Takes a Firefly Jira URL / `FW-XXXX` key or a free-text
   requirement (plus an optional Figma/UI link), fetches and classifies it, and produces a structured
   spec: requirement summary, acceptance criteria, ordered task breakdown, design reference, and open
-  questions. Writes `spec.md` + `checklist.md` to `node_modules/.cache/ff-task/<key-or-slug>/` as the
+  questions. Writes `spec.md` + `checklist.md` to `.ff-task/<key-or-slug>/` as the
   handoff contract for `ff-testgen` and the implementation. Use when `/ff-task` calls it, or when the
   user asks to "拆需求" / "write the spec" / "break this down" for a Jira issue or requirement.
 ---
@@ -29,8 +29,9 @@ Resolve a stable key for the work:
 - Jira mode → the `FW-NNNN` key.
 - Requirement mode → a short kebab slug of the ask (e.g. `copy-link-post-menu`).
 
-Write three files under **`node_modules/.cache/ff-task/<key>/`** (`mkdir -p` first — this path is
-git-ignored, same convention as `resolve-jira-issue`'s verification cache):
+Write three files under **`.ff-task/<key>/`** (`mkdir -p` first — `.ff-task/` is git-ignored; it lives
+at the repo root rather than inside `node_modules` so `pnpm clean` / reinstalls can't destroy the
+approval record mid-pipeline):
 
 - `spec.md` — the full spec (template below).
 - `checklist.md` — just the acceptance/UI checklist as `- [ ]` items, so downstream steps can read it standalone.

@@ -125,39 +125,43 @@ gh pr create --base main --title "<title>" --body "<body>"
 - If a Jira issue was identified, append it: `feat(wallet): support new chain (FW-1234)`
 - Keep ≤ 72 chars
 
-**Body template** — omit sections that don't apply (do NOT write "N/A"):
+**Body template** — the structure mirrors `.github/PULL_REQUEST_TEMPLATE.md` (passing `--body` overrides GitHub's template auto-fill, so reproduce it here). Omit optional parts that don't apply (do NOT write "N/A"):
 
 ```markdown
-## Summary
+Closes FW-XXXX
 
-<1–3 bullet points describing WHAT changed>
+## Description
 
-## Intent & Context
+<1–3 bullets describing WHAT changed, then the context a reviewer needs:
+WHY the change was made (quote the user's request when it helps), the root
+cause and how it was diagnosed (for bug fixes), key design decisions and
+alternatives considered, and which parts are riskiest.>
 
-<WHY these changes were made. What problem was being solved? Quote the user's original request when it helps.>
+**Risk**: Low / Medium / High — affected surfaces: apps/web / apps/wallet / packages/<name>
 
-## Root Cause
+## Screenshots
 
-<For bug fixes: what was the root cause? How was it diagnosed?>
+<Screenshots or a screen recording of the visual changes. Delete this
+section for non-visual changes.>
 
-## Design Decisions
+## Ready?
 
-<Key decisions made during implementation and WHY. Alternatives considered.>
+Did you do any of the following? If not, no worries, but if you can
+it's really helpful.
 
-## Changes Detail
-
-<Brief description of each significant file change>
-
-## Risk Assessment
-
-- **Risk Level**: Low / Medium / High
-- **Affected Surfaces**: apps/web / apps/wallet / packages/<name>
-- **Risk Areas**: <which parts of the change are riskiest>
-
-## Test plan
-
-- [ ] <Testing steps to verify the changes>
+- [ ] Documented what's new
+- [ ] Added in-code documentation (wherever needed)
+- [ ] Wrote tests for new components/features
+- [ ] Ran the linter to ensure style guidelines were followed
+- [ ] Created a story
+- [ ] **AI PRs:** Manually verified the changes work as intended
 ```
+
+**Template rules:**
+
+- `Closes FW-XXXX` — first line, linked to the Jira issue. Omit the line entirely if there is no issue (see the Jira note below).
+- Keep the `## Ready?` checklist verbatim. Check only the items that are actually true for this PR.
+- NEVER check "**AI PRs:** Manually verified" yourself — ask the user whether they verified the changes before creating the PR, and leave it unchecked unless they confirm.
 
 ### 8. Return PR URL
 

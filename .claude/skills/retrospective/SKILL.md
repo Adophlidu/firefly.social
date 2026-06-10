@@ -22,9 +22,10 @@ For each case, extract the root-cause category and identify which existing rule 
 | Rule source         | Where it lives                                                            |
 | ------------------- | ------------------------------------------------------------------------- |
 | Restricted patterns | `CLAUDE.md` (no `clsx`, no relative imports, ESM shims, classNames, etc.) |
+| Maintainability     | `CLAUDE.md` (Code Maintainability: search-before-writing, no `as any`, …) |
 | Layer hierarchy     | `.claude/commands/architecture.md`                                        |
 | i18n usage          | `.claude/commands/i18n.md`                                                |
-| rn-ui import rules  | `.claude/commands/rn-ui.md`                                               |
+| rn-ui / Tamagui     | `CLAUDE.md` (Tamagui boundary section)                                    |
 | Commit conventions  | `.claude/commands/commit.md`                                              |
 
 Tag each case as either:
@@ -57,10 +58,10 @@ Housekeeping: archive candidates [list], zero-hit checks [list]
 
 Rules when modifying `CLAUDE.md`:
 
-1. **Max ~100 lines** — `CLAUDE.md` is loaded into every session's context. If exceeded, consolidate similar items or move long-form details to the relevant `.claude/commands/*.md`.
+1. **Max ~130 lines** — `CLAUDE.md` is loaded into every session's context. If exceeded, consolidate similar items or move long-form details to the relevant `.claude/commands/*.md`.
 2. **One-liner check items only** in `CLAUDE.md` — no code examples in the top-level file.
-3. **Keep existing section order** (Repository Overview → Verification → Architecture → Restricted Patterns → Git → Debugging → Skills Reference).
-4. **Long-form rationale and code examples** go into `.claude/commands/architecture.md`, `i18n.md`, `rn-ui.md`, or `commit.md`.
+3. **Keep existing section order** (Repository Overview → Verification Commands → Other Commands → Architecture → Restricted Patterns → Code Maintainability → Git → Debugging → Skills Reference → Agent skills).
+4. **Long-form rationale and code examples** go into `.claude/commands/architecture.md`, `i18n.md`, or `commit.md`.
 5. **Never delete case entries** from `references/case-studies.md` — mark archived with `[ARCHIVED]` prefix.
 
 ### Step 6: Update Timestamp

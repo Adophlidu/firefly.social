@@ -17,10 +17,11 @@ can be improved and run independently, and the test author can stay *independent
 
 ```
 ff-spec      (product role, inline)     →  spec.md + checklist.md + coverage.md (AC-N IDs)
+branch + baseline                       →  feature branch FIRST; record pre-existing failures
 ff-testgen   (QA role, SUBAGENT, blind) →  unit + e2e test files (RED) + fills coverage matrix
 🛑 COVERAGE GATE + USER APPROVAL         →  every AC mapped; risks-first review
-[implement]  (eng role, inline)         →  feature branch, code to green (assertions frozen)
-test loop    (max 2 rounds, root-cause) →  typecheck/lint/unit/e2e + self-fix, no symptom-patching
+[implement]  (eng role, inline)         →  code to green on the branch (assertions frozen)
+test loop    (max 2 rounds, root-cause) →  typecheck/lint/unit/e2e; only NEW failures count
 verify       (in YOUR Chrome via CDP)   →  walk the checklist, Figma deltas
 review gate  (codex + weakest-part lens)→  adversarial, not single-pass
 → report (reviewed PR — human+CI still final) + suggest /create-pr
@@ -43,7 +44,17 @@ skill call would not give it.
 
 A second positional arg that is a `figma.com` URL is always the UI reference. Resolve a stable **key**
 up front: the `FW-NNNN` for Jira mode, or a short kebab slug for requirement mode. All handoff
-artefacts live under `node_modules/.cache/ff-task/<key>/` (git-ignored).
+artefacts live under `.ff-task/<key>/` (git-ignored, at the repo root — deliberately NOT inside
+`node_modules`, so `pnpm clean` / reinstalls can't destroy the approval record mid-pipeline).
+
+## Resume (when `.ff-task/<key>/` already exists)
+
+A re-invocation with the same key is a **resume**, not a restart. Read what exists (`spec.md`?
+tests in `coverage.md`'s Test column? feature branch? implementation commits?) to infer the phase,
+tell the user what you found, and continue from there — don't regenerate artefacts that were already
+approved. One caveat: once implementation code exists, re-dispatching `ff-testgen` is **no longer
+blind**. Prefer keeping the existing tests; regenerate only if the user explicitly accepts that the
+independence guarantee is gone for the regenerated files.
 
 ## Hard rules (non-negotiable)
 
@@ -64,12 +75,22 @@ artefacts live under `node_modules/.cache/ff-task/<key>/` (git-ignored).
 ## Phase 1 — Spec (delegate to `ff-spec`, inline)
 
 Invoke the **`ff-spec`** skill with the user's arguments. It fetches/classifies the Jira issue or
-requirement, resolves the Figma reference, and writes `spec.md` + `checklist.md` to
-`node_modules/.cache/ff-task/<key>/`. Run it **inline** (same context) — it may need to ask the user a
+requirement, resolves the Figma reference, and writes `spec.md` + `checklist.md` + the `coverage.md`
+seed to `.ff-task/<key>/`. Run it **inline** (same context) — it may need to ask the user a
 clarifying question, and its output feeds the gate.
 
 If `ff-spec` returns open questions that block the work, surface them to the user and wait — don't
 proceed to tests on an ambiguous spec.
+
+**Then, before dispatching `ff-testgen`, set up the workspace:**
+
+1. **Create the feature branch now** (`/commit` conventions: `feat/<slug>` / `fix/<slug>`, carrying
+   `FW-NNNN` in Jira mode). `ff-testgen` writes files into the real test dirs — they must land on the
+   branch, never sit uncommitted on `main` while the gate waits.
+2. **Record the baseline.** Run the Phase 5 typecheck/lint/unit commands once (scoped to the affected
+   package) and save any failing output to `.ff-task/<key>/baseline.md` (or write "clean"). Nothing of
+   ours exists yet, so every failure recorded here is **pre-existing and out of scope** — Phase 5 counts
+   only failures NOT in this baseline against the fix rounds.
 
 ## Phase 2 — Tests (delegate to `ff-testgen`, as a SUBAGENT)
 
@@ -77,7 +98,7 @@ Dispatch `ff-testgen` via the **Agent tool** (a fresh subagent), not an inline s
 is the point. Prompt it roughly:
 
 > Invoke the `ff-testgen` skill and follow it exactly. Inputs:
-> `node_modules/.cache/ff-task/<key>/spec.md`, `…/checklist.md`, and `…/coverage.md`.
+> `.ff-task/<key>/spec.md`, `…/checklist.md`, and `…/coverage.md`.
 > Write the unit (vitest) and e2e (Playwright) tests into the real test dirs and **fill the Test column
 > of `coverage.md` for every `AC-N`**. **You have not seen and must not read the implementation** —
 > assert the intended behaviour from the spec only. Return the files written, the per-AC coverage line,
@@ -102,6 +123,10 @@ Then post, in one message, **with the risky bits first**:
 
 Then **stop and wait.**
 
+> A local Stop hook may run `pnpm typecheck` at this stop and report unresolved imports in the new RED
+> tests. That **is** the expected RED state (the implementation doesn't exist yet) — acknowledge it and
+> keep waiting; don't "fix" anything before approval.
+
 - "Looks good" / "Go" / "Approved" → Phase 4.
 - Edits → revise the spec (re-run `ff-spec`), regenerate affected tests (re-dispatch `ff-testgen`), re-run the coverage gate, re-post, wait.
 - "Hold on…" → wait. Don't ping, don't proceed.
@@ -112,8 +137,8 @@ Never present the gate and start coding in the same turn.
 
 After approval:
 
-1. **Create a feature branch** (`/commit` conventions): `feat/<slug>` / `fix/<slug>`, carrying
-   `FW-NNNN` in Jira mode.
+1. **Confirm you're on the feature branch created in Phase 1** (create it now only if it's somehow
+   missing — that's a process slip worth noting).
 2. **Work the spec's task breakdown** sub-task by sub-task; mirror it into the TODO list
    (`TaskCreate`) and update as you go. Follow `/architecture`, `/i18n`, `code-quality`, and
    `implementing-figma-designs` (UI-first → i18n → data; Tamagui only in the external
@@ -136,11 +161,14 @@ Run, in order, scoped with `--filter=<affected-package>` for speed:
 ```bash
 pnpm typecheck --filter=<pkg>
 pnpm lint --filter=<pkg>
-pnpm test --filter=<pkg>        # vitest unit tests
-pnpm test:e2e                   # Playwright e2e (CDP-attached) — only if the suite exists
+pnpm test --filter=<pkg>                      # vitest unit tests (full package suite — catches regressions)
+npx playwright test e2e/<new-spec-files>      # ONLY the e2e files this pipeline wrote — full-suite e2e is CI's job, and unrelated flakes must not pollute the fix loop
 ```
 
-- **All green → Phase 6.**
+- **Baseline filter first.** Diff every failure against `.ff-task/<key>/baseline.md`: failures already
+  in the baseline are **pre-existing** — do NOT spend fix rounds on them and do NOT "fix" unrelated
+  code to clear them; carry them as a named caveat into the Phase 7 report. Only NEW failures count.
+- **All green (modulo baseline) → Phase 6.**
 - **Round 1 — fix and re-run.** Diagnose, fix the *implementation* (not the assertions), re-run.
 - **Round 2 — root-cause first.** Before touching code a second time, write one or two sentences naming
   the **root cause** of the remaining failure. If you can't name it, or it's the same failure you "fixed"
@@ -163,7 +191,7 @@ script — every AC, including `visual-only` ones, gets walked here), reusing `r
 - Boot the dev server in the background (`apps/web` :3000 / `apps/wallet` :3001); poll until it answers.
 - **Always open a new tab via `browser_tabs`**; never reuse the user's tab; **never `browser_close`**
   (it tears down the user's whole Chrome under CDP).
-- Walk each criterion; screenshot before/after to `node_modules/.cache/ff-task/<key>/verification/`.
+- Walk each criterion; screenshot before/after to `.ff-task/<key>/verification/`.
 - **Pause on every wallet popup** with the 🛑 pattern — never auto-click MetaMask; never send mainnet
   txs with real funds.
 - For Figma-backed criteria, pull `get_screenshot` and list concrete visual deltas (or "no notable diffs").
@@ -191,11 +219,12 @@ A single pass/fail is a weak quality gate. Run two complementary lenses on the *
 
 ```markdown
 ## /ff-task complete — <FW-NNNN | slug>
-- Spec/tests: node_modules/.cache/ff-task/<key>/ (spec.md, checklist.md, coverage.md)
+- Spec/tests: .ff-task/<key>/ (spec.md, checklist.md, coverage.md)
 - Branch: <feat/…>
 - Tests: typecheck ✅ lint ✅ unit ✅ e2e ✅ (or "skipped — no e2e infra")
+- Baseline: clean | <N> pre-existing failures (out of scope — see .ff-task/<key>/baseline.md)
 - Coverage: N/N acceptance criteria mapped to tests (+ M visual-only via the Figma walk)
-- Checklist: N/N verified (screenshots in node_modules/.cache/ff-task/<key>/verification/)
+- Checklist: N/N verified (screenshots in .ff-task/<key>/verification/)
 - Review: Codex ✅ (or "/code-review-pr ✅ — Codex unavailable") + weakest-part lens ✅
 - Caveat: e2e is CDP-only (not CI-reproducible); human review + CI still required.
 - Next: /create-pr
@@ -210,6 +239,8 @@ A single pass/fail is a weak quality gate. Run two complementary lenses on the *
 - ❌ **Presenting the gate with an incomplete `coverage.md`.** Every `AC-N` must map to a test / visual-only / BLOCKED first.
 - ❌ **Rubber-stamp gate.** Lead with assumptions/risks/open-questions, not a wall of green checks.
 - ❌ **Symptom-patching in the fix loop.** Round 2 needs a named root cause; same failure twice → `systematic-debugging`.
+- ❌ **Burning fix rounds on baseline failures** — pre-existing failures are out of scope; never "fix" unrelated code to clear them.
+- ❌ **Dispatching `ff-testgen` before the feature branch exists** — its files would sit uncommitted on `main`.
 - ❌ **Coding before the approval gate**, or writing code before the tests exist.
 - ❌ **Pushing past a failing 2-round test loop.** Stop and hand back — never fake a green pipeline.
 - ❌ **Reporting "done" as if guaranteed.** It's a reviewed, test-backed PR — human review + CI are still the final gate.

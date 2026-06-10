@@ -190,7 +190,7 @@ Then:
 The user picks an approach. Then either:
 
 - The main thread implements the chosen approach directly, **OR**
-- The main thread invokes `feature-dev` / a domain-specific skill to implement it.
+- The main thread invokes a domain-specific skill to implement it (`resolve-jira-issue` for Jira-backed work, `/ff-task` for the full spec→test→implement pipeline).
 
 ## Important Rules
 
@@ -211,4 +211,4 @@ Response flow:
 3. Three parallel `Agent` calls in one message — Analyst A, B, C — each with the full Context Brief and the Firefly-specific constraints block.
 4. Collect 3 final reports.
 5. Build comparison table; recommend; ask user to pick.
-6. Implement the chosen approach (or delegate to `feature-dev`).
+6. Implement the chosen approach (or delegate to `resolve-jira-issue` / `/ff-task`).

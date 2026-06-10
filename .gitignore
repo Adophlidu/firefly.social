@@ -72,6 +72,7 @@ profiling-data.*.json
 .codex/
 .claude/settings*
 .claude/worktrees/
+.ff-task/
 
 .playwright-mcp/
 test-results/

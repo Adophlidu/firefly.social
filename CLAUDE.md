@@ -16,7 +16,23 @@ pnpm lint             # ESLint 9 flat config via Turbo
 pnpm test             # Vitest; test files in apps/web/tests/
 ```
 
+To run a single test file (faster than the full suite):
+
+```bash
+pnpm --filter @dimensiondev/firefly-web exec vitest run tests/<path>
+```
+
 CI blocks on: typecheck, lint, vitest, cspell, conventional commits.
+
+## Other Commands
+
+```bash
+pnpm dev:apps         # dev servers for apps/* (web on next dev --turbo)
+pnpm test:e2e         # Playwright e2e (output in test-results/, gitignored)
+pnpm lingui           # extract/compile i18n catalogs
+```
+
+Package manager is pinned via `packageManager`: `pnpm@8.15.9` — do not use npm/yarn.
 
 ## Architecture
 
@@ -57,6 +73,14 @@ See `/architecture` for the full layer diagram, package list, violation examples
 - ✅ JSX: `<Trans>text</Trans>` from `@lingui/react/macro`
 - ✅ JS: `` t`text` `` from `@lingui/core/macro`
 
+## Code Maintainability
+
+- **Search before writing**: before adding a helper or component, search `apps/web/src/helpers/` and `apps/web/src/components/` for an existing implementation. Extend what exists instead of duplicating it.
+- ❌ NEVER use `as any`. `@ts-expect-error` requires a trailing comment explaining why.
+- ❌ NEVER add a new npm dependency without explicit user approval.
+- ✅ New helpers in `apps/web/src/helpers/` need a matching test in `apps/web/tests/helpers/`.
+- For features spanning multiple files, present a short plan and get approval before writing code.
+
 ## Git
 
 - **Base branch**: `origin/main`
@@ -64,6 +88,8 @@ See `/architecture` for the full layer diagram, package list, violation examples
 - ❌ NEVER commit directly to `origin/main` or `released` — create a feature branch first (`feat/...`, `fix/...`, etc.)
 - ❌ Do NOT include AI tool attribution lines in commit messages
 - cspell checks commit messages — add new technical terms to `cspell.json`
+- ✅ Before creating a PR, run a code review pass on the diff (`/code-review`, or the `code-review-pr` skill for the full Firefly checklist) and fix confirmed findings first
+- ✅ PR bodies must follow `.github/PULL_REQUEST_TEMPLATE.md` (`Closes FW-XXXX` first line, Description, Screenshots for visual changes, the `Ready?` checklist). Passing `--body` to `gh pr create` overrides GitHub's auto-fill, so reproduce the template yourself. Never check the "Manually verified" box without user confirmation.
 
 ## Debugging
 
@@ -80,14 +106,16 @@ For detailed guidance, invoke these commands:
 
 ## Agent skills
 
+Note: `docs/agents/` is gitignored (local-only). If a referenced file is absent in your checkout, proceed without it — do not flag it or try to create it.
+
 ### Issue tracker
 
-Issues are tracked in Jira at `mask.atlassian.net` with `FW-XXXX` keys, via the Atlassian MCP tools. See `docs/agents/issue-tracker.md`.
+Issues are tracked in Jira at `mask.atlassian.net` with `FW-XXXX` keys, via the Atlassian MCP tools. Details in `docs/agents/issue-tracker.md` (if present).
 
 ### Triage labels
 
-Triage state is applied as Jira labels using the default label vocabulary. See `docs/agents/triage-labels.md`.
+Triage state is applied as Jira labels using the default label vocabulary. Details in `docs/agents/triage-labels.md` (if present).
 
 ### Domain docs
 
-Single-context layout: `CONTEXT.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+If `CONTEXT.md` or `docs/adr/` exist at the repo root, read the relevant parts before exploring; if absent, proceed silently. Details in `docs/agents/domain.md` (if present).

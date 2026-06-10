@@ -150,7 +150,7 @@ Firefly CI check names and the workflow file each belongs to:
 | Check name   | Workflow                                        | Auto-fix entry point                                       |
 | ------------ | ----------------------------------------------- | ---------------------------------------------------------- |
 | `typecheck`  | `.github/workflows/typecheck.yml`               | `pnpm typecheck`                                           |
-| `eslint`     | `.github/workflows/eslint.yml`                  | `npx eslint . --fix --cache --cache-location .eslintcache` |
+| `eslint`     | `.github/workflows/eslint.yml`                  | Scoped `eslint --fix` on PR-changed files (see Step 2)     |
 | `test`       | `.github/workflows/test.yaml`                   | `pnpm test`                                                |
 | `spellcheck` | `.github/workflows/cspell.yml`                  | Add new words to `cspell.json`                             |
 | `validate`   | `.github/workflows/conventional-commits.yml`    | Fix PR title to conventional format                        |
@@ -186,7 +186,14 @@ For each failed check:
 
 5. **Fixable** — apply the routing table above:
     - **`typecheck` failures**: Re-run `pnpm typecheck` locally to see errors faster than parsing the log. Fix type errors at their source. Common causes: missing `.js` extension on `@/` imports, layer-rule violations surfaced by type-only imports.
-    - **`eslint` failures**: Run `npx eslint . --fix --cache --cache-location .eslintcache`. If unfixable, read the violation and fix manually. Common Firefly issues:
+    - **`eslint` failures**: Auto-fix **only the files this PR changed** — never repo-wide, or unrelated files get swept into the PR's commits:
+
+        ```bash
+        git diff --name-only origin/main...HEAD -- '*.ts' '*.tsx' '*.js' '*.jsx' '*.mjs' '*.cjs' \
+          | xargs -r npx eslint --fix
+        ```
+
+        If unfixable, read the violation and fix manually. Common Firefly issues:
         - `no-relative-import-paths` — replace `../` with `@/`
         - layer-rule violations (custom rules `eslint-import-architecture-zones`, `eslint-package-layer-boundaries`) — see `/architecture`
         - direct `next/image` / `next/link` imports — switch to `@/esm/Image.js` etc.
@@ -327,6 +334,9 @@ Status: Ready for re-review / Ready to merge
 - **30 seconds** after fix+push to allow CI restart.
 - **Maximum 30 iterations**, then ask the user whether to continue or stop.
 - Always show `[Check N/30]`.
+- **Waiting between polls**: foreground `sleep` is blocked by the harness. Wait with a background
+  command (`Bash` with `run_in_background: true` running `sleep <seconds>` — you're re-invoked when it
+  exits) or the `Monitor` tool with an until-loop, then run the next iteration.
 
 ## Important Notes
 

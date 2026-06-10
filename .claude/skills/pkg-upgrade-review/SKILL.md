@@ -43,7 +43,7 @@ Evaluates npm package version upgrades by performing source-level diff analysis,
 
 ```bash
 # Download and extract both versions for diffing
-mkdir -p /tmp/pkg-diff && cd /tmp/pkg-diff
+mkdir -p /tmp/pkg-diff/old /tmp/pkg-diff/new && cd /tmp/pkg-diff
 curl -sL $(npm view PKG@OLD_VER dist.tarball) | tar xz -C old
 curl -sL $(npm view PKG@NEW_VER dist.tarball) | tar xz -C new
 

@@ -335,6 +335,11 @@ pnpm test --filter=<affected-package>
 
 If any fail, fix and re-run before booting a browser. Don't proceed past this gate.
 
+**Exception — pre-existing failures.** If a failure is unrelated to this change and also reproduces on
+`origin/main` (verify: the failing file is untouched by the diff, or `git stash && <command>` still
+fails), it is out of scope: do NOT burn time fixing unrelated code and do NOT let it block the browser
+verification. Record it as a named caveat in the Step 7g report instead.
+
 ### 7b. Start the dev server in the background
 
 Pick the right app based on the affected surface:
@@ -400,7 +405,7 @@ Playwright MCP is configured to attach to your Chrome via CDP (`PLAYWRIGHT_MCP_C
 
 **Do NOT call `browser_install`.** It's for downloading Chromium into the Playwright cache; irrelevant when CDP-attached to your Chrome.
 
-**Screenshot location:** `node_modules/.cache/verification/FW-NNNN/`. Create the dir with `mkdir -p` if needed. Filename pattern: `<step-number>-<short-slug>.png` (e.g., `01-initial-load.png`, `02-after-click-submit.png`, `03-error-state.png`).
+**Screenshot location:** `.ff-task/FW-NNNN/verification/`. Create the dir with `mkdir -p` if needed. Filename pattern: `<step-number>-<short-slug>.png` (e.g., `01-initial-load.png`, `02-after-click-submit.png`, `03-error-state.png`).
 
 ### 7d. Walk the steps from the plan
 
@@ -438,7 +443,7 @@ mcp__plugin_figma_figma__get_screenshot({
 })
 ```
 
-Save the Figma export to `node_modules/.cache/verification/FW-NNNN/figma-<short-slug>.png`. Then for each Playwright screenshot of the matching screen, list the **visual delta** as concrete items:
+Save the Figma export to `.ff-task/FW-NNNN/verification/figma-<short-slug>.png`. Then for each Playwright screenshot of the matching screen, list the **visual delta** as concrete items:
 
 - Color: `#A3A3A3` (impl) vs `#9CA3AF` (Figma) on `.profile-handle` — likely tailwind token mismatch (`text-gray-400` vs `text-gray-500`)
 - Spacing: `gap-3` (impl, 12px) vs Figma's 16px — bump to `gap-4`
@@ -470,7 +475,7 @@ Present a structured verification report in chat with:
 ### Browser walkthrough (apps/web :3000)
 - Bug fixes: <bug no longer reproduces / still reproduces — details>
 - Features: criterion-by-criterion ✅/❌ list with screenshots
-- Screenshots: `node_modules/.cache/verification/FW-NNNN/*.png` (N images)
+- Screenshots: `.ff-task/FW-NNNN/verification/*.png` (N images)
 
 ### Figma delta (features only, when applicable)
 - <list of concrete diffs, or "no notable diffs">
@@ -510,7 +515,7 @@ If verification revealed something not covered by the original plan (a new edge 
 - ❌ **Skipping the Playwright walkthrough for UI changes.** `pnpm typecheck` / `pnpm lint` / `pnpm test` verify code correctness, not feature correctness. If a UI change touched, the browser walk in Step 7 is non-negotiable.
 - ❌ **Leaving the dev server running after verification.** Always `KillShell` it in Step 7f. Forgotten dev servers chew CPU and confuse the next session.
 - ❌ **Reporting "no visual diffs" without actually overlaying the Figma export.** Pull the Figma screenshot, list concrete diffs (or explicitly say "no notable diffs after comparing the two").
-- ❌ **Pasting screenshots without filenames the user can open.** Screenshots live at `node_modules/.cache/verification/FW-NNNN/*.png` — name them descriptively (`01-initial-load.png`, `03-error-state.png`).
+- ❌ **Pasting screenshots without filenames the user can open.** Screenshots live at `.ff-task/FW-NNNN/verification/*.png` — name them descriptively (`01-initial-load.png`, `03-error-state.png`).
 - ❌ **Calling `browser_close` while CDP-attached.** It tears down the user's entire Chrome session — tabs they had open, work they were doing, everything. Close only the tabs Claude opened via `browser_tabs`.
 - ❌ **Navigating an existing tab.** Always open a new tab first via `browser_tabs`. `browser_navigate` defaults to the active tab — if the user's reading email there, you'll yank them away. Open new, navigate new.
 - ❌ **Auto-clicking past a wallet popup.** Claude can't see inside the MetaMask iframe or the extension popup UI. Never assume the popup auto-resolved. Always pause with the 🛑 message and wait for the user to say "continue" before proceeding.
