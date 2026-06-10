@@ -30,8 +30,8 @@ export const fireflySessionTokenAtom = atom((get) => get(accessTokenAtom));
 if (typeof window !== 'undefined') {
     const sync = (token: string | null) => {
         logger.info('[firefly-wallet] syncing firefly session token', { token });
-        store.set(accessTokenAtom, token)
-    }
+        store.set(accessTokenAtom, token);
+    };
     fireflyAuthClient.subscribe(sync);
     void fireflyAuthClient.getAccessToken().then(sync);
 }

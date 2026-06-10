@@ -10,9 +10,12 @@ const app = new Hono().use(prettyJSON()).use(withCors()).route('/token', TokenRo
 export default app;
 export type AppType = typeof app;
 export type {
+    CoinGeckoAsset,
+    CoinGeckoCoinInfo,
     CoinGeckoCoinMarketInfo,
     CoinGeckoToken,
     GetTokenOptions,
+    Runtime,
     SearchableToken,
     TokenWithMarket,
 } from './types.js';

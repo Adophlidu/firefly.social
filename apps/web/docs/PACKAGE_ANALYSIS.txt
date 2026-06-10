@@ -252,7 +252,7 @@ Packages with Multiple Versions
 *core-js@2.6.12,3.49.0
  cosmiconfig@7.1.0,8.0.0,8.3.6,9.0.1
 *cross-fetch@3.2.0,4.1.0
- crossws@0.3.5,0.4.4,0.4.5
+ crossws@0.3.5,0.4.5
  css-tree@1.1.3,2.2.1,3.1.0
 *date-fns@2.30.0,3.6.0
 *dayjs@1.11.13,1.11.21

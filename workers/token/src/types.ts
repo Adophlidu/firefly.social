@@ -189,7 +189,22 @@ export type Runtime =
     | 'stellar'
     | 'the-open-network'
     | 'tron'
-    | 'zksync';
+    | 'zksync'
+    | 'monad'
+    | 'moonriver'
+    | 'sui'
+    | 'xrp'
+    | 'sonic'
+    | 'ink'
+    | 'unichain'
+    | 'xdc-network'
+    | 'hyperevm'
+    | 'plume-network'
+    | 'sei-v2'
+    | 'world-chain'
+    | 'morph-l2'
+    | 'starknet'
+    | 'aptos';
 
 export interface CoinGeckoCoinInfo {
     asset_platform_id: string;

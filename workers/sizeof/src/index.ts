@@ -13,3 +13,4 @@ app.route('/sizeof', SizeofRoute);
 
 export default app;
 export type AppType = typeof app;
+export type { ImageDigested } from './types.js';

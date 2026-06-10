@@ -1,3 +1,5 @@
+import type { Runtime } from '@dimensiondev/workers-token';
+
 type CommunityType =
     | 'discord'
     | 'facebook'
@@ -50,43 +52,8 @@ interface Platform {
     symbol: string;
 }
 
-// extract from https://coingecko-agent.r2d2.to/api/v3/coins/usd-coin
-export type Runtime =
-    | 'ethereum'
-    | 'algorand'
-    | 'arbitrum-one'
-    | 'binance-smart-chain'
-    | 'avalanche'
-    | 'base'
-    | 'celo'
-    | 'energi'
-    | 'flow'
-    | 'hedera-hashgraph'
-    | 'kava'
-    | 'near-protocol'
-    | 'optimistic-ethereum'
-    | 'polkadot'
-    | 'polygon-pos'
-    | 'solana'
-    | 'stellar'
-    | 'the-open-network'
-    | 'tron'
-    | 'zksync'
-    | 'monad'
-    | 'moonriver'
-    | 'sui'
-    | 'xrp'
-    | 'sonic'
-    | 'ink'
-    | 'unichain'
-    | 'xdc-network'
-    | 'hyperevm'
-    | 'plume-network'
-    | 'sei-v2'
-    | 'world-chain'
-    | 'morph-l2'
-    | 'starknet'
-    | 'aptos';
+// CoinGecko asset-platform runtimes; canonical list lives in the token worker
+export type { Runtime };
 
 export interface Contract {
     runtime: Runtime;
