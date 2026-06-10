@@ -31,7 +31,7 @@ function toRnUiLocale(walletLocale: string): RnUiLocale {
 }
 
 export function PerpsProvider({ children }: PropsWithChildren) {
-    const token = useAtomValue(fireflySessionTokenAtom);
+    const authToken = useAtomValue(fireflySessionTokenAtom);
     const comeback = useComeback();
     const connectors = useConnectors();
     const navigate = useNavigate();
@@ -116,7 +116,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
     return (
         <Provider locale={locale} theme={isDarkMode ? 'dark' : 'light'}>
             <PerpsBindingsProvider
-                token={token}
+                token={authToken}
                 apiMode={IS_DEV_API ? 'dev' : 'prod'}
                 walletClient={data}
                 toast={toastFn}

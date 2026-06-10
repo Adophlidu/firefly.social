@@ -22,9 +22,6 @@ const walletAddressCacheStorageAtom = atomWithStorage<WalletAddressCacheStorage>
     },
 );
 
-// Store the current Privy token
-const privyTokenAtom = atom<string | null>(null);
-
 // Clear expired caches
 export const clearExpiredCachesAtom = atom(null, (get, set) => {
     const storage = get(walletAddressCacheStorageAtom);

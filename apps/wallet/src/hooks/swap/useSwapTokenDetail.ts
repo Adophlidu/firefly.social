@@ -2,7 +2,7 @@ import { isSameSolanaChainId } from '@dimensiondev/web3/chains';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 
-import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import { getSwapEndpoint } from '@/store/swapEndpoint.js';
 
 interface Options {
     address?: string;
@@ -14,7 +14,7 @@ export function useSwapTokenDetail({ address, chainId }: Options) {
         queryKey: ['swap-token-detail', address, chainId],
         queryFn: async () => {
             if (!address || !chainId) return null;
-            const endpoint = createSwapEndpoint();
+            const endpoint = getSwapEndpoint();
             const results = await endpoint.getTokenDetailBatch([{ chainId: String(chainId), address }]);
             return (
                 results.find((t) => {

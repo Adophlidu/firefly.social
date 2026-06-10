@@ -3,6 +3,7 @@ import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/wallet';
 import { atom } from 'jotai';
 
+import { logger } from '@/lib/Logger.js';
 import { store } from '@/store/index.js';
 
 /**
@@ -27,7 +28,10 @@ export const fireflySessionTokenAtom = atom((get) => get(accessTokenAtom));
 // Mirror the client's freshest token into the atom so the existing synchronous
 // consumers (auth headers, login gate) react to refresh/rotation/sign-out.
 if (typeof window !== 'undefined') {
-    const sync = (token: string | null) => store.set(accessTokenAtom, token);
+    const sync = (token: string | null) => {
+        logger.info('[firefly-wallet] syncing firefly session token', { token });
+        store.set(accessTokenAtom, token)
+    }
     fireflyAuthClient.subscribe(sync);
     void fireflyAuthClient.getAccessToken().then(sync);
 }

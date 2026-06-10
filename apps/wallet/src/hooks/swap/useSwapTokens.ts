@@ -1,15 +1,13 @@
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { useQuery } from '@tanstack/react-query';
-import { useAtomValue } from 'jotai';
 import { orderBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { SUPPORTED_SWAP_EVM_CHAIN_IDS } from '@/constants/ethereum.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { normalizeSwapToken } from '@/providers/swap/normalizeSwapToken.js';
-import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { RecentToken, SupportedChain, SwapToken } from '@/providers/swap/types.js';
-import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
+import { getSwapEndpoint } from '@/store/swapEndpoint.js';
 
 const SUPPORTED_SWAP_TRENDING_CHAIN_IDS = [...SUPPORTED_SWAP_EVM_CHAIN_IDS, 101] as const;
 
@@ -63,7 +61,6 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
         solanaAddress: cachedSolanaAddress,
         isPrivyReady,
     } = useSwapContextWalletAddresses();
-    const authToken = useAtomValue(fireflySessionTokenAtom);
 
     // Determine which addresses to use based on wallet filter selection
     // Priority: selectedWalletAddress > cached addresses
@@ -98,7 +95,7 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
         queryFn: async () => {
             if (!supportedChainIds.length) return [];
 
-            const endpoint = createSwapEndpoint();
+            const endpoint = getSwapEndpoint();
 
             // EVM chains supported by the swap API.
             // Solana chain: 101
@@ -127,9 +124,9 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
         isLoading: isLoadingRecentTokens,
         refetch: refetchRecentTokens,
     } = useQuery({
-        queryKey: ['swap-recent-tokens', chainId, authToken],
+        queryKey: ['swap-recent-tokens', chainId],
         queryFn: async () => {
-            const endpoint = createSwapEndpoint(authToken ?? undefined);
+            const endpoint = getSwapEndpoint();
             // Use chains filter if chainId is provided
             return endpoint.getRecentTokens({
                 chains: chainId ? String(chainId) : undefined,
@@ -157,7 +154,7 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
                   : SUPPORTED_SWAP_TRENDING_CHAIN_IDS.filter((id) => supportedChainIds.includes(id)).join(',');
             if (!chains) return [];
 
-            const endpoint = createSwapEndpoint();
+            const endpoint = getSwapEndpoint();
             // chains is required — pass specific chain or all major chains
             return endpoint.getTrendingTokens({
                 chains,
@@ -247,7 +244,7 @@ export function useSearchTokens(keyword: string, chain?: string) {
         queryFn: async () => {
             if (!keyword || keyword.length < 2) return [];
 
-            const endpoint = createSwapEndpoint();
+            const endpoint = getSwapEndpoint();
             return endpoint.searchToken({ keyword, chain });
         },
         enabled: keyword.length >= 2,

@@ -16,8 +16,8 @@ import {
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';
-import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { WithdrawSupportedToken } from '@/providers/types/Firefly.js';
+import { getSwapEndpoint } from '@/store/swapEndpoint.js';
 
 interface SelectedToken {
     address?: string;
@@ -110,7 +110,7 @@ export function useDepositToken() {
         queryFn: async () => {
             if (!evmAddress || !solanaAddress) return [];
 
-            const endpoint = createSwapEndpoint();
+            const endpoint = getSwapEndpoint();
             const tokenMap = await endpoint.getUserTokenBalancesMultiChain(compact([evmAddress, solanaAddress]), [
                 ...POLYMARKET_DEPOSIT_EVM_CHAIN_IDS,
                 solana.id,

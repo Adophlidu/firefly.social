@@ -19,10 +19,9 @@ import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import { useSwapExecute } from '@/hooks/swap/useSwapExecute.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
-import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
-import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 import { skipReviewAtom } from '@/store/swap/swapSettings.js';
 import { fromAmountAtom, swapTokensAtom } from '@/store/swap/swapState.js';
+import { getSwapEndpoint } from '@/store/swapEndpoint.js';
 
 export interface SwapPanelProps {
     className?: string;
@@ -44,7 +43,6 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
     const { loading: executionLoading, execute } = useSwapExecute();
 
     const { isPrivyReady } = useSwapContextWalletAddresses();
-    const authToken = useAtomValue(fireflySessionTokenAtom);
     const payAddress = useEffectiveSwapWalletAddress('pay', resolvedFromChain);
     const receiveAddress = useEffectiveSwapWalletAddress('receive', resolvedToChain);
 
@@ -60,9 +58,9 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
     const balanceAddresses = useMemo(() => uniq(compact([payAddress, receiveAddress])), [payAddress, receiveAddress]);
 
     const { data: balancesByWallet, isLoading: isBalanceLoading } = useQuery({
-        queryKey: ['swap-panel-balances', balanceAddresses, balanceChainIds, authToken],
+        queryKey: ['swap-panel-balances', balanceAddresses, balanceChainIds],
         queryFn: async () => {
-            const endpoint = createSwapEndpoint(authToken ?? undefined);
+            const endpoint = getSwapEndpoint();
             return endpoint.getUserTokenBalancesMultiChain(balanceAddresses, balanceChainIds);
         },
         enabled: isPrivyReady && balanceAddresses.length > 0 && balanceChainIds.length > 0,

@@ -1,4 +1,3 @@
-import { envs } from '@dimensiondev/envs/wallet';
 import { leftShift, rightShift } from '@dimensiondev/web3/numbers';
 import urlcat from 'urlcat';
 
@@ -649,12 +648,4 @@ export class SwapEndpoint extends Fetch {
         });
         return result.ok && result.data.code === 0 && !!result.data.data?.length;
     }
-}
-
-// Factory function to create swap endpoint with auth
-export function createSwapEndpoint(token?: string) {
-    return new SwapEndpoint({
-        baseURL: envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
 }

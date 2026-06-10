@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { SupportedChain } from '@/providers/swap/types.js';
+import { getSwapEndpoint } from '@/store/swapEndpoint.js';
 
 /**
  * Shared hook for fetching swap-supported chains from the backend API.
@@ -17,7 +17,7 @@ export function useSwapSupportedChains(): {
     const { data = [], isLoading } = useQuery({
         queryKey: ['swap-supported-chains'],
         queryFn: async () => {
-            const endpoint = createSwapEndpoint();
+            const endpoint = getSwapEndpoint();
             return endpoint.getSupportedChains();
         },
         staleTime: 30 * 60 * 1000, // 30 minutes

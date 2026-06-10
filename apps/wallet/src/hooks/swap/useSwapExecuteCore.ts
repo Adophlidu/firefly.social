@@ -12,7 +12,6 @@ import {
     ProviderController as CoreProviderController,
 } from '@reown/appkit-controllers';
 import bs58 from 'bs58';
-import { useAtomValue } from 'jotai';
 import { type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { toast } from 'sonner';
@@ -37,12 +36,12 @@ import {
 import { toastLoading } from '@/helpers/toastLoading.js';
 import { type AppKitSolanaWallet, useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { logger } from '@/lib/Logger.js';
-import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { SwapToken } from '@/providers/swap/types.js';
 import type { FreeGasTxType } from '@/providers/types/FreeGas.js';
-import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 import { getSlippagePercent, type SlippageValue } from '@/store/swap/swapSettings.js';
 import type { SwapStep } from '@/store/swap/swapState.js';
+import { getSwapEndpoint } from '@/store/swapEndpoint.js';
 
 export type SwapSuccessParams = Omit<HandleSwapSuccessParams, 'refetchBalances' | 'analyticsParams'>;
 export type SwapAnalyticsParams = Omit<BuildSwapAnalyticsParamsInput, 'solanaWalletName' | 'evmWalletName'>;
@@ -56,7 +55,7 @@ interface ExecuteEvmSwapParams {
     walletAddress: string;
     isCrossChain: boolean;
     toastId: string;
-    endpoint: ReturnType<typeof createSwapEndpoint>;
+    endpoint: SwapEndpoint;
     setTxHash: (hash: string | null) => void;
     setFromAmount: (amount: string) => void;
     setSwapStep: (step: 'input' | 'review' | 'processing') => void;
@@ -73,7 +72,7 @@ interface ExecuteSolanaSwapParams {
     chainId: number;
     isCrossChain: boolean;
     toastId: string;
-    endpoint: ReturnType<typeof createSwapEndpoint>;
+    endpoint: SwapEndpoint;
     setTxHash: (hash: string | null) => void;
     setFromAmount: (amount: string) => void;
     setSwapStep: (step: 'input' | 'review' | 'processing') => void;
@@ -297,7 +296,6 @@ export function useSwapExecuteCore({
     const [error, setError] = useState<string | null>(null);
     const [txHash, setTxHash] = useState<string | null>(null);
 
-    const authToken = useAtomValue(fireflySessionTokenAtom);
     const appKitSolanaWallets = useAppKitSolanaWallets(false);
     const connections = useConnections();
 
@@ -329,7 +327,7 @@ export function useSwapExecuteCore({
 
         try {
             const slippagePercent = getSlippagePercent(slippage);
-            const endpoint = createSwapEndpoint(authToken ?? undefined);
+            const endpoint = getSwapEndpoint();
             const isCrossChain = toChainId !== fromChainId;
 
             const analyticsParams: SwapAnalyticsParams = {
@@ -422,7 +420,6 @@ export function useSwapExecuteCore({
             if (throwError) throw err;
         }
     }, [
-        authToken,
         fromToken,
         toToken,
         fromAmount,

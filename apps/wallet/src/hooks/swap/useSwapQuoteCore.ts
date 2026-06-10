@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { useDebouncedValue } from '@/hooks/useDebouncedValue.js';
-import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { SwapToken } from '@/providers/swap/types.js';
 import { getSlippagePercent, type SlippageValue } from '@/store/swap/swapSettings.js';
+import { getSwapEndpoint } from '@/store/swapEndpoint.js';
 
 interface UseSwapExecuteCoreParams {
     enabled?: boolean;
@@ -66,7 +66,7 @@ export function useSwapQuoteCore({
         queryFn: async () => {
             if (!fromToken || !toToken || !debouncedAmount || !walletAddress || !fromChainId) return null;
 
-            const endpoint = createSwapEndpoint();
+            const endpoint = getSwapEndpoint();
             return endpoint.getSwapQuote({
                 fromTokenAddress: fromToken.address,
                 toTokenAddress: toToken.address,
@@ -104,7 +104,7 @@ export function useSwapQuoteCore({
         queryFn: async () => {
             if (!fromToken || !toToken || !debouncedAmount || !walletAddress || !toChainId || !fromChainId) return null;
 
-            const endpoint = createSwapEndpoint();
+            const endpoint = getSwapEndpoint();
             return endpoint.getCrossChainQuote({
                 fromTokenAddress: fromToken.address,
                 toTokenAddress: toToken.address,
