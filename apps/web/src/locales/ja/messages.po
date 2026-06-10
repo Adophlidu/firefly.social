@@ -375,6 +375,9 @@ msgstr "損益"
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "Firefly で {handleOrEnsOrAddress} のフォローに失敗しました。"
 
+msgid "Comment on X always"
+msgstr ""
+
 msgid "No cryptocurrency mixer found."
 msgstr "暗号資産ミキサーは検出されませんでした。"
 
@@ -4626,6 +4629,9 @@ msgstr ""
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr "<0>受け取り済み: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+
+msgid "Comment on X once"
+msgstr ""
 
 msgid "Keep it safe and do not share"
 msgstr "大切に保管し、共有しないでください"

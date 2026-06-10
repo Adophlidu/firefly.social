@@ -7,11 +7,12 @@ import { motion } from 'framer-motion';
 import { memo } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { CommentOnXMenu } from '@/components/CommentOnXMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useCommentPost } from '@/hooks/useCommentPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 interface CommentProps {
     post: Post;
@@ -25,6 +26,23 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
     const { buttonDisabled, message: disabledMessage, onComment } = useCommentPost(post, disabled);
     const { message, type } = disabledMessage || {};
     const commentDisabled = buttonDisabled && (!message || type !== 'toast');
+
+    // A `toast` message means the reply is blocked by X's API but the click is
+    // still actionable: offer to continue on X via a dropdown menu. Once the
+    // user opts into "always", skip the menu and let the button open X directly.
+    const { preferences } = usePreferencesState();
+    const showCommentOnXMenu = type === 'toast' && !preferences.ALWAYS_COMMENT_ON_X;
+
+    if (showCommentOnXMenu) {
+        return (
+            <ClickableArea className={classNames('flex w-min items-center space-x-1 md:space-x-2')}>
+                <CommentOnXMenu post={post} count={count} />
+                {!hiddenCount && count ? (
+                    <span className="text-xs font-medium text-main">{nFormatter(count)}</span>
+                ) : null}
+            </ClickableArea>
+        );
+    }
 
     return (
         <ClickableArea className={classNames('flex w-min items-center space-x-1 md:space-x-2')}>
@@ -49,11 +67,10 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
                     )}
                     aria-label="Comment"
                     onClick={() => {
-                        if (buttonDisabled && message && type === 'toast') {
-                            enqueueWarningMessage(message);
-                            return;
-                        }
-                        if (buttonDisabled) return;
+                        // A `toast` message means the reply is restricted but the
+                        // click is still actionable (e.g. continue on X), so defer
+                        // to onComment; other disabled states are inert.
+                        if (buttonDisabled && (!message || type !== 'toast')) return;
                         onComment();
                     }}
                 >

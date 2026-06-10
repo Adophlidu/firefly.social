@@ -148,7 +148,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                 </HeadlessMenuButton>
             }
         >
-            <MenuGroup>
+            <MenuGroup anchor="bottom start">
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton

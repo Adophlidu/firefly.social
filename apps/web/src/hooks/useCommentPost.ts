@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
@@ -7,8 +8,10 @@ import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { canReplyToPost } from '@/helpers/canReplyToPost.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { openUrl } from '@/helpers/openUrl.js';
 import { resolveMessageForCommentDisabled } from '@/helpers/resolveMessageForCommentDisabled.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { resolveXReplyUrl } from '@/helpers/resolveXReplyUrl.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -45,6 +48,11 @@ export function useCommentPost(post: Post, disabled = false) {
                 channel: post.channel,
                 isAnonymous: anonymousPostEnabled,
             });
+        } else if (source === Source.Twitter) {
+            // X's API only allows replying to posts that mention you. The reply
+            // icon renders a "Comment on X" menu (see CommentOnXMenu); reaching
+            // here means the user opted into "always", so open X directly.
+            openUrl(resolveXReplyUrl(post.postId));
         } else {
             enqueueErrorMessage(t`You cannot reply to @${author.handle} on ${resolveSourceName(source)}.`);
         }

@@ -14,6 +14,8 @@ interface Preferences {
     SHOW_SCHEDULE_POST_TIP: boolean;
     SHOW_TRUTH_SOCIAL: boolean;
     SHOW_TRUTH_SOCIAL_ALERT: boolean;
+    /** Skip the X reply-restriction warning and open X directly to comment. */
+    ALWAYS_COMMENT_ON_X: boolean;
     TOKEN_PROFILE_COIN_ID_MAP: Record<string, StoredCoinInfo>;
     FIREFLY_ACCOUNT_CHECKED_MAP: Record<string, boolean>;
     NOTIFICATION_READ_RECORD: Record<
@@ -31,6 +33,7 @@ const defaultPreferences: Preferences = {
     SHOW_SCHEDULE_POST_TIP: true,
     SHOW_TRUTH_SOCIAL: true,
     SHOW_TRUTH_SOCIAL_ALERT: true,
+    ALWAYS_COMMENT_ON_X: false,
     TOKEN_PROFILE_COIN_ID_MAP: {},
     FIREFLY_ACCOUNT_CHECKED_MAP: {},
     NOTIFICATION_READ_RECORD: {
