@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { memo, useMemo } from 'react';
 
 import { Image } from '@/components/Image.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { Link } from '@/esm/Link.js';
 import {
     formatPolymarketSportsEventForUI,
@@ -32,11 +33,11 @@ interface ScheduledTimeParts {
 }
 
 function getTeamAbbreviation(team: PredictionSportsTeamForUI): string {
+    const abbreviation = team.abbreviation?.trim();
+    if (abbreviation) return abbreviation;
+
     const name = team.name?.trim();
     if (name) return name;
-
-    const abbreviation = team.abbreviation?.trim();
-    if (abbreviation) return abbreviation.toUpperCase();
 
     return '--';
 }
@@ -78,26 +79,32 @@ function getFinishedScoreLabel(model: PredictionSportsCellViewModel): string {
 function TeamColumn({ team }: { team: PredictionSportsTeamForUI }) {
     const label = getTeamAbbreviation(team);
 
+    const tooltipContent = team.name || undefined;
+
     return (
-        <div className="flex w-12 shrink-0 flex-col items-center gap-2">
-            {team.logo ? (
-                <div className="overflow-hidden rounded-lg">
-                    <Image
-                        src={team.logo}
-                        alt=""
-                        width={48}
-                        height={48}
-                        className="size-12 object-contain"
-                        fallback="square"
-                    />
-                </div>
-            ) : (
-                <span className="flex size-12 items-center justify-center rounded-lg bg-bg text-sm font-semibold text-second">
-                    {label[0]}
+        <Tooltip content={tooltipContent} placement="top">
+            <div className="flex w-12 shrink-0 flex-col items-center gap-2">
+                {team.logo ? (
+                    <div className="overflow-hidden rounded-lg">
+                        <Image
+                            src={team.logo}
+                            alt=""
+                            width={48}
+                            height={48}
+                            className="size-12 object-contain"
+                            fallback="square"
+                        />
+                    </div>
+                ) : (
+                    <span className="flex size-12 items-center justify-center rounded-lg bg-bg text-sm font-semibold text-second">
+                        {label[0]}
+                    </span>
+                )}
+                <span className="w-full truncate text-center text-xs font-semibold uppercase leading-4 text-main">
+                    {label}
                 </span>
-            )}
-            <span className="w-full truncate text-center text-xs font-semibold leading-4 text-main">{label}</span>
-        </div>
+            </div>
+        </Tooltip>
     );
 }
 

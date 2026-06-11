@@ -163,11 +163,13 @@ function SportLineSwitcher({
         const activeButton = container.querySelector<HTMLButtonElement>(`[data-line-key="${CSS.escape(selectedKey)}"]`);
         if (!activeButton) return;
 
-        activeButton.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center',
-        });
+        const targetLeft = activeButton.offsetLeft - (container.clientWidth - activeButton.clientWidth) / 2;
+        const maxScroll = Math.max(0, container.scrollWidth - container.clientWidth);
+        const clampedLeft = Math.max(0, Math.min(targetLeft, maxScroll));
+
+        if (Math.abs(container.scrollLeft - clampedLeft) > 1) {
+            container.scrollTo({ left: clampedLeft, behavior: 'smooth' });
+        }
     }, [selectedKey]);
 
     if (options.length <= 1) return null;
