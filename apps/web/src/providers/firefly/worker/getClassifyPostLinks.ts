@@ -1,5 +1,6 @@
 import { isSameUrl } from '@dimensiondev/utils';
 import type { ClassifiedLinkResult } from '@dimensiondev/workers-og';
+import type { Snap } from '@dimensiondev/workers-snap';
 import { uniqWith } from 'lodash-es';
 
 import { addSharerParam, getSharerParam, removeSharerParam } from '@/helpers/sharerUrl.js';
@@ -12,7 +13,6 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame } from '@/types/frame.js';
 import type { LinkDigested } from '@/types/og.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
-import type { Snap } from '@/types/snap.js';
 
 export interface ClassifyPostLinkResult {
     oembed?: LinkDigested;

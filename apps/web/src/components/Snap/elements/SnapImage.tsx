@@ -1,5 +1,6 @@
+import type { SnapImageProps } from '@dimensiondev/workers-snap';
+
 import { Image } from '@/components/Image.js';
-import type { SnapImageProps } from '@/types/snap.js';
 
 const ASPECT_RATIO_MAP: Record<SnapImageProps['aspect'], string> = {
     '1:1': '1 / 1',

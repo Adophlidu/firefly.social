@@ -3,6 +3,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import type { SnapAccentColor, SnapIconProps } from '@dimensiondev/workers-snap';
 import {
     ArrowDownIcon,
     ArrowDownTrayIcon,
@@ -53,7 +54,6 @@ import {
 import type { ComponentType } from 'react';
 
 import { ACCENT_TEXT_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
-import type { SnapAccentColor, SnapIconProps } from '@/types/snap.js';
 
 function iconTextClass(color: SnapIconProps['color'], themeAccent: SnapAccentColor): string {
     if (!color) return 'text-secondary';

@@ -1,10 +1,10 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import type { SnapAccentColor, SnapSliderProps } from '@dimensiondev/workers-snap';
 import { useLayoutEffect } from 'react';
 
 import { ACCENT_COLOR_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
-import type { SnapAccentColor, SnapSliderProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapSliderProps;

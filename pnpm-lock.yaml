@@ -906,6 +906,9 @@ importers:
       '@dimensiondev/workers-sizeof':
         specifier: workspace:*
         version: link:../../workers/sizeof
+      '@dimensiondev/workers-snap':
+        specifier: workspace:*
+        version: link:../../workers/snap
       '@dimensiondev/workers-token':
         specifier: workspace:*
         version: link:../../workers/token

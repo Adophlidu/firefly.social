@@ -1,7 +1,8 @@
 'use client';
 
+import type { SnapInputProps } from '@dimensiondev/workers-snap';
+
 import { useSnapContext } from '@/components/Snap/SnapContext.js';
-import type { SnapInputProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapInputProps;

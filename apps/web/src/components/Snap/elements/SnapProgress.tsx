@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
+import type { SnapAccentColor, SnapProgressProps } from '@dimensiondev/workers-snap';
 
 import { ACCENT_COLOR_MAP, resolveSnapPaletteKey } from '@/components/Snap/SnapContext.js';
-import type { SnapAccentColor, SnapProgressProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapProgressProps;

@@ -1,10 +1,10 @@
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
+import type { Snap } from '@dimensiondev/workers-snap';
 import { memo } from 'react';
 
 import { SnapCard } from '@/components/Snap/Card.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { Snap } from '@/types/snap.js';
 
 interface SnapLayoutProps {
     snap: Snap;

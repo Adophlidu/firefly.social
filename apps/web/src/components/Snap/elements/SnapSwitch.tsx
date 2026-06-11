@@ -1,10 +1,10 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import type { SnapAccentColor, SnapSwitchProps } from '@dimensiondev/workers-snap';
 import { useLayoutEffect } from 'react';
 
 import { ACCENT_COLOR_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
-import type { SnapAccentColor, SnapSwitchProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapSwitchProps;

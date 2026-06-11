@@ -13,3 +13,4 @@ app.route('/fc-snap', SnapRoute);
 
 export default app;
 export type AppType = typeof app;
+export type * from './types.js';

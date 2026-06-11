@@ -143,6 +143,7 @@
         "@dimensiondev/workers-og": "workspace:*",
         "@dimensiondev/workers-s3": "workspace:*",
         "@dimensiondev/workers-sizeof": "workspace:*",
+        "@dimensiondev/workers-snap": "workspace:*",
         "@dimensiondev/workers-token": "workspace:*",
         "@dimensiondev/workers-ui-suggested-channels": "workspace:*",
         "@dimensiondev/workers-x-identity": "workspace:*",

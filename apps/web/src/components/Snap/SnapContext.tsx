@@ -1,8 +1,7 @@
 'use client';
 
+import type { SnapAccentColor, SnapFieldValues } from '@dimensiondev/workers-snap';
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-
-import type { SnapAccentColor, SnapFieldValues } from '@/types/snap.js';
 
 /** Tailwind classes backed by `--snap-palette-*` (Farcaster snap spec, light/dark in globals.css). */
 export const ACCENT_COLOR_MAP: Record<SnapAccentColor, string> = {

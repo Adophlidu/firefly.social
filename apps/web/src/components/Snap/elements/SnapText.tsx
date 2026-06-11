@@ -1,6 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-
-import type { SnapTextProps } from '@/types/snap.js';
+import type { SnapTextProps } from '@dimensiondev/workers-snap';
 
 interface Props {
     props: SnapTextProps;

@@ -1,10 +1,10 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import type { SnapAccentColor, SnapCellGridProps } from '@dimensiondev/workers-snap';
 import type { CSSProperties } from 'react';
 
 import { ACCENT_COLOR_MAP, ACCENT_RING_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
-import type { SnapAccentColor, SnapCellGridProps } from '@/types/snap.js';
 
 const SNAP_PALETTE_KEYS = new Set<SnapAccentColor>(['gray', 'blue', 'red', 'amber', 'green', 'teal', 'purple', 'pink']);
 

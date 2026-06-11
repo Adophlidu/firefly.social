@@ -1,12 +1,12 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { parseCAIP19 } from '@dimensiondev/web3/utils';
+import type { SnapSendTokenAction } from '@dimensiondev/workers-snap';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { logger } from '@/libs/Logger.js';
 import { getProfileById } from '@/providers/firefly/farcaster-hub/getProfileById.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import type { SnapSendTokenAction } from '@/types/snap.js';
 
 /**
  * Opens Firefly Wallet send flow with optional deep link (chain / token / recipient / amount).

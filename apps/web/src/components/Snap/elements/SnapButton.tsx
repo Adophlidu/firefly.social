@@ -1,10 +1,10 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import type { SnapAccentColor, SnapAction, SnapButtonProps } from '@dimensiondev/workers-snap';
 
 import { SnapIcon } from '@/components/Snap/elements/SnapIcon.js';
 import { ACCENT_BORDER_MAP, ACCENT_COLOR_MAP, ACCENT_TEXT_MAP } from '@/components/Snap/SnapContext.js';
-import type { SnapAccentColor, SnapAction, SnapButtonProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapButtonProps;

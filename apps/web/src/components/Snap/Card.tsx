@@ -2,6 +2,13 @@
 
 import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { SocialProfileCategory, Source } from '@dimensiondev/enums';
+import type {
+    Snap,
+    SnapAction,
+    SnapDigestedResponse,
+    SnapFieldValues,
+    SnapJFSPayload,
+} from '@dimensiondev/workers-snap';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import urlcat from 'urlcat';
@@ -25,7 +32,6 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { validateSnapStructure } from '@/helpers/snap.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { Snap, SnapAction, SnapDigestedResponse, SnapFieldValues, SnapJFSPayload } from '@/types/snap.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 function buildInputs(fields: SnapFieldValues): SnapJFSPayload['inputs'] {

@@ -1,4 +1,4 @@
-import type { Snap } from '@/types/snap.js';
+import type { Snap } from '@dimensiondev/workers-snap';
 
 export function validateSnapStructure(snap: Snap): string | null {
     const isV2 = snap.version === '2.0';

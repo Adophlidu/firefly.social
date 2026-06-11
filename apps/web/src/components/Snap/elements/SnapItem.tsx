@@ -1,7 +1,7 @@
+import type { SnapItemProps } from '@dimensiondev/workers-snap';
 import type { ReactNode } from 'react';
 
 import { Image } from '@/components/Image.js';
-import type { SnapItemProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapItemProps;

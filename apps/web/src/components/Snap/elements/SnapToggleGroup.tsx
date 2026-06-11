@@ -1,9 +1,9 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import type { SnapAccentColor, SnapToggleGroupProps } from '@dimensiondev/workers-snap';
 
 import { ACCENT_COLOR_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
-import type { SnapAccentColor, SnapToggleGroupProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapToggleGroupProps;
