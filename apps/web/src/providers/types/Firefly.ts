@@ -2406,6 +2406,33 @@ export type FifaCampAccountsResponse = Response<{
     infoList: FifaCampAccountInfo[];
 } | null>;
 
+export interface FifaGroupScoreTeam {
+    country: string;
+    country_code?: string;
+    country_key?: string;
+    played: number;
+    wins: number;
+    draws: number;
+    losses: number;
+    points: number;
+    advance_probability?: number;
+    advance_probability_percent?: number;
+    advance_status?: string;
+    advance_market_slug?: string;
+    standing_order?: number;
+    team_color?: string;
+    flag_image?: string;
+}
+
+export interface FifaGroupScoreGroup {
+    group_letter: string;
+    teams: FifaGroupScoreTeam[];
+}
+
+export interface FifaGroupScoreListData {
+    groups: FifaGroupScoreGroup[];
+}
+
 export type GetExploreSwitchConfigResponse = Response<{
     explore_switch: boolean;
     list: Array<{
@@ -2622,6 +2649,7 @@ export interface PolymarketSportsListResponse {
     today: PolymarketSportsEvent[];
     tomorrow: PolymarketSportsEvent[];
     afterTomorrow: PolymarketSportsEvent[];
+    afterThreeDays?: PolymarketSportsEvent[];
     closed: PolymarketSportsEvent[];
 }
 

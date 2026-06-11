@@ -72,3 +72,8 @@ export function formatLine(line: number, showPositiveSign = true): string {
     const sign = showPositiveSign && line > 0 ? '+' : '';
     return `${sign}${line}`;
 }
+
+/** Abbreviate Over/Under labels for total-type markets. "Over 2.5" → "O 2.5", "Over" → "O", "Under 2.5" → "U 2.5", "Under" → "U". No-op for other labels. */
+export function abbreviateOutcomeLabel(label: string): string {
+    return label.replace(/^Over(\s|$)/i, 'O$1').replace(/^Under(\s|$)/i, 'U$1');
+}

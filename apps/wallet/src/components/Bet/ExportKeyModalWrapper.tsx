@@ -5,6 +5,7 @@ import SecurityIcon from '@dimensiondev/assets/security.svg';
 import WarningIcon from '@dimensiondev/assets/warning.svg';
 import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useConnectors, useSignMessage } from 'wagmi';
@@ -19,12 +20,24 @@ import { Button } from '@/components/ui/button.js';
 import type { RouteModalProps } from '@/configs/modalRoutes.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
+import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
-function ExportPrivateKeyResult({ privateKey }: { privateKey: string }) {
+function ExportPrivateKeyResult({
+    privateKey,
+    proxyWalletAddress,
+    depositWalletAddress,
+}: {
+    privateKey: string;
+    proxyWalletAddress?: string;
+    depositWalletAddress?: string;
+}) {
     const [copied, handleCopy] = useCopyText('');
     const onCopy = () => {
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_PRIVATE_KEY_COPY_CLICK, {});
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_PRIVATE_KEY_COPY_CLICK, {
+            proxy_wallet_address: proxyWalletAddress,
+            deposit_wallet_address: depositWalletAddress,
+        });
         handleCopy(privateKey);
     };
     return (
@@ -57,6 +70,7 @@ export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalPr
     const { mutateAsync: signMessage } = useSignMessage();
     const connectors = useConnectors();
     const [privateKey, setPrivateKey] = useState('');
+    const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
 
     useEffect(() => {
         if (open) {
@@ -86,7 +100,11 @@ export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalPr
                     <div className="flex min-h-0 grow flex-col gap-6">
                         {confirmed && !exporting ? (
                             <>
-                                <ExportPrivateKeyResult privateKey={privateKey} />
+                                <ExportPrivateKeyResult
+                                    privateKey={privateKey}
+                                    proxyWalletAddress={account?.proxyAddress}
+                                    depositWalletAddress={account?.address}
+                                />
                                 <Button
                                     className="font-bold"
                                     onClick={() => onClose(modalType)}
@@ -123,7 +141,10 @@ export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalPr
                                 <Button
                                     className="font-bold"
                                     onClick={async () => {
-                                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_SHOW_PRIVATE_KEY, {});
+                                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_SHOW_PRIVATE_KEY, {
+                                            proxy_wallet_address: account?.proxyAddress,
+                                            deposit_wallet_address: account?.address,
+                                        });
                                         setConfirmed(true);
                                         const pk = await exportPrivateKey();
                                         if (pk) setPrivateKey(pk);

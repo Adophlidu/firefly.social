@@ -22,6 +22,9 @@ msgstr "Sonido activado con éxito."
 msgid "Copy to clipboard"
 msgstr "Copiar al portapapeles"
 
+msgid "Kill Handicap"
+msgstr ""
+
 msgid "DRAW"
 msgstr "DIBUJAR"
 
@@ -96,9 +99,15 @@ msgstr "Reparto Igual"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>Patrimonio neto</0>"
 
+msgid "Cash"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "No se pudo citar en {0}."
+
+msgid "Any Player Quadra Kill"
+msgstr ""
 
 msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth reposteó tus consejos"
@@ -247,6 +256,9 @@ msgstr "Introduzca una nueva contraseña para verificar su identidad."
 msgid "This space does not exist."
 msgstr "Este espacio no existe."
 
+msgid "1H Totals"
+msgstr ""
+
 msgid "Failed to apply draft post."
 msgstr "No se pudo aplicar el borrador de la publicación."
 
@@ -285,6 +297,9 @@ msgstr "La publicación que citaste/respondiste ya fue eliminada"
 msgid "Join"
 msgstr "Unirse"
 
+msgid "Both Teams Beat Roshan"
+msgstr ""
+
 msgid "Multi-device login sessions synced successfully."
 msgstr "Sesiones de inicio de sesión en varios dispositivos sincronizadas correctamente."
 
@@ -321,11 +336,17 @@ msgstr "Puesto #{0}"
 msgid "Mute {walletHandle}"
 msgstr "Silenciar {walletHandle}"
 
+msgid "1H Moneyline"
+msgstr ""
+
 msgid "Claimed successfully."
 msgstr "Reclamado con éxito."
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>El número máximo de monedas codificado para existir durante la vida de la criptomoneda. Es comparable al número máximo de acciones emitibles en el mercado de valores.</0><1>Suministro máximo = Máximo teórico tal como está codificado</1>"
+
+msgid "{teamName} Corners"
+msgstr ""
 
 msgid "Password Verification"
 msgstr "Verificación de contraseña"
@@ -426,6 +447,9 @@ msgstr "Buscando usuarios"
 msgid "Tax can be modified"
 msgstr "El impuesto se puede modificar"
 
+msgid "Set {setNum} Winner"
+msgstr ""
+
 msgid "<0>Burned</0><1/>"
 msgstr "<0>Quemado</0><1/>"
 
@@ -442,6 +466,9 @@ msgstr "Opinión"
 msgid "Draw"
 msgstr ""
 
+msgid "Game {gameNum}"
+msgstr ""
+
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "Nombre de usuario solo puede contener letras minúsculas, números y -, y no debe empezar con -"
 
@@ -456,9 +483,6 @@ msgstr "Lo sentimos, el nombre de usuario o la contraseña que ingresaste es inc
 
 msgid "Turn off"
 msgstr "Apagar"
-
-msgid "Winner"
-msgstr ""
 
 msgid "Price to beat"
 msgstr "Precio a batir"
@@ -531,6 +555,9 @@ msgstr "Silenciaste a {handleOrEnsOrAddress}."
 
 msgid "Swap liked."
 msgstr "Me gustó el intercambio."
+
+msgid "Most Inhibitors"
+msgstr ""
 
 msgid "Avg"
 msgstr "Prom"
@@ -716,6 +743,9 @@ msgstr "Entiendo"
 msgid "Overview"
 msgstr "Resumen"
 
+msgid "Most Nashors"
+msgstr ""
+
 msgid "Stocks"
 msgstr "Acciones"
 
@@ -729,7 +759,7 @@ msgid "<0>The amount of coins that have already been created, minus any coins th
 msgstr "<0>La cantidad de monedas que ya se han creado, menos las monedas que han sido quemadas (retiradas de la circulación). Es comparable a las acciones en circulación en el mercado bursátil.</0><1>Oferta total = suministro on-chain - tokens quemados</1>"
 
 msgid "Totals"
-msgstr "Totales"
+msgstr ""
 
 msgid "Failed to vote."
 msgstr "No se pudo votar."
@@ -749,6 +779,9 @@ msgstr "Denunciar publicación"
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
 msgstr "Obtener {0}"
+
+msgid "2nd Half Result"
+msgstr ""
 
 msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
 msgstr "Solo los seguidores aprobados pueden ver estas publicaciones.<0/>Para solicitar acceso, haz clic en Seguir."
@@ -772,6 +805,9 @@ msgstr ""
 
 msgid "Tokens"
 msgstr "Tokens"
+
+msgid "Tower Handicap"
+msgstr ""
 
 msgid "Search {id}"
 msgstr "Buscar {id}"
@@ -1022,6 +1058,9 @@ msgstr "No se pudo descifrar la publicación en {sourceName}."
 msgid "No predictions found"
 msgstr "No se encontraron predicciones"
 
+msgid "Both Teams Slay Dragon"
+msgstr ""
+
 msgid "Won"
 msgstr "Ganado"
 
@@ -1104,6 +1143,9 @@ msgstr "Saldo Insuficiente para la Comisión de Gas"
 
 msgid "Current Positions"
 msgstr "Posiciones Actuales"
+
+msgid "Game N Winner"
+msgstr ""
 
 msgid "Price"
 msgstr "Precio"
@@ -1226,6 +1268,9 @@ msgstr "Silenciado {walletHandle}."
 
 msgid "Confirm Lucky Drop"
 msgstr "Confirmar Lucky Drop"
+
+msgid "D"
+msgstr ""
 
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "No se pudo habilitar el inicio de sesión multidispositivo. Por favor, inténtelo de nuevo más tarde."
@@ -1422,6 +1467,9 @@ msgstr "{addressName} ya está conectado."
 msgid "Tomorrow"
 msgstr "Mañana"
 
+msgid "Go the Distance?"
+msgstr ""
+
 msgid "Total trade"
 msgstr "Comercio total"
 
@@ -1477,6 +1525,9 @@ msgstr "Hash de transacción de acuñación"
 msgid "Enter your nickname on Firefly"
 msgstr "Introduce tu apodo en Firefly"
 
+msgid "Played"
+msgstr ""
+
 msgid "Anti whale can not be modified."
 msgstr "El Anti whale no se puede modificar."
 
@@ -1510,6 +1561,9 @@ msgstr "No se pudo marcar el artículo como favorito."
 msgid "No polymarket event found."
 msgstr "No se encontró evento de polymarket."
 
+msgid "Wins"
+msgstr ""
+
 msgid "Event detail"
 msgstr "Detalle del evento"
 
@@ -1538,7 +1592,7 @@ msgid "Max"
 msgstr "Máx"
 
 msgid "Moneyline"
-msgstr "Apuesta al ganador"
+msgstr ""
 
 msgid "Mute all"
 msgstr "Silenciar a todos"
@@ -1551,6 +1605,9 @@ msgstr "La biografía no debe exceder {extra} caracteres"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "No se pudo generar el paquete de firma con origen = {source}."
+
+msgid "Method of Victory"
+msgstr ""
 
 msgid "Delete"
 msgstr "Eliminar"
@@ -1596,6 +1653,9 @@ msgstr "Respondiendo a <0>@{0}</0>, <1>@{1}</1> y <2>{2} más</2> en {3}"
 
 msgid "Connect Wallet"
 msgstr "Conectar billetera"
+
+msgid "Both Teams To Score - 1st Half"
+msgstr ""
 
 msgid "Custom amount"
 msgstr "Cantidad personalizada"
@@ -1803,6 +1863,9 @@ msgstr "El nombre de usuario no debe exceder {extra} caracteres"
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "No se pudo dejar de seguir a {handleOrEnsOrAddress} en Firefly."
 
+msgid "Corners Odd/Even"
+msgstr ""
+
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 ¡Acabo de reclamar un #FireflyLuckyDrop 🧧💰✨ en {postUrl} de @{0}!"
@@ -1854,6 +1917,12 @@ msgstr "Esto no parece ser un honeypot."
 msgid "No fake KYC involved."
 msgstr "No hay KYC falso involucrado."
 
+msgid "First Team to Score"
+msgstr ""
+
+msgid "Shots"
+msgstr ""
+
 msgid "Your Firefly Account is now connected"
 msgstr "Tu cuenta de Firefly ahora está conectada"
 
@@ -1872,6 +1941,9 @@ msgstr "PUBLICACIÓN DE HILO"
 msgid "Swaps"
 msgstr "Intercambios"
 
+msgid "Advancing"
+msgstr ""
+
 msgid "Total Gains"
 msgstr "Ganancias Totales"
 
@@ -1882,8 +1954,8 @@ msgstr "Hoy"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
 msgid "view"
 msgid_plural "views"
-msgstr[0] "vista"
-msgstr[1] "vistas"
+msgstr[0] ""
+msgstr[1] ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
@@ -2007,6 +2079,9 @@ msgstr "firefly.eth le gustaron tus consejos"
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "Los artículos de {walletHandle} ahora estarán ocultos en tu cronología de inicio"
 
+msgid "Total Rounds"
+msgstr ""
+
 msgid "Please enter at least 2 characters."
 msgstr "Por favor, introduzca al menos 2 caracteres."
 
@@ -2016,6 +2091,9 @@ msgstr "Eliminar de Marcadores"
 msgid "Article"
 msgstr "Artículo"
 
+msgid "Draws"
+msgstr ""
+
 msgid "Active"
 msgstr "Activo"
 
@@ -2023,6 +2101,9 @@ msgid "Translated from {contentLanguage}"
 msgstr "Traducido de {contentLanguage}"
 
 msgid "Post with image"
+msgstr ""
+
+msgid "Losses"
 msgstr ""
 
 msgid "Failed to open miniapp"
@@ -2092,6 +2173,9 @@ msgstr "Anti_ballena(Número limitado de transacciones)"
 msgid "{0} items"
 msgstr "{0} elementos"
 
+msgid "Most Drakes"
+msgstr ""
+
 msgid "Balance"
 msgstr "Saldo"
 
@@ -2143,9 +2227,6 @@ msgstr "El nombre de usuario debe tener al menos {extra} caracteres"
 msgid "Received"
 msgstr "Recibido"
 
-msgid "First Set"
-msgstr ""
-
 msgid "Privacy and security"
 msgstr "Privacidad y seguridad"
 
@@ -2160,6 +2241,9 @@ msgid "{totalVotes} Vote"
 msgid_plural "{totalVotes} Votes"
 msgstr[0] "{totalVotes} Voto"
 msgstr[1] "{totalVotes} Votos"
+
+msgid "Adv"
+msgstr ""
 
 msgid "Full"
 msgstr "Completo"
@@ -2182,8 +2266,8 @@ msgstr "Lo sentimos, no podemos acuñar este NFT en este momento."
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "Se perderá el contenido al abandonar esta página en modo anónimo."
 
-msgid "Starting Soon"
-msgstr "Comenzando pronto"
+msgid "1st Set Winner"
+msgstr ""
 
 msgid "Post could not be found."
 msgstr "Publicación no encontrada."
@@ -2208,6 +2292,9 @@ msgstr "Cancelado"
 
 #. placeholder {0}: m[1]
 msgid "Map {0}"
+msgstr ""
+
+msgid "Sets"
 msgstr ""
 
 msgid "No content for the last two weeks."
@@ -2414,6 +2501,9 @@ msgstr "Añadido"
 msgid "No stealing attack found."
 msgstr "No se detectó ataque de robo."
 
+msgid "First Blood"
+msgstr ""
+
 msgid "Share From"
 msgstr "Compartir Desde"
 
@@ -2446,6 +2536,9 @@ msgstr "Sin mezclador de criptomonedas involucrado."
 msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
 msgstr "{0} te dio una propina de <0>{1} ${2}</0> en <1>{3}</1>"
 
+msgid "P"
+msgstr ""
+
 msgid "Days"
 msgstr "Días"
 
@@ -2476,6 +2569,9 @@ msgstr "Artículo de Matters"
 
 msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
 msgstr "Selecciona hasta {MAX_MARKETS_COUNT_SELECTABLE} opciones"
+
+msgid "Goals"
+msgstr ""
 
 msgid "Sign in with Lens"
 msgstr "Iniciar sesión con Lens"
@@ -2561,6 +2657,9 @@ msgstr "El nombre para mostrar no debe exceder 20 caracteres"
 msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
 msgstr "Al hacer clic en \"Siguiente\", reconoces el riesgo asociado con las redes descentralizadas y los productos beta."
 
+msgid "Barrack Handicap"
+msgstr ""
+
 msgid "Decrypt"
 msgstr "Descifrar"
 
@@ -2571,6 +2670,9 @@ msgid "Sign to Confirm"
 msgstr "Firmar para confirmar"
 
 msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
+msgstr ""
+
+msgid "Failed to load groups"
 msgstr ""
 
 msgid "Failed to update notification settings"
@@ -2609,6 +2711,12 @@ msgstr "Conectar"
 
 msgid "New"
 msgstr "Nuevo"
+
+msgid "Corners"
+msgstr ""
+
+msgid "Will there be a run in the first inning?"
+msgstr ""
 
 msgid "Delete Firefly account"
 msgstr "Eliminar cuenta de Firefly"
@@ -2735,6 +2843,9 @@ msgstr "<0>Te</0> gustó"
 msgid "The user canceled the operation."
 msgstr "El usuario canceló la operación."
 
+msgid "Most Barracks"
+msgstr ""
+
 msgid "Sign in on mobile"
 msgstr "Iniciar sesión en el móvil"
 
@@ -2771,6 +2882,9 @@ msgstr "Ups... Algo salió mal. Por favor inténtalo de nuevo"
 
 msgid "Encrypted choice"
 msgstr "Opción cifrada"
+
+msgid "Odd/Even Total Kills"
+msgstr ""
 
 msgid "Club could not be found."
 msgstr "Club no encontrado."
@@ -2864,6 +2978,9 @@ msgid_plural "# years"
 msgstr[0] "# año"
 msgstr[1] "# años"
 
+msgid "Deposit"
+msgstr ""
+
 msgid "<0/> Loading"
 msgstr "<0/> Cargando"
 
@@ -2875,6 +2992,9 @@ msgstr "Patrimonio neto"
 
 msgid "Pinned"
 msgstr "Anclado"
+
+msgid "Most Towers"
+msgstr ""
 
 msgid "We've detected logins available for sync."
 msgstr "Hemos detectado inicios de sesión disponibles para sincronizar."
@@ -2909,11 +3029,14 @@ msgstr "Crear perfil de {0}"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Se enviará el <0>{0} a las <1>{1}</1></0>"
 
+msgid "Map {gameNum}"
+msgstr ""
+
 msgid "Properties"
 msgstr "Propiedades"
 
 msgid "Market"
-msgstr "Mercado"
+msgstr ""
 
 msgid "Executed"
 msgstr "Ejecutado"
@@ -3123,6 +3246,9 @@ msgstr "No se pudo subir. El tamaño del Gif supera {0}"
 msgid "Q{0}"
 msgstr ""
 
+msgid "1st Half Corners"
+msgstr ""
+
 msgid "{days}d left"
 msgstr "{days}d restantes"
 
@@ -3168,6 +3294,9 @@ msgstr "Registrarse"
 
 msgid "Failed to verify password."
 msgstr "No se pudo verificar la contraseña."
+
+msgid "Any Player Rampage"
+msgstr ""
 
 msgid "Club"
 msgstr "Club"
@@ -3260,6 +3389,9 @@ msgstr "Iniciar sesión con Orb App"
 msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in social posts"
 msgstr "Publicar en múltiples plataformas, rastrear las operaciones de amigos, descubrir alpha en publicaciones en redes sociales"
 
+msgid "Pts"
+msgstr ""
+
 msgid "Enter number of winners"
 msgstr "Ingrese el número de ganadores"
 
@@ -3271,6 +3403,9 @@ msgstr "Reclamaciones"
 
 msgid "Failed to bookmark snapshot."
 msgstr "No se pudo marcar la instantánea como favorita."
+
+msgid "Kill Totals"
+msgstr ""
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -3369,6 +3504,9 @@ msgstr "Establecer"
 msgid "This address is already verified"
 msgstr "Esta dirección ya está verificada"
 
+msgid "Set {setNum} Total Games"
+msgstr ""
+
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
 msgstr "<0>Hizo una predicción</0><1>por valor de ${0} en <2/></1>"
@@ -3431,6 +3569,9 @@ msgstr "Este token no es emitido por el equipo que lo declara. Algunas estafas c
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "El firmante no está autorizado para realizar la operación solicitada. Por favor, apruebe de nuevo."
+
+msgid "Round Handicap"
+msgstr ""
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "La cuenta con la que intentas iniciar sesión ya está vinculada a otra cuenta de Firefly."
@@ -3510,7 +3651,7 @@ msgstr[0] "# Elemento de atención"
 msgstr[1] "# Elementos de atención"
 
 msgid "No chart data available"
-msgstr "No hay datos disponibles para el gráfico"
+msgstr ""
 
 msgid "Hide more comments"
 msgstr "Ocultar más comentarios"
@@ -3525,6 +3666,10 @@ msgid "Failed to switch wallet. Please try again"
 msgstr "No se pudo cambiar el monedero. Por favor, inténtelo de nuevo."
 
 msgid "Exact Score"
+msgstr ""
+
+#. placeholder {0}: group.group_letter
+msgid "Group {0}"
 msgstr ""
 
 msgid "Like / Repost / Comment"
@@ -3665,6 +3810,9 @@ msgstr "Tu cuenta de {0} ahora está conectada."
 msgid "Not Found"
 msgstr "No Encontrado"
 
+msgid "Inhibitor Handicap"
+msgstr ""
+
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "Lo sentimos, el código que ingresaste no es válido"
 
@@ -3698,13 +3846,16 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "El nombre para mostrar no debe exceder {maxDisplayNameSize} caracteres"
 
 msgid "{awayLabel} holders"
-msgstr "tenedores de {awayLabel}"
+msgstr ""
 
 msgid "ALL"
 msgstr "TODOS"
 
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr "Nota: los borradores en la nube guardan solo texto. Por favor, suba de nuevo las imágenes o el video originales."
+
+msgid "Drake Handicap"
+msgstr ""
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr ""
@@ -3714,6 +3865,9 @@ msgstr "Esta cuenta de Bluesky ya está vinculada a otra cuenta de Firefly."
 
 msgid "Failed to send tip."
 msgstr "No se pudo enviar la propina."
+
+msgid "Both Teams Destroy Barracks"
+msgstr ""
 
 msgid "Failed to switch."
 msgstr "No se pudo cambiar."
@@ -3776,6 +3930,9 @@ msgstr "¡Propina enviada con éxito!"
 msgid "Open Interest"
 msgstr "Interés Abierto"
 
+msgid "Ends in Daytime"
+msgstr ""
+
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
 msgid "# month"
@@ -3823,7 +3980,7 @@ msgid "Failed to unmute /{0}."
 msgstr "No se pudo activar el sonido de /{0}."
 
 msgid "{formattedVol} Vol."
-msgstr "{formattedVol} Vol."
+msgstr ""
 
 msgid "Custom amount is required for this token"
 msgstr "Se requiere una cantidad personalizada para este token"
@@ -3906,6 +4063,9 @@ msgstr "1A"
 msgid "NFT ID"
 msgstr "ID de NFT"
 
+msgid "W"
+msgstr ""
+
 msgid "Compose"
 msgstr "Redactar"
 
@@ -3975,6 +4135,9 @@ msgid_plural "# Risky items"
 msgstr[0] "# Elemento riesgoso"
 msgstr[1] "# Elementos riesgosos"
 
+msgid "{teamName} Totals"
+msgstr ""
+
 msgid "The password you entered is incorrect. Please try again."
 msgstr "La contraseña que ingresaste es incorrecta. Por favor, inténtalo de nuevo."
 
@@ -3986,6 +4149,9 @@ msgstr ""
 
 msgid "Enable now"
 msgstr "Activar ahora"
+
+msgid "Both Teams Slay Baron"
+msgstr ""
 
 msgid "Failed to unlike the comment."
 msgstr "No se pudo quitar el me gusta del comentario."
@@ -4064,6 +4230,9 @@ msgstr "¡Felicidades!"
 
 msgid "Post added to your Bookmarks"
 msgstr "Publicación añadida a tus Marcadores"
+
+msgid "Most Kills"
+msgstr ""
 
 msgid "Volume Traded"
 msgstr "Volumen Negociado"
@@ -4149,6 +4318,9 @@ msgstr "Otorga acceso a tu {0} al contrato inteligente Lucky Drop. Solo tienes q
 msgid "Post your reply"
 msgstr "Publicar tu respuesta"
 
+msgid "L"
+msgstr ""
+
 msgid "Add Token"
 msgstr "Agregar Token"
 
@@ -4164,6 +4336,9 @@ msgstr ""
 
 msgid "View on explorer"
 msgstr "Ver en el explorador"
+
+msgid "Halftime"
+msgstr ""
 
 msgid "Your Telegram account is now connected"
 msgstr "Tu cuenta de Telegram ahora está conectada"
@@ -4211,6 +4386,9 @@ msgstr "No se pudo reconectar. Por favor, escanee otro código QR para establece
 msgid "by {0}"
 msgstr "por {0}"
 
+msgid "2nd Half Corners"
+msgstr ""
+
 msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
 msgstr "La cartera asociada puede estar desactualizada o inexacta. Verifique antes de enviar."
 
@@ -4238,6 +4416,9 @@ msgstr "La conexión ha caducado. Vuelva a intentarlo más tarde."
 
 msgid "Failed to disconnect"
 msgstr "Error al desconectar"
+
+msgid "Odd/Even Total Rounds"
+msgstr ""
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr "El sitio web no debe exceder {maxWebsiteSize} caracteres"
@@ -4314,6 +4495,9 @@ msgstr "No se pudo unirse a #{0} en {sourceName}"
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "Dejar de seguir a {handleOrEnsOrAddress}"
 
+msgid "First Corner"
+msgstr ""
+
 msgid "{hours}h left"
 msgstr "{hours}h restantes"
 
@@ -4359,7 +4543,7 @@ msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ Activa las notificaciones del navegador para no perderte ninguna actualización de operaciones."
 
 msgid "Spreads"
-msgstr "Diferenciales"
+msgstr ""
 
 msgid "Quality filter"
 msgstr "Filtro de calidad"
@@ -4394,7 +4578,7 @@ msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Aumenta tus seguidores y tu engagement con Lucky Drop en Firefly!"
 
 msgid "Watch Stream"
-msgstr "Ver Transmisión"
+msgstr ""
 
 msgid "Transaction failed"
 msgstr "Transacción fallida"
@@ -4450,6 +4634,9 @@ msgstr "Recompartido"
 
 msgid "Holders can not sell all of the token."
 msgstr "Los tenedores no pueden vender todo el token."
+
+msgid "Sports Live"
+msgstr ""
 
 msgid "Only followers of the author can comment on this post."
 msgstr ""
@@ -4740,6 +4927,9 @@ msgstr "No se pudo agregar #{0} en {sourceName}"
 msgid "Language"
 msgstr "Idioma"
 
+msgid "Nashor Handicap"
+msgstr ""
+
 msgid "Address on Watching Lists"
 msgstr "Dirección en Listas de Seguimiento"
 
@@ -4754,6 +4944,9 @@ msgstr "Sesión caducada para {0} en {1}."
 msgid "What's happening..."
 msgstr "¿Qué está pasando...?"
 
+msgid "Coming Soon"
+msgstr ""
+
 msgid "FREE"
 msgstr "GRATIS"
 
@@ -4762,6 +4955,9 @@ msgstr "Instantánea eliminada de tus Marcadores"
 
 msgid "Minting Date"
 msgstr "Fecha de acuñación"
+
+msgid "1st Set Total Games"
+msgstr ""
 
 msgid "Reauthorize"
 msgstr "Reautorizar"
@@ -4778,8 +4974,14 @@ msgstr "24h"
 msgid "Unexpected step for setting password: {step}."
 msgstr "Paso inesperado para establecer la contraseña: {step}."
 
+msgid "Both Teams To Score - 2nd Half"
+msgstr ""
+
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr "Si tienes varias cuentas de Firefly creadas con distintos inicios de sesión sociales, eliminar esta cuenta te ayudará a consolidar tus cuentas sociales en una sola. Sin embargo, si intentas acceder a otra cartera de Firefly vinculada a otra cuenta social, considera cambiar de cuenta en lugar de eliminarla."
+
+msgid "Both Teams Destroy Inhibitors"
+msgstr ""
 
 msgid "Contract Address"
 msgstr "Dirección del contrato"
@@ -4796,6 +4998,9 @@ msgstr "Como máximo {0} destinatarios"
 
 msgid "General"
 msgstr "General"
+
+msgid "Round Total"
+msgstr ""
 
 msgid "Show more tokens"
 msgstr "Mostrar más tokens"
@@ -4906,6 +5111,9 @@ msgstr "Cifra tu sesión de acceso con una contraseña de 6 dígitos para habili
 msgid "No stealing attack involved."
 msgstr "No hay ataque de robo involucrado."
 
+msgid "Any Player Penta Kill"
+msgstr ""
+
 msgid "Your account has not registered on Firefly"
 msgstr "Su cuenta no está registrada en Firefly"
 
@@ -4969,6 +5177,9 @@ msgstr "¿Confirmar la desconexión de este monedero de Firefly?"
 
 msgid "Message"
 msgstr "Mensaje"
+
+msgid "Any Player Ultra Kill"
+msgstr ""
 
 msgid "Token holder of any one below"
 msgstr "Titular del token de cualquiera de los siguientes"
@@ -5193,6 +5404,9 @@ msgstr "No se pudo crear la publicación programada."
 msgid "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
 msgstr "Asigna tu Firefly Wallet como administrador de tu cuenta de Lens para autorizar a Firefly el inicio de sesión automático."
 
+msgid "2nd Half Totals"
+msgstr ""
+
 msgid "Snapshot DAO"
 msgstr "Snapshot DAO"
 
@@ -5294,6 +5508,9 @@ msgstr "Precio final"
 msgid "Quote"
 msgstr "Cotización"
 
+msgid "Groups"
+msgstr ""
+
 msgid "Would you like to restore it?"
 msgstr "¿Desea restaurarlo?"
 
@@ -5338,9 +5555,6 @@ msgstr "Ver interacciones"
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
 msgstr "Saldo: {0} {1}"
-
-msgid "NRFI"
-msgstr ""
 
 msgid "Multi-device login"
 msgstr "Inicio de sesión multi-dispositivo"

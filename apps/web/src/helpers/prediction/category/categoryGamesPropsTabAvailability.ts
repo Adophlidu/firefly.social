@@ -1,5 +1,6 @@
 import {
     PREDICTION_CATEGORY_GAMES_TAB,
+    PREDICTION_CATEGORY_GROUPS_TAB,
     PREDICTION_CATEGORY_PROPS_TAB,
     type PredictionCategoryTab,
 } from '@/helpers/prediction/category/constants.js';
@@ -20,6 +21,7 @@ export interface ResolveCategoryGamesPropsTabsInput {
     showGamesPropsTabs: boolean;
     hasGames: boolean;
     hasProps: boolean;
+    hasGroups?: boolean;
     tabFromUrl: PredictionCategoryTab;
     isAvailabilityPending?: boolean;
 }
@@ -34,20 +36,26 @@ export function resolveCategoryGamesPropsTabs({
     showGamesPropsTabs,
     hasGames,
     hasProps,
+    hasGroups = false,
     tabFromUrl,
     isAvailabilityPending = false,
 }: ResolveCategoryGamesPropsTabsInput): ResolveCategoryGamesPropsTabsResult {
     if (!showGamesPropsTabs) {
+        const availableTabs = hasGroups ? [PREDICTION_CATEGORY_GROUPS_TAB] : [];
         return {
-            availableTabs: [],
+            availableTabs,
             showTabSwitcher: false,
-            effectiveTab: tabFromUrl,
+            effectiveTab:
+                hasGroups && tabFromUrl === PREDICTION_CATEGORY_GROUPS_TAB
+                    ? PREDICTION_CATEGORY_GROUPS_TAB
+                    : tabFromUrl,
         };
     }
 
     const availableTabs: PredictionCategoryTab[] = [];
     if (hasGames) availableTabs.push(PREDICTION_CATEGORY_GAMES_TAB);
     if (hasProps) availableTabs.push(PREDICTION_CATEGORY_PROPS_TAB);
+    if (hasGroups) availableTabs.push(PREDICTION_CATEGORY_GROUPS_TAB);
 
     const showTabSwitcher = !isAvailabilityPending && availableTabs.length >= 2;
 

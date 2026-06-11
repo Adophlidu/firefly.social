@@ -184,6 +184,7 @@ export function PredictionMarketsPriceLineChart({
                         size="large"
                         showPrice
                         autoRefreshPrice
+                        source="Market Detail page"
                     />
                 ) : null}
             </div>

@@ -46,6 +46,7 @@ function createSportsListResponse(
         today: [],
         tomorrow: [],
         afterTomorrow: [],
+        afterThreeDays: [],
         closed: [],
         ...overrides,
     };

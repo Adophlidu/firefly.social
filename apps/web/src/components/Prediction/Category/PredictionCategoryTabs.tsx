@@ -7,6 +7,7 @@ import { memo } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import {
     PREDICTION_CATEGORY_GAMES_TAB,
+    PREDICTION_CATEGORY_GROUPS_TAB,
     PREDICTION_CATEGORY_PROPS_TAB,
     type PredictionCategoryTab,
 } from '@/helpers/prediction/category/constants.js';
@@ -55,6 +56,20 @@ export const PredictionCategoryTabs = memo<Props>(function PredictionCategoryTab
                     )}
                 >
                     <Trans>Props</Trans>
+                </ClickableButton>
+            ) : null}
+            {availableTabs.includes(PREDICTION_CATEGORY_GROUPS_TAB) ? (
+                <ClickableButton
+                    onClick={() => {
+                        if (categorySlug) capturePolymarketHomeSportTypeClick('groups', categorySlug);
+                        onTabChange(PREDICTION_CATEGORY_GROUPS_TAB);
+                    }}
+                    className={classNames(
+                        'flex h-full flex-1 items-center justify-center whitespace-nowrap rounded-md px-4 text-sm font-bold transition-colors',
+                        tab === PREDICTION_CATEGORY_GROUPS_TAB ? 'bg-primaryBottom text-main shadow-sm' : 'text-second',
+                    )}
+                >
+                    <Trans>Groups</Trans>
                 </ClickableButton>
             ) : null}
         </div>

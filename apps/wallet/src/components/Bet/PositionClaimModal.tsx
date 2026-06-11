@@ -184,7 +184,20 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
                         className="h-10 w-full rounded-full font-bold"
                         loading={isPending}
                         onClick={() => {
-                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_CLAIM_PROCEEDS_CLICK, {});
+                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_CLAIM_PROCEEDS_CLICK, {
+                                proxy_wallet_address: account.proxyAddress,
+                                event_slug: position.event_slugs?.[0] ?? '',
+                                event_title: position.title ?? '',
+                                market_slug: position.marketSlug ?? '',
+                                market_title: position.title ?? '',
+                                market_group_item_name: undefined,
+                                market_outcome: position.resolvedResult ?? '',
+                                amount_shares: String(position.shares),
+                                avg_price: String(position.avg_price),
+                                amount_usd: String(position.total_buy),
+                                profit_usd: String(position.pnl),
+                                profit_change: String(position.pnl_rate),
+                            });
                             mutate();
                         }}
                     >

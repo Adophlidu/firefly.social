@@ -11,6 +11,7 @@ import {
 } from '@/helpers/prediction/polymarket/eventSeriesPills/formatSeriesPillTime.js';
 import { toSeriesEventForPills } from '@/helpers/prediction/polymarket/eventSeriesPills/toSeriesEventForPills.js';
 import { resolvePredictionEventUrl } from '@/helpers/resolvePredictionEventUrl.js';
+import { capturePolymarketEventCryptoRecurrenceClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface CurrentSeriesPillsProps {
@@ -42,6 +43,9 @@ export const CurrentSeriesPills = memo<CurrentSeriesPillsProps>(function Current
                             isSelected ? 'bg-main text-primaryBottom' : 'text-main hover:bg-lightBg',
                         )}
                         href={resolvePredictionEventUrl(event)}
+                        onClick={() => {
+                            if (event.slug) capturePolymarketEventCryptoRecurrenceClick(event.slug, label ?? '');
+                        }}
                     >
                         {isLive ? <ActiveTag /> : null}
                         <span>

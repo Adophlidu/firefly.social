@@ -10,6 +10,7 @@ import {
     type ResolveCategoryGamesPropsTabsResult,
 } from '@/helpers/prediction/category/categoryGamesPropsTabAvailability.js';
 import type { PredictionCategoryTab } from '@/helpers/prediction/category/constants.js';
+import { isFifaCategoryContext } from '@/helpers/prediction/category/isFifaCategoryContext.js';
 import {
     getCategoryPropsTagSlug,
     parseSportsListRequest,
@@ -30,9 +31,11 @@ export function useCategoryGamesPropsAvailability({
 }: Options): ResolveCategoryGamesPropsTabsResult & {
     hasGames: boolean;
     hasProps: boolean;
+    hasGroups: boolean;
     isPending: boolean;
 } {
     const showGamesPropsTabs = context ? shouldShowGamesPropsTabs(context) : false;
+    const hasGroups = isFifaCategoryContext(context);
 
     const sportsRequest = useMemo(
         () => (context && showGamesPropsTabs ? parseSportsListRequest(context) : null),
@@ -75,16 +78,18 @@ export function useCategoryGamesPropsAvailability({
                 showGamesPropsTabs,
                 hasGames,
                 hasProps,
+                hasGroups,
                 tabFromUrl,
                 isAvailabilityPending: isPending,
             }),
-        [showGamesPropsTabs, hasGames, hasProps, tabFromUrl, isPending],
+        [showGamesPropsTabs, hasGames, hasProps, hasGroups, tabFromUrl, isPending],
     );
 
     return {
         ...resolved,
         hasGames,
         hasProps,
+        hasGroups,
         isPending,
     };
 }

@@ -76,8 +76,7 @@ export const TimeRangeSettings = memo<TimeRangeSettingsProps>(function TimeRange
                     )}
                     onClick={() => {
                         if (range === timeRange) return;
-                        if (eventSlug)
-                            capturePolymarketEventChartChange(eventSlug, 'time_range', { time_range: String(range) });
+                        if (eventSlug) capturePolymarketEventChartChange(eventSlug, 'time');
                         onTimeRangeChange(range);
                     }}
                 >

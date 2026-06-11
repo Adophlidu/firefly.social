@@ -37,7 +37,7 @@ export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ 
     return (
         <div
             className={classNames(
-                'relative flex flex-col gap-3 rounded-2xl border border-line bg-lightBottom p-4 transition-colors hover:opacity-95 dark:bg-darkBottom',
+                'relative flex flex-col gap-3 rounded-2xl border border-secondaryLine bg-lightBottom p-4 transition-colors hover:opacity-95 dark:bg-darkBottom',
                 className,
             )}
         >

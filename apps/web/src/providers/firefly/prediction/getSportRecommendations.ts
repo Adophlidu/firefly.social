@@ -77,6 +77,7 @@ export async function getSportRecommendationsResult(
             ...(data.today || []),
             ...(data.tomorrow || []),
             ...(data.afterTomorrow || []),
+            ...(data.afterThreeDays || []),
         ];
 
         for (const event of sourceEvents) {

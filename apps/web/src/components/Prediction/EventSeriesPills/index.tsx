@@ -35,7 +35,6 @@ import {
     usePolymarketSeriesEventsPast,
 } from '@/hooks/prediction/usePolymarketSeriesEvents.js';
 import { useServerNow } from '@/hooks/prediction/useServerNow.js';
-import { capturePolymarketEventCryptoRecurrenceClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 export interface EventSeriesPillsProps {
@@ -176,10 +175,7 @@ export const EventSeriesPills = memo<EventSeriesPillsProps>(function EventSeries
                     />
                     {moreUi.length ? (
                         <EventsPopover eventSlug={currentSlug} events={moreUi}>
-                            <div
-                                className="flex items-center gap-1 text-main"
-                                onClick={() => capturePolymarketEventCryptoRecurrenceClick(currentSlug, 'more')}
-                            >
+                            <div className="flex items-center gap-1 text-main">
                                 <span className="shrink-0 whitespace-nowrap text-[10px] font-bold">
                                     <Trans>More</Trans>
                                 </span>
@@ -198,6 +194,7 @@ export const EventSeriesPills = memo<EventSeriesPillsProps>(function EventSeries
                     size="large"
                     showPrice
                     autoRefreshPrice
+                    source="Market Detail page"
                 />
             ) : null}
         </div>

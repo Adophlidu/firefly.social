@@ -98,12 +98,13 @@ describe('groupLiveSportsEventsByLeague', () => {
 });
 
 describe('groupLiveSportsListForDisplay', () => {
-    it('builds Live and Starting Soon time blocks with league subgroups from event data', () => {
+    it('builds Sports Live and Coming Soon time blocks with league subgroups from event data', () => {
         const response = {
             live: [displayableEvent('live-1', 'NBA', undefined, 500), displayableEvent('live-2', 'EPL', undefined, 50)],
             today: [displayableEvent('soon-1', 'NBA')],
             tomorrow: [displayableEvent('tomorrow-1', 'EPL')],
             afterTomorrow: [],
+            afterThreeDays: [],
             closed: [],
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
@@ -111,11 +112,11 @@ describe('groupLiveSportsListForDisplay', () => {
         const result = groupLiveSportsListForDisplay(response);
 
         expect(result.timeSections.map((section) => section.id)).toEqual(['live', 'starting-soon']);
-        expect(result.timeSections[0]?.title).toBe('Live');
+        expect(result.timeSections[0]?.title).toBe('Sports Live');
         expect(result.timeSections[0]?.sportSections.map((section) => section.title)).toEqual(['NBA', 'EPL']);
         expect(result.timeSections[0]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['live-1']);
         expect(result.timeSections[0]?.sportSections[1]?.events.map((item) => item.id)).toEqual(['live-2']);
-        expect(result.timeSections[1]?.title).toBe('Starting Soon');
+        expect(result.timeSections[1]?.title).toBe('Coming Soon');
         expect(result.timeSections[1]?.sportSections.map((section) => section.title)).toEqual(['NBA']);
         expect(result.timeSections[1]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['soon-1']);
     });
@@ -126,6 +127,7 @@ describe('groupLiveSportsListForDisplay', () => {
             today: [],
             tomorrow: [displayableEvent('tomorrow-1', 'EPL')],
             afterTomorrow: [],
+            afterThreeDays: [],
             closed: [],
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
@@ -145,6 +147,7 @@ describe('groupLiveSportsListForDisplay', () => {
             ],
             tomorrow: [],
             afterTomorrow: [],
+            afterThreeDays: [],
             closed: [],
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
@@ -167,6 +170,7 @@ describe('groupLiveSportsListForDisplay', () => {
             today: [],
             tomorrow: [],
             afterTomorrow: [],
+            afterThreeDays: [],
             closed: [],
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
@@ -186,6 +190,7 @@ describe('groupSportsEventsForDisplay', () => {
             today: [today],
             tomorrow: [],
             afterTomorrow: [],
+            afterThreeDays: [],
             closed: [closed],
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
@@ -210,6 +215,7 @@ describe('groupSportsEventsForDisplay', () => {
             today: [displayable, ...invalidEvents],
             tomorrow: [],
             afterTomorrow: [],
+            afterThreeDays: [],
             closed: [],
             timezone: 'UTC',
         } as PolymarketSportsListResponse;
@@ -218,5 +224,38 @@ describe('groupSportsEventsForDisplay', () => {
 
         expect(todaySection?.events).toEqual([displayable]);
         expect(todaySection?.events.length).toBe(1);
+    });
+
+    it('supports responses that omit afterThreeDays', () => {
+        const today = displayableEvent('today-1');
+        const response: PolymarketSportsListResponse = {
+            live: [],
+            today: [today],
+            tomorrow: [],
+            afterTomorrow: [],
+            closed: [],
+            timezone: 'UTC',
+        };
+
+        const result = groupSportsEventsForDisplay(response);
+
+        expect(result.sections.find((section) => section.id === 'today')?.events).toEqual([today]);
+    });
+
+    it('groups afterThreeDays events into dated sections', () => {
+        const future = displayableEvent('future-1', undefined, undefined, 100, '2026-05-23T02:00:00Z');
+        const response = {
+            live: [],
+            today: [],
+            tomorrow: [],
+            afterTomorrow: [],
+            afterThreeDays: [future],
+            closed: [],
+            timezone: 'UTC',
+        } as PolymarketSportsListResponse;
+
+        const result = groupSportsEventsForDisplay(response);
+
+        expect(result.sections.find((section) => section.id === 'date-2026-05-23')?.events).toEqual([future]);
     });
 });

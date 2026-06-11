@@ -40,10 +40,7 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
         <Popover as="div" className="relative">
             {({ close }) => (
                 <>
-                    <PopoverButton
-                        className="flex h-[30px] items-center gap-2 rounded-full border border-secondaryLine px-2.5 focus:outline-none"
-                        onClick={() => capturePolymarketEventCryptoRecurrenceClick(eventSlug, 'past')}
-                    >
+                    <PopoverButton className="flex h-[30px] items-center gap-2 rounded-full border border-secondaryLine px-2.5 focus:outline-none">
                         <span className="shrink-0 whitespace-nowrap text-[10px] font-bold">
                             <Trans>Past</Trans>
                         </span>
@@ -87,7 +84,11 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
                                                 event.slug === eventSlug ? 'pointer-events-none opacity-50' : '',
                                             )}
                                             href={resolvePredictionEventUrl(event)}
-                                            onClick={() => close()}
+                                            onClick={() => {
+                                                if (event.slug)
+                                                    capturePolymarketEventCryptoRecurrenceClick(event.slug, timeText);
+                                                close();
+                                            }}
                                         >
                                             {outcome ? (
                                                 <PastOutcomeIcon outcome={outcome} className="size-[14px] text-[8px]" />

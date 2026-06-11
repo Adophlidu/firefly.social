@@ -252,6 +252,35 @@ export default function BetEventClient({ id }: { id: string }) {
               ? pageConfig?.rightTitle
               : undefined) || fallbackOutcome;
 
+    // Fire buy/sell open success events when market data loads or side changes
+    useEffect(() => {
+        if (!data?.slug) return;
+        const ctx = {
+            proxy_wallet_address: account.proxyAddress,
+            event_slug: data.parentEvent?.slug || fallbackEventSlug,
+            event_title: data.parentEvent?.title || '',
+            market_slug: data.slug,
+            market_title: data.question || '',
+            market_group_item_name: data.groupItemTitle || undefined,
+            market_outcome: outcome,
+        };
+        if (side === Side.Buy) {
+            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_BUY_OPEN_SUCCESS, ctx);
+        } else if (side === Side.Sell) {
+            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_OPEN_SUCCESS, ctx);
+        }
+    }, [
+        side,
+        data.slug,
+        data.parentEvent?.slug,
+        data.parentEvent?.title,
+        data.question,
+        data.groupItemTitle,
+        account.proxyAddress,
+        fallbackEventSlug,
+        outcome,
+    ]);
+
     const outcomeAvgPriceForFee = useMemo(() => {
         const raw = data?.parsedOutcomePrices?.[safeOutcomeIndex];
         const p = typeof raw === 'number' ? raw : typeof raw === 'string' ? Number.parseFloat(String(raw)) : NaN;
@@ -474,6 +503,15 @@ export default function BetEventClient({ id }: { id: string }) {
     }, [firstTokenId]);
 
     let formNode: ReactNode = null;
+    const formTelemetryContext = data
+        ? {
+              event_slug: data.parentEvent?.slug || fallbackEventSlug,
+              event_title: data.parentEvent?.title || '',
+              market_slug: data.slug || id,
+              market_title: data.question || '',
+              market_group_item_name: data.groupItemTitle || undefined,
+          }
+        : undefined;
     if (selectedTokenId) {
         if (side === Side.Buy) {
             formNode =
@@ -487,6 +525,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         feeSchedule={data?.feeSchedule}
                         outcomeAvgPriceForFee={outcomeAvgPriceForFee}
                         onSubmit={(amount) => placeOrder({ side: 'BUY', amount: Number(amount) })}
+                        telemetryContext={formTelemetryContext}
                     />
                 ) : (
                     <BuyLimitForm
@@ -499,6 +538,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         onSubmit={({ shares, limitPrice }) =>
                             placeOrder({ side: 'BUY', amount: shares, overrideLimitPrice: limitPrice })
                         }
+                        telemetryContext={formTelemetryContext}
                     />
                 );
         } else {
@@ -512,6 +552,7 @@ export default function BetEventClient({ id }: { id: string }) {
                             loading={isPending}
                             submitDisabled={isMarketResolvedOrDisputed}
                             onSubmit={({ shares, fullSell }) => placeOrder({ side: 'SELL', amount: shares, fullSell })}
+                            telemetryContext={formTelemetryContext}
                         />
                     ) : (
                         <SellLimitForm
@@ -525,6 +566,7 @@ export default function BetEventClient({ id }: { id: string }) {
                             onSubmit={({ shares, limitPrice }) =>
                                 placeOrder({ side: 'SELL', amount: shares, overrideLimitPrice: limitPrice })
                             }
+                            telemetryContext={formTelemetryContext}
                         />
                     );
             }
@@ -578,7 +620,6 @@ export default function BetEventClient({ id }: { id: string }) {
                 <Tabs
                     value={side}
                     onValueChange={(x) => {
-                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_ORDER_TYPE_CHANGE_CLICK, {});
                         setQueryParams({ side: x as Side });
                     }}
                 >
@@ -594,9 +635,21 @@ export default function BetEventClient({ id }: { id: string }) {
                 <button
                     className="flex items-center space-x-1 text-sm font-medium"
                     onClick={() => {
-                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_ORDER_TYPE_CHANGE_CLICK, {});
+                        const nextOrderType = orderType === OrderType.Market ? OrderType.Limit : OrderType.Market;
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_ORDER_TYPE_CHANGE_CLICK, {
+                            event_slug: data?.parentEvent?.slug || fallbackEventSlug,
+                            event_title: data?.parentEvent?.title || '',
+                            market_slug: data?.slug || id,
+                            market_title: data?.question || '',
+                            market_group_item_name: data?.groupItemTitle || undefined,
+                            market_outcome: outcome,
+                            type: side,
+                            proxy_wallet_address: account.proxyAddress,
+                            order_type: orderType.toLowerCase(),
+                            target_order_type: nextOrderType.toLowerCase(),
+                        });
                         setQueryParams({
-                            orderType: orderType === OrderType.Market ? OrderType.Limit : OrderType.Market,
+                            orderType: nextOrderType,
                         });
                     }}
                 >

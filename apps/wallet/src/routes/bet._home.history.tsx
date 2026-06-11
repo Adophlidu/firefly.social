@@ -1,7 +1,9 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { lazy, Suspense, useEffect } from 'react';
 
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
+import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 
 function SkeletonLine({ className }: { className: string }) {
     return <div className={`animate-pulse rounded bg-lightBg ${className}`} />;
@@ -46,9 +48,13 @@ export const Route = createFileRoute('/bet/_home/history')({
 });
 
 function HistoryPage() {
+    const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
+
     useEffect(() => {
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_RECENT_ACTIVITY_OPEN_SUCCESS, {});
-    }, []);
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_RECENT_ACTIVITY_OPEN_SUCCESS, {
+            proxy_wallet_address: account?.proxyAddress ?? '',
+        });
+    }, [account?.proxyAddress]);
 
     return (
         <Suspense fallback={<HistorySkeleton />}>

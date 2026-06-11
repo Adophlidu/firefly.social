@@ -31,12 +31,12 @@ const SportPriceLineChart = dynamic(
     { ssr: false },
 );
 
-function formatSectionVolume(markets: BetsMarketDataForUI[]): string | null {
+function formatSectionVolume(markets: BetsMarketDataForUI[]): string {
     const vol = markets.reduce((total, m) => {
         const v = typeof m.volume === 'string' ? Number(m.volume) : (m.volume ?? 0);
         return total + (Number.isNaN(v) ? 0 : v);
     }, 0);
-    return vol > 0 ? `$${nFormatter(vol, 1)} Vol.` : null;
+    return vol > 0 ? `$${nFormatter(vol, 1)} Vol.` : '$0 Vol.';
 }
 
 function MarketTitle({ title, markets }: { title: React.ReactNode; markets: BetsMarketDataForUI[] }) {
@@ -46,7 +46,7 @@ function MarketTitle({ title, markets }: { title: React.ReactNode; markets: Bets
             <TextOverflowTooltip content={title}>
                 <h3 className="min-w-0 truncate text-[13px] font-semibold leading-[17px] text-lightMain">{title}</h3>
             </TextOverflowTooltip>
-            {vol ? <p className="shrink-0 text-xs leading-4 text-second max-md:text-right">{vol}</p> : null}
+            <p className="shrink-0 text-xs leading-4 text-second max-md:text-right">{vol}</p>
         </div>
     );
 }
@@ -119,12 +119,14 @@ interface SportLineOption {
 }
 
 function createSportLineOptions(renderAs: SportMarketGroupType, markets: BetsMarketDataForUI[]): SportLineOption[] {
+    // child_moneyline uses game numbers as line values — show plain "1", "2", "3" (no "+" prefix)
+    const isGameWinner = markets.some((m) => m.sportsMarketType === 'child_moneyline');
     const options: SportLineOption[] = markets.map((market, index) => {
         const line = getMarketLine(market);
         const label =
             renderAs === SportMarketGroupType.Spread
                 ? String(Math.abs(line))
-                : renderAs === SportMarketGroupType.Total
+                : renderAs === SportMarketGroupType.Total || isGameWinner
                   ? formatLine(line, false)
                   : formatLine(line);
 
@@ -441,6 +443,14 @@ export const SportMarketGroupCard = memo(function SportMarketGroupCard({
         [defaultOption, lineOptions, lineKey],
     );
     const selectedMarket = usesLineOptions ? selectedOption?.market : section.markets[0];
+    // For child_moneyline (Game N Winner), use the selected market's groupItemTitle as the title
+    // so it changes from "Game 1 Winner" to "Game 2 Winner" when switching lines.
+    const dynamicTitle = useMemo(() => {
+        if (selectedMarket?.groupItemTitle && section.markets.some((m) => m.sportsMarketType === 'child_moneyline')) {
+            return selectedMarket.groupItemTitle;
+        }
+        return section.title;
+    }, [section.title, section.markets, selectedMarket]);
     const showButtons = !disabled && !!selectedMarket;
     const showTeamButtons =
         effectiveRenderAs === SportMarketGroupType.Moneyline || effectiveRenderAs === SportMarketGroupType.Spread;
@@ -454,7 +464,7 @@ export const SportMarketGroupCard = memo(function SportMarketGroupCard({
                     className="min-w-0 flex-1 text-left max-md:w-full max-md:flex-none"
                     onClick={onActivate}
                 >
-                    <MarketTitle title={section.title} markets={section.markets} />
+                    <MarketTitle title={dynamicTitle} markets={section.markets} />
                 </button>
                 {showButtons && selectedMarket ? (
                     <SportBuyButtons

@@ -52,6 +52,8 @@ rewrite.config.dev.json
 
 .pnpm-store/
 
+.jira/
+
 # packages build output and dependencies
 packages/*/dist/
 packages/*/node_modules/
@@ -66,6 +68,8 @@ workers/*/types/
 .eslintcache
 *.har
 profiling-data.*.json
+.agents/
+.codex/
 .cursor/
 .gstack/
 .agents/
@@ -81,3 +85,5 @@ docs/agents/
 
 .venv-translate/
 scripts/
+
+workers/**/types/

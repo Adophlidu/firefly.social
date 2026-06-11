@@ -194,7 +194,9 @@ function ClosedPositionsHistory() {
                                 onClick={() =>
                                     captureWalletTelemetryEvent(
                                         WalletTelemetryEventId.BETS_POSITION_CLOSE_OPEN_SUCCESS,
-                                        {},
+                                        {
+                                            proxy_wallet_address: proxyAddress,
+                                        },
                                     )
                                 }
                             >
@@ -220,7 +222,7 @@ function ClosedPositionsHistory() {
                 NoResultsFallbackProps={{
                     className: 'px-4',
                     icon: <BetHistoryEmptyIcon className="h-[128px] w-[160px] text-third" />,
-                    message: <BetEmptyState message={<Trans>No positions found</Trans>} />,
+                    message: <BetEmptyState message={<Trans>No positions found</Trans>} proxyAddress={proxyAddress} />,
                 }}
             />
         </div>
@@ -262,7 +264,9 @@ function TradingActivitiesHistory() {
             NoResultsFallbackProps={{
                 className: 'px-4',
                 icon: <BetHistoryEmptyIcon className="h-16 w-20 text-third" />,
-                message: <BetEmptyState message={<Trans>No activities found</Trans>} />,
+                message: (
+                    <BetEmptyState message={<Trans>No activities found</Trans>} proxyAddress={account.proxyAddress} />
+                ),
             }}
         />
     );
@@ -570,7 +574,18 @@ function CloseLossesDialog({
                         loading={isPending}
                         disabled={isPending || !claimItems.length}
                         onClick={() => {
-                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_CLOSE_CLICK, {});
+                            // Report per market as spec requires
+                            for (const position of positions) {
+                                captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_CLOSE_CLICK, {
+                                    proxy_wallet_address: proxyAddress,
+                                    event_slug: position.event_slugs?.[0] ?? '',
+                                    event_title: position.title ?? '',
+                                    market_slug: position.marketSlug ?? '',
+                                    market_title: position.title ?? '',
+                                    market_outcome: position.resolvedResult ?? '',
+                                    amount_usd: String(Math.abs(getPositionLoss(position))),
+                                });
+                            }
                             mutate();
                         }}
                     >

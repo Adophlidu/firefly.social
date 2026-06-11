@@ -6,7 +6,6 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo, useState } from 'react';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { PredictionSportsCell } from '@/components/Prediction/Category/PredictionSportsCell.js';
@@ -28,8 +27,6 @@ import { useLiveSportsMarketPrices } from '@/hooks/prediction/useLiveSportsMarke
 import { getSportsEventList } from '@/providers/firefly/prediction/getSportsEventList.js';
 import type { PolymarketSportsEvent } from '@/providers/types/Firefly.js';
 
-const INITIAL_VISIBLE = 5;
-
 interface Props {
     context: CategorySlugContext;
 }
@@ -40,7 +37,6 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
         () => (isLiveCategory ? parseLiveSportsListRequest(context) : parseSportsListRequest(context)),
         [context, isLiveCategory],
     );
-    const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
     const [showFinishedClosed, setShowFinishedClosed] = useState(false);
 
     const { data, isPending, isError } = useQuery({
@@ -108,39 +104,21 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
 
     if (isLiveCategory && liveDisplay) {
         return (
-            <div className="flex flex-col gap-6 px-4 pb-8">
+            <div className="flex flex-col gap-3 px-4 pb-8">
                 {liveDisplay.timeSections
                     .filter((timeSection) => timeSection.sportSections.length > 0)
                     .map((timeSection) => (
-                        <section key={timeSection.id} className="flex flex-col gap-4">
-                            <h2 className="text-base font-black text-main">{timeSection.title}</h2>
+                        <section key={timeSection.id} className="flex flex-col gap-3">
+                            <h2 className="text-2xl font-black text-main">{timeSection.title}</h2>
                             {timeSection.sportSections.map((sportSection) => {
                                 const sectionKey = `${timeSection.id}-${sportSection.id}`;
-                                const isExpanded = expandedSections[sectionKey];
-                                const visibleEvents = isExpanded
-                                    ? sportSection.events
-                                    : sportSection.events.slice(0, INITIAL_VISIBLE);
-                                const hasMore = sportSection.events.length > INITIAL_VISIBLE;
 
                                 return (
                                     <div key={sectionKey} className="flex flex-col gap-3">
                                         <h3 className="text-sm font-bold text-main">{sportSection.title}</h3>
                                         <div className="flex flex-col gap-3">
-                                            {visibleEvents.map((event) => renderSportsCell(event))}
+                                            {sportSection.events.map((event) => renderSportsCell(event))}
                                         </div>
-                                        {hasMore ? (
-                                            <ClickableButton
-                                                className="text-sm font-bold text-highlight"
-                                                onClick={() =>
-                                                    setExpandedSections((prev) => ({
-                                                        ...prev,
-                                                        [sectionKey]: !prev[sectionKey],
-                                                    }))
-                                                }
-                                            >
-                                                {isExpanded ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
-                                            </ClickableButton>
-                                        ) : null}
                                     </div>
                                 );
                             })}
@@ -151,34 +129,13 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
     }
 
     return (
-        <div className="flex flex-col gap-6 px-4 pb-8">
-            {sections.map((section) => {
-                const isExpanded = expandedSections[section.id];
-                const visibleEvents = isExpanded ? section.events : section.events.slice(0, INITIAL_VISIBLE);
-                const hasMore = section.events.length > INITIAL_VISIBLE;
-
-                return (
-                    <section key={section.id} className="flex flex-col gap-3">
-                        <h2 className="text-base font-black text-main">{section.title}</h2>
-                        <div className="flex flex-col gap-3">
-                            {visibleEvents.map((event) => renderSportsCell(event))}
-                        </div>
-                        {hasMore ? (
-                            <ClickableButton
-                                className="text-sm font-bold text-highlight"
-                                onClick={() =>
-                                    setExpandedSections((prev) => ({
-                                        ...prev,
-                                        [section.id]: !prev[section.id],
-                                    }))
-                                }
-                            >
-                                {isExpanded ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
-                            </ClickableButton>
-                        ) : null}
-                    </section>
-                );
-            })}
+        <div className="flex flex-col gap-3 px-4 pb-8">
+            {sections.map((section) => (
+                <section key={section.id} className="flex flex-col gap-3">
+                    <h2 className="text-base font-black text-main">{section.title}</h2>
+                    <div className="flex flex-col gap-3">{section.events.map((event) => renderSportsCell(event))}</div>
+                </section>
+            ))}
             {closedEvents.length > 0 ? (
                 <div className="flex flex-col items-center gap-3 py-4">
                     <button

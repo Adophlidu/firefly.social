@@ -7,6 +7,7 @@ import { Suspense, useCallback, useEffect, useMemo } from 'react';
 import { Loading } from '@/components/Loading.js';
 import { NotFound } from '@/components/NotFound.js';
 import { PredictionCategoryGamesList } from '@/components/Prediction/Category/PredictionCategoryGamesList.js';
+import { PredictionCategoryGroupsList } from '@/components/Prediction/Category/PredictionCategoryGroupsList.js';
 import { PredictionCategoryHeader } from '@/components/Prediction/Category/PredictionCategoryHeader.js';
 import { PredictionCategoryPrimaryTabs } from '@/components/Prediction/Category/PredictionCategoryPrimaryTabs.js';
 import { PredictionCategoryPropsList } from '@/components/Prediction/Category/PredictionCategoryPropsList.js';
@@ -17,6 +18,7 @@ import { useRouter } from '@/esm/navigation.js';
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
 import {
     PREDICTION_CATEGORY_GAMES_TAB,
+    PREDICTION_CATEGORY_GROUPS_TAB,
     PREDICTION_CATEGORY_PROPS_TAB,
     type PredictionCategoryTab,
 } from '@/helpers/prediction/category/constants.js';
@@ -97,12 +99,15 @@ export function PredictionCategoryPage({ slug }: Props) {
 
     const showGamesList = shouldShowGamesTab(context?.activeItem);
     const isLiveGamesOnly = context ? isSportsLiveCategoryContext(context) : false;
-    const defaultTab = showGamesList ? PREDICTION_CATEGORY_GAMES_TAB : PREDICTION_CATEGORY_PROPS_TAB;
 
     const [tab, setTab] = useQueryState(
         'tab',
-        parseAsStringEnum<PredictionCategoryTab>([PREDICTION_CATEGORY_GAMES_TAB, PREDICTION_CATEGORY_PROPS_TAB])
-            .withDefault(defaultTab)
+        parseAsStringEnum<PredictionCategoryTab>([
+            PREDICTION_CATEGORY_GAMES_TAB,
+            PREDICTION_CATEGORY_PROPS_TAB,
+            PREDICTION_CATEGORY_GROUPS_TAB,
+        ])
+            .withDefault(PREDICTION_CATEGORY_GAMES_TAB)
             .withOptions({ clearOnDefault: true, history: 'replace' }),
     );
 
@@ -112,12 +117,15 @@ export function PredictionCategoryPage({ slug }: Props) {
     });
 
     const needsTabAvailability = context ? shouldShowGamesPropsTabs(context) : false;
-    const isTabAvailabilityPending = needsTabAvailability && tabAvailability.isPending;
+    const isGroupsTabSelected = tab === PREDICTION_CATEGORY_GROUPS_TAB && tabAvailability.hasGroups;
+    const isTabAvailabilityPending = needsTabAvailability && tabAvailability.isPending && !isGroupsTabSelected;
 
     const effectiveTab = !showGamesList
         ? PREDICTION_CATEGORY_PROPS_TAB
         : isLiveGamesOnly
-          ? PREDICTION_CATEGORY_GAMES_TAB
+          ? tabAvailability.effectiveTab === PREDICTION_CATEGORY_GROUPS_TAB
+              ? PREDICTION_CATEGORY_GROUPS_TAB
+              : PREDICTION_CATEGORY_GAMES_TAB
           : isTabAvailabilityPending
             ? tab
             : tabAvailability.effectiveTab;
@@ -171,6 +179,8 @@ export function PredictionCategoryPage({ slug }: Props) {
                     </div>
                 ) : effectiveTab === PREDICTION_CATEGORY_GAMES_TAB ? (
                     <PredictionCategoryGamesList context={context} />
+                ) : effectiveTab === PREDICTION_CATEGORY_GROUPS_TAB ? (
+                    <PredictionCategoryGroupsList />
                 ) : (
                     <Suspense
                         fallback={

@@ -341,17 +341,33 @@ function resolveThreeWayFinishedFlags(winResult: number | undefined): {
     return { home: {}, away: {}, draw: {} };
 }
 
+function resolveThreeWayTeamData(
+    drawTeam: PolymarketSportsMarketTeam,
+    market: PolymarketSportsMarketData,
+): PolymarketSportsMarketTeam {
+    return {
+        ...drawTeam,
+        ...market.teams?.[0],
+    };
+}
+
 function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCellViewModel | null {
     const drawTeams = event.drawTeams;
     if (!event.isDraw || !drawTeams || drawTeams.length < 2) return null;
 
-    const [homeTeamData, awayTeamData] = drawTeams;
+    const [drawHomeTeamData, drawAwayTeamData] = drawTeams;
     const moneylineMarkets = getMoneylineMarkets(event);
     if (moneylineMarkets.length < 3) return null;
 
-    const { homeMarket, drawMarket, awayMarket } = resolveThreeWayMarkets(moneylineMarkets, homeTeamData, awayTeamData);
+    const { homeMarket, drawMarket, awayMarket } = resolveThreeWayMarkets(
+        moneylineMarkets,
+        drawHomeTeamData,
+        drawAwayTeamData,
+    );
     if (!homeMarket || !drawMarket || !awayMarket) return null;
 
+    const homeTeamData = resolveThreeWayTeamData(drawHomeTeamData, homeMarket);
+    const awayTeamData = resolveThreeWayTeamData(drawAwayTeamData, awayMarket);
     const gamePhase = resolveGamePhase(event);
     const latestScores = event.score_show?.at(-1)?.score;
     const finishedFlags =

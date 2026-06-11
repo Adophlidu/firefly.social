@@ -15,6 +15,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { formatPriceCents } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import {
+    abbreviateOutcomeLabel,
     compareScorePair,
     getScoreValue,
     getTennisSetKey,
@@ -521,13 +522,17 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
     const marketOutcomes = resolveMarketOutcomes(activity);
 
     const homeOutcome: OutcomeViewModel = {
-        label: getOutcomeButtonLabel(homeTeam, labels[homeOutcomeMeta.index], homeOutcomeMeta.matched),
+        label: abbreviateOutcomeLabel(
+            getOutcomeButtonLabel(homeTeam, labels[homeOutcomeMeta.index], homeOutcomeMeta.matched),
+        ),
         price: marketOutcomes?.home?.price ?? prices[homeOutcomeMeta.index],
         outcomeIndex: marketOutcomes?.home ? 0 : homeOutcomeMeta.index,
         color: homeTeam.color,
     };
     const awayOutcome: OutcomeViewModel = {
-        label: getOutcomeButtonLabel(awayTeam, labels[awayOutcomeMeta.index], awayOutcomeMeta.matched),
+        label: abbreviateOutcomeLabel(
+            getOutcomeButtonLabel(awayTeam, labels[awayOutcomeMeta.index], awayOutcomeMeta.matched),
+        ),
         price: marketOutcomes?.away?.price ?? prices[awayOutcomeMeta.index],
         outcomeIndex: marketOutcomes?.away ? 0 : awayOutcomeMeta.index,
         color: awayTeam.color,

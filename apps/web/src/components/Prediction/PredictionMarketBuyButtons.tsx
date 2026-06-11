@@ -23,6 +23,7 @@ interface PredictionMarketBuyButtonsProps {
     autoRefreshPrice?: boolean;
     showPrice?: boolean;
     className?: string;
+    source?: string;
 }
 
 export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(function PredictionMarketBuyButtons({
@@ -31,6 +32,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
     size = 'default',
     showPrice = false,
     className,
+    source,
 }) {
     const { market: marketInContext } = use(PredictionContext);
 
@@ -91,7 +93,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         data-prevent-progress
                         onClick={() => {
                             if (market.slug) {
-                                capturePolymarketOrderClick(market.slug, i);
+                                capturePolymarketOrderClick(market.slug, i, source);
                                 openPredictionPage(market.slug, { outcome: i });
                             }
                         }}

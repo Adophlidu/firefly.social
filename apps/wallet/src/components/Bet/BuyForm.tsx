@@ -209,6 +209,7 @@ export function BuyMarketForm({
     feesEnabled,
     feeSchedule,
     outcomeAvgPriceForFee,
+    telemetryContext,
 }: {
     outcome: string;
     tokenId: string;
@@ -219,6 +220,13 @@ export function BuyMarketForm({
     feeSchedule?: { rate?: number | null } | null;
     /** Gamma outcome price (0–1) for fee math; mirrors Android `conditionOutcomes` price. */
     outcomeAvgPriceForFee?: number;
+    telemetryContext?: {
+        event_slug: string;
+        event_title: string;
+        market_slug: string;
+        market_title: string;
+        market_group_item_name?: string;
+    };
 }) {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const { data: availableAmount } = useSuspenseQuery(getBetsAvailableUSDQueryOptions(account.proxyAddress));
@@ -274,14 +282,37 @@ export function BuyMarketForm({
     const runNormalBuy = useCallback(async () => {
         if (submitDisabled) return;
         if (loading || isQuickBuying) return;
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_BUY_CLICK, {});
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_BUY_CLICK, {
+            ...(telemetryContext || {}),
+            market_outcome: outcome,
+            proxy_wallet_address: account.proxyAddress,
+            order_type: 'market',
+            shares: String(toWin?.win_amount ?? ''),
+            avg_price: String(toWin?.avg_price ?? ''),
+            amount_usd: amount,
+        });
         return onSubmit(amount);
-    }, [amount, isQuickBuying, loading, onSubmit, submitDisabled]);
+    }, [
+        amount,
+        isQuickBuying,
+        loading,
+        onSubmit,
+        submitDisabled,
+        telemetryContext,
+        outcome,
+        account.proxyAddress,
+        toWin,
+    ]);
 
     const handleQuickBuyOpen = useCallback(() => {
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_QUICK_BUY_OPEN_SUCCESS, {});
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_QUICK_BUY_OPEN_SUCCESS, {
+            ...(telemetryContext || {}),
+            market_outcome: outcome,
+            proxy_wallet_address: account.proxyAddress,
+            order_type: 'market',
+        });
         setQuickBuyConfirmOpen(true);
-    }, []);
+    }, [telemetryContext, outcome, account.proxyAddress]);
 
     return (
         <div className="flex w-full flex-1 flex-col">
@@ -420,6 +451,18 @@ export function BuyMarketForm({
                                 setQuickBuyConfirmOpen(false);
                                 await runQuickBuy();
                             }}
+                            telemetryContext={
+                                telemetryContext
+                                    ? {
+                                          ...telemetryContext,
+                                          market_outcome: outcome,
+                                          proxy_wallet_address: account.proxyAddress,
+                                          order_type: 'market',
+                                          shares: String(toWin?.win_amount ?? ''),
+                                          avg_price: String(toWin?.avg_price ?? ''),
+                                      }
+                                    : undefined
+                            }
                         />
                     </>
                 ) : (
@@ -455,6 +498,7 @@ export function BuyLimitForm({
     onSubmit,
     loading,
     submitDisabled,
+    telemetryContext,
 }: {
     outcome: string;
     tokenId: string;
@@ -463,6 +507,13 @@ export function BuyLimitForm({
     onSubmit: (params: { shares: number; limitPrice: number }) => Promise<unknown> | void;
     loading?: boolean;
     submitDisabled?: boolean;
+    telemetryContext?: {
+        event_slug: string;
+        event_title: string;
+        market_slug: string;
+        market_title: string;
+        market_group_item_name?: string;
+    };
 }) {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const { data: availableAmount } = useSuspenseQuery(getBetsAvailableUSDQueryOptions(account.proxyAddress));
@@ -552,17 +603,41 @@ export function BuyLimitForm({
     const runNormalBuy = useCallback(async () => {
         if (submitDisabled) return;
         if (loading || isQuickBuying) return;
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_BUY_CLICK, {});
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_BUY_CLICK, {
+            ...(telemetryContext || {}),
+            market_outcome: outcome,
+            proxy_wallet_address: account.proxyAddress,
+            order_type: 'limit',
+            shares,
+            avg_price: String(limitPriceDollars.isFinite() ? limitPriceDollars.toString() : ''),
+            amount_usd: totalUSD.isFinite() ? totalUSD.toString() : '',
+        });
         return onSubmit({
             shares: Number(shares),
             limitPrice: limitPriceDollars.toNumber(),
         });
-    }, [isQuickBuying, limitPriceDollars, loading, onSubmit, shares, submitDisabled]);
+    }, [
+        isQuickBuying,
+        limitPriceDollars,
+        loading,
+        onSubmit,
+        shares,
+        submitDisabled,
+        telemetryContext,
+        outcome,
+        account.proxyAddress,
+        totalUSD,
+    ]);
 
     const handleQuickBuyOpen = useCallback(() => {
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_QUICK_BUY_OPEN_SUCCESS, {});
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_QUICK_BUY_OPEN_SUCCESS, {
+            ...(telemetryContext || {}),
+            market_outcome: outcome,
+            proxy_wallet_address: account.proxyAddress,
+            order_type: 'limit',
+        });
         setQuickBuyConfirmOpen(true);
-    }, []);
+    }, [telemetryContext, outcome, account.proxyAddress]);
 
     function setSharesByDelta(delta: BigNumber.Value | 'max') {
         if (delta === 'max') {
@@ -723,6 +798,18 @@ export function BuyLimitForm({
                                 setQuickBuyConfirmOpen(false);
                                 await runQuickBuy();
                             }}
+                            telemetryContext={
+                                telemetryContext
+                                    ? {
+                                          ...telemetryContext,
+                                          market_outcome: outcome,
+                                          proxy_wallet_address: account.proxyAddress,
+                                          order_type: 'limit',
+                                          shares,
+                                          avg_price: limitPriceDollars.isFinite() ? limitPriceDollars.toString() : '',
+                                      }
+                                    : undefined
+                            }
                         />
                     </>
                 ) : (

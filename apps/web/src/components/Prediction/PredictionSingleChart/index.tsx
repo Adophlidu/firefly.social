@@ -54,6 +54,7 @@ export const PredictionSingleChart = memo(function PredictionSingleChart() {
             isActive={isActive}
             showBuyButtons={!showPriceChart}
             filterResolvedMarkets={event.markets.length > 1}
+            eventSlug={event.slug}
         />
     );
 });

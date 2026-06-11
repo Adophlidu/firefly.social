@@ -19,6 +19,7 @@ export async function getSportsEventList(body: PolymarketSportsListRequest) {
             today: [],
             tomorrow: [],
             afterTomorrow: [],
+            afterThreeDays: [],
             closed: [],
         } satisfies PolymarketSportsListResponse;
     }

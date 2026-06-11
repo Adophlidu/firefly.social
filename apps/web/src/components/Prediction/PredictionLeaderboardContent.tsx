@@ -8,11 +8,12 @@ import {
     Source,
 } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionLeaderboardItem } from '@/components/Prediction/PredictionLeaderboardItem.js';
+import { getPolymarketAccount } from '@/providers/firefly/prediction/getPolymarketAccount.js';
 import { getPolymarketRank, type PolymarketRankItem } from '@/providers/firefly/prediction/getPolymarketRank.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -29,9 +30,17 @@ interface PredictionLeaderboardContentProps {
 }
 
 export function PredictionLeaderboardContent({ tab, period, order }: PredictionLeaderboardContentProps) {
+    const { data: polymarketAccount } = useQuery({
+        queryKey: ['getPolymarketAccount-leaderboard'],
+        queryFn: () => getPolymarketAccount(),
+    });
+
     useEffect(() => {
-        TelemetryProvider.captureEventInSafe(EventId.BETS_LEADERBOARD_OPEN_SUCCESS, {});
-    }, []);
+        if (polymarketAccount === undefined) return;
+        TelemetryProvider.captureEventInSafe(EventId.BETS_LEADERBOARD_OPEN_SUCCESS, {
+            proxy_wallet_address: polymarketAccount?.proxyAddress ?? '',
+        });
+    }, [polymarketAccount]);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['polymarket-rank', tab, period, order],

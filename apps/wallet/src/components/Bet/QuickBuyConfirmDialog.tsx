@@ -21,6 +21,18 @@ export interface QuickBuyConfirmDialogProps {
     confirmDisabled?: boolean;
     confirming?: boolean;
     onConfirm: () => Promise<unknown> | void;
+    telemetryContext?: {
+        event_slug: string;
+        event_title: string;
+        market_slug: string;
+        market_title: string;
+        market_group_item_name?: string;
+        market_outcome: string;
+        proxy_wallet_address: string;
+        order_type: string;
+        shares: string;
+        avg_price: string;
+    };
 }
 
 export function QuickBuyConfirmDialog({
@@ -34,6 +46,7 @@ export function QuickBuyConfirmDialog({
     confirmDisabled,
     confirming,
     onConfirm,
+    telemetryContext,
 }: QuickBuyConfirmDialogProps) {
     const predictPayText = useMemo(() => formatTokenUSDConditional(predictWalletPayUsd), [predictWalletPayUsd]);
     const fireflyPayText = useMemo(() => formatTokenUSDConditional(fireflyWalletPayUsd), [fireflyWalletPayUsd]);
@@ -114,7 +127,12 @@ export function QuickBuyConfirmDialog({
                             onClick={() => {
                                 captureWalletTelemetryEvent(
                                     WalletTelemetryEventId.BETS_MARKET_QUICK_BUY_CONFIRM_CLICK,
-                                    {},
+                                    {
+                                        ...(telemetryContext || {}),
+                                        bets_pay_value: String(predictWalletPayUsd),
+                                        wallet_pay_value: String(fireflyWalletPayUsd),
+                                        amount_usd: String(totalUsd),
+                                    },
                                 );
                                 onConfirm();
                             }}

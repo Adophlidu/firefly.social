@@ -8,8 +8,9 @@ export function captureFollowingPredictionsClick() {
     return TelemetryProvider.captureEventInSafe(EventId.EVENT_FOLLOWING_PREDICTIONS_CLICK, {});
 }
 
-export function captureExplorePredictionsCategoryClick(categoryName: string) {
+export function captureExplorePredictionsCategoryClick(categorySlug: string, categoryName: string) {
     return TelemetryProvider.captureEventInSafe(EventId.EVENT_EXPLORE_PREDICTIONS_CATEGORY_CLICK, {
+        category_slug: categorySlug,
         category_name: categoryName,
     });
 }
@@ -234,38 +235,34 @@ export function capturePolymarketHomeCategoryClick(categorySlug: string, categor
 }
 
 // Polymarket home sport type click
-export function capturePolymarketHomeSportTypeClick(sportType: 'games' | 'props', categorySlug: string) {
+export function capturePolymarketHomeSportTypeClick(sportType: 'games' | 'props' | 'groups', categorySlug: string) {
     return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_HOME_SPORT_TYPE_CLICK, {
-        sport_type: sportType,
+        sport_market_type: sportType,
         category_slug: categorySlug,
     });
 }
 
 // Polymarket search topic click
-export function capturePolymarketSearchTopicClick(topicLabel: string) {
+export function capturePolymarketSearchTopicClick(categorySlug: string, categoryName: string) {
     return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_SEARCH_TOPIC_CLICK, {
-        topic_label: topicLabel,
+        category_slug: categorySlug,
+        category_name: categoryName,
     });
 }
 
 // Polymarket event crypto recurrence click
-export function capturePolymarketEventCryptoRecurrenceClick(eventSlug: string, recurrenceType: 'past' | 'more') {
+export function capturePolymarketEventCryptoRecurrenceClick(eventSlug: string, recurrenceOption: string) {
     return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_CRYPTO_RECURRENCE_CLICK, {
         event_slug: eventSlug,
-        recurrence_type: recurrenceType,
+        recurrence_option: recurrenceOption,
     });
 }
 
 // Polymarket event chart change
-export function capturePolymarketEventChartChange(
-    eventSlug: string,
-    changeType: 'time_range' | 'chart_type' | 'market_filter',
-    extra?: { time_range?: string; chart_type?: string },
-) {
+export function capturePolymarketEventChartChange(eventSlug: string, editOption: 'time' | 'change') {
     return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_CHART_CHANGE, {
         event_slug: eventSlug,
-        change_type: changeType,
-        ...extra,
+        edit_option: editOption,
     });
 }
 
@@ -279,17 +276,27 @@ export function capturePolymarketOrderClick(marketSlug: string, outcome: number,
 }
 
 // Polymarket event trades profile click
-export function capturePolymarketEventTradesProfileClick(eventSlug: string, targetProxyWalletAddress: string) {
+export function capturePolymarketEventTradesProfileClick(
+    eventSlug: string,
+    targetProxyWalletAddress: string,
+    targetPolymarketName?: string,
+) {
     return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_TRADES_PROFILE_CLICK, {
         event_slug: eventSlug,
         target_proxy_wallet_address: targetProxyWalletAddress,
+        target_polymarket_name: targetPolymarketName,
     });
 }
 
 // Opinion event trades profile click
-export function captureOpinionEventTradesProfileClick(eventSlug: string, targetProxyWalletAddress: string) {
+export function captureOpinionEventTradesProfileClick(
+    eventSlug: string,
+    targetProxyWalletAddress: string,
+    targetOpinionName?: string,
+) {
     return TelemetryProvider.captureEventInSafe(EventId.OPINION_EVENT_TRADES_PROFILE_CLICK, {
         event_slug: eventSlug,
         target_proxy_wallet_address: targetProxyWalletAddress,
+        target_opinion_name: targetOpinionName,
     });
 }

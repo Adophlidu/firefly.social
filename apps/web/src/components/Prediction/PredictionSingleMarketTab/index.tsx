@@ -34,6 +34,7 @@ const PredictionMarketResolution = dynamic(
 interface Props {
     market: BetsMarketDataForUI;
     platform: PredictionPlatform;
+    eventSlug?: string;
 }
 
 enum SingleMarketTabType {
@@ -78,7 +79,11 @@ function getAvailableTabs(market: BetsMarketDataForUI, platform: PredictionPlatf
     ];
 }
 
-export const PredictionSingleMarketTab = memo<Props>(function PredictionSingleMarketTab({ market, platform }) {
+export const PredictionSingleMarketTab = memo<Props>(function PredictionSingleMarketTab({
+    market,
+    platform,
+    eventSlug,
+}) {
     const [activeTab, setActiveTab] = useState<SingleMarketTabType | undefined>(
         first(getAvailableTabs(market, platform))?.value,
     );
@@ -113,6 +118,7 @@ export const PredictionSingleMarketTab = memo<Props>(function PredictionSingleMa
                         showBuyButtons={false}
                         isActive
                         filterResolvedMarkets={false}
+                        eventSlug={eventSlug}
                     />
                 ) : null}
                 {activeTab === SingleMarketTabType.Resolution ? <PredictionMarketResolution market={market} /> : null}

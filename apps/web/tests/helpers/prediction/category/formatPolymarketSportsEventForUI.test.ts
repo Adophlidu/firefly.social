@@ -134,6 +134,60 @@ describe('formatPolymarketSportsEventForUI', () => {
         expect(model?.scheduledTimeLabel).toBeTruthy();
     });
 
+    it('prefers moneyline market team logos over drawTeams logos for three-way draw games', () => {
+        const event = baseEvent({
+            isDraw: true,
+            game_status: 1,
+            drawTeams: [
+                {
+                    name: 'China',
+                    abbreviation: 'CHN',
+                    logo: 'https://example.com/wrong-china-flag.png',
+                },
+                {
+                    name: 'Mexico',
+                    abbreviation: 'MEX',
+                    logo: 'https://example.com/wrong-mexico-flag.png',
+                },
+            ],
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'china-win',
+                    groupItemTitle: 'China',
+                    groupTypeFF: 0,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.45","0.55"]',
+                    teams: [{ name: 'China', abbreviation: 'CHN', logo: 'https://example.com/correct-china-flag.png' }],
+                },
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'draw-china-mexico',
+                    groupItemTitle: 'Draw (China vs. Mexico)',
+                    groupTypeFF: 1,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.28","0.72"]',
+                },
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'mexico-win',
+                    groupItemTitle: 'Mexico',
+                    groupTypeFF: 2,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.32","0.68"]',
+                    teams: [
+                        { name: 'Mexico', abbreviation: 'MEX', logo: 'https://example.com/correct-mexico-flag.png' },
+                    ],
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.homeTeam.logo).toBe('https://example.com/correct-china-flag.png');
+        expect(model?.awayTeam.logo).toBe('https://example.com/correct-mexico-flag.png');
+    });
+
     it('maps livestream_info.livestream_url for live games', () => {
         const event = baseEvent({
             game_status: 0,

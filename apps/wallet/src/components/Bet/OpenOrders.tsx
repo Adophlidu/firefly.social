@@ -160,13 +160,28 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
                 </div>
             </button>
 
-            <CancelPolymarketOrderModal proxyAddress={proxyAddress} orderId={item.id}>
+            <CancelPolymarketOrderModal
+                proxyAddress={proxyAddress}
+                orderId={item.id}
+                marketTitle={marketLabel}
+                marketOutcome={outcome}
+                amountShares={size}
+                matchedShares={filled}
+                avgPrice={priceText}
+                amountUsd={String(totalUsd)}
+            >
                 <Button
                     type="button"
                     variant="outline"
                     size="lg"
                     className={cn('h-10 w-full rounded-[10px] border-third text-main active:scale-[0.99]')}
-                    onClick={() => captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ORDER_CANCEL_CLICK, {})}
+                    onClick={() =>
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ORDER_CANCEL_CLICK, {
+                            proxy_wallet_address: proxyAddress,
+                            market_title: marketLabel,
+                            market_outcome: outcome,
+                        })
+                    }
                 >
                     <Trans>Cancel</Trans>
                 </Button>
@@ -178,10 +193,22 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
 function CancelPolymarketOrderModal({
     proxyAddress,
     orderId,
+    marketTitle,
+    marketOutcome,
+    amountShares,
+    matchedShares,
+    avgPrice,
+    amountUsd,
     children,
 }: {
     proxyAddress: string;
     orderId: string;
+    marketTitle: string;
+    marketOutcome: string;
+    amountShares: string;
+    matchedShares: string;
+    avgPrice: string;
+    amountUsd: string;
     children: ReactNode;
 }) {
     const queryClient = useQueryClient();
@@ -257,7 +284,15 @@ function CancelPolymarketOrderModal({
                         className="h-12 w-full rounded-full"
                         loading={isPending}
                         onClick={async () => {
-                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ORDER_CANCEL_CONFIRM_CLICK, {});
+                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ORDER_CANCEL_CONFIRM_CLICK, {
+                                proxy_wallet_address: proxyAddress,
+                                market_title: marketTitle,
+                                market_outcome: marketOutcome,
+                                amount_shares: amountShares,
+                                matched_shares: matchedShares,
+                                avg_price: avgPrice,
+                                amount_usd: amountUsd,
+                            });
                             await mutateAsync();
                             setOpen(false);
                         }}

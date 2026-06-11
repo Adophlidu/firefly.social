@@ -34,7 +34,9 @@ export function SettleResolvedMarketsSection({ proxyAddress }: { proxyAddress: A
                     type="button"
                     className="box-border flex w-full items-center justify-between gap-3 rounded-xl border border-success/20 bg-[radial-gradient(circle_at_0%_100%,#e9ffe6_0%,#ffffff_58%)] p-4 font-inter shadow-[0_8px_8px_rgba(0,0,0,0.08)] dark:bg-lightBg dark:bg-none"
                     onClick={() =>
-                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_CLAIM_PROCEEDS_OPEN_SUCCESS, {})
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_CLAIM_PROCEEDS_OPEN_SUCCESS, {
+                            proxy_wallet_address: proxyAddress,
+                        })
                     }
                 >
                     <span className="flex flex-col items-start justify-center text-left">

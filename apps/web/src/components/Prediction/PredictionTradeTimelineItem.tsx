@@ -33,9 +33,9 @@ export function PredictionTradeTimelineItem({ trade, platform, eventSlug }: Pred
     const handleProfileClick = () => {
         if (!eventSlug || !walletAddress) return;
         if (platform === PredictionPlatform.Polymarket) {
-            capturePolymarketEventTradesProfileClick(eventSlug, walletAddress);
+            capturePolymarketEventTradesProfileClick(eventSlug, walletAddress, displayName);
         } else {
-            captureOpinionEventTradesProfileClick(eventSlug, walletAddress);
+            captureOpinionEventTradesProfileClick(eventSlug, walletAddress, displayName);
         }
     };
     const marketTitle =

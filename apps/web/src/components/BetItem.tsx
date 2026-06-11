@@ -321,7 +321,7 @@ export const BetItem = memo(function BetItem({
     return (
         <Link
             className={classNames(
-                'flex flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-4 hover:bg-bg',
+                'flex flex-col gap-3 rounded-2xl border border-secondaryLine bg-primaryBottom p-4 hover:bg-bg',
                 className,
             )}
             href={RouteResolver.betsEventDetail(platform, eventSlug, { multiple: isMultiMarket })}

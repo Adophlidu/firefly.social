@@ -48,11 +48,13 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
     const eventSlug = id || event.id;
     const eventTitle = event.title;
     const series = event.series?.[0];
-    const sportPageTitle = event.sportData
-        ? `${event.sportData.homeTeam.name || event.sportData.homeTeam.abbreviation || 'Home'} vs ${
-              event.sportData.awayTeam.name || event.sportData.awayTeam.abbreviation || 'Away'
-          }`
-        : null;
+    const sportPageTitle =
+        event.title ??
+        (event.sportData
+            ? `${event.sportData.homeTeam.name || event.sportData.homeTeam.abbreviation || 'Home'} vs ${
+                  event.sportData.awayTeam.name || event.sportData.awayTeam.abbreviation || 'Away'
+              }`
+            : null);
 
     return (
         <div className="pb-20">

@@ -6,7 +6,6 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { useQueryState } from 'nuqs';
 import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { STALE_TIMES } from '@/constants/query.js';
@@ -14,7 +13,6 @@ import { Link } from '@/esm/Link.js';
 import { useParams } from '@/esm/navigation.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugListForWeb } from '@/providers/firefly/prediction/getEventSlugList.js';
-import { POLYMARKET_FIREFLY_SLUG } from '@/providers/prediction/polymarket/constants.js';
 import { captureExplorePredictionsCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -42,7 +40,6 @@ const FIXED_SLUGS: PolymarketEventSlugListData[] = [
 
 export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ className }) {
     const { source } = useParams<{ source: string }>();
-    const [subSlug] = useQueryState('subSlug', { defaultValue: '' });
 
     const { data } = useQuery({
         queryKey: ['bets', 'slugs-list-web'],
@@ -50,25 +47,22 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
         staleTime: STALE_TIMES.MINUTE_10,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
-        select: (data) => {
-            return [...FIXED_SLUGS, ...(data || EMPTY_LIST)];
-        },
     });
 
     const activeTabRef = useRef<HTMLAnchorElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const isFireflySlugPage =
-        !!data?.some((x) => x.slug === POLYMARKET_FIREFLY_SLUG) && source === POLYMARKET_FIREFLY_SLUG;
-    const tags = useMemo(() => {
-        if (!data) return EMPTY_LIST;
-
-        if (isFireflySlugPage) {
-            const fireflySlugData = data.find((x) => x.slug === POLYMARKET_FIREFLY_SLUG);
-            return fireflySlugData?.sub_slug || EMPTY_LIST;
-        }
-
-        const filteredData = data.filter((x) => x.slug !== POLYMARKET_FIREFLY_SLUG);
+    const tags = useMemo<Array<PolymarketEventSlugListData & { url?: string }>>(() => {
+        const filteredData = [
+            ...FIXED_SLUGS,
+            ...(data || EMPTY_LIST).map((x) => ({
+                ...x,
+                url: RouteResolver.predictionCategory({
+                    slug: x.slug,
+                    tagType: x.type,
+                }),
+            })),
+        ];
         if (source && !filteredData.some((x) => x.slug === source)) {
             return [
                 { slug: source, label: `${source.slice(0, 1).toUpperCase()}${source.slice(1)}`, sub_slug: EMPTY_LIST },
@@ -76,7 +70,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
             ];
         }
         return filteredData;
-    }, [data, source, isFireflySlugPage]);
+    }, [data, source]);
 
     useLayoutEffect(() => {
         if (!activeTabRef.current) {
@@ -103,10 +97,8 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
             >
                 <nav className="flex space-x-2" aria-label="Tabs">
                     {tags.map((slug) => {
-                        const isActive = isFireflySlugPage ? subSlug === slug.slug : source === slug.slug;
-                        const href = isFireflySlugPage
-                            ? RouteResolver.explorePrediction({ slug: POLYMARKET_FIREFLY_SLUG, subSlug: slug.slug })
-                            : RouteResolver.explorePrediction({ slug: slug.slug });
+                        const isActive = source === slug.slug;
+                        const href = slug.url || RouteResolver.explorePrediction({ slug: slug.slug });
 
                         return (
                             <Link
@@ -120,7 +112,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                                         : 'bg-thirdMain text-second hover:text-highlight',
                                 )}
                                 onClick={() => {
-                                    captureExplorePredictionsCategoryClick(slug.label);
+                                    captureExplorePredictionsCategoryClick(slug.slug, slug.label);
                                 }}
                             >
                                 {slug.label}
@@ -134,6 +126,9 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                 href={RouteResolver.predictionCategory({
                     slug: first(tags)?.slug || '',
                 })}
+                onClick={() => {
+                    captureExplorePredictionsCategoryClick(first(tags)?.slug || '', first(tags)?.label || '');
+                }}
             >
                 <span className="text-sm">
                     <Trans>View More</Trans>

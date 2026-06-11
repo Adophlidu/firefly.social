@@ -95,7 +95,7 @@ export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilte
                                     key={topic.id || topic.label}
                                     topic={topic}
                                     onClick={() => {
-                                        capturePolymarketSearchTopicClick(topic.label);
+                                        capturePolymarketSearchTopicClick(topic.slug ?? '', topic.label);
                                         updateState({
                                             q: topic.label,
                                             type: SearchType.Prediction,

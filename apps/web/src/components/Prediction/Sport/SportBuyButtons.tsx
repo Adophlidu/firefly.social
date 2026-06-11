@@ -7,6 +7,7 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
+import { abbreviateOutcomeLabel, formatLine } from '@/helpers/prediction/sportScoreUtils.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 import { SportMarketGroupType } from '@/types/prediction.js';
@@ -21,14 +22,6 @@ function formatSpreadLabel(line: number, index: number): string {
     // outcome 0 gets the sign of line, outcome 1 gets the opposite
     const positive = index === 0 ? line >= 0 : line < 0;
     return positive ? `+${absLine}` : `-${absLine}`;
-}
-
-/**
- * Abbreviate Over/Under labels on total-type buy buttons.
- * "Over 2.5" → "O 2.5", "Under 2.5" → "U 2.5"
- */
-function abbreviateOutcomeLabel(label: string): string {
-    return label.replace(/^Over\s+/i, 'O ').replace(/^Under\s+/i, 'U ');
 }
 
 interface SportBuyButtonsProps {
@@ -86,8 +79,12 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                 : isSpread
                   ? extractSpreadValue(outcomes[index]?.label || '') || defaultLabel
                   : defaultLabel;
-        // Abbreviate Over/Under for total-type markets
-        const finalLabel = isTotal ? abbreviateOutcomeLabel(spreadLabel) : spreadLabel;
+        // Abbreviate Over/Under for total-type markets, appending the line value
+        const finalLabel = isTotal
+            ? line != null // eslint-disable-line eqeqeq -- != null narrows both null and undefined
+                ? `${abbreviateOutcomeLabel(defaultLabel)} ${formatLine(line, false)}`
+                : abbreviateOutcomeLabel(defaultLabel)
+            : spreadLabel;
         return {
             label: finalLabel,
             color: team?.color || fallbackColor,

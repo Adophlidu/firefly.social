@@ -1656,6 +1656,7 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+            category_slug: string;
             category_name: string;
         };
     };
@@ -2175,30 +2176,29 @@ export interface Events extends Record<EventId, Event> {
     [EventId.POLYMARKET_HOME_SPORT_TYPE_CLICK]: {
         type: EventType.Interact;
         parameters: {
-            sport_type: 'games' | 'props';
+            sport_market_type: 'games' | 'props' | 'groups';
             category_slug: string;
         };
     };
     [EventId.POLYMARKET_SEARCH_TOPIC_CLICK]: {
         type: EventType.Interact;
         parameters: {
-            topic_label: string;
+            category_slug: string;
+            category_name: string;
         };
     };
     [EventId.POLYMARKET_EVENT_CRYPTO_RECURRENCE_CLICK]: {
         type: EventType.Interact;
         parameters: {
             event_slug: string;
-            recurrence_type: 'past' | 'more';
+            recurrence_option: string;
         };
     };
     [EventId.POLYMARKET_EVENT_CHART_CHANGE]: {
         type: EventType.Interact;
         parameters: {
             event_slug: string;
-            change_type: 'time_range' | 'chart_type' | 'market_filter';
-            time_range?: string;
-            chart_type?: string;
+            edit_option: 'time' | 'change';
         };
     };
     [EventId.POLYMARKET_ORDER_CLICK]: {
@@ -2213,6 +2213,7 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             event_slug: string;
+            target_polymarket_name?: string;
             target_proxy_wallet_address: string;
         };
     };
@@ -2220,6 +2221,7 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             event_slug: string;
+            target_opinion_name?: string;
             target_proxy_wallet_address: string;
         };
     };
@@ -2231,95 +2233,241 @@ export interface Events extends Record<EventId, Event> {
     };
     [EventId.BETS_ADD_FUNDS_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_ADD_FUNDS_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            chain_id: string;
+            target_chain_id: string;
+            firefly_wallet_address: string;
+            firefly_wallet_type: string;
+            proxy_wallet_address: string;
+            token_type: string;
+            token_address?: string;
+            token_symbol: string;
+            token_name: string;
+            token_amount: number;
+            amount_usd: number;
+        };
     };
     [EventId.BETS_WITHDRAW_FUNDS_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_WITHDRAW_FUNDS_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            chain_id: string;
+            target_chain_id: string;
+            proxy_wallet_address: string;
+            firefly_wallet_address: string;
+            firefly_wallet_type: string;
+            token_type: string;
+            token_address?: string;
+            token_symbol: string;
+            token_name: string;
+            token_amount: number;
+            amount_usd: number;
+        };
     };
     [EventId.BETS_POSITIONS_LIST_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_ORDERS_LIST_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_ORDER_CANCEL_CLICK]: {
         type: EventType.Interact;
         parameters: {
-            order_id?: string;
+            proxy_wallet_address: string;
+            market_title: string;
+            market_outcome: string;
         };
     };
     [EventId.BETS_ORDER_CANCEL_CONFIRM_CLICK]: {
         type: EventType.Interact;
         parameters: {
-            order_id?: string;
+            proxy_wallet_address: string;
+            market_title: string;
+            market_outcome: string;
+            amount_shares: string;
+            matched_shares: string;
+            avg_price: string;
+            amount_usd: string;
         };
     };
     [EventId.BETS_POSITION_CLOSE_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_POSITION_CLOSE_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+            amount_usd: string;
+        };
     };
     [EventId.BETS_CLAIM_PROCEEDS_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_CLAIM_PROCEEDS_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+            amount_shares: string;
+            avg_price: string;
+            amount_usd: string;
+            profit_usd: string;
+            profit_change: string;
+        };
     };
     [EventId.BETS_EXPLORE_BETS_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_RECENT_ACTIVITY_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_MARKET_BUY_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+        };
     };
     [EventId.BETS_MARKET_BUY_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+            proxy_wallet_address: string;
+            order_type: string;
+            shares: string;
+            avg_price: string;
+            amount_usd: string;
+        };
     };
     [EventId.BETS_MARKET_ORDER_TYPE_CHANGE_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+            type: string;
+            proxy_wallet_address: string;
+            order_type: string;
+            target_order_type: string;
+        };
     };
     [EventId.BETS_MARKET_QUICK_BUY_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+            proxy_wallet_address: string;
+            order_type: string;
+        };
     };
     [EventId.BETS_MARKET_QUICK_BUY_CONFIRM_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+            proxy_wallet_address: string;
+            order_type: string;
+            shares: string;
+            avg_price: string;
+            bets_pay_value: string;
+            wallet_pay_value: string;
+            amount_usd: string;
+        };
     };
     [EventId.BETS_POSITION_SELL_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+        };
     };
     [EventId.BETS_POSITION_SELL_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+            market_outcome: string;
+            proxy_wallet_address: string;
+            order_type: string;
+            shares: string;
+            avg_price: string;
+            amount_usd: string;
+        };
     };
     [EventId.BETS_LEADERBOARD_OPEN_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address: string;
+        };
     };
     [EventId.BETS_VIEW_PRIVATE_KEY_PANEL_OPEN]: {
         type: EventType.Interact;
@@ -2327,11 +2475,17 @@ export interface Events extends Record<EventId, Event> {
     };
     [EventId.BETS_SHOW_PRIVATE_KEY]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address?: string;
+            deposit_wallet_address?: string;
+        };
     };
     [EventId.BETS_PRIVATE_KEY_COPY_CLICK]: {
         type: EventType.Interact;
-        parameters: {};
+        parameters: {
+            proxy_wallet_address?: string;
+            deposit_wallet_address?: string;
+        };
     };
 }
 

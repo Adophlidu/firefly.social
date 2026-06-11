@@ -6,6 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { abbreviateOutcomeLabel } from '@/helpers/prediction/sportScoreUtils.js';
 import type { BetsActivity, SportActivityTeam } from '@/providers/types/Firefly.js';
 
 const HOME_FALLBACK_COLOR = '#3DC233';
@@ -85,7 +86,7 @@ export const SportBetInfoPills = memo<SportBetInfoPillsProps>(function SportBetI
                     color: resolved.color,
                 }}
             >
-                {resolved.label} - {priceCents}¢
+                {abbreviateOutcomeLabel(resolved.label)} - {priceCents}¢
             </span>
             <span className="min-h-6 rounded-lg bg-lightBg px-2 leading-6 text-lightMain">
                 <Trans>×{toFixedTrimmed(+activity.size, 2)} shares</Trans>

@@ -42,9 +42,22 @@ export const Route = createFileRoute('/bet/deposit')({
 const TOAST_ID = 'polymarket-deposit';
 
 function DepositPage() {
+    const { data: polymarketAccount } = useQuery({
+        queryKey: ['polymarket-account'],
+        staleTime: 1000 * 60 * 5,
+        queryFn: async () => {
+            const account = await getFireflyEndpoint().createPolymarketAccount();
+            return account;
+        },
+    });
+
     useEffect(() => {
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ADD_FUNDS_OPEN_SUCCESS, {});
-    }, []);
+        if (polymarketAccount?.proxyAddress) {
+            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ADD_FUNDS_OPEN_SUCCESS, {
+                proxy_wallet_address: polymarketAccount.proxyAddress,
+            });
+        }
+    }, [polymarketAccount?.proxyAddress]);
 
     return (
         <>
@@ -249,7 +262,19 @@ function DepositClient() {
                 onSubmit={() => {
                     if (isSubmittingRef.current || isPending) return;
                     isSubmittingRef.current = true;
-                    captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ADD_FUNDS_CLICK, {});
+                    captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ADD_FUNDS_CLICK, {
+                        chain_id: String(depositToken?.chainId ?? ''),
+                        target_chain_id: String(pusdTokenFallback.chainId),
+                        firefly_wallet_address: embeddedAddress ?? '',
+                        firefly_wallet_type: depositToken && isSolanaChain(depositToken.chainId) ? 'sol' : 'evm',
+                        proxy_wallet_address: polymarketAccount?.proxyAddress ?? '',
+                        token_type: depositToken?.address ? 'erc20_token' : 'native_token',
+                        token_address: depositToken?.address || undefined,
+                        token_symbol: depositToken?.symbol ?? '',
+                        token_name: depositToken?.name ?? '',
+                        token_amount: Number(amount) || 0,
+                        amount_usd: Number(usdValue) || 0,
+                    });
                     void mutateAsync();
                 }}
             />

@@ -56,10 +56,7 @@ export const getEventDetail = cache(async function getEventDetail(
             const detail = await getPolymarketEvent({ slug: id });
             if (!detail) return null;
             const formatted = formatPolymarketEvent(detail);
-            const hasNonMoneylineMarkets = formatted.markets.some(
-                (m) => m.sportsMarketType?.toLowerCase() !== 'moneyline',
-            );
-            if (!formatted.sportData?.gameId || hasNonMoneylineMarkets) return formatted;
+            if (!formatted.sportData?.gameId) return formatted;
 
             try {
                 const sportDetail = await getSportEventDetail(id);

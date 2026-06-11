@@ -16,6 +16,9 @@ const SPORT_ID_MAP: Record<string, SportCategory> = {
     football: SportCategory.Soccer,
     tennis: SportCategory.Tennis,
     baseball: SportCategory.Baseball,
+    mlb: SportCategory.Baseball,
+    basketball: SportCategory.Default,
+    nba: SportCategory.Default,
     esports: SportCategory.Default, // needs sub-classification via league
 };
 
@@ -87,6 +90,8 @@ function classifyEsportByLeague(leagueName?: string): SportCategory | undefined 
 const MARKET_TYPE_PREFIX_MAP: Record<string, SportCategory> = {
     soccer_: SportCategory.Soccer,
     tennis_: SportCategory.Tennis,
+    nrfi: SportCategory.Baseball,
+    yrfi: SportCategory.Baseball,
 };
 
 /**

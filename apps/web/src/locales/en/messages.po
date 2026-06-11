@@ -22,6 +22,9 @@ msgstr "Unmute successfully."
 msgid "Copy to clipboard"
 msgstr "Copy to clipboard"
 
+msgid "Kill Handicap"
+msgstr "Kill Handicap"
+
 msgid "DRAW"
 msgstr "DRAW"
 
@@ -96,9 +99,15 @@ msgstr "Equal Split"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>Net worth</0>"
 
+msgid "Cash"
+msgstr "Cash"
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "Failed to quote on {0}."
+
+msgid "Any Player Quadra Kill"
+msgstr "Any Player Quadra Kill"
 
 msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth reposted your tips"
@@ -247,6 +256,9 @@ msgstr "Enter a new password to verify your identity."
 msgid "This space does not exist."
 msgstr "This space does not exist."
 
+msgid "1H Totals"
+msgstr "1H Totals"
+
 msgid "Failed to apply draft post."
 msgstr "Failed to apply draft post."
 
@@ -285,6 +297,9 @@ msgstr "The post you quoted/replied has already deleted"
 msgid "Join"
 msgstr "Join"
 
+msgid "Both Teams Beat Roshan"
+msgstr "Both Teams Beat Roshan"
+
 msgid "Multi-device login sessions synced successfully."
 msgstr "Multi-device login sessions synced successfully."
 
@@ -321,11 +336,17 @@ msgstr "Rank #{0}"
 msgid "Mute {walletHandle}"
 msgstr "Mute {walletHandle}"
 
+msgid "1H Moneyline"
+msgstr "1H Moneyline"
+
 msgid "Claimed successfully."
 msgstr "Claimed successfully."
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+
+msgid "{teamName} Corners"
+msgstr "{teamName} Corners"
 
 msgid "Password Verification"
 msgstr "Password Verification"
@@ -426,6 +447,9 @@ msgstr "Searching users"
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
 
+msgid "Set {setNum} Winner"
+msgstr "Set {setNum} Winner"
+
 msgid "<0>Burned</0><1/>"
 msgstr "<0>Burned</0><1/>"
 
@@ -442,6 +466,9 @@ msgstr "Opinion"
 msgid "Draw"
 msgstr "Draw"
 
+msgid "Game {gameNum}"
+msgstr "Game {gameNum}"
+
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 
@@ -456,9 +483,6 @@ msgstr "Sorry, the username or password you entered is incorrect"
 
 msgid "Turn off"
 msgstr "Turn off"
-
-msgid "Winner"
-msgstr "Winner"
 
 msgid "Price to beat"
 msgstr "Price to beat"
@@ -531,6 +555,9 @@ msgstr "Muted {handleOrEnsOrAddress}."
 
 msgid "Swap liked."
 msgstr "Swap liked."
+
+msgid "Most Inhibitors"
+msgstr "Most Inhibitors"
 
 msgid "Avg"
 msgstr "Avg"
@@ -716,6 +743,9 @@ msgstr "I understand"
 msgid "Overview"
 msgstr "Overview"
 
+msgid "Most Nashors"
+msgstr "Most Nashors"
+
 msgid "Stocks"
 msgstr "Stocks"
 
@@ -750,6 +780,9 @@ msgstr "Report post"
 msgid "Get {0}"
 msgstr "Get {0}"
 
+msgid "2nd Half Result"
+msgstr "2nd Half Result"
+
 msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
 msgstr "Only approved followers can see these posts.<0/>To request access, click Follow."
 
@@ -772,6 +805,9 @@ msgstr "Prediction"
 
 msgid "Tokens"
 msgstr "Tokens"
+
+msgid "Tower Handicap"
+msgstr "Tower Handicap"
 
 msgid "Search {id}"
 msgstr "Search {id}"
@@ -1022,6 +1058,9 @@ msgstr "Failed to decrypt post on {sourceName}."
 msgid "No predictions found"
 msgstr "No predictions found"
 
+msgid "Both Teams Slay Dragon"
+msgstr "Both Teams Slay Dragon"
+
 msgid "Won"
 msgstr "Won"
 
@@ -1104,6 +1143,9 @@ msgstr "Insufficient Balance for Gas Fee"
 
 msgid "Current Positions"
 msgstr "Current Positions"
+
+msgid "Game N Winner"
+msgstr "Game N Winner"
 
 msgid "Price"
 msgstr "Price"
@@ -1226,6 +1268,9 @@ msgstr "Muted {walletHandle}."
 
 msgid "Confirm Lucky Drop"
 msgstr "Confirm Lucky Drop"
+
+msgid "D"
+msgstr "D"
 
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "Failed to enable Multi-device login. Please try again later."
@@ -1422,6 +1467,9 @@ msgstr "{addressName} is already connected."
 msgid "Tomorrow"
 msgstr "Tomorrow"
 
+msgid "Go the Distance?"
+msgstr "Go the Distance?"
+
 msgid "Total trade"
 msgstr "Total trade"
 
@@ -1477,6 +1525,9 @@ msgstr "Minting Txn Hash"
 msgid "Enter your nickname on Firefly"
 msgstr "Enter your nickname on Firefly"
 
+msgid "Played"
+msgstr "Played"
+
 msgid "Anti whale can not be modified."
 msgstr "Anti whale can not be modified."
 
@@ -1509,6 +1560,9 @@ msgstr "Failed to bookmark article."
 
 msgid "No polymarket event found."
 msgstr "No polymarket event found."
+
+msgid "Wins"
+msgstr "Wins"
 
 msgid "Event detail"
 msgstr "Event detail"
@@ -1551,6 +1605,9 @@ msgstr "Bio should not exceed {extra} characters"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "Failed to generate signature packet with source = {source}."
+
+msgid "Method of Victory"
+msgstr "Method of Victory"
 
 msgid "Delete"
 msgstr "Delete"
@@ -1596,6 +1653,9 @@ msgstr "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
+
+msgid "Both Teams To Score - 1st Half"
+msgstr "Both Teams To Score - 1st Half"
 
 msgid "Custom amount"
 msgstr "Custom amount"
@@ -1803,6 +1863,9 @@ msgstr "User Name should not exceed {extra} characters"
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 
+msgid "Corners Odd/Even"
+msgstr "Corners Odd/Even"
+
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -1854,6 +1917,12 @@ msgstr "This does not appear to be a honeypot."
 msgid "No fake KYC involved."
 msgstr "No fake KYC involved."
 
+msgid "First Team to Score"
+msgstr "First Team to Score"
+
+msgid "Shots"
+msgstr "Shots"
+
 msgid "Your Firefly Account is now connected"
 msgstr "Your Firefly Account is now connected"
 
@@ -1871,6 +1940,9 @@ msgstr "THREAD POST"
 
 msgid "Swaps"
 msgstr "Swaps"
+
+msgid "Advancing"
+msgstr "Advancing"
 
 msgid "Total Gains"
 msgstr "Total Gains"
@@ -2007,6 +2079,9 @@ msgstr "firefly.eth liked your tips"
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "Articles from {walletHandle} will now be hidden in your home timeline"
 
+msgid "Total Rounds"
+msgstr "Total Rounds"
+
 msgid "Please enter at least 2 characters."
 msgstr "Please enter at least 2 characters."
 
@@ -2016,6 +2091,9 @@ msgstr "Remove from Bookmarks"
 msgid "Article"
 msgstr "Article"
 
+msgid "Draws"
+msgstr "Draws"
+
 msgid "Active"
 msgstr "Active"
 
@@ -2024,6 +2102,9 @@ msgstr "Translated from {contentLanguage}"
 
 msgid "Post with image"
 msgstr "Post with image"
+
+msgid "Losses"
+msgstr "Losses"
 
 msgid "Failed to open miniapp"
 msgstr "Failed to open miniapp"
@@ -2092,6 +2173,9 @@ msgstr "Anti_whale(Limited number of transactions)"
 msgid "{0} items"
 msgstr "{0} items"
 
+msgid "Most Drakes"
+msgstr "Most Drakes"
+
 msgid "Balance"
 msgstr "Balance"
 
@@ -2143,9 +2227,6 @@ msgstr "User Name should be at least {extra} characters"
 msgid "Received"
 msgstr "Received"
 
-msgid "First Set"
-msgstr "First Set"
-
 msgid "Privacy and security"
 msgstr "Privacy and security"
 
@@ -2160,6 +2241,9 @@ msgid "{totalVotes} Vote"
 msgid_plural "{totalVotes} Votes"
 msgstr[0] "{totalVotes} Vote"
 msgstr[1] "{totalVotes} Votes"
+
+msgid "Adv"
+msgstr "Adv"
 
 msgid "Full"
 msgstr "Full"
@@ -2182,8 +2266,8 @@ msgstr "So sorry, we are not able to mint this NFT at the moment."
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "Content will be lost when leaving this page in anonymous mode."
 
-msgid "Starting Soon"
-msgstr "Starting Soon"
+msgid "1st Set Winner"
+msgstr "1st Set Winner"
 
 msgid "Post could not be found."
 msgstr "Post could not be found."
@@ -2209,6 +2293,9 @@ msgstr "Canceled"
 #. placeholder {0}: m[1]
 msgid "Map {0}"
 msgstr "Map {0}"
+
+msgid "Sets"
+msgstr "Sets"
 
 msgid "No content for the last two weeks."
 msgstr "No content for the last two weeks."
@@ -2414,6 +2501,9 @@ msgstr "Added"
 msgid "No stealing attack found."
 msgstr "No stealing attack found."
 
+msgid "First Blood"
+msgstr "First Blood"
+
 msgid "Share From"
 msgstr "Share From"
 
@@ -2446,6 +2536,9 @@ msgstr "No cryptocurrency mixer involved."
 msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
 msgstr "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
 
+msgid "P"
+msgstr "P"
+
 msgid "Days"
 msgstr "Days"
 
@@ -2476,6 +2569,9 @@ msgstr "Matters article"
 
 msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
 msgstr "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
+
+msgid "Goals"
+msgstr "Goals"
 
 msgid "Sign in with Lens"
 msgstr "Sign in with Lens"
@@ -2561,6 +2657,9 @@ msgstr "Display Name should not exceed 20 characters"
 msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
 msgstr "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
 
+msgid "Barrack Handicap"
+msgstr "Barrack Handicap"
+
 msgid "Decrypt"
 msgstr "Decrypt"
 
@@ -2572,6 +2671,9 @@ msgstr "Sign to Confirm"
 
 msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
 msgstr ""
+
+msgid "Failed to load groups"
+msgstr "Failed to load groups"
 
 msgid "Failed to update notification settings"
 msgstr "Failed to update notification settings"
@@ -2609,6 +2711,12 @@ msgstr "Connect"
 
 msgid "New"
 msgstr "New"
+
+msgid "Corners"
+msgstr "Corners"
+
+msgid "Will there be a run in the first inning?"
+msgstr "Will there be a run in the first inning?"
 
 msgid "Delete Firefly account"
 msgstr "Delete Firefly account"
@@ -2735,6 +2843,9 @@ msgstr "<0>You</0> liked"
 msgid "The user canceled the operation."
 msgstr "The user canceled the operation."
 
+msgid "Most Barracks"
+msgstr "Most Barracks"
+
 msgid "Sign in on mobile"
 msgstr "Sign in on mobile"
 
@@ -2771,6 +2882,9 @@ msgstr "Oops... Something went wrong. Please try again"
 
 msgid "Encrypted choice"
 msgstr "Encrypted choice"
+
+msgid "Odd/Even Total Kills"
+msgstr "Odd/Even Total Kills"
 
 msgid "Club could not be found."
 msgstr "Club could not be found."
@@ -2864,6 +2978,9 @@ msgid_plural "# years"
 msgstr[0] "# year"
 msgstr[1] "# years"
 
+msgid "Deposit"
+msgstr "Deposit"
+
 msgid "<0/> Loading"
 msgstr "<0/> Loading"
 
@@ -2875,6 +2992,9 @@ msgstr "Net Worth"
 
 msgid "Pinned"
 msgstr "Pinned"
+
+msgid "Most Towers"
+msgstr "Most Towers"
 
 msgid "We've detected logins available for sync."
 msgstr "We've detected logins available for sync."
@@ -2908,6 +3028,9 @@ msgstr "Create {0} Profile"
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
+
+msgid "Map {gameNum}"
+msgstr "Map {gameNum}"
 
 msgid "Properties"
 msgstr "Properties"
@@ -3123,6 +3246,9 @@ msgstr "Failed to upload. Gif size exceeds {0}"
 msgid "Q{0}"
 msgstr "Q{0}"
 
+msgid "1st Half Corners"
+msgstr "1st Half Corners"
+
 msgid "{days}d left"
 msgstr "{days}d left"
 
@@ -3168,6 +3294,9 @@ msgstr "Sign Up"
 
 msgid "Failed to verify password."
 msgstr "Failed to verify password."
+
+msgid "Any Player Rampage"
+msgstr "Any Player Rampage"
 
 msgid "Club"
 msgstr "Club"
@@ -3260,6 +3389,9 @@ msgstr "Sign in with Orb App"
 msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in social posts"
 msgstr "Cross-post to multiple platforms, track friends' trades, uncover alpha in social posts"
 
+msgid "Pts"
+msgstr "Pts"
+
 msgid "Enter number of winners"
 msgstr "Enter number of winners"
 
@@ -3271,6 +3403,9 @@ msgstr "Claims"
 
 msgid "Failed to bookmark snapshot."
 msgstr "Failed to bookmark snapshot."
+
+msgid "Kill Totals"
+msgstr "Kill Totals"
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -3369,6 +3504,9 @@ msgstr "Set"
 msgid "This address is already verified"
 msgstr "This address is already verified"
 
+msgid "Set {setNum} Total Games"
+msgstr "Set {setNum} Total Games"
+
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
 msgstr "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
@@ -3431,6 +3569,9 @@ msgstr "This token is not issued by its declared team. Some scams will create a 
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "The signer is not authorized to perform the requested operation. Please approve again."
+
+msgid "Round Handicap"
+msgstr "Round Handicap"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "The account you are trying to log in with is already linked to a different Firefly account."
@@ -3526,6 +3667,10 @@ msgstr "Failed to switch wallet. Please try again"
 
 msgid "Exact Score"
 msgstr "Exact Score"
+
+#. placeholder {0}: group.group_letter
+msgid "Group {0}"
+msgstr "Group {0}"
 
 msgid "Like / Repost / Comment"
 msgstr "Like / Repost / Comment"
@@ -3665,6 +3810,9 @@ msgstr "Your {0} account is now connected."
 msgid "Not Found"
 msgstr "Not Found"
 
+msgid "Inhibitor Handicap"
+msgstr "Inhibitor Handicap"
+
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "Sorry, the passcode you entered is invalid"
 
@@ -3706,6 +3854,9 @@ msgstr "ALL"
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr "Note: Cloud drafts save text only. Please upload original images or video again."
 
+msgid "Drake Handicap"
+msgstr "Drake Handicap"
+
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr ""
 
@@ -3714,6 +3865,9 @@ msgstr "This Bluesky account is already linked to another Firefly account."
 
 msgid "Failed to send tip."
 msgstr "Failed to send tip."
+
+msgid "Both Teams Destroy Barracks"
+msgstr "Both Teams Destroy Barracks"
 
 msgid "Failed to switch."
 msgstr "Failed to switch."
@@ -3775,6 +3929,9 @@ msgstr "Tip sent successfully!"
 
 msgid "Open Interest"
 msgstr "Open Interest"
+
+msgid "Ends in Daytime"
+msgstr "Ends in Daytime"
 
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
@@ -3906,6 +4063,9 @@ msgstr "1Y"
 msgid "NFT ID"
 msgstr "NFT ID"
 
+msgid "W"
+msgstr "W"
+
 msgid "Compose"
 msgstr "Compose"
 
@@ -3975,6 +4135,9 @@ msgid_plural "# Risky items"
 msgstr[0] "# Risky item"
 msgstr[1] "# Risky items"
 
+msgid "{teamName} Totals"
+msgstr "{teamName} Totals"
+
 msgid "The password you entered is incorrect. Please try again."
 msgstr "The password you entered is incorrect. Please try again."
 
@@ -3986,6 +4149,9 @@ msgstr "Total Sets"
 
 msgid "Enable now"
 msgstr "Enable now"
+
+msgid "Both Teams Slay Baron"
+msgstr "Both Teams Slay Baron"
 
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
@@ -4064,6 +4230,9 @@ msgstr "Congratulations!"
 
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
+
+msgid "Most Kills"
+msgstr "Most Kills"
 
 msgid "Volume Traded"
 msgstr "Volume Traded"
@@ -4149,6 +4318,9 @@ msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only hav
 msgid "Post your reply"
 msgstr "Post your reply"
 
+msgid "L"
+msgstr "L"
+
 msgid "Add Token"
 msgstr "Add Token"
 
@@ -4164,6 +4336,9 @@ msgstr "Game Winner"
 
 msgid "View on explorer"
 msgstr "View on explorer"
+
+msgid "Halftime"
+msgstr "Halftime"
 
 msgid "Your Telegram account is now connected"
 msgstr "Your Telegram account is now connected"
@@ -4211,6 +4386,9 @@ msgstr "Failed to reconnect. Please scan another QR code to establish a new conn
 msgid "by {0}"
 msgstr "by {0}"
 
+msgid "2nd Half Corners"
+msgstr "2nd Half Corners"
+
 msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
 msgstr "Associated wallet may be outdated or inaccurate. Please verify before sending."
 
@@ -4238,6 +4416,9 @@ msgstr "The connection has timed out. Please try again later."
 
 msgid "Failed to disconnect"
 msgstr "Failed to disconnect"
+
+msgid "Odd/Even Total Rounds"
+msgstr "Odd/Even Total Rounds"
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr "Website should not exceed {maxWebsiteSize} characters"
@@ -4313,6 +4494,9 @@ msgstr "Failed to join #{0} on {sourceName}"
 
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "Unfollow {handleOrEnsOrAddress}"
+
+msgid "First Corner"
+msgstr "First Corner"
 
 msgid "{hours}h left"
 msgstr "{hours}h left"
@@ -4450,6 +4634,9 @@ msgstr "Recasted"
 
 msgid "Holders can not sell all of the token."
 msgstr "Holders can not sell all of the token."
+
+msgid "Sports Live"
+msgstr "Sports Live"
 
 msgid "Only followers of the author can comment on this post."
 msgstr ""
@@ -4740,6 +4927,9 @@ msgstr "Failed to add #{0} on {sourceName}"
 msgid "Language"
 msgstr "Language"
 
+msgid "Nashor Handicap"
+msgstr "Nashor Handicap"
+
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
 
@@ -4754,6 +4944,9 @@ msgstr "Session expired for {0} on {1}."
 msgid "What's happening..."
 msgstr "What's happening..."
 
+msgid "Coming Soon"
+msgstr "Coming Soon"
+
 msgid "FREE"
 msgstr "FREE"
 
@@ -4762,6 +4955,9 @@ msgstr "Snapshot removed from your Bookmarks"
 
 msgid "Minting Date"
 msgstr "Minting Date"
+
+msgid "1st Set Total Games"
+msgstr "1st Set Total Games"
 
 msgid "Reauthorize"
 msgstr "Reauthorize"
@@ -4778,8 +4974,14 @@ msgstr "24h"
 msgid "Unexpected step for setting password: {step}."
 msgstr "Unexpected step for setting password: {step}."
 
+msgid "Both Teams To Score - 2nd Half"
+msgstr "Both Teams To Score - 2nd Half"
+
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
+
+msgid "Both Teams Destroy Inhibitors"
+msgstr "Both Teams Destroy Inhibitors"
 
 msgid "Contract Address"
 msgstr "Contract Address"
@@ -4796,6 +4998,9 @@ msgstr "At most {0} recipients"
 
 msgid "General"
 msgstr "General"
+
+msgid "Round Total"
+msgstr "Round Total"
 
 msgid "Show more tokens"
 msgstr "Show more tokens"
@@ -4906,6 +5111,9 @@ msgstr "Encrypt your login session with a 6-digit password to enable one-click l
 msgid "No stealing attack involved."
 msgstr "No stealing attack involved."
 
+msgid "Any Player Penta Kill"
+msgstr "Any Player Penta Kill"
+
 msgid "Your account has not registered on Firefly"
 msgstr "Your account has not registered on Firefly"
 
@@ -4969,6 +5177,9 @@ msgstr "Confirm to disconnect this wallet from Firefly?"
 
 msgid "Message"
 msgstr "Message"
+
+msgid "Any Player Ultra Kill"
+msgstr "Any Player Ultra Kill"
 
 msgid "Token holder of any one below"
 msgstr "Token holder of any one below"
@@ -5193,6 +5404,9 @@ msgstr "Failed to create schedule post."
 msgid "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
 msgstr "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
 
+msgid "2nd Half Totals"
+msgstr "2nd Half Totals"
+
 msgid "Snapshot DAO"
 msgstr "Snapshot DAO"
 
@@ -5294,6 +5508,9 @@ msgstr "Final price"
 msgid "Quote"
 msgstr "Quote"
 
+msgid "Groups"
+msgstr "Groups"
+
 msgid "Would you like to restore it?"
 msgstr "Would you like to restore it?"
 
@@ -5338,9 +5555,6 @@ msgstr "View engagements"
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
 msgstr "Balance: {0} {1}"
-
-msgid "NRFI"
-msgstr "NRFI"
 
 msgid "Multi-device login"
 msgstr "Multi-device login"

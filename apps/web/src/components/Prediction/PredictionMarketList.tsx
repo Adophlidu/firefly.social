@@ -166,10 +166,20 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                             </div>
                         ) : null}
                         {actionEnabled && platform === PredictionPlatform.Polymarket ? (
-                            <PredictionMarketBuyButtons showPrice platform={platform} market={market} />
+                            <PredictionMarketBuyButtons
+                                showPrice
+                                platform={platform}
+                                market={market}
+                                source="Market Detail page"
+                            />
                         ) : null}
                         {!disabled && marketId === market.id ? (
-                            <PredictionSingleMarketTab key={market.id} market={market} platform={platform} />
+                            <PredictionSingleMarketTab
+                                key={market.id}
+                                market={market}
+                                platform={platform}
+                                eventSlug={eventSlug}
+                            />
                         ) : null}
                     </div>
                 );

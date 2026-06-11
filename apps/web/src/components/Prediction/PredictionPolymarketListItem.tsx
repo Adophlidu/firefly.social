@@ -26,7 +26,7 @@ export const PredictionPolymarketListItem = memo<Props>(function PredictionPolym
 
     if (model) {
         return (
-            <div className="pb-4">
+            <div className="pb-3">
                 <PredictionSportsCell
                     className={sportsCellClassName}
                     model={applySportsMarketPriceOverrides(model, liveMarketPrices)}
@@ -36,7 +36,7 @@ export const PredictionPolymarketListItem = memo<Props>(function PredictionPolym
     }
 
     return (
-        <div className="pb-4">
+        <div className="pb-3">
             <BetItem
                 event={formatPolymarketEventListData(data)}
                 openLinkInNewTab={false}

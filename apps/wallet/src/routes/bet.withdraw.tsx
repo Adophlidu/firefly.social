@@ -47,9 +47,15 @@ export const Route = createFileRoute('/bet/withdraw')({
 });
 
 function WithdrawPage() {
+    const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
+
     useEffect(() => {
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_WITHDRAW_FUNDS_OPEN_SUCCESS, {});
-    }, []);
+        if (account?.proxyAddress) {
+            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_WITHDRAW_FUNDS_OPEN_SUCCESS, {
+                proxy_wallet_address: account.proxyAddress,
+            });
+        }
+    }, [account?.proxyAddress]);
 
     return (
         <>
@@ -304,7 +310,19 @@ function WithdrawClient() {
                     onClick={() => {
                         if (isSubmittingRef.current || isPending) return;
                         isSubmittingRef.current = true;
-                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_WITHDRAW_FUNDS_CLICK, {});
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_WITHDRAW_FUNDS_CLICK, {
+                            chain_id: String(polygon.id),
+                            target_chain_id: String(targetToken?.chainId ?? ''),
+                            proxy_wallet_address: account.proxyAddress,
+                            firefly_wallet_address: receiverAddress ?? '',
+                            firefly_wallet_type: targetToken && isSolanaChain(targetToken.chainId) ? 'sol' : 'evm',
+                            token_type: targetToken?.id ? 'erc20_token' : 'native_token',
+                            token_address: targetToken?.id !== targetToken?.symbol ? targetToken?.id : undefined,
+                            token_symbol: targetToken?.symbol ?? '',
+                            token_name: targetToken?.name ?? '',
+                            token_amount: Number(value) || 0,
+                            amount_usd: Number(value) || 0,
+                        });
                         mutate();
                     }}
                 >

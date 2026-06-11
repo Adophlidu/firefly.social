@@ -1,12 +1,19 @@
 import { classNames } from '@dimensiondev/utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
 import { Fragment, memo, type PropsWithChildren } from 'react';
 
 import { EventResult } from '@/components/Prediction/PredictionSeries/EventResult.js';
 import { EventTime } from '@/components/Prediction/PredictionSeries/EventTime.js';
 import { Link } from '@/esm/Link.js';
 import { resolvePredictionEventUrl } from '@/helpers/resolvePredictionEventUrl.js';
+import { capturePolymarketEventCryptoRecurrenceClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface EventsPopoverProps {
     events: BetsEventDataForUI[];
@@ -52,7 +59,17 @@ export const EventsPopover = memo<PropsWithChildren<EventsPopoverProps>>(functio
                                             )}
                                             key={event.id}
                                             href={resolvePredictionEventUrl(event)}
-                                            onClick={() => close()}
+                                            onClick={() => {
+                                                if (event.slug) {
+                                                    const label = event.endDate
+                                                        ? dayjs(event.endDate)
+                                                              .tz('America/New_York')
+                                                              .format('h:mm A MMM D')
+                                                        : event.slug || event.id;
+                                                    capturePolymarketEventCryptoRecurrenceClick(event.slug, label);
+                                                }
+                                                close();
+                                            }}
                                         >
                                             {showResult ? (
                                                 <EventResult className="mr-1.5 shrink-0" event={event} />

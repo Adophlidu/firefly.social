@@ -52,9 +52,15 @@ export const Route = createFileRoute('/bet/_home')({
 });
 
 function PositionsTelemetry() {
+    const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
+
     useEffect(() => {
-        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITIONS_LIST_OPEN_SUCCESS, {});
-    }, []);
+        if (account?.proxyAddress) {
+            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITIONS_LIST_OPEN_SUCCESS, {
+                proxy_wallet_address: account.proxyAddress,
+            });
+        }
+    }, [account?.proxyAddress]);
     return null;
 }
 

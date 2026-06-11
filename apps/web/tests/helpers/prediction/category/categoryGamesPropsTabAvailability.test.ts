@@ -7,6 +7,7 @@ import {
 } from '@/helpers/prediction/category/categoryGamesPropsTabAvailability.js';
 import {
     PREDICTION_CATEGORY_GAMES_TAB,
+    PREDICTION_CATEGORY_GROUPS_TAB,
     PREDICTION_CATEGORY_PROPS_TAB,
 } from '@/helpers/prediction/category/constants.js';
 import type {
@@ -37,6 +38,7 @@ function emptySportsResponse(): PolymarketSportsListResponse {
         today: [],
         tomorrow: [],
         afterTomorrow: [],
+        afterThreeDays: [],
         closed: [],
         timezone: 'UTC',
     };
@@ -166,5 +168,48 @@ describe('resolveCategoryGamesPropsTabs', () => {
 
         expect(result.availableTabs).toEqual([]);
         expect(result.showTabSwitcher).toBe(false);
+    });
+
+    it('appends groups for FIFA categories without changing the default effective tab', () => {
+        const result = resolveCategoryGamesPropsTabs({
+            showGamesPropsTabs: true,
+            hasGames: true,
+            hasProps: true,
+            hasGroups: true,
+            tabFromUrl: PREDICTION_CATEGORY_GAMES_TAB,
+        });
+
+        expect(result.availableTabs).toEqual([
+            PREDICTION_CATEGORY_GAMES_TAB,
+            PREDICTION_CATEGORY_PROPS_TAB,
+            PREDICTION_CATEGORY_GROUPS_TAB,
+        ]);
+        expect(result.showTabSwitcher).toBe(true);
+        expect(result.effectiveTab).toBe(PREDICTION_CATEGORY_GAMES_TAB);
+    });
+
+    it('uses groups when the FIFA URL tab selects it', () => {
+        const result = resolveCategoryGamesPropsTabs({
+            showGamesPropsTabs: true,
+            hasGames: true,
+            hasProps: true,
+            hasGroups: true,
+            tabFromUrl: PREDICTION_CATEGORY_GROUPS_TAB,
+        });
+
+        expect(result.effectiveTab).toBe(PREDICTION_CATEGORY_GROUPS_TAB);
+    });
+
+    it('falls back from groups when the category is not FIFA', () => {
+        const result = resolveCategoryGamesPropsTabs({
+            showGamesPropsTabs: true,
+            hasGames: true,
+            hasProps: true,
+            hasGroups: false,
+            tabFromUrl: PREDICTION_CATEGORY_GROUPS_TAB,
+        });
+
+        expect(result.availableTabs).toEqual([PREDICTION_CATEGORY_GAMES_TAB, PREDICTION_CATEGORY_PROPS_TAB]);
+        expect(result.effectiveTab).toBe(PREDICTION_CATEGORY_GAMES_TAB);
     });
 });

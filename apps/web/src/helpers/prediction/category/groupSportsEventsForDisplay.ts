@@ -107,7 +107,7 @@ export function groupLiveSportsListForDisplay(response: PolymarketSportsListResp
     if (liveLeagueSections.length > 0) {
         timeSections.push({
             id: 'live',
-            title: t`Live`,
+            title: t`Sports Live`,
             sportSections: liveLeagueSections,
         });
     }
@@ -116,7 +116,7 @@ export function groupLiveSportsListForDisplay(response: PolymarketSportsListResp
     if (startingSoonLeagueSections.length > 0) {
         timeSections.push({
             id: 'starting-soon',
-            title: t`Starting Soon`,
+            title: t`Coming Soon`,
             sportSections: startingSoonLeagueSections,
         });
     }
@@ -196,7 +196,10 @@ export function groupSportsEventsForDisplay(response: PolymarketSportsListRespon
         });
     }
 
-    const displayableAfterTomorrow = filterDisplayableSportsEvents(response.afterTomorrow);
+    const displayableAfterTomorrow = filterDisplayableSportsEvents([
+        ...response.afterTomorrow,
+        ...(response.afterThreeDays ?? []),
+    ]);
     if (displayableAfterTomorrow.length > 0) {
         const groupedByDate = new Map<string, PolymarketSportsEvent[]>();
         for (const event of displayableAfterTomorrow) {

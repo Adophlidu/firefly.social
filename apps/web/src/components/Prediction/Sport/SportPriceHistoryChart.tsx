@@ -12,6 +12,7 @@ import { Loading } from '@/components/Loading.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { abbreviateOutcomeLabel } from '@/helpers/prediction/sportScoreUtils.js';
 import { formatPolymarketTimeRange } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import { getPriceHistory } from '@/providers/prediction/polymarket/getPriceHistory.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
@@ -144,7 +145,9 @@ function SportChartTooltip(outcomes: SportChartOutcome[]) {
                                             className="inline-flex h-7 max-w-[80vw] items-center gap-1 rounded px-2 text-sm text-white md:max-w-[400px]"
                                             style={{ backgroundColor: outcome.color }}
                                         >
-                                            <span className="min-w-0 flex-1 truncate">{outcome.label}</span>
+                                            <span className="min-w-0 flex-1 truncate">
+                                                {abbreviateOutcomeLabel(outcome.label)}
+                                            </span>
                                             <span className="shrink-0">
                                                 {toFixedTrimmed(+(data.value || 0) * 100, 2)}%
                                             </span>

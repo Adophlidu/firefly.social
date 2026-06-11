@@ -11,6 +11,7 @@ import { memo, useCallback } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { IconButton } from '@/components/IconButton.js';
 import { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
+import { abbreviateOutcomeLabel } from '@/helpers/prediction/sportScoreUtils.js';
 import type { BetsMarketDataForUI, MarketOrderBookSpread } from '@/types/prediction.js';
 
 interface OrderBookHeaderProps {
@@ -36,7 +37,8 @@ export const OrderBookHeader = memo<OrderBookHeaderProps>(function OrderBookHead
     onScrollToCenter,
     onOutcomeChange,
 }) {
-    const outcomeLabel = market.outcomes.find((x) => x.id === outcomeId)?.label;
+    const rawLabel = market.outcomes.find((x) => x.id === outcomeId)?.label;
+    const outcomeLabel = rawLabel ? abbreviateOutcomeLabel(rawLabel) : undefined;
 
     const onToggleOutcome = useCallback(() => {
         const currentIndex = market.outcomes.findIndex((x) => x.id === outcomeId);

@@ -19,8 +19,7 @@ export const ToggleChartTypeButtons = memo(function ToggleChartTypeButtons() {
         <div className="flex shrink-0 items-center gap-1">
             <ClickableButton
                 onClick={() => {
-                    if (eventSlug)
-                        capturePolymarketEventChartChange(eventSlug, 'chart_type', { chart_type: 'ratio_line' });
+                    if (eventSlug) capturePolymarketEventChartChange(eventSlug, 'change');
                     setChartType(PredictionChartType.RatioLine);
                 }}
                 className={classNames(
@@ -34,8 +33,7 @@ export const ToggleChartTypeButtons = memo(function ToggleChartTypeButtons() {
                 crypto={crypto}
                 selected={chartType === PredictionChartType.PriceLine}
                 onClick={() => {
-                    if (eventSlug)
-                        capturePolymarketEventChartChange(eventSlug, 'chart_type', { chart_type: 'price_line' });
+                    if (eventSlug) capturePolymarketEventChartChange(eventSlug, 'change');
                     setChartType(PredictionChartType.PriceLine);
                 }}
             />

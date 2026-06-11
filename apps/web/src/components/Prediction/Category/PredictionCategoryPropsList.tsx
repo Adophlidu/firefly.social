@@ -28,7 +28,7 @@ interface Props {
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
     return (
-        <div className="pb-4" key={data.id}>
+        <div className="pb-3" key={data.id}>
             <BetItem
                 event={formatPolymarketEventListData(data)}
                 openLinkInNewTab={false}
@@ -59,7 +59,7 @@ const SportsCategoryPropsListContent = memo<{ tagSlug: string }>(function Sports
     });
 
     return (
-        <div className="px-4 py-2">
+        <div className="px-4 pb-8 pt-0">
             <ListInPage
                 queryResult={queryResult}
                 source={Source.Prediction}
@@ -124,7 +124,7 @@ const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(functi
     );
 
     return (
-        <div className="px-4 py-2">
+        <div className="px-4 pb-8 pt-0">
             <ListInPage
                 queryResult={queryResult}
                 source={Source.Prediction}

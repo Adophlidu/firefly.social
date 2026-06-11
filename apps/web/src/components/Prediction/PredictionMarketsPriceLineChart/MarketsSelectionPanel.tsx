@@ -59,7 +59,7 @@ export const MarketsSelectionPanel = memo<MarketsSelectionPanelProps>(function M
                     }}
                     onClick={() => {
                         if (market.selected || selectedLength >= MAX_MARKETS_COUNT_SELECTABLE) return;
-                        if (eventSlug) capturePolymarketEventChartChange(eventSlug, 'market_filter');
+                        if (eventSlug) capturePolymarketEventChartChange(eventSlug, 'change');
                         toggleMarketSelection(market.id, true);
                     }}
                 >

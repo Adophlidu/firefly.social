@@ -68,7 +68,12 @@ export function Positions() {
                 NoResultsFallbackProps={{
                     className: 'px-4',
                     icon: <BetHistoryEmptyIcon className="h-[128px] w-[160px] text-third" />,
-                    message: <BetEmptyState message={<Trans>No positions found</Trans>} />,
+                    message: (
+                        <BetEmptyState
+                            message={<Trans>No positions found</Trans>}
+                            proxyAddress={account.proxyAddress}
+                        />
+                    ),
                 }}
             />
         </div>

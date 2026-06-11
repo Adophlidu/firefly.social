@@ -185,6 +185,18 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
             }
         }
 
+        // For esports fun markets (dota2_*, lol_*, cs2_*), the Gamma API returns all games'
+        // markets with the same sportsMarketType. The game number is only in the question field
+        // (e.g. "Game 1: Ends in Daytime?"). Prefix the type with game_N_ for tab routing.
+        const rawType = market.sportsMarketType?.toLowerCase() || '';
+        let effectiveType = rawType;
+        if (rawType && !rawType.startsWith('game_') && !rawType.startsWith('map_') && market.question) {
+            const gameNum = market.question.match(/^(?:Game|Map)\s*(\d+)\s*:/i)?.[1];
+            if (gameNum) {
+                effectiveType = `game_${gameNum}_${rawType}`;
+            }
+        }
+
         return {
             id: market.id,
             slug: market.slug,
@@ -209,7 +221,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
             bestBid: market.bestBid,
             groupItemThreshold: market.groupItemThreshold,
             groupItemTitle: market.groupItemTitle,
-            sportsMarketType: market.sportsMarketType,
+            sportsMarketType: effectiveType,
             line: market.line,
             closedTime: market.closedTime
                 ? new Date(market.closedTime.replace(' ', 'T').replace(/\+\d+$/, '') + 'Z').getTime()
@@ -275,10 +287,26 @@ function formatSportGroupedMarketItem(
     item: PolymarketSportGroupedMarketItem,
     sportsMarketType?: string,
 ): BetsMarketDataForUI {
-    const outcomeLabels = item.outcomes || [];
-    const outcomeIds = item.clobTokenIds || [];
-    const prices = item.outcomePrices || [];
+    // These fields may be JSON strings at runtime despite being typed as string[]
+    const rawOutcomeLabels = Array.isArray(item.outcomes) ? item.outcomes : parseJson<string[]>(item.outcomes) || [];
+    const outcomeIds = Array.isArray(item.clobTokenIds)
+        ? item.clobTokenIds
+        : parseJson<string[]>(item.clobTokenIds) || [];
+    const prices = Array.isArray(item.outcomePrices)
+        ? item.outcomePrices
+        : parseJson<string[]>(item.outcomePrices) || [];
     const isResolved = item.umaResolutionStatus === BetsMarketResolveStatus.Resolved;
+    // Soccer player props return "Yes"/"No" from the sport detail API,
+    // but should display as Over/Under to match Polymarket's UI.
+    // Map to bare "Over"/"Under" — SportBuyButtons.getOutcomeMeta appends the line value.
+    const isSoccerPlayerProp = sportsMarketType?.startsWith('soccer_player_');
+    const outcomeLabels = isSoccerPlayerProp
+        ? rawOutcomeLabels.map((label) => {
+              if (label === 'Yes') return 'Over';
+              if (label === 'No') return 'Under';
+              return label;
+          })
+        : rawOutcomeLabels;
     const outcomes = outcomeLabels.map((label, i) => ({
         id: outcomeIds[i] || '',
         label,
@@ -304,6 +332,7 @@ function formatSportGroupedMarketItem(
         outcomes,
         sportsMarketType,
         line: item.line,
+        groupItemTitle: item.groupItemTitle || undefined,
         groupItemThreshold:
             item.groupItemThreshold !== null && item.groupItemThreshold !== undefined
                 ? `${item.groupItemThreshold}`
@@ -311,29 +340,225 @@ function formatSportGroupedMarketItem(
     };
 }
 
+/**
+ * Detect the actual soccer player prop stat type from groupItemTitle or slug.
+ * The backend returns all player props (goals, shots, assists) under soccer_player_goals,
+ * but the actual stat type can be inferred from the title or slug.
+ * Returns null if the market is genuinely a goals prop (keep original type).
+ */
+function resolveSoccerPlayerPropType(item: PolymarketSportGroupedMarketItem): string | null {
+    const title = (item.groupItemTitle || '').toLowerCase();
+    const slug = (item.slug || '').toLowerCase();
+
+    if (title.includes('shot') || slug.includes('-shots-')) return 'soccer_player_shots';
+    if (title.includes('assist') || slug.includes('-assists-')) return 'soccer_player_assists';
+
+    return null;
+}
+
+/**
+ * Soccer-specific merge: the sport detail API's groupedMarkets are the authoritative
+ * source. Keep only the moneyline from the Gamma-formatted event (already 3-way merged),
+ * and replace all other markets with the groupedMarkets items.
+ */
+function mergeSoccerGroupedMarkets(event: BetsEventDataForUI, sportDetail: PolymarketSportDetail): BetsEventDataForUI {
+    // Keep the already-merged 3-way moneyline from Gamma
+    const moneylineMarkets = event.markets.filter((m) => m.sportsMarketType?.toLowerCase() === 'moneyline');
+
+    // Flatten all non-moneyline grouped markets, using each group's sportsMarketType
+    const groupedMarkets: BetsMarketDataForUI[] = [];
+    for (const group of sportDetail.groupedMarkets || []) {
+        const rawType = group.sportsMarketType;
+        if (!rawType) continue;
+        const marketType = rawType.toLowerCase();
+        if (marketType === 'moneyline') continue;
+
+        for (const item of group.markets || []) {
+            let effectiveType = marketType;
+            if (marketType === 'soccer_player_goals') {
+                const detectedType = resolveSoccerPlayerPropType(item);
+                if (detectedType) effectiveType = detectedType;
+            }
+            groupedMarkets.push(formatSportGroupedMarketItem(item, effectiveType));
+        }
+    }
+
+    return {
+        ...event,
+        markets: sortMarkets([...moneylineMarkets, ...groupedMarkets]),
+    };
+}
+
 export function mergeSportGroupedMarkets(
     event: BetsEventDataForUI,
     sportDetail: PolymarketSportDetail,
 ): BetsEventDataForUI {
+    // Soccer: sport detail API returns different IDs than Gamma API,
+    // so the esports merge logic would duplicate markets. Use soccer-specific path.
+    const isSoccerEvent = (sportDetail.groupedMarkets || []).some((g) =>
+        g.sportsMarketType?.toLowerCase().startsWith('soccer_'),
+    );
+    if (isSoccerEvent) {
+        return mergeSoccerGroupedMarkets(event, sportDetail);
+    }
+
+    // Build slug -> game number from eventSlugs (index 0 = series, 1+ = games)
+    const slugToGameNumber = new Map<string, number>();
+    if (sportDetail.eventSlugs) {
+        for (let i = 1; i < sportDetail.eventSlugs.length; i += 1) {
+            slugToGameNumber.set(sportDetail.eventSlugs[i], i);
+        }
+    }
+
+    // Series-level types that should NOT be game-prefixed
+    // These appear in the default "Series Lines" / "Game Lines" tab
+    const SERIES_TYPES = new Set([
+        // Standard series types
+        'total_games',
+        'total_maps',
+        'total_sets',
+        'game_winner',
+        'game_handicap',
+        'map_winner',
+        'map_handicap',
+        'totals',
+        'spreads',
+        // Per-game winner displayed as a single section with line switcher in Series Lines tab
+        'child_moneyline',
+        // Esports series-level handicap types (_match = series aggregate)
+        'round_handicap_match',
+        'kill_handicap_match',
+        'tower_handicap_match',
+        'drake_handicap_match',
+        'nashor_handicap_match',
+        'inhibitor_handicap_match',
+        'barrack_handicap_match',
+        // Esports series-level totals
+        'round_over_under_match',
+        // Esports series-level "most" types
+        'kill_most_2_way_match',
+        'tower_most_2_way_match',
+        'drake_most_2_way_match',
+        'nashor_most_2_way_match',
+        'inhibitor_most_2_way_match',
+        'barrack_most_2_way_match',
+        // Per-game CS2 types that appear in Series Lines tab (already contain game number)
+        'round_handicap_game_1',
+        'round_handicap_game_2',
+        'round_handicap_game_3',
+        'round_over_under_game_1',
+        'round_over_under_game_2',
+        'round_over_under_game_3',
+        // Tennis set-specific types (should not get game_ prefix)
+        'tennis_set_winner',
+        'tennis_set_games_totals',
+        // Soccer market types (sub-category slugs represent market categories, not games)
+        'soccer_exact_score',
+        'soccer_halftime_result',
+        'both_teams_to_score',
+        'both_teams_to_score_first_half',
+        'soccer_team_totals',
+        'soccer_first_half_team_totals',
+        'first_half_totals',
+        // Soccer-prefixed variants (future-proofing)
+        'soccer_moneyline',
+        'soccer_spreads',
+        'soccer_totals',
+        'soccer_both_teams_to_score',
+    ]);
+
+    // Helper: compute game-prefixed type for a market item
+    function getGamePrefixedType(type: string, eventSlug?: string): string {
+        if (SERIES_TYPES.has(type) || /^game_\d+_/.test(type) || /^map_\d+_/.test(type)) {
+            return type;
+        }
+        const gameNumber = eventSlug ? slugToGameNumber.get(eventSlug) : undefined;
+        return gameNumber ? `game_${gameNumber}_${type}` : type;
+    }
+
+    // Phase 1: Build a map of market ID -> game-prefixed type from sport detail data.
+    // This is needed because existing event markets (from Gamma API) don't have game context.
+    const idToGameType = new Map<string, string>();
+    // Also track line overrides: child_moneyline markets need game number as line for the switcher.
+    const idToGameLine = new Map<string, number>();
+
+    // Helper: resolve game-prefixed type, falling back to groupItemTitle when eventSlug is missing.
+    function resolveGameType(type: string, item: PolymarketSportGroupedMarketItem): string {
+        // Series-level types keep their original type (no game prefix)
+        if (SERIES_TYPES.has(type)) return type;
+        // Try eventSlug first (the primary mechanism)
+        const prefixed = getGamePrefixedType(type, item.eventSlug);
+        if (prefixed !== type) return prefixed;
+        // Fallback: extract game number from groupItemTitle (e.g. "Game 1 Ends in Daytime" → 1)
+        // This handles cases where the sport detail API omits eventSlug on items.
+        if (item.groupItemTitle) {
+            const gameNum = item.groupItemTitle.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
+            if (gameNum) return `game_${gameNum}_${type}`;
+        }
+        return type;
+    }
+
+    for (const group of sportDetail.groupedMarkets || []) {
+        const rawType = group.sportsMarketType;
+        if (!rawType || rawType.toLowerCase() === 'moneyline') continue;
+        const marketType = rawType.toLowerCase();
+
+        for (const item of group.markets || []) {
+            if (!item.id) continue;
+            const prefixed = resolveGameType(marketType, item);
+            if (prefixed !== marketType) {
+                idToGameType.set(item.id, prefixed);
+            }
+            // For child_moneyline, extract game number from groupItemTitle (e.g. "Game 1" → 1)
+            // so the line switcher shows "1", "2" instead of "0".
+            if (marketType === 'child_moneyline' && item.groupItemTitle) {
+                const gameNum = item.groupItemTitle.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
+                if (gameNum) {
+                    idToGameLine.set(item.id, Number(gameNum));
+                }
+            }
+        }
+    }
+
+    // Phase 2: Update existing markets with game-prefixed types and line overrides
+    let hasUpdates = false;
+    const updatedMarkets = event.markets.map((m) => {
+        const gameType = m.id ? idToGameType.get(m.id) : undefined;
+        const gameLine = m.id ? idToGameLine.get(m.id) : undefined;
+        if (gameType || gameLine !== undefined) {
+            hasUpdates = true;
+            return {
+                ...m,
+                ...(gameType ? { sportsMarketType: gameType } : {}),
+                ...(gameLine !== undefined ? { line: gameLine } : {}),
+            };
+        }
+        return m;
+    });
+
+    // Phase 3: Add new markets from sport detail that don't exist in the event yet
     const existingIds = new Set(event.markets.map((m) => m.id));
     const additionalMarkets: BetsMarketDataForUI[] = [];
 
     for (const group of sportDetail.groupedMarkets || []) {
-        const marketType = group.sportsMarketType;
-        if (marketType?.toLowerCase() === 'moneyline') continue;
+        const rawType = group.sportsMarketType;
+        if (!rawType || rawType.toLowerCase() === 'moneyline') continue;
+        const marketType = rawType.toLowerCase();
 
         for (const item of group.markets || []) {
             if (!item.id || existingIds.has(item.id)) continue;
-            additionalMarkets.push(formatSportGroupedMarketItem(item, marketType));
+
+            const effectiveType = resolveGameType(marketType, item);
+            additionalMarkets.push(formatSportGroupedMarketItem(item, effectiveType));
             existingIds.add(item.id);
         }
     }
 
-    if (!additionalMarkets.length) return event;
+    if (!hasUpdates && !additionalMarkets.length) return event;
 
     return {
         ...event,
-        markets: sortMarkets([...event.markets, ...additionalMarkets]),
+        markets: sortMarkets([...updatedMarkets, ...additionalMarkets]),
     };
 }
 

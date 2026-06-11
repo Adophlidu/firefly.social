@@ -40,6 +40,7 @@ export function SellMarketForm({
     loading,
     onSubmit,
     submitDisabled,
+    telemetryContext,
 }: {
     outcome: string;
     tokenId: string;
@@ -47,6 +48,13 @@ export function SellMarketForm({
     loading?: boolean;
     onSubmit: (args: SubmitMarketArgs) => Promise<unknown> | void;
     submitDisabled?: boolean;
+    telemetryContext?: {
+        event_slug: string;
+        event_title: string;
+        market_slug: string;
+        market_title: string;
+        market_group_item_name?: string;
+    };
 }) {
     const form = useForm<{ shares: string }>({
         mode: 'onChange',
@@ -173,7 +181,15 @@ export function SellMarketForm({
                     loading={loading}
                     onClick={() => {
                         if (submitDisabled) return;
-                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {});
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {
+                            ...(telemetryContext || {}),
+                            market_outcome: outcome,
+                            proxy_wallet_address: account.proxyAddress,
+                            order_type: 'market',
+                            shares: sharesBN.toString(),
+                            avg_price: String(toWin?.avg_price ?? ''),
+                            amount_usd: String(toWin?.win_amount ?? ''),
+                        });
                         return onSubmit({
                             shares: sharesBN.toNumber(),
                             fullSell:
@@ -197,6 +213,7 @@ export function SellLimitForm({
     loading,
     onSubmit,
     submitDisabled,
+    telemetryContext,
 }: {
     outcome: string;
     tokenId: string;
@@ -206,6 +223,13 @@ export function SellLimitForm({
     loading?: boolean;
     onSubmit: (args: SubmitLimitArgs) => Promise<unknown> | void;
     submitDisabled?: boolean;
+    telemetryContext?: {
+        event_slug: string;
+        event_title: string;
+        market_slug: string;
+        market_title: string;
+        market_group_item_name?: string;
+    };
 }) {
     const form = useForm<{ shares: string; limitPriceCents: string }>({
         defaultValues: { limitPriceCents: '', shares: '' },
@@ -361,7 +385,15 @@ export function SellLimitForm({
                     loading={loading}
                     onClick={() => {
                         if (submitDisabled) return;
-                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {});
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {
+                            ...(telemetryContext || {}),
+                            market_outcome: outcome,
+                            proxy_wallet_address: account.proxyAddress,
+                            order_type: 'limit',
+                            shares: sharesBN.toString(),
+                            avg_price: limitPriceDollars.isFinite() ? limitPriceDollars.toString() : '',
+                            amount_usd: String(toWin?.win_amount ?? ''),
+                        });
                         return onSubmit({ shares: sharesBN.toNumber(), limitPrice: limitPriceDollars.toNumber() });
                     }}
                 >

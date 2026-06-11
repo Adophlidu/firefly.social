@@ -26,7 +26,16 @@ function partitionByLeadingSlugs(
 }
 
 export function partitionPrimaryCategorySlugs(slugs: PolymarketEventSlugListData[]): PartitionedCategorySlugs {
-    return partitionByLeadingSlugs(slugs, LEADING_PRIMARY_SLUGS);
+    const result = partitionByLeadingSlugs(slugs, LEADING_PRIMARY_SLUGS);
+    const fifaSlug = slugs.find((x) => x.slug === 'sports')?.sub_slug?.find((x) => x.slug === 'fifwc');
+    if (fifaSlug) {
+        result.leading.splice(1, 0, {
+            ...fifaSlug,
+            label: 'FIFA',
+        });
+    }
+
+    return result;
 }
 
 export function partitionSecondaryCategorySlugs(slugs: PolymarketEventSlugListData[]): PartitionedCategorySlugs {
