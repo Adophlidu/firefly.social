@@ -11,6 +11,7 @@ import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionPolymarketListItem } from '@/components/Prediction/PredictionPolymarketListItem.js';
 import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
+import { FIFA_EXCLUDE_TAG_ID } from '@/helpers/prediction/category/isFifaCategoryContext.js';
 import {
     getCategoryPropsTagSlug,
     getPropsListSlugParams,
@@ -45,6 +46,7 @@ const SportsCategoryPropsListContent = memo<{ tagSlug: string }>(function Sports
             getGammaEvents({
                 tag_slug: tagSlug,
                 offset: pageParam,
+                exclude_tag_id: FIFA_EXCLUDE_TAG_ID,
             }),
         initialPageParam: 0,
         getNextPageParam: (lastPage, _allPages, lastPageParam) => {

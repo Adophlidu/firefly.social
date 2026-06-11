@@ -10,7 +10,7 @@ import {
     type ResolveCategoryGamesPropsTabsResult,
 } from '@/helpers/prediction/category/categoryGamesPropsTabAvailability.js';
 import type { PredictionCategoryTab } from '@/helpers/prediction/category/constants.js';
-import { isFifaCategoryContext } from '@/helpers/prediction/category/isFifaCategoryContext.js';
+import { FIFA_EXCLUDE_TAG_ID, isFifaCategoryContext } from '@/helpers/prediction/category/isFifaCategoryContext.js';
 import {
     getCategoryPropsTagSlug,
     parseSportsListRequest,
@@ -61,6 +61,7 @@ export function useCategoryGamesPropsAvailability({
                 tag_slug: propsTagSlug!,
                 limit: 1,
                 offset: 0,
+                exclude_tag_id: FIFA_EXCLUDE_TAG_ID,
             }),
         enabled: !!propsTagSlug,
         select: categoryHasPropsDisplayContent,

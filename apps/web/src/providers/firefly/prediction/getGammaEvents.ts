@@ -16,6 +16,7 @@ export interface GetGammaEventsOptions {
     archived?: boolean;
     order?: string;
     ascending?: boolean;
+    exclude_tag_id?: string;
 }
 
 export async function getGammaEvents({
@@ -27,6 +28,7 @@ export async function getGammaEvents({
     archived = false,
     order = 'volume',
     ascending = false,
+    exclude_tag_id,
 }: GetGammaEventsOptions): Promise<PolymarketEventListData[]> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/gamma/events', {
         tag_slug,
@@ -37,6 +39,7 @@ export async function getGammaEvents({
         archived,
         order,
         ascending,
+        ...(exclude_tag_id ? { exclude_tag_id } : {}),
     });
     const response = await fetchJson<Response<PolymarketEventListData[]>>(url, {
         method: 'GET',
