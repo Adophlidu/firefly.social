@@ -6,7 +6,7 @@ import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useConnection, useConnections } from 'wagmi';
 
@@ -14,7 +14,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
-import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
+import { closeWalletConnectModal, openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { type AppKitAccount, useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
@@ -86,6 +86,8 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
     const walletAccounts = useAppKitAccounts();
     const appkitAccounts = walletAccounts.filter((x) => x.source === ConnectionSource.Appkit);
     const currentWagmiConnection = useConnection();
+    const accountsSignature = appkitAccounts.map((a) => a.address).join(',');
+    const pendingOpenSnapshotRef = useRef<string | null>(null);
 
     // Also show wagmi auto-connected wallets (e.g. OKX browser extension) that
     // AppKit may not know about due to a race condition during initialization.
@@ -145,8 +147,18 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
 
     const [{ loading }, openWallets] = useAsyncFn(async () => {
         appkit.updateRemoteFeatures({ multiWallet: true });
+        pendingOpenSnapshotRef.current = accountsSignature;
         openWalletConnectModal();
-    }, []);
+    }, [accountsSignature]);
+
+    // WalletConnect modal doesn't self-close; close it once a new account connects.
+    useEffect(() => {
+        if (pendingOpenSnapshotRef.current === null) return;
+        if (accountsSignature !== pendingOpenSnapshotRef.current) {
+            pendingOpenSnapshotRef.current = null;
+            closeWalletConnectModal();
+        }
+    }, [accountsSignature]);
 
     return (
         <div>

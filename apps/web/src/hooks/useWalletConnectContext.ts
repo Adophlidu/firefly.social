@@ -31,7 +31,7 @@ async function setupApi() {
     ]);
 }
 
-function useWalletConnectContext(initialState?: WalletConnectContext): WalletConnectContext {
+function useWalletConnectContext(): WalletConnectContext {
     const [origin, setOrigin] = useState<ClickOrigin>(ClickOrigin.Others);
     const [customTitle, setCustomTitle] = useState<string | null>(null);
 

@@ -2,7 +2,7 @@ import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/
 import type { ChainId } from '@dimensiondev/web3/chains';
 import { rightShift } from '@dimensiondev/web3/numbers';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
-import { type Address, erc20Abi, type Hex } from 'viem';
+import { type Address, erc20Abi, type Hex, toHex } from 'viem';
 import { readContract, sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -19,7 +19,12 @@ interface ExecuteEvmApprovalParams {
     chainId: number;
     walletAddress: string;
     routerAddress: string;
-    connector: (typeof config.connectors)[number];
+    connector?: (typeof config.connectors)[number];
+    requestHostEvmRpc?: (args: {
+        method: string;
+        params?: unknown[] | object;
+        walletAddress?: string;
+    }) => Promise<unknown>;
     isCrossChain?: boolean;
     toChainId?: number;
     toTokenAddress?: string;
@@ -36,6 +41,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
         walletAddress,
         routerAddress,
         connector,
+        requestHostEvmRpc,
         isCrossChain,
         toChainId,
         toTokenAddress,
@@ -122,7 +128,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
     let approveHash: Hex;
     if (freeGasResult.type === 'free-gas') {
         approveHash = freeGasResult.hash as Hex;
-    } else {
+    } else if (connector) {
         approveHash = await sendTransaction(config, {
             chainId: chainId as ChainId,
             connector,
@@ -133,6 +139,24 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
             gas: approveGasLimit,
             ...(approveTxData.gasPrice ? { gasPrice: BigInt(approveTxData.gasPrice) } : {}),
         });
+    } else if (requestHostEvmRpc) {
+        approveHash = (await requestHostEvmRpc({
+            method: 'eth_sendTransaction',
+            walletAddress,
+            params: [
+                {
+                    from: walletAddress,
+                    to: approveTo,
+                    data: approveData,
+                    value: toHex(approveValue),
+                    gas: toHex(approveGasLimit),
+                    chainId: toHex(chainId),
+                    ...(approveTxData.gasPrice ? { gasPrice: toHex(BigInt(approveTxData.gasPrice)) } : {}),
+                },
+            ],
+        })) as Hex;
+    } else {
+        throw new Error('Selected EVM wallet is not available for approval signing');
     }
 
     await waitForEthereumTransaction(config, chainId, approveHash);

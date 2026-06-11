@@ -9,8 +9,11 @@ import {
 } from '@dimensiondev/iframe-bridge';
 import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
+import { type Address, type Hex, isHex, toHex } from 'viem';
+import { getWalletClient } from 'wagmi/actions';
 
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.js';
@@ -36,6 +39,55 @@ import type { Chars } from '@/types/chars.js';
 
 interface FollowAccountsData {
     accounts: Array<{ source: SocialSource; handle: string; profileId: string }>;
+}
+
+async function resolveHostEvmConnector(walletAddress?: string) {
+    if (!walletAddress) return undefined;
+
+    for (const connector of wagmiConfig.connectors) {
+        const accounts = await connector.getAccounts().catch(() => []);
+        if (accounts.some((account) => account.toLowerCase() === walletAddress.toLowerCase())) {
+            return connector;
+        }
+    }
+
+    return undefined;
+}
+
+async function handleHostEvmRpc(args: IframeBridgeRequestArguments[IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]) {
+    const connector = await resolveHostEvmConnector(args.walletAddress);
+    if (args.walletAddress && !connector) {
+        throw new Error('Selected host EVM wallet is not available for signing');
+    }
+
+    switch (args.method) {
+        case 'wallet_switchEthereumChain': {
+            if (
+                Array.isArray(args.params) &&
+                args.params[0] &&
+                'chainId' in args.params[0] &&
+                isHex(args.params[0].chainId)
+            ) {
+                const chainId = Number.parseInt(args.params[0].chainId, 16);
+                if (!connector?.switchChain)
+                    throw new Error('Selected host EVM wallet does not support chain switching');
+                await connector.switchChain({ chainId });
+            }
+            return null;
+        }
+        case 'eth_chainId': {
+            const chainId = connector ? await connector.getChainId() : wagmiConfig.state.chainId;
+            return toHex(chainId);
+        }
+        default: {
+            const walletClient = await getWalletClient(wagmiConfig, {
+                account: args.walletAddress as Address | undefined,
+                connector,
+            });
+            const { requestOrigin: _requestOrigin, walletAddress: _walletAddress, ...rpcPayload } = args;
+            return walletClient.request(rpcPayload as any) as Promise<Hex>;
+        }
+    }
 }
 
 const FIREFLY_MENTION_IN_TEXT_RE = /@firefly(?![A-Za-z0-9_./-])/gi;
@@ -181,8 +233,8 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         [IframeBridgeMethod.FIREFLY_WALLET_CLOSE]: async () => {
             useGlobalState.getState().updateFireflyWalletIsOpen(false);
         },
-        [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: async () => {
-            throw new NotImplementedError();
+        [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: async (args) => {
+            return handleHostEvmRpc(args);
         },
         [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: () => {
             throw new NotImplementedError();

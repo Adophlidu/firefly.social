@@ -119,6 +119,8 @@ export interface IframeBridgeRequestArguments {
     [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: {
         method: string;
         params?: unknown[] | object;
+        /** Wallet address to use when the wallet iframe asks the host app to sign with an external wallet. */
+        walletAddress?: string;
         /** Hostname for embedded-wallet approval UI (e.g. window.location.hostname) */
         requestOrigin?: string;
     };

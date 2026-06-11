@@ -18,6 +18,7 @@ import type { Address } from 'viem';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
+import { useAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
@@ -32,9 +33,11 @@ export function FireflyWallet() {
     const isOpen = useGlobalState.use.fireflyWalletIsOpen();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
     const pathname = usePathname();
-    const { isAuthorized, setWallet } = useFireflyWalletStore();
+    const isAuthorized = useFireflyWalletStore((state) => state.isAuthorized);
+    const setWallet = useFireflyWalletStore((state) => state.setWallet);
     const { updateFireflyWalletIsOpen } = useGlobalState();
     const allConnectionsQuery = useAllConnections();
+    const appKitAccounts = useAppKitAccounts();
 
     const handleRefresh = useCallback(() => {
         const iframe = document.getElementById(FIREFLY_WALLET_IFRAME_ID) as HTMLIFrameElement | null;
@@ -49,22 +52,50 @@ export function FireflyWallet() {
         return connected.filter((connection) => connection.source === WalletSource.Privy);
     }, [allConnectionsQuery.data]);
 
-    useEffect(() => {
-        if (!isAuthorized) return;
+    const walletAccounts = useMemo(() => {
+        const ethereum = new Map<string, Address>();
+        const solana = new Map<string, string>();
+
+        for (const account of appKitAccounts) {
+            if (!account.address) continue;
+
+            switch (account.network) {
+                case NetworkType.Ethereum:
+                    ethereum.set(account.address.toLowerCase(), account.address as Address);
+                    break;
+                case NetworkType.Solana:
+                    solana.set(account.address, account.address);
+                    break;
+                default:
+                    safeUnreachable(account.network);
+            }
+        }
 
         for (const connection of privyConnections) {
             switch (connection.platform) {
                 case 'eth':
-                    setWallet(NetworkType.Ethereum, [{ address: connection.address as Address }]);
+                    ethereum.set(connection.address.toLowerCase(), connection.address as Address);
                     break;
                 case 'solana':
-                    setWallet(NetworkType.Solana, [{ address: connection.address }]);
+                    solana.set(connection.address, connection.address);
                     break;
                 default:
                     safeUnreachable(connection.platform);
             }
         }
-    }, [privyConnections, isAuthorized, setWallet]);
+
+        return {
+            [NetworkType.Ethereum]: Array.from(ethereum.values()).map((address) => ({ address })),
+            [NetworkType.Solana]: Array.from(solana.values()).map((address) => ({ address })),
+        };
+    }, [appKitAccounts, privyConnections]);
+
+    useEffect(() => {
+        if (!isAuthorized) return;
+
+        setWallet(NetworkType.Ethereum, walletAccounts[NetworkType.Ethereum]);
+        setWallet(NetworkType.Solana, walletAccounts[NetworkType.Solana]);
+    }, [walletAccounts, isAuthorized, setWallet]);
 
     const isHidePath = pathname.startsWith(PageRoute.Settings);
 

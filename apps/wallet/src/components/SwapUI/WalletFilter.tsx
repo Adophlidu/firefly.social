@@ -7,6 +7,7 @@ import { first } from 'lodash-es';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useConnections } from 'wagmi';
 
+import { walletConnectIcon } from '@/constants/reown.js';
 import { useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 
@@ -27,6 +28,8 @@ interface WalletFilterProps {
     domainNameMap?: Map<string, string>;
     accessPath: SwapAccessPath;
     externalEvmAddress?: string | null;
+    externalEvmIcon?: string | null;
+    externalEvmName?: string | null;
     externalSolanaAddress?: string | null;
 }
 
@@ -39,6 +42,8 @@ export const WalletFilter = memo(function WalletFilter({
     domainNameMap,
     accessPath,
     externalEvmAddress,
+    externalEvmIcon,
+    externalEvmName,
     externalSolanaAddress,
 }: WalletFilterProps) {
     const ref = useRef<HTMLDivElement>(null);
@@ -122,6 +127,8 @@ export const WalletFilter = memo(function WalletFilter({
                     address: externalEvmAddress,
                     isEmbedded: false,
                     chainType: 'ethereum' as const,
+                    walletClientType: externalEvmName ?? 'WalletConnect',
+                    icon: externalEvmIcon ?? undefined,
                 });
             }
         }
@@ -132,6 +139,8 @@ export const WalletFilter = memo(function WalletFilter({
                     address: externalSolanaAddress,
                     isEmbedded: false,
                     chainType: 'solana' as const,
+                    walletClientType: 'WalletConnect',
+                    icon: walletConnectIcon,
                 });
             }
         }
@@ -143,7 +152,16 @@ export const WalletFilter = memo(function WalletFilter({
             ...externalSolanaItems,
             ...externalWalletItems,
         ];
-    }, [connections, solanaAddress, appKitSolanaWallets, isInternalMode, externalEvmAddress, externalSolanaAddress]);
+    }, [
+        connections,
+        solanaAddress,
+        appKitSolanaWallets,
+        isInternalMode,
+        externalEvmAddress,
+        externalEvmIcon,
+        externalEvmName,
+        externalSolanaAddress,
+    ]);
 
     const handleSelect = useCallback(
         (address: string) => {

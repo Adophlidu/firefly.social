@@ -10,6 +10,8 @@ export const accessPathAtom = atom<SwapAccessPath>(SwapAccessPath.WalletGUI); //
 // External wallet addresses passed from mask.social (for wallet filter default selection)
 export const externalEvmAddressAtom = atom<string | null>(null);
 export const externalSolanaAddressAtom = atom<string | null>(null);
+export const externalEvmIconAtom = atom<string | null>(null);
+export const externalEvmNameAtom = atom<string | null>(null);
 
 // Selected wallet address overrides (for wallet filter)
 export const selectedPayWalletAtom = atom<string | null>(null);
@@ -20,6 +22,8 @@ export const resetSwapWalletContext = atom(null, (_, set) => {
     set(accessPathAtom, SwapAccessPath.WalletGUI);
     set(externalEvmAddressAtom, null);
     set(externalSolanaAddressAtom, null);
+    set(externalEvmIconAtom, null);
+    set(externalEvmNameAtom, null);
     set(selectedPayWalletAtom, null);
     set(selectedReceiveWalletAtom, null);
 });

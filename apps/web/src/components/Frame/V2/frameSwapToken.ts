@@ -2,13 +2,24 @@ import { SwapAccessPath } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import type { MiniAppHost } from '@farcaster/miniapp-host';
-import { getAccount } from '@wagmi/core';
+import type { Connector } from '@wagmi/core';
+import { getConnection } from '@wagmi/core';
+import type { Address } from 'viem';
+import { mainnet } from 'viem/chains';
 
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
+import { fetchEnsName } from '@/hooks/useEnsName.js';
 import { logger } from '@/libs/Logger.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+
+function resolveExternalEvmIcon(connector: Connector | undefined) {
+    if (!connector) return undefined;
+    if (connector.id.toLowerCase() === walletConnectId.toLowerCase()) return walletConnectIcon;
+    return connector.icon;
+}
 
 export const frameSwapToken = async function frameSwapToken(options) {
     const buyToken = options.buyToken ? parseCAIP19(options.buyToken) : undefined;
@@ -27,7 +38,11 @@ export const frameSwapToken = async function frameSwapToken(options) {
     const sellTokenAddress = sellToken?.reference;
 
     // Get external wallet addresses
-    const evmAccount = getAccount(wagmiConfig);
+    const evmAccount = getConnection(wagmiConfig);
+    const evmEnsName = evmAccount.address
+        ? await fetchEnsName({ address: evmAccount.address as Address, chainId: mainnet.id }).catch(() => null)
+        : null;
+    const evmIcon = resolveExternalEvmIcon(evmAccount.connector);
     let solanaAddress: string | undefined;
     try {
         solanaAddress = await SolanaNetwork.getAccount();
@@ -40,7 +55,11 @@ export const frameSwapToken = async function frameSwapToken(options) {
     params.set('chain', chainId.toString());
     if (sellTokenAddress) params.set('from', sellTokenAddress);
     if (buyTokenAddress) params.set('to', buyTokenAddress);
-    if (evmAccount.address) params.set('externalEvm', evmAccount.address);
+    if (evmAccount.address) {
+        params.set('externalEvm', evmAccount.address);
+        if (evmEnsName) params.set('externalEvmName', evmEnsName);
+        if (evmIcon) params.set('externalEvmIcon', evmIcon);
+    }
     if (solanaAddress) params.set('externalSolana', solanaAddress);
 
     const swapPath = `/swap?${params.toString()}`;

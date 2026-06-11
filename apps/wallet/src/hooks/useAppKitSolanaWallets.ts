@@ -8,6 +8,8 @@ import {
 } from '@reown/appkit-controllers';
 import { useEffect, useMemo, useState } from 'react';
 
+import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
+
 export interface AppKitSolanaWallet {
     address: string;
     name: string;
@@ -44,11 +46,14 @@ export function useAppKitSolanaWallets(filterPrivy = true): AppKitSolanaWallet[]
             .flatMap((conn) => {
                 const connector = CoreConnectorController.getConnectorById(conn.connectorId);
                 const connectorImage = CoreAssetUtil.getConnectorImage(connector);
+                const isWalletConnect =
+                    conn.connectorId?.toLowerCase() === walletConnectId.toLowerCase() ||
+                    connector?.name?.toLowerCase() === 'walletconnect';
 
                 return conn.accounts.map((account) => ({
                     address: account.address,
                     name: connector?.name ?? conn.connectorId ?? 'Unknown',
-                    icon: connectorImage,
+                    icon: isWalletConnect ? walletConnectIcon : connectorImage,
                     connected: true,
                     connection: conn,
                 }));

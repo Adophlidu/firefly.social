@@ -16,12 +16,14 @@ import { useConnections } from 'wagmi';
 import { WalletFilter } from '@/components/SwapUI/WalletFilter.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Input } from '@/components/ui/input.js';
+import { walletConnectIcon } from '@/constants/reown.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatTokenAmount, parseInputAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
 import { useNativeTokenGasReserve } from '@/hooks/swap/useNativeTokenGasReserve.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
+import { useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useWalletDomainNames } from '@/hooks/useWalletDomainNames.js';
 import { cn } from '@/lib/utils.js';
@@ -30,6 +32,8 @@ import type { SwapToken } from '@/providers/swap/types.js';
 import {
     accessPathAtom,
     externalEvmAddressAtom,
+    externalEvmIconAtom,
+    externalEvmNameAtom,
     externalSolanaAddressAtom,
     fromAddressAtom,
     fromAmountAtom,
@@ -48,6 +52,7 @@ export interface TokenInputProps {
     usdValue?: number;
     balance?: string;
     loading?: boolean;
+    disabled?: boolean;
     onAmountChange?: (amount: string) => void;
     autoFocus?: boolean;
     className?: string;
@@ -61,6 +66,7 @@ export const TokenInput = memo(function TokenInput({
     usdValue,
     balance,
     loading,
+    disabled = false,
     onAmountChange,
     autoFocus,
     className,
@@ -71,6 +77,8 @@ export const TokenInput = memo(function TokenInput({
 
     const accessPath = useAtomValue(accessPathAtom);
     const externalEvmAddress = useAtomValue(externalEvmAddressAtom);
+    const externalEvmIcon = useAtomValue(externalEvmIconAtom);
+    const externalEvmName = useAtomValue(externalEvmNameAtom);
     const externalSolanaAddress = useAtomValue(externalSolanaAddressAtom);
 
     const setSelectedPayWallet = useSetAtom(selectedPayWalletAtom);
@@ -85,17 +93,30 @@ export const TokenInput = memo(function TokenInput({
 
     const { evmAddress, solanaAddress, isPrivyReady } = useSwapContextWalletAddresses();
     const domainNameMap = useWalletDomainNames(evmAddress, solanaAddress);
+    const walletNameMap = useMemo(() => {
+        const map = new Map(domainNameMap);
+        if (externalEvmAddress && externalEvmName) {
+            map.set(externalEvmAddress.toLowerCase(), externalEvmName);
+            map.set(externalEvmAddress, externalEvmName);
+        }
+        return map;
+    }, [domainNameMap, externalEvmAddress, externalEvmName]);
     const connections = useConnections();
+    const appKitSolanaWallets = useAppKitSolanaWallets();
 
     const displayAmount = type === 'pay' ? fromAmount : toAmount;
-    const isEditable = type === 'pay';
+    const isEditable = type === 'pay' && !disabled;
 
     // Track previous wallet type for reset logic
     const prevWalletTypeRef = useRef<'evm' | 'solana' | null>(null);
 
     const walletAddress = useEffectiveSwapWalletAddress(type, chainId);
 
-    const hasWallet = isPrivyReady && !!walletAddress;
+    const isExternalEvmWallet =
+        !!walletAddress && !!externalEvmAddress && isSameEthereumAddress(walletAddress, externalEvmAddress);
+    const isExternalSolanaWallet =
+        !!walletAddress && !!externalSolanaAddress && walletAddress === externalSolanaAddress;
+    const hasWallet = !!walletAddress && (isPrivyReady || isExternalEvmWallet || isExternalSolanaWallet);
 
     const { gasReserve, isLoading: isGasReserveLoading } = useNativeTokenGasReserve(
         isEditable ? token : null,
@@ -217,11 +238,25 @@ export const TokenInput = memo(function TokenInput({
 
     const walletIcon = useMemo(() => {
         if (!walletAddress) return null;
-        if (isSolanaChain(chainId)) return null; // Solana wallets are always embedded
+        const appKitSolanaWallet = appKitSolanaWallets.find((w) => w.address === walletAddress);
+        if (appKitSolanaWallet?.icon) return appKitSolanaWallet.icon;
+        if (isExternalSolanaWallet) return walletConnectIcon;
+
+        if (isSolanaChain(chainId)) {
+            return null;
+        }
         const evmWallet = connections.find((w) => w.accounts.some((acc) => isSameEthereumAddress(acc, walletAddress)));
         if (!evmWallet || evmWallet.connector.id === PRIVY_CONNECTOR_ID) return null;
         return evmWallet.connector.icon ?? null;
-    }, [walletAddress, chainId, connections]);
+    }, [walletAddress, chainId, appKitSolanaWallets, isExternalSolanaWallet, connections]);
+
+    const displayWalletIcon = useMemo(() => {
+        if (!walletAddress) return null;
+        if (isExternalEvmWallet) {
+            return externalEvmIcon ?? walletIcon;
+        }
+        return walletIcon;
+    }, [externalEvmIcon, isExternalEvmWallet, walletAddress, walletIcon]);
 
     return (
         <div className={cn('flex flex-col gap-2 rounded-2xl bg-lightBg px-3 pb-5 pt-3', className)}>
@@ -235,14 +270,14 @@ export const TokenInput = memo(function TokenInput({
                         className="flex items-center gap-1 text-[14px] font-medium leading-[14px]"
                         onClick={handleWalletClick}
                     >
-                        {walletIcon ? (
-                            <img src={walletIcon} alt="" className="size-4 rounded-full" />
+                        {displayWalletIcon ? (
+                            <img src={displayWalletIcon} alt="" className="size-4 rounded-full" />
                         ) : (
                             <FireflyRoundIcon className="size-4" />
                         )}
                         <span className="text-main">
-                            {domainNameMap.get(walletAddress?.toLowerCase() ?? '') ??
-                                domainNameMap.get(walletAddress ?? '') ??
+                            {walletNameMap.get(walletAddress?.toLowerCase() ?? '') ??
+                                walletNameMap.get(walletAddress ?? '') ??
                                 formatAddress(walletAddress, 4)}
                         </span>
                         <ArrowDownIcon className="size-3.5" />
@@ -259,9 +294,11 @@ export const TokenInput = memo(function TokenInput({
                     selectedAddress={walletAddress}
                     onSelect={handleWalletSelect}
                     chainId={chainId}
-                    domainNameMap={domainNameMap}
+                    domainNameMap={walletNameMap}
                     accessPath={accessPath}
                     externalEvmAddress={externalEvmAddress}
+                    externalEvmIcon={externalEvmIcon}
+                    externalEvmName={externalEvmName}
                     externalSolanaAddress={externalSolanaAddress}
                 />
             </div>
@@ -271,7 +308,7 @@ export const TokenInput = memo(function TokenInput({
                     type="text"
                     inputMode="decimal"
                     placeholder="0"
-                    value={!isEditable && loading ? '-' : displayAmount || ''}
+                    value={type === 'receive' && loading ? '-' : displayAmount || ''}
                     onChange={handleAmountChange}
                     autoFocus={autoFocus}
                     disabled={!isEditable}

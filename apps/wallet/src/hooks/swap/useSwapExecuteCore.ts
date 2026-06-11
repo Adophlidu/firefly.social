@@ -1,6 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { PRIVY_CONNECTOR_ID, SOLANA_RPC_URL } from '@dimensiondev/constants/static';
 import { SwapAccessPath } from '@dimensiondev/enums';
+import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { delay } from '@dimensiondev/utils';
 import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
@@ -15,7 +16,7 @@ import bs58 from 'bs58';
 import { type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { toast } from 'sonner';
-import type { Address, Hex } from 'viem';
+import { type Address, type Hex, toHex } from 'viem';
 import { type Connection, useConnections } from 'wagmi';
 import { sendTransaction } from 'wagmi/actions';
 
@@ -48,7 +49,7 @@ export type SwapAnalyticsParams = Omit<BuildSwapAnalyticsParamsInput, 'solanaWal
 
 interface ExecuteEvmSwapParams {
     quoteParams: Parameters<typeof fetchSwapQuote>[0];
-    evmSigningWallet: Connection;
+    evmSigningWallet: Connection | null;
     fromToken: { address: string; decimals: number };
     fromAmount: string;
     chainId: number;
@@ -61,6 +62,11 @@ interface ExecuteEvmSwapParams {
     setSwapStep: (step: 'input' | 'review' | 'processing') => void;
     onSuccess?: (data: SwapSuccessParams) => Promise<void>;
     freeGasTxType?: FreeGasTxType;
+    requestHostEvmRpc?: (args: {
+        method: string;
+        params?: unknown[] | object;
+        walletAddress?: string;
+    }) => Promise<unknown>;
 }
 
 interface ExecuteSolanaSwapParams {
@@ -112,13 +118,22 @@ async function executeEvmSwap({
     setSwapStep,
     onSuccess,
     freeGasTxType,
+    requestHostEvmRpc,
 }: ExecuteEvmSwapParams): Promise<void> {
-    const connector = evmSigningWallet.connector;
-    if (!connector) {
+    const connector = evmSigningWallet?.connector;
+    if (!connector && !requestHostEvmRpc) {
         throw new Error('Selected EVM wallet connector is not available for signing');
     }
 
-    await switchEvmConnectorChain(connector, chainId);
+    if (connector) {
+        await switchEvmConnectorChain(connector, chainId);
+    } else {
+        await requestHostEvmRpc?.({
+            method: 'wallet_switchEthereumChain',
+            walletAddress,
+            params: [{ chainId: toHex(chainId) }],
+        });
+    }
     const quoteResult = await fetchSwapQuote(quoteParams);
 
     // Check and execute ERC20 approval if needed
@@ -130,6 +145,7 @@ async function executeEvmSwap({
         walletAddress,
         routerAddress: quoteResult.tx.to,
         connector,
+        requestHostEvmRpc,
         isCrossChain,
         toChainId: quoteParams.toChainId,
         toTokenAddress: quoteParams.toTokenAddress,
@@ -164,7 +180,7 @@ async function executeEvmSwap({
         }
     }
 
-    if (!hash) {
+    if (!hash && connector) {
         hash = await sendTransaction(config, {
             chainId: chainId as ChainId,
             connector,
@@ -175,7 +191,24 @@ async function executeEvmSwap({
             gas,
             ...(quoteResult.tx.gasPrice ? { gasPrice: BigInt(quoteResult.tx.gasPrice) } : {}),
         });
+    } else if (!hash && requestHostEvmRpc) {
+        hash = (await requestHostEvmRpc({
+            method: 'eth_sendTransaction',
+            walletAddress,
+            params: [
+                {
+                    from: walletAddress,
+                    to: quoteResult.tx.to,
+                    data: quoteResult.tx.data,
+                    value: toHex(BigInt(quoteResult.tx.value || '0')),
+                    gas: toHex(gas),
+                    chainId: toHex(chainId),
+                    ...(quoteResult.tx.gasPrice ? { gasPrice: toHex(BigInt(quoteResult.tx.gasPrice)) } : {}),
+                },
+            ],
+        })) as Hex;
     }
+    if (!hash) throw new Error('Failed to submit EVM swap transaction');
 
     setTxHash(hash);
 
@@ -198,6 +231,11 @@ async function executeEvmSwap({
         });
     }
 }
+
+function requestHostEvmRpc(args: { method: string; params?: unknown[] | object; walletAddress?: string }) {
+    return iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, args);
+}
+
 async function executeSolanaSwap({
     quoteResult,
     solanaSigningWallet,
@@ -373,7 +411,11 @@ export function useSwapExecuteCore({
                     onSuccess: (data) => onSuccess(data, analyticsParams),
                 });
             } else {
-                if (!evmSigningWallet?.connector) throw new Error('Selected EVM wallet is not available for signing');
+                const canUseHostExternalSigner =
+                    accessPath !== SwapAccessPath.WalletGUI && !evmSigningWallet?.connector;
+                if (!evmSigningWallet?.connector && !canUseHostExternalSigner) {
+                    throw new Error('Selected EVM wallet is not available for signing');
+                }
                 await executeEvmSwap({
                     quoteParams,
                     evmSigningWallet,
@@ -389,6 +431,7 @@ export function useSwapExecuteCore({
                     setSwapStep: onStepChange,
                     onSuccess: (data) => onSuccess(data, analyticsParams),
                     freeGasTxType,
+                    requestHostEvmRpc: canUseHostExternalSigner ? requestHostEvmRpc : undefined,
                 });
             }
         } catch (err) {

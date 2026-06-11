@@ -147,6 +147,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                     balance={fromBalance}
                     usdValue={fromAmount ? (fromToken?.price ?? 0) * Number.parseFloat(fromAmount) : undefined}
                     loading={isLoading}
+                    disabled={executionLoading}
                     onAmountChange={setFromAmount}
                     autoFocus
                 />
@@ -205,7 +206,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                         type="button"
                         className="w-[70px] rounded-2xl bg-lightBg px-4 py-1 text-center text-[16px] font-semibold leading-6"
                         onClick={() => handlePercentageClick(value)}
-                        disabled={isGasReserveLoading}
+                        disabled={isGasReserveLoading || executionLoading}
                     >
                         {label}
                     </button>

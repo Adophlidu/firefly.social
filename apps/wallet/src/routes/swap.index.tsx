@@ -10,6 +10,8 @@ import { getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 import {
     accessPathAtom,
     externalEvmAddressAtom,
+    externalEvmIconAtom,
+    externalEvmNameAtom,
     externalSolanaAddressAtom,
     fromChainIdAtom,
     setFromTokenAtom,
@@ -24,6 +26,8 @@ interface SwapSearch {
     to?: string;
     entry?: SwapAccessPath;
     externalEvm?: string;
+    externalEvmIcon?: string;
+    externalEvmName?: string;
     externalSolana?: string;
 }
 
@@ -42,6 +46,8 @@ function SwapPage() {
     const setToChainId = useSetAtom(toChainIdAtom);
     const setAccessPath = useSetAtom(accessPathAtom);
     const setExternalEvmAddress = useSetAtom(externalEvmAddressAtom);
+    const setExternalEvmIcon = useSetAtom(externalEvmIconAtom);
+    const setExternalEvmName = useSetAtom(externalEvmNameAtom);
     const setExternalSolanaAddress = useSetAtom(externalSolanaAddressAtom);
 
     // Sync URL params into atoms, then clear URL — allows new navigation to override
@@ -53,6 +59,8 @@ function SwapPage() {
             search.toChain ||
             search.entry ||
             search.externalEvm ||
+            search.externalEvmIcon ||
+            search.externalEvmName ||
             search.externalSolana;
 
         if (hasParams) {
@@ -81,7 +89,11 @@ function SwapPage() {
             }
 
             if (search.entry) setAccessPath(search.entry);
-            if (search.externalEvm) setExternalEvmAddress(search.externalEvm);
+            if (search.externalEvm) {
+                setExternalEvmAddress(search.externalEvm);
+                setExternalEvmIcon(search.externalEvmIcon ?? null);
+                setExternalEvmName(search.externalEvmName ?? null);
+            }
             if (search.externalSolana) setExternalSolanaAddress(search.externalSolana);
 
             // Clear URL params after setting atoms
@@ -99,6 +111,8 @@ function SwapPage() {
         setToChainId,
         setAccessPath,
         setExternalEvmAddress,
+        setExternalEvmIcon,
+        setExternalEvmName,
         setExternalSolanaAddress,
     ]);
 
