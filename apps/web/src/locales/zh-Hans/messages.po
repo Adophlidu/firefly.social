@@ -1701,9 +1701,6 @@ msgstr "上传失败：视频还未支持上传。"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
 
-msgid "Download image"
-msgstr "下载图片"
-
 msgid "User Name should not be blank"
 msgstr "名称不可以为空"
 

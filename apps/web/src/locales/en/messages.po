@@ -1709,9 +1709,6 @@ msgstr "Failed to upload. Video is not supported yet."
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "Failed to upload. Image size exceeds {0}"
 
-msgid "Download image"
-msgstr "Download image"
-
 msgid "User Name should not be blank"
 msgstr "User Name should not be blank"
 

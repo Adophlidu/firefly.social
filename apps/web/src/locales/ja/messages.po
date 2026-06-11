@@ -1701,9 +1701,6 @@ msgstr "アップロードに失敗しました。動画はまだサポートさ
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "アップロードに失敗しました。画像のサイズが {0} を超えています"
 
-msgid "Download image"
-msgstr "画像をダウンロード"
-
 msgid "User Name should not be blank"
 msgstr "ユーザー名を空にすることはできません"
 

@@ -1,3 +1,4 @@
+import { classNames } from '@dimensiondev/utils';
 import { type Ref, useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
@@ -14,7 +15,7 @@ const ShareImageModalContent = dynamic(
     {
         ssr: false,
         loading: () => (
-            <div className="w-full py-14">
+            <div className="w-full px-5 py-14">
                 <div className="w-full" style={{ aspectRatio }}>
                     <Loading minHeight="100%" />
                 </div>
@@ -25,6 +26,13 @@ const ShareImageModalContent = dynamic(
 
 interface Props {
     ref: Ref<ShareImageModalRefType>;
+}
+
+function isPortraitRatio(aspectRatio?: string) {
+    if (!aspectRatio) return false;
+    const [width, height] = aspectRatio.split('/').map((part) => Number.parseFloat(part));
+    if (!width || !height) return false;
+    return width / height < 1;
 }
 
 export function ShareImageModal({ ref }: Props) {
@@ -51,7 +59,12 @@ export function ShareImageModal({ ref }: Props) {
     if (isMedium) {
         return (
             <Modal open={open} onClose={onClose}>
-                <div className="relative w-[480px] max-w-[90vw] rounded-3xl bg-primaryBottom p-6 shadow-popover transition-all">
+                <div
+                    className={classNames(
+                        'relative max-w-[90vw] rounded-2xl bg-primaryBottom shadow-popover transition-all',
+                        isPortraitRatio(props.aspectRatio) ? 'w-[300px]' : 'w-[480px]',
+                    )}
+                >
                     <ShareImageModalContent
                         imageUrl={props.imageUrl}
                         aspectRatio={props.aspectRatio}
@@ -66,17 +79,15 @@ export function ShareImageModal({ ref }: Props) {
     }
 
     return (
-        <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0 !pt-6">
-            <div className="px-3 pb-6 text-medium text-lightMain">
-                <ShareImageModalContent
-                    imageUrl={props.imageUrl}
-                    aspectRatio={props.aspectRatio}
-                    fileName={props.fileName}
-                    enableCopy={props.enableCopy}
-                    onPost={props.onPost}
-                    onClose={onClose}
-                />
-            </div>
+        <Popover open={open} onClose={onClose} enableOverflow={false} dialogPanelClassName="!p-0">
+            <ShareImageModalContent
+                imageUrl={props.imageUrl}
+                aspectRatio={props.aspectRatio}
+                fileName={props.fileName}
+                enableCopy={props.enableCopy}
+                onPost={props.onPost}
+                onClose={onClose}
+            />
         </Popover>
     );
 }

@@ -1,5 +1,9 @@
+import CopyLinearIcon from '@dimensiondev/assets/copy-linear.svg';
+import Download2Icon from '@dimensiondev/assets/download2.svg';
+import Send2Icon from '@dimensiondev/assets/send2.svg';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useState } from 'react';
+import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -18,7 +22,41 @@ interface ShareImageModalContentProps {
     onClose: () => void;
 }
 
-export function ShareImageModalContent(props: ShareImageModalContentProps) {
+interface ShareActionProps {
+    label: ReactNode;
+    ariaLabel: string;
+    icon: ReactNode;
+    disabled?: boolean;
+    loading?: boolean;
+    onClick: () => void;
+}
+
+const ShareAction = memo(function ShareAction({
+    label,
+    ariaLabel,
+    icon,
+    disabled,
+    loading,
+    onClick,
+}: ShareActionProps) {
+    return (
+        <div className="flex w-20 flex-col items-center gap-1">
+            <ClickableButton
+                aria-label={ariaLabel}
+                disabled={disabled}
+                loading={loading}
+                onlyLoading
+                className="flex size-12 items-center justify-center rounded-full border border-secondaryLine text-main"
+                onClick={onClick}
+            >
+                {icon}
+            </ClickableButton>
+            <span className="w-full truncate text-center text-xs font-medium leading-[14px] text-main">{label}</span>
+        </div>
+    );
+});
+
+export const ShareImageModalContent = memo(function ShareImageModalContent(props: ShareImageModalContentProps) {
     const [loading, setLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
@@ -48,13 +86,13 @@ export function ShareImageModalContent(props: ShareImageModalContentProps) {
 
     return (
         <div>
-            <div className="relative flex h-10 items-center justify-center">
-                <CloseButton className="absolute left-0 top-1/2 -translate-y-1/2" onClick={props.onClose} />
-                <span className="text-lg font-semibold text-main">
+            <div className="relative flex h-14 items-center justify-center px-4">
+                <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={props.onClose} />
+                <span className="text-lg font-bold leading-[22px] text-main">
                     <Trans>Share image</Trans>
                 </span>
             </div>
-            <div className="no-scrollbar relative my-4 max-h-[50vh] overflow-y-auto">
+            <div className="no-scrollbar relative mx-5 max-h-[60vh] overflow-y-auto rounded-xl">
                 {loading || hasError ? (
                     <div className="absolute inset-0 z-1 flex items-center justify-center bg-primaryBottom">
                         {loading ? (
@@ -87,38 +125,38 @@ export function ShareImageModalContent(props: ShareImageModalContentProps) {
                     />
                 </div>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="mt-3 flex items-start justify-center gap-1.5 px-6 pb-6">
                 {showCopy ? (
-                    <ClickableButton
+                    <ShareAction
+                        label={<Trans>Copy</Trans>}
+                        ariaLabel={t`Copy`}
+                        icon={<CopyLinearIcon width={20} height={20} />}
                         disabled={loading || hasError}
                         loading={isCopying}
-                        className="h-10 w-full rounded-lg border border-main text-center text-medium font-bold text-main"
                         onClick={handleCopy}
-                    >
-                        <Trans>Copy</Trans>
-                    </ClickableButton>
+                    />
                 ) : null}
-                <ClickableButton
+                <ShareAction
+                    label={<Trans>Download</Trans>}
+                    ariaLabel={t`Download`}
+                    icon={<Download2Icon width={20} height={20} />}
                     disabled={loading || hasError}
                     loading={isDownloading}
-                    className="h-10 w-full rounded-lg bg-main text-center text-medium font-bold text-primaryBottom"
                     onClick={handleDownload}
-                >
-                    {props.onPost ? <Trans>Download</Trans> : <Trans>Download image</Trans>}
-                </ClickableButton>
+                />
                 {props.onPost ? (
-                    <ClickableButton
+                    <ShareAction
+                        label={<Trans>Post</Trans>}
+                        ariaLabel={t`Post`}
+                        icon={<Send2Icon width={20} height={20} />}
                         disabled={loading || hasError}
-                        className="h-10 w-full rounded-lg bg-fireflyBrand text-center text-medium font-bold text-white"
                         onClick={() => {
                             props.onClose();
                             props.onPost?.();
                         }}
-                    >
-                        <Trans>Post</Trans>
-                    </ClickableButton>
+                    />
                 ) : null}
             </div>
         </div>
     );
-}
+});

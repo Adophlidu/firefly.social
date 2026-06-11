@@ -1701,9 +1701,6 @@ msgstr "업로드에 실패했습니다. 아직 동영상을 지원하지 않습
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "업로드에 실패했습니다. 이미지 크기가 {0}을(를) 초과합니다"
 
-msgid "Download image"
-msgstr "이미지 다운로드"
-
 msgid "User Name should not be blank"
 msgstr "사용자 이름은 비워 둘 수 없습니다"
 
