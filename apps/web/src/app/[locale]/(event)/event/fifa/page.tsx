@@ -12,21 +12,21 @@ export async function generateMetadata(): Promise<Metadata> {
             appId: '1640183078',
         },
         description:
-            'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $25,000 prize pool!',
+            'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $50,000 prize pool!',
         openGraph: {
             type: 'website',
             url: 'https://firefly.social/event/fifa',
             title: 'FIFA Prediction Festival',
             description:
-                'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $25,000 prize pool!',
-            images: ['https://media.firefly.land/uploads/6ba41324-3a94-4a48-8536-eab2c66338a2.png'],
+                'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $50,000 prize pool!',
+            images: ['https://media.firefly.land/upload/2eee5327-5751-491d-98f6-e70707f31f19.png'],
         },
         twitter: {
             card: 'summary_large_image',
             title: 'FIFA Prediction Festival',
             description:
-                'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $25,000 prize pool!',
-            images: ['https://media.firefly.land/uploads/6ba41324-3a94-4a48-8536-eab2c66338a2.png'],
+                'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $50,000 prize pool!',
+            images: ['https://media.firefly.land/upload/2eee5327-5751-491d-98f6-e70707f31f19.png'],
         },
         manifest: '/site.webmanifest',
         icons: [
