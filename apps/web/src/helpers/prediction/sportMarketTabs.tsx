@@ -466,6 +466,11 @@ const IGNORED_TYPES = new Set([
     'round_over_under_game_5',
     'round_over_under_game_6',
     'round_over_under_game_7',
+    'soccer_player_goalkeeper_saves',
+    'soccer_player_goals_plus_assists',
+    'soccer_player_shots_on_target',
+    'table_tennis_match_totals',
+    'table_tennis_game_handicap',
 ]);
 
 /** Team totals types: markets must be split by team name and deduplicated by line. */
