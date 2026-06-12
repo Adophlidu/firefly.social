@@ -1775,6 +1775,9 @@ msgstr "No se pudo cargar. El video aún no es compatible."
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "No se pudo subir. El tamaño de la imagen supera {0}"
 
+msgid "Download image"
+msgstr "Descargar imagen"
+
 msgid "User Name should not be blank"
 msgstr "Nombre de usuario no debe estar vacío"
 
@@ -2908,7 +2911,7 @@ msgid "Cancel repost successfully"
 msgstr "Republicación cancelada correctamente"
 
 msgid "<0>You</0> retruthed"
-msgstr "<0>Tú</0> retruthed"
+msgstr "<0>Tú</0> republicaste"
 
 msgid "Show more users"
 msgstr "Mostrar más usuarios"
@@ -5131,7 +5134,7 @@ msgstr "Cuenta de Firefly eliminada"
 
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
-msgstr "<0>{0}</0> retruthed"
+msgstr "<0>{0}</0> republicó"
 
 msgid "Graph"
 msgstr "Gráfico"
