@@ -1,5 +1,6 @@
 import { parseJson } from '@dimensiondev/utils';
 
+import { normalizeRecord } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import { classifySport } from '@/helpers/prediction/sportClassify.js';
 import {
     type PolymarketEvent,
@@ -26,7 +27,7 @@ function mapTeam(raw: PolymarketTeam | undefined, defaultColor: string): SportTe
         alias: raw?.alias,
         logo: raw?.logo,
         color: raw?.color || defaultColor,
-        record: raw?.record,
+        record: normalizeRecord(raw?.record),
     };
 }
 

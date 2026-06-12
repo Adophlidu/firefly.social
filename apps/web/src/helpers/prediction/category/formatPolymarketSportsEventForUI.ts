@@ -114,12 +114,12 @@ function formatVolumeLabel(volume: number | undefined): string | undefined {
     return `$${nFormatter(volume, 2)}`;
 }
 
-function normalizeRecord(record: string | undefined): string | undefined {
+export function normalizeRecord(record: string | undefined): string | undefined {
     if (!record) return undefined;
     const trimmed = record.replaceAll('(', '').replaceAll(')', '').trim();
     if (trimmed.length === 0) return undefined;
-    // (U+002D HYPHEN-MINUS) and (U+2013 EN DASH)
-    if (/^0\s*[-–]\s*0$/.test(trimmed)) return undefined;
+    // (U+002D HYPHEN-MINUS) and (U+2013 EN DASH) — match all-zero patterns of any length (0-0, 0-0-0, etc.)
+    if (/^0(\s*[-–]\s*0)+$/.test(trimmed)) return undefined;
     return trimmed;
 }
 

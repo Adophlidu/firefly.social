@@ -4,6 +4,7 @@ import {
     formatPolymarketSportsEventForUI,
     formatPriceCents,
     isPolymarketSportsGameFinished,
+    normalizeRecord,
     normalizeSportsOutcomeDisplayPrice,
     parseSportsPriceCentsLabel,
     resolveSportsLivestreamUrl,
@@ -28,6 +29,26 @@ describe('normalizeSportsOutcomeDisplayPrice', () => {
         expect(normalizeSportsOutcomeDisplayPrice(1)).toBe(0);
         expect(normalizeSportsOutcomeDisplayPrice(1.0001)).toBe(0);
         expect(normalizeSportsOutcomeDisplayPrice(0.89)).toBe(0.89);
+    });
+});
+
+describe('normalizeRecord', () => {
+    it('returns undefined for all-zero records of any length', () => {
+        expect(normalizeRecord('0-0')).toBeUndefined();
+        expect(normalizeRecord('0-0-0')).toBeUndefined();
+        expect(normalizeRecord('0-0-0-0')).toBeUndefined();
+    });
+
+    it('returns undefined for empty or falsy values', () => {
+        expect(normalizeRecord(undefined)).toBeUndefined();
+        expect(normalizeRecord('')).toBeUndefined();
+        expect(normalizeRecord('()')).toBeUndefined();
+    });
+
+    it('strips parentheses and preserves non-zero records', () => {
+        expect(normalizeRecord('(5-3-2)')).toBe('5-3-2');
+        expect(normalizeRecord('10-4')).toBe('10-4');
+        expect(normalizeRecord('0-0-1')).toBe('0-0-1');
     });
 });
 
