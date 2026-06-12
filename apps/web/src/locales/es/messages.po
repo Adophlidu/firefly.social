@@ -1775,9 +1775,6 @@ msgstr "No se pudo cargar. El video aún no es compatible."
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "No se pudo subir. El tamaño de la imagen supera {0}"
 
-msgid "Download image"
-msgstr "Descargar imagen"
-
 msgid "User Name should not be blank"
 msgstr "Nombre de usuario no debe estar vacío"
 
