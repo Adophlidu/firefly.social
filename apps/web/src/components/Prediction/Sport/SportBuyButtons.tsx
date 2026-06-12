@@ -127,6 +127,7 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                     conditionId={market.conditionId}
                     eventSlug={eventSlug}
                     responsiveFullWidth={responsiveFullWidth}
+                    isDraw
                 />
             ) : null}
             <SportBuyButton
@@ -158,6 +159,7 @@ interface SportBuyButtonProps {
     conditionId?: string;
     eventSlug?: string;
     responsiveFullWidth?: boolean;
+    isDraw?: boolean;
 }
 
 const SportBuyButton = memo(function SportBuyButton({
@@ -172,6 +174,7 @@ const SportBuyButton = memo(function SportBuyButton({
     conditionId,
     eventSlug,
     responsiveFullWidth,
+    isDraw,
 }: SportBuyButtonProps) {
     const isDarkMode = useIsDarkMode();
     const [{ loading }, handleOpen] = useAsyncFn(async () => {
@@ -210,7 +213,7 @@ const SportBuyButton = memo(function SportBuyButton({
                         handleOpen();
                     }}
                 >
-                    <span className="min-w-0 truncate uppercase" ref={ref}>
+                    <span className={classNames('min-w-0 truncate uppercase', isDraw ? 'shrink-0' : '')} ref={ref}>
                         {label}
                     </span>
                     <span className="shrink-0">{price ? formatCents(price) : ''}</span>

@@ -511,6 +511,9 @@ msgstr[0] "成员"
 msgid "Mint Ended"
 msgstr "铸造已结束"
 
+msgid "Scroll tabs right"
+msgstr ""
+
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -1064,6 +1067,9 @@ msgstr "编辑个人资料"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有权的函数"
+
+msgid "Scroll tabs left"
+msgstr ""
 
 msgid "Enter your password to confirm your identity."
 msgstr "请输入密码以验证您的身份。"

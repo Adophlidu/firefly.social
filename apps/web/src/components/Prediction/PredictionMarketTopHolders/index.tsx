@@ -21,17 +21,28 @@ export const PredictionMarketTopHolders = memo<PredictionMarketTopHoldersProps>(
     eventSlug,
     eventTitle,
 }) {
-    const [marketId, setMarketId] = useState(first(markets)?.id || '');
+    // A three-way soccer moneyline is merged into one combined market for the odds display, but Top Holders
+    // shows per-market Yes/No holders. Expand it back into the original markets (Home / Draw / Away) so the
+    // filter lists each one and the holder columns below reflect the selected market.
+    const expandedMarkets = useMemo(
+        () =>
+            markets.flatMap((market) =>
+                market.originalMoneylineMarkets?.length ? market.originalMoneylineMarkets : [market],
+            ),
+        [markets],
+    );
 
-    const market = useMemo(() => markets.find((x) => x.id === marketId), [marketId, markets]);
+    const [marketId, setMarketId] = useState(first(expandedMarkets)?.id || '');
+
+    const market = useMemo(() => expandedMarkets.find((x) => x.id === marketId), [marketId, expandedMarkets]);
 
     if (!market) return null;
 
     return (
         <div className="space-y-4 pb-4">
-            {markets.length > 1 ? (
+            {expandedMarkets.length > 1 ? (
                 <PredictionMarketFilter
-                    markets={markets}
+                    markets={expandedMarkets}
                     marketId={marketId}
                     onSelect={setMarketId}
                     eventSlug={eventSlug}

@@ -58,10 +58,10 @@ if [ -f "$WEB_ROOT/package.json" ]; then
   # Append client-exposed (NEXT_PUBLIC_*) environment variables, sorted by name.
   # This file is served from public/, so to avoid leaking secrets we only print:
   #   - feature-flag envs whose value is exactly "enabled" or "disabled"
-  #   - NEXT_PUBLIC_VERCEL_GIT_COMMIT_* git metadata (non-secret)
+  #   - NEXT_PUBLIC_VERCEL_* git metadata (non-secret)
   # All other NEXT_PUBLIC_* vars (which may hold secrets) are omitted.
   external_envs=$(env | grep '^NEXT_PUBLIC_' | while IFS='=' read -r name value; do
-    if [[ "$name" == NEXT_PUBLIC_VERCEL_GIT_COMMIT_* ]]; then
+    if [[ "$name" == NEXT_PUBLIC_VERCEL_* ]]; then
       echo "$name=$value"
     elif [[ "$value" == "enabled" || "$value" == "disabled" ]]; then
       echo "$name=$value"

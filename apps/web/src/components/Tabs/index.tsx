@@ -1,7 +1,24 @@
 'use client';
 
+import ArrowLeftIcon from '@dimensiondev/assets/arrow-left.svg';
+import ArrowRightIcon from '@dimensiondev/assets/arrow-right.svg';
 import { classNames } from '@dimensiondev/utils';
-import { createContext, type HTMLProps, type PropsWithChildren, useContext, useMemo } from 'react';
+import { t } from '@lingui/core/macro';
+import {
+    createContext,
+    type HTMLProps,
+    type PropsWithChildren,
+    useCallback,
+    useContext,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
+
+import { getNextHorizontalScrollLeft } from '@/helpers/prediction/category/getNextHorizontalScrollLeft.js';
+import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 
 type Variant = 'default' | 'second' | 'solid' | 'subtle' | 'main';
 
@@ -28,6 +45,85 @@ const TabContext = createContext<TabContextProps>({
 
 export function Tabs<T = string>(props: TabsProps<T>) {
     const { value, onChange, children, variant = 'default' } = props;
+    const [hiddenLeft, setHiddenLeft] = useState(true);
+    const [hiddenRight, setHiddenRight] = useState(true);
+    const navRef = useRef<HTMLElement>(null);
+
+    const updateArrows = useCallback((target: HTMLElement) => {
+        if (target.scrollWidth <= target.clientWidth) {
+            setHiddenLeft(true);
+            setHiddenRight(true);
+            return;
+        }
+        setHiddenLeft(target.scrollLeft <= 0);
+        setHiddenRight(Math.round(target.scrollLeft) >= Math.trunc(target.scrollWidth - target.clientWidth));
+    }, []);
+
+    const throttledUpdateArrows = useThrottledCallback(updateArrows);
+
+    useEffect(() => {
+        const element = navRef.current;
+        if (!element) return;
+        const resizeObserver = new ResizeObserver(() => updateArrows(element));
+        resizeObserver.observe(element);
+        updateArrows(element);
+        return () => resizeObserver.disconnect();
+    }, [updateArrows]);
+
+    useEffect(() => {
+        const element = navRef.current;
+        if (!element) return;
+        updateArrows(element);
+    }, [children, updateArrows]);
+
+    const onScrollTo = useCallback((direction: 'left' | 'right') => {
+        const element = navRef.current;
+        if (!element) return;
+        const nextLeft = getNextHorizontalScrollLeft(
+            {
+                scrollLeft: element.scrollLeft,
+                clientWidth: element.clientWidth,
+                scrollWidth: element.scrollWidth,
+            },
+            direction,
+        );
+        element.scrollTo({ behavior: 'smooth', left: nextLeft });
+    }, []);
+
+    // Scroll the active tab to center when value changes
+    useLayoutEffect(() => {
+        const container = navRef.current;
+        if (!container) return;
+
+        let cancelled = false;
+        let attempts = 0;
+
+        const centerActiveTab = () => {
+            if (cancelled || attempts >= 4) return;
+            attempts += 1;
+
+            const activeTab = container.querySelector<HTMLElement>('[aria-current="page"]');
+            if (!activeTab) {
+                requestAnimationFrame(centerActiveTab);
+                return;
+            }
+
+            const targetLeft = activeTab.offsetLeft - (container.clientWidth - activeTab.clientWidth) / 2;
+            const maxScroll = Math.max(0, container.scrollWidth - container.clientWidth);
+            const clampedLeft = Math.max(0, Math.min(targetLeft, maxScroll));
+
+            if (Math.abs(container.scrollLeft - clampedLeft) > 1) {
+                container.scrollTo({ left: clampedLeft, behavior: 'smooth' });
+            }
+        };
+
+        centerActiveTab();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [value]);
+
     const contextValue = useMemo(() => {
         return {
             onChange,
@@ -47,9 +143,44 @@ export function Tabs<T = string>(props: TabsProps<T>) {
 
     return (
         <TabContext.Provider value={contextValue}>
-            <nav className={classNames('flex', variantClassName, props.className)} aria-label="Tabs">
-                {children}
-            </nav>
+            <div className="relative">
+                <button
+                    type="button"
+                    className={classNames(
+                        'absolute left-0 z-10 flex h-full transform-gpu cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
+                        hiddenLeft ? 'pointer-events-none opacity-0' : '',
+                    )}
+                    aria-label={t`Scroll tabs left`}
+                    onClick={() => onScrollTo('left')}
+                >
+                    <span className="absolute left-0 top-0 h-full w-14 bg-gradient-to-l from-transparent to-primaryBottom to-55%" />
+                    <span className="shadow-action relative flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom">
+                        <ArrowLeftIcon className="relative h-2 w-auto shrink-0" />
+                    </span>
+                </button>
+                <button
+                    type="button"
+                    className={classNames(
+                        'absolute right-0 z-10 flex h-full transform-gpu cursor-pointer items-center pr-4 duration-100 hover:text-highlight',
+                        hiddenRight ? 'pointer-events-none opacity-0' : '',
+                    )}
+                    aria-label={t`Scroll tabs right`}
+                    onClick={() => onScrollTo('right')}
+                >
+                    <span className="absolute right-0 top-0 h-full w-14 bg-gradient-to-r from-transparent to-primaryBottom to-55%" />
+                    <span className="shadow-action relative flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom">
+                        <ArrowRightIcon className="relative h-2 w-auto shrink-0" />
+                    </span>
+                </button>
+                <nav
+                    className={classNames('no-scrollbar flex overflow-x-auto', variantClassName, props.className)}
+                    aria-label="Tabs"
+                    ref={navRef}
+                    onScroll={(event) => throttledUpdateArrows(event.currentTarget)}
+                >
+                    {children}
+                </nav>
+            </div>
         </TabContext.Provider>
     );
 }
@@ -108,7 +239,7 @@ export function Tab({ children, value, className, disabled, ...props }: TabProps
             {...props}
         >
             <a
-                className={variantClassName}
+                className={classNames(variantClassName, 'whitespace-nowrap')}
                 aria-current={currentTab === value ? 'page' : undefined}
                 onClick={() => {
                     if (disabled) return;

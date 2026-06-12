@@ -515,6 +515,9 @@ msgstr[1] "Members"
 msgid "Mint Ended"
 msgstr "Mint Ended"
 
+msgid "Scroll tabs right"
+msgstr "Scroll tabs right"
+
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
@@ -1069,6 +1072,9 @@ msgstr "Edit profile"
 
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
+
+msgid "Scroll tabs left"
+msgstr "Scroll tabs left"
 
 msgid "Enter your password to confirm your identity."
 msgstr "Enter your password to confirm your identity."
