@@ -23,7 +23,7 @@ msgid "Copy to clipboard"
 msgstr "Copiar al portapapeles"
 
 msgid "Kill Handicap"
-msgstr ""
+msgstr "Handicap de bajas"
 
 msgid "DRAW"
 msgstr "DIBUJAR"
@@ -100,14 +100,14 @@ msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>Patrimonio neto</0>"
 
 msgid "Cash"
-msgstr ""
+msgstr "Efectivo"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "No se pudo citar en {0}."
 
 msgid "Any Player Quadra Kill"
-msgstr ""
+msgstr "Quadra Kill de Cualquier Jugador"
 
 msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth reposteó tus consejos"
@@ -257,7 +257,7 @@ msgid "This space does not exist."
 msgstr "Este espacio no existe."
 
 msgid "1H Totals"
-msgstr ""
+msgstr "1H Totales"
 
 msgid "Failed to apply draft post."
 msgstr "No se pudo aplicar el borrador de la publicación."
@@ -283,7 +283,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr "No se ha encontrado que el propietario del contrato tenga la autoridad para modificar el saldo de tokens en otras direcciones."
 
 msgid "Completed Match"
-msgstr ""
+msgstr "Partido Finalizado"
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Capitalización de mercado = Precio actual x Suministro en circulación</0><1>Se refiere al valor total de mercado del suministro en circulación de una criptomoneda. Es similar a la medida del mercado de valores de multiplicar el precio por acción por las acciones disponibles en el mercado (no retenidas ni bloqueadas por personas con información privilegiada o por gobiernos)</1>"
@@ -298,7 +298,7 @@ msgid "Join"
 msgstr "Unirse"
 
 msgid "Both Teams Beat Roshan"
-msgstr ""
+msgstr "Ambos Equipos Derrotaron a Roshan"
 
 msgid "Multi-device login sessions synced successfully."
 msgstr "Sesiones de inicio de sesión en varios dispositivos sincronizadas correctamente."
@@ -337,7 +337,7 @@ msgid "Mute {walletHandle}"
 msgstr "Silenciar {walletHandle}"
 
 msgid "1H Moneyline"
-msgstr ""
+msgstr "1H Apuesta al ganador"
 
 msgid "Claimed successfully."
 msgstr "Reclamado con éxito."
@@ -346,7 +346,7 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr "<0>El número máximo de monedas codificado para existir durante la vida de la criptomoneda. Es comparable al número máximo de acciones emitibles en el mercado de valores.</0><1>Suministro máximo = Máximo teórico tal como está codificado</1>"
 
 msgid "{teamName} Corners"
-msgstr ""
+msgstr "{teamName} Rincones"
 
 msgid "Password Verification"
 msgstr "Verificación de contraseña"
@@ -400,7 +400,7 @@ msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "No se pudo seguir a {handleOrEnsOrAddress} en Firefly."
 
 msgid "Comment on X always"
-msgstr ""
+msgstr "Comentar siempre en X"
 
 msgid "No cryptocurrency mixer found."
 msgstr "No se encontró ningún mezclador de criptomonedas."
@@ -448,7 +448,7 @@ msgid "Tax can be modified"
 msgstr "El impuesto se puede modificar"
 
 msgid "Set {setNum} Winner"
-msgstr ""
+msgstr "Establecer Ganador del Set {setNum}"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>Quemado</0><1/>"
@@ -464,10 +464,10 @@ msgid "Opinion"
 msgstr "Opinión"
 
 msgid "Draw"
-msgstr ""
+msgstr "Dibujar"
 
 msgid "Game {gameNum}"
-msgstr ""
+msgstr "Juego {gameNum}"
 
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "Nombre de usuario solo puede contener letras minúsculas, números y -, y no debe empezar con -"
@@ -516,7 +516,7 @@ msgid "Mint Ended"
 msgstr "Acuñación Finalizada"
 
 msgid "Scroll tabs right"
-msgstr ""
+msgstr "Desplazar pestañas a la derecha"
 
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
@@ -560,7 +560,7 @@ msgid "Swap liked."
 msgstr "Me gustó el intercambio."
 
 msgid "Most Inhibitors"
-msgstr ""
+msgstr "Más Inhibidores"
 
 msgid "Avg"
 msgstr "Prom"
@@ -747,7 +747,7 @@ msgid "Overview"
 msgstr "Resumen"
 
 msgid "Most Nashors"
-msgstr ""
+msgstr "Más Nashors"
 
 msgid "Stocks"
 msgstr "Acciones"
@@ -784,7 +784,7 @@ msgid "Get {0}"
 msgstr "Obtener {0}"
 
 msgid "2nd Half Result"
-msgstr ""
+msgstr "Resultado del segundo tiempo"
 
 msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
 msgstr "Solo los seguidores aprobados pueden ver estas publicaciones.<0/>Para solicitar acceso, haz clic en Seguir."
@@ -804,13 +804,13 @@ msgid "Undo repost"
 msgstr "Deshacer republicación"
 
 msgid "Prediction"
-msgstr ""
+msgstr "Predicción"
 
 msgid "Tokens"
 msgstr "Tokens"
 
 msgid "Tower Handicap"
-msgstr ""
+msgstr "Handicap de la Torre"
 
 msgid "Search {id}"
 msgstr "Buscar {id}"
@@ -942,7 +942,7 @@ msgid "Firefly wallet"
 msgstr "Cartera Firefly"
 
 msgid "Threes"
-msgstr ""
+msgstr "Tríos"
 
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
@@ -1018,7 +1018,7 @@ msgid "Explore"
 msgstr "Explorar"
 
 msgid "Show"
-msgstr ""
+msgstr "Mostrar"
 
 msgid "Show Less"
 msgstr "Mostrar Menos"
@@ -1062,7 +1062,7 @@ msgid "No predictions found"
 msgstr "No se encontraron predicciones"
 
 msgid "Both Teams Slay Dragon"
-msgstr ""
+msgstr "Ambos Equipos Matan al Dragón"
 
 msgid "Won"
 msgstr "Ganado"
@@ -1074,7 +1074,7 @@ msgid "Functions with retrievable ownership"
 msgstr "Funciones con propiedad recuperable"
 
 msgid "Scroll tabs left"
-msgstr ""
+msgstr "Desplazar pestañas a la izquierda"
 
 msgid "Enter your password to confirm your identity."
 msgstr "Introduzca su contraseña para confirmar su identidad."
@@ -1151,7 +1151,7 @@ msgid "Current Positions"
 msgstr "Posiciones Actuales"
 
 msgid "Game N Winner"
-msgstr ""
+msgstr "Ganador del Juego N"
 
 msgid "Price"
 msgstr "Precio"
@@ -1171,7 +1171,7 @@ msgid "GIF source not supported. Supported sources: {0}"
 msgstr "Origen de GIF no compatible. Orígenes compatibles: {0}"
 
 msgid "Game Lines"
-msgstr ""
+msgstr "Líneas de Apuestas"
 
 msgid "Remove Address"
 msgstr "Eliminar Dirección"
@@ -1276,7 +1276,7 @@ msgid "Confirm Lucky Drop"
 msgstr "Confirmar Lucky Drop"
 
 msgid "D"
-msgstr ""
+msgstr "D"
 
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "No se pudo habilitar el inicio de sesión multidispositivo. Por favor, inténtelo de nuevo más tarde."
@@ -1474,7 +1474,7 @@ msgid "Tomorrow"
 msgstr "Mañana"
 
 msgid "Go the Distance?"
-msgstr ""
+msgstr "¿Llegar hasta el final?"
 
 msgid "Total trade"
 msgstr "Comercio total"

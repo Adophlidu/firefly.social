@@ -99,14 +99,14 @@ msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>净资产</0>"
 
 msgid "Cash"
-msgstr ""
+msgstr "现金"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "在 {0} 引用失败。"
 
 msgid "Any Player Quadra Kill"
-msgstr ""
+msgstr "任意玩家四杀"
 
 msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth 转发了你的打赏"
@@ -255,7 +255,7 @@ msgid "This space does not exist."
 msgstr "该空间不存在。"
 
 msgid "1H Totals"
-msgstr ""
+msgstr "1H 总计"
 
 msgid "Failed to apply draft post."
 msgstr "应用草稿帖子失败"
@@ -335,7 +335,7 @@ msgid "Mute {walletHandle}"
 msgstr "隐藏 {walletHandle}"
 
 msgid "1H Moneyline"
-msgstr ""
+msgstr "1H 独赢"
 
 msgid "Claimed successfully."
 msgstr "领取成功。"
@@ -780,7 +780,7 @@ msgid "Get {0}"
 msgstr "获取{0}"
 
 msgid "2nd Half Result"
-msgstr ""
+msgstr "下半场结果"
 
 msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
 msgstr "只有获得批准的关注者才能看到这些动态。<0/>如需申请访问权限，请点击关注。"
@@ -1561,7 +1561,7 @@ msgid "No polymarket event found."
 msgstr "未找到相关的 Polymarket 事件。"
 
 msgid "Wins"
-msgstr ""
+msgstr "胜利"
 
 msgid "Event detail"
 msgstr "市场明细"
@@ -2262,7 +2262,7 @@ msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "匿名模式下离开此页面内容将丢失。"
 
 msgid "1st Set Winner"
-msgstr ""
+msgstr "首盘胜者"
 
 msgid "Post could not be found."
 msgstr "未找到相关帖子。"
@@ -2709,7 +2709,7 @@ msgid "Corners"
 msgstr ""
 
 msgid "Will there be a run in the first inning?"
-msgstr ""
+msgstr "首局会有得分吗？"
 
 msgid "Delete Firefly account"
 msgstr "删除 Firefly 账户"
@@ -3199,7 +3199,7 @@ msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查你的权限。"
 
 msgid "1st Half"
-msgstr ""
+msgstr "上半场"
 
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
@@ -3236,7 +3236,7 @@ msgid "Q{0}"
 msgstr ""
 
 msgid "1st Half Corners"
-msgstr ""
+msgstr "上半场角球"
 
 msgid "{days}d left"
 msgstr "剩余 {days} 天"
@@ -3284,7 +3284,7 @@ msgid "Failed to verify password."
 msgstr "密码验证失败。"
 
 msgid "Any Player Rampage"
-msgstr ""
+msgstr "任意玩家狂暴"
 
 msgid "Club"
 msgstr "圈子"
@@ -4370,7 +4370,7 @@ msgid "by {0}"
 msgstr "来自 {0}"
 
 msgid "2nd Half Corners"
-msgstr ""
+msgstr "下半场角球"
 
 msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
 msgstr "关联钱包可能已过期或不准确，请在转账前验证。"
@@ -4939,7 +4939,7 @@ msgid "Minting Date"
 msgstr "铸造日期"
 
 msgid "1st Set Total Games"
-msgstr ""
+msgstr "第一盘总局数"
 
 msgid "Reauthorize"
 msgstr "重新授权"
@@ -4963,7 +4963,7 @@ msgid "If you have multiple Firefly accounts created with different social login
 msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "Both Teams Destroy Inhibitors"
-msgstr ""
+msgstr "双方摧毁抑制器"
 
 msgid "Contract Address"
 msgstr "合约地址"
@@ -5093,7 +5093,7 @@ msgid "No stealing attack involved."
 msgstr "未涉及盗窃攻击。"
 
 msgid "Any Player Penta Kill"
-msgstr ""
+msgstr "任意玩家五杀"
 
 msgid "Your account has not registered on Firefly"
 msgstr "您的账户尚未在 Firefly 上注册"
@@ -5160,7 +5160,7 @@ msgid "Message"
 msgstr "信息"
 
 msgid "Any Player Ultra Kill"
-msgstr ""
+msgstr "任意玩家六杀"
 
 msgid "Token holder of any one below"
 msgstr "持有以下任意代币"
@@ -5385,7 +5385,7 @@ msgid "Assign your Firefly Wallet as your Lens account manager to authorize Fire
 msgstr "将您的 Firefly 钱包设置为 Lens 账户管理员，以授权 Firefly 自动登录。"
 
 msgid "2nd Half Totals"
-msgstr ""
+msgstr "下半场总分"
 
 msgid "Snapshot DAO"
 msgstr "Snapshot DAO"
@@ -5441,7 +5441,7 @@ msgid "Loading..."
 msgstr "加载中..."
 
 msgid "Your session has expired. Please sign in again."
-msgstr ""
+msgstr "您的会话已过期。请重新登录。"
 
 msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
 msgstr ""
