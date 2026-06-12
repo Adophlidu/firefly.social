@@ -23,6 +23,7 @@ function mapTeam(raw: PolymarketTeam | undefined, defaultColor: string): SportTe
         id: raw?.id,
         name: raw?.name,
         abbreviation: raw?.abbreviation,
+        alias: raw?.alias,
         logo: raw?.logo,
         color: raw?.color || defaultColor,
         record: raw?.record,

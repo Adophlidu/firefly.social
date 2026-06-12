@@ -185,6 +185,8 @@ export interface SportTeam {
     id?: number;
     name?: string;
     abbreviation?: string;
+    /** Alternate name from Polymarket (e.g. "Bosnia-Herzegovina" when name is "Bosnia and Herzegovina"). */
+    alias?: string;
     logo?: string;
     color?: string;
     record?: string;

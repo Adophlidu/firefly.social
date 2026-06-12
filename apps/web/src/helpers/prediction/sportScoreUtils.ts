@@ -47,13 +47,14 @@ export function normalizeLabel(value: string | undefined): string | undefined {
 interface TeamLike {
     name?: string;
     abbreviation?: string;
+    alias?: string;
 }
 
 export function matchesTeamLabel(team: TeamLike, label: string | undefined): boolean {
     const normalizedLabel = normalizeLabel(label);
     if (!normalizedLabel) return false;
 
-    for (const value of [team.name, team.abbreviation]) {
+    for (const value of [team.name, team.abbreviation, team.alias]) {
         if (normalizeLabel(value) === normalizedLabel) return true;
     }
 
