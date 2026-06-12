@@ -4998,6 +4998,9 @@ msgstr "En modo puente"
 msgid "Claim Now"
 msgstr "Reclamar Ahora"
 
+msgid "No Draw"
+msgstr ""
+
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
 msgstr "Como máximo {0} destinatarios"

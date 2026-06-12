@@ -4974,6 +4974,9 @@ msgstr "已桥接"
 msgid "Claim Now"
 msgstr "立即领取"
 
+msgid "No Draw"
+msgstr ""
+
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
 msgstr "最多{0}个接收方"

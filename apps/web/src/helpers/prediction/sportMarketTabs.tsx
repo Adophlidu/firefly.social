@@ -409,7 +409,7 @@ function getSectionConfig(type: string): SectionConfig {
 }
 
 /** Infer renderAs from keywords in the type string. */
-function inferRenderAs(type: string): SportMarketGroupType {
+export function inferRenderAs(type: string): SportMarketGroupType {
     const t = type.toLowerCase();
     if (t.includes('moneyline') || t.includes('winner')) return SportMarketGroupType.Moneyline;
     if (t.includes('spread') || t.includes('handicap')) return SportMarketGroupType.Spread;

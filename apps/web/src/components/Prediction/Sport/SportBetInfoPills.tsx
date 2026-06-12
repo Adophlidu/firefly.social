@@ -11,6 +11,8 @@ import type { BetsActivity, SportActivityTeam } from '@/providers/types/Firefly.
 
 const HOME_FALLBACK_COLOR = '#3DC233';
 const AWAY_FALLBACK_COLOR = '#FF3545';
+const DRAW_YES_COLOR = '#48ad3c';
+const DRAW_NO_COLOR = '#ff564d';
 
 function floor(num: number | string) {
     return Number.isNaN(+num) ? 0 : Math.floor(+num);
@@ -19,6 +21,16 @@ function floor(num: number | string) {
 function resolveBetTeam(activity: BetsActivity): { label: string; color: string } | null {
     const sport = activity.sportData;
     const outcomeIndex = activity.outcomeIndex ?? 0;
+
+    // Detect Draw market via the matched moneyline market's groupTypeFF (0=home, 1=draw, 2=away).
+    const matchedMarket = activity.gameData?.markets?.find((m) => m.conditionId === activity.conditionId);
+    if (matchedMarket?.groupTypeFF === 1) {
+        const isYes = outcomeIndex === 0;
+        return {
+            label: isYes ? t`Draw` : t`No Draw`,
+            color: isYes ? DRAW_YES_COLOR : DRAW_NO_COLOR,
+        };
+    }
 
     // Resolve which team array to use — same priority as SportTimelineActivityCard
     const teams: SportActivityTeam[] =
@@ -33,18 +45,6 @@ function resolveBetTeam(activity: BetsActivity): { label: string; color: string 
     const conditionOutcomes = activity.conditionOutcomes ?? [];
 
     if (teams.length === 2) {
-        // Check if this is a draw outcome in a three-way market
-        const labels = conditionOutcomes.length >= 3 ? conditionOutcomes : [];
-        const isDrawOutcome =
-            labels.length > 2 && (labels[outcomeIndex]?.trim().toLowerCase() === 'draw' || outcomeIndex === 2);
-
-        if (isDrawOutcome && sport?.isDraw) {
-            return {
-                label: t`Draw`,
-                color: '#7B7B7B',
-            };
-        }
-
         // outcomeIndex 0 → home, otherwise → away
         const isHome = outcomeIndex === 0;
         const team = isHome ? teams[0] : teams[1];

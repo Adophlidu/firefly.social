@@ -13,11 +13,45 @@ import { PredictionEventImage } from '@/components/Prediction/PredictionEventIma
 import { SportBetInfoPills } from '@/components/Prediction/Sport/SportBetInfoPills.js';
 import { SportTimelineActivityCard } from '@/components/Prediction/Sport/SportTimelineActivityCard.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { inferRenderAs } from '@/helpers/prediction/sportMarketTabs.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity, PolymarketSportsMarketData } from '@/providers/types/Firefly.js';
+import { SportMarketGroupType } from '@/types/prediction.js';
 
 function floor(num: number | string) {
     return Number.isNaN(+num) ? 0 : Math.floor(+num);
+}
+
+/** Find the moneyline market within gameData that matches this bet's conditionId. */
+function findMatchedMarket(activity: BetsActivity) {
+    const markets = activity.gameData?.markets;
+    if (!markets?.length) return null;
+    return markets.find((m) => m.conditionId === activity.conditionId);
+}
+
+/**
+ * Decide how a sport activity renders in the timeline:
+ * - 'game-cell': 3-column team-vs-team card (Moneyline Yes, or Draw market either side)
+ * - 'compact':   existing non-sport compact card (Moneyline No, or any Spread/Total/Other)
+ * - null:        non-sport activity (no sportData) — unchanged
+ */
+function resolveSportDisplayStyle(activity: BetsActivity): 'game-cell' | 'compact' | null {
+    if (!activity.sportData) return null;
+
+    const sportsMarketType = (activity.rawData as PolymarketSportsMarketData)?.sportsMarketType;
+    if (!sportsMarketType) return 'game-cell'; // fallback: preserve current behavior
+
+    const renderAs = inferRenderAs(sportsMarketType);
+
+    // Non-moneyline → always compact (reuse existing card)
+    if (renderAs !== SportMarketGroupType.Moneyline) return 'compact';
+
+    // Moneyline Draw market → game cell for both Yes and No
+    const matchedMarket = findMatchedMarket(activity);
+    if (matchedMarket?.groupTypeFF === 1) return 'game-cell';
+
+    // Moneyline team: Yes (outcomeIndex 0) → game cell, No → compact
+    return (activity.outcomeIndex ?? 0) === 0 ? 'game-cell' : 'compact';
 }
 
 interface PredictionActivityBodyProps {
@@ -49,13 +83,9 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
             ? compact([activity.parent_title, activity.title]).join(' - ')
             : activity.title;
 
-    const content = activity.sportData ? (
-        <>
-            <PredictionActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
-            <SportBetInfoPills activity={activity} />
-            <SportTimelineActivityCard activity={activity} />
-        </>
-    ) : (
+    // Compact card — shared by non-sport activities and sport activities that aren't a
+    // moneyline-team "Yes" bet (Moneyline "No", Spread, Totals, Other).
+    const compactCard = (
         <>
             <PredictionActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
             <div className="mt-2 rounded-2xl border border-line p-4">
@@ -91,6 +121,22 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
             </div>
         </>
     );
+
+    const sportStyle = resolveSportDisplayStyle(activity);
+    const content =
+        sportStyle === 'game-cell' ? (
+            <>
+                <PredictionActivityTxType
+                    type={activity.side}
+                    usdcSize={activity.usdcSize}
+                    platform={activity.platform}
+                />
+                <SportBetInfoPills activity={activity} />
+                <SportTimelineActivityCard activity={activity} />
+            </>
+        ) : (
+            compactCard
+        );
 
     return (
         <div className={classNames('mt-2 block flex-1', className)} style={containerStyle}>

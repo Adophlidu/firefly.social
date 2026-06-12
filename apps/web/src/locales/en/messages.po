@@ -4998,6 +4998,9 @@ msgstr "Bridged"
 msgid "Claim Now"
 msgstr "Claim Now"
 
+msgid "No Draw"
+msgstr "No Draw"
+
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
 msgstr "At most {0} recipients"

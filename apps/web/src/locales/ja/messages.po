@@ -4974,6 +4974,9 @@ msgstr "ブリッジ済み"
 msgid "Claim Now"
 msgstr "今すぐ受け取る"
 
+msgid "No Draw"
+msgstr ""
+
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
 msgstr "受取人は最大 {0} 人"

@@ -4974,6 +4974,9 @@ msgstr "브리지됨"
 msgid "Claim Now"
 msgstr "지금 받기"
 
+msgid "No Draw"
+msgstr ""
+
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
 msgstr "최대 {0}명의 수신자"
