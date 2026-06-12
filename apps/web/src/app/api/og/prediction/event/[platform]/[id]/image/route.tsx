@@ -16,11 +16,12 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { getSharerHandle } from '@/helpers/getSharerHandle.js';
+import { type GameMarketOgData, resolveGameMarketOgData } from '@/helpers/prediction/resolveGameMarketOgData.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { BetsEventDataForUI } from '@/types/prediction.js';
+import type { BetsEventDataForUI, SportTeam } from '@/types/prediction.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSansSC"';
 const OG_FALLBACK_IMAGE = getPublicUrl('/image/firefly-light-avatar.png');
@@ -76,6 +77,236 @@ function SimplePriceChart({ data, marketId, width, height }: SimplePriceChartPro
     );
 }
 
+const DEFAULT_HOME_COLOR = '#BB761B';
+const DEFAULT_AWAY_COLOR = '#87BFFF';
+
+/** Appends an 8-bit hex alpha suffix to a 6-digit hex color; returns the color untouched otherwise. */
+function withAlpha(color: string, alphaHex: string): string {
+    return /^#[0-9a-fA-F]{6}$/.test(color) ? `${color}${alphaHex}` : color;
+}
+
+/** Whole numbers render without a decimal ("50"); otherwise one decimal place ("53.3"). */
+function formatPercent(value: number): string {
+    return Number.isInteger(value) ? `${value}` : value.toFixed(1);
+}
+
+function TeamLogo({ src, team, side }: { src: string | null; team: SportTeam; side: 'left' | 'right' }) {
+    const color = team.color || (side === 'left' ? DEFAULT_HOME_COLOR : DEFAULT_AWAY_COLOR);
+    const positionStyle = side === 'left' ? { left: '85px' } : { right: '85px' };
+    const label = (team.abbreviation || team.name || '').slice(0, 3).toUpperCase();
+
+    return (
+        <div
+            style={{
+                position: 'absolute',
+                top: '200px',
+                width: '250px',
+                height: '290px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...positionStyle,
+            }}
+        >
+            {src ? (
+                <Image
+                    src={src}
+                    alt="team"
+                    width={250}
+                    height={290}
+                    style={{ width: '250px', height: '290px', objectFit: 'contain' }}
+                />
+            ) : (
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '200px',
+                        height: '200px',
+                        borderRadius: '24px',
+                        backgroundColor: withAlpha(color, '1f'),
+                        color,
+                        fontSize: '72px',
+                        fontWeight: 700,
+                    }}
+                >
+                    {label}
+                </div>
+            )}
+        </div>
+    );
+}
+
+async function GameMarketOgImage({ event, gameData }: { event: BetsEventDataForUI; gameData: GameMarketOgData }) {
+    const { homeTeam, awayTeam, homePercent, awayPercent, homeRatio, awayRatio, volume } = gameData;
+    const homeColor = homeTeam.color || DEFAULT_HOME_COLOR;
+    const awayColor = awayTeam.color || DEFAULT_AWAY_COLOR;
+
+    const [homeLogo, awayLogo] = await Promise.all([
+        homeTeam.logo ? fetchImageAsBase64(homeTeam.logo) : Promise.resolve(null),
+        awayTeam.logo ? fetchImageAsBase64(awayTeam.logo) : Promise.resolve(null),
+    ]);
+
+    return (
+        <div
+            style={{
+                width: '1200px',
+                height: '630px',
+                display: 'flex',
+                position: 'relative',
+                backgroundColor: '#FFFFFF',
+                fontFamily: OG_FONT_FAMILY,
+            }}
+        >
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '600px',
+                    height: '630px',
+                    display: 'flex',
+                    backgroundImage: `linear-gradient(to left, ${withAlpha(homeColor, '00')} 0%, ${withAlpha(homeColor, '52')} 100%)`,
+                }}
+            />
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '600px',
+                    height: '630px',
+                    display: 'flex',
+                    backgroundImage: `linear-gradient(to right, ${withAlpha(awayColor, '00')} 0%, ${withAlpha(awayColor, '52')} 100%)`,
+                }}
+            />
+
+            <Image
+                src={FIREFLY_LOGO_SVG}
+                alt="firefly"
+                width={128}
+                height={40}
+                style={{
+                    position: 'absolute',
+                    top: '24px',
+                    right: '24px',
+                    width: '128px',
+                    height: '40px',
+                    objectFit: 'contain',
+                }}
+            />
+
+            <div
+                style={{
+                    position: 'absolute',
+                    top: '112px',
+                    left: 0,
+                    width: '1200px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    padding: '0 120px',
+                }}
+            >
+                <div
+                    style={{
+                        display: 'flex',
+                        fontSize: '48px',
+                        fontWeight: 600,
+                        color: '#000000',
+                        lineHeight: '56px',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        maxWidth: '100%',
+                    }}
+                >
+                    {event.title}
+                </div>
+            </div>
+
+            <TeamLogo src={homeLogo} team={homeTeam} side="left" />
+            <TeamLogo src={awayLogo} team={awayTeam} side="right" />
+
+            <div
+                style={{
+                    position: 'absolute',
+                    top: '317px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '410px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <div
+                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', width: '410px' }}
+                >
+                    <div
+                        style={{
+                            display: 'flex',
+                            fontSize: '64px',
+                            fontWeight: 700,
+                            color: homeColor,
+                            lineHeight: '64px',
+                        }}
+                    >
+                        {formatPercent(homePercent)}%
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            fontSize: '64px',
+                            fontWeight: 700,
+                            color: awayColor,
+                            lineHeight: '64px',
+                        }}
+                    >
+                        {formatPercent(awayPercent)}%
+                    </div>
+                </div>
+                <div style={{ display: 'flex', width: '410px', height: '28px', marginTop: '12px', gap: '8px' }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexBasis: `${homeRatio * 100}%`,
+                            minWidth: 0,
+                            height: '28px',
+                            backgroundColor: homeColor,
+                            borderRadius: '2px',
+                            transform: 'skewX(-14deg)',
+                        }}
+                    />
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexBasis: `${awayRatio * 100}%`,
+                            minWidth: 0,
+                            height: '28px',
+                            backgroundColor: awayColor,
+                            borderRadius: '2px',
+                            transform: 'skewX(-14deg)',
+                        }}
+                    />
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        marginTop: '24px',
+                        fontSize: '32px',
+                        fontWeight: 600,
+                        color: '#000000',
+                        lineHeight: '32px',
+                    }}
+                >
+                    ${nFormatter(parseFloat(volume))} Vol.
+                </div>
+            </div>
+        </div>
+    );
+}
+
 async function PredictionEventOgImage({
     event,
     platform,
@@ -85,6 +316,9 @@ async function PredictionEventOgImage({
     platform: PredictionPlatform;
     sharerHandle?: string | null;
 }) {
+    const gameData = resolveGameMarketOgData(event);
+    if (gameData) return GameMarketOgImage({ event, gameData });
+
     const eventImage = await fetchImageAsBase64(event.image, OG_FALLBACK_IMAGE);
     const isSingleMarket = event.markets.length === 1;
 
