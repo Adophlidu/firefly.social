@@ -38,7 +38,7 @@ export function LinkCloud() {
         },
         {
             name: <Trans>About</Trans>,
-            link: `${SITE_URL_OFFICIAL}/about`,
+            link: `${SITE_URL_OFFICIAL}/about?utm_source=web`,
             visible: true,
         },
     ];
