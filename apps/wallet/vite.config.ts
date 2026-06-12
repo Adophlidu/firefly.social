@@ -72,17 +72,8 @@ export default defineConfig({
                 ref: true,
                 plugins: [svgrSvgo, svgrJsx],
                 svgoConfig: {
-                    plugins: [
-                        {
-                            name: 'preset-default',
-                            params: {
-                                overrides: {
-                                    removeViewBox: false,
-                                },
-                            },
-                        },
-                        { name: 'prefixIds' },
-                    ],
+                    // SVGO v4 preset-default no longer runs removeViewBox.
+                    plugins: ['preset-default', 'prefixIds'],
                 },
             },
             include: '**/*.svg',
