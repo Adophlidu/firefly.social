@@ -482,7 +482,7 @@ msgid "Turn off"
 msgstr "关闭"
 
 msgid "Price to beat"
-msgstr "需超越的价格"
+msgstr "目標價格"
 
 #. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{platformName}</0>"
@@ -544,7 +544,7 @@ msgid "Invalid password. Please ensure it is a 6-digit number."
 msgstr "密码无效，请输入6位数字密码。"
 
 msgid "Props"
-msgstr "特别投注"
+msgstr "趣味投注"
 
 msgid "Potential risk of external call."
 msgstr "存在外部调用的潜在风险。"
@@ -758,7 +758,7 @@ msgid "<0>The amount of coins that have already been created, minus any coins th
 msgstr "<0>已创建的代币数量减去已销毁（从流通中移除）的代币数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的代币</1>"
 
 msgid "Totals"
-msgstr ""
+msgstr "大小"
 
 msgid "Failed to vote."
 msgstr "投票失败。"
@@ -1591,7 +1591,7 @@ msgid "Max"
 msgstr "最大"
 
 msgid "Moneyline"
-msgstr ""
+msgstr "独赢"
 
 msgid "Mute all"
 msgstr "全部隐藏"
@@ -3026,7 +3026,7 @@ msgid "Properties"
 msgstr "属性"
 
 msgid "Market"
-msgstr ""
+msgstr "市场"
 
 msgid "Executed"
 msgstr "已执行"
@@ -3637,7 +3637,7 @@ msgid_plural "# Attention items"
 msgstr[0] "# 中风险项"
 
 msgid "No chart data available"
-msgstr ""
+msgstr "暂无图表数据"
 
 msgid "Hide more comments"
 msgstr "隐藏更多评论"
@@ -3698,7 +3698,7 @@ msgid "Estimated cost"
 msgstr "预估成本"
 
 msgid "{homeLabel} holders"
-msgstr ""
+msgstr "{homeLabel} 持有者"
 
 msgid "No trade records"
 msgstr "暂无交易记录"
@@ -3832,7 +3832,7 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "全名不可以超过 {maxDisplayNameSize} 个字"
 
 msgid "{awayLabel} holders"
-msgstr ""
+msgstr "{awayLabel} 持有者"
 
 msgid "ALL"
 msgstr "全部"
@@ -3964,7 +3964,7 @@ msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
 
 msgid "{formattedVol} Vol."
-msgstr ""
+msgstr "{formattedVol} 交易量"
 
 msgid "Custom amount is required for this token"
 msgstr "此代币需要自定义数额"
@@ -4526,7 +4526,7 @@ msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 开启浏览器通知，交易动态实时掌握。"
 
 msgid "Spreads"
-msgstr ""
+msgstr "让分"
 
 msgid "Quality filter"
 msgstr "优质内容筛选"
@@ -4561,7 +4561,7 @@ msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "使用 Firefly 的红包功能，提升你的粉丝数与互动率！"
 
 msgid "Watch Stream"
-msgstr ""
+msgstr "观看直播"
 
 msgid "Transaction failed"
 msgstr "交易失败"
@@ -4804,7 +4804,7 @@ msgid "Farcaster"
 msgstr "Farcaster"
 
 msgid "Away"
-msgstr ""
+msgstr "客队"
 
 msgid "Change Password"
 msgstr "修改密码"

@@ -762,7 +762,7 @@ msgid "<0>The amount of coins that have already been created, minus any coins th
 msgstr "<0>La cantidad de monedas que ya se han creado, menos las monedas que han sido quemadas (retiradas de la circulación). Es comparable a las acciones en circulación en el mercado bursátil.</0><1>Oferta total = suministro on-chain - tokens quemados</1>"
 
 msgid "Totals"
-msgstr ""
+msgstr "Totales"
 
 msgid "Failed to vote."
 msgstr "No se pudo votar."
@@ -1598,7 +1598,7 @@ msgid "Max"
 msgstr "Máx"
 
 msgid "Moneyline"
-msgstr ""
+msgstr "Apuesta al ganador"
 
 msgid "Mute all"
 msgstr "Silenciar a todos"
@@ -1960,8 +1960,8 @@ msgstr "Hoy"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
 msgid "view"
 msgid_plural "views"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "vista"
+msgstr[1] "vistas"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
@@ -3042,7 +3042,7 @@ msgid "Properties"
 msgstr "Propiedades"
 
 msgid "Market"
-msgstr ""
+msgstr "Mercado"
 
 msgid "Executed"
 msgstr "Ejecutado"
@@ -3657,7 +3657,7 @@ msgstr[0] "# Elemento de atención"
 msgstr[1] "# Elementos de atención"
 
 msgid "No chart data available"
-msgstr ""
+msgstr "No hay datos disponibles para el gráfico"
 
 msgid "Hide more comments"
 msgstr "Ocultar más comentarios"
@@ -3852,7 +3852,7 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "El nombre para mostrar no debe exceder {maxDisplayNameSize} caracteres"
 
 msgid "{awayLabel} holders"
-msgstr ""
+msgstr "tenedores de {awayLabel}"
 
 msgid "ALL"
 msgstr "TODOS"
@@ -3986,7 +3986,7 @@ msgid "Failed to unmute /{0}."
 msgstr "No se pudo activar el sonido de /{0}."
 
 msgid "{formattedVol} Vol."
-msgstr ""
+msgstr "{formattedVol} Vol."
 
 msgid "Custom amount is required for this token"
 msgstr "Se requiere una cantidad personalizada para este token"
@@ -4549,7 +4549,7 @@ msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ Activa las notificaciones del navegador para no perderte ninguna actualización de operaciones."
 
 msgid "Spreads"
-msgstr ""
+msgstr "Diferenciales"
 
 msgid "Quality filter"
 msgstr "Filtro de calidad"
@@ -4584,7 +4584,7 @@ msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Aumenta tus seguidores y tu engagement con Lucky Drop en Firefly!"
 
 msgid "Watch Stream"
-msgstr ""
+msgstr "Ver Transmisión"
 
 msgid "Transaction failed"
 msgstr "Transacción fallida"
