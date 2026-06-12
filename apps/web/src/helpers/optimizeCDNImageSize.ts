@@ -75,14 +75,14 @@ export function optimizeCDNImageSize(url: string, width: number, height = width)
             const element = s[index];
             if (element.startsWith('tr:')) {
                 if (element.match(/^tr:w-\d+,h-\d+$/)) {
-                    s[index] = `tr:w-${width},h-${height},dpr-${devicePixelRatio}`;
+                    s[index] = `tr:w-${width},h-${height},c-at_max,dpr-${devicePixelRatio}`;
                     added = 1;
                 } else return url; // do not break existing unknown transformations
             }
         }
 
         if (!added) {
-            s.splice(s.length - 1, 0, `tr:w-${width},h-${height},dpr-${devicePixelRatio}`);
+            s.splice(s.length - 1, 0, `tr:w-${width},h-${height},c-at_max,dpr-${devicePixelRatio}`);
         }
         return s.join('/');
     }
