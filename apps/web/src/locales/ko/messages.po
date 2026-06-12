@@ -23,7 +23,7 @@ msgid "Copy to clipboard"
 msgstr "클립보드에 복사"
 
 msgid "Kill Handicap"
-msgstr ""
+msgstr "킬 핸디캡"
 
 msgid "DRAW"
 msgstr "무승부"
@@ -99,14 +99,14 @@ msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>순자산</0>"
 
 msgid "Cash"
-msgstr ""
+msgstr "현금"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "{0}에서 인용에 실패했습니다."
 
 msgid "Any Player Quadra Kill"
-msgstr ""
+msgstr "임의 선수 쿼드라 킬"
 
 msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth가 회원님의 팁을 리포스트했습니다"
@@ -255,7 +255,7 @@ msgid "This space does not exist."
 msgstr "이 스페이스는 존재하지 않습니다."
 
 msgid "1H Totals"
-msgstr ""
+msgstr "전반 합계"
 
 msgid "Failed to apply draft post."
 msgstr "임시 게시물 적용에 실패했습니다."
@@ -281,7 +281,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr "컨트랙트 소유자가 다른 주소의 토큰 잔액을 수정할 권한이 없는 것으로 확인되었습니다."
 
 msgid "Completed Match"
-msgstr ""
+msgstr "종료된 경기"
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>시가총액 = 현재 가격 x 유통량</0><1>은 암호화폐 유통량의 총 시장 가치를 나타냅니다. 이는 주당 가격에 시장에 발행된 주식(내부자, 정부가 소유하고 보유하지 않은 주식)을 곱한 주식 시장 측정치와 유사합니다.</1>"
@@ -296,7 +296,7 @@ msgid "Join"
 msgstr "참여"
 
 msgid "Both Teams Beat Roshan"
-msgstr ""
+msgstr "양 팀 로샨 처치"
 
 msgid "Multi-device login sessions synced successfully."
 msgstr "다중 기기 로그인 세션이 성공적으로 동기화되었습니다."
@@ -335,7 +335,7 @@ msgid "Mute {walletHandle}"
 msgstr "{walletHandle} 숨기기"
 
 msgid "1H Moneyline"
-msgstr ""
+msgstr "전반 머니라인"
 
 msgid "Claimed successfully."
 msgstr "클레임에 성공했습니다."
@@ -344,7 +344,7 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr "<0>암호화폐 생애 동안 코드상 존재할 수 있는 최대 코인 수입니다. 주식 시장에서 발행 가능한 최대 주식 수와 유사합니다.</0><1>최대 공급량 = 코드상 이론적 최대값</1>"
 
 msgid "{teamName} Corners"
-msgstr ""
+msgstr "{teamName} 코너킥"
 
 msgid "Password Verification"
 msgstr "비밀번호 확인"
@@ -397,7 +397,7 @@ msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "Firefly에서 {handleOrEnsOrAddress}을(를) 팔로우하는 데 실패했습니다."
 
 msgid "Comment on X always"
-msgstr ""
+msgstr "X에 항상 댓글 달기"
 
 msgid "No cryptocurrency mixer found."
 msgstr "암호화폐 믹서가 발견되지 않았습니다."
@@ -445,7 +445,7 @@ msgid "Tax can be modified"
 msgstr "세율이 수정될 수 있습니다"
 
 msgid "Set {setNum} Winner"
-msgstr ""
+msgstr "{setNum}세트 승자"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>소각됨</0><1/>"
@@ -461,10 +461,10 @@ msgid "Opinion"
 msgstr "의견"
 
 msgid "Draw"
-msgstr ""
+msgstr "무승부"
 
 msgid "Game {gameNum}"
-msgstr ""
+msgstr "{gameNum} 게임"
 
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "사용자 이름은 소문자, 숫자, 하이픈(-)만 포함할 수 있으며 하이픈(-)으로 시작할 수 없습니다"
@@ -512,7 +512,7 @@ msgid "Mint Ended"
 msgstr "민팅 종료"
 
 msgid "Scroll tabs right"
-msgstr ""
+msgstr "탭 오른쪽으로 스크롤"
 
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
@@ -556,7 +556,7 @@ msgid "Swap liked."
 msgstr "스왑에 좋아요를 눌렀습니다."
 
 msgid "Most Inhibitors"
-msgstr ""
+msgstr "최다 억제기"
 
 msgid "Avg"
 msgstr "평균"
@@ -743,7 +743,7 @@ msgid "Overview"
 msgstr "개요"
 
 msgid "Most Nashors"
-msgstr ""
+msgstr "최다 내셔"
 
 msgid "Stocks"
 msgstr "주식"
@@ -758,7 +758,7 @@ msgid "<0>The amount of coins that have already been created, minus any coins th
 msgstr "<0>이미 생성된 코인 수에서 소각(유통에서 제거)된 코인 수를 뺀 값입니다. 주식 시장의 유통 주식 수와 유사합니다.</0><1>총 공급량 = 온체인 공급량 - 소각된 토큰</1>"
 
 msgid "Totals"
-msgstr ""
+msgstr "합계"
 
 msgid "Failed to vote."
 msgstr "투표에 실패했습니다."
@@ -780,7 +780,7 @@ msgid "Get {0}"
 msgstr "{0} 받기"
 
 msgid "2nd Half Result"
-msgstr ""
+msgstr "후반 결과"
 
 msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
 msgstr "승인된 팔로워만 이 게시물을 볼 수 있습니다.<0/>접근을 요청하려면 팔로우를 클릭하세요."
@@ -800,13 +800,13 @@ msgid "Undo repost"
 msgstr "리포스트 취소"
 
 msgid "Prediction"
-msgstr ""
+msgstr "예측"
 
 msgid "Tokens"
 msgstr "토큰"
 
 msgid "Tower Handicap"
-msgstr ""
+msgstr "타워 핸디캡"
 
 msgid "Search {id}"
 msgstr "{id} 검색"
@@ -937,7 +937,7 @@ msgid "Firefly wallet"
 msgstr "Firefly 지갑"
 
 msgid "Threes"
-msgstr ""
+msgstr "3점슛"
 
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
@@ -1013,7 +1013,7 @@ msgid "Explore"
 msgstr "탐색"
 
 msgid "Show"
-msgstr ""
+msgstr "표시"
 
 msgid "Show Less"
 msgstr "접기"
@@ -1057,7 +1057,7 @@ msgid "No predictions found"
 msgstr "예측 결과 없음"
 
 msgid "Both Teams Slay Dragon"
-msgstr ""
+msgstr "양 팀 드래곤 처치"
 
 msgid "Won"
 msgstr "승리"
@@ -1069,7 +1069,7 @@ msgid "Functions with retrievable ownership"
 msgstr "소유권 회수 가능한 기능"
 
 msgid "Scroll tabs left"
-msgstr ""
+msgstr "탭 왼쪽으로 스크롤"
 
 msgid "Enter your password to confirm your identity."
 msgstr "신원 확인을 위해 비밀번호를 입력하세요."
@@ -1146,7 +1146,7 @@ msgid "Current Positions"
 msgstr "현재 포지션"
 
 msgid "Game N Winner"
-msgstr ""
+msgstr "N 게임 승자"
 
 msgid "Price"
 msgstr "가격"
@@ -1166,7 +1166,7 @@ msgid "GIF source not supported. Supported sources: {0}"
 msgstr "GIF 출처가 지원되지 않습니다. 지원되는 출처: {0}"
 
 msgid "Game Lines"
-msgstr ""
+msgstr "게임 라인"
 
 msgid "Remove Address"
 msgstr "주소 삭제"
@@ -1270,7 +1270,7 @@ msgid "Confirm Lucky Drop"
 msgstr "럭키 드롭 확인"
 
 msgid "D"
-msgstr ""
+msgstr "무"
 
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "다중 기기 로그인을 활성화하지 못했습니다. 나중에 다시 시도해 주세요."
@@ -1467,7 +1467,7 @@ msgid "Tomorrow"
 msgstr "내일"
 
 msgid "Go the Distance?"
-msgstr ""
+msgstr "풀라운드 진행 여부?"
 
 msgid "Total trade"
 msgstr "총 거래량"
@@ -1525,7 +1525,7 @@ msgid "Enter your nickname on Firefly"
 msgstr "Firefly 닉네임 입력"
 
 msgid "Played"
-msgstr ""
+msgstr "경기"
 
 msgid "Anti whale can not be modified."
 msgstr "반고래 메커니즘을 수정할 수 없습니다."
@@ -1561,7 +1561,7 @@ msgid "No polymarket event found."
 msgstr "Polymarket 이벤트를 찾을 수 없습니다."
 
 msgid "Wins"
-msgstr ""
+msgstr "승"
 
 msgid "Event detail"
 msgstr "이벤트 상세"
@@ -1591,7 +1591,7 @@ msgid "Max"
 msgstr "최대"
 
 msgid "Moneyline"
-msgstr ""
+msgstr "머니라인"
 
 msgid "Mute all"
 msgstr "모두 숨기기"
@@ -1606,7 +1606,7 @@ msgid "Failed to generate signature packet with source = {source}."
 msgstr "source = {source} 서명 패킷 생성에 실패했습니다."
 
 msgid "Method of Victory"
-msgstr ""
+msgstr "승리 방식"
 
 msgid "Delete"
 msgstr "삭제"
@@ -1620,7 +1620,7 @@ msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote
 msgstr "<0/> <1>님이 회원님의 </1><2>{0, select, Post {게시물} Comment {댓글} Quote {인용} Mirror {리포스트} other {게시물}}</2>에 좋아요를 눌렀습니다"
 
 msgid "Points"
-msgstr ""
+msgstr "포인트"
 
 msgid "Insufficient funds"
 msgstr "잔액 부족"
@@ -1654,7 +1654,7 @@ msgid "Connect Wallet"
 msgstr "지갑 연결"
 
 msgid "Both Teams To Score - 1st Half"
-msgstr ""
+msgstr "양 팀 득점 - 전반"
 
 msgid "Custom amount"
 msgstr "사용자 지정 금액"
@@ -1862,7 +1862,7 @@ msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "Firefly에서 {handleOrEnsOrAddress} 팔로우 취소에 실패했습니다."
 
 msgid "Corners Odd/Even"
-msgstr ""
+msgstr "코너킥 홀짝"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -1915,10 +1915,10 @@ msgid "No fake KYC involved."
 msgstr "가짜 KYC가 관련되어 있지 않습니다."
 
 msgid "First Team to Score"
-msgstr ""
+msgstr "먼저 득점하는 팀"
 
 msgid "Shots"
-msgstr ""
+msgstr "슈팅"
 
 msgid "Your Firefly Account is now connected"
 msgstr "Firefly 계정이 연결되었습니다"
@@ -1939,7 +1939,7 @@ msgid "Swaps"
 msgstr "스왑"
 
 msgid "Advancing"
-msgstr ""
+msgstr "진출"
 
 msgid "Total Gains"
 msgstr "총 수익"
@@ -1951,7 +1951,7 @@ msgstr "오늘"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
 msgid "view"
 msgid_plural "views"
-msgstr[0] ""
+msgstr[0] "조회"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
@@ -2076,7 +2076,7 @@ msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "{walletHandle}의 아티클이 홈 타임라인에서 숨겨집니다"
 
 msgid "Total Rounds"
-msgstr ""
+msgstr "총 라운드"
 
 msgid "Please enter at least 2 characters."
 msgstr "최소 2자 이상 입력하세요."
@@ -2088,7 +2088,7 @@ msgid "Article"
 msgstr "아티클"
 
 msgid "Draws"
-msgstr ""
+msgstr "무"
 
 msgid "Active"
 msgstr "활성"
@@ -2097,10 +2097,10 @@ msgid "Translated from {contentLanguage}"
 msgstr "{contentLanguage}에서 번역됨"
 
 msgid "Post with image"
-msgstr ""
+msgstr "이미지와 함께 게시"
 
 msgid "Losses"
-msgstr ""
+msgstr "패"
 
 msgid "Failed to open miniapp"
 msgstr "미니앱을 열지 못했습니다"
@@ -2170,7 +2170,7 @@ msgid "{0} items"
 msgstr "{0}개 항목"
 
 msgid "Most Drakes"
-msgstr ""
+msgstr "최다 드래곤"
 
 msgid "Balance"
 msgstr "잔액"
@@ -2227,7 +2227,7 @@ msgid "Privacy and security"
 msgstr "개인정보 및 보안"
 
 msgid "Rebounds"
-msgstr ""
+msgstr "리바운드"
 
 msgid "Create your Firefly Profile"
 msgstr "Firefly 프로필 만들기"
@@ -2238,7 +2238,7 @@ msgid_plural "{totalVotes} Votes"
 msgstr[0] "{totalVotes} 투표"
 
 msgid "Adv"
-msgstr ""
+msgstr "진출"
 
 msgid "Full"
 msgstr "전체"
@@ -2262,7 +2262,7 @@ msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "익명 모드에서 이 페이지를 떠나면 콘텐츠가 사라집니다."
 
 msgid "1st Set Winner"
-msgstr ""
+msgstr "1세트 승자"
 
 msgid "Post could not be found."
 msgstr "게시물을 찾을 수 없습니다."
@@ -2287,10 +2287,10 @@ msgstr "취소됨"
 
 #. placeholder {0}: m[1]
 msgid "Map {0}"
-msgstr ""
+msgstr "맵 {0}"
 
 msgid "Sets"
-msgstr ""
+msgstr "세트"
 
 msgid "No content for the last two weeks."
 msgstr "지난 2주간 콘텐츠가 없습니다."
@@ -2378,7 +2378,7 @@ msgid "You can save this to send later from your drafts."
 msgstr "임시 저장함에 저장해 나중에 보낼 수 있습니다."
 
 msgid "Failed to copy image. Please try again later."
-msgstr ""
+msgstr "이미지를 복사하지 못했습니다. 나중에 다시 시도해 주세요."
 
 msgid "Failed Post"
 msgstr "게시 실패"
@@ -2496,7 +2496,7 @@ msgid "No stealing attack found."
 msgstr "탈취 공격이 발견되지 않았습니다."
 
 msgid "First Blood"
-msgstr ""
+msgstr "퍼스트 블러드"
 
 msgid "Share From"
 msgstr "공유 출처"
@@ -2530,7 +2530,7 @@ msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
 msgstr "{0}님이 <1>{3}</1>에서 <0>{1} ${2}</0> 팁을 보냈습니다"
 
 msgid "P"
-msgstr ""
+msgstr "P"
 
 msgid "Days"
 msgstr "일"
@@ -2564,7 +2564,7 @@ msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
 msgstr "최대 {MAX_MARKETS_COUNT_SELECTABLE}개 옵션 선택"
 
 msgid "Goals"
-msgstr ""
+msgstr "득점"
 
 msgid "Sign in with Lens"
 msgstr "Lens로 로그인"
@@ -2651,7 +2651,7 @@ msgid "By clicking \"Next\", you acknowledge the risk associated with decentrali
 msgstr "\"다음\"을 클릭하면 탈중앙화 네트워크 및 베타 제품과 관련된 위험을 인정하는 것입니다."
 
 msgid "Barrack Handicap"
-msgstr ""
+msgstr "막사 핸디캡"
 
 msgid "Decrypt"
 msgstr "복호화"
@@ -2666,7 +2666,7 @@ msgid "Due to <0>X's API limitations</0>, you can only reply to posts that menti
 msgstr "<0>X API 제한</0>으로 인해 회원님을 멘션한 게시물에만 답글을 달 수 있습니다."
 
 msgid "Failed to load groups"
-msgstr ""
+msgstr "그룹을 불러오지 못했습니다"
 
 msgid "Failed to update notification settings"
 msgstr "알림 설정 업데이트에 실패했습니다"
@@ -2706,10 +2706,10 @@ msgid "New"
 msgstr "새로 만들기"
 
 msgid "Corners"
-msgstr ""
+msgstr "코너킥"
 
 msgid "Will there be a run in the first inning?"
-msgstr ""
+msgstr "1회에 득점이 나올까요?"
 
 msgid "Delete Firefly account"
 msgstr "Firefly 계정 삭제"
@@ -2836,7 +2836,7 @@ msgid "The user canceled the operation."
 msgstr "사용자가 작업을 취소했습니다."
 
 msgid "Most Barracks"
-msgstr ""
+msgstr "최다 막사"
 
 msgid "Sign in on mobile"
 msgstr "모바일에서 로그인"
@@ -2876,7 +2876,7 @@ msgid "Encrypted choice"
 msgstr "암호화된 선택지"
 
 msgid "Odd/Even Total Kills"
-msgstr ""
+msgstr "총 킬 홀짝"
 
 msgid "Club could not be found."
 msgstr "클럽을 찾을 수 없습니다."
@@ -2969,7 +2969,7 @@ msgid_plural "# years"
 msgstr[0] "# 년"
 
 msgid "Deposit"
-msgstr ""
+msgstr "입금"
 
 msgid "<0/> Loading"
 msgstr "<0/> 로딩 중"
@@ -2984,7 +2984,7 @@ msgid "Pinned"
 msgstr "고정됨"
 
 msgid "Most Towers"
-msgstr ""
+msgstr "최다 타워"
 
 msgid "We've detected logins available for sync."
 msgstr "동기화 가능한 로그인이 감지되었습니다."
@@ -3020,13 +3020,13 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "<0>{0} <1>{1}</1></0>에 발송 예정"
 
 msgid "Map {gameNum}"
-msgstr ""
+msgstr "맵 {gameNum}"
 
 msgid "Properties"
 msgstr "속성"
 
 msgid "Market"
-msgstr ""
+msgstr "마켓"
 
 msgid "Executed"
 msgstr "실행됨"
@@ -3077,7 +3077,7 @@ msgid "Refresh"
 msgstr "새로고침"
 
 msgid "Series Lines"
-msgstr ""
+msgstr "시리즈 라인"
 
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
@@ -3110,7 +3110,7 @@ msgid "For a failed scheduled post, only the text content can be restored. Pleas
 msgstr "실패한 예약 게시물은 텍스트만 복원할 수 있습니다. <0/>교차 @, 미디어 업로드 등을 다시 진행해 주세요."
 
 msgid "Failed to generate the share image. Please try again."
-msgstr ""
+msgstr "공유 이미지를 생성하지 못했습니다. 다시 시도해 주세요."
 
 msgid "Time"
 msgstr "시간"
@@ -3162,10 +3162,10 @@ msgid "Scan QR code to access your account"
 msgstr "QR 코드를 스캔하여 계정에 접속하세요"
 
 msgid "Total Maps"
-msgstr ""
+msgstr "총 맵"
 
 msgid "Set Handicap"
-msgstr ""
+msgstr "세트 핸디캡"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -3199,7 +3199,7 @@ msgid "Forbidden. Please check your permissions."
 msgstr "금지되었습니다. 권한을 확인해 주세요."
 
 msgid "1st Half"
-msgstr ""
+msgstr "전반"
 
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
@@ -3233,10 +3233,10 @@ msgstr "업로드에 실패했습니다. GIF 크기가 {0}을(를) 초과합니�
 
 #. placeholder {0}: m[1]
 msgid "Q{0}"
-msgstr ""
+msgstr "{0}쿼터"
 
 msgid "1st Half Corners"
-msgstr ""
+msgstr "전반 코너킥"
 
 msgid "{days}d left"
 msgstr "{days}일 남음"
@@ -3284,7 +3284,7 @@ msgid "Failed to verify password."
 msgstr "비밀번호 확인에 실패했습니다."
 
 msgid "Any Player Rampage"
-msgstr ""
+msgstr "임의 선수 램페이지"
 
 msgid "Club"
 msgstr "클럽"
@@ -3378,7 +3378,7 @@ msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in
 msgstr "여러 플랫폼에 교차 게시하고, 친구 거래를 추적하며, 소셜 게시물에서 알파를 찾아보세요"
 
 msgid "Pts"
-msgstr ""
+msgstr "점"
 
 msgid "Enter number of winners"
 msgstr "수령자 수 입력"
@@ -3393,7 +3393,7 @@ msgid "Failed to bookmark snapshot."
 msgstr "스냅샷 북마크에 실패했습니다."
 
 msgid "Kill Totals"
-msgstr ""
+msgstr "총 킬"
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -3493,7 +3493,7 @@ msgid "This address is already verified"
 msgstr "이 주소는 이미 인증되었습니다"
 
 msgid "Set {setNum} Total Games"
-msgstr ""
+msgstr "{setNum}세트 총 게임"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
@@ -3559,7 +3559,7 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr "서명자가 요청한 작업을 수행할 권한이 없습니다. 다시 승인해 주세요."
 
 msgid "Round Handicap"
-msgstr ""
+msgstr "라운드 핸디캡"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "로그인하려는 계정은 이미 다른 Firefly 계정에 연결되어 있습니다."
@@ -3637,7 +3637,7 @@ msgid_plural "# Attention items"
 msgstr[0] "# 주의 항목"
 
 msgid "No chart data available"
-msgstr ""
+msgstr "사용 가능한 차트 데이터가 없습니다"
 
 msgid "Hide more comments"
 msgstr "댓글 더 접기"
@@ -3652,11 +3652,11 @@ msgid "Failed to switch wallet. Please try again"
 msgstr "지갑 전환에 실패했습니다. 다시 시도해 주세요"
 
 msgid "Exact Score"
-msgstr ""
+msgstr "정확한 스코어"
 
 #. placeholder {0}: group.group_letter
 msgid "Group {0}"
-msgstr ""
+msgstr "{0} 그룹"
 
 msgid "Like / Repost / Comment"
 msgstr "좋아요 / 리포스트 / 댓글"
@@ -3698,7 +3698,7 @@ msgid "Estimated cost"
 msgstr "예상 비용"
 
 msgid "{homeLabel} holders"
-msgstr ""
+msgstr "{homeLabel} 보유자"
 
 msgid "No trade records"
 msgstr "거래 기록 없음"
@@ -3726,7 +3726,7 @@ msgstr "방금"
 
 #. placeholder {0}: m[1]
 msgid "Game {0}"
-msgstr ""
+msgstr "{0} 게임"
 
 msgid "Mine"
 msgstr "내 거래"
@@ -3743,7 +3743,7 @@ msgid "Your Firefly Identity is now active."
 msgstr "Firefly ID가 활성화되었습니다."
 
 msgid "Map Handicap"
-msgstr ""
+msgstr "맵 핸디캡"
 
 msgid "Create a Post"
 msgstr "게시물 작성"
@@ -3797,7 +3797,7 @@ msgid "Not Found"
 msgstr "찾을 수 없음"
 
 msgid "Inhibitor Handicap"
-msgstr ""
+msgstr "억제기 핸디캡"
 
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "죄송합니다. 입력한 인증 코드가 유효하지 않습니다"
@@ -3832,7 +3832,7 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "표시 이름은 {maxDisplayNameSize}자를 초과할 수 없습니다"
 
 msgid "{awayLabel} holders"
-msgstr ""
+msgstr "{awayLabel} 보유자"
 
 msgid "ALL"
 msgstr "전체"
@@ -3841,7 +3841,7 @@ msgid "Note: Cloud drafts save text only. Please upload original images or video
 msgstr "참고: 클라우드 임시 저장은 텍스트만 저장합니다. 원본 이미지나 동영상을 다시 업로드하세요."
 
 msgid "Drake Handicap"
-msgstr ""
+msgstr "드래곤 핸디캡"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr "다중 기기 로그인을 끄면 예약 게시물이 실패할 수 있습니다. 예약대로 게시되도록 다중 기기 로그인을 켜 두세요."
@@ -3853,7 +3853,7 @@ msgid "Failed to send tip."
 msgstr "팁 전송에 실패했습니다."
 
 msgid "Both Teams Destroy Barracks"
-msgstr ""
+msgstr "양 팀 막사 파괴"
 
 msgid "Failed to switch."
 msgstr "전환에 실패했습니다."
@@ -3916,7 +3916,7 @@ msgid "Open Interest"
 msgstr "미결제약정"
 
 msgid "Ends in Daytime"
-msgstr ""
+msgstr "낮에 종료"
 
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
@@ -3964,7 +3964,7 @@ msgid "Failed to unmute /{0}."
 msgstr "/{0} 숨김 해제에 실패했습니다."
 
 msgid "{formattedVol} Vol."
-msgstr ""
+msgstr "거래량 {formattedVol}"
 
 msgid "Custom amount is required for this token"
 msgstr "이 토큰에는 사용자 지정 금액이 필요합니다"
@@ -4017,7 +4017,7 @@ msgid "Select Chain"
 msgstr "체인 선택"
 
 msgid "Assists"
-msgstr ""
+msgstr "어시스트"
 
 msgid "Edit Profile"
 msgstr "프로필 편집"
@@ -4048,7 +4048,7 @@ msgid "NFT ID"
 msgstr "NFT ID"
 
 msgid "W"
-msgstr ""
+msgstr "승"
 
 msgid "Compose"
 msgstr "작성"
@@ -4119,7 +4119,7 @@ msgid_plural "# Risky items"
 msgstr[0] "# 위험 항목"
 
 msgid "{teamName} Totals"
-msgstr ""
+msgstr "{teamName} 합계"
 
 msgid "The password you entered is incorrect. Please try again."
 msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 주세요."
@@ -4128,13 +4128,13 @@ msgid "The self-destruct function is included. The project owner may have the ab
 msgstr "자기 파괴 기능이 포함되어 있습니다. 프로젝트 소유자가 컨트랙트를 파괴할 수 있습니다."
 
 msgid "Total Sets"
-msgstr ""
+msgstr "총 세트"
 
 msgid "Enable now"
 msgstr "지금 활성화"
 
 msgid "Both Teams Slay Baron"
-msgstr ""
+msgstr "양 팀 바론 처치"
 
 msgid "Failed to unlike the comment."
 msgstr "댓글 좋아요 취소에 실패했습니다."
@@ -4215,7 +4215,7 @@ msgid "Post added to your Bookmarks"
 msgstr "게시물이 북마크에 추가되었습니다"
 
 msgid "Most Kills"
-msgstr ""
+msgstr "최다 킬"
 
 msgid "Volume Traded"
 msgstr "거래량"
@@ -4302,7 +4302,7 @@ msgid "Post your reply"
 msgstr "답글 게시"
 
 msgid "L"
-msgstr ""
+msgstr "패"
 
 msgid "Add Token"
 msgstr "토큰 추가"
@@ -4315,13 +4315,13 @@ msgid "Owner can set a different tax rate for every assigned address."
 msgstr "소유자는 지정된 각 주소에 다른 세율을 설정할 수 있습니다."
 
 msgid "Game Winner"
-msgstr ""
+msgstr "게임 승자"
 
 msgid "View on explorer"
 msgstr "익스플로러에서 보기"
 
 msgid "Halftime"
-msgstr ""
+msgstr "하프타임"
 
 msgid "Your Telegram account is now connected"
 msgstr "Telegram 계정이 연결되었습니다"
@@ -4370,7 +4370,7 @@ msgid "by {0}"
 msgstr "{0} 작성"
 
 msgid "2nd Half Corners"
-msgstr ""
+msgstr "후반 코너킥"
 
 msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
 msgstr "연결된 지갑이 오래되었거나 부정확할 수 있습니다. 전송 전에 확인하세요."
@@ -4401,7 +4401,7 @@ msgid "Failed to disconnect"
 msgstr "연결 해제에 실패했습니다"
 
 msgid "Odd/Even Total Rounds"
-msgstr ""
+msgstr "총 라운드 홀짝"
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr "웹사이트는 {maxWebsiteSize}자를 초과할 수 없습니다"
@@ -4416,7 +4416,7 @@ msgid "Save"
 msgstr "저장"
 
 msgid "Halftime Result"
-msgstr ""
+msgstr "하프타임 결과"
 
 msgid "Post has been encrypted"
 msgstr "게시물이 암호화되었습니다"
@@ -4479,7 +4479,7 @@ msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "{handleOrEnsOrAddress} 팔로우 취소"
 
 msgid "First Corner"
-msgstr ""
+msgstr "첫 코너킥"
 
 msgid "{hours}h left"
 msgstr "{hours}시간 남음"
@@ -4526,7 +4526,7 @@ msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 브라우저 알림을 켜고 거래 업데이트를 놓치지 마세요."
 
 msgid "Spreads"
-msgstr ""
+msgstr "스프레드"
 
 msgid "Quality filter"
 msgstr "품질 필터"
@@ -4561,7 +4561,7 @@ msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Firefly 럭키 드롭으로 팔로워와 참여를 늘려 보세요!"
 
 msgid "Watch Stream"
-msgstr ""
+msgstr "스트림 보기"
 
 msgid "Transaction failed"
 msgstr "거래 실패"
@@ -4619,7 +4619,7 @@ msgid "Holders can not sell all of the token."
 msgstr "보유자가 모든 토큰을 판매할 수 없습니다."
 
 msgid "Sports Live"
-msgstr ""
+msgstr "스포츠 라이브"
 
 msgid "Only followers of the author can comment on this post."
 msgstr "작성자의 팔로워만 이 게시물에 댓글을 달 수 있습니다."
@@ -4631,10 +4631,10 @@ msgid "Contract source code not verified"
 msgstr "컨트랙트 소스 코드 미검증"
 
 msgid "Game Handicap"
-msgstr ""
+msgstr "게임 핸디캡"
 
 msgid "Total Games"
-msgstr ""
+msgstr "총 게임"
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT가 북마크에서 제거되었습니다"
@@ -4804,7 +4804,7 @@ msgid "Farcaster"
 msgstr "Farcaster"
 
 msgid "Away"
-msgstr ""
+msgstr "원정"
 
 msgid "Change Password"
 msgstr "비밀번호 변경"
@@ -4816,7 +4816,7 @@ msgid "Replying to"
 msgstr "답글 대상"
 
 msgid "Hide"
-msgstr ""
+msgstr "숨기기"
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })
@@ -4824,7 +4824,7 @@ msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{t
 msgstr "<0>수령: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 
 msgid "Comment on X once"
-msgstr ""
+msgstr "X에 한 번 댓글 달기"
 
 msgid "Keep it safe and do not share"
 msgstr "안전하게 보관하고 공유하지 마세요"
@@ -4910,7 +4910,7 @@ msgid "Language"
 msgstr "언어"
 
 msgid "Nashor Handicap"
-msgstr ""
+msgstr "내셔 핸디캡"
 
 msgid "Address on Watching Lists"
 msgstr "관심 목록의 주소"
@@ -4927,7 +4927,7 @@ msgid "What's happening..."
 msgstr "무슨 일이 일어나고 있나요..."
 
 msgid "Coming Soon"
-msgstr ""
+msgstr "출시 예정"
 
 msgid "FREE"
 msgstr "무료"
@@ -4939,7 +4939,7 @@ msgid "Minting Date"
 msgstr "민팅 날짜"
 
 msgid "1st Set Total Games"
-msgstr ""
+msgstr "1세트 총 게임"
 
 msgid "Reauthorize"
 msgstr "재인증"
@@ -4957,13 +4957,13 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "비밀번호 설정 중 예기치 않은 단계: {step}."
 
 msgid "Both Teams To Score - 2nd Half"
-msgstr ""
+msgstr "양 팀 득점 - 후반"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr "다른 소셜 로그인으로 여러 Firefly 계정을 만든 경우 이 계정을 삭제하면 소셜 계정을 하나로 통합하는 데 도움이 됩니다. 그러나 다른 소셜 계정에 연결된 다른 Firefly 지갑에 액세스하려는 경우 삭제 대신 계정 전환을 고려하세요."
 
 msgid "Both Teams Destroy Inhibitors"
-msgstr ""
+msgstr "양 팀 억제기 파괴"
 
 msgid "Contract Address"
 msgstr "컨트랙트 주소"
@@ -4982,7 +4982,7 @@ msgid "General"
 msgstr "일반"
 
 msgid "Round Total"
-msgstr ""
+msgstr "라운드 합계"
 
 msgid "Show more tokens"
 msgstr "더 많은 토큰 표시"
@@ -5068,7 +5068,7 @@ msgid "Resetting your 6-digit password will clear all previously encrypted login
 msgstr "6자리 비밀번호를 재설정하면 이전에 암호화된 모든 로그인 세션이 삭제됩니다."
 
 msgid "Map Winner"
-msgstr ""
+msgstr "맵 승자"
 
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
@@ -5093,7 +5093,7 @@ msgid "No stealing attack involved."
 msgstr "도난 공격이 관련되지 않았습니다."
 
 msgid "Any Player Penta Kill"
-msgstr ""
+msgstr "임의 선수 펜타 킬"
 
 msgid "Your account has not registered on Firefly"
 msgstr "계정이 Firefly에 등록되지 않았습니다"
@@ -5160,7 +5160,7 @@ msgid "Message"
 msgstr "메시지"
 
 msgid "Any Player Ultra Kill"
-msgstr ""
+msgstr "임의 선수 울트라 킬"
 
 msgid "Token holder of any one below"
 msgstr "아래 토큰 중 하나의 보유자"
@@ -5317,7 +5317,7 @@ msgid "Trending Token"
 msgstr "인기 토큰"
 
 msgid "Both Teams To Score"
-msgstr ""
+msgstr "양 팀 득점"
 
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "참여에 대해 모두에게 알리는 게시물을 작성하세요. 제안이 활성화된 동안 투표를 변경할 수 있습니다."
@@ -5385,7 +5385,7 @@ msgid "Assign your Firefly Wallet as your Lens account manager to authorize Fire
 msgstr "Firefly 지갑을 Lens 계정 관리자로 지정하여 Firefly 자동 로그인을 승인하세요."
 
 msgid "2nd Half Totals"
-msgstr ""
+msgstr "후반 합계"
 
 msgid "Snapshot DAO"
 msgstr "Snapshot DAO"
@@ -5441,10 +5441,10 @@ msgid "Loading..."
 msgstr "로딩 중..."
 
 msgid "Your session has expired. Please sign in again."
-msgstr ""
+msgstr "세션이 만료되었습니다. 다시 로그인해 주세요."
 
 msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
-msgstr ""
+msgstr "DeFiUnited에 {formattedAmount} {symbol} 기부함"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
 msgstr "<0>Firefly 모바일 앱</0><1/>으로 QR 코드를 스캔하여 앱에서 직접 로그인하세요."
@@ -5489,7 +5489,7 @@ msgid "Quote"
 msgstr "인용"
 
 msgid "Groups"
-msgstr ""
+msgstr "그룹"
 
 msgid "Would you like to restore it?"
 msgstr "복원하시겠습니까?"

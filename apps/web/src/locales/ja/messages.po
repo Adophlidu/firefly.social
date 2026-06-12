@@ -23,7 +23,7 @@ msgid "Copy to clipboard"
 msgstr "クリップボードにコピー"
 
 msgid "Kill Handicap"
-msgstr ""
+msgstr "キルハンディキャップ"
 
 msgid "DRAW"
 msgstr "引き分け"
@@ -99,14 +99,14 @@ msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>純資産</0>"
 
 msgid "Cash"
-msgstr ""
+msgstr "現金"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "{0} での引用に失敗しました。"
 
 msgid "Any Player Quadra Kill"
-msgstr ""
+msgstr "いずれかの選手がクアドラキル"
 
 msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth があなたのチップをリポストしました"
@@ -255,7 +255,7 @@ msgid "This space does not exist."
 msgstr "このスペースは存在しません。"
 
 msgid "1H Totals"
-msgstr ""
+msgstr "前半合計"
 
 msgid "Failed to apply draft post."
 msgstr "下書き投稿の適用に失敗しました。"
@@ -281,7 +281,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr "コントラクトオーナーは他のアドレスのトークン残高を変更する権限を持っていません。"
 
 msgid "Completed Match"
-msgstr ""
+msgstr "終了した試合"
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>時価総額 = 現在価格 x 流通供給量</0><1>とは、暗号通貨の流通供給量の合計市場価値を指します。これは株式市場の指標に似ており、1 株あたりの価格に市場の発行済株式数 (内部関係者や政府によって所有および拘束されていない) を乗じたものです。</1>"
@@ -296,7 +296,7 @@ msgid "Join"
 msgstr "参加"
 
 msgid "Both Teams Beat Roshan"
-msgstr ""
+msgstr "両チームがロシャンを討伐"
 
 msgid "Multi-device login sessions synced successfully."
 msgstr "マルチデバイスログインセッションの同期が完了しました。"
@@ -335,7 +335,7 @@ msgid "Mute {walletHandle}"
 msgstr "{walletHandle} をミュート"
 
 msgid "1H Moneyline"
-msgstr ""
+msgstr "前半マネーライン"
 
 msgid "Claimed successfully."
 msgstr "受け取りに成功しました。"
@@ -344,7 +344,7 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr "<0>暗号資産の生涯に存在するようにコーディングされたコインの最大数。株式市場で発行可能な株式の最大数に相当します。</0><1>最大供給量 = コードに定められた理論上の最大値</1>"
 
 msgid "{teamName} Corners"
-msgstr ""
+msgstr "{teamName} コーナーキック"
 
 msgid "Password Verification"
 msgstr "パスワード確認"
@@ -397,7 +397,7 @@ msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "Firefly で {handleOrEnsOrAddress} のフォローに失敗しました。"
 
 msgid "Comment on X always"
-msgstr ""
+msgstr "Xに常にコメントする"
 
 msgid "No cryptocurrency mixer found."
 msgstr "暗号資産ミキサーは検出されませんでした。"
@@ -445,7 +445,7 @@ msgid "Tax can be modified"
 msgstr "税率は変更可能です"
 
 msgid "Set {setNum} Winner"
-msgstr ""
+msgstr "第{setNum}セットの勝者"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>バーン済み</0><1/>"
@@ -461,10 +461,10 @@ msgid "Opinion"
 msgstr "意見"
 
 msgid "Draw"
-msgstr ""
+msgstr "引き分け"
 
 msgid "Game {gameNum}"
-msgstr ""
+msgstr "ゲーム {gameNum}"
 
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "ユーザー名は小文字、数字、ハイフン（-）のみ使用できます。ハイフンで始めることはできません"
@@ -512,7 +512,7 @@ msgid "Mint Ended"
 msgstr "ミント終了"
 
 msgid "Scroll tabs right"
-msgstr ""
+msgstr "タブを右にスクロール"
 
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
@@ -556,7 +556,7 @@ msgid "Swap liked."
 msgstr "いいねしました。"
 
 msgid "Most Inhibitors"
-msgstr ""
+msgstr "インヒビター最多"
 
 msgid "Avg"
 msgstr "平均"
@@ -743,7 +743,7 @@ msgid "Overview"
 msgstr "概要"
 
 msgid "Most Nashors"
-msgstr ""
+msgstr "ナッシャー最多"
 
 msgid "Stocks"
 msgstr "株式"
@@ -758,7 +758,7 @@ msgid "<0>The amount of coins that have already been created, minus any coins th
 msgstr "<0>既に作成されたコインの数量から、バーン（流通から除外）されたコインを差し引いた量。株式市場における発行済み株式に相当します。</0><1>総供給量 = オンチェーン供給量 - バーン済みトークン</1>"
 
 msgid "Totals"
-msgstr ""
+msgstr "合計"
 
 msgid "Failed to vote."
 msgstr "投票に失敗しました。"
@@ -780,7 +780,7 @@ msgid "Get {0}"
 msgstr "{0} を入手"
 
 msgid "2nd Half Result"
-msgstr ""
+msgstr "後半の結果"
 
 msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
 msgstr "承認されたフォロワーのみがこれらの投稿を見ることができます。<0/>アクセスをリクエストするには、フォローをクリックしてください。"
@@ -800,13 +800,13 @@ msgid "Undo repost"
 msgstr "リポストを取り消す"
 
 msgid "Prediction"
-msgstr ""
+msgstr "予測"
 
 msgid "Tokens"
 msgstr "トークン"
 
 msgid "Tower Handicap"
-msgstr ""
+msgstr "タワーハンディキャップ"
 
 msgid "Search {id}"
 msgstr "{id} を検索"
@@ -937,7 +937,7 @@ msgid "Firefly wallet"
 msgstr "Firefly ウォレット"
 
 msgid "Threes"
-msgstr ""
+msgstr "スリーポイント"
 
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
@@ -1013,7 +1013,7 @@ msgid "Explore"
 msgstr "探索"
 
 msgid "Show"
-msgstr ""
+msgstr "表示"
 
 msgid "Show Less"
 msgstr "表示を減らす"
@@ -1057,7 +1057,7 @@ msgid "No predictions found"
 msgstr "予測が見つかりません"
 
 msgid "Both Teams Slay Dragon"
-msgstr ""
+msgstr "両チームがドラゴンを討伐"
 
 msgid "Won"
 msgstr "勝利"
@@ -1069,7 +1069,7 @@ msgid "Functions with retrievable ownership"
 msgstr "所有権を回復できる機能"
 
 msgid "Scroll tabs left"
-msgstr ""
+msgstr "タブを左にスクロール"
 
 msgid "Enter your password to confirm your identity."
 msgstr "本人確認のためパスワードを入力してください。"
@@ -1146,7 +1146,7 @@ msgid "Current Positions"
 msgstr "現在のポジション"
 
 msgid "Game N Winner"
-msgstr ""
+msgstr "ゲームNの勝者"
 
 msgid "Price"
 msgstr "価格"
@@ -1166,7 +1166,7 @@ msgid "GIF source not supported. Supported sources: {0}"
 msgstr "この GIF ソースはサポートされていません。サポートされているソース: {0}"
 
 msgid "Game Lines"
-msgstr ""
+msgstr "ゲームライン"
 
 msgid "Remove Address"
 msgstr "アドレスを削除"
@@ -1270,7 +1270,7 @@ msgid "Confirm Lucky Drop"
 msgstr "ラッキードロップを確認"
 
 msgid "D"
-msgstr ""
+msgstr "分"
 
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "マルチデバイスログインの有効化に失敗しました。後でもう一度お試しください。"
@@ -1467,7 +1467,7 @@ msgid "Tomorrow"
 msgstr "明日"
 
 msgid "Go the Distance?"
-msgstr ""
+msgstr "最終ラウンドまで続く？"
 
 msgid "Total trade"
 msgstr "総取引量"
@@ -1525,7 +1525,7 @@ msgid "Enter your nickname on Firefly"
 msgstr "Firefly のニックネームを入力"
 
 msgid "Played"
-msgstr ""
+msgstr "試合数"
 
 msgid "Anti whale can not be modified."
 msgstr "反クジラ機能は変更できません。"
@@ -1561,7 +1561,7 @@ msgid "No polymarket event found."
 msgstr "Polymarket イベントが見つかりません。"
 
 msgid "Wins"
-msgstr ""
+msgstr "勝利"
 
 msgid "Event detail"
 msgstr "イベント詳細"
@@ -1591,7 +1591,7 @@ msgid "Max"
 msgstr "最大"
 
 msgid "Moneyline"
-msgstr ""
+msgstr "マネーライン"
 
 msgid "Mute all"
 msgstr "すべてミュート"
@@ -1606,7 +1606,7 @@ msgid "Failed to generate signature packet with source = {source}."
 msgstr "source = {source} の署名パケットの生成に失敗しました。"
 
 msgid "Method of Victory"
-msgstr ""
+msgstr "勝利方法"
 
 msgid "Delete"
 msgstr "削除"
@@ -1620,7 +1620,7 @@ msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote
 msgstr "<0/> <1>があなたの </1><2>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</2> にいいねしました"
 
 msgid "Points"
-msgstr ""
+msgstr "ポイント"
 
 msgid "Insufficient funds"
 msgstr "残高不足"
@@ -1654,7 +1654,7 @@ msgid "Connect Wallet"
 msgstr "ウォレットを接続"
 
 msgid "Both Teams To Score - 1st Half"
-msgstr ""
+msgstr "両チーム得点 - 前半"
 
 msgid "Custom amount"
 msgstr "カスタム金額"
@@ -1862,7 +1862,7 @@ msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "Firefly で {handleOrEnsOrAddress} のフォロー解除に失敗しました。"
 
 msgid "Corners Odd/Even"
-msgstr ""
+msgstr "コーナーキック 奇数/偶数"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -1915,10 +1915,10 @@ msgid "No fake KYC involved."
 msgstr "偽の KYC は関与していません。"
 
 msgid "First Team to Score"
-msgstr ""
+msgstr "先に得点するチーム"
 
 msgid "Shots"
-msgstr ""
+msgstr "シュート"
 
 msgid "Your Firefly Account is now connected"
 msgstr "あなたの Firefly アカウントが接続されました"
@@ -1939,7 +1939,7 @@ msgid "Swaps"
 msgstr "スワップ"
 
 msgid "Advancing"
-msgstr ""
+msgstr "勝ち上がり"
 
 msgid "Total Gains"
 msgstr "総利益"
@@ -1951,7 +1951,7 @@ msgstr "今日"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
 msgid "view"
 msgid_plural "views"
-msgstr[0] ""
+msgstr[0] "ビュー"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
@@ -2076,7 +2076,7 @@ msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "{walletHandle} からの記事はホームタイムラインで非表示になります"
 
 msgid "Total Rounds"
-msgstr ""
+msgstr "合計ラウンド"
 
 msgid "Please enter at least 2 characters."
 msgstr "2 文字以上入力してください。"
@@ -2088,7 +2088,7 @@ msgid "Article"
 msgstr "記事"
 
 msgid "Draws"
-msgstr ""
+msgstr "引き分け"
 
 msgid "Active"
 msgstr "アクティブ"
@@ -2097,10 +2097,10 @@ msgid "Translated from {contentLanguage}"
 msgstr "{contentLanguage} から翻訳"
 
 msgid "Post with image"
-msgstr ""
+msgstr "画像付きで投稿"
 
 msgid "Losses"
-msgstr ""
+msgstr "敗北"
 
 msgid "Failed to open miniapp"
 msgstr "ミニアプリを開けませんでした"
@@ -2170,7 +2170,7 @@ msgid "{0} items"
 msgstr "{0} 件"
 
 msgid "Most Drakes"
-msgstr ""
+msgstr "ドラゴン最多"
 
 msgid "Balance"
 msgstr "残高"
@@ -2227,7 +2227,7 @@ msgid "Privacy and security"
 msgstr "プライバシーとセキュリティ"
 
 msgid "Rebounds"
-msgstr ""
+msgstr "リバウンド"
 
 msgid "Create your Firefly Profile"
 msgstr "Firefly プロフィールを作成"
@@ -2238,7 +2238,7 @@ msgid_plural "{totalVotes} Votes"
 msgstr[0] "{totalVotes} 票"
 
 msgid "Adv"
-msgstr ""
+msgstr "勝上"
 
 msgid "Full"
 msgstr "フル"
@@ -2262,7 +2262,7 @@ msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "匿名モードでこのページを離れると、コンテンツは失われます。"
 
 msgid "1st Set Winner"
-msgstr ""
+msgstr "第1セットの勝者"
 
 msgid "Post could not be found."
 msgstr "投稿が見つかりませんでした。"
@@ -2287,10 +2287,10 @@ msgstr "キャンセル済み"
 
 #. placeholder {0}: m[1]
 msgid "Map {0}"
-msgstr ""
+msgstr "マップ {0}"
 
 msgid "Sets"
-msgstr ""
+msgstr "セット"
 
 msgid "No content for the last two weeks."
 msgstr "過去 2 週間のコンテンツはありません。"
@@ -2378,7 +2378,7 @@ msgid "You can save this to send later from your drafts."
 msgstr "下書きに保存して後で送信できます。"
 
 msgid "Failed to copy image. Please try again later."
-msgstr ""
+msgstr "画像をコピーできませんでした。後でもう一度お試しください。"
 
 msgid "Failed Post"
 msgstr "投稿失敗"
@@ -2496,7 +2496,7 @@ msgid "No stealing attack found."
 msgstr "窃取攻撃は検出されませんでした。"
 
 msgid "First Blood"
-msgstr ""
+msgstr "ファーストブラッド"
 
 msgid "Share From"
 msgstr "共有元"
@@ -2530,7 +2530,7 @@ msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
 msgstr "{0} が <1>{3}</1> で <0>{1} ${2}</0> のチップを送りました"
 
 msgid "P"
-msgstr ""
+msgstr "P"
 
 msgid "Days"
 msgstr "日"
@@ -2564,7 +2564,7 @@ msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
 msgstr "最大 {MAX_MARKETS_COUNT_SELECTABLE} 個のオプションを選択"
 
 msgid "Goals"
-msgstr ""
+msgstr "ゴール"
 
 msgid "Sign in with Lens"
 msgstr "Lens でログイン"
@@ -2648,10 +2648,10 @@ msgid "Display Name should not exceed 20 characters"
 msgstr "表示名は 20 文字以内にしてください"
 
 msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
-msgstr ""
+msgstr "\"次へ\"をクリックすると、分散型ネットワークおよびベータ製品に関連するリスクを承知したものとみなされます。"
 
 msgid "Barrack Handicap"
-msgstr ""
+msgstr "兵舎ハンディキャップ"
 
 msgid "Decrypt"
 msgstr "復号化"
@@ -2666,7 +2666,7 @@ msgid "Due to <0>X's API limitations</0>, you can only reply to posts that menti
 msgstr "<0>X の API 制限</0>により、あなたにメンションした投稿にのみ返信できます。"
 
 msgid "Failed to load groups"
-msgstr ""
+msgstr "グループを読み込めませんでした"
 
 msgid "Failed to update notification settings"
 msgstr "通知設定の更新に失敗しました"
@@ -2706,10 +2706,10 @@ msgid "New"
 msgstr "新規"
 
 msgid "Corners"
-msgstr ""
+msgstr "コーナーキック"
 
 msgid "Will there be a run in the first inning?"
-msgstr ""
+msgstr "1回に得点が入りますか？"
 
 msgid "Delete Firefly account"
 msgstr "Firefly アカウントを削除"
@@ -2836,7 +2836,7 @@ msgid "The user canceled the operation."
 msgstr "ユーザーが操作をキャンセルしました。"
 
 msgid "Most Barracks"
-msgstr ""
+msgstr "兵舎最多"
 
 msgid "Sign in on mobile"
 msgstr "モバイルでログイン"
@@ -2876,7 +2876,7 @@ msgid "Encrypted choice"
 msgstr "暗号化された選択肢"
 
 msgid "Odd/Even Total Kills"
-msgstr ""
+msgstr "合計キル 奇数/偶数"
 
 msgid "Club could not be found."
 msgstr "クラブが見つかりませんでした。"
@@ -2969,7 +2969,7 @@ msgid_plural "# years"
 msgstr[0] "# 年"
 
 msgid "Deposit"
-msgstr ""
+msgstr "入金"
 
 msgid "<0/> Loading"
 msgstr "<0/> 読み込み中"
@@ -2984,7 +2984,7 @@ msgid "Pinned"
 msgstr "ピン留め済み"
 
 msgid "Most Towers"
-msgstr ""
+msgstr "タワー最多"
 
 msgid "We've detected logins available for sync."
 msgstr "同期可能なログインが検出されました。"
@@ -3020,13 +3020,13 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "<0>{0} <1>{1}</1></0> に送信予定"
 
 msgid "Map {gameNum}"
-msgstr ""
+msgstr "マップ {gameNum}"
 
 msgid "Properties"
 msgstr "プロパティ"
 
 msgid "Market"
-msgstr ""
+msgstr "マーケット"
 
 msgid "Executed"
 msgstr "実行済み"
@@ -3077,7 +3077,7 @@ msgid "Refresh"
 msgstr "更新"
 
 msgid "Series Lines"
-msgstr ""
+msgstr "シリーズライン"
 
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
@@ -3110,7 +3110,7 @@ msgid "For a failed scheduled post, only the text content can be restored. Pleas
 msgstr "失敗した予約投稿では、テキストコンテンツのみ復元できます。<0/>クロス @、メディアのアップロードなどを再度行ってください。"
 
 msgid "Failed to generate the share image. Please try again."
-msgstr ""
+msgstr "シェア画像を生成できませんでした。もう一度お試しください。"
 
 msgid "Time"
 msgstr "時間"
@@ -3162,10 +3162,10 @@ msgid "Scan QR code to access your account"
 msgstr "QR コードをスキャンしてアカウントにアクセス"
 
 msgid "Total Maps"
-msgstr ""
+msgstr "合計マップ"
 
 msgid "Set Handicap"
-msgstr ""
+msgstr "セットハンディキャップ"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -3199,7 +3199,7 @@ msgid "Forbidden. Please check your permissions."
 msgstr "禁止されています。権限を確認してください。"
 
 msgid "1st Half"
-msgstr ""
+msgstr "前半"
 
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
@@ -3233,10 +3233,10 @@ msgstr "アップロードに失敗しました。GIF のサイズが {0} を超
 
 #. placeholder {0}: m[1]
 msgid "Q{0}"
-msgstr ""
+msgstr "第{0}クォーター"
 
 msgid "1st Half Corners"
-msgstr ""
+msgstr "前半コーナーキック"
 
 msgid "{days}d left"
 msgstr "残り {days} 日"
@@ -3284,7 +3284,7 @@ msgid "Failed to verify password."
 msgstr "パスワードの検証に失敗しました。"
 
 msgid "Any Player Rampage"
-msgstr ""
+msgstr "いずれかの選手がランページ"
 
 msgid "Club"
 msgstr "クラブ"
@@ -3378,7 +3378,7 @@ msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in
 msgstr "複数プラットフォームにクロスポスト、友達の取引を追跡、ソーシャル投稿からアルファを発見"
 
 msgid "Pts"
-msgstr ""
+msgstr "点"
 
 msgid "Enter number of winners"
 msgstr "当選者数を入力"
@@ -3393,7 +3393,7 @@ msgid "Failed to bookmark snapshot."
 msgstr "Snapshot のブックマークに失敗しました。"
 
 msgid "Kill Totals"
-msgstr ""
+msgstr "合計キル"
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -3493,7 +3493,7 @@ msgid "This address is already verified"
 msgstr "このアドレスは既に認証済みです"
 
 msgid "Set {setNum} Total Games"
-msgstr ""
+msgstr "第{setNum}セットの合計ゲーム"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
@@ -3559,7 +3559,7 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr "署名者は要求された操作を実行する権限がありません。再度承認してください。"
 
 msgid "Round Handicap"
-msgstr ""
+msgstr "ラウンドハンディキャップ"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "ログインしようとしているアカウントは既に別の Firefly アカウントにリンクされています。"
@@ -3637,7 +3637,7 @@ msgid_plural "# Attention items"
 msgstr[0] "# 注意項目"
 
 msgid "No chart data available"
-msgstr ""
+msgstr "利用可能なチャートデータがありません"
 
 msgid "Hide more comments"
 msgstr "コメントを折りたたむ"
@@ -3652,11 +3652,11 @@ msgid "Failed to switch wallet. Please try again"
 msgstr "ウォレットの切り替えに失敗しました。もう一度お試しください"
 
 msgid "Exact Score"
-msgstr ""
+msgstr "正確なスコア"
 
 #. placeholder {0}: group.group_letter
 msgid "Group {0}"
-msgstr ""
+msgstr "グループ {0}"
 
 msgid "Like / Repost / Comment"
 msgstr "いいね / リポスト / コメント"
@@ -3698,7 +3698,7 @@ msgid "Estimated cost"
 msgstr "推定コスト"
 
 msgid "{homeLabel} holders"
-msgstr ""
+msgstr "{homeLabel} 保有者"
 
 msgid "No trade records"
 msgstr "取引記録がありません"
@@ -3726,7 +3726,7 @@ msgstr "たった今"
 
 #. placeholder {0}: m[1]
 msgid "Game {0}"
-msgstr ""
+msgstr "ゲーム {0}"
 
 msgid "Mine"
 msgstr "マイ"
@@ -3743,7 +3743,7 @@ msgid "Your Firefly Identity is now active."
 msgstr "あなたの Firefly ID が有効になりました。"
 
 msgid "Map Handicap"
-msgstr ""
+msgstr "マップハンディキャップ"
 
 msgid "Create a Post"
 msgstr "投稿を作成"
@@ -3797,7 +3797,7 @@ msgid "Not Found"
 msgstr "見つかりません"
 
 msgid "Inhibitor Handicap"
-msgstr ""
+msgstr "インヒビターハンディキャップ"
 
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "申し訳ありません。入力したパスコードは無効です"
@@ -3832,7 +3832,7 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "表示名は {maxDisplayNameSize} 文字以内にしてください"
 
 msgid "{awayLabel} holders"
-msgstr ""
+msgstr "{awayLabel} 保有者"
 
 msgid "ALL"
 msgstr "すべて"
@@ -3841,7 +3841,7 @@ msgid "Note: Cloud drafts save text only. Please upload original images or video
 msgstr "注意: クラウド下書きはテキストのみ保存されます。元の画像または動画を再度アップロードしてください。"
 
 msgid "Drake Handicap"
-msgstr ""
+msgstr "ドラゴンハンディキャップ"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr "マルチデバイスログインをオフにすると、予約投稿が失敗します。予定どおりに投稿を送信するには、マルチデバイスログインをオンにしたままにしてください。"
@@ -3853,7 +3853,7 @@ msgid "Failed to send tip."
 msgstr "チップの送信に失敗しました。"
 
 msgid "Both Teams Destroy Barracks"
-msgstr ""
+msgstr "両チームが兵舎を破壊"
 
 msgid "Failed to switch."
 msgstr "切り替えに失敗しました。"
@@ -3916,7 +3916,7 @@ msgid "Open Interest"
 msgstr "建玉"
 
 msgid "Ends in Daytime"
-msgstr ""
+msgstr "昼に終了"
 
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
@@ -3964,7 +3964,7 @@ msgid "Failed to unmute /{0}."
 msgstr "/{0} のミュート解除に失敗しました。"
 
 msgid "{formattedVol} Vol."
-msgstr ""
+msgstr "出来高 {formattedVol}"
 
 msgid "Custom amount is required for this token"
 msgstr "このトークンにはカスタム金額が必要です"
@@ -4017,7 +4017,7 @@ msgid "Select Chain"
 msgstr "チェーンを選択"
 
 msgid "Assists"
-msgstr ""
+msgstr "アシスト"
 
 msgid "Edit Profile"
 msgstr "プロフィールを編集"
@@ -4048,7 +4048,7 @@ msgid "NFT ID"
 msgstr "NFT ID"
 
 msgid "W"
-msgstr ""
+msgstr "勝"
 
 msgid "Compose"
 msgstr "投稿"
@@ -4119,7 +4119,7 @@ msgid_plural "# Risky items"
 msgstr[0] "# 高リスク項目"
 
 msgid "{teamName} Totals"
-msgstr ""
+msgstr "{teamName} 合計"
 
 msgid "The password you entered is incorrect. Please try again."
 msgstr "入力したパスワードが正しくありません。もう一度お試しください。"
@@ -4128,13 +4128,13 @@ msgid "The self-destruct function is included. The project owner may have the ab
 msgstr "自己破壊機能が含まれています。プロジェクトオーナーがコントラクトを破壊できる可能性があります。"
 
 msgid "Total Sets"
-msgstr ""
+msgstr "合計セット"
 
 msgid "Enable now"
 msgstr "今すぐ有効化"
 
 msgid "Both Teams Slay Baron"
-msgstr ""
+msgstr "両チームがバロンを討伐"
 
 msgid "Failed to unlike the comment."
 msgstr "コメントのいいね取り消しに失敗しました。"
@@ -4215,7 +4215,7 @@ msgid "Post added to your Bookmarks"
 msgstr "投稿がブックマークに追加されました"
 
 msgid "Most Kills"
-msgstr ""
+msgstr "キル最多"
 
 msgid "Volume Traded"
 msgstr "取引量"
@@ -4302,7 +4302,7 @@ msgid "Post your reply"
 msgstr "返信を投稿"
 
 msgid "L"
-msgstr ""
+msgstr "敗"
 
 msgid "Add Token"
 msgstr "トークンを追加"
@@ -4315,13 +4315,13 @@ msgid "Owner can set a different tax rate for every assigned address."
 msgstr "オーナーは各指定アドレスに異なる税率を設定できます。"
 
 msgid "Game Winner"
-msgstr ""
+msgstr "ゲームの勝者"
 
 msgid "View on explorer"
 msgstr "エクスプローラーで表示"
 
 msgid "Halftime"
-msgstr ""
+msgstr "ハーフタイム"
 
 msgid "Your Telegram account is now connected"
 msgstr "あなたの Telegram アカウントが接続されました"
@@ -4370,7 +4370,7 @@ msgid "by {0}"
 msgstr "{0} より"
 
 msgid "2nd Half Corners"
-msgstr ""
+msgstr "後半コーナーキック"
 
 msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
 msgstr "関連ウォレットは古いか不正確な可能性があります。送信前に確認してください。"
@@ -4401,7 +4401,7 @@ msgid "Failed to disconnect"
 msgstr "切断に失敗しました"
 
 msgid "Odd/Even Total Rounds"
-msgstr ""
+msgstr "合計ラウンド 奇数/偶数"
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr "ウェブサイトは {maxWebsiteSize} 文字以内にしてください"
@@ -4416,7 +4416,7 @@ msgid "Save"
 msgstr "保存"
 
 msgid "Halftime Result"
-msgstr ""
+msgstr "ハーフタイムの結果"
 
 msgid "Post has been encrypted"
 msgstr "投稿は暗号化されました"
@@ -4479,7 +4479,7 @@ msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "{handleOrEnsOrAddress} のフォローを解除"
 
 msgid "First Corner"
-msgstr ""
+msgstr "最初のコーナーキック"
 
 msgid "{hours}h left"
 msgstr "残り {hours} 時間"
@@ -4526,7 +4526,7 @@ msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 取引の更新を見逃さないよう、ブラウザ通知をオンにしてください。"
 
 msgid "Spreads"
-msgstr ""
+msgstr "スプレッド"
 
 msgid "Quality filter"
 msgstr "品質フィルター"
@@ -4561,7 +4561,7 @@ msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Firefly のラッキードロップでフォロワーとエンゲージメントを増やしましょう！"
 
 msgid "Watch Stream"
-msgstr ""
+msgstr "ストリームを見る"
 
 msgid "Transaction failed"
 msgstr "取引に失敗しました"
@@ -4619,7 +4619,7 @@ msgid "Holders can not sell all of the token."
 msgstr "ホルダーは全てのトークンを売却できません。"
 
 msgid "Sports Live"
-msgstr ""
+msgstr "スポーツライブ"
 
 msgid "Only followers of the author can comment on this post."
 msgstr "作者のフォロワーのみがこの投稿にコメントできます。"
@@ -4631,10 +4631,10 @@ msgid "Contract source code not verified"
 msgstr "コントラクトのソースコードが未検証"
 
 msgid "Game Handicap"
-msgstr ""
+msgstr "ゲームハンディキャップ"
 
 msgid "Total Games"
-msgstr ""
+msgstr "合計ゲーム"
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT がブックマークから削除されました"
@@ -4804,7 +4804,7 @@ msgid "Farcaster"
 msgstr "Farcaster"
 
 msgid "Away"
-msgstr ""
+msgstr "アウェイ"
 
 msgid "Change Password"
 msgstr "パスワードを変更"
@@ -4816,7 +4816,7 @@ msgid "Replying to"
 msgstr "返信先"
 
 msgid "Hide"
-msgstr ""
+msgstr "非表示"
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })
@@ -4824,7 +4824,7 @@ msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{t
 msgstr "<0>受け取り済み: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 
 msgid "Comment on X once"
-msgstr ""
+msgstr "Xに一度コメントする"
 
 msgid "Keep it safe and do not share"
 msgstr "大切に保管し、共有しないでください"
@@ -4910,7 +4910,7 @@ msgid "Language"
 msgstr "言語"
 
 msgid "Nashor Handicap"
-msgstr ""
+msgstr "ナッシャーハンディキャップ"
 
 msgid "Address on Watching Lists"
 msgstr "ウォッチリストのアドレス"
@@ -4927,7 +4927,7 @@ msgid "What's happening..."
 msgstr "いま何が起きているか..."
 
 msgid "Coming Soon"
-msgstr ""
+msgstr "近日公開"
 
 msgid "FREE"
 msgstr "無料"
@@ -4939,7 +4939,7 @@ msgid "Minting Date"
 msgstr "ミント日"
 
 msgid "1st Set Total Games"
-msgstr ""
+msgstr "第1セットの合計ゲーム"
 
 msgid "Reauthorize"
 msgstr "再認証"
@@ -4957,13 +4957,13 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "パスワード設定の予期しないステップ: {step}。"
 
 msgid "Both Teams To Score - 2nd Half"
-msgstr ""
+msgstr "両チーム得点 - 後半"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr "異なるソーシャルログインで複数の Firefly アカウントを作成している場合、このアカウントを削除するとソーシャルアカウントを1つに統合できます。ただし、別のソーシャルアカウントにリンクされた別の Firefly ウォレットにアクセスしたい場合は、削除ではなくアカウントの切り替えを検討してください。"
 
 msgid "Both Teams Destroy Inhibitors"
-msgstr ""
+msgstr "両チームがインヒビターを破壊"
 
 msgid "Contract Address"
 msgstr "コントラクトアドレス"
@@ -4982,7 +4982,7 @@ msgid "General"
 msgstr "一般"
 
 msgid "Round Total"
-msgstr ""
+msgstr "ラウンド合計"
 
 msgid "Show more tokens"
 msgstr "もっとトークンを表示"
@@ -5068,7 +5068,7 @@ msgid "Resetting your 6-digit password will clear all previously encrypted login
 msgstr "6桁のパスワードをリセットすると、以前に暗号化されたすべてのログインセッションがクリアされます。"
 
 msgid "Map Winner"
-msgstr ""
+msgstr "マップの勝者"
 
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
@@ -5093,7 +5093,7 @@ msgid "No stealing attack involved."
 msgstr "窃盗攻撃は関与していません。"
 
 msgid "Any Player Penta Kill"
-msgstr ""
+msgstr "いずれかの選手がペンタキル"
 
 msgid "Your account has not registered on Firefly"
 msgstr "アカウントは Firefly に登録されていません"
@@ -5160,7 +5160,7 @@ msgid "Message"
 msgstr "メッセージ"
 
 msgid "Any Player Ultra Kill"
-msgstr ""
+msgstr "いずれかの選手がウルトラキル"
 
 msgid "Token holder of any one below"
 msgstr "以下のいずれかのトークン保有者"
@@ -5317,7 +5317,7 @@ msgid "Trending Token"
 msgstr "トレンドトークン"
 
 msgid "Both Teams To Score"
-msgstr ""
+msgstr "両チーム得点"
 
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "参加について皆に伝える投稿を作成してください。提案が有効な間は投票を変更できます。"
@@ -5385,7 +5385,7 @@ msgid "Assign your Firefly Wallet as your Lens account manager to authorize Fire
 msgstr "Firefly ウォレットを Lens アカウントマネージャーに設定し、Firefly の自動ログインを許可します。"
 
 msgid "2nd Half Totals"
-msgstr ""
+msgstr "後半合計"
 
 msgid "Snapshot DAO"
 msgstr "Snapshot DAO"
@@ -5441,10 +5441,10 @@ msgid "Loading..."
 msgstr "読み込み中..."
 
 msgid "Your session has expired. Please sign in again."
-msgstr ""
+msgstr "セッションの有効期限が切れました。もう一度サインインしてください。"
 
 msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
-msgstr ""
+msgstr "DeFiUnitedに{formattedAmount} {symbol}を寄付しました"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
 msgstr "<0>Firefly モバイルアプリ</0><1/>で QR コードをスキャンし、アプリ内で直接サインインしてください。"
@@ -5489,7 +5489,7 @@ msgid "Quote"
 msgstr "引用"
 
 msgid "Groups"
-msgstr ""
+msgstr "グループ"
 
 msgid "Would you like to restore it?"
 msgstr "復元しますか？"

@@ -23,7 +23,7 @@ msgid "Copy to clipboard"
 msgstr "复制到剪贴板"
 
 msgid "Kill Handicap"
-msgstr ""
+msgstr "击杀让分"
 
 msgid "DRAW"
 msgstr "平局"
@@ -281,7 +281,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr "合约所有者无权修改其他地址的代币余额。"
 
 msgid "Completed Match"
-msgstr ""
+msgstr "已结束比赛"
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
@@ -296,7 +296,7 @@ msgid "Join"
 msgstr "加入"
 
 msgid "Both Teams Beat Roshan"
-msgstr ""
+msgstr "双方均击杀肉山"
 
 msgid "Multi-device login sessions synced successfully."
 msgstr "多设备登录状态已同步完成。"
@@ -344,7 +344,7 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
 msgid "{teamName} Corners"
-msgstr ""
+msgstr "{teamName} 角球"
 
 msgid "Password Verification"
 msgstr "密码验证"
@@ -397,7 +397,7 @@ msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "未能在 Firefly 上关注 @{handleOrEnsOrAddress}。"
 
 msgid "Comment on X always"
-msgstr ""
+msgstr "始终在 X 上评论"
 
 msgid "No cryptocurrency mixer found."
 msgstr "未涉及加密货币混合器。"
@@ -445,7 +445,7 @@ msgid "Tax can be modified"
 msgstr "税率可以被修改"
 
 msgid "Set {setNum} Winner"
-msgstr ""
+msgstr "第 {setNum} 盘胜者"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>已销毁</0><1/>"
@@ -461,10 +461,10 @@ msgid "Opinion"
 msgstr "Opinion"
 
 msgid "Draw"
-msgstr ""
+msgstr "平局"
 
 msgid "Game {gameNum}"
-msgstr ""
+msgstr "第 {gameNum} 局"
 
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "用户名只能包含小写字母、数字和短横线（-），且不能以短横线（-）开头"
@@ -512,7 +512,7 @@ msgid "Mint Ended"
 msgstr "铸造已结束"
 
 msgid "Scroll tabs right"
-msgstr ""
+msgstr "向右滚动标签"
 
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
@@ -556,7 +556,7 @@ msgid "Swap liked."
 msgstr "已点赞。"
 
 msgid "Most Inhibitors"
-msgstr ""
+msgstr "最多抑制器"
 
 msgid "Avg"
 msgstr "平均"
@@ -743,7 +743,7 @@ msgid "Overview"
 msgstr "概览"
 
 msgid "Most Nashors"
-msgstr ""
+msgstr "最多纳什男爵"
 
 msgid "Stocks"
 msgstr "股币"
@@ -800,13 +800,13 @@ msgid "Undo repost"
 msgstr "取消转发"
 
 msgid "Prediction"
-msgstr ""
+msgstr "预测"
 
 msgid "Tokens"
 msgstr "代币"
 
 msgid "Tower Handicap"
-msgstr ""
+msgstr "防御塔让分"
 
 msgid "Search {id}"
 msgstr "搜索 {id}"
@@ -937,7 +937,7 @@ msgid "Firefly wallet"
 msgstr "Firefly 钱包"
 
 msgid "Threes"
-msgstr ""
+msgstr "三分球"
 
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
@@ -1013,7 +1013,7 @@ msgid "Explore"
 msgstr "探索"
 
 msgid "Show"
-msgstr ""
+msgstr "显示"
 
 msgid "Show Less"
 msgstr "收起"
@@ -1057,7 +1057,7 @@ msgid "No predictions found"
 msgstr "未找到预测结果"
 
 msgid "Both Teams Slay Dragon"
-msgstr ""
+msgstr "双方均击杀小龙"
 
 msgid "Won"
 msgstr "获胜"
@@ -1069,7 +1069,7 @@ msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有权的函数"
 
 msgid "Scroll tabs left"
-msgstr ""
+msgstr "向左滚动标签"
 
 msgid "Enter your password to confirm your identity."
 msgstr "请输入密码以验证您的身份。"
@@ -1146,7 +1146,7 @@ msgid "Current Positions"
 msgstr "当前持仓"
 
 msgid "Game N Winner"
-msgstr ""
+msgstr "第 N 局胜者"
 
 msgid "Price"
 msgstr "价格"
@@ -1166,7 +1166,7 @@ msgid "GIF source not supported. Supported sources: {0}"
 msgstr "不支持GIF来源。支持来源：{0}"
 
 msgid "Game Lines"
-msgstr ""
+msgstr "单局盘口"
 
 msgid "Remove Address"
 msgstr "删除地址"
@@ -1270,7 +1270,7 @@ msgid "Confirm Lucky Drop"
 msgstr "确认你的红包"
 
 msgid "D"
-msgstr ""
+msgstr "平"
 
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "无法开启多设备登录功能，请稍后重试。"
@@ -1467,7 +1467,7 @@ msgid "Tomorrow"
 msgstr "明天"
 
 msgid "Go the Distance?"
-msgstr ""
+msgstr "是否打满全程？"
 
 msgid "Total trade"
 msgstr "总交易量"
@@ -1525,7 +1525,7 @@ msgid "Enter your nickname on Firefly"
 msgstr "输入您在 Firefly 的昵称"
 
 msgid "Played"
-msgstr ""
+msgstr "场次"
 
 msgid "Anti whale can not be modified."
 msgstr "反鲸鱼机制无法被修改。"
@@ -1606,7 +1606,7 @@ msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
 
 msgid "Method of Victory"
-msgstr ""
+msgstr "取胜方式"
 
 msgid "Delete"
 msgstr "删除"
@@ -1620,7 +1620,7 @@ msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote
 msgstr "<0/> <1>点赞了你的 </1><2>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {内容}}</2>"
 
 msgid "Points"
-msgstr ""
+msgstr "积分"
 
 msgid "Insufficient funds"
 msgstr "金额不足"
@@ -1654,7 +1654,7 @@ msgid "Connect Wallet"
 msgstr "连接钱包"
 
 msgid "Both Teams To Score - 1st Half"
-msgstr ""
+msgstr "双方球队均得分 - 上半场"
 
 msgid "Custom amount"
 msgstr "自定义数额"
@@ -1862,7 +1862,7 @@ msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "未能在 Firefly 上取消关注 @{handleOrEnsOrAddress}。"
 
 msgid "Corners Odd/Even"
-msgstr ""
+msgstr "角球单双"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -1915,10 +1915,10 @@ msgid "No fake KYC involved."
 msgstr "不涉及虚假 KYC。"
 
 msgid "First Team to Score"
-msgstr ""
+msgstr "首支得分球队"
 
 msgid "Shots"
-msgstr ""
+msgstr "射门"
 
 msgid "Your Firefly Account is now connected"
 msgstr "你的 Firefly 账户已连接"
@@ -1939,7 +1939,7 @@ msgid "Swaps"
 msgstr "兑换"
 
 msgid "Advancing"
-msgstr ""
+msgstr "晋级"
 
 msgid "Total Gains"
 msgstr "总收益"
@@ -1951,7 +1951,7 @@ msgstr "今天"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
 msgid "view"
 msgid_plural "views"
-msgstr[0] ""
+msgstr[0] "次浏览"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
@@ -2076,7 +2076,7 @@ msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "来自 {walletHandle} 的文章现在将从您的首页时间线中隐藏。"
 
 msgid "Total Rounds"
-msgstr ""
+msgstr "总回合数"
 
 msgid "Please enter at least 2 characters."
 msgstr "请输入至少 2 个字符。"
@@ -2088,7 +2088,7 @@ msgid "Article"
 msgstr "文章"
 
 msgid "Draws"
-msgstr ""
+msgstr "平局"
 
 msgid "Active"
 msgstr "进行中"
@@ -2097,10 +2097,10 @@ msgid "Translated from {contentLanguage}"
 msgstr "翻译自{contentLanguage}"
 
 msgid "Post with image"
-msgstr ""
+msgstr "带图片发布"
 
 msgid "Losses"
-msgstr ""
+msgstr "负场"
 
 msgid "Failed to open miniapp"
 msgstr "打开 miniapp 失败"
@@ -2170,7 +2170,7 @@ msgid "{0} items"
 msgstr "{0} 项"
 
 msgid "Most Drakes"
-msgstr ""
+msgstr "最多小龙"
 
 msgid "Balance"
 msgstr "余额"
@@ -2227,7 +2227,7 @@ msgid "Privacy and security"
 msgstr "隐私和安全"
 
 msgid "Rebounds"
-msgstr ""
+msgstr "篮板"
 
 msgid "Create your Firefly Profile"
 msgstr "创建 Firefly 账户"
@@ -2238,7 +2238,7 @@ msgid_plural "{totalVotes} Votes"
 msgstr[0] "{totalVotes} 投票"
 
 msgid "Adv"
-msgstr ""
+msgstr "晋级"
 
 msgid "Full"
 msgstr "完整的"
@@ -2287,10 +2287,10 @@ msgstr "已取消"
 
 #. placeholder {0}: m[1]
 msgid "Map {0}"
-msgstr ""
+msgstr "地图 {0}"
 
 msgid "Sets"
-msgstr ""
+msgstr "盘数"
 
 msgid "No content for the last two weeks."
 msgstr "最近两周没有内容。"
@@ -2378,7 +2378,7 @@ msgid "You can save this to send later from your drafts."
 msgstr "你可以先保存至草稿后再发布。"
 
 msgid "Failed to copy image. Please try again later."
-msgstr ""
+msgstr "复制图片失败。请稍后重试。"
 
 msgid "Failed Post"
 msgstr "发布失败"
@@ -2496,7 +2496,7 @@ msgid "No stealing attack found."
 msgstr "未涉及盗窃攻击。"
 
 msgid "First Blood"
-msgstr ""
+msgstr "一血"
 
 msgid "Share From"
 msgstr "分享自"
@@ -2530,7 +2530,7 @@ msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
 msgstr "{0} 在 <1>{3}</1> 打赏了你 <0>{1} ${2}</0>"
 
 msgid "P"
-msgstr ""
+msgstr "P"
 
 msgid "Days"
 msgstr "天"
@@ -2564,7 +2564,7 @@ msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
 msgstr "最多可选择 {MAX_MARKETS_COUNT_SELECTABLE} 个选项"
 
 msgid "Goals"
-msgstr ""
+msgstr "进球"
 
 msgid "Sign in with Lens"
 msgstr "通过 Lens 登录"
@@ -2651,7 +2651,7 @@ msgid "By clicking \"Next\", you acknowledge the risk associated with decentrali
 msgstr "点击“下一步”，即表示您知晓并接受与去中心化网络和测试版产品相关的风险。"
 
 msgid "Barrack Handicap"
-msgstr ""
+msgstr "兵营让分"
 
 msgid "Decrypt"
 msgstr "解密"
@@ -2666,7 +2666,7 @@ msgid "Due to <0>X's API limitations</0>, you can only reply to posts that menti
 msgstr "由于 <0>X 的 API 限制</0>，你只能回复提及你的帖子。"
 
 msgid "Failed to load groups"
-msgstr ""
+msgstr "加载群组失败"
 
 msgid "Failed to update notification settings"
 msgstr "更新通知设置失败"
@@ -2706,7 +2706,7 @@ msgid "New"
 msgstr "新建"
 
 msgid "Corners"
-msgstr ""
+msgstr "角球"
 
 msgid "Will there be a run in the first inning?"
 msgstr "首局会有得分吗？"
@@ -2836,7 +2836,7 @@ msgid "The user canceled the operation."
 msgstr "用户已取消操作。"
 
 msgid "Most Barracks"
-msgstr ""
+msgstr "最多兵营"
 
 msgid "Sign in on mobile"
 msgstr "在手机端登录"
@@ -2876,7 +2876,7 @@ msgid "Encrypted choice"
 msgstr "加密选项"
 
 msgid "Odd/Even Total Kills"
-msgstr ""
+msgstr "总击杀单双"
 
 msgid "Club could not be found."
 msgstr "未找到圈子。"
@@ -2969,7 +2969,7 @@ msgid_plural "# years"
 msgstr[0] "# 年"
 
 msgid "Deposit"
-msgstr ""
+msgstr "充值"
 
 msgid "<0/> Loading"
 msgstr "<0/> 加载中"
@@ -2984,7 +2984,7 @@ msgid "Pinned"
 msgstr "已置顶"
 
 msgid "Most Towers"
-msgstr ""
+msgstr "最多防御塔"
 
 msgid "We've detected logins available for sync."
 msgstr "我们检测到有可同步的登录账户。"
@@ -3020,7 +3020,7 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发布"
 
 msgid "Map {gameNum}"
-msgstr ""
+msgstr "地图 {gameNum}"
 
 msgid "Properties"
 msgstr "属性"
@@ -3077,7 +3077,7 @@ msgid "Refresh"
 msgstr "刷新"
 
 msgid "Series Lines"
-msgstr ""
+msgstr "系列赛盘口"
 
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
@@ -3110,7 +3110,7 @@ msgid "For a failed scheduled post, only the text content can be restored. Pleas
 msgstr "发布失败的定时帖，仅可恢复文本内容。请重新进行<0/>跨平台 @、媒体上传等操作。"
 
 msgid "Failed to generate the share image. Please try again."
-msgstr ""
+msgstr "生成分享图片失败。请重试。"
 
 msgid "Time"
 msgstr "时间"
@@ -3162,10 +3162,10 @@ msgid "Scan QR code to access your account"
 msgstr "扫码登录账户"
 
 msgid "Total Maps"
-msgstr ""
+msgstr "总地图数"
 
 msgid "Set Handicap"
-msgstr ""
+msgstr "盘数让分"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -3233,7 +3233,7 @@ msgstr "上传失败。动图超过最大限制 {0}"
 
 #. placeholder {0}: m[1]
 msgid "Q{0}"
-msgstr ""
+msgstr "第{0}节"
 
 msgid "1st Half Corners"
 msgstr "上半场角球"
@@ -3378,7 +3378,7 @@ msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in
 msgstr "支持跨平台一键发帖，聚合好友交易动态，挖掘社交数据中的交易机会"
 
 msgid "Pts"
-msgstr ""
+msgstr "分"
 
 msgid "Enter number of winners"
 msgstr "输入获奖人数"
@@ -3393,7 +3393,7 @@ msgid "Failed to bookmark snapshot."
 msgstr "收藏提案失败。"
 
 msgid "Kill Totals"
-msgstr ""
+msgstr "击杀总数"
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -3493,7 +3493,7 @@ msgid "This address is already verified"
 msgstr "此地址已验证"
 
 msgid "Set {setNum} Total Games"
-msgstr ""
+msgstr "第 {setNum} 盘总局数"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
@@ -3559,7 +3559,7 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr "Signer key 未被授权。请重试。"
 
 msgid "Round Handicap"
-msgstr ""
+msgstr "回合让分"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "你尝试登录的账户已绑定其他Firefly 账户。"
@@ -3652,11 +3652,11 @@ msgid "Failed to switch wallet. Please try again"
 msgstr "切换钱包失败，请重试"
 
 msgid "Exact Score"
-msgstr ""
+msgstr "精确比分"
 
 #. placeholder {0}: group.group_letter
 msgid "Group {0}"
-msgstr ""
+msgstr "群组 {0}"
 
 msgid "Like / Repost / Comment"
 msgstr "点赞/转发/评论"
@@ -3726,7 +3726,7 @@ msgstr "刚刚"
 
 #. placeholder {0}: m[1]
 msgid "Game {0}"
-msgstr ""
+msgstr "第 {0} 局"
 
 msgid "Mine"
 msgstr "我的交易"
@@ -3743,7 +3743,7 @@ msgid "Your Firefly Identity is now active."
 msgstr "你的 Firefly 身份已激活"
 
 msgid "Map Handicap"
-msgstr ""
+msgstr "地图让分"
 
 msgid "Create a Post"
 msgstr "创建帖子"
@@ -3797,7 +3797,7 @@ msgid "Not Found"
 msgstr "未发现内容"
 
 msgid "Inhibitor Handicap"
-msgstr ""
+msgstr "抑制器让分"
 
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "抱歉，您输入的验证码无效"
@@ -3841,7 +3841,7 @@ msgid "Note: Cloud drafts save text only. Please upload original images or video
 msgstr "注意：云端草稿仅保存文本。请重新上传原图或视频。"
 
 msgid "Drake Handicap"
-msgstr ""
+msgstr "小龙让分"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr "关闭多设备登录将导致定时帖子发布失败。为确保帖子按计划发送，请务必保持多设备登录处于开启状态。"
@@ -3853,7 +3853,7 @@ msgid "Failed to send tip."
 msgstr "发送打赏失败。"
 
 msgid "Both Teams Destroy Barracks"
-msgstr ""
+msgstr "双方均摧毁兵营"
 
 msgid "Failed to switch."
 msgstr "切换失败。"
@@ -3916,7 +3916,7 @@ msgid "Open Interest"
 msgstr "未平仓权益"
 
 msgid "Ends in Daytime"
-msgstr ""
+msgstr "在白天结束"
 
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
@@ -4017,7 +4017,7 @@ msgid "Select Chain"
 msgstr "选择链"
 
 msgid "Assists"
-msgstr ""
+msgstr "助攻"
 
 msgid "Edit Profile"
 msgstr "编辑个人资料"
@@ -4048,7 +4048,7 @@ msgid "NFT ID"
 msgstr "NFT ID"
 
 msgid "W"
-msgstr ""
+msgstr "胜"
 
 msgid "Compose"
 msgstr "发帖"
@@ -4119,7 +4119,7 @@ msgid_plural "# Risky items"
 msgstr[0] "# 高风险项"
 
 msgid "{teamName} Totals"
-msgstr ""
+msgstr "{teamName} 总分"
 
 msgid "The password you entered is incorrect. Please try again."
 msgstr "您输入的密码不正确，请重试。"
@@ -4128,13 +4128,13 @@ msgid "The self-destruct function is included. The project owner may have the ab
 msgstr "包含自毁功能。项目所有者可能有能力销毁合约。"
 
 msgid "Total Sets"
-msgstr ""
+msgstr "总盘数"
 
 msgid "Enable now"
 msgstr "立即启用"
 
 msgid "Both Teams Slay Baron"
-msgstr ""
+msgstr "双方均击杀男爵"
 
 msgid "Failed to unlike the comment."
 msgstr "评论取消点赞失败。"
@@ -4215,7 +4215,7 @@ msgid "Post added to your Bookmarks"
 msgstr "帖子已添加到收藏夹"
 
 msgid "Most Kills"
-msgstr ""
+msgstr "最多击杀"
 
 msgid "Volume Traded"
 msgstr "交易量"
@@ -4302,7 +4302,7 @@ msgid "Post your reply"
 msgstr "发布你的评论"
 
 msgid "L"
-msgstr ""
+msgstr "负"
 
 msgid "Add Token"
 msgstr "添加代币"
@@ -4315,13 +4315,13 @@ msgid "Owner can set a different tax rate for every assigned address."
 msgstr "所有者可以为每个指定地址设置不同的税率。"
 
 msgid "Game Winner"
-msgstr ""
+msgstr "单局胜者"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
 
 msgid "Halftime"
-msgstr ""
+msgstr "中场"
 
 msgid "Your Telegram account is now connected"
 msgstr "您的 Telegram 账户已绑定"
@@ -4401,7 +4401,7 @@ msgid "Failed to disconnect"
 msgstr "断开绑定失败"
 
 msgid "Odd/Even Total Rounds"
-msgstr ""
+msgstr "总回合单双"
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr "网站不可以超过 {maxWebsiteSize} 个字符"
@@ -4416,7 +4416,7 @@ msgid "Save"
 msgstr "保存"
 
 msgid "Halftime Result"
-msgstr ""
+msgstr "中场结果"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
@@ -4479,7 +4479,7 @@ msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "取消关注 @{handleOrEnsOrAddress}"
 
 msgid "First Corner"
-msgstr ""
+msgstr "首个角球"
 
 msgid "{hours}h left"
 msgstr "剩余 {hours} 小时"
@@ -4619,7 +4619,7 @@ msgid "Holders can not sell all of the token."
 msgstr "持有者无法出售所有代币。"
 
 msgid "Sports Live"
-msgstr ""
+msgstr "体育直播"
 
 msgid "Only followers of the author can comment on this post."
 msgstr "只有作者的关注者才能评论此帖子。"
@@ -4631,10 +4631,10 @@ msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
 
 msgid "Game Handicap"
-msgstr ""
+msgstr "单局让分"
 
 msgid "Total Games"
-msgstr ""
+msgstr "总局数"
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT 已从你的收藏夹移除"
@@ -4816,7 +4816,7 @@ msgid "Replying to"
 msgstr "正在回复"
 
 msgid "Hide"
-msgstr ""
+msgstr "隐藏"
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })
@@ -4824,7 +4824,7 @@ msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{t
 msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
 
 msgid "Comment on X once"
-msgstr ""
+msgstr "在 X 上评论一次"
 
 msgid "Keep it safe and do not share"
 msgstr "请妥善保管，切勿分享"
@@ -4910,7 +4910,7 @@ msgid "Language"
 msgstr "语言"
 
 msgid "Nashor Handicap"
-msgstr ""
+msgstr "纳什男爵让分"
 
 msgid "Address on Watching Lists"
 msgstr "关注名单地址"
@@ -4927,7 +4927,7 @@ msgid "What's happening..."
 msgstr "正在发生..."
 
 msgid "Coming Soon"
-msgstr ""
+msgstr "即将推出"
 
 msgid "FREE"
 msgstr "免费"
@@ -4957,7 +4957,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "Both Teams To Score - 2nd Half"
-msgstr ""
+msgstr "双方球队均得分 - 下半场"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
@@ -4982,7 +4982,7 @@ msgid "General"
 msgstr "通用"
 
 msgid "Round Total"
-msgstr ""
+msgstr "回合总数"
 
 msgid "Show more tokens"
 msgstr "展示更多代币"
@@ -5068,7 +5068,7 @@ msgid "Resetting your 6-digit password will clear all previously encrypted login
 msgstr "重置6位数字密码将清除所有已加密的登录授权。"
 
 msgid "Map Winner"
-msgstr ""
+msgstr "地图胜者"
 
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
@@ -5317,7 +5317,7 @@ msgid "Trending Token"
 msgstr "热门币"
 
 msgid "Both Teams To Score"
-msgstr ""
+msgstr "双方球队均得分"
 
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "发贴分享你的参与，提案期间可以更改投票。"
@@ -5364,7 +5364,7 @@ msgstr "无法转发"
 #. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
 msgid "# person I follow has traded"
 msgid_plural "# people I follow have traded"
-msgstr[0] ""
+msgstr[0] "我关注的 # 人已交易"
 
 msgid "Show more comments"
 msgstr "展示更多评论"
@@ -5444,7 +5444,7 @@ msgid "Your session has expired. Please sign in again."
 msgstr "您的会话已过期。请重新登录。"
 
 msgid "Donated {formattedAmount} {symbol} to DeFiUnited"
-msgstr ""
+msgstr "向 DeFiUnited 捐赠了 {formattedAmount} {symbol}"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
 msgstr "使用<0>Firefly 移动应用</0><1/>扫描二维码，即可在应用内直接登录。"
@@ -5489,7 +5489,7 @@ msgid "Quote"
 msgstr "引用"
 
 msgid "Groups"
-msgstr ""
+msgstr "群组"
 
 msgid "Would you like to restore it?"
 msgstr "是否恢复？"

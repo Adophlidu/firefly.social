@@ -60,7 +60,7 @@ msgid "Address, ENS, or social handle"
 msgstr "Dirección, ENS o usuario de red social"
 
 msgid "Dismiss"
-msgstr ""
+msgstr "Descartar"
 
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "Su frase de recuperación es como una contraseña, manténgala en secreto."
@@ -100,7 +100,7 @@ msgid "{0} {1} in your Firefly wallet"
 msgstr "{0} {1} en su billetera Firefly"
 
 msgid "Failed to deposit."
-msgstr ""
+msgstr "No se pudo depositar."
 
 msgid "Pay"
 msgstr "Pagar"
@@ -224,13 +224,13 @@ msgid "See details"
 msgstr "Ver detalles"
 
 msgid "Your deposit has been credited to your account."
-msgstr ""
+msgstr "Tu depósito se ha acreditado en tu cuenta."
 
 msgid "Won"
 msgstr "Ganado"
 
 msgid "Failed to load image."
-msgstr ""
+msgstr "No se pudo cargar la imagen."
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
@@ -243,7 +243,7 @@ msgid "Enable skip reviews"
 msgstr "Habilitar omisión de revisión"
 
 msgid "Your Tron(TRC-20) Address"
-msgstr ""
+msgstr "Tu dirección de Tron (TRC-20)"
 
 msgid "Connection taking longer than expected"
 msgstr "La conexión está tardando más de lo esperado"
@@ -327,7 +327,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "Share position"
-msgstr ""
+msgstr "Compartir posición"
 
 msgid "to"
 msgstr "a"
@@ -393,7 +393,7 @@ msgid "Please login to view security settings."
 msgstr "Inicie sesión para ver la configuración de seguridad."
 
 msgid "Post with image"
-msgstr ""
+msgstr "Publicar con imagen"
 
 msgid "on"
 msgstr "en"
@@ -432,7 +432,7 @@ msgid "Set PIN Code"
 msgstr "Establecer PIN"
 
 msgid "Failed to copy image. Please try again later."
-msgstr ""
+msgstr "No se pudo copiar la imagen. Inténtalo de nuevo más tarde."
 
 msgid "Order cancelled"
 msgstr "Orden cancelada"
@@ -459,7 +459,7 @@ msgid "Reload"
 msgstr "Recargar"
 
 msgid "Deposit detected and processing..."
-msgstr ""
+msgstr "Depósito detectado y procesándose..."
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
@@ -507,7 +507,7 @@ msgid "Enter amount"
 msgstr "Ingresar monto"
 
 msgid "A pin code is required to perform this action. Please enable it in your security settings."
-msgstr ""
+msgstr "Se requiere un código PIN para realizar esta acción. Actívalo en tu configuración de seguridad."
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
@@ -613,7 +613,7 @@ msgid "Receive"
 msgstr "Recibir"
 
 msgid "Failed to generate the share image. Please try again."
-msgstr ""
+msgstr "No se pudo generar la imagen para compartir. Inténtalo de nuevo."
 
 msgid "Time"
 msgstr "Hora"
@@ -633,7 +633,7 @@ msgid "The address could not be found."
 msgstr "No se pudo encontrar la dirección."
 
 msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
-msgstr ""
+msgstr "Envía solo <0>USDT</0> a través de la red Tron a esta dirección. Se requiere un mínimo de <1>${minDepositUsd}</1>."
 
 msgid "Add"
 msgstr "Agregar"
@@ -645,7 +645,7 @@ msgid "Sort closed positions"
 msgstr "Ordenar posiciones cerradas"
 
 msgid "Share image"
-msgstr ""
+msgstr "Compartir imagen"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • Ganó <0>{wonText}({pctText})</0>"
@@ -661,7 +661,7 @@ msgid "Resend"
 msgstr "Reenviar"
 
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 msgid "Insufficient Balance"
 msgstr "Saldo insuficiente"
@@ -712,7 +712,7 @@ msgid "Email"
 msgstr "Correo electrónico"
 
 msgid "Issue reported."
-msgstr ""
+msgstr "Problema reportado."
 
 msgid "PnL"
 msgstr "P/G"
@@ -804,7 +804,7 @@ msgid "From <0>{0}</0>"
 msgstr "De <0>{0}</0>"
 
 msgid "Failed to download image. Please try again later."
-msgstr ""
+msgstr "No se pudo descargar la imagen. Inténtalo de nuevo más tarde."
 
 msgid "into your predict wallet"
 msgstr "en su billetera de predicciones"
@@ -1017,7 +1017,7 @@ msgid "Add Funds"
 msgstr "Agregar fondos"
 
 msgid "Post"
-msgstr ""
+msgstr "Publicar"
 
 msgid "NFT Sent Failed"
 msgstr "Error al enviar NFT"
@@ -1055,7 +1055,7 @@ msgid "Approve"
 msgstr "Aprobar"
 
 msgid "Share"
-msgstr ""
+msgstr "Compartir"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"

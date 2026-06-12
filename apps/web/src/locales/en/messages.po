@@ -68,7 +68,7 @@ msgid "Blackmail activities."
 msgstr "Blackmail activities."
 
 msgid "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
-msgstr ""
+msgstr "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
 
 #. placeholder {0}: error.message
 msgid "Failed to add to Bookmarks. {0}"
@@ -707,7 +707,7 @@ msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
 msgid "Reply restricted"
-msgstr ""
+msgstr "Reply restricted"
 
 msgid "Sign in"
 msgstr "Sign in"
@@ -1043,7 +1043,7 @@ msgid "Sending"
 msgstr "Sending"
 
 msgid "The author has disabled comments on this post."
-msgstr ""
+msgstr "The author has disabled comments on this post."
 
 msgid "Retry Stream"
 msgstr "Retry Stream"
@@ -2279,7 +2279,7 @@ msgid "Post could not be found."
 msgstr "Post could not be found."
 
 msgid "For you"
-msgstr ""
+msgstr "For you"
 
 msgid "Reconnect"
 msgstr "Reconnect"
@@ -2676,7 +2676,7 @@ msgid "Sign to Confirm"
 msgstr "Sign to Confirm"
 
 msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
-msgstr ""
+msgstr "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
 
 msgid "Failed to load groups"
 msgstr "Failed to load groups"
@@ -3864,7 +3864,7 @@ msgid "Drake Handicap"
 msgstr "Drake Handicap"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
-msgstr ""
+msgstr "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
 
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "This Bluesky account is already linked to another Firefly account."
@@ -4055,7 +4055,7 @@ msgid "No asks"
 msgstr "No asks"
 
 msgid "<0/> PnL(%)"
-msgstr ""
+msgstr "<0/> PnL(%)"
 
 msgid "OR"
 msgstr "OR"
@@ -4406,7 +4406,7 @@ msgid "Follow @{0}"
 msgstr "Follow @{0}"
 
 msgid "Biggest Win"
-msgstr ""
+msgstr "Biggest Win"
 
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
@@ -4606,7 +4606,7 @@ msgid "Pending"
 msgstr "Pending"
 
 msgid "Only people followed by the author can comment on this post."
-msgstr ""
+msgstr "Only people followed by the author can comment on this post."
 
 msgid "Unsent posts"
 msgstr "Unsent posts"
@@ -4645,7 +4645,7 @@ msgid "Sports Live"
 msgstr "Sports Live"
 
 msgid "Only followers of the author can comment on this post."
-msgstr ""
+msgstr "Only followers of the author can comment on this post."
 
 msgid "No phishing activities involved."
 msgstr "No phishing activities involved."
@@ -4866,7 +4866,7 @@ msgid "Labeled by <0>{0}</0>."
 msgstr "Labeled by <0>{0}</0>."
 
 msgid "Only mentioned profiles can comment on this post."
-msgstr ""
+msgstr "Only mentioned profiles can comment on this post."
 
 msgid "Collect"
 msgstr "Collect"

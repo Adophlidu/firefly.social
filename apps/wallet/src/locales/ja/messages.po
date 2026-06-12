@@ -60,7 +60,7 @@ msgid "Address, ENS, or social handle"
 msgstr "アドレス、ENS、またはソーシャルハンドル"
 
 msgid "Dismiss"
-msgstr ""
+msgstr "閉じる"
 
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "リカバリーフレーズはパスワードと同じです。絶対に秘密にしてください。"
@@ -100,7 +100,7 @@ msgid "{0} {1} in your Firefly wallet"
 msgstr "Firefly ウォレット内に {0} {1}"
 
 msgid "Failed to deposit."
-msgstr ""
+msgstr "入金できませんでした。"
 
 msgid "Pay"
 msgstr "支払い"
@@ -224,13 +224,13 @@ msgid "See details"
 msgstr "詳細を見る"
 
 msgid "Your deposit has been credited to your account."
-msgstr ""
+msgstr "入金がアカウントに反映されました。"
 
 msgid "Won"
 msgstr "勝利"
 
 msgid "Failed to load image."
-msgstr ""
+msgstr "画像を読み込めませんでした。"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
@@ -243,7 +243,7 @@ msgid "Enable skip reviews"
 msgstr "確認スキップを有効にする"
 
 msgid "Your Tron(TRC-20) Address"
-msgstr ""
+msgstr "あなたのTron(TRC-20)アドレス"
 
 msgid "Connection taking longer than expected"
 msgstr "接続に予想以上の時間がかかっています"
@@ -327,7 +327,7 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 msgid "Share position"
-msgstr ""
+msgstr "ポジションをシェア"
 
 msgid "to"
 msgstr "宛先"
@@ -393,7 +393,7 @@ msgid "Please login to view security settings."
 msgstr "セキュリティ設定を表示するにはログインしてください。"
 
 msgid "Post with image"
-msgstr ""
+msgstr "画像付きで投稿"
 
 msgid "on"
 msgstr "で"
@@ -432,7 +432,7 @@ msgid "Set PIN Code"
 msgstr "PIN コードを設定"
 
 msgid "Failed to copy image. Please try again later."
-msgstr ""
+msgstr "画像をコピーできませんでした。後でもう一度お試しください。"
 
 msgid "Order cancelled"
 msgstr "注文をキャンセルしました"
@@ -459,7 +459,7 @@ msgid "Reload"
 msgstr "再読み込み"
 
 msgid "Deposit detected and processing..."
-msgstr ""
+msgstr "入金を検出し、処理中..."
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
@@ -507,7 +507,7 @@ msgid "Enter amount"
 msgstr "金額を入力"
 
 msgid "A pin code is required to perform this action. Please enable it in your security settings."
-msgstr ""
+msgstr "この操作を行うにはPINコードが必要です。セキュリティ設定で有効にしてください。"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
@@ -613,7 +613,7 @@ msgid "Receive"
 msgstr "受け取る"
 
 msgid "Failed to generate the share image. Please try again."
-msgstr ""
+msgstr "シェア画像を生成できませんでした。もう一度お試しください。"
 
 msgid "Time"
 msgstr "時間"
@@ -633,7 +633,7 @@ msgid "The address could not be found."
 msgstr "アドレスが見つかりませんでした。"
 
 msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
-msgstr ""
+msgstr "このアドレスへはTronネットワーク経由で<0>USDT</0>のみを送金してください。最低<1>${minDepositUsd}</1>が必要です。"
 
 msgid "Add"
 msgstr "追加"
@@ -645,7 +645,7 @@ msgid "Sort closed positions"
 msgstr "クローズドポジションを並び替え"
 
 msgid "Share image"
-msgstr ""
+msgstr "画像をシェア"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • 勝利 <0>{wonText}({pctText})</0>"
@@ -661,7 +661,7 @@ msgid "Resend"
 msgstr "再送信"
 
 msgid "Download"
-msgstr ""
+msgstr "ダウンロード"
 
 msgid "Insufficient Balance"
 msgstr "残高不足"
@@ -712,7 +712,7 @@ msgid "Email"
 msgstr "メール"
 
 msgid "Issue reported."
-msgstr ""
+msgstr "問題を報告しました。"
 
 msgid "PnL"
 msgstr "損益"
@@ -804,7 +804,7 @@ msgid "From <0>{0}</0>"
 msgstr "<0>{0}</0> から"
 
 msgid "Failed to download image. Please try again later."
-msgstr ""
+msgstr "画像をダウンロードできませんでした。後でもう一度お試しください。"
 
 msgid "into your predict wallet"
 msgstr "予測ウォレットへ"
@@ -1017,7 +1017,7 @@ msgid "Add Funds"
 msgstr "入金"
 
 msgid "Post"
-msgstr ""
+msgstr "投稿"
 
 msgid "NFT Sent Failed"
 msgstr "NFT の送信に失敗しました"
@@ -1055,7 +1055,7 @@ msgid "Approve"
 msgstr "承認"
 
 msgid "Share"
-msgstr ""
+msgstr "シェア"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"

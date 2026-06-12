@@ -60,7 +60,7 @@ msgid "Address, ENS, or social handle"
 msgstr "地址、ENS 或社交账号"
 
 msgid "Dismiss"
-msgstr ""
+msgstr "关闭"
 
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "助记词等同于最高控制权限，请严格保密。"
@@ -100,7 +100,7 @@ msgid "{0} {1} in your Firefly wallet"
 msgstr "您的 Firefly 钱包中有 {0} {1}"
 
 msgid "Failed to deposit."
-msgstr ""
+msgstr "充值失败。"
 
 msgid "Pay"
 msgstr "支付"
@@ -224,13 +224,13 @@ msgid "See details"
 msgstr "查看详情"
 
 msgid "Your deposit has been credited to your account."
-msgstr ""
+msgstr "你的充值已到账。"
 
 msgid "Won"
 msgstr "盈利"
 
 msgid "Failed to load image."
-msgstr ""
+msgstr "加载图片失败。"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
@@ -243,7 +243,7 @@ msgid "Enable skip reviews"
 msgstr "开启跳过预览"
 
 msgid "Your Tron(TRC-20) Address"
-msgstr ""
+msgstr "你的 Tron(TRC-20) 地址"
 
 msgid "Connection taking longer than expected"
 msgstr "连接时间较长，请稍候"
@@ -327,7 +327,7 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Share position"
-msgstr ""
+msgstr "分享持仓"
 
 msgid "to"
 msgstr "至"
@@ -393,7 +393,7 @@ msgid "Please login to view security settings."
 msgstr "请登录以查看安全设置。"
 
 msgid "Post with image"
-msgstr ""
+msgstr "带图片发布"
 
 msgid "on"
 msgstr "在"
@@ -432,7 +432,7 @@ msgid "Set PIN Code"
 msgstr "设置 PIN 码"
 
 msgid "Failed to copy image. Please try again later."
-msgstr ""
+msgstr "复制图片失败。请稍后重试。"
 
 msgid "Order cancelled"
 msgstr "订单已取消"
@@ -459,7 +459,7 @@ msgid "Reload"
 msgstr "重新加载"
 
 msgid "Deposit detected and processing..."
-msgstr ""
+msgstr "已检测到充值，处理中..."
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
@@ -613,7 +613,7 @@ msgid "Receive"
 msgstr "接收"
 
 msgid "Failed to generate the share image. Please try again."
-msgstr ""
+msgstr "生成分享图片失败。请重试。"
 
 msgid "Time"
 msgstr "时间"
@@ -633,7 +633,7 @@ msgid "The address could not be found."
 msgstr "找不到该地址。"
 
 msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
-msgstr ""
+msgstr "仅通过 Tron 网络向此地址发送 <0>USDT</0>。最低需 <1>${minDepositUsd}</1>。"
 
 msgid "Add"
 msgstr "添加"
@@ -645,7 +645,7 @@ msgid "Sort closed positions"
 msgstr "排序已平仓位"
 
 msgid "Share image"
-msgstr ""
+msgstr "分享图片"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • 盈利 <0>{wonText}({pctText})</0>"
@@ -661,7 +661,7 @@ msgid "Resend"
 msgstr "重新发送"
 
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 msgid "Insufficient Balance"
 msgstr "余额不足"
@@ -804,7 +804,7 @@ msgid "From <0>{0}</0>"
 msgstr "来自 <0>{0}</0>"
 
 msgid "Failed to download image. Please try again later."
-msgstr ""
+msgstr "下载图片失败。请稍后重试。"
 
 msgid "into your predict wallet"
 msgstr "进入您的预测钱包"
@@ -1017,7 +1017,7 @@ msgid "Add Funds"
 msgstr "充值"
 
 msgid "Post"
-msgstr ""
+msgstr "发布"
 
 msgid "NFT Sent Failed"
 msgstr "发送 NFT 失败"
@@ -1055,7 +1055,7 @@ msgid "Approve"
 msgstr "授权"
 
 msgid "Share"
-msgstr ""
+msgstr "分享"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
