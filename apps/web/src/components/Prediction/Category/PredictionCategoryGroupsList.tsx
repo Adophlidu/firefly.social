@@ -52,10 +52,33 @@ function TeamFlag({ team }: { team: FifaGroupScoreTeam }) {
     );
 }
 
+/**
+ * Picks a readable text color for the given background by computing its
+ * perceived grayscale value (ITU-R BT.601 luma) and falling back to white.
+ */
+function getReadableTextColor(hex: string): string {
+    let normalized = hex.replace('#', '').trim();
+    if (normalized.length === 3) {
+        normalized = normalized
+            .split('')
+            .map((c) => c + c)
+            .join('');
+    }
+    if (normalized.length !== 6) return '#ffffff';
+
+    const r = parseInt(normalized.slice(0, 2), 16);
+    const g = parseInt(normalized.slice(2, 4), 16);
+    const b = parseInt(normalized.slice(4, 6), 16);
+    if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return '#ffffff';
+
+    const luma = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luma >= 0.5 ? '#000000' : '#ffffff';
+}
+
 function getAdvancingStyle(team: FifaGroupScoreTeam): CSSProperties | undefined {
     const color = team.team_color?.trim();
     if (!color) return undefined;
-    return { backgroundColor: color };
+    return { backgroundColor: color, color: getReadableTextColor(color) };
 }
 
 const AdvanceProbabilityButton = memo<{
