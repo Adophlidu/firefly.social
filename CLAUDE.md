@@ -32,7 +32,7 @@ pnpm test:e2e         # Playwright e2e (output in test-results/, gitignored)
 pnpm lingui           # extract/compile i18n catalogs
 ```
 
-Package manager is pinned via `packageManager`: `pnpm@8.15.9` — do not use npm/yarn.
+Package manager is pinned via `packageManager`: `pnpm@11.5.3` — do not use npm/yarn.
 
 ## Architecture
 
