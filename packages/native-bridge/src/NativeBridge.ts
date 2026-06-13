@@ -22,6 +22,13 @@ const REQUEST_ONLY_METHODS = [
     SupportedMethod.FUND_PRIVY_ACCOUNT,
 ];
 
+/**
+ * Time window during which an identical fire-and-forget request is suppressed.
+ * Prevents rapid duplicate taps (e.g. tapping a link several times) from making
+ * the native app open multiple pages / trigger duplicate actions.
+ */
+const DEDUPE_WINDOW = 500;
+
 interface Payload {
     result?: unknown;
     error?: string;
@@ -50,6 +57,7 @@ function callNativeMethod<T extends SupportedMethod>(method: T, id: string, para
 export class NativeBridgeProvider {
     private callbacks = new Map<string, (payload: Payload) => void>();
     private events = new Map<string, Set<(payload: Payload) => void>>();
+    private pendingRequests = new Set<string>();
 
     constructor() {
         if (!bom.window) return;
@@ -89,6 +97,16 @@ export class NativeBridgeProvider {
         const requestId = uniqueId('bridge');
 
         if (REQUEST_ONLY_METHODS.includes(method)) {
+            // Drop identical fire-and-forget requests fired within a short window so that
+            // rapid duplicate taps don't make the native app repeat the same action.
+            const signature = `${method}:${JSON.stringify(params)}`;
+            if (this.pendingRequests.has(signature)) {
+                return Promise.resolve() as unknown as Promise<ResponseResult[T]>;
+            }
+
+            this.pendingRequests.add(signature);
+            setTimeout(() => this.pendingRequests.delete(signature), DEDUPE_WINDOW);
+
             callNativeMethod(method, requestId, params);
             return Promise.resolve() as unknown as Promise<ResponseResult[T]>;
         }
