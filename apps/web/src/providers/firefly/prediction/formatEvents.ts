@@ -65,6 +65,39 @@ function fixRecurrence(recurrence: PredictionRecurrence, startTime?: string, end
     return recurrence;
 }
 
+// Slug suffixes that mark the middle outcome of a 3-way market (Draw / Neither / No Score).
+const MIDDLE_SLUG_SUFFIXES = new Set(['draw', 'neither', 'noscore', 'no-score']);
+
+/**
+ * Classify a binary leg of a 3-way market as home / away / middle.
+ *
+ * The sport-detail API localizes `groupItemTitle` (e.g. "卡塔尔" / "瑞士" / "两者都不"),
+ * so matching it against the English team name (from Gamma) breaks in non-English locales
+ * and the merge silently falls through to a 2-button Yes/No layout. The slug is
+ * locale-independent and encodes the side as its last segment:
+ *   - sport-detail soccer: ...-home / ...-away / ...-draw / ...-neither
+ *   - Gamma moneyline:     ...-{team-abbreviation} / ...-draw
+ * Detect by slug suffix first, then fall back to title matching so legacy English titles
+ * keep working.
+ */
+function classifyThreeWayLeg(
+    market: BetsMarketDataForUI,
+    homeTeam: SportTeam,
+    awayTeam: SportTeam,
+): 'home' | 'away' | 'middle' {
+    const slugSuffix = market.slug?.toLowerCase().split('-').pop()?.trim() ?? '';
+    if (slugSuffix === 'home') return 'home';
+    if (slugSuffix === 'away') return 'away';
+    if (MIDDLE_SLUG_SUFFIXES.has(slugSuffix)) return 'middle';
+    if (matchesTeamLabel(homeTeam, slugSuffix)) return 'home';
+    if (matchesTeamLabel(awayTeam, slugSuffix)) return 'away';
+
+    const title = market.groupItemTitle || market.title;
+    if (matchesTeamLabel(homeTeam, title)) return 'home';
+    if (matchesTeamLabel(awayTeam, title)) return 'away';
+    return 'middle';
+}
+
 /**
  * Generic 3-way merge for markets that come as separate binary markets (one per outcome).
  * The sport detail API returns home/draw/away as individual markets with Yes/No outcomes.
@@ -94,13 +127,13 @@ function mergeThreeWayMarketsOfType(
     let awayMarket: BetsMarketDataForUI | undefined;
 
     for (const m of matchedMarkets) {
-        const title = m.groupItemTitle || m.title;
-        if (matchesTeamLabel(homeTeam, title)) {
+        const side = classifyThreeWayLeg(m, homeTeam, awayTeam);
+        if (side === 'home') {
             homeMarket = m;
-        } else if (matchesTeamLabel(awayTeam, title)) {
+        } else if (side === 'away') {
             awayMarket = m;
         } else {
-            // Matches neither team: the middle outcome (Draw / Neither / No Score / …).
+            // The middle outcome (Draw / Neither / No Score / …).
             drawMarket = m;
         }
     }
@@ -362,12 +395,20 @@ function formatSportGroupedMarketItem(
  * Returns null if the market is genuinely a goals prop (keep original type).
  */
 function resolveSoccerPlayerPropType(item: PolymarketSportGroupedMarketItem): string | null {
-    const title = (item.groupItemTitle || '').toLowerCase();
+    // The backend sometimes lumps every player prop under soccer_player_goals; the slug is the
+    // locale-independent signal (the prop is a distinct segment after the event slug, e.g.
+    // "...-goals-...", "...-shots-on-target-...", "...-assists-..."). Multi-word props are
+    // checked first because their slugs contain the shorter ones: "-shots-on-target-" contains
+    // "-shots-", and "-goals-plus-assists-" contains "-assists-".
     const slug = (item.slug || '').toLowerCase();
-
-    if (title.includes('shot') || slug.includes('-shots-')) return 'soccer_player_shots';
-    if (title.includes('assist') || slug.includes('-assists-')) return 'soccer_player_assists';
-
+    // Ignored prop types (filtered downstream) — detect first so they aren't misrendered.
+    if (slug.includes('-shots-on-target-')) return 'soccer_player_shots_on_target';
+    if (slug.includes('-goals-plus-assists-')) return 'soccer_player_goals_plus_assists';
+    if (slug.includes('-saves-')) return 'soccer_player_goalkeeper_saves';
+    // Rendered prop types.
+    if (slug.includes('-shots-')) return 'soccer_player_shots';
+    if (slug.includes('-assists-')) return 'soccer_player_assists';
+    // goals (and anything unrecognized) keep the original type.
     return null;
 }
 

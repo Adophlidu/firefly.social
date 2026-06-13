@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
-import type { BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI, SportTeam } from '@/types/prediction.js';
 import { SportMarketGroupType } from '@/types/prediction.js';
 
 export interface SportMarketResolvedSection {
@@ -512,10 +512,19 @@ function detectEsportPrefix(type: string): string | null {
     return null;
 }
 
-/** Parse game/map number from a market's groupItemTitle or question text.
- *  Matches patterns like "Map 1 Winner", "Game 2: ...", "- Map 3 Winner". */
-function parseGameNumberFromQuestion(market: BetsMarketDataForUI): number | null {
-    const sources = compact([market.groupItemTitle, market.question]);
+/** Parse the game/map number for an esport market, locale-independently when possible.
+ *  Order: sportsMarketType (game_1_winner, map_2_handicap, round_handicap_game_3, game_4_lol_…)
+ *  → slug (…-game-1-…, …-map-2-…) → English question/title text ("Game 1: …"). */
+export function parseGameNumberFromQuestion(market: BetsMarketDataForUI): number | null {
+    const type = market.sportsMarketType?.toLowerCase() || '';
+    const typeNum = type.match(/^(?:game|map)_(\d+)(?:_|$)/)?.[1] || type.match(/_(?:game|map)_(\d+)(?:_|$)/)?.[1];
+    if (typeNum) return Number(typeNum);
+
+    const slugNum = market.slug?.toLowerCase().match(/(?:^|-)(?:game|map)-(\d+)(?:-|$)/)?.[1];
+    if (slugNum) return Number(slugNum);
+
+    // Fallback: English question/title text (translated titles won't match).
+    const sources = compact([market.question, market.groupItemTitle, market.title]);
     for (const source of sources) {
         const match = source.match(/(?:Map|Game)\s+(\d+)/i);
         if (match) return Number(match[1]);
@@ -524,10 +533,14 @@ function parseGameNumberFromQuestion(market: BetsMarketDataForUI): number | null
     return null;
 }
 
-/** Extract set number from a tennis market's groupItemTitle or question text.
- *  Matches patterns like "Set 2 Winner", "Set 2 O/U 8.5". */
-function extractSetNumber(market: BetsMarketDataForUI): number | null {
-    const sources = [market.groupItemTitle, market.question, market.title].filter((s): s is string => Boolean(s));
+/** Extract the set number for a tennis market, locale-independently when possible.
+ *  Order: slug (…-set-2-…) → English question text ("Set 2 Winner") → groupItemTitle/title. */
+export function extractSetNumber(market: BetsMarketDataForUI): number | null {
+    const slugSet = market.slug?.toLowerCase().match(/(?:^|-)set-?(\d+)(?:-|$)/)?.[1];
+    if (slugSet) return Number(slugSet);
+
+    // question is English on the Gamma path; groupItemTitle/title may be translated.
+    const sources = [market.question, market.groupItemTitle, market.title].filter((s): s is string => Boolean(s));
     for (const source of sources) {
         const match = source.match(/Set\s+(\d+)/i);
         if (match) return Number(match[1]);
@@ -536,20 +549,45 @@ function extractSetNumber(market: BetsMarketDataForUI): number | null {
     return null;
 }
 
-/** Extract team name from a team-totals market title. E.g. "Argentina O/U 0.5" → "Argentina". */
-function extractTeamName(market: BetsMarketDataForUI): string | undefined {
-    // Prefer groupItemTitle which has the raw title like "Argentina O/U 0.5"
+/**
+ * Identify which team a team-totals / team-corners market belongs to.
+ *
+ * The localized `groupItemTitle` is unreliable: in one zh response the same team can
+ * surface as "卡塔尔 大/小 0.5", "卡塔尔 O/U 1.5", and "Qatar O/U 2.5", so a title regex
+ * would split one team into several sections. The slug is locale-independent and encodes
+ * the side as a `-home-`/`-away-` segment (e.g. "...-team-total-home-0pt5",
+ * "...-corners-team-away-5pt5"). Resolve that to the team name; fall back to the English
+ * title regex for types whose slug lacks the side segment.
+ */
+export function extractTeamName(
+    market: BetsMarketDataForUI,
+    homeTeam?: SportTeam,
+    awayTeam?: SportTeam,
+): string | undefined {
+    const side = market.slug?.toLowerCase().match(/-(home|away)-/)?.[1];
+    if (side === 'home') return homeTeam?.name || homeTeam?.abbreviation || 'Home';
+    if (side === 'away') return awayTeam?.name || awayTeam?.abbreviation || 'Away';
+
+    // Fallback: English title like "Argentina O/U 0.5" (non-soccer team_totals).
     const source = market.groupItemTitle || market.title || '';
-    // Match team name before O/U, Over/Under, or "Team Total" keywords
-    const match = source.match(/^(.+?)\s+(?:O\/U|Over\/Under|Team Total)/i);
-    return match?.[1]?.trim();
+    return source.match(/^(.+?)\s+(?:O\/U|Over\/Under|Team Total)/i)?.[1]?.trim();
 }
 
-/** Extract player name from market question/title (text before the colon, e.g. "James Harden: Points O/U 27.5"). */
-function extractPlayerName(market: BetsMarketDataForUI): string {
+/** Extract a player's display name from the market title/question — text before the first colon.
+ *  Handles both half-width ":" and full-width "：" (zh titles use "："). */
+export function extractPlayerName(market: BetsMarketDataForUI): string {
     const source = market.question || market.title || '';
-    const idx = source.indexOf(':');
+    const idx = source.search(/[:：]/);
     return idx === -1 ? source : source.slice(0, idx).trim();
+}
+
+/** Stable, locale-independent key for grouping a player's prop markets together.
+ *  The slug is consistent ("...-goals-dan-ndoye-gte1/2/3"); the title is not (mixed language +
+ *  colon width). Strip the trailing "-gteN" threshold so all of a player's lines collapse to one
+ *  key. Falls back to the title-derived name when the slug lacks the threshold suffix. */
+export function playerGroupKey(market: BetsMarketDataForUI): string {
+    if (market.slug && /-gte\d+$/.test(market.slug)) return market.slug.replace(/-gte\d+$/, '');
+    return extractPlayerName(market);
 }
 
 /**
@@ -586,7 +624,11 @@ function normalizeSeriesType(type: string): string {
  * Sections within each tab are grouped by sportsMarketType, with mergeByLine
  * auto-detected when multiple markets share a type with different line values.
  */
-export function getSportMarketTabs(markets: BetsMarketDataForUI[]): SportMarketResolvedTab[] {
+export function getSportMarketTabs(
+    markets: BetsMarketDataForUI[],
+    homeTeam?: SportTeam,
+    awayTeam?: SportTeam,
+): SportMarketResolvedTab[] {
     if (!markets.length) return [];
 
     // Phase 1: Assign each market to a tab + group by sportsMarketType within that tab
@@ -747,14 +789,14 @@ export function getSportMarketTabs(markets: BetsMarketDataForUI[]): SportMarketR
         tabs.push({
             key: 'game-lines',
             title: hasEsportTabs ? <Trans>Series Lines</Trans> : <Trans>Game Lines</Trans>,
-            sections: buildResolvedSections(defaultSectionsByType, hasEsportTabs),
+            sections: buildResolvedSections(defaultSectionsByType, hasEsportTabs, homeTeam, awayTeam),
         });
     }
 
     // Sport-specific tabs sorted by priority
     const sortedTabs = [...tabMap.values()].sort((a, b) => a.priority - b.priority);
     for (const tabInfo of sortedTabs) {
-        const sections = buildResolvedSections(tabInfo.sectionsByType, hasEsportTabs);
+        const sections = buildResolvedSections(tabInfo.sectionsByType, hasEsportTabs, homeTeam, awayTeam);
 
         // Prefix section titles with map/game number for per-map/game tabs
         // e.g. "Round Handicap" → "Map 1 Round Handicap" inside the Map 1 tab
@@ -789,6 +831,8 @@ export function getSportMarketTabs(markets: BetsMarketDataForUI[]): SportMarketR
 function buildResolvedSections(
     sectionsByType: Map<string, BetsMarketDataForUI[]>,
     isEsports = false,
+    homeTeam?: SportTeam,
+    awayTeam?: SportTeam,
 ): SportMarketResolvedSection[] {
     const types = sortTypesByPriority(sectionsByType);
 
@@ -877,23 +921,25 @@ function buildResolvedSections(
         const markets = sectionsByType.get(type);
         if (!markets || markets.length === 0) continue;
 
-        // Group by player name (text before colon in title)
+        // Group by the locale-independent slug key, NOT the title — one player's titles can mix
+        // languages and colon widths ("Breel Embolo: 1+ 进球" vs "布雷尔·恩博洛：3+ 进球").
         const playerGroups = new Map<string, BetsMarketDataForUI[]>();
         for (const market of markets) {
-            const playerName = extractPlayerName(market);
-            if (!playerGroups.has(playerName)) playerGroups.set(playerName, []);
-            playerGroups.get(playerName)!.push(market);
+            const key = playerGroupKey(market);
+            if (!playerGroups.has(key)) playerGroups.set(key, []);
+            playerGroups.get(key)!.push(market);
         }
 
-        // Create one section per player, sorted by line ascending
-        for (const [playerName, playerMarkets] of playerGroups) {
+        // Create one section per player, sorted by line ascending.
+        // Display name comes from the lowest-line market's title (colon-stripped).
+        for (const playerMarkets of playerGroups.values()) {
             const sorted = [...playerMarkets].sort((a, b) => (a.line ?? 0) - (b.line ?? 0));
             const uniqueLines = new Set(sorted.map((m) => m.line));
             const hasMultipleLines = uniqueLines.size > 1;
 
             sections.push({
                 sportsMarketType: type,
-                title: playerName,
+                title: extractPlayerName(sorted[0]) || sorted[0]?.title || humanizeType(type),
                 markets: sorted,
                 mergeByLine: hasMultipleLines,
                 renderAs: SportMarketGroupType.Total,
@@ -933,7 +979,7 @@ function buildResolvedSections(
         // Group markets by team name
         const teamGroups = new Map<string, BetsMarketDataForUI[]>();
         for (const market of markets) {
-            const teamName = extractTeamName(market) || market.title || humanizeType(type);
+            const teamName = extractTeamName(market, homeTeam, awayTeam) || market.title || humanizeType(type);
             if (!teamGroups.has(teamName)) teamGroups.set(teamName, []);
             teamGroups.get(teamName)!.push(market);
         }
@@ -970,7 +1016,7 @@ function buildResolvedSections(
         // Group markets by team name
         const teamGroups = new Map<string, BetsMarketDataForUI[]>();
         for (const market of markets) {
-            const teamName = extractTeamName(market) || market.title || humanizeType(type);
+            const teamName = extractTeamName(market, homeTeam, awayTeam) || market.title || humanizeType(type);
             if (!teamGroups.has(teamName)) teamGroups.set(teamName, []);
             teamGroups.get(teamName)!.push(market);
         }

@@ -61,7 +61,7 @@ export const getEventDetail = cache(async function getEventDetail(
             if (!formatted.sportData?.gameId) return formatted;
 
             try {
-                const sportDetail = await getSportEventDetail(id);
+                const sportDetail = await getSportEventDetail(id, locale);
                 if (sportDetail?.groupedMarkets?.length) {
                     return mergeSportGroupedMarkets(formatted, sportDetail);
                 }

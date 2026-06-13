@@ -90,6 +90,99 @@ describe('mergeSportGroupedMarkets — 3-way soccer merges', () => {
         expect(merged.outcomes[2]?.slug).toBe('neither-slug');
     });
 
+    it('merges soccer_first_to_score even when groupItemTitle is localized (zh)', () => {
+        // The sport-detail API translates groupItemTitle (卡塔尔 / 瑞士 / 两者都不), which no
+        // longer matches the English team names. The slug suffix (-home/-away/-neither) is the
+        // locale-independent signal that must drive the classification.
+        const sportDetail = buildSportDetail([
+            {
+                type: 'soccer_first_to_score',
+                items: [
+                    {
+                        ...binaryItem('卡塔尔', '0.16', 'qat'),
+                        slug: 'fifwc-qat-che-2026-06-13-first-to-score-home',
+                    },
+                    {
+                        ...binaryItem('瑞士', '0.805', 'che'),
+                        slug: 'fifwc-qat-che-2026-06-13-first-to-score-away',
+                    },
+                    {
+                        ...binaryItem('两者都不', '0.0465', 'neither'),
+                        slug: 'fifwc-qat-che-2026-06-13-first-to-score-neither',
+                    },
+                ],
+            },
+        ]);
+
+        const result = mergeSportGroupedMarkets(buildEvent(), sportDetail);
+
+        const merged = findMarket(result.markets, 'soccer_first_to_score');
+        expect(merged).toBeDefined();
+        expect(merged?.outcomes).toHaveLength(3);
+        expect(merged?.outcomes.map((o) => o.label)).toEqual(['QAT', 'CHE', '两者都不']);
+        expect(merged?.outcomes.map((o) => o.price)).toEqual(['0.16', '0.805', '0.0465']);
+    });
+
+    it('reclassifies lumped soccer_player_goals items by slug, unambiguously (zh titles)', () => {
+        // The slug is the locale-independent signal. Multi-word props must be detected before
+        // their substrings: "-shots-on-target-" contains "-shots-", "-goals-plus-assists-"
+        // contains "-assists-". Ignored props route to their own type to be filtered downstream.
+        const sportDetail = buildSportDetail([
+            {
+                type: 'soccer_player_goals',
+                items: [
+                    { ...binaryItem('进球 ≥ 1', '0.5', 'goals-p1'), slug: 'match-goals-player1-gte1' },
+                    { ...binaryItem('助攻 ≥ 1', '0.5', 'assists-p2'), slug: 'match-assists-player2-gte1' },
+                    { ...binaryItem('射门 ≥ 2', '0.5', 'shots-p3'), slug: 'match-shots-player3-gte2' },
+                    { ...binaryItem('射正 ≥ 1', '0.5', 'sot-p4'), slug: 'match-shots-on-target-player4-gte1' },
+                    { ...binaryItem('进球+助攻 ≥ 1', '0.5', 'gpa-p5'), slug: 'match-goals-plus-assists-player5-gte1' },
+                    { ...binaryItem('扑救 ≥ 2', '0.5', 'saves-p6'), slug: 'match-saves-player6-gte2' },
+                ],
+            },
+        ]);
+
+        const result = mergeSportGroupedMarkets(buildEvent(), sportDetail);
+        const types = new Set(result.markets.map((m) => m.sportsMarketType));
+
+        // Rendered prop types.
+        expect(types).toContain('soccer_player_goals');
+        expect(types).toContain('soccer_player_assists');
+        expect(types).toContain('soccer_player_shots');
+        // shots-on-target must NOT collapse into soccer_player_shots.
+        expect(types).toContain('soccer_player_shots_on_target');
+        // goals-plus-assists / goalkeeper-saves route to their own (ignored) types, not assists/goals.
+        expect(types).toContain('soccer_player_goals_plus_assists');
+        expect(types).toContain('soccer_player_goalkeeper_saves');
+    });
+
+    it('merges soccer_halftime_result when groupItemTitle is localized (zh)', () => {
+        const sportDetail = buildSportDetail([
+            {
+                type: 'soccer_halftime_result',
+                items: [
+                    {
+                        ...binaryItem('卡塔尔', '0.08', 'ht-qat'),
+                        slug: 'fifwc-qat-che-2026-06-13-halftime-result-home',
+                    },
+                    {
+                        ...binaryItem('平局', '0.315', 'ht-draw'),
+                        slug: 'fifwc-qat-che-2026-06-13-halftime-result-draw',
+                    },
+                    {
+                        ...binaryItem('瑞士', '0.61', 'ht-che'),
+                        slug: 'fifwc-qat-che-2026-06-13-halftime-result-away',
+                    },
+                ],
+            },
+        ]);
+
+        const result = mergeSportGroupedMarkets(buildEvent(), sportDetail);
+
+        const merged = findMarket(result.markets, 'soccer_halftime_result');
+        expect(merged).toBeDefined();
+        expect(merged?.outcomes.map((o) => o.label)).toEqual(['QAT', 'CHE', '平局']);
+    });
+
     it('still yields a "Draw" middle label for soccer_halftime_result (no regression)', () => {
         const sportDetail = buildSportDetail([
             {

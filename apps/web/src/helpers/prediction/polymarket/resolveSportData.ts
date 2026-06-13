@@ -123,12 +123,12 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
               ? SportScoreType.Multiple
               : SportScoreType.Unknown;
 
-    // Detect draw markets: 3+ moneyline markets with one containing "draw"
+    // Detect 3-way (home/draw/away) moneyline markets. Counting >= 3 is locale-independent;
+    // matching the "draw" keyword would miss translated titles ("平局" in zh).
     const moneylineMarkets = detail.markets.filter(
         (m) => m.active && m.sportsMarketType?.toLowerCase() === 'moneyline',
     );
-    const hasDrawMarket =
-        moneylineMarkets.length >= 3 && moneylineMarkets.some((m) => m.groupItemTitle?.toLowerCase().includes('draw'));
+    const hasDrawMarket = moneylineMarkets.length >= 3;
 
     return {
         gameId,

@@ -56,7 +56,10 @@ export const SportMarketsSection = memo(function SportMarketsSection({ event, sp
     const isEventEnded = !!sportData.ended || !!event.closed;
 
     // Derive tabs directly from market data (data-driven via sportsMarketType patterns)
-    const tabs = useMemo(() => getSportMarketTabs(event.markets), [event.markets]);
+    const tabs = useMemo(
+        () => getSportMarketTabs(event.markets, homeTeam, awayTeam),
+        [event.markets, homeTeam, awayTeam],
+    );
 
     // Filter to tabs with non-empty sections
     const visibleTabs = useMemo(() => tabs.filter((tab) => tab.sections.some((s) => s.markets.length > 0)), [tabs]);
