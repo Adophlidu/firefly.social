@@ -471,8 +471,8 @@ export const SportMarketGroupCard = memo(function SportMarketGroupCard({
                 {showButtons && selectedMarket ? (
                     <SportBuyButtons
                         market={selectedMarket}
-                        homeTeam={effectiveRenderAs === SportMarketGroupType.Moneyline ? homeTeam : undefined}
-                        awayTeam={effectiveRenderAs === SportMarketGroupType.Moneyline ? awayTeam : undefined}
+                        homeTeam={showTeamButtons ? homeTeam : undefined}
+                        awayTeam={showTeamButtons ? awayTeam : undefined}
                         outcomeTeams={outcomeTeams}
                         sectionType={effectiveRenderAs}
                         eventSlug={eventSlug}

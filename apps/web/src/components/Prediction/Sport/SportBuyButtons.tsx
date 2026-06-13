@@ -90,9 +90,15 @@ export const SportBuyButtons = memo(function SportBuyButtons({
             color: team?.color || fallbackColor,
         };
     };
-    const home = getOutcomeMeta(0, 'Home', homeTeam?.color || '#E74C3C');
-    const away = getOutcomeMeta(1, 'Away', awayTeam?.color || '#2ECC71');
-    const draw = getOutcomeMeta(2, 'Draw', '#9CA3AF');
+    // Order buttons home → (draw) → away so Spread buttons match the moneyline /
+    // home-away order. The original outcome index is kept when building
+    // each label, so a spread's sign (derived from line + index) stays correct
+    // for its team — only the visual position changes.
+    const homeOutcomeIndex = outcomeTeams?.findIndex((team) => team && homeTeam && team === homeTeam) ?? -1;
+    const otherIndex = homeOutcomeIndex === 0 ? 1 : 0;
+    const orderedTeamIndices = homeOutcomeIndex >= 0 && homeOutcomeIndex <= 1 ? [homeOutcomeIndex, otherIndex] : [0, 1];
+    const showDrawOutcome = !!showDraw && !!outcomes[2];
+    const renderIndices = showDrawOutcome ? [orderedTeamIndices[0], 2, orderedTeamIndices[1]] : orderedTeamIndices;
 
     return (
         <div
@@ -101,48 +107,34 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                 'max-md:w-full': !!responsiveFullWidth,
             })}
         >
-            <SportBuyButton
-                slug={outcomes[0]?.slug || market.slug}
-                outcome={outcomes[0]?.slug ? 0 : 0}
-                label={home.label}
-                price={outcomes[0]?.price}
-                color={home.color}
-                compact={compact}
-                variant={variant}
-                softColor={softColor}
-                conditionId={market.conditionId}
-                eventSlug={eventSlug}
-                responsiveFullWidth={responsiveFullWidth}
-            />
-            {showDraw && outcomes[2] ? (
-                <SportBuyButton
-                    slug={outcomes[2]?.slug || market.slug}
-                    outcome={outcomes[2]?.slug ? 0 : 2}
-                    label={draw.label}
-                    price={outcomes[2].price}
-                    color={draw.color}
-                    compact={compact}
-                    variant={variant}
-                    softColor={softColor}
-                    conditionId={market.conditionId}
-                    eventSlug={eventSlug}
-                    responsiveFullWidth={responsiveFullWidth}
-                    isDraw
-                />
-            ) : null}
-            <SportBuyButton
-                slug={outcomes[1]?.slug || market.slug}
-                outcome={outcomes[1]?.slug ? 0 : 1}
-                label={away.label}
-                price={outcomes[1]?.price}
-                color={away.color}
-                compact={compact}
-                variant={variant}
-                softColor={softColor}
-                conditionId={market.conditionId}
-                eventSlug={eventSlug}
-                responsiveFullWidth={responsiveFullWidth}
-            />
+            {renderIndices.map((index) => {
+                const isDrawOutcome = index === 2;
+                const isHome = index === orderedTeamIndices[0];
+                const fallbackLabel = isDrawOutcome ? 'Draw' : isHome ? 'Home' : 'Away';
+                const fallbackColor = isDrawOutcome
+                    ? '#9CA3AF'
+                    : isHome
+                      ? homeTeam?.color || '#E74C3C'
+                      : awayTeam?.color || '#2ECC71';
+                const meta = getOutcomeMeta(index, fallbackLabel, fallbackColor);
+                return (
+                    <SportBuyButton
+                        key={index}
+                        slug={outcomes[index]?.slug || market.slug}
+                        outcome={outcomes[index]?.slug ? 0 : index}
+                        label={meta.label}
+                        price={outcomes[index]?.price}
+                        color={meta.color}
+                        compact={compact}
+                        variant={variant}
+                        softColor={softColor}
+                        conditionId={market.conditionId}
+                        eventSlug={eventSlug}
+                        responsiveFullWidth={responsiveFullWidth}
+                        isDraw={isDrawOutcome}
+                    />
+                );
+            })}
         </div>
     );
 });
