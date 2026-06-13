@@ -65,27 +65,35 @@ function fixRecurrence(recurrence: PredictionRecurrence, startTime?: string, end
     return recurrence;
 }
 
-function mergeThreeWayMoneylineMarkets(
+/**
+ * Generic 3-way merge for markets that come as separate binary markets (one per outcome).
+ * The sport detail API returns home/draw/away as individual markets with Yes/No outcomes.
+ * This merges them into a single market with 3 outcomes (Team1/Draw/Team2).
+ */
+function mergeThreeWayMarketsOfType(
     markets: BetsMarketDataForUI[],
     homeTeam: SportTeam,
     awayTeam: SportTeam,
+    marketType: string,
 ): BetsMarketDataForUI[] {
-    const moneylineIndices: number[] = [];
-    const moneylineMarkets: BetsMarketDataForUI[] = [];
+    const matchedIndices: number[] = [];
+    const matchedMarkets: BetsMarketDataForUI[] = [];
+    const normalizedType = marketType.toLowerCase();
+
     markets.forEach((m, i) => {
-        if (m.sportsMarketType?.toLowerCase() === 'moneyline') {
-            moneylineIndices.push(i);
-            moneylineMarkets.push(m);
+        if (m.sportsMarketType?.toLowerCase() === normalizedType) {
+            matchedIndices.push(i);
+            matchedMarkets.push(m);
         }
     });
 
-    if (moneylineMarkets.length < 3) return markets;
+    if (matchedMarkets.length < 3) return markets;
 
     let homeMarket: BetsMarketDataForUI | undefined;
     let drawMarket: BetsMarketDataForUI | undefined;
     let awayMarket: BetsMarketDataForUI | undefined;
 
-    for (const m of moneylineMarkets) {
+    for (const m of matchedMarkets) {
         const title = m.groupItemTitle || m.title;
         if (title?.toLowerCase().includes('draw')) {
             drawMarket = m;
@@ -104,9 +112,9 @@ function mergeThreeWayMoneylineMarkets(
         conditionId: homeMarket.conditionId,
         questionId: homeMarket.questionId,
         title: homeMarket.title,
-        volume: moneylineMarkets.reduce((sum, m) => sum + Number.parseFloat(m.volume || '0'), 0).toString(),
-        isResolved: moneylineMarkets.every((m) => m.isResolved),
-        isClosed: moneylineMarkets.every((m) => m.isClosed),
+        volume: matchedMarkets.reduce((sum, m) => sum + Number.parseFloat(m.volume || '0'), 0).toString(),
+        isResolved: matchedMarkets.every((m) => m.isResolved),
+        isClosed: matchedMarkets.every((m) => m.isClosed),
         createTime: homeMarket.createTime,
         resolvedOutcomeId: homeMarket.resolvedOutcomeId,
         image: homeMarket.image,
@@ -134,15 +142,15 @@ function mergeThreeWayMoneylineMarkets(
         bestAsk: homeMarket.bestAsk,
         bestBid: homeMarket.bestBid,
         sportsMarketType: homeMarket.sportsMarketType,
-        originalMoneylineMarkets: moneylineMarkets,
+        originalMoneylineMarkets: matchedMarkets,
     };
 
     const result = [...markets];
-    for (let i = moneylineIndices.length - 1; i >= 0; i -= 1) {
-        result.splice(moneylineIndices[i], 1);
+    for (let i = matchedIndices.length - 1; i >= 0; i -= 1) {
+        result.splice(matchedIndices[i], 1);
     }
 
-    result.splice(moneylineIndices[0], 0, combined);
+    result.splice(matchedIndices[0], 0, combined);
     return result;
 }
 
@@ -230,7 +238,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
     });
 
     if (sportData?.isDraw && sportData.homeTeam && sportData.awayTeam) {
-        markets = mergeThreeWayMoneylineMarkets(markets, sportData.homeTeam, sportData.awayTeam);
+        markets = mergeThreeWayMarketsOfType(markets, sportData.homeTeam, sportData.awayTeam, 'moneyline');
     }
 
     const cryptoName = resolveCryptoFromPolymarketEvent(detail);
@@ -366,7 +374,7 @@ function mergeSoccerGroupedMarkets(event: BetsEventDataForUI, sportDetail: Polym
     const moneylineMarkets = event.markets.filter((m) => m.sportsMarketType?.toLowerCase() === 'moneyline');
 
     // Flatten all non-moneyline grouped markets, using each group's sportsMarketType
-    const groupedMarkets: BetsMarketDataForUI[] = [];
+    let groupedMarkets: BetsMarketDataForUI[] = [];
     for (const group of sportDetail.groupedMarkets || []) {
         const rawType = group.sportsMarketType;
         if (!rawType) continue;
@@ -380,6 +388,15 @@ function mergeSoccerGroupedMarkets(event: BetsEventDataForUI, sportDetail: Polym
                 if (detectedType) effectiveType = detectedType;
             }
             groupedMarkets.push(formatSportGroupedMarketItem(item, effectiveType));
+        }
+    }
+
+    // Merge 3-way markets (halftime/2nd-half results come as separate binary markets)
+    const homeTeam = event.sportData?.homeTeam;
+    const awayTeam = event.sportData?.awayTeam;
+    if (homeTeam && awayTeam) {
+        for (const type of ['soccer_halftime_result', 'soccer_second_half_result']) {
+            groupedMarkets = mergeThreeWayMarketsOfType(groupedMarkets, homeTeam, awayTeam, type);
         }
     }
 
