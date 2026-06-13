@@ -5168,6 +5168,9 @@ msgstr "任意玩家六杀"
 msgid "Token holder of any one below"
 msgstr "持有以下任意代币"
 
+msgid "World Cup"
+msgstr ""
+
 msgid "Text"
 msgstr "文本"
 

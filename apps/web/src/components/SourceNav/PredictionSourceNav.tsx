@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
 
+import { FIFA_SLUG } from '@/constants/bets.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { Link } from '@/esm/Link.js';
 import { useParams } from '@/esm/navigation.js';
@@ -37,6 +38,24 @@ const FIXED_SLUGS: PolymarketEventSlugListData[] = [
         sub_slug: [],
     },
 ];
+
+interface SlugLabelProps {
+    slug: string;
+    label: string;
+}
+
+function SlugLabel({ slug, label }: SlugLabelProps) {
+    switch (slug) {
+        case 'trending':
+            return <Trans>Trending</Trans>;
+        case 'new':
+            return <Trans>New</Trans>;
+        case FIFA_SLUG:
+            return <Trans>World Cup</Trans>;
+        default:
+            return label;
+    }
+}
 
 export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ className }) {
     const { source } = useParams<{ source: string }>();
@@ -115,7 +134,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                                     captureExplorePredictionsCategoryClick(slug.slug, slug.label);
                                 }}
                             >
-                                {slug.label}
+                                <SlugLabel slug={slug.slug} label={slug.label} />
                             </Link>
                         );
                     })}

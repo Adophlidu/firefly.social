@@ -5193,6 +5193,9 @@ msgstr "Any Player Ultra Kill"
 msgid "Token holder of any one below"
 msgstr "Token holder of any one below"
 
+msgid "World Cup"
+msgstr "World Cup"
+
 msgid "Text"
 msgstr "Text"
 

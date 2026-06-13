@@ -5168,6 +5168,9 @@ msgstr "いずれかの選手がウルトラキル"
 msgid "Token holder of any one below"
 msgstr "以下のいずれかのトークン保有者"
 
+msgid "World Cup"
+msgstr ""
+
 msgid "Text"
 msgstr "テキスト"
 

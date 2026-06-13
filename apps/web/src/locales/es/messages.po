@@ -5193,6 +5193,9 @@ msgstr "Cualquier jugador hace Ultra Kill"
 msgid "Token holder of any one below"
 msgstr "Titular del token de cualquiera de los siguientes"
 
+msgid "World Cup"
+msgstr ""
+
 msgid "Text"
 msgstr "Texto"
 

@@ -5168,6 +5168,9 @@ msgstr "임의 선수 울트라 킬"
 msgid "Token holder of any one below"
 msgstr "아래 토큰 중 하나의 보유자"
 
+msgid "World Cup"
+msgstr ""
+
 msgid "Text"
 msgstr "텍스트"
 

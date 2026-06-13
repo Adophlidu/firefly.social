@@ -5168,6 +5168,9 @@ msgstr "任意選手極限連殺"
 msgid "Token holder of any one below"
 msgstr "擁有以下任意代幣"
 
+msgid "World Cup"
+msgstr ""
+
 msgid "Text"
 msgstr "純文字"
 
