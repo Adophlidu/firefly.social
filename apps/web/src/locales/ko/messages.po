@@ -712,6 +712,7 @@ msgid "Market Cap"
 msgstr "시가총액"
 
 #. placeholder {0}: nFormatter(+market.volume, 2)
+#. placeholder {0}: nFormatter(eventVolume, 2, true)
 msgid "${0} Vol."
 msgstr "${0} 거래량"
 
@@ -1720,6 +1721,9 @@ msgstr "제재 대상이 아닌 주소가 발견되었습니다."
 
 msgid "Anonymous"
 msgstr "익명"
+
+msgid "+{remainingCount} others"
+msgstr ""
 
 msgid "Failed to un-bookmark NFT."
 msgstr "NFT 북마크 해제에 실패했습니다."

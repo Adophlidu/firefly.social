@@ -1,4 +1,4 @@
-import type { BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI, SportScore } from '@/types/prediction.js';
 import { SportMarketGroupType } from '@/types/prediction.js';
 
 export function getScoreValue(score: number[] | undefined, index: number) {
@@ -59,6 +59,27 @@ export function matchesTeamLabel(team: TeamLike, label: string | undefined): boo
     }
 
     return false;
+}
+
+/** Home/away score of the primary (single-line) score row, defaulting missing values to 0. */
+export function getSingleScore(scores: SportScore[]): [number, number] {
+    const score = scores[0]?.score;
+    return [score?.[0] ?? 0, score?.[1] ?? 0];
+}
+
+/**
+ * Resolves the losing side so it can be visually muted. Prefers the explicit `winResult`
+ * (0 = home won, 2 = away won, 1 = draw/no loser) and falls back to comparing the single score.
+ */
+export function getLoser(winResult: number | undefined, scores: SportScore[]): 'home' | 'away' | undefined {
+    if (winResult === 0) return 'away';
+    if (winResult === 2) return 'home';
+    if (winResult === 1) return undefined;
+
+    const [homeScore, awayScore] = getSingleScore(scores);
+    if (homeScore > awayScore) return 'away';
+    if (awayScore > homeScore) return 'home';
+    return undefined;
 }
 
 export function getPrimaryMarket(markets: BetsMarketDataForUI[]) {

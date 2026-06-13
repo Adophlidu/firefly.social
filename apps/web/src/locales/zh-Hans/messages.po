@@ -712,6 +712,7 @@ msgid "Market Cap"
 msgstr "市值"
 
 #. placeholder {0}: nFormatter(+market.volume, 2)
+#. placeholder {0}: nFormatter(eventVolume, 2, true)
 msgid "${0} Vol."
 msgstr "${0} 交易量"
 
@@ -1720,6 +1721,9 @@ msgstr "非黑名单地址。"
 
 msgid "Anonymous"
 msgstr "匿名"
+
+msgid "+{remainingCount} others"
+msgstr ""
 
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失败。"

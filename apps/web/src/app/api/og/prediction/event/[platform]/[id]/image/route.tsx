@@ -17,11 +17,17 @@ import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { type GameMarketOgData, resolveGameMarketOgData } from '@/helpers/prediction/resolveGameMarketOgData.js';
+import {
+    compareScorePair,
+    getScoreValue,
+    getTennisSetKey,
+    getTieBreakValue,
+} from '@/helpers/prediction/sportScoreUtils.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { BetsEventDataForUI, SportTeam } from '@/types/prediction.js';
+import type { BetsEventDataForUI, SportScore, SportTeam } from '@/types/prediction.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSansSC"';
 const OG_FALLBACK_IMAGE = getPublicUrl('/image/firefly-light-avatar.png');
@@ -138,8 +144,104 @@ function TeamLogo({ src, team, side }: { src: string | null; team: SportTeam; si
     );
 }
 
+const SCORE_COLOR = '#000000';
+const SCORE_MUTED_COLOR = 'rgba(0, 0, 0, 0.4)';
+
+function SingleScore({
+    homeScore,
+    awayScore,
+    loser,
+}: {
+    homeScore: number;
+    awayScore: number;
+    loser?: 'home' | 'away';
+}) {
+    return (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '28px', width: '410px' }}>
+            <span
+                style={{
+                    display: 'flex',
+                    fontSize: '88px',
+                    fontWeight: 700,
+                    lineHeight: '88px',
+                    color: loser === 'home' ? SCORE_MUTED_COLOR : SCORE_COLOR,
+                }}
+            >
+                {`${homeScore}`}
+            </span>
+            <span style={{ display: 'flex', fontSize: '56px', fontWeight: 700, lineHeight: '88px', color: '#999999' }}>
+                -
+            </span>
+            <span
+                style={{
+                    display: 'flex',
+                    fontSize: '88px',
+                    fontWeight: 700,
+                    lineHeight: '88px',
+                    color: loser === 'away' ? SCORE_MUTED_COLOR : SCORE_COLOR,
+                }}
+            >
+                {`${awayScore}`}
+            </span>
+        </div>
+    );
+}
+
+function TennisValue({ value, tieBreak, muted }: { value?: number; tieBreak?: number; muted?: boolean }) {
+    const color = muted ? SCORE_MUTED_COLOR : SCORE_COLOR;
+    return (
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+            <span style={{ display: 'flex', fontSize: '48px', fontWeight: 700, lineHeight: '52px', color }}>
+                {value === undefined ? '-' : `${value}`}
+            </span>
+            {tieBreak === undefined ? null : (
+                <span style={{ display: 'flex', fontSize: '20px', lineHeight: '24px', marginLeft: '2px', color }}>
+                    {`${tieBreak}`}
+                </span>
+            )}
+        </div>
+    );
+}
+
+function MultiSetScore({ scores }: { scores: SportScore[] }) {
+    return (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '28px', width: '410px' }}>
+            {scores.map((set, index) => {
+                const comparison = compareScorePair(set.score, set.memo);
+                return (
+                    <div
+                        key={getTennisSetKey(scores, index)}
+                        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
+                    >
+                        <TennisValue
+                            value={getScoreValue(set.score, 0)}
+                            tieBreak={getTieBreakValue(set.memo, 0)}
+                            muted={comparison < 0}
+                        />
+                        <TennisValue
+                            value={getScoreValue(set.score, 1)}
+                            tieBreak={getTieBreakValue(set.memo, 1)}
+                            muted={comparison > 0}
+                        />
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
+function ScoreCenter({ gameData }: { gameData: GameMarketOgData }) {
+    const { scores, homeScore, awayScore, multipleSets, loser } = gameData;
+    const showSets = multipleSets && scores.length > 1;
+    return showSets ? (
+        <MultiSetScore scores={scores} />
+    ) : (
+        <SingleScore homeScore={homeScore} awayScore={awayScore} loser={loser} />
+    );
+}
+
 async function GameMarketOgImage({ event, gameData }: { event: BetsEventDataForUI; gameData: GameMarketOgData }) {
-    const { homeTeam, awayTeam, homePercent, awayPercent, homeRatio, awayRatio, volume } = gameData;
+    const { homeTeam, awayTeam, homePercent, awayPercent, homeRatio, awayRatio, volume, state } = gameData;
     const homeColor = homeTeam.color || DEFAULT_HOME_COLOR;
     const awayColor = awayTeam.color || DEFAULT_AWAY_COLOR;
 
@@ -240,56 +342,74 @@ async function GameMarketOgImage({ event, gameData }: { event: BetsEventDataForU
                     alignItems: 'center',
                 }}
             >
-                <div
-                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', width: '410px' }}
-                >
+                {state === 'upcoming' ? (
                     <div
                         style={{
                             display: 'flex',
-                            fontSize: '64px',
-                            fontWeight: 700,
-                            color: homeColor,
-                            lineHeight: '64px',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            width: '410px',
                         }}
                     >
-                        {formatPercent(homePercent)}%
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'flex-end',
+                                width: '410px',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    fontSize: '64px',
+                                    fontWeight: 700,
+                                    color: homeColor,
+                                    lineHeight: '64px',
+                                }}
+                            >
+                                {formatPercent(homePercent)}%
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    fontSize: '64px',
+                                    fontWeight: 700,
+                                    color: awayColor,
+                                    lineHeight: '64px',
+                                }}
+                            >
+                                {formatPercent(awayPercent)}%
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex', width: '410px', height: '28px', marginTop: '12px', gap: '8px' }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexBasis: `${homeRatio * 100}%`,
+                                    minWidth: 0,
+                                    height: '28px',
+                                    backgroundColor: homeColor,
+                                    borderRadius: '2px',
+                                    transform: 'skewX(-14deg)',
+                                }}
+                            />
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexBasis: `${awayRatio * 100}%`,
+                                    minWidth: 0,
+                                    height: '28px',
+                                    backgroundColor: awayColor,
+                                    borderRadius: '2px',
+                                    transform: 'skewX(-14deg)',
+                                }}
+                            />
+                        </div>
                     </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            fontSize: '64px',
-                            fontWeight: 700,
-                            color: awayColor,
-                            lineHeight: '64px',
-                        }}
-                    >
-                        {formatPercent(awayPercent)}%
-                    </div>
-                </div>
-                <div style={{ display: 'flex', width: '410px', height: '28px', marginTop: '12px', gap: '8px' }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexBasis: `${homeRatio * 100}%`,
-                            minWidth: 0,
-                            height: '28px',
-                            backgroundColor: homeColor,
-                            borderRadius: '2px',
-                            transform: 'skewX(-14deg)',
-                        }}
-                    />
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexBasis: `${awayRatio * 100}%`,
-                            minWidth: 0,
-                            height: '28px',
-                            backgroundColor: awayColor,
-                            borderRadius: '2px',
-                            transform: 'skewX(-14deg)',
-                        }}
-                    />
-                </div>
+                ) : (
+                    <ScoreCenter gameData={gameData} />
+                )}
                 <div
                     style={{
                         display: 'flex',

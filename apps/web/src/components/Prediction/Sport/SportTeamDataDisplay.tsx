@@ -10,8 +10,10 @@ import { SportTennisScoreValue } from '@/components/Prediction/Sport/SportTennis
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import {
     compareScorePair,
+    getLoser,
     getPrimaryMarket,
     getScoreValue,
+    getSingleScore,
     getTennisSetKey,
     getTieBreakValue,
 } from '@/helpers/prediction/sportScoreUtils.js';
@@ -61,22 +63,6 @@ function TeamColumn({ team, fallbackLabel, muted }: { team: SportTeam; fallbackL
             </div>
         </div>
     );
-}
-
-function getSingleScore(scores: SportEventData['scores']): [number, number] {
-    const score = scores[0]?.score;
-    return [score?.[0] ?? 0, score?.[1] ?? 0];
-}
-
-function getLoser(winResult: number | undefined, scores: SportEventData['scores']) {
-    if (winResult === 0) return 'away';
-    if (winResult === 2) return 'home';
-    if (winResult === 1) return undefined;
-
-    const [homeScore, awayScore] = getSingleScore(scores);
-    if (homeScore > awayScore) return 'away';
-    if (awayScore > homeScore) return 'home';
-    return undefined;
 }
 
 function ProbabilityBar({

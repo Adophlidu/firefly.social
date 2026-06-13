@@ -434,7 +434,9 @@ export const BetItem = memo(function BetItem({
                         })}
                         {remainingCount > 0 && (
                             <div className="flex items-center">
-                                <p className="text-sm leading-5 text-second">+{remainingCount} others</p>
+                                <p className="text-sm leading-5 text-second">
+                                    <Trans>+{remainingCount} others</Trans>
+                                </p>
                             </div>
                         )}
                     </div>
@@ -533,7 +535,9 @@ export const BetItem = memo(function BetItem({
 
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm leading-[17px] text-second">
-                        <span>${nFormatter(eventVolume, 2, true)} Vol.</span>
+                        <span>
+                            <Trans>${nFormatter(eventVolume, 2, true)} Vol.</Trans>
+                        </span>
                         {series?.recurrence ? <span>{capitalize(series.recurrence)}</span> : null}
                     </div>
                     {isNew ? (

@@ -716,6 +716,7 @@ msgid "Market Cap"
 msgstr "Market Cap"
 
 #. placeholder {0}: nFormatter(+market.volume, 2)
+#. placeholder {0}: nFormatter(eventVolume, 2, true)
 msgid "${0} Vol."
 msgstr "${0} Vol."
 
@@ -1728,6 +1729,9 @@ msgstr "Non-sanctioned address found."
 
 msgid "Anonymous"
 msgstr "Anonymous"
+
+msgid "+{remainingCount} others"
+msgstr "+{remainingCount} others"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "Failed to un-bookmark NFT."

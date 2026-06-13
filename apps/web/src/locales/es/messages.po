@@ -716,6 +716,7 @@ msgid "Market Cap"
 msgstr "Capitalización de mercado"
 
 #. placeholder {0}: nFormatter(+market.volume, 2)
+#. placeholder {0}: nFormatter(eventVolume, 2, true)
 msgid "${0} Vol."
 msgstr "Vol. ${0}"
 
@@ -1728,6 +1729,9 @@ msgstr "Dirección no sancionada encontrada."
 
 msgid "Anonymous"
 msgstr "Anónimo"
+
+msgid "+{remainingCount} others"
+msgstr ""
 
 msgid "Failed to un-bookmark NFT."
 msgstr "No se pudo desmarcar el NFT como favorito."

@@ -712,6 +712,7 @@ msgid "Market Cap"
 msgstr "時価総額"
 
 #. placeholder {0}: nFormatter(+market.volume, 2)
+#. placeholder {0}: nFormatter(eventVolume, 2, true)
 msgid "${0} Vol."
 msgstr "${0} 取引量"
 
@@ -1720,6 +1721,9 @@ msgstr "制裁対象外のアドレスが検出されました。"
 
 msgid "Anonymous"
 msgstr "匿名"
+
+msgid "+{remainingCount} others"
+msgstr ""
 
 msgid "Failed to un-bookmark NFT."
 msgstr "NFT のブックマーク解除に失敗しました。"
