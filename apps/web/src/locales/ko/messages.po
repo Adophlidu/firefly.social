@@ -4975,7 +4975,7 @@ msgid "Claim Now"
 msgstr "지금 받기"
 
 msgid "No Draw"
-msgstr ""
+msgstr "무승부 없음"
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
@@ -5169,7 +5169,7 @@ msgid "Token holder of any one below"
 msgstr "아래 토큰 중 하나의 보유자"
 
 msgid "World Cup"
-msgstr ""
+msgstr "월드컵"
 
 msgid "Text"
 msgstr "텍스트"

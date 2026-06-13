@@ -4999,7 +4999,7 @@ msgid "Claim Now"
 msgstr "Reclamar Ahora"
 
 msgid "No Draw"
-msgstr ""
+msgstr "Sin Empate"
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
@@ -5194,7 +5194,7 @@ msgid "Token holder of any one below"
 msgstr "Titular del token de cualquiera de los siguientes"
 
 msgid "World Cup"
-msgstr ""
+msgstr "Copa del Mundo"
 
 msgid "Text"
 msgstr "Texto"
