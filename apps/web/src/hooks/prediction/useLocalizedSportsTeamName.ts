@@ -1,38 +1,38 @@
-import type { Locale } from '@dimensiondev/enums';
+import { Locale } from '@dimensiondev/enums';
 import { useLingui } from '@lingui/react';
 import { useMemo } from 'react';
 
-import { useGameCountriesStore } from '@/store/useGameCountriesStore.js';
+import { GAME_COUNTRIES } from '@/constants/gameCountries.js';
+
+const normalize = (value: string) => value.trim().toLowerCase();
+
+// Locale-independent: any known alias (Polymarket name, code, or a localized name) → country code.
+const ALIAS_TO_CODE = new Map<string, string>();
+for (const country of GAME_COUNTRIES) {
+    for (const pmName of country.pmNames) ALIAS_TO_CODE.set(normalize(pmName), country.code);
+
+    for (const localizedName of Object.values(country.names)) ALIAS_TO_CODE.set(normalize(localizedName), country.code);
+}
 
 /**
- * The sports list API does not localize team (country) names, so we fall back to the
- * localized country list and translate any team name that matches a known country.
+ * The sports list/detail APIs do not localize team (country) names for every locale,
+ * so we translate them client-side against the baked-in {@link GAME_COUNTRIES} list.
  *
- * Returns a resolver that maps a raw team name to the localized country name when a
- * match is found, otherwise returns the original name unchanged.
+ * Returns a resolver that maps a raw team name to the localized country name when it
+ * matches a known country, otherwise returns the original name unchanged.
  */
 export function useLocalizedSportsTeamName(): (name: string) => string {
     const {
         i18n: { locale },
     } = useLingui();
-    const gameCountries = useGameCountriesStore.use.gameCountries();
 
     return useMemo(() => {
-        const countries = gameCountries[locale as Locale] ?? [];
+        const targetLocale = Object.values(Locale).includes(locale as Locale) ? (locale as Locale) : Locale.en;
+        const codeToName = new Map(GAME_COUNTRIES.map((country) => [country.code, country.names[targetLocale]]));
 
-        // Polymarket country names are locale-independent identifiers, so matching
-        // against the localized list directly yields the translated country_name.
-        const lookup = new Map<string, string>();
-        for (const country of countries) {
-            if (!country.country_name) continue;
-
-            for (const pmName of country.pm_country_names ?? []) {
-                if (pmName) lookup.set(pmName.trim().toLowerCase(), country.country_name);
-            }
-
-            lookup.set(country.country_name.trim().toLowerCase(), country.country_name);
-        }
-
-        return (name: string) => lookup.get(name.trim().toLowerCase()) ?? name;
-    }, [gameCountries, locale]);
+        return (name: string) => {
+            const code = ALIAS_TO_CODE.get(normalize(name));
+            return (code ? codeToName.get(code) : undefined) ?? name;
+        };
+    }, [locale]);
 }

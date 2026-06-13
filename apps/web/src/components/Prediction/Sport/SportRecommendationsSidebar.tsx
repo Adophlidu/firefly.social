@@ -14,6 +14,7 @@ import {
     type PredictionSportsTeamForUI,
 } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 import type { PolymarketSportsEvent, PolymarketSportsMarketData } from '@/providers/types/Firefly.js';
 
 interface SportRecommendationsSidebarProps {
@@ -30,16 +31,6 @@ interface SportRecommendationItem {
 interface ScheduledTimeParts {
     date: string;
     time: string;
-}
-
-function getTeamAbbreviation(team: PredictionSportsTeamForUI): string {
-    const abbreviation = team.abbreviation?.trim();
-    if (abbreviation) return abbreviation;
-
-    const name = team.name?.trim();
-    if (name) return name;
-
-    return '--';
 }
 
 function getScheduledTimeParts(event: PolymarketSportsEvent): ScheduledTimeParts | undefined {
@@ -77,9 +68,15 @@ function getFinishedScoreLabel(model: PredictionSportsCellViewModel): string {
 }
 
 function TeamColumn({ team }: { team: PredictionSportsTeamForUI }) {
-    const label = getTeamAbbreviation(team);
+    const resolveTeamName = useLocalizedSportsTeamName();
 
-    const tooltipContent = team.name || undefined;
+    // The card shows the short abbreviation as its label, so keep it untranslated
+    // (resolving it would yield the full localized country name and break the layout).
+    // Only translate the full team name used in the fallback label and the tooltip.
+    const abbreviation = team.abbreviation?.trim();
+    const localizedName = team.name?.trim() ? resolveTeamName(team.name.trim()) : '';
+    const label = abbreviation || localizedName || '--';
+    const tooltipContent = localizedName || undefined;
 
     return (
         <Tooltip content={tooltipContent} placement="top">

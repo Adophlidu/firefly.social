@@ -21,7 +21,6 @@ import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
-import { useGameCountriesStore } from '@/store/useGameCountriesStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
@@ -31,8 +30,6 @@ configureErrorCapture();
 initGlobalErrorHandlers();
 
 export const InitialProviders = memo(function Providers(props: { children: ReactNode }) {
-    useGameCountriesStore();
-
     const isDarkMode = useIsDarkMode();
     const themeMode = useThemeModeStore.use.themeMode();
 

@@ -8,6 +8,7 @@ import { Fragment, memo } from 'react';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 import { capturePolymarketEventTopHolderChangeMarketClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
@@ -26,6 +27,7 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
     eventSlug,
     eventTitle,
 }) {
+    const resolveTeamName = useLocalizedSportsTeamName();
     const market = markets.find((m) => m.id === marketId);
 
     return (
@@ -33,7 +35,7 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
             {({ close }) => (
                 <>
                     <PopoverButton className="flex h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border border-secondaryLine bg-bottom px-2 text-sm font-semibold text-main focus:outline-none">
-                        <span>{market?.title || ''}</span>
+                        <span>{market?.title ? resolveTeamName(market.title) : ''}</span>
                         <ChevronDownIcon className="size-4 text-secondary" />
                     </PopoverButton>
                     <Transition
@@ -77,7 +79,7 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
                                         }}
                                     >
                                         <span className="min-w-0 flex-1 truncate text-left text-sm font-medium text-main">
-                                            {market.title}
+                                            {resolveTeamName(market.title)}
                                         </span>
                                         <CircleCheckboxIcon checked={market.id === marketId} />
                                     </ClickableButton>

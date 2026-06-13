@@ -15,6 +15,7 @@ import { Loading } from '@/components/Loading.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { matchesTeamLabel } from '@/helpers/prediction/sportScoreUtils.js';
+import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import type { BetsMarketDataForUI, SportTeam } from '@/types/prediction.js';
 
@@ -337,6 +338,7 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
     config,
 }: SportPriceLineChartProps) {
     const { moneylineMarkets, isDraw, endTime } = config || {};
+    const resolveTeamName = useLocalizedSportsTeamName();
     const containerRef = useRef<HTMLDivElement>(null);
     const resizeRef = useRef<ResizeObserver | null>(null);
     const [width, setWidth] = useState(0);
@@ -628,8 +630,8 @@ export const SportPriceLineChart = memo(function SportPriceLineChart({
         );
     }
 
-    const homeName = homeTeam.name || homeTeam.abbreviation || t`Home`;
-    const awayName = awayTeam.name || awayTeam.abbreviation || t`Away`;
+    const homeName = (homeTeam.name ? resolveTeamName(homeTeam.name) : '') || homeTeam.abbreviation || t`Home`;
+    const awayName = (awayTeam.name ? resolveTeamName(awayTeam.name) : '') || awayTeam.abbreviation || t`Away`;
     const drawName = t`Draw`;
     const homeDotY = yScale(activeHome);
     const drawDotY = yScale(activeDraw);
