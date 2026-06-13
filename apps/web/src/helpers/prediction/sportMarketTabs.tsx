@@ -220,7 +220,7 @@ function getSectionConfig(type: string): SectionConfig {
         case 'both_teams_to_score_second_half':
             return { title: <Trans>Both Teams To Score - 2nd Half</Trans> };
         case 'soccer_first_to_score':
-            return { title: <Trans>First Team to Score</Trans> };
+            return { title: <Trans>First Team to Score</Trans>, renderAs: SportMarketGroupType.Moneyline };
 
         // Soccer: Corners
         case 'total_corners':

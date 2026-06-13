@@ -95,16 +95,23 @@ function mergeThreeWayMarketsOfType(
 
     for (const m of matchedMarkets) {
         const title = m.groupItemTitle || m.title;
-        if (title?.toLowerCase().includes('draw')) {
-            drawMarket = m;
-        } else if (matchesTeamLabel(homeTeam, title)) {
+        if (matchesTeamLabel(homeTeam, title)) {
             homeMarket = m;
         } else if (matchesTeamLabel(awayTeam, title)) {
             awayMarket = m;
+        } else {
+            // Matches neither team: the middle outcome (Draw / Neither / No Score / …).
+            drawMarket = m;
         }
     }
 
     if (!homeMarket || !drawMarket || !awayMarket) return markets;
+
+    // Moneyline draw titles from Gamma are messy (e.g. "Draw (Qatar vs. Switzerland)"),
+    // so keep a clean "Draw" label there. Soccer grouped types carry a clean groupItemTitle
+    // ("Draw", "Neither", …) — use it so the middle button shows the right label.
+    const isMoneyline = normalizedType === 'moneyline';
+    const drawLabel = isMoneyline ? 'Draw' : drawMarket.groupItemTitle || drawMarket.title || 'Draw';
 
     const combined: BetsMarketDataForUI = {
         id: homeMarket.id,
@@ -133,7 +140,7 @@ function mergeThreeWayMarketsOfType(
             },
             {
                 id: drawMarket.outcomes[0]?.id || '',
-                label: 'Draw',
+                label: drawLabel,
                 price: drawMarket.outcomes[0]?.price || '0',
                 slug: drawMarket.slug,
             },
@@ -395,7 +402,7 @@ function mergeSoccerGroupedMarkets(event: BetsEventDataForUI, sportDetail: Polym
     const homeTeam = event.sportData?.homeTeam;
     const awayTeam = event.sportData?.awayTeam;
     if (homeTeam && awayTeam) {
-        for (const type of ['soccer_halftime_result', 'soccer_second_half_result']) {
+        for (const type of ['soccer_halftime_result', 'soccer_second_half_result', 'soccer_first_to_score']) {
             groupedMarkets = mergeThreeWayMarketsOfType(groupedMarkets, homeTeam, awayTeam, type);
         }
     }

@@ -181,11 +181,11 @@ const SportBuyButton = memo(function SportBuyButton({
                     className={classNames(
                         'flex min-w-0 items-center justify-center gap-1 overflow-hidden rounded-lg px-2 py-1.5 text-sm font-bold leading-6',
                         variant === 'solid'
-                            ? classNames(compact ? 'w-[100px] flex-none' : 'w-32 flex-none', {
+                            ? classNames(compact ? 'w-[120px] flex-none' : 'w-32 flex-none', {
                                   'max-md:w-auto max-md:flex-1': !!responsiveFullWidth,
                               })
                             : '',
-                        variant === 'soft' ? (compact ? 'max-w-[100px] flex-none' : 'flex-1') : '',
+                        variant === 'soft' ? (compact ? 'max-w-[120px] flex-none' : 'flex-1') : '',
                     )}
                     style={
                         softColor
