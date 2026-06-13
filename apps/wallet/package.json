@@ -94,7 +94,7 @@
         "react-native-svg": "^15.15.5",
         "react-native-web": "^0.21.2",
         "react-qr-code": "^2.0.21",
-        "react-use": "^17.6.0",
+        "react-use": "^17.6.1",
         "react-virtuoso": "^4.12.8",
         "sonner": "^2.0.7",
         "tailwind-merge": "^3.5.0",

@@ -1405,7 +1405,7 @@ Packages with Single Version
  @types/istanbul-lib-coverage@2.0.6
  @types/istanbul-lib-report@3.0.3
  @types/istanbul-reports@3.0.4
- @types/js-cookie@2.2.7
+ @types/js-cookie@3.0.6
  @types/js-yaml@4.0.9
  @types/jsesc@2.5.1
  @types/json-schema@7.0.15
@@ -2368,7 +2368,7 @@ Packages with Single Version
  react-style-singleton@2.2.3
  react-transition-group@4.4.5
  react-universal-interface@0.6.2
-*react-use@17.6.0
+*react-use@17.6.1
 *react-virtuoso@4.12.8
  read-cache@1.0.0
  readdir-glob@1.1.3
