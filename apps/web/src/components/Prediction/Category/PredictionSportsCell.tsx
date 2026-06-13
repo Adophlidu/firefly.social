@@ -23,6 +23,7 @@ import {
 } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import { isTwitchLivestreamUrl } from '@/helpers/prediction/resolveSportLivestreamPlayback.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 
 interface Props {
     model: PredictionSportsCellViewModel;
@@ -33,6 +34,7 @@ export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ 
     const eventHref = RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, model.eventSlug, {
         appendRoot: false,
     });
+    const resolveTeamName = useLocalizedSportsTeamName();
 
     return (
         <div
@@ -44,7 +46,7 @@ export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ 
             <Link
                 href={eventHref}
                 className="absolute inset-0 z-0 rounded-2xl"
-                aria-label={t`View ${model.homeTeam.name} vs ${model.awayTeam.name}`}
+                aria-label={t`View ${resolveTeamName(model.homeTeam.name)} vs ${resolveTeamName(model.awayTeam.name)}`}
             />
             <div className="pointer-events-none relative z-10 flex flex-col gap-3">
                 <SportsCellHeader model={model} />
@@ -209,6 +211,7 @@ const TeamInfoRow = memo<{
 }>(function TeamInfoRow({ team, gamePhase }) {
     const isFinished = gamePhase === 'finished';
     const showLoserStyle = isFinished && team.isLoser;
+    const resolveTeamName = useLocalizedSportsTeamName();
 
     return (
         <div className={classNames('flex min-w-0 items-center gap-2', showLoserStyle ? 'opacity-40' : '')}>
@@ -224,7 +227,9 @@ const TeamInfoRow = memo<{
             ) : null}
             <SportTeamAvatar logo={team.logo} name={team.name} abbreviation={team.abbreviation} color={team.color} />
             <div className="flex min-w-0 items-center gap-2">
-                <span className="truncate text-sm font-semibold leading-[18px] text-main">{team.name}</span>
+                <span className="truncate text-sm font-semibold leading-[18px] text-main">
+                    {resolveTeamName(team.name)}
+                </span>
                 {team.record ? (
                     <span className="shrink-0 text-sm font-medium leading-[18px] text-second">{team.record}</span>
                 ) : null}
@@ -318,9 +323,12 @@ const OutcomePriceButton = memo<{
     className: string;
 }>(function OutcomePriceButton({ team, className }) {
     const abbreviation = team.abbreviation?.toUpperCase();
+    const resolveTeamName = useLocalizedSportsTeamName();
 
     return (
-        <TextOverflowTooltip content={<span className="text-sm font-bold uppercase">{abbreviation || team.name}</span>}>
+        <TextOverflowTooltip
+            content={<span className="text-sm font-bold uppercase">{abbreviation || resolveTeamName(team.name)}</span>}
+        >
             {(ref) => {
                 return (
                     <SportsOutcomePriceButton

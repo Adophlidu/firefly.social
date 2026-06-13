@@ -970,8 +970,8 @@ msgstr "Citar publicación"
 msgid "No more data available."
 msgstr "No hay más datos disponibles."
 
-#. placeholder {0}: model.homeTeam.name
-#. placeholder {1}: model.awayTeam.name
+#. placeholder {0}: resolveTeamName(model.homeTeam.name)
+#. placeholder {1}: resolveTeamName(model.awayTeam.name)
 msgid "View {0} vs {1}"
 msgstr "Ver {0} vs {1}"
 

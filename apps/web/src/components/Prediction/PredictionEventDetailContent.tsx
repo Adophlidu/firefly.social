@@ -5,7 +5,6 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { EventSeriesPills } from '@/components/Prediction/EventSeriesPills/index.js';
-// Client component for tracking
 import { PolymarketEventTracker } from '@/components/Prediction/PolymarketEventTracker.js';
 import { PredictionBaseInfoTabContent } from '@/components/Prediction/PredictionBaseInfoTabContent.js';
 import { PredictionBaseInfoTabs } from '@/components/Prediction/PredictionBaseInfoTabs.js';
@@ -15,6 +14,7 @@ import { PredictionEventPageHeader } from '@/components/Prediction/PredictionEve
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionSingleChart } from '@/components/Prediction/PredictionSingleChart/index.js';
 import { SportEventDetailContent } from '@/components/Prediction/Sport/SportEventDetailContent.js';
+import { SportEventPageTitle } from '@/components/Prediction/Sport/SportEventPageTitle.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
@@ -48,13 +48,14 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
     const eventSlug = id || event.id;
     const eventTitle = event.title;
     const series = event.series?.[0];
-    const sportPageTitle =
-        event.title ??
-        (event.sportData
-            ? `${event.sportData.homeTeam.name || event.sportData.homeTeam.abbreviation || 'Home'} vs ${
-                  event.sportData.awayTeam.name || event.sportData.awayTeam.abbreviation || 'Away'
-              }`
-            : null);
+    const sportPageTitle = event.sportData ? (
+        <SportEventPageTitle
+            homeName={event.sportData.homeTeam.name}
+            homeAbbreviation={event.sportData.homeTeam.abbreviation}
+            awayName={event.sportData.awayTeam.name}
+            awayAbbreviation={event.sportData.awayTeam.abbreviation}
+        />
+    ) : null;
 
     return (
         <div className="pb-20">

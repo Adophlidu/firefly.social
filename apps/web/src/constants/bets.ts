@@ -20,3 +20,10 @@ export enum PredictionChartType {
     PriceLine = 'price_line',
     RatioLine = 'ratio_line',
 }
+
+export enum PolymarketLocale {
+    es = 'es',
+    ja = 'ja',
+    zhHans = 'zh',
+    zhHant = 'zh-hant',
+}

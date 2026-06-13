@@ -2,6 +2,7 @@
 
 import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { classNames } from '@dimensiondev/utils';
+import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo, useState } from 'react';
@@ -23,6 +24,7 @@ import {
 } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { applySportsMarketPriceOverrides } from '@/helpers/prediction/category/sportsMarketLivePrices.js';
+import { resolvePolymarketLocale } from '@/helpers/resolvePolymarketLocale.js';
 import { useLiveSportsMarketPrices } from '@/hooks/prediction/useLiveSportsMarketPrices.js';
 import { getSportsEventList } from '@/providers/firefly/prediction/getSportsEventList.js';
 import type { PolymarketSportsEvent } from '@/providers/types/Firefly.js';
@@ -38,10 +40,17 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
         [context, isLiveCategory],
     );
     const [showFinishedClosed, setShowFinishedClosed] = useState(false);
+    const {
+        i18n: { locale },
+    } = useLingui();
 
     const { data, isPending, isError } = useQuery({
         queryKey: ['prediction', 'category', 'sports-list', sportsRequest],
-        queryFn: () => getSportsEventList(sportsRequest),
+        queryFn: () =>
+            getSportsEventList({
+                ...sportsRequest,
+                locale: resolvePolymarketLocale(locale),
+            }),
     });
 
     const liveDisplay = useMemo(() => {

@@ -965,8 +965,8 @@ msgstr "인용 게시물"
 msgid "No more data available."
 msgstr "더 이상 데이터가 없습니다."
 
-#. placeholder {0}: model.homeTeam.name
-#. placeholder {1}: model.awayTeam.name
+#. placeholder {0}: resolveTeamName(model.homeTeam.name)
+#. placeholder {1}: resolveTeamName(model.awayTeam.name)
 msgid "View {0} vs {1}"
 msgstr "{0} vs {1} 보기"
 

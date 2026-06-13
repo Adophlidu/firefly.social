@@ -970,8 +970,8 @@ msgstr "Quote post"
 msgid "No more data available."
 msgstr "No more data available."
 
-#. placeholder {0}: model.homeTeam.name
-#. placeholder {1}: model.awayTeam.name
+#. placeholder {0}: resolveTeamName(model.homeTeam.name)
+#. placeholder {1}: resolveTeamName(model.awayTeam.name)
 msgid "View {0} vs {1}"
 msgstr "View {0} vs {1}"
 

@@ -15,6 +15,7 @@ import {
     getTennisSetKey,
     getTieBreakValue,
 } from '@/helpers/prediction/sportScoreUtils.js';
+import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 import type { BetsEventDataForUI, SportEventData, SportTeam } from '@/types/prediction.js';
 import { SportScoreType } from '@/types/prediction.js';
 
@@ -24,7 +25,8 @@ interface SportTeamDataDisplayProps {
 }
 
 function TeamColumn({ team, fallbackLabel, muted }: { team: SportTeam; fallbackLabel: string; muted?: boolean }) {
-    const label = team.name || team.abbreviation || fallbackLabel;
+    const resolveTeamName = useLocalizedSportsTeamName();
+    const label = (team.name ? resolveTeamName(team.name) : '') || team.abbreviation || fallbackLabel;
 
     return (
         <div
