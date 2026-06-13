@@ -1,3 +1,4 @@
+import { FIFA_SLUG } from '@/constants/bets.js';
 import { LEADING_PRIMARY_SLUGS, LEADING_SECONDARY_SLUGS } from '@/helpers/prediction/category/constants.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -27,7 +28,7 @@ function partitionByLeadingSlugs(
 
 export function partitionPrimaryCategorySlugs(slugs: PolymarketEventSlugListData[]): PartitionedCategorySlugs {
     const result = partitionByLeadingSlugs(slugs, LEADING_PRIMARY_SLUGS);
-    const fifaSlug = slugs.find((x) => x.slug === 'sports')?.sub_slug?.find((x) => x.slug === 'fifwc');
+    const fifaSlug = slugs.find((x) => x.slug === 'sports')?.sub_slug?.find((x) => x.slug === FIFA_SLUG);
     if (fifaSlug) {
         result.leading.splice(1, 0, {
             ...fifaSlug,

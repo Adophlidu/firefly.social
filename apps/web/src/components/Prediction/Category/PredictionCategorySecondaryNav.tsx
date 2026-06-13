@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { useLingui } from '@lingui/react';
 import { memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -17,6 +18,7 @@ import {
 import { partitionSecondaryCategorySlugs } from '@/helpers/prediction/category/partitionCategorySlugs.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { hasTertiaryCategories } from '@/helpers/prediction/category/resolveCategorySlugIcon.js';
+import { resolvePredictionCategoryLabel } from '@/helpers/prediction/category/resolvePredictionCategoryLabel.js';
 import { capturePolymarketHomeCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -35,6 +37,9 @@ function isSecondaryChipActive(context: CategorySlugContext, slug: string): bool
 }
 
 function SecondaryChipLink({ item, isActive }: { item: PolymarketEventSlugListData; isActive: boolean }) {
+    const {
+        i18n: { locale },
+    } = useLingui();
     return (
         <Link
             replace
@@ -44,7 +49,7 @@ function SecondaryChipLink({ item, isActive }: { item: PolymarketEventSlugListDa
             className={secondaryChipClassName(isActive)}
         >
             <PredictionCategorySlugIcon item={item} />
-            <span className="whitespace-nowrap">{item.label}</span>
+            <span className="whitespace-nowrap">{resolvePredictionCategoryLabel(locale, item.label)}</span>
         </Link>
     );
 }

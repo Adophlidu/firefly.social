@@ -7,15 +7,20 @@ import { SportEventDetailSkeleton } from '@/components/Prediction/Sport/SportEve
 
 export const revalidate = 60;
 
-type Props = LayoutProps<{ id: string }> & SearchProps<{ type: 'multi' | string }>;
+type Props = LayoutProps<{ id: string; locale: string }> & SearchProps<{ type: 'multi' | string }>;
 
 export default async function PolymarketEventPage(props: Props) {
-    const { id } = await props.params;
+    const { id, locale } = await props.params;
     const { type } = await props.searchParams;
 
     return (
         <Suspense fallback={<SportEventDetailSkeleton />}>
-            <PredictionEventDetailContent id={id} isMutil={type === 'multi'} platform={PredictionPlatform.Polymarket} />
+            <PredictionEventDetailContent
+                id={id}
+                isMutil={type === 'multi'}
+                locale={locale}
+                platform={PredictionPlatform.Polymarket}
+            />
         </Suspense>
     );
 }

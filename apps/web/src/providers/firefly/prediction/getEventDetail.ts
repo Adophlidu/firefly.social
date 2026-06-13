@@ -1,3 +1,4 @@
+import type { Locale } from '@dimensiondev/enums';
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { cache } from 'react';
@@ -41,11 +42,12 @@ export async function getOpinionMarketDetail(topicId: string, isMutil: boolean) 
 interface Options {
     id: string;
     isMutil: boolean;
+    locale?: Locale;
 }
 
 export const getEventDetail = cache(async function getEventDetail(
     platform: PredictionPlatform,
-    { id, isMutil }: Options,
+    { id, isMutil, locale }: Options,
 ): Promise<BetsEventDataForUI | null> {
     switch (platform) {
         case PredictionPlatform.Opinion: {
@@ -53,7 +55,7 @@ export const getEventDetail = cache(async function getEventDetail(
             return detail ? formatOpinionEvent(detail) : null;
         }
         case PredictionPlatform.Polymarket: {
-            const detail = await getPolymarketEvent({ slug: id });
+            const detail = await getPolymarketEvent({ slug: id, locale });
             if (!detail) return null;
             const formatted = formatPolymarketEvent(detail);
             if (!formatted.sportData?.gameId) return formatted;

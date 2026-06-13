@@ -1,5 +1,6 @@
 'use client';
 
+import type { Locale } from '@dimensiondev/enums';
 import { PredictionPlatform, Source } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { debounce, first, isArray, isObject } from 'lodash-es';
@@ -17,8 +18,8 @@ import {
 import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionContextProviderProps {
+    locale?: Locale;
     event: BetsEventDataForUI;
-    translatedEvent?: BetsEventDataForUI;
 }
 interface PredictionContextValue {
     platform: PredictionPlatform;
@@ -43,7 +44,7 @@ export const PredictionContext = createContext<PredictionContextValue>({
 });
 
 export const PredictionContextProvider = memo<PropsWithChildren<PredictionContextProviderProps>>(
-    function PredictionContextProvider({ event, translatedEvent, children }) {
+    function PredictionContextProvider({ event, locale, children }) {
         const { markets, platform } = event;
         const [marketId, setMarketId] = useState(
             markets.find((market) => !market.isResolved && !market.isClosed)?.id || null,
@@ -65,6 +66,7 @@ export const PredictionContextProvider = memo<PropsWithChildren<PredictionContex
                       getEventDetail(platform, {
                           id: event.slug!,
                           isMutil: markets.length > 1,
+                          locale,
                       }),
         });
 
@@ -123,11 +125,7 @@ export const PredictionContextProvider = memo<PropsWithChildren<PredictionContex
                 marketId,
                 platform,
                 market: market || null,
-                event: {
-                    ...updatedEvent,
-                    title: translatedEvent?.title || updatedEvent.title,
-                    description: translatedEvent?.description || updatedEvent.description,
-                },
+                event: updatedEvent,
                 isActive:
                     updatedEvent.cryptoData?.name &&
                     updatedEvent.endDate &&
@@ -138,15 +136,7 @@ export const PredictionContextProvider = memo<PropsWithChildren<PredictionContex
                 setMarketId,
                 setChartType,
             };
-        }, [
-            marketId,
-            platform,
-            updatedEvent,
-            marketPrices,
-            chartType,
-            translatedEvent?.title,
-            translatedEvent?.description,
-        ]);
+        }, [marketId, platform, updatedEvent, marketPrices, chartType]);
 
         return <PredictionContext.Provider value={contextValue}>{children}</PredictionContext.Provider>;
     },

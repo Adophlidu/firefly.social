@@ -5,6 +5,7 @@ export const SPREAD_SETTING_OPTIONS = [0.1, 1] as const;
 export const PLATFORMS_SUPPORTING_ORDER_BOOK = [PredictionPlatform.Polymarket];
 export const CRYPTO_PRICE_CHART_HEIGHT = 200;
 export const P_USDC_POLYGON_ADDRESS = '0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb';
+export const FIFA_SLUG = 'fifwc';
 
 export enum PredictionCrypto {
     Bitcoin = 'bitcoin',

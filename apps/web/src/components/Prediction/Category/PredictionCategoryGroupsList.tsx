@@ -1,6 +1,8 @@
 'use client';
 
+import type { Locale } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
+import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { type CSSProperties, memo } from 'react';
@@ -177,9 +179,12 @@ function DesktopGroupCard({ group }: { group: FifaGroupScoreGroup }) {
 }
 
 export const PredictionCategoryGroupsList = memo(function PredictionCategoryGroupsList() {
+    const {
+        i18n: { locale },
+    } = useLingui();
     const { data, isPending, isError } = useQuery({
         queryKey: ['prediction', 'category', 'fifa-groups-score'],
-        queryFn: () => getFifaGroupScores(),
+        queryFn: () => getFifaGroupScores(locale as Locale),
     });
 
     if (isPending) {

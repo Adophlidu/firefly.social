@@ -3,6 +3,7 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
+import { useLingui } from '@lingui/react';
 import { Fragment, memo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -11,6 +12,7 @@ import { PredictionCategorySlugIcon } from '@/components/Prediction/Category/Pre
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
 import { PREDICTION_CATEGORY_SCROLL_KEY_ATTR } from '@/helpers/prediction/category/getCategoryScrollKey.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
+import { resolvePredictionCategoryLabel } from '@/helpers/prediction/category/resolvePredictionCategoryLabel.js';
 import { capturePolymarketHomeCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -23,6 +25,9 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
     item,
     context,
 }) {
+    const {
+        i18n: { locale },
+    } = useLingui();
     const tertiaryItems = item.sub_slug ?? [];
     const isSecondaryActive = context.secondaryItem?.slug === item.slug;
     const isOpenBySelection = context.depth === 3 && isSecondaryActive;
@@ -35,7 +40,7 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                         className={classNames(secondaryChipClassName(isSecondaryActive || open), 'focus:outline-none')}
                     >
                         <PredictionCategorySlugIcon item={item} />
-                        <span className="whitespace-nowrap">{item.label}</span>
+                        <span className="whitespace-nowrap">{resolvePredictionCategoryLabel(locale, item.label)}</span>
                         <ArrowDownIcon
                             width={14}
                             height={14}
@@ -73,7 +78,9 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                                             )}
                                         >
                                             <PredictionCategorySlugIcon item={tertiary} />
-                                            <span className="min-w-0 flex-1 truncate">{tertiary.label}</span>
+                                            <span className="min-w-0 flex-1 truncate">
+                                                {resolvePredictionCategoryLabel(locale, tertiary.label)}
+                                            </span>
                                         </Link>
                                     );
                                 })}

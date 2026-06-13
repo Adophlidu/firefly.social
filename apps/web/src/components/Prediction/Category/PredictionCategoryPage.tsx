@@ -13,6 +13,7 @@ import { PredictionCategoryPrimaryTabs } from '@/components/Prediction/Category/
 import { PredictionCategoryPropsList } from '@/components/Prediction/Category/PredictionCategoryPropsList.js';
 import { PredictionCategorySecondaryNav } from '@/components/Prediction/Category/PredictionCategorySecondaryNav.js';
 import { PredictionCategoryToolbar } from '@/components/Prediction/Category/PredictionCategoryToolbar.js';
+import { FIFA_SLUG } from '@/constants/bets.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useRouter } from '@/esm/navigation.js';
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
@@ -65,6 +66,7 @@ export function PredictionCategoryPage({ slug }: Props) {
         queryKey: ['prediction', 'category', 'slugs-list'],
         queryFn: () => getEventSlugList(),
         staleTime: STALE_TIMES.INFINITY,
+        select: (data) => data?.filter((x) => x.slug !== FIFA_SLUG),
     });
 
     const [parentSlug] = useQueryState('parentSlug', parseAsString);

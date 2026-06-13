@@ -9,6 +9,7 @@ export const revalidate = 60;
 
 type Props = LayoutProps<{
     id: string;
+    locale: string;
 }> &
     SearchProps<{
         type: 'multi' | string;
@@ -26,7 +27,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function OpinionEventPage(props: Props) {
-    const [{ id }, { type }] = await Promise.all([props.params, props.searchParams]);
+    const [{ id, locale }, { type }] = await Promise.all([props.params, props.searchParams]);
 
-    return <PredictionEventDetailContent id={id} isMutil={type === 'multi'} platform={PredictionPlatform.Opinion} />;
+    return (
+        <PredictionEventDetailContent
+            id={id}
+            isMutil={type === 'multi'}
+            locale={locale}
+            platform={PredictionPlatform.Opinion}
+        />
+    );
 }

@@ -18,31 +18,27 @@ import { SportEventPageTitle } from '@/components/Prediction/Sport/SportEventPag
 import { notFound } from '@/esm/navigation/server.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
-import { translateBetEventData } from '@/providers/prediction/translateBetEventData.js';
 
 interface PredictionEventDetailContentProps {
     id: string;
     isMutil: boolean;
+    locale: string;
     platform: PredictionPlatform;
 }
 
-export async function PredictionEventDetailContent({ id, isMutil, platform }: PredictionEventDetailContentProps) {
-    setupLocaleFromParams(Locale.en); // Ensure i18n is set for <Trans> in this server component
-    const detail = await runInSafeAsync(() => getEventDetail(platform, { id, isMutil }));
-    if (!detail) notFound();
+const LOCALES = Object.values(Locale);
 
-    const { getI18n } = await import('@lingui/react/server');
-    const i18nInstance = getI18n();
-    const locale = (i18nInstance && 'locale' in i18nInstance ? i18nInstance.locale : undefined) as Locale | undefined;
-    const translatedEvent = await runInSafeAsync(() =>
-        translateBetEventData({
-            platform,
-            event: detail,
-            locale: locale || Locale.en,
-        }),
-    );
+export async function PredictionEventDetailContent({
+    id,
+    isMutil,
+    locale,
+    platform,
+}: PredictionEventDetailContentProps) {
+    setupLocaleFromParams(locale); // Ensure i18n is set for <Trans> in this server component
+    const resolvedLocale = LOCALES.includes(locale as Locale) ? (locale as Locale) : Locale.en;
+    const event = await runInSafeAsync(() => getEventDetail(platform, { id, isMutil, locale: resolvedLocale }));
+    if (!event) notFound();
 
-    const event = translatedEvent || detail;
     const markets = event.markets || EMPTY_LIST;
     const showResolution = markets.length === 1 && !!markets[0]?.statusList?.length;
     const eventSlug = id || event.id;
@@ -62,9 +58,9 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
             <PolymarketEventTracker platform={platform} eventSlug={id} detail={event} />
             <PredictionEventPageHeader pageTitle={sportPageTitle || <Trans>Event detail</Trans>} />
             {event.sportData ? (
-                <SportEventDetailContent event={event} />
+                <SportEventDetailContent event={event} locale={resolvedLocale} />
             ) : (
-                <PredictionContextProvider event={event} translatedEvent={translatedEvent}>
+                <PredictionContextProvider event={event} locale={resolvedLocale}>
                     <PredictionEventOverview />
                     <PredictionSingleChart />
                     {series?.recurrence ? <EventSeriesPills currentEvent={event} series={series} /> : null}

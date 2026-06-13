@@ -1,5 +1,6 @@
 'use client';
 
+import type { Locale } from '@dimensiondev/enums';
 import { memo } from 'react';
 
 import { PredictionBaseInfoTabContent } from '@/components/Prediction/PredictionBaseInfoTabContent.js';
@@ -13,9 +14,13 @@ import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface SportEventDetailContentProps {
     event: BetsEventDataForUI;
+    locale?: Locale;
 }
 
-export const SportEventDetailContent = memo(function SportEventDetailContent({ event }: SportEventDetailContentProps) {
+export const SportEventDetailContent = memo(function SportEventDetailContent({
+    event,
+    locale,
+}: SportEventDetailContentProps) {
     const sportData = event.sportData;
     const eventSlug = event.slug || event.id;
     const showResolution = event.markets.length === 1 && !!event.markets[0]?.statusList?.length;
@@ -23,7 +28,7 @@ export const SportEventDetailContent = memo(function SportEventDetailContent({ e
     if (!sportData) return null;
 
     return (
-        <PredictionContextProvider event={event}>
+        <PredictionContextProvider event={event} locale={locale}>
             <SportTeamDataDisplay sportData={sportData} event={event} />
             <SportPriceChart event={event} />
             <PredictionMarketsAccountTab
