@@ -22,6 +22,7 @@ describe('copyImageToClipboard', () => {
         class FakeClipboardItem {
             constructor(public items: Record<string, unknown>) {}
         }
+
         const write = vi.fn().mockResolvedValue(undefined);
         vi.stubGlobal('ClipboardItem', FakeClipboardItem);
         vi.stubGlobal('navigator', { clipboard: { write } });

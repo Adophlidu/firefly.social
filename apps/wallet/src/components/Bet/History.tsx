@@ -586,6 +586,7 @@ function CloseLossesDialog({
                                     amount_usd: String(Math.abs(getPositionLoss(position))),
                                 });
                             }
+
                             mutate();
                         }}
                     >

@@ -29,6 +29,7 @@ export function resolvePolymarketShareIdentity(
         const identity = candidates[key];
         if (identity) return identity;
     }
+
     return null;
 }
 
