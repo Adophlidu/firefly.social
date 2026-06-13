@@ -110,8 +110,8 @@ importers:
         specifier: npm:@types/web@^0.0.350
         version: /@types/web@0.0.350
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       cspell:
         specifier: ^7.3.9
         version: 7.3.9
@@ -480,8 +480,8 @@ importers:
         specifier: npm:@types/web@^0.0.350
         version: /@types/web@0.0.350
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       '@vitejs/plugin-react':
         specifier: ^5.2.0
         version: 5.2.0(vite@7.3.5)
@@ -1009,8 +1009,8 @@ importers:
         specifier: ^3.1.10
         version: 3.1.10
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       autoprefixer:
         specifier: 10.4.27
         version: 10.4.27(postcss@8.5.15)
@@ -1099,11 +1099,11 @@ importers:
         specifier: ^19.2.17
         version: 19.2.17
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/constants:
     dependencies:
@@ -1115,11 +1115,11 @@ importers:
         version: 5.9.3
     devDependencies:
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/enums:
     dependencies:
@@ -1128,11 +1128,11 @@ importers:
         version: 5.9.3
     devDependencies:
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/envs:
     dependencies:
@@ -1150,11 +1150,11 @@ importers:
         version: 3.25.76
     devDependencies:
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/exception-tracker:
     dependencies:
@@ -1169,11 +1169,11 @@ importers:
         specifier: ^19.2.17
         version: 19.2.17
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/hooks:
     dependencies:
@@ -1200,11 +1200,11 @@ importers:
         specifier: ^19.2.17
         version: 19.2.17
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/iframe-bridge:
     dependencies:
@@ -1222,11 +1222,11 @@ importers:
         specifier: ^4.17.12
         version: 4.17.12
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/native-bridge:
     dependencies:
@@ -1250,11 +1250,11 @@ importers:
         specifier: ^4.17.12
         version: 4.17.12
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/tolgee:
     dependencies:
@@ -1284,11 +1284,11 @@ importers:
         specifier: ^19.2.17
         version: 19.2.17
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   packages/utils:
     dependencies:
@@ -1297,11 +1297,11 @@ importers:
         version: 5.9.3
     devDependencies:
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
       vitest:
         specifier: ^3.2.6
         version: 3.2.6(@types/node@22.19.20)(jsdom@27.4.0)
@@ -1340,11 +1340,11 @@ importers:
         specifier: ^2.1.4
         version: 2.1.4
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       tsdown:
         specifier: ^0.21.10
-        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3)
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3)
 
   workers/bsky-identity:
     dependencies:
@@ -1371,8 +1371,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1405,8 +1405,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1454,8 +1454,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1494,8 +1494,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1525,8 +1525,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1556,8 +1556,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1611,8 +1611,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1645,8 +1645,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1697,8 +1697,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1728,8 +1728,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1765,8 +1765,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1799,8 +1799,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1833,8 +1833,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1867,8 +1867,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1901,8 +1901,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1932,8 +1932,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -1969,8 +1969,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -2003,8 +2003,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -2034,8 +2034,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -2065,8 +2065,8 @@ importers:
         specifier: 22.19.20
         version: 22.19.20
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260609.1
-        version: 7.0.0-dev.20260609.1
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
       wrangler:
         specifier: '>=4.59.1'
         version: 4.59.1(@cloudflare/workers-types@4.20251011.0)
@@ -18011,74 +18011,74 @@ packages:
       eslint-visitor-keys: 5.0.1
     dev: true
 
-  /@typescript/native-preview-darwin-arm64@7.0.0-dev.20260609.1:
-    resolution: {integrity: sha512-Yf/zHEadP/yUiWUdM/mZVfEVFJuGMf6nhRSFif0vp+FwtfGU4jmlpNF7BTJJdOHrrcWkwEJKzAoMCtEtyxhuyQ==}
+  /@typescript/native-preview-darwin-arm64@7.0.0-dev.20260612.1:
+    resolution: {integrity: sha512-4GXIs4Z/4E0E1fRXmt1XE7mKRiwghkoNHstbqSHFl6Z7PeWBdTiSFR5j4JGo3Zp8RzZ+N6zZoVZOfG3HNqjWtQ==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [darwin]
     dev: true
     optional: true
 
-  /@typescript/native-preview-darwin-x64@7.0.0-dev.20260609.1:
-    resolution: {integrity: sha512-z4dYWI57CPHs0wV/FWFth8fWmqYH7iOm7THOfZ5Fv0jo/SWK6kE1kEUIqIAExqo7ueRNqSrCw0I8U1J4TJszAw==}
+  /@typescript/native-preview-darwin-x64@7.0.0-dev.20260612.1:
+    resolution: {integrity: sha512-YCXzMiUYnkOpg1Hh+TgYL5MZ190eia4LE8qpEti+j4QnZyARhQEbPWSUzXfQjinAy3Qcx7njamydSHpuBnODLQ==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [darwin]
     dev: true
     optional: true
 
-  /@typescript/native-preview-linux-arm64@7.0.0-dev.20260609.1:
-    resolution: {integrity: sha512-OxNVWH9IhrMAzNlDyDit1dPO64GFIDPOUKoruIkJ9A1ZEONfIHXG5f+V3si9jtuNmuomiz9FjpbzOqLsgaxt+w==}
+  /@typescript/native-preview-linux-arm64@7.0.0-dev.20260612.1:
+    resolution: {integrity: sha512-F4dPFLmRRPc2XeqQy45bDKQqbg4M4HoF7ybXae+D1LV8F44KR4ktUlXhp5pQBhwoQxZaLhA2D+NKwV/2UpILcA==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [linux]
     dev: true
     optional: true
 
-  /@typescript/native-preview-linux-arm@7.0.0-dev.20260609.1:
-    resolution: {integrity: sha512-mEtN8BbAgVtBu/5MVomYquXNvgok2C0KG6V0D4SV1jfBJNtlcqbp0WuIqT0bnM9DA4TgzcHvnFMpwGSK/dqI5A==}
+  /@typescript/native-preview-linux-arm@7.0.0-dev.20260612.1:
+    resolution: {integrity: sha512-ylu0HtI0NS90souTPje6j1iTqhIPIYaZ12yLO1n8lxHkDXKjggm6w9l4BL/uRWqWc4iVHWt8JUAC/my7X1/EDQ==}
     engines: {node: '>=16.20.0'}
     cpu: [arm]
     os: [linux]
     dev: true
     optional: true
 
-  /@typescript/native-preview-linux-x64@7.0.0-dev.20260609.1:
-    resolution: {integrity: sha512-KO8WO1gBIC09T3255RlTY42TGu8en5mEkLPQu2wkMn+dX2T8KYL64zXrCeLeUWa0NvmVdJUeyWu3pFOn3zKemw==}
+  /@typescript/native-preview-linux-x64@7.0.0-dev.20260612.1:
+    resolution: {integrity: sha512-F/k8oic3wyq0WD5v7PQFPBlXaajbgzMnG9fkCWMwLYh2BUtD1VUjQ78dwDEz06AmOY+hsFrDuCtIZUyauBBU7w==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [linux]
     dev: true
     optional: true
 
-  /@typescript/native-preview-win32-arm64@7.0.0-dev.20260609.1:
-    resolution: {integrity: sha512-+8q19LWjnMKK6SF3PLeMEalbfWDYWHs0AU8kSFCBCke/RLoDG4FjQzVtLgUo+KWhsmZMosiEyqEnZmSlED2tIQ==}
+  /@typescript/native-preview-win32-arm64@7.0.0-dev.20260612.1:
+    resolution: {integrity: sha512-6/F10rOev8Wb2LM2F8C2ymuwcu+jrr06pcLR4AD8gy0YmTBjPvEZpKyBjCfdaJtIFH8S20dAVAK9HhYlw0JwnA==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [win32]
     dev: true
     optional: true
 
-  /@typescript/native-preview-win32-x64@7.0.0-dev.20260609.1:
-    resolution: {integrity: sha512-qNPcss+6yRoNFfFIKQbPwJWYxDfOZwyL8JBJh4J+yMLOad/+/AOjsO4EtZsIpv5PMCjpnD75coBoDkw+5NkItw==}
+  /@typescript/native-preview-win32-x64@7.0.0-dev.20260612.1:
+    resolution: {integrity: sha512-8eRyhATm1dqo0PhAuyC908xlDUS9Onvm0BLvm81rAHRO6n3JhnzrwXL8s4jdvyDBiGK40R4d6JvY55edthg/rA==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
     dev: true
     optional: true
 
-  /@typescript/native-preview@7.0.0-dev.20260609.1:
-    resolution: {integrity: sha512-1HOuH/u/451O3hx4Z9fesNqarpeit6UfkgwK96sCVWi5p69F0N3v+6bI969lLIjF7K9dbYQNiWUaZ6Wik87iKg==}
+  /@typescript/native-preview@7.0.0-dev.20260612.1:
+    resolution: {integrity: sha512-+rghVK/GENODCBed03PMAbHAo885P6Hw6HeW5daICel80OmAM49QeTmdcI7oii/9WMqX2UhM0sfNMH0Y5LeO+w==}
     engines: {node: '>=16.20.0'}
     hasBin: true
     optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260609.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260609.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260609.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260609.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260609.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260609.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260609.1
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260612.1
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260612.1
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260612.1
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260612.1
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260612.1
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260612.1
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260612.1
     dev: true
 
   /@ungap/structured-clone@1.3.0:
@@ -25576,6 +25576,32 @@ packages:
       uhyphen: 0.2.0
     dev: false
 
+  /listhen@1.10.0:
+    resolution: {integrity: sha512-kfz4C0OrC6IpaVMtYDJtf6PFjurxe9NBBoDAh/o2p587INryFOO4DQ9OetbCdDrWFt1m1CJKvYrzkGsuPHw8nQ==}
+    hasBin: true
+    dependencies:
+      '@parcel/watcher': 2.5.6
+      '@parcel/watcher-wasm': 2.5.6
+      citty: 0.2.2
+      consola: 3.4.2
+      crossws: 0.4.5(srvx@0.10.1)
+      defu: 6.1.7
+      get-port-please: 3.2.0
+      h3: 1.15.11
+      http-shutdown: 1.2.2
+      jiti: 2.7.0
+      mlly: 1.8.2
+      node-forge: 1.4.0
+      pathe: 2.0.3
+      std-env: 4.1.0
+      tinyclip: 0.1.14
+      ufo: 1.6.4
+      untun: 0.1.3
+      uqr: 0.1.3
+    transitivePeerDependencies:
+      - srvx
+    dev: false
+
   /listhen@1.10.0(srvx@0.11.16):
     resolution: {integrity: sha512-kfz4C0OrC6IpaVMtYDJtf6PFjurxe9NBBoDAh/o2p587INryFOO4DQ9OetbCdDrWFt1m1CJKvYrzkGsuPHw8nQ==}
     hasBin: true
@@ -27148,7 +27174,7 @@ packages:
       jiti: 2.7.0
       klona: 2.0.6
       knitwork: 1.3.0
-      listhen: 1.10.0(srvx@0.11.16)
+      listhen: 1.10.0
       magic-string: 0.30.21
       magicast: 0.5.3
       mime: 4.1.0
@@ -30149,7 +30175,7 @@ packages:
       inherits: 2.0.4
     dev: true
 
-  /rolldown-plugin-dts@0.23.2(@typescript/native-preview@7.0.0-dev.20260609.1)(rolldown@1.0.0-rc.17)(typescript@5.9.3):
+  /rolldown-plugin-dts@0.23.2(@typescript/native-preview@7.0.0-dev.20260612.1)(rolldown@1.0.0-rc.17)(typescript@5.9.3):
     resolution: {integrity: sha512-PbSqLawLgZBGcOGT3yqWBGn4cX+wh2nt5FuBGdcMHyOhoukmjbhYAl8NT9sE4U38Cm9tqLOIQeOrvzeayM0DLQ==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
@@ -30172,7 +30198,7 @@ packages:
       '@babel/helper-validator-identifier': 8.0.0-rc.3
       '@babel/parser': 8.0.0-rc.3
       '@babel/types': 8.0.0-rc.3
-      '@typescript/native-preview': 7.0.0-dev.20260609.1
+      '@typescript/native-preview': 7.0.0-dev.20260612.1
       ast-kit: 3.0.0-beta.1
       birpc: 4.0.0
       dts-resolver: 2.1.3
@@ -31905,7 +31931,7 @@ packages:
       strip-bom: 3.0.0
     dev: true
 
-  /tsdown@0.21.10(@typescript/native-preview@7.0.0-dev.20260609.1)(typescript@5.9.3):
+  /tsdown@0.21.10(@typescript/native-preview@7.0.0-dev.20260612.1)(typescript@5.9.3):
     resolution: {integrity: sha512-3wk73yBhZe/wX7REqSdivNQ84TDs1mJ+IlnzrrEREP70xlJ/AEIzqaI04l/TzMKVIdkTdC3CPaADn2Lk/0SkdA==}
     engines: {node: '>=20.19.0'}
     hasBin: true
@@ -31942,7 +31968,7 @@ packages:
       obug: 2.1.1
       picomatch: 4.0.4
       rolldown: 1.0.0-rc.17
-      rolldown-plugin-dts: 0.23.2(@typescript/native-preview@7.0.0-dev.20260609.1)(rolldown@1.0.0-rc.17)(typescript@5.9.3)
+      rolldown-plugin-dts: 0.23.2(@typescript/native-preview@7.0.0-dev.20260612.1)(rolldown@1.0.0-rc.17)(typescript@5.9.3)
       semver: 7.8.2
       tinyexec: 1.2.4
       tinyglobby: 0.2.17
@@ -34298,7 +34324,7 @@ time:
   /@typescript-eslint/eslint-plugin@8.61.0: '2026-06-08T18:01:21.196Z'
   /@typescript-eslint/parser@8.54.0: '2026-01-26T17:10:16.905Z'
   /@typescript-eslint/parser@8.61.0: '2026-06-08T18:00:59.869Z'
-  /@typescript/native-preview@7.0.0-dev.20260609.1: '2026-06-09T08:02:37.892Z'
+  /@typescript/native-preview@7.0.0-dev.20260612.1: '2026-06-12T07:59:20.128Z'
   /@vercel/analytics@2.0.0: '2026-03-10T17:11:49.519Z'
   /@vercel/speed-insights@2.0.0: '2026-03-10T16:37:05.993Z'
   /@vitejs/plugin-react@5.2.0: '2026-03-12T14:27:45.817Z'
