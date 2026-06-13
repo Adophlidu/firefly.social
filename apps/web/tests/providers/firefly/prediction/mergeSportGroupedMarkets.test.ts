@@ -13,11 +13,7 @@ const homeTeam: SportTeam = { name: 'Qatar', abbreviation: 'qat', color: '#96173
 const awayTeam: SportTeam = { name: 'Switzerland', abbreviation: 'che', color: '#DA291C' };
 
 /** Build a binary (Yes/No) grouped-market item for one outcome of a 3-way market. */
-function binaryItem(
-    groupItemTitle: string,
-    yesPrice: string,
-    suffix: string,
-): PolymarketSportGroupedMarketItem {
+function binaryItem(groupItemTitle: string, yesPrice: string, suffix: string): PolymarketSportGroupedMarketItem {
     return {
         id: `${suffix}-id`,
         slug: `${suffix}-slug`,
@@ -30,7 +26,9 @@ function binaryItem(
     };
 }
 
-function buildSportDetail(types: Array<{ type: string; items: PolymarketSportGroupedMarketItem[] }>): PolymarketSportDetail {
+function buildSportDetail(
+    types: Array<{ type: string; items: PolymarketSportGroupedMarketItem[] }>,
+): PolymarketSportDetail {
     const groupedMarkets: PolymarketSportGroupedMarket[] = types.map(({ type, items }) => ({
         sportsMarketType: type,
         markets: items,
