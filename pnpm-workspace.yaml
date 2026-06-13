@@ -84,6 +84,18 @@ minimumReleaseAgeExclude:
 
 allowBuilds:
   '@firebase/util': false
+  '@napi-rs/image-android-arm-eabi': false
+  '@napi-rs/image-android-arm64': false
+  '@napi-rs/image-darwin-arm64': false
+  '@napi-rs/image-darwin-x64': false
+  '@napi-rs/image-freebsd-x64': false
+  '@napi-rs/image-linux-arm-gnueabihf': false
+  '@napi-rs/image-linux-arm64-gnu': false
+  '@napi-rs/image-linux-arm64-musl': false
+  '@napi-rs/image-linux-x64-gnu': false
+  '@napi-rs/image-linux-x64-musl': false
+  '@napi-rs/image-win32-ia32-msvc': false
+  '@napi-rs/image-win32-x64-msvc': false
   '@reown/appkit': false
   '@swc/core': true
   bufferutil: false
