@@ -1,0 +1,23 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="ffb" cx="38%" cy="32%" r="75%">
+<stop offset="0%" stop-color="#FFFFFF"/><stop offset="70%" stop-color="#F2F3F5"/><stop offset="100%" stop-color="#D9DCE1"/>
+</radialGradient>
+<clipPath id="ffc"><circle cx="24" cy="24" r="21"/></clipPath>
+</defs>
+<circle cx="24" cy="24" r="21" fill="url(#ffb)"/>
+<g clip-path="url(#ffc)">
+<line x1="24.00" y1="17.40" x2="24.00" y2="3.00" stroke="#23262F" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="30.28" y1="21.96" x2="43.97" y2="17.51" stroke="#23262F" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="27.88" y1="29.34" x2="36.34" y2="40.99" stroke="#23262F" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="20.12" y1="29.34" x2="11.66" y2="40.99" stroke="#23262F" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="17.72" y1="21.96" x2="4.03" y2="17.51" stroke="#23262F" stroke-width="1.1" stroke-linecap="round"/>
+<path d="M29.11 16.96 L26.97 10.37 L32.58 6.29 L38.19 10.37 L36.05 16.96 Z" fill="#23262F"/>
+<path d="M32.27 26.69 L37.89 22.61 L43.50 26.69 L41.35 33.28 L34.42 33.28 Z" fill="#23262F"/>
+<path d="M24.00 32.70 L29.61 36.78 L27.47 43.37 L20.53 43.37 L18.39 36.78 Z" fill="#23262F"/>
+<path d="M15.73 26.69 L13.58 33.28 L6.65 33.28 L4.50 26.69 L10.11 22.61 Z" fill="#23262F"/>
+<path d="M18.89 16.96 L11.95 16.96 L9.81 10.37 L15.42 6.29 L21.03 10.37 Z" fill="#23262F"/>
+<path d="M24.00 17.40 L30.28 21.96 L27.88 29.34 L20.12 29.34 L17.72 21.96 Z" fill="#23262F"/>
+</g>
+<circle cx="24" cy="24" r="21" fill="none" stroke="#23262F" stroke-width="1.6"/>
+</svg>

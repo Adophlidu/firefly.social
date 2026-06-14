@@ -1,10 +1,10 @@
 'use client';
 
-import PredictionSelectedIcon from '@dimensiondev/assets/prediction.selected.svg';
-import PredictionIcon from '@dimensiondev/assets/prediction.svg';
+import FootballIcon from '@dimensiondev/assets/football.svg';
+import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { STALE_TIMES } from '@/constants/query.js';
@@ -32,6 +32,10 @@ export const PredictionMenu = memo<PredictionMenuProps>(function PredictionMenu(
         return RouteResolver.predictionCategory({ slug: firstNormalSlug || 'trending', appendRoot: false });
     }, [data]);
 
+    // The animated GIF can take a moment to fetch. Show a complete soccer-ball
+    // SVG as a placeholder and swap to the GIF once it has loaded.
+    const [gifLoaded, setGifLoaded] = useState(false);
+
     return (
         <BaseMenuItem
             href={href}
@@ -40,16 +44,24 @@ export const PredictionMenu = memo<PredictionMenuProps>(function PredictionMenu(
             menuName={<Trans>Predictions</Trans>}
             icon={
                 <span className="relative flex size-5 items-center justify-center">
-                    <PredictionIcon
+                    {/* Animated GIF: next/image would need `unoptimized`, so a plain <img> is the right tool here. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src="/football.gif"
+                        alt=""
                         width={size}
                         height={size}
-                        className={isSelected ? 'hidden' : 'block group-hover:hidden'}
+                        ref={(node) => {
+                            // A cached GIF can finish loading before React attaches `onLoad`,
+                            // leaving the handler unfired. Catch the already-complete case here.
+                            if (node?.complete && node.naturalWidth > 0) setGifLoaded(true);
+                        }}
+                        onLoad={() => setGifLoaded(true)}
+                        className={classNames('size-full object-contain', { invisible: !gifLoaded })}
                     />
-                    <PredictionSelectedIcon
-                        width={size}
-                        height={size}
-                        className={isSelected ? 'block' : 'hidden group-hover:block'}
-                    />
+                    {!gifLoaded ? (
+                        <FootballIcon width={size} height={size} className="absolute inset-0 size-full" />
+                    ) : null}
                 </span>
             }
         />
