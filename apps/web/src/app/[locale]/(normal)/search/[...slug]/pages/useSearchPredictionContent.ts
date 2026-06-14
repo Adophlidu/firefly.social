@@ -1,6 +1,7 @@
-import type { Source } from '@dimensiondev/enums';
+import type { Locale, Source } from '@dimensiondev/enums';
 import { PredictionPlatform, SearchType } from '@dimensiondev/enums';
 import { createIndicator, type PageIndicator } from '@dimensiondev/utils';
+import { useLingui } from '@lingui/react';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { logger } from 'storybook/internal/client-logger';
 
@@ -28,6 +29,9 @@ export function useSearchPredictionContent<T>(
     eventsStatus: SearchPredictionEventStatus | undefined,
     selector: (data: SearchPredictionContentPagedData) => T,
 ) {
+    const {
+        i18n: { locale },
+    } = useLingui();
     eventsStatus ??= 'active';
     return useSuspenseInfiniteQuery({
         queryKey: ['search', SearchType.Prediction, searchKeyword, source, eventsStatus],
@@ -49,6 +53,7 @@ export function useSearchPredictionContent<T>(
                 sort: 'volume_24hr',
                 eventsStatus,
                 searchTags: true,
+                locale: locale as Locale,
             });
             const events = result.data.map(formatPolymarketEventListData);
 

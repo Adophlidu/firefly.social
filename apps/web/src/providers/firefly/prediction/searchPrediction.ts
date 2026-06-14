@@ -1,3 +1,4 @@
+import type { Locale } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -36,6 +37,7 @@ export interface SearchBetsOptions {
     sort?: 'volume_24hr' | 'startDate' | 'endDate';
     eventsStatus?: 'active' | 'resolved' | 'archived';
     searchTags?: boolean;
+    locale?: Locale;
 }
 
 export async function searchPrediction({
@@ -45,6 +47,7 @@ export async function searchPrediction({
     sort = 'volume_24hr',
     eventsStatus,
     searchTags = true,
+    locale,
 }: SearchBetsOptions): Promise<Pageable<PolymarketEventListData, PageIndicator> & { tags: PredictionSearchTag[] }> {
     const page = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
 
@@ -56,6 +59,7 @@ export async function searchPrediction({
         sort,
         events_status: eventsStatus,
         search_tags: searchTags,
+        locale,
     });
 
     const response = await fetchJson<Response<GammaSearchResponse>>(url);

@@ -1,7 +1,9 @@
 'use client';
 
+import type { Locale } from '@dimensiondev/enums';
 import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
+import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -19,6 +21,9 @@ interface Props {
 }
 
 export function PredictionList({ source }: Props) {
+    const {
+        i18n: { locale },
+    } = useLingui();
     const searchParams = useSearchParams();
 
     const subSlug = searchParams.get('subSlug') || undefined;
@@ -26,7 +31,7 @@ export function PredictionList({ source }: Props) {
         queryKey: ['explore', 'bets', source, subSlug],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
-            return getEventList({ slug: source, indicator, subSlug });
+            return getEventList({ slug: source, indicator, subSlug, locale: locale as Locale });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

@@ -101,13 +101,16 @@ const SportsCategoryPropsList = memo<{ context: CategorySlugContext }>(function 
 const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(function CategoryEventListPropsList({
     context,
 }) {
+    const {
+        i18n: { locale },
+    } = useLingui();
     const { slug, subSlug } = getPropsListSlugParams(context);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['prediction', 'category', 'props-list', slug, subSlug],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
-            return getEventList({ slug, subSlug, indicator });
+            return getEventList({ slug, subSlug, indicator, locale: locale as Locale });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

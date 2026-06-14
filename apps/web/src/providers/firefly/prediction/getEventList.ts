@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { Locale } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
@@ -11,9 +12,10 @@ interface Options {
     slug?: string;
     subSlug?: string;
     indicator?: PageIndicator;
+    locale?: Locale;
 }
 
-export async function getEventList({ slug, subSlug, indicator }: Options = {}) {
+export async function getEventList({ slug, subSlug, indicator, locale }: Options = {}) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/polymarket/event/list', {
         limit: 20,
         active: true,
@@ -24,6 +26,7 @@ export async function getEventList({ slug, subSlug, indicator }: Options = {}) {
         cursor: indicator?.id || '',
         tag_slug: slug !== 'trending' && slug !== 'new' ? slug : undefined,
         children_tag_slug: subSlug,
+        locale,
     });
     const response =
         await fetchJson<Response<{ events: PolymarketEventListData[] | null; cursor: string | null }>>(url);
