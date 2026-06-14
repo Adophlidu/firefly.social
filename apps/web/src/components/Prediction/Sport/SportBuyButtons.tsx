@@ -1,7 +1,8 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { memo } from 'react';
+import { Trans } from '@lingui/react/macro';
+import { memo, type ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -117,12 +118,14 @@ export const SportBuyButtons = memo(function SportBuyButtons({
                       ? homeTeam?.color || '#E74C3C'
                       : awayTeam?.color || '#2ECC71';
                 const meta = getOutcomeMeta(index, fallbackLabel, fallbackColor);
+                // Moneyline middle is always "Draw"; localize it (Gamma's title is messy).
+                const isMoneylineDraw = isDrawOutcome && market.sportsMarketType?.toLowerCase() === 'moneyline';
                 return (
                     <SportBuyButton
                         key={index}
                         slug={outcomes[index]?.slug || market.slug}
                         outcome={outcomes[index]?.slug ? 0 : index}
-                        label={meta.label}
+                        label={isMoneylineDraw ? <Trans>Draw</Trans> : meta.label}
                         price={outcomes[index]?.price}
                         color={meta.color}
                         compact={compact}
@@ -142,7 +145,7 @@ export const SportBuyButtons = memo(function SportBuyButtons({
 interface SportBuyButtonProps {
     slug?: string;
     outcome: number;
-    label: string;
+    label: ReactNode;
     price?: string;
     color: string;
     compact?: boolean;

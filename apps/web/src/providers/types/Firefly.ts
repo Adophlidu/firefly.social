@@ -7,6 +7,7 @@ import type {
     ExploreSwitchType,
     FansStatus,
     FireflyPlatform,
+    Locale,
     MintStatus,
     NetworkType,
     NotificationType as SocialNotificationType,
@@ -30,7 +31,6 @@ import type { MediaToken } from '@dimensiondev/workers-s3';
 import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
-import type { PolymarketLocale } from '@/constants/bets.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
@@ -2660,7 +2660,7 @@ export interface PolymarketSportsListRequest {
     children_tag_slug_type?: string;
     children_children_tag_slug_type?: string;
     timezone?: string;
-    locale?: PolymarketLocale;
+    locale?: Locale;
 }
 
 export interface PolymarketSportsMarketTeam {

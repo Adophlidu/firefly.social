@@ -6,7 +6,7 @@ import type { PolymarketSportsListRequest, PolymarketSportsListResponse, Respons
 import { settings } from '@/settings/index.js';
 
 export async function getSportsEventList(body: PolymarketSportsListRequest) {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/sports/list');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/sports/list', { locale: body.locale });
     const response = await fetchJson<Response<PolymarketSportsListResponse>>(url, {
         method: 'POST',
         body: JSON.stringify(body),

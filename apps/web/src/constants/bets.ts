@@ -22,6 +22,10 @@ export enum PredictionChartType {
     RatioLine = 'ratio_line',
 }
 
+/**
+ * @deprecated
+ * Use Locale instead, the backend is compatible with it
+ */
 export enum PolymarketLocale {
     es = 'es',
     ja = 'ja',
