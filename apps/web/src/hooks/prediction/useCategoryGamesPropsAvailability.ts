@@ -1,5 +1,7 @@
 'use client';
 
+import type { Locale } from '@dimensiondev/enums';
+import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -37,6 +39,10 @@ export function useCategoryGamesPropsAvailability({
     const showGamesPropsTabs = context ? shouldShowGamesPropsTabs(context) : false;
     const hasGroups = isFifaCategoryContext(context);
 
+    const {
+        i18n: { locale },
+    } = useLingui();
+
     const sportsRequest = useMemo(
         () => (context && showGamesPropsTabs ? parseSportsListRequest(context) : null),
         [context, showGamesPropsTabs],
@@ -62,6 +68,7 @@ export function useCategoryGamesPropsAvailability({
                 limit: 1,
                 offset: 0,
                 exclude_tag_id: FIFA_EXCLUDE_TAG_ID,
+                locale: locale as Locale,
             }),
         enabled: !!propsTagSlug,
         select: categoryHasPropsDisplayContent,

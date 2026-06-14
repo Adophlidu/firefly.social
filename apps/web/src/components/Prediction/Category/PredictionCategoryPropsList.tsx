@@ -1,7 +1,9 @@
 'use client';
 
+import type { Locale } from '@dimensiondev/enums';
 import { PredictionPlatform, ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
+import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -40,6 +42,9 @@ function getBetsItemContent(_: number, data: PolymarketEventListData) {
 }
 
 const SportsCategoryPropsListContent = memo<{ tagSlug: string }>(function SportsCategoryPropsListContent({ tagSlug }) {
+    const {
+        i18n: { locale },
+    } = useLingui();
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['prediction', 'category', 'gamma-events', tagSlug],
         queryFn: ({ pageParam }) =>
@@ -47,6 +52,7 @@ const SportsCategoryPropsListContent = memo<{ tagSlug: string }>(function Sports
                 tag_slug: tagSlug,
                 offset: pageParam,
                 exclude_tag_id: FIFA_EXCLUDE_TAG_ID,
+                locale: locale as Locale,
             }),
         initialPageParam: 0,
         getNextPageParam: (lastPage, _allPages, lastPageParam) => {

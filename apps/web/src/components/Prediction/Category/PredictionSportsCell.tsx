@@ -302,19 +302,31 @@ const DrawOutcomePriceButton = memo<{
     className: string;
 }>(function DrawOutcomePriceButton({ draw, className }) {
     return (
-        <SportsOutcomePriceButton
-            marketSlug={draw.marketSlug}
-            outcomeIndex={draw.outcomeIndex}
-            className={classNames(
-                'flex items-center justify-center gap-1 rounded-lg bg-bg px-4 text-sm text-main',
-                className,
-            )}
+        <TextOverflowTooltip
+            content={
+                <span className="truncate whitespace-nowrap font-medium opacity-80">
+                    <Trans>DRAW</Trans>
+                </span>
+            }
         >
-            <span className="font-medium opacity-80">
-                <Trans>DRAW</Trans>
-            </span>
-            <AnimatedPriceCents className="font-bold" priceCents={draw.priceCents} />
-        </SportsOutcomePriceButton>
+            {(ref) => {
+                return (
+                    <SportsOutcomePriceButton
+                        marketSlug={draw.marketSlug}
+                        outcomeIndex={draw.outcomeIndex}
+                        className={classNames(
+                            'flex items-center justify-center gap-1 rounded-lg bg-bg px-4 text-sm text-main',
+                            className,
+                        )}
+                    >
+                        <span className="truncate whitespace-nowrap font-medium opacity-80" ref={ref}>
+                            <Trans>DRAW</Trans>
+                        </span>
+                        <AnimatedPriceCents className="font-bold" priceCents={draw.priceCents} />
+                    </SportsOutcomePriceButton>
+                );
+            }}
+        </TextOverflowTooltip>
     );
 });
 

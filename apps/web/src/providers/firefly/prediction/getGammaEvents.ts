@@ -1,3 +1,4 @@
+import type { Locale } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -17,6 +18,7 @@ export interface GetGammaEventsOptions {
     order?: string;
     ascending?: boolean;
     exclude_tag_id?: string;
+    locale?: Locale;
 }
 
 export async function getGammaEvents({
@@ -29,6 +31,7 @@ export async function getGammaEvents({
     order = 'volume',
     ascending = false,
     exclude_tag_id,
+    locale,
 }: GetGammaEventsOptions): Promise<PolymarketEventListData[]> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/gamma/events', {
         tag_slug,
@@ -40,6 +43,7 @@ export async function getGammaEvents({
         order,
         ascending,
         ...(exclude_tag_id ? { exclude_tag_id } : {}),
+        locale,
     });
     const response = await fetchJson<Response<PolymarketEventListData[]>>(url, {
         method: 'GET',
