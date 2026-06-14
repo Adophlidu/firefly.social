@@ -1,12 +1,12 @@
 'use client';
 
-import FootballIcon from '@dimensiondev/assets/football.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo, useState } from 'react';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
+import { FOOTBALL_POSTER_DATA_URI } from '@/components/SideBar/footballPoster.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
@@ -32,8 +32,9 @@ export const PredictionMenu = memo<PredictionMenuProps>(function PredictionMenu(
         return RouteResolver.predictionCategory({ slug: firstNormalSlug || 'trending', appendRoot: false });
     }, [data]);
 
-    // The animated GIF can take a moment to fetch. Show a complete soccer-ball
-    // SVG as a placeholder and swap to the GIF once it has loaded.
+    // The animated GIF can take a moment to fetch. Show its final frame (a
+    // complete soccer ball, inlined as a data URI) as a placeholder and swap to
+    // the GIF once it has loaded.
     const [gifLoaded, setGifLoaded] = useState(false);
 
     return (
@@ -60,7 +61,14 @@ export const PredictionMenu = memo<PredictionMenuProps>(function PredictionMenu(
                         className={classNames('size-full object-contain', { invisible: !gifLoaded })}
                     />
                     {!gifLoaded ? (
-                        <FootballIcon width={size} height={size} className="absolute inset-0 size-full" />
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                            src={FOOTBALL_POSTER_DATA_URI}
+                            alt=""
+                            width={size}
+                            height={size}
+                            className="absolute inset-0 size-full object-contain"
+                        />
                     ) : null}
                 </span>
             }
