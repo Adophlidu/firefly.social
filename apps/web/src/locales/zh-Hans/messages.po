@@ -1723,7 +1723,7 @@ msgid "Anonymous"
 msgstr "匿名"
 
 msgid "+{remainingCount} others"
-msgstr ""
+msgstr "其他 {remainingCount} 个"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失败。"
