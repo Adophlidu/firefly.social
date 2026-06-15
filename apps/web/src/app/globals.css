@@ -874,3 +874,43 @@ body {
         background-position: 0% center;
     }
 }
+
+/* Predictions menu football icon: still most of the time, one bounce on a cadence. */
+.football-bounce {
+    transform-origin: 50% 100%;
+    animation: football-bounce 4s infinite;
+}
+
+.football-bounce:hover {
+    animation-duration: 1.2s;
+}
+
+@keyframes football-bounce {
+    0%,
+    62% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    74% {
+        transform: translateY(-34%);
+        animation-timing-function: ease-in;
+    }
+    85% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    91% {
+        transform: translateY(-11%);
+        animation-timing-function: ease-in;
+    }
+    96%,
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .football-bounce {
+        animation: none;
+    }
+}
