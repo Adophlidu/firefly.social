@@ -28,7 +28,7 @@ export function PredictionList({ source }: Props) {
 
     const subSlug = searchParams.get('subSlug') || undefined;
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['explore', 'bets', source, subSlug],
+        queryKey: ['explore', 'bets', source, subSlug, locale],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             return getEventList({ slug: source, indicator, subSlug, locale: locale as Locale });

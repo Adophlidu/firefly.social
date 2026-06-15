@@ -61,7 +61,7 @@ export function useCategoryGamesPropsAvailability({
     });
 
     const propsQuery = useQuery({
-        queryKey: ['prediction', 'category', 'gamma-events-availability', propsTagSlug],
+        queryKey: ['prediction', 'category', 'gamma-events-availability', propsTagSlug, locale],
         queryFn: () =>
             getGammaEvents({
                 tag_slug: propsTagSlug!,

@@ -34,7 +34,7 @@ export function useSearchPredictionContent<T>(
     } = useLingui();
     eventsStatus ??= 'active';
     return useSuspenseInfiniteQuery({
-        queryKey: ['search', SearchType.Prediction, searchKeyword, source, eventsStatus],
+        queryKey: ['search', SearchType.Prediction, searchKeyword, source, eventsStatus, locale],
         queryFn: async ({ pageParam }) => {
             // Check if searchKeyword is a prediction URL and extract identifier if it matches
             const urlResult = resolveSearchUrlType(searchKeyword);

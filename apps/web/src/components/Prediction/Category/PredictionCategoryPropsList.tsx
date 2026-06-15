@@ -46,7 +46,7 @@ const SportsCategoryPropsListContent = memo<{ tagSlug: string }>(function Sports
         i18n: { locale },
     } = useLingui();
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['prediction', 'category', 'gamma-events', tagSlug],
+        queryKey: ['prediction', 'category', 'gamma-events', tagSlug, locale],
         queryFn: ({ pageParam }) =>
             getGammaEvents({
                 tag_slug: tagSlug,
@@ -107,7 +107,7 @@ const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(functi
     const { slug, subSlug } = getPropsListSlugParams(context);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['prediction', 'category', 'props-list', slug, subSlug],
+        queryKey: ['prediction', 'category', 'props-list', slug, subSlug, locale],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             return getEventList({ slug, subSlug, indicator, locale: locale as Locale });

@@ -299,8 +299,8 @@ Packages with Multiple Versions
 
 Packages with Single Version
 ----------------------------
- @0no-co/graphql.web@1.2.0
- @0no-co/graphqlsp@1.16.0
+ @0no-co/graphql.web@1.3.2
+ @0no-co/graphqlsp@1.17.2
  @acemir/cssom@0.9.31
  @adobe/css-tools@4.5.0
  @adraffy/ens-normalize@1.11.1
@@ -537,7 +537,7 @@ Packages with Single Version
  @cspotcode/source-map-support@0.8.1
  @csstools/color-helpers@6.0.2
  @csstools/css-calc@3.2.1
- @csstools/css-color-parser@4.1.3
+ @csstools/css-color-parser@4.1.7
  @csstools/css-parser-algorithms@4.0.0
  @csstools/css-syntax-patches-for-csstree@1.1.5
  @csstools/css-tokenizer@4.0.0
@@ -615,8 +615,8 @@ Packages with Single Version
  @giphy/js-types@5.1.0
  @giphy/js-util@5.2.0
  @giphy/react-components@10.1.2
- @gql.tada/cli-utils@1.7.4
- @gql.tada/internal@1.0.10
+ @gql.tada/cli-utils@1.9.1
+ @gql.tada/internal@1.2.0
  @grpc/grpc-js@1.9.16
  @grpc/proto-loader@0.7.15
  @headlessui/react@2.2.10
@@ -947,31 +947,31 @@ Packages with Single Version
  @rollup/plugin-inject@5.0.5
  @rollup/plugin-node-resolve@15.3.1
  @rollup/pluginutils@5.4.0
- @rollup/rollup-android-arm-eabi@4.61.1
- @rollup/rollup-android-arm64@4.61.1
- @rollup/rollup-darwin-arm64@4.61.1
- @rollup/rollup-darwin-x64@4.61.1
- @rollup/rollup-freebsd-arm64@4.61.1
- @rollup/rollup-freebsd-x64@4.61.1
- @rollup/rollup-linux-arm-gnueabihf@4.61.1
- @rollup/rollup-linux-arm-musleabihf@4.61.1
- @rollup/rollup-linux-arm64-gnu@4.61.1
- @rollup/rollup-linux-arm64-musl@4.61.1
- @rollup/rollup-linux-loong64-gnu@4.61.1
- @rollup/rollup-linux-loong64-musl@4.61.1
- @rollup/rollup-linux-ppc64-gnu@4.61.1
- @rollup/rollup-linux-ppc64-musl@4.61.1
- @rollup/rollup-linux-riscv64-gnu@4.61.1
- @rollup/rollup-linux-riscv64-musl@4.61.1
- @rollup/rollup-linux-s390x-gnu@4.61.1
- @rollup/rollup-linux-x64-gnu@4.61.1
- @rollup/rollup-linux-x64-musl@4.61.1
- @rollup/rollup-openbsd-x64@4.61.1
- @rollup/rollup-openharmony-arm64@4.61.1
- @rollup/rollup-win32-arm64-msvc@4.61.1
- @rollup/rollup-win32-ia32-msvc@4.61.1
- @rollup/rollup-win32-x64-gnu@4.61.1
- @rollup/rollup-win32-x64-msvc@4.61.1
+ @rollup/rollup-android-arm-eabi@4.62.0
+ @rollup/rollup-android-arm64@4.62.0
+ @rollup/rollup-darwin-arm64@4.62.0
+ @rollup/rollup-darwin-x64@4.62.0
+ @rollup/rollup-freebsd-arm64@4.62.0
+ @rollup/rollup-freebsd-x64@4.62.0
+ @rollup/rollup-linux-arm-gnueabihf@4.62.0
+ @rollup/rollup-linux-arm-musleabihf@4.62.0
+ @rollup/rollup-linux-arm64-gnu@4.62.0
+ @rollup/rollup-linux-arm64-musl@4.62.0
+ @rollup/rollup-linux-loong64-gnu@4.62.0
+ @rollup/rollup-linux-loong64-musl@4.62.0
+ @rollup/rollup-linux-ppc64-gnu@4.62.0
+ @rollup/rollup-linux-ppc64-musl@4.62.0
+ @rollup/rollup-linux-riscv64-gnu@4.62.0
+ @rollup/rollup-linux-riscv64-musl@4.62.0
+ @rollup/rollup-linux-s390x-gnu@4.62.0
+ @rollup/rollup-linux-x64-gnu@4.62.0
+ @rollup/rollup-linux-x64-musl@4.62.0
+ @rollup/rollup-openbsd-x64@4.62.0
+ @rollup/rollup-openharmony-arm64@4.62.0
+ @rollup/rollup-win32-arm64-msvc@4.62.0
+ @rollup/rollup-win32-ia32-msvc@4.62.0
+ @rollup/rollup-win32-x64-gnu@4.62.0
+ @rollup/rollup-win32-x64-msvc@4.62.0
  @rspack/binding@1.7.11
  @rspack/binding-darwin-arm64@1.7.11
  @rspack/binding-darwin-x64@1.7.11
@@ -1055,7 +1055,7 @@ Packages with Single Version
  @solana/wallet-standard-features@1.3.0
  @solana/wallet-standard-util@1.1.2
  @solana/web3.js@1.98.4
- @speed-highlight/core@1.2.16
+ @speed-highlight/core@1.2.17
  @standard-schema/spec@1.0.0
  @statoscope/extensions@5.28.1
  @statoscope/helpers@5.28.1
@@ -1757,7 +1757,7 @@ Packages with Single Version
  globby@13.2.2
  globrex@0.1.2
  gopd@1.2.0
- gql.tada@1.9.3
+ gql.tada@1.11.1
  graceful-fs@4.2.11
  graphql@16.14.2
  gzip-size@6.0.0
@@ -2189,7 +2189,7 @@ Packages with Single Version
  regexp.prototype.flags@1.5.4
  regexpu-core@6.4.0
  regjsgen@0.8.0
- regjsparser@0.13.1
+ regjsparser@0.13.2
  remark-breaks@4.0.0
  remark-linkify-regex@1.2.1
  remark-parse@11.0.0
@@ -2206,7 +2206,7 @@ Packages with Single Version
  ripemd160@2.0.3
  rolldown@1.0.0-rc.17
  rolldown-plugin-dts@0.23.2
- rollup@4.61.1
+ rollup@4.62.0
  rollup-plugin-swc3@0.10.4
  rollup-plugin-terser@7.0.2
 *rollup-plugin-visualizer@7.0.1
