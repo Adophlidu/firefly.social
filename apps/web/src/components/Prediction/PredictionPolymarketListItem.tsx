@@ -14,12 +14,14 @@ interface Props {
     data: PolymarketEventListData;
     liveMarketPrices: Record<string, string>;
     sportsCellClassName?: string;
+    onLinkClick?: () => void;
 }
 
 export const PredictionPolymarketListItem = memo<Props>(function PredictionPolymarketListItem({
     data,
     liveMarketPrices,
     sportsCellClassName,
+    onLinkClick,
 }) {
     const sportsEvent = data as PolymarketSportsEvent;
     const model = formatPolymarketSportsEventForUI(sportsEvent);
@@ -29,6 +31,7 @@ export const PredictionPolymarketListItem = memo<Props>(function PredictionPolym
             <div className="pb-3">
                 <PredictionSportsCell
                     className={sportsCellClassName}
+                    onLinkClick={onLinkClick}
                     model={applySportsMarketPriceOverrides(model, liveMarketPrices)}
                 />
             </div>
@@ -41,6 +44,7 @@ export const PredictionPolymarketListItem = memo<Props>(function PredictionPolym
                 event={formatPolymarketEventListData(data)}
                 openLinkInNewTab={false}
                 platform={PredictionPlatform.Polymarket}
+                onLinkClick={onLinkClick}
             />
         </div>
     );

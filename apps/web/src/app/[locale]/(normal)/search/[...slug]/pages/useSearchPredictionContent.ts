@@ -4,18 +4,20 @@ import { createIndicator, type PageIndicator } from '@dimensiondev/utils';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { logger } from 'storybook/internal/client-logger';
 
-import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { useLocale } from '@/hooks/useLocale.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { type PredictionSearchTag, searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';
+import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
 import type { SearchPredictionEventStatus } from '@/store/useSearchPredictionFilterStore.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
+
+export type PredictionSearchItem = PolymarketEventListData | BetsEventDataForUI;
 
 export type SearchPredictionContentPagedData = InfiniteData<
     {
         data: {
-            events: BetsEventDataForUI[];
+            events: PredictionSearchItem[];
             tags: PredictionSearchTag[];
         };
         nextIndicator: PageIndicator | undefined;
@@ -53,7 +55,8 @@ export function useSearchPredictionContent<T>(
                 searchTags: true,
                 locale,
             });
-            const events = result.data.map(formatPolymarketEventListData);
+            // Keep raw PolymarketEventListData so sports events can be detected and rendered like the trending page.
+            const events: PredictionSearchItem[] = [...result.data];
 
             // Prepend pinned prediction on first page
             if (!pageParam && isPredictionUrl && urlResult.identifier && urlResult.platform) {

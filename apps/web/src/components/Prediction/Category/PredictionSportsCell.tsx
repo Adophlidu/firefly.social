@@ -28,9 +28,10 @@ import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSport
 interface Props {
     model: PredictionSportsCellViewModel;
     className?: string;
+    onLinkClick?: () => void;
 }
 
-export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ model, className }) {
+export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ model, className, onLinkClick }) {
     const eventHref = RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, model.eventSlug, {
         appendRoot: false,
     });
@@ -46,6 +47,7 @@ export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ 
             <Link
                 href={eventHref}
                 className="absolute inset-0 z-0 rounded-2xl"
+                onClick={onLinkClick}
                 aria-label={t`View ${resolveTeamName(model.homeTeam.name)} vs ${resolveTeamName(model.awayTeam.name)}`}
             />
             <div className="pointer-events-none relative z-10 flex flex-col gap-3">
