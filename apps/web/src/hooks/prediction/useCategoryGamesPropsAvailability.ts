@@ -1,7 +1,5 @@
 'use client';
 
-import type { Locale } from '@dimensiondev/enums';
-import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -19,6 +17,7 @@ import {
 } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { shouldShowGamesPropsTabs } from '@/helpers/prediction/category/shouldShowGamesTab.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getGammaEvents } from '@/providers/firefly/prediction/getGammaEvents.js';
 import { getSportsEventList } from '@/providers/firefly/prediction/getSportsEventList.js';
 
@@ -39,9 +38,7 @@ export function useCategoryGamesPropsAvailability({
     const showGamesPropsTabs = context ? shouldShowGamesPropsTabs(context) : false;
     const hasGroups = isFifaCategoryContext(context);
 
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
 
     const sportsRequest = useMemo(
         () => (context && showGamesPropsTabs ? parseSportsListRequest(context) : null),
@@ -68,7 +65,7 @@ export function useCategoryGamesPropsAvailability({
                 limit: 1,
                 offset: 0,
                 exclude_tag_id: FIFA_EXCLUDE_TAG_ID,
-                locale: locale as Locale,
+                locale,
             }),
         enabled: !!propsTagSlug,
         select: categoryHasPropsDisplayContent,

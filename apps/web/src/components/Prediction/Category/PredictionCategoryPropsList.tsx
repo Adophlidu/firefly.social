@@ -1,9 +1,7 @@
 'use client';
 
-import type { Locale } from '@dimensiondev/enums';
 import { PredictionPlatform, ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
-import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -21,6 +19,7 @@ import {
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { shouldShowGamesPropsTabs } from '@/helpers/prediction/category/shouldShowGamesTab.js';
 import { usePolymarketListSportsPrices } from '@/hooks/prediction/usePolymarketListSportsPrices.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
 import { GAMMA_EVENTS_PAGE_SIZE, getGammaEvents } from '@/providers/firefly/prediction/getGammaEvents.js';
 import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
@@ -42,9 +41,7 @@ function getBetsItemContent(_: number, data: PolymarketEventListData) {
 }
 
 const SportsCategoryPropsListContent = memo<{ tagSlug: string }>(function SportsCategoryPropsListContent({ tagSlug }) {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['prediction', 'category', 'gamma-events', tagSlug, locale],
         queryFn: ({ pageParam }) =>
@@ -52,7 +49,7 @@ const SportsCategoryPropsListContent = memo<{ tagSlug: string }>(function Sports
                 tag_slug: tagSlug,
                 offset: pageParam,
                 exclude_tag_id: FIFA_EXCLUDE_TAG_ID,
-                locale: locale as Locale,
+                locale,
             }),
         initialPageParam: 0,
         getNextPageParam: (lastPage, _allPages, lastPageParam) => {
@@ -101,16 +98,14 @@ const SportsCategoryPropsList = memo<{ context: CategorySlugContext }>(function 
 const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(function CategoryEventListPropsList({
     context,
 }) {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     const { slug, subSlug } = getPropsListSlugParams(context);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['prediction', 'category', 'props-list', slug, subSlug, locale],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
-            return getEventList({ slug, subSlug, indicator, locale: locale as Locale });
+            return getEventList({ slug, subSlug, indicator, locale });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

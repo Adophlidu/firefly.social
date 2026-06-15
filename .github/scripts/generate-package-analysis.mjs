@@ -59,25 +59,33 @@ function collectRootPackageVersions(lockData, importerKeys) {
 const lockFileContent = readFileSync(path.join(repoRoot, 'pnpm-lock.yaml'), 'utf-8');
 const lockData = yaml.load(lockFileContent);
 
-// Helper function to extract package name and version from pnpm path
+// Extract package name and version from a pnpm lockfile key.
+// Handles lockfileVersion 6.0 (`/name@version(peers)`) and 9.0
+// (`name@version(peers)`, no leading slash), including scoped names.
 function parsePackagePath(pkgPath) {
-    const match = pkgPath.match(/^\/(@[^/@]+\/[^/@]+|[^/@]+)@([^/(]+)/);
-    if (match) {
-        return { name: match[1], version: match[2] };
-    }
-    const altMatch = pkgPath.match(/^\/(@[^/]+\/[^/]+|[^/@]+)\/([^/(]+)/);
-    if (altMatch) {
-        return { name: altMatch[1], version: altMatch[2] };
-    }
-    return null;
+    let key = pkgPath.replace(/^\//, '');
+    // Drop any peer-dependency or patch context, e.g. "(react@19.0.0)" / "(patch_hash=...)".
+    const parenIndex = key.indexOf('(');
+    if (parenIndex !== -1) key = key.slice(0, parenIndex);
+    // Split on the last "@" so scoped names like "@scope/pkg@1.2.3" parse correctly.
+    const atIndex = key.lastIndexOf('@');
+    if (atIndex <= 0) return null;
+    const name = key.slice(0, atIndex);
+    const version = key.slice(atIndex + 1);
+    if (!name || !version) return null;
+    return { name, version };
 }
+
+// lockfileVersion 9.0 moves the resolved dependency graph into `snapshots`;
+// 6.0 keeps it inline in `packages`. Use whichever this lockfile provides.
+const dependencyGraph = lockData.snapshots ?? lockData.packages ?? {};
 
 const packageDependencies = new Map();
 const reverseDependencies = new Map();
 const packageInfo = new Map();
 
-if (lockData.packages) {
-    for (const [pkgPath] of Object.entries(lockData.packages)) {
+if (dependencyGraph) {
+    for (const [pkgPath] of Object.entries(dependencyGraph)) {
         const parsed = parsePackagePath(pkgPath);
         if (!parsed || parsed.name.startsWith('workspace:')) continue;
 
@@ -110,8 +118,8 @@ function resolveDependencyPath(depName, depVersion) {
     return pathsByNameVersion.get(nameVersionKey(depName, baseVersion)) ?? [];
 }
 
-if (lockData.packages) {
-    for (const [pkgPath, pkgData] of Object.entries(lockData.packages)) {
+if (dependencyGraph) {
+    for (const [pkgPath, pkgData] of Object.entries(dependencyGraph)) {
         const parsed = parsePackagePath(pkgPath);
         if (!parsed || parsed.name.startsWith('workspace:')) continue;
 

@@ -92,7 +92,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 asset: attachments?.[0],
                 attachments,
             },
-            // @ts-expect-error twitter-api-v2 doesn't have `tweet.article` yet
             article: item.article
                 ? {
                       cover: urlcat(SITE_URL, '/api/twitter/article/:id/image', {
@@ -144,7 +143,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             } else if (ret.mirrorOn?.timestamp) {
                 ret.timestamp = ret.mirrorOn.timestamp;
             }
-            // @ts-expect-error twitter-api-v2 doesn't have `tweet.article` yet
             ret.metadata.article = retweetedTweet.article
                 ? {
                       cover: urlcat(SITE_URL, '/api/twitter/article/:id/image', {

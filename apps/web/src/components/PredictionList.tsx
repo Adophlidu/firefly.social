@@ -1,9 +1,7 @@
 'use client';
 
-import type { Locale } from '@dimensiondev/enums';
 import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
-import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -13,6 +11,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionPolymarketListItem } from '@/components/Prediction/PredictionPolymarketListItem.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { usePolymarketListSportsPrices } from '@/hooks/prediction/usePolymarketListSportsPrices.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
 import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
 
@@ -21,9 +20,7 @@ interface Props {
 }
 
 export function PredictionList({ source }: Props) {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     const searchParams = useSearchParams();
 
     const subSlug = searchParams.get('subSlug') || undefined;
@@ -31,7 +28,7 @@ export function PredictionList({ source }: Props) {
         queryKey: ['explore', 'bets', source, subSlug, locale],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
-            return getEventList({ slug: source, indicator, subSlug, locale: locale as Locale });
+            return getEventList({ slug: source, indicator, subSlug, locale });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

@@ -30,7 +30,7 @@ jobs:
             - name: Set up pnpm
               run: |
                   corepack enable
-                  corepack prepare pnpm@8.15.8 --activate
+                  corepack prepare pnpm@11.6.0 --activate
 
             - name: Determine base branch
               id: base_branch

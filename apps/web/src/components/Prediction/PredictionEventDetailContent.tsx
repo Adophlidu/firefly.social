@@ -1,6 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import type { PredictionPlatform } from '@dimensiondev/enums';
-import { Locale } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
@@ -16,6 +15,7 @@ import { PredictionSingleChart } from '@/components/Prediction/PredictionSingleC
 import { SportEventDetailContent } from '@/components/Prediction/Sport/SportEventDetailContent.js';
 import { SportEventPageTitle } from '@/components/Prediction/Sport/SportEventPageTitle.js';
 import { notFound } from '@/esm/navigation/server.js';
+import { resolveLocale } from '@/helpers/resolveLocale.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 
@@ -26,8 +26,6 @@ interface PredictionEventDetailContentProps {
     platform: PredictionPlatform;
 }
 
-const LOCALES = Object.values(Locale);
-
 export async function PredictionEventDetailContent({
     id,
     isMutil,
@@ -35,7 +33,7 @@ export async function PredictionEventDetailContent({
     platform,
 }: PredictionEventDetailContentProps) {
     setupLocaleFromParams(locale); // Ensure i18n is set for <Trans> in this server component
-    const resolvedLocale = LOCALES.includes(locale as Locale) ? (locale as Locale) : Locale.en;
+    const resolvedLocale = resolveLocale(locale);
     const event = await runInSafeAsync(() => getEventDetail(platform, { id, isMutil, locale: resolvedLocale }));
     if (!event) notFound();
 

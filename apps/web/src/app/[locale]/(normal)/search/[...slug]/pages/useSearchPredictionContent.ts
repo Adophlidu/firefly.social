@@ -1,12 +1,12 @@
-import type { Locale, Source } from '@dimensiondev/enums';
+import type { Source } from '@dimensiondev/enums';
 import { PredictionPlatform, SearchType } from '@dimensiondev/enums';
 import { createIndicator, type PageIndicator } from '@dimensiondev/utils';
-import { useLingui } from '@lingui/react';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { logger } from 'storybook/internal/client-logger';
 
 import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { type PredictionSearchTag, searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';
 import type { SearchPredictionEventStatus } from '@/store/useSearchPredictionFilterStore.js';
@@ -29,9 +29,7 @@ export function useSearchPredictionContent<T>(
     eventsStatus: SearchPredictionEventStatus | undefined,
     selector: (data: SearchPredictionContentPagedData) => T,
 ) {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     eventsStatus ??= 'active';
     return useSuspenseInfiniteQuery({
         queryKey: ['search', SearchType.Prediction, searchKeyword, source, eventsStatus, locale],
@@ -53,7 +51,7 @@ export function useSearchPredictionContent<T>(
                 sort: 'volume_24hr',
                 eventsStatus,
                 searchTags: true,
-                locale: locale as Locale,
+                locale,
             });
             const events = result.data.map(formatPolymarketEventListData);
 

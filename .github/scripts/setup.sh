@@ -1,6 +1,6 @@
 #!/bin/bash
 
-npm i -g pnpm@8.15.8
+npm i -g pnpm@11.6.0
 
 pnpm install
 
