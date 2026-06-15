@@ -620,6 +620,7 @@
         "apps/**/lingui-gettext-plural-metadata.json",
         "apps/**/proto/**",
         "workers/**/dist/**",
+        "workers/**/types/**",
         "build/**",
         "cspell.json",
         "dist/**",
