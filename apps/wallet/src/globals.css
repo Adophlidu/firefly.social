@@ -4,9 +4,8 @@
 
 @font-face {
     font-family: 'Bedstead';
-    src:
-        url('/font/Bedstead-Bold.ttf') format('truetype'),
-        url('/wallet-iframe/font/Bedstead-Bold.ttf') format('truetype');
+    src: url('/font/Bedstead-Bold.ttf') format('truetype');
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
