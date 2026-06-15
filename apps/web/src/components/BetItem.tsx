@@ -371,7 +371,7 @@ export const BetItem = memo(function BetItem({
                                         style={{
                                             background:
                                                 ratioForBg >= MIN_RATIO_FOR_BACKGROUND
-                                                    ? `linear-gradient(90deg, var(--Polymarket-yes-background, #DCF1D9) 0%, rgba(220, 241, 217, 0.00) ${ratioForBg}%)`
+                                                    ? `linear-gradient(90deg, var(--polymarket-yes-background, #DCF1D9) 0%, var(--polymarket-yes-background-end, rgba(220, 241, 217, 0)) ${ratioForBg}%)`
                                                     : undefined,
                                         }}
                                     >

@@ -127,6 +127,8 @@ html {
     --color-x-bg: var(--color-light-bg);
     --color-wallet-bg: 243 242 255; /* #f3f2ff */
     --color-danger-bg: #fff5f6;
+    --polymarket-yes-background: #dcf1d9;
+    --polymarket-yes-background-end: rgba(220, 241, 217, 0);
     --w3m-modal-width: 400px !important;
     --color-lens-button: 0 80 30; /* #00501E */
     --z-navbar: 37;
@@ -223,6 +225,8 @@ html {
         --color-x-bg: var(--color-light-bg);
         --color-wallet-bg: 42 42 61; /* #2a2a3d */
         --color-danger-bg: rgba(255, 53, 69, 0.16); /* #ff354529 */
+        --polymarket-yes-background: #284129;
+        --polymarket-yes-background-end: rgba(40, 65, 41, 0.08);
         --color-lens-button: 171 254 44; /* #abfe2c */
         /* Farcaster Snap palette (dark) — https://docs.farcaster.xyz/snap/colors */
         --snap-palette-gray: #908caa;
@@ -337,6 +341,8 @@ html {
     --color-x-bg: var(--color-light-bg);
     --color-wallet-bg: 243 242 255; /* #f3f2ff */
     --color-danger-bg: #fff5f6;
+    --polymarket-yes-background: #dcf1d9;
+    --polymarket-yes-background-end: rgba(220, 241, 217, 0);
     --w3m-modal-width: 400px !important;
     --color-lens-button: 0 80 30; /* #00501e */
     /* Farcaster Snap palette (light) — https://docs.farcaster.xyz/snap/colors */
@@ -433,6 +439,8 @@ html {
     --color-x-bg: var(--color-light-bg);
     --color-wallet-bg: 42 42 61; /* #2a2a3d */
     --color-danger-bg: rgba(255, 53, 69, 0.16); /* #ff354529 */
+    --polymarket-yes-background: #284129;
+    --polymarket-yes-background-end: rgba(40, 65, 41, 0.08);
     --color-lens-button: 171 254 44; /* #abfe2c */
     /* Farcaster Snap palette (dark) — https://docs.farcaster.xyz/snap/colors */
     --snap-palette-gray: #908caa;
