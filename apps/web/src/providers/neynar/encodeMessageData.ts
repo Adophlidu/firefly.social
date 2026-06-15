@@ -1,8 +1,6 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
+import { farcasterMessageWorker } from '@dimensiondev/workers-client';
 import type { MessageData } from '@farcaster/core'; /* type only on runtime code */
-import urlcat from 'urlcat';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -26,17 +24,14 @@ export async function encodeMessageData(withMessageData: WithMessageData, sessio
     const messageData =
         typeof withMessageData === 'function' ? withMessageData(Number.parseInt(profileId, 10)) : withMessageData;
 
-    const response = await fetchJson<EncodeMessageDataResponse>(
-        urlcat(FIREFLY_WORKER_HOST, '/farcaster-message/encode'),
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                profileId,
-                token,
-                data: messageData,
-            }),
+    const res = await farcasterMessageWorker['farcaster-message'].encode.$post({
+        json: {
+            profileId,
+            token,
+            data: messageData,
         },
-    );
+    });
+    const response = (await res.json()) as EncodeMessageDataResponse;
 
     const data = resolveResponseData(response);
     return data;

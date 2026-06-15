@@ -1,0 +1,44 @@
+{
+    "name": "@dimensiondev/workers-client",
+    "version": "0.0.1",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "typecheck": "tsgo --noEmit"
+    },
+    "exports": {
+        "./*": "./src/*",
+        ".": "./src/index.ts"
+    },
+    "dependencies": {
+        "@dimensiondev/constants": "workspace:^",
+        "@dimensiondev/workers-bsky-identity": "workspace:*",
+        "@dimensiondev/workers-ens": "workspace:*",
+        "@dimensiondev/workers-farcaster-message": "workspace:*",
+        "@dimensiondev/workers-frame": "workspace:*",
+        "@dimensiondev/workers-iframe-blocker": "workspace:*",
+        "@dimensiondev/workers-lens": "workspace:*",
+        "@dimensiondev/workers-metadata": "workspace:*",
+        "@dimensiondev/workers-oembed": "workspace:*",
+        "@dimensiondev/workers-og": "workspace:*",
+        "@dimensiondev/workers-proxy-image": "workspace:*",
+        "@dimensiondev/workers-s3": "workspace:*",
+        "@dimensiondev/workers-sizeof": "workspace:*",
+        "@dimensiondev/workers-snap": "workspace:*",
+        "@dimensiondev/workers-snapshot": "workspace:*",
+        "@dimensiondev/workers-tco": "workspace:*",
+        "@dimensiondev/workers-token": "workspace:*",
+        "@dimensiondev/workers-ui-suggested-channels": "workspace:*",
+        "@dimensiondev/workers-unifi-badge-level": "workspace:*",
+        "@dimensiondev/workers-x-identity": "workspace:*",
+        "hono": "^4.12.25"
+    },
+    "devDependencies": {
+        "@cloudflare/workers-types": "^4.20251011.0",
+        "@types/node": "^24.0.15",
+        "@typescript/native-preview": "7.0.0-dev.20260612.1"
+    },
+    "peerDependencies": {
+        "typescript": ">=5.0.0"
+    }
+}

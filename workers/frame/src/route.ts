@@ -22,8 +22,6 @@ import { getGatewayErrorMessage } from '@/frame/src/getGatewayErrorMessage.js';
 
 const VERSION = 1;
 
-const FrameRoute = new Hono<{ Bindings: { FRAME_CACHE: KVNamespace; TCO_CACHE: KVNamespace } }>();
-
 const QuerySchema = z.object({
     link: z.url('Invalid URL format'),
 });
@@ -39,142 +37,141 @@ function getCacheKey(link: string) {
     return `frame:${VERSION}:${encodeURIComponent(link)}`;
 }
 
-FrameRoute.get(
-    '/',
-    zValidator('query', QuerySchema, (result) => {
-        if (!result.success) {
-            return createZodErrorResponseJson(result.error, {
-                status: 400,
-            });
-        }
-    }),
-    (c) =>
-        withErrorHandler(async () => {
-            const { link } = c.req.valid('query');
-            const resolvedLink = await resolveTcoLink(link, c);
-            const linkDigested = await withCache({
-                context: c,
-                ttl: ONE_MONTH,
-                getKey: () => getCacheKey(resolvedLink),
-                getCache: () => c.env.FRAME_CACHE,
-                isValidCache: (result) => !!result.frame,
-                compute: async () => {
-                    const result = await digestDocumentUrl(decodeURIComponent(resolvedLink), c);
-                    if (!result) throw new Error(`Unable to digest frame link = ${resolvedLink}`);
-                    return result;
-                },
-            });
-            return createSuccessResponseJson(linkDigested);
-        }),
-);
-
-FrameRoute.post(
-    '/',
-    zValidator('query', PostQuerySchema, (result) => {
-        if (!result.success) {
-            return createZodErrorResponseJson(result.error, {
-                status: 400,
-            });
-        }
-    }),
-    (c) =>
-        withErrorHandler(async () => {
-            const { action, url, target = null, 'post-url': postUrl } = c.req.valid('query');
-
-            const packet = await c.req.text();
-            const parsedPacket = parseJson<{ untrustedData: { transactionId?: string } }>(packet);
-
-            const response = await fetchWithContext(
-                // if transactionId exists, then we post upon postUrl stead of target
-                parsedPacket?.untrustedData.transactionId ? postUrl || target || url : target || postUrl || url,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: packet,
-
-                    // for post_redirect, we need to handle the redirect manually
-                    redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
-                    context: c,
-                },
-            );
-
-            // workaround: if the server cannot handle the post_redirect action correctly, then redirecting to the frame url
-            if (action === ActionType.PostRedirect && response.status >= 400) {
-                return createSuccessResponseJson({
-                    redirectUrl: url,
+const FrameRoute = new Hono<{ Bindings: { FRAME_CACHE: KVNamespace; TCO_CACHE: KVNamespace } }>()
+    .get(
+        '/',
+        zValidator('query', QuerySchema, (result) => {
+            if (!result.success) {
+                return createZodErrorResponseJson(result.error, {
+                    status: 400,
                 });
             }
-
-            if (response.status < 200 || response.status >= 400) {
-                const text = await response.text();
-                console.error(`[frame] response status: ${response.status}\n%s`, text);
-                return createErrorResponseJson(getFrameErrorMessage(text), { status: 400 });
-            }
-
-            try {
-                switch (action) {
-                    case ActionType.Post:
-                        return createSuccessResponseJson({
-                            frame: await digestDocument(url, await response.text(), c),
-                        });
-                    case ActionType.PostRedirect:
-                        const locationUrl = response.headers.get('Location');
-                        if (response.status >= 300 && response.status < 400) {
-                            if (locationUrl && HttpUrl.safeParse(locationUrl).success)
-                                return createSuccessResponseJson({
-                                    redirectUrl: locationUrl,
-                                });
-                        }
-                        console.error(`Failed to redirect to ${locationUrl}\n%s`, await response.text());
-                        return createErrorResponseJson(
-                            'The frame server cannot handle the post-redirect request correctly.',
-                            {
-                                status: 500,
-                            },
-                        );
-                    case ActionType.Link:
-                        return createErrorResponseJson('Not available', {
-                            status: 400,
-                        });
-                    case ActionType.Mint:
-                        return createErrorResponseJson('Not available', {
-                            status: 400,
-                        });
-                    case ActionType.Transaction: {
-                        if (parsedPacket?.untrustedData.transactionId) {
-                            return createSuccessResponseJson(await digestDocument(url, await response.text(), c));
-                        }
-                        const tx = await response.json();
-                        return createSuccessResponseJson(tx);
-                    }
-                    default:
-                        safeUnreachable(action);
-                        return createErrorResponseJson(`Unknown action: ${action}`, { status: 400 });
-                }
-            } catch (error) {
-                return createErrorResponseJson(getGatewayErrorMessage(error), { status: 500 });
+        }),
+        (c) =>
+            withErrorHandler(async () => {
+                const { link } = c.req.valid('query');
+                const resolvedLink = await resolveTcoLink(link, c);
+                const linkDigested = await withCache({
+                    context: c,
+                    ttl: ONE_MONTH,
+                    getKey: () => getCacheKey(resolvedLink),
+                    getCache: () => c.env.FRAME_CACHE,
+                    isValidCache: (result) => !!result.frame,
+                    compute: async () => {
+                        const result = await digestDocumentUrl(decodeURIComponent(resolvedLink), c);
+                        if (!result) throw new Error(`Unable to digest frame link = ${resolvedLink}`);
+                        return result;
+                    },
+                });
+                return createSuccessResponseJson(linkDigested);
+            }),
+    )
+    .post(
+        '/',
+        zValidator('query', PostQuerySchema, (result) => {
+            if (!result.success) {
+                return createZodErrorResponseJson(result.error, {
+                    status: 400,
+                });
             }
         }),
-);
+        (c) =>
+            withErrorHandler(async () => {
+                const { action, url, target = null, 'post-url': postUrl } = c.req.valid('query');
 
-FrameRoute.delete(
-    '/',
-    zValidator('query', QuerySchema, (result) => {
-        if (!result.success) {
-            return createZodErrorResponseJson(result.error, {
-                status: 400,
-            });
-        }
-    }),
-    async (c) => {
-        const { link } = c.req.valid('query');
-        const resolvedLink = await resolveTcoLink(link, c);
-        const cacheKey = getCacheKey(resolvedLink);
-        await c.env.FRAME_CACHE.delete(cacheKey);
-        return createSuccessResponseJson(null);
-    },
-);
+                const packet = await c.req.text();
+                const parsedPacket = parseJson<{ untrustedData: { transactionId?: string } }>(packet);
+
+                const response = await fetchWithContext(
+                    // if transactionId exists, then we post upon postUrl stead of target
+                    parsedPacket?.untrustedData.transactionId ? postUrl || target || url : target || postUrl || url,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: packet,
+
+                        // for post_redirect, we need to handle the redirect manually
+                        redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
+                        context: c,
+                    },
+                );
+
+                // workaround: if the server cannot handle the post_redirect action correctly, then redirecting to the frame url
+                if (action === ActionType.PostRedirect && response.status >= 400) {
+                    return createSuccessResponseJson({
+                        redirectUrl: url,
+                    });
+                }
+
+                if (response.status < 200 || response.status >= 400) {
+                    const text = await response.text();
+                    console.error(`[frame] response status: ${response.status}\n%s`, text);
+                    return createErrorResponseJson(getFrameErrorMessage(text), { status: 400 });
+                }
+
+                try {
+                    switch (action) {
+                        case ActionType.Post:
+                            return createSuccessResponseJson({
+                                frame: await digestDocument(url, await response.text(), c),
+                            });
+                        case ActionType.PostRedirect:
+                            const locationUrl = response.headers.get('Location');
+                            if (response.status >= 300 && response.status < 400) {
+                                if (locationUrl && HttpUrl.safeParse(locationUrl).success)
+                                    return createSuccessResponseJson({
+                                        redirectUrl: locationUrl,
+                                    });
+                            }
+                            console.error(`Failed to redirect to ${locationUrl}\n%s`, await response.text());
+                            return createErrorResponseJson(
+                                'The frame server cannot handle the post-redirect request correctly.',
+                                {
+                                    status: 500,
+                                },
+                            );
+                        case ActionType.Link:
+                            return createErrorResponseJson('Not available', {
+                                status: 400,
+                            });
+                        case ActionType.Mint:
+                            return createErrorResponseJson('Not available', {
+                                status: 400,
+                            });
+                        case ActionType.Transaction: {
+                            if (parsedPacket?.untrustedData.transactionId) {
+                                return createSuccessResponseJson(await digestDocument(url, await response.text(), c));
+                            }
+                            const tx = await response.json();
+                            return createSuccessResponseJson(tx);
+                        }
+                        default:
+                            safeUnreachable(action);
+                            return createErrorResponseJson(`Unknown action: ${action}`, { status: 400 });
+                    }
+                } catch (error) {
+                    return createErrorResponseJson(getGatewayErrorMessage(error), { status: 500 });
+                }
+            }),
+    )
+    .delete(
+        '/',
+        zValidator('query', QuerySchema, (result) => {
+            if (!result.success) {
+                return createZodErrorResponseJson(result.error, {
+                    status: 400,
+                });
+            }
+        }),
+        async (c) => {
+            const { link } = c.req.valid('query');
+            const resolvedLink = await resolveTcoLink(link, c);
+            const cacheKey = getCacheKey(resolvedLink);
+            await c.env.FRAME_CACHE.delete(cacheKey);
+            return createSuccessResponseJson(null);
+        },
+    );
 
 export { FrameRoute };

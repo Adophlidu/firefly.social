@@ -1,7 +1,7 @@
+import { s3Worker } from '@dimensiondev/workers-client';
 import type { MediaToken } from '@dimensiondev/workers-s3';
 
 import { blobToBase64 } from '@/helpers/blobToBase64.js';
-import { s3Worker } from '@/providers/firefly/worker/clients.js';
 
 export async function uploadToS3ByBase64(file: File, fileKey: string, mediaToken: MediaToken) {
     const res = await s3Worker.s3.upload.upload.$post({

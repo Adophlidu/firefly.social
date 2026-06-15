@@ -1,9 +1,6 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import type { ServerErrorCodes } from '@dimensiondev/enums';
 import { isValidAddressEthereum, isValidDomainEthereum } from '@dimensiondev/web3/utils';
-import urlcat from 'urlcat';
-
-import { Fetch } from '@/lib/Fetch.js';
+import { bskyIdentityWorker, ensWorker } from '@dimensiondev/workers-client';
 
 export type ResponseJson<T> =
     | {
@@ -26,29 +23,25 @@ type ReverseResponse = ResponseJson<{
     domain: string | null;
 }>;
 
-export class FireflyWorkerEndpoint extends Fetch {
+export class FireflyWorkerEndpoint {
     async lookup(domain: string, options?: { signal?: AbortSignal }): Promise<string | null> {
-        const { data } = await this.get<LookupResponse>(urlcat('/ens/lookup', { domain }), {
-            signal: options?.signal,
-        });
+        const res = await ensWorker.ens.lookup.$get({ query: { domain } }, { init: { signal: options?.signal } });
+        const data = (await res.json()) as LookupResponse;
         if (!data.success) return null;
         return data.data.address?.toLowerCase() || null;
     }
 
     async convertBskyHandleToDid(handle: string) {
-        const result = await this.get<ResponseJson<{ did: string }>>(
-            urlcat('/bsky-identity/resolve-handle', {
-                handle,
-            }),
-        );
-        const response = result.data;
+        const res = await bskyIdentityWorker['bsky-identity']['resolve-handle'].$get({ query: { handle } });
+        const response = (await res.json()) as ResponseJson<{ did: string }>;
         if (!response.success) return null;
         return response.data.did;
     }
 
     async reverse(address: string): Promise<string | null> {
         if (!isValidAddressEthereum(address)) return null;
-        const { data } = await this.get<ReverseResponse>(urlcat('/ens/reverse', { address }));
+        const res = await ensWorker.ens.reverse.$get({ query: { address } });
+        const data = (await res.json()) as ReverseResponse;
         if (!data.success) return null;
 
         const domain = data.data.domain;
@@ -61,6 +54,4 @@ export class FireflyWorkerEndpoint extends Fetch {
     }
 }
 
-export const fireflyWorkerEndpoint = new FireflyWorkerEndpoint({
-    baseURL: FIREFLY_WORKER_HOST,
-});
+export const fireflyWorkerEndpoint = new FireflyWorkerEndpoint();

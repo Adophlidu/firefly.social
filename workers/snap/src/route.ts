@@ -16,8 +16,6 @@ import { handleSnapV2 } from '@/snap/src/handlers/handleSnapV2.js';
 
 const VERSION = 1;
 
-const SnapRoute = new Hono<{ Bindings: { SNAP_CACHE: KVNamespace; TCO_CACHE: KVNamespace } }>();
-
 const GetQuerySchema = z.object({
     link: z.url('Invalid URL format'),
 });
@@ -66,52 +64,51 @@ function getCacheKey(link: string) {
 }
 
 // GET /snap?link={url} — fetch & cache snap response
-SnapRoute.get(
-    '/',
-    zValidator('query', GetQuerySchema, (result) => {
-        if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
-    }),
-    (c) =>
-        withErrorHandler(async () => {
-            const { link } = c.req.valid('query');
-
-            const linkDigested = await withCache({
-                context: c,
-                ttl: ONE_HOUR, // snaps are dynamic; cache for 1 hour only
-                getKey: () => getCacheKey(link),
-                getCache: () => c.env.SNAP_CACHE,
-                isValidCache: (result) => !!result.snap,
-                compute: async () => {
-                    const result = await digestSnapUrl(decodeURIComponent(link), c);
-                    if (!result) throw new Error(`Not a snap: ${link}`);
-                    return result;
-                },
-            });
-
-            return createSuccessResponseJson(linkDigested);
+const SnapRoute = new Hono<{ Bindings: { SNAP_CACHE: KVNamespace; TCO_CACHE: KVNamespace } }>()
+    .get(
+        '/',
+        zValidator('query', GetQuerySchema, (result) => {
+            if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
         }),
-);
+        (c) =>
+            withErrorHandler(async () => {
+                const { link } = c.req.valid('query');
 
-SnapRoute.post(
-    '/v1',
-    zValidator('query', PostQuerySchema, (result) => {
-        if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
-    }),
-    zValidator('json', PostBodyV1Schema, (result) => {
-        if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
-    }),
-    (c) => withErrorHandler(async () => handleSnapV1(c)),
-);
+                const linkDigested = await withCache({
+                    context: c,
+                    ttl: ONE_HOUR, // snaps are dynamic; cache for 1 hour only
+                    getKey: () => getCacheKey(link),
+                    getCache: () => c.env.SNAP_CACHE,
+                    isValidCache: (result) => !!result.snap,
+                    compute: async () => {
+                        const result = await digestSnapUrl(decodeURIComponent(link), c);
+                        if (!result) throw new Error(`Not a snap: ${link}`);
+                        return result;
+                    },
+                });
 
-SnapRoute.post(
-    '/v2',
-    zValidator('query', PostQuerySchema, (result) => {
-        if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
-    }),
-    zValidator('json', PostBodyV2Schema, (result) => {
-        if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
-    }),
-    (c) => withErrorHandler(async () => handleSnapV2(c)),
-);
+                return createSuccessResponseJson(linkDigested);
+            }),
+    )
+    .post(
+        '/v1',
+        zValidator('query', PostQuerySchema, (result) => {
+            if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
+        }),
+        zValidator('json', PostBodyV1Schema, (result) => {
+            if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
+        }),
+        (c) => withErrorHandler(async () => handleSnapV1(c)),
+    )
+    .post(
+        '/v2',
+        zValidator('query', PostQuerySchema, (result) => {
+            if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
+        }),
+        zValidator('json', PostBodyV2Schema, (result) => {
+            if (!result.success) return createZodErrorResponseJson(result.error, { status: 400 });
+        }),
+        (c) => withErrorHandler(async () => handleSnapV2(c)),
+    );
 
 export { SnapRoute };

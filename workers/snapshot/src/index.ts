@@ -4,12 +4,8 @@ import { prettyJSON } from 'hono/pretty-json';
 
 import { SnapshotRoute } from '@/snapshot/src/route.js';
 
-const app = new Hono();
-
-app.use(prettyJSON());
-app.use(withCors());
-
-app.route('/snapshot', SnapshotRoute);
+const app = new Hono().use(prettyJSON()).use(withCors()).route('/snapshot', SnapshotRoute);
 
 export default app;
 export type AppType = typeof app;
+export type * from './types.js';

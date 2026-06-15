@@ -1,8 +1,8 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { ogWorker } from '@dimensiondev/workers-client';
 import { uniq } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { ogWorker } from '@/providers/firefly/worker/clients.js';
 
 export async function prefetchPostLinks(urlGroups: string[][]) {
     return runInSafeAsync(async () => {

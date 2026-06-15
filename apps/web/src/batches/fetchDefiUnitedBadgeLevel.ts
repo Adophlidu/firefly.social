@@ -1,10 +1,8 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { DefiUnitedTier, Source } from '@dimensiondev/enums';
 import { createBatcher } from '@dimensiondev/utils';
-import urlcat from 'urlcat';
+import { unifiBadgeLevelWorker } from '@dimensiondev/workers-client';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { ResponseJson } from '@/types/utility.js';
 
@@ -54,19 +52,17 @@ function toDefiUnitedTier(level: number): DefiUnitedTier | null {
 async function fetcher(payloads: BadgeLevelQuery[]): Promise<Record<string, DefiUnitedBadgeInfo | null>> {
     if (payloads.length === 0) return {};
 
-    const response = await fetchJson<
-        ResponseJson<{
-            results: BadgeLevelResult[];
-        }>
-    >(urlcat(FIREFLY_WORKER_HOST, '/unifi-badge-level'), {
-        method: 'POST',
-        body: JSON.stringify({
+    const res = await unifiBadgeLevelWorker['unifi-badge-level'].$post({
+        json: {
             queries: payloads.map((payload) => ({
                 platform: payload.platform,
                 id: normalizeQueryId(payload.platform, payload.id),
             })),
-        }),
+        },
     });
+    const response = (await res.json()) as ResponseJson<{
+        results: BadgeLevelResult[];
+    }>;
 
     const data = resolveResponseData(response);
     if (!data.results.length) return {};

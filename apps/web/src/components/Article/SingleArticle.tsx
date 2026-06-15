@@ -1,11 +1,10 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
+import { oembedWorker } from '@dimensiondev/workers-client';
 import { useQuery } from '@tanstack/react-query';
 import { first, isUndefined } from 'lodash-es';
 import { memo, useCallback, useRef } from 'react';
 import { useMount } from 'react-use';
-import urlcat from 'urlcat';
 import { useHover } from 'usehooks-ts';
 
 import { ActivityCellArticleAction } from '@/components/ActivityCell/Article/ActivityCellArticleAction.js';
@@ -17,7 +16,6 @@ import { ShareButtonWithAnimationContext } from '@/components/Posts/ShareButton.
 import { queryClient } from '@/configs/queryClient.js';
 import { useRouter } from '@/esm/navigation.js';
 import { extractFirstImageFromHtml } from '@/helpers/extractFirstImageFromHtml.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { captureArticleClickEvent } from '@/providers/telemetry/captureClickEvent.js';
@@ -50,11 +48,8 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         queryFn: async () => {
             if (article.coverUrl) return article.coverUrl;
             if (article.platform === ArticlePlatform.Mirror && article.origin) {
-                const payload = await fetchJson<ResponseJson<LinkDigested>>(
-                    urlcat(FIREFLY_WORKER_HOST, '/oembed', {
-                        link: article.origin,
-                    }),
-                );
+                const res = await oembedWorker.oembed.$get({ query: { link: article.origin } });
+                const payload = (await res.json()) as ResponseJson<LinkDigested>;
                 if (payload.success && payload.data.payload?.type === PayloadType.Mirror) {
                     return payload.data.payload.cover;
                 }

@@ -4,12 +4,7 @@ import { prettyJSON } from 'hono/pretty-json';
 
 import { SizeofRoute } from '@/sizeof/src/route.js';
 
-const app = new Hono();
-
-app.use(prettyJSON());
-app.use(withCors());
-
-app.route('/sizeof', SizeofRoute);
+const app = new Hono().use(prettyJSON()).use(withCors()).route('/sizeof', SizeofRoute);
 
 export default app;
 export type AppType = typeof app;

@@ -1,4 +1,3 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import {
     createIndicator,
@@ -7,8 +6,9 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
+import { lensWorker } from '@dimensiondev/workers-client';
+import type { TrendingClubsResponse } from '@dimensiondev/workers-lens';
 import { compact } from 'lodash-es';
-import urlcat from 'urlcat';
 
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -17,32 +17,16 @@ import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import type { ResponseJson } from '@/types/utility.js';
 
-interface TrendingClubsResponse {
-    clubs: Array<{
-        id: string;
-        name: string;
-        description: string;
-        imageUrl: string;
-        followerCount: number;
-        timestamp: number;
-        ownerId?: string;
-    }>;
-    pageInfo?: {
-        hasMore?: boolean;
-        next?: string | null;
-    };
-}
-
 export async function discoverLensChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
     const skip = indicator?.id ? Number.parseInt(indicator.id, 10) || 0 : 0;
     const limit = 20;
 
     // Use the new firefly-workers endpoint that aggregates Orb + Lens data
-    const url = urlcat(FIREFLY_WORKER_HOST, '/lens/trending-clubs', {
-        category: 'TRENDING_CLUBS',
-        skip,
-        limit,
-    });
+    const url = lensWorker.lens['trending-clubs']
+        .$url({
+            query: { category: 'TRENDING_CLUBS', skip: String(skip), limit: String(limit) },
+        })
+        .toString();
     const response = await fireflySessionHolder.fetch<ResponseJson<TrendingClubsResponse>>(url);
     const data = resolveResponseData(response, 'Failed to fetch trending clubs');
 

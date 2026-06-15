@@ -1,6 +1,5 @@
+import { tokenWorker } from '@dimensiondev/workers-client';
 import type { CoinGeckoToken, GetTokenOptions } from '@dimensiondev/workers-token';
-
-import { tokenWorker } from '@/providers/firefly/worker/clients.js';
 
 export async function searchToken(options: GetTokenOptions): Promise<CoinGeckoToken | null> {
     const res = await tokenWorker.token.search.$get({

@@ -25,9 +25,7 @@ const BatchBodySchema = z.object({
         .max(MAX_BATCH_SIZE, `At most ${MAX_BATCH_SIZE} queries are allowed`),
 });
 
-const UnifiBadgeLevelRoute = new Hono<{ Bindings: { UNIFI_BADGE_LEVEL_CACHE: KVNamespace } }>();
-
-UnifiBadgeLevelRoute.post(
+const UnifiBadgeLevelRoute = new Hono<{ Bindings: { UNIFI_BADGE_LEVEL_CACHE: KVNamespace } }>().post(
     '/',
     zValidator('json', BatchBodySchema, (result) => {
         if (!result.success) {

@@ -1,9 +1,7 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
+import { snapshotWorker } from '@dimensiondev/workers-client';
 import { isNumber } from 'lodash-es';
-import urlcat from 'urlcat';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
 import type { ResponseJson } from '@/types/utility.js';
@@ -17,13 +15,10 @@ export async function getVotesById(id: string, indicator?: PageIndicator) {
     const size = indicator?.size ?? 20;
     const skip = Number(indicator?.id ?? 0);
 
-    const response = await fetchJson<ResponseJson<WorkerVotesResponse>>(
-        urlcat(FIREFLY_WORKER_HOST, '/snapshot/votes', {
-            id,
-            skip,
-            first: size,
-        }),
-    );
+    const res = await snapshotWorker.snapshot.votes.$get({
+        query: { id, skip: String(skip), first: String(size) },
+    });
+    const response = (await res.json()) as ResponseJson<WorkerVotesResponse>;
 
     const { votes, nextSkip } = resolveResponseData(response);
 

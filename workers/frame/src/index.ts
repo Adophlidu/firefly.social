@@ -4,12 +4,8 @@ import { prettyJSON } from 'hono/pretty-json';
 
 import { FrameRoute } from '@/frame/src/route.js';
 
-const app = new Hono();
-
-app.use(prettyJSON());
-app.use(withCors());
-
-app.route('/frame', FrameRoute);
+const app = new Hono().use(prettyJSON()).use(withCors()).route('/frame', FrameRoute);
 
 export default app;
 export type AppType = typeof app;
+export type * from './types.js';

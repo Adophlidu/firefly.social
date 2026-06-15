@@ -1,7 +1,6 @@
 import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
+import { s3Worker } from '@dimensiondev/workers-client';
 import type { MediaToken } from '@dimensiondev/workers-s3';
-
-import { s3Worker } from '@/providers/firefly/worker/clients.js';
 
 async function initUpload(options: { fileKey: string; contentType: string; mediaToken: MediaToken }) {
     const res = await s3Worker.s3['upload-chunk'].initiate.$post({ json: options });

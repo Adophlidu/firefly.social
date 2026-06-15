@@ -10,15 +10,13 @@ import { z } from 'zod';
 import type { MessageDataPatch } from '@/farcaster-message/src/encodeMessageData.js';
 import { encodeMessageData } from '@/farcaster-message/src/encodeMessageData.js';
 
-const FarcasterMessageRoute = new Hono();
-
 const EncodeSchema = z.object({
     token: z.string(),
     profileId: z.string(),
     data: z.unknown(),
 });
 
-FarcasterMessageRoute.post(
+const FarcasterMessageRoute = new Hono().post(
     '/encode',
     zValidator('json', EncodeSchema, (result) => {
         if (!result.success) {

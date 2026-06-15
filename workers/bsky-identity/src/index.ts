@@ -4,12 +4,7 @@ import { prettyJSON } from 'hono/pretty-json';
 
 import { BskyIdentityRoute } from '@/bsky-identity/src/route.js';
 
-const app = new Hono();
-
-app.use(prettyJSON());
-app.use(withCors());
-
-app.route('/bsky-identity', BskyIdentityRoute);
+const app = new Hono().use(prettyJSON()).use(withCors()).route('/bsky-identity', BskyIdentityRoute);
 
 export default app;
 export type AppType = typeof app;

@@ -1,8 +1,6 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { isValidAddressEthereum, isValidDomainEthereum } from '@dimensiondev/web3/utils';
-import urlcat from 'urlcat';
+import { ensWorker } from '@dimensiondev/workers-client';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 type LookupResponse = ResponseJson<{
@@ -14,7 +12,8 @@ type ReverseResponse = ResponseJson<{
 }>;
 
 export async function lookup(domain: string): Promise<string | null> {
-    const response = await fetchJson<LookupResponse>(urlcat(FIREFLY_WORKER_HOST, '/ens/lookup', { domain }));
+    const res = await ensWorker.ens.lookup.$get({ query: { domain } });
+    const response = (await res.json()) as LookupResponse;
     if (!response.success) return null;
     return response.data.address?.toLowerCase() || null;
 }
@@ -22,7 +21,8 @@ export async function lookup(domain: string): Promise<string | null> {
 export async function reverse(address: string): Promise<string | null> {
     if (!isValidAddressEthereum(address)) return null;
 
-    const response = await fetchJson<ReverseResponse>(urlcat(FIREFLY_WORKER_HOST, '/ens/reverse', { address }));
+    const res = await ensWorker.ens.reverse.$get({ query: { address } });
+    const response = (await res.json()) as ReverseResponse;
     if (!response.success) return null;
 
     const domain = response.data.domain;

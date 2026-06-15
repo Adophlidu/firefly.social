@@ -1,4 +1,4 @@
-import { iframeBlockerWorker } from '@/providers/firefly/worker/clients.js';
+import { iframeBlockerWorker } from '@dimensiondev/workers-client';
 
 export async function checkMiniAppBlocking(link: string, signal?: AbortSignal) {
     const res = await iframeBlockerWorker['iframe-blocker'].check.$get({ query: { link } }, { init: { signal } });

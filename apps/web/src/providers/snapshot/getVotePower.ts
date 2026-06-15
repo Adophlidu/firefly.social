@@ -1,7 +1,5 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
-import urlcat from 'urlcat';
+import { snapshotWorker } from '@dimensiondev/workers-client';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { SnapshotStrategy } from '@/providers/snapshot/type.js';
 import type { ResponseJson } from '@/types/utility.js';
@@ -20,16 +18,17 @@ export async function getVotePower(
     space: string,
     delegation: boolean,
 ) {
-    const response = await fetchJson<ResponseJson<VotePowerResult>>(
-        urlcat(FIREFLY_WORKER_HOST, '/snapshot/vote-power', {
+    const res = await snapshotWorker.snapshot['vote-power'].$get({
+        query: {
             address,
             network,
             strategies: JSON.stringify(strategies),
-            snapshot,
+            snapshot: String(snapshot),
             space,
-            delegation,
-        }),
-    );
+            delegation: String(delegation),
+        },
+    });
+    const response = (await res.json()) as ResponseJson<VotePowerResult>;
 
     return resolveResponseData(response);
 }

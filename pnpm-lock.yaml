@@ -187,6 +187,9 @@ importers:
       '@dimensiondev/web3':
         specifier: workspace:^
         version: link:../../packages/web3
+      '@dimensiondev/workers-client':
+        specifier: workspace:^
+        version: link:../../workers/client
       '@nktkas/hyperliquid':
         specifier: ^0.32.2
         version: 0.32.2(typescript@5.9.3)
@@ -587,6 +590,9 @@ importers:
       '@dimensiondev/web3':
         specifier: workspace:^
         version: link:../../packages/web3
+      '@dimensiondev/workers-client':
+        specifier: workspace:*
+        version: link:../../workers/client
       '@farcaster/core':
         specifier: ^0.18.11
         version: 0.18.11(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@3.25.76)
@@ -867,9 +873,15 @@ importers:
       '@dimensiondev/tolgee':
         specifier: workspace:^
         version: link:../../packages/tolgee
+      '@dimensiondev/workers-frame':
+        specifier: workspace:*
+        version: link:../../workers/frame
       '@dimensiondev/workers-iframe-blocker':
         specifier: workspace:*
         version: link:../../workers/iframe-blocker
+      '@dimensiondev/workers-lens':
+        specifier: workspace:*
+        version: link:../../workers/lens
       '@dimensiondev/workers-metadata':
         specifier: workspace:*
         version: link:../../workers/metadata
@@ -888,6 +900,9 @@ importers:
       '@dimensiondev/workers-snap':
         specifier: workspace:*
         version: link:../../workers/snap
+      '@dimensiondev/workers-snapshot':
+        specifier: workspace:*
+        version: link:../../workers/snapshot
       '@dimensiondev/workers-token':
         specifier: workspace:*
         version: link:../../workers/token
@@ -1355,6 +1370,85 @@ importers:
       wrangler:
         specifier: '>=4.59.1'
         version: 4.100.0(@cloudflare/workers-types@4.20260613.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+
+  workers/client:
+    dependencies:
+      '@dimensiondev/constants':
+        specifier: workspace:^
+        version: link:../../packages/constants
+      '@dimensiondev/workers-bsky-identity':
+        specifier: workspace:*
+        version: link:../bsky-identity
+      '@dimensiondev/workers-ens':
+        specifier: workspace:*
+        version: link:../ens
+      '@dimensiondev/workers-farcaster-message':
+        specifier: workspace:*
+        version: link:../farcaster-message
+      '@dimensiondev/workers-frame':
+        specifier: workspace:*
+        version: link:../frame
+      '@dimensiondev/workers-iframe-blocker':
+        specifier: workspace:*
+        version: link:../iframe-blocker
+      '@dimensiondev/workers-lens':
+        specifier: workspace:*
+        version: link:../lens
+      '@dimensiondev/workers-metadata':
+        specifier: workspace:*
+        version: link:../metadata
+      '@dimensiondev/workers-oembed':
+        specifier: workspace:*
+        version: link:../oembed
+      '@dimensiondev/workers-og':
+        specifier: workspace:*
+        version: link:../og
+      '@dimensiondev/workers-proxy-image':
+        specifier: workspace:*
+        version: link:../proxy-image
+      '@dimensiondev/workers-s3':
+        specifier: workspace:*
+        version: link:../s3
+      '@dimensiondev/workers-sizeof':
+        specifier: workspace:*
+        version: link:../sizeof
+      '@dimensiondev/workers-snap':
+        specifier: workspace:*
+        version: link:../snap
+      '@dimensiondev/workers-snapshot':
+        specifier: workspace:*
+        version: link:../snapshot
+      '@dimensiondev/workers-tco':
+        specifier: workspace:*
+        version: link:../tco
+      '@dimensiondev/workers-token':
+        specifier: workspace:*
+        version: link:../token
+      '@dimensiondev/workers-ui-suggested-channels':
+        specifier: workspace:*
+        version: link:../ui-suggested-channels
+      '@dimensiondev/workers-unifi-badge-level':
+        specifier: workspace:*
+        version: link:../unifi-badge-level
+      '@dimensiondev/workers-x-identity':
+        specifier: workspace:*
+        version: link:../x-identity
+      hono:
+        specifier: ^4.12.25
+        version: 4.12.25
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20251011.0
+        version: 4.20260613.1
+      '@types/node':
+        specifier: 22.19.20
+        version: 22.19.20
+      '@typescript/native-preview':
+        specifier: 7.0.0-dev.20260612.1
+        version: 7.0.0-dev.20260612.1
 
   workers/ens:
     dependencies:

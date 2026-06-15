@@ -1,16 +1,11 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
+import { sizeofWorker } from '@dimensiondev/workers-client';
 import type { ImageDigested } from '@dimensiondev/workers-sizeof';
-import urlcat from 'urlcat';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 export async function getImageMetaFromUrl(url: string): Promise<ImageDigested | null> {
-    const response = await fetchJson<ResponseJson<ImageDigested>>(
-        urlcat(FIREFLY_WORKER_HOST, '/sizeof', {
-            link: url,
-        }),
-    );
+    const res = await sizeofWorker.sizeof.$get({ query: { link: url } });
+    const response = (await res.json()) as ResponseJson<ImageDigested>;
     if (!response.success) return null;
     return response.data;
 }

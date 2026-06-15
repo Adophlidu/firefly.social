@@ -1,9 +1,9 @@
 import { SourceInURL } from '@dimensiondev/enums';
+import { metadataWorker } from '@dimensiondev/workers-client';
 import type { Metadata } from 'next';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { metadataWorker } from '@/providers/firefly/worker/clients.js';
 import { settings } from '@/settings/index.js';
 
 export async function createFireflyArticleMetadata(

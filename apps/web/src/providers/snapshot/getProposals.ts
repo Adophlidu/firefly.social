@@ -1,7 +1,5 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
-import urlcat from 'urlcat';
+import { snapshotWorker } from '@dimensiondev/workers-client';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { ResponseJson } from '@/types/utility.js';
@@ -9,11 +7,10 @@ import type { ResponseJson } from '@/types/utility.js';
 export async function getProposals(ids: string[]) {
     if (!ids.length) return [];
 
-    const response = await fetchJson<ResponseJson<SnapshotProposal[]>>(
-        urlcat(FIREFLY_WORKER_HOST, '/snapshot/proposals', {
-            ids: ids.join(','),
-        }),
-    );
+    const res = await snapshotWorker.snapshot.proposals.$get({
+        query: { ids: ids.join(',') },
+    });
+    const json = (await res.json()) as ResponseJson<SnapshotProposal[]>;
 
-    return resolveResponseData(response);
+    return resolveResponseData(json);
 }

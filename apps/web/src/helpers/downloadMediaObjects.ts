@@ -1,6 +1,5 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { MediaSource } from '@dimensiondev/enums';
-import urlcat from 'urlcat';
+import { proxyImageWorker } from '@dimensiondev/workers-client';
 
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import type { MediaObject } from '@/types/compose.js';
@@ -16,8 +15,7 @@ async function downloadUrl(url: string, name: string) {
 }
 
 export async function downloadUrlWithProxy(url: string, name: string) {
-    const proxyUrl = urlcat(FIREFLY_WORKER_HOST, '/proxy-image', { url });
-    const response = await fetch(proxyUrl);
+    const response = await proxyImageWorker['proxy-image'].$get({ query: { url } });
     if (!response.ok) {
         throw new Error(`Failed to download file from ${url}: ${response.statusText}`);
     }

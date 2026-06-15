@@ -1,14 +1,13 @@
 'use client';
 
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import type { SocialSource } from '@dimensiondev/enums';
 import { ActionType, SessionType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { isValidAddressEthereum, parseCAIP10 } from '@dimensiondev/web3/utils';
+import { frameWorker } from '@dimensiondev/workers-client';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import urlcat from 'urlcat';
 import { encodePacked, type Hex, type SignTypedDataParameters } from 'viem';
 import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
@@ -18,7 +17,6 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { openAndWaitForCloseConfirmLeavingModal } from '@/controllers/openConfirmLeavingModal.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage, getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
@@ -110,16 +108,18 @@ async function getNextFrame(
             enqueueErrorMessage(<Trans>Failed to generate signature packet with source = {source}.</Trans>);
             throw new Error('Failed to generate signature packet.');
         }
-        const url = urlcat(FIREFLY_WORKER_HOST, '/frame', {
-            url: frame.url,
-            action: button.action,
-            target: button.target,
-            'post-url': button.postUrl || frame.postUrl,
-        });
-        return fetchJson<ResponseJson<T>>(url, {
-            method: 'POST',
-            body: JSON.stringify(packet),
-        });
+        const res = await frameWorker.frame.$post(
+            {
+                query: {
+                    url: frame.url,
+                    action: button.action,
+                    target: button.target ?? undefined,
+                    'post-url': button.postUrl || frame.postUrl,
+                },
+            },
+            { init: { body: JSON.stringify(packet), headers: { 'Content-Type': 'application/json' } } },
+        );
+        return (await res.json()) as ResponseJson<T>;
     }
 
     const address = getAccount(wagmiConfig)?.address;

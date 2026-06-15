@@ -4,7 +4,7 @@ import { getClassifyPostLinks } from '@/providers/firefly/worker/getClassifyPost
 
 const { ogGet } = vi.hoisted(() => ({ ogGet: vi.fn() }));
 
-vi.mock('@/providers/firefly/worker/clients.js', () => ({
+vi.mock('@dimensiondev/workers-client', () => ({
     ogWorker: {
         og: {
             urls: {

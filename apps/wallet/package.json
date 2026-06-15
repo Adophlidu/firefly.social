@@ -37,6 +37,7 @@
         "@dimensiondev/types": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
         "@dimensiondev/web3": "workspace:^",
+        "@dimensiondev/workers-client": "workspace:^",
         "@nktkas/hyperliquid": "^0.32.2",
         "@radix-ui/react-dialog": "^1.1.16",
         "@radix-ui/react-select": "^2.2.6",

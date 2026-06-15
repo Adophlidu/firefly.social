@@ -14,8 +14,6 @@ import { digestImageUrl } from '@/sizeof/src/digestImageUrl.js';
 
 const VERSION = 1;
 
-const SizeofRoute = new Hono<{ Bindings: { SIZEOF_CACHE: KVNamespace; TCO_CACHE: KVNamespace } }>();
-
 const QuerySchema = z.object({
     link: z.url('Invalid URL format'),
 });
@@ -24,7 +22,7 @@ function getCacheKey(link: string) {
     return `sizeof:${VERSION}:${encodeURIComponent(link)}`;
 }
 
-SizeofRoute.get(
+const SizeofRoute = new Hono<{ Bindings: { SIZEOF_CACHE: KVNamespace; TCO_CACHE: KVNamespace } }>().get(
     '/',
     zValidator('query', QuerySchema, (result) => {
         if (!result.success) {

@@ -13,8 +13,6 @@ import { resolveLink } from '@/tco/src/resolveLink.js';
 
 const VERSION = 1;
 
-const TcoRoute = new Hono<{ Bindings: { TCO_CACHE: KVNamespace } }>();
-
 const QuerySchema = z.object({
     link: z.url('Invalid URL format'),
 });
@@ -23,7 +21,7 @@ function getCacheKey(link: string) {
     return `tco:${VERSION}:${encodeURIComponent(link)}`;
 }
 
-TcoRoute.get(
+const TcoRoute = new Hono<{ Bindings: { TCO_CACHE: KVNamespace } }>().get(
     '/',
     zValidator('query', QuerySchema, (result) => {
         if (!result.success) {

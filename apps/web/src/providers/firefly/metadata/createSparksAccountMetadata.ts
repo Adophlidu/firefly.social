@@ -1,10 +1,10 @@
 import { SITE_URL } from '@dimensiondev/envs/web';
+import { metadataWorker } from '@dimensiondev/workers-client';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { metadataWorker } from '@/providers/firefly/worker/clients.js';
 import { settings } from '@/settings/index.js';
 
 export async function createSparksAccountMetadata(accountId: string, pathname: string): Promise<Metadata> {

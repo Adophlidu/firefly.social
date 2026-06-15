@@ -16,8 +16,6 @@ import { resolveIdentity } from '@/bsky-identity/src/resolveIdentity.js';
 
 const VERSION = 1;
 
-const BskyIdentityRoute = new Hono<{ Bindings: { BSKY_CACHE: KVNamespace; KV: KVNamespace } }>();
-
 function getCacheKey(identifier: string) {
     return `bsky:${VERSION}:${encodeURIComponent(identifier)}`;
 }
@@ -40,66 +38,66 @@ const ResolveDidSchema = z.object({
     did: z.string().min(1, 'Missing DID').max(255, 'DID too long'),
 });
 
-BskyIdentityRoute.get(
-    '/resolve-handle',
-    zValidator('query', ResolveHandleSchema, (result) => {
-        if (!result.success) {
-            return createZodErrorResponseJson(result.error, {
-                status: 400,
-            });
-        }
-    }),
-    async (c) =>
-        withErrorHandler(async () => {
-            const { handle } = c.req.valid('query');
-            const result = await withCache({
-                context: c,
-                ttl: ONE_MONTH,
-                getKey: () => getCacheKey(handle),
-                getCache: () => c.env.BSKY_CACHE,
-                setCache: async (result, ttl) => {
-                    const { did, handle } = result;
-                    await cacheBskyPair(c, did, handle, ttl);
-                },
-                compute: async () => {
-                    const did = await resolveHandle(handle, c);
-                    if (!did) throw new RecognizableError(`Unable to resolve handle = ${handle}`);
-                    return { did, handle };
-                },
-            });
-            return createSuccessResponseJson(result);
+const BskyIdentityRoute = new Hono<{ Bindings: { BSKY_CACHE: KVNamespace; KV: KVNamespace } }>()
+    .get(
+        '/resolve-handle',
+        zValidator('query', ResolveHandleSchema, (result) => {
+            if (!result.success) {
+                return createZodErrorResponseJson(result.error, {
+                    status: 400,
+                });
+            }
         }),
-);
-
-BskyIdentityRoute.get(
-    '/resolve-did',
-    zValidator('query', ResolveDidSchema, (result) => {
-        if (!result.success) {
-            return createZodErrorResponseJson(result.error, {
-                status: 400,
-            });
-        }
-    }),
-    async (c) =>
-        withErrorHandler(async () => {
-            const { did } = c.req.valid('query');
-            const result = await withCache({
-                context: c,
-                ttl: ONE_MONTH,
-                getKey: () => getCacheKey(did),
-                getCache: () => c.env.BSKY_CACHE,
-                setCache: async (result, ttl) => {
-                    const { did, handle } = result;
-                    await cacheBskyPair(c, did, handle, ttl);
-                },
-                compute: async () => {
-                    const handle = await resolveIdentity(did, c);
-                    if (!handle) throw new RecognizableError(`Unable to resolve DID = ${did}`);
-                    return { did, handle };
-                },
-            });
-            return createSuccessResponseJson(result);
+        async (c) =>
+            withErrorHandler(async () => {
+                const { handle } = c.req.valid('query');
+                const result = await withCache({
+                    context: c,
+                    ttl: ONE_MONTH,
+                    getKey: () => getCacheKey(handle),
+                    getCache: () => c.env.BSKY_CACHE,
+                    setCache: async (result, ttl) => {
+                        const { did, handle } = result;
+                        await cacheBskyPair(c, did, handle, ttl);
+                    },
+                    compute: async () => {
+                        const did = await resolveHandle(handle, c);
+                        if (!did) throw new RecognizableError(`Unable to resolve handle = ${handle}`);
+                        return { did, handle };
+                    },
+                });
+                return createSuccessResponseJson(result);
+            }),
+    )
+    .get(
+        '/resolve-did',
+        zValidator('query', ResolveDidSchema, (result) => {
+            if (!result.success) {
+                return createZodErrorResponseJson(result.error, {
+                    status: 400,
+                });
+            }
         }),
-);
+        async (c) =>
+            withErrorHandler(async () => {
+                const { did } = c.req.valid('query');
+                const result = await withCache({
+                    context: c,
+                    ttl: ONE_MONTH,
+                    getKey: () => getCacheKey(did),
+                    getCache: () => c.env.BSKY_CACHE,
+                    setCache: async (result, ttl) => {
+                        const { did, handle } = result;
+                        await cacheBskyPair(c, did, handle, ttl);
+                    },
+                    compute: async () => {
+                        const handle = await resolveIdentity(did, c);
+                        if (!handle) throw new RecognizableError(`Unable to resolve DID = ${did}`);
+                        return { did, handle };
+                    },
+                });
+                return createSuccessResponseJson(result);
+            }),
+    );
 
 export { BskyIdentityRoute };

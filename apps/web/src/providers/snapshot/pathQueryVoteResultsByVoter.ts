@@ -1,8 +1,6 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
-import urlcat from 'urlcat';
+import { snapshotWorker } from '@dimensiondev/workers-client';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { SnapshotVotes } from '@/providers/snapshot/type.js';
 import type { ResponseJson } from '@/types/utility.js';
@@ -18,14 +16,10 @@ export async function pathQueryVoteResultsByVoter(ids: string[], voter: string, 
     const size = indicator?.size ?? 20;
     const skip = Number(indicator?.id ?? 0);
 
-    const response = await fetchJson<ResponseJson<WorkerVoteResultsResponse>>(
-        urlcat(FIREFLY_WORKER_HOST, '/snapshot/vote-results', {
-            ids: ids.join(','),
-            voter,
-            skip,
-            first: size,
-        }),
-    );
+    const res = await snapshotWorker.snapshot['vote-results'].$get({
+        query: { ids: ids.join(','), voter, skip: String(skip), first: String(size) },
+    });
+    const response = (await res.json()) as ResponseJson<WorkerVoteResultsResponse>;
 
     const { votes, nextSkip } = resolveResponseData(response);
 

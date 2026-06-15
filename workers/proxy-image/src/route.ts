@@ -6,13 +6,11 @@ import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
-const ProxyImageRoute = new Hono();
-
 const Schema = z.object({
     url: HttpUrl,
 });
 
-ProxyImageRoute.get(
+const ProxyImageRoute = new Hono().get(
     '/',
     zValidator('query', Schema, (result) => {
         if (!result.success) {

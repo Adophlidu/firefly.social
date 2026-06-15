@@ -1,7 +1,7 @@
+import { uiSuggestedChannelsWorker } from '@dimensiondev/workers-client';
 import type { SuggestedChannel } from '@dimensiondev/workers-ui-suggested-channels';
 
 import { formatSuggestedChannel } from '@/helpers/formatSuggestedChannel.js';
-import { uiSuggestedChannelsWorker } from '@/providers/firefly/worker/clients.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 

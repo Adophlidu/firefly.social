@@ -1,10 +1,10 @@
 import { isSameUrl } from '@dimensiondev/utils';
+import { ogWorker } from '@dimensiondev/workers-client';
 import type { ClassifiedLinkResult } from '@dimensiondev/workers-og';
 import type { Snap } from '@dimensiondev/workers-snap';
 import { uniqWith } from 'lodash-es';
 
 import { addSharerParam, getSharerParam, removeSharerParam } from '@/helpers/sharerUrl.js';
-import { ogWorker } from '@/providers/firefly/worker/clients.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';

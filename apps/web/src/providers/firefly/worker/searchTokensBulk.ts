@@ -1,6 +1,5 @@
+import { tokenWorker } from '@dimensiondev/workers-client';
 import type { TokenWithMarket } from '@dimensiondev/workers-token';
-
-import { tokenWorker } from '@/providers/firefly/worker/clients.js';
 
 export async function searchTokensBulk(searchKeyword: string, fuzzy?: boolean): Promise<TokenWithMarket[]> {
     const res = await tokenWorker.token['search-bulk'].$get({

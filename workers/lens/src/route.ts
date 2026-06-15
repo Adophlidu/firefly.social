@@ -21,8 +21,6 @@ interface Env {
 
 const VERSION = 1;
 
-const LensTrendingClubsRoute = new Hono<{ Bindings: Env }>();
-
 const QuerySchema = z.object({
     category: z.string().optional().default('TRENDING_CLUBS'),
     skip: z
@@ -87,7 +85,7 @@ function formatChannelFromOrb(club: OrbClub, ownerId?: string): ChannelWithOwner
     };
 }
 
-LensTrendingClubsRoute.get(
+const LensTrendingClubsRoute = new Hono<{ Bindings: Env }>().get(
     '/trending-clubs',
     zValidator('query', QuerySchema, (result) => {
         if (!result.success) {

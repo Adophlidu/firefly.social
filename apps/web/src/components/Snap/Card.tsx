@@ -1,7 +1,7 @@
 'use client';
 
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { SocialProfileCategory, Source } from '@dimensiondev/enums';
+import { snapWorker } from '@dimensiondev/workers-client';
 import type {
     Snap,
     SnapAction,
@@ -226,14 +226,12 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                                       button_index: getSubmitButtonIndex(snap, elementId),
                                   };
 
-                        const url = urlcat(
-                            FIREFLY_WORKER_HOST,
-                            snap.version === '2.0' ? '/fc-snap/v2' : '/fc-snap/v1',
-                            {
-                                url: snap.url,
-                                target: action.params.target,
-                            },
-                        );
+                        const query = { url: snap.url, target: action.params.target };
+                        const url = (
+                            snap.version === '2.0'
+                                ? snapWorker['fc-snap'].v2.$url({ query })
+                                : snapWorker['fc-snap'].v1.$url({ query })
+                        ).toString();
 
                         const response = await fetchJson<ResponseJson<SnapDigestedResponse>>(url, {
                             method: 'POST',
@@ -266,8 +264,8 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
 
                     case 'open_snap': {
                         setLoading(true);
-                        const snapUrl = urlcat(FIREFLY_WORKER_HOST, '/fc-snap', { link: action.params.target });
-                        const response = await fetchJson<ResponseJson<SnapDigestedResponse>>(snapUrl);
+                        const res = await snapWorker['fc-snap'].$get({ query: { link: action.params.target } });
+                        const response = (await res.json()) as ResponseJson<SnapDigestedResponse>;
                         if (response.success && response.data.snap) {
                             const validationError = validateSnapStructure(response.data.snap);
                             if (validationError) {

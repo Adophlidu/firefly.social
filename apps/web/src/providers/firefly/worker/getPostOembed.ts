@@ -2,10 +2,10 @@ import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { parseUrl } from '@dimensiondev/utils';
 import { isValidDomainEthereum } from '@dimensiondev/web3/utils';
+import { oembedWorker } from '@dimensiondev/workers-client';
 import type { LinkDigested } from '@dimensiondev/workers-oembed';
 
 import { removeSharerParam } from '@/helpers/sharerUrl.js';
-import { oembedWorker } from '@/providers/firefly/worker/clients.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];

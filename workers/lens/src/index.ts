@@ -4,12 +4,8 @@ import { prettyJSON } from 'hono/pretty-json';
 
 import { LensTrendingClubsRoute } from '@/lens/src/route.js';
 
-const app = new Hono();
-
-app.use(prettyJSON());
-app.use(withCors());
-
-app.route('/lens', LensTrendingClubsRoute);
+const app = new Hono().use(prettyJSON()).use(withCors()).route('/lens', LensTrendingClubsRoute);
 
 export default app;
 export type AppType = typeof app;
+export type * from './types.js';

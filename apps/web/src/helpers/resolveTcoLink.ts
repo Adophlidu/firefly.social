@@ -1,7 +1,5 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
-import urlcat from 'urlcat';
+import { tcoWorker } from '@dimensiondev/workers-client';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import type { ResponseJson } from '@/types/utility.js';
 
@@ -15,11 +13,8 @@ export function isTcoLink(u: string) {
 
 async function resolver(u: string): Promise<string | null> {
     if (!isTcoLink(u)) return null;
-    const response = await fetchJson<TcoResponse>(
-        urlcat(FIREFLY_WORKER_HOST, '/tco', {
-            link: u,
-        }),
-    );
+    const res = await tcoWorker.tco.$get({ query: { link: u } });
+    const response = (await res.json()) as TcoResponse;
     if (!response.success) return null;
     return response.data.resolved;
 }

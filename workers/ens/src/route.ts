@@ -16,8 +16,6 @@ import { FireflyDomain } from '@/ens/src/providers/FireflyDomainAPI.js';
 
 const VERSION = 1;
 
-const EnsRoute = new Hono<{ Bindings: { ENS_CACHE: KVNamespace; KV: KVNamespace } }>();
-
 function getCacheKey(domainOrAddress: string) {
     return `ens:${VERSION}:${encodeURIComponent(domainOrAddress)}`;
 }
@@ -59,68 +57,68 @@ const ReverseSchema = z.object({
         .regex(/^0x[a-fA-F0-9]{40}$/i, 'Invalid address format'),
 });
 
-EnsRoute.get(
-    '/lookup',
-    zValidator('query', LookupSchema, (result) => {
-        if (!result.success) {
-            return createZodErrorResponseJson(result.error, {
-                status: 400,
-            });
-        }
-    }),
-    async (c) =>
-        withErrorHandler(async () => {
-            const { domain } = c.req.valid('query');
-            const result = await withCache({
-                context: c,
-                ttl: ONE_MONTH,
-                getKey: () => getCacheKey(domain),
-                getCache: () => c.env.ENS_CACHE,
-                setCache: async (result, ttl) => {
-                    const { address, domain, provider } = result;
-                    if (!address) return;
-                    await cacheEnsPair(c, address, domain, provider, ttl);
-                },
-                compute: async () => {
-                    const [provider, address] = await lookup(domain, c);
-                    if (!address) return { address: null, domain };
-                    return { address, domain, provider };
-                },
-            });
-            return createSuccessResponseJson(result);
+const EnsRoute = new Hono<{ Bindings: { ENS_CACHE: KVNamespace; KV: KVNamespace } }>()
+    .get(
+        '/lookup',
+        zValidator('query', LookupSchema, (result) => {
+            if (!result.success) {
+                return createZodErrorResponseJson(result.error, {
+                    status: 400,
+                });
+            }
         }),
-);
-
-EnsRoute.get(
-    '/reverse',
-    zValidator('query', ReverseSchema, (result) => {
-        if (!result.success) {
-            return createZodErrorResponseJson(result.error, {
-                status: 400,
-            });
-        }
-    }),
-    (c) =>
-        withErrorHandler(async () => {
-            const { address } = c.req.valid('query');
-            const result = await withCache({
-                context: c,
-                ttl: ONE_MONTH,
-                getKey: () => getCacheKey(address),
-                getCache: () => c.env.ENS_CACHE,
-                setCache: async (result, ttl) => {
-                    const { address, domain, provider } = result;
-                    if (!domain) return;
-                    await cacheEnsPair(c, address, domain, provider, ttl);
-                },
-                compute: async () => {
-                    const [provider, domain] = await reverse(address, c);
-                    if (!domain) return { domain: null, address };
-                    return { address, domain, provider };
-                },
-            });
-            return createSuccessResponseJson(result);
+        async (c) =>
+            withErrorHandler(async () => {
+                const { domain } = c.req.valid('query');
+                const result = await withCache({
+                    context: c,
+                    ttl: ONE_MONTH,
+                    getKey: () => getCacheKey(domain),
+                    getCache: () => c.env.ENS_CACHE,
+                    setCache: async (result, ttl) => {
+                        const { address, domain, provider } = result;
+                        if (!address) return;
+                        await cacheEnsPair(c, address, domain, provider, ttl);
+                    },
+                    compute: async () => {
+                        const [provider, address] = await lookup(domain, c);
+                        if (!address) return { address: null, domain };
+                        return { address, domain, provider };
+                    },
+                });
+                return createSuccessResponseJson(result);
+            }),
+    )
+    .get(
+        '/reverse',
+        zValidator('query', ReverseSchema, (result) => {
+            if (!result.success) {
+                return createZodErrorResponseJson(result.error, {
+                    status: 400,
+                });
+            }
         }),
-);
+        (c) =>
+            withErrorHandler(async () => {
+                const { address } = c.req.valid('query');
+                const result = await withCache({
+                    context: c,
+                    ttl: ONE_MONTH,
+                    getKey: () => getCacheKey(address),
+                    getCache: () => c.env.ENS_CACHE,
+                    setCache: async (result, ttl) => {
+                        const { address, domain, provider } = result;
+                        if (!domain) return;
+                        await cacheEnsPair(c, address, domain, provider, ttl);
+                    },
+                    compute: async () => {
+                        const [provider, domain] = await reverse(address, c);
+                        if (!domain) return { domain: null, address };
+                        return { address, domain, provider };
+                    },
+                });
+                return createSuccessResponseJson(result);
+            }),
+    );
 
 export { EnsRoute };

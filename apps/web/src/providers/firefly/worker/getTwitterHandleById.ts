@@ -1,8 +1,8 @@
 import { Source } from '@dimensiondev/enums';
+import { xIdentityWorker } from '@dimensiondev/workers-client';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
-import { xIdentityWorker } from '@/providers/firefly/worker/clients.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function getTwitterHandleById(id: string) {

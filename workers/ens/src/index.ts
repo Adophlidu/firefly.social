@@ -4,12 +4,7 @@ import { prettyJSON } from 'hono/pretty-json';
 
 import { EnsRoute } from '@/ens/src/route.js';
 
-const app = new Hono();
-
-app.use(prettyJSON());
-app.use(withCors());
-
-app.route('/ens', EnsRoute);
+const app = new Hono().use(prettyJSON()).use(withCors()).route('/ens', EnsRoute);
 
 export default app;
 export type AppType = typeof app;

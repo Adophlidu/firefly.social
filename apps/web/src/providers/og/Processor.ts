@@ -1,9 +1,7 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { parseUrl } from '@dimensiondev/utils';
-import urlcat from 'urlcat';
+import { oembedWorker } from '@dimensiondev/workers-client';
 
 import { MIRROR_HOSTNAME_REGEXP } from '@/constants/regexp.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { getMirrorPayload } from '@/providers/og/readers/payload.js';
 import type { LinkDigested, OpenGraph } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';
@@ -13,14 +11,8 @@ class Processor {
         const url = parseUrl(documentUrl);
         if (!url) return null;
 
-        const response = await fetchJson<ResponseJson<{ og: OpenGraph }>>(
-            urlcat(FIREFLY_WORKER_HOST, '/oembed', {
-                link: url.toString(),
-            }),
-            {
-                signal,
-            },
-        );
+        const res = await oembedWorker.oembed.$get({ query: { link: url.toString() } }, { init: { signal } });
+        const response = (await res.json()) as ResponseJson<{ og: OpenGraph }>;
         if (!response.success) return null;
 
         const { og } = response.data;
