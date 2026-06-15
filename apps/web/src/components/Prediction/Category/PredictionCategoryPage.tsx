@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { parseAsString, parseAsStringEnum, useQueryState } from 'nuqs';
 import { Suspense, useCallback, useEffect, useMemo } from 'react';
 
+import { FootballLoading } from '@/components/FootballLoading.js';
 import { Loading } from '@/components/Loading.js';
 import { NotFound } from '@/components/NotFound.js';
 import { PredictionCategoryGamesList } from '@/components/Prediction/Category/PredictionCategoryGamesList.js';
@@ -161,6 +162,7 @@ export function PredictionCategoryPage({ slug }: Props) {
 
     const headerTitle = getCategoryHeaderLabel(context.activeItem);
     const showCategoryHeader = tabAvailability.showTabSwitcher || !isLiveGamesOnly;
+    const isFifa = context.secondaryItem?.slug === FIFA_SLUG;
 
     return (
         <div className="flex flex-col">
@@ -176,9 +178,7 @@ export function PredictionCategoryPage({ slug }: Props) {
             ) : null}
             <div className={!showCategoryHeader ? 'pt-3' : ''}>
                 {isTabAvailabilityPending ? (
-                    <div className="flex justify-center py-12">
-                        <Loading />
-                    </div>
+                    <div className="flex justify-center py-12">{isFifa ? <FootballLoading /> : <Loading />}</div>
                 ) : effectiveTab === PREDICTION_CATEGORY_GAMES_TAB ? (
                     <PredictionCategoryGamesList context={context} />
                 ) : effectiveTab === PREDICTION_CATEGORY_GROUPS_TAB ? (
@@ -187,7 +187,7 @@ export function PredictionCategoryPage({ slug }: Props) {
                     <Suspense
                         fallback={
                             <div className="flex justify-center py-12">
-                                <Loading />
+                                {isFifa ? <FootballLoading /> : <Loading />}
                             </div>
                         }
                     >

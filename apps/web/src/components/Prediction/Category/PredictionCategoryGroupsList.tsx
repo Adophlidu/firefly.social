@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { type CSSProperties, memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Loading } from '@/components/Loading.js';
+import { FootballLoading } from '@/components/FootballLoading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { formatFifaAdvancePercent } from '@/helpers/prediction/category/fifaGroups.js';
@@ -210,7 +210,7 @@ export const PredictionCategoryGroupsList = memo(function PredictionCategoryGrou
     if (isPending) {
         return (
             <div className="flex justify-center py-12">
-                <Loading />
+                <FootballLoading />
             </div>
         );
     }

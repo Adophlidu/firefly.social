@@ -922,3 +922,82 @@ body {
         animation: none;
     }
 }
+
+/* Loading state: football bouncing in a continuous loop with a reactive shadow. */
+.football-loading {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.football-loading__ball {
+    object-fit: contain;
+    transform-origin: 50% 100%;
+    /* Up segment decelerates, down segment accelerates — the ease functions are
+       set per-keyframe so a single timing-function isn't enough; keep it linear. */
+    animation: football-loading-ball 1.1s linear infinite;
+    will-change: transform;
+}
+
+.football-loading__shadow {
+    width: 60%;
+    height: 4px;
+    border-radius: 50%;
+    /* Neutral gray reads on both light and dark backgrounds. */
+    background: rgb(120 120 120 / 35%);
+    filter: blur(1px);
+    transform-origin: 50% 50%;
+    animation: football-loading-shadow 1.1s linear infinite;
+    will-change: transform, opacity;
+}
+
+@keyframes football-loading-ball {
+    /* On the ground, squashed from the impact. */
+    0% {
+        transform: translateY(0) scale(1.12, 0.88);
+    }
+    /* Quick release back to round, then rise (easeOutQuad ≈ gravity decelerating). */
+    10% {
+        transform: translateY(0) scale(1, 1);
+        animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    /* Apex: slow, so the ball visually lingers here. Fall accelerates (easeInQuad). */
+    50% {
+        transform: translateY(-100%) scale(1, 1);
+        animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    }
+    /* Stretched a touch as it hits top speed just before impact. */
+    88% {
+        transform: translateY(-6%) scale(0.94, 1.06);
+    }
+    /* Land and squash. */
+    100% {
+        transform: translateY(0) scale(1.12, 0.88);
+    }
+}
+
+@keyframes football-loading-shadow {
+    /* Shadow tracks the ball's height: largest/darkest on the ground, faint at apex. */
+    0% {
+        transform: scale(1);
+        opacity: 0.35;
+        animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    50% {
+        transform: scale(0.5);
+        opacity: 0.12;
+        animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.35;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .football-loading__ball,
+    .football-loading__shadow {
+        animation: none;
+    }
+}

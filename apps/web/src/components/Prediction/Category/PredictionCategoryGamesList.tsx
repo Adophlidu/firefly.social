@@ -6,9 +6,11 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo, useState } from 'react';
 
+import { FootballLoading } from '@/components/FootballLoading.js';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { PredictionSportsCell } from '@/components/Prediction/Category/PredictionSportsCell.js';
+import { FIFA_SLUG } from '@/constants/bets.js';
 import { categoryHasGamesDisplayContent } from '@/helpers/prediction/category/categoryGamesPropsTabAvailability.js';
 import { formatPolymarketSportsEventForUI } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import {
@@ -84,12 +86,9 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
         return <PredictionSportsCell key={event.id} model={displayModel} />;
     };
 
+    const isFifa = context.secondaryItem?.slug === FIFA_SLUG;
     if (isPending) {
-        return (
-            <div className="flex justify-center py-12">
-                <Loading />
-            </div>
-        );
+        return <div className="flex justify-center py-12">{isFifa ? <FootballLoading /> : <Loading />}</div>;
     }
 
     if (isError) {
