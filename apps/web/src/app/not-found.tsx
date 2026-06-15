@@ -1,44 +1,28 @@
-'use client';
-
-import { Locale, PageRoute } from '@dimensiondev/enums';
-import { I18nProvider } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
+import { Locale } from '@dimensiondev/enums';
+import { cookies } from 'next/headers.js';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { AgentProvider } from '@/components/AgentProvider.js';
-import { BaseNotFound } from '@/components/BaseNotFound.js';
-import { Link } from '@/components/Link.js';
-import { getI18nInstance, setupAndActiveI18n } from '@/i18n/core.js';
+import { NotFoundView } from '@/components/NotFoundView.js';
+import { setupLocaleFromParams } from '@/i18n/static.js';
 
-function getLocaleFromCookie(): Locale {
-    if (typeof document === 'undefined') return Locale.en;
-    const pair = document.cookie.split('; ').find((x) => x.startsWith('locale='));
-    if (!pair) return Locale.en;
-    const value = pair.split('=')[1];
-    return Object.values(Locale).includes(value as Locale) ? (value as Locale) : Locale.en;
+async function getLocaleFromCookie(): Promise<Locale> {
+    const value = await cookies().then((store) => store.get('locale')?.value);
+    return value && Object.values(Locale).includes(value as Locale) ? (value as Locale) : Locale.en;
 }
 
-export default function NotFound() {
-    const locale = getLocaleFromCookie();
-    setupAndActiveI18n(locale);
+export default async function NotFound() {
+    const locale = await getLocaleFromCookie();
+    setupLocaleFromParams(locale);
 
     return (
-        <I18nProvider i18n={getI18nInstance(locale)}>
-            <AgentProvider>
-                <LayoutBody locale={locale}>
-                    <NuqsAdapter>
-                        <BaseNotFound className="min-h-screen grow md:pl-[235px] lg:pl-[289px]">
-                            <div className="mt-11 text-sm font-bold">
-                                <Trans>The page could not be found.</Trans>
-                            </div>
-                            <Link className="text-link underline md:hidden" href={PageRoute.Home}>
-                                <Trans>Back to home</Trans>
-                            </Link>
-                        </BaseNotFound>
-                    </NuqsAdapter>
-                </LayoutBody>
-            </AgentProvider>
-        </I18nProvider>
+        <AgentProvider>
+            <LayoutBody locale={locale}>
+                <NuqsAdapter>
+                    <NotFoundView />
+                </NuqsAdapter>
+            </LayoutBody>
+        </AgentProvider>
     );
 }
