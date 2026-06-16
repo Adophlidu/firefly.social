@@ -172,7 +172,7 @@ export function MentionsPlugin(): JSX.Element | null {
     const [queryString, setQueryString] = useState<string | null>(null);
     const [editor] = useLexicalComposerContext();
 
-    const [debounceQuery] = useDebounceValue(queryString, 1000);
+    const [debounceQuery] = useDebounceValue(queryString, 250);
 
     const { data, isLoading } = useQuery({
         enabled: !!debounceQuery,
@@ -193,6 +193,12 @@ export function MentionsPlugin(): JSX.Element | null {
             return profiles;
         },
     });
+
+    // The live query string can outrun the debounced value while the user is still
+    // typing — the request hasn't been issued yet in that window. Treat it as
+    // loading so the picker shows immediate feedback instead of staying blank.
+    const isPending = queryString !== null && queryString !== debounceQuery;
+    const isSearching = isPending || isLoading;
 
     const options = useMemo(() => {
         if (!data) return EMPTY_LIST;
@@ -283,13 +289,13 @@ export function MentionsPlugin(): JSX.Element | null {
         <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
             anchorClassName="z-50"
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
-                return anchorElementRef.current && open && (options.length > 0 || isLoading)
+                return anchorElementRef.current && open && (options.length > 0 || isSearching)
                     ? createPortal(
                           <div
                               ref={ref}
                               className="bg-brand sticky z-50 mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
                           >
-                              {isLoading ? (
+                              {isSearching ? (
                                   <div className="flex h-[260px] min-h-[260px] items-center justify-center">
                                       <LoadingIcon />
                                   </div>

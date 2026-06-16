@@ -5,7 +5,7 @@ import { LITE_EMAIL_REGEX, MENTION_REGEX } from '@/constants/regexp.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 
-const MATCHERS = [
+export const MATCHERS = [
     (text: string) => {
         const match = LINK_MARK_RE.exec(text);
         if (match === null) return null;
@@ -36,6 +36,7 @@ const MATCHERS = [
         );
     },
     (text: string) => {
+        MENTION_REGEX.lastIndex = 0;
         const match = MENTION_REGEX.exec(text);
         if (match === null) return null;
 
@@ -44,7 +45,6 @@ const MATCHERS = [
             index: match.index,
             length: fullMatch.length,
             text: fullMatch,
-            // TODO: profile link
             url: '',
         };
     },

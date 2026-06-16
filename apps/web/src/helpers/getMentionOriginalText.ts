@@ -27,6 +27,12 @@ function getTextUpToAnchor(selection: RangeSelection): QueryText | null {
     const isMention = MENTION_REGEX.test(anchorNode.getTextContent());
 
     if (isMention) {
+        // Caret inside a highlighted @name link: surface the AutoLinkNode so the
+        // picker replaces the whole link instead of nesting a MentionNode.
+        const parent = anchorNode.getParent();
+        if ($isAutoLinkNode(parent)) {
+            return { text: anchorNode.getTextContent(), matchedNode: parent };
+        }
         return {
             text: anchorNode.getTextContent(),
         };
