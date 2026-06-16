@@ -1036,3 +1036,10 @@ export interface SportEventData {
     spreadsMainLine?: number;
     totalsMainLine?: number;
 }
+
+export interface PolymarketProfileBalance {
+    wallet: string;
+    balance: number; // total balance
+    cash_balance: number; // available balance for trading
+    position_balance: number; // position value
+}

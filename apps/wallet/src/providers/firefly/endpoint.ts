@@ -32,6 +32,7 @@ import {
     type PolymarketClaimV2Response,
     type PolymarketEvent,
     type PolymarketOrderBookData,
+    type PolymarketProfileBalance,
     type PolymarketProfileListResponse,
     type PolymarketProfilePnLResponse,
     type PolymarketUpgradeResponse,
@@ -504,6 +505,12 @@ export class FireflyEndpoint extends Fetch {
     async getPolymarketEventBySlug(slug: string) {
         const url = urlcat('/v1/polymarket/event/detail', { slug });
         const result = await this.get<Response<PolymarketEvent>>(url);
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getPolymarketBalance(address: string, isProxyAddress?: boolean) {
+        const url = urlcat('/v1/polymarket/wallet/balance', { address, proxy: isProxyAddress });
+        const result = await this.get<Response<PolymarketProfileBalance>>(url);
         return resolveFireflyResponseData(result.data);
     }
 
