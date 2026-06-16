@@ -4246,6 +4246,9 @@ msgstr "在 {3} 上回覆 <0>@{0}</0>、<1>@{1}</1> 及 <2>其他{2}人</2>"
 msgid "Follow Back"
 msgstr "回追"
 
+msgid "Connect the wallet that owns this account and sign to enable auto login."
+msgstr ""
+
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "此錢包已被標記為有風險。請勿信任或與其進行互動。避免任何交易或分享敏感資訊。請保持安全！"
 

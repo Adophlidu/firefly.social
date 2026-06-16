@@ -4269,6 +4269,9 @@ msgstr "Respondiendo a <0>@{0}</0>, <1>@{1}</1> y <2>@{2}</2> en {3}"
 msgid "Follow Back"
 msgstr "Seguir de vuelta"
 
+msgid "Connect the wallet that owns this account and sign to enable auto login."
+msgstr ""
+
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "Esta cartera ha sido marcada como comprometida. Por favor, no confíes ni interactúes con ella. Evita realizar cualquier transacción o compartir información sensible. ¡Mantente a salvo!"
 

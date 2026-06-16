@@ -18,6 +18,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { openAndWaitForCloseAddLensManagerModal } from '@/controllers/openAddLensManagerModal.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { logger } from '@/libs/Logger.js';
 import { createMemorySessionClient } from '@/providers/lens/createMemorySessionClient.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
@@ -42,9 +43,7 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
     );
 
     const privyEvm = first(wallets.ethereum)?.address;
-    const isOwnerConnected =
-        connection.isConnected && isSameEthereumAddress(connection.address, profile.ownedBy?.address);
-    const disabled = !isOwnerConnected || !account || !privyEvm;
+    const disabled = !account || !privyEvm;
 
     const { data, isLoading, isRefetching } = useQuery({
         queryKey: [Source.Lens, 'profiles', privyEvm?.toLowerCase()],
@@ -118,11 +117,19 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
     }, [profile, privyEvm, account, currentProfile]);
 
     const isAlreadyBound = data?.some((x) => isSameProfile(x, profile));
+    logger.info('[Lens Account Actions]: ', {
+        isAlreadyBound,
+        disabled,
+        signerAddress,
+        connectionAddress: connection.address,
+    });
+
+    if (isAlreadyBound) return null;
     if (
         disabled ||
-        isAlreadyBound ||
         isLoading ||
         isRefetching ||
+        // signer must be connected
         (!!signerAddress && !isSameEthereumAddress(signerAddress, connection.address))
     )
         return null;

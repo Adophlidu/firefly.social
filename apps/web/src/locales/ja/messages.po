@@ -4246,6 +4246,9 @@ msgstr "{3} で <0>@{0}</0>、<1>@{1}</1>、<2>@{2}</2> に返信中"
 msgid "Follow Back"
 msgstr "フォローバック"
 
+msgid "Connect the wallet that owns this account and sign to enable auto login."
+msgstr ""
+
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "このウォレットは侵害されたとフラグが付けられています。信頼したり操作したりしないでください。取引や機密情報の共有を避けてください。安全に！"
 

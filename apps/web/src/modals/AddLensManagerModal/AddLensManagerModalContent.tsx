@@ -1,11 +1,14 @@
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import type { SessionClient } from '@lens-protocol/client';
 import { addAccountManager } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
+import { useConnection } from 'wagmi';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
@@ -28,7 +31,17 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
     onFinished,
     onLoadingChange,
 }) {
+    const connection = useConnection();
+    const isOwnerConnected =
+        connection.isConnected && isSameEthereumAddress(connection.address, profile.ownedBy?.address);
+
     const [{ loading }, bindManager] = useAsyncFn(async () => {
+        if (!isOwnerConnected) {
+            openWalletConnectModal();
+            onFinished?.(false);
+            return;
+        }
+
         try {
             onLoadingChange?.(true);
 
@@ -56,7 +69,7 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
         } finally {
             onLoadingChange?.(false);
         }
-    }, [profile, manager, sessionClient, onFinished, onLoadingChange]);
+    }, [profile, manager, sessionClient, isOwnerConnected, onFinished, onLoadingChange]);
 
     return (
         <div>
@@ -68,16 +81,20 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
                 </div>
             </div>
             <p className="mt-2 py-1 text-center text-medium font-medium text-second">
-                <Trans>
-                    Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login.
-                </Trans>
+                {isOwnerConnected ? (
+                    <Trans>
+                        Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login.
+                    </Trans>
+                ) : (
+                    <Trans>Connect the wallet that owns this account and sign to enable auto login.</Trans>
+                )}
             </p>
             <ClickableButton
                 loading={loading}
                 onClick={bindManager}
                 className="mt-2 h-10 w-full rounded-lg bg-main text-medium font-bold leading-10 text-primaryBottom"
             >
-                <Trans>Sign to Authorize</Trans>
+                {isOwnerConnected ? <Trans>Sign to Authorize</Trans> : <Trans>Connect Wallet</Trans>}
             </ClickableButton>
         </div>
     );

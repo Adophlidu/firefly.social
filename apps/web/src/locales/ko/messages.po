@@ -4246,6 +4246,9 @@ msgstr "{3}에서 <0>@{0}</0>, <1>@{1}</1> 및 <2>@{2}</2>에게 답글 중"
 msgid "Follow Back"
 msgstr "맞팔로우"
 
+msgid "Connect the wallet that owns this account and sign to enable auto login."
+msgstr ""
+
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "이 지갑은 손상된 것으로 표시되었습니다. 신뢰하거나 상호작용하지 마세요. 거래나 민감한 정보 공유를 피하세요. 안전에 유의하세요!"
 

@@ -4269,6 +4269,9 @@ msgstr "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
 msgid "Follow Back"
 msgstr "Follow Back"
 
+msgid "Connect the wallet that owns this account and sign to enable auto login."
+msgstr "Connect the wallet that owns this account and sign to enable auto login."
+
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 
