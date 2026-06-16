@@ -22,7 +22,8 @@ const resolveFallbackImageUrl = (fallback: LiteralOrString<'avatar' | 'square' |
 };
 
 export interface ImageProps extends NextImageProps {
-    fallback?: LiteralOrString<'avatar' | 'square' | 'rectangle'> | null;
+    // Pass `false` to render nothing when the image fails to load instead of a placeholder.
+    fallback?: LiteralOrString<'avatar' | 'square' | 'rectangle'> | null | false;
     fallbackClassName?: string;
     ref?: React.ForwardedRef<HTMLImageElement>;
 }
@@ -59,6 +60,8 @@ export const Image = memo(function Image({ onError, onLoad, fallback, fallbackCl
     }, [props.src]);
 
     const isFailed = imageLoadFailed || !props.src;
+
+    if (isFailed && fallback === false) return null;
 
     return (
         // Since next/image requires the domain of the image to be configured in next.config,

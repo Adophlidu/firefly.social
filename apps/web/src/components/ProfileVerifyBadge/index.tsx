@@ -5,15 +5,36 @@ import PolymarketSquareWhite from '@dimensiondev/assets/polymarket-square-white.
 import VerifyIcon from '@dimensiondev/assets/verify.svg';
 import { Source } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
+import { type HTMLProps, useState } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { useProfileVerifyBadge } from '@/hooks/useProfileVerifyBadge.js';
-import { type Profile, ProfileBadgePresetColors } from '@/providers/types/SocialMedia.js';
+import { type Profile, type ProfileBadge, ProfileBadgePresetColors } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     profile: Profile;
+}
+
+// Affiliate badge images come from cached X data that can point to a deleted avatar
+// hash (404). Hide the whole badge on failure instead of showing a generic placeholder.
+function AffiliateBadge({ icon }: { icon: ProfileBadge }) {
+    const [failed, setFailed] = useState(false);
+    if (failed || !icon.icon) return null;
+
+    const iconEl = (
+        <Image
+            src={icon.icon}
+            className="size-4 shrink-0 rounded-sm"
+            alt={icon.source}
+            width={16}
+            height={16}
+            fallback={false}
+            onError={() => setFailed(true)}
+        />
+    );
+
+    return icon.href ? <Link href={icon.href}>{iconEl}</Link> : iconEl;
 }
 
 enum PolymarketBadgeDescription {
@@ -55,23 +76,7 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
                     return <PolymarketSquare key={i} className="size-4 shrink-0" width={16} height={16} />;
                 }
                 if (icon.icon) {
-                    const iconEl = (
-                        <Image
-                            key={i}
-                            src={icon.icon}
-                            className="size-4 shrink-0 rounded-sm"
-                            alt={icon.source}
-                            width={16}
-                            height={16}
-                        />
-                    );
-                    return icon.href ? (
-                        <Link key={i} href={icon.href}>
-                            {iconEl}
-                        </Link>
-                    ) : (
-                        iconEl
-                    );
+                    return <AffiliateBadge key={i} icon={icon} />;
                 }
 
                 switch (icon.source) {
