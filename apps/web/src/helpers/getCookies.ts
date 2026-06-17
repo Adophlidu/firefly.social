@@ -1,13 +1,10 @@
 import { Locale, SiteCookies } from '@dimensiondev/enums';
-import { bom, isValidEnumValue } from '@dimensiondev/utils';
-import { useLingui } from '@lingui/react';
+import { bom } from '@dimensiondev/utils';
 import { cookies, headers } from 'next/headers.js';
 
-export function resolveLocale(locale: string): Locale {
-    return isValidEnumValue(locale, Locale) ? (locale as Locale) : resolveLanguageLocale(bom.navigator?.language);
-}
+import { resolveLanguageLocale, resolveLocale } from '@/helpers/resolveLocale.js';
 
-function getClientCookies(name: SiteCookies) {
+export function getClientCookies(name: SiteCookies) {
     const pair = bom.document?.cookie.split('; ').find((x) => x.startsWith(`${name}=`));
     if (!pair) return '';
     const [, value] = pair.split('=');
@@ -17,19 +14,6 @@ function getClientCookies(name: SiteCookies) {
 export async function getCookie(name: SiteCookies) {
     if (bom.document) return getClientCookies(name);
     return (await cookies()).get(name)?.value;
-}
-
-export function resolveLanguageLocale(language: string | undefined) {
-    if (!language) return Locale.en;
-    if (language.startsWith('en')) return Locale.en;
-    if (language.startsWith('es')) return Locale.es;
-    if (language.startsWith('ja')) return Locale.ja;
-    if (language.startsWith('ko')) return Locale.ko;
-    if (language.startsWith('zh'))
-        return ['zh', 'zh-CN', 'zh-SG'].includes(language) || language.startsWith('zh-Hans')
-            ? Locale.zhHans
-            : Locale.zhHant;
-    return Locale.en;
 }
 
 async function resolveClientLocale() {
@@ -47,26 +31,4 @@ export async function getLocaleFromCookies() {
 export function getLocalFromClientCookies() {
     const locale = getClientCookies(SiteCookies.Locale);
     return locale ? resolveLocale(locale) : resolveLanguageLocale(bom.navigator?.language);
-}
-
-export function useCookie(key: SiteCookies) {
-    if (bom.document) return getClientCookies(key);
-    // During SSR of client components, return empty.
-    // The real value is read client-side after hydration.
-    return '';
-}
-
-export function useLocale() {
-    // Use Lingui's active locale for SSR/client consistency (avoids hydration mismatch).
-    const { i18n } = useLingui();
-    // Read cookie unconditionally to satisfy React hooks rules (no conditional hook calls)
-    const localeFromCookie = useCookie(SiteCookies.Locale);
-
-    if (i18n?.locale && isValidEnumValue(i18n.locale, Locale)) {
-        return i18n.locale as Locale;
-    }
-
-    // Fallback: read from cookie (client-only)
-    const locale = localeFromCookie || resolveLanguageLocale(bom.navigator?.language);
-    return resolveLocale(locale);
 }

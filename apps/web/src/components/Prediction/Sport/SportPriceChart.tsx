@@ -1,20 +1,46 @@
 'use client';
 
 import StreamIcon from '@dimensiondev/assets/live.svg';
+import LiveStatsIcon from '@dimensiondev/assets/live-stats.svg';
 import MarketChartIcon from '@dimensiondev/assets/market-chart.svg';
 import { BetsPriceTimeRange } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
+import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { parseAsStringEnum, useQueryState } from 'nuqs';
-import { memo, useCallback, useMemo } from 'react';
+import {
+    type ComponentType,
+    Fragment,
+    memo,
+    type ReactNode,
+    type SVGProps,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 
+import { HlsPlayer } from '@/components/HlsPlayer/index.js';
 import { Loading } from '@/components/Loading.js';
 import { TimeRangeSettings } from '@/components/Prediction/PredictionMarketsPriceLineChart/TimeRangeSettings.js';
+import { FIFA_SLUG } from '@/constants/bets.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { resolveSportLiveBoardUrl } from '@/helpers/prediction/resolveSportLiveBoardUrl.js';
 import { resolveSportLivestreamPlayback } from '@/helpers/prediction/resolveSportLivestreamPlayback.js';
+import { resolveStreamProxyUrl } from '@/helpers/prediction/resolveStreamProxyUrl.js';
 import { getPrimaryMarket } from '@/helpers/prediction/sportScoreUtils.js';
 import { parseAsBetsPriceTimeRange } from '@/hooks/prediction/parsers.js';
+import { useFifaLiveStreams } from '@/hooks/prediction/useFifaLiveStreams.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { useLocale } from '@/hooks/useLocale.js';
+import {
+    capturePolymarketEventMarketOptionClick,
+    capturePolymarketEventStatsOptionClick,
+    capturePolymarketEventSteamOptionClick,
+} from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 const SportPriceLineChart = dynamic(
@@ -25,61 +51,129 @@ const SportPriceLineChart = dynamic(
     },
 );
 
-type ChartTab = 'market' | 'stream';
+type ChartTab = 'market' | 'stats' | 'stream';
+
+/** A playable stream source for the Stream / CN Stream tab. */
+interface StreamSource {
+    kind: 'hls' | 'embed';
+    url: string;
+    label?: string;
+}
 
 interface SportPriceChartProps {
     event: BetsEventDataForUI;
 }
 
-function StreamToggle({
+/** Prettify a backend stream key (e.g. "cctv5p-av3a") into a switcher label. */
+function formatStreamLabel(key: string): string {
+    const lower = key.toLowerCase();
+    const base = lower.startsWith('cctv5p') ? 'CCTV5+' : lower.startsWith('cctv5') ? 'CCTV5' : key.toUpperCase();
+    return lower.includes('av3a') ? `${base} AV3A` : base;
+}
+
+function toggleButtonClassName(selected: boolean) {
+    return classNames(
+        'flex h-[22px] shrink-0 items-center justify-center gap-1 rounded-full border px-2 text-xs font-medium leading-[14px] transition-colors',
+        selected
+            ? 'border-highlight bg-highlight/10 text-highlight'
+            : 'border-line text-main hover:border-highlight/50 hover:text-highlight',
+    );
+}
+
+function ToggleButton({
     selected,
-    type,
+    Icon,
     onClick,
     children,
 }: {
     selected: boolean;
-    type: ChartTab;
+    Icon: ComponentType<SVGProps<SVGSVGElement>>;
     onClick: () => void;
-    children: React.ReactNode;
+    children: ReactNode;
 }) {
-    const Icon = type === 'market' ? MarketChartIcon : StreamIcon;
-
     return (
-        <button
-            type="button"
-            className={classNames(
-                'flex h-[22px] shrink-0 items-center justify-center gap-1 rounded-full border px-2 text-xs font-medium leading-[14px] transition-colors',
-                selected
-                    ? 'border-highlight bg-highlight/10 text-highlight'
-                    : 'border-line text-main hover:border-highlight/50 hover:text-highlight',
-            )}
-            aria-pressed={selected}
-            onClick={onClick}
-        >
+        <button type="button" className={toggleButtonClassName(selected)} aria-pressed={selected} onClick={onClick}>
             <Icon width={14} height={14} />
             <span>{children}</span>
         </button>
     );
 }
 
-function MarketStreamSwitch({
-    tab,
-    onMarketClick,
-    onStreamClick,
+/**
+ * Stream toggle for the chart tab row.
+ * With a single source it behaves like a plain toggle; with multiple CN broadcast
+ * sources it opens a dropdown so the source can be picked when entering the tab.
+ */
+function StreamToggle({
+    selected,
+    label,
+    sources,
+    selectedIndex,
+    onSelectSource,
+    onClick,
+    onOpen,
 }: {
-    tab: ChartTab;
-    onMarketClick: () => void;
-    onStreamClick: () => void;
+    selected: boolean;
+    label: ReactNode;
+    sources: StreamSource[];
+    selectedIndex: number;
+    onSelectSource: (index: number) => void;
+    onClick: () => void;
+    onOpen: () => void;
 }) {
+    if (sources.length <= 1) {
+        return (
+            <ToggleButton selected={selected} Icon={StreamIcon} onClick={onClick}>
+                {label}
+            </ToggleButton>
+        );
+    }
+
     return (
-        <div className="flex shrink-0 items-center gap-4">
-            <StreamToggle selected={tab === 'market'} type="market" onClick={onMarketClick}>
-                <Trans>Market</Trans>
-            </StreamToggle>
-            <StreamToggle selected={tab === 'stream'} type="stream" onClick={onStreamClick}>
-                <Trans>Watch Stream</Trans>
-            </StreamToggle>
-        </div>
+        <Popover as="div" className="relative shrink-0">
+            {({ close }) => (
+                <>
+                    <PopoverButton onClick={onOpen} className={classNames(toggleButtonClassName(selected), 'pr-1.5')}>
+                        <StreamIcon width={14} height={14} />
+                        <span>{label}</span>
+                        <ChevronDownIcon width={12} height={12} />
+                    </PopoverButton>
+                    <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0 translate-y-1"
+                    >
+                        <PopoverPanel
+                            portal={false}
+                            className="absolute right-0 top-full z-30 mt-2 flex min-w-[140px] flex-col gap-1 rounded-lg bg-lightBottom p-1 shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
+                        >
+                            {sources.map((source, index) => (
+                                <button
+                                    key={`${source.url}-${index}`}
+                                    type="button"
+                                    onClick={() => {
+                                        onSelectSource(index);
+                                        close();
+                                    }}
+                                    className={classNames(
+                                        'flex h-8 items-center rounded-md px-3 text-xs font-medium transition-colors',
+                                        index === selectedIndex
+                                            ? 'bg-highlight/10 text-highlight'
+                                            : 'text-main hover:bg-bg',
+                                    )}
+                                >
+                                    {source.label || t`Source ${index + 1}`}
+                                </button>
+                            ))}
+                        </PopoverPanel>
+                    </Transition>
+                </>
+            )}
+        </Popover>
     );
 }
 
@@ -91,6 +185,8 @@ function getTwitchParent() {
 export const SportPriceChart = memo(function SportPriceChart({ event }: SportPriceChartProps) {
     const sportData = event.sportData;
     const primaryMarket = getPrimaryMarket(event.markets);
+    const isDarkMode = useIsDarkMode();
+    const locale = useLocale();
     const moneylineMarkets = useMemo(
         () => event.markets.filter((m) => m.sportsMarketType?.toLowerCase() === 'moneyline'),
         [event.markets],
@@ -103,42 +199,139 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
     );
     const [tab, setTab] = useQueryState(
         'chart-view',
-        parseAsStringEnum(['market', 'stream']).withDefault('market').withOptions({ clearOnDefault: true }),
+        parseAsStringEnum<ChartTab>(['market', 'stats', 'stream']).withDefault('market').withOptions({
+            clearOnDefault: true,
+        }),
+    );
+    const [selectedStreamSource, setSelectedStreamSource] = useState(0);
+    // CN stream sources whose CDN refused our proxy egress (403); dropped so we stop retrying.
+    const [failedStreamUrls, setFailedStreamUrls] = useState<ReadonlySet<string>>(() => new Set());
+    // Keep the Live Stats iframe mounted once opened so switching tabs doesn't reload it.
+    const [statsMounted, setStatsMounted] = useState(false);
+
+    const eventSlug = event.slug;
+    const isFifa = !!eventSlug && eventSlug.startsWith(FIFA_SLUG);
+
+    // FIFA games stream the shared CN broadcast (CCTV HLS) sources from the backend.
+    // Presented for every FIFA game, not just live ones.
+    const { data: fifaStreams } = useFifaLiveStreams(isFifa);
+    const cctvSources = useMemo<StreamSource[]>(
+        () =>
+            fifaStreams
+                ?.map<StreamSource>((item) => ({
+                    kind: 'hls',
+                    // Serve the raw IP-hosted CCTV stream same-origin through our proxy
+                    // to avoid mixed-content blocking and cross-origin CORS failures.
+                    url: resolveStreamProxyUrl(item.url),
+                    label: item.title || formatStreamLabel(item.name),
+                }))
+                // Drop sources that failed to play so we fall back instead of looping on errors.
+                .filter((source) => !failedStreamUrls.has(source.url)) ?? [],
+        [fifaStreams, failedStreamUrls],
     );
 
-    const livestreamPlayback = useMemo(
+    // Non-FIFA games keep the original Twitch embed / external-jump behavior.
+    const twitchPlayback = useMemo(
         () => resolveSportLivestreamPlayback(sportData?.livestreamInfo, getTwitchParent()),
         [sportData?.livestreamInfo],
     );
-    const isLive = !!sportData?.live;
-    const showToggle = isLive && !!livestreamPlayback;
-    const effectiveTab = livestreamPlayback?.type === 'embed' ? tab : 'market';
+
+    const useCctv = isFifa && cctvSources.length > 0;
+    const embedSources: StreamSource[] = useCctv
+        ? cctvSources
+        : twitchPlayback?.type === 'embed'
+          ? [{ kind: 'embed', url: twitchPlayback.embedUrl }]
+          : [];
+    const externalStreamUrl = !useCctv && twitchPlayback?.type === 'external' ? twitchPlayback.url : undefined;
+
+    const boardUrl = useMemo(
+        () =>
+            isFifa && eventSlug
+                ? resolveSportLiveBoardUrl(eventSlug, { compact: true, theme: isDarkMode ? 'dark' : 'light', locale })
+                : undefined,
+        [isFifa, eventSlug, isDarkMode, locale],
+    );
+
+    const hasStats = !!boardUrl;
+    const hasStream = embedSources.length > 0 || !!externalStreamUrl;
+    const safeStreamSource = embedSources.length ? Math.min(selectedStreamSource, embedSources.length - 1) : 0;
+    const currentStream = embedSources[safeStreamSource];
+    const streamLabel = useCctv ? t`CN Stream` : t`Stream`;
+
+    // Tabs that only embed inline fall back to the market view when unavailable.
+    let effectiveTab: ChartTab = tab;
+    if (effectiveTab === 'stats' && !hasStats) effectiveTab = 'market';
+    if (effectiveTab === 'stream' && embedSources.length === 0) effectiveTab = 'market';
+
+    const handleMarketClick = useCallback(() => {
+        void setTab('market');
+        if (eventSlug) capturePolymarketEventMarketOptionClick(eventSlug);
+    }, [eventSlug, setTab]);
+    const handleStatsClick = useCallback(() => {
+        void setTab('stats');
+        if (eventSlug) capturePolymarketEventStatsOptionClick(eventSlug);
+    }, [eventSlug, setTab]);
+    const handleStreamReport = useCallback(() => {
+        if (eventSlug) capturePolymarketEventSteamOptionClick(eventSlug);
+    }, [eventSlug]);
     const handleStreamClick = useCallback(() => {
-        if (!livestreamPlayback) return;
-        if (livestreamPlayback.type === 'embed') {
-            setTab('stream');
+        handleStreamReport();
+        if (embedSources.length > 0) {
+            void setTab('stream');
             return;
         }
+        // No embeddable player: fall back to opening the source URL.
+        if (externalStreamUrl) openWindow(externalStreamUrl);
+    }, [handleStreamReport, embedSources.length, externalStreamUrl, setTab]);
+    // Reported on dropdown open; selecting a source only switches the tab.
+    const handleSelectStreamSource = useCallback(
+        (index: number) => {
+            setSelectedStreamSource(index);
+            void setTab('stream');
+        },
+        [setTab],
+    );
+    const handleStreamError = useCallback((url: string) => {
+        setFailedStreamUrls((prev) => {
+            if (prev.has(url)) return prev;
+            const next = new Set(prev);
+            next.add(url);
+            return next;
+        });
+    }, []);
 
-        openWindow(livestreamPlayback.url);
-    }, [livestreamPlayback, setTab]);
+    useEffect(() => {
+        if (effectiveTab === 'stats') setStatsMounted(true);
+    }, [effectiveTab]);
 
     if (!sportData || !primaryMarket) return null;
 
+    const showToggle = hasStats || hasStream;
+
     return (
         <div className="px-4 py-3">
-            {effectiveTab === 'stream' && livestreamPlayback?.type === 'embed' ? (
-                <div className="overflow-hidden rounded-lg" style={{ aspectRatio: '16/9' }}>
-                    <iframe
-                        src={livestreamPlayback.embedUrl}
-                        className="size-full"
-                        allowFullScreen
-                        allow="autoplay; encrypted-media"
-                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-fullscreen"
-                        title="Live Stream"
-                    />
+            {effectiveTab === 'stream' && currentStream ? (
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+                    {currentStream.kind === 'hls' ? (
+                        <HlsPlayer
+                            src={currentStream.url}
+                            className="size-full"
+                            mode="live"
+                            reloadOnStaleEnd
+                            onFatalError={() => handleStreamError(currentStream.url)}
+                        />
+                    ) : (
+                        <iframe
+                            src={currentStream.url}
+                            className="size-full"
+                            allowFullScreen
+                            allow="autoplay; encrypted-media"
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-fullscreen"
+                            title={streamLabel}
+                        />
+                    )}
                 </div>
-            ) : (
+            ) : effectiveTab === 'market' ? (
                 <SportPriceLineChart
                     market={primaryMarket}
                     homeTeam={sportData.homeTeam}
@@ -150,10 +343,29 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
                         endTime: event.endTime,
                     }}
                 />
-            )}
+            ) : null}
+
+            {/* Live Stats stays mounted once opened; toggling visibility avoids reloading the iframe. */}
+            {boardUrl && statsMounted ? (
+                <div
+                    className={classNames(
+                        'h-[630px] w-full overflow-hidden rounded-lg bg-bg',
+                        effectiveTab === 'stats' ? '' : 'hidden',
+                    )}
+                >
+                    <iframe
+                        src={boardUrl}
+                        className="size-full"
+                        allowFullScreen
+                        allow="autoplay; encrypted-media; fullscreen"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-fullscreen"
+                        title={t`Live Stats`}
+                    />
+                </div>
+            ) : null}
 
             <div className="mt-4 flex min-h-[22px] flex-col items-center gap-3 md:flex-row md:items-start md:justify-between">
-                {effectiveTab === 'market' || !showToggle ? (
+                {effectiveTab === 'market' ? (
                     <div className="flex min-w-0 items-start justify-center gap-3 max-md:w-full md:flex-1 md:justify-start">
                         <TimeRangeSettings
                             platform={event.platform}
@@ -166,11 +378,35 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
                     <div className="hidden min-w-0 flex-1 md:block" />
                 )}
                 {showToggle ? (
-                    <MarketStreamSwitch
-                        tab={effectiveTab}
-                        onMarketClick={() => void setTab('market')}
-                        onStreamClick={handleStreamClick}
-                    />
+                    <div className="flex shrink-0 items-center gap-4">
+                        <ToggleButton
+                            selected={effectiveTab === 'market'}
+                            Icon={MarketChartIcon}
+                            onClick={handleMarketClick}
+                        >
+                            <Trans>Market</Trans>
+                        </ToggleButton>
+                        {hasStats ? (
+                            <ToggleButton
+                                selected={effectiveTab === 'stats'}
+                                Icon={LiveStatsIcon}
+                                onClick={handleStatsClick}
+                            >
+                                <Trans>Live Stats</Trans>
+                            </ToggleButton>
+                        ) : null}
+                        {hasStream ? (
+                            <StreamToggle
+                                selected={effectiveTab === 'stream'}
+                                label={streamLabel}
+                                sources={embedSources}
+                                selectedIndex={safeStreamSource}
+                                onSelectSource={handleSelectStreamSource}
+                                onClick={handleStreamClick}
+                                onOpen={handleStreamReport}
+                            />
+                        ) : null}
+                    </div>
                 ) : null}
             </div>
         </div>

@@ -1,10 +1,9 @@
 'use client';
 
 import { FIREFLY_TELEGRAM_URL } from '@dimensiondev/constants/static';
-import { Source } from '@dimensiondev/enums';
+import { Locale, Source } from '@dimensiondev/enums';
 import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 import { classNames } from '@dimensiondev/utils';
-import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
@@ -12,6 +11,7 @@ import { Link } from '@/components/Activity/Link.js';
 import { IS_ANDROID } from '@/constants/browser.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useLocale } from '@/hooks/useLocale.js';
 
 const VIEW_EXAMPLE_URL_EN = 'https://x.com/thefireflyapp/article/1929723999019548966';
 const SUBMIT_FORM_URL_ZH =
@@ -20,11 +20,9 @@ const SUBMIT_FORM_URL_EN =
     'https://docs.google.com/forms/d/e/1FAIpQLSdrT09V1NfErk14rhmXhcqhDcdvn87rnxe2wY73hzgL3t1ZYw/viewform';
 
 export function ActivityCreatorTasks() {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
 
-    const isChinese = locale === 'zh-Hans' || locale === 'zh-Hant';
+    const isChinese = locale === Locale.zhHans || locale === Locale.zhHant;
     const { exampleUrl, formUrl, profileUrl } = useMemo(
         () => ({
             exampleUrl: isChinese ? resolvePostUrl(Source.Twitter, '1951211828844851450') : VIEW_EXAMPLE_URL_EN,

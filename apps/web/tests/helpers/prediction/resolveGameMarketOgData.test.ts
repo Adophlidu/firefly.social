@@ -104,6 +104,25 @@ describe('resolveGameMarketOgData', () => {
         expect(data!.multipleSets).toBe(false);
     });
 
+    it('keeps the game layout for an ended draw where both teams resolved to 0 (fifwc-esp-cvi style)', () => {
+        // A 0-0 draw resolves the moneyline to home 0 / away 0 / draw 1. The detail page still shows
+        // the game layout (score 0 - 0), so the OG must too — it must not fall back to the generic layout.
+        const event = gameEvent(moneylineMarket([outcome('ESP', '0'), outcome('CVI', '0'), outcome('Draw', '1')]), {
+            ended: true,
+            isDraw: true,
+            homeTeam: { name: 'Spain', abbreviation: 'ESP' },
+            awayTeam: { name: 'Cabo Verde', abbreviation: 'CVI' },
+            scores: [{ score: [0, 0] }],
+        });
+
+        const data = resolveGameMarketOgData(event);
+
+        expect(data).not.toBeNull();
+        expect(data!.state).toBe('ended');
+        expect(data!.homeScore).toBe(0);
+        expect(data!.awayScore).toBe(0);
+    });
+
     it('marks in-progress games as live and does not compute a loser yet', () => {
         const event = gameEvent(moneylineMarket([outcome('Home', '0.7'), outcome('Away', '0.3')]), {
             live: true,

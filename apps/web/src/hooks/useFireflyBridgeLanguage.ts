@@ -5,7 +5,7 @@ import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-brid
 import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 
-import { resolveLocale } from '@/helpers/getCookies.js';
+import { resolveLocale } from '@/helpers/resolveLocale.js';
 
 function resolveValidLocale(locale: string) {
     switch (locale.toLowerCase()) {

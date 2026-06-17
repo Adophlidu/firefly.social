@@ -66,4 +66,8 @@ declare module 'twitter-api-v2' {
         /** patched from v1 lookup for authenticated viewer retweet state. */
         retweeted?: boolean;
     }
+    interface TweetArticleV2 {
+        /** patched article title from our own API; not yet typed by twitter-api-v2. */
+        title: string;
+    }
 }

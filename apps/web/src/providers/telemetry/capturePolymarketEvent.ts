@@ -266,6 +266,25 @@ export function capturePolymarketEventChartChange(eventSlug: string, editOption:
     });
 }
 
+// Polymarket game detail Market / Live Stats / Stream option clicks
+export function capturePolymarketEventMarketOptionClick(eventSlug: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_MARKET_OPTION_CLICK, {
+        event_slug: eventSlug,
+    });
+}
+
+export function capturePolymarketEventStatsOptionClick(eventSlug: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_STATS_OPTION_CLICK, {
+        event_slug: eventSlug,
+    });
+}
+
+export function capturePolymarketEventSteamOptionClick(eventSlug: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_STEAM_OPTION_CLICK, {
+        event_slug: eventSlug,
+    });
+}
+
 // Polymarket order click
 export function capturePolymarketOrderClick(marketSlug: string, outcome: number, source?: string) {
     return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_ORDER_CLICK, {

@@ -333,8 +333,8 @@ function resolveThreeWayFinishedFlags(winResult: number | undefined): {
     }
     if (winResult === 1) {
         return {
-            home: { isLoser: true },
-            away: { isLoser: true },
+            home: {},
+            away: {},
             draw: { isWinner: true },
         };
     }

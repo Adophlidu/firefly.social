@@ -1,7 +1,7 @@
 'use client';
 
 import { getTwitterFormat } from '@/helpers/formatTimestamp.js';
-import { useLocale } from '@/helpers/getCookies.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { useMounted } from '@/hooks/useMounted.js';
 
 export function TimestampFormatter({ time }: { time: string | number | Date | undefined }) {

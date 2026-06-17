@@ -1,7 +1,6 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { useLingui } from '@lingui/react';
 import { memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -12,6 +11,7 @@ import { PREDICTION_CATEGORY_SCROLL_KEY_ATTR } from '@/helpers/prediction/catego
 import { partitionPrimaryCategorySlugs } from '@/helpers/prediction/category/partitionCategorySlugs.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { resolvePredictionCategoryLabel } from '@/helpers/prediction/category/resolvePredictionCategoryLabel.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { capturePolymarketHomeCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -21,9 +21,7 @@ interface Props {
 }
 
 function PrimaryTab({ item, isActive }: { item: PolymarketEventSlugListData; isActive: boolean }) {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     return (
         <Link
             replace

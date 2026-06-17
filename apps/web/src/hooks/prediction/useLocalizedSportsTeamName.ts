@@ -1,8 +1,7 @@
-import { Locale } from '@dimensiondev/enums';
-import { useLingui } from '@lingui/react';
 import { useMemo } from 'react';
 
 import { GAME_COUNTRIES } from '@/constants/gameCountries.js';
+import { useLocale } from '@/hooks/useLocale.js';
 
 const normalize = (value: string) => value.trim().toLowerCase();
 
@@ -22,13 +21,10 @@ for (const country of GAME_COUNTRIES) {
  * matches a known country, otherwise returns the original name unchanged.
  */
 export function useLocalizedSportsTeamName(): (name: string) => string {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
 
     return useMemo(() => {
-        const targetLocale = Object.values(Locale).includes(locale as Locale) ? (locale as Locale) : Locale.en;
-        const codeToName = new Map(GAME_COUNTRIES.map((country) => [country.code, country.names[targetLocale]]));
+        const codeToName = new Map(GAME_COUNTRIES.map((country) => [country.code, country.names[locale]]));
 
         return (name: string) => {
             const code = ALIAS_TO_CODE.get(normalize(name));

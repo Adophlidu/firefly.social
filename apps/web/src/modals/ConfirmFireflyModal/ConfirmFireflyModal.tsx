@@ -1,5 +1,5 @@
 import { ACCOUNT_CONFLICT_SOLUTION_URL, ACCOUNT_CONFLICT_SOLUTION_ZH_URL } from '@dimensiondev/constants/static';
-import { useLingui } from '@lingui/react';
+import { Locale } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
@@ -12,6 +12,7 @@ import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfi
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { ConfirmFireflyModalRefType } from '@/modals/ConfirmFireflyModal/refs.js';
 import {
@@ -102,11 +103,9 @@ export function ConfirmFireflyModal({ ref }: Props) {
 }
 
 function AccountConflictSolutionLink() {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     const href = useMemo(() => {
-        if (locale === 'zh-Hans' || locale === 'zh-Hant') {
+        if (locale === Locale.zhHans || locale === Locale.zhHant) {
             return ACCOUNT_CONFLICT_SOLUTION_ZH_URL;
         }
         return ACCOUNT_CONFLICT_SOLUTION_URL;

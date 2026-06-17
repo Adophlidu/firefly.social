@@ -63,6 +63,7 @@
         "doube",
         "DSEARCH",
         "encodec",
+        "ENDLIST",
         "energi",
         "enhanceable",
         "Embolo",
@@ -129,6 +130,7 @@
         "MONADIO",
         "moneyline",
         "movr",
+        "mpegurl",
         "msgid",
         "Msgids",
         "msgstr",
@@ -595,7 +597,8 @@
         "tanstack",
         "undici",
         "unrs",
-        "workerd"
+        "workerd",
+        "ffwc"
     ],
     "flagWords": [],
     "ignorePaths": [

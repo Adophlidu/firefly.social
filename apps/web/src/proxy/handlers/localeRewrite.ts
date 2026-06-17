@@ -1,7 +1,7 @@
 import { Locale } from '@dimensiondev/enums';
 import { type NextRequest, NextResponse } from 'next/server.js';
 
-import { resolveLanguageLocale } from '@/helpers/getCookies.js';
+import { resolveLanguageLocale } from '@/helpers/resolveLocale.js';
 
 const SUPPORTED_LOCALES = Object.values(Locale) as string[];
 

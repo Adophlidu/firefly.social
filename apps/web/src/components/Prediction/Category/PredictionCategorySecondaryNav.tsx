@@ -1,7 +1,6 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { useLingui } from '@lingui/react';
 import { memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -19,6 +18,7 @@ import { partitionSecondaryCategorySlugs } from '@/helpers/prediction/category/p
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { hasTertiaryCategories } from '@/helpers/prediction/category/resolveCategorySlugIcon.js';
 import { resolvePredictionCategoryLabel } from '@/helpers/prediction/category/resolvePredictionCategoryLabel.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { capturePolymarketHomeCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -37,9 +37,7 @@ function isSecondaryChipActive(context: CategorySlugContext, slug: string): bool
 }
 
 function SecondaryChipLink({ item, isActive }: { item: PolymarketEventSlugListData; isActive: boolean }) {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     return (
         <Link
             replace

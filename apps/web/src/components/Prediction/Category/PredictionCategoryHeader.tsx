@@ -1,11 +1,11 @@
 'use client';
 
-import { useLingui } from '@lingui/react';
 import { memo } from 'react';
 
 import { PredictionCategoryTabs } from '@/components/Prediction/Category/PredictionCategoryTabs.js';
 import type { PredictionCategoryTab } from '@/helpers/prediction/category/constants.js';
 import { resolvePredictionCategoryLabel } from '@/helpers/prediction/category/resolvePredictionCategoryLabel.js';
+import { useLocale } from '@/hooks/useLocale.js';
 
 interface Props {
     title: string;
@@ -22,9 +22,7 @@ export const PredictionCategoryHeader = memo<Props>(function PredictionCategoryH
     onTabChange,
     categorySlug,
 }) {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     return (
         <div className="flex items-center justify-between gap-3 px-4 py-3">
             <h1 className="min-w-0 truncate text-2xl font-black text-main">

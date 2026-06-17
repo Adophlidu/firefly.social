@@ -353,6 +353,9 @@ export enum EventId {
     POLYMARKET_SEARCH_TOPIC_CLICK = 'polymarket_search_topic_click',
     POLYMARKET_EVENT_CRYPTO_RECURRENCE_CLICK = 'polymarket_event_crypto_recurrence_click',
     POLYMARKET_EVENT_CHART_CHANGE = 'polymarket_event_chart_change',
+    POLYMARKET_EVENT_MARKET_OPTION_CLICK = 'polymarket_event_market_option_click',
+    POLYMARKET_EVENT_STATS_OPTION_CLICK = 'polymarket_event_stats_option_click',
+    POLYMARKET_EVENT_STEAM_OPTION_CLICK = 'polymarket_event_steam_option_click',
     POLYMARKET_ORDER_CLICK = 'polymarket_order_click',
     POLYMARKET_EVENT_TRADES_PROFILE_CLICK = 'polymarket_event_trades_profile_click',
     OPINION_EVENT_TRADES_PROFILE_CLICK = 'opinion_event_trades_profile_click',
@@ -2066,6 +2069,27 @@ export interface Events extends Record<EventId, Event> {
             market_slug: string;
             market_title: string;
             market_group_item_name?: string;
+        };
+    };
+    [EventId.POLYMARKET_EVENT_MARKET_OPTION_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+        };
+    };
+    [EventId.POLYMARKET_EVENT_STATS_OPTION_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+        };
+    };
+    [EventId.POLYMARKET_EVENT_STEAM_OPTION_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
         };
     };
     [EventId.POLYMARKET_EVENT_TOP_HOLDER_CHANGE_MARKET_CLICK]: {

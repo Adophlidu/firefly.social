@@ -28,6 +28,10 @@ msgstr "킬 핸디캡"
 msgid "DRAW"
 msgstr "무승부"
 
+#. placeholder {0}: index + 1
+msgid "Source {0}"
+msgstr ""
+
 msgid "Refunded"
 msgstr "환불됨"
 
@@ -2482,6 +2486,9 @@ msgstr "금융 범죄가 발견되었습니다."
 msgid "Failed to like tip."
 msgstr "팁 좋아요에 실패했습니다."
 
+msgid "Stream"
+msgstr ""
+
 msgid "No available wallet."
 msgstr "사용 가능한 지갑이 없습니다."
 
@@ -2864,6 +2871,9 @@ msgstr "수집함"
 msgid "Owned By"
 msgstr "소유자"
 
+msgid "CN Stream"
+msgstr ""
+
 msgid "Are you sure you want to report this post?"
 msgstr "이 게시물을 신고하시겠습니까?"
 
@@ -3030,7 +3040,7 @@ msgid "Properties"
 msgstr "속성"
 
 msgid "Market"
-msgstr "마켓"
+msgstr ""
 
 msgid "Executed"
 msgstr "실행됨"
@@ -3115,6 +3125,9 @@ msgstr "실패한 예약 게시물은 텍스트만 복원할 수 있습니다. <
 
 msgid "Failed to generate the share image. Please try again."
 msgstr "공유 이미지를 생성하지 못했습니다. 다시 시도해 주세요."
+
+msgid "Live Stats"
+msgstr ""
 
 msgid "Time"
 msgstr "시간"
@@ -4566,9 +4579,6 @@ msgstr "최종 결과"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Firefly 럭키 드롭으로 팔로워와 참여를 늘려 보세요!"
-
-msgid "Watch Stream"
-msgstr "스트림 보기"
 
 msgid "Transaction failed"
 msgstr "거래 실패"

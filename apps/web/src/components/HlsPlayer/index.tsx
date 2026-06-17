@@ -7,6 +7,7 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { dispatchCustomEvent, listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
+import { isStaleCctvEndSegmentUrl } from '@/helpers/prediction/isStaleCctvEndPlaylist.js';
 import { logger } from '@/libs/Logger.js';
 
 interface HlsPlayerProps {
@@ -14,10 +15,25 @@ interface HlsPlayerProps {
     autoPlay?: boolean;
     enableViewportAutoPlay?: boolean;
     onStateChange?: (state: any) => void;
+    /** Called when the stream fails terminally (after automatic retries are exhausted). */
+    onFatalError?: () => void;
+    /** Reload the master playlist when the CCTV relay serves a stale `endN.ts` VOD fallback. */
+    reloadOnStaleEnd?: boolean;
     className?: string;
-    mode?: 'video' | 'gif';
+    mode?: 'video' | 'gif' | 'live';
     poster?: string;
 }
+
+// VOD: cap network-error retries so a dead source can't loop forever.
+const MAX_NETWORK_RETRIES = 3;
+// Live: the CCTV relay rotates CDNs and briefly serves stale/IP-blocked nodes,
+// so keep retrying with backoff and only give up after a sustained outage —
+// dropping a live source on a transient burst is what made it vanish.
+const LIVE_RECOVERY_WINDOW_MS = 120_000;
+const LIVE_RETRY_BASE_MS = 2000;
+const LIVE_RETRY_MAX_MS = 15_000;
+const MAX_STALE_END_RELOADS = 5;
+
 interface QualityLevel {
     id: number;
     height: number;
@@ -41,6 +57,8 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
     src,
     autoPlay = true,
     enableViewportAutoPlay = true,
+    onFatalError,
+    reloadOnStaleEnd = false,
     className = '',
     mode = 'video',
     poster,
@@ -48,6 +66,15 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
     const videoRef = useRef<HTMLVideoElement>(null);
     const hlsRef = useRef<Hls | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const networkRetriesRef = useRef(0);
+    const liveErrorSinceRef = useRef<number | null>(null);
+    const retryTimerRef = useRef<number | null>(null);
+    const staleEndReloadsRef = useRef(0);
+    const wasLiveRef = useRef(false);
+    const reloadOnStaleEndRef = useRef(reloadOnStaleEnd);
+    reloadOnStaleEndRef.current = reloadOnStaleEnd;
+    const onFatalErrorRef = useRef(onFatalError);
+    onFatalErrorRef.current = onFatalError;
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
@@ -79,6 +106,11 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
         setLevels([]);
         setProgress(0);
         setDuration(0);
+        networkRetriesRef.current = 0;
+        liveErrorSinceRef.current = null;
+        if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
+        staleEndReloadsRef.current = 0;
+        wasLiveRef.current = false;
 
         const isM3U8 = src.toLowerCase().includes('.m3u8');
         setIsHls(isM3U8);
@@ -86,8 +118,39 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
         if (isM3U8 && Hls.isSupported()) {
             const hls = new Hls({
                 enableWorker: true,
-                lowLatencyMode: true,
+                // Low-latency mode chases the live edge aggressively, which hammers a
+                // flaky CDN; disable it so we keep a small cushion and tolerate gaps.
+                lowLatencyMode: false,
                 backBufferLength: 90,
+                // The CCTV CDN intermittently 403s tokens. Back off exponentially on
+                // segment errors instead of hammering the same dead URL — the live
+                // playlist refresh will hand out fresh tokens to recover with.
+                fragLoadPolicy: {
+                    default: {
+                        maxTimeToFirstByteMs: 10_000,
+                        maxLoadTimeMs: 30_000,
+                        timeoutRetry: { maxNumRetry: 2, retryDelayMs: 0, maxRetryDelayMs: 0 },
+                        errorRetry: {
+                            maxNumRetry: 2,
+                            retryDelayMs: 1500,
+                            maxRetryDelayMs: 8000,
+                            backoff: 'exponential',
+                        },
+                    },
+                },
+                playlistLoadPolicy: {
+                    default: {
+                        maxTimeToFirstByteMs: 10_000,
+                        maxLoadTimeMs: 20_000,
+                        timeoutRetry: { maxNumRetry: 2, retryDelayMs: 0, maxRetryDelayMs: 0 },
+                        errorRetry: {
+                            maxNumRetry: 3,
+                            retryDelayMs: 1000,
+                            maxRetryDelayMs: 8000,
+                            backoff: 'exponential',
+                        },
+                    },
+                },
             });
             hlsRef.current = hls;
 
@@ -96,6 +159,8 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
 
             hls.on(Hls.Events.MANIFEST_PARSED, (_event: any, data: any) => {
                 setLoading(false);
+                networkRetriesRef.current = 0;
+                wasLiveRef.current = data.levels.some((level: any) => level.details?.live);
                 const availableLevels = data.levels.map((l: any, index: number) => ({
                     id: index,
                     height: l.height,
@@ -109,6 +174,12 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                 }
             });
 
+            hls.on(Hls.Events.FRAG_BUFFERED, () => {
+                // Progress made; clear the retry budget so isolated glitches don't add up to fatal.
+                networkRetriesRef.current = 0;
+                liveErrorSinceRef.current = null;
+            });
+
             hls.on(Hls.Events.LEVEL_SWITCHING, () => {
                 setIsBuffering(true);
             });
@@ -119,13 +190,71 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                 // the new level fragments might still be loading/buffering
             });
 
+            hls.on(Hls.Events.LEVEL_LOADED, (_event: any, data: any) => {
+                const { details } = data;
+                if (details.live) {
+                    wasLiveRef.current = true;
+                    // Successful refresh; clear the retry budget and recovery clock.
+                    networkRetriesRef.current = 0;
+                    liveErrorSinceRef.current = null;
+                    return;
+                }
+
+                if (!reloadOnStaleEndRef.current || !wasLiveRef.current) return;
+
+                const hasStaleEndSegments = details.fragments?.some((fragment: { url?: string }) =>
+                    fragment.url ? isStaleCctvEndSegmentUrl(fragment.url) : false,
+                );
+                if (!hasStaleEndSegments || staleEndReloadsRef.current >= MAX_STALE_END_RELOADS) return;
+
+                staleEndReloadsRef.current += 1;
+                networkRetriesRef.current = 0;
+                hls.loadSource(src);
+            });
+
             hls.on(Hls.Events.ERROR, (_event: any, data: any) => {
                 if (data.fatal) {
                     switch (data.type) {
-                        case Hls.ErrorTypes.NETWORK_ERROR:
-                            setError('Network error. Retrying...');
-                            hls.startLoad();
+                        case Hls.ErrorTypes.NETWORK_ERROR: {
+                            const isLiveStream = mode === 'live' || wasLiveRef.current;
+
+                            if (isLiveStream) {
+                                // The relay rotates CDNs and recovers within seconds; keep
+                                // retrying with backoff so a transient burst (stale playlist
+                                // or an IP-blocked CDN node) never drops the source. Give up
+                                // only after a sustained outage with no progress.
+                                if (liveErrorSinceRef.current === null) liveErrorSinceRef.current = Date.now();
+                                if (Date.now() - liveErrorSinceRef.current < LIVE_RECOVERY_WINDOW_MS) {
+                                    networkRetriesRef.current += 1;
+                                    setIsBuffering(true);
+                                    // Exponential backoff so we don't hammer the CDN while it's 403ing.
+                                    const delay = Math.min(
+                                        LIVE_RETRY_BASE_MS * 2 ** (networkRetriesRef.current - 1),
+                                        LIVE_RETRY_MAX_MS,
+                                    );
+                                    if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
+                                    retryTimerRef.current = window.setTimeout(() => hls.startLoad(), delay);
+                                    break;
+                                }
+                                setError('Stream unavailable.');
+                                hls.destroy();
+                                onFatalErrorRef.current?.();
+                                break;
+                            }
+
+                            if (networkRetriesRef.current < MAX_NETWORK_RETRIES) {
+                                networkRetriesRef.current += 1;
+                                // Recover behind a spinner so a transient blip doesn't look like a stop.
+                                setIsBuffering(true);
+                                hls.startLoad();
+                            } else {
+                                // Source is unreachable; stop retrying so we don't flood requests.
+                                setError('Stream unavailable.');
+                                hls.destroy();
+                                onFatalErrorRef.current?.();
+                            }
                             break;
+                        }
                         case Hls.ErrorTypes.MEDIA_ERROR:
                             setError('Media error. Attempting recovery...');
                             hls.recoverMediaError();
@@ -133,6 +262,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                         default:
                             setError('Unrecoverable player error.');
                             hls.destroy();
+                            onFatalErrorRef.current?.();
                             break;
                     }
                 }
@@ -164,13 +294,14 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                 video.removeEventListener('error', onVideoError);
             };
         }
-    }, [src, autoPlay, enableViewportAutoPlay]);
+    }, [src, autoPlay, enableViewportAutoPlay, mode]);
 
     useEffect(() => {
         const cleanup = initPlayer();
         setHasInteracted(false);
         return () => {
             if (typeof cleanup === 'function') cleanup();
+            if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
             if (hlsRef.current) hlsRef.current.destroy();
         };
     }, [initPlayer]);
@@ -203,7 +334,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
     }, [enableViewportAutoPlay, hasInteracted]);
 
     useEffect(() => {
-        if (mode !== 'video') return;
+        if (mode === 'gif') return;
 
         return listenCustomEvent('hls-player-play', (e) => {
             if (videoRef.current && e.detail !== videoRef.current) {
@@ -362,7 +493,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                 onLoadedMetadata={handleLoadedMetadata}
                 onPlay={() => {
                     setIsPlaying(true);
-                    if (mode === 'video') {
+                    if (mode !== 'gif') {
                         dispatchCustomEvent('hls-player-play', videoRef.current || undefined);
                     }
                 }}
@@ -391,19 +522,21 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                     showControls || mode === 'gif' ? 'opacity-100' : 'opacity-0',
                 )}
             >
-                {mode === 'video' ? (
+                {mode !== 'gif' ? (
                     <>
-                        <div className="group/progress relative mb-4 px-2">
-                            <input
-                                type="range"
-                                min="0"
-                                max="100"
-                                value={isNaN(progress) ? 0 : progress}
-                                onChange={handleSeek}
-                                onClick={(e) => e.stopPropagation()}
-                                className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/20 accent-blue-500 transition-all hover:h-2"
-                            />
-                        </div>
+                        {mode !== 'live' ? (
+                            <div className="group/progress relative mb-4 px-2">
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value={isNaN(progress) ? 0 : progress}
+                                    onChange={handleSeek}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/20 accent-blue-500 transition-all hover:h-2"
+                                />
+                            </div>
+                        ) : null}
 
                         <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-2">
@@ -459,11 +592,18 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                                     />
                                 </div>
 
-                                <div className="font-mono text-xs font-medium tabular-nums tracking-wider text-white">
-                                    <span>{formatTime(currentTime)}</span>
-                                    <span className="mx-1 text-white/40">/</span>
-                                    <span className="text-white/60">{formatTime(duration)}</span>
-                                </div>
+                                {mode === 'live' ? (
+                                    <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white">
+                                        <span className="size-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+                                        <Trans>Live</Trans>
+                                    </div>
+                                ) : (
+                                    <div className="font-mono text-xs font-medium tabular-nums tracking-wider text-white">
+                                        <span>{formatTime(currentTime)}</span>
+                                        <span className="mx-1 text-white/40">/</span>
+                                        <span className="text-white/60">{formatTime(duration)}</span>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="flex items-center gap-2">

@@ -1,7 +1,7 @@
 'use client';
 
 import { appLocaleToBrowserLocale } from '@/helpers/appLocaleToBrowserLocale.js';
-import { useLocale } from '@/helpers/getCookies.js';
+import { useLocale } from '@/hooks/useLocale.js';
 
 interface PredictionEventEndTimeProps {
     endTime: number | string;

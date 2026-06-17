@@ -28,6 +28,10 @@ msgstr "擊殺讓分"
 msgid "DRAW"
 msgstr "和局"
 
+#. placeholder {0}: index + 1
+msgid "Source {0}"
+msgstr ""
+
 msgid "Refunded"
 msgstr "已退款"
 
@@ -544,7 +548,7 @@ msgid "Invalid password. Please ensure it is a 6-digit number."
 msgstr "密碼無效，請輸入 6 位數字密碼。"
 
 msgid "Props"
-msgstr "趣味投注"
+msgstr "玩法"
 
 msgid "Potential risk of external call."
 msgstr "存在外部調用風險。"
@@ -2482,6 +2486,9 @@ msgstr "檢測到金融犯罪。"
 msgid "Failed to like tip."
 msgstr "按赞失敗。"
 
+msgid "Stream"
+msgstr ""
+
 msgid "No available wallet."
 msgstr "無可用錢包"
 
@@ -2864,6 +2871,9 @@ msgstr "已收集"
 msgid "Owned By"
 msgstr "擁有者"
 
+msgid "CN Stream"
+msgstr ""
+
 msgid "Are you sure you want to report this post?"
 msgstr "確定要檢舉此貼文？"
 
@@ -3030,7 +3040,7 @@ msgid "Properties"
 msgstr "屬性"
 
 msgid "Market"
-msgstr "市場"
+msgstr ""
 
 msgid "Executed"
 msgstr "已執行"
@@ -3115,6 +3125,9 @@ msgstr "發布失敗的預約貼文，僅可恢復文字內容。請重新進行
 
 msgid "Failed to generate the share image. Please try again."
 msgstr "產生分享圖片失敗。請重試。"
+
+msgid "Live Stats"
+msgstr ""
 
 msgid "Time"
 msgstr "時間"
@@ -3660,7 +3673,7 @@ msgstr "精確比分"
 
 #. placeholder {0}: group.group_letter
 msgid "Group {0}"
-msgstr "群組 {0}"
+msgstr "{0} 組"
 
 msgid "Like / Repost / Comment"
 msgstr "按讚/轉發/留言"
@@ -4566,9 +4579,6 @@ msgstr "最終結果"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "透過 Firefly 的紅包功能，提升你的粉絲數與互動率！"
-
-msgid "Watch Stream"
-msgstr "觀看直播"
 
 msgid "Transaction failed"
 msgstr "交易失敗"
@@ -5502,7 +5512,7 @@ msgid "Quote"
 msgstr "引用"
 
 msgid "Groups"
-msgstr "群組"
+msgstr "小組賽"
 
 msgid "Would you like to restore it?"
 msgstr "是否恢復？"

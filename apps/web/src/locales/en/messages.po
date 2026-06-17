@@ -28,6 +28,10 @@ msgstr "Kill Handicap"
 msgid "DRAW"
 msgstr "DRAW"
 
+#. placeholder {0}: index + 1
+msgid "Source {0}"
+msgstr "Source {0}"
+
 msgid "Refunded"
 msgstr "Refunded"
 
@@ -2494,6 +2498,9 @@ msgstr "Financial crime found."
 msgid "Failed to like tip."
 msgstr "Failed to like tip."
 
+msgid "Stream"
+msgstr "Stream"
+
 msgid "No available wallet."
 msgstr "No available wallet."
 
@@ -2878,6 +2885,9 @@ msgstr "Collected"
 msgid "Owned By"
 msgstr "Owned By"
 
+msgid "CN Stream"
+msgstr "CN Stream"
+
 msgid "Are you sure you want to report this post?"
 msgstr "Are you sure you want to report this post?"
 
@@ -3132,6 +3142,9 @@ msgstr "For a failed scheduled post, only the text content can be restored. Plea
 
 msgid "Failed to generate the share image. Please try again."
 msgstr "Failed to generate the share image. Please try again."
+
+msgid "Live Stats"
+msgstr "Live Stats"
 
 msgid "Time"
 msgstr "Time"
@@ -4589,9 +4602,6 @@ msgstr "Final results"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
-
-msgid "Watch Stream"
-msgstr "Watch Stream"
 
 msgid "Transaction failed"
 msgstr "Transaction failed"

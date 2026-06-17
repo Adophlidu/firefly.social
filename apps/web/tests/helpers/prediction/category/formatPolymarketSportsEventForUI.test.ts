@@ -209,6 +209,60 @@ describe('formatPolymarketSportsEventForUI', () => {
         expect(model?.awayTeam.logo).toBe('https://example.com/correct-mexico-flag.png');
     });
 
+    it('does not flag either team as loser for a finished three-way draw', () => {
+        const event = baseEvent({
+            isDraw: true,
+            game_status: 2,
+            winResult: 1,
+            drawTeams: [
+                {
+                    name: 'Arsenal',
+                    abbreviation: 'ARS',
+                    color: '#EF0107',
+                },
+                {
+                    name: 'Chelsea',
+                    abbreviation: 'CHE',
+                    color: '#034694',
+                },
+            ],
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'arsenal-win',
+                    groupItemTitle: 'Arsenal',
+                    groupTypeFF: 0,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.45","0.55"]',
+                    gameStartTime: '2026-05-20T22:00:00Z',
+                },
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'draw-ars-chel',
+                    groupItemTitle: 'Draw (Arsenal vs. Chelsea)',
+                    groupTypeFF: 1,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.28","0.72"]',
+                },
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'chelsea-win',
+                    groupItemTitle: 'Chelsea',
+                    groupTypeFF: 2,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.32","0.68"]',
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.gamePhase).toBe('finished');
+        expect(model?.homeTeam.isLoser).not.toBe(true);
+        expect(model?.awayTeam.isLoser).not.toBe(true);
+        expect(model?.drawOutcome?.isWinner).toBe(true);
+    });
+
     it('maps livestream_info.livestream_url for live games', () => {
         const event = baseEvent({
             game_status: 0,

@@ -889,10 +889,6 @@ body {
     animation: football-bounce 4s infinite;
 }
 
-.football-bounce:hover {
-    animation-duration: 1.2s;
-}
-
 @keyframes football-bounce {
     0%,
     62% {

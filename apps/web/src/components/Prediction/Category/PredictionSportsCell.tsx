@@ -13,6 +13,8 @@ import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
 import { SportTeamAvatar } from '@/components/Prediction/Sport/SportTeamAvatar.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { Tooltip } from '@/components/Tooltip.js';
+import { FIFA_SLUG } from '@/constants/bets.js';
 import { useRouter } from '@/esm/navigation.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import {
@@ -21,7 +23,6 @@ import {
     type PredictionSportsDrawOutcomeForUI,
     type PredictionSportsTeamForUI,
 } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
-import { isTwitchLivestreamUrl } from '@/helpers/prediction/resolveSportLivestreamPlayback.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 
@@ -59,6 +60,19 @@ export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ 
 });
 
 const SportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(function SportsCellHeader({ model }) {
+    const isFifa = model.eventSlug.startsWith(FIFA_SLUG);
+    // FIFA games always expose the shared CN broadcast; others keep the live-only livestream link.
+    const showStream = isFifa || (model.gamePhase === 'live' && !!model.livestreamUrl);
+
+    return (
+        <div className="flex h-7 items-center justify-between gap-2">
+            <SportsCellHeaderInfo model={model} />
+            {showStream ? <LivestreamButton eventSlug={model.eventSlug} isFifa={isFifa} /> : null}
+        </div>
+    );
+});
+
+const SportsCellHeaderInfo = memo<{ model: PredictionSportsCellViewModel }>(function SportsCellHeaderInfo({ model }) {
     switch (model.gamePhase) {
         case 'live':
             return <LiveSportsCellHeader model={model} />;
@@ -71,24 +85,21 @@ const SportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(function
 
 const LiveSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(function LiveSportsCellHeader({ model }) {
     return (
-        <div className="flex h-7 items-center justify-between gap-2">
-            <div className="flex min-w-0 flex-1 items-center gap-2 whitespace-nowrap text-[13px] leading-[17px]">
-                <div className="flex shrink-0 items-center gap-0.5">
-                    <span className="inline-flex overflow-visible p-px">
-                        <ActiveTag variant="danger" />
-                    </span>
-                    <span className="font-medium text-danger">
-                        <Trans>LIVE</Trans>
-                    </span>
-                </div>
-                <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden">
-                    {model.statusLabel ? (
-                        <span className="shrink-0 font-semibold text-main">{model.statusLabel}</span>
-                    ) : null}
-                    <HeaderMeta volumeLabel={model.volumeLabel} leagueLabel={model.leagueLabel} />
-                </div>
+        <div className="flex min-w-0 flex-1 items-center gap-2 whitespace-nowrap text-[13px] leading-[17px]">
+            <div className="flex shrink-0 items-center gap-0.5">
+                <span className="inline-flex overflow-visible p-px">
+                    <ActiveTag variant="danger" />
+                </span>
+                <span className="font-medium text-danger">
+                    <Trans>LIVE</Trans>
+                </span>
             </div>
-            {model.livestreamUrl ? <LivestreamButton url={model.livestreamUrl} eventSlug={model.eventSlug} /> : null}
+            <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden">
+                {model.statusLabel ? (
+                    <span className="shrink-0 font-semibold text-main">{model.statusLabel}</span>
+                ) : null}
+                <HeaderMeta volumeLabel={model.volumeLabel} leagueLabel={model.leagueLabel} />
+            </div>
         </div>
     );
 });
@@ -97,7 +108,7 @@ const ScheduledSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>
     model,
 }) {
     return (
-        <div className="flex h-7 items-center gap-2 overflow-hidden whitespace-nowrap text-[13px] leading-[17px]">
+        <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden whitespace-nowrap text-[13px] leading-[17px]">
             {model.scheduledTimeLabel ? (
                 <span className="flex h-7 shrink-0 items-center rounded-lg bg-bg px-2 font-semibold text-main">
                     {model.scheduledTimeLabel}
@@ -112,7 +123,7 @@ const FinishedSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(
     model,
 }) {
     return (
-        <div className="flex h-7 items-center gap-2 overflow-hidden whitespace-nowrap text-[13px] leading-[17px]">
+        <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden whitespace-nowrap text-[13px] leading-[17px]">
             <span className="shrink-0 font-semibold text-main">
                 <Trans>FINAL</Trans>
             </span>
@@ -132,33 +143,37 @@ const HeaderMeta = memo<{
     return <span className={classNames('truncate text-second', className)}>{metaParts.join(' · ')}</span>;
 });
 
-const LivestreamButton = memo<{ url: string; eventSlug: string }>(function LivestreamButton({ url, eventSlug }) {
+const LivestreamButton = memo<{ eventSlug: string; isFifa: boolean }>(function LivestreamButton({ eventSlug, isFifa }) {
     const router = useRouter();
 
     const handleClick = (event: MouseEvent) => {
         event.preventDefault();
         event.stopPropagation();
-        if (isTwitchLivestreamUrl(url)) {
-            router.push(
-                RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, eventSlug, {
-                    appendRoot: false,
-                    stream: true,
-                }),
-            );
-            return;
-        }
-        window.open(url, '_blank', 'noopener,noreferrer');
+        router.push(
+            RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, eventSlug, {
+                appendRoot: false,
+                chartView: 'stream',
+            }),
+        );
     };
 
-    return (
+    const button = (
         <button
             type="button"
             className="pointer-events-auto relative z-20 flex size-5 shrink-0 items-center justify-center text-second hover:text-main"
             onClick={handleClick}
-            aria-label={t`Open livestream`}
+            aria-label={isFifa ? t`CN Stream` : t`Open livestream`}
         >
             <LivestreamBroadcastIcon width={20} height={20} />
         </button>
+    );
+
+    if (!isFifa) return button;
+
+    return (
+        <Tooltip content={t`CN Stream`} placement="top">
+            {button}
+        </Tooltip>
     );
 });
 

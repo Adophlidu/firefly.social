@@ -28,6 +28,10 @@ msgstr "キルハンディキャップ"
 msgid "DRAW"
 msgstr "引き分け"
 
+#. placeholder {0}: index + 1
+msgid "Source {0}"
+msgstr ""
+
 msgid "Refunded"
 msgstr "返金済み"
 
@@ -2482,6 +2486,9 @@ msgstr "金融犯罪が検出されました。"
 msgid "Failed to like tip."
 msgstr "チップへのいいねに失敗しました。"
 
+msgid "Stream"
+msgstr ""
+
 msgid "No available wallet."
 msgstr "利用可能なウォレットがありません。"
 
@@ -2864,6 +2871,9 @@ msgstr "コレクト済み"
 msgid "Owned By"
 msgstr "所有者"
 
+msgid "CN Stream"
+msgstr ""
+
 msgid "Are you sure you want to report this post?"
 msgstr "この投稿を報告してもよろしいですか？"
 
@@ -3030,7 +3040,7 @@ msgid "Properties"
 msgstr "プロパティ"
 
 msgid "Market"
-msgstr "マーケット"
+msgstr ""
 
 msgid "Executed"
 msgstr "実行済み"
@@ -3115,6 +3125,9 @@ msgstr "失敗した予約投稿では、テキストコンテンツのみ復元
 
 msgid "Failed to generate the share image. Please try again."
 msgstr "シェア画像を生成できませんでした。もう一度お試しください。"
+
+msgid "Live Stats"
+msgstr ""
 
 msgid "Time"
 msgstr "時間"
@@ -4566,9 +4579,6 @@ msgstr "最終結果"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Firefly のラッキードロップでフォロワーとエンゲージメントを増やしましょう！"
-
-msgid "Watch Stream"
-msgstr "ストリームを見る"
 
 msgid "Transaction failed"
 msgstr "取引に失敗しました"

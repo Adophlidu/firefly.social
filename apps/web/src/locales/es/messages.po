@@ -28,6 +28,10 @@ msgstr "Handicap de bajas"
 msgid "DRAW"
 msgstr "DIBUJAR"
 
+#. placeholder {0}: index + 1
+msgid "Source {0}"
+msgstr ""
+
 msgid "Refunded"
 msgstr "Reembolsado"
 
@@ -2494,6 +2498,9 @@ msgstr "Delito financiero detectado."
 msgid "Failed to like tip."
 msgstr "No se pudo dar Me gusta."
 
+msgid "Stream"
+msgstr ""
+
 msgid "No available wallet."
 msgstr "No hay billetera disponible."
 
@@ -2878,6 +2885,9 @@ msgstr "Recogido"
 msgid "Owned By"
 msgstr "Propiedad de"
 
+msgid "CN Stream"
+msgstr ""
+
 msgid "Are you sure you want to report this post?"
 msgstr "¿Está seguro de que desea denunciar esta publicación?"
 
@@ -3046,7 +3056,7 @@ msgid "Properties"
 msgstr "Propiedades"
 
 msgid "Market"
-msgstr "Mercado"
+msgstr ""
 
 msgid "Executed"
 msgstr "Ejecutado"
@@ -3132,6 +3142,9 @@ msgstr "Para una publicación programada fallida, solo se puede restaurar el con
 
 msgid "Failed to generate the share image. Please try again."
 msgstr "No se pudo generar la imagen para compartir. Inténtalo de nuevo."
+
+msgid "Live Stats"
+msgstr ""
 
 msgid "Time"
 msgstr "Hora"
@@ -4589,9 +4602,6 @@ msgstr "Resultados finales"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Aumenta tus seguidores y tu engagement con Lucky Drop en Firefly!"
-
-msgid "Watch Stream"
-msgstr "Ver Transmisión"
 
 msgid "Transaction failed"
 msgstr "Transacción fallida"

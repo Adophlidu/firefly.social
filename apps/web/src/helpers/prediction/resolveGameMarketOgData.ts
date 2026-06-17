@@ -25,6 +25,8 @@ export interface GameMarketOgData {
     awayRatio: number;
     /** Raw event volume string (formatted at render time). */
     volume: string;
+    /** League / competition name shown under the title (e.g. "LOL"); omitted when unavailable. */
+    leagueName?: string;
     /** Game lifecycle state — decides whether the OG shows the probability bar or the score. */
     state: GameMarketState;
     /** Per-set scores (single entry for non-tennis games). */
@@ -72,6 +74,9 @@ export function resolveGameMarketOgData(event: BetsEventDataForUI): GameMarketOg
     const market = getMoneylineMarket(event.markets);
     if (!market) return null;
 
+    // Game state mirrors SportTeamDataDisplay: live/ended games show the score, upcoming shows the bar.
+    const state: GameMarketState = sportData.live ? 'live' : sportData.ended ? 'ended' : 'upcoming';
+
     let homePrice = pickTeamPrice(market, homeTeam);
     let awayPrice = pickTeamPrice(market, awayTeam);
 
@@ -81,32 +86,35 @@ export function resolveGameMarketOgData(event: BetsEventDataForUI): GameMarketOg
         awayPrice = Number.parseFloat(market.outcomes[1]?.price ?? '');
     }
 
-    if (!Number.isFinite(homePrice) || !Number.isFinite(awayPrice)) return null;
+    // The win-probability bar (and its percentages/ratios) is only rendered for upcoming games;
+    // live/ended games render the score instead, exactly like SportTeamDataDisplay. Once a game ends
+    // the moneyline resolves to 0/1, so a draw leaves both home and away at 0 (pairTotal 0) — that
+    // must NOT drop the game OG back to the generic prediction layout. Only upcoming games, which
+    // actually display the bar, require usable win probabilities.
+    const pricesValid = Number.isFinite(homePrice) && Number.isFinite(awayPrice) && homePrice + awayPrice > 0;
+    if (state === 'upcoming' && !pricesValid) return null;
 
     // Bar fill is normalized between the two teams only, so its segments span the full width.
-    const pairTotal = homePrice + awayPrice;
-    if (pairTotal <= 0) return null;
-
-    const homeRatio = homePrice / pairTotal;
-    const awayRatio = awayPrice / pairTotal;
+    const pairTotal = pricesValid ? homePrice + awayPrice : 0;
+    const homeRatio = pricesValid ? homePrice / pairTotal : 0.5;
+    const awayRatio = pricesValid ? awayPrice / pairTotal : 0.5;
 
     // Displayed percentages include the draw outcome (outcomes[2] on 3-way markets) so they match
     // the detail page, which divides by home + away + draw and rounds to an integer.
     const drawPrice = sportData.isDraw ? Number.parseFloat(market.outcomes[2]?.price ?? '') : Number.NaN;
     const percentTotal = pairTotal + (Number.isFinite(drawPrice) ? drawPrice : 0);
 
-    // Game state mirrors SportTeamDataDisplay: live/ended games show the score instead of the bar.
-    const state: GameMarketState = sportData.live ? 'live' : sportData.ended ? 'ended' : 'upcoming';
     const [homeScore, awayScore] = getSingleScore(sportData.scores);
 
     return {
         homeTeam,
         awayTeam,
-        homePercent: Math.round((homePrice / percentTotal) * 100),
-        awayPercent: Math.round((awayPrice / percentTotal) * 100),
+        homePercent: pricesValid && percentTotal > 0 ? Math.round((homePrice / percentTotal) * 100) : 0,
+        awayPercent: pricesValid && percentTotal > 0 ? Math.round((awayPrice / percentTotal) * 100) : 0,
         homeRatio,
         awayRatio,
         volume: event.volume,
+        leagueName: sportData.leagueName?.trim() || undefined,
         state,
         scores: sportData.scores,
         homeScore,

@@ -3,7 +3,6 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { useLingui } from '@lingui/react';
 import { Fragment, memo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -13,6 +12,7 @@ import { buildPredictionCategoryHref } from '@/helpers/prediction/category/build
 import { PREDICTION_CATEGORY_SCROLL_KEY_ATTR } from '@/helpers/prediction/category/getCategoryScrollKey.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { resolvePredictionCategoryLabel } from '@/helpers/prediction/category/resolvePredictionCategoryLabel.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { capturePolymarketHomeCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -25,9 +25,7 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
     item,
     context,
 }) {
-    const {
-        i18n: { locale },
-    } = useLingui();
+    const locale = useLocale();
     const tertiaryItems = item.sub_slug ?? [];
     const isSecondaryActive = context.secondaryItem?.slug === item.slug;
     const isOpenBySelection = context.depth === 3 && isSecondaryActive;

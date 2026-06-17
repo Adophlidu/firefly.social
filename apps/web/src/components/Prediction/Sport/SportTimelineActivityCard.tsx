@@ -22,6 +22,7 @@ import {
     getTieBreakValue,
     matchesTeamLabel,
 } from '@/helpers/prediction/sportScoreUtils.js';
+import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type {
     BetsActivity,
@@ -206,13 +207,10 @@ function resolveMarketOutcomes(activity: BetsActivity) {
     };
 }
 
-function getButtonLabel(team: TeamViewModel, fallback: string) {
-    return team.abbreviation || team.name || fallback;
-}
-
-function getOutcomeButtonLabel(team: TeamViewModel, fallbackLabel: string | undefined, matchedTeam: boolean) {
-    if (matchedTeam) return getButtonLabel(team, fallbackLabel || team.name);
-    return fallbackLabel || getButtonLabel(team, 'Outcome');
+function getOutcomeButtonLabel(team: TeamViewModel, fallbackLabel: string | undefined): string {
+    // Moneyline markets expose generic outcome labels ("Yes"/"No") rather than team names,
+    // so always prefer the team's abbreviation/name over the generic label.
+    return team.abbreviation || team.name || fallbackLabel || '';
 }
 
 function getOutcomeKey(outcome: OutcomeViewModel) {
@@ -292,6 +290,7 @@ function TeamLogo({ team }: { team: TeamViewModel }) {
 }
 
 function TeamColumn({ team, isLoser }: { team: TeamViewModel; isLoser?: boolean }) {
+    const resolveTeamName = useLocalizedSportsTeamName();
     return (
         <div
             className={classNames('flex h-full min-w-0 flex-col items-center justify-center gap-2 text-center', {
@@ -300,7 +299,7 @@ function TeamColumn({ team, isLoser }: { team: TeamViewModel; isLoser?: boolean 
         >
             <TeamLogo team={team} />
             <p className="line-clamp-2 min-h-4 w-full break-words text-[10px] font-semibold leading-4 text-lightMain md:text-[13px]">
-                {team.name}
+                {resolveTeamName(team.name)}
             </p>
         </div>
     );
@@ -522,17 +521,13 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
     const marketOutcomes = resolveMarketOutcomes(activity);
 
     const homeOutcome: OutcomeViewModel = {
-        label: abbreviateOutcomeLabel(
-            getOutcomeButtonLabel(homeTeam, labels[homeOutcomeMeta.index], homeOutcomeMeta.matched),
-        ),
+        label: abbreviateOutcomeLabel(getOutcomeButtonLabel(homeTeam, labels[homeOutcomeMeta.index])),
         price: marketOutcomes?.home?.price ?? prices[homeOutcomeMeta.index],
         outcomeIndex: marketOutcomes?.home ? 0 : homeOutcomeMeta.index,
         color: homeTeam.color,
     };
     const awayOutcome: OutcomeViewModel = {
-        label: abbreviateOutcomeLabel(
-            getOutcomeButtonLabel(awayTeam, labels[awayOutcomeMeta.index], awayOutcomeMeta.matched),
-        ),
+        label: abbreviateOutcomeLabel(getOutcomeButtonLabel(awayTeam, labels[awayOutcomeMeta.index])),
         price: marketOutcomes?.away?.price ?? prices[awayOutcomeMeta.index],
         outcomeIndex: marketOutcomes?.away ? 0 : awayOutcomeMeta.index,
         color: awayTeam.color,

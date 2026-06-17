@@ -14,9 +14,9 @@ import { Time } from '@/components/Semantic/Time.js';
 import { usePathname } from '@/esm/navigation.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatLocalizedDate, formatLocalizedTime, getTimeLeft } from '@/helpers/formatTimestamp.js';
-import { useLocale } from '@/helpers/getCookies.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

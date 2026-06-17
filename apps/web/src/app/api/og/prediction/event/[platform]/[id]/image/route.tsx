@@ -105,7 +105,9 @@ function TeamLogo({ src, team, side }: { src: string | null; team: SportTeam; si
         <div
             style={{
                 position: 'absolute',
-                top: '200px',
+                // Centered (249 + 290/2 = 394) on the same axis as the center score/probability block,
+                // matching the detail page where logos and the center column share one vertical center.
+                top: '249px',
                 width: '250px',
                 height: '290px',
                 display: 'flex',
@@ -240,10 +242,13 @@ function ScoreCenter({ gameData }: { gameData: GameMarketOgData }) {
     );
 }
 
-async function GameMarketOgImage({ event, gameData }: { event: BetsEventDataForUI; gameData: GameMarketOgData }) {
-    const { homeTeam, awayTeam, homePercent, awayPercent, homeRatio, awayRatio, volume, state } = gameData;
+async function GameMarketOgImage({ gameData }: { gameData: GameMarketOgData }) {
+    const { homeTeam, awayTeam, homePercent, awayPercent, homeRatio, awayRatio, volume, state, leagueName } = gameData;
     const homeColor = homeTeam.color || DEFAULT_HOME_COLOR;
     const awayColor = awayTeam.color || DEFAULT_AWAY_COLOR;
+    // Mirror the detail page header (SportEventPageTitle): "{home} vs. {away}" instead of the raw
+    // event.title, so the game OG image and the detail page show the same title.
+    const gameTitle = `${homeTeam.name || homeTeam.abbreviation || 'Home'} vs. ${awayTeam.name || awayTeam.abbreviation || 'Away'}`;
 
     const [homeLogo, awayLogo] = await Promise.all([
         homeTeam.logo ? fetchImageAsBase64(homeTeam.logo) : Promise.resolve(null),
@@ -292,7 +297,9 @@ async function GameMarketOgImage({ event, gameData }: { event: BetsEventDataForU
                 style={{
                     position: 'absolute',
                     top: '24px',
-                    right: '24px',
+                    // Inset from the edge so the logo stays inside a 16:9 center-crop
+                    // (Firefly's feed embed and external link previews crop the 1200x630 image).
+                    right: '64px',
                     width: '128px',
                     height: '40px',
                     objectFit: 'contain',
@@ -306,7 +313,9 @@ async function GameMarketOgImage({ event, gameData }: { event: BetsEventDataForU
                     left: 0,
                     width: '1200px',
                     display: 'flex',
-                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '12px',
                     padding: '0 120px',
                 }}
             >
@@ -323,8 +332,25 @@ async function GameMarketOgImage({ event, gameData }: { event: BetsEventDataForU
                         maxWidth: '100%',
                     }}
                 >
-                    {event.title}
+                    {gameTitle}
                 </div>
+                {leagueName ? (
+                    <div
+                        style={{
+                            display: 'flex',
+                            fontSize: '32px',
+                            fontWeight: 600,
+                            color: '#B5B7BB',
+                            lineHeight: '32px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            maxWidth: '100%',
+                        }}
+                    >
+                        {leagueName}
+                    </div>
+                ) : null}
             </div>
 
             <TeamLogo src={homeLogo} team={homeTeam} side="left" />
@@ -437,7 +463,7 @@ async function PredictionEventOgImage({
     sharerHandle?: string | null;
 }) {
     const gameData = resolveGameMarketOgData(event);
-    if (gameData) return GameMarketOgImage({ event, gameData });
+    if (gameData) return GameMarketOgImage({ gameData });
 
     const eventImage = await fetchImageAsBase64(event.image, OG_FALLBACK_IMAGE);
     const isSingleMarket = event.markets.length === 1;
