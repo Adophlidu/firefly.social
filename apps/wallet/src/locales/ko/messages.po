@@ -687,9 +687,6 @@ msgstr "무제한"
 msgid "Deposit failed."
 msgstr "입금 실패."
 
-msgid "Perps"
-msgstr "퍼페츄얼"
-
 msgid "Swapped Failed"
 msgstr "스왑 실패"
 

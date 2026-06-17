@@ -687,9 +687,6 @@ msgstr "Ilimitado"
 msgid "Deposit failed."
 msgstr "Error al depositar."
 
-msgid "Perps"
-msgstr "Perpetuos"
-
 msgid "Swapped Failed"
 msgstr "Error al intercambiar"
 

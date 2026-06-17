@@ -3,7 +3,6 @@ import type {
     ArticlePlatform,
     ArticleType,
     BookmarkType,
-    ErcType,
     ExploreSwitchType,
     FansStatus,
     FireflyPlatform,
@@ -1369,10 +1368,6 @@ export interface RootdataPeople {
     } | null;
 }
 
-export type SearchNFTResponse = Response<{
-    list: EVM.Collection[];
-}>;
-
 export interface SearchableToken {
     /** only search by keyword has platform_type */
     platform_type?: TokenPlatformType;
@@ -1823,60 +1818,6 @@ export type FollowingTraderCountResponse = Response<{ total: number }>;
 export type CollectionResponse = Response<EVM.Collection | null>;
 export type CollectionsResponse = Response<{ collections: EVM.Collection[]; cursor: string }>;
 
-export interface CollectionHolder {
-    address: string;
-    value: number;
-    /** @example 10% */
-    proportion: string;
-}
-
-export type HoldersResponse = Response<CollectionHolder[]>;
-
-export type CollectionItemsResponse = Response<{
-    content: EVM.Asset[];
-    next: string;
-    total: number;
-}>;
-
-export type CollectionStatisticsResponse = Response<{
-    contract_address: string;
-    contract_name: string;
-    erc_type: ErcType;
-    logo_url: string;
-    items_total: number;
-    owners_total: number;
-    lowest_price_24h: number;
-    lowest_price_1d: number;
-    lowest_price_7d: number;
-    lowest_price_30d: number;
-    average_price_24h: number;
-    volume_24h: number;
-    sales_24h: number;
-    sales: number;
-    sales_1d: number;
-    sales_7d: number;
-    sales_30d: number;
-    highest_price: number;
-    volume_1d: number;
-    volume_7d: number;
-    volume_30d: number;
-    total_volume: number;
-    volume_change_1d: string;
-    volume_change_7d: string;
-    volume_change_30d: string;
-    market_cap: number;
-    average_price_change_1d: string;
-    average_price_change_7d: string;
-    average_price_change_30d: string;
-    floor_price: number;
-    sales_1h: number;
-    sales_6h: number;
-    volume_1h: number;
-    volume_6h: number;
-    volume_change_1h: string;
-    volume_change_6h: string;
-}>;
-
 type Stat = [number, number];
 
 export type TokenPriceStatsResponse = Response<{
@@ -2191,45 +2132,6 @@ interface PrivyWallet {
 }
 
 export type PrivyWalletResponse = Response<PrivyWallet>;
-
-export interface TrendingNFT {
-    contract_address: string;
-    contract_name: string;
-    symbol: string;
-    logo_url: string;
-    banner_url: string;
-    items_total: number;
-    owners_total: number;
-    verified: boolean;
-    opensea_verified: boolean;
-    sales_1d: number;
-    sales_7d: number;
-    sales_30d: number;
-    sales_total: number;
-    sales_change_1d: string;
-    sales_change_7d: string;
-    sales_change_30d: string;
-    volume_1d: number;
-    volume_7d: number;
-    volume_30d: number;
-    volume_total: number;
-    floor_price: number;
-    average_price_1d: number;
-    average_price_7d: number;
-    average_price_30d: number;
-    average_price_total: number;
-    average_price_change_1d: string;
-    average_price_change_7d: string;
-    average_price_change_30d: string;
-    volume_change_1d: string;
-    volume_change_7d: string;
-    volume_change_30d: string;
-    market_cap: number;
-    chain_id: number;
-    price_symbol: string;
-    /** NFTScan collection */
-    collection: EVM.Collection;
-}
 
 export interface TokenAsset {
     chainIndex: string;

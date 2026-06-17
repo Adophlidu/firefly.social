@@ -698,9 +698,6 @@ msgstr "No se pudo marcar la instantánea con Me gusta."
 msgid "Trying auto login..."
 msgstr "Intentando inicio de sesión automático..."
 
-msgid "Mint"
-msgstr "Acuñar"
-
 msgid "Failed to like the comment."
 msgstr "No se pudo dar Me gusta al comentario."
 
@@ -1186,9 +1183,6 @@ msgstr "Comprar {firstOutcome}"
 msgid "Minutes"
 msgstr "Minutos"
 
-msgid "Sorry, today's free mint quota has been reached."
-msgstr "Lo sentimos, la cuota gratuita de mint de hoy se ha agotado."
-
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
@@ -1649,9 +1643,6 @@ msgstr "Cantidad personalizada"
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>¡Firefly está lanzando <1>el trading de Polymarket</1>, conectando los mercados de predicción onchain con tu feed social! Te invitamos a unirte como colaborador inicial, ¡empezando por nuestras <2>tareas de recompensa de contenido</2>!</0><3>💰 Los usuarios que produzcan contenido de alta calidad pueden ganar <4>100 USDC</4> cada uno.</3><5>🧩 Crea una publicación en Firefly para compartir tu historia de trading en Polymarket. Puedes hablar de tus predicciones, estrategias de trading, ideas, éxitos o incluso fracasos en Polymarket. Las propuestas se evaluarán según la calidad del contenido, la creatividad, la profundidad, la legibilidad y el alcance. Los ganadores se anunciarán en <6>@thefireflyapp</6> y se les contactará por DM.</5><7>📌 Cómo participar:</7><8><9><10>Crea</10> un artículo o un hilo largo compartiendo tu <11>historia de trading en Polymarket</11>, y publícalo en cualquier plataforma social compatible con Firefly.</9><12><13>Sigue y menciona</13> a <14>@thefireflyapp</14>.</12><15><16>Registra</16> tu propuesta rellenando este formulario.</15></8>"
-
-msgid "So sorry, we cant mint this NFT. Please try again later."
-msgstr "Lo sentimos mucho, no podemos acuñar este NFT. Por favor, inténtalo de nuevo más tarde."
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
@@ -2231,9 +2222,6 @@ msgstr "Inicia sesión con tu cuenta de X para ver"
 
 msgid "Login to Firefly"
 msgstr "Iniciar sesión en Firefly"
-
-msgid "So sorry, we are not able to mint this NFT at the moment."
-msgstr "Lo sentimos, no podemos acuñar este NFT en este momento."
 
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "Se perderá el contenido al abandonar esta página en modo anónimo."
@@ -3224,9 +3212,6 @@ msgstr "Club"
 msgid "6H"
 msgstr "6H"
 
-msgid "Mint NFT"
-msgstr "Acuñar NFT"
-
 msgid "Sold Out"
 msgstr "Agotado"
 
@@ -3624,9 +3609,6 @@ msgstr "Poseedores de {homeLabel}"
 msgid "No trade records"
 msgstr "No hay registros de operaciones"
 
-msgid "Minting"
-msgstr "Acuñación"
-
 msgid "Failed to login."
 msgstr "No se pudo iniciar sesión."
 
@@ -3677,9 +3659,6 @@ msgstr "Filtro de cadena"
 
 msgid "Post with link"
 msgstr "Publicación con enlace"
-
-msgid "Failed to mint NFT."
-msgstr "No se pudo acuñar el NFT."
 
 msgid "Unfollow"
 msgstr "Dejar de seguir"
@@ -4076,9 +4055,6 @@ msgstr "Restablecer contraseña"
 
 msgid "Post collected successfully!"
 msgstr "¡Publicación recogida con éxito!"
-
-msgid "NFT minted successfully!"
-msgstr "¡NFT acuñado con éxito!"
 
 msgid "Reposts"
 msgstr "Republicaciones"

@@ -687,9 +687,6 @@ msgstr "Unlimited"
 msgid "Deposit failed."
 msgstr "Deposit failed."
 
-msgid "Perps"
-msgstr "Perps"
-
 msgid "Swapped Failed"
 msgstr "Swapped Failed"
 

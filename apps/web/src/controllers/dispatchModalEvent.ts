@@ -98,11 +98,6 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
-    'free-mint-modal': {
-        open?: unknown;
-        close?: unknown;
-        abort?: Error;
-    };
     'edit-cross-at-modal': {
         open?: unknown;
         close?: unknown;

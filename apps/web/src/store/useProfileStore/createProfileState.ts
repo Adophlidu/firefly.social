@@ -36,11 +36,6 @@ export interface ProfileState {
     clear: (clearSession?: boolean) => void;
 }
 
-/** Consumer-facing store shape: the current session is narrowed to identity only. */
-export type PublicProfileState = Omit<ProfileState, 'currentProfileSession'> & {
-    currentProfileSession: Pick<Session, 'profileId'> | null;
-};
-
 export const customSelectors: CustomSelectors<ProfileState> = {
     currentProfile: (state) => (state.status === AsyncStatus.Pending ? null : state.currentProfile),
 };

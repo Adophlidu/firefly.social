@@ -1,7 +1,7 @@
 import type { CurrencyType } from '@dimensiondev/enums';
 import type { CoinGeckoCoinInfo as WorkerCoinGeckoCoinInfo } from '@dimensiondev/workers-token';
 
-export type { CoinGeckoAsset, CoinGeckoCoinMarketInfo, CoinGeckoToken } from '@dimensiondev/workers-token';
+export type { CoinGeckoAsset, CoinGeckoToken } from '@dimensiondev/workers-token';
 
 export interface CoinGeckoCoinInfo extends WorkerCoinGeckoCoinInfo {
     // Present on some CoinGecko responses but not modeled by the worker yet.

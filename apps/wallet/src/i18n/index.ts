@@ -73,12 +73,6 @@ export function setupAndActiveI18n(locale_: Locale) {
     return i18n;
 }
 
-export function getI18nInstance(locale_: Locale) {
-    const locale = resolveLocale(locale_);
-
-    return allLocales[locale];
-}
-
 /**
  * set locale and dynamically import catalog
  * @param locale a supported locale string

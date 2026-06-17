@@ -162,15 +162,6 @@ export interface PostReaction {
     postId: string;
 }
 
-export interface ProfileReaction {
-    platform: PlatformType;
-    profileId: string;
-    lensToken?: string;
-    farcasterSignature?: Hex;
-    farcasterSigner?: Hex;
-    farcasterMessage?: Hex;
-}
-
 export interface PostOn {
     platform: PlatformType;
     postId: string;
@@ -259,12 +250,6 @@ export interface RedPacketClaimListInfoItem {
     ens_name: string;
 }
 
-export interface Theme {
-    themeId: string;
-    payloadUrl: string;
-    coverUrl: string;
-}
-
 export type ThemeSettings = {
     [key in 'title1' | 'title2' | 'title3' | 'title4' | 'title_symbol']: {
         color: '#F1D590';
@@ -312,12 +297,6 @@ export type HistoryResponse = Response<{
 
 export type ClaimHistoryResponse = Response<RedPacketClaimListInfo>;
 
-export interface CreateCoverOptions {
-    /** JSON object, metadata payload */
-    meta?: string;
-    content: string;
-    type: string;
-}
 export interface CreateCoverResult {
     payload: string;
     shortenURL: string | null;

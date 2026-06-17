@@ -698,9 +698,6 @@ msgstr "Failed to like snapshot."
 msgid "Trying auto login..."
 msgstr "Trying auto login..."
 
-msgid "Mint"
-msgstr "Mint"
-
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
@@ -1186,9 +1183,6 @@ msgstr "Buy {firstOutcome}"
 msgid "Minutes"
 msgstr "Minutes"
 
-msgid "Sorry, today's free mint quota has been reached."
-msgstr "Sorry, today's free mint quota has been reached."
-
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
@@ -1649,9 +1643,6 @@ msgstr "Custom amount"
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
-
-msgid "So sorry, we cant mint this NFT. Please try again later."
-msgstr "So sorry, we cant mint this NFT. Please try again later."
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
@@ -2231,9 +2222,6 @@ msgstr "Log in with your X account to view"
 
 msgid "Login to Firefly"
 msgstr "Login to Firefly"
-
-msgid "So sorry, we are not able to mint this NFT at the moment."
-msgstr "So sorry, we are not able to mint this NFT at the moment."
 
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "Content will be lost when leaving this page in anonymous mode."
@@ -3224,9 +3212,6 @@ msgstr "Club"
 msgid "6H"
 msgstr "6H"
 
-msgid "Mint NFT"
-msgstr "Mint NFT"
-
 msgid "Sold Out"
 msgstr "Sold Out"
 
@@ -3624,9 +3609,6 @@ msgstr "{homeLabel} holders"
 msgid "No trade records"
 msgstr "No trade records"
 
-msgid "Minting"
-msgstr "Minting"
-
 msgid "Failed to login."
 msgstr "Failed to login."
 
@@ -3677,9 +3659,6 @@ msgstr "Chain filter"
 
 msgid "Post with link"
 msgstr "Post with link"
-
-msgid "Failed to mint NFT."
-msgstr "Failed to mint NFT."
 
 msgid "Unfollow"
 msgstr "Unfollow"
@@ -4076,9 +4055,6 @@ msgstr "Reset password"
 
 msgid "Post collected successfully!"
 msgstr "Post collected successfully!"
-
-msgid "NFT minted successfully!"
-msgstr "NFT minted successfully!"
 
 msgid "Reposts"
 msgstr "Reposts"

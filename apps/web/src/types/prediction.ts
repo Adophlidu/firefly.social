@@ -247,10 +247,3 @@ export enum SportMarketGroupType {
     Total = 'total',
     Other = 'other',
 }
-
-export interface SportGroupedMarkets {
-    moneyline: BetsMarketDataForUI[];
-    spread: BetsMarketDataForUI[];
-    total: BetsMarketDataForUI[];
-    other: BetsMarketDataForUI[];
-}

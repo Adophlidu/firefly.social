@@ -694,9 +694,6 @@ msgstr "スナップショットへのいいねに失敗しました。"
 msgid "Trying auto login..."
 msgstr "自動ログインを試みています..."
 
-msgid "Mint"
-msgstr "ミント"
-
 msgid "Failed to like the comment."
 msgstr "コメントへのいいねに失敗しました。"
 
@@ -1181,9 +1178,6 @@ msgstr "{firstOutcome} を購入"
 msgid "Minutes"
 msgstr "分"
 
-msgid "Sorry, today's free mint quota has been reached."
-msgstr "本日の無料ミント枠がいっぱいになりました。"
-
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
@@ -1642,9 +1636,6 @@ msgstr "カスタム金額"
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>Firefly は <1>Polymarket 取引</1>を開始し、オンチェーンの予測市場をソーシャルフィードとつなぎます！<2>コンテンツバウンティタスク</2>から、早期コントリビューターとしての参加を歓迎します！</0><3>💰 高品質なコンテンツを制作したユーザーは、それぞれ <4>100 USDC</4> を獲得できます。</3><5>🧩 Firefly で投稿を作成し、Polymarket での取引ストーリーを共有してください。予測、取引戦略、洞察、成功、失敗などについて語ることができます。投稿はコンテンツの質、創造性、深さ、読みやすさ、リーチに基づいて評価されます。受賞者は <6>@thefireflyapp</6> で発表され、DM で連絡します。</5><7>📌 参加方法:</7><8><9><10>作成</10> Firefly がサポートする任意のソーシャルプラットフォームで、<11>Polymarket 取引ストーリー</11>を共有する記事または長いスレッドを公開する。</9><12><13>フォロー＆メンション</13> <14>@thefireflyapp</14>。</12><15><16>登録</16> このフォームに記入して投稿を登録する。</15></8>"
-
-msgid "So sorry, we cant mint this NFT. Please try again later."
-msgstr "申し訳ありません。この NFT をミントできません。後でもう一度お試しください。"
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
@@ -2220,9 +2211,6 @@ msgstr "表示するには X アカウントでログイン"
 
 msgid "Login to Firefly"
 msgstr "Firefly にログイン"
-
-msgid "So sorry, we are not able to mint this NFT at the moment."
-msgstr "申し訳ありません。現在この NFT をミントできません。"
 
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "匿名モードでこのページを離れると、コンテンツは失われます。"
@@ -3206,9 +3194,6 @@ msgstr "クラブ"
 msgid "6H"
 msgstr "6時間"
 
-msgid "Mint NFT"
-msgstr "NFT をミント"
-
 msgid "Sold Out"
 msgstr "売り切れ"
 
@@ -3604,9 +3589,6 @@ msgstr "{homeLabel} 保有者"
 msgid "No trade records"
 msgstr "取引記録がありません"
 
-msgid "Minting"
-msgstr "ミント中"
-
 msgid "Failed to login."
 msgstr "ログインに失敗しました。"
 
@@ -3657,9 +3639,6 @@ msgstr "チェーンフィルター"
 
 msgid "Post with link"
 msgstr "リンク付きで投稿"
-
-msgid "Failed to mint NFT."
-msgstr "NFT のミントに失敗しました。"
 
 msgid "Unfollow"
 msgstr "フォロー解除"
@@ -4053,9 +4032,6 @@ msgstr "パスワードをリセット"
 
 msgid "Post collected successfully!"
 msgstr "投稿のコレクトに成功しました！"
-
-msgid "NFT minted successfully!"
-msgstr "NFT のミントに成功しました！"
 
 msgid "Reposts"
 msgstr "リポスト"

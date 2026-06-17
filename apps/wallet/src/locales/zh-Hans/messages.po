@@ -687,9 +687,6 @@ msgstr "无限量"
 msgid "Deposit failed."
 msgstr "充值失败。"
 
-msgid "Perps"
-msgstr "永续合约"
-
 msgid "Swapped Failed"
 msgstr "兑换失败"
 

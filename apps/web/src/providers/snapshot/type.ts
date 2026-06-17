@@ -9,7 +9,6 @@ export type {
     SnapshotChoice,
     SnapshotProposal,
     SnapshotStrategy,
-    SnapshotUser,
     SnapshotVote,
     SnapshotVotes,
 } from '@dimensiondev/workers-snapshot';

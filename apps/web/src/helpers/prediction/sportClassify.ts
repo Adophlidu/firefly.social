@@ -1,4 +1,4 @@
-import type { BetsEventTagForUI, BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsEventTagForUI } from '@/types/prediction.js';
 import { SportCategory } from '@/types/prediction.js';
 
 const ESPORT_LEAGUE_MAP: Record<string, SportCategory> = {
@@ -84,28 +84,4 @@ function classifyEsportByLeague(leagueName?: string): SportCategory | undefined 
     }
 
     return undefined;
-}
-
-/** Map of sportsMarketType prefix to SportCategory. */
-const MARKET_TYPE_PREFIX_MAP: Record<string, SportCategory> = {
-    soccer_: SportCategory.Soccer,
-    tennis_: SportCategory.Tennis,
-    nrfi: SportCategory.Baseball,
-    yrfi: SportCategory.Baseball,
-};
-
-/**
- * Fallback classification: inspect sportsMarketType prefixes on markets.
- * Useful when sportId/leagueName are missing.
- */
-export function classifySportFromMarkets(markets: BetsMarketDataForUI[]): SportCategory {
-    for (const market of markets) {
-        if (!market.sportsMarketType) continue;
-        const type = market.sportsMarketType.toLowerCase();
-        for (const [prefix, category] of Object.entries(MARKET_TYPE_PREFIX_MAP)) {
-            if (type.startsWith(prefix)) return category;
-        }
-    }
-
-    return SportCategory.Default;
 }

@@ -1,7 +1,7 @@
 import type { LinkDigested as WorkerLinkDigested } from '@dimensiondev/workers-oembed';
 import type { Hex } from 'viem';
 
-export type { OpenGraph, OpenGraphImage } from '@dimensiondev/workers-oembed';
+export type { OpenGraph } from '@dimensiondev/workers-oembed';
 
 export interface LinkDigested extends WorkerLinkDigested {
     payload?: MirrorPayload | null;

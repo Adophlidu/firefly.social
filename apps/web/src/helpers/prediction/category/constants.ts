@@ -4,8 +4,6 @@ export const LEADING_PRIMARY_SLUGS = ['trending', 'fifwc', 'new'] as const;
 /** Primary slugs that never show the Games tab (includes breaking after the divider). */
 export const PINNED_PRIMARY_SLUGS = ['trending', 'breaking', 'new'] as const;
 
-export type PinnedPrimarySlug = (typeof PINNED_PRIMARY_SLUGS)[number];
-
 /** Secondary chips pinned before the vertical divider on sports-style categories. */
 export const LEADING_SECONDARY_SLUGS = ['live'] as const;
 

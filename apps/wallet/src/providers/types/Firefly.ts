@@ -1021,22 +1021,6 @@ export interface PolymarketEvent {
     livestream_info?: unknown;
 }
 
-export interface SportEventData {
-    gameId: number;
-    live: boolean;
-    ended: boolean;
-    homeTeam: PolymarketTeam;
-    awayTeam: PolymarketTeam;
-    period?: string;
-    startTime?: string;
-    winResult?: number;
-    isDraw: boolean;
-    leagueName?: string;
-    leagueSlug?: string;
-    spreadsMainLine?: number;
-    totalsMainLine?: number;
-}
-
 export interface PolymarketProfileBalance {
     wallet: string;
     balance: number; // total balance

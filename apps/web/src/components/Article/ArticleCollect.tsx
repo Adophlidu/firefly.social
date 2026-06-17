@@ -13,6 +13,7 @@ import { useAsyncFn } from 'react-use';
 import { useChains, useConnection } from 'wagmi';
 import { sendTransaction } from 'wagmi/actions';
 
+import { MintParamsPanel } from '@/components/Article/MintParamsPanel.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -23,7 +24,6 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
-import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import { freeCollectArticle } from '@/providers/firefly/wallet-transaction/freeCollectArticle.js';
 import { getArticleMetadata } from '@/providers/firefly/wallet-transaction/getArticleMetadata.js';
 import { addArticleMetadata } from '@/providers/paragraph/addArticleMetadata.js';
