@@ -454,9 +454,6 @@ msgstr "Tax can be modified"
 msgid "Set {setNum} Winner"
 msgstr "Set {setNum} Winner"
 
-msgid "<0>Burned</0><1/>"
-msgstr "<0>Burned</0><1/>"
-
 msgid "Fake KYC."
 msgstr "Fake KYC."
 
@@ -515,9 +512,6 @@ msgid "Member"
 msgid_plural "Members"
 msgstr[0] "Member"
 msgstr[1] "Members"
-
-msgid "Mint Ended"
-msgstr "Mint Ended"
 
 msgid "Scroll tabs right"
 msgstr "Scroll tabs right"
@@ -914,9 +908,6 @@ msgstr "{0} muted channels"
 msgid "[Video]"
 msgstr "[Video]"
 
-msgid "Blockchain"
-msgstr "Blockchain"
-
 #. placeholder {0}: trade.displayInfo?.ensHandle || addressName
 #. placeholder {1}: toFixedTrimmed(+trade.size, 2)
 #. placeholder {2}: trade.outcome
@@ -936,9 +927,6 @@ msgstr "Oops! Your account is currently blocked. Reach out to support for more d
 
 msgid "Keep Your Recovery Phrase Safe"
 msgstr "Keep Your Recovery Phrase Safe"
-
-msgid "Failed to bookmark NFT."
-msgstr "Failed to bookmark NFT."
 
 msgid "Hope this sparks a smile."
 msgstr "Hope this sparks a smile."
@@ -1090,9 +1078,6 @@ msgstr "The encrypted data not found."
 msgid "New Connect"
 msgstr "New Connect"
 
-msgid "Attendees"
-msgstr "Attendees"
-
 msgid "Connected accounts"
 msgstr "Connected accounts"
 
@@ -1203,9 +1188,6 @@ msgstr "Minutes"
 
 msgid "Sorry, today's free mint quota has been reached."
 msgstr "Sorry, today's free mint quota has been reached."
-
-msgid "Floor Price"
-msgstr "Floor Price"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
@@ -1503,9 +1485,6 @@ msgstr "Failed to bind Lens manager, please try again later."
 msgid "or"
 msgstr "or"
 
-msgid "Items"
-msgstr "Items"
-
 msgid "Channel {id} could not be found."
 msgstr "Channel {id} could not be found."
 
@@ -1529,9 +1508,6 @@ msgstr "Available Balance"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
-
-msgid "Minting Txn Hash"
-msgstr "Minting Txn Hash"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Enter your nickname on Firefly"
@@ -1695,9 +1671,6 @@ msgid_plural "# minutes left"
 msgstr[0] "# minute left"
 msgstr[1] "# minutes left"
 
-msgid "Owners"
-msgstr "Owners"
-
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
 msgstr "All posts from /{0} will be hidden from you"
@@ -1736,9 +1709,6 @@ msgstr "Anonymous"
 
 msgid "+{remainingCount} others"
 msgstr "+{remainingCount} others"
-
-msgid "Failed to un-bookmark NFT."
-msgstr "Failed to un-bookmark NFT."
 
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
@@ -1813,9 +1783,6 @@ msgstr "Profile could not be found."
 msgid "Muted contents"
 msgstr "Muted contents"
 
-msgid "Collections"
-msgstr "Collections"
-
 msgid "Sign to Authorize"
 msgstr "Sign to Authorize"
 
@@ -1858,9 +1825,6 @@ msgstr "{0} (UTC+8)"
 #. placeholder {0}: channel.name
 msgid "Failed to mute /{0}."
 msgstr "Failed to mute /{0}."
-
-msgid "Address"
-msgstr "Address"
 
 msgid "Newest"
 msgstr "Newest"
@@ -1980,9 +1944,6 @@ msgstr "🎭 Replied on {0}."
 
 msgid "Unknown"
 msgstr "Unknown"
-
-msgid "Bookmark not exist, please try going to the detail page and un-bookmark it."
-msgstr "Bookmark not exist, please try going to the detail page and un-bookmark it."
 
 msgid "Claimed lucky drop successfully"
 msgstr "Claimed lucky drop successfully"
@@ -2141,9 +2102,6 @@ msgstr "Log out"
 msgid "Owner can't change balance"
 msgstr "Owner can't change balance"
 
-msgid "Attendance"
-msgstr "Attendance"
-
 msgid "Search predictions"
 msgstr "Search predictions"
 
@@ -2170,9 +2128,6 @@ msgstr "Show more"
 
 msgid "Set as primary wallet"
 msgstr "Set as primary wallet"
-
-msgid "24H Volume"
-msgstr "24H Volume"
 
 msgid "Upload to change"
 msgstr "Upload to change"
@@ -2300,9 +2255,6 @@ msgstr "No suspected malicious behavior found."
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "Your browser does not support the Firefly Bridge."
-
-msgid "No matching collection"
-msgstr "No matching collection"
 
 msgid "Canceled"
 msgstr "Canceled"
@@ -2435,9 +2387,6 @@ msgstr "No trades found in this wallet"
 msgid "Month"
 msgstr "Month"
 
-msgid "Report spam"
-msgstr "Report spam"
-
 msgid "Failed to un-bookmark post."
 msgstr "Failed to un-bookmark post."
 
@@ -2527,9 +2476,6 @@ msgstr "First Blood"
 msgid "Share From"
 msgstr "Share From"
 
-msgid "Are you sure you want to report this collection?"
-msgstr "Are you sure you want to report this collection?"
-
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
 msgid "# share"
@@ -2580,10 +2526,6 @@ msgstr "Next"
 msgid "Failed to send."
 msgstr "Failed to send."
 
-#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
-msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
-msgstr "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
-
 msgid "Matters article"
 msgstr "Matters article"
 
@@ -2595,9 +2537,6 @@ msgstr "Goals"
 
 msgid "Sign in with Lens"
 msgstr "Sign in with Lens"
-
-msgid "<0>Bought</0><1/>"
-msgstr "<0>Bought</0><1/>"
 
 msgid "Non-contract address found."
 msgstr "Non-contract address found."
@@ -2632,11 +2571,6 @@ msgstr "The contract may contain additional issuance functions, which could mayb
 msgid "Upcoming"
 msgstr "Upcoming"
 
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0}{1} <0>Floor</0>"
-msgstr "{0}{1} <0>Floor</0>"
-
 msgid "Accounts Connected"
 msgstr "Accounts Connected"
 
@@ -2648,9 +2582,6 @@ msgstr "Top 40 Projects powered by Rootdata"
 
 msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
 msgstr "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
-
-msgid "<0>Sent</0><1/>"
-msgstr "<0>Sent</0><1/>"
 
 #. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
@@ -2799,9 +2730,6 @@ msgstr "Your post will be sent on {0} at {1} <0>View</0>"
 msgid "GIF count limit reached"
 msgstr "GIF count limit reached"
 
-msgid "<0>Sold</0><1/>"
-msgstr "<0>Sold</0><1/>"
-
 msgid "Unsaved draft found"
 msgstr "Unsaved draft found"
 
@@ -2885,14 +2813,8 @@ msgstr "No matching token"
 msgid "Collected"
 msgstr "Collected"
 
-msgid "Owned By"
-msgstr "Owned By"
-
 msgid "Are you sure you want to report this post?"
 msgstr "Are you sure you want to report this post?"
-
-msgid "<0>Acquired</0><1/>"
-msgstr "<0>Acquired</0><1/>"
 
 msgid "Copy link to profile"
 msgstr "Copy link to profile"
@@ -2985,12 +2907,6 @@ msgstr "Snapshot added to your Bookmarks"
 msgid "No any positions found in this wallet"
 msgstr "No any positions found in this wallet"
 
-msgid "Total volume"
-msgstr "Total volume"
-
-msgid "NFT added to your Bookmarks"
-msgstr "NFT added to your Bookmarks"
-
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+year%7D+other+%7B%23+years%7D%7D&pluralize_on=0
 msgid "# year"
@@ -3003,9 +2919,6 @@ msgstr "Deposit"
 
 msgid "<0/> Loading"
 msgstr "<0/> Loading"
-
-msgid "Are you sure you want to remove this NFT from your bookmarks?"
-msgstr "Are you sure you want to remove this NFT from your bookmarks?"
 
 msgid "Net Worth"
 msgstr "Net Worth"
@@ -3034,9 +2947,6 @@ msgstr "Failed to remove bookmark."
 msgid "Significant movements in token prices"
 msgstr "Significant movements in token prices"
 
-msgid "Unknown status"
-msgstr "Unknown status"
-
 msgid "Results"
 msgstr "Results"
 
@@ -3051,9 +2961,6 @@ msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
 msgid "Map {gameNum}"
 msgstr "Map {gameNum}"
-
-msgid "Properties"
-msgstr "Properties"
 
 msgid "Market"
 msgstr "Market"
@@ -3109,10 +3016,6 @@ msgstr "Refresh"
 
 msgid "Series Lines"
 msgstr "Series Lines"
-
-#. placeholder {0}: formatAddressEthereum(toAddress, 4)
-msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
-msgstr "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -3226,9 +3129,6 @@ msgstr "App Store"
 msgid "Collect Article"
 msgstr "Collect Article"
 
-msgid "Collected by"
-msgstr "Collected by"
-
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -3309,9 +3209,6 @@ msgstr "Failed to load games"
 msgid "No financial crime involved."
 msgstr "No financial crime involved."
 
-msgid "View on Website"
-msgstr "View on Website"
-
 msgid "Sign Up"
 msgstr "Sign Up"
 
@@ -3346,9 +3243,6 @@ msgstr "Oops… Something went wrong. Please try again"
 
 msgid "Follow"
 msgstr "Follow"
-
-msgid "Mint Again"
-msgstr "Mint Again"
 
 msgid "Repost"
 msgstr "Repost"
@@ -3514,10 +3408,6 @@ msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky
 msgid "no less than {0}"
 msgstr "no less than {0}"
 
-#. js-lingui-explicit-id
-msgid "nft-items"
-msgstr "Items"
-
 msgid "Enter Total Amount"
 msgstr "Enter Total Amount"
 
@@ -3577,9 +3467,6 @@ msgstr "Only people you follow"
 
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "Manage the accounts, wallets, and clubs that you’ve muted."
-
-msgid "Description"
-msgstr "Description"
 
 msgid "Others"
 msgstr "Others"
@@ -3712,9 +3599,6 @@ msgstr "Trending Clubs"
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
 
-msgid "<0>Collected</0><1/>"
-msgstr "<0>Collected</0><1/>"
-
 msgid "Post was deleted"
 msgstr "Post was deleted"
 
@@ -3812,11 +3696,6 @@ msgstr "🙌 Just voted on “{0}”"
 
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "You can set one or multiple rules to be eligible to win a Lucky Drop."
-
-#. placeholder {0}: collection.volume_1d
-#. placeholder {1}: collection.price_symbol
-msgid "{0} {1} <0>24H Vol</0>"
-msgstr "{0} {1} <0>24H Vol</0>"
 
 msgid "No positions found."
 msgstr "No positions found."
@@ -4037,9 +3916,6 @@ msgstr "News"
 msgid "Truth Social"
 msgstr "Truth Social"
 
-msgid "Owned"
-msgstr "Owned"
-
 msgid "Associated wallets"
 msgstr "Associated wallets"
 
@@ -4082,9 +3958,6 @@ msgstr "The whitelist function is included. Some addresses may not be able to tr
 
 msgid "1Y"
 msgstr "1Y"
-
-msgid "NFT ID"
-msgstr "NFT ID"
 
 msgid "W"
 msgstr "W"
@@ -4140,11 +4013,6 @@ msgstr "Time range filter"
 
 msgid "EVM wallets"
 msgstr "EVM wallets"
-
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0} {1} <0>Floor</0>"
-msgstr "{0} {1} <0>Floor</0>"
 
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
@@ -4495,9 +4363,6 @@ msgstr "Polymarket"
 msgid "Video duration limit reached"
 msgstr "Video duration limit reached"
 
-msgid "Failed to report spam NFT."
-msgstr "Failed to report spam NFT."
-
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "Confirm to disconnect this wallet and its associated account from Firefly?"
 
@@ -4594,9 +4459,6 @@ msgstr "Font Color"
 msgid "Choose Wallet"
 msgstr "Choose Wallet"
 
-msgid "%Owned"
-msgstr "%Owned"
-
 msgid "Final results"
 msgstr "Final results"
 
@@ -4640,9 +4502,6 @@ msgstr "No blackmail activities involved."
 msgid "No Lens profile found,"
 msgstr "No Lens profile found,"
 
-msgid "Creator"
-msgstr "Creator"
-
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
 
@@ -4679,9 +4538,6 @@ msgstr "Game Handicap"
 msgid "Total Games"
 msgstr "Total Games"
 
-msgid "NFT removed from your Bookmarks"
-msgstr "NFT removed from your Bookmarks"
-
 msgid "Users must hold at least one NFT from the collections you specify."
 msgstr "Users must hold at least one NFT from the collections you specify."
 
@@ -4700,23 +4556,14 @@ msgstr "No one you follow has traded this token."
 msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
 msgstr "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
 
-msgid "Remove from bookmarks"
-msgstr "Remove from bookmarks"
-
 msgid "Search clubs"
 msgstr "Search clubs"
 
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "Failed to get recovery phrase. Please try again."
 
-msgid "Not Started"
-msgstr "Not Started"
-
 msgid "Details"
 msgstr "Details"
-
-msgid "Searching collections"
-msgstr "Searching collections"
 
 msgid "Undefined user"
 msgstr "Undefined user"
@@ -4779,11 +4626,6 @@ msgstr "Prediction unliked."
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
 msgstr "Failed to create {0} profile.{1}"
-
-#. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
-#. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
-msgid "<0>Minted</0><1/>{0}{1}"
-msgstr "<0>Minted</0><1/>{0}{1}"
 
 msgid "Lens Auto login"
 msgstr "Lens Auto login"
@@ -4912,9 +4754,6 @@ msgstr "All posts and activities from this user will be hidden from you"
 msgid "Video"
 msgstr "Video"
 
-msgid "Unknown Collection"
-msgstr "Unknown Collection"
-
 msgid "Firefly Wallet"
 msgstr "Firefly Wallet"
 
@@ -4979,9 +4818,6 @@ msgstr "FREE"
 msgid "Snapshot removed from your Bookmarks"
 msgstr "Snapshot removed from your Bookmarks"
 
-msgid "Minting Date"
-msgstr "Minting Date"
-
 msgid "1st Set Total Games"
 msgstr "1st Set Total Games"
 
@@ -5045,11 +4881,6 @@ msgstr "Location"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
-
-#. placeholder {0}: nFormatter(collection.collection.amounts_total || collection.items_total || 0)
-#. placeholder {0}: nFormatter(collection.items_total || 0)
-msgid "{0} <0>Items</0>"
-msgstr "{0} <0>Items</0>"
 
 msgid "Select Token"
 msgstr "Select Token"
@@ -5121,9 +4952,6 @@ msgstr "Map Winner"
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
 msgstr "Left #{0} on {sourceName}"
-
-msgid "Last sale"
-msgstr "Last sale"
 
 msgid "Translating..."
 msgstr "Translating..."
@@ -5234,9 +5062,6 @@ msgstr "The scheduled time to send this post can be set up to 7 days in advance.
 msgid "One-time passcode"
 msgstr "One-time passcode"
 
-msgid "Download media"
-msgstr "Download media"
-
 msgid "Chain"
 msgstr "Chain"
 
@@ -5278,9 +5103,6 @@ msgstr "You are not eligible to claim this red packet"
 
 msgid "Article could not be found"
 msgstr "Article could not be found"
-
-msgid "Collectible could not be found."
-msgstr "Collectible could not be found."
 
 msgid "Contract address."
 msgstr "Contract address."
@@ -5515,9 +5337,6 @@ msgstr "Fake KYC found."
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "You can turn it back on anytime in <0>Settings > Content preference</0>"
 
-msgid "Minted"
-msgstr "Minted"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
 msgstr "Failed to send your post to {0}."
@@ -5527,9 +5346,6 @@ msgstr "Tip liked."
 
 msgid "Trades"
 msgstr "Trades"
-
-msgid "Top Collectors"
-msgstr "Top Collectors"
 
 msgid "OK"
 msgstr "OK"
@@ -5567,9 +5383,6 @@ msgid "like"
 msgid_plural "likes"
 msgstr[0] "like"
 msgstr[1] "likes"
-
-msgid "Collectible"
-msgstr "Collectible"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "Posts from Trump on Truth Social (Explore, profile)"

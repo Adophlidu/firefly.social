@@ -47,7 +47,6 @@ export default async function Layout({ children, modal, sidebar, subnav }: Props
                             '/polymarket/event',
                             '/opinion/event',
                             '/token',
-                            '/nft',
                             '/auth',
                             '/wallet',
                         ]}

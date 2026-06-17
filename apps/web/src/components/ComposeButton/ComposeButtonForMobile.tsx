@@ -25,7 +25,6 @@ export function ComposeButtonForMobile() {
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
     const isArticlePage = isRoutePathname(pathname, '/article/:detail', true);
-    const isNFTPage = isRoutePathname(pathname, '/nft/:detail', false);
     const isLogin = useIsLogin();
     const isCurrentLogin = useIsLogin(currentSocialSource);
     const currentPost = useCurrentVisitingPost();
@@ -33,7 +32,7 @@ export function ComposeButtonForMobile() {
 
     if (!isLogin) return null;
     if (isPostPage && !isCurrentLogin) return null;
-    if (isArticlePage || currentSource === Source.Article || isNFTPage || isPredictionPage(pathname)) return null;
+    if (isArticlePage || currentSource === Source.Article || isPredictionPage(pathname)) return null;
 
     return (
         <ClickableButton

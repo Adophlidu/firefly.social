@@ -11,7 +11,6 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
-import { NFTPlugin } from '@/components/Markup/plugins/NFT.js';
 import { ImageAsset, type ImageAssetProps } from '@/components/Posts/ImageAsset.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { openPreviewMediaModal } from '@/controllers/openPreviewMediaModal.js';
@@ -24,7 +23,6 @@ const PLUGINS: Pluggable[] = [
     linkifyRegex(EMAIL_REGEX),
     linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
     linkifyRegex(URL_REGEX),
-    NFTPlugin(),
 ];
 
 interface ArticleMarkupProps extends Omit<ReactMarkdownOptions, 'children'> {

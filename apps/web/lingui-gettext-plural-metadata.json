@@ -65,7 +65,6 @@
         "bets-trades-following",
         "bets-trades-global",
         "mirror-tooltip-recast-or-quote",
-        "mirror-tooltip-repost-or-quote",
-        "nft-items"
+        "mirror-tooltip-repost-or-quote"
     ]
 }

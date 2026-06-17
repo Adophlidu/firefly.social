@@ -10,12 +10,7 @@ import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
-import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/utility.js';
-
-interface NFTPagesData {
-    pages: Array<{ data: FollowingNFT[] | NFTFeedV3[] }>;
-}
 
 interface WalletProfilePagesData {
     pages: Array<{ data: WalletProfile[] }>;
@@ -64,20 +59,6 @@ export function setWalletBlockStatus(address: string, status: boolean) {
     // Muted status in wallet profile
     queryClient.setQueryData(['address-is-muted', address.toLowerCase()], status);
 
-    const nftsPatcher = (old: Draft<NFTPagesData> | undefined) => {
-        if (!old || !status) return old;
-        return produce(old, (draft) => {
-            for (const page of draft.pages) {
-                if (!page.data.length) continue;
-                page.data = page.data.filter((nft) => {
-                    return !isSameEthereumAddress(nft.owner, address);
-                }) as FollowingNFT[] | NFTFeedV3[];
-            }
-        });
-    };
-
-    queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'following'] }, nftsPatcher);
-    queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'discover'] }, nftsPatcher);
     queryClient.setQueriesData<WalletProfilePagesData>({ queryKey: ['wallets', 'muted-list'] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {

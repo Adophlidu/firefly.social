@@ -11,7 +11,6 @@ import { useDebounceValue } from 'usehooks-ts';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';
-import { SuggestCollectionList } from '@/components/Search/SuggestCollectionList.js';
 import { SuggestProfileList } from '@/components/Search/SuggestProfileList.js';
 import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -215,10 +214,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </div>
 
                 {debouncedKeyword && (isSymbol || isValidAddress(debouncedKeyword)) ? (
-                    <>
-                        <SuggestTokenList query={debouncedKeyword} onSelect={onSelect} />
-                        {!isSymbol ? <SuggestCollectionList query={debouncedKeyword} onSelect={onSelect} /> : null}
-                    </>
+                    <SuggestTokenList query={debouncedKeyword} onSelect={onSelect} />
                 ) : (
                     <SuggestProfileList query={debouncedKeyword} onSelect={onSelect} />
                 )}

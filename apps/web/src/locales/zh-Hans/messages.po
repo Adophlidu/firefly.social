@@ -451,9 +451,6 @@ msgstr "税率可以被修改"
 msgid "Set {setNum} Winner"
 msgstr "第 {setNum} 盘胜者"
 
-msgid "<0>Burned</0><1/>"
-msgstr "<0>已销毁</0><1/>"
-
 msgid "Fake KYC."
 msgstr "虚假 KYC。"
 
@@ -511,9 +508,6 @@ msgstr "这是从连接的钱包中检索到的关联账户。请登录以设置
 msgid "Member"
 msgid_plural "Members"
 msgstr[0] "成员"
-
-msgid "Mint Ended"
-msgstr "铸造已结束"
 
 msgid "Scroll tabs right"
 msgstr "向右滚动标签"
@@ -909,9 +903,6 @@ msgstr "{0} 已隐藏圈子"
 msgid "[Video]"
 msgstr "[视频]"
 
-msgid "Blockchain"
-msgstr "区块链"
-
 #. placeholder {0}: trade.displayInfo?.ensHandle || addressName
 #. placeholder {1}: toFixedTrimmed(+trade.size, 2)
 #. placeholder {2}: trade.outcome
@@ -931,9 +922,6 @@ msgstr "糟糕！你的账户当前已被封禁。请联系客服了解具体原
 
 msgid "Keep Your Recovery Phrase Safe"
 msgstr "请妥善保管，切勿分享"
-
-msgid "Failed to bookmark NFT."
-msgstr "收藏 NFT 失败。"
 
 msgid "Hope this sparks a smile."
 msgstr "希望这能让你会心一笑。"
@@ -1085,9 +1073,6 @@ msgstr "未找到加密数据。"
 msgid "New Connect"
 msgstr "连接新账号"
 
-msgid "Attendees"
-msgstr "出席人员"
-
 msgid "Connected accounts"
 msgstr "已绑定的账号"
 
@@ -1198,9 +1183,6 @@ msgstr "分钟"
 
 msgid "Sorry, today's free mint quota has been reached."
 msgstr "抱歉，今天的免费领取额度已用完。"
-
-msgid "Floor Price"
-msgstr "地板价"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
@@ -1496,9 +1478,6 @@ msgstr "绑定 Lens 管理员失败，请稍后重试。"
 msgid "or"
 msgstr "或"
 
-msgid "Items"
-msgstr "项"
-
 msgid "Channel {id} could not be found."
 msgstr "未找到圈子 {id} 。"
 
@@ -1522,9 +1501,6 @@ msgstr "可用余额"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
-
-msgid "Minting Txn Hash"
-msgstr "铸造交易哈希"
 
 msgid "Enter your nickname on Firefly"
 msgstr "输入您在 Firefly 的昵称"
@@ -1687,9 +1663,6 @@ msgid "# minute left"
 msgid_plural "# minutes left"
 msgstr[0] "剩余 # 分钟"
 
-msgid "Owners"
-msgstr "拥有者"
-
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
 msgstr "来自 /{0} 的所有帖子将对你隐藏"
@@ -1728,9 +1701,6 @@ msgstr "匿名"
 
 msgid "+{remainingCount} others"
 msgstr "其他 {remainingCount} 个"
-
-msgid "Failed to un-bookmark NFT."
-msgstr "取消收藏 NFT 失败。"
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
@@ -1805,9 +1775,6 @@ msgstr "未找到相关个人资料。"
 msgid "Muted contents"
 msgstr "已隐藏内容"
 
-msgid "Collections"
-msgstr "NFT 系列"
-
 msgid "Sign to Authorize"
 msgstr "签名以授权"
 
@@ -1850,9 +1817,6 @@ msgstr "{0} (UTC+8)"
 #. placeholder {0}: channel.name
 msgid "Failed to mute /{0}."
 msgstr "隐藏 /{0} 失败。"
-
-msgid "Address"
-msgstr "地址"
 
 msgid "Newest"
 msgstr "最新"
@@ -1970,9 +1934,6 @@ msgstr "🎭 已在 {0} 评论。"
 
 msgid "Unknown"
 msgstr "未知"
-
-msgid "Bookmark not exist, please try going to the detail page and un-bookmark it."
-msgstr "收藏内容不存在，请尝试前往详情页取消收藏。"
 
 msgid "Claimed lucky drop successfully"
 msgstr "红包领取成功"
@@ -2131,9 +2092,6 @@ msgstr "登出"
 msgid "Owner can't change balance"
 msgstr "所有者不能更改余额"
 
-msgid "Attendance"
-msgstr "出席"
-
 msgid "Search predictions"
 msgstr "搜索预测"
 
@@ -2160,9 +2118,6 @@ msgstr "显示更多"
 
 msgid "Set as primary wallet"
 msgstr "设置为主钱包"
-
-msgid "24H Volume"
-msgstr "24小时交易量"
 
 msgid "Upload to change"
 msgstr "上传以修改"
@@ -2289,9 +2244,6 @@ msgstr "未发现疑似恶意行为。"
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "您的浏览器不支持 Firefly Bridge。"
-
-msgid "No matching collection"
-msgstr "未找到匹配的系列"
 
 msgid "Canceled"
 msgstr "已取消"
@@ -2423,9 +2375,6 @@ msgstr "当前钱包未找到任何交易"
 msgid "Month"
 msgstr "月"
 
-msgid "Report spam"
-msgstr "举报垃圾信息"
-
 msgid "Failed to un-bookmark post."
 msgstr "取消收藏帖子失败。"
 
@@ -2515,9 +2464,6 @@ msgstr "一血"
 msgid "Share From"
 msgstr "分享自"
 
-msgid "Are you sure you want to report this collection?"
-msgstr "您确定要举报这个系列吗？"
-
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
 msgid "# share"
@@ -2567,10 +2513,6 @@ msgstr "下一步"
 msgid "Failed to send."
 msgstr "发布失败。"
 
-#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
-msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
-msgstr "<0>获取</0><1/><2>从</2><3><4>{0}</4></3>"
-
 msgid "Matters article"
 msgstr "Matters 文章"
 
@@ -2582,9 +2524,6 @@ msgstr "进球"
 
 msgid "Sign in with Lens"
 msgstr "通过 Lens 登录"
-
-msgid "<0>Bought</0><1/>"
-msgstr "<0>购买</0><1/>"
 
 msgid "Non-contract address found."
 msgstr "发现非合约地址。"
@@ -2619,11 +2558,6 @@ msgstr "合约可能含有额外的发行功能，这可能会产生大量的通
 msgid "Upcoming"
 msgstr "即将推出"
 
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0}{1} <0>Floor</0>"
-msgstr "{0}{1} <0>地板价</0>"
-
 msgid "Accounts Connected"
 msgstr "已连接的账户"
 
@@ -2635,9 +2569,6 @@ msgstr "权威 Top 40 榜单｜数据来源：Rootdata"
 
 msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
 msgstr "<0>该 Firefly 钱包中的所有资产将永久丢失，无法恢复。</0>在继续操作之前，请将所有资金和资产从你的 Firefly 钱包中提取，以避免任何损失。"
-
-msgid "<0>Sent</0><1/>"
-msgstr "<0>发送</0><1/>"
 
 #. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
@@ -2786,9 +2717,6 @@ msgstr "帖子将在 {1} {0} 发布 <0>查看</0>"
 msgid "GIF count limit reached"
 msgstr "达到 GIF 数量上限"
 
-msgid "<0>Sold</0><1/>"
-msgstr "<0>卖出</0><1/>"
-
 msgid "Unsaved draft found"
 msgstr "发现未保存的草稿"
 
@@ -2871,14 +2799,8 @@ msgstr "未匹配到代币"
 msgid "Collected"
 msgstr "已收集"
 
-msgid "Owned By"
-msgstr "属于"
-
 msgid "Are you sure you want to report this post?"
 msgstr "你确定要举报这个帖子吗？"
-
-msgid "<0>Acquired</0><1/>"
-msgstr "<0>获得</0><1/>"
 
 msgid "Copy link to profile"
 msgstr "复制账户分享链接"
@@ -2970,12 +2892,6 @@ msgstr "提案已添加到收藏夹"
 msgid "No any positions found in this wallet"
 msgstr "当前钱包未找到任何持仓"
 
-msgid "Total volume"
-msgstr "总交易量"
-
-msgid "NFT added to your Bookmarks"
-msgstr "NFT 已添加到收藏夹"
-
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+year%7D+other+%7B%23+years%7D%7D&pluralize_on=0
 msgid "# year"
@@ -2987,9 +2903,6 @@ msgstr "充值"
 
 msgid "<0/> Loading"
 msgstr "<0/> 加载中"
-
-msgid "Are you sure you want to remove this NFT from your bookmarks?"
-msgstr "你确定要从收藏夹移除此 NFT 吗？"
 
 msgid "Net Worth"
 msgstr "净资产"
@@ -3018,9 +2931,6 @@ msgstr "移除收藏失败。"
 msgid "Significant movements in token prices"
 msgstr "代币价格重大波动"
 
-msgid "Unknown status"
-msgstr "未知状态"
-
 msgid "Results"
 msgstr "结果"
 
@@ -3035,9 +2945,6 @@ msgstr "将在 <0>{0} <1>{1}</1></0> 发布"
 
 msgid "Map {gameNum}"
 msgstr "地图 {gameNum}"
-
-msgid "Properties"
-msgstr "属性"
 
 msgid "Market"
 msgstr "市场"
@@ -3092,10 +2999,6 @@ msgstr "刷新"
 
 msgid "Series Lines"
 msgstr "系列赛盘口"
-
-#. placeholder {0}: formatAddressEthereum(toAddress, 4)
-msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
-msgstr "<0>已发送</0><1/><2>到</2><3><4>{0}</4></3>"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -3209,9 +3112,6 @@ msgstr "Apple Store"
 msgid "Collect Article"
 msgstr "铸造收集文章"
 
-msgid "Collected by"
-msgstr "收集者"
-
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查你的权限。"
 
@@ -3291,9 +3191,6 @@ msgstr "比赛加载失败"
 msgid "No financial crime involved."
 msgstr "未识别到金融犯罪。"
 
-msgid "View on Website"
-msgstr "在网站上查看"
-
 msgid "Sign Up"
 msgstr "注册"
 
@@ -3328,9 +3225,6 @@ msgstr "哎呀！出错了。 请再试一次"
 
 msgid "Follow"
 msgstr "关注"
-
-msgid "Mint Again"
-msgstr "再次铸造"
 
 msgid "Repost"
 msgstr "转发"
@@ -3496,10 +3390,6 @@ msgstr "发送红包 24 小时后可提取未领取数额。"
 msgid "no less than {0}"
 msgstr "不少于 {0}"
 
-#. js-lingui-explicit-id
-msgid "nft-items"
-msgstr "nft 项目"
-
 msgid "Enter Total Amount"
 msgstr "请输入总数额"
 
@@ -3559,9 +3449,6 @@ msgstr "只有你关注的人"
 
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "管理您已隐藏的账号，钱包和圈子。"
-
-msgid "Description"
-msgstr "介绍"
 
 msgid "Others"
 msgstr "其他"
@@ -3692,9 +3579,6 @@ msgstr "热门频道"
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
 
-msgid "<0>Collected</0><1/>"
-msgstr "<0>铸造收集了</0><1/>"
-
 msgid "Post was deleted"
 msgstr "帖子已被删除"
 
@@ -3792,11 +3676,6 @@ msgstr "🙌 刚刚投了 “{0}”"
 
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "你可以设置一个或多个规则，作为领取红包的条件。"
-
-#. placeholder {0}: collection.volume_1d
-#. placeholder {1}: collection.price_symbol
-msgid "{0} {1} <0>24H Vol</0>"
-msgstr "{0} {1} <0>24 小时交易量</0>"
 
 msgid "No positions found."
 msgstr "未发现持仓"
@@ -4015,9 +3894,6 @@ msgstr "新闻"
 msgid "Truth Social"
 msgstr "Truth Social"
 
-msgid "Owned"
-msgstr "持有"
-
 msgid "Associated wallets"
 msgstr "关联钱包"
 
@@ -4060,9 +3936,6 @@ msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈
 
 msgid "1Y"
 msgstr "1年"
-
-msgid "NFT ID"
-msgstr "NFT ID"
 
 msgid "W"
 msgstr "胜"
@@ -4118,11 +3991,6 @@ msgstr "筛选时间"
 
 msgid "EVM wallets"
 msgstr "EVM 钱包"
-
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0} {1} <0>Floor</0>"
-msgstr "{0} {1} <0>地板价</0>"
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额代币"
@@ -4472,9 +4340,6 @@ msgstr "Polymarket"
 msgid "Video duration limit reached"
 msgstr "达到视频时长上限"
 
-msgid "Failed to report spam NFT."
-msgstr "举报垃圾 NFT 失败。"
-
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "确认断开此钱包及相关账户与 Firefly 社交图谱的绑定吗？"
 
@@ -4571,9 +4436,6 @@ msgstr "字体颜色"
 msgid "Choose Wallet"
 msgstr "选择钱包"
 
-msgid "%Owned"
-msgstr "%持有"
-
 msgid "Final results"
 msgstr "最终结果"
 
@@ -4617,9 +4479,6 @@ msgstr "未发现勒索行为。"
 msgid "No Lens profile found,"
 msgstr "未找到 Lens 账号，"
 
-msgid "Creator"
-msgstr "创建者"
-
 msgid "No preview found for shared link"
 msgstr "分享链接无法预加载"
 
@@ -4656,9 +4515,6 @@ msgstr "单局让分"
 msgid "Total Games"
 msgstr "总局数"
 
-msgid "NFT removed from your Bookmarks"
-msgstr "NFT 已从你的收藏夹移除"
-
 msgid "Users must hold at least one NFT from the collections you specify."
 msgstr "用户必须持有你指定系列中的至少一个 NFT。"
 
@@ -4677,23 +4533,14 @@ msgstr "你关注的人没有交易过这个代币哦。"
 msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
 msgstr "探索 - 来自 Farcaster、Lens 和 Bluesky 的热门圈子 - Firefly"
 
-msgid "Remove from bookmarks"
-msgstr "从收藏夹移除"
-
 msgid "Search clubs"
 msgstr "搜索圈子"
 
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "获取助记词失败，请重试。"
 
-msgid "Not Started"
-msgstr "尚未开始"
-
 msgid "Details"
 msgstr "详情"
-
-msgid "Searching collections"
-msgstr "NFT 系列搜索中"
 
 msgid "Undefined user"
 msgstr "未定义用户"
@@ -4756,11 +4603,6 @@ msgstr "已取消点赞。"
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
 msgstr "创建 {0} 账户失败。{1}"
-
-#. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
-#. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
-msgid "<0>Minted</0><1/>{0}{1}"
-msgstr "<0>铸造</0><1/>{0}{1}"
 
 msgid "Lens Auto login"
 msgstr "Lens 自动登录"
@@ -4888,9 +4730,6 @@ msgstr "来自此用户的所有帖子和动态将对你隐藏"
 msgid "Video"
 msgstr "视频"
 
-msgid "Unknown Collection"
-msgstr "未知系列"
-
 msgid "Firefly Wallet"
 msgstr "Firefly 钱包"
 
@@ -4955,9 +4794,6 @@ msgstr "免费"
 msgid "Snapshot removed from your Bookmarks"
 msgstr "提案已从收藏夹移除"
 
-msgid "Minting Date"
-msgstr "铸造日期"
-
 msgid "1st Set Total Games"
 msgstr "第一盘总局数"
 
@@ -5021,11 +4857,6 @@ msgstr "位置"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "对代币的交易次数没有限制。但诈骗代币的交易次数可能是有限的（欺诈风险）。"
-
-#. placeholder {0}: nFormatter(collection.collection.amounts_total || collection.items_total || 0)
-#. placeholder {0}: nFormatter(collection.items_total || 0)
-msgid "{0} <0>Items</0>"
-msgstr "{0} <0>项</0>"
 
 msgid "Select Token"
 msgstr "选择代币"
@@ -5096,9 +4927,6 @@ msgstr "地图胜者"
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
 msgstr "在 {sourceName} 退出了 #{0}"
-
-msgid "Last sale"
-msgstr "最新价"
 
 msgid "Translating..."
 msgstr "翻译中..."
@@ -5209,9 +5037,6 @@ msgstr "定时帖的发布时间最多可设置在 7 天内。"
 msgid "One-time passcode"
 msgstr "一次性验证码"
 
-msgid "Download media"
-msgstr "下载媒体"
-
 msgid "Chain"
 msgstr "链"
 
@@ -5253,9 +5078,6 @@ msgstr "你不符合领取此红包的条件"
 
 msgid "Article could not be found"
 msgstr "未找到相关文章"
-
-msgid "Collectible could not be found."
-msgstr "未找到相关 NFT。"
 
 msgid "Contract address."
 msgstr "合约地址。"
@@ -5489,9 +5311,6 @@ msgstr "识别为虚假KYC。"
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>设置 > 内容偏好</0> 随时重新开启"
 
-msgid "Minted"
-msgstr "已铸造"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
 msgstr "向 {0} 发布帖子失败。"
@@ -5501,9 +5320,6 @@ msgstr "已点赞。"
 
 msgid "Trades"
 msgstr "交易"
-
-msgid "Top Collectors"
-msgstr "铸造收集者"
 
 msgid "OK"
 msgstr "确定"
@@ -5540,9 +5356,6 @@ msgstr "成功取消转发"
 msgid "like"
 msgid_plural "likes"
 msgstr[0] "点赞"
-
-msgid "Collectible"
-msgstr "NFT"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "来自特朗普的 Truth Social 帖子（探索、个人资料）"

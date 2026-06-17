@@ -10,7 +10,6 @@ import { Trans } from '@lingui/react/macro';
 import type { Address } from 'viem';
 
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
-import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
@@ -22,13 +21,9 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
-import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
 interface Props {
     address: Address;
-    contractAddress?: Address;
-    tokenId?: string;
-    chainId?: number;
     ens?: string;
     showTips?: boolean;
     autoQueryEns?: boolean;
@@ -38,14 +33,10 @@ interface Props {
 export function WalletBaseMoreAction({
     ens: originalEns,
     address,
-    contractAddress,
-    tokenId,
-    chainId,
     showTips = true,
     autoQueryEns = false,
     icon,
 }: Props) {
-    const { data } = useNFTDetail(chainId, contractAddress, tokenId);
     const { data: isMuted } = useIsWalletMuted(address);
     const profiles = useCurrentFireflyProfilesAll();
 
@@ -63,7 +54,7 @@ export function WalletBaseMoreAction({
         isValidAddressEthereum(address) &&
         !profiles.some((profile) => isSameFireflyIdentity(profile.identity, identity));
 
-    if (!shouldShowTips && isMyProfile && !data?.chain_id) {
+    if (!shouldShowTips && isMyProfile) {
         return null;
     }
 
@@ -98,17 +89,6 @@ export function WalletBaseMoreAction({
                             )}
                         </MenuItem>
                     </>
-                ) : null}
-                {data?.chain_id ? (
-                    <MenuItem>
-                        {({ close }) => (
-                            <NFTReportSpamButton
-                                onClick={close}
-                                chainId={data.chain_id}
-                                address={data.contract_address}
-                            />
-                        )}
-                    </MenuItem>
                 ) : null}
                 {shouldShowTips ? (
                     <MenuItem>

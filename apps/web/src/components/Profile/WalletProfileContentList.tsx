@@ -21,6 +21,7 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
         case WalletProfileCategory.Prediction:
         case WalletProfileCategory.Bets:
             return <ProfilePredictionTimeline address={address} />;
+        // The NFTs category has been retired, but the enum value is retained elsewhere, so this keeps the switch exhaustive.
         case WalletProfileCategory.NFTs:
             return null;
         default:

@@ -451,9 +451,6 @@ msgstr "세율이 수정될 수 있습니다"
 msgid "Set {setNum} Winner"
 msgstr "{setNum}세트 승자"
 
-msgid "<0>Burned</0><1/>"
-msgstr "<0>소각됨</0><1/>"
-
 msgid "Fake KYC."
 msgstr "가짜 KYC."
 
@@ -511,9 +508,6 @@ msgstr "연결된 지갑에서 가져온 연관 계정입니다. 기본 계정�
 msgid "Member"
 msgid_plural "Members"
 msgstr[0] "멤버"
-
-msgid "Mint Ended"
-msgstr "민팅 종료"
 
 msgid "Scroll tabs right"
 msgstr "탭 오른쪽으로 스크롤"
@@ -909,9 +903,6 @@ msgstr "{0} 숨겨진 채널"
 msgid "[Video]"
 msgstr "[동영상]"
 
-msgid "Blockchain"
-msgstr "블록체인"
-
 #. placeholder {0}: trade.displayInfo?.ensHandle || addressName
 #. placeholder {1}: toFixedTrimmed(+trade.size, 2)
 #. placeholder {2}: trade.outcome
@@ -931,9 +922,6 @@ msgstr "이런! 계정이 현재 차단되어 있습니다. 자세한 내용은 
 
 msgid "Keep Your Recovery Phrase Safe"
 msgstr "복구 구문을 안전하게 보관하세요"
-
-msgid "Failed to bookmark NFT."
-msgstr "NFT 북마크에 실패했습니다."
 
 msgid "Hope this sparks a smile."
 msgstr "이것이 미소를 가져다주길 바랍니다."
@@ -1085,9 +1073,6 @@ msgstr "암호화된 데이터를 찾을 수 없습니다."
 msgid "New Connect"
 msgstr "새 연결"
 
-msgid "Attendees"
-msgstr "참석자"
-
 msgid "Connected accounts"
 msgstr "연결된 계정"
 
@@ -1198,9 +1183,6 @@ msgstr "분"
 
 msgid "Sorry, today's free mint quota has been reached."
 msgstr "죄송합니다. 오늘의 무료 민팅 한도에 도달했습니다."
-
-msgid "Floor Price"
-msgstr "플로어 가격"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
@@ -1496,9 +1478,6 @@ msgstr "Lens 매니저 연결에 실패했습니다. 나중에 다시 시도해 
 msgid "or"
 msgstr "또는"
 
-msgid "Items"
-msgstr "항목"
-
 msgid "Channel {id} could not be found."
 msgstr "채널 {id}을(를) 찾을 수 없습니다."
 
@@ -1522,9 +1501,6 @@ msgstr "사용 가능 잔액"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "X에서 @thefireflyapp 팔로우"
-
-msgid "Minting Txn Hash"
-msgstr "민팅 거래 해시"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Firefly 닉네임 입력"
@@ -1687,9 +1663,6 @@ msgid "# minute left"
 msgid_plural "# minutes left"
 msgstr[0] "# 분 남음"
 
-msgid "Owners"
-msgstr "소유자"
-
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
 msgstr "/{0}의 모든 게시물이 숨겨집니다"
@@ -1728,9 +1701,6 @@ msgstr "익명"
 
 msgid "+{remainingCount} others"
 msgstr "외 {remainingCount}개"
-
-msgid "Failed to un-bookmark NFT."
-msgstr "NFT 북마크 해제에 실패했습니다."
 
 msgid "There is no data available for display."
 msgstr "표시할 데이터가 없습니다."
@@ -1805,9 +1775,6 @@ msgstr "프로필을 찾을 수 없습니다."
 msgid "Muted contents"
 msgstr "숨긴 콘텐츠"
 
-msgid "Collections"
-msgstr "컬렉션"
-
 msgid "Sign to Authorize"
 msgstr "서명하여 승인"
 
@@ -1850,9 +1817,6 @@ msgstr "{0} (UTC+8)"
 #. placeholder {0}: channel.name
 msgid "Failed to mute /{0}."
 msgstr "/{0} 숨기기에 실패했습니다."
-
-msgid "Address"
-msgstr "주소"
 
 msgid "Newest"
 msgstr "최신"
@@ -1970,9 +1934,6 @@ msgstr "🎭 {0}에 답글을 남겼습니다."
 
 msgid "Unknown"
 msgstr "알 수 없음"
-
-msgid "Bookmark not exist, please try going to the detail page and un-bookmark it."
-msgstr "북마크가 존재하지 않습니다. 상세 페이지에서 북마크를 해제해 보세요."
 
 msgid "Claimed lucky drop successfully"
 msgstr "럭키 드롭을 성공적으로 수령했습니다"
@@ -2131,9 +2092,6 @@ msgstr "로그아웃"
 msgid "Owner can't change balance"
 msgstr "소유자가 잔액을 변경할 수 없음"
 
-msgid "Attendance"
-msgstr "참석"
-
 msgid "Search predictions"
 msgstr "예측 검색"
 
@@ -2160,9 +2118,6 @@ msgstr "더 보기"
 
 msgid "Set as primary wallet"
 msgstr "기본 지갑으로 설정"
-
-msgid "24H Volume"
-msgstr "24시간 거래량"
 
 msgid "Upload to change"
 msgstr "업로드하여 변경"
@@ -2289,9 +2244,6 @@ msgstr "악성 행위가 의심되지 않습니다."
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "브라우저가 Firefly Bridge를 지원하지 않습니다."
-
-msgid "No matching collection"
-msgstr "일치하는 컬렉션이 없습니다"
 
 msgid "Canceled"
 msgstr "취소됨"
@@ -2423,9 +2375,6 @@ msgstr "이 지갑에서 거래를 찾을 수 없습니다"
 msgid "Month"
 msgstr "월"
 
-msgid "Report spam"
-msgstr "스팸 신고"
-
 msgid "Failed to un-bookmark post."
 msgstr "게시물 북마크 해제에 실패했습니다."
 
@@ -2515,9 +2464,6 @@ msgstr "퍼스트 블러드"
 msgid "Share From"
 msgstr "공유 출처"
 
-msgid "Are you sure you want to report this collection?"
-msgstr "이 컬렉션을 신고하시겠습니까?"
-
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
 msgid "# share"
@@ -2567,10 +2513,6 @@ msgstr "다음"
 msgid "Failed to send."
 msgstr "전송에 실패했습니다."
 
-#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
-msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
-msgstr "<0>획득</0><1/><2>출처</2><3><4>{0}</4></3>"
-
 msgid "Matters article"
 msgstr "Matters 아티클"
 
@@ -2582,9 +2524,6 @@ msgstr "득점"
 
 msgid "Sign in with Lens"
 msgstr "Lens로 로그인"
-
-msgid "<0>Bought</0><1/>"
-msgstr "<0>매수</0><1/>"
 
 msgid "Non-contract address found."
 msgstr "비컨트랙트 주소가 발견되었습니다."
@@ -2619,11 +2558,6 @@ msgstr "컨트랙트에 추가 발행 기능이 포함되어 있을 수 있으�
 msgid "Upcoming"
 msgstr "예정"
 
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0}{1} <0>Floor</0>"
-msgstr "{0}{1} <0>최저가</0>"
-
 msgid "Accounts Connected"
 msgstr "연결된 계정"
 
@@ -2635,9 +2569,6 @@ msgstr "Rootdata 제공 Top 40 프로젝트"
 
 msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
 msgstr "<0>이 Firefly 지갑의 모든 자산은 영구적으로 손실되며 복구할 수 없습니다.</0> 계속하기 전에 손실을 방지하려면 Firefly 지갑에서 모든 자금과 자산을 출금하세요."
-
-msgid "<0>Sent</0><1/>"
-msgstr "<0>전송</0><1/>"
 
 #. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
@@ -2786,9 +2717,6 @@ msgstr "게시물이 {0} {1}에 전송됩니다 <0>보기</0>"
 msgid "GIF count limit reached"
 msgstr "GIF 개수 한도에 도달했습니다"
 
-msgid "<0>Sold</0><1/>"
-msgstr "<0>매도</0><1/>"
-
 msgid "Unsaved draft found"
 msgstr "저장되지 않은 임시 저장을 찾았습니다"
 
@@ -2871,14 +2799,8 @@ msgstr "일치하는 토큰이 없습니다"
 msgid "Collected"
 msgstr "수집함"
 
-msgid "Owned By"
-msgstr "소유자"
-
 msgid "Are you sure you want to report this post?"
 msgstr "이 게시물을 신고하시겠습니까?"
-
-msgid "<0>Acquired</0><1/>"
-msgstr "<0>획득</0><1/>"
 
 msgid "Copy link to profile"
 msgstr "프로필 링크 복사"
@@ -2970,12 +2892,6 @@ msgstr "스냅샷이 북마크에 추가되었습니다"
 msgid "No any positions found in this wallet"
 msgstr "이 지갑에서 포지션을 찾을 수 없습니다"
 
-msgid "Total volume"
-msgstr "총 거래량"
-
-msgid "NFT added to your Bookmarks"
-msgstr "NFT가 북마크에 추가되었습니다"
-
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+year%7D+other+%7B%23+years%7D%7D&pluralize_on=0
 msgid "# year"
@@ -2987,9 +2903,6 @@ msgstr "입금"
 
 msgid "<0/> Loading"
 msgstr "<0/> 로딩 중"
-
-msgid "Are you sure you want to remove this NFT from your bookmarks?"
-msgstr "이 NFT를 북마크에서 제거하시겠습니까?"
 
 msgid "Net Worth"
 msgstr "순자산"
@@ -3018,9 +2931,6 @@ msgstr "북마크 제거에 실패했습니다."
 msgid "Significant movements in token prices"
 msgstr "토큰 가격의 큰 변동"
 
-msgid "Unknown status"
-msgstr "알 수 없는 상태"
-
 msgid "Results"
 msgstr "결과"
 
@@ -3035,9 +2945,6 @@ msgstr "<0>{0} <1>{1}</1></0>에 발송 예정"
 
 msgid "Map {gameNum}"
 msgstr "맵 {gameNum}"
-
-msgid "Properties"
-msgstr "속성"
 
 msgid "Market"
 msgstr "마켓"
@@ -3092,10 +2999,6 @@ msgstr "새로고침"
 
 msgid "Series Lines"
 msgstr "시리즈 라인"
-
-#. placeholder {0}: formatAddressEthereum(toAddress, 4)
-msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
-msgstr "<0>전송</0><1/><2>대상</2><3><4>{0}</4></3>"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -3209,9 +3112,6 @@ msgstr "App Store"
 msgid "Collect Article"
 msgstr "아티클 수집"
 
-msgid "Collected by"
-msgstr "수집자"
-
 msgid "Forbidden. Please check your permissions."
 msgstr "금지되었습니다. 권한을 확인해 주세요."
 
@@ -3291,9 +3191,6 @@ msgstr "게임을 불러오지 못했습니다"
 msgid "No financial crime involved."
 msgstr "금융 범죄가 관련되어 있지 않습니다."
 
-msgid "View on Website"
-msgstr "웹사이트에서 보기"
-
 msgid "Sign Up"
 msgstr "가입"
 
@@ -3328,9 +3225,6 @@ msgstr "앗… 문제가 발생했습니다. 다시 시도해 주세요"
 
 msgid "Follow"
 msgstr "팔로우"
-
-msgid "Mint Again"
-msgstr "다시 민팅"
 
 msgid "Repost"
 msgstr "리포스트"
@@ -3496,10 +3390,6 @@ msgstr "럭키 드롭 생성 24시간 후 미수령 금액을 출금할 수 있�
 msgid "no less than {0}"
 msgstr "{0} 이상"
 
-#. js-lingui-explicit-id
-msgid "nft-items"
-msgstr "NFT 항목"
-
 msgid "Enter Total Amount"
 msgstr "총 금액 입력"
 
@@ -3559,9 +3449,6 @@ msgstr "팔로우한 사람만"
 
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "숨긴 계정, 지갑, 클럽을 관리하세요."
-
-msgid "Description"
-msgstr "설명"
 
 msgid "Others"
 msgstr "기타"
@@ -3692,9 +3579,6 @@ msgstr "인기 클럽"
 msgid "Buy Tax: {0}%"
 msgstr "매수세: {0}%"
 
-msgid "<0>Collected</0><1/>"
-msgstr "<0>수집</0><1/>"
-
 msgid "Post was deleted"
 msgstr "게시물이 삭제되었습니다"
 
@@ -3792,11 +3676,6 @@ msgstr "🙌 “{0}”에 투표했습니다"
 
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "럭키 드롭 수령 자격을 위해 하나 이상의 규칙을 설정할 수 있습니다."
-
-#. placeholder {0}: collection.volume_1d
-#. placeholder {1}: collection.price_symbol
-msgid "{0} {1} <0>24H Vol</0>"
-msgstr "{0} {1} <0>24시간 거래량</0>"
 
 msgid "No positions found."
 msgstr "포지션을 찾을 수 없습니다."
@@ -4015,9 +3894,6 @@ msgstr "뉴스"
 msgid "Truth Social"
 msgstr "Truth Social"
 
-msgid "Owned"
-msgstr "보유"
-
 msgid "Associated wallets"
 msgstr "연결된 지갑"
 
@@ -4060,9 +3936,6 @@ msgstr "화이트리스트 기능이 포함되어 있습니다. 일부 주소가
 
 msgid "1Y"
 msgstr "1년"
-
-msgid "NFT ID"
-msgstr "NFT ID"
 
 msgid "W"
 msgstr "승"
@@ -4118,11 +3991,6 @@ msgstr "기간 필터"
 
 msgid "EVM wallets"
 msgstr "EVM 지갑"
-
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0} {1} <0>Floor</0>"
-msgstr "{0} {1} <0>최저가</0>"
 
 msgid "Hide tokens with small balances"
 msgstr "소액 잔액 토큰 숨기기"
@@ -4472,9 +4340,6 @@ msgstr "Polymarket"
 msgid "Video duration limit reached"
 msgstr "동영상 길이 한도에 도달했습니다"
 
-msgid "Failed to report spam NFT."
-msgstr "스팸 NFT 신고에 실패했습니다."
-
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "이 지갑 및 연결된 계정을 Firefly에서 연결 해제하시겠습니까?"
 
@@ -4571,9 +4436,6 @@ msgstr "글꼴 색상"
 msgid "Choose Wallet"
 msgstr "지갑 선택"
 
-msgid "%Owned"
-msgstr "%보유"
-
 msgid "Final results"
 msgstr "최종 결과"
 
@@ -4617,9 +4479,6 @@ msgstr "갈취 행위가 관련되어 있지 않습니다."
 msgid "No Lens profile found,"
 msgstr "Lens 프로필을 찾을 수 없습니다,"
 
-msgid "Creator"
-msgstr "제작자"
-
 msgid "No preview found for shared link"
 msgstr "공유 링크 미리보기를 찾을 수 없습니다"
 
@@ -4656,9 +4515,6 @@ msgstr "게임 핸디캡"
 msgid "Total Games"
 msgstr "총 게임"
 
-msgid "NFT removed from your Bookmarks"
-msgstr "NFT가 북마크에서 제거되었습니다"
-
 msgid "Users must hold at least one NFT from the collections you specify."
 msgstr "사용자는 지정한 컬렉션에서 최소 하나의 NFT를 보유해야 합니다."
 
@@ -4677,23 +4533,14 @@ msgstr "팔로우한 사람 중 이 토큰을 거래한 사람이 없습니다."
 msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
 msgstr "탐색 - Farcaster, Lens, Bluesky 인기 클럽 - Firefly"
 
-msgid "Remove from bookmarks"
-msgstr "북마크에서 제거"
-
 msgid "Search clubs"
 msgstr "클럽 검색"
 
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "복구 구문을 가져오지 못했습니다. 다시 시도해 주세요."
 
-msgid "Not Started"
-msgstr "시작 전"
-
 msgid "Details"
 msgstr "상세"
-
-msgid "Searching collections"
-msgstr "컬렉션 검색 중"
 
 msgid "Undefined user"
 msgstr "정의되지 않은 사용자"
@@ -4756,11 +4603,6 @@ msgstr "예측 좋아요가 취소되었습니다."
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
 msgstr "{0} 프로필 생성에 실패했습니다.{1}"
-
-#. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
-#. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
-msgid "<0>Minted</0><1/>{0}{1}"
-msgstr "<0>민팅</0><1/>{0}{1}"
 
 msgid "Lens Auto login"
 msgstr "Lens 자동 로그인"
@@ -4888,9 +4730,6 @@ msgstr "이 사용자의 모든 게시물과 활동이 숨겨집니다"
 msgid "Video"
 msgstr "동영상"
 
-msgid "Unknown Collection"
-msgstr "알 수 없는 컬렉션"
-
 msgid "Firefly Wallet"
 msgstr "Firefly 지갑"
 
@@ -4955,9 +4794,6 @@ msgstr "무료"
 msgid "Snapshot removed from your Bookmarks"
 msgstr "스냅샷이 북마크에서 제거되었습니다"
 
-msgid "Minting Date"
-msgstr "민팅 날짜"
-
 msgid "1st Set Total Games"
 msgstr "1세트 총 게임"
 
@@ -5021,11 +4857,6 @@ msgstr "위치"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "토큰 거래 횟수에 제한이 없습니다. 사기 토큰 거래 횟수는 제한될 수 있습니다(허니팟 위험)."
-
-#. placeholder {0}: nFormatter(collection.collection.amounts_total || collection.items_total || 0)
-#. placeholder {0}: nFormatter(collection.items_total || 0)
-msgid "{0} <0>Items</0>"
-msgstr "{0} <0>개 항목</0>"
 
 msgid "Select Token"
 msgstr "토큰 선택"
@@ -5096,9 +4927,6 @@ msgstr "맵 승자"
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
 msgstr "{sourceName}에서 #{0}을(를) 나감"
-
-msgid "Last sale"
-msgstr "최근 판매"
 
 msgid "Translating..."
 msgstr "번역 중..."
@@ -5209,9 +5037,6 @@ msgstr "이 게시물의 예약 전송 시간은 최대 7일 전까지 설정할
 msgid "One-time passcode"
 msgstr "일회용 인증 코드"
 
-msgid "Download media"
-msgstr "미디어 다운로드"
-
 msgid "Chain"
 msgstr "체인"
 
@@ -5253,9 +5078,6 @@ msgstr "이 홍바오를 받을 자격이 없습니다"
 
 msgid "Article could not be found"
 msgstr "아티클을 찾을 수 없습니다"
-
-msgid "Collectible could not be found."
-msgstr "수집품을 찾을 수 없습니다."
 
 msgid "Contract address."
 msgstr "컨트랙트 주소."
@@ -5489,9 +5311,6 @@ msgstr "가짜 KYC가 발견되었습니다."
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "<0>설정 > 콘텐츠 환경설정</0>에서 언제든지 다시 켤 수 있습니다"
 
-msgid "Minted"
-msgstr "민팅됨"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
 msgstr "{0}에 게시물 전송에 실패했습니다."
@@ -5501,9 +5320,6 @@ msgstr "팁에 좋아요를 눌렀습니다."
 
 msgid "Trades"
 msgstr "거래"
-
-msgid "Top Collectors"
-msgstr "상위 수집가"
 
 msgid "OK"
 msgstr "확인"
@@ -5540,9 +5356,6 @@ msgstr "리캐스트가 성공적으로 취소되었습니다"
 msgid "like"
 msgid_plural "likes"
 msgstr[0] "좋아요"
-
-msgid "Collectible"
-msgstr "수집품"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "Truth Social의 Trump 게시물(탐색, 프로필)"

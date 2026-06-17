@@ -2,9 +2,7 @@ import { memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Image } from '@/esm/Image.js';
-import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { DetectedAddress } from '@/providers/types/Firefly.js';
@@ -16,11 +14,7 @@ interface ContractTagProps {
 }
 
 export const ContractTag = memo<ContractTagProps>(function ContractTag({ detected, address, title }) {
-    const contractType = detected.contract_type;
-    const isCollection = detected.address_type === 'contract' && ['ERC721', 'ERC1155', 'nft'].includes(contractType);
     const chainId = +detected.chain_id;
-
-    const { data: collection } = useNFTCollection(address, chainId, isCollection);
 
     const attributes = detected?.contract_info?.attributes;
     const coingeckoCoinId = attributes?.coingecko_coin_id;
@@ -30,12 +24,12 @@ export const ContractTag = memo<ContractTagProps>(function ContractTag({ detecte
     });
 
     const url = useMemo(() => {
-        if (collection) return resolveNFTUrl(collection.chain_id, collection.contract_address);
         if (token) {
             return resolveTokenPageUrl({ identity: coingeckoCoinId || address, chainId, isCoinId: !!coingeckoCoinId });
         }
+        // NFT collection addresses no longer have a dedicated page; link to the block explorer instead.
         return BlockScanExplorerResolver.addressLink(chainId, address);
-    }, [collection, token, coingeckoCoinId, address, chainId]);
+    }, [token, coingeckoCoinId, address, chainId]);
 
     if (!url) return title;
 

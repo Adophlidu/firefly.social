@@ -14,6 +14,7 @@ import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { logger } from '@/libs/Logger.js';
+import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { checkCustodyWallet } from '@/providers/firefly/farcaster-account/checkCustodyWallet.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
@@ -116,9 +117,12 @@ export class FarcasterFrameHost implements MiniAppHost {
             case 'erc20':
                 openWindow(`${SITE_URL}/token/${token.reference}?chainId=${chainId}`);
                 break;
-            case 'erc721':
-                openWindow(`${SITE_URL}/nft/${chainId}/${token.reference}${token.tokenId ? `/${token.tokenId}` : ''}`);
+            case 'erc721': {
+                // The dedicated NFT page has been retired; open the contract on a block explorer instead.
+                const link = BlockScanExplorerResolver.addressLink(Number(chainId), token.reference);
+                if (link) openWindow(link);
                 break;
+            }
             default:
                 throw new Error(`Unsupported token type of namespace = ${token.namespace}`);
         }

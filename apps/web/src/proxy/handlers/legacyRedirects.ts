@@ -8,7 +8,6 @@ import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
 import { parseOldCommunityUrl } from '@/helpers/parseOldCommunityUrl.js';
 import { parseOldExploreUrl } from '@/helpers/parseOldExploreUrl.js';
 import { parseOldFollowingUrl } from '@/helpers/parseOldFollowingUrl.js';
-import { parseOldNftUrl } from '@/helpers/parseOldNftUrl.js';
 import { parseOldNotification } from '@/helpers/parseOldNotification.js';
 import { parseOldSettingsUrl } from '@/helpers/parseOldSettingsUrl.js';
 import { parseOldSwapUrl } from '@/helpers/parseOldSwapUrl.js';
@@ -20,7 +19,6 @@ import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
-import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
@@ -121,14 +119,6 @@ export function handleLegacyRedirects(request: NextRequest, next: () => NextResp
         const destination = request.nextUrl.clone();
         destination.pathname = resolvePostUrl(parsedOldPostUrl.source, parsedOldPostUrl.id);
         destination.searchParams.delete('source');
-        return NextResponse.redirect(destination);
-    }
-
-    const parsedOldNftUrl = parseOldNftUrl(request.nextUrl);
-    if (parsedOldNftUrl) {
-        const destination = request.nextUrl.clone();
-        destination.pathname = resolveNFTUrl(parsedOldNftUrl.chainId, parsedOldNftUrl.address, parsedOldNftUrl.tokenId);
-        destination.searchParams.delete('chainId');
         return NextResponse.redirect(destination);
     }
 

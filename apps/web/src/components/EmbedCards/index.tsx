@@ -3,31 +3,28 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { useQueries } from '@tanstack/react-query';
-import { first, nth, sortBy } from 'lodash-es';
+import { first, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { AddressCard, AddressCardIndicator } from '@/components/EmbedCards/AddressCard.js';
 import { DomainCard, DomainCardIndicator } from '@/components/EmbedCards/DomainCard.js';
 import { extractEmbedResources, isAvailableAddress } from '@/components/EmbedCards/helpers.js';
-import { EmbedLinkCard, LinkCardIndicator } from '@/components/EmbedCards/LinkCard.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
-import { useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
 import { useEnsAddresses } from '@/hooks/useEnsAddress.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface EmbedEntry {
-    type: 'address' | 'domain' | 'url';
+    type: 'address' | 'domain';
     value: string;
 }
 
 interface EmbedCardsInnerProps extends HTMLProps<HTMLDivElement> {
-    post: Post;
     embeds: EmbedEntry[];
 }
 
-const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ embeds, post, ...rest }) {
+const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ embeds, ...rest }) {
     const addresses = embeds.filter((x) => x.type === 'address');
     const addressQueries = useQueries({
         queries: addresses.map(({ value: address }) => ({
@@ -55,7 +52,6 @@ const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ em
         if (unavailableEmbeds.includes(x.value)) return false;
 
         switch (x.type) {
-            case 'url':
             case 'domain':
                 return true;
             case 'address':
@@ -78,8 +74,6 @@ const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ em
                 return <AddressCard key={embed.value} className="rounded-2xl !bg-lightBg" address={embed.value} />;
             case 'domain':
                 return <DomainCard key={embed.value} className="rounded-2xl bg-lightBg" domain={embed.value} />;
-            case 'url':
-                return <EmbedLinkCard key={embed.value} className="!bg-lightBg" link={embed.value} />;
             default:
                 safeUnreachable(embed.type);
                 return null;
@@ -117,16 +111,6 @@ const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ em
                                         onAvailableUpdate={handleAvailableUpdate}
                                     />
                                 );
-                            case 'url':
-                                return (
-                                    <LinkCardIndicator
-                                        key={item.value}
-                                        link={item.value}
-                                        active={active}
-                                        onClick={handleClick}
-                                        onAvailableUpdate={handleAvailableUpdate}
-                                    />
-                                );
                             default:
                                 safeUnreachable(item.type);
                                 return null;
@@ -152,18 +136,12 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
         [oembedUrl, content],
     );
 
-    const { data: classifyResults = EMPTY_LIST } = useClassifyPostLinks(links);
     const domainResolveResults = useEnsAddresses(domains);
 
     // Merge links, addresses and domains
     const embeds = useMemo(() => {
         if (!content) return EMPTY_LIST;
 
-        const availableLinks = links.filter((_, i) => {
-            const result = nth(classifyResults, i);
-            if (!result?.result) return false;
-            return !!(result.result.nft || result.result.collection);
-        });
         const lowerIgnoredLinks = ignoredLinks.map((x) => x.toLowerCase());
         const availableDomains = domains.filter((domain, i) => {
             const result = domainResolveResults[i];
@@ -179,7 +157,6 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
                 .filter((x) => !lowerDomains.some((domain) => domain.includes(x.toLowerCase()))) // exclude addresses that are already in domains
                 .filter((address) => !lowerIgnoredLinks.some((link) => link.includes(address.toLowerCase())))
                 .map((address) => ({ type: 'address', value: address })),
-            ...availableLinks.map((link) => ({ type: 'url', value: link })),
             ...availableDomains
                 .filter((domain) => !links.some((link) => link.includes(domain))) // exclude domains in links
                 .map((domain) => ({ type: 'domain', value: domain })),
@@ -187,9 +164,9 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
 
         const lowercasePostContent = content.toLowerCase();
         return sortBy(embeds, (x) => lowercasePostContent.indexOf(x.value.toLowerCase()));
-    }, [addresses, classifyResults, ignoredLinks, domainResolveResults, domains, links, content]);
+    }, [addresses, ignoredLinks, domainResolveResults, domains, links, content]);
 
     if (!embeds.length) return null;
 
-    return <EmbedCardsInner post={post} embeds={embeds} {...rest} />;
+    return <EmbedCardsInner embeds={embeds} {...rest} />;
 });

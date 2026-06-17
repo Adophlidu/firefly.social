@@ -3,7 +3,6 @@ import { produce, type WritableDraft } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { BetsActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
-import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 
 export function patchTransactionsQuery<
     T extends TransactionsItem['source'],
@@ -11,9 +10,7 @@ export function patchTransactionsQuery<
         ? WritableDraft<SwapActivity>
         : T extends Source.Prediction
           ? WritableDraft<BetsActivity>
-          : T extends Source.NFTs
-            ? WritableDraft<NFTFeedV3>
-            : never,
+          : never,
 >(source: T, updater?: (item: D) => void, filter?: (item: D) => boolean): void {
     const patcher = (old?: { pages: Array<{ data: TransactionsItem[] }> }) => {
         if (!old) return old;

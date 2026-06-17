@@ -17,7 +17,9 @@ export function getSnapViewTokenPath(caip19: string): string | null {
         case 'erc20':
             return urlcat(`/token/${token.reference}`, { chainId });
         case 'erc721':
-            return `/nft/${chainId}/${token.reference}${token.tokenId ? `/${token.tokenId}` : ''}`;
+            // The /nft web route was retired; no in-app destination exists, so degrade gracefully
+            // (the caller surfaces a "token link not supported" warning on null).
+            return null;
         case 'native':
             if (token.chainNamespace === 'eip155' && token.reference) {
                 return urlcat(`/token/${token.reference}`, { chainId });

@@ -6,7 +6,6 @@ import { ContractCard } from '@/components/EmbedCards/ContractCard.js';
 import { Indicator, type IndicatorProps } from '@/components/EmbedCards/Indicator.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { WalletCard } from '@/components/EmbedCards/WalletCard.js';
-import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useWalletProfile } from '@/hooks/useWalletProfile.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
@@ -63,12 +62,8 @@ export const AddressCardIndicator = memo<AddressCardIndicatorProps>(function Add
     const attributes = detected?.contract_info?.attributes;
     const coingecko_coin_id = attributes?.coingecko_coin_id;
 
+    // NFT collection contracts have no render-able embed card anymore, so treat them as unavailable.
     const isCollection = contractType ? ['ERC721', 'ERC1155', 'nft'].includes(contractType) : false;
-    const { data: collection, isPending: isLoadingCollection } = useNFTCollection(
-        address,
-        detected?.chain_id ? +detected?.chain_id : undefined,
-        isCollection,
-    );
 
     const isToken = addressType === 'contract' && (contractType === 'token' || contractType === 'ERC20');
     const { data: token, isPending: isLoadingToken } = useTokenInfo(
@@ -81,11 +76,10 @@ export const AddressCardIndicator = memo<AddressCardIndicatorProps>(function Add
 
     const isUnknownContract = contractType === 'unknown' || contractType === 'program';
     const isTokenButNotLoaded = isToken && !token && !isLoadingToken;
-    const isCollectionButNotLoaded = isCollection && !collection && !isLoadingCollection;
     const isWalletButNotLoaded = isWallet && !walletProfile && !isLoadingWalletProfile;
 
     const unavailable =
-        !addressType || isUnknownContract || isTokenButNotLoaded || isCollectionButNotLoaded || isWalletButNotLoaded;
+        !addressType || isUnknownContract || isCollection || isTokenButNotLoaded || isWalletButNotLoaded;
 
     useLayoutEffect(() => {
         onAvailableUpdate(data, !unavailable);

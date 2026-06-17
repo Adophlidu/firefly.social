@@ -14,8 +14,6 @@ import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { MentionLinkWithQueryProfile } from '@/components/Markup/MarkupLink/MentionLinkWithQueryProfile.js';
-import { NFTCard } from '@/components/Markup/MarkupLink/NFTCard.js';
-import { NFTCollection } from '@/components/Markup/MarkupLink/NFTCollection.js';
 import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { TcoLink } from '@/components/Markup/MarkupLink/TcoLink.js';
 import { ToggleMore } from '@/components/Markup/MarkupLink/ToggleMore.js';
@@ -42,7 +40,7 @@ function unpaddings(text: string) {
     return { start, end, trimmed };
 }
 
-export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink, profile }) {
+export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, profile }) {
     if (!title) return null;
 
     if (title.startsWith('@')) {
@@ -232,28 +230,6 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                     <DomainTag title={trimmed} source={source} />
                 </ErrorBoundary>
             </>
-        );
-    }
-
-    if (title.startsWith('nft://') && sourceLink) {
-        const [chainId, contractAddress, last] = title.replace('nft://', '').split('/');
-        const tokenId = last.split('?')[0];
-        if (!chainId || !contractAddress) return;
-        if (tokenId)
-            return (
-                <NFTCard
-                    sourceLink={sourceLink}
-                    chainId={Number.parseInt(chainId, 10)}
-                    contractAddress={contractAddress}
-                    tokenId={tokenId}
-                />
-            );
-        return (
-            <NFTCollection
-                sourceLink={sourceLink}
-                chainId={Number.parseInt(chainId, 10)}
-                contractAddress={contractAddress}
-            />
         );
     }
 
