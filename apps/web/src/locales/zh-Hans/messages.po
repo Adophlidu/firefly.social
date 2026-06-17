@@ -3043,7 +3043,7 @@ msgid "Properties"
 msgstr "属性"
 
 msgid "Market"
-msgstr ""
+msgstr "市场"
 
 msgid "Executed"
 msgstr "已执行"

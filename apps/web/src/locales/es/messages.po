@@ -3059,7 +3059,7 @@ msgid "Properties"
 msgstr "Propiedades"
 
 msgid "Market"
-msgstr ""
+msgstr "Mercado"
 
 msgid "Executed"
 msgstr "Ejecutado"
