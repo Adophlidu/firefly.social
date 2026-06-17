@@ -61,7 +61,7 @@ export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ 
 
 const SportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(function SportsCellHeader({ model }) {
     const isFifa = model.eventSlug.startsWith(FIFA_SLUG);
-    // FIFA games always expose the shared CN broadcast; others keep the live-only livestream link.
+    // FIFA games always expose the dedicated broadcast; others keep the live-only livestream link.
     const showStream = isFifa || (model.gamePhase === 'live' && !!model.livestreamUrl);
 
     return (
@@ -162,7 +162,7 @@ const LivestreamButton = memo<{ eventSlug: string; isFifa: boolean }>(function L
             type="button"
             className="pointer-events-auto relative z-20 flex size-5 shrink-0 items-center justify-center text-second hover:text-main"
             onClick={handleClick}
-            aria-label={isFifa ? t`CN Stream` : t`Open livestream`}
+            aria-label={isFifa ? t`Watch Stream` : t`Open livestream`}
         >
             <LivestreamBroadcastIcon width={20} height={20} />
         </button>
@@ -171,7 +171,7 @@ const LivestreamButton = memo<{ eventSlug: string; isFifa: boolean }>(function L
     if (!isFifa) return button;
 
     return (
-        <Tooltip content={t`CN Stream`} placement="top">
+        <Tooltip content={t`Watch Stream`} placement="top">
             {button}
         </Tooltip>
     );

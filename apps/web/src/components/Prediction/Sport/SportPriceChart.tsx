@@ -53,7 +53,7 @@ const SportPriceLineChart = dynamic(
 
 type ChartTab = 'market' | 'stats' | 'stream';
 
-/** A playable stream source for the Stream / CN Stream tab. */
+/** A playable stream source for the Stream / Watch Stream tab. */
 interface StreamSource {
     kind: 'hls' | 'embed';
     url: string;
@@ -62,13 +62,6 @@ interface StreamSource {
 
 interface SportPriceChartProps {
     event: BetsEventDataForUI;
-}
-
-/** Prettify a backend stream key (e.g. "cctv5p-av3a") into a switcher label. */
-function formatStreamLabel(key: string): string {
-    const lower = key.toLowerCase();
-    const base = lower.startsWith('cctv5p') ? 'CCTV5+' : lower.startsWith('cctv5') ? 'CCTV5' : key.toUpperCase();
-    return lower.includes('av3a') ? `${base} AV3A` : base;
 }
 
 function toggleButtonClassName(selected: boolean) {
@@ -101,7 +94,7 @@ function ToggleButton({
 
 /**
  * Stream toggle for the chart tab row.
- * With a single source it behaves like a plain toggle; with multiple CN broadcast
+ * With a single source it behaves like a plain toggle; with multiple broadcast
  * sources it opens a dropdown so the source can be picked when entering the tab.
  */
 function StreamToggle({
@@ -204,7 +197,7 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
         }),
     );
     const [selectedStreamSource, setSelectedStreamSource] = useState(0);
-    // CN stream sources whose CDN refused our proxy egress (403); dropped so we stop retrying.
+    // Stream sources whose CDN refused our proxy egress (403); dropped so we stop retrying.
     const [failedStreamUrls, setFailedStreamUrls] = useState<ReadonlySet<string>>(() => new Set());
     // Keep the Live Stats iframe mounted once opened so switching tabs doesn't reload it.
     const [statsMounted, setStatsMounted] = useState(false);
@@ -212,18 +205,19 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
     const eventSlug = event.slug;
     const isFifa = !!eventSlug && eventSlug.startsWith(FIFA_SLUG);
 
-    // FIFA games stream the shared CN broadcast (CCTV HLS) sources from the backend.
+    // FIFA games play the dedicated broadcast (HLS) sources from the backend.
     // Presented for every FIFA game, not just live ones.
     const { data: fifaStreams } = useFifaLiveStreams(isFifa);
-    const cctvSources = useMemo<StreamSource[]>(
+    const fifaBroadcastSources = useMemo<StreamSource[]>(
         () =>
             fifaStreams
                 ?.map<StreamSource>((item) => ({
                     kind: 'hls',
-                    // Serve the raw IP-hosted CCTV stream same-origin through our proxy
+                    // Serve the raw IP-hosted stream same-origin through our proxy
                     // to avoid mixed-content blocking and cross-origin CORS failures.
                     url: resolveStreamProxyUrl(item.url),
-                    label: item.title || formatStreamLabel(item.name),
+                    // Source name comes from the API; falls back to a generic "Source N" label.
+                    label: item.title,
                 }))
                 // Drop sources that failed to play so we fall back instead of looping on errors.
                 .filter((source) => !failedStreamUrls.has(source.url)) ?? [],
@@ -236,13 +230,13 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
         [sportData?.livestreamInfo],
     );
 
-    const useCctv = isFifa && cctvSources.length > 0;
-    const embedSources: StreamSource[] = useCctv
-        ? cctvSources
+    const useFifaBroadcast = isFifa && fifaBroadcastSources.length > 0;
+    const embedSources: StreamSource[] = useFifaBroadcast
+        ? fifaBroadcastSources
         : twitchPlayback?.type === 'embed'
           ? [{ kind: 'embed', url: twitchPlayback.embedUrl }]
           : [];
-    const externalStreamUrl = !useCctv && twitchPlayback?.type === 'external' ? twitchPlayback.url : undefined;
+    const externalStreamUrl = !useFifaBroadcast && twitchPlayback?.type === 'external' ? twitchPlayback.url : undefined;
 
     const boardUrl = useMemo(
         () =>
@@ -256,7 +250,7 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
     const hasStream = embedSources.length > 0 || !!externalStreamUrl;
     const safeStreamSource = embedSources.length ? Math.min(selectedStreamSource, embedSources.length - 1) : 0;
     const currentStream = embedSources[safeStreamSource];
-    const streamLabel = useCctv ? t`CN Stream` : t`Stream`;
+    const streamLabel = useFifaBroadcast ? t`Watch Stream` : t`Stream`;
 
     // Tabs that only embed inline fall back to the market view when unavailable.
     let effectiveTab: ChartTab = tab;

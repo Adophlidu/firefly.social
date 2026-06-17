@@ -7,7 +7,7 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { dispatchCustomEvent, listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
-import { isStaleCctvEndSegmentUrl } from '@/helpers/prediction/isStaleCctvEndPlaylist.js';
+import { isStaleStreamEndSegmentUrl } from '@/helpers/prediction/isStaleStreamEndPlaylist.js';
 import { logger } from '@/libs/Logger.js';
 
 interface HlsPlayerProps {
@@ -17,7 +17,7 @@ interface HlsPlayerProps {
     onStateChange?: (state: any) => void;
     /** Called when the stream fails terminally (after automatic retries are exhausted). */
     onFatalError?: () => void;
-    /** Reload the master playlist when the CCTV relay serves a stale `endN.ts` VOD fallback. */
+    /** Reload the master playlist when the stream relay serves a stale `endN.ts` VOD fallback. */
     reloadOnStaleEnd?: boolean;
     className?: string;
     mode?: 'video' | 'gif' | 'live';
@@ -26,7 +26,7 @@ interface HlsPlayerProps {
 
 // VOD: cap network-error retries so a dead source can't loop forever.
 const MAX_NETWORK_RETRIES = 3;
-// Live: the CCTV relay rotates CDNs and briefly serves stale/IP-blocked nodes,
+// Live: the stream relay rotates CDNs and briefly serves stale/IP-blocked nodes,
 // so keep retrying with backoff and only give up after a sustained outage —
 // dropping a live source on a transient burst is what made it vanish.
 const LIVE_RECOVERY_WINDOW_MS = 120_000;
@@ -122,7 +122,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                 // flaky CDN; disable it so we keep a small cushion and tolerate gaps.
                 lowLatencyMode: false,
                 backBufferLength: 90,
-                // The CCTV CDN intermittently 403s tokens. Back off exponentially on
+                // The upstream CDN intermittently 403s tokens. Back off exponentially on
                 // segment errors instead of hammering the same dead URL — the live
                 // playlist refresh will hand out fresh tokens to recover with.
                 fragLoadPolicy: {
@@ -203,7 +203,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                 if (!reloadOnStaleEndRef.current || !wasLiveRef.current) return;
 
                 const hasStaleEndSegments = details.fragments?.some((fragment: { url?: string }) =>
-                    fragment.url ? isStaleCctvEndSegmentUrl(fragment.url) : false,
+                    fragment.url ? isStaleStreamEndSegmentUrl(fragment.url) : false,
                 );
                 if (!hasStaleEndSegments || staleEndReloadsRef.current >= MAX_STALE_END_RELOADS) return;
 

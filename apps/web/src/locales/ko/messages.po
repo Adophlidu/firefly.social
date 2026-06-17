@@ -30,7 +30,7 @@ msgstr "무승부"
 
 #. placeholder {0}: index + 1
 msgid "Source {0}"
-msgstr ""
+msgstr "소스 {0}"
 
 msgid "Refunded"
 msgstr "환불됨"
@@ -1956,7 +1956,7 @@ msgid "Today"
 msgstr "오늘"
 
 msgid "Failed to sign in on mobile. Please try again."
-msgstr ""
+msgstr "모바일에서 로그인하지 못했습니다. 다시 시도해 주세요."
 
 #. placeholder {0}: post.stats.views
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
@@ -2490,7 +2490,7 @@ msgid "Failed to like tip."
 msgstr "팁 좋아요에 실패했습니다."
 
 msgid "Stream"
-msgstr ""
+msgstr "스트림"
 
 msgid "No available wallet."
 msgstr "사용 가능한 지갑이 없습니다."
@@ -2874,9 +2874,6 @@ msgstr "수집함"
 msgid "Owned By"
 msgstr "소유자"
 
-msgid "CN Stream"
-msgstr ""
-
 msgid "Are you sure you want to report this post?"
 msgstr "이 게시물을 신고하시겠습니까?"
 
@@ -3130,7 +3127,7 @@ msgid "Failed to generate the share image. Please try again."
 msgstr "공유 이미지를 생성하지 못했습니다. 다시 시도해 주세요."
 
 msgid "Live Stats"
-msgstr ""
+msgstr "실시간 통계"
 
 msgid "Time"
 msgstr "시간"
@@ -4263,7 +4260,7 @@ msgid "Follow Back"
 msgstr "맞팔로우"
 
 msgid "Connect the wallet that owns this account and sign to enable auto login."
-msgstr ""
+msgstr "이 계정을 소유한 지갑을 연결하고 서명하여 자동 로그인을 활성화하세요."
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "이 지갑은 손상된 것으로 표시되었습니다. 신뢰하거나 상호작용하지 마세요. 거래나 민감한 정보 공유를 피하세요. 안전에 유의하세요!"
@@ -4582,6 +4579,9 @@ msgstr "최종 결과"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Firefly 럭키 드롭으로 팔로워와 참여를 늘려 보세요!"
+
+msgid "Watch Stream"
+msgstr "스트림 보기"
 
 msgid "Transaction failed"
 msgstr "거래 실패"

@@ -30,7 +30,7 @@ msgstr "DIBUJAR"
 
 #. placeholder {0}: index + 1
 msgid "Source {0}"
-msgstr ""
+msgstr "Fuente {0}"
 
 msgid "Refunded"
 msgstr "Reembolsado"
@@ -1965,7 +1965,7 @@ msgid "Today"
 msgstr "Hoy"
 
 msgid "Failed to sign in on mobile. Please try again."
-msgstr ""
+msgstr "No se pudo iniciar sesión en el móvil. Inténtalo de nuevo."
 
 #. placeholder {0}: post.stats.views
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
@@ -2502,7 +2502,7 @@ msgid "Failed to like tip."
 msgstr "No se pudo dar Me gusta."
 
 msgid "Stream"
-msgstr ""
+msgstr "Transmisión"
 
 msgid "No available wallet."
 msgstr "No hay billetera disponible."
@@ -2888,9 +2888,6 @@ msgstr "Recogido"
 msgid "Owned By"
 msgstr "Propiedad de"
 
-msgid "CN Stream"
-msgstr ""
-
 msgid "Are you sure you want to report this post?"
 msgstr "¿Está seguro de que desea denunciar esta publicación?"
 
@@ -3147,7 +3144,7 @@ msgid "Failed to generate the share image. Please try again."
 msgstr "No se pudo generar la imagen para compartir. Inténtalo de nuevo."
 
 msgid "Live Stats"
-msgstr ""
+msgstr "Estadísticas en vivo"
 
 msgid "Time"
 msgstr "Hora"
@@ -4286,7 +4283,7 @@ msgid "Follow Back"
 msgstr "Seguir de vuelta"
 
 msgid "Connect the wallet that owns this account and sign to enable auto login."
-msgstr ""
+msgstr "Conecta la billetera propietaria de esta cuenta y firma para habilitar el inicio de sesión automático."
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "Esta cartera ha sido marcada como comprometida. Por favor, no confíes ni interactúes con ella. Evita realizar cualquier transacción o compartir información sensible. ¡Mantente a salvo!"
@@ -4605,6 +4602,9 @@ msgstr "Resultados finales"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Aumenta tus seguidores y tu engagement con Lucky Drop en Firefly!"
+
+msgid "Watch Stream"
+msgstr "Ver transmisión"
 
 msgid "Transaction failed"
 msgstr "Transacción fallida"

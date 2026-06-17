@@ -2888,9 +2888,6 @@ msgstr "Collected"
 msgid "Owned By"
 msgstr "Owned By"
 
-msgid "CN Stream"
-msgstr "CN Stream"
-
 msgid "Are you sure you want to report this post?"
 msgstr "Are you sure you want to report this post?"
 
@@ -4605,6 +4602,9 @@ msgstr "Final results"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
+
+msgid "Watch Stream"
+msgstr "Watch Stream"
 
 msgid "Transaction failed"
 msgstr "Transaction failed"

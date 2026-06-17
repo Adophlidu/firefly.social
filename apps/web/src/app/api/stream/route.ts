@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server.js';
 
-import { isStaleCctvEndPlaylist } from '@/helpers/prediction/isStaleCctvEndPlaylist.js';
+import { isStaleStreamEndPlaylist } from '@/helpers/prediction/isStaleStreamEndPlaylist.js';
 import { logger } from '@/libs/Logger.js';
 import { getFifaLiveStreams } from '@/providers/firefly/prediction/getFifaLiveStreams.js';
 
@@ -150,7 +150,7 @@ export async function GET(request: NextRequest) {
         if (!isLikelyPlaylist(upstreamUrl.toString(), lastUpstreamCt)) break;
 
         const playlist = await upstreamResponse.text();
-        if (!isStaleCctvEndPlaylist(playlist)) {
+        if (!isStaleStreamEndPlaylist(playlist)) {
             playlistBody = playlist;
             break;
         }

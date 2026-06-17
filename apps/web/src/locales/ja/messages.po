@@ -30,7 +30,7 @@ msgstr "引き分け"
 
 #. placeholder {0}: index + 1
 msgid "Source {0}"
-msgstr ""
+msgstr "ソース {0}"
 
 msgid "Refunded"
 msgstr "返金済み"
@@ -1956,7 +1956,7 @@ msgid "Today"
 msgstr "今日"
 
 msgid "Failed to sign in on mobile. Please try again."
-msgstr ""
+msgstr "モバイルでのサインインに失敗しました。もう一度お試しください。"
 
 #. placeholder {0}: post.stats.views
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
@@ -2490,7 +2490,7 @@ msgid "Failed to like tip."
 msgstr "チップへのいいねに失敗しました。"
 
 msgid "Stream"
-msgstr ""
+msgstr "配信"
 
 msgid "No available wallet."
 msgstr "利用可能なウォレットがありません。"
@@ -2874,9 +2874,6 @@ msgstr "コレクト済み"
 msgid "Owned By"
 msgstr "所有者"
 
-msgid "CN Stream"
-msgstr ""
-
 msgid "Are you sure you want to report this post?"
 msgstr "この投稿を報告してもよろしいですか？"
 
@@ -3130,7 +3127,7 @@ msgid "Failed to generate the share image. Please try again."
 msgstr "シェア画像を生成できませんでした。もう一度お試しください。"
 
 msgid "Live Stats"
-msgstr ""
+msgstr "ライブ統計"
 
 msgid "Time"
 msgstr "時間"
@@ -4263,7 +4260,7 @@ msgid "Follow Back"
 msgstr "フォローバック"
 
 msgid "Connect the wallet that owns this account and sign to enable auto login."
-msgstr ""
+msgstr "このアカウントを所有するウォレットを接続し、署名して自動ログインを有効にしてください。"
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "このウォレットは侵害されたとフラグが付けられています。信頼したり操作したりしないでください。取引や機密情報の共有を避けてください。安全に！"
@@ -4582,6 +4579,9 @@ msgstr "最終結果"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Firefly のラッキードロップでフォロワーとエンゲージメントを増やしましょう！"
+
+msgid "Watch Stream"
+msgstr "配信を見る"
 
 msgid "Transaction failed"
 msgstr "取引に失敗しました"

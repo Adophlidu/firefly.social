@@ -30,7 +30,7 @@ msgstr "和局"
 
 #. placeholder {0}: index + 1
 msgid "Source {0}"
-msgstr ""
+msgstr "來源 {0}"
 
 msgid "Refunded"
 msgstr "已退款"
@@ -1956,7 +1956,7 @@ msgid "Today"
 msgstr "今天"
 
 msgid "Failed to sign in on mobile. Please try again."
-msgstr ""
+msgstr "在行動裝置上登入失敗。請重試。"
 
 #. placeholder {0}: post.stats.views
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
@@ -2490,7 +2490,7 @@ msgid "Failed to like tip."
 msgstr "按赞失敗。"
 
 msgid "Stream"
-msgstr ""
+msgstr "直播"
 
 msgid "No available wallet."
 msgstr "無可用錢包"
@@ -2874,9 +2874,6 @@ msgstr "已收集"
 msgid "Owned By"
 msgstr "擁有者"
 
-msgid "CN Stream"
-msgstr ""
-
 msgid "Are you sure you want to report this post?"
 msgstr "確定要檢舉此貼文？"
 
@@ -3130,7 +3127,7 @@ msgid "Failed to generate the share image. Please try again."
 msgstr "產生分享圖片失敗。請重試。"
 
 msgid "Live Stats"
-msgstr ""
+msgstr "即時數據"
 
 msgid "Time"
 msgstr "時間"
@@ -4263,7 +4260,7 @@ msgid "Follow Back"
 msgstr "回追"
 
 msgid "Connect the wallet that owns this account and sign to enable auto login."
-msgstr ""
+msgstr "連接擁有此帳戶的錢包並簽名以啟用自動登入。"
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "此錢包已被標記為有風險。請勿信任或與其進行互動。避免任何交易或分享敏感資訊。請保持安全！"
@@ -4582,6 +4579,9 @@ msgstr "最終結果"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "透過 Firefly 的紅包功能，提升你的粉絲數與互動率！"
+
+msgid "Watch Stream"
+msgstr "觀看直播"
 
 msgid "Transaction failed"
 msgstr "交易失敗"
