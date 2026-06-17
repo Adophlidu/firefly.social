@@ -19,7 +19,9 @@ import type {
 
 export async function syncDesktopAccounts(session: string, cryptoKey: string) {
     const fireflySession = getSessionFromStorage(SessionType.Firefly);
-    if (!fireflySession?.token) throw new Error('Firefly session not found');
+    // JWT v3 users have an empty legacy token; their auth lives in jwtPayload.
+    const token = fireflySession?.jwtPayload?.accessToken ?? fireflySession?.token;
+    if (!fireflySession || !token) throw new Error('Firefly session not found');
 
     // Prepare non-sensitive account data for other platforms
     const farcasterAccounts: SocialAccountFarcaster[] = getAccountsFromStorage(Source.Farcaster).map(

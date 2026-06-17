@@ -3,6 +3,7 @@
 import ReloadIcon from '@dimensiondev/assets/reload.svg';
 import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { classNames, delay } from '@dimensiondev/utils';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { memo, useCallback, useState } from 'react';
@@ -14,6 +15,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
 import { Link } from '@/esm/Link.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { generateCryptoKey } from '@/helpers/generateCryptoKey.js';
 import { usePollingSyncChannelStatus } from '@/hooks/usePollingSyncChannelStatus.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -109,8 +111,12 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
             });
             if (confirmed) {
                 captureSignInToAppClickEvent();
-                confirmAndUpload();
-                onClose?.();
+
+                try {
+                    await confirmAndUpload();
+                } catch (error) {
+                    enqueueMessageFromError(error, t`Failed to sign in on mobile. Please try again.`);
+                }
             } else {
                 handleCancel();
             }

@@ -1964,6 +1964,9 @@ msgstr "Total Gains"
 msgid "Today"
 msgstr "Today"
 
+msgid "Failed to sign in on mobile. Please try again."
+msgstr "Failed to sign in on mobile. Please try again."
+
 #. placeholder {0}: post.stats.views
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bview%7D+other+%7Bviews%7D%7D&pluralize_on=0
 msgid "view"
