@@ -2394,6 +2394,13 @@ export interface PolymarketProfileData {
     platform_name: string;
 }
 
+export interface PolymarketProfileBalance {
+    wallet: string;
+    balance: number;
+    cash_balance: number;
+    position_balance: number;
+}
+
 export interface BetPortfolioItem {
     platform: PredictionPlatform;
     wallet: string;

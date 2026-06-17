@@ -5,6 +5,7 @@ import { PredictionPlatform, Source } from '@dimensiondev/enums';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 
@@ -22,6 +23,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { usePredictionProfileData } from '@/hooks/prediction/usePredictionProfileData.js';
+import { getPolymarketProfileBalance } from '@/providers/firefly/prediction/getPolymarketProfileBalance.js';
 import {
     captureOpinionProfileDetailClick,
     capturePolymarketProfileDetailClick,
@@ -42,6 +44,25 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
         address,
         fallbackInfo: { name: profile.platform_name, avatar: profile.platform_avatar },
     });
+    const { data } = useQuery({
+        queryKey: ['polymarket-balance', profile.proxy],
+        enabled: !!profile.proxy && !isOpinion,
+        queryFn: () => getPolymarketProfileBalance(profile.proxy, true),
+    });
+    const { balance, positionValue, cashBalance } = useMemo(() => {
+        if (isOpinion || !data?.wallet)
+            return {
+                balance: profile.balance,
+                positionValue: profile.notfill_balance,
+                cashBalance: profile.cash_balance,
+            };
+
+        return {
+            balance: data.balance || 0,
+            positionValue: data.position_balance || 0,
+            cashBalance: data.cash_balance || 0,
+        };
+    }, [profile, isOpinion, data]);
 
     const dataConfig = useMemo(() => {
         return compact([
@@ -88,15 +109,15 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                   },
             {
                 label: <Trans>Total Value</Trans>,
-                value: <span>{formatPolymarketNumber(profile.balance)}</span>,
+                value: <span>{formatPolymarketNumber(balance)}</span>,
             },
             {
                 label: <Trans>Current Positions</Trans>,
-                value: <span>{formatPolymarketNumber(profile.notfill_balance)}</span>,
+                value: <span>{formatPolymarketNumber(positionValue)}</span>,
             },
             {
                 label: <Trans>Available Balance</Trans>,
-                value: <span>{isZero(profile.cash_balance) ? '$0' : `${formatTokenUSD(profile.cash_balance)}`}</span>,
+                value: <span>{isZero(cashBalance) ? '$0' : `${formatTokenUSD(cashBalance)}`}</span>,
             },
             isOpinion
                 ? null
@@ -129,7 +150,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                 ),
             },
         ]);
-    }, [address, profile, isOpinion, platform]);
+    }, [address, profile, isOpinion, platform, balance, positionValue, cashBalance]);
 
     const profileUrl =
         isSocialSource(source) && handle
