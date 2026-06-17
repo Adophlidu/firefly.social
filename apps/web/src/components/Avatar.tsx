@@ -10,6 +10,10 @@ import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
+// URLs that have already failed to load (e.g. imgur 429s). Shared across all Avatar
+// instances and persists across remounts so a known-bad URL is never requested again.
+const failedAvatarUrls = new Set<string>();
+
 function resolveImgurUrl(url: string) {
     const u = parseUrl(url);
     if (!u) return;
@@ -69,7 +73,14 @@ export const Avatar = memo(function Avatar({
         }
         return urls;
     }, [fallbackUrl, preferredSrc, size]);
-    const imageSrc = fallbacks[errorMap[preferredSrc] || 0] || fallbackUrl;
+    // Start at the recorded error index, then skip past any fallback already known to
+    // have failed globally — so remounts of a banned avatar never re-request it.
+    let index = errorMap[preferredSrc] || 0;
+    while (index < fallbacks.length - 1 && failedAvatarUrls.has(fallbacks[index])) {
+        index += 1;
+    }
+
+    const imageSrc = fallbacks[index] || fallbackUrl;
 
     return (
         <NextImage
@@ -87,7 +98,16 @@ export const Avatar = memo(function Avatar({
             width={size}
             height={size}
             alt={rest.alt}
-            onError={() => setErrorMap((map) => ({ ...map, [imageSrc]: (map[imageSrc] || 0) + 1 }))}
+            onError={() => {
+                // Remember this URL is bad so it's never requested again, app-wide.
+                failedAvatarUrls.add(imageSrc);
+                setErrorMap((map) => {
+                    const count = map[preferredSrc] || 0;
+                    // Stop once all fallbacks are exhausted to avoid request storms (e.g. imgur 429s).
+                    if (count >= fallbacks.length - 1) return map;
+                    return { ...map, [preferredSrc]: count + 1 };
+                });
+            }}
         />
     );
 });
