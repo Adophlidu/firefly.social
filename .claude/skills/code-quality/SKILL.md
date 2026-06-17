@@ -114,6 +114,13 @@ npx eslint . --fix --cache --cache-location .eslintcache
 async function resolveProfile(handle: string): Promise<Profile | null> { ... }
 ```
 
+### Core rules
+
+1. **Don't add unnecessary comments.** They make the code verbose without adding value.
+2. **The code should explain itself — this is the first priority.** Prefer clear names and structure over a comment that compensates for unclear code.
+3. **Comment only when something genuinely needs clarifying.**
+4. **When you do comment, keep it simple and concise.**
+
 ### When to write a comment
 
 Default to **no comments**. Only add one when the WHY is non-obvious: a hidden constraint, a subtle invariant, a workaround for a specific bug, behavior that would surprise a reader.

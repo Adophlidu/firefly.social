@@ -53,7 +53,6 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                     return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
                 }
 
-                // Check if this is a URL search
                 // If the keyword is a URL and matches current source, extract identifier
                 // Otherwise use the keyword as-is for search
                 const urlResult = !pageParam ? resolveSearchUrlType(keyword) : null;

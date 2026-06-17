@@ -77,7 +77,6 @@ export async function uploadToTwitterWithChunksV2(
         chunks.push(file.slice(i, Math.min(i + chunkSize, fileSize)));
     }
 
-    // Init upload
     const { data: mediaInfo } = await twitterSessionHolder.fetch<{ data: UploadMediaResponseV2 }>(
         urlcat('/api/twitter/uploadMedia/chunk/v2/init', {
             total_bytes: fileSize,

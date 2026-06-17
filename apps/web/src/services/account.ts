@@ -237,7 +237,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession as FireflySession | null;
     const setAsCurrentProfile = typeof setAsCurrent === 'boolean' ? setAsCurrent : true;
 
-    // check if the account belongs to the current firefly session
     const belongsTo =
         skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasAnyProfile()
             ? true

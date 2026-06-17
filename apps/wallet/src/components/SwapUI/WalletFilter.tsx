@@ -121,7 +121,6 @@ export const WalletFilter = memo(function WalletFilter({
 
         const externalWalletItems: WalletItem[] = [];
         if (externalEvmAddress && !embeddedAddresses.has(externalEvmAddress.toLowerCase())) {
-            // Check if not already in externalEvmItems
             if (!externalEvmItems.some((w) => w.address.toLowerCase() === externalEvmAddress.toLowerCase())) {
                 externalWalletItems.push({
                     address: externalEvmAddress,
@@ -133,7 +132,6 @@ export const WalletFilter = memo(function WalletFilter({
             }
         }
         if (externalSolanaAddress && !embeddedAddresses.has(externalSolanaAddress.toLowerCase())) {
-            // Check if not already in externalSolanaItems
             if (!externalSolanaItems.some((w) => w.address.toLowerCase() === externalSolanaAddress.toLowerCase())) {
                 externalWalletItems.push({
                     address: externalSolanaAddress,

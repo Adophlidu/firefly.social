@@ -61,7 +61,6 @@ const availableMethods = Object.keys(MethodParamSchemas);
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { method, source, params } = await getJsonBodyWithZodSchema(request, BodySchema);
 
-    // Check if method is supported
     if (!availableMethods.includes(method)) {
         return createErrorResponseJson(
             `Unsupported method: ${method}. Available methods: ${availableMethods.join(', ')}`,
@@ -73,17 +72,14 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const methodSchema = MethodParamSchemas[method as keyof typeof MethodParamSchemas];
     const parsedParams = methodSchema.parse(params);
 
-    // Resolve the social media provider
     const provider = resolveSocialMediaProvider(resolveSocialSourceFromUrl(source));
 
-    // Check if the method exists on the provider
     if (typeof provider[method as keyof typeof provider] !== 'function') {
         return createErrorResponseJson(`Method ${method} is not available on the ${source} provider`, {
             status: 400,
         });
     }
 
-    // Call the method on the provider
     const result = await (provider[method as keyof typeof provider] as Function)(...Object.values(parsedParams));
 
     return createSuccessResponseJson({

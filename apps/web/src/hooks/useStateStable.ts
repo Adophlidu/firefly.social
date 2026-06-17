@@ -29,7 +29,6 @@ export function useStateStable<T>(value: T) {
             hasUpdated.current = true;
         }
 
-        // Update the previous value reference
         previousValue.current = value;
     }, [value]);
 

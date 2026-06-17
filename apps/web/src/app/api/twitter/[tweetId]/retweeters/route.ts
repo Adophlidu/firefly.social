@@ -32,7 +32,6 @@ export const GET = compose(
             params.pagination_token = cursor;
         }
 
-        // Get users who retweeted this tweet
         const result = await client.v2.tweetRetweetedBy(tweetId, params);
         if (result.errors?.length) logger.error('[twitter] v2.tweetRetweetedBy', result.errors);
 

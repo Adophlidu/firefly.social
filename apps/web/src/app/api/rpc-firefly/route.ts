@@ -48,7 +48,6 @@ const availableMethodsList = Object.keys(MethodParamSchemas);
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { method, params } = await getJsonBodyWithZodSchema(request, BodySchema);
 
-    // Check if method is supported
     if (!availableMethodsList.includes(method)) {
         return createErrorResponseJson(
             `Unsupported method: ${method}. Available methods: ${availableMethodsList.join(', ')}`,
@@ -72,7 +71,6 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         fireflySessionHolder.resumeSession(session);
     }
 
-    // Call the method on the FireflyEndpointProvider
     const result = await (availableMethods[method as keyof typeof availableMethods] as Function)(
         ...Object.values(parsedParams),
     );

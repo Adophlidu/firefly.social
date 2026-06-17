@@ -150,7 +150,6 @@ export default function Page(props: Props) {
             miniAppOrigin: '*',
         });
 
-        // set endpoint for later use
         endpointRef.current = result.endpoint;
 
         return () => {

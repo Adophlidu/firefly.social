@@ -147,7 +147,6 @@ async function handleFollowAccounts({ accounts }: FollowAccountsData) {
         accounts.map(async (account) => {
             if (!account.source || !account.profileId) return;
 
-            // Check if user is logged in on this source
             const { currentProfile } = getProfileState(account.source);
             if (!currentProfile?.profileId) return;
 

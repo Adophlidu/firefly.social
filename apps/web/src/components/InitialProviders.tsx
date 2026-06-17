@@ -97,7 +97,6 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
         persistSharerSession(cookieSid, deviceId);
 
-        // Clear the cookies
         document.cookie = 'firefly_sharer_sid=; path=/; max-age=0';
         document.cookie = 'firefly_device_id=; path=/; max-age=0';
     });

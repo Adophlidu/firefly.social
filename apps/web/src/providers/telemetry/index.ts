@@ -43,7 +43,6 @@ class Telemetry extends Provider<Events, never> {
             return;
         }
 
-        // update the latest event id
         const publicParameters = getPublicParameters(crypto.randomUUID(), this.latestEventId);
         this.latestEventId = publicParameters.public_uuid;
 

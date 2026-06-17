@@ -57,7 +57,6 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         body,
     });
 
-    // Return the upstream response status
     if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Upstream tracker error: ${response.status} - ${errorText}`);

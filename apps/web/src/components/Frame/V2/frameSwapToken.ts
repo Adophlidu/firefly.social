@@ -37,7 +37,6 @@ export const frameSwapToken = async function frameSwapToken(options) {
     const buyTokenAddress = buyToken?.reference;
     const sellTokenAddress = sellToken?.reference;
 
-    // Get external wallet addresses
     const evmAccount = getConnection(wagmiConfig);
     const evmEnsName = evmAccount.address
         ? await fetchEnsName({ address: evmAccount.address as Address, chainId: mainnet.id }).catch(() => null)

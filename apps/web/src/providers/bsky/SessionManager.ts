@@ -59,7 +59,6 @@ export class SessionManager {
         const accessJwt = getSessionFromStorage(SessionType.Bsky)?.sessionPayload?.accessJwt;
         if (!accessJwt) return (0, this.fetch)(initialReq);
 
-        // set auth header
         initialReq.headers.set('authorization', `Bearer ${accessJwt}`);
         const initialRes = await (0, this.fetch)(initialReq);
 

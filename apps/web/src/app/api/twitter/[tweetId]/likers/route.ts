@@ -32,7 +32,6 @@ export const GET = compose(
             params.pagination_token = cursor;
         }
 
-        // Get users who liked this tweet
         const result = await client.v2.tweetLikedBy(tweetId, params);
         if (result.errors?.length) logger.error('[twitter] v2.tweetLikedBy', result.errors);
 

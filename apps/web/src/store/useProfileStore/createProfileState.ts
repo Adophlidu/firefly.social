@@ -71,7 +71,6 @@ export function createProfileState(
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
 
                         if (!account_) {
-                            // add the new account at the end
                             state.accounts = [...state.accounts, account];
                         } else {
                             // replace the original account with the new one

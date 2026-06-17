@@ -332,7 +332,6 @@ export async function crossPost(
         logger.error(`[cross post]: failed to update red packet claim strategy: ${error}`);
     }
 
-    // set query data
     try {
         if (type === 'reply') await setQueryDataForComment(compositePost, updatedCompositePost);
         if (type === 'quote') await setQueryDataForQuote(compositePost);

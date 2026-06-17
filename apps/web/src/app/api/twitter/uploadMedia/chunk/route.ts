@@ -26,7 +26,6 @@ export const POST = compose(
     },
 );
 
-// Get upload status
 export const GET = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),

@@ -164,7 +164,6 @@ interface RawTokenAsset {
 }
 
 export class SwapEndpoint extends Fetch {
-    // Get supported chains for swap
     // API returns: { code: 0, data: { code: "0", data: [{ chainId: "1", chainName, chainLogo }] } }
     async getSupportedChains(): Promise<SupportedChain[]> {
         const result = await this.get<SwapApiResponse<InnerSwapResponse<RawSupportedChain>>>(
@@ -184,7 +183,6 @@ export class SwapEndpoint extends Fetch {
         }));
     }
 
-    // Get swap quote
     // Backend response is double-wrapped: TransformInterceptor { code: 0, data: SwapService { code: "0", data: [...] } }
     async getSwapQuote(params: GetQuoteParams): Promise<SwapQuote | null> {
         // Convert user decimal amount to smallest units (e.g., 0.1 ETH → 100000000000000000)
@@ -275,7 +273,6 @@ export class SwapEndpoint extends Fetch {
         };
     }
 
-    // Get approve transaction data
     // Backend response is double-wrapped: TransformInterceptor { code: 0, data: SwapService { code: "0", data: [...] } }
     async getApproveTransaction(params: GetApproveParams): Promise<ApproveTransaction | null> {
         const url = urlcat('/swap/dex/aggregator/approve-transaction', {
@@ -296,7 +293,6 @@ export class SwapEndpoint extends Fetch {
         return inner.data[0] ?? null;
     }
 
-    // Get cross-chain approve transaction data (bridge-specific)
     // Uses POST /swap/dex/cross-chain/approve-transaction/v2 which returns the correct
     // spender address from Relay quote (unlike the swap approve endpoint)
     async getCrossChainApproveTransaction(params: GetCrossChainBuildTxParams): Promise<ApproveTransaction | null> {
@@ -320,7 +316,6 @@ export class SwapEndpoint extends Fetch {
         return result.data.data;
     }
 
-    // Get cross-chain bridge quote (POST method as per backend)
     async getCrossChainQuote(params: GetCrossChainQuoteParams): Promise<CrossChainQuote | null> {
         // Convert user decimal amount to smallest units (e.g., 0.1 ETH → 100000000000000000)
         const amountInSmallest = rightShift(params.amount, params.fromDecimals).toFixed(0);
@@ -449,7 +444,6 @@ export class SwapEndpoint extends Fetch {
         };
     }
 
-    // Get user token balances
     // API response is double-wrapped: { code: 0, data: { code: "0", data: { tokenAssets: [...] } } }
     async getUserTokenBalances(walletAddress: string, chainIds?: number[]): Promise<SwapToken[]> {
         const url = urlcat('/swap/wallet/asset/muti-chain', {
@@ -475,7 +469,6 @@ export class SwapEndpoint extends Fetch {
         );
     }
 
-    // Get user token balances across multiple wallets and chains
     // API response is double-wrapped: { code: 0, data: { code: "0", data: { tokenAssets: [...] } } }
     // Each tokenAsset includes an `address` field identifying the wallet that holds the token.
     async getUserTokenBalancesMultiChain(addresses: string[], chainIds: number[]): Promise<Map<string, SwapToken[]>> {
@@ -544,7 +537,6 @@ export class SwapEndpoint extends Fetch {
         );
     }
 
-    // Get recent tokens (backend path: v1/swap/recent_token with chains, size, cursor)
     async getRecentTokens(params: RecentTokenParams = {}): Promise<RecentToken[]> {
         const url = urlcat('/v1/swap/recent_token', {
             chains: params.chains,
@@ -562,7 +554,6 @@ export class SwapEndpoint extends Fetch {
         return data?.list ?? [];
     }
 
-    // Get trending tokens
     async getTrendingTokens(params: { chains?: string; sort?: string; page?: number } = {}): Promise<SwapToken[]> {
         const url = urlcat('/v3/token/trending', {
             page: params.page ?? 1,

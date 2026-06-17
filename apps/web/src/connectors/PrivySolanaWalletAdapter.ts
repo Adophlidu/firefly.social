@@ -178,7 +178,6 @@ class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
             (connection) => connection.source === WalletSource.Privy && connection.platform === 'solana',
         );
         const accounts = compact([account?.address]);
-        // this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
         return accounts;
     }
 
