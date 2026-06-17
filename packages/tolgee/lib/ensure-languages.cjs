@@ -84,4 +84,23 @@ async function ensureTolgeeLanguages(opts) {
     }
 }
 
-module.exports = { ensureTolgeeLanguages, projectIdFromPak, DEFAULT_LANGUAGE_LABELS };
+/**
+ * Ensure every language in a tolgeerc's `push.files` exists on the platform.
+ * No-op when API key, project id, or languages are missing.
+ *
+ * @param {object} tolgeerc
+ * @param {string | undefined} apiKey
+ */
+async function ensureLanguagesFromTolgeerc(tolgeerc, apiKey) {
+    const projectId = tolgeerc.projectId !== undefined ? Number(tolgeerc.projectId) : projectIdFromPak(apiKey);
+    const requiredTags = (tolgeerc.push?.files ?? []).map((f) => f.language).filter(Boolean);
+    if (!apiKey || !projectId || !requiredTags.length) return;
+    await ensureTolgeeLanguages({
+        apiUrl: tolgeerc.apiUrl || 'https://app.tolgee.io',
+        apiKey,
+        projectId,
+        requiredTags,
+    });
+}
+
+module.exports = { ensureTolgeeLanguages, ensureLanguagesFromTolgeerc, projectIdFromPak, DEFAULT_LANGUAGE_LABELS };

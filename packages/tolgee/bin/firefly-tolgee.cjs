@@ -8,6 +8,7 @@ const { findRepoRoot, resolveAppRoot, loadEnv, readTolgeerc, getFireflyTolgee } 
 const { runTolgeeSync } = require('../lib/run-tolgee.cjs');
 const { restoreLinguiGettextPluralMetadata } = require('../lib/restore.cjs');
 const { runPushSources } = require('../lib/push-sources.cjs');
+const { ensureLanguagesFromTolgeerc } = require('../lib/ensure-languages.cjs');
 
 const repoRoot = findRepoRoot(path.join(__dirname, '..'));
 const appRoot = resolveAppRoot(repoRoot);
@@ -57,6 +58,7 @@ async function main() {
     const firefly = getFireflyTolgee(tolgeerc);
 
     if (cmd === 'push') {
+        await ensureLanguagesFromTolgeerc(tolgeerc, process.env.TOLGEE_API_KEY);
         const r = runTolgeeSync(appRoot, ['push', ...rest]);
         if (r.status) process.exit(r.status ?? 1);
     } else if (cmd === 'push-sources') {

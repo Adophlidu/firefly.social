@@ -7,7 +7,7 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { ensureTolgeeLanguages, projectIdFromPak } = require('./ensure-languages.cjs');
+const { ensureLanguagesFromTolgeerc } = require('./ensure-languages.cjs');
 const { isTolgeeEmptyPluralPlaceholder } = require('./tolgee-empty-plural-placeholder.cjs');
 const { readTolgeerc } = require('./context.cjs');
 const { runTolgeeSync } = require('./run-tolgee.cjs');
@@ -28,17 +28,7 @@ async function runPushSources(appRoot, extraTolgeeArgs) {
     const extra = Array.isArray(extraTolgeeArgs) ? extraTolgeeArgs : [];
 
     try {
-        const apiKey = process.env.TOLGEE_API_KEY;
-        const projectId = tolgeerc.projectId !== undefined ? Number(tolgeerc.projectId) : projectIdFromPak(apiKey);
-        const requiredTags = (tolgeerc.push?.files ?? []).map((f) => f.language).filter(Boolean);
-        if (apiKey && projectId && requiredTags.length) {
-            await ensureTolgeeLanguages({
-                apiUrl: tolgeerc.apiUrl || 'https://app.tolgee.io',
-                apiKey,
-                projectId,
-                requiredTags,
-            });
-        }
+        await ensureLanguagesFromTolgeerc(tolgeerc, process.env.TOLGEE_API_KEY);
 
         const pushFiles = tolgeerc.push.files.map((entry) => {
             if (entry.language === 'en') return entry;
