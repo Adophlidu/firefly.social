@@ -192,8 +192,8 @@ export const GAME_COUNTRIES: GameCountryEntry[] = [
             [Locale.es]: 'RD del Congo',
             [Locale.ja]: 'コンゴ民主共和国',
             [Locale.ko]: '콩고 DR',
-            [Locale.zhHans]: '刚果（金）',
-            [Locale.zhHant]: '剛果（金）',
+            [Locale.zhHans]: '刚果金',
+            [Locale.zhHant]: '剛果金',
         },
     },
     {
