@@ -2,6 +2,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ActivityStatus, AdvertisementType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { headers } from 'next/headers.js';
+import { Suspense } from 'react';
 
 import { AdvertisementItem } from '@/components/Advertisement/AdvertisementItem.js';
 import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementSkeleton.js';
@@ -28,7 +29,11 @@ const STATIC_ADS: AdvertisementInterface[] = [
 ];
 
 async function fetchAdvertisements(): Promise<AdvertisementInterface[]> {
-    const activities = await runInSafeAsync(() => getFireflyActivityList({ size: 20 }));
+    const activities = await runInSafeAsync(() =>
+        getFireflyActivityList({
+            size: 20,
+        }),
+    );
     const activityBannerAds: AdvertisementInterface[] = (activities?.data || EMPTY_LIST)
         .filter((activity) => activity.status !== ActivityStatus.Ended && !!activity.web_banner_url)
         .map((activity, index) => ({
@@ -41,7 +46,7 @@ async function fetchAdvertisements(): Promise<AdvertisementInterface[]> {
     return [...activityBannerAds, ...STATIC_ADS];
 }
 
-export async function Advertisement() {
+async function AdvertisementContent() {
     try {
         const ads = await fetchAdvertisements();
         const requestUrl = await headers().then((h) => h.get('X-URL'));
@@ -60,4 +65,13 @@ export async function Advertisement() {
         logger.error(`Failed to fetch advertisement: ${error}`);
         return null;
     }
+}
+
+export function Advertisement() {
+    // Stream the ad independently so a cache-miss fetch never blocks the page shell.
+    return (
+        <Suspense fallback={<AdvertisementSkeleton />}>
+            <AdvertisementContent />
+        </Suspense>
+    );
 }
