@@ -279,8 +279,12 @@ export const BetItem = memo(function BetItem({
         // Single-market events: keep existing behavior
         if (!isMultiMarket) return sortedMarkets.slice(0, MAX_DISPLAYED_MARKETS);
 
-        // Multi-market: exclude resolved, closed, and 100%-decided markets
-        const eligible = sortedMarkets.filter((m) => !m.isResolved && !m.isClosed && !isMarketDecided(m));
+        // Multi-market: exclude resolved, closed, decided, and inactive markets.
+        // Inactive template outcomes carry default 50/50 prices and would outrank real ones.
+        const isEligible = (m: BetsMarketDataForUI) =>
+            !m.isResolved && !m.isClosed && !isMarketDecided(m) && m.active !== false;
+
+        const eligible = sortedMarkets.filter(isEligible);
 
         // Sort by win ratio descending (highest percentage first) — matches detail page
         const sorted = [...eligible].sort((a, b) => calculateRatio(b) - calculateRatio(a));
@@ -289,9 +293,9 @@ export const BetItem = memo(function BetItem({
             return sorted.slice(0, MAX_DISPLAYED_MARKETS);
         }
 
-        // Fallback: not enough eligible, fill remaining slots from full sorted list
+        // Fallback: fill remaining slots from the full list (still skip inactive)
         const usedIds = new Set(sorted.map((m) => m.id));
-        const fallback = sortedMarkets.filter((m) => !usedIds.has(m.id));
+        const fallback = sortedMarkets.filter((m) => !usedIds.has(m.id) && m.active !== false);
         return [...sorted, ...fallback].slice(0, MAX_DISPLAYED_MARKETS);
     }, [sortedMarkets, isMultiMarket]);
     const activeMarkets = sortedMarkets.filter((market) => market.active ?? (!market.isClosed && !market.isResolved));
