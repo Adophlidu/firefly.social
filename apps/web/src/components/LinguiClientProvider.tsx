@@ -24,10 +24,11 @@ function resolveLocale(locale?: string): Locale {
 
 export function LinguiClientProvider({ locale, children }: LinguiClientProviderProps) {
     if (isServer) {
-        // Use locale from props (passed from [locale]/layout.tsx) for SSR consistency
+        // Activate this bundle's @lingui/core singleton. Client components SSR in the
+        // [app-ssr] bundle (a separate singleton from the [app-rsc] layouts); without this,
+        // core macros throw "translation function without setting a locale".
         const resolved = resolveLocale(locale);
-        const i18n = getI18nInstance(resolved);
-        i18n.activate(resolved);
+        const i18n = setupAndActiveI18n(resolved);
         return <I18nProvider i18n={i18n}>{children}</I18nProvider>;
     }
 
