@@ -60,11 +60,14 @@ function patchServerHeaders(headers: HeadersInit | undefined, u: URL) {
     });
 }
 
+const SERVER_FETCH_TIMEOUT = 15 * 1000;
+const CLIENT_FETCH_TIMEOUT = 3 * 60 * 1000;
+
 function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined) {
     const u = resolveRequestUrl(input);
     return originalFetch(input, {
-        signal: AbortSignal.timeout(3 * 60 * 1000 /* 3 mins */),
         ...init,
+        signal: init?.signal ?? AbortSignal.timeout(isServer ? SERVER_FETCH_TIMEOUT : CLIENT_FETCH_TIMEOUT),
         headers: u && isServer ? patchServerHeaders(init?.headers, u) : init?.headers,
     });
 }
