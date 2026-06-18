@@ -12,12 +12,14 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { PredictionSportsCell } from '@/components/Prediction/Category/PredictionSportsCell.js';
 import { FIFA_SLUG } from '@/constants/bets.js';
 import { categoryHasGamesDisplayContent } from '@/helpers/prediction/category/categoryGamesPropsTabAvailability.js';
+import { ESPORTS_PRIMARY_SLUG, SPORTS_PRIMARY_SLUG } from '@/helpers/prediction/category/constants.js';
 import { formatPolymarketSportsEventForUI } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import {
     groupLiveSportsListForDisplay,
     groupSportsEventsForDisplay,
     liveSportsListHasDisplayContent,
 } from '@/helpers/prediction/category/groupSportsEventsForDisplay.js';
+import { excludeEsportEvents } from '@/helpers/prediction/category/isEsportSportsEvent.js';
 import { isSportsLiveCategoryContext } from '@/helpers/prediction/category/isSportsLiveCategoryContext.js';
 import {
     parseLiveSportsListRequest,
@@ -36,6 +38,8 @@ interface Props {
 
 export const PredictionCategoryGamesList = memo<Props>(function PredictionCategoryGamesList({ context }) {
     const isLiveCategory = isSportsLiveCategoryContext(context);
+    const isSportsPrimary = context.primaryItem.slug === SPORTS_PRIMARY_SLUG;
+    const isEsportPrimary = context.primaryItem.slug === ESPORTS_PRIMARY_SLUG;
     const sportsRequest = useMemo(
         () => (isLiveCategory ? parseLiveSportsListRequest(context) : parseSportsListRequest(context)),
         [context, isLiveCategory],
@@ -52,21 +56,28 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
             }),
     });
 
+    // The Sports `live` branch still returns esports events — strip them client-side so the
+    // Sports lists never show LoL/CS2/Dota2/Valorant. Esports has its own tab now.
+    const displayData = useMemo(
+        () => (data && isSportsPrimary ? excludeEsportEvents(data) : data),
+        [data, isSportsPrimary],
+    );
+
     const liveDisplay = useMemo(() => {
-        if (!data || !isLiveCategory) return null;
-        return groupLiveSportsListForDisplay(data);
-    }, [data, isLiveCategory]);
+        if (!displayData || !isLiveCategory) return null;
+        return groupLiveSportsListForDisplay(displayData, { esport: isEsportPrimary });
+    }, [displayData, isLiveCategory, isEsportPrimary]);
 
     const { sections, closedEvents } = useMemo(() => {
-        if (!data || isLiveCategory) {
+        if (!displayData || isLiveCategory) {
             return { sections: [], closedEvents: [] };
         }
-        return groupSportsEventsForDisplay(data);
-    }, [data, isLiveCategory]);
+        return groupSportsEventsForDisplay(displayData);
+    }, [displayData, isLiveCategory]);
 
     const hasVisibleContent = isLiveCategory
-        ? liveSportsListHasDisplayContent(data)
-        : categoryHasGamesDisplayContent(data);
+        ? liveSportsListHasDisplayContent(displayData, { esport: isEsportPrimary })
+        : categoryHasGamesDisplayContent(displayData);
 
     const liveEventsForPrices = useMemo(() => {
         if (isLiveCategory && liveDisplay) {

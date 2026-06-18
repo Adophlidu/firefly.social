@@ -121,6 +121,21 @@ describe('groupLiveSportsListForDisplay', () => {
         expect(result.timeSections[1]?.sportSections[0]?.events.map((item) => item.id)).toEqual(['soon-1']);
     });
 
+    it('titles the live block "Esports Live" when the esport option is set', () => {
+        const response = {
+            live: [displayableEvent('live-1', 'LOL')],
+            today: [],
+            tomorrow: [],
+            afterTomorrow: [],
+            afterThreeDays: [],
+            closed: [],
+            timezone: 'UTC',
+        } as PolymarketSportsListResponse;
+
+        expect(groupLiveSportsListForDisplay(response, { esport: true }).timeSections[0]?.title).toBe('Esports Live');
+        expect(liveSportsListHasDisplayContent(response, { esport: true })).toBe(true);
+    });
+
     it('omits empty time blocks and ignores tomorrow data', () => {
         const response = {
             live: [],

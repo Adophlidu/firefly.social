@@ -19,7 +19,6 @@ import type { PolymarketSportsEvent, PolymarketSportsMarketData } from '@/provid
 
 interface SportRecommendationsSidebarProps {
     categorySlug: string;
-    categoryTagType?: string;
     events: PolymarketSportsEvent[];
 }
 
@@ -161,7 +160,6 @@ const RecommendationCard = memo<{ item: SportRecommendationItem }>(function Reco
 
 export const SportRecommendationsSidebar = memo(function SportRecommendationsSidebar({
     categorySlug,
-    categoryTagType,
     events,
 }: SportRecommendationsSidebarProps) {
     const items = useMemo(
@@ -176,8 +174,7 @@ export const SportRecommendationsSidebar = memo(function SportRecommendationsSid
     if (!items.length) return null;
 
     const categoryHref = RouteResolver.predictionCategory({
-        slug: categorySlug,
-        tagType: categoryTagType,
+        slugs: categorySlug,
         appendRoot: false,
     });
 

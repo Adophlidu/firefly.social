@@ -67,7 +67,6 @@ export const SportRecommendationsSidebarLoader = memo(function SportRecommendati
             {advertisement}
             <SportRecommendationsSidebar
                 categorySlug={result?.categorySlug || leagueSlug || 'live'}
-                categoryTagType={result?.categoryTagType}
                 events={recommendations}
             />
         </>

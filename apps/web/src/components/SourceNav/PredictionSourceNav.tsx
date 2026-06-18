@@ -77,8 +77,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
             ...(data || EMPTY_LIST).map((x) => ({
                 ...x,
                 url: RouteResolver.predictionCategory({
-                    slug: x.slug,
-                    tagType: x.type,
+                    slugs: x.slug,
                 }),
             })),
         ];
@@ -143,7 +142,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
             <Link
                 className="flex h-[30px] items-center gap-1 rounded-full bg-highlight px-3 text-white"
                 href={RouteResolver.predictionCategory({
-                    slug: first(tags)?.slug || '',
+                    slugs: first(tags)?.slug || '',
                 })}
                 onClick={() => {
                     captureExplorePredictionsCategoryClick(first(tags)?.slug || '', first(tags)?.label || '');

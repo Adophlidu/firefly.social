@@ -27,7 +27,7 @@ export const PredictionMenu = memo<PredictionMenuProps>(function PredictionMenu(
 
     const href = useMemo(() => {
         const firstNormalSlug = data?.find((x) => x.slug !== POLYMARKET_FIREFLY_SLUG)?.slug;
-        return RouteResolver.predictionCategory({ slug: firstNormalSlug || 'trending', appendRoot: false });
+        return RouteResolver.predictionCategory({ slugs: firstNormalSlug || 'trending', appendRoot: false });
     }, [data]);
 
     return (

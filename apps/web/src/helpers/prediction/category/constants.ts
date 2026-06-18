@@ -1,3 +1,8 @@
+/** Slug of the Sports primary tab. */
+export const SPORTS_PRIMARY_SLUG = 'sports';
+/** Slug of the Esports primary tab (top-level, not the Sports sub-category). */
+export const ESPORTS_PRIMARY_SLUG = 'esports';
+
 /** Primary tabs shown before the vertical divider (display order). */
 export const LEADING_PRIMARY_SLUGS = ['trending', 'fifwc', 'new'] as const;
 

@@ -2199,6 +2199,9 @@ msgstr "Privacy and security"
 msgid "Rebounds"
 msgstr "Rebounds"
 
+msgid "Esports Live"
+msgstr "Esports Live"
+
 msgid "Create your Firefly Profile"
 msgstr "Create your Firefly Profile"
 

@@ -66,7 +66,7 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                                         <Link
                                             replace
                                             key={tertiary.slug}
-                                            href={buildPredictionCategoryHref(tertiary, item)}
+                                            href={buildPredictionCategoryHref(tertiary, [context.primaryItem, item])}
                                             onClick={() =>
                                                 capturePolymarketHomeCategoryClick(tertiary.slug, tertiary.label, 3)
                                             }

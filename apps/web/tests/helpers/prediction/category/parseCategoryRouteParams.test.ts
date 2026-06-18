@@ -53,6 +53,44 @@ describe('parseLiveSportsListRequest', () => {
         });
         expect(request.children_tag_slug).toBe('live');
     });
+
+    it('requests all esports bucketed via the esports primary for the Esports live view', () => {
+        const live = slugItem('live', 'live', [], 'live-tag');
+        const lol = slugItem('lol', 'league');
+        const esports = slugItem('esports', 'sport', [live, lol]);
+
+        const request = parseLiveSportsListRequest(
+            context({
+                depth: 2,
+                primaryItem: esports,
+                secondaryItem: live,
+                activeItem: live,
+            }),
+        );
+
+        expect(request).toEqual({
+            children_tag_slug: 'esports',
+            children_tag_slug_type: 'sport',
+            timezone: expect.any(String),
+        });
+    });
+
+    it('defaults the esports tag type to sport when missing', () => {
+        const live = slugItem('live');
+        const esports = slugItem('esports', undefined, [live]);
+
+        const request = parseLiveSportsListRequest(
+            context({
+                depth: 2,
+                primaryItem: esports,
+                secondaryItem: live,
+                activeItem: live,
+            }),
+        );
+
+        expect(request.children_tag_slug).toBe('esports');
+        expect(request.children_tag_slug_type).toBe('sport');
+    });
 });
 
 describe('parseSportsListRequest', () => {

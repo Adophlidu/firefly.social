@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { parseAsString, parseAsStringEnum, useQueryState } from 'nuqs';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
 import { Suspense, useCallback, useEffect, useMemo } from 'react';
 
 import { FootballLoading } from '@/components/FootballLoading.js';
@@ -27,7 +27,6 @@ import {
 import { getCategoryHeaderLabel } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import { getDefaultSecondaryCategoryItem } from '@/helpers/prediction/category/getDefaultSecondaryCategoryItem.js';
 import { isSportsLiveCategoryContext } from '@/helpers/prediction/category/isSportsLiveCategoryContext.js';
-import type { CategoryRouteSearchParams } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import {
     type CategorySlugContext,
     resolveCategorySlugContext,
@@ -38,7 +37,7 @@ import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugLis
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
 interface Props {
-    slug: string;
+    slugs: string[];
 }
 
 function PredictionCategoryStickyNav({
@@ -54,37 +53,26 @@ function PredictionCategoryStickyNav({
             {slugs && context ? (
                 <div className="flex flex-col gap-3">
                     <PredictionCategoryPrimaryTabs slugs={slugs} context={context} />
-                    <PredictionCategorySecondaryNav context={context} />
+                    <PredictionCategorySecondaryNav slugs={slugs} context={context} />
                 </div>
             ) : null}
         </div>
     );
 }
 
-export function PredictionCategoryPage({ slug }: Props) {
+export function PredictionCategoryPage({ slugs }: Props) {
     const router = useRouter();
-    const { data: slugs, isPending } = useQuery({
+    const { data: slugList, isPending } = useQuery({
         queryKey: ['prediction', 'category', 'slugs-list'],
         queryFn: () => getEventSlugList(),
         staleTime: STALE_TIMES.INFINITY,
         select: (data) => data?.filter((x) => x.slug !== FIFA_SLUG),
     });
 
-    const [parentSlug] = useQueryState('parentSlug', parseAsString);
-    const [parentTagType] = useQueryState('parentTagType', parseAsString);
-
-    const routeParams = useMemo<CategoryRouteSearchParams>(
-        () => ({
-            parentSlug,
-            parentTagType,
-        }),
-        [parentSlug, parentTagType],
-    );
-
     const context = useMemo(() => {
-        if (!slugs) return null;
-        return resolveCategorySlugContext(slugs, slug, routeParams);
-    }, [slugs, slug, routeParams]);
+        if (!slugList) return null;
+        return resolveCategorySlugContext(slugList, slugs);
+    }, [slugList, slugs]);
 
     const shouldRedirectToDefaultSecondary = useMemo(() => {
         if (context?.depth !== 1) return false;
@@ -97,7 +85,7 @@ export function PredictionCategoryPage({ slug }: Props) {
         const defaultSecondary = getDefaultSecondaryCategoryItem(context.primaryItem);
         if (!defaultSecondary) return;
 
-        router.replace(buildPredictionCategoryHref(defaultSecondary));
+        router.replace(buildPredictionCategoryHref(defaultSecondary, [context.primaryItem]));
     }, [context, router, shouldRedirectToDefaultSecondary]);
 
     const showGamesList = shouldShowGamesTab(context?.activeItem);
@@ -151,7 +139,7 @@ export function PredictionCategoryPage({ slug }: Props) {
         );
     }
 
-    if (!context || !slugs) {
+    if (!context || !slugList) {
         return (
             <div className="flex flex-col">
                 <PredictionCategoryStickyNav />
@@ -166,7 +154,7 @@ export function PredictionCategoryPage({ slug }: Props) {
 
     return (
         <div className="flex flex-col">
-            <PredictionCategoryStickyNav slugs={slugs} context={context} />
+            <PredictionCategoryStickyNav slugs={slugList} context={context} />
             {showCategoryHeader ? (
                 <PredictionCategoryHeader
                     title={headerTitle}

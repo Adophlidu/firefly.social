@@ -47,6 +47,7 @@ const PREDICTION_CATEGORY_LABEL_TRANSLATIONS: Partial<Record<Locale, Record<stri
         'World Cup': '世界杯',
         'Premier League': '英超',
         'League of Legend': '英雄联盟',
+        LOL: '英雄联盟',
         'La Liga': '西甲',
     },
     [Locale.zhHant]: {
@@ -75,6 +76,7 @@ const PREDICTION_CATEGORY_LABEL_TRANSLATIONS: Partial<Record<Locale, Record<stri
         'World Cup': '世界盃',
         'Premier League': '英超',
         'League of Legend': '英雄聯盟',
+        LOL: '英雄聯盟',
         'La Liga': '西甲',
     },
     [Locale.ja]: {
@@ -103,6 +105,7 @@ const PREDICTION_CATEGORY_LABEL_TRANSLATIONS: Partial<Record<Locale, Record<stri
         'World Cup': 'ワールドカップ',
         'Premier League': 'プレミアリーグ',
         'League of Legend': 'リーグ・オブ・レジェンド',
+        LOL: 'リーグ・オブ・レジェンド',
         'La Liga': 'ラ・リーガ',
     },
     [Locale.ko]: {
@@ -131,6 +134,7 @@ const PREDICTION_CATEGORY_LABEL_TRANSLATIONS: Partial<Record<Locale, Record<stri
         'World Cup': '월드컵',
         'Premier League': '프리미어리그',
         'League of Legend': '리그 오브 레전드',
+        LOL: '리그 오브 레전드',
         'La Liga': '라리가',
     },
     [Locale.es]: {

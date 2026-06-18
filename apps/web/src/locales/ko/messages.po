@@ -2189,6 +2189,9 @@ msgstr "개인정보 및 보안"
 msgid "Rebounds"
 msgstr "리바운드"
 
+msgid "Esports Live"
+msgstr ""
+
 msgid "Create your Firefly Profile"
 msgstr "Firefly 프로필 만들기"
 

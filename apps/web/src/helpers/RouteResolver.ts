@@ -83,26 +83,21 @@ export class RouteResolver {
     }
 
     static predictionCategory({
-        slug,
+        slugs,
         tab,
-        tagType,
-        parentSlug,
-        parentTagType,
         appendRoot = true,
     }: {
-        slug: string;
+        // Path mirrors the slug tree: `[primary, secondary?, tertiary?]`. A single string is
+        // normalized to a one-segment path. Slugs are joined verbatim (no encoding) so the
+        // multi-segment catch-all route receives a real `/primary/secondary/tertiary` path.
+        slugs: string | string[];
         tab?: 'games' | 'props';
-        tagType?: string;
-        parentSlug?: string;
-        parentTagType?: string;
         appendRoot?: boolean;
     }) {
-        return urlcat(appendRoot ? SITE_URL : '', '/prediction/category/:slug', {
-            slug,
+        const segments = (Array.isArray(slugs) ? slugs : [slugs]).filter(Boolean);
+        const path = segments.join('/') || 'trending';
+        return urlcat(appendRoot ? SITE_URL : '', `/prediction/category/${path}`, {
             tab: tab && tab !== 'games' ? tab : undefined,
-            tagType: tagType || undefined,
-            parentSlug: parentSlug || undefined,
-            parentTagType: parentTagType || undefined,
         });
     }
 }

@@ -100,14 +100,22 @@ interface GroupLiveSportsEventsByLeagueOptions {
     sortByStartTime?: boolean;
 }
 
-export function groupLiveSportsListForDisplay(response: PolymarketSportsListResponse): LiveSportsListDisplay {
+export interface GroupLiveSportsListOptions {
+    /** When true, the live section is titled "Esports Live" instead of "Sports Live". */
+    esport?: boolean;
+}
+
+export function groupLiveSportsListForDisplay(
+    response: PolymarketSportsListResponse,
+    options?: GroupLiveSportsListOptions,
+): LiveSportsListDisplay {
     const timeSections: LiveSportsTimeSection[] = [];
 
     const liveLeagueSections = groupLiveSportsEventsByLeague(response.live, { sortLeaguesByVolume: true });
     if (liveLeagueSections.length > 0) {
         timeSections.push({
             id: 'live',
-            title: t`Sports Live`,
+            title: options?.esport ? t`Esports Live` : t`Sports Live`,
             sportSections: liveLeagueSections,
         });
     }
@@ -124,9 +132,12 @@ export function groupLiveSportsListForDisplay(response: PolymarketSportsListResp
     return { timeSections };
 }
 
-export function liveSportsListHasDisplayContent(response: PolymarketSportsListResponse | undefined): boolean {
+export function liveSportsListHasDisplayContent(
+    response: PolymarketSportsListResponse | undefined,
+    options?: GroupLiveSportsListOptions,
+): boolean {
     if (!response) return false;
-    return groupLiveSportsListForDisplay(response).timeSections.length > 0;
+    return groupLiveSportsListForDisplay(response, options).timeSections.length > 0;
 }
 
 export function groupLiveSportsEventsByLeague(
