@@ -1,12 +1,13 @@
 import type { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
-import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
+import { type HTMLProps, memo, useMemo } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Image } from '@/esm/Image.js';
 import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
 import { resolveTokenLogoURL } from '@/helpers/resolveTokenLogoURL.js';
+import { useResourceFallback } from '@/hooks/useResourceFallback.js';
 
 export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     networkType?: NetworkType;
@@ -42,13 +43,6 @@ export const TokenIcon = memo(function TokenIcon({
     const defaultBadgeSize = Math.max(24, Math.floor(size / 2));
     const chainSize = badgeSize || defaultBadgeSize;
 
-    const [hasError, setHasError] = useState(false);
-    const [hasErrorOptimized, setHasErrorOptimized] = useState(false);
-    const onLoadError = useCallback(() => {
-        if (!hasErrorOptimized) setHasErrorOptimized(true);
-        else setHasError(true);
-    }, [hasErrorOptimized]);
-
     const tokenIcon = useMemo(() => {
         if (icon) return icon;
         if (chainId) return resolveTokenLogoURL(chainId, address ?? '0x0000000000000000000000000000000000000000');
@@ -60,18 +54,21 @@ export const TokenIcon = memo(function TokenIcon({
         return optimizeCDNImageSize(tokenIcon, size, size);
     }, [size, tokenIcon]);
 
+    // Try the optimized icon, then the raw icon; fall back to the letter placeholder.
+    const resource = useResourceFallback([resolvedIcon, tokenIcon]);
+
     return (
         <span className={classNames('relative', className)} style={{ width: size, height: size }} {...rest}>
-            {(resolvedIcon && !hasErrorOptimized) || (tokenIcon && !hasError) ? (
+            {!resource.failed ? (
                 <Image
                     unoptimized
                     className="rounded-full object-cover"
                     alt=""
-                    src={!hasErrorOptimized ? resolvedIcon! : tokenIcon!}
+                    src={resource.src!}
                     width={size}
                     height={size}
                     style={{ width: size, height: size }}
-                    onError={onLoadError}
+                    onError={resource.onError}
                 />
             ) : (
                 <span

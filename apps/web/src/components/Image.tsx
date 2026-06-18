@@ -2,10 +2,11 @@
 
 import { classNames } from '@dimensiondev/utils';
 import type { ImageProps as NextImageProps } from 'next/image.js';
-import { memo, type SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import { memo, type SyntheticEvent } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { useResourceFallback } from '@/hooks/useResourceFallback.js';
 import type { LiteralOrString } from '@/types/utility.js';
 
 const resolveFallbackImageUrl = (fallback: LiteralOrString<'avatar' | 'square' | 'rectangle'>, isDarkMode: boolean) => {
@@ -29,39 +30,20 @@ export interface ImageProps extends NextImageProps {
 }
 
 export const Image = memo(function Image({ onError, onLoad, fallback, fallbackClassName, ref, ...props }: ImageProps) {
-    const [imageLoadFailed, setImageLoadFailed] = useState(false);
     const isDarkMode = useIsDarkMode();
-    const [loading, setLoading] = useState(true);
 
-    const handleError = useCallback(
-        (e: SyntheticEvent<HTMLImageElement>) => {
-            setLoading(false);
-            if (imageLoadFailed) {
-                return;
-            }
-            setImageLoadFailed(true);
-            if (onError) {
-                onError(e);
-            }
-        },
-        [imageLoadFailed, setImageLoadFailed, onError],
-    );
+    // Static imports (non-string src) are bundled assets — bypass the URL fallback chain.
+    const isStatic = !!props.src && typeof props.src !== 'string';
+    const srcUrl = typeof props.src === 'string' ? props.src : undefined;
+    const fallbackUrl = fallback === false ? undefined : resolveFallbackImageUrl(fallback || 'rectangle', isDarkMode);
 
-    const handleLoad = useCallback(
-        (e: SyntheticEvent<HTMLImageElement>) => {
-            setLoading(false);
-            onLoad?.(e);
-        },
-        [onLoad],
-    );
+    const resource = useResourceFallback(isStatic ? [] : [srcUrl, fallbackUrl]);
 
-    useEffect(() => {
-        setImageLoadFailed(!props.src);
-    }, [props.src]);
-
-    const isFailed = imageLoadFailed || !props.src;
-
+    const isFailed = isStatic ? false : resource.failed || !props.src;
     if (isFailed && fallback === false) return null;
+
+    const displaySrc = isStatic ? props.src : (resource.src ?? fallbackUrl);
+    if (!displaySrc) return null;
 
     return (
         // Since next/image requires the domain of the image to be configured in next.config,
@@ -72,14 +54,20 @@ export const Image = memo(function Image({ onError, onLoad, fallback, fallbackCl
             loading={props.priority ? 'eager' : 'lazy'}
             priority={false}
             {...props}
-            onLoad={handleLoad}
-            src={isFailed ? resolveFallbackImageUrl(fallback || 'rectangle', isDarkMode) : props.src}
+            src={displaySrc}
+            onLoad={(e: SyntheticEvent<HTMLImageElement>) => {
+                resource.onLoad();
+                onLoad?.(e);
+            }}
+            onError={(e: SyntheticEvent<HTMLImageElement>) => {
+                resource.onError();
+                onError?.(e);
+            }}
             className={classNames(
                 props.className,
                 isFailed ? fallbackClassName : undefined,
-                loading ? 'animate-pulse bg-bg' : '',
+                resource.loading ? 'animate-pulse bg-bg' : '',
             )}
-            onError={handleError}
             alt={props.alt || ''}
             ref={ref}
         />

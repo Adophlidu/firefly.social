@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
-import { type HTMLProps, memo, useState } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { STALE_TIMES } from '@/constants/query.js';
 import { computeSize } from '@/helpers/computeSize.js';
 import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
+import { useResourceFallback } from '@/hooks/useResourceFallback.js';
 
 interface SingleImageProps extends HTMLProps<HTMLImageElement> {
     minWidth?: number;
@@ -28,9 +29,11 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
     ...props
 }) {
     const optimizedSrc = src ? optimizeCDNImageSize(src, maxWidth, maxHeight) : undefined;
-    const [optimizedFailed, setOptimizedFailed] = useState(false);
-    const finalSrc = optimizedSrc && !optimizedFailed ? optimizedSrc : src;
-    const { data, error } = useQuery({
+    // Try the optimized URL, then the raw src; skips flooding/known-bad hosts.
+    const resource = useResourceFallback([optimizedSrc, src]);
+    const finalSrc = resource.src;
+
+    const { data } = useQuery({
         queryKey: ['single-image', finalSrc],
         staleTime: STALE_TIMES.INFINITY,
         enabled: !!finalSrc,
@@ -51,7 +54,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
             }),
     });
 
-    if (error) return null;
+    if (resource.failed) return null;
 
     const imageWidth = data?.width || width;
     const imageHeight = data?.height || height;
@@ -73,12 +76,16 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
             {children}
             <div className="absolute inset-0">
                 <img
-                    src={finalSrc}
-                    onError={(event) => {
-                        props?.onError?.(event);
-                        if (!optimizedFailed) setOptimizedFailed(true);
-                    }}
                     {...props}
+                    src={finalSrc}
+                    onLoad={(event) => {
+                        props.onLoad?.(event);
+                        resource.onLoad();
+                    }}
+                    onError={(event) => {
+                        props.onError?.(event);
+                        resource.onError();
+                    }}
                     className={classNames('size-full', props.className)}
                     alt={props.alt || ''}
                 />

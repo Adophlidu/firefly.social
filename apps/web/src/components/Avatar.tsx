@@ -2,17 +2,14 @@
 
 import { classNames, parseUrl } from '@dimensiondev/utils';
 import type { ImageProps as NextImageProps } from 'next/image.js';
-import { memo, useMemo, useState } from 'react';
+import { memo, useMemo } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-
-// URLs that have already failed to load (e.g. imgur 429s). Shared across all Avatar
-// instances and persists across remounts so a known-bad URL is never requested again.
-const failedAvatarUrls = new Set<string>();
+import { useResourceFallback } from '@/hooks/useResourceFallback.js';
 
 function resolveImgurUrl(url: string) {
     const u = parseUrl(url);
@@ -44,8 +41,6 @@ export const Avatar = memo(function Avatar({
 }: AvatarProps) {
     const isDarkMode = useIsDarkMode();
     const defaultFallbackUrl = useDefaultFireflyAvatar();
-    // number: next index of fallbacks to try.
-    const [errorMap, setErrorMap] = useState<Record<string, number>>({});
 
     const url = [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src);
 
@@ -73,14 +68,9 @@ export const Avatar = memo(function Avatar({
         }
         return urls;
     }, [fallbackUrl, preferredSrc, size]);
-    // Start at the recorded error index, then skip past any fallback already known to
-    // have failed globally — so remounts of a banned avatar never re-request it.
-    let index = errorMap[preferredSrc] || 0;
-    while (index < fallbacks.length - 1 && failedAvatarUrls.has(fallbacks[index])) {
-        index += 1;
-    }
 
-    const imageSrc = fallbacks[index] || fallbackUrl;
+    const resource = useResourceFallback(fallbacks);
+    const imageSrc = resource.src || fallbackUrl;
 
     return (
         <NextImage
@@ -98,16 +88,7 @@ export const Avatar = memo(function Avatar({
             width={size}
             height={size}
             alt={rest.alt}
-            onError={() => {
-                // Remember this URL is bad so it's never requested again, app-wide.
-                failedAvatarUrls.add(imageSrc);
-                setErrorMap((map) => {
-                    const count = map[preferredSrc] || 0;
-                    // Stop once all fallbacks are exhausted to avoid request storms (e.g. imgur 429s).
-                    if (count >= fallbacks.length - 1) return map;
-                    return { ...map, [preferredSrc]: count + 1 };
-                });
-            }}
+            onError={resource.onError}
         />
     );
 });
