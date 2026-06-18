@@ -1698,6 +1698,9 @@ msgstr "Non-sanctioned address found."
 msgid "Anonymous"
 msgstr "Anonymous"
 
+msgid "Only club members can reply to this post."
+msgstr "Only club members can reply to this post."
+
 msgid "+{remainingCount} others"
 msgstr "+{remainingCount} others"
 
@@ -2461,6 +2464,9 @@ msgstr "No stealing attack found."
 msgid "First Blood"
 msgstr "First Blood"
 
+msgid "Join now"
+msgstr "Join now"
+
 msgid "Share From"
 msgstr "Share From"
 
@@ -2776,6 +2782,9 @@ msgstr "Send"
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
 
+msgid "You have joined the club."
+msgstr "You have joined the club."
+
 msgid "The user canceled the operation."
 msgstr "The user canceled the operation."
 
@@ -2913,6 +2922,9 @@ msgstr "Net Worth"
 
 msgid "Pinned"
 msgstr "Pinned"
+
+msgid "Replies are restricted for this post."
+msgstr "Replies are restricted for this post."
 
 msgid "Most Towers"
 msgstr "Most Towers"
@@ -3769,6 +3781,9 @@ msgstr "Post has been deleted"
 msgid "Multi-device login is now turned on and synced successfully."
 msgstr "Multi-device login is now turned on and synced successfully."
 
+msgid "Reposts are restricted for this post."
+msgstr "Reposts are restricted for this post."
+
 msgid "This article is no longer available"
 msgstr "This article is no longer available"
 
@@ -3970,6 +3985,9 @@ msgstr "<0>{0}</0> liked"
 
 msgid "Phishing activities."
 msgstr "Phishing activities."
+
+msgid "Failed to join the club."
+msgstr "Failed to join the club."
 
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"
@@ -4232,6 +4250,9 @@ msgstr "Users"
 
 msgid "Sanctioned address found."
 msgstr "Sanctioned address found."
+
+msgid "Requirements not met to reply."
+msgstr "Requirements not met to reply."
 
 #. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"

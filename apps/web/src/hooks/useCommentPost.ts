@@ -7,7 +7,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { canReplyToPost } from '@/helpers/canReplyToPost.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { openUrl } from '@/helpers/openUrl.js';
 import { resolveMessageForCommentDisabled } from '@/helpers/resolveMessageForCommentDisabled.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -31,6 +31,7 @@ export function useCommentPost(post: Post, disabled = false) {
     });
 
     const commentDisabled = disabled || canReply === false;
+    const disabledMessage = commentDisabled ? resolveMessageForCommentDisabled(post) : null;
 
     const { canPost, sources } = useAnonymousPostAvailability();
     const anonymousPostEnabled = !isLogin && canPost && sources.includes(source);
@@ -53,14 +54,18 @@ export function useCommentPost(post: Post, disabled = false) {
             // icon renders a "Comment on X" menu (see CommentOnXMenu); reaching
             // here means the user opted into "always", so open X directly.
             openUrl(resolveXReplyUrl(post.postId));
+        } else if (disabledMessage?.type === 'restricted') {
+            // Lens rule gate (club membership, etc.): surface a clear hint with
+            // an inline "Join now" action instead of a raw rule error.
+            enqueueWarningMessage(disabledMessage.toastMessage ?? disabledMessage.message);
         } else {
             enqueueErrorMessage(t`You cannot reply to @${author.handle} on ${resolveSourceName(source)}.`);
         }
-    }, [isLogin, commentDisabled, source, post, author.handle, anonymousPostEnabled]);
+    }, [isLogin, commentDisabled, source, post, author.handle, anonymousPostEnabled, disabledMessage]);
 
     return {
         buttonDisabled: !isLogin ? disabled : commentDisabled,
-        message: commentDisabled ? resolveMessageForCommentDisabled(post) : null,
+        message: disabledMessage,
         onComment: handleClick,
     };
 }

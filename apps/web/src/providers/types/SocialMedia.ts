@@ -142,6 +142,17 @@ export interface Attachment {
     height?: number;
 }
 
+/**
+ * Why an interaction (reply/repost) is blocked, and whether it can be unblocked
+ * by the current account. Lens-only for now (post rule validation failed).
+ */
+export interface PostInteractionRestriction {
+    /** The restriction is a club (Lens group) membership gate the user can join. */
+    clubGated: boolean;
+    /** The club/group address to join, present when `clubGated` is true. */
+    clubAddress?: string;
+}
+
 export interface Post {
     /**
      * For Farcaster, it's hash of the cast.
@@ -218,6 +229,10 @@ export interface Post {
     reactions?: Profile[];
     canComment?: boolean;
     canMirror?: boolean;
+    /** Why replying is blocked when `canComment` is false (Lens club gate, etc.). */
+    replyRestriction?: PostInteractionRestriction;
+    /** Why reposts are blocked when `canMirror` is false (Lens club gate, etc.). */
+    repostRestriction?: PostInteractionRestriction;
     canAct?: boolean;
     canDecrypt?: boolean;
     mentions?: Array<Pick<Profile, 'handle' | 'fullHandle' | 'source' | 'profileId'>>;

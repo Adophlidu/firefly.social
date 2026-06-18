@@ -67,10 +67,10 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
                     )}
                     aria-label="Comment"
                     onClick={() => {
-                        // A `toast` message means the reply is restricted but the
-                        // click is still actionable (e.g. continue on X), so defer
+                        // `toast` (continue on X) and `restricted` (Lens rule gate
+                        // → warning toast) are still actionable on click, so defer
                         // to onComment; other disabled states are inert.
-                        if (buttonDisabled && (!message || type !== 'toast')) return;
+                        if (buttonDisabled && type !== 'toast' && type !== 'restricted') return;
                         onComment();
                     }}
                 >

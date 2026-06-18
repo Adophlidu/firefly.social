@@ -1698,6 +1698,9 @@ msgstr "Dirección no sancionada encontrada."
 msgid "Anonymous"
 msgstr "Anónimo"
 
+msgid "Only club members can reply to this post."
+msgstr ""
+
 msgid "+{remainingCount} others"
 msgstr "+{remainingCount} más"
 
@@ -2461,6 +2464,9 @@ msgstr "No se detectó ataque de robo."
 msgid "First Blood"
 msgstr "Primera sangre"
 
+msgid "Join now"
+msgstr ""
+
 msgid "Share From"
 msgstr "Compartir Desde"
 
@@ -2776,6 +2782,9 @@ msgstr "Enviar"
 msgid "<0>You</0> liked"
 msgstr "<0>Te</0> gustó"
 
+msgid "You have joined the club."
+msgstr ""
+
 msgid "The user canceled the operation."
 msgstr "El usuario canceló la operación."
 
@@ -2913,6 +2922,9 @@ msgstr "Patrimonio neto"
 
 msgid "Pinned"
 msgstr "Anclado"
+
+msgid "Replies are restricted for this post."
+msgstr ""
 
 msgid "Most Towers"
 msgstr "Más torres"
@@ -3769,6 +3781,9 @@ msgstr "La publicación ha sido eliminada"
 msgid "Multi-device login is now turned on and synced successfully."
 msgstr "El inicio de sesión en varios dispositivos ahora está activado y sincronizado correctamente."
 
+msgid "Reposts are restricted for this post."
+msgstr ""
+
 msgid "This article is no longer available"
 msgstr "Este artículo ya no está disponible"
 
@@ -3970,6 +3985,9 @@ msgstr "A <0>{0}</0> le gustó"
 
 msgid "Phishing activities."
 msgstr "Actividades de phishing."
+
+msgid "Failed to join the club."
+msgstr ""
 
 msgid "Show more tokens with small balances"
 msgstr "Mostrar más tokens con saldos pequeños"
@@ -4232,6 +4250,9 @@ msgstr "Usuarios"
 
 msgid "Sanctioned address found."
 msgstr "Dirección sancionada encontrada."
+
+msgid "Requirements not met to reply."
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"

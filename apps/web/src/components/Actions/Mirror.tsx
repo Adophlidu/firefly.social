@@ -17,6 +17,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
@@ -264,6 +265,26 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
             isAnonymous: anonymousPostEnabled,
         });
     };
+
+    // Both repost and quote are blocked by the post's rules: the icon is inert
+    // and clicking surfaces a clear hint instead of silently doing nothing.
+    if (allDisabled) {
+        return (
+            <Tooltip placement="top" content={<Trans>Reposts are restricted for this post.</Trans>}>
+                <button
+                    aria-label="Repost"
+                    className="inline-flex size-7 cursor-not-allowed items-center justify-center rounded-full text-second opacity-50 hover:bg-secondarySuccess/[.20]"
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        enqueueWarningMessage(<Trans>Reposts are restricted for this post.</Trans>);
+                    }}
+                >
+                    <MirrorIcon width={16} height={16} />
+                </button>
+            </Tooltip>
+        );
+    }
 
     return (
         <MirrorUI

@@ -23,7 +23,7 @@ export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, po
     const { buttonDisabled, message, onComment } = useCommentPost(post, !currentProfile);
 
     if (!currentProfile) return null;
-    if (buttonDisabled && message?.message && message.type === 'toast') {
+    if (buttonDisabled && message?.message && (message.type === 'toast' || message.type === 'restricted')) {
         return <ActionDisabledMessage message={message.message} />;
     }
 

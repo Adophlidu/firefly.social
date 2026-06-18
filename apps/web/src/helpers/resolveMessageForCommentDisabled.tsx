@@ -3,14 +3,25 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
+import { JoinClubLink } from '@/components/JoinClubLink.js';
 import { Link } from '@/components/Link.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function resolveMessageForCommentDisabled(post: Post): {
+export interface CommentDisabledMessage {
+    /** Message shown in the detail composer box and the hover tooltip. */
     message: ReactNode;
-    type: 'tooltip' | 'toast';
-} | null {
-    const { source, restrictions } = post;
+    /** Message shown in the timeline warning toast; falls back to `message`. */
+    toastMessage?: ReactNode;
+    /**
+     * - `tooltip`: hover hint only (legacy reply restrictions).
+     * - `toast`: X's API limitation, click opens the "Comment on X" flow.
+     * - `restricted`: Lens rule gate — detail shows a box, timeline shows a toast.
+     */
+    type: 'tooltip' | 'toast' | 'restricted';
+}
+
+export function resolveMessageForCommentDisabled(post: Post): CommentDisabledMessage | null {
+    const { source, restrictions, replyRestriction } = post;
 
     switch (source) {
         case Source.Twitter:
@@ -32,6 +43,18 @@ export function resolveMessageForCommentDisabled(post: Post): {
             };
         case Source.Lens:
         case Source.Bsky:
+            // Club-gated reply: guide the user to join the club in place.
+            if (replyRestriction?.clubGated && replyRestriction.clubAddress) {
+                return {
+                    message: (
+                        <>
+                            <Trans>Only club members can reply to this post.</Trans>{' '}
+                            <JoinClubLink clubAddress={replyRestriction.clubAddress} />
+                        </>
+                    ),
+                    type: 'restricted',
+                };
+            }
             if (restrictions?.includes(RestrictionType.Nobody)) {
                 return {
                     message: <Trans>The author has disabled comments on this post.</Trans>,
@@ -54,6 +77,15 @@ export function resolveMessageForCommentDisabled(post: Post): {
                 return {
                     message: <Trans>Only people followed by the author can comment on this post.</Trans>,
                     type: 'tooltip',
+                };
+            }
+
+            // Reply blocked by a rule we can't satisfy in place (token gate, etc.).
+            if (post.canComment === false) {
+                return {
+                    message: <Trans>Requirements not met to reply.</Trans>,
+                    toastMessage: <Trans>Replies are restricted for this post.</Trans>,
+                    type: 'restricted',
                 };
             }
 
