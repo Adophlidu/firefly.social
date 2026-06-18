@@ -512,6 +512,9 @@ msgstr[0] "メンバー"
 msgid "Scroll tabs right"
 msgstr "タブを右にスクロール"
 
+msgid "Mint Ended"
+msgstr "ミント終了"
+
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>あなた</0> と他 {0} 人がリポストしました"
@@ -1057,9 +1060,6 @@ msgstr "プロフィールを編集"
 
 msgid "Functions with retrievable ownership"
 msgstr "所有権を回復できる機能"
-
-msgid "Scroll tabs left"
-msgstr "タブを左にスクロール"
 
 msgid "Enter your password to confirm your identity."
 msgstr "本人確認のためパスワードを入力してください。"

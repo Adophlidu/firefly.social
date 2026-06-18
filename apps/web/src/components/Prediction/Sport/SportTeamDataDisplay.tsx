@@ -1,12 +1,14 @@
 'use client';
 
+import { Locale } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { SportTennisScoreValue } from '@/components/Prediction/Sport/SportTennisScoreValue.js';
+import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import {
     compareScorePair,
@@ -18,6 +20,7 @@ import {
     getTieBreakValue,
 } from '@/helpers/prediction/sportScoreUtils.js';
 import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import type { BetsEventDataForUI, SportEventData, SportTeam } from '@/types/prediction.js';
 import { SportScoreType } from '@/types/prediction.js';
 
@@ -215,6 +218,8 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
     sportData,
     event,
 }: SportTeamDataDisplayProps) {
+    const locale = useLocale();
+
     const { homeTeam, awayTeam, scores, live, ended, period, winResult, isDraw, startTime, leagueName, scoreType } =
         sportData;
     const multipleSets = scoreType === SportScoreType.Multiple;
@@ -233,8 +238,15 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
     const formattedMeta = [eventVolume > 0 ? `$${nFormatter(eventVolume, 2, true)}` : null, leagueName]
         .filter(Boolean)
         .join(' · ');
-
-    const formattedTime = startTime ? dayjs(new Date(startTime).getTime()).format('MMM D h:mm A') : null;
+    const formattedTime = useMemo(() => {
+        const dayjsLocale = getDayjsLocaleName(
+            Object.values(Locale).includes(locale as Locale) ? (locale as Locale) : Locale.en,
+        );
+        // Format with an explicit per-instance dayjs locale (from useLingui, request-correct on
+        // both server and client) instead of the process-shared global dayjs locale, which races
+        // between concurrent SSR requests and causes server/client hydration mismatches.
+        return startTime ? dayjs(new Date(startTime).getTime()).locale(dayjsLocale).format('MMM D h:mm A') : null;
+    }, [locale, startTime]);
 
     return (
         <div className="px-4">

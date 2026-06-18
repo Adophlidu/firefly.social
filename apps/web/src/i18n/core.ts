@@ -1,5 +1,4 @@
 import { Locale } from '@dimensiondev/enums';
-import { bom } from '@dimensiondev/utils';
 import { i18n as i18nCore, type Messages, setupI18n } from '@lingui/core';
 import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
@@ -37,8 +36,9 @@ const allLocales = Object.fromEntries(
     locales.map((locale) => [
         locale,
         setupI18n({
+            // `locales` is the Intl fallback chain for this locale, not the supported-locales list.
             locale,
-            locales,
+            locales: [locale],
             messages,
         }),
     ]),
@@ -53,18 +53,17 @@ export function resolveLocale(locale: Locale, fallback?: () => Locale): Locale {
 export function setupAndActiveI18n(locale_: Locale) {
     const locale = resolveLocale(locale_);
 
-    // on the client side, we need to setup the global i18n instance
-    // in order to use core macros on the client components
-    if (bom.document) {
-        i18nCore.loadAndActivate({
-            locale,
-            locales: Object.keys(supportedLocales) as Locale[],
-            messages: messages[locale],
-        });
-    }
+    // Activate the global @lingui/core singleton so that core macros
+    // (t`...` / msg`...` from @lingui/core/macro, which compile to i18nCore._())
+    // resolve during SSR/ISR — not only in the browser. The RSC layer
+    // (<Trans>/msg from @lingui/react) stays request-correct via setI18n()/React.cache() below.
+    i18nCore.loadAndActivate({
+        locale,
+        locales: [locale],
+        messages: messages[locale],
+    });
 
     const i18n = allLocales[locale];
-    i18n.activate(locale);
 
     setI18n(i18n as unknown as Parameters<typeof setI18n>[0]);
     dayjs.locale(getDayjsLocaleName(locale));

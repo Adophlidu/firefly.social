@@ -516,6 +516,9 @@ msgstr[1] "Miembros"
 msgid "Scroll tabs right"
 msgstr "Desplazar pestañas a la derecha"
 
+msgid "Mint Ended"
+msgstr "Acuñación Finalizada"
+
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>Tú</0> y {0} otras personas recompartieron"
@@ -1062,9 +1065,6 @@ msgstr "Editar perfil"
 
 msgid "Functions with retrievable ownership"
 msgstr "Funciones con propiedad recuperable"
-
-msgid "Scroll tabs left"
-msgstr "Desplazar pestañas a la izquierda"
 
 msgid "Enter your password to confirm your identity."
 msgstr "Introduzca su contraseña para confirmar su identidad."

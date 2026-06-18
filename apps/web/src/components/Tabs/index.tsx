@@ -3,7 +3,6 @@
 import ArrowLeftIcon from '@dimensiondev/assets/arrow-left.svg';
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right.svg';
 import { classNames } from '@dimensiondev/utils';
-import { t } from '@lingui/core/macro';
 import {
     createContext,
     type HTMLProps,
@@ -150,7 +149,7 @@ export function Tabs<T = string>(props: TabsProps<T>) {
                         'absolute left-0 z-10 flex h-full transform-gpu cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
                         hiddenLeft ? 'pointer-events-none opacity-0' : '',
                     )}
-                    aria-label={t`Scroll tabs left`}
+                    aria-label="Scroll tabs left"
                     onClick={() => onScrollTo('left')}
                 >
                     <span className="absolute left-0 top-0 h-full w-14 bg-gradient-to-l from-transparent to-primaryBottom to-55%" />
@@ -164,7 +163,7 @@ export function Tabs<T = string>(props: TabsProps<T>) {
                         'absolute right-0 z-10 flex h-full transform-gpu cursor-pointer items-center pr-4 duration-100 hover:text-highlight',
                         hiddenRight ? 'pointer-events-none opacity-0' : '',
                     )}
-                    aria-label={t`Scroll tabs right`}
+                    aria-label="Scroll tabs right"
                     onClick={() => onScrollTo('right')}
                 >
                     <span className="absolute right-0 top-0 h-full w-14 bg-gradient-to-r from-transparent to-primaryBottom to-55%" />
