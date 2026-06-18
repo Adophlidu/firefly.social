@@ -509,12 +509,6 @@ msgid "Member"
 msgid_plural "Members"
 msgstr[0] "멤버"
 
-msgid "Scroll tabs right"
-msgstr "탭 오른쪽으로 스크롤"
-
-msgid "Mint Ended"
-msgstr "민팅 종료"
-
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>회원님</0>과 {0}명이 리포스트했습니다"

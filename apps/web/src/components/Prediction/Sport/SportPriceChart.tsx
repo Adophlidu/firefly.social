@@ -153,7 +153,7 @@ function StreamToggle({
                                         close();
                                     }}
                                     className={classNames(
-                                        'flex h-8 items-center rounded-md px-3 text-xs font-medium transition-colors',
+                                        'flex h-8 items-center justify-start whitespace-nowrap rounded-md px-3 text-left text-xs font-medium transition-colors',
                                         index === selectedIndex
                                             ? 'bg-highlight/10 text-highlight'
                                             : 'text-main hover:bg-bg',
