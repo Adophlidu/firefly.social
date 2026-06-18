@@ -48,7 +48,18 @@ export const ProposalQuery = {
 
 export const VotesQuery = {
     operationName: 'Votes',
-    query: `query Votes($id: String, $ids: [String], $first: Int, $skip: Int, $orderBy: String, $orderDirection: OrderDirection, $reason_not: String, $voter: String, $space: String, $created_gte: Int) {
+    query: `query Votes(
+        $id: String
+        $ids: [String]
+        $first: Int
+        $skip: Int
+        $orderBy: String
+        $orderDirection: OrderDirection
+        $reason_not: String
+        $voter: String
+        $space: String
+        $created_gte: Int
+    ) {
         votes(
             first: $first
             skip: $skip
@@ -89,7 +100,13 @@ export const UsersQuery = {
 
 export const ProposalsQuery = {
     operationName: 'Proposals',
-    query: `query Proposals($first: Int, $state: String, $space_in: [String], $start_gte: Int, $id_in: [String]) {
+    query: `query Proposals(
+        $first: Int
+        $state: String
+        $space_in: [String]
+        $start_gte: Int
+        $id_in: [String]
+    ) {
         proposals(
             first: $first
             where: {state: $state, space_in: $space_in, start_gte: $start_gte, id_in: $id_in}
