@@ -509,9 +509,6 @@ msgid "Member"
 msgid_plural "Members"
 msgstr[0] "成员"
 
-msgid "Mint Ended"
-msgstr "铸造已结束"
-
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"

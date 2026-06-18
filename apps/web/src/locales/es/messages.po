@@ -513,9 +513,6 @@ msgid_plural "Members"
 msgstr[0] "Miembro"
 msgstr[1] "Miembros"
 
-msgid "Mint Ended"
-msgstr "Acuñación Finalizada"
-
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>Tú</0> y {0} otras personas recompartieron"
