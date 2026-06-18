@@ -1,11 +1,13 @@
 import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@dimensiondev/constants/computed';
-import type { FollowCategory } from '@dimensiondev/enums';
+import type { FollowCategory, SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
+import { type PropsWithChildren, Suspense } from 'react';
 
 import { FollowPageLayout } from '@/app/[locale]/(normal)/profile/pages/FollowPageLayout.js';
 import { ProfileRelationContextProvider } from '@/app/[locale]/(normal)/profile/pages/ProfileRelationContextProvider.js';
+import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { Title } from '@/components/Profile/Title.js';
@@ -24,10 +26,25 @@ export default async function Layout(props: Props) {
     if (!isFollowCategory(params.category)) notFound();
     const category = params.category as FollowCategory;
 
-    const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isSocialSource(source) || source === Source.Twitter) notFound();
 
+    // Stream a fallback while the profile loads instead of blocking this segment's render.
+    return (
+        <Suspense fallback={<Loading />}>
+            <RelationLayoutChrome id={params.id} source={source} category={category}>
+                {props.children}
+            </RelationLayoutChrome>
+        </Suspense>
+    );
+}
+
+async function RelationLayoutChrome({
+    id,
+    source,
+    category,
+    children,
+}: PropsWithChildren<{ id: string; source: SocialSource; category: FollowCategory }>) {
     const profile = await resolveSocialMediaProvider(source)
         .getProfileByHandle(id)
         .catch(() => null);
@@ -51,9 +68,7 @@ export default async function Layout(props: Props) {
                     required={REQUIRE_LOGIN_FOLLOWING_CATEGORY.includes(category)}
                 >
                     <NoSSR>
-                        <ProfileRelationContextProvider profile={profile}>
-                            {props.children}
-                        </ProfileRelationContextProvider>
+                        <ProfileRelationContextProvider profile={profile}>{children}</ProfileRelationContextProvider>
                     </NoSSR>
                 </LoginRequiredGuard>
             </FollowPageLayout>
