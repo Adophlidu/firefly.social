@@ -6,6 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useMemo, useRef } from 'react';
+import urlcat from 'urlcat';
 import { useHover } from 'usehooks-ts';
 
 import { PostActions } from '@/components/Actions/index.js';
@@ -91,6 +92,41 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
         return keepMutedSpace ? <div className="pointer-events-none -mt-px h-px" /> : null;
 
     const showPostAction = !isDetail && (isProfilePage || !post.isHidden || !muted);
+    const href = post.isTruthSocial ? post.permalink : postLink;
+    const onClick: (fromMore: boolean) => React.MouseEventHandler<HTMLElement> = (fromMore) => (event) => {
+        const selection = window.getSelection();
+        if (selection && selection.toString().length !== 0) return;
+        if (post.isTruthSocial) {
+            event.preventDefault();
+            event.stopPropagation();
+            openWindow(post.permalink || '', '_blank');
+            return;
+        }
+
+        if (!isPostPage || isComment || isEngagementPage) {
+            // Clear cache before navigation to ensure fresh data in detail page
+            if (isComment && post.source === Source.Bsky) {
+                // For Bsky comments, clear cache to get full content
+                queryClient.removeQueries({
+                    queryKey: [post.source, 'post-detail', post.postId],
+                });
+            } else if (post.source === Source.Bsky && post.metadata.content?.content) {
+                // Clear cache for Bsky long posts before navigation
+                const urls = matchUrls(post.metadata.content.content);
+                if (urls.some(isFireflyPostUrl)) {
+                    queryClient.removeQueries({
+                        queryKey: [post.source, 'post-detail', post.postId],
+                    });
+                }
+            }
+
+            if (listKey && !isUndefined(index) && !disableScrollRestore) setScrollIndex(listKey, index);
+            router.push(fromMore ? urlcat(postLink, { more: true }) : postLink);
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        return;
+    };
 
     return (
         <motion.article
@@ -105,37 +141,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                     'hover:bg-bg': !isDetail,
                 },
             )}
-            onClick={() => {
-                const selection = window.getSelection();
-                if (selection && selection.toString().length !== 0) return;
-                if (post.isTruthSocial) {
-                    openWindow(post.permalink || '', '_blank');
-                    return;
-                }
-
-                if (!isPostPage || isComment || isEngagementPage) {
-                    // Clear cache before navigation to ensure fresh data in detail page
-                    if (isComment && post.source === Source.Bsky) {
-                        // For Bsky comments, clear cache to get full content
-                        queryClient.removeQueries({
-                            queryKey: [post.source, 'post-detail', post.postId],
-                        });
-                    } else if (post.source === Source.Bsky && post.metadata.content?.content) {
-                        // Clear cache for Bsky long posts before navigation
-                        const urls = matchUrls(post.metadata.content.content);
-                        if (urls.some(isFireflyPostUrl)) {
-                            queryClient.removeQueries({
-                                queryKey: [post.source, 'post-detail', post.postId],
-                            });
-                        }
-                    }
-
-                    if (listKey && !isUndefined(index) && !disableScrollRestore) setScrollIndex(listKey, index);
-                    router.push(postLink);
-                }
-                return;
-            }}
-            data-href={postLink}
+            onClick={onClick(false)}
+            data-href={href}
         >
             <ShareButtonWithAnimationContext.Provider value={hover}>
                 {header}
@@ -178,7 +185,10 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 </NoSSR>
 
                 {show ? (
-                    <div className="mt-2 w-full cursor-pointer text-center text-medium font-bold text-highlight">
+                    <div
+                        onClick={onClick(true)}
+                        className="mt-2 w-full cursor-pointer text-center text-medium font-bold text-highlight"
+                    >
                         <div>
                             <Trans>Show More</Trans>
                         </div>

@@ -6,6 +6,7 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { SearchType, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { last } from 'lodash-es';
 import { Suspense, useEffect, useRef, useState } from 'react';
 
 import { getPostDetailQuery, getPostThreadQuery } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
@@ -24,7 +25,7 @@ import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { TweetUnavailableError } from '@/constants/error.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound, useSearchParams } from '@/esm/navigation.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useFixedScrollInToViewBeforeUserInteraction } from '@/hooks/useFixedScrollInToViewBeforeUserInteraction.js';
 import { getPostById } from '@/services/getPostById.js';
@@ -36,6 +37,8 @@ interface Props {
 
 export function PageDetail({ id: postId, source }: Props) {
     if (!postId) notFound();
+
+    const pinMore = useSearchParams().get('more');
 
     const { data: post } = useSuspenseQuery(getPostDetailQuery(source, postId));
     const { data: threads } = useSuspenseQuery(getPostThreadQuery(source, postId, post));
@@ -70,7 +73,11 @@ export function PageDetail({ id: postId, source }: Props) {
             .catch(() => {});
     }, [post?.source, postHasMedia, isUnavailableTweet, source, postId]);
 
-    useFixedScrollInToViewBeforeUserInteraction(true, threadsRef[postId]);
+    const lastThread = last(threads?.data)?.postId;
+    useFixedScrollInToViewBeforeUserInteraction(
+        !(pinMore && !lastThread),
+        pinMore ? threadsRef[lastThread || ''] : threadsRef[postId],
+    );
 
     // Check for null after queries - useSuspenseQuery handles loading states
     if (!post) notFound();
