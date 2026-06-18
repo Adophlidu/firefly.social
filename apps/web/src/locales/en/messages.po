@@ -513,6 +513,9 @@ msgid_plural "Members"
 msgstr[0] "Member"
 msgstr[1] "Members"
 
+msgid "Mint Ended"
+msgstr "Mint Ended"
+
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
