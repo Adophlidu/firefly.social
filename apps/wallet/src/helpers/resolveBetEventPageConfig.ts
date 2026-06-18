@@ -5,10 +5,17 @@ export function resolveBetEventPageConfig(event: PolymarketEvent, conditionId: s
     const teams = event.drawTeams?.length === 2 ? event.drawTeams : moneyLineMarket?.teams;
     const homeTeam = teams?.[0];
     const awayTeam = teams?.[1];
-    if (!homeTeam || !awayTeam) return null;
+    const currentMarket = event.markets.find((m) => m.conditionId === conditionId);
+    if (!homeTeam || !awayTeam) {
+        return currentMarket
+            ? {
+                  image: currentMarket.image,
+                  pageTitle: currentMarket.question,
+              }
+            : null;
+    }
 
     const pageTitle = `${homeTeam.name || homeTeam.abbreviation || 'Home Team'} vs ${awayTeam.name || awayTeam.abbreviation || 'Away Team'}`;
-    const currentMarket = event.markets.find((m) => m.conditionId === conditionId);
     // Regular binary markets (non-draw events)
     const leftTeam = currentMarket?.teams?.[0];
     const rightTeam = currentMarket?.teams?.[1];

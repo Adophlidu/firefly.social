@@ -1,4 +1,5 @@
-import type { SocialSource } from '@dimensiondev/enums';
+import { Locale, type SocialSource } from '@dimensiondev/enums';
+import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 import type { Address, Hex } from 'viem';
 
@@ -51,6 +52,28 @@ import {
     type WithdrawSupportedTokensResponse,
 } from '@/providers/types/Firefly.js';
 import type { FreeGasRequestBody, FreeGasResponse } from '@/providers/types/FreeGas.js';
+
+function resolvePolymarketLocale(locale?: Locale) {
+    if (!locale) return;
+
+    switch (locale) {
+        case Locale.zhHans:
+            return 'zh';
+        case Locale.zhHant:
+            return 'zh-hant';
+        case Locale.en:
+            return;
+        case Locale.es:
+            return 'es';
+        case Locale.ja:
+            return 'ja';
+        case Locale.ko:
+            return 'ko';
+        default:
+            safeUnreachable(locale);
+            return;
+    }
+}
 
 export class FireflyEndpoint extends Fetch {
     async getMultiChainTokenList(addresses: string[], chains: number[]) {
@@ -502,8 +525,8 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    async getPolymarketEventBySlug(slug: string) {
-        const url = urlcat('/v1/polymarket/event/detail', { slug });
+    async getPolymarketEventBySlug(slug: string, locale?: Locale) {
+        const url = urlcat('/v1/polymarket/event/detail', { slug, locale: resolvePolymarketLocale(locale) });
         const result = await this.get<Response<PolymarketEvent>>(url);
         return resolveFireflyResponseData(result.data);
     }

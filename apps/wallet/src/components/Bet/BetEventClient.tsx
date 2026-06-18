@@ -2,10 +2,12 @@ import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import CloseIcon from '@dimensiondev/assets/close.svg';
 import SwapIcon from '@dimensiondev/assets/doube-arrow.svg';
 import RandomIcon from '@dimensiondev/assets/random-firefly.svg';
+import type { Locale } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { parseJson, removeTrailingZeros, runInSafeAsync } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
+import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@tanstack/react-router';
@@ -124,6 +126,7 @@ function useBetEventQueryParams() {
 export default function BetEventClient({ id }: { id: string }) {
     const navigate = useNavigate();
     const location = useLocation();
+    const { i18n } = useLingui();
     const searchParams = location.search as Record<string, string | undefined>;
     const fallbackEventSlug = searchParams?.eventSlug ?? '';
     const fallbackConditionId = searchParams?.conditionId ?? '';
@@ -133,12 +136,12 @@ export default function BetEventClient({ id }: { id: string }) {
     const [prices, setPrices] = useState<MarketPriceChangeData[]>();
 
     const { data } = useSuspenseQuery({
-        queryKey: ['polymarketGammaEndpoint', id, fallbackEventSlug, fallbackConditionId],
+        queryKey: ['polymarketGammaEndpoint', id, fallbackEventSlug, fallbackConditionId, i18n.locale],
         async queryFn() {
             const result = await polymarketGammaEndpoint.getMarketBySlug(id);
             const eventSlugToTry = first(result?.data?.events)?.slug || fallbackEventSlug || id;
             const parentEvent = await runInSafeAsync(() =>
-                getFireflyEndpoint().getPolymarketEventBySlug(eventSlugToTry),
+                getFireflyEndpoint().getPolymarketEventBySlug(eventSlugToTry, i18n.locale as Locale),
             );
             if (result.ok)
                 return {
@@ -604,7 +607,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         )}
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col gap-1 text-sm font-semibold leading-[18px]">
-                        <p className="max-h-[18px] w-full truncate text-secondary">
+                        <p className="line-clamp-2 min-h-[18px] w-full text-secondary">
                             {pageConfig?.pageTitle || data?.question || id}
                         </p>
                         <p className="max-h-[18px] w-full truncate text-main">
