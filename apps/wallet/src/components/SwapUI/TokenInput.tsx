@@ -114,6 +114,13 @@ export const TokenInput = memo(function TokenInput({
 
     const isExternalEvmWallet =
         !!walletAddress && !!externalEvmAddress && isSameEthereumAddress(walletAddress, externalEvmAddress);
+    const isEmbeddedEvmWallet =
+        !!walletAddress &&
+        connections.some(
+            (w) =>
+                w.connector.id === PRIVY_CONNECTOR_ID &&
+                w.accounts.some((acc) => isSameEthereumAddress(acc, walletAddress)),
+        );
     const isExternalSolanaWallet =
         !!walletAddress && !!externalSolanaAddress && walletAddress === externalSolanaAddress;
     const hasWallet = !!walletAddress && (isPrivyReady || isExternalEvmWallet || isExternalSolanaWallet);
@@ -251,12 +258,9 @@ export const TokenInput = memo(function TokenInput({
     }, [walletAddress, chainId, appKitSolanaWallets, isExternalSolanaWallet, connections]);
 
     const displayWalletIcon = useMemo(() => {
-        if (!walletAddress) return null;
-        if (isExternalEvmWallet) {
-            return externalEvmIcon ?? walletIcon;
-        }
+        if (isExternalEvmWallet && !isEmbeddedEvmWallet && externalEvmIcon) return externalEvmIcon;
         return walletIcon;
-    }, [externalEvmIcon, isExternalEvmWallet, walletAddress, walletIcon]);
+    }, [externalEvmIcon, isEmbeddedEvmWallet, isExternalEvmWallet, walletIcon]);
 
     return (
         <div className={cn('flex flex-col gap-2 rounded-2xl bg-lightBg px-3 pb-5 pt-3', className)}>

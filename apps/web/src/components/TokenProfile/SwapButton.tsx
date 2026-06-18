@@ -10,7 +10,8 @@ import { mainnet } from 'viem/chains';
 import { useConnection } from 'wagmi';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { walletConnectIcon, walletConnectId, WalletId } from '@/constants/reown.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { fetchEnsName, useEnsName } from '@/hooks/useEnsName.js';
@@ -54,10 +55,14 @@ export function SwapButton({ className, swapProps: swapFromProps, loginRequired 
         if (swapFromProps?.fromToken) params.set('from', swapFromProps.fromToken);
         if (swapFromProps?.toToken) params.set('to', swapFromProps.toToken);
         if (ethereum.address) {
+            const evmConnectorId = evmConnection.connector?.id.toLowerCase();
             const evmIcon =
-                evmConnection.connector?.id.toLowerCase() === walletConnectId.toLowerCase()
+                evmConnectorId === walletConnectId.toLowerCase()
                     ? walletConnectIcon
-                    : evmConnection.connector?.icon;
+                    : evmConnectorId === PRIVY_CONNECTOR_ID.toLowerCase() ||
+                        evmConnectorId === WalletId.FireflyWallet.toLowerCase()
+                      ? null
+                      : evmConnection.connector?.icon;
             const resolvedEvmEnsName =
                 evmEnsName ??
                 (await fetchEnsName({ address: ethereum.address as Address, chainId: mainnet.id }).catch(() => null));

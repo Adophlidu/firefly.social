@@ -2,24 +2,18 @@ import { SwapAccessPath } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import type { MiniAppHost } from '@farcaster/miniapp-host';
-import type { Connector } from '@wagmi/core';
 import { getConnection } from '@wagmi/core';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { walletConnectIcon, walletConnectId, WalletId } from '@/constants/reown.js';
 import { fetchEnsName } from '@/hooks/useEnsName.js';
 import { logger } from '@/libs/Logger.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-
-function resolveExternalEvmIcon(connector: Connector | undefined) {
-    if (!connector) return undefined;
-    if (connector.id.toLowerCase() === walletConnectId.toLowerCase()) return walletConnectIcon;
-    return connector.icon;
-}
 
 export const frameSwapToken = async function frameSwapToken(options) {
     const buyToken = options.buyToken ? parseCAIP19(options.buyToken) : undefined;
@@ -41,7 +35,14 @@ export const frameSwapToken = async function frameSwapToken(options) {
     const evmEnsName = evmAccount.address
         ? await fetchEnsName({ address: evmAccount.address as Address, chainId: mainnet.id }).catch(() => null)
         : null;
-    const evmIcon = resolveExternalEvmIcon(evmAccount.connector);
+    const evmConnectorId = evmAccount.connector?.id.toLowerCase();
+    const evmIcon =
+        evmConnectorId === walletConnectId.toLowerCase()
+            ? walletConnectIcon
+            : evmConnectorId === PRIVY_CONNECTOR_ID.toLowerCase() ||
+                evmConnectorId === WalletId.FireflyWallet.toLowerCase()
+              ? null
+              : evmAccount.connector?.icon;
     let solanaAddress: string | undefined;
     try {
         solanaAddress = await SolanaNetwork.getAccount();
