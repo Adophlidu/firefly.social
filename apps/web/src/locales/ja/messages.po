@@ -1685,7 +1685,7 @@ msgid "Anonymous"
 msgstr "匿名"
 
 msgid "Only club members can reply to this post."
-msgstr ""
+msgstr "クラブメンバーのみがこの投稿に返信できます。"
 
 msgid "+{remainingCount} others"
 msgstr "他{remainingCount}件"
@@ -2184,7 +2184,7 @@ msgid "Rebounds"
 msgstr "リバウンド"
 
 msgid "Esports Live"
-msgstr ""
+msgstr "eスポーツライブ"
 
 msgid "Create your Firefly Profile"
 msgstr "Firefly プロフィールを作成"
@@ -2450,7 +2450,7 @@ msgid "First Blood"
 msgstr "ファーストブラッド"
 
 msgid "Join now"
-msgstr ""
+msgstr "今すぐ参加"
 
 msgid "Share From"
 msgstr "共有元"
@@ -2766,7 +2766,7 @@ msgid "<0>You</0> liked"
 msgstr "<0>あなた</0> がいいねしました"
 
 msgid "You have joined the club."
-msgstr ""
+msgstr "クラブに参加しました。"
 
 msgid "The user canceled the operation."
 msgstr "ユーザーが操作をキャンセルしました。"
@@ -2905,7 +2905,7 @@ msgid "Pinned"
 msgstr "ピン留め済み"
 
 msgid "Replies are restricted for this post."
-msgstr ""
+msgstr "この投稿への返信は制限されています。"
 
 msgid "Most Towers"
 msgstr "タワー最多"
@@ -3758,7 +3758,7 @@ msgid "Multi-device login is now turned on and synced successfully."
 msgstr "マルチデバイスログインがオンになり、同期が完了しました。"
 
 msgid "Reposts are restricted for this post."
-msgstr ""
+msgstr "この投稿のリポストは制限されています。"
 
 msgid "This article is no longer available"
 msgstr "この記事は利用できなくなりました"
@@ -3962,7 +3962,7 @@ msgid "Phishing activities."
 msgstr "フィッシング行為。"
 
 msgid "Failed to join the club."
-msgstr ""
+msgstr "クラブへの参加に失敗しました。"
 
 msgid "Show more tokens with small balances"
 msgstr "少額残高のトークンをもっと表示"
@@ -4226,7 +4226,7 @@ msgid "Sanctioned address found."
 msgstr "制裁対象のアドレスが検出されました。"
 
 msgid "Requirements not met to reply."
-msgstr ""
+msgstr "返信の条件を満たしていません。"
 
 #. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"

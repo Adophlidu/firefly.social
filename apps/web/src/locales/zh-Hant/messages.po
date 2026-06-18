@@ -1685,7 +1685,7 @@ msgid "Anonymous"
 msgstr "匿名"
 
 msgid "Only club members can reply to this post."
-msgstr ""
+msgstr "只有群組成員才能回覆此貼文。"
 
 msgid "+{remainingCount} others"
 msgstr "其他 {remainingCount} 個"
@@ -2184,7 +2184,7 @@ msgid "Rebounds"
 msgstr "籃板"
 
 msgid "Esports Live"
-msgstr ""
+msgstr "電競直播"
 
 msgid "Create your Firefly Profile"
 msgstr "建立 Firefly 個人檔案"
@@ -2450,7 +2450,7 @@ msgid "First Blood"
 msgstr "一血"
 
 msgid "Join now"
-msgstr ""
+msgstr "立即加入"
 
 msgid "Share From"
 msgstr "分享自"
@@ -2766,7 +2766,7 @@ msgid "<0>You</0> liked"
 msgstr "<0>您</0>讚了"
 
 msgid "You have joined the club."
-msgstr ""
+msgstr "您已加入群組。"
 
 msgid "The user canceled the operation."
 msgstr "用戶已取消操作。"
@@ -2905,7 +2905,7 @@ msgid "Pinned"
 msgstr "已釘選"
 
 msgid "Replies are restricted for this post."
-msgstr ""
+msgstr "此貼文的回覆已受限。"
 
 msgid "Most Towers"
 msgstr "最多防禦塔"
@@ -3758,7 +3758,7 @@ msgid "Multi-device login is now turned on and synced successfully."
 msgstr "多裝置登入功能開啟，登入狀態已同步完成。"
 
 msgid "Reposts are restricted for this post."
-msgstr ""
+msgstr "此貼文的轉發已受限。"
 
 msgid "This article is no longer available"
 msgstr "此文章已不可用"
@@ -3962,7 +3962,7 @@ msgid "Phishing activities."
 msgstr "釣魚活動。"
 
 msgid "Failed to join the club."
-msgstr ""
+msgstr "加入群組失敗。"
 
 msgid "Show more tokens with small balances"
 msgstr "顯示更多小額代幣"
@@ -4226,7 +4226,7 @@ msgid "Sanctioned address found."
 msgstr "黑名單地址。"
 
 msgid "Requirements not met to reply."
-msgstr ""
+msgstr "未滿足回覆條件。"
 
 #. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"
