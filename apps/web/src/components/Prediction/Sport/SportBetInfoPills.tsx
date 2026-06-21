@@ -45,8 +45,9 @@ function resolveBetTeam(activity: BetsActivity): { label: string; color: string 
     const conditionOutcomes = activity.conditionOutcomes ?? [];
 
     if (teams.length === 2) {
-        // outcomeIndex 0 → home, otherwise → away
-        const isHome = outcomeIndex === 0;
+        // outcomeIndex is Yes/No within this market, not home/away — use groupTypeFF (0=home, 2=away).
+        const groupType = matchedMarket?.groupTypeFF;
+        const isHome = groupType === 2 ? false : groupType === 0 ? true : outcomeIndex === 0;
         const team = isHome ? teams[0] : teams[1];
         const fallbackColor = isHome ? HOME_FALLBACK_COLOR : AWAY_FALLBACK_COLOR;
 
