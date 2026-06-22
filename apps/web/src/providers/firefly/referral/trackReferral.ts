@@ -8,25 +8,30 @@ import { getOrCreateSharerSessionDeviceId, getSharerSessionId } from '@/helpers/
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { settings } from '@/settings/index.js';
 
-function resolveReferralUid(value: string | null | undefined): number | null {
-    if (!value) return null;
+const SID_PATTERN = /^[a-zA-Z0-9_-]+$/;
 
+/** Inviter sid: numeric ff uid OR alphanumeric marketing sid (matches backend charset). */
+function resolveInviterSid(value: string | null | undefined): string | null {
+    if (!value) return null;
+    const trimmed = value.trim();
+    return SID_PATTERN.test(trimmed) ? trimmed : null;
+}
+
+/** New-user Firefly uid — the invitee is always an ff account; backend requires a positive int. */
+function resolveFireflyUid(value: string | null | undefined): number | null {
+    if (!value) return null;
     const uid = Number(value);
     if (!Number.isSafeInteger(uid) || uid <= 0) return null;
-
     return uid;
 }
 
-function getCurrentFireflyUid() {
-    return resolveReferralUid(getSessionFromStorage(SessionType.Firefly)?.payload?.uid);
-}
+export async function trackReferralEvent(inviterSidRaw: string) {
+    const inviterSid = resolveInviterSid(inviterSidRaw);
+    if (!inviterSid) return;
 
-export async function trackReferralEvent(inviterUidRaw: string) {
-    const inviterUid = resolveReferralUid(inviterUidRaw);
-    if (!inviterUid) return;
-
-    const currentFireflyUid = getCurrentFireflyUid();
-    if (currentFireflyUid && currentFireflyUid === inviterUid) return;
+    const currentFireflyUid = resolveFireflyUid(getSessionFromStorage(SessionType.Firefly)?.payload?.uid);
+    // Compare as strings so it only matches when the sid is the current user's own numeric uid.
+    if (currentFireflyUid && String(currentFireflyUid) === inviterSid) return;
 
     const landingUrl = bom.location?.href;
     const inviteeDeviceId = getOrCreateSharerSessionDeviceId();
@@ -35,7 +40,7 @@ export async function trackReferralEvent(inviterUidRaw: string) {
     await fetchJson<string>(urlcat(settings.FIREFLY_ROOT_URL, '/v1/referral/track/event'), {
         method: 'POST',
         body: JSON.stringify({
-            inviter_uid: inviterUid,
+            inviter_uid: inviterSid,
             invitee_device_id: inviteeDeviceId,
             landing_url: landingUrl,
         }),
@@ -45,12 +50,13 @@ export async function trackReferralEvent(inviterUidRaw: string) {
 export async function trackReferralConversion(session: FireflySession | null | undefined) {
     if (!session) return;
 
-    const inviterUid = resolveReferralUid(getSharerSessionId());
-    const newUserUid = resolveReferralUid(session?.payload?.uid);
+    const inviterSid = resolveInviterSid(getSharerSessionId());
+    const newUserUid = resolveFireflyUid(session?.payload?.uid);
     const newUserDeviceId = getOrCreateSharerSessionDeviceId();
 
-    if (!inviterUid || !newUserUid || !newUserDeviceId) return;
-    if (inviterUid === newUserUid) return;
+    if (!inviterSid || !newUserUid || !newUserDeviceId) return;
+    // Compare as strings so it only matches when the inviter sid is the new user's own numeric uid.
+    if (String(newUserUid) === inviterSid) return;
 
     await fetchJson<string>(urlcat(settings.FIREFLY_ROOT_URL, '/v1/referral/track/conversion'), {
         method: 'POST',
@@ -60,7 +66,7 @@ export async function trackReferralConversion(session: FireflySession | null | u
         body: JSON.stringify({
             new_user_uid: newUserUid,
             new_user_device_id: newUserDeviceId,
-            inviter_uid: inviterUid,
+            inviter_uid: inviterSid,
         }),
     });
 }

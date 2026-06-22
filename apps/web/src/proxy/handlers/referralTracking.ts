@@ -14,8 +14,9 @@ export function handleReferralTracking(request: NextRequest, response: NextRespo
     const sid = request.nextUrl.searchParams.get('sid');
     if (!sid) return;
 
-    const inviterUid = Number(sid);
-    if (!Number.isSafeInteger(inviterUid) || inviterUid <= 0) return;
+    const inviterSid = sid.trim();
+    // Inviter sid may be a numeric ff uid OR an alphanumeric marketing sid — mirror the backend charset.
+    if (!inviterSid || !/^[a-zA-Z0-9_-]+$/.test(inviterSid)) return;
 
     let deviceId = request.cookies.get(DEVICE_ID_COOKIE)?.value;
     if (!deviceId) {
@@ -29,7 +30,7 @@ export function handleReferralTracking(request: NextRequest, response: NextRespo
     }
 
     // Set sharer sid cookie so InitialProviders can persist it to localStorage
-    response.cookies.set(SHARER_SID_COOKIE, sid, {
+    response.cookies.set(SHARER_SID_COOKIE, inviterSid, {
         path: '/',
         httpOnly: false,
         sameSite: 'lax',
@@ -42,7 +43,7 @@ export function handleReferralTracking(request: NextRequest, response: NextRespo
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            inviter_uid: inviterUid,
+            inviter_uid: inviterSid,
             invitee_device_id: deviceId,
             landing_url: request.url,
         }),
