@@ -687,6 +687,9 @@ msgstr "無制限"
 msgid "Deposit failed."
 msgstr "入金に失敗しました。"
 
+msgid "Perps"
+msgstr ""
+
 msgid "Swapped Failed"
 msgstr "スワップに失敗しました"
 
