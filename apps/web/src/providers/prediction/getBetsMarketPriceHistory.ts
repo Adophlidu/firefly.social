@@ -36,7 +36,11 @@ function formatOpinionTimeRange(timeRange: BetsPriceTimeRange) {
     }
 }
 
-const POLYMARKET_MAX_WINDOW_SEC = 14 * 86400; // 14-day hard limit on the CLOB API
+// The CLOB /prices-history endpoint returns an empty result when both startTs and
+// endTs are supplied and their span exceeds 14 days. To fetch longer history
+// (OneMonth / All), omit endTs — the API then returns startTs→now. This matches
+// how Polymarket's own chart requests wide ranges.
+const POLYMARKET_MAX_WINDOW_SEC = 14 * 86400;
 
 export function formatPolymarketTimeRange(
     timeRange: BetsPriceTimeRange,
@@ -47,6 +51,14 @@ export function formatPolymarketTimeRange(
     endTs?: number;
     fidelity?: number;
 } {
+    // When the requested window exceeds the CLOB 14-day startTs+endTs limit, drop
+    // endTs so the API returns the full startTs→now range instead of an empty set.
+    const withOptionalEnd = (
+        startTs: number,
+        fidelity: number,
+    ): { startTs: number; endTs?: number; fidelity: number } =>
+        startTs < endSec - POLYMARKET_MAX_WINDOW_SEC ? { startTs, fidelity } : { startTs, endTs: endSec, fidelity };
+
     switch (timeRange) {
         case BetsPriceTimeRange.OneHour:
             return { startTs: Math.max(createSec, endSec - 3600), endTs: endSec, fidelity: 1 };
@@ -56,23 +68,18 @@ export function formatPolymarketTimeRange(
             return { startTs: Math.max(createSec, endSec - 86400), endTs: endSec, fidelity: 5 };
         case BetsPriceTimeRange.OneWeek:
             return { startTs: Math.max(createSec, endSec - 604800), endTs: endSec, fidelity: 30 };
-        case BetsPriceTimeRange.OneMonth: {
-            // CLOB API rejects windows > 14 days; clamp to the max allowed window.
-            const rawStart = Math.max(createSec, endSec - 2592000);
-            const startTs = Math.max(rawStart, endSec - POLYMARKET_MAX_WINDOW_SEC);
-            return { startTs, endTs: endSec, fidelity: 180 };
-        }
+        case BetsPriceTimeRange.OneMonth:
+            // A 30-day window usually exceeds the 14d CLOB limit, so endTs is omitted
+            // and the API returns the full month instead of being clamped to 14 days.
+            return withOptionalEnd(Math.max(createSec, endSec - 2592000), 180);
         case BetsPriceTimeRange.All: {
-            const allStart =
-                endSec - POLYMARKET_MAX_WINDOW_SEC > createSec ? endSec - POLYMARKET_MAX_WINDOW_SEC : createSec;
-            const windowMinutes = Math.round((endSec - allStart) / 60);
-            let fidelity: number;
-            if (windowMinutes < 1440) fidelity = 5;
-            else if (windowMinutes < 5040) fidelity = 15;
-            else if (windowMinutes < 10080) fidelity = 30;
-            else if (windowMinutes < 43200) fidelity = 60;
-            else fidelity = 180;
-            return { startTs: allStart, endTs: endSec, fidelity };
+            // Full history from market creation — NOT a trailing 14-day window. Match
+            // Polymarket's MAX view (720-min buckets). Fall back to a 14-day trailing
+            // window when createTime is unknown so we never request from epoch 0.
+            const startTs = createSec > 0 ? createSec : endSec - POLYMARKET_MAX_WINDOW_SEC;
+            return startTs < endSec - POLYMARKET_MAX_WINDOW_SEC
+                ? { startTs, fidelity: 720 }
+                : { startTs, endTs: endSec, fidelity: 60 };
         }
         default:
             return { startTs: Math.max(createSec, endSec - 86400), endTs: endSec, fidelity: 5 };
