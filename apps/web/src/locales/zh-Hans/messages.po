@@ -4450,7 +4450,7 @@ msgid "Set @{0} as primary account"
 msgstr "将 @{0} 设置为主账号"
 
 msgid "1W"
-msgstr "一周"
+msgstr "1周"
 
 msgid "All Chains"
 msgstr "所有链"
