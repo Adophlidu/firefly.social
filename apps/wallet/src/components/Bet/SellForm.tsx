@@ -102,7 +102,7 @@ export function SellMarketForm({
                                 }}
                                 decreaseDisabled={BigNumber(field.value || 0).lte(0)}
                                 inputProps={{
-                                    placeholder: '$0',
+                                    placeholder: '0',
                                 }}
                                 inputClassName={cn({
                                     'text-danger': isOverMax,
