@@ -157,7 +157,6 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         <SocialSourceIcon mono className="shrink-0 text-second" source={post.source} size={15} />
                     )}
                     {post.isAd ? <span className="ml-1 shrink-0 text-medium leading-5 text-secondary">Ad</span> : null}
-                    {post.isAI ? <span className="ml-1 shrink-0 text-medium leading-5 text-secondary">AI</span> : null}
                 </div>
                 {!isQuote ? (
                     <div className={shouldAlwaysBreakHandleLine ? '' : 'min-[620px]:hidden'}>{renderHandle()}</div>

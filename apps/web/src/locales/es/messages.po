@@ -742,6 +742,9 @@ msgstr "Resumen"
 msgid "Most Nashors"
 msgstr "Más Nashors"
 
+msgid "Made with AI"
+msgstr ""
+
 msgid "Stocks"
 msgstr "Acciones"
 

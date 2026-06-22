@@ -738,6 +738,9 @@ msgstr "概要"
 msgid "Most Nashors"
 msgstr "ナッシャー最多"
 
+msgid "Made with AI"
+msgstr ""
+
 msgid "Stocks"
 msgstr "株式"
 

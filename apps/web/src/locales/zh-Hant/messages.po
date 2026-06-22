@@ -738,6 +738,9 @@ msgstr "總覽"
 msgid "Most Nashors"
 msgstr "最多納什男爵"
 
+msgid "Made with AI"
+msgstr ""
+
 msgid "Stocks"
 msgstr "股票代幣"
 

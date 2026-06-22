@@ -21,6 +21,7 @@ import { PollCard } from '@/components/Poll/PollCard.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
+import { MadeWithAITag } from '@/components/Posts/MadeWithAITag.js';
 import { PostBodyReplyContent } from '@/components/Posts/PostBodyReplyContent.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -302,6 +303,8 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             {showAttachments && !hideAttachments ? (
                 <Attachments post={post} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
+
+            {post.isAI ? <MadeWithAITag /> : null}
 
             {LinksContent}
 

@@ -742,6 +742,9 @@ msgstr "Overview"
 msgid "Most Nashors"
 msgstr "Most Nashors"
 
+msgid "Made with AI"
+msgstr "Made with AI"
+
 msgid "Stocks"
 msgstr "Stocks"
 
