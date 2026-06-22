@@ -897,6 +897,9 @@ msgstr "登录中"
 msgid "Search token"
 msgstr "搜索代币"
 
+msgid "No open orders"
+msgstr ""
+
 msgid "Your transaction has been completed."
 msgstr "您的交易已完成。"
 

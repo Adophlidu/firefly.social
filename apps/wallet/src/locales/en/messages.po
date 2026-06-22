@@ -897,6 +897,9 @@ msgstr "Signing In"
 msgid "Search token"
 msgstr "Search token"
 
+msgid "No open orders"
+msgstr "No open orders"
+
 msgid "Your transaction has been completed."
 msgstr "Your transaction has been completed."
 

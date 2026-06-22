@@ -90,7 +90,7 @@ function BetHomeLayout() {
         <div className="flex w-full flex-1 flex-col items-center">
             <BetNavigationBar />
             <PositionsTelemetry />
-            <div className="flex min-h-[calc(100vh+460px-44px)] w-full flex-col items-center">
+            <div className="flex min-h-0 w-full grow flex-col items-center">
                 <ErrorBoundary fallback={betHomeErrorFallback} catch={betHomeCatchHandler}>
                     <Suspense fallback={<HeaderLoading className="px-4 pb-[78px]" />}>
                         <ClientLayout />

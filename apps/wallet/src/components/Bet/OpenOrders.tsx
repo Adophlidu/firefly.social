@@ -1,3 +1,4 @@
+import BetHistoryEmptyIcon from '@dimensiondev/assets/bet-history-empty.svg';
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
@@ -15,6 +16,7 @@ import { BigNumber } from 'bignumber.js';
 import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
 
+import { BetEmptyState } from '@/components/Bet/BetEmptyState.js';
 import { OpenOrdersSkeleton } from '@/components/Bet/OpenOrdersSkeleton.js';
 import {
     DialogOrDrawer,
@@ -70,6 +72,8 @@ export function OpenOrders() {
             }}
             NoResultsFallbackProps={{
                 className: 'px-4',
+                icon: <BetHistoryEmptyIcon className="h-[128px] w-[160px] text-third" />,
+                message: <BetEmptyState message={<Trans>No open orders</Trans>} proxyAddress={account.proxyAddress} />,
             }}
         />
     );

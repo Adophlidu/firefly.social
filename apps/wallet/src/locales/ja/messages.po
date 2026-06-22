@@ -897,6 +897,9 @@ msgstr "サインイン中"
 msgid "Search token"
 msgstr "トークンを検索"
 
+msgid "No open orders"
+msgstr ""
+
 msgid "Your transaction has been completed."
 msgstr "トランザクションが完了しました。"
 

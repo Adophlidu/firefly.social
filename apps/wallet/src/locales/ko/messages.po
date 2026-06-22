@@ -897,6 +897,9 @@ msgstr "로그인 중"
 msgid "Search token"
 msgstr "토큰 검색"
 
+msgid "No open orders"
+msgstr ""
+
 msgid "Your transaction has been completed."
 msgstr "트랜잭션이 완료되었습니다."
 

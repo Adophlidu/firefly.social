@@ -20,7 +20,7 @@ export function BetEmptyState({ message, proxyAddress }: Props) {
                         proxy_wallet_address: proxyAddress ?? '',
                     });
                     iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
-                        path: '/explore/prediction/trending',
+                        path: '/prediction/category/trending',
                     });
                 }}
             >
