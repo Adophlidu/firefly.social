@@ -372,7 +372,7 @@ export const SportPriceChart = memo(function SportPriceChart({ event }: SportPri
                     <div className="hidden min-w-0 flex-1 md:block" />
                 )}
                 {showToggle ? (
-                    <div className="flex shrink-0 items-center gap-4">
+                    <div className="flex shrink-0 items-center gap-2">
                         <ToggleButton
                             selected={effectiveTab === 'market'}
                             Icon={MarketChartIcon}
