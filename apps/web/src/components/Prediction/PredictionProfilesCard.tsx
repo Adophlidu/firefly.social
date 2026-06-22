@@ -28,7 +28,7 @@ export function PredictionProfilesCard({ address }: PredictionProfilesCardProps)
         <div
             className="space-y-3 transition-all duration-200 ease-in-out"
             style={{
-                height,
+                minHeight: height,
             }}
         >
             {isLoading ? (

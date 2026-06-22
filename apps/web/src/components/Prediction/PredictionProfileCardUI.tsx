@@ -55,20 +55,20 @@ export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(functi
 
     return (
         <Link
-            className="flex justify-evenly gap-3 rounded-xl bg-primaryBottom p-3"
+            className="flex flex-col gap-3 rounded-xl bg-primaryBottom p-3 md:flex-row"
             href={RouteResolver.betsProfile(profile.proxy, {
                 platform: profile.platform,
             })}
             onClick={handleProfileClick}
             data-disable-progress
         >
-            <div className="flex flex-1 items-center gap-2 text-main">
+            <div className="flex min-w-0 flex-1 shrink-0 items-center gap-2 text-main">
                 <PredictionPlatformIcon platform={profile.platform} className="shrink-0 rounded-full" size={32} />
-                <div className="flex h-9 w-28 flex-col items-start">
+                <div className="flex h-9 min-w-0 flex-1 flex-col items-start">
                     <div className="w-full shrink-0 truncate text-sm font-semibold">
                         {profile.platform_name || <PredictionPlatformName platform={profile.platform} />}
                     </div>
-                    <div className="ml-auto flex items-center text-[13px] font-medium text-second">
+                    <div className="flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(profile.proxy, 4, 2)}
                         <CopyTextButton
                             className="ml-2 text-second"
@@ -83,27 +83,29 @@ export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(functi
                     </div>
                 </div>
             </div>
-            <div className="flex h-9 flex-1 shrink-0 flex-col items-end justify-between gap-1">
-                <div className="text-xs text-second">
-                    <Trans>Portfolio</Trans>
+            <div className="flex min-w-0 flex-1 shrink-0 justify-between gap-3 pl-10 md:pl-0">
+                <div className="flex h-9 flex-1 shrink-0 flex-col items-start justify-between gap-1">
+                    <div className="text-xs text-second">
+                        <Trans>Portfolio</Trans>
+                    </div>
+                    <div className="relative text-sm font-semibold text-main">
+                        {`$${profile ? formatPrice(profile.balance.toFixed(2)) : '-'}`}
+                    </div>
                 </div>
-                <div className="relative text-sm font-semibold text-main">
-                    {`$${profile ? formatPrice(profile.balance.toFixed(2)) : '-'}`}
-                </div>
-            </div>
-            <div className="flex h-9 flex-1 shrink-0 flex-col items-end justify-between gap-1">
-                <div className="text-xs text-second">
-                    <Trans>PnL</Trans>
-                </div>
-                <div className="relative text-success">
-                    <span
-                        className={`text-sm font-semibold ${
-                            !profile ? '' : profile.pnl < 0 ? 'text-danger' : 'text-success'
-                        }`}
-                    >
-                        {formatPolymarketNumber(profile?.pnl, { sign: true })}
-                        {/* <span className="ml-0.5 text-xs font-normal">{toRate(profile?.pnl_rate)}</span> */}
-                    </span>
+                <div className="flex h-9 flex-1 shrink-0 flex-col items-end justify-between gap-1">
+                    <div className="text-xs text-second">
+                        <Trans>PnL</Trans>
+                    </div>
+                    <div className="relative text-success">
+                        <span
+                            className={`text-sm font-semibold ${
+                                !profile ? '' : profile.pnl < 0 ? 'text-danger' : 'text-success'
+                            }`}
+                        >
+                            {formatPolymarketNumber(profile?.pnl, { sign: true })}
+                            {/* <span className="ml-0.5 text-xs font-normal">{toRate(profile?.pnl_rate)}</span> */}
+                        </span>
+                    </div>
                 </div>
             </div>
         </Link>
