@@ -23,7 +23,13 @@ export function normalizeBetInput(raw: string, type: BetInputType, options?: { m
     switch (type) {
         case 'usd':
         case 'shares':
-            return trimTrailingDecimalZeros(normalizeDecimalInput(raw, { maxDecimals: 2, min: 0 }));
+            // Do NOT trim trailing fractional zeros here: while typing, "1.0" is a valid
+            // intermediate state on the way to "1.01". Trimming it back to "1" makes it
+            // impossible to type values like "1.01". `normalizeDecimalInput` already caps
+            // precision to 2 decimals and preserves the user's typed digits. Programmatic
+            // callers (steppers / max) pass `BigNumber.toString()`, which never produces
+            // trailing zeros, so there is nothing to trim there either.
+            return normalizeDecimalInput(raw, { maxDecimals: 2, min: 0 });
         case 'limitPriceCents':
             // IMPORTANT: this must be "round down" (floor), not JS `toFixed` rounding.
             // We keep the user's typed precision, clamp to [0, max], then floor to `maxDecimals`.
