@@ -22,7 +22,7 @@
     "scripts": {
         "build": "tsdown",
         "dev": "tsdown --watch",
-        "typecheck": "tsgo --noEmit",
+        "typecheck": "tsc --noEmit",
         "clean": "rm -rf dist"
     },
     "author": "Firefly Team",
@@ -37,7 +37,6 @@
         "access": "restricted"
     },
     "devDependencies": {
-        "@typescript/native-preview": "7.0.0-dev.20260612.1",
         "@types/react": "^19.2.17",
         "tsdown": "^0.21.10"
     },

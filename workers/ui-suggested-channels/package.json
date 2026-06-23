@@ -14,7 +14,7 @@
         "types": "tsc -p tsconfig.types.json",
         "deploy": "wrangler deploy --config wrangler.jsonc",
         "dev": "wrangler dev --config wrangler.jsonc",
-        "typecheck": "tsgo --noEmit"
+        "typecheck": "tsc --noEmit"
     },
     "dependencies": {
         "@dimensiondev/workers-shared": "workspace:*",
@@ -26,7 +26,6 @@
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20251011.0",
         "@types/node": "^24.0.15",
-        "@typescript/native-preview": "7.0.0-dev.20260612.1",
         "wrangler": "^4.45.4"
     },
     "peerDependencies": {
