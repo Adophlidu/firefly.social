@@ -1,5 +1,6 @@
 'use client';
 
+import { SORTED_BETS_PLATFORM } from '@dimensiondev/constants/computed';
 import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -24,15 +25,17 @@ export const ProfilePredictionTimeline = memo<ProfilePredictionTimelineProps>(fu
     address,
 }) {
     const { platforms } = usePredictionSourceFilterStore(PredictionFilterNamespace.Profile);
+    // If all platforms are selected, we don't need to filter by platform, so we pass an empty array to the query function.
+    const validPlatforms = platforms.length === SORTED_BETS_PLATFORM.length ? [] : platforms;
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'list', 'profile', address.toLowerCase(), platforms.join(',')],
+        queryKey: ['bets', 'list', 'profile', address.toLowerCase(), validPlatforms.join(',')],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             return getPredictionTimelineByAddress({
                 walletAddresses: [address],
                 indicator,
-                platforms,
+                platforms: validPlatforms,
             });
         },
         initialPageParam: '',
