@@ -636,6 +636,7 @@
         "packages/tolgee/**",
         "patches/**",
         "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
         "public/**",
         "scripts/**",
         "statoscope.json",
