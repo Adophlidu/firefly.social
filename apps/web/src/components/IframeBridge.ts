@@ -20,6 +20,7 @@ import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.
 import { openDownloadMobileAppModal } from '@/controllers/openDownloadMobileAppModal.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useRouter } from '@/esm/navigation.js';
+import { confettiWithRealistic } from '@/helpers/confetti.js';
 import {
     enqueueErrorMessage,
     enqueueInfoMessage,
@@ -288,6 +289,11 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         },
         [IframeBridgeMethod.ENABLE_SYNC_SESSION]: async () => {
             await handleEnableSyncSession();
+        },
+        [IframeBridgeMethod.FIREFLY_WALLET_CONFETTI]: async () => {
+            // Render confetti from the host document so it spans the full viewport;
+            // a canvas drawn inside the wallet iframe is clipped to the iframe's box.
+            confettiWithRealistic();
         },
     };
     return allEvents;

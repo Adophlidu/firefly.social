@@ -154,6 +154,10 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             [IframeBridgeMethod.FIREFLY_WALLET_REFRESH]: async () => {
                 await queryClient.invalidateQueries();
             },
+            [IframeBridgeMethod.FIREFLY_WALLET_CONFETTI]: async () => {
+                // Host-only: confetti is rendered by the host document so it can cover the full viewport.
+                throw new Error('Not implemented');
+            },
             [IframeBridgeMethod.ENABLE_SYNC_SESSION]: async () => {
                 // Coordinated by the host app; nothing to do inside the wallet iframe.
             },

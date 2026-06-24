@@ -20,7 +20,11 @@ import { formatPercentRateMin } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
-import { fallbackShareIdentity, getWinningsShareImagePayload } from '@/helpers/polymarketShareImage.js';
+import {
+    buildPolymarketShareImageUrl,
+    fallbackShareIdentity,
+    getWinningsShareImagePayload,
+} from '@/helpers/polymarketShareImage.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import type { PolymarketClaimV2Item, PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
@@ -76,6 +80,17 @@ export function SettleResolvedMarketsModal({
         async onSuccess() {
             toast.success(<Trans>Claim requested</Trans>);
             onOpenChange(false);
+
+            // Ask the host to play confetti full-screen; an in-iframe canvas would be clipped to the wallet box.
+            if (sharePayload) {
+                iframeBridgeProvider
+                    .request(IframeBridgeMethod.COMPOSE, {
+                        text: sharePayload.link,
+                        imageUrls: [buildPolymarketShareImageUrl(sharePayload.params)],
+                    })
+                    .catch(() => {});
+            }
+            iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_CONFETTI, {}).catch(() => {});
 
             const proxy = proxyAddress.toLowerCase();
             const positionsQueryKeys = getPositionsQueryKeys(proxyAddress);

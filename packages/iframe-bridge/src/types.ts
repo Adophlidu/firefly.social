@@ -68,6 +68,8 @@ export enum IframeBridgeMethod {
     FIREFLY_WALLET_NOTIFY = 'firefly_wallet_notify',
     FIREFLY_WALLET_REFRESH = 'firefly_wallet_refresh',
     FIREFLY_WALLET_SKIP_WALLET_AUTH = 'firefly_wallet_skip_wallet_auth',
+    /** Wallet iframe asks the host to play a full-screen confetti animation (the iframe canvas is clipped to its box). */
+    FIREFLY_WALLET_CONFETTI = 'firefly_wallet_confetti',
 
     // firefly.social/masko-iframe
     MASKO_PLAY_ANIMATION = 'masko_play_animation',
@@ -161,6 +163,7 @@ export interface IframeBridgeRequestArguments {
     [IframeBridgeMethod.FIREFLY_WALLET_SKIP_WALLET_AUTH]: {
         skip: boolean;
     };
+    [IframeBridgeMethod.FIREFLY_WALLET_CONFETTI]: {};
 }
 
 export interface IframeBridgeResponseResult {
@@ -184,4 +187,5 @@ export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.MASKO_SHOW_TEXT]: void;
     [IframeBridgeMethod.ENABLE_SYNC_SESSION]: void;
     [IframeBridgeMethod.FIREFLY_WALLET_SKIP_WALLET_AUTH]: void;
+    [IframeBridgeMethod.FIREFLY_WALLET_CONFETTI]: void;
 }
