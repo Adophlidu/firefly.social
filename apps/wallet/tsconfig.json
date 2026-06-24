@@ -19,7 +19,12 @@
         "noImplicitThis": true,
         "lib": ["ES2024", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            // tamagui v2 ships these two packages' types as raw src .ts (TS2835
+            // under NodeNext). Redirect to a permissive stub; the wallet only
+            // uses them transitively via tamagui. See tamagui-src-stub.d.ts.
+            "@tamagui/element": ["./tamagui-src-stub.d.ts"],
+            "@tamagui/use-async": ["./tamagui-src-stub.d.ts"]
         }
     },
     "include": ["globals.d.ts", "src/**/*.ts", "src/**/*.tsx"],
