@@ -23,7 +23,8 @@ import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
 
 import { BetEmptyState } from '@/components/Bet/BetEmptyState.js';
-import { PositionShareEntry, PositionShareSheet } from '@/components/Bet/PositionShare.js';
+import { PositionShareSheet } from '@/components/Bet/PositionShare.js';
+import { PositionShareEntrance } from '@/components/Bet/PositionShareEntrance.js';
 import {
     DialogOrDrawer,
     DialogOrDrawerClose,
@@ -386,9 +387,9 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
                     {position.title || '-'}
                 </div>
                 {sharePayload ? (
-                    <PositionShareEntry
-                        payload={sharePayload}
-                        className="max-md:hidden md:opacity-0 md:group-hover:opacity-100"
+                    <PositionShareEntrance
+                        className="opacity-0 group-hover:opacity-100"
+                        onClick={() => setShareSheetOpen(true)}
                     />
                 ) : null}
             </button>

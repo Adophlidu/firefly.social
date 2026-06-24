@@ -1,7 +1,8 @@
 'use client';
 
-import ImageIcon from '@dimensiondev/assets/image.svg';
+import SendIcon from '@dimensiondev/assets/send.svg';
 import ShareImageIcon from '@dimensiondev/assets/share-image.svg';
+import ShareIcon from '@dimensiondev/assets/share-solid.svg';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
@@ -9,7 +10,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Popover } from '@/components/Popover.js';
-import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { openPolymarketSharePreview } from '@/components/Prediction/openPolymarketSharePreview.js';
 import { PolymarketShareMenuItems } from '@/components/Prediction/PolymarketShareMenuItems.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -38,9 +38,9 @@ export const PredictionPositionShareButton = memo(function PredictionPositionSha
                 <Tooltip content={<Trans>Share</Trans>} placement="top">
                     <span
                         data-testid="prediction-position-share"
-                        className="inline-flex size-6 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link"
+                        className="inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link"
                     >
-                        <ShareButtonWithAnimation />
+                        <ShareIcon width={16} height={16} className="text-[#8E96FF]" />
                     </span>
                 </Tooltip>
             }
@@ -70,7 +70,7 @@ export const PredictionPositionShareSheet = memo(function PredictionPositionShar
 
     return (
         <Popover open={open} onClose={onClose}>
-            <div className="flex flex-col gap-1 pb-4">
+            <div className="flex flex-col gap-1">
                 <button
                     type="button"
                     className="flex h-12 items-center gap-3 rounded-lg px-3 text-left hover:bg-bg"
@@ -82,7 +82,7 @@ export const PredictionPositionShareSheet = memo(function PredictionPositionShar
                     {isPosting ? (
                         <LoadingIcon width={20} height={20} className="animate-spin" />
                     ) : (
-                        <ImageIcon width={20} height={20} />
+                        <SendIcon width={20} height={20} />
                     )}
                     <span className="font-bold text-main">
                         <Trans>Post with image</Trans>

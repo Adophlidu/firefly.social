@@ -1,17 +1,18 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import ClaimProceedsSuccessIcon from '@dimensiondev/assets/claim-proceeds-success.svg';
+import ShareIcon from '@dimensiondev/assets/share.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import type { Address, Hash } from 'viem';
 import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
 
-import { PositionShareEntry } from '@/components/Bet/PositionShare.js';
+import { PositionShareSheet } from '@/components/Bet/PositionShare.js';
 import { DialogOrDrawerContent, DialogOrDrawerHeader, DialogOrDrawerTitle } from '@/components/DialogOrDrawer.js';
 import { Image } from '@/components/Image.js';
 import { Button } from '@/components/ui/button.js';
@@ -52,6 +53,7 @@ export function SettleResolvedMarketsModal({
     const config = useConfig();
     const queryClient = useQueryClient();
     const signMessage = useSignMessageWithPrivy();
+    const [open, setOpen] = useState(false);
 
     // Build claim items for batch API (only winning items)
     const claimItems = useMemo(() => {
@@ -125,7 +127,6 @@ export function SettleResolvedMarketsModal({
                 <DialogOrDrawerTitle className="flex justify-start">
                     <Trans>Claim all the winnings</Trans>
                 </DialogOrDrawerTitle>
-                {sharePayload ? <PositionShareEntry payload={sharePayload} className="ml-2" /> : null}
             </DialogOrDrawerHeader>
 
             <div className="flex flex-col gap-6">
@@ -179,17 +180,30 @@ export function SettleResolvedMarketsModal({
                     })}
                 </div>
 
-                <Button
-                    type="button"
-                    size="lg"
-                    variant="primary"
-                    className="h-10 w-full rounded-full font-bold"
-                    loading={isPending}
-                    disabled={!claimItems.length}
-                    onClick={() => mutate()}
-                >
-                    <Trans>Claim winnings</Trans>
-                </Button>
+                <div className="flex items-center gap-2.5">
+                    <Button
+                        type="button"
+                        size="lg"
+                        variant="primary"
+                        className="h-10 flex-1 rounded-full font-bold"
+                        loading={isPending}
+                        disabled={!claimItems.length}
+                        onClick={() => mutate()}
+                    >
+                        <Trans>Claim winnings</Trans>
+                    </Button>
+                    {sharePayload ? (
+                        <>
+                            <button
+                                onClick={() => setOpen(true)}
+                                className="flex h-10 w-14 shrink-0 items-center justify-center rounded-full border border-secondaryLine"
+                            >
+                                <ShareIcon className="text-main" width={20} height={20} />
+                            </button>
+                            <PositionShareSheet payload={sharePayload} open={open} onOpenChange={setOpen} />
+                        </>
+                    ) : null}
+                </div>
             </div>
         </DialogOrDrawerContent>
     );

@@ -1,6 +1,6 @@
 'use client';
 
-import ImageIcon from '@dimensiondev/assets/image.svg';
+import SendIcon from '@dimensiondev/assets/send.svg';
 import ShareImageIcon from '@dimensiondev/assets/share-image.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -40,7 +40,7 @@ export const PolymarketShareMenuItems = memo(function PolymarketShareMenuItems({
                         {isPosting ? (
                             <LoadingIcon width={18} height={18} className="animate-spin" />
                         ) : (
-                            <ImageIcon width={18} height={18} />
+                            <SendIcon width={18} height={18} />
                         )}
                         <span className="font-bold leading-[22px] text-main">
                             <Trans>Post with image</Trans>

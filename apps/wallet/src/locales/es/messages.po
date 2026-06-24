@@ -1057,9 +1057,6 @@ msgstr "Seguridad y privacidad"
 msgid "Approve"
 msgstr "Aprobar"
 
-msgid "Share"
-msgstr "Compartir"
-
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
 msgstr "Prom. {0}"

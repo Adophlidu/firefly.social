@@ -8,7 +8,8 @@ import { type PropsWithChildren, type ReactNode, useMemo, useState } from 'react
 import { toast } from 'sonner';
 
 import { PositionClaimModal } from '@/components/Bet/PositionClaimModal.js';
-import { PositionShareEntry, PositionShareSheet } from '@/components/Bet/PositionShare.js';
+import { PositionShareSheet } from '@/components/Bet/PositionShare.js';
+import { PositionShareEntrance } from '@/components/Bet/PositionShareEntrance.js';
 import { Image } from '@/components/Image.js';
 import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
@@ -133,9 +134,9 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
                     <div className="flex items-start gap-1">
                         <div className="line-clamp-2 min-w-0 flex-1">{position.title}</div>
                         {sharePayload ? (
-                            <PositionShareEntry
-                                payload={sharePayload}
-                                className="max-md:hidden md:opacity-0 md:group-hover:opacity-100"
+                            <PositionShareEntrance
+                                className="opacity-0 group-hover:opacity-100"
+                                onClick={() => setShareSheetOpen(true)}
                             />
                         ) : null}
                     </div>

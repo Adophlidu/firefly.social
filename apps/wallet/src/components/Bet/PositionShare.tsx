@@ -1,10 +1,14 @@
+import CopyLinearIcon from '@dimensiondev/assets/copy-linear.svg';
+import Download2Icon from '@dimensiondev/assets/download2.svg';
+import SendIcon from '@dimensiondev/assets/send.svg';
+import Send2Icon from '@dimensiondev/assets/send2.svg';
+import ShareImageIcon from '@dimensiondev/assets/share-image.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useMutation } from '@tanstack/react-query';
-import { Copy, Download, Image as ImageIcon, Loader2, Share, X } from 'lucide-react';
-import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
+import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
@@ -13,7 +17,6 @@ import {
     DialogOrDrawerHeader,
     DialogOrDrawerTitle,
 } from '@/components/DialogOrDrawer.js';
-import { Button } from '@/components/ui/button.js';
 import { buildPolymarketShareImageUrl, type PolymarketShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { cn } from '@/lib/utils.js';
 
@@ -93,24 +96,24 @@ export function PositionShareSheet({ payload, open, onOpenChange }: PositionShar
                     <div className="flex flex-col gap-1 py-2">
                         <button
                             type="button"
-                            className="flex h-12 items-center gap-3 rounded-lg px-3 text-left hover:bg-lightBg"
+                            className="flex h-12 items-center gap-3 rounded-lg text-left hover:bg-lightBg"
                             disabled={isPending}
                             onClick={() => postWithImage()}
                         >
-                            {isPending ? <Loader2 className="size-5 animate-spin" /> : <ImageIcon className="size-5" />}
+                            {isPending ? <Loader2 className="size-5 animate-spin" /> : <SendIcon className="size-5" />}
                             <span className="text-sm font-bold text-main">
                                 <Trans>Post with image</Trans>
                             </span>
                         </button>
                         <button
                             type="button"
-                            className="flex h-12 items-center gap-3 rounded-lg px-3 text-left hover:bg-lightBg"
+                            className="flex h-12 items-center gap-3 rounded-lg text-left hover:bg-lightBg"
                             onClick={() => {
                                 onOpenChange(false);
                                 setPreviewOpen(true);
                             }}
                         >
-                            <Share className="size-5" />
+                            <ShareImageIcon className="size-5" />
                             <span className="text-sm font-bold text-main">
                                 <Trans>Share image</Trans>
                             </span>
@@ -120,6 +123,32 @@ export function PositionShareSheet({ payload, open, onOpenChange }: PositionShar
             </DialogOrDrawer>
             <PositionSharePreviewDialog payload={payload} open={previewOpen} onOpenChange={setPreviewOpen} />
         </>
+    );
+}
+
+interface ShareActionProps {
+    label: ReactNode;
+    icon: ReactNode;
+    disabled?: boolean;
+    loading?: boolean;
+    onClick: () => void;
+}
+
+function ShareAction({ label, icon, disabled, loading, onClick }: ShareActionProps) {
+    return (
+        <div
+            className={cn('flex shrink-0 flex-col items-center gap-1', disabled ? 'cursor-not-allowed opacity-50' : '')}
+        >
+            <button
+                type="button"
+                onClick={disabled || loading ? undefined : onClick}
+                disabled={disabled}
+                className="flex size-12 items-center justify-center rounded-full border border-secondaryLine text-main"
+            >
+                {loading ? <Loader2 className="size-5 animate-spin" /> : icon}
+            </button>
+            <span className="w-full truncate text-center text-xs font-medium leading-[14px] text-main">{label}</span>
+        </div>
     );
 }
 
@@ -164,11 +193,8 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
                     <DialogOrDrawerTitle>
                         <Trans>Share image</Trans>
                     </DialogOrDrawerTitle>
-                    <button type="button" onClick={() => onOpenChange(false)} aria-label={t`Close`}>
-                        <X className="size-5" />
-                    </button>
                 </DialogOrDrawerHeader>
-                <div className="no-scrollbar relative max-h-[50vh] overflow-y-auto">
+                <div className="no-scrollbar relative max-h-[70vh] overflow-y-auto">
                     {loading || hasError ? (
                         <div className="absolute inset-0 z-10 flex items-center justify-center bg-primaryBottom">
                             {loading ? (
@@ -193,84 +219,32 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
                         />
                     </div>
                 </div>
-                <div className="flex flex-col gap-2 pb-2">
+                <div className="mt-3 flex items-start justify-evenly pb-2">
                     {supportsImageClipboard() ? (
-                        <Button
-                            type="button"
-                            size="lg"
-                            variant="outline"
-                            className="h-10 w-full rounded-full font-bold"
+                        <ShareAction
                             disabled={loading || hasError}
                             loading={isCopying}
+                            icon={<CopyLinearIcon className="size-5" />}
+                            label={<Trans>Copy</Trans>}
                             onClick={() => copyImage()}
-                        >
-                            <Copy className="mr-1 size-4" />
-                            <Trans>Copy</Trans>
-                        </Button>
+                        />
                     ) : null}
-                    <Button
-                        type="button"
-                        size="lg"
-                        variant="outline"
-                        className="h-10 w-full rounded-full font-bold"
+                    <ShareAction
+                        label={<Trans>Download</Trans>}
+                        icon={<Download2Icon className="size-5" />}
                         disabled={loading || hasError}
                         loading={isDownloading}
                         onClick={() => download()}
-                    >
-                        <Download className="mr-1 size-4" />
-                        <Trans>Download</Trans>
-                    </Button>
-                    <Button
-                        type="button"
-                        size="lg"
-                        variant="primary"
-                        className="h-10 w-full rounded-full font-bold"
+                    />
+                    <ShareAction
+                        label={<Trans>Post</Trans>}
+                        icon={<Send2Icon width={20} height={20} />}
                         disabled={loading || hasError}
                         loading={isPending}
                         onClick={() => postWithImage()}
-                    >
-                        <Trans>Post</Trans>
-                    </Button>
+                    />
                 </div>
             </DialogOrDrawerContent>
         </DialogOrDrawer>
-    );
-}
-
-interface PositionShareEntryProps {
-    payload: PolymarketShareImagePayload;
-    className?: string;
-}
-
-/** The share icon entry shown on cell-title hover (FW-7696 AC-11) or in dialog headers (AC-12). */
-export function PositionShareEntry({ payload, className }: PositionShareEntryProps) {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <span
-                role="button"
-                tabIndex={0}
-                aria-label={t`Share`}
-                className={cn(
-                    'inline-flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full text-second hover:bg-lightBg hover:text-main',
-                    className,
-                )}
-                onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    setOpen(true);
-                }}
-                onKeyDown={(event) => {
-                    if (event.key !== 'Enter' && event.key !== ' ') return;
-                    event.preventDefault();
-                    event.stopPropagation();
-                    setOpen(true);
-                }}
-            >
-                <Share className="size-4" />
-            </span>
-            <PositionShareSheet payload={payload} open={open} onOpenChange={setOpen} />
-        </>
     );
 }
