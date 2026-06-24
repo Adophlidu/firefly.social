@@ -215,6 +215,12 @@ function ComposeModalUI({ ref }: Props) {
                 });
                 return CloseAction.Saved;
             } else {
+                // Reset the whole compose state (chars + images + videos) synchronously.
+                // Clearing only the editor leaves images in the store, and the debounced
+                // editor onChange later writes back empty chars — the auto-save subscription
+                // then sees "empty text + images", treats the post as non-empty, and
+                // resurrects the temp draft we just removed. See FW-7809.
+                clear();
                 editor.update(() => $getRoot().clear());
                 removeTempDrafts();
                 dispatch?.close();
@@ -223,7 +229,7 @@ function ComposeModalUI({ ref }: Props) {
             dispatch?.close();
         }
         return CloseAction.Discard;
-    }, [isSmall, dispatch, posts, cursor, saveDraftInCompose, removeTempDrafts]);
+    }, [isSmall, dispatch, posts, cursor, saveDraftInCompose, removeTempDrafts, clear]);
 
     useUpdateEffect(() => {
         if (type !== 'quote') return;
