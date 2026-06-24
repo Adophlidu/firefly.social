@@ -53,7 +53,7 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                         <CloseIcon
                             width={16}
                             height={16}
-                            className="ml-4 size-4 cursor-pointer text-white"
+                            className="ml-4 size-4 shrink-0 cursor-pointer text-white"
                             onClick={handleDismiss}
                         />
                     </div>

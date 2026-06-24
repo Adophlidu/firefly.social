@@ -1463,6 +1463,10 @@ msgstr "異議申し立て中"
 msgid "No Airdrop Scam"
 msgstr "エアドロップ詐欺なし"
 
+#. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
+msgid "Connect the wallet{0} that owns this account and sign to enable auto login."
+msgstr ""
+
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "Lens マネージャーのバインドに失敗しました。後でもう一度お試しください。"
 
@@ -4121,9 +4125,6 @@ msgstr "{3} で <0>@{0}</0>、<1>@{1}</1>、<2>@{2}</2> に返信中"
 msgid "Follow Back"
 msgstr "フォローバック"
 
-msgid "Connect the wallet that owns this account and sign to enable auto login."
-msgstr "このアカウントを所有するウォレットを接続し、署名して自動ログインを有効にしてください。"
-
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "このウォレットは侵害されたとフラグが付けられています。信頼したり操作したりしないでください。取引や機密情報の共有を避けてください。安全に！"
 
@@ -5311,6 +5312,10 @@ msgstr "<0>設定 > コンテンツ設定</0> からいつでも再度有効に�
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
 msgstr "{0} への投稿の送信に失敗しました。"
+
+#. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
+msgid "Please re-login this account with owner wallet{0} to continue using more features."
+msgstr ""
 
 msgid "Tip liked."
 msgstr "チップにいいねしました。"

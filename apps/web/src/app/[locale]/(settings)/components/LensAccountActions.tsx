@@ -5,7 +5,7 @@ import { SEVEN_DAYS } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
-import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
+import { formatAddressEthereum, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -16,7 +16,7 @@ import { useConnection } from 'wagmi';
 import { IconButton } from '@/components/IconButton.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { openAndWaitForCloseAddLensManagerModal } from '@/controllers/openAddLensManagerModal.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { logger } from '@/libs/Logger.js';
 import { createMemorySessionClient } from '@/providers/lens/createMemorySessionClient.js';
@@ -52,7 +52,7 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
 
         queryFn: !privyEvm ? skipToken : () => getProfilesByAddress(privyEvm),
     });
-    const { data: signerAddress } = useQuery({
+    const { data: signerAddress, isLoading: isLoadingSigner } = useQuery({
         queryKey: [Source.Lens, 'signer', account?.session.profileId],
         staleTime: 0,
         enabled: !disabled,
@@ -60,14 +60,29 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
             ? skipToken
             : async () => {
                   const sessionClient = await createMemorySessionClient(account.session as LensSession);
-                  const signer = ensureLensResultSync(sessionClient.getAuthenticatedUser())?.signer;
-                  return signer ?? null;
+                  const user = ensureLensResultSync(sessionClient.getAuthenticatedUser());
+                  return user?.signer ?? null;
               },
     });
 
+    const isSessionValid = useMemo(() => {
+        if (!signerAddress || !profile.ownedBy?.address) return true;
+
+        return isSameEthereumAddress(signerAddress, profile.ownedBy.address);
+    }, [profile.ownedBy?.address, signerAddress]);
     const [{ loading }, onMoreButtonClick] = useAsyncFn(async () => {
         const lastSession = account?.session as LensSession | undefined;
         if (!privyEvm || !lastSession) return;
+
+        if (!isSessionValid) {
+            enqueueWarningMessage(
+                <Trans>
+                    Please re-login this account with owner wallet
+                    {profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''} to
+                    continue using more features.
+                </Trans>,
+            );
+        }
 
         const isCurrentProfile = isSameProfile(currentProfile, profile);
         const sessionClient = isCurrentProfile
@@ -114,7 +129,7 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
                 } catch {}
             }
         }
-    }, [profile, privyEvm, account, currentProfile]);
+    }, [profile, privyEvm, account, currentProfile, isSessionValid]);
 
     const isAlreadyBound = data?.some((x) => isSameProfile(x, profile));
     logger.info('[Lens Account Actions]: ', {
@@ -125,14 +140,7 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
     });
 
     if (isAlreadyBound) return null;
-    if (
-        disabled ||
-        isLoading ||
-        isRefetching ||
-        // signer must be connected
-        (!!signerAddress && !isSameEthereumAddress(signerAddress, connection.address))
-    )
-        return null;
+    if (disabled || isLoading || isRefetching || isLoadingSigner) return null;
 
     return (
         <IconButton onlyLoading loading={loading} tooltip={<Trans>Lens Auto login</Trans>} onClick={onMoreButtonClick}>

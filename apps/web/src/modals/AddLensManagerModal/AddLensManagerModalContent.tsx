@@ -1,4 +1,4 @@
-import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
+import { formatAddressEthereum, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import type { SessionClient } from '@lens-protocol/client';
 import { addAccountManager } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
@@ -86,7 +86,11 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
                         Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login.
                     </Trans>
                 ) : (
-                    <Trans>Connect the wallet that owns this account and sign to enable auto login.</Trans>
+                    <Trans>
+                        Connect the wallet
+                        {profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''} that
+                        owns this account and sign to enable auto login.
+                    </Trans>
                 )}
             </p>
             <ClickableButton

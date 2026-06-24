@@ -1463,6 +1463,10 @@ msgstr "争议中"
 msgid "No Airdrop Scam"
 msgstr "没有空投骗局"
 
+#. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
+msgid "Connect the wallet{0} that owns this account and sign to enable auto login."
+msgstr ""
+
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "绑定 Lens 管理员失败，请稍后重试。"
 
@@ -4121,9 +4125,6 @@ msgstr "在{3}上回复 <0>@{0}</0>，<1>@{1}</1> 和 <2>@{2} </2>"
 msgid "Follow Back"
 msgstr "回关"
 
-msgid "Connect the wallet that owns this account and sign to enable auto login."
-msgstr "连接拥有此账户的钱包并签名以启用自动登录。"
-
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "该钱包已被标记为存在安全风险。请不要信任或与其进行任何交互。避免任何交易或分享敏感信息。请保持警惕！"
 
@@ -5311,6 +5312,10 @@ msgstr "可在 <0>设置 > 内容偏好</0> 随时重新开启"
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
 msgstr "向 {0} 发布帖子失败。"
+
+#. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
+msgid "Please re-login this account with owner wallet{0} to continue using more features."
+msgstr ""
 
 msgid "Tip liked."
 msgstr "已点赞。"

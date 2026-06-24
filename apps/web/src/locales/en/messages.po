@@ -1470,6 +1470,10 @@ msgstr "Disputed"
 msgid "No Airdrop Scam"
 msgstr "No Airdrop Scam"
 
+#. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
+msgid "Connect the wallet{0} that owns this account and sign to enable auto login."
+msgstr "Connect the wallet{0} that owns this account and sign to enable auto login."
+
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "Failed to bind Lens manager, please try again later."
 
@@ -4144,9 +4148,6 @@ msgstr "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
 msgid "Follow Back"
 msgstr "Follow Back"
 
-msgid "Connect the wallet that owns this account and sign to enable auto login."
-msgstr "Connect the wallet that owns this account and sign to enable auto login."
-
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 
@@ -5337,6 +5338,10 @@ msgstr "You can turn it back on anytime in <0>Settings > Content preference</0>"
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
 msgstr "Failed to send your post to {0}."
+
+#. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
+msgid "Please re-login this account with owner wallet{0} to continue using more features."
+msgstr "Please re-login this account with owner wallet{0} to continue using more features."
 
 msgid "Tip liked."
 msgstr "Tip liked."
