@@ -6,6 +6,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getOrCreateSharerSessionDeviceId, getSharerSessionId } from '@/helpers/sharerSession.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 
 const SID_PATTERN = /^[a-zA-Z0-9_-]+$/;
@@ -58,15 +59,15 @@ export async function trackReferralConversion(session: FireflySession | null | u
     // Compare as strings so it only matches when the inviter sid is the new user's own numeric uid.
     if (String(newUserUid) === inviterSid) return;
 
-    await fetchJson<string>(urlcat(settings.FIREFLY_ROOT_URL, '/v1/referral/track/conversion'), {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${session.token}`,
+    await fireflySessionHolder.fetchWithSession<string>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/referral/track/conversion'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                new_user_uid: newUserUid,
+                new_user_device_id: newUserDeviceId,
+                inviter_uid: inviterSid,
+            }),
         },
-        body: JSON.stringify({
-            new_user_uid: newUserUid,
-            new_user_device_id: newUserDeviceId,
-            inviter_uid: inviterSid,
-        }),
-    });
+    );
 }

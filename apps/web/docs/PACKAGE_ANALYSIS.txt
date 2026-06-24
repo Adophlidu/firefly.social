@@ -530,7 +530,7 @@ Packages with Single Version
  @csstools/css-parser-algorithms@4.0.0
  @csstools/css-syntax-patches-for-csstree@1.1.5
  @csstools/css-tokenizer@4.0.0
- @dimensiondev/rn-ui@0.1.40
+ @dimensiondev/rn-ui@0.1.47
  @discoveryjs/json-ext@0.5.7
  @discoveryjs/natural-compare@1.1.0
  @eslint-community/eslint-utils@4.9.1
