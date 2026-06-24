@@ -77,7 +77,7 @@ minimumReleaseAgeExclude:
     - env-runner@0.1.11
     - react-native-worklets@0.9.2
     - typescript@7.0.1-rc
-    - '@dimensiondev/rn-ui@0.1.47'
+    - '@dimensiondev/rn-ui@0.2.0'
 
 allowBuilds:
     '@firebase/util': false
