@@ -79,10 +79,10 @@ function getFireflySession(account: Account) {
 
 /**
  * Auto-create a Lens account for a freshly created Firefly account when it was
- * not created from a Lens connection. The backend deploys and binds the Lens
- * account from the Firefly nickname and avatar; the username is the public
- * Firefly id (`ff-<uid>`), which is unique by construction. The backend is
- * idempotent, so re-runs on an already-bound account are no-ops.
+ * not created from a Lens connection. The backend generates the Lens username,
+ * deploys, and binds the account. The display name is the public Firefly id
+ * (`ff-<uid>`); the avatar is carried over from the Firefly account. The backend
+ * is idempotent, so re-runs on an already-bound account are no-ops.
  */
 async function autoCreateLensAccountForNewFireflyAccount(account: Account) {
     // skip accounts created from a Lens connection — they already have one.
@@ -92,8 +92,7 @@ async function autoCreateLensAccountForNewFireflyAccount(account: Account) {
     if (!payload?.isNew || !payload.uid) return;
 
     await createLensAccount({
-        username: `ff-${payload.uid}`,
-        name: payload.displayName ?? undefined,
+        name: `ff-${payload.uid}`,
         avatar: payload.avatar ?? undefined,
     });
 }
