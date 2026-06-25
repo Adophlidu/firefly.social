@@ -410,6 +410,38 @@ export interface DepositSupportedToken {
 
 export type DepositSupportedTokensResponse = Response<DepositSupportedToken[]>;
 
+/** Per-chain deposit asset (from `deposit/supported_tokens/all`). */
+export interface DepositAllSupportedTokenItem {
+    token_symbol: string;
+    token_name?: string;
+    token_icon?: string;
+    token_decimals?: number;
+    token_address: string;
+}
+
+/** Deposit supported assets grouped by chain (from `deposit/supported_tokens/all`). */
+export interface DepositAllSupportedTokensChain {
+    chain_id: number;
+    chain_name?: string;
+    /** Deposit address family. `tron` uses the Tron relay; `evm`/`svm` use bridge addresses. */
+    chain_type: 'evm' | 'svm' | 'tron';
+    min_checkout_usd: number;
+    tokens: DepositAllSupportedTokenItem[];
+}
+
+export type DepositAllSupportedTokensResponse = Response<DepositAllSupportedTokensChain[]>;
+
+/** Bridge deposit addresses (from `deposit/address`). */
+export interface PolymarketDepositAddresses {
+    wallet_address?: string;
+    tron: string | null;
+    evm?: string | null;
+    svm?: string | null;
+    btc?: string | null;
+}
+
+export type PolymarketDepositAddressesResponse = Response<PolymarketDepositAddresses>;
+
 export type TronDepositTransactionStatus = 'deposit_detected' | 'processing' | 'completed' | 'failed' | 'fail';
 
 export interface TronDepositTransaction {

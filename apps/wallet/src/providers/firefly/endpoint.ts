@@ -15,6 +15,7 @@ import {
     type CreatePolymarketLimitOrderResponse,
     type CreatePolymarketMarketOrderBody,
     type CreatePolymarketMarketOrderResponse,
+    type DepositAllSupportedTokensResponse,
     type DepositStatusResponse,
     type DepositSupportedTokensResponse,
     ErrorCode,
@@ -31,6 +32,7 @@ import {
     type PolymarketActivityResponse,
     type PolymarketBatchClaimV2Body,
     type PolymarketClaimV2Response,
+    type PolymarketDepositAddressesResponse,
     type PolymarketEvent,
     type PolymarketOrderBookData,
     type PolymarketProfileBalance,
@@ -604,13 +606,21 @@ export class FireflyEndpoint extends Fetch {
 
     // #region Tron deposit
     async getPolymarketDepositAddress() {
-        const result = await this.post<Response<{ tron: string | null }>>('/polymarket/v1/polymarket/deposit/address');
+        const result = await this.post<PolymarketDepositAddressesResponse>('/polymarket/v1/polymarket/deposit/address');
         return resolveFireflyResponseData(result.data);
     }
 
     async getPolymarketDepositSupportedTokens() {
         const result = await this.get<DepositSupportedTokensResponse>(
             '/polymarket/v1/polymarket/deposit/supported_tokens',
+        );
+        return resolveFireflyResponseData(result.data);
+    }
+
+    /** Deposit supported assets grouped by chain (evm / svm / tron). */
+    async getPolymarketDepositAllSupportedTokens() {
+        const result = await this.get<DepositAllSupportedTokensResponse>(
+            '/polymarket/v1/polymarket/deposit/supported_tokens/all',
         );
         return resolveFireflyResponseData(result.data);
     }

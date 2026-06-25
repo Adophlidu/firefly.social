@@ -68,6 +68,9 @@ msgstr "Your recovery phrase is like a password, keep it secret."
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "Low on balance? Your Firefly Wallet can automatically cover the rest."
 
+msgid "Failed to create predict wallet. {message}"
+msgstr "Failed to create predict wallet. {message}"
+
 msgid "Transfer from an exchange"
 msgstr "Transfer from an exchange"
 
@@ -242,9 +245,6 @@ msgstr "Price"
 msgid "Enable skip reviews"
 msgstr "Enable skip reviews"
 
-msgid "Your Tron(TRC-20) Address"
-msgstr "Your Tron(TRC-20) Address"
-
 msgid "Connection taking longer than expected"
 msgstr "Connection taking longer than expected"
 
@@ -256,6 +256,9 @@ msgstr "with"
 
 msgid "Shares"
 msgstr "Shares"
+
+msgid "Your prediction account will be ready shortly."
+msgstr "Your prediction account will be ready shortly."
 
 msgid "Change Recovery Email"
 msgstr "Change Recovery Email"
@@ -274,6 +277,9 @@ msgstr "Avg. Price"
 
 msgid "You won"
 msgstr "You won"
+
+msgid "Fund via Firefly Wallet"
+msgstr "Fund via Firefly Wallet"
 
 msgid "Network cost"
 msgstr "Network cost"
@@ -313,6 +319,9 @@ msgstr "No more history"
 
 msgid "Recovery Email"
 msgstr "Recovery Email"
+
+msgid "Account Creating"
+msgstr "Account Creating"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "Transaction failed: minimum return amount not reached. Try increasing slippage."
@@ -529,6 +538,9 @@ msgstr "You've hit rock bottom."
 msgid "View"
 msgstr "View"
 
+msgid "Minimum <0>${minDepositUsd}</0> required"
+msgstr "Minimum <0>${minDepositUsd}</0> required"
+
 msgid "Release Now"
 msgstr "Release Now"
 
@@ -631,9 +643,6 @@ msgstr "Interacted"
 
 msgid "The address could not be found."
 msgstr "The address could not be found."
-
-msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
-msgstr "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
 
 msgid "Add"
 msgstr "Add"
@@ -865,6 +874,9 @@ msgstr "Failed to withdraw."
 
 msgid "Est. fee"
 msgstr "Est. fee"
+
+msgid "Deposit via Crypto Address"
+msgstr "Deposit via Crypto Address"
 
 msgid "Contract address"
 msgstr "Contract address"

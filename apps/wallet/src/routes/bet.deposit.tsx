@@ -1,3 +1,4 @@
+import QrCodeIcon from '@dimensiondev/assets/qrcode.svg';
 import { BET_DEPOSIT_MIN_USD } from '@dimensiondev/constants/static';
 import { SwapFromPage } from '@dimensiondev/enums';
 import { removeTrailingZeros } from '@dimensiondev/utils';
@@ -6,7 +7,7 @@ import { isLessThan, multipliedBy, toFixed } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useLocation, useNavigate } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
@@ -18,7 +19,8 @@ import { DepositFormFooter } from '@/components/Deposit/DepositFormFooter.js';
 import { DepositPayTokenRow } from '@/components/Deposit/DepositPayTokenRow.js';
 import { DepositReceiveRow } from '@/components/Deposit/DepositReceiveRow.js';
 import { LoadingPanel } from '@/components/LoadingPanel.js';
-import { NavigationBar } from '@/components/NavigationBar.js';
+import { NavigationBar, NavigationBarRight } from '@/components/NavigationBar.js';
+import { ModalType } from '@/configs/modalRoutes.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useAddFunds } from '@/hooks/bet/useAddFunds.js';
@@ -42,6 +44,8 @@ export const Route = createFileRoute('/bet/deposit')({
 const TOAST_ID = 'polymarket-deposit';
 
 function DepositPage() {
+    const navigate = useNavigate();
+    const location = useLocation();
     const { data: polymarketAccount } = useQuery({
         queryKey: ['polymarket-account'],
         staleTime: 1000 * 60 * 5,
@@ -59,10 +63,28 @@ function DepositPage() {
         }
     }, [polymarketAccount?.proxyAddress]);
 
+    const openDepositViaCrypto = () => {
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_DEPOSIT_VIA_CRYPTO_CLICK, {});
+        navigate({
+            to: location.pathname,
+            search: { ...location.search, modal: ModalType.DepositViaCrypto },
+            replace: true,
+        });
+    };
+
     return (
         <>
             <NavigationBar>
-                <Trans>Add Funds</Trans>
+                <Trans>Fund via Firefly Wallet</Trans>
+                <NavigationBarRight>
+                    <button
+                        type="button"
+                        className="flex items-center justify-center rounded-md p-1 text-main hover:bg-lightBg"
+                        onClick={openDepositViaCrypto}
+                    >
+                        <QrCodeIcon width={24} height={24} />
+                    </button>
+                </NavigationBarRight>
             </NavigationBar>
             <DepositClient />
         </>

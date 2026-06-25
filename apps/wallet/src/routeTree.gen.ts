@@ -35,6 +35,7 @@ import { Route as DevSolanaRouteImport } from './routes/dev.solana'
 import { Route as DevEthereumRouteImport } from './routes/dev.ethereum'
 import { Route as BetWithdrawRouteImport } from './routes/bet.withdraw'
 import { Route as BetPositionRouteImport } from './routes/bet.position'
+import { Route as BetDepositViaCryptoRouteImport } from './routes/bet.deposit-via-crypto'
 import { Route as BetDepositRouteImport } from './routes/bet.deposit'
 import { Route as BetHomeRouteImport } from './routes/bet._home'
 import { Route as HomeTransactionsRouteImport } from './routes/_home.transactions'
@@ -179,6 +180,11 @@ const BetPositionRoute = BetPositionRouteImport.update({
   path: '/position',
   getParentRoute: () => BetRoute,
 } as any)
+const BetDepositViaCryptoRoute = BetDepositViaCryptoRouteImport.update({
+  id: '/deposit-via-crypto',
+  path: '/deposit-via-crypto',
+  getParentRoute: () => BetRoute,
+} as any)
 const BetDepositRoute = BetDepositRouteImport.update({
   id: '/deposit',
   path: '/deposit',
@@ -262,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/receive': typeof HomeReceiveRoute
   '/transactions': typeof HomeTransactionsRoute
   '/bet/deposit': typeof BetDepositRoute
+  '/bet/deposit-via-crypto': typeof BetDepositViaCryptoRoute
   '/bet/position': typeof BetPositionRoute
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
@@ -297,6 +304,7 @@ export interface FileRoutesByTo {
   '/receive': typeof HomeReceiveRoute
   '/transactions': typeof HomeTransactionsRoute
   '/bet/deposit': typeof BetDepositRoute
+  '/bet/deposit-via-crypto': typeof BetDepositViaCryptoRoute
   '/bet/position': typeof BetPositionRoute
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
@@ -339,6 +347,7 @@ export interface FileRoutesById {
   '/_home/transactions': typeof HomeTransactionsRoute
   '/bet/_home': typeof BetHomeRouteWithChildren
   '/bet/deposit': typeof BetDepositRoute
+  '/bet/deposit-via-crypto': typeof BetDepositViaCryptoRoute
   '/bet/position': typeof BetPositionRoute
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
@@ -382,6 +391,7 @@ export interface FileRouteTypes {
     | '/receive'
     | '/transactions'
     | '/bet/deposit'
+    | '/bet/deposit-via-crypto'
     | '/bet/position'
     | '/bet/withdraw'
     | '/dev/ethereum'
@@ -417,6 +427,7 @@ export interface FileRouteTypes {
     | '/receive'
     | '/transactions'
     | '/bet/deposit'
+    | '/bet/deposit-via-crypto'
     | '/bet/position'
     | '/bet/withdraw'
     | '/dev/ethereum'
@@ -458,6 +469,7 @@ export interface FileRouteTypes {
     | '/_home/transactions'
     | '/bet/_home'
     | '/bet/deposit'
+    | '/bet/deposit-via-crypto'
     | '/bet/position'
     | '/bet/withdraw'
     | '/dev/ethereum'
@@ -685,6 +697,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BetPositionRouteImport
       parentRoute: typeof BetRoute
     }
+    '/bet/deposit-via-crypto': {
+      id: '/bet/deposit-via-crypto'
+      path: '/deposit-via-crypto'
+      fullPath: '/bet/deposit-via-crypto'
+      preLoaderRoute: typeof BetDepositViaCryptoRouteImport
+      parentRoute: typeof BetRoute
+    }
     '/bet/deposit': {
       id: '/bet/deposit'
       path: '/deposit'
@@ -822,6 +841,7 @@ const BetHomeRouteWithChildren =
 interface BetRouteChildren {
   BetHomeRoute: typeof BetHomeRouteWithChildren
   BetDepositRoute: typeof BetDepositRoute
+  BetDepositViaCryptoRoute: typeof BetDepositViaCryptoRoute
   BetPositionRoute: typeof BetPositionRoute
   BetWithdrawRoute: typeof BetWithdrawRoute
   BetEventIdRoute: typeof BetEventIdRoute
@@ -830,6 +850,7 @@ interface BetRouteChildren {
 const BetRouteChildren: BetRouteChildren = {
   BetHomeRoute: BetHomeRouteWithChildren,
   BetDepositRoute: BetDepositRoute,
+  BetDepositViaCryptoRoute: BetDepositViaCryptoRoute,
   BetPositionRoute: BetPositionRoute,
   BetWithdrawRoute: BetWithdrawRoute,
   BetEventIdRoute: BetEventIdRoute,

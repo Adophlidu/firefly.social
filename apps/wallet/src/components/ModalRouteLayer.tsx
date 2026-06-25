@@ -15,6 +15,12 @@ const ExportKeyModalWrapper = lazy(() =>
     })),
 );
 
+const DepositViaCryptoModalWrapper = lazy(() =>
+    import('@/components/DepositViaCryptoModal/DepositViaCryptoModalWrapper.js').then((m) => ({
+        default: m.DepositViaCryptoModalWrapper,
+    })),
+);
+
 export function ModalRouteLayer() {
     const location = useLocation();
     const router = useRouter();
@@ -63,6 +69,17 @@ export function ModalRouteLayer() {
                 <ExportKeyModalWrapper
                     modalType={ModalType.ExportBetKey}
                     open={modalType === ModalType.ExportBetKey}
+                    onClose={handleClose}
+                />
+            </Suspense>
+        );
+
+    if (modalType === ModalType.DepositViaCrypto || closingModals.includes(ModalType.DepositViaCrypto))
+        return (
+            <Suspense fallback={null}>
+                <DepositViaCryptoModalWrapper
+                    modalType={ModalType.DepositViaCrypto}
+                    open={modalType === ModalType.DepositViaCrypto}
                     onClose={handleClose}
                 />
             </Suspense>

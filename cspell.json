@@ -623,6 +623,7 @@
         "apps/**/stories/**",
         "apps/**/styles/**",
         "apps/**/tests/**",
+        "*.test.ts",
         "build/**",
         "cspell.json",
         "dist/**",

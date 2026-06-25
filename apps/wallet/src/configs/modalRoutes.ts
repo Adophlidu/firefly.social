@@ -3,6 +3,7 @@ import { redirect } from '@tanstack/react-router';
 export enum ModalType {
     Receive = 'receive',
     ExportBetKey = 'export-bet-key',
+    DepositViaCrypto = 'deposit-via-crypto',
 }
 
 export interface RouteModalProps {
@@ -14,6 +15,7 @@ export interface RouteModalProps {
 export const MODAL_REDIRECTS = [
     { from: '/receive', to: '/', modal: ModalType.Receive },
     { from: '/bet/export-key', to: '/bet', modal: ModalType.ExportBetKey },
+    { from: '/bet/deposit-via-crypto', to: '/bet', modal: ModalType.DepositViaCrypto },
 ] as const;
 
 export function redirectToModal(from: string): never {

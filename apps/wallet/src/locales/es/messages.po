@@ -68,6 +68,9 @@ msgstr "Su frase de recuperación es como una contraseña, manténgala en secret
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "¿Saldo insuficiente? Su Firefly Wallet puede cubrir el resto automáticamente."
 
+msgid "Failed to create predict wallet. {message}"
+msgstr ""
+
 msgid "Transfer from an exchange"
 msgstr "Transferir desde un exchange"
 
@@ -242,9 +245,6 @@ msgstr "Precio"
 msgid "Enable skip reviews"
 msgstr "Habilitar omisión de revisión"
 
-msgid "Your Tron(TRC-20) Address"
-msgstr "Tu dirección de Tron (TRC-20)"
-
 msgid "Connection taking longer than expected"
 msgstr "La conexión está tardando más de lo esperado"
 
@@ -256,6 +256,9 @@ msgstr "con"
 
 msgid "Shares"
 msgstr "Acciones"
+
+msgid "Your prediction account will be ready shortly."
+msgstr ""
 
 msgid "Change Recovery Email"
 msgstr "Cambiar correo de recuperación"
@@ -274,6 +277,9 @@ msgstr "Precio prom."
 
 msgid "You won"
 msgstr "Ganó"
+
+msgid "Fund via Firefly Wallet"
+msgstr ""
 
 msgid "Network cost"
 msgstr "Costo de red"
@@ -313,6 +319,9 @@ msgstr "No hay más historial"
 
 msgid "Recovery Email"
 msgstr "Correo de recuperación"
+
+msgid "Account Creating"
+msgstr ""
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "Transacción fallida: no se alcanzó el monto mínimo de retorno. Intente aumentar el deslizamiento."
@@ -529,6 +538,9 @@ msgstr "Has llegado al fondo."
 msgid "View"
 msgstr "Ver"
 
+msgid "Minimum <0>${minDepositUsd}</0> required"
+msgstr ""
+
 msgid "Release Now"
 msgstr "Liberar ahora"
 
@@ -631,9 +643,6 @@ msgstr "Interactuado"
 
 msgid "The address could not be found."
 msgstr "No se pudo encontrar la dirección."
-
-msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
-msgstr "Envía solo <0>USDT</0> a través de la red Tron a esta dirección. Se requiere un mínimo de <1>${minDepositUsd}</1>."
 
 msgid "Add"
 msgstr "Agregar"
@@ -865,6 +874,9 @@ msgstr "Error al retirar."
 
 msgid "Est. fee"
 msgstr "Comisión est."
+
+msgid "Deposit via Crypto Address"
+msgstr ""
 
 msgid "Contract address"
 msgstr "Dirección del contrato"

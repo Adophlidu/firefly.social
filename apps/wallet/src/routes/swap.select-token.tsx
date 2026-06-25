@@ -21,6 +21,7 @@ import { ModalType } from '@/configs/modalRoutes.js';
 import { POLYMARKET_DEPOSIT_EVM_CHAIN_IDS } from '@/constants/ethereum.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useTrendingTokensForWithdraw } from '@/hooks/bet/useTrendingTokensForWithdraw.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useGoBackAfterSelectToken } from '@/hooks/swap/useGoBackAfterSelectToken.js';
@@ -249,16 +250,20 @@ function SelectTokenPage() {
         <div className="flex h-screen w-full flex-col overflow-hidden">
             <div className="shrink-0 bg-primaryBottom">
                 <NavigationBar onBack={() => goBack()}>
-                    <Trans>Select Token</Trans>
+                    {isBetDeposit ? <Trans>Fund via Firefly Wallet</Trans> : <Trans>Select Token</Trans>}
                     {isBetDeposit ? (
                         <NavigationBarRight>
                             <button
                                 type="button"
                                 className="flex items-center justify-center rounded-md p-1 text-main hover:bg-lightBg"
                                 onClick={() => {
+                                    captureWalletTelemetryEvent(
+                                        WalletTelemetryEventId.BETS_DEPOSIT_VIA_CRYPTO_CLICK,
+                                        {},
+                                    );
                                     navigate({
                                         to: location.pathname,
-                                        search: { ...location.search, modal: ModalType.Receive },
+                                        search: { ...location.search, modal: ModalType.DepositViaCrypto },
                                         replace: true,
                                     });
                                 }}

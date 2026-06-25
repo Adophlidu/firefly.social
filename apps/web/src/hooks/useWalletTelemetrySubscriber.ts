@@ -50,7 +50,10 @@ type WalletTelemetryEvent =
     | EventId.BETS_POSITION_SELL_CLICK
     | EventId.BETS_VIEW_PRIVATE_KEY_PANEL_OPEN
     | EventId.BETS_SHOW_PRIVATE_KEY
-    | EventId.BETS_PRIVATE_KEY_COPY_CLICK;
+    | EventId.BETS_PRIVATE_KEY_COPY_CLICK
+    | EventId.BETS_DEPOSIT_VIA_CRYPTO_CLICK
+    | EventId.BETS_DEPOSIT_VIA_CRYPTO_CHANGE_CHAIN
+    | EventId.BETS_DEPOSIT_VIA_CRYPTO_CHANGE_TOKEN;
 
 interface WalletTelemetryEventData {
     event: WalletTelemetryEvent;

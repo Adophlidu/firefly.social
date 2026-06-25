@@ -52,6 +52,9 @@ export enum WalletTelemetryEventId {
     BETS_VIEW_PRIVATE_KEY_PANEL_OPEN = 'bets_view_private_key_panel_open',
     BETS_SHOW_PRIVATE_KEY = 'bets_show_private_key',
     BETS_PRIVATE_KEY_COPY_CLICK = 'bets_private_key_copy_click',
+    BETS_DEPOSIT_VIA_CRYPTO_CLICK = 'bets_deposit_via_crypto_click',
+    BETS_DEPOSIT_VIA_CRYPTO_CHANGE_CHAIN = 'bets_deposit_via_crypto_change_chain',
+    BETS_DEPOSIT_VIA_CRYPTO_CHANGE_TOKEN = 'bets_deposit_via_crypto_change_token',
 }
 
 export function captureWalletTelemetryEvent(event: WalletTelemetryEventId, params: Record<string, unknown>) {

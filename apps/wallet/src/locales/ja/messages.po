@@ -68,6 +68,9 @@ msgstr "リカバリーフレーズはパスワードと同じです。絶対に
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "残高不足ですか？Firefly ウォレットが不足分を自動補填できます。"
 
+msgid "Failed to create predict wallet. {message}"
+msgstr ""
+
 msgid "Transfer from an exchange"
 msgstr "取引所から送金"
 
@@ -242,9 +245,6 @@ msgstr "価格"
 msgid "Enable skip reviews"
 msgstr "確認スキップを有効にする"
 
-msgid "Your Tron(TRC-20) Address"
-msgstr "あなたのTron(TRC-20)アドレス"
-
 msgid "Connection taking longer than expected"
 msgstr "接続に予想以上の時間がかかっています"
 
@@ -256,6 +256,9 @@ msgstr "で"
 
 msgid "Shares"
 msgstr "口数"
+
+msgid "Your prediction account will be ready shortly."
+msgstr ""
 
 msgid "Change Recovery Email"
 msgstr "リカバリーメールを変更"
@@ -274,6 +277,9 @@ msgstr "平均約定価格"
 
 msgid "You won"
 msgstr "勝利"
+
+msgid "Fund via Firefly Wallet"
+msgstr ""
 
 msgid "Network cost"
 msgstr "ネットワークコスト"
@@ -313,6 +319,9 @@ msgstr "これ以上の履歴はありません"
 
 msgid "Recovery Email"
 msgstr "リカバリーメール"
+
+msgid "Account Creating"
+msgstr ""
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "トランザクション失敗：最小受取額に達しませんでした。スリッページを増やしてください。"
@@ -529,6 +538,9 @@ msgstr "一番下まで来ました。"
 msgid "View"
 msgstr "表示"
 
+msgid "Minimum <0>${minDepositUsd}</0> required"
+msgstr ""
+
 msgid "Release Now"
 msgstr "今すぐ解放"
 
@@ -631,9 +643,6 @@ msgstr "操作済み"
 
 msgid "The address could not be found."
 msgstr "アドレスが見つかりませんでした。"
-
-msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
-msgstr "このアドレスへはTronネットワーク経由で<0>USDT</0>のみを送金してください。最低<1>${minDepositUsd}</1>が必要です。"
 
 msgid "Add"
 msgstr "追加"
@@ -865,6 +874,9 @@ msgstr "出金に失敗しました。"
 
 msgid "Est. fee"
 msgstr "推定手数料"
+
+msgid "Deposit via Crypto Address"
+msgstr ""
 
 msgid "Contract address"
 msgstr "コントラクトアドレス"

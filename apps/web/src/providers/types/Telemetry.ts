@@ -387,6 +387,9 @@ export enum EventId {
     BETS_VIEW_PRIVATE_KEY_PANEL_OPEN = 'bets_view_private_key_panel_open',
     BETS_SHOW_PRIVATE_KEY = 'bets_show_private_key',
     BETS_PRIVATE_KEY_COPY_CLICK = 'bets_private_key_copy_click',
+    BETS_DEPOSIT_VIA_CRYPTO_CLICK = 'bets_deposit_via_crypto_click',
+    BETS_DEPOSIT_VIA_CRYPTO_CHANGE_CHAIN = 'bets_deposit_via_crypto_change_chain',
+    BETS_DEPOSIT_VIA_CRYPTO_CHANGE_TOKEN = 'bets_deposit_via_crypto_change_token',
 
     // FW-7814 SuperFortune ("玄学预测") on FIFA World Cup game detail
     BETS_SUPERFORTUNE_CLICK = 'bets_superfortune_click',
@@ -2539,6 +2542,25 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+        };
+    };
+    [EventId.BETS_DEPOSIT_VIA_CRYPTO_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            chain_id?: string;
+        };
+    };
+    [EventId.BETS_DEPOSIT_VIA_CRYPTO_CHANGE_CHAIN]: {
+        type: EventType.Interact;
+        parameters: {
+            chain_id: string;
+        };
+    };
+    [EventId.BETS_DEPOSIT_VIA_CRYPTO_CHANGE_TOKEN]: {
+        type: EventType.Interact;
+        parameters: {
+            chain_id: string;
+            token_symbol: string;
         };
     };
 }

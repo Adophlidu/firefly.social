@@ -68,6 +68,9 @@ msgstr "助記詞等同於最高控制權限，請嚴格保密。"
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "餘額不足？您的 Firefly 錢包可以自動補足差額。"
 
+msgid "Failed to create predict wallet. {message}"
+msgstr ""
+
 msgid "Transfer from an exchange"
 msgstr "從交易所轉帳"
 
@@ -242,9 +245,6 @@ msgstr "價格"
 msgid "Enable skip reviews"
 msgstr "開啟跳過預覽"
 
-msgid "Your Tron(TRC-20) Address"
-msgstr "你的 Tron(TRC-20) 地址"
-
 msgid "Connection taking longer than expected"
 msgstr "連接時間較長，請稍候"
 
@@ -256,6 +256,9 @@ msgstr "與"
 
 msgid "Shares"
 msgstr "份額"
+
+msgid "Your prediction account will be ready shortly."
+msgstr ""
 
 msgid "Change Recovery Email"
 msgstr "更改備援信箱"
@@ -274,6 +277,9 @@ msgstr "平均成交價"
 
 msgid "You won"
 msgstr "獲利"
+
+msgid "Fund via Firefly Wallet"
+msgstr ""
 
 msgid "Network cost"
 msgstr "網路成本"
@@ -313,6 +319,9 @@ msgstr "沒有更多歷史紀錄"
 
 msgid "Recovery Email"
 msgstr "備援信箱"
+
+msgid "Account Creating"
+msgstr ""
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "交易失敗：未達到預期最小數額。請嘗試提高滑點。"
@@ -529,6 +538,9 @@ msgstr "已經到底啦。"
 msgid "View"
 msgstr "查看"
 
+msgid "Minimum <0>${minDepositUsd}</0> required"
+msgstr ""
+
 msgid "Release Now"
 msgstr "立即釋放"
 
@@ -631,9 +643,6 @@ msgstr "已互動"
 
 msgid "The address could not be found."
 msgstr "找不到該地址。"
-
-msgid "Send only <0>USDT</0> via the Tron network to this address. Minimum <1>${minDepositUsd}</1> required."
-msgstr "僅透過 Tron 網絡向此地址發送 <0>USDT</0>。最低需 <1>${minDepositUsd}</1>。"
 
 msgid "Add"
 msgstr "新增"
@@ -865,6 +874,9 @@ msgstr "提現失敗。"
 
 msgid "Est. fee"
 msgstr "預估費用"
+
+msgid "Deposit via Crypto Address"
+msgstr ""
 
 msgid "Contract address"
 msgstr "合約地址"

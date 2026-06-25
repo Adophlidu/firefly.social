@@ -1,11 +1,23 @@
 import PolymarketEntryIcon from '@dimensiondev/assets/bet-entry.svg';
 import { Trans } from '@lingui/react/macro';
-import { Link } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 
 import { BetNavigationBar } from '@/components/Bet/BetNavigationBar.js';
 import { Button } from '@/components/ui/button.js';
+import { ModalType } from '@/configs/modalRoutes.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
+import { useOpenBetDeposit } from '@/hooks/bet/useOpenBetDeposit.js';
 
 export function AddFundGuide() {
+    const navigate = useNavigate();
+    const openBetDeposit = useOpenBetDeposit();
+
+    const openDepositViaCrypto = () => {
+        // Explicit QR entry, so telemetry fires (the balance-gated shortcut is silent).
+        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_DEPOSIT_VIA_CRYPTO_CLICK, {});
+        navigate({ to: '/bet', search: { modal: ModalType.DepositViaCrypto } });
+    };
+
     return (
         <div className="fixed inset-0 z-10 flex w-full flex-col bg-primaryBottom">
             <BetNavigationBar hideExportKey />
@@ -20,11 +32,19 @@ export function AddFundGuide() {
                             <Trans>Predict. Trade. Simply fund your Firefly predict wallet to begin.</Trans>
                         </p>
                     </div>
-                    <Button asChild variant="primary" size="lg" className="w-full rounded-full">
-                        <Link to="/bet/deposit">
-                            <Trans>Add Funds</Trans>
-                        </Link>
-                    </Button>
+                    <div className="flex w-full flex-col space-y-3">
+                        <Button variant="primary" size="lg" className="w-full rounded-full" onClick={openBetDeposit}>
+                            <Trans>Fund via Firefly Wallet</Trans>
+                        </Button>
+                        <Button
+                            variant="primary"
+                            size="lg"
+                            className="w-full rounded-full"
+                            onClick={openDepositViaCrypto}
+                        >
+                            <Trans>Deposit via Crypto Address</Trans>
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

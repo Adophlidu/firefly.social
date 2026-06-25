@@ -25,6 +25,7 @@ import { formatPercentRate } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
+import { useOpenBetDeposit } from '@/hooks/bet/useOpenBetDeposit.js';
 import { usePolymarketBalance } from '@/hooks/usePolymarketBalance.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
@@ -145,6 +146,7 @@ export function ClientLayout() {
         captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_ACCOUNT_OPEN_SUCCESS, {});
     }, []);
 
+    const openBetDeposit = useOpenBetDeposit();
     const queryClient = useQueryClient();
     const { data } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const proxyAddress = data.proxyAddress;
@@ -215,15 +217,16 @@ export function ClientLayout() {
                         <Trans>Withdraw</Trans>
                     </span>
                 </Link>
-                <Link
-                    to="/bet/deposit"
+                <button
+                    type="button"
+                    onClick={openBetDeposit}
                     className="flex w-full items-center justify-center gap-[6px] rounded-[20px] bg-lightBg py-2.5 text-sm font-medium"
                 >
                     <DepositIcon width={24} height={24} className="text-highlight" />
                     <span>
                         <Trans>Add Funds</Trans>
                     </span>
-                </Link>
+                </button>
                 {showToRelease ? (
                     <button
                         type="button"
