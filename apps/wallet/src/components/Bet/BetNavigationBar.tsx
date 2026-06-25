@@ -13,11 +13,12 @@ import { getPolymarketSettingQueryOptions } from '@/queries/firefly/getPolymarke
 
 interface Props {
     hideActions?: boolean;
+    hideExportKey?: boolean;
     title?: ReactNode;
     onBack?: () => void;
 }
 
-export function BetNavigationBar({ hideActions, title, onBack }: Props) {
+export function BetNavigationBar({ hideActions, hideExportKey, title, onBack }: Props) {
     const navigate = useNavigate();
     const location = useLocation();
     const { data: account } = useQuery(getPolymarketAccountQueryOptions());
@@ -26,7 +27,7 @@ export function BetNavigationBar({ hideActions, title, onBack }: Props) {
         enabled: !!account,
     });
 
-    const showExportKey = !!account && setting?.export_privatekey !== false;
+    const showExportKey = !hideExportKey && !!account && setting?.export_privatekey !== false;
 
     const openExportKeyModal = () => {
         navigate({
