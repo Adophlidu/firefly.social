@@ -2584,6 +2584,9 @@ msgstr "通知"
 msgid "Failed to change password."
 msgstr "パスワードの変更に失敗しました。"
 
+msgid "Failed to prepare the share image."
+msgstr ""
+
 msgid "Voted"
 msgstr "投票済み"
 
@@ -2883,6 +2886,9 @@ msgstr "ブックマークに追加しました"
 
 msgid "Try again"
 msgstr "もう一度お試しください"
+
+msgid "Sign Decoded"
+msgstr ""
 
 #. placeholder {0}: post.stats.comments
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
@@ -4005,6 +4011,9 @@ msgstr "少額残高のトークンを非表示"
 msgid "Welcome back to Firefly!"
 msgstr "Firefly へようこそ！"
 
+msgid "Failed to download image."
+msgstr ""
+
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
 msgid_plural "# Risky items"
@@ -4057,6 +4066,9 @@ msgstr "アップロードに失敗しました。動画の長さが {minDuratio
 
 msgid "Reset password"
 msgstr "パスワードをリセット"
+
+msgid "Superfortune"
+msgstr ""
 
 msgid "Post collected successfully!"
 msgstr "投稿のコレクトに成功しました！"

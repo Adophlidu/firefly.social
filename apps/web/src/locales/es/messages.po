@@ -2597,6 +2597,9 @@ msgstr "Notificaciones"
 msgid "Failed to change password."
 msgstr "No se pudo cambiar la contraseña."
 
+msgid "Failed to prepare the share image."
+msgstr ""
+
 msgid "Voted"
 msgstr "Votado"
 
@@ -2897,6 +2900,9 @@ msgstr "Añadido a marcadores"
 
 msgid "Try again"
 msgstr "Reintentar"
+
+msgid "Sign Decoded"
+msgstr ""
 
 #. placeholder {0}: post.stats.comments
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
@@ -4027,6 +4033,9 @@ msgstr "Ocultar tokens con saldos pequeños"
 msgid "Welcome back to Firefly!"
 msgstr "¡Bienvenido de nuevo a Firefly!"
 
+msgid "Failed to download image."
+msgstr ""
+
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
 msgid_plural "# Risky items"
@@ -4080,6 +4089,9 @@ msgstr "No se pudo subir. La duración del vídeo supera {minDuration}s ~ {maxDu
 
 msgid "Reset password"
 msgstr "Restablecer contraseña"
+
+msgid "Superfortune"
+msgstr ""
 
 msgid "Post collected successfully!"
 msgstr "¡Publicación recogida con éxito!"

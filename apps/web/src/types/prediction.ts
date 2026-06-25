@@ -223,6 +223,8 @@ export interface SportEventData {
     livestreamInfo?: SportLiveStreamInfo;
     winResult?: number;
     isDraw: boolean;
+    /** Raw league identifier from `/v1/polymarket/event/detail` (e.g. `fifwc` for the FIFA World Cup). */
+    leagueId?: string;
     leagueName?: string;
     leagueSlug?: string;
     spreadsMainLine?: number;

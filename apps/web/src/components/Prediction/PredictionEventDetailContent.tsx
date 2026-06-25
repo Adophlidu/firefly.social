@@ -14,7 +14,9 @@ import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionM
 import { PredictionSingleChart } from '@/components/Prediction/PredictionSingleChart/index.js';
 import { SportEventDetailContent } from '@/components/Prediction/Sport/SportEventDetailContent.js';
 import { SportEventPageTitle } from '@/components/Prediction/Sport/SportEventPageTitle.js';
+import { SuperfortuneEntry } from '@/components/Prediction/Superfortune/SuperfortuneEntry.js';
 import { notFound } from '@/esm/navigation/server.js';
+import { shouldShowSuperfortuneEntry } from '@/helpers/prediction/superfortune.js';
 import { resolveLocale } from '@/helpers/resolveLocale.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
@@ -54,7 +56,14 @@ export async function PredictionEventDetailContent({
     return (
         <div className="pb-20">
             <PolymarketEventTracker platform={platform} eventSlug={id} detail={event} />
-            <PredictionEventPageHeader pageTitle={sportPageTitle || <Trans>Event detail</Trans>} />
+            <PredictionEventPageHeader
+                pageTitle={sportPageTitle || <Trans>Event detail</Trans>}
+                action={
+                    shouldShowSuperfortuneEntry(event) ? (
+                        <SuperfortuneEntry matchKey={eventSlug} locale={resolvedLocale} />
+                    ) : null
+                }
+            />
             {event.sportData ? (
                 <SportEventDetailContent event={event} locale={resolvedLocale} />
             ) : (

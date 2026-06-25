@@ -143,6 +143,7 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
         livestreamInfo: mapLivestreamInfo(detail),
         winResult: detail.winResult,
         isDraw: !!detail.isDraw || hasDrawMarket,
+        leagueId: detail.leagueId,
         leagueName: detail.leagueName,
         leagueSlug: resolveLeagueSlug(detail),
         spreadsMainLine: detail.spreadsMainLine,

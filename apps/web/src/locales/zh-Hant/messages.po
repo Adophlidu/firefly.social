@@ -2584,6 +2584,9 @@ msgstr "通知"
 msgid "Failed to change password."
 msgstr "變更密碼失敗。"
 
+msgid "Failed to prepare the share image."
+msgstr ""
+
 msgid "Voted"
 msgstr "已投票"
 
@@ -2883,6 +2886,9 @@ msgstr "已加入書籤"
 
 msgid "Try again"
 msgstr "重試"
+
+msgid "Sign Decoded"
+msgstr ""
 
 #. placeholder {0}: post.stats.comments
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
@@ -4005,6 +4011,9 @@ msgstr "隱藏小額代幣"
 msgid "Welcome back to Firefly!"
 msgstr "歡迎回到 Firefly！"
 
+msgid "Failed to download image."
+msgstr ""
+
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
 msgid_plural "# Risky items"
@@ -4057,6 +4066,9 @@ msgstr "影片長度需介於 {minDuration} 秒至 {maxDuration} 秒"
 
 msgid "Reset password"
 msgstr "重設密碼"
+
+msgid "Superfortune"
+msgstr ""
 
 msgid "Post collected successfully!"
 msgstr "貼文鑄造收集成功！"

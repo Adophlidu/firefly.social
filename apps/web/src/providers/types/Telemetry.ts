@@ -388,6 +388,12 @@ export enum EventId {
     BETS_SHOW_PRIVATE_KEY = 'bets_show_private_key',
     BETS_PRIVATE_KEY_COPY_CLICK = 'bets_private_key_copy_click',
 
+    // FW-7814 SuperFortune ("玄学预测") on FIFA World Cup game detail
+    BETS_SUPERFORTUNE_CLICK = 'bets_superfortune_click',
+    BETS_SUPERFORTUNE_JUMP = 'bets_superfortune_jump',
+    BETS_SUPERFORTUNE_DOWNLOAD = 'bets_superfortune_download',
+    BETS_SUPERFORTUNE_SHARE = 'bets_superfortune_share',
+
     // bookmarks tab click
     BOOKMARK_FARCASTER_TAB_CLICK = 'bookmark_farcaster_click',
     BOOKMARK_LENS_TAB_CLICK = 'bookmark_lens_click',
@@ -2509,6 +2515,30 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             proxy_wallet_address?: string;
             deposit_wallet_address?: string;
+        };
+    };
+    [EventId.BETS_SUPERFORTUNE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BETS_SUPERFORTUNE_JUMP]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BETS_SUPERFORTUNE_DOWNLOAD]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BETS_SUPERFORTUNE_SHARE]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
         };
     };
 }
