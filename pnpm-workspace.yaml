@@ -50,7 +50,11 @@ overrides:
     tsdown>typescript: npm:@typescript/typescript6@^6.0.0
     typescript: npm:@typescript/typescript6@^6.0.0
     uint8arrays: 3.1.1
-    undici: '>=7.24.0'
+    # Cap below 8: undici 8 removed `connect.socketPath` support, which Nitro's
+    # dev worker uses to fetch over its Unix socket. With 8.x, every dev request
+    # fails with "fetch failed" (UND_ERR_INVALID_ARG). nitro (^7.18.2), wrangler
+    # and miniflare (both 7.24.8) all want the 7.x line.
+    undici: '>=7.24.0 <8'
     use-sync-external-store: 1.5.0
     wrangler: '>=4.59.1'
 

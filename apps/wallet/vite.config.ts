@@ -22,6 +22,12 @@ const PACKAGE_VERSION = JSON.parse(readFileSync(new URL('./package.json', import
 // (it exposes `./tamagui.config`); the wallet no longer depends on in-repo source.
 const rnUiTamaguiConfig = createRequire(import.meta.url).resolve('@dimensiondev/rn-ui/tamagui.config');
 
+const nodeRequire = createRequire(import.meta.url);
+// createRequire resolves the CJS (.cjs) build of the polyfill shims, but the Nitro
+// SSR module-runner evaluates the file as ESM, which throws "exports is not defined".
+// Point at the ESM (.js) build instead.
+const nodePolyfillShimEsm = (id: string) => nodeRequire.resolve(id).replace(/\.cjs$/, '.js');
+
 export default defineConfig({
     base: BASE_PATH,
     // Expose NEXT_PUBLIC_* and VITE_* env vars to client via import.meta.env
@@ -90,6 +96,16 @@ export default defineConfig({
             'react-native-webview': resolve(__dirname, 'src/shims/react-native-webview.ts'),
             pino: resolve(__dirname, 'src/shims/pino.ts'),
             '@react-native-async-storage/async-storage': resolve(__dirname, 'src/shims/async-storage.ts'),
+            // vite-plugin-node-polyfills injects these shim imports as a dev banner
+            // into every module — including the Nitro SSR environment, whose
+            // module-runner can't resolve the bare subpaths (ERR_MODULE_NOT_FOUND),
+            // breaking any server-evaluated module (e.g. @dimensiondev/workers-client).
+            // Alias them to the installed files; node SSR has Buffer/process natively,
+            // so the shim is a harmless no-op there. (Alias is inherited by the Nitro
+            // env, unlike a resolveId plugin which only runs in the client env.)
+            'vite-plugin-node-polyfills/shims/buffer': nodePolyfillShimEsm('vite-plugin-node-polyfills/shims/buffer'),
+            'vite-plugin-node-polyfills/shims/process': nodePolyfillShimEsm('vite-plugin-node-polyfills/shims/process'),
+            'vite-plugin-node-polyfills/shims/global': nodePolyfillShimEsm('vite-plugin-node-polyfills/shims/global'),
         },
     },
     define: {

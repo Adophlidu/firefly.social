@@ -5,7 +5,7 @@
     "private": true,
     "scripts": {
         "dev": "vite dev --port 3001",
-        "build": "NODE_OPTIONS=--max_old_space_size=8192 vite build",
+        "build": "NODE_OPTIONS=--max_old_space_size=6144 vite build",
         "start": "vite preview --port 3001",
         "build:logs": ".vercel-config/build-logs.sh",
         "lint": "eslint .",

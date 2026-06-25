@@ -26,6 +26,13 @@ const cjsCompatPlugin = {
 export default defineNitroConfig({
     preset: 'vercel',
     baseURL: BASE_PATH,
+    // The Vercel preset enables SSR sourcemaps by default. Generating them for
+    // the ~12k-module server bundle peaks Rollup's resident memory during chunk
+    // rendering and OOMs the 8 GB build container (SIGKILL mid-render, which also
+    // produces the misleading "No Output Directory named dist"). The minified
+    // server stack traces aren't consumed by any source-map-aware tool here, so
+    // disabling them is the cheapest way back under the memory ceiling.
+    sourcemap: false,
     rollupConfig: {
         plugins: [cjsCompatPlugin],
     },
