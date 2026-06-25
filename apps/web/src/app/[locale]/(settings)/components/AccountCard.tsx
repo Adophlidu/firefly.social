@@ -201,9 +201,11 @@ export function AccountCards() {
                                                         {source === Source.Lens ? (
                                                             <LensAccountActions profile={profile} />
                                                         ) : null}
-                                                        <DisconnectButton
-                                                            account={{ profile, origin: account?.origin }}
-                                                        />
+                                                        {source !== Source.Lens ? (
+                                                            <DisconnectButton
+                                                                account={{ profile, origin: account?.origin }}
+                                                            />
+                                                        ) : null}
                                                     </>
                                                 ) : null}
                                             </div>
