@@ -573,6 +573,15 @@ export function extractTeamName(
     return source.match(/^(.+?)\s+(?:O\/U|Over\/Under|Team Total)/i)?.[1]?.trim();
 }
 
+/** Period qualifier for team-totals markets, used to disambiguate first vs second half
+ *  under the Halftime tab (Polymarket labels these "{team} 1H Totals" / "{team} 2H Totals"). */
+export function teamTotalsPeriod(type: string): '1H' | '2H' | undefined {
+    const t = type.toLowerCase();
+    if (t.includes('second_half')) return '2H';
+    if (t.includes('first_half')) return '1H';
+    return undefined;
+}
+
 /** Extract a player's display name from the market title/question — text before the first colon.
  *  Handles both half-width ":" and full-width "：" (zh titles use "："). */
 export function extractPlayerName(market: BetsMarketDataForUI): string {
@@ -994,13 +1003,17 @@ function buildResolvedSections(
                 return true;
             });
 
-            sections.push({
-                sportsMarketType: type,
-                title: <Trans>{teamName} Totals</Trans>,
-                markets: deduped,
-                mergeByLine: true,
-                renderAs,
-            });
+            const period = teamTotalsPeriod(type);
+            const title =
+                period === '1H' ? (
+                    <Trans>{teamName} 1H Totals</Trans>
+                ) : period === '2H' ? (
+                    <Trans>{teamName} 2H Totals</Trans>
+                ) : (
+                    <Trans>{teamName} Totals</Trans>
+                );
+
+            sections.push({ sportsMarketType: type, title, markets: deduped, mergeByLine: true, renderAs });
         }
     }
 

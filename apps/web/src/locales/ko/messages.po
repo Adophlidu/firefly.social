@@ -335,6 +335,9 @@ msgstr "{count}초"
 msgid "Rank #{0}"
 msgstr "순위 #{0}"
 
+msgid "{teamName} 2H Totals"
+msgstr ""
+
 msgid "Mute {walletHandle}"
 msgstr "{walletHandle} 숨기기"
 
@@ -2174,6 +2177,9 @@ msgstr "일시 중지됨"
 
 msgid "The transaction is in progress."
 msgstr "거래가 진행 중입니다."
+
+msgid "{teamName} 1H Totals"
+msgstr ""
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "컨트랙트에 프록시가 없습니다. 프록시 컨트랙트는 컨트랙트 소유자가 토큰 기능을 수정하여 가격에 영향을 줄 수 있음을 의미합니다."

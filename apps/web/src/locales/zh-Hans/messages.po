@@ -335,6 +335,9 @@ msgstr "{count}秒"
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
 
+msgid "{teamName} 2H Totals"
+msgstr ""
+
 msgid "Mute {walletHandle}"
 msgstr "隐藏 {walletHandle}"
 
@@ -2174,6 +2177,9 @@ msgstr "已暂停"
 
 msgid "The transaction is in progress."
 msgstr "交易正在进行中。"
+
+msgid "{teamName} 1H Totals"
+msgstr ""
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "合约中没有代理。代理意味着合约所有者可以修改代币的功能，并可能影响价格。"

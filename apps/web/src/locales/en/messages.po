@@ -337,6 +337,9 @@ msgstr "{count}s"
 msgid "Rank #{0}"
 msgstr "Rank #{0}"
 
+msgid "{teamName} 2H Totals"
+msgstr "{teamName} 2H Totals"
+
 msgid "Mute {walletHandle}"
 msgstr "Mute {walletHandle}"
 
@@ -2184,6 +2187,9 @@ msgstr "Suspended"
 
 msgid "The transaction is in progress."
 msgstr "The transaction is in progress."
+
+msgid "{teamName} 1H Totals"
+msgstr "{teamName} 1H Totals"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."

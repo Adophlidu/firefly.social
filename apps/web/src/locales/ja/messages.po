@@ -335,6 +335,9 @@ msgstr "{count}秒"
 msgid "Rank #{0}"
 msgstr "ランキング #{0}"
 
+msgid "{teamName} 2H Totals"
+msgstr ""
+
 msgid "Mute {walletHandle}"
 msgstr "{walletHandle} をミュート"
 
@@ -2174,6 +2177,9 @@ msgstr "停止中"
 
 msgid "The transaction is in progress."
 msgstr "取引が進行中です。"
+
+msgid "{teamName} 1H Totals"
+msgstr ""
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "コントラクトにプロキシはありません。プロキシコントラクトは、コントラクトオーナーがトークンの機能を変更し、価格に影響を与える可能性があることを意味します。"

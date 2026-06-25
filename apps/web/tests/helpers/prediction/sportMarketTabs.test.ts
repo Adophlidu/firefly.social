@@ -6,6 +6,7 @@ import {
     extractTeamName,
     parseGameNumberFromQuestion,
     playerGroupKey,
+    teamTotalsPeriod,
 } from '@/helpers/prediction/sportMarketTabs.js';
 import type { BetsMarketDataForUI, SportTeam } from '@/types/prediction.js';
 
@@ -172,5 +173,21 @@ describe('playerGroupKey / extractPlayerName — merge a player’s prop lines (
         expect(extractPlayerName(mk({ title: 'Breel Embolo: 1+ 进球' }))).toBe('Breel Embolo');
         expect(extractPlayerName(mk({ title: '丹·恩多耶：1+ 进球' }))).toBe('丹·恩多耶');
         expect(extractPlayerName(mk({ title: '丹·恩多耶' }))).toBe('丹·恩多耶');
+    });
+});
+
+describe('teamTotalsPeriod — disambiguate 1H/2H team totals', () => {
+    it('labels soccer first/second-half team totals as 1H/2H', () => {
+        expect(teamTotalsPeriod('soccer_first_half_team_totals')).toBe('1H');
+        expect(teamTotalsPeriod('soccer_second_half_team_totals')).toBe('2H');
+    });
+
+    it('labels basketball first-half team totals as 1H', () => {
+        expect(teamTotalsPeriod('first_half_team_totals')).toBe('1H');
+    });
+
+    it('returns undefined for full-game team totals (no qualifier)', () => {
+        expect(teamTotalsPeriod('team_totals')).toBeUndefined();
+        expect(teamTotalsPeriod('soccer_team_totals')).toBeUndefined();
     });
 });
