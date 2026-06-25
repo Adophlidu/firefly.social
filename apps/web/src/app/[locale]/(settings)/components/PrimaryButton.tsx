@@ -28,12 +28,14 @@ export function PrimaryButton({
     platformId,
     tooltipContent,
     profile,
+    disabled,
 }: {
     platform: ConnectionPlatform;
     platformId: string | number;
     isDefault?: boolean;
     tooltipContent: ReactNode;
     profile?: Profile;
+    disabled?: boolean;
 }) {
     const queryClient = useQueryClient();
     const [{ loading }, onSetPrimary] = useAsyncFn(async () => {
@@ -62,11 +64,12 @@ export function PrimaryButton({
         <Tooltip content={tooltipContent} placement="top">
             <ClickableButton
                 className={classNames('size-5 shrink-0', {
-                    'cursor-pointer': !isDefault,
+                    'cursor-pointer': !isDefault && !disabled,
+                    '!opacity-40': !!disabled,
                 })}
-                disabled={loading}
+                disabled={loading || disabled}
                 onClick={() => {
-                    if (isDefault) return;
+                    if (isDefault || disabled) return;
                     onSetPrimary();
                 }}
             >

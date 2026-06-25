@@ -4,6 +4,7 @@ import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
 import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
+import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -30,8 +31,9 @@ import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnection
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { checkBatchCustodyWallet } from '@/providers/firefly/endpoint/checkBatchCustodyWallet.js';
 import type { Account } from '@/providers/types/Account.js';
+import type { LensConnection } from '@/providers/types/Firefly.js';
 
-function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'origin'> }) {
+function DisconnectButton({ account, disabled }: { account: Pick<Account, 'profile' | 'origin'>; disabled?: boolean }) {
     const all = useProfileStoreAll();
     const { data } = useAllConnectionsFormattedWithProfiles();
     const [{ loading }, disconnect] = useAsyncFn(async () => {
@@ -70,8 +72,10 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
             onlyLoading
             aria-label="Disconnect"
             loading={loading}
+            disabled={disabled}
+            className={classNames({ '!opacity-40': !!disabled })}
             tooltip={<Trans>Disconnect</Trans>}
-            onClick={disconnect}
+            onClick={disabled ? undefined : disconnect}
         >
             <DisconnectIcon width={20} height={20} className="size-5 shrink-0" />
         </IconButton>
@@ -143,6 +147,12 @@ export function AccountCards() {
 
                                     const isCustodyWallet = custodyWalletData?.[profile.profileId] === true;
 
+                                    // Lens accounts sourced from `lens-account` cannot be set as
+                                    // primary or disconnected; their action buttons are dimmed.
+                                    const isActionRestricted =
+                                        source === Source.Lens &&
+                                        (connection as LensConnection).canDisconnect === false;
+
                                     return (
                                         <motion.div
                                             key={profile.profileId}
@@ -155,6 +165,7 @@ export function AccountCards() {
                                                     platform={resolveConnectionPlatform(source)}
                                                     isDefault={connection.isDefault}
                                                     profile={profile}
+                                                    disabled={isActionRestricted}
                                                     tooltipContent={
                                                         connection.isDefault ? (
                                                             <Trans>Primary account</Trans>
@@ -201,11 +212,10 @@ export function AccountCards() {
                                                         {source === Source.Lens ? (
                                                             <LensAccountActions profile={profile} />
                                                         ) : null}
-                                                        {source !== Source.Lens ? (
-                                                            <DisconnectButton
-                                                                account={{ profile, origin: account?.origin }}
-                                                            />
-                                                        ) : null}
+                                                        <DisconnectButton
+                                                            account={{ profile, origin: account?.origin }}
+                                                            disabled={isActionRestricted}
+                                                        />
                                                     </>
                                                 ) : null}
                                             </div>

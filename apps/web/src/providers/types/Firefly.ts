@@ -810,6 +810,8 @@ export type GetFarcasterSuggestedFollowUserResponse = Response<{
 export interface LensConnection extends LensV3Profile {
     connectedAt?: string;
     ownedBy: string;
+    // Lens accounts sourced from `lens-account` cannot be set as primary or disconnected.
+    canDisconnect?: boolean;
 }
 
 export interface FarcasterConnection {
