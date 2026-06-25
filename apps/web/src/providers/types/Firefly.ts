@@ -442,6 +442,33 @@ export type TelegramLoginBotResponse = Response<{
     tgUrl: string;
 }>;
 
+export type LensAccountV2Status = 'pending' | 'existing' | 'creating' | 'success' | 'failed';
+
+/**
+ * Raw response of `POST /v2/lens_account/create`.
+ * This endpoint is served by the NestJS backend and is NOT wrapped in the
+ * standard Firefly `{ code, data }` envelope.
+ */
+export interface CreateLensAccountV2Response {
+    id: string;
+    account_id: string;
+    wallet: string | null;
+    wallet_id: string | null;
+    status: LensAccountV2Status;
+    username: string | null;
+    name: string | null;
+    bio: string | null;
+    avatar: string | null;
+    lens_account: string | null;
+    metadata_uri: string | null;
+    tx_hash: string | null;
+    error_message: string | null;
+    created_at: string;
+    updated_at: string;
+    lens_access_token: string;
+    lens_refresh_token: string;
+}
+
 export type BindResponse = Response<{
     fid: number;
     farcaster_signer_public_key?: string;

@@ -26,6 +26,7 @@ import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { logger } from '@/libs/Logger.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { reportFarcasterSigner } from '@/providers/firefly/farcaster-account/reportFarcasterSigner.js';
+import { createLensAccount } from '@/providers/firefly/lens-account/createLensAccount.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
 import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { trackReferralConversion } from '@/providers/firefly/referral/trackReferral.js';
@@ -74,6 +75,27 @@ function getFireflySession(account: Account) {
         return account.session as FireflySession;
     }
     return account.fireflySession;
+}
+
+/**
+ * Auto-create a Lens account for a freshly created Firefly account when it was
+ * not created from a Lens connection. The backend deploys and binds the Lens
+ * account from the Firefly nickname and avatar; the username is the public
+ * Firefly id (`ff-<uid>`), which is unique by construction. The backend is
+ * idempotent, so re-runs on an already-bound account are no-ops.
+ */
+async function autoCreateLensAccountForNewFireflyAccount(account: Account) {
+    // skip accounts created from a Lens connection — they already have one.
+    if (account.profile.profileSource === Source.Lens) return;
+
+    const payload = getFireflySession(account)?.payload;
+    if (!payload?.isNew || !payload.uid) return;
+
+    await createLensAccount({
+        username: `ff-${payload.uid}`,
+        name: payload.displayName ?? undefined,
+        avatar: payload.avatar ?? undefined,
+    });
 }
 
 function hasAnyProfile() {
@@ -320,6 +342,10 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         runInSafeAsync(() => trackReferralConversion(fireflySession));
     }
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
+
+    // auto-create & bind a Lens account for the new Firefly account.
+    // we wait for it, but tolerate failures and never retry.
+    await runInSafeAsync(() => autoCreateLensAccountForNewFireflyAccount(account));
 
     if (!skipSyncAccounts && fireflySession) {
         // no need to wait, and we use another status to record
