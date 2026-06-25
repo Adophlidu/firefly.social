@@ -10,12 +10,12 @@ import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { memo, type ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
-import { resolveShareIdentityFromWalletProfile } from '@/components/Prediction/getPolymarketSharePayload.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type { PolymarketShareIdentity } from '@/helpers/polymarketShareImage.js';
 import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
-import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
+import { usePredictionProfileData } from '@/hooks/prediction/usePredictionProfileData.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { PredictionPositionDataForUI, PredictionProfileDataForUI } from '@/types/prediction.js';
 
@@ -100,15 +100,28 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
         return unsubscribe;
     }, [platform, address, queryClient, subscribeToWalletEvents]);
 
-    const { data: socialProfile } = useProxyWalletInfo(platform, proxyAddress);
+    // FW-7696 AC-14 — share with the same identity the profile header (PredictionProfileOverview)
+    // shows. Reusing usePredictionProfileData with the same `address` dedupes the request via React
+    // Query, so this adds no extra fetch.
+    const {
+        socialProfile,
+        name: profileName,
+        avatar: profileAvatar,
+    } = usePredictionProfileData({
+        platform,
+        address,
+        fallbackInfo: { name: predictionProfile.platform_name, avatar: predictionProfile.platform_avatar },
+    });
     const fireflyAccountId = socialProfile?.fireflyAccountId;
-    const shareIdentity = useMemo(
+    const shareIdentity = useMemo<PolymarketShareIdentity | null>(
         () =>
-            resolveShareIdentityFromWalletProfile(socialProfile, {
-                name: predictionProfile.platform_name,
-                avatar: predictionProfile.platform_avatar,
-            }),
-        [socialProfile, predictionProfile.platform_name, predictionProfile.platform_avatar],
+            profileName
+                ? {
+                      displayName: profileName,
+                      avatarUrl: profileAvatar || getStampAvatarByProfileId(Source.Wallet, predictionProfile.wallet),
+                  }
+                : null,
+        [profileName, profileAvatar, predictionProfile.wallet],
     );
 
     const fetchAddress = proxyAddress || address;

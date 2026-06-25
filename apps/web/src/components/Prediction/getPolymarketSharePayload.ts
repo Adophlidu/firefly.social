@@ -1,39 +1,16 @@
-import { formatAddressEthereum } from '@dimensiondev/web3/utils';
+import { formatAddress, formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 
+import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
+import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import {
     buildPolymarketEventShareUrl,
     computeTimelinePnlRate,
     type PolymarketShareIdentity,
-    resolvePolymarketShareIdentity,
 } from '@/helpers/polymarketShareImage.js';
 import type { PolymarketShareImagePayload } from '@/hooks/prediction/usePolymarketShareImageActions.js';
-import type { BetsActivity, WalletProfileInfo } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 import type { PredictionPositionDataForUI } from '@/types/prediction.js';
-
-/**
- * FW-7696 AC-14 — assembles the identity candidates a profile surface knows about and resolves
- * them by priority (ff > polymarket > X > Lens > Farcaster > Bluesky).
- */
-export function resolveShareIdentityFromWalletProfile(
-    walletProfile: WalletProfileInfo | null | undefined,
-    polymarket?: { name?: string; avatar?: string },
-): PolymarketShareIdentity | null {
-    const twitter = first(walletProfile?.twitterProfiles);
-    const lens = first(walletProfile?.lensProfilesV3);
-    const farcaster = first(walletProfile?.farcasterProfiles);
-    const bluesky = first(walletProfile?.bskyProfiles);
-
-    return resolvePolymarketShareIdentity({
-        polymarket: polymarket?.name ? { displayName: polymarket.name, avatarUrl: polymarket.avatar } : undefined,
-        twitter: twitter?.handle ? { displayName: twitter.handle } : undefined,
-        lens: lens?.localName ? { displayName: lens.localName } : undefined,
-        farcaster: farcaster?.display_name
-            ? { displayName: farcaster.display_name, avatarUrl: farcaster.avatar?.url }
-            : undefined,
-        bluesky: bluesky?.handle ? { displayName: bluesky.handle } : undefined,
-    });
-}
 
 function fallbackIdentity(address: string | undefined): PolymarketShareIdentity | null {
     return address ? { displayName: formatAddressEthereum(address, 4) } : null;
@@ -101,20 +78,18 @@ export function getActivityShareImagePayload(
 ): PolymarketShareImagePayload | null {
     if (!activity.title || !activity.outcome) return null;
 
-    const identity = resolvePolymarketShareIdentity({
-        firefly: activity.displayInfo?.fireflyName
-            ? {
-                  displayName: activity.displayInfo.fireflyName,
-                  avatarUrl: activity.displayInfo.fireflyAvatarUrl ?? undefined,
-              }
-            : undefined,
-    });
-    const resolvedIdentity =
-        identity ??
-        (activity.displayInfo?.ensHandle
-            ? { displayName: activity.displayInfo.ensHandle, avatarUrl: activity.displayInfo.avatarUrl ?? undefined }
-            : fallbackIdentity(activity.wallet || activity.proxyWallet || activity.owner));
-    if (!resolvedIdentity) return null;
+    // FW-7696 AC-14 — the share image must show the same user the timeline cell renders. Reuse the
+    // list item's identity source (getEnsNameFromDisplayInfo + getWalletProfileAvatar), which already
+    // resolves the display name/avatar by the firefly > social account priority via displayInfoV2.
+    const walletAddress = activity.wallet || activity.proxyWallet || activity.owner;
+    const displayName =
+        getEnsNameFromDisplayInfo(activity, walletAddress ?? '') ??
+        (walletAddress ? formatAddress(walletAddress, 4) : undefined);
+    if (!displayName) return null;
+    const resolvedIdentity: PolymarketShareIdentity = {
+        displayName,
+        avatarUrl: getWalletProfileAvatar(activity.displayInfo),
+    };
 
     const averagePrice = Number.parseFloat(activity.avgPrice || activity.price);
     const currentPrice = Number.parseFloat(activity.conditionOutcomePrices?.[activity.outcomeIndex] ?? activity.price);
