@@ -1,6 +1,5 @@
 'use client';
 
-import { PageRoute } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -15,6 +14,7 @@ import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
+import { getSignupRedirectPath } from '@/helpers/getSignupRedirectPath.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function SuccessPage() {
@@ -49,7 +49,7 @@ export function SuccessPage() {
                 <SquareButton
                     className="mt-6 sm:mt-12"
                     onClick={() => {
-                        location.href = PageRoute.FollowingPosts;
+                        location.href = getSignupRedirectPath();
                     }}
                 >
                     <span className="text-base font-medium text-white">

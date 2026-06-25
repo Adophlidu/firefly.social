@@ -4,7 +4,7 @@ import FireflyLogo from '@dimensiondev/assets/firefly-small.svg';
 import ShadowLeftArrow from '@dimensiondev/assets/left-arrow-shadow.svg';
 import OrbLogo from '@dimensiondev/assets/orb.svg';
 import QrScan from '@dimensiondev/assets/qr-scan.svg';
-import { AsyncStatus, LensSignType, PageRoute, SignupStep, Source } from '@dimensiondev/enums';
+import { AsyncStatus, LensSignType, SignupStep, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
@@ -25,6 +25,7 @@ import { useRouter } from '@/esm/navigation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
+import { getSignupRedirectPath } from '@/helpers/getSignupRedirectPath.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
@@ -96,7 +97,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
             const fireflyAccount = formatFireflyAccountProfileFromFireflyConnections(connections.account, false);
             const hasFireflyAccount = !!fireflyAccount?.displayName || !!fireflyAccount?.avatar;
             if (hasFireflyAccount) {
-                router.replace(PageRoute.FollowingPosts);
+                router.replace(getSignupRedirectPath());
             } else {
                 changeStep(SignupStep.CreateAccountForm);
             }

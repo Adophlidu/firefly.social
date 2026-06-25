@@ -19,6 +19,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { closeLoginModal } from '@/controllers/openLoginModal.js';
 import { closeSignInWithFireflyAppModal } from '@/controllers/openSignInWithFireflyAppModal.js';
 import { useRouter } from '@/esm/navigation.js';
+import { getSignupRedirectPath } from '@/helpers/getSignupRedirectPath.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -108,7 +109,7 @@ export function Signup({ initialStep }: SignupProps) {
     if (hasFireflyAccount && !hasFinished.current && !isSyncing && !isSyncingMetrics) {
         closeLoginModal();
         closeSignInWithFireflyAppModal();
-        router.replace(PageRoute.FollowingPosts);
+        router.replace(getSignupRedirectPath());
     }
 
     return (
