@@ -1,0 +1,28 @@
+/** Number formatting for the share images (FW-7696). */
+
+export function formatUsd(value: number): string {
+    const amount = Math.abs(value).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+    return value < 0 ? `-$${amount}` : `$${amount}`;
+}
+
+/** Average price rendered in cents, e.g. 0.919 -> "91.9¢". */
+export function formatCents(price: number): string {
+    const cents = price * 100;
+    const rounded = Math.round(cents * 10) / 10;
+    return `${rounded}¢`;
+}
+
+/** Percent with an explicit plus sign and up to 2 decimals, e.g. 19.34 -> "+19.34%". */
+export function formatSignedPercent(rate: number): string {
+    const rounded = Math.round(rate * 100) / 100;
+    return `${rounded >= 0 ? '+' : ''}${rounded}%`;
+}
+
+export function isFullLoss(pnlRate: number): boolean {
+    // clients compute the rate in floating point (pnl / cost * 100), so a real full loss often
+    // arrives as e.g. -99.99999994 — compare at the displayed (2-decimal) precision
+    return Math.round(pnlRate * 100) / 100 === -100;
+}

@@ -23,6 +23,9 @@ function buildCSP(): string {
 
     const connectSrc = [
         "'self'",
+        // client-generated object URLs (e.g. the Polymarket share image) are fetched back by
+        // download/copy helpers — same-origin local data, safe to allow
+        'blob:',
         // First party
         '*.r2d2.to',
         'api.firefly.land',

@@ -1,10 +1,11 @@
+import { FileMimeType } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
 import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { fetchImageAsMediaObject } from '@/helpers/fetchImageAsMediaObject.js';
-import { buildPolymarketShareImageUrl, type PolymarketShareImageParams } from '@/helpers/polymarketShareImage.js';
+import type { PolymarketShareImageParams } from '@/helpers/polymarketShareImage.js';
+import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 
 export interface PolymarketShareImagePayload {
     params: PolymarketShareImageParams;
@@ -25,12 +26,13 @@ export const SHARE_IMAGE_ASPECT_RATIO = '750 / 1200';
 export function usePolymarketShareImageActions(payload: PolymarketShareImagePayload) {
     const [{ loading: isPosting }, postWithImage] = useAsyncFn(async () => {
         try {
-            const imageUrl = buildPolymarketShareImageUrl(payload.params);
-            const image = await fetchImageAsMediaObject(imageUrl, SHARE_IMAGE_FILE_NAME);
+            const { createPolymarketShareImage } = await import('@/services/polymarketShareImage/index.js');
+            const blob = await createPolymarketShareImage(payload.params);
+            const file = new File([blob], SHARE_IMAGE_FILE_NAME, { type: blob.type || FileMimeType.PNG });
             openComposeModal({
                 type: 'compose',
                 chars: payload.link,
-                images: [image],
+                images: [createLocalMediaObject(file)],
             });
         } catch {
             enqueueErrorMessage(t`Failed to generate the share image. Please try again.`);
