@@ -13,10 +13,8 @@ import type {
 import { settings } from '@/settings/index.js';
 
 /**
- * Fetches polymarket reward "notifications" from the dedicated activity endpoint
- * (mirrors iOS `Mask.API.Polymarket.UserActivityReward.rewards`). These are merged
- * into the unified notification list as a separate source, NOT requested through
- * `/v1/notification/all`.
+ * Polymarket reward records, fetched as a dedicated notification source and merged
+ * into the unified notification list (not via `/v1/notification/all`).
  */
 export async function getPolymarketRewardNotifications(indicator?: PageIndicator) {
     const page = !indicator?.id || indicator.id === '0' ? 1 : Number(indicator?.id);
@@ -27,24 +25,22 @@ export async function getPolymarketRewardNotifications(indicator?: PageIndicator
     const response = await fireflySessionHolder.fetch<PolymarketRewardNotificationsResponse>(url);
     const data = resolveFireflyResponseData(response);
 
-    const activities = (data?.activities ?? data?.list ?? EMPTY_LIST).filter(
+    const activities = (data?.result ?? data?.activities ?? data?.list ?? EMPTY_LIST).filter(
         (x): x is PolymarketRewardNotificationData => x?.type?.endsWith('_reward') === true,
     );
 
-    const nextCursor = data?.nextCursor ?? data?.pagination?.next_cursor ?? data?.pagination?.nextCursor;
-    const nextPage = typeof data?.nextPage === 'number' ? `${data.nextPage}` : undefined;
-    const hasNext = Boolean(nextCursor ?? nextPage);
-    const fallbackPage = Number.isFinite(page) ? `${page + 1}` : undefined;
+    const nextCursor = data?.cursor ?? data?.nextCursor;
 
     return createPageable(
         activities.map<PolymarketRewardNotification>((x) => ({
             source: Source.Firefly,
             type: NotificationType.PredictionReward,
             data: x,
-            timestamp: x.createdAt ? new Date(x.createdAt).getTime() : Date.now(),
-            notificationId: x.id ?? `${x.type}|${x.createdAt ?? ''}`,
+            // `timestamp` is the reward time in seconds.
+            timestamp: x.timestamp ? x.timestamp * 1000 : x.createdAt ? new Date(x.createdAt).getTime() : Date.now(),
+            notificationId: x.id ?? x.transactionHash ?? `${x.type}|${x.timestamp ?? x.createdAt ?? ''}`,
         })),
         createIndicator(indicator),
-        hasNext ? createNextIndicator(indicator, nextCursor ?? nextPage ?? fallbackPage) : undefined,
+        nextCursor ? createNextIndicator(indicator, nextCursor) : undefined,
     );
 }
