@@ -4450,7 +4450,7 @@ msgid "Font Color"
 msgstr "フォントの色"
 
 msgid "Decoding the sign…"
-msgstr ""
+msgstr "サインを解読中…"
 
 msgid "Choose Wallet"
 msgstr "ウォレットを選択"

@@ -4450,7 +4450,7 @@ msgid "Font Color"
 msgstr "글꼴 색상"
 
 msgid "Decoding the sign…"
-msgstr ""
+msgstr "사인 해독 중…"
 
 msgid "Choose Wallet"
 msgstr "지갑 선택"

@@ -4473,7 +4473,7 @@ msgid "Font Color"
 msgstr "Color de fuente"
 
 msgid "Decoding the sign…"
-msgstr ""
+msgstr "Decodificando el signo…"
 
 msgid "Choose Wallet"
 msgstr "Seleccionar Cartera"

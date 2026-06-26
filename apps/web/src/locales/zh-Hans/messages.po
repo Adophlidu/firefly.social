@@ -4450,7 +4450,7 @@ msgid "Font Color"
 msgstr "字体颜色"
 
 msgid "Decoding the sign…"
-msgstr ""
+msgstr "正在解读星座…"
 
 msgid "Choose Wallet"
 msgstr "选择钱包"
