@@ -2,7 +2,7 @@
 
 import ShadowLeftArrow from '@dimensiondev/assets/left-arrow-shadow.svg';
 import { SignupStep, Source } from '@dimensiondev/enums';
-import { classNames } from '@dimensiondev/utils';
+import { classNames, runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -25,6 +25,7 @@ import { trimify } from '@/helpers/trimify.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { updateProfile } from '@/providers/firefly/endpoint/updateProfile.js';
+import { autoCreateLensAccountForCurrentFireflyAccount } from '@/services/account.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 interface AccountFormProps {
@@ -98,6 +99,9 @@ export function AccountForm({ changeStep }: AccountFormProps) {
                 displayName: nickname,
                 avatar: s3Url,
             });
+            // auto-create & bind a Lens account now that the Firefly profile
+            // (nickname + avatar) exists; tolerate failures and never retry.
+            await runInSafeAsync(autoCreateLensAccountForCurrentFireflyAccount);
             changeStep(SignupStep.Success, {
                 nickname: encodeURIComponent(nickname),
                 avatar: encodeURIComponent(s3Url),
