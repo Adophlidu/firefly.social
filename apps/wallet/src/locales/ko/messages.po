@@ -69,7 +69,7 @@ msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "잔액이 부족한가요? Firefly 지갑이 자동으로 나머지를 보충해 드립니다."
 
 msgid "Failed to create predict wallet. {message}"
-msgstr ""
+msgstr "예측 지갑 생성에 실패했습니다. {message}"
 
 msgid "Transfer from an exchange"
 msgstr "거래소에서 전송"
@@ -258,7 +258,7 @@ msgid "Shares"
 msgstr "주식 수"
 
 msgid "Your prediction account will be ready shortly."
-msgstr ""
+msgstr "예측 계정이 곧 준비됩니다."
 
 msgid "Change Recovery Email"
 msgstr "복구 이메일 변경"
@@ -279,7 +279,7 @@ msgid "You won"
 msgstr "수익"
 
 msgid "Fund via Firefly Wallet"
-msgstr ""
+msgstr "Firefly 지갑으로 입금"
 
 msgid "Network cost"
 msgstr "네트워크 비용"
@@ -321,7 +321,7 @@ msgid "Recovery Email"
 msgstr "복구 이메일"
 
 msgid "Account Creating"
-msgstr ""
+msgstr "계정 생성 중"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "트랜잭션 실패: 최소 수령 금액에 미달했습니다. 슬리피지를 높여 보세요."
@@ -539,7 +539,7 @@ msgid "View"
 msgstr "보기"
 
 msgid "Minimum <0>${minDepositUsd}</0> required"
-msgstr ""
+msgstr "최소 <0>${minDepositUsd}</0> 필요"
 
 msgid "Release Now"
 msgstr "지금 해제"
@@ -697,7 +697,7 @@ msgid "Deposit failed."
 msgstr "입금 실패."
 
 msgid "Perps"
-msgstr ""
+msgstr "퍼프"
 
 msgid "Swapped Failed"
 msgstr "스왑 실패"
@@ -876,7 +876,7 @@ msgid "Est. fee"
 msgstr "예상 수수료"
 
 msgid "Deposit via Crypto Address"
-msgstr ""
+msgstr "암호화 주소로 입금"
 
 msgid "Contract address"
 msgstr "컨트랙트 주소"
@@ -913,7 +913,7 @@ msgid "Search token"
 msgstr "토큰 검색"
 
 msgid "No open orders"
-msgstr ""
+msgstr "미체결 주문 없음"
 
 msgid "Your transaction has been completed."
 msgstr "트랜잭션이 완료되었습니다."

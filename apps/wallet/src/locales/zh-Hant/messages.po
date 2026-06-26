@@ -69,7 +69,7 @@ msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "餘額不足？您的 Firefly 錢包可以自動補足差額。"
 
 msgid "Failed to create predict wallet. {message}"
-msgstr ""
+msgstr "建立預測錢包失敗。{message}"
 
 msgid "Transfer from an exchange"
 msgstr "從交易所轉帳"
@@ -258,7 +258,7 @@ msgid "Shares"
 msgstr "份額"
 
 msgid "Your prediction account will be ready shortly."
-msgstr ""
+msgstr "您的預測帳戶即將準備就緒。"
 
 msgid "Change Recovery Email"
 msgstr "更改備援信箱"
@@ -279,7 +279,7 @@ msgid "You won"
 msgstr "獲利"
 
 msgid "Fund via Firefly Wallet"
-msgstr ""
+msgstr "透過 Firefly 錢包入金"
 
 msgid "Network cost"
 msgstr "網路成本"
@@ -321,7 +321,7 @@ msgid "Recovery Email"
 msgstr "備援信箱"
 
 msgid "Account Creating"
-msgstr ""
+msgstr "帳戶建立中"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "交易失敗：未達到預期最小數額。請嘗試提高滑點。"
@@ -539,7 +539,7 @@ msgid "View"
 msgstr "查看"
 
 msgid "Minimum <0>${minDepositUsd}</0> required"
-msgstr ""
+msgstr "最低需 <0>${minDepositUsd}</0>"
 
 msgid "Release Now"
 msgstr "立即釋放"
@@ -697,7 +697,7 @@ msgid "Deposit failed."
 msgstr "入金失敗。"
 
 msgid "Perps"
-msgstr ""
+msgstr "永續合約"
 
 msgid "Swapped Failed"
 msgstr "兌換失敗"
@@ -876,7 +876,7 @@ msgid "Est. fee"
 msgstr "預估費用"
 
 msgid "Deposit via Crypto Address"
-msgstr ""
+msgstr "透過加密貨幣地址入金"
 
 msgid "Contract address"
 msgstr "合約地址"
@@ -913,7 +913,7 @@ msgid "Search token"
 msgstr "搜尋代幣"
 
 msgid "No open orders"
-msgstr ""
+msgstr "暫無未成交訂單"
 
 msgid "Your transaction has been completed."
 msgstr "您的交易已完成。"

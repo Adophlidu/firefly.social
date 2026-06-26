@@ -69,7 +69,7 @@ msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "残高不足ですか？Firefly ウォレットが不足分を自動補填できます。"
 
 msgid "Failed to create predict wallet. {message}"
-msgstr ""
+msgstr "予測ウォレットの作成に失敗しました。{message}"
 
 msgid "Transfer from an exchange"
 msgstr "取引所から送金"
@@ -258,7 +258,7 @@ msgid "Shares"
 msgstr "口数"
 
 msgid "Your prediction account will be ready shortly."
-msgstr ""
+msgstr "予測アカウントはまもなく準備完了します。"
 
 msgid "Change Recovery Email"
 msgstr "リカバリーメールを変更"
@@ -279,7 +279,7 @@ msgid "You won"
 msgstr "勝利"
 
 msgid "Fund via Firefly Wallet"
-msgstr ""
+msgstr "Fireflyウォレットで入金"
 
 msgid "Network cost"
 msgstr "ネットワークコスト"
@@ -321,7 +321,7 @@ msgid "Recovery Email"
 msgstr "リカバリーメール"
 
 msgid "Account Creating"
-msgstr ""
+msgstr "アカウント作成中"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "トランザクション失敗：最小受取額に達しませんでした。スリッページを増やしてください。"
@@ -539,7 +539,7 @@ msgid "View"
 msgstr "表示"
 
 msgid "Minimum <0>${minDepositUsd}</0> required"
-msgstr ""
+msgstr "最低 <0>${minDepositUsd}</0> が必要です"
 
 msgid "Release Now"
 msgstr "今すぐ解放"
@@ -697,7 +697,7 @@ msgid "Deposit failed."
 msgstr "入金に失敗しました。"
 
 msgid "Perps"
-msgstr ""
+msgstr "パープス"
 
 msgid "Swapped Failed"
 msgstr "スワップに失敗しました"
@@ -876,7 +876,7 @@ msgid "Est. fee"
 msgstr "推定手数料"
 
 msgid "Deposit via Crypto Address"
-msgstr ""
+msgstr "暗号アドレスで入金"
 
 msgid "Contract address"
 msgstr "コントラクトアドレス"
@@ -913,7 +913,7 @@ msgid "Search token"
 msgstr "トークンを検索"
 
 msgid "No open orders"
-msgstr ""
+msgstr "未約定の注文はありません"
 
 msgid "Your transaction has been completed."
 msgstr "トランザクションが完了しました。"

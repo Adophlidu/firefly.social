@@ -336,7 +336,7 @@ msgid "Rank #{0}"
 msgstr "ランキング #{0}"
 
 msgid "{teamName} 2H Totals"
-msgstr ""
+msgstr "{teamName} 後半合計"
 
 msgid "Mute {walletHandle}"
 msgstr "{walletHandle} をミュート"
@@ -742,7 +742,7 @@ msgid "Most Nashors"
 msgstr "ナッシャー最多"
 
 msgid "Made with AI"
-msgstr ""
+msgstr "AIで作成"
 
 msgid "Stocks"
 msgstr "株式"
@@ -1468,7 +1468,7 @@ msgstr "エアドロップ詐欺なし"
 
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Connect the wallet{0} that owns this account and sign to enable auto login."
-msgstr ""
+msgstr "このアカウントを所有するウォレット{0}を接続し、署名して自動ログインを有効にしてください。"
 
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "Lens マネージャーのバインドに失敗しました。後でもう一度お試しください。"
@@ -2179,7 +2179,7 @@ msgid "The transaction is in progress."
 msgstr "取引が進行中です。"
 
 msgid "{teamName} 1H Totals"
-msgstr ""
+msgstr "{teamName} 前半合計"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "コントラクトにプロキシはありません。プロキシコントラクトは、コントラクトオーナーがトークンの機能を変更し、価格に影響を与える可能性があることを意味します。"
@@ -2585,7 +2585,7 @@ msgid "Failed to change password."
 msgstr "パスワードの変更に失敗しました。"
 
 msgid "Failed to prepare the share image."
-msgstr ""
+msgstr "共有画像の準備に失敗しました。"
 
 msgid "Voted"
 msgstr "投票済み"
@@ -2888,7 +2888,7 @@ msgid "Try again"
 msgstr "もう一度お試しください"
 
 msgid "Sign Decoded"
-msgstr ""
+msgstr "サイン解読"
 
 #. placeholder {0}: post.stats.comments
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
@@ -4012,7 +4012,7 @@ msgid "Welcome back to Firefly!"
 msgstr "Firefly へようこそ！"
 
 msgid "Failed to download image."
-msgstr ""
+msgstr "画像のダウンロードに失敗しました。"
 
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
@@ -4068,7 +4068,7 @@ msgid "Reset password"
 msgstr "パスワードをリセット"
 
 msgid "Superfortune"
-msgstr ""
+msgstr "Superfortune"
 
 msgid "Post collected successfully!"
 msgstr "投稿のコレクトに成功しました！"
@@ -5333,7 +5333,7 @@ msgstr "{0} への投稿の送信に失敗しました。"
 
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Please re-login this account with owner wallet{0} to continue using more features."
-msgstr ""
+msgstr "より多くの機能を引き続きご利用いただくには、オーナーウォレット{0}でこのアカウントに再ログインしてください。"
 
 msgid "Tip liked."
 msgstr "チップにいいねしました。"

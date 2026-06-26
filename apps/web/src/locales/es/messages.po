@@ -338,7 +338,7 @@ msgid "Rank #{0}"
 msgstr "Puesto #{0}"
 
 msgid "{teamName} 2H Totals"
-msgstr ""
+msgstr "Totales 2H de {teamName}"
 
 msgid "Mute {walletHandle}"
 msgstr "Silenciar {walletHandle}"
@@ -746,7 +746,7 @@ msgid "Most Nashors"
 msgstr "Más Nashors"
 
 msgid "Made with AI"
-msgstr ""
+msgstr "Hecho con IA"
 
 msgid "Stocks"
 msgstr "Acciones"
@@ -1475,7 +1475,7 @@ msgstr "No Estafa de Airdrop"
 
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Connect the wallet{0} that owns this account and sign to enable auto login."
-msgstr ""
+msgstr "Conecte la billetera{0} que posee esta cuenta y firme para habilitar el inicio de sesión automático."
 
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "No se pudo vincular el administrador de Lens. Vuelva a intentarlo más tarde."
@@ -2189,7 +2189,7 @@ msgid "The transaction is in progress."
 msgstr "La transacción está en curso."
 
 msgid "{teamName} 1H Totals"
-msgstr ""
+msgstr "Totales 1H de {teamName}"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "No hay proxy en el contrato. El contrato proxy significa que el propietario del contrato puede modificar la función del token y posiblemente afectar el precio."
@@ -2598,7 +2598,7 @@ msgid "Failed to change password."
 msgstr "No se pudo cambiar la contraseña."
 
 msgid "Failed to prepare the share image."
-msgstr ""
+msgstr "No se pudo preparar la imagen para compartir."
 
 msgid "Voted"
 msgstr "Votado"
@@ -2902,7 +2902,7 @@ msgid "Try again"
 msgstr "Reintentar"
 
 msgid "Sign Decoded"
-msgstr ""
+msgstr "Signo revelado"
 
 #. placeholder {0}: post.stats.comments
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
@@ -4034,7 +4034,7 @@ msgid "Welcome back to Firefly!"
 msgstr "¡Bienvenido de nuevo a Firefly!"
 
 msgid "Failed to download image."
-msgstr ""
+msgstr "No se pudo descargar la imagen."
 
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
@@ -4091,7 +4091,7 @@ msgid "Reset password"
 msgstr "Restablecer contraseña"
 
 msgid "Superfortune"
-msgstr ""
+msgstr "Superfortune"
 
 msgid "Post collected successfully!"
 msgstr "¡Publicación recogida con éxito!"
@@ -5359,7 +5359,7 @@ msgstr "No se pudo enviar tu publicación a {0}."
 
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Please re-login this account with owner wallet{0} to continue using more features."
-msgstr ""
+msgstr "Vuelva a iniciar sesión en esta cuenta con la billetera propietaria{0} para seguir usando más funciones."
 
 msgid "Tip liked."
 msgstr "Consejo marcado como me gusta."

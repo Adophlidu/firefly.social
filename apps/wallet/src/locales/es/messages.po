@@ -69,7 +69,7 @@ msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "¿Saldo insuficiente? Su Firefly Wallet puede cubrir el resto automáticamente."
 
 msgid "Failed to create predict wallet. {message}"
-msgstr ""
+msgstr "No se pudo crear la billetera de predicciones. {message}"
 
 msgid "Transfer from an exchange"
 msgstr "Transferir desde un exchange"
@@ -258,7 +258,7 @@ msgid "Shares"
 msgstr "Acciones"
 
 msgid "Your prediction account will be ready shortly."
-msgstr ""
+msgstr "Su cuenta de predicciones estará lista en breve."
 
 msgid "Change Recovery Email"
 msgstr "Cambiar correo de recuperación"
@@ -279,7 +279,7 @@ msgid "You won"
 msgstr "Ganó"
 
 msgid "Fund via Firefly Wallet"
-msgstr ""
+msgstr "Fondear con Firefly Wallet"
 
 msgid "Network cost"
 msgstr "Costo de red"
@@ -321,7 +321,7 @@ msgid "Recovery Email"
 msgstr "Correo de recuperación"
 
 msgid "Account Creating"
-msgstr ""
+msgstr "Creando cuenta"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "Transacción fallida: no se alcanzó el monto mínimo de retorno. Intente aumentar el deslizamiento."
@@ -539,7 +539,7 @@ msgid "View"
 msgstr "Ver"
 
 msgid "Minimum <0>${minDepositUsd}</0> required"
-msgstr ""
+msgstr "Mínimo <0>${minDepositUsd}</0> requerido"
 
 msgid "Release Now"
 msgstr "Liberar ahora"
@@ -697,7 +697,7 @@ msgid "Deposit failed."
 msgstr "Error al depositar."
 
 msgid "Perps"
-msgstr ""
+msgstr "Perps"
 
 msgid "Swapped Failed"
 msgstr "Error al intercambiar"
@@ -876,7 +876,7 @@ msgid "Est. fee"
 msgstr "Comisión est."
 
 msgid "Deposit via Crypto Address"
-msgstr ""
+msgstr "Depositar con dirección cripto"
 
 msgid "Contract address"
 msgstr "Dirección del contrato"
@@ -913,7 +913,7 @@ msgid "Search token"
 msgstr "Buscar token"
 
 msgid "No open orders"
-msgstr ""
+msgstr "No hay órdenes abiertas"
 
 msgid "Your transaction has been completed."
 msgstr "Su transacción ha sido completada."

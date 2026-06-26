@@ -336,7 +336,7 @@ msgid "Rank #{0}"
 msgstr "排名 #{0}"
 
 msgid "{teamName} 2H Totals"
-msgstr ""
+msgstr "{teamName} 下半场总分"
 
 msgid "Mute {walletHandle}"
 msgstr "隐藏 {walletHandle}"
@@ -742,7 +742,7 @@ msgid "Most Nashors"
 msgstr "最多纳什男爵"
 
 msgid "Made with AI"
-msgstr ""
+msgstr "AI 创作"
 
 msgid "Stocks"
 msgstr "股币"
@@ -1468,7 +1468,7 @@ msgstr "没有空投骗局"
 
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Connect the wallet{0} that owns this account and sign to enable auto login."
-msgstr ""
+msgstr "连接拥有此账户的钱包{0}并签名以启用自动登录。"
 
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "绑定 Lens 管理员失败，请稍后重试。"
@@ -2179,7 +2179,7 @@ msgid "The transaction is in progress."
 msgstr "交易正在进行中。"
 
 msgid "{teamName} 1H Totals"
-msgstr ""
+msgstr "{teamName} 上半场总分"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "合约中没有代理。代理意味着合约所有者可以修改代币的功能，并可能影响价格。"
@@ -2585,7 +2585,7 @@ msgid "Failed to change password."
 msgstr "修改密码失败。"
 
 msgid "Failed to prepare the share image."
-msgstr ""
+msgstr "分享图片准备失败。"
 
 msgid "Voted"
 msgstr "已投票"
@@ -2888,7 +2888,7 @@ msgid "Try again"
 msgstr "请重试"
 
 msgid "Sign Decoded"
-msgstr ""
+msgstr "星座解读"
 
 #. placeholder {0}: post.stats.comments
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
@@ -4012,7 +4012,7 @@ msgid "Welcome back to Firefly!"
 msgstr "欢迎回到 Firefly！"
 
 msgid "Failed to download image."
-msgstr ""
+msgstr "图片下载失败。"
 
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
@@ -4068,7 +4068,7 @@ msgid "Reset password"
 msgstr "重置密码"
 
 msgid "Superfortune"
-msgstr ""
+msgstr "Superfortune"
 
 msgid "Post collected successfully!"
 msgstr "帖子铸造收集成功！"
@@ -5333,7 +5333,7 @@ msgstr "向 {0} 发布帖子失败。"
 
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Please re-login this account with owner wallet{0} to continue using more features."
-msgstr ""
+msgstr "请使用所有者钱包{0}重新登录此账户，以继续使用更多功能。"
 
 msgid "Tip liked."
 msgstr "已点赞。"
