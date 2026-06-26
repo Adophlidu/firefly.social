@@ -25,7 +25,7 @@ import { trimify } from '@/helpers/trimify.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { updateProfile } from '@/providers/firefly/endpoint/updateProfile.js';
-import { autoCreateLensAccountForCurrentFireflyAccount } from '@/services/account.js';
+import { autoCreateLensAccount } from '@/services/account.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 interface AccountFormProps {
@@ -101,7 +101,10 @@ export function AccountForm({ changeStep }: AccountFormProps) {
             });
             // auto-create & bind a Lens account now that the Firefly profile
             // (nickname + avatar) exists; tolerate failures and never retry.
-            await runInSafeAsync(() => autoCreateLensAccountForCurrentFireflyAccount(s3Url));
+            await runInSafeAsync(() => autoCreateLensAccount({
+                displayName: nickname,
+                avatarUrl: s3Url,
+            }));
             changeStep(SignupStep.Success, {
                 nickname: encodeURIComponent(nickname),
                 avatar: encodeURIComponent(s3Url),

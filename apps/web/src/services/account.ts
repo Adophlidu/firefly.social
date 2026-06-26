@@ -77,6 +77,11 @@ function getFireflySession(account: Account) {
     return account.fireflySession;
 }
 
+interface AutoCreateLensAccountOptions {
+    displayName?: string;
+    avatarUrl?: string;
+}
+
 /**
  * Auto-create a Lens account for the freshly created Firefly account once its
  * profile (nickname + avatar) has been saved. The backend generates the Lens
@@ -87,7 +92,7 @@ function getFireflySession(account: Account) {
  * the session payload may not carry one. Must run *after* that step completes so
  * the Lens account is created with the user's chosen avatar.
  */
-export async function autoCreateLensAccountForCurrentFireflyAccount(avatarUrl?: string) {
+export async function autoCreateLensAccount(options: AutoCreateLensAccountOptions) {
     // skip when a Lens account is already connected — it already has one.
     if (getProfileState(Source.Lens).currentProfile) return;
 
@@ -95,8 +100,8 @@ export async function autoCreateLensAccountForCurrentFireflyAccount(avatarUrl?: 
     if (!payload?.isNew || !payload.uid) return;
 
     await createLensAccount({
-        name: `ff-${payload.uid}`,
-        avatar: avatarUrl ?? payload.avatar ?? undefined,
+        name: options.displayName ??`ff-${payload.uid}`,
+        avatar: options.avatarUrl ?? payload.avatar ?? undefined,
     });
 }
 
