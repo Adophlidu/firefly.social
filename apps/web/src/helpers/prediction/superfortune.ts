@@ -6,8 +6,10 @@ import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 /** FW-7814 — SuperFortune ("玄学预测") integration on FIFA World Cup game detail pages. */
 
-/** Host that renders the SuperFortune share card (currently the non-prod environment). */
+/** Host that renders the SuperFortune share card preview (currently the non-prod environment). */
 const SUPERFORTUNE_CARD_HOST = 'https://nonprod.app.superfortune.xyz';
+/** Host that serves the rendered PNG share image used by Download / Post (non-prod). */
+const SUPERFORTUNE_IMAGE_HOST = 'https://api.nonprod.superfortune.xyz';
 /** Host for the public SuperFortune game-interpretation page (the "Superfortune" jump button). */
 const SUPERFORTUNE_APP_HOST = 'https://app.superfortune.xyz';
 /** `leagueId` returned by `/v1/polymarket/event/detail` that identifies a FIFA World Cup match. */
@@ -26,14 +28,14 @@ export function getSuperfortuneCardUrl(matchKey: string, lang: SuperfortuneLang)
 }
 
 /**
- * Image URL used by the Download / Post actions — the single swap-point for the
- * partner's PNG endpoint (FW-7814). The partner only serves the HTML card today, so
- * this returns the card URL as a placeholder; once they expose a rendered image,
- * replace the URL here and Download / Post produce a real shareable image with no
- * other code changes.
+ * Rendered PNG share image used by the Download / Post actions. Note the image
+ * endpoint expects `cn` (not `zh`) for Chinese, unlike the preview card.
  */
 export function getSuperfortuneShareImageUrl(matchKey: string, lang: SuperfortuneLang): string {
-    return getSuperfortuneCardUrl(matchKey, lang);
+    return urlcat(SUPERFORTUNE_IMAGE_HOST, '/worldcup/share-card', {
+        match_key: matchKey,
+        lang: lang === 'zh' ? 'cn' : 'en',
+    });
 }
 
 /** Public game-interpretation page opened by the "Superfortune" button (new tab, no warning). */
