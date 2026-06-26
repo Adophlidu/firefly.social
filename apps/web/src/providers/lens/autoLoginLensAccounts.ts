@@ -7,6 +7,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { logger } from '@/libs/Logger.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { autoLoginProfileWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { updateLensAccounts } from '@/providers/lens/updateLensAccounts.js';
@@ -19,11 +20,17 @@ interface Options {
 
 export async function autoLoginLensAccounts({ updateStore = true }: Options = {}) {
     // 1. check firefly session
-    const lastFireflyAccountId = useFireflyProfileStore.getState().currentProfileSession?.profileId;
+    const fireflySession = useFireflyProfileStore.getState().currentProfileSession as FireflySession | null;
+    const lastFireflyAccountId = fireflySession?.profileId;
     if (!lastFireflyAccountId) {
         logger.warn('No firefly session found.');
         return;
     }
+
+    // the auto-registered Lens account (handle `ff-<uid>`) is created for internal
+    // use only — never auto-login or display it. See FW-7824.
+    const fireflyUid = fireflySession?.payload?.uid;
+    const autoRegisteredLensHandle = fireflyUid ? `ff-${fireflyUid}`.toLowerCase() : undefined;
 
     // 2. get privy evm wallet
     const privyEvmAddress = (await ensureCreatedFireflyWallet('eth'))?.address;
@@ -45,6 +52,7 @@ export async function autoLoginLensAccounts({ updateStore = true }: Options = {}
     const filteredManagedProfiles = managedProfiles.filter((profile) => {
         const connectedAccounts = (social[Source.Lens]?.connected || []).flatMap((x) => x.lens || []);
         return (
+            profile.handle.toLowerCase() !== autoRegisteredLensHandle &&
             !lensProfiles.some((x) => isSameEthereumAddress(x.profileId, profile.profileId)) &&
             connectedAccounts.some((x) => isSameEthereumAddress(x.id, profile.profileId))
         );
