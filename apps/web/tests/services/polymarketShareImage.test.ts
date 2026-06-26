@@ -1,31 +1,24 @@
 import { describe, expect, it } from 'vitest';
 
-import { createQrCodeDataUri } from '@/services/polymarketShareImage/assets.js';
-import { applyFrostedGlass } from '@/services/polymarketShareImage/render.js';
+import { formatSignedUsd, formatUsd } from '@/services/polymarketShareImage/format.js';
 
-const CARD_BG = 'rgba(255,255,255,0.10)';
-
-describe('applyFrostedGlass', () => {
-    it('replaces a translucent card panel with the blurred-glass stack and injects the filter', () => {
-        const svg = `<svg><defs></defs><path d="M0 0 H10 V10 Z" fill="${CARD_BG}"/></svg>`;
-        const out = applyFrostedGlass(svg);
-        expect(out).toContain('pm-glass-blur'); // the feGaussianBlur filter was injected
-        expect(out).toContain('<clipPath id="pm-glass-0">');
-        expect(out).toContain('feGaussianBlur');
+describe('formatUsd', () => {
+    it('formats a positive amount', () => {
+        expect(formatUsd(893.34)).toBe('$893.34');
     });
 
-    it('is a no-op when there is no translucent card panel to frost', () => {
-        const svg = '<svg><defs></defs><path d="M0 0" fill="#ffffff"/></svg>';
-        expect(applyFrostedGlass(svg)).toBe(svg);
+    it('formats a negative amount with a leading minus', () => {
+        expect(formatUsd(-893.34)).toBe('-$893.34');
     });
 });
 
-describe('createQrCodeDataUri', () => {
-    it('builds an SVG data URI with the centred Firefly logo knocked into the QR', () => {
-        const uri = createQrCodeDataUri('https://firefly.social/');
-        expect(uri.startsWith('data:image/svg+xml;utf8,')).toBe(true);
-        const svg = decodeURIComponent(uri.replace('data:image/svg+xml;utf8,', ''));
-        expect(svg).toContain('<svg');
-        expect(svg).toContain('<g transform='); // the injected centre logo group
+describe('formatSignedUsd', () => {
+    it('prefixes non-negative amounts with a plus sign', () => {
+        expect(formatSignedUsd(893.34)).toBe('+$893.34');
+        expect(formatSignedUsd(0)).toBe('+$0.00');
+    });
+
+    it('keeps the minus sign for negative amounts', () => {
+        expect(formatSignedUsd(-893.34)).toBe('-$893.34');
     });
 });

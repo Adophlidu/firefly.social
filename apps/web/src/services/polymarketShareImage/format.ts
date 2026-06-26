@@ -8,6 +8,11 @@ export function formatUsd(value: number): string {
     return value < 0 ? `-$${amount}` : `$${amount}`;
 }
 
+/** Like {@link formatUsd} but with an explicit "+" sign for non-negative values (e.g. "+$893.34"). */
+export function formatSignedUsd(value: number): string {
+    return value >= 0 ? `+${formatUsd(value)}` : formatUsd(value);
+}
+
 /** Average price rendered in cents, e.g. 0.919 -> "91.9¢". */
 export function formatCents(price: number): string {
     const cents = price * 100;

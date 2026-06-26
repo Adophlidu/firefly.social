@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import {
     buildPolymarketEventShareUrl,
     buildPolymarketProfileShareUrl,
-    buildPolymarketShareImageUrl,
     computeTimelinePnlRate,
     formatSharePnlHeadline,
     resolvePolymarketShareIdentity,
@@ -141,81 +140,10 @@ describe('buildPolymarketEventShareUrl / buildPolymarketProfileShareUrl (AC-15 /
         ); // ASSERTION (frozen)
     });
 
-    it('builds the wallet profile link (multi-winnings QR) with the sharer uid', () => {
+    it('builds the wallet profile link with the sharer uid', () => {
         const proxyAddress = `0x${'ab'.repeat(20)}`;
         expect(buildPolymarketProfileShareUrl(proxyAddress, 'uid-1')).toBe(
             `https://firefly.social/polymarket/profile/${proxyAddress}?sid=uid-1`,
         ); // ASSERTION (frozen)
-    });
-});
-
-describe('buildPolymarketShareImageUrl (AC-18 — endpoint URL builder)', () => {
-    const qrUrl = 'https://firefly.social/polymarket/event/will-x-happen?sid=uid-1';
-
-    function buildPositionUrl(overrides: Record<string, unknown> = {}) {
-        return buildPolymarketShareImageUrl({
-            type: 'position',
-            title: 'Will 50% & more “special” chars survive?',
-            outcome: 'Yes',
-            status: 'active',
-            pnlRate: 25,
-            totalCost: 120.5,
-            avgPrice: 0.48,
-            currentPnl: 30.12,
-            identity: { displayName: 'ff-user' },
-            qrUrl,
-            ...overrides,
-        });
-    }
-
-    it('targets the workers share-image endpoint', () => {
-        const url = new URL(buildPositionUrl());
-        expect(url.pathname.endsWith('/polymarket/share-image')).toBe(true); // ASSERTION (frozen) — spec A1
-    });
-
-    it('round-trips the title through param encoding (special characters intact)', () => {
-        const values = Array.from(new URL(buildPositionUrl()).searchParams.values());
-        expect(values).toContain('Will 50% & more “special” chars survive?'); // ASSERTION (frozen)
-    });
-
-    it('passes the exact qrUrl (market detail link with sid) through to the endpoint', () => {
-        const values = Array.from(new URL(buildPositionUrl()).searchParams.values());
-        expect(values).toContain(qrUrl); // ASSERTION (frozen) — input side of AC-7
-    });
-
-    it('carries the resolved identity name', () => {
-        const values = Array.from(new URL(buildPositionUrl()).searchParams.values());
-        expect(values).toContain('ff-user'); // ASSERTION (frozen)
-    });
-
-    it('marks the timeline variant so the image reads "Predicted" with no Current PnL row', () => {
-        const url = buildPositionUrl({ variant: 'timeline' });
-        expect(url).toContain('timeline'); // ASSERTION (frozen)
-        expect(buildPositionUrl()).not.toContain('timeline'); // ASSERTION (frozen)
-    });
-
-    it('builds the winnings image URL with all item titles, the total and the profile QR link', () => {
-        const proxyAddress = `0x${'ab'.repeat(20)}`;
-        const profileQrUrl = buildPolymarketProfileShareUrl(proxyAddress, 'uid-1');
-        const url = buildPolymarketShareImageUrl({
-            type: 'winnings',
-            totalWon: 345.67,
-            items: [
-                { title: 'Winning market A', cost: 10, won: 25, pnlRate: 150 },
-                { title: 'Winning market B', cost: 20, won: 30, pnlRate: 50 },
-            ],
-            identity: { displayName: 'ff-user' },
-            qrUrl: profileQrUrl,
-        });
-
-        const parsed = new URL(url);
-        expect(parsed.pathname.endsWith('/polymarket/share-image')).toBe(true); // ASSERTION (frozen)
-        expect(url).toContain('winnings'); // ASSERTION (frozen)
-
-        const decoded = decodeURIComponent(url);
-        expect(decoded).toContain('Winning market A'); // ASSERTION (frozen)
-        expect(decoded).toContain('Winning market B'); // ASSERTION (frozen)
-        expect(decoded).toContain('345.67'); // ASSERTION (frozen)
-        expect(Array.from(parsed.searchParams.values())).toContain(profileQrUrl); // ASSERTION (frozen)
     });
 });

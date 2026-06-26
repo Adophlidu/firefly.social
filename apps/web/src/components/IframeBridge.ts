@@ -29,6 +29,7 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsMediaObject } from '@/helpers/fetchImageAsMediaObject.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import type { PolymarketShareImageParams } from '@/helpers/polymarketShareImage.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useWalletTelemetrySubscriber } from '@/hooks/useWalletTelemetrySubscriber.js';
@@ -163,6 +164,15 @@ async function handleFollowAccounts({ accounts }: FollowAccountsData) {
     }
 }
 
+function blobToDataUrl(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(reader.error ?? new Error('Failed to read image blob'));
+        reader.readAsDataURL(blob);
+    });
+}
+
 const createAllEvents = (router: ReturnType<typeof useRouter>) => {
     const allEvents: {
         [K in IframeBridgeMethod]: (params: IframeBridgeRequestArguments[K]) => Promise<IframeBridgeResponseResult[K]>;
@@ -294,6 +304,13 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
             // Render confetti from the host document so it spans the full viewport;
             // a canvas drawn inside the wallet iframe is clipped to the iframe's box.
             confettiWithRealistic();
+        },
+        [IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE]: async (params) => {
+            // The wallet iframe can't run the satori renderer (fonts + the same-origin image proxy),
+            // so generate the share image here on the host and hand back a PNG data URL.
+            const { createPolymarketShareImage } = await import('@/services/polymarketShareImage/index.js');
+            const blob = await createPolymarketShareImage(params.params as PolymarketShareImageParams);
+            return { dataUrl: await blobToDataUrl(blob) };
         },
     };
     return allEvents;

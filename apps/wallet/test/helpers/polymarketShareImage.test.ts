@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import {
     buildPolymarketEventShareUrl,
     buildPolymarketProfileShareUrl,
-    buildPolymarketShareImageUrl,
     getPositionShareImagePayload,
     getWinningsShareImagePayload,
 } from '@/helpers/polymarketShareImage.js';
@@ -85,7 +84,7 @@ describe('getWinningsShareImagePayload', () => {
         expect(payload?.params.type).toBe('position');
     });
 
-    it('maps multiple winnings with the profile QR link', () => {
+    it('maps multiple winnings with the profile link', () => {
         const payload = getWinningsShareImagePayload(
             [createPosition({ pnl: 50 }), createPosition({ pnl: 30, title: 'Another market' })],
             80,
@@ -94,29 +93,9 @@ describe('getWinningsShareImagePayload', () => {
         );
         if (payload?.params.type !== 'winnings') throw new Error('expected winnings params');
         expect(payload.params.items).toHaveLength(2);
-        expect(payload.params.qrUrl).toBe('https://firefly.social/polymarket/profile/0xabc');
+        expect(payload.link).toBe('https://firefly.social/polymarket/profile/0xabc');
         // resolved winning shares pay out $1 each
         expect(payload.params.items[0].won).toBe(100);
         expect(payload.params.items[0].cost).toBe(50);
-    });
-});
-
-describe('buildPolymarketShareImageUrl', () => {
-    it('targets the workers endpoint and round-trips the title', () => {
-        const url = buildPolymarketShareImageUrl({
-            type: 'position',
-            title: 'Will 50% & more happen?',
-            outcome: 'Yes',
-            status: 'active',
-            pnlRate: 20,
-            totalCost: 50,
-            avgPrice: 0.5,
-            currentPnl: 10,
-            identity: { displayName: 'tester' },
-            qrUrl: 'https://firefly.social/polymarket/event/slug-a',
-        });
-        const parsed = new URL(url);
-        expect(parsed.pathname).toBe('/polymarket/share-image');
-        expect(Array.from(parsed.searchParams.values())).toContain('Will 50% & more happen?');
     });
 });

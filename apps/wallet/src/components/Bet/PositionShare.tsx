@@ -6,7 +6,7 @@ import ShareImageIcon from '@dimensiondev/assets/share-image.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { Trans } from '@lingui/react/macro';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
@@ -17,51 +17,66 @@ import {
     DialogOrDrawerHeader,
     DialogOrDrawerTitle,
 } from '@/components/DialogOrDrawer.js';
-import { buildPolymarketShareImageUrl, type PolymarketShareImagePayload } from '@/helpers/polymarketShareImage.js';
+import type { PolymarketShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { cn } from '@/lib/utils.js';
+
+const SHARE_IMAGE_ASPECT_RATIO = '750 / 1060';
+const SHARE_IMAGE_FILE_NAME = 'firefly_position_share.png';
 
 function supportsImageClipboard() {
     return typeof ClipboardItem !== 'undefined' && typeof navigator !== 'undefined' && !!navigator.clipboard?.write;
 }
 
-async function copyImageToClipboard(imageUrl: string) {
-    const blobPromise = fetch(imageUrl).then(async (response) => {
-        if (!response.ok) throw new Error(`Failed to fetch image (${response.status})`);
+/**
+ * FW-7810 — the wallet iframe can't run the satori renderer, so it asks the host (web) to generate the
+ * share image and returns a PNG data URL. Memoized per payload via react-query so the preview, copy,
+ * download and post all reuse one render.
+ */
+function useShareImageDataUrl(payload: PolymarketShareImagePayload, enabled: boolean) {
+    return useQuery({
+        queryKey: ['polymarket-share-image', payload.params],
+        enabled,
+        staleTime: Infinity,
+        gcTime: 5 * 60 * 1000,
+        async queryFn() {
+            const { dataUrl } = await iframeBridgeProvider.request(
+                IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE,
+                { params: payload.params },
+            );
+            return dataUrl;
+        },
+    });
+}
+
+async function copyImageToClipboard(dataUrl: string) {
+    const blobPromise = fetch(dataUrl).then(async (response) => {
         const blob = await response.blob();
         return blob.type === 'image/png' ? blob : new Blob([blob], { type: 'image/png' });
     });
     await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobPromise })]);
 }
 
-async function downloadImage(imageUrl: string, fileName: string) {
-    const response = await fetch(imageUrl);
-    if (!response.ok) throw new Error(`Failed to fetch image (${response.status})`);
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    try {
-        const anchor = document.createElement('a');
-        anchor.href = url;
-        anchor.download = fileName;
-        anchor.click();
-    } finally {
-        URL.revokeObjectURL(url);
-    }
+async function downloadImage(dataUrl: string, fileName: string) {
+    const anchor = document.createElement('a');
+    anchor.href = dataUrl;
+    anchor.download = fileName;
+    anchor.click();
 }
 
 /**
- * FW-7696 AC-15 — "Post with image" from the wallet iframe: pre-fetch the generated PNG (wallet-side
- * loading/error UX, and it warms the worker cache), then ask the host page to open compose with the
- * image attached via the extended bridge COMPOSE method.
+ * FW-7696 AC-15 — "Post with image" from the wallet iframe: generate the PNG via the host, then ask
+ * the host page to open compose with the image attached via the bridge COMPOSE method.
  */
 function usePostWithShareImage(payload: PolymarketShareImagePayload, onDone?: () => void) {
     return useMutation({
         async mutationFn() {
-            const imageUrl = buildPolymarketShareImageUrl(payload.params);
-            const response = await fetch(imageUrl);
-            if (!response.ok) throw new Error(`Failed to generate the share image (${response.status})`);
+            const { dataUrl } = await iframeBridgeProvider.request(
+                IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE,
+                { params: payload.params },
+            );
             await iframeBridgeProvider.request(IframeBridgeMethod.COMPOSE, {
                 text: payload.link,
-                imageUrls: [imageUrl],
+                imageUrls: [dataUrl],
             });
         },
         onSuccess() {
@@ -160,14 +175,13 @@ interface PositionSharePreviewDialogProps {
 
 /** The share-image preview with Copy / Download / Post (FW-7696 AC-16). */
 export function PositionSharePreviewDialog({ payload, open, onOpenChange }: PositionSharePreviewDialogProps) {
-    const [loading, setLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);
-    const imageUrl = buildPolymarketShareImageUrl(payload.params);
+    const { data: imageUrl, isLoading, isError } = useShareImageDataUrl(payload, open);
+    const ready = !!imageUrl && !isLoading && !isError;
     const { mutate: postWithImage, isPending } = usePostWithShareImage(payload, () => onOpenChange(false));
 
     const { mutate: copyImage, isPending: isCopying } = useMutation({
         async mutationFn() {
-            await copyImageToClipboard(imageUrl);
+            if (imageUrl) await copyImageToClipboard(imageUrl);
         },
         onSuccess() {
             toast.success(<Trans>Copied</Trans>);
@@ -179,7 +193,7 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
 
     const { mutate: download, isPending: isDownloading } = useMutation({
         async mutationFn() {
-            await downloadImage(imageUrl, 'firefly_position_share.png');
+            if (imageUrl) await downloadImage(imageUrl, SHARE_IMAGE_FILE_NAME);
         },
         onError() {
             toast.error(<Trans>Failed to download image. Please try again later.</Trans>);
@@ -195,34 +209,27 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
                     </DialogOrDrawerTitle>
                 </DialogOrDrawerHeader>
                 <div className="no-scrollbar relative max-h-[70vh] overflow-y-auto">
-                    {loading || hasError ? (
+                    {!ready ? (
                         <div className="absolute inset-0 z-10 flex items-center justify-center bg-primaryBottom">
-                            {loading ? (
-                                <Loader2 className="size-6 animate-spin text-main" />
-                            ) : (
+                            {isError ? (
                                 <span className="text-sm font-medium text-second">
                                     <Trans>Failed to load image.</Trans>
                                 </span>
+                            ) : (
+                                <Loader2 className="size-6 animate-spin text-main" />
                             )}
                         </div>
                     ) : null}
-                    <div className="mx-auto w-full max-w-[300px]" style={{ aspectRatio: '750 / 1200' }}>
-                        <img
-                            src={imageUrl}
-                            alt="Share image"
-                            className="size-full rounded-xl object-cover"
-                            onLoad={() => setLoading(false)}
-                            onError={() => {
-                                setLoading(false);
-                                setHasError(true);
-                            }}
-                        />
+                    <div className="mx-auto w-full max-w-[300px]" style={{ aspectRatio: SHARE_IMAGE_ASPECT_RATIO }}>
+                        {imageUrl ? (
+                            <img src={imageUrl} alt="Share image" className="size-full rounded-xl object-cover" />
+                        ) : null}
                     </div>
                 </div>
                 <div className="mt-3 flex items-start justify-evenly pb-2">
                     {supportsImageClipboard() ? (
                         <ShareAction
-                            disabled={loading || hasError}
+                            disabled={!ready}
                             loading={isCopying}
                             icon={<CopyLinearIcon className="size-5" />}
                             label={<Trans>Copy</Trans>}
@@ -232,14 +239,14 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
                     <ShareAction
                         label={<Trans>Download</Trans>}
                         icon={<Download2Icon className="size-5" />}
-                        disabled={loading || hasError}
+                        disabled={!ready}
                         loading={isDownloading}
                         onClick={() => download()}
                     />
                     <ShareAction
                         label={<Trans>Post</Trans>}
                         icon={<Send2Icon width={20} height={20} />}
-                        disabled={loading || hasError}
+                        disabled={!ready}
                         loading={isPending}
                         onClick={() => postWithImage()}
                     />

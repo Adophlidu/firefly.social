@@ -3,6 +3,7 @@ import { t } from '@lingui/core/macro';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import {
     type PolymarketShareImagePayload,
+    resolvePolymarketShareParams,
     SHARE_IMAGE_ASPECT_RATIO,
     SHARE_IMAGE_FILE_NAME,
 } from '@/hooks/prediction/usePolymarketShareImageActions.js';
@@ -19,7 +20,8 @@ let lastObjectUrl: string | null = null;
 export async function openPolymarketSharePreview(payload: PolymarketShareImagePayload, onPost: () => void) {
     try {
         const { createPolymarketShareImage } = await import('@/services/polymarketShareImage/index.js');
-        const blob = await createPolymarketShareImage(payload.params);
+        const params = await resolvePolymarketShareParams(payload);
+        const blob = await createPolymarketShareImage(params);
         if (lastObjectUrl) URL.revokeObjectURL(lastObjectUrl);
         lastObjectUrl = URL.createObjectURL(blob);
         ShareImageModalRef.open({

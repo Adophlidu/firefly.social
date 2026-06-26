@@ -47,6 +47,58 @@ export type SolanaResponse<M extends SolanaMethod = SolanaMethod> = {
 // For full Chars type support, use the main project types
 export type Chars = string;
 
+// Polymarket share-image params, mirrored structurally from
+// apps/web/src/helpers/polymarketShareImage.ts so the wallet iframe can ask the host (web) to render
+// the card with its client-side satori renderer. Kept self-contained (no app imports).
+export interface PolymarketShareBridgeIdentity {
+    displayName: string;
+    avatarUrl?: string;
+}
+
+export interface PolymarketShareBridgeSportTeam {
+    name: string;
+    logo?: string;
+}
+
+export interface PolymarketShareBridgeSportInfo {
+    home: PolymarketShareBridgeSportTeam;
+    away: PolymarketShareBridgeSportTeam;
+    score?: [number, number];
+    predicted: { kind: 'team'; team: PolymarketShareBridgeSportTeam } | { kind: 'draw' };
+}
+
+export interface PolymarketSharePositionBridgeParams {
+    type: 'position';
+    title: string;
+    outcome: string;
+    status: 'active' | 'won' | 'lost';
+    pnlRate: number;
+    totalCost: number;
+    avgPrice: number;
+    currentPnl?: number;
+    identity: PolymarketShareBridgeIdentity;
+    imageUrl?: string;
+    sport?: PolymarketShareBridgeSportInfo;
+    variant?: 'timeline';
+}
+
+export interface PolymarketShareWinningsBridgeItem {
+    title: string;
+    cost: number;
+    won: number;
+    pnlRate: number;
+    image?: string;
+}
+
+export interface PolymarketShareWinningsBridgeParams {
+    type: 'winnings';
+    totalWon: number;
+    items: PolymarketShareWinningsBridgeItem[];
+    identity: PolymarketShareBridgeIdentity;
+}
+
+export type PolymarketShareBridgeParams = PolymarketSharePositionBridgeParams | PolymarketShareWinningsBridgeParams;
+
 export enum IframeBridgeMethod {
     // firefly.social
     COMPOSE = 'compose',
@@ -70,6 +122,8 @@ export enum IframeBridgeMethod {
     FIREFLY_WALLET_SKIP_WALLET_AUTH = 'firefly_wallet_skip_wallet_auth',
     /** Wallet iframe asks the host to play a full-screen confetti animation (the iframe canvas is clipped to its box). */
     FIREFLY_WALLET_CONFETTI = 'firefly_wallet_confetti',
+    /** Wallet iframe asks the host to render a Polymarket share image (client-side satori) and return a PNG data URL. */
+    FIREFLY_WALLET_GENERATE_SHARE_IMAGE = 'firefly_wallet_generate_share_image',
 
     // firefly.social/masko-iframe
     MASKO_PLAY_ANIMATION = 'masko_play_animation',
@@ -164,6 +218,9 @@ export interface IframeBridgeRequestArguments {
         skip: boolean;
     };
     [IframeBridgeMethod.FIREFLY_WALLET_CONFETTI]: {};
+    [IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE]: {
+        params: PolymarketShareBridgeParams;
+    };
 }
 
 export interface IframeBridgeResponseResult {
@@ -188,4 +245,5 @@ export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.ENABLE_SYNC_SESSION]: void;
     [IframeBridgeMethod.FIREFLY_WALLET_SKIP_WALLET_AUTH]: void;
     [IframeBridgeMethod.FIREFLY_WALLET_CONFETTI]: void;
+    [IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE]: { dataUrl: string };
 }

@@ -1,4 +1,3 @@
-import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import urlcat from 'urlcat';
 
@@ -76,6 +75,27 @@ export function buildPolymarketProfileShareUrl(proxyAddress: string, sharerUid?:
 
 export type PolymarketSharePositionStatus = 'active' | 'won' | 'lost';
 
+/** One side of a sports matchup rendered on the share image. */
+export interface PolymarketShareSportTeam {
+    name: string;
+    /** Remote team-logo / flag URL (fetched into a data URI at render time). */
+    logo?: string;
+}
+
+/**
+ * Sports context for a position share. Present only for sports markets; when set, the share image
+ * renders the sports card (avatar+name header, predicted-side badge, teams + score footer) instead
+ * of the event card.
+ */
+export interface PolymarketShareSportInfo {
+    home: PolymarketShareSportTeam;
+    away: PolymarketShareSportTeam;
+    /** `[home, away]` final/live score, omitted when the game has not produced one (renders "vs."). */
+    score?: [number, number];
+    /** The side the user predicted — a team badge, or a "DRAW" pick. */
+    predicted: { kind: 'team'; team: PolymarketShareSportTeam } | { kind: 'draw' };
+}
+
 export interface PolymarketSharePositionParams {
     type: 'position';
     title: string;
@@ -86,7 +106,10 @@ export interface PolymarketSharePositionParams {
     avgPrice: number;
     currentPnl?: number;
     identity: PolymarketShareIdentity;
-    qrUrl: string;
+    /** Market icon URL shown on the event card (fetched into a data URI at render time). */
+    imageUrl?: string;
+    /** Sports matchup context; switches the layout to the sports card when present. */
+    sport?: PolymarketShareSportInfo;
     /** timeline cells render "Predicted" and omit the Current PnL row */
     variant?: 'timeline';
 }
@@ -94,64 +117,22 @@ export interface PolymarketSharePositionParams {
 export interface PolymarketShareWinningsItem {
     title: string;
     cost: number;
+    /** Payout in USD (resolved winning shares pay $1 each). */
     won: number;
     pnlRate: number;
+    /** Market icon URL (fetched into a data URI at render time). */
     image?: string;
 }
 
+/**
+ * Multi-market winnings summary ("Claim all" / TOTAL WON card, Figma 84050:57504 / 84050:57392).
+ * Used by apps/wallet via the iframe bridge; apps/web has no entry that builds it directly.
+ */
 export interface PolymarketShareWinningsParams {
     type: 'winnings';
     totalWon: number;
     items: PolymarketShareWinningsItem[];
     identity: PolymarketShareIdentity;
-    qrUrl: string;
 }
 
 export type PolymarketShareImageParams = PolymarketSharePositionParams | PolymarketShareWinningsParams;
-
-/**
- * FW-7696 AC-18 — builds the firefly-workers share-image endpoint URL
- * (`GET ${FIREFLY_WORKER_HOST}/polymarket/share-image`) from position/winnings data.
- */
-export function buildPolymarketShareImageUrl(params: PolymarketShareImageParams): string {
-    // encodeURIComponent (%20 for spaces) instead of URLSearchParams ("+" for spaces) so the query
-    // survives a plain decodeURIComponent round-trip on the consumer side.
-    const query: Array<[string, string]> = [
-        ['type', params.type],
-        ['name', params.identity.displayName],
-    ];
-    if (params.identity.avatarUrl) query.push(['avatar', params.identity.avatarUrl]);
-    query.push(['qrUrl', params.qrUrl]);
-
-    if (params.type === 'position') {
-        query.push(
-            ['title', params.title],
-            ['outcome', params.outcome],
-            ['status', params.status],
-            ['pnlRate', `${params.pnlRate}`],
-            ['totalCost', `${params.totalCost}`],
-            ['avgPrice', `${params.avgPrice}`],
-        );
-        if (params.currentPnl !== undefined) query.push(['currentPnl', `${params.currentPnl}`]);
-        if (params.variant) query.push(['variant', params.variant]);
-    } else {
-        query.push(
-            ['totalWon', `${params.totalWon}`],
-            [
-                'items',
-                JSON.stringify(
-                    params.items.map((item) => ({
-                        title: item.title,
-                        cost: `${item.cost}`,
-                        won: `${item.won}`,
-                        pnlRate: `${item.pnlRate}`,
-                        ...(item.image ? { image: item.image } : {}),
-                    })),
-                ),
-            ],
-        );
-    }
-
-    const search = query.map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
-    return `${FIREFLY_WORKER_HOST}/polymarket/share-image?${search}`;
-}

@@ -20,11 +20,7 @@ import { formatPercentRateMin } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
-import {
-    buildPolymarketShareImageUrl,
-    fallbackShareIdentity,
-    getWinningsShareImagePayload,
-} from '@/helpers/polymarketShareImage.js';
+import { fallbackShareIdentity, getWinningsShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import type { PolymarketClaimV2Item, PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
@@ -83,11 +79,15 @@ export function SettleResolvedMarketsModal({
 
             // Ask the host to play confetti full-screen; an in-iframe canvas would be clipped to the wallet box.
             if (sharePayload) {
+                // Render the share image on the host (web) via the bridge, then open compose with it.
                 iframeBridgeProvider
-                    .request(IframeBridgeMethod.COMPOSE, {
-                        text: sharePayload.link,
-                        imageUrls: [buildPolymarketShareImageUrl(sharePayload.params)],
-                    })
+                    .request(IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE, { params: sharePayload.params })
+                    .then(({ dataUrl }) =>
+                        iframeBridgeProvider.request(IframeBridgeMethod.COMPOSE, {
+                            text: sharePayload.link,
+                            imageUrls: [dataUrl],
+                        }),
+                    )
                     .catch(() => {});
             }
             iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_CONFETTI, {}).catch(() => {});

@@ -1,154 +1,93 @@
-// FW-7696 — share-image layout, ported from firefly-workers so apps/web can render the card on the
-// client with satori (no worker round-trip; the browser rasterizer also decodes webp avatars). The
-// satori node tree and the frosted-glass SVG post-processing are identical to the worker's.
+// Polymarket share-image layout (redesign — Figma 84050:57293 event / 84050:57187 sports / 84050:57504
+// winnings). The decorative shell (gradient, dark ticket card, side text, sparkles, perforation dots,
+// firefly.social wordmark) is pre-rendered into SHARE_IMAGE_FRAME; satori only overlays the dynamic
+// content on top with absolute positioning. Built at 2x of the 375x530 design.
 import type {
     PolymarketSharePositionParams,
-    PolymarketShareWinningsItem,
+    PolymarketShareSportInfo,
     PolymarketShareWinningsParams,
 } from '@/helpers/polymarketShareImage.js';
-import { SHARE_IMAGE_BACKGROUND } from '@/services/polymarketShareImage/background.js';
-import { formatCents, formatSignedPercent, formatUsd, isFullLoss } from '@/services/polymarketShareImage/format.js';
-import { SHARE_IMAGE_LOGO_ASPECT } from '@/services/polymarketShareImage/logo.js';
+import { formatSignedPercent, formatSignedUsd, formatUsd, isFullLoss } from '@/services/polymarketShareImage/format.js';
+import { SHARE_IMAGE_FRAME } from '@/services/polymarketShareImage/frame.js';
 import { el, img, type SatoriChild, type SatoriNode } from '@/services/polymarketShareImage/satoriNode.js';
 
+// 2x of the 375x530 design → crisp text and a 1:1 background frame.
 export const SHARE_IMAGE_WIDTH = 750;
-export const SHARE_IMAGE_HEIGHT = 1200;
-export const MAX_WINNING_ROWS = 4;
+export const SHARE_IMAGE_HEIGHT = 1060;
+// Winnings list: show up to 3 rows; when there are more, show 2 rows + a "+N more" line.
+export const MAX_WINNING_ROWS = 3;
 
-const GREEN = '#3dc233';
-const RED = '#ff3545';
+const S = 2;
+
+const GREEN = '#0cbb75';
+const RED = '#fa4646';
+const GREEN_GRADIENT = 'linear-gradient(180deg, #63ffc1, #0cbb75)';
+const RED_GRADIENT = 'linear-gradient(180deg, #ff9090, #fa4646)';
 const TEXT_SECOND = 'rgba(255,255,255,0.6)';
-const CARD_BG = 'rgba(255,255,255,0.10)';
+const PLACEHOLDER_BG = 'rgba(255,255,255,0.18)';
+
+// Faint dashed body divider (Figma 84050:57302), drawn only on the event/sports cards — the winnings
+// card has no divider, so it is not baked into the frame. Tiny rasterized PNG of the dashed line.
+const DASHED_DIVIDER =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAACCAYAAAC0Vs60AAAABmJLR0QA/wD/AP+gvaeTAAAALklEQVRIie3JsQ0AIAwEsTzDMhTLhjYrgOzudOnuXUOSM9v3fd/3/ff+KgDgOxd2SPwECyr+LQAAAABJRU5ErkJggg==';
+
+function dashedDivider(): SatoriNode {
+    return el('div', { position: 'absolute', left: 61.5 * S, top: 340 * S }, img(DASHED_DIVIDER, 252 * S, S));
+}
 
 export interface ShareImageAssets {
-    logo: string | null;
+    /** User avatar (data URI) or null → render the name initial. */
     avatar: string | null;
-    qr: string;
+    /** Event-card market icon (data URI). */
+    marketIcon: string | null;
+    /** Sports-card team logos / flags (data URIs). */
+    homeLogo: string | null;
+    awayLogo: string | null;
+    /** Sports-card predicted-side badge logo (data URI); null for a "DRAW" pick. */
+    predictedLogo: string | null;
 }
 
-// iOS-style "glass" for the translucent CARD_BG panels (Figma 82833:99179). satori can't render
-// `backdrop-filter`, so after layout we blur a copy of the background behind each panel — see
-// applyFrostedGlass.
-interface GlassStyle {
-    blur: number;
-    saturate: number;
-    darkBase: string;
-    highlightTop: number;
-    highlightStop: number;
-    border: string;
-    borderWidth: number;
+function pnlGradient(positive: boolean) {
+    return positive ? GREEN_GRADIENT : RED_GRADIENT;
 }
-
-const GLASS: GlassStyle = {
-    blur: 30,
-    saturate: 1.12,
-    darkBase: 'rgba(16,16,22,0.30)',
-    highlightTop: 0.12,
-    highlightStop: 0.45,
-    border: 'rgba(255,255,255,0.30)',
-    borderWidth: 1.5,
-};
 
 function pnlColor(positive: boolean) {
     return positive ? GREEN : RED;
 }
 
-const LOGO_HEIGHT = 48;
-const LOGO_WIDTH = Math.round(LOGO_HEIGHT * SHARE_IMAGE_LOGO_ASPECT);
-
-function header(assets: ShareImageAssets): SatoriNode {
-    return el(
-        'div',
-        { alignItems: 'center' },
-        assets.logo
-            ? img(assets.logo, LOGO_WIDTH, LOGO_HEIGHT)
-            : el('div', { fontSize: 36, fontWeight: 700, letterSpacing: 2 }, 'FIREFLY'),
-    );
-}
-
-function footer(name: string, assets: ShareImageAssets): SatoriNode {
+function avatar(src: string | null, name: string, size: number, radius: number): SatoriNode {
+    if (src) return img(src, size, size, { borderRadius: radius });
     const initial = (name.trim()[0] ?? '?').toUpperCase();
     return el(
         'div',
-        { justifyContent: 'space-between', alignItems: 'flex-end' },
-        el(
-            'div',
-            { alignItems: 'center', gap: 16 },
-            assets.avatar
-                ? img(assets.avatar, 72, 72, { borderRadius: 36 })
-                : el(
-                      'div',
-                      {
-                          width: 72,
-                          height: 72,
-                          borderRadius: 36,
-                          backgroundColor: 'rgba(255,255,255,0.18)',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: 36,
-                          fontWeight: 700,
-                      },
-                      initial,
-                  ),
-            el('div', { fontSize: 34, fontWeight: 700 }, name),
-        ),
-        // Figma 82833:99796 — the QR sits on a square white card with a quiet-zone margin (128 card,
-        // 120 code). The card is not rounded: the QR itself has square corners.
-        el(
-            'div',
-            {
-                width: 128,
-                height: 128,
-                backgroundColor: '#ffffff',
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
-            img(assets.qr, 120, 120),
-        ),
-    );
-}
-
-function dataRow(label: string, ...value: SatoriChild[]): SatoriNode {
-    return el(
-        'div',
-        { justifyContent: 'space-between', alignItems: 'center', padding: '18px 0' },
-        el('div', { fontSize: 28, color: TEXT_SECOND }, label),
-        el('div', { alignItems: 'center', fontSize: 28, fontWeight: 700 }, ...value),
-    );
-}
-
-// Won/Lost pills — Figma 82833:97933 (Won) / 82833:98552 (Lost).
-const WON_GRADIENT = 'linear-gradient(to bottom, #63ffc1, #0cbb75)';
-const LOST_GRADIENT = 'linear-gradient(to bottom, #ff9090, #fa4646)';
-
-function statusTag(status: 'won' | 'lost'): SatoriNode {
-    return el(
-        'div',
         {
-            marginLeft: 12,
+            width: size,
+            height: size,
+            borderRadius: radius,
+            backgroundColor: PLACEHOLDER_BG,
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '4px 16px',
-            borderRadius: 24,
-            fontSize: 24,
-            fontWeight: 500,
-            lineHeight: 28 / 24,
-            backgroundImage: status === 'won' ? WON_GRADIENT : LOST_GRADIENT,
-            color: '#ffffff',
+            fontSize: size * 0.5,
+            fontWeight: 700,
         },
-        status === 'won' ? 'Won' : 'Lost',
+        initial,
     );
+}
+
+function logoBox(src: string | null, size: number, radius: number): SatoriNode {
+    return src
+        ? img(src, size, size, { borderRadius: radius })
+        : el('div', { width: size, height: size, borderRadius: radius, backgroundColor: PLACEHOLDER_BG });
 }
 
 function rootContainer(...children: SatoriChild[]): SatoriNode {
     return el(
         'div',
         {
+            position: 'relative',
             width: SHARE_IMAGE_WIDTH,
             height: SHARE_IMAGE_HEIGHT,
-            flexDirection: 'column',
-            padding: 48,
-            backgroundImage: `url(${SHARE_IMAGE_BACKGROUND})`,
+            backgroundImage: `url(${SHARE_IMAGE_FRAME})`,
             backgroundSize: `${SHARE_IMAGE_WIDTH}px ${SHARE_IMAGE_HEIGHT}px`,
             color: '#ffffff',
             fontFamily: 'Inter',
@@ -157,184 +96,347 @@ function rootContainer(...children: SatoriChild[]): SatoriNode {
     );
 }
 
-function titleBlock(title: string): SatoriNode {
-    return el('div', { display: 'block', lineClamp: 3, fontSize: 44, fontWeight: 700, lineHeight: 1.35 }, title);
-}
-
-function headline(label: string, positive: boolean): SatoriNode {
-    return el('div', { marginTop: 16, fontSize: 76, fontWeight: 700, color: pnlColor(positive) }, label);
-}
-
-export function buildPositionTree(params: PolymarketSharePositionParams, assets: ShareImageAssets): SatoriNode {
-    const fullLoss = isFullLoss(params.pnlRate);
-    const isTimeline = params.variant === 'timeline';
-    const closed = params.status !== 'active';
-
-    const headlineLabel = fullLoss ? 'Full Loss' : formatSignedPercent(params.pnlRate);
-    const headlinePositive = fullLoss ? false : params.pnlRate >= 0;
-
-    const rows: SatoriChild[] = [
-        dataRow(
-            isTimeline ? 'Predicted' : 'Outcome',
-            el('div', { fontSize: 28, fontWeight: 700 }, params.outcome),
-            closed ? statusTag(params.status as 'won' | 'lost') : null,
-        ),
-        dataRow('Total Cost', formatUsd(params.totalCost)),
-        dataRow('Average Price', formatCents(params.avgPrice)),
-    ];
-    // the PnL row is omitted on the timeline variant and on a -100% full loss
-    if (!isTimeline && !fullLoss && params.currentPnl !== undefined) {
-        rows.push(
-            dataRow(
-                closed ? 'PnL' : 'Current PnL',
-                el(
-                    'div',
-                    { fontSize: 28, fontWeight: 700, color: pnlColor(params.currentPnl >= 0) },
-                    formatUsd(params.currentPnl),
-                ),
-            ),
-        );
-    }
-
-    return rootContainer(
-        header(assets),
-        el('div', { flexGrow: 1 }),
-        titleBlock(params.title),
-        headline(headlineLabel, headlinePositive),
+// Shared body: the big gradient PnL% headline and the bordered sub-amount pill — identical position
+// on the event and sports cards.
+function pnlHeadline(label: string, positive: boolean): SatoriNode {
+    return el(
+        'div',
+        { position: 'absolute', left: 0, top: 217.74 * S, width: SHARE_IMAGE_WIDTH, justifyContent: 'center' },
         el(
             'div',
-            { flexDirection: 'column', marginTop: 48, backgroundColor: CARD_BG, borderRadius: 24, padding: '8px 32px' },
-            ...rows,
+            {
+                fontSize: 48 * S,
+                fontWeight: 700,
+                lineHeight: `${48 * S}px`,
+                backgroundImage: pnlGradient(positive),
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+            },
+            label,
         ),
-        el('div', { flexGrow: 1 }),
-        footer(params.identity.displayName, assets),
     );
 }
 
-function winningsItemRow(item: PolymarketShareWinningsItem, icon: string | null): SatoriNode {
+// Top/bottom accent line: a horizontal gradient that fades to transparent at both ends (Figma uses a
+// gradient stroke, not a solid border).
+function accentLine(color: string): SatoriNode {
+    return el('div', {
+        height: S,
+        width: '100%',
+        backgroundImage: `linear-gradient(90deg, transparent, ${color}, transparent)`,
+    });
+}
+
+function subAmountPill(label: string, positive: boolean): SatoriNode {
+    const color = pnlColor(positive);
     return el(
         'div',
-        { alignItems: 'center', gap: 20, backgroundColor: CARD_BG, borderRadius: 20, padding: 20 },
-        icon
-            ? img(icon, 72, 72, { borderRadius: 14 })
-            : el('div', { width: 72, height: 72, borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.18)' }),
+        { position: 'absolute', left: 0, top: 275.74 * S, width: SHARE_IMAGE_WIDTH, justifyContent: 'center' },
         el(
             'div',
-            { flexDirection: 'column', flexGrow: 1, width: 520 },
+            { flexDirection: 'column', alignItems: 'stretch' },
+            accentLine(color),
             el(
                 'div',
-                { display: 'block', lineClamp: 1, fontSize: 26, fontWeight: 700, color: 'rgba(255,255,255,0.85)' },
+                {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingTop: 6 * S,
+                    paddingBottom: 6 * S,
+                    paddingLeft: 24 * S,
+                    paddingRight: 24 * S,
+                    fontSize: 14 * S,
+                    fontWeight: 600,
+                    color,
+                },
+                label,
+            ),
+            accentLine(color),
+        ),
+    );
+}
+
+/** sub-amount text: "WON +$x" / "LOST -$x" when settled, else the signed current PnL. */
+function subAmountLabel(params: PolymarketSharePositionParams): string {
+    const pnl = params.currentPnl ?? 0;
+    if (params.status === 'won') return `WON ${formatSignedUsd(pnl)}`;
+    if (params.status === 'lost') return `LOST ${formatUsd(pnl)}`;
+    return formatSignedUsd(pnl);
+}
+
+function headlineLabel(params: PolymarketSharePositionParams): { label: string; positive: boolean } {
+    if (isFullLoss(params.pnlRate)) return { label: 'Full Loss', positive: false };
+    return { label: formatSignedPercent(params.pnlRate), positive: params.pnlRate >= 0 };
+}
+
+function buildEventCard(params: PolymarketSharePositionParams, assets: ShareImageAssets): SatoriNode {
+    const { label, positive } = headlineLabel(params);
+    return rootContainer(
+        // market icon (Figma 84050:57385 — 64x64 at x53/y88; its right edge sits 12.5px from the title)
+        el('div', { position: 'absolute', left: 53 * S, top: 88 * S }, logoBox(assets.marketIcon, 64 * S, 16 * S)),
+        // title
+        el(
+            'div',
+            {
+                position: 'absolute',
+                left: 129.5 * S,
+                top: 84 * S,
+                width: 191.215 * S,
+                display: 'block',
+                lineClamp: 3,
+                fontSize: 18 * S,
+                fontWeight: 600,
+                lineHeight: `${24 * S}px`,
+                color: '#ffffff',
+            },
+            params.title,
+        ),
+        pnlHeadline(label, positive),
+        subAmountPill(subAmountLabel(params), positive),
+        dashedDivider(),
+        // outcome
+        el(
+            'div',
+            { position: 'absolute', left: 0, top: 361.7 * S, width: SHARE_IMAGE_WIDTH, justifyContent: 'center' },
+            el(
+                'div',
+                { fontSize: 24 * S, fontWeight: 600, lineHeight: `${32 * S}px`, color: '#ffffff' },
+                params.outcome,
+            ),
+        ),
+        // user
+        el(
+            'div',
+            {
+                position: 'absolute',
+                left: 0,
+                top: 412.78 * S,
+                width: SHARE_IMAGE_WIDTH,
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 8 * S,
+            },
+            avatar(assets.avatar, params.identity.displayName, 24 * S, 12 * S),
+            el('div', { fontSize: 14 * S, fontWeight: 600 }, params.identity.displayName),
+        ),
+    );
+}
+
+function predictedBadge(sport: PolymarketShareSportInfo, assets: ShareImageAssets): SatoriNode {
+    if (sport.predicted.kind === 'draw') {
+        return el('div', { fontSize: 20 * S, fontWeight: 700, color: '#ffffff' }, 'DRAW');
+    }
+    return logoBox(assets.predictedLogo, 48 * S, 12 * S);
+}
+
+function teamGroup(name: string, logo: string | null, side: 'home' | 'away'): SatoriNode {
+    const logoNode = logoBox(logo, 24 * S, 4 * S);
+    const nameNode = el(
+        'div',
+        { fontSize: 12 * S, fontWeight: 500, color: '#ffffff', lineClamp: 1, display: 'block', overflow: 'hidden' },
+        name,
+    );
+    return el(
+        'div',
+        {
+            flexGrow: 1,
+            flexBasis: 0,
+            alignItems: 'center',
+            gap: 4 * S,
+            justifyContent: side === 'home' ? 'flex-end' : 'flex-start',
+        },
+        ...(side === 'home' ? [nameNode, logoNode] : [logoNode, nameNode]),
+    );
+}
+
+function buildSportsCard(params: PolymarketSharePositionParams, assets: ShareImageAssets): SatoriNode {
+    const sport = params.sport!;
+    const { label, positive } = headlineLabel(params);
+    const scoreText = sport.score ? `${sport.score[0]} : ${sport.score[1]}` : 'vs.';
+
+    return rootContainer(
+        // header: user (left) + predicted badge (right)
+        el(
+            'div',
+            {
+                position: 'absolute',
+                left: (375 / 2 - 130) * S,
+                top: 92.57 * S,
+                width: 260 * S,
+                justifyContent: 'space-between',
+                alignItems: 'center',
+            },
+            el(
+                'div',
+                { alignItems: 'center', gap: 8 * S },
+                avatar(assets.avatar, params.identity.displayName, 48 * S, 24 * S),
+                el('div', { fontSize: 14 * S, fontWeight: 600 }, params.identity.displayName),
+            ),
+            predictedBadge(sport, assets),
+        ),
+        pnlHeadline(label, positive),
+        subAmountPill(subAmountLabel(params), positive),
+        dashedDivider(),
+        // matchup: home (logo+name) — score — away (logo+name)
+        el(
+            'div',
+            {
+                position: 'absolute',
+                left: (375 / 2 - 134) * S,
+                top: 381.01 * S,
+                width: 268 * S,
+                alignItems: 'center',
+                gap: 8 * S,
+            },
+            teamGroup(sport.home.name, assets.homeLogo, 'home'),
+            el('div', { fontSize: 12 * S, fontWeight: 500, color: TEXT_SECOND }, scoreText),
+            teamGroup(sport.away.name, assets.awayLogo, 'away'),
+        ),
+    );
+}
+
+export function buildPositionTree(params: PolymarketSharePositionParams, assets: ShareImageAssets): SatoriNode {
+    return params.sport ? buildSportsCard(params, assets) : buildEventCard(params, assets);
+}
+
+function winningsRow(item: PolymarketShareWinningsParams['items'][number], icon: string | null): SatoriNode {
+    return el(
+        'div',
+        { alignItems: 'center', gap: 8 * S, width: '100%' },
+        logoBox(icon, 40 * S, 8 * S),
+        el(
+            'div',
+            { flexDirection: 'column', flexGrow: 1, flexBasis: 0, gap: 4 * S, justifyContent: 'center' },
+            el(
+                'div',
+                {
+                    width: '100%',
+                    display: 'block',
+                    lineClamp: 1,
+                    overflow: 'hidden',
+                    fontSize: 14 * S,
+                    fontWeight: 500,
+                    lineHeight: `${18 * S}px`,
+                    color: '#ffffff',
+                },
                 item.title,
             ),
             el(
                 'div',
-                { marginTop: 6, fontSize: 26, fontWeight: 700 },
-                el('div', {}, `Cost ${formatUsd(item.cost)} • Won `),
-                el('div', { color: GREEN }, `${formatUsd(item.won)} (${formatSignedPercent(item.pnlRate)})`),
+                { fontSize: 13 * S, fontWeight: 400, lineHeight: `${17 * S}px`, color: GREEN },
+                `Won ${formatUsd(item.won)}`,
             ),
         ),
     );
 }
 
+/**
+ * Multi-market winnings "TOTAL WON" card (Figma 84050:57504 / 84050:57392). Shows up to 3 rows; when
+ * there are more, shows 2 rows + a "+N more markets won $X" line. `icons` is aligned to the first
+ * MAX_WINNING_ROWS items.
+ */
 export function buildWinningsTree(
     params: PolymarketShareWinningsParams,
     assets: ShareImageAssets,
     icons: Array<string | null>,
 ): SatoriNode {
-    const visible = params.items.slice(0, MAX_WINNING_ROWS);
-    const hiddenCount = params.items.length - visible.length;
-    const visibleWon = visible.reduce((sum, item) => sum + item.won, 0);
-    const remaining = Math.max(0, params.totalWon - visibleWon);
+    const overflow = params.items.length > MAX_WINNING_ROWS;
+    const visible = overflow ? params.items.slice(0, 2) : params.items.slice(0, MAX_WINNING_ROWS);
+    const hidden = params.items.length - visible.length;
+    const remaining = Math.max(0, params.totalWon - visible.reduce((sum, item) => sum + item.won, 0));
 
     return rootContainer(
-        header(assets),
+        // TOTAL WON header
         el(
             'div',
             {
-                justifyContent: 'center',
-                marginTop: 24,
-                fontSize: 30,
-                letterSpacing: 4,
-                color: 'rgba(255,255,255,0.85)',
+                position: 'absolute',
+                left: 58.5 * S,
+                top: 87 * S,
+                width: 258 * S,
+                flexDirection: 'column',
+                alignItems: 'center',
             },
-            'TOTAL WON',
+            el(
+                'div',
+                {
+                    width: '100%',
+                    justifyContent: 'center',
+                    fontSize: 14 * S,
+                    fontWeight: 700,
+                    lineHeight: `${18 * S}px`,
+                    color: '#ffffff',
+                },
+                'TOTAL WON',
+            ),
+            el(
+                'div',
+                {
+                    width: '100%',
+                    justifyContent: 'center',
+                    fontSize: 40 * S,
+                    fontWeight: 700,
+                    lineHeight: `${48 * S}px`,
+                    backgroundImage: GREEN_GRADIENT,
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                },
+                formatUsd(params.totalWon),
+            ),
         ),
+        // winning markets list
         el(
             'div',
-            { justifyContent: 'center', marginTop: 8, fontSize: 84, fontWeight: 700, color: GREEN },
-            formatUsd(params.totalWon),
+            {
+                position: 'absolute',
+                left: 53.5 * S,
+                top: 223.83 * S,
+                width: 268 * S,
+                flexDirection: 'column',
+                gap: 16 * S,
+            },
+            ...visible.map((item, index) => winningsRow(item, icons[index] ?? null)),
         ),
-        el(
-            'div',
-            { flexDirection: 'column', gap: 20, marginTop: 40 },
-            ...visible.map((item, index) => winningsItemRow(item, icons[index] ?? null)),
-        ),
-        hiddenCount > 0
+        // "+N more markets won $X"
+        hidden > 0
             ? el(
                   'div',
-                  { marginTop: 24, fontSize: 28, fontWeight: 700 },
-                  el('div', {}, `+${hiddenCount} more markets won `),
-                  el('div', { color: GREEN }, formatUsd(remaining)),
+                  {
+                      position: 'absolute',
+                      left: 53.5 * S,
+                      top: 345.83 * S,
+                      width: 268 * S,
+                      alignItems: 'center',
+                      gap: 5,
+                  },
+                  el(
+                      'div',
+                      { fontSize: 14 * S, fontWeight: 500, lineHeight: `${20 * S}px`, color: '#ffffff' },
+                      `+${hidden} more markets won`,
+                  ),
+                  el(
+                      'div',
+                      { fontSize: 14 * S, fontWeight: 500, lineHeight: `${20 * S}px`, color: GREEN },
+                      formatUsd(remaining),
+                  ),
               )
             : null,
-        el('div', { flexGrow: 1 }),
-        footer(params.identity.displayName, assets),
-    );
-}
-
-/** A single winning falls back to the closed-position-cell style (spec AC-5). */
-export function buildSingleWinningTree(params: PolymarketShareWinningsParams, assets: ShareImageAssets): SatoriNode {
-    const [item] = params.items;
-    return rootContainer(
-        header(assets),
-        el('div', { flexGrow: 1 }),
-        titleBlock(item.title),
-        headline(formatSignedPercent(item.pnlRate), item.pnlRate >= 0),
+        // user
         el(
             'div',
-            { flexDirection: 'column', marginTop: 48, backgroundColor: CARD_BG, borderRadius: 24, padding: '8px 32px' },
-            dataRow('Total Cost', formatUsd(item.cost)),
-            dataRow('Won', el('div', { fontSize: 28, fontWeight: 700, color: GREEN }, formatUsd(item.won))),
+            {
+                position: 'absolute',
+                left: 0,
+                top: 412.78 * S,
+                width: SHARE_IMAGE_WIDTH,
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 8 * S,
+            },
+            avatar(assets.avatar, params.identity.displayName, 24 * S, 12 * S),
+            el('div', { fontSize: 14 * S, fontWeight: 600 }, params.identity.displayName),
         ),
-        el('div', { flexGrow: 1 }),
-        footer(params.identity.displayName, assets),
     );
-}
-
-/**
- * Gives every translucent `CARD_BG` panel an iOS-style glass backing. satori drops
- * `backdrop-filter`, so we post-process its SVG: each rounded panel emitted as
- * `<path fill="${CARD_BG}" d="…">` is replaced with a stack clipped to the same rounded `d`:
- * a blurred copy of the background, a smoky dark wash, a white top-edge sheen, and a hairline edge.
- */
-export function applyFrostedGlass(svg: string, glass: GlassStyle = GLASS): string {
-    let count = 0;
-    const withGlass = svg.replace(/<path\b[^>]*\/>/g, (tag) => {
-        if (!tag.includes(`fill="${CARD_BG}"`)) return tag;
-        const d = tag.match(/\bd="([^"]+)"/)?.[1];
-        if (!d) return tag;
-        const clipId = `pm-glass-${count}`;
-        count += 1;
-        return (
-            `<clipPath id="${clipId}"><path d="${d}"/></clipPath>` +
-            `<g clip-path="url(#${clipId})">` +
-            `<image href="${SHARE_IMAGE_BACKGROUND}" x="0" y="0" width="${SHARE_IMAGE_WIDTH}" height="${SHARE_IMAGE_HEIGHT}" preserveAspectRatio="none" filter="url(#pm-glass-blur)"/>` +
-            `<path d="${d}" fill="${glass.darkBase}"/>` +
-            `<path d="${d}" fill="url(#pm-glass-sheen)"/>` +
-            `</g>` +
-            `<path d="${d}" fill="none" stroke="${glass.border}" stroke-width="${glass.borderWidth}"/>`
-        );
-    });
-    if (count === 0) return svg;
-    const filter =
-        `<filter id="pm-glass-blur" x="-20%" y="-20%" width="140%" height="140%">` +
-        `<feGaussianBlur stdDeviation="${glass.blur}" result="b"/>` +
-        `<feColorMatrix in="b" type="saturate" values="${glass.saturate}"/>` +
-        `</filter>`;
-    const sheen =
-        `<linearGradient id="pm-glass-sheen" x1="0" y1="0" x2="0" y2="1">` +
-        `<stop offset="0" stop-color="#fff" stop-opacity="${glass.highlightTop}"/>` +
-        `<stop offset="${glass.highlightStop}" stop-color="#fff" stop-opacity="0"/>` +
-        `</linearGradient>`;
-    return withGlass.replace('</defs>', `${filter}${sheen}</defs>`);
 }

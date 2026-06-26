@@ -1,9 +1,10 @@
-import { createElement } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
-import QRCode from 'react-qr-code';
-
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
-import { QR_LOGO_HEIGHT, QR_LOGO_INNER_SVG, QR_LOGO_WIDTH } from '@/services/polymarketShareImage/logo.js';
+
+// Route remote images through the same-origin proxy so the canvas isn't tainted by non-CORS hosts
+// (Polymarket market icons / team logos). data:/blob:/same-origin sources are loaded directly.
+function toCorsSafeUrl(url: string): string {
+    return /^https?:\/\//i.test(url) ? `/api/image/proxy?url=${encodeURIComponent(url)}` : url;
+}
 
 function blobToDataUri(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -16,7 +17,7 @@ function blobToDataUri(blob: Blob): Promise<string> {
 
 async function loadImageAsDataUri(url: string): Promise<string | null> {
     try {
-        return await blobToDataUri(await fetchImageAsPNG(url, true));
+        return await blobToDataUri(await fetchImageAsPNG(toCorsSafeUrl(url), true));
     } catch {
         return null;
     }
@@ -44,31 +45,4 @@ export function fetchImageAsDataUri(url: string): Promise<string | null> {
         if (result === null) dataUriCache.delete(url);
     });
     return promise;
-}
-
-/** Injects a white rounded knockout + the centred Firefly mascot before the QR's closing tag. */
-function withCenterLogo(qrSvg: string): string {
-    const size = Number(qrSvg.match(/viewBox="0 0 (\d+(?:\.\d+)?) /)?.[1]);
-    if (!Number.isFinite(size)) return qrSvg;
-
-    const box = size * 0.26;
-    const knockout = `<rect x="${(size - box) / 2}" y="${(size - box) / 2}" width="${box}" height="${box}" rx="${size * 0.06}" fill="#ffffff"/>`;
-
-    const logoHeight = size * 0.18;
-    const scale = logoHeight / QR_LOGO_HEIGHT;
-    const logoWidth = QR_LOGO_WIDTH * scale;
-    const logo = `<g transform="translate(${(size - logoWidth) / 2} ${(size - logoHeight) / 2}) scale(${scale})">${QR_LOGO_INNER_SVG}</g>`;
-
-    return qrSvg.replace('</svg>', `${knockout}${logo}</svg>`);
-}
-
-/**
- * Renders the QR as an SVG data URI with the Firefly mascot knocked out of its centre (error
- * correction 'H' so the centre logo can't break scanning). Reuses react-qr-code (already a dep).
- */
-export function createQrCodeDataUri(url: string): string {
-    const svg = renderToStaticMarkup(
-        createElement(QRCode, { value: url, level: 'H', size: 150, bgColor: '#ffffff', fgColor: '#000000' }),
-    );
-    return `data:image/svg+xml;utf8,${encodeURIComponent(withCenterLogo(svg))}`;
 }
