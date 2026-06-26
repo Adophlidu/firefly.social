@@ -3,16 +3,20 @@ import { memo } from 'react';
 interface SuperfortuneSpinningIconProps {
     size?: number;
     className?: string;
+    /** Seconds per full rotation. Slow (8s) for the entry; faster (~1.6s) when used as a loader. */
+    durationSeconds?: number;
 }
 
 /**
  * FW-7814 entry logo: a static gradient disc with the inner emblem rotating
- * uniformly (slow, linear, infinite). Only the emblem spins so the gradient shading
- * stays put; honours `prefers-reduced-motion`.
+ * uniformly (linear, infinite). Only the emblem spins so the gradient shading
+ * stays put; honours `prefers-reduced-motion`. Reused as a themed loading
+ * indicator (with a faster `durationSeconds`) while the share image loads.
  */
 export const SuperfortuneSpinningIcon = memo(function SuperfortuneSpinningIcon({
     size = 24,
     className,
+    durationSeconds = 8,
 }: SuperfortuneSpinningIconProps) {
     return (
         <svg
@@ -26,7 +30,11 @@ export const SuperfortuneSpinningIcon = memo(function SuperfortuneSpinningIcon({
             <circle cx="12" cy="12" r="12" fill="url(#superfortune_gradient)" />
             <g
                 className="animate-spin motion-reduce:animate-none"
-                style={{ animationDuration: '8s', transformOrigin: 'center', transformBox: 'fill-box' }}
+                style={{
+                    animationDuration: `${durationSeconds}s`,
+                    transformOrigin: 'center',
+                    transformBox: 'fill-box',
+                }}
             >
                 <rect
                     x="5.57143"

@@ -5,12 +5,13 @@ import ExportIcon from '@dimensiondev/assets/export.svg';
 import SendIcon from '@dimensiondev/assets/send2.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { memo, type ReactNode } from 'react';
+import { memo, type ReactNode, useEffect, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
 import { Popover } from '@/components/Popover.js';
+import { SuperfortuneSpinningIcon } from '@/components/Prediction/Superfortune/SuperfortuneSpinningIcon.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface SuperfortuneActionProps {
@@ -45,7 +46,7 @@ const SuperfortuneAction = memo(function SuperfortuneAction({
 
 interface SuperfortuneBodyProps {
     open: boolean;
-    cardUrl: string;
+    imageUrl: string;
     compact?: boolean;
     downloading?: boolean;
     posting?: boolean;
@@ -56,7 +57,7 @@ interface SuperfortuneBodyProps {
 
 const SuperfortuneBody = memo(function SuperfortuneBody({
     open,
-    cardUrl,
+    imageUrl,
     compact,
     downloading,
     posting,
@@ -64,22 +65,54 @@ const SuperfortuneBody = memo(function SuperfortuneBody({
     onDownload,
     onPost,
 }: SuperfortuneBodyProps) {
+    const [loading, setLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+
+    useEffect(() => {
+        if (!open) return;
+        setLoading(true);
+        setHasError(false);
+    }, [open, imageUrl]);
+
     return (
         <>
             <div
                 className={classNames(
-                    'aspect-[260/406] overflow-hidden rounded-lg',
+                    'relative aspect-[260/406] overflow-hidden rounded-lg',
                     // desktop: fill the modal width; mobile sheet: cap height so the whole card stays visible
                     compact ? 'mx-auto h-[58vh] max-h-[460px]' : 'w-full',
                 )}
             >
                 {open ? (
-                    <iframe
-                        title="SuperFortune"
-                        src={cardUrl}
-                        className="size-full border-0"
-                        sandbox="allow-scripts allow-same-origin allow-popups"
-                    />
+                    <>
+                        {loading || hasError ? (
+                            <div className="absolute inset-0 z-1 flex flex-col items-center justify-center gap-3 bg-primaryBottom">
+                                {loading ? (
+                                    <>
+                                        <SuperfortuneSpinningIcon size={44} durationSeconds={1.6} />
+                                        <span className="text-medium font-medium text-secondary">
+                                            <Trans>Decoding the sign…</Trans>
+                                        </span>
+                                    </>
+                                ) : (
+                                    <span className="text-medium font-medium text-secondary">
+                                        <Trans>Failed to load image.</Trans>
+                                    </span>
+                                )}
+                            </div>
+                        ) : null}
+                        {/* eslint-disable-next-line @next/next/no-img-element -- external partner image, not a configured next/image host */}
+                        <img
+                            alt="SuperFortune"
+                            src={imageUrl}
+                            className="size-full object-cover"
+                            onLoad={() => setLoading(false)}
+                            onError={() => {
+                                setLoading(false);
+                                setHasError(true);
+                            }}
+                        />
+                    </>
                 ) : null}
             </div>
             <div className="mt-4 flex items-center justify-between px-2">
@@ -107,7 +140,7 @@ const SuperfortuneBody = memo(function SuperfortuneBody({
 
 interface SuperfortuneModalProps {
     open: boolean;
-    cardUrl: string;
+    imageUrl: string;
     downloading?: boolean;
     posting?: boolean;
     onClose: () => void;

@@ -4449,6 +4449,9 @@ msgstr "設定"
 msgid "Font Color"
 msgstr "字体颜色"
 
+msgid "Decoding the sign…"
+msgstr ""
+
 msgid "Choose Wallet"
 msgstr "選擇錢包"
 

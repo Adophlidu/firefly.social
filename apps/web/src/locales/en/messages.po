@@ -4472,6 +4472,9 @@ msgstr "Settings"
 msgid "Font Color"
 msgstr "Font Color"
 
+msgid "Decoding the sign…"
+msgstr "Decoding the sign…"
+
 msgid "Choose Wallet"
 msgstr "Choose Wallet"
 

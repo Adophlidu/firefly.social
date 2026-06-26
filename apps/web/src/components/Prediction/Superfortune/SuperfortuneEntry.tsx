@@ -13,7 +13,6 @@ import { downloadImage } from '@/helpers/downloadImage.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import {
-    getSuperfortuneCardUrl,
     getSuperfortuneDetailUrl,
     getSuperfortuneGameUrl,
     getSuperfortuneShareImageUrl,
@@ -39,7 +38,6 @@ export const SuperfortuneEntry = memo(function SuperfortuneEntry({ matchKey, loc
     const ffid = useCurrentFireflyAccountUID() ?? '';
 
     const lang = resolveSuperfortuneLang(locale);
-    const cardUrl = useMemo(() => getSuperfortuneCardUrl(matchKey, lang), [matchKey, lang]);
     const shareImageUrl = useMemo(() => getSuperfortuneShareImageUrl(matchKey, lang), [matchKey, lang]);
 
     const onEntryClick = useCallback(() => {
@@ -84,7 +82,7 @@ export const SuperfortuneEntry = memo(function SuperfortuneEntry({ matchKey, loc
             </ClickableButton>
             <SuperfortuneModal
                 open={open}
-                cardUrl={cardUrl}
+                imageUrl={shareImageUrl}
                 downloading={downloading}
                 posting={posting}
                 onClose={() => setOpen(false)}

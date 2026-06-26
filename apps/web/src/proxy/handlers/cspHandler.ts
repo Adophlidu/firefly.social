@@ -66,6 +66,9 @@ function buildCSP(): string {
         '*.polymarket.com',
         'wss://ws-subscriptions-clob.polymarket.com',
 
+        // SuperFortune (FW-7814) share-card image download
+        '*.superfortune.xyz',
+
         '*.walletconnect.com',
         '*.walletconnect.org',
         'wss://*.walletconnect.org',
