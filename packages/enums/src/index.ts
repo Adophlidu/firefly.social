@@ -667,6 +667,7 @@ export enum NotificationType {
     LikeBets = 'like_bets',
     LikeDAO = 'like_dao',
     LikeNFT = 'like_nft',
+    PredictionReward = 'prediction_reward',
 }
 
 // --- Wallet, tokens & swap ---

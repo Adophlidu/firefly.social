@@ -15,6 +15,7 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useNotificationSources } from '@/hooks/useNotificationSources.js';
 import { getAllNotifications } from '@/providers/firefly/endpoint/getAllNotifications.js';
+import { getPolymarketRewardNotifications } from '@/providers/firefly/endpoint/getPolymarketRewardNotifications.js';
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';
 import { getTipsNotifications } from '@/providers/firefly/endpoint/getTipsNotifications.js';
 import type { Notification } from '@/providers/types/SocialMedia.js';
@@ -40,7 +41,7 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
     }, [types]);
 
     const querySources = useMemo(() => {
-        const sources: Array<'unified' | SocialSource | NotificationType> = [];
+        const sources: Array<'unified' | 'polymarketReward' | SocialSource | NotificationType> = [];
 
         const socialMediaTypes = types.filter((type): type is NotificationType =>
             SOCIAL_NOTIFICATION_TYPES.includes(type as NotificationType),
@@ -54,6 +55,7 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
                 ...socialSources.filter((x) => !!allProfiles[x]?.profileId),
                 NotificationType.Tips,
                 NotificationType.Schedule,
+                'polymarketReward',
                 'unified',
             ];
         }
@@ -93,6 +95,7 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
 
                 if (x === NotificationType.Tips) return getTipsNotifications(indicator);
                 if (x === NotificationType.Schedule) return getScheduleNotifications(indicator);
+                if (x === 'polymarketReward') return getPolymarketRewardNotifications(indicator);
 
                 return resolveSocialMediaProvider(x as SocialSource).getNotifications(enableQualityFilter, indicator);
             },

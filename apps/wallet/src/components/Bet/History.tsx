@@ -55,6 +55,7 @@ import {
     type PolymarketActivityMarketAction,
     type PolymarketClaimV2Item,
     type PolymarketPosition,
+    type PolymarketRewardType,
     type PolymarketV2PositionSortBy,
 } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -64,7 +65,7 @@ import { store } from '@/store/index.js';
 
 const PAGE_SIZE = 20;
 
-enum HistoryTab {
+export enum HistoryTab {
     ClosedPositions = 'closed-positions',
     TradingActivities = 'trading-activities',
 }
@@ -101,8 +102,10 @@ function HistoryTabButton({
     );
 }
 
-export function History() {
-    const [tab, setTab] = useState<HistoryTab>(HistoryTab.ClosedPositions);
+export function History({ initialTab }: { initialTab?: 'closed-positions' | 'trading-activities' }) {
+    const [tab, setTab] = useState<HistoryTab>(
+        initialTab === 'trading-activities' ? HistoryTab.TradingActivities : HistoryTab.ClosedPositions,
+    );
 
     return (
         <div className="w-full">
@@ -620,6 +623,32 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
         });
     };
 
+    if (isRewardActivity(item)) {
+        const amount = parseUsdcAmount(item.depositWithdraw?.amount);
+        return (
+            <HistoryCard>
+                <div className="flex items-center gap-2">
+                    <div className="flex size-10 items-center justify-center rounded-full bg-lightBg">
+                        <ArrowDown width={20} height={20} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                        <div className="truncate text-sm font-bold leading-5 text-main">
+                            <Trans>Activity Rewards</Trans>
+                        </div>
+                        <div className="text-xs leading-[14px] text-second">{whenRelative}</div>
+                    </div>
+                    <div className="shrink-0 text-right text-sm font-semibold leading-5">
+                        {amount ? (
+                            <span className="text-success">+{formatTokenUSD(amount, { minDisplay: 0.01 })}</span>
+                        ) : (
+                            <span className="text-second">-</span>
+                        )}
+                    </div>
+                </div>
+            </HistoryCard>
+        );
+    }
+
     if (item.type === 'deposit' || item.type === 'withdraw') {
         const isIn = item.type === 'deposit';
         const amount = parseUsdcAmount(item.depositWithdraw?.amount);
@@ -772,6 +801,20 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
             </div>
         </HistoryCard>
     );
+}
+
+const REWARD_ACTIVITY_TYPES: ReadonlySet<string> = new Set<PolymarketRewardType>([
+    'fifa_camp_reward',
+    'fifa_daily_reward',
+    'fifa_rank_reward',
+    'fifa_position_gift_reward',
+    'fifa_volume_reward',
+]);
+
+type PolymarketRewardActivity = Extract<PolymarketActivityItem, { type: PolymarketRewardType }>;
+
+function isRewardActivity(item: PolymarketActivityItem): item is PolymarketRewardActivity {
+    return REWARD_ACTIVITY_TYPES.has(item.type);
 }
 
 function isClaimOrLostActivity(item: PolymarketActivityItem) {

@@ -129,6 +129,7 @@ export function setBlockStatus(source: SocialSource, profileId: string, status: 
                         case NotificationType.LikeBets:
                         case NotificationType.LikeDAO:
                         case NotificationType.LikeNFT:
+                        case NotificationType.PredictionReward:
                             return true;
                         default:
                             safeUnreachable(notification.type);

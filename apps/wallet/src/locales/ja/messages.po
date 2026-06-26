@@ -650,6 +650,9 @@ msgstr "追加"
 msgid "Confirm new PIN"
 msgstr "新しい PIN を確認"
 
+msgid "Activity Rewards"
+msgstr ""
+
 msgid "Sort closed positions"
 msgstr "クローズドポジションを並び替え"
 

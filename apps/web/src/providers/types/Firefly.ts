@@ -2290,6 +2290,42 @@ export interface UnifiedNotification {
     notificationId: string;
 }
 
+/**
+ * `data` payload for a polymarket reward notification.
+ * Mirrors iOS `RewardActivity` — a pure "rewards sent" signal with no amount or
+ * address (the detail lives in the prediction wallet history). Sourced from the
+ * dedicated `GET /v2/polymarket/user/activity/reward` endpoint, NOT the unified
+ * notification stream.
+ */
+export interface PolymarketRewardNotificationData {
+    id?: string;
+    /** Reward record type, e.g. `fifa_daily_reward` (always ends with `_reward`). */
+    type: string;
+    /** ISO date string of the reward distribution (tx-hash time). */
+    createdAt?: string;
+}
+
+export interface PolymarketRewardNotification {
+    source: Source.Firefly;
+    type: SocialNotificationType.PredictionReward;
+    data: PolymarketRewardNotificationData;
+    timestamp: number;
+    notificationId: string;
+}
+
+export type PolymarketRewardNotificationsResponse = Response<{
+    activities?: PolymarketRewardNotificationData[];
+    list?: PolymarketRewardNotificationData[];
+    nextCursor?: string;
+    nextPage?: number;
+    pagination?: {
+        page?: number;
+        totalPages?: number;
+        next_cursor?: string;
+        nextCursor?: string;
+    };
+}>;
+
 export type AllNotificationsResponse = Response<{
     notifications: UnifiedNotificationData[];
     pagination: {

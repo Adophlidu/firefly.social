@@ -263,6 +263,9 @@ export const UnifiedNotificationItem = memo<UnifiedNotificationItemProps>(functi
         case NotificationType.Reaction:
         case NotificationType.Schedule:
         case NotificationType.Tips:
+        // Reward notifications are dispatched to PolymarketRewardNotificationItem
+        // in getNotificationItemContent before reaching here; kept for exhaustiveness.
+        case NotificationType.PredictionReward:
             return null;
         default:
             safeUnreachable(notification.type);

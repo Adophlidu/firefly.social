@@ -3696,6 +3696,9 @@ msgstr "新着"
 msgid "Your {0} account is now connected."
 msgstr "あなたの {0} アカウントが接続されました。"
 
+msgid "Rewards have been sent to your Prediction Account."
+msgstr ""
+
 msgid "Not Found"
 msgstr "見つかりません"
 

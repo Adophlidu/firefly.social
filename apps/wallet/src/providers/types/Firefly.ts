@@ -701,6 +701,17 @@ export type PolymarketActivityResponse = Response<{
     cursor: string | null;
 }>;
 
+/**
+ * Reward record types returned by the backend for FIFA prediction campaigns.
+ * `amount` is a USDC integer string with 6 decimals (1e6), same as deposit/withdraw.
+ */
+export type PolymarketRewardType =
+    | 'fifa_camp_reward'
+    | 'fifa_daily_reward'
+    | 'fifa_rank_reward'
+    | 'fifa_position_gift_reward'
+    | 'fifa_volume_reward';
+
 export type PolymarketActivityItem =
     | {
           type: 'trade';
@@ -762,6 +773,22 @@ export type PolymarketActivityItem =
            */
           depositWithdraw?: {
               tx_type: 'withdraw' | string;
+              target_address?: string;
+              amount?: string;
+          };
+      }
+    | {
+          type: PolymarketRewardType;
+          proxyWallet: string;
+          timestamp: number; // seconds (= tx-hash time, from backend event_time)
+          transactionHash: string;
+          /**
+           * Reward metadata. Same shape as deposit/withdraw.
+           *
+           * `amount` is typically a USDC integer string with 6 decimals (1e6).
+           */
+          depositWithdraw?: {
+              tx_type: string;
               target_address?: string;
               amount?: string;
           };

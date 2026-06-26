@@ -2,10 +2,12 @@ import { UNIFIED_NOTIFICATION_TYPES } from '@dimensiondev/constants/computed';
 import { NotificationType } from '@dimensiondev/enums';
 
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
+import { PolymarketRewardNotificationItem } from '@/components/Notification/PolymarketRewardNotificationItem.js';
 import { ScheduleNotificationItem } from '@/components/Notification/ScheduleNotificationItem.js';
 import { TipsNotificationItem } from '@/components/Notification/TipsNotificationItem.js';
 import { UnifiedNotificationItem } from '@/components/Notification/UnifiedNotificationItem.js';
 import type {
+    PolymarketRewardNotification,
     ScheduleNotification,
     TipsNotification,
     TipsNotificationData,
@@ -26,6 +28,15 @@ export function getNotificationItemContent(index: number, notification: Notifica
         );
     }
 
+    if (notification.type === NotificationType.PredictionReward) {
+        return (
+            <PolymarketRewardNotificationItem
+                key={notification.notificationId}
+                notification={notification as PolymarketRewardNotification}
+            />
+        );
+    }
+
     if (UNIFIED_NOTIFICATION_TYPES.includes(notification.type as NotificationType)) {
         return (
             <UnifiedNotificationItem
@@ -37,7 +48,7 @@ export function getNotificationItemContent(index: number, notification: Notifica
 
     type SocialNotification = Exclude<
         NotificationObject,
-        UnifiedNotification | TipsNotification | ScheduleNotification
+        UnifiedNotification | TipsNotification | ScheduleNotification | PolymarketRewardNotification
     >;
     return <NotificationItem key={notification.notificationId} notification={notification as SocialNotification} />;
 }

@@ -650,6 +650,9 @@ msgstr "Add"
 msgid "Confirm new PIN"
 msgstr "Confirm new PIN"
 
+msgid "Activity Rewards"
+msgstr "Activity Rewards"
+
 msgid "Sort closed positions"
 msgstr "Sort closed positions"
 

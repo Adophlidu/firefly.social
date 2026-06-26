@@ -3,6 +3,7 @@ import FollowIcon from '@dimensiondev/assets/follow.svg';
 import LikeIcon from '@dimensiondev/assets/like-large.svg';
 import MessagesIcon from '@dimensiondev/assets/message2.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror-large.svg';
+import PredictionIcon from '@dimensiondev/assets/prediction.svg';
 import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
 import TipsIcon from '@dimensiondev/assets/tips.svg';
 import { NotificationType } from '@dimensiondev/enums';
@@ -30,6 +31,9 @@ export const resolveNotificationIcon = createLookupTableResolver<
         [NotificationType.LikeBets]: LikeIcon,
         [NotificationType.LikeDAO]: LikeIcon,
         [NotificationType.LikeNFT]: LikeIcon,
+        // Reward notifications render via their own component (PolymarketRewardNotificationItem),
+        // but the lookup table requires every NotificationType to be covered.
+        [NotificationType.PredictionReward]: PredictionIcon,
     },
     null,
 );

@@ -3716,6 +3716,9 @@ msgstr "NEW"
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
 
+msgid "Rewards have been sent to your Prediction Account."
+msgstr "Rewards have been sent to your Prediction Account."
+
 msgid "Not Found"
 msgstr "Not Found"
 

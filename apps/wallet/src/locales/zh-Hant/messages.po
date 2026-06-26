@@ -650,6 +650,9 @@ msgstr "新增"
 msgid "Confirm new PIN"
 msgstr "確認新 PIN 碼"
 
+msgid "Activity Rewards"
+msgstr ""
+
 msgid "Sort closed positions"
 msgstr "排序已平倉位"
 

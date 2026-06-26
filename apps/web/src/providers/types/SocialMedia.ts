@@ -18,6 +18,7 @@ import type { Account } from '@/providers/types/Account.js';
 import type {
     FireflyIdentity,
     NotificationSettings,
+    PolymarketRewardNotification,
     ScheduleNotification,
     TipsNotification,
     UnifiedNotification,
@@ -413,6 +414,7 @@ export type Notification =
     | ActedNotification
     | TipsNotification
     | ScheduleNotification
+    | PolymarketRewardNotification
     | UnifiedNotification;
 
 export interface Channel<T = unknown> {

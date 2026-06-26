@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useSearch } from '@tanstack/react-router';
 import { lazy, Suspense, useEffect } from 'react';
+import { z } from 'zod';
 
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -42,13 +43,21 @@ function HistorySkeleton() {
 
 const History = lazy(() => import('@/components/Bet/History.js').then((m) => ({ default: m.History })));
 
+const historySearchSchema = z
+    .object({
+        tab: z.enum(['closed-positions', 'trading-activities']).optional(),
+    })
+    .passthrough();
+
 export const Route = createFileRoute('/bet/_home/history')({
     component: HistoryPage,
     pendingComponent: HistorySkeleton,
+    validateSearch: historySearchSchema,
 });
 
 function HistoryPage() {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
+    const { tab } = useSearch({ from: '/bet/_home/history' });
 
     useEffect(() => {
         captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_RECENT_ACTIVITY_OPEN_SUCCESS, {
@@ -58,7 +67,7 @@ function HistoryPage() {
 
     return (
         <Suspense fallback={<HistorySkeleton />}>
-            <History />
+            <History initialTab={tab} />
         </Suspense>
     );
 }

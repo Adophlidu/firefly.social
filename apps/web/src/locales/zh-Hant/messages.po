@@ -3696,6 +3696,9 @@ msgstr "新增"
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳號已連接。"
 
+msgid "Rewards have been sent to your Prediction Account."
+msgstr ""
+
 msgid "Not Found"
 msgstr "找不到內容"
 
