@@ -15,6 +15,7 @@ import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import {
     getSuperfortuneDetailUrl,
     getSuperfortuneGameUrl,
+    getSuperfortuneShareImageDownloadUrl,
     getSuperfortuneShareImageUrl,
     resolveSuperfortuneLang,
 } from '@/helpers/prediction/superfortune.js';
@@ -38,7 +39,9 @@ export const SuperfortuneEntry = memo(function SuperfortuneEntry({ matchKey, loc
     const ffid = useCurrentFireflyAccountUID() ?? '';
 
     const lang = resolveSuperfortuneLang(locale);
+    // preview loads directly (display needs no CORS); download/post read bytes via the CORS proxy
     const shareImageUrl = useMemo(() => getSuperfortuneShareImageUrl(matchKey, lang), [matchKey, lang]);
+    const downloadUrl = useMemo(() => getSuperfortuneShareImageDownloadUrl(matchKey, lang), [matchKey, lang]);
 
     const onEntryClick = useCallback(() => {
         captureBetsSuperfortuneClickEvent(ffid);
@@ -54,17 +57,17 @@ export const SuperfortuneEntry = memo(function SuperfortuneEntry({ matchKey, loc
         captureBetsSuperfortuneDownloadEvent(ffid);
 
         try {
-            await downloadImage(shareImageUrl, `superfortune-${matchKey}.png`);
+            await downloadImage(downloadUrl, `superfortune-${matchKey}.png`);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to download image.`);
         }
-    }, [shareImageUrl, matchKey, ffid]);
+    }, [downloadUrl, matchKey, ffid]);
 
     const [{ loading: posting }, onPost] = useAsyncFn(async () => {
         captureBetsSuperfortuneShareEvent(ffid);
 
         try {
-            const blob = await fetchImageAsPNG(shareImageUrl, true);
+            const blob = await fetchImageAsPNG(downloadUrl, true);
             const media = createLocalMediaObject(
                 new File([blob], `superfortune-${matchKey}.png`, { type: FileMimeType.PNG }),
             );
@@ -73,7 +76,7 @@ export const SuperfortuneEntry = memo(function SuperfortuneEntry({ matchKey, loc
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to prepare the share image.`);
         }
-    }, [shareImageUrl, matchKey, ffid]);
+    }, [downloadUrl, matchKey, ffid]);
 
     return (
         <>

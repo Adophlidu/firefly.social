@@ -1,3 +1,4 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { Locale } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import urlcat from 'urlcat';
@@ -29,6 +30,19 @@ export function getSuperfortuneShareImageUrl(matchKey: string, lang: Superfortun
         match_key: matchKey,
         lang: lang === 'zh' ? 'cn' : 'en',
     });
+}
+
+/**
+ * Same share image routed through the Firefly worker's image proxy, for the Download / Post
+ * actions that need to read the image bytes (the direct host lacks CORS headers). The proxy
+ * host (`*.r2d2.to`) is already allow-listed in CSP `connect-src`. The preview `<img>` keeps
+ * using {@link getSuperfortuneShareImageUrl} directly — display needs no CORS.
+ *
+ * `urlcat` URL-encodes the nested image URL so its own `&lang=…` query isn't swallowed as an
+ * outer parameter of the proxy request.
+ */
+export function getSuperfortuneShareImageDownloadUrl(matchKey: string, lang: SuperfortuneLang): string {
+    return urlcat(FIREFLY_WORKER_HOST, '/proxy-image', { url: getSuperfortuneShareImageUrl(matchKey, lang) });
 }
 
 /** Public game-interpretation page opened by the "Superfortune" button (new tab, no warning). */
