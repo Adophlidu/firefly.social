@@ -8,9 +8,9 @@ import type { BetsEventDataForUI } from '@/types/prediction.js';
 /** FW-7814 — SuperFortune ("玄学预测") integration on FIFA World Cup game detail pages. */
 
 /** Host that serves the rendered share image (preview + Download / Post), non-prod. */
-const SUPERFORTUNE_IMAGE_HOST = 'https://api.nonprod.superfortune.xyz';
+const SUPERFORTUNE_IMAGE_HOST = 'https://api.app.superfortune.xyz';
 /** Host for the public SuperFortune game-interpretation page (the "Superfortune" jump button). */
-const SUPERFORTUNE_APP_HOST = 'https://nonprod.app.superfortune.xyz';
+const SUPERFORTUNE_APP_HOST = 'https://app.superfortune.xyz';
 /** `leagueId` returned by `/v1/polymarket/event/detail` that identifies a FIFA World Cup match. */
 const SUPERFORTUNE_LEAGUE_ID = 'fifwc';
 
@@ -46,8 +46,8 @@ export function getSuperfortuneShareImageDownloadUrl(matchKey: string, lang: Sup
 }
 
 /** Public game-interpretation page opened by the "Superfortune" button (new tab, no warning). */
-export function getSuperfortuneGameUrl(matchKey: string): string {
-    return urlcat(SUPERFORTUNE_APP_HOST, '/worldcup/:matchKey', { matchKey });
+export function getSuperfortuneGameUrl(matchKey: string, lang?: SuperfortuneLang): string {
+    return urlcat(SUPERFORTUNE_APP_HOST, '/worldcup/:matchKey', { matchKey, lang });
 }
 
 /** Firefly game detail link pasted into the composer by the "Post" action. */

@@ -50,8 +50,8 @@ export const SuperfortuneEntry = memo(function SuperfortuneEntry({ matchKey, loc
 
     const onSuperfortune = useCallback(() => {
         captureBetsSuperfortuneJumpEvent(ffid);
-        window.open(getSuperfortuneGameUrl(matchKey), '_blank', 'noopener,noreferrer');
-    }, [matchKey, ffid]);
+        window.open(getSuperfortuneGameUrl(matchKey, lang), '_blank', 'noopener,noreferrer');
+    }, [matchKey, ffid, lang]);
 
     const [{ loading: downloading }, onDownload] = useAsyncFn(async () => {
         captureBetsSuperfortuneDownloadEvent(ffid);
