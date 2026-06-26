@@ -308,8 +308,31 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         [IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE]: async (params) => {
             // The wallet iframe can't run the satori renderer (fonts + the same-origin image proxy),
             // so generate the share image here on the host and hand back a PNG data URL.
+            const bridgeParams = params.params;
+            let shareParams = bridgeParams as PolymarketShareImageParams;
+
+            // The wallet can't build the sports matchup itself; when it shares a sports position it
+            // passes the event slug and the host resolves the sports card context here. Best-effort:
+            // an event-detail fetch failure must degrade to the plain event card, not fail the whole
+            // share image (the slug is sent for every position, sports or not).
+            if (bridgeParams.type === 'position' && bridgeParams.eventSlug && !bridgeParams.sport) {
+                try {
+                    const { resolveShareSportInfo } =
+                        await import('@/components/Prediction/getPolymarketSharePayload.js');
+                    const sport = await resolveShareSportInfo({
+                        eventSlug: bridgeParams.eventSlug,
+                        outcomeIndex: undefined,
+                        outcome: bridgeParams.outcome,
+                        title: bridgeParams.title,
+                    });
+                    if (sport) shareParams = { ...shareParams, sport } as PolymarketShareImageParams;
+                } catch {
+                    // fall through to the plain event card
+                }
+            }
+
             const { createPolymarketShareImage } = await import('@/services/polymarketShareImage/index.js');
-            const blob = await createPolymarketShareImage(params.params as PolymarketShareImageParams);
+            const blob = await createPolymarketShareImage(shareParams);
             return { dataUrl: await blobToDataUrl(blob) };
         },
     };

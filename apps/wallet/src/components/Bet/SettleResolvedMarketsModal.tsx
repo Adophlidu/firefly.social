@@ -20,7 +20,8 @@ import { formatPercentRateMin } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
-import { fallbackShareIdentity, getWinningsShareImagePayload } from '@/helpers/polymarketShareImage.js';
+import { getWinningsShareImagePayload } from '@/helpers/polymarketShareImage.js';
+import { usePolymarketShareIdentity } from '@/hooks/usePolymarketShareIdentity.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import type { PolymarketClaimV2Item, PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
@@ -129,12 +130,8 @@ export function SettleResolvedMarketsModal({
         },
     });
 
-    const sharePayload = getWinningsShareImagePayload(
-        winningItems,
-        totalWinAmount,
-        proxyAddress,
-        fallbackShareIdentity(proxyAddress),
-    );
+    const shareIdentity = usePolymarketShareIdentity(proxyAddress);
+    const sharePayload = getWinningsShareImagePayload(winningItems, totalWinAmount, proxyAddress, shareIdentity);
 
     return (
         <DialogOrDrawerContent className="w-full gap-4 rounded-t-2xl">

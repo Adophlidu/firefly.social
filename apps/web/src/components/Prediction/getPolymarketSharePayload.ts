@@ -10,6 +10,7 @@ import {
     type PolymarketShareIdentity,
     type PolymarketShareSportInfo,
     type PolymarketShareSportTeam,
+    resolvePredictedSide,
 } from '@/helpers/polymarketShareImage.js';
 import type { PolymarketShareImagePayload } from '@/hooks/prediction/usePolymarketShareImageActions.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
@@ -20,6 +21,8 @@ import type { BetsEventDataForUI, PredictionPositionDataForUI } from '@/types/pr
 interface RawShareTeam {
     name?: string;
     abbreviation?: string;
+    /** Alternate name (event-detail teams only) — used when matching the outcome/title to a team. */
+    alias?: string;
     logo?: string;
 }
 
@@ -40,7 +43,9 @@ function sumScore(rows: Array<{ score?: number[] }> | undefined): [number, numbe
 }
 
 // Builds the matchup context from already-resolved home/away teams, score rows and the bet outcome.
-// `outcomeIndex` 0 = home, 1 = away; an explicit "draw" outcome on a 3-way market is a draw pick.
+// The predicted side is resolved by `resolvePredictedSide`: the outcome label / market title decide it
+// (moneyline outcomes are team names; binary "Will <Team> win?" markets name the team in the title),
+// falling back to the legacy outcomeIndex mapping (0 = home, 1 = away).
 function buildSportInfo(params: {
     home: RawShareTeam;
     away: RawShareTeam;
@@ -48,12 +53,12 @@ function buildSportInfo(params: {
     isDraw: boolean;
     outcomeIndex: number | undefined;
     outcome: string;
+    title: string;
 }): PolymarketShareSportInfo {
-    const { home, away, scoreRows, isDraw, outcomeIndex, outcome } = params;
-    const isDrawPick = isDraw && outcome.trim().toLowerCase() === 'draw';
-    const predicted: PolymarketShareSportInfo['predicted'] = isDrawPick
-        ? { kind: 'draw' }
-        : { kind: 'team', team: toShareTeam(outcomeIndex === 1 ? away : home) };
+    const { home, away, scoreRows, isDraw, outcomeIndex, outcome, title } = params;
+    const side = resolvePredictedSide({ home, away, outcome, title, isDraw, outcomeIndex });
+    const predicted: PolymarketShareSportInfo['predicted'] =
+        side === 'draw' ? { kind: 'draw' } : { kind: 'team', team: toShareTeam(side === 'away' ? away : home) };
 
     return { home: toShareTeam(home), away: toShareTeam(away), score: sumScore(scoreRows), predicted };
 }
@@ -74,6 +79,7 @@ function buildShareSportInfo(activity: BetsActivity): PolymarketShareSportInfo |
         isDraw: !!sport.isDraw,
         outcomeIndex: activity.outcomeIndex,
         outcome: activity.outcome || '',
+        title: activity.title || '',
     });
 }
 
@@ -98,24 +104,43 @@ function fetchEventDetailCached(eventSlug: string): Promise<BetsEventDataForUI |
     return promise;
 }
 
+/**
+ * Resolves the sports matchup context for a position share from its event slug + bet outcome. Returns
+ * undefined for non-sports markets. Shared by the web position cell and the wallet iframe-bridge handler
+ * (the wallet can't build `sport` itself, so it passes the event slug and the host resolves it here).
+ */
+export async function resolveShareSportInfo(input: {
+    eventSlug: string;
+    outcomeIndex: number | undefined;
+    outcome: string;
+    title: string;
+}): Promise<PolymarketShareSportInfo | undefined> {
+    const detail = await fetchEventDetailCached(input.eventSlug);
+    const sport = detail?.sportData;
+    if (!sport?.homeTeam || !sport.awayTeam) return undefined;
+
+    return buildSportInfo({
+        home: sport.homeTeam,
+        away: sport.awayTeam,
+        scoreRows: sport.scores,
+        isDraw: sport.isDraw,
+        outcomeIndex: input.outcomeIndex,
+        outcome: input.outcome,
+        title: input.title,
+    });
+}
+
 function resolvePositionSport(
     position: PredictionPositionDataForUI,
     eventSlug: string,
 ): () => Promise<PolymarketShareSportInfo | undefined> {
-    return async () => {
-        const detail = await fetchEventDetailCached(eventSlug);
-        const sport = detail?.sportData;
-        if (!sport?.homeTeam || !sport.awayTeam) return undefined;
-
-        return buildSportInfo({
-            home: sport.homeTeam,
-            away: sport.awayTeam,
-            scoreRows: sport.scores,
-            isDraw: sport.isDraw,
+    return () =>
+        resolveShareSportInfo({
+            eventSlug,
             outcomeIndex: position.outcomeIndex,
             outcome: position.vote_status,
+            title: position.title ?? '',
         });
-    };
 }
 
 /** Builds the share payload for a position cell (active or closed). Polymarket only. */

@@ -6,7 +6,7 @@ import type {
 } from '@dimensiondev/iframe-bridge';
 import { BigNumber } from 'bignumber.js';
 
-import type { PolymarketPosition } from '@/providers/types/Firefly.js';
+import type { PolymarketPosition, PolymarketProfileData } from '@/providers/types/Firefly.js';
 
 /**
  * FW-7810 — wallet-side builders for the Polymarket share image. The image is rendered by the host
@@ -46,6 +46,21 @@ export function fallbackShareIdentity(address: string): PolymarketShareIdentity 
     return { displayName: shortenAddress(address) };
 }
 
+/**
+ * Resolves the share-image holder identity from the Polymarket profile (`/v1/polymarket/profile/info`)
+ * — the same source the web profile page uses. Falls back to the shortened address when the profile
+ * carries no pseudonym (e.g. while loading or for a brand-new account).
+ */
+export function resolveShareIdentityFromProfile(
+    profile: Pick<PolymarketProfileData, 'platform_name' | 'platform_avatar'> | null | undefined,
+    address: string,
+): PolymarketShareIdentity {
+    return {
+        displayName: profile?.platform_name?.trim() || shortenAddress(address),
+        avatarUrl: profile?.platform_avatar?.trim() || undefined,
+    };
+}
+
 /** Builds the share payload for a wallet position cell (active or closed). */
 export function getPositionShareImagePayload(
     position: PolymarketPosition,
@@ -73,6 +88,7 @@ export function getPositionShareImagePayload(
             currentPnl: position.pnl,
             identity,
             imageUrl: position.image || undefined,
+            eventSlug,
         };
         return { link, params };
     }
@@ -88,6 +104,7 @@ export function getPositionShareImagePayload(
         currentPnl: position.pnl,
         identity,
         imageUrl: position.image || undefined,
+        eventSlug,
     };
     return { link, params };
 }

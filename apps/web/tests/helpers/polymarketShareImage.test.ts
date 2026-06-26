@@ -6,6 +6,7 @@ import {
     computeTimelinePnlRate,
     formatSharePnlHeadline,
     resolvePolymarketShareIdentity,
+    resolvePredictedSide,
 } from '@/helpers/polymarketShareImage.js';
 
 /**
@@ -124,6 +125,167 @@ describe('formatSharePnlHeadline (AC-18 — pnl formatting + Full Loss rule)', (
 
     it('does NOT treat -99% as a full loss', () => {
         expect(formatSharePnlHeadline(-99).label).toBe('-99%'); // ASSERTION (frozen)
+    });
+});
+
+describe('resolvePredictedSide (FW-7823 — sports share-image predicted badge)', () => {
+    // Panama (home) vs Croatia (away) — the matchup from the reported bug.
+    const home = { name: 'Panama', abbreviation: 'PAN' };
+    const away = { name: 'Croatia', abbreviation: 'CRO' };
+
+    it('maps a moneyline outcome that IS a team name to that team', () => {
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Croatia',
+                title: 'Panama vs. Croatia',
+                isDraw: false,
+                outcomeIndex: 1,
+            }),
+        ).toBe('away');
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Panama',
+                title: 'Panama vs. Croatia',
+                isDraw: false,
+                outcomeIndex: 0,
+            }),
+        ).toBe('home');
+    });
+
+    it('matches a team by alias too', () => {
+        const bosnia = { name: 'Bosnia and Herzegovina', alias: 'Bosnia-Herzegovina' };
+        expect(
+            resolvePredictedSide({
+                home: bosnia,
+                away,
+                outcome: 'Bosnia-Herzegovina',
+                title: '',
+                isDraw: false,
+                outcomeIndex: 1,
+            }),
+        ).toBe('home');
+    });
+
+    it('resolves an explicit Draw pick on a draw market', () => {
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Draw',
+                title: 'Panama vs. Croatia',
+                isDraw: true,
+                outcomeIndex: 1,
+            }),
+        ).toBe('draw');
+    });
+
+    it('uses the binary title subject for "Yes" — NOT the outcomeIndex (the reported bug)', () => {
+        // "Will Croatia win?" + outcome "Yes" (outcomeIndex 0) must resolve to Croatia (away), not Panama.
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Yes',
+                title: 'Will Croatia win on 2026-06-23?',
+                isDraw: false,
+                outcomeIndex: 0,
+            }),
+        ).toBe('away');
+    });
+
+    it('shows the binary title subject for "No" too (badge = the title team regardless of side)', () => {
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'No',
+                title: 'Will Croatia win on 2026-06-23?',
+                isDraw: false,
+                outcomeIndex: 1,
+            }),
+        ).toBe('away');
+    });
+
+    it('picks the team mentioned first when the title names both', () => {
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Yes',
+                title: 'Will Croatia beat Panama?',
+                isDraw: false,
+                outcomeIndex: 0,
+            }),
+        ).toBe('away');
+    });
+
+    it('falls back to the outcomeIndex mapping when neither outcome nor title names a team', () => {
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Yes',
+                title: 'Will the favorite win?',
+                isDraw: false,
+                outcomeIndex: 1,
+            }),
+        ).toBe('away');
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Yes',
+                title: 'Will the favorite win?',
+                isDraw: false,
+                outcomeIndex: 0,
+            }),
+        ).toBe('home');
+    });
+
+    it('uses outcomeIndex (not the title) for a non-Yes/No label that fails the exact team match', () => {
+        // A moneyline label formatted differently from the event-detail team name ('Croatia FC' vs
+        // 'Croatia') fails matchesTeamLabel. The title names BOTH teams, so a title guess would be wrong;
+        // resolution must defer to the more reliable outcomeIndex instead.
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Croatia FC',
+                title: 'Panama vs. Croatia',
+                isDraw: false,
+                outcomeIndex: 1,
+            }),
+        ).toBe('away');
+        expect(
+            resolvePredictedSide({
+                home,
+                away,
+                outcome: 'Croatia FC',
+                title: 'Panama vs. Croatia',
+                isDraw: false,
+                outcomeIndex: 0,
+            }),
+        ).toBe('home');
+    });
+
+    it('matches team names on word boundaries, not as substrings', () => {
+        // 'Iran' must not match inside 'Iranian'; with no real mention, resolution defers to outcomeIndex.
+        const iran = { name: 'Iran' };
+        const qatar = { name: 'Qatar' };
+        expect(
+            resolvePredictedSide({
+                home: iran,
+                away: qatar,
+                outcome: 'Yes',
+                title: 'Will Iranian side win?',
+                isDraw: false,
+                outcomeIndex: 1,
+            }),
+        ).toBe('away');
     });
 });
 

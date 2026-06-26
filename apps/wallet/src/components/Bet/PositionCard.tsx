@@ -16,8 +16,9 @@ import { Button } from '@/components/ui/button.js';
 import { formatPercentRate } from '@/helpers/formatPercentRate.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { fallbackShareIdentity, getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js';
+import { getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { useLongPress } from '@/hooks/useLongPress.js';
+import { usePolymarketShareIdentity } from '@/hooks/usePolymarketShareIdentity.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import type { PolymarketPosition } from '@/providers/types/Firefly.js';
@@ -28,7 +29,8 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
     const eventSlug = position.event_slugs?.[0] ?? '';
 
     const [shareSheetOpen, setShareSheetOpen] = useState(false);
-    const sharePayload = getPositionShareImagePayload(position, fallbackShareIdentity(position.wallet || ''));
+    const shareIdentity = usePolymarketShareIdentity(position.wallet || '');
+    const sharePayload = getPositionShareImagePayload(position, shareIdentity);
     const longPressHandlers = useLongPress(() => {
         if (sharePayload) setShareSheetOpen(true);
     });

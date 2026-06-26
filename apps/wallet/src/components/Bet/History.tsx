@@ -43,9 +43,10 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
-import { fallbackShareIdentity, getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js';
+import { getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useLongPress } from '@/hooks/useLongPress.js';
+import { usePolymarketShareIdentity } from '@/hooks/usePolymarketShareIdentity.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import { cn } from '@/lib/utils.js';
 import {
@@ -351,10 +352,8 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
     const isWon = position.pnl > 0;
 
     const [shareSheetOpen, setShareSheetOpen] = useState(false);
-    const sharePayload = getPositionShareImagePayload(
-        { ...position, is_closed: true },
-        fallbackShareIdentity(position.wallet || ''),
-    );
+    const shareIdentity = usePolymarketShareIdentity(position.wallet || '');
+    const sharePayload = getPositionShareImagePayload({ ...position, is_closed: true }, shareIdentity);
     const longPressHandlers = useLongPress(() => {
         if (sharePayload) setShareSheetOpen(true);
     });

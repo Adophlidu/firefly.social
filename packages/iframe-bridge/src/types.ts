@@ -80,6 +80,11 @@ export interface PolymarketSharePositionBridgeParams {
     imageUrl?: string;
     sport?: PolymarketShareBridgeSportInfo;
     variant?: 'timeline';
+    /**
+     * Event slug for the host to resolve sports context (teams/score) on demand, since the wallet
+     * can't build `sport` itself. Ignored when `sport` is already provided.
+     */
+    eventSlug?: string;
 }
 
 export interface PolymarketShareWinningsBridgeItem {

@@ -1,6 +1,8 @@
 import { SITE_URL } from '@dimensiondev/envs/web';
 import urlcat from 'urlcat';
 
+import { matchesTeamLabel, normalizeLabel } from '@/helpers/prediction/sportScoreUtils.js';
+
 export interface PolymarketShareIdentity {
     displayName: string;
     avatarUrl?: string;
@@ -71,6 +73,96 @@ export function buildPolymarketEventShareUrl(eventSlug: string, sharerUid?: stri
 /** FW-7696 — wallet profile link encoded into the multi-winnings QR code. */
 export function buildPolymarketProfileShareUrl(proxyAddress: string, sharerUid?: string): string {
     return appendSid(urlcat(SITE_URL, '/polymarket/profile/:address', { address: proxyAddress }), sharerUid);
+}
+
+export type PredictedSide = 'home' | 'away' | 'draw';
+
+interface ShareTeamMatch {
+    name?: string;
+    abbreviation?: string;
+    alias?: string;
+}
+
+function isWordChar(ch: string): boolean {
+    return /[a-z0-9]/i.test(ch);
+}
+
+/** indexOf, but only matches `needle` on word boundaries so a team name isn't found inside a larger
+ * word (e.g. "Iran" must not match inside "Iranian"). Returns -1 when there is no whole-word match. */
+function indexOfWholeWord(haystack: string, needle: string): number {
+    for (let from = 0; from <= haystack.length - needle.length; ) {
+        const index = haystack.indexOf(needle, from);
+        if (index < 0) return -1;
+        const before = index === 0 ? '' : haystack[index - 1];
+        const after = haystack[index + needle.length] ?? '';
+        if (!isWordChar(before) && !isWordChar(after)) return index;
+        from = index + 1;
+    }
+
+    return -1;
+}
+
+/** Earliest index at which a team's full name / alias appears as a whole word in `title`, or -1.
+ * Abbreviations are intentionally excluded — they are too short and would false-match arbitrary words. */
+function teamTitleMentionIndex(title: string, team: ShareTeamMatch): number {
+    const haystack = title.toLowerCase();
+    let earliest = -1;
+    for (const value of [team.name, team.alias]) {
+        const needle = normalizeLabel(value);
+        if (!needle) continue;
+        const index = indexOfWholeWord(haystack, needle);
+        if (index >= 0 && (earliest === -1 || index < earliest)) earliest = index;
+    }
+
+    return earliest;
+}
+
+/** Which team a binary "Will <Team> win?" title is about — the team mentioned first wins. */
+function resolveTitleSubjectSide(title: string, home: ShareTeamMatch, away: ShareTeamMatch): PredictedSide | undefined {
+    const homeIndex = teamTitleMentionIndex(title, home);
+    const awayIndex = teamTitleMentionIndex(title, away);
+    if (homeIndex === -1 && awayIndex === -1) return undefined;
+    if (awayIndex === -1) return 'home';
+    if (homeIndex === -1) return 'away';
+    return homeIndex <= awayIndex ? 'home' : 'away';
+}
+
+/**
+ * FW-7823 — resolves which side of a sports matchup a position/activity predicted, for the share
+ * image's predicted badge.
+ *
+ * `outcomeIndex` only maps to home/away on moneyline markets (where each outcome IS a team). On binary
+ * "Will <Team> win?" markets the outcome is a generic Yes/No, so the predicted team lives in the title.
+ * Resolution priority:
+ *   1. an explicit "draw" outcome on a draw market     → draw
+ *   2. the outcome label matches a team name/abbr/alias → that team (moneyline / 3-way pick)
+ *   3. a Yes/No outcome (binary market) whose title names a team → that team (the badge shows the
+ *      title's subject team regardless of the Yes/No side). Gated to Yes/No so a moneyline label that
+ *      merely failed the exact match (e.g. a differently-formatted team name) is not overridden by a
+ *      title guess — it falls through to the more reliable outcomeIndex instead.
+ *   4. fall back to the legacy outcomeIndex mapping (0 = home, 1 = away)
+ */
+export function resolvePredictedSide(params: {
+    home: ShareTeamMatch;
+    away: ShareTeamMatch;
+    outcome: string;
+    title: string;
+    isDraw: boolean;
+    outcomeIndex: number | undefined;
+}): PredictedSide {
+    const { home, away, outcome, title, isDraw, outcomeIndex } = params;
+    const label = normalizeLabel(outcome);
+
+    if (isDraw && label === 'draw') return 'draw';
+    if (matchesTeamLabel(home, outcome)) return 'home';
+    if (matchesTeamLabel(away, outcome)) return 'away';
+
+    if (label === 'yes' || label === 'no') {
+        const subject = resolveTitleSubjectSide(title, home, away);
+        if (subject) return subject;
+    }
+
+    return outcomeIndex === 1 ? 'away' : 'home';
 }
 
 export type PolymarketSharePositionStatus = 'active' | 'won' | 'lost';

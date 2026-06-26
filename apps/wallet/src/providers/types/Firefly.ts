@@ -355,6 +355,18 @@ export interface PolymarketProfilePnL {
 
 export type PolymarketProfilePnLResponse = Response<PolymarketProfilePnL>;
 
+/** Polymarket profile (`/v1/polymarket/profile/info`) — only the identity fields the wallet consumes. */
+export interface PolymarketProfileData {
+    wallet: Address;
+    proxy: Address;
+    /** Polymarket pseudonym. */
+    platform_name: string;
+    /** Polymarket avatar URL. */
+    platform_avatar: string;
+}
+
+export type PolymarketProfileResponse = Response<PolymarketProfileData>;
+
 export interface PolymarketProfileListItem {
     wallet: Address;
     proxy: Address;

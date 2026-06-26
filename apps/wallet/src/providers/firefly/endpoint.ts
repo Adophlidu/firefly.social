@@ -38,6 +38,7 @@ import {
     type PolymarketProfileBalance,
     type PolymarketProfileListResponse,
     type PolymarketProfilePnLResponse,
+    type PolymarketProfileResponse,
     type PolymarketUpgradeResponse,
     type PolymarketUpgradeTaskResponse,
     type PolymarketV2PositionSortBy,
@@ -236,6 +237,14 @@ export class FireflyEndpoint extends Fetch {
     async getPolymarketProfilePnl(address: Address) {
         const url = urlcat('/v1/polymarket/activity/pnl/profile', { proxy_address: address });
         const result = await this.get<PolymarketProfilePnLResponse>(url);
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getProfile(address: Address, isPolymarketProxy?: boolean) {
+        const result = await this.post<PolymarketProfileResponse>(`/v1/polymarket/profile/info`, {
+            wallet: address,
+            is_polymarketProxy: isPolymarketProxy,
+        });
         return resolveFireflyResponseData(result.data);
     }
 
