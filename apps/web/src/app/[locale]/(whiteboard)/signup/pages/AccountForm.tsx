@@ -101,10 +101,12 @@ export function AccountForm({ changeStep }: AccountFormProps) {
             });
             // auto-create & bind a Lens account now that the Firefly profile
             // (nickname + avatar) exists; tolerate failures and never retry.
-            await runInSafeAsync(() => autoCreateLensAccount({
-                displayName: nickname,
-                avatarUrl: s3Url,
-            }));
+            await runInSafeAsync(() =>
+                autoCreateLensAccount({
+                    displayName: nickname,
+                    avatarUrl: s3Url,
+                }),
+            );
             changeStep(SignupStep.Success, {
                 nickname: encodeURIComponent(nickname),
                 avatar: encodeURIComponent(s3Url),

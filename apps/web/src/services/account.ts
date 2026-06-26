@@ -100,7 +100,7 @@ export async function autoCreateLensAccount(options: AutoCreateLensAccountOption
     if (!payload?.isNew || !payload.uid) return;
 
     await createLensAccount({
-        name: options.displayName ??`ff-${payload.uid}`,
+        name: options.displayName ?? `ff-${payload.uid}`,
         avatar: options.avatarUrl ?? payload.avatar ?? undefined,
     });
 }
