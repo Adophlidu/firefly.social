@@ -1,12 +1,16 @@
 import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
+import { Source } from '@dimensiondev/enums';
 import type {
     PolymarketShareBridgeParams,
     PolymarketSharePositionBridgeParams,
     PolymarketShareWinningsBridgeParams,
 } from '@dimensiondev/iframe-bridge';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { BigNumber } from 'bignumber.js';
+import { first } from 'lodash-es';
 
-import type { PolymarketPosition, PolymarketProfileData } from '@/providers/types/Firefly.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import type { PolymarketPosition, WalletProfileInfoListResponse, WalletProfiles } from '@/providers/types/Firefly.js';
 
 /**
  * FW-7810 — wallet-side builders for the Polymarket share image. The image is rendered by the host
@@ -46,18 +50,80 @@ export function fallbackShareIdentity(address: string): PolymarketShareIdentity 
     return { displayName: shortenAddress(address) };
 }
 
+type WalletProfileInfoListData = NonNullable<WalletProfileInfoListResponse['data']>;
+
 /**
- * Resolves the share-image holder identity from the Polymarket profile (`/v1/polymarket/profile/info`)
- * — the same source the web profile page uses. Falls back to the shortened address when the profile
- * carries no pseudonym (e.g. while loading or for a brand-new account).
+ * Picks the social profiles of `proxyAddress` from a `/v2/wallet/profileinfo/list` response. The
+ * response keys each wallet's entry by its resolved on-chain address, so we match the proxy address
+ * against those keys. Mirrors apps/web's `useProxyWalletInfo`.
+ */
+function pickWalletProfile(
+    data: WalletProfileInfoListData | null | undefined,
+    proxyAddress: string,
+): WalletProfiles | null {
+    const firstEntry = first(data?.walletAddress);
+    if (!firstEntry) return null;
+
+    for (const key in firstEntry) {
+        if (isSameEthereumAddress(key, proxyAddress)) return firstEntry[key];
+    }
+
+    return null;
+}
+
+/**
+ * Extracts the holder's display identity from their social profiles, following the same source
+ * priority as apps/web's `usePredictionProfileData`: Twitter > Lens > Farcaster > Bsky > Wallet.
+ */
+function extractShareIdentity(profile: WalletProfiles): { displayName?: string; avatarUrl?: string } {
+    const twitter = first(profile.twitterProfiles);
+    if (twitter) {
+        return {
+            displayName: twitter.handle,
+            avatarUrl: getStampAvatarByProfileId(Source.Twitter, twitter.twitter_id),
+        };
+    }
+
+    const lens = first(profile.lensProfilesV3);
+    if (lens) {
+        return {
+            displayName: lens.localName || lens.fullHandle,
+            avatarUrl: getStampAvatarByProfileId(Source.Lens, lens.id),
+        };
+    }
+
+    const farcaster = first(profile.farcasterProfiles);
+    if (farcaster) {
+        return { displayName: farcaster.display_name || farcaster.username, avatarUrl: farcaster.avatar?.url };
+    }
+
+    const bsky = first(profile.bskyProfiles);
+    if (bsky) {
+        return { displayName: bsky.handle, avatarUrl: getStampAvatarByProfileId(Source.Bsky, bsky.did) };
+    }
+
+    const wallet = first(profile.walletProfiles);
+    if (wallet) {
+        return { displayName: wallet.primary_ens || first(wallet.ens), avatarUrl: wallet.avatar };
+    }
+
+    return {};
+}
+
+/**
+ * Resolves the share-image holder identity from the `/v2/wallet/profileinfo/list` response — the same
+ * source and priority the web profile page uses (`usePredictionProfileData`). Falls back to the
+ * shortened address when no social profile resolves (e.g. while loading or for a brand-new account).
  */
 export function resolveShareIdentityFromProfile(
-    profile: Pick<PolymarketProfileData, 'platform_name' | 'platform_avatar'> | null | undefined,
-    address: string,
+    data: WalletProfileInfoListData | null | undefined,
+    proxyAddress: string,
 ): PolymarketShareIdentity {
+    const profile = pickWalletProfile(data, proxyAddress);
+    const identity = profile ? extractShareIdentity(profile) : {};
     return {
-        displayName: profile?.platform_name?.trim() || shortenAddress(address),
-        avatarUrl: profile?.platform_avatar?.trim() || undefined,
+        displayName: identity.displayName?.trim() || shortenAddress(proxyAddress),
+        avatarUrl: identity.avatarUrl?.trim() || undefined,
     };
 }
 

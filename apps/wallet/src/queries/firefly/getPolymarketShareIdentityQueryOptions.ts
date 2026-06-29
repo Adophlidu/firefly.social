@@ -1,3 +1,4 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { queryOptions } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
@@ -5,9 +6,10 @@ import { resolveShareIdentityFromProfile } from '@/helpers/polymarketShareImage.
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 /**
- * Resolves the connected wallet's Polymarket share-image identity (pseudonym + avatar) once, keyed by
- * the proxy address — every share entry point reuses the cached result. `proxyAddress` is the
- * Polymarket proxy, so the profile lookup runs with `is_polymarketProxy = true`.
+ * Resolves the connected wallet's Polymarket share-image identity (social handle + avatar) once, keyed
+ * by the proxy address — every share entry point reuses the cached result. `proxyAddress` is the
+ * Polymarket proxy, so the profile lookup runs with `is_polymarketProxy = true`. Uses the same source
+ * (`/v2/wallet/profileinfo/list`) and priority as the web profile page (`usePredictionProfileData`).
  */
 export function getPolymarketShareIdentityQueryOptions(proxyAddress?: Address) {
     return queryOptions({
@@ -15,7 +17,7 @@ export function getPolymarketShareIdentityQueryOptions(proxyAddress?: Address) {
         enabled: Boolean(proxyAddress),
         staleTime: 5 * 60 * 1000,
         queryFn() {
-            return getFireflyEndpoint().getProfile(proxyAddress!, true);
+            return getFireflyEndpoint().getWalletProfileInfoList(proxyAddress!, PredictionPlatform.Polymarket, true);
         },
         select(res) {
             return resolveShareIdentityFromProfile(res, proxyAddress!);

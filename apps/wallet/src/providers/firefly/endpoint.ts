@@ -1,4 +1,4 @@
-import { Locale, type SocialSource } from '@dimensiondev/enums';
+import { Locale, type PredictionPlatform, type SocialSource } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 import type { Address, Hex } from 'viem';
@@ -50,6 +50,7 @@ import {
     type SearchTokenResponse,
     type TokenAsset,
     type WalletHistoryTransactionsResponse,
+    type WalletProfileInfoListResponse,
     type WalletProfileResponse,
     type WalletProfiles,
     type WithdrawSupportedTokensResponse,
@@ -244,6 +245,17 @@ export class FireflyEndpoint extends Fetch {
         const result = await this.post<PolymarketProfileResponse>(`/v1/polymarket/profile/info`, {
             wallet: address,
             is_polymarketProxy: isPolymarketProxy,
+        });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    // cspell:ignore platorm
+    async getWalletProfileInfoList(address: Address, platform: PredictionPlatform, isPolymarketProxy?: boolean) {
+        const result = await this.post<WalletProfileInfoListResponse>(`/v2/wallet/profileinfo/list`, {
+            walletAddress: [address],
+            is_polymarketProxy: isPolymarketProxy,
+            // Note: API has a typo - "betsPlatorm" instead of "betsPlatform"
+            betsPlatorm: platform,
         });
         return resolveFireflyResponseData(result.data);
     }

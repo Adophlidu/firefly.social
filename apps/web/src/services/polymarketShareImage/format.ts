@@ -20,9 +20,13 @@ export function formatCents(price: number): string {
     return `${rounded}¢`;
 }
 
-/** Percent with an explicit plus sign and up to 2 decimals, e.g. 19.34 -> "+19.34%". */
+/**
+ * Percent with an explicit plus sign and up to 2 decimals, e.g. 19.34 -> "+19.34%". Once the
+ * magnitude reaches 1000% the decimals are dropped (e.g. 1234.56 -> "+1235%") so an extreme PnL
+ * rate doesn't overflow the share-image label.
+ */
 export function formatSignedPercent(rate: number): string {
-    const rounded = Math.round(rate * 100) / 100;
+    const rounded = Math.abs(rate) >= 1000 ? Math.round(rate) : Math.round(rate * 100) / 100;
     return `${rounded >= 0 ? '+' : ''}${rounded}%`;
 }
 

@@ -26,6 +26,10 @@ const RED_GRADIENT = 'linear-gradient(180deg, #ff9090, #fa4646)';
 const TEXT_SECOND = 'rgba(255,255,255,0.6)';
 const PLACEHOLDER_BG = 'rgba(255,255,255,0.18)';
 
+// Cap the holder name so a long ENS / full wallet address truncates with an ellipsis instead of
+// overflowing the card (the bottom identity row is centered across the full image width).
+const IDENTITY_NAME_MAX_WIDTH = 230 * S;
+
 // Faint dashed body divider (Figma 84050:57302), drawn only on the event/sports cards — the winnings
 // card has no divider, so it is not baked into the frame. Tiny rasterized PNG of the dashed line.
 const DASHED_DIVIDER =
@@ -78,6 +82,41 @@ function logoBox(src: string | null, size: number, radius: number): SatoriNode {
     return src
         ? img(src, size, size, { borderRadius: radius })
         : el('div', { width: size, height: size, borderRadius: radius, backgroundColor: PLACEHOLDER_BG });
+}
+
+// Holder name text, clamped to a single line with an ellipsis so a long name never overflows.
+function identityName(name: string, maxWidth: number): SatoriNode {
+    return el(
+        'div',
+        {
+            display: 'block',
+            lineClamp: 1,
+            overflow: 'hidden',
+            maxWidth,
+            fontSize: 14 * S,
+            fontWeight: 600,
+        },
+        name,
+    );
+}
+
+// Bottom identity row (avatar + name) centered across the full image width — shared by the event and
+// winnings cards.
+function userRow(avatarSrc: string | null, name: string): SatoriNode {
+    return el(
+        'div',
+        {
+            position: 'absolute',
+            left: 0,
+            top: 412.78 * S,
+            width: SHARE_IMAGE_WIDTH,
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 8 * S,
+        },
+        avatar(avatarSrc, name, 24 * S, 12 * S),
+        identityName(name, IDENTITY_NAME_MAX_WIDTH),
+    );
 }
 
 function rootContainer(...children: SatoriChild[]): SatoriNode {
@@ -206,20 +245,7 @@ function buildEventCard(params: PolymarketSharePositionParams, assets: ShareImag
             ),
         ),
         // user
-        el(
-            'div',
-            {
-                position: 'absolute',
-                left: 0,
-                top: 412.78 * S,
-                width: SHARE_IMAGE_WIDTH,
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 8 * S,
-            },
-            avatar(assets.avatar, params.identity.displayName, 24 * S, 12 * S),
-            el('div', { fontSize: 14 * S, fontWeight: 600 }, params.identity.displayName),
-        ),
+        userRow(assets.avatar, params.identity.displayName),
     );
 }
 
@@ -271,7 +297,8 @@ function buildSportsCard(params: PolymarketSharePositionParams, assets: ShareIma
                 'div',
                 { alignItems: 'center', gap: 8 * S },
                 avatar(assets.avatar, params.identity.displayName, 48 * S, 24 * S),
-                el('div', { fontSize: 14 * S, fontWeight: 600 }, params.identity.displayName),
+                // header group shares the row with the predicted badge, so clamp tighter than the bottom row
+                identityName(params.identity.displayName, 150 * S),
             ),
             predictedBadge(sport, assets),
         ),
@@ -424,19 +451,6 @@ export function buildWinningsTree(
               )
             : null,
         // user
-        el(
-            'div',
-            {
-                position: 'absolute',
-                left: 0,
-                top: 412.78 * S,
-                width: SHARE_IMAGE_WIDTH,
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 8 * S,
-            },
-            avatar(assets.avatar, params.identity.displayName, 24 * S, 12 * S),
-            el('div', { fontSize: 14 * S, fontWeight: 600 }, params.identity.displayName),
-        ),
+        userRow(assets.avatar, params.identity.displayName),
     );
 }

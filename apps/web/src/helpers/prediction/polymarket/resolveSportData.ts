@@ -108,7 +108,11 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
     if (!gameId) return undefined;
 
     const moneylineMarket = findMoneylineMarket(detail);
-    const teams = detail.drawTeams?.length === 2 ? detail.drawTeams : moneylineMarket?.teams;
+    // Team source priority: 3-way draw teams → per-market teams → event-level teams. Some sports
+    // (e.g. UFC) leave the per-market `teams` null and `drawTeams` empty, so the logos/records only
+    // live on the event-level `teams`.
+    const marketTeams = moneylineMarket?.teams?.length ? moneylineMarket.teams : detail.teams;
+    const teams = detail.drawTeams?.length === 2 ? detail.drawTeams : marketTeams;
     const fallbackOutcomeLabels = parseJson<string[]>(moneylineMarket?.outcomes);
     const homeTeam = withFallbackLabel(mapTeam(teams?.[0], DEFAULT_HOME_COLOR), fallbackOutcomeLabels?.[0]);
     const awayTeam = withFallbackLabel(mapTeam(teams?.[1], DEFAULT_AWAY_COLOR), fallbackOutcomeLabels?.[1]);

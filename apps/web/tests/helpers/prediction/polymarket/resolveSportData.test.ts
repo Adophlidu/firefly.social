@@ -148,4 +148,46 @@ describe('resolveSportData', () => {
             expect(result?.ended).toBe(false);
         });
     });
+
+    describe('team resolution', () => {
+        it('falls back to event-level teams when the market teams are null (e.g. UFC)', () => {
+            const result = resolveSportData(
+                baseEvent({
+                    markets: [
+                        { sportsMarketType: 'moneyline', outcomes: '["Sean Strickland","Khamzat Chimaev"]' },
+                    ] as PolymarketEvent['markets'],
+                    drawTeams: [],
+                    teams: [
+                        { name: 'Sean Strickland', logo: 'https://example.com/sean.png' },
+                        { name: 'Khamzat Chimaev', logo: 'https://example.com/khamzat.png' },
+                    ],
+                }),
+            );
+            expect(result?.homeTeam.logo).toBe('https://example.com/sean.png');
+            expect(result?.awayTeam.logo).toBe('https://example.com/khamzat.png');
+        });
+
+        it('prefers per-market teams over event-level teams', () => {
+            const result = resolveSportData(
+                baseEvent({
+                    markets: [
+                        {
+                            sportsMarketType: 'moneyline',
+                            outcomes: '["Cavaliers","Knicks"]',
+                            teams: [
+                                { name: 'Cavaliers', logo: 'https://example.com/cle.png' },
+                                { name: 'Knicks', logo: 'https://example.com/nyk.png' },
+                            ],
+                        },
+                    ] as PolymarketEvent['markets'],
+                    teams: [
+                        { name: 'Wrong', logo: 'https://example.com/wrong-home.png' },
+                        { name: 'Wrong', logo: 'https://example.com/wrong-away.png' },
+                    ],
+                }),
+            );
+            expect(result?.homeTeam.logo).toBe('https://example.com/cle.png');
+            expect(result?.awayTeam.logo).toBe('https://example.com/nyk.png');
+        });
+    });
 });

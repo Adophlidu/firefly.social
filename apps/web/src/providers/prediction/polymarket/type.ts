@@ -219,6 +219,9 @@ export interface PolymarketEvent {
     score_show?: PolymarketScore[];
     score_type?: PolymarketScoreType;
     period_show?: string;
+    /** Event-level teams (with logos). For some sports (e.g. UFC) the per-market `teams` are null and
+     * `drawTeams` is empty, so this is the only source of the team logos/records. */
+    teams?: PolymarketTeam[];
     drawTeams?: PolymarketTeam[];
     isDraw?: boolean;
     winResult?: number;

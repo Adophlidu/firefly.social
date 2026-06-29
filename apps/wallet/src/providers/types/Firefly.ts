@@ -305,6 +305,15 @@ export type PlatformIdentityKey =
 
 export type WalletProfileResponse = Response<WalletProfiles | null>;
 
+/**
+ * Response of `/v2/wallet/profileinfo/list`. Each requested wallet maps to a record keyed by the
+ * resolved on-chain address, so a Polymarket-proxy lookup (`is_polymarketProxy = true`) returns the
+ * owner's social profiles keyed by the proxy address. Mirrors apps/web's `WalletProfileInfoListResponse`.
+ */
+export type WalletProfileInfoListResponse = Response<{
+    walletAddress: Array<Record<string, WalletProfiles>>;
+}>;
+
 export type SearchTokenResponse = Response<{
     coins?: Array<{ largeLogo?: string }>;
 }>;
