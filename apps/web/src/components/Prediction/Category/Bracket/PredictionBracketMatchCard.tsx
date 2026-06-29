@@ -42,7 +42,7 @@ function TeamSide({
                 ) : (
                     <span className="h-[30px] w-[45px] shrink-0 rounded-lg bg-bg" />
                 )}
-                <span className="min-w-0 flex-1 truncate text-sm font-semibold text-main">
+                <span className="line-clamp-2 min-w-0 flex-1 break-words text-sm font-semibold leading-4 text-main">
                     {team ? localize(team.name) : <Trans>TBD</Trans>}
                 </span>
             </div>

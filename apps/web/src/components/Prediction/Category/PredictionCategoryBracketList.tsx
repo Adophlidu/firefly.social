@@ -1,28 +1,18 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { memo, type ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { FootballLoading } from '@/components/FootballLoading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { PredictionBracketChampionCard } from '@/components/Prediction/Category/Bracket/PredictionBracketChampionCard.js';
 import { PredictionBracketMatchCard } from '@/components/Prediction/Category/Bracket/PredictionBracketMatchCard.js';
+import { PredictionBracketRoundTabs } from '@/components/Prediction/Category/Bracket/PredictionBracketRoundTabs.js';
 import { resolveRoundWindow, ROUND_SEQUENCE } from '@/helpers/prediction/category/bracket/bracketView.js';
 import { buildConnectorPath } from '@/helpers/prediction/category/bracket/connectorPath.js';
 import type { BracketColumnId } from '@/helpers/prediction/category/bracket/types.js';
 import { getWorldCupBracket } from '@/providers/firefly/prediction/getWorldCupBracket.js';
-
-const ROUND_LABELS: Record<BracketColumnId, ReactNode> = {
-    r32: <Trans>Round of 32</Trans>,
-    r16: <Trans>Round of 16</Trans>,
-    qf: <Trans>Quarterfinals</Trans>,
-    sf: <Trans>Semifinals</Trans>,
-    final: <Trans>Final</Trans>,
-    champion: <Trans>Champion</Trans>,
-};
 
 const COLUMN_GAP = 24; // matches gap-6 between columns
 const CONNECTOR_RADIUS = 8; // soft bracket roundover; auto-clamped per connector
@@ -223,26 +213,7 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
 
     return (
         <div className="flex h-full grow flex-col gap-4 pt-0">
-            <div className="no-scrollbar flex shrink-0 gap-2 overflow-x-auto px-4">
-                {ROUND_SEQUENCE.map((roundId) => {
-                    // The champion is the Final's right pair, not its own navigable round — show it when
-                    // the Final tab is selected, but don't give it a tab of its own.
-                    if (roundId === 'champion') return null;
-                    const active = roundId === roundWindow.left;
-                    return (
-                        <ClickableButton
-                            key={roundId}
-                            onClick={() => handlePillClick(roundId)}
-                            className={classNames(
-                                'whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-bold transition-colors',
-                                active ? 'bg-highlight text-white' : 'bg-bg text-second',
-                            )}
-                        >
-                            {ROUND_LABELS[roundId]}
-                        </ClickableButton>
-                    );
-                })}
-            </div>
+            <PredictionBracketRoundTabs activeRound={roundWindow.left} onSelect={handlePillClick} />
 
             <div
                 ref={scrollRef}

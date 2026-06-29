@@ -155,9 +155,10 @@ export function PredictionCategoryPage({ slugs }: Props) {
     const headerTitle = getCategoryHeaderLabel(context.activeItem);
     const showCategoryHeader = tabAvailability.showTabSwitcher || !isLiveGamesOnly;
     const isFifa = context.secondaryItem?.slug === FIFA_SLUG;
+    const isNotFeeds = tab === PREDICTION_CATEGORY_GROUPS_TAB || tab === PREDICTION_CATEGORY_BRACKET_TAB;
 
     return (
-        <div className={classNames('flex flex-col', isFifa ? 'h-screen' : null)}>
+        <div className={classNames('flex flex-col', isNotFeeds ? 'h-screen' : null)}>
             <PredictionCategoryStickyNav slugs={slugList} context={context} />
             {showCategoryHeader ? (
                 <PredictionCategoryHeader
@@ -171,7 +172,7 @@ export function PredictionCategoryPage({ slugs }: Props) {
             <div
                 className={classNames(
                     !showCategoryHeader ? 'pt-3' : '',
-                    isFifa ? 'no-scrollbar min-h-0 grow overflow-auto' : '',
+                    isNotFeeds ? 'no-scrollbar min-h-0 grow overflow-auto' : '',
                 )}
             >
                 {isTabAvailabilityPending ? (

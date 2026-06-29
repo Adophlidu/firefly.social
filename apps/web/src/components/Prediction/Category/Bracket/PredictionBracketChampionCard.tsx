@@ -24,6 +24,7 @@ export const PredictionBracketChampionCard = memo<Props>(function PredictionBrac
                 <Trans>Champion</Trans>
             </span>
             <span className="mx-auto my-2 block h-px w-2/3 bg-warn/30" />
+            {/* The gold gradient is a fixed light surface, so pin text to its light-mode value. */}
             {team ? (
                 <div className="flex items-center justify-center gap-2">
                     {team.flagUrl ? (
@@ -31,10 +32,10 @@ export const PredictionBracketChampionCard = memo<Props>(function PredictionBrac
                     ) : (
                         <span className="h-5 w-[30px] shrink-0 rounded bg-bg" />
                     )}
-                    <span className="min-w-0 truncate text-sm font-semibold text-main">{localize(team.name)}</span>
+                    <span className="min-w-0 truncate text-sm font-semibold text-[#07101b]">{localize(team.name)}</span>
                 </div>
             ) : (
-                <span className="text-sm font-medium text-second">
+                <span className="text-sm font-medium text-[#767676]">
                     <Trans>TBD</Trans>
                 </span>
             )}
