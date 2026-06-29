@@ -1542,6 +1542,9 @@ msgstr "未發現 Polymarket 市場。"
 msgid "Wins"
 msgstr "勝場"
 
+msgid "Bracket"
+msgstr ""
+
 msgid "Event detail"
 msgstr "市場詳情"
 
@@ -2014,6 +2017,9 @@ msgstr "無代理"
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上隱藏 @{0}。"
+
+msgid "Semifinals"
+msgstr ""
 
 msgid "Quotes"
 msgstr "引用"
@@ -2499,6 +2505,9 @@ msgstr "P"
 msgid "Days"
 msgstr "日"
 
+msgid "TBD"
+msgstr ""
+
 msgid "Custom token amount"
 msgstr "自訂代幣數額"
 
@@ -2619,6 +2628,9 @@ msgstr "由於 <0>X 的 API 限制</0>，你只能回覆提及你的貼文。"
 
 msgid "Failed to load groups"
 msgstr "載入群組失敗"
+
+msgid "Round of 16"
+msgstr ""
 
 msgid "Failed to update notification settings"
 msgstr "變更通知設定失敗"
@@ -3374,6 +3386,9 @@ msgstr "查看全部"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr "此代幣合約未經驗證，無法檢查代碼。未驗證合約可能包含惡意功能。"
+
+msgid "Round of 32"
+msgstr ""
 
 msgid "Replies"
 msgstr "留言"
@@ -4161,6 +4176,9 @@ msgstr "頭像讀取失敗，請重試"
 msgid "My Accounts"
 msgstr "我的帳戶"
 
+msgid "Champion"
+msgstr ""
+
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "我們強烈建議不要與任何應用程式或個人分享助記詞。"
 
@@ -4204,6 +4222,9 @@ msgstr "授予紅包智能合約訪問你 {0} 的權限。每個代幣只需執�
 
 msgid "Post your reply"
 msgstr "發布你的留言"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "負"
@@ -4479,6 +4500,9 @@ msgstr "1週"
 
 msgid "All Chains"
 msgstr "所有鏈"
+
+msgid "Advances"
+msgstr ""
 
 msgid "Status"
 msgstr "狀態"
@@ -5340,6 +5364,9 @@ msgstr "向 {0} 發布貼文失敗。"
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Please re-login this account with owner wallet{0} to continue using more features."
 msgstr "請使用擁有者錢包{0}重新登入此帳戶，以繼續使用更多功能。"
+
+msgid "Quarterfinals"
+msgstr ""
 
 msgid "Tip liked."
 msgstr "按赞成功。"

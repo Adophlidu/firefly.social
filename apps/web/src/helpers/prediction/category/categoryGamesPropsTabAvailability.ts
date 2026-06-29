@@ -1,4 +1,5 @@
 import {
+    PREDICTION_CATEGORY_BRACKET_TAB,
     PREDICTION_CATEGORY_GAMES_TAB,
     PREDICTION_CATEGORY_GROUPS_TAB,
     PREDICTION_CATEGORY_PROPS_TAB,
@@ -22,6 +23,7 @@ export interface ResolveCategoryGamesPropsTabsInput {
     hasGames: boolean;
     hasProps: boolean;
     hasGroups?: boolean;
+    hasBracket?: boolean;
     tabFromUrl: PredictionCategoryTab;
     isAvailabilityPending?: boolean;
 }
@@ -37,18 +39,18 @@ export function resolveCategoryGamesPropsTabs({
     hasGames,
     hasProps,
     hasGroups = false,
+    hasBracket = false,
     tabFromUrl,
     isAvailabilityPending = false,
 }: ResolveCategoryGamesPropsTabsInput): ResolveCategoryGamesPropsTabsResult {
     if (!showGamesPropsTabs) {
-        const availableTabs = hasGroups ? [PREDICTION_CATEGORY_GROUPS_TAB] : [];
+        const availableTabs: PredictionCategoryTab[] = [];
+        if (hasGroups) availableTabs.push(PREDICTION_CATEGORY_GROUPS_TAB);
+        if (hasBracket) availableTabs.push(PREDICTION_CATEGORY_BRACKET_TAB);
         return {
             availableTabs,
             showTabSwitcher: false,
-            effectiveTab:
-                hasGroups && tabFromUrl === PREDICTION_CATEGORY_GROUPS_TAB
-                    ? PREDICTION_CATEGORY_GROUPS_TAB
-                    : tabFromUrl,
+            effectiveTab: availableTabs.includes(tabFromUrl) ? tabFromUrl : (availableTabs[0] ?? tabFromUrl),
         };
     }
 
@@ -56,6 +58,7 @@ export function resolveCategoryGamesPropsTabs({
     if (hasGames) availableTabs.push(PREDICTION_CATEGORY_GAMES_TAB);
     if (hasProps) availableTabs.push(PREDICTION_CATEGORY_PROPS_TAB);
     if (hasGroups) availableTabs.push(PREDICTION_CATEGORY_GROUPS_TAB);
+    if (hasBracket) availableTabs.push(PREDICTION_CATEGORY_BRACKET_TAB);
 
     const showTabSwitcher = !isAvailabilityPending && availableTabs.length >= 2;
 

@@ -2209,7 +2209,7 @@ export interface Events extends Record<EventId, Event> {
     [EventId.POLYMARKET_HOME_SPORT_TYPE_CLICK]: {
         type: EventType.Interact;
         parameters: {
-            sport_market_type: 'games' | 'props' | 'groups';
+            sport_market_type: 'games' | 'props' | 'groups' | 'bracket';
             category_slug: string;
         };
     };

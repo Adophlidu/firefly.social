@@ -235,7 +235,10 @@ export function capturePolymarketHomeCategoryClick(categorySlug: string, categor
 }
 
 // Polymarket home sport type click
-export function capturePolymarketHomeSportTypeClick(sportType: 'games' | 'props' | 'groups', categorySlug: string) {
+export function capturePolymarketHomeSportTypeClick(
+    sportType: 'games' | 'props' | 'groups' | 'bracket',
+    categorySlug: string,
+) {
     return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_HOME_SPORT_TYPE_CLICK, {
         sport_market_type: sportType,
         category_slug: categorySlug,

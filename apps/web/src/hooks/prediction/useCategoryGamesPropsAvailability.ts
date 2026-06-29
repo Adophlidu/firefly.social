@@ -33,10 +33,12 @@ export function useCategoryGamesPropsAvailability({
     hasGames: boolean;
     hasProps: boolean;
     hasGroups: boolean;
+    hasBracket: boolean;
     isPending: boolean;
 } {
     const showGamesPropsTabs = context ? shouldShowGamesPropsTabs(context) : false;
     const hasGroups = isFifaCategoryContext(context);
+    const hasBracket = isFifaCategoryContext(context);
 
     const locale = useLocale();
 
@@ -84,10 +86,11 @@ export function useCategoryGamesPropsAvailability({
                 hasGames,
                 hasProps,
                 hasGroups,
+                hasBracket,
                 tabFromUrl,
                 isAvailabilityPending: isPending,
             }),
-        [showGamesPropsTabs, hasGames, hasProps, hasGroups, tabFromUrl, isPending],
+        [showGamesPropsTabs, hasGames, hasProps, hasGroups, hasBracket, tabFromUrl, isPending],
     );
 
     return {
@@ -95,6 +98,7 @@ export function useCategoryGamesPropsAvailability({
         hasGames,
         hasProps,
         hasGroups,
+        hasBracket,
         isPending,
     };
 }

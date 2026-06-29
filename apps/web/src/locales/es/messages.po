@@ -1549,6 +1549,9 @@ msgstr "No se encontró evento de polymarket."
 msgid "Wins"
 msgstr "Victorias"
 
+msgid "Bracket"
+msgstr ""
+
 msgid "Event detail"
 msgstr "Detalle del evento"
 
@@ -2024,6 +2027,9 @@ msgstr "Sin proxy"
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
 msgstr "Silenciaste a @{0} en {sourceName}."
+
+msgid "Semifinals"
+msgstr ""
 
 msgid "Quotes"
 msgstr "Cotizaciones"
@@ -2512,6 +2518,9 @@ msgstr "P"
 msgid "Days"
 msgstr "Días"
 
+msgid "TBD"
+msgstr ""
+
 msgid "Custom token amount"
 msgstr "Cantidad personalizada de tokens"
 
@@ -2632,6 +2641,9 @@ msgstr "Debido a <0>las limitaciones de la API de X</0>, solo puedes responder a
 
 msgid "Failed to load groups"
 msgstr "No se pudieron cargar los grupos"
+
+msgid "Round of 16"
+msgstr ""
 
 msgid "Failed to update notification settings"
 msgstr "No se pudo actualizar la configuración de notificaciones"
@@ -3392,6 +3404,9 @@ msgstr "Ver todo"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr "Este contrato de token no ha sido verificado. No podemos consultar el código del contrato para más detalles. Los contratos de tokens sin código fuente probablemente tengan funciones maliciosas para defraudar a sus usuarios de sus activos."
+
+msgid "Round of 32"
+msgstr ""
 
 msgid "Replies"
 msgstr "Respuestas"
@@ -4184,6 +4199,9 @@ msgstr "No se pudo leer el archivo del avatar. Vuelva a intentarlo."
 msgid "My Accounts"
 msgstr "Mis Cuentas"
 
+msgid "Champion"
+msgstr ""
+
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "No recomendamos compartirlo nunca con ninguna aplicación o persona."
 
@@ -4227,6 +4245,9 @@ msgstr "Otorga acceso a tu {0} al contrato inteligente Lucky Drop. Solo tienes q
 
 msgid "Post your reply"
 msgstr "Publicar tu respuesta"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "D"
@@ -4502,6 +4523,9 @@ msgstr "1S"
 
 msgid "All Chains"
 msgstr "Todas las Cadenas"
+
+msgid "Advances"
+msgstr ""
 
 msgid "Status"
 msgstr "Estado"
@@ -5366,6 +5390,9 @@ msgstr "No se pudo enviar tu publicación a {0}."
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Please re-login this account with owner wallet{0} to continue using more features."
 msgstr "Vuelva a iniciar sesión en esta cuenta con la billetera propietaria{0} para seguir usando más funciones."
+
+msgid "Quarterfinals"
+msgstr ""
 
 msgid "Tip liked."
 msgstr "Consejo marcado como me gusta."

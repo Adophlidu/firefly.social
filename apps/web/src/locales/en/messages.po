@@ -1549,6 +1549,9 @@ msgstr "No polymarket event found."
 msgid "Wins"
 msgstr "Wins"
 
+msgid "Bracket"
+msgstr "Bracket"
+
 msgid "Event detail"
 msgstr "Event detail"
 
@@ -2024,6 +2027,9 @@ msgstr "No proxy"
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
 msgstr "Muted @{0} on {sourceName}."
+
+msgid "Semifinals"
+msgstr "Semifinals"
 
 msgid "Quotes"
 msgstr "Quotes"
@@ -2512,6 +2518,9 @@ msgstr "P"
 msgid "Days"
 msgstr "Days"
 
+msgid "TBD"
+msgstr "TBD"
+
 msgid "Custom token amount"
 msgstr "Custom token amount"
 
@@ -2632,6 +2641,9 @@ msgstr "Due to <0>X's API limitations</0>, you can only reply to posts that ment
 
 msgid "Failed to load groups"
 msgstr "Failed to load groups"
+
+msgid "Round of 16"
+msgstr "Round of 16"
 
 msgid "Failed to update notification settings"
 msgstr "Failed to update notification settings"
@@ -3392,6 +3404,9 @@ msgstr "View all"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
+
+msgid "Round of 32"
+msgstr "Round of 32"
 
 msgid "Replies"
 msgstr "Replies"
@@ -4184,6 +4199,9 @@ msgstr "Failed to read avatar file, please try again."
 msgid "My Accounts"
 msgstr "My Accounts"
 
+msgid "Champion"
+msgstr "Champion"
+
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "We do not recommend ever sharing it with any app or person."
 
@@ -4227,6 +4245,9 @@ msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only hav
 
 msgid "Post your reply"
 msgstr "Post your reply"
+
+msgid "Final"
+msgstr "Final"
 
 msgid "L"
 msgstr "L"
@@ -4502,6 +4523,9 @@ msgstr "1W"
 
 msgid "All Chains"
 msgstr "All Chains"
+
+msgid "Advances"
+msgstr "Advances"
 
 msgid "Status"
 msgstr "Status"
@@ -5366,6 +5390,9 @@ msgstr "Failed to send your post to {0}."
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Please re-login this account with owner wallet{0} to continue using more features."
 msgstr "Please re-login this account with owner wallet{0} to continue using more features."
+
+msgid "Quarterfinals"
+msgstr "Quarterfinals"
 
 msgid "Tip liked."
 msgstr "Tip liked."

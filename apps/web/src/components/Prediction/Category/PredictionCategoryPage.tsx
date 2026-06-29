@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { parseAsStringEnum, useQueryState } from 'nuqs';
 import { Suspense, useCallback, useEffect, useMemo } from 'react';
@@ -7,6 +8,7 @@ import { Suspense, useCallback, useEffect, useMemo } from 'react';
 import { FootballLoading } from '@/components/FootballLoading.js';
 import { Loading } from '@/components/Loading.js';
 import { NotFound } from '@/components/NotFound.js';
+import { PredictionCategoryBracketList } from '@/components/Prediction/Category/PredictionCategoryBracketList.js';
 import { PredictionCategoryGamesList } from '@/components/Prediction/Category/PredictionCategoryGamesList.js';
 import { PredictionCategoryGroupsList } from '@/components/Prediction/Category/PredictionCategoryGroupsList.js';
 import { PredictionCategoryHeader } from '@/components/Prediction/Category/PredictionCategoryHeader.js';
@@ -19,6 +21,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { useRouter } from '@/esm/navigation.js';
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
 import {
+    PREDICTION_CATEGORY_BRACKET_TAB,
     PREDICTION_CATEGORY_GAMES_TAB,
     PREDICTION_CATEGORY_GROUPS_TAB,
     PREDICTION_CATEGORY_PROPS_TAB,
@@ -97,6 +100,7 @@ export function PredictionCategoryPage({ slugs }: Props) {
             PREDICTION_CATEGORY_GAMES_TAB,
             PREDICTION_CATEGORY_PROPS_TAB,
             PREDICTION_CATEGORY_GROUPS_TAB,
+            PREDICTION_CATEGORY_BRACKET_TAB,
         ])
             .withDefault(PREDICTION_CATEGORY_GAMES_TAB)
             .withOptions({ clearOnDefault: true, history: 'replace' }),
@@ -153,7 +157,7 @@ export function PredictionCategoryPage({ slugs }: Props) {
     const isFifa = context.secondaryItem?.slug === FIFA_SLUG;
 
     return (
-        <div className="flex flex-col">
+        <div className={classNames('flex flex-col', isFifa ? 'h-screen' : null)}>
             <PredictionCategoryStickyNav slugs={slugList} context={context} />
             {showCategoryHeader ? (
                 <PredictionCategoryHeader
@@ -164,13 +168,20 @@ export function PredictionCategoryPage({ slugs }: Props) {
                     categorySlug={context.activeItem.slug}
                 />
             ) : null}
-            <div className={!showCategoryHeader ? 'pt-3' : ''}>
+            <div
+                className={classNames(
+                    !showCategoryHeader ? 'pt-3' : '',
+                    isFifa ? 'no-scrollbar min-h-0 grow overflow-auto' : '',
+                )}
+            >
                 {isTabAvailabilityPending ? (
                     <div className="flex justify-center py-12">{isFifa ? <FootballLoading /> : <Loading />}</div>
                 ) : effectiveTab === PREDICTION_CATEGORY_GAMES_TAB ? (
                     <PredictionCategoryGamesList context={context} />
                 ) : effectiveTab === PREDICTION_CATEGORY_GROUPS_TAB ? (
                     <PredictionCategoryGroupsList />
+                ) : effectiveTab === PREDICTION_CATEGORY_BRACKET_TAB ? (
+                    <PredictionCategoryBracketList />
                 ) : (
                     <Suspense
                         fallback={

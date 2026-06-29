@@ -15,10 +15,12 @@ export const LEADING_SECONDARY_SLUGS = ['live'] as const;
 export const PREDICTION_CATEGORY_GAMES_TAB = 'games' as const;
 export const PREDICTION_CATEGORY_PROPS_TAB = 'props' as const;
 export const PREDICTION_CATEGORY_GROUPS_TAB = 'groups' as const;
+export const PREDICTION_CATEGORY_BRACKET_TAB = 'bracket' as const;
 
 export type PredictionCategoryTab =
     | typeof PREDICTION_CATEGORY_GAMES_TAB
     | typeof PREDICTION_CATEGORY_PROPS_TAB
-    | typeof PREDICTION_CATEGORY_GROUPS_TAB;
+    | typeof PREDICTION_CATEGORY_GROUPS_TAB
+    | typeof PREDICTION_CATEGORY_BRACKET_TAB;
 
 export const SPORTS_CATEGORY_TYPES = new Set(['sport', 'league', 'live']);

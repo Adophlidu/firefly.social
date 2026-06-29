@@ -1542,6 +1542,9 @@ msgstr "Polymarket イベントが見つかりません。"
 msgid "Wins"
 msgstr "勝利"
 
+msgid "Bracket"
+msgstr ""
+
 msgid "Event detail"
 msgstr "イベント詳細"
 
@@ -2014,6 +2017,9 @@ msgstr "プロキシなし"
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
 msgstr "{sourceName} で @{0} をミュートしました。"
+
+msgid "Semifinals"
+msgstr ""
 
 msgid "Quotes"
 msgstr "引用"
@@ -2499,6 +2505,9 @@ msgstr "P"
 msgid "Days"
 msgstr "日"
 
+msgid "TBD"
+msgstr ""
+
 msgid "Custom token amount"
 msgstr "カスタムトークン金額"
 
@@ -2619,6 +2628,9 @@ msgstr "<0>X の API 制限</0>により、あなたにメンションした投�
 
 msgid "Failed to load groups"
 msgstr "グループを読み込めませんでした"
+
+msgid "Round of 16"
+msgstr ""
 
 msgid "Failed to update notification settings"
 msgstr "通知設定の更新に失敗しました"
@@ -3374,6 +3386,9 @@ msgstr "すべて表示"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr "このトークンコントラクトは検証されていません。コントラクトコードの詳細を確認できません。ソース不明のトークンコントラクトには、ユーザーの資産を詐取する悪意のある機能がある可能性があります。"
+
+msgid "Round of 32"
+msgstr ""
 
 msgid "Replies"
 msgstr "返信"
@@ -4161,6 +4176,9 @@ msgstr "アバターファイルの読み込みに失敗しました。もう一
 msgid "My Accounts"
 msgstr "マイアカウント"
 
+msgid "Champion"
+msgstr ""
+
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "いかなるアプリや人とも共有しないことをお勧めします。"
 
@@ -4204,6 +4222,9 @@ msgstr "ラッキードロップスマートコントラクトに {0} へのア�
 
 msgid "Post your reply"
 msgstr "返信を投稿"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "敗"
@@ -4479,6 +4500,9 @@ msgstr "1週"
 
 msgid "All Chains"
 msgstr "すべてのチェーン"
+
+msgid "Advances"
+msgstr ""
 
 msgid "Status"
 msgstr "ステータス"
@@ -5340,6 +5364,9 @@ msgstr "{0} への投稿の送信に失敗しました。"
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Please re-login this account with owner wallet{0} to continue using more features."
 msgstr "より多くの機能を引き続きご利用いただくには、オーナーウォレット{0}でこのアカウントに再ログインしてください。"
+
+msgid "Quarterfinals"
+msgstr ""
 
 msgid "Tip liked."
 msgstr "チップにいいねしました。"

@@ -2392,6 +2392,32 @@ export interface FifaGroupScoreListData {
     groups: FifaGroupScoreGroup[];
 }
 
+export interface FifaBracketTeamDto {
+    country_code: string;
+    name: string;
+    flag_url: string;
+    team_color: string;
+}
+export interface FifaBracketMatchDto {
+    id: string;
+    round_id: 'r32' | 'r16' | 'qf' | 'sf' | 'final';
+    start_time: string | null;
+    status: string;
+    teams: [FifaBracketTeamDto | null, FifaBracketTeamDto | null];
+    scores: [number | null, number | null] | null;
+    market_slugs: [string | null, string | null];
+    event_slug: string | null;
+    feeds_into_match_id: string | null;
+}
+export interface FifaBracketRoundDto {
+    id: 'r32' | 'r16' | 'qf' | 'sf' | 'final';
+    matches: FifaBracketMatchDto[];
+}
+export interface FifaBracketDataDto {
+    rounds: FifaBracketRoundDto[];
+    updated_at: string | null;
+}
+
 export type GetExploreSwitchConfigResponse = Response<{
     explore_switch: boolean;
     list: Array<{

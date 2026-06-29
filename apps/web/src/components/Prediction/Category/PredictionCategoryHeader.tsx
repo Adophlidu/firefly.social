@@ -25,7 +25,7 @@ export const PredictionCategoryHeader = memo<Props>(function PredictionCategoryH
     const locale = useLocale();
     return (
         <div className="flex items-center justify-between gap-3 px-4 py-3">
-            <h1 className="min-w-0 truncate text-2xl font-black text-main">
+            <h1 className="min-w-0 truncate text-2xl font-black text-main max-md:hidden">
                 {resolvePredictionCategoryLabel(locale, title)}
             </h1>
             <PredictionCategoryTabs

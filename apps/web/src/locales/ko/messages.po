@@ -1542,6 +1542,9 @@ msgstr "Polymarket 이벤트를 찾을 수 없습니다."
 msgid "Wins"
 msgstr "승"
 
+msgid "Bracket"
+msgstr ""
+
 msgid "Event detail"
 msgstr "이벤트 상세"
 
@@ -2014,6 +2017,9 @@ msgstr "프록시 없음"
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
 msgstr "{sourceName}에서 @{0}을(를) 숨겼습니다."
+
+msgid "Semifinals"
+msgstr ""
 
 msgid "Quotes"
 msgstr "인용"
@@ -2499,6 +2505,9 @@ msgstr "P"
 msgid "Days"
 msgstr "일"
 
+msgid "TBD"
+msgstr ""
+
 msgid "Custom token amount"
 msgstr "사용자 지정 토큰 금액"
 
@@ -2619,6 +2628,9 @@ msgstr "<0>X API 제한</0>으로 인해 회원님을 멘션한 게시물에만 
 
 msgid "Failed to load groups"
 msgstr "그룹을 불러오지 못했습니다"
+
+msgid "Round of 16"
+msgstr ""
 
 msgid "Failed to update notification settings"
 msgstr "알림 설정 업데이트에 실패했습니다"
@@ -3374,6 +3386,9 @@ msgstr "전체 보기"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr "이 토큰 컨트랙트는 검증되지 않았습니다. 컨트랙트 코드를 확인할 수 없습니다. 출처가 불분명한 토큰 컨트랙트는 사용자 자산을 사취하는 악성 기능이 있을 수 있습니다."
+
+msgid "Round of 32"
+msgstr ""
 
 msgid "Replies"
 msgstr "답글"
@@ -4161,6 +4176,9 @@ msgstr "아바타 파일을 읽지 못했습니다. 다시 시도해 주세요."
 msgid "My Accounts"
 msgstr "내 계정"
 
+msgid "Champion"
+msgstr ""
+
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "어떤 앱이나 사람과도 공유하지 않는 것을 권장합니다."
 
@@ -4204,6 +4222,9 @@ msgstr "럭키 드롭 스마트 컨트랙트에 {0} 접근 권한을 부여하�
 
 msgid "Post your reply"
 msgstr "답글 게시"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "패"
@@ -4479,6 +4500,9 @@ msgstr "1주"
 
 msgid "All Chains"
 msgstr "모든 체인"
+
+msgid "Advances"
+msgstr ""
 
 msgid "Status"
 msgstr "상태"
@@ -5340,6 +5364,9 @@ msgstr "{0}에 게시물 전송에 실패했습니다."
 #. placeholder {0}: profile.ownedBy?.address ? `(${formatAddressEthereum(profile.ownedBy?.address, 4)})` : ''
 msgid "Please re-login this account with owner wallet{0} to continue using more features."
 msgstr "더 많은 기능을 계속 이용하려면 소유자 지갑{0}으로 이 계정에 다시 로그인하세요."
+
+msgid "Quarterfinals"
+msgstr ""
 
 msgid "Tip liked."
 msgstr "팁에 좋아요를 눌렀습니다."
