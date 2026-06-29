@@ -109,5 +109,18 @@ export const webpackConfig: NonNullable<NextConfig['webpack']> = (config, contex
         maxInitialRequests: 10,
     };
 
+    // Opt-in bundle analysis: `ANALYZE=true next build --webpack` emits a self-contained
+    // Statoscope report for the client bundle only (server build untouched).
+    if (process.env.ANALYZE === 'true' && !context.isServer) {
+        const StatoscopeWebpackPlugin = require('@statoscope/webpack-plugin').default;
+        config.plugins.push(
+            new StatoscopeWebpackPlugin({
+                saveReportTo: resolve(projectRoot, '.statoscope/report-[name].html'),
+                open: false,
+                watchMode: false,
+            }),
+        );
+    }
+
     return config;
 };

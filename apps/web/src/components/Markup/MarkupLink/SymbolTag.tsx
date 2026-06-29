@@ -6,11 +6,19 @@ import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { useTippyContext } from '@/components/TippyContext/index.js';
-import { TokenProfileCard } from '@/components/Token/TokenProfileCard.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTokenCoin } from '@/hooks/useTokenCoin.js';
+
+// The token hover card pulls in the recharts-backed SimplePriceChart. It only renders on
+// hover (inside InteractiveTippy), so lazy-load it to keep recharts out of the feed's
+// initial JS.
+const TokenProfileCard = dynamic(
+    () => import('@/components/Token/TokenProfileCard.js').then((m) => m.TokenProfileCard),
+    { ssr: false },
+);
 
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title }) {
     const symbol = title?.startsWith('$') ? title.slice(1) : title;

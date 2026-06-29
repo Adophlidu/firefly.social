@@ -11,10 +11,10 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { Link } from '@/components/Link.js';
-import { SimplePriceChart } from '@/components/PriceChart/SimplePriceChart.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -24,6 +24,13 @@ import { useDetectToken } from '@/hooks/useDetectToken.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
+
+// Lazy-load the recharts-backed chart so the (large) recharts bundle is split out of the
+// feed's initial JS and only fetched when a token embed actually mounts.
+const SimplePriceChart = dynamic(
+    () => import('@/components/PriceChart/SimplePriceChart.js').then((m) => m.SimplePriceChart),
+    { ssr: false },
+);
 
 export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ...rest }) {
     const { data: detected } = useDetectToken(address);
