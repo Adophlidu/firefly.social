@@ -208,7 +208,7 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
                         <Trans>Share image</Trans>
                     </DialogOrDrawerTitle>
                 </DialogOrDrawerHeader>
-                <div className="relative flex min-h-0 w-full flex-1 items-center justify-center">
+                <div className="relative flex w-full items-center justify-center">
                     {!ready ? (
                         <div className="absolute inset-0 z-10 flex items-center justify-center bg-primaryBottom">
                             {isError ? (
@@ -221,16 +221,20 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
                         </div>
                     ) : null}
                     {imageUrl ? (
-                        // Both max constraints with auto width/height keep the 750×1060 ratio while
-                        // shrinking to fit a short dialog, so the image stays fully visible (no scroll).
+                        // Cap the height with a definite viewport unit (the drawer's own height is auto, so a
+                        // percentage max-height would not resolve): the image shrinks to fit a short screen
+                        // while keeping the 750×1060 ratio, staying fully visible without covering the buttons.
                         <img
                             src={imageUrl}
                             alt="Share image"
-                            className="mx-auto max-h-full w-auto max-w-[300px] rounded-xl object-cover"
+                            className="mx-auto max-h-[60svh] w-auto max-w-[300px] rounded-xl object-cover"
                             style={{ aspectRatio: SHARE_IMAGE_ASPECT_RATIO }}
                         />
                     ) : (
-                        <div className="w-full max-w-[300px]" style={{ aspectRatio: SHARE_IMAGE_ASPECT_RATIO }} />
+                        <div
+                            className="max-h-[60svh] w-full max-w-[300px]"
+                            style={{ aspectRatio: SHARE_IMAGE_ASPECT_RATIO }}
+                        />
                     )}
                 </div>
                 <div className="mt-3 flex items-start justify-evenly pb-2">
