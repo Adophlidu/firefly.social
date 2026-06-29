@@ -59,20 +59,6 @@ export const PredictionCategoryTabs = memo<Props>(function PredictionCategoryTab
                     <Trans>Props</Trans>
                 </ClickableButton>
             ) : null}
-            {availableTabs.includes(PREDICTION_CATEGORY_GROUPS_TAB) ? (
-                <ClickableButton
-                    onClick={() => {
-                        if (categorySlug) capturePolymarketHomeSportTypeClick('groups', categorySlug);
-                        onTabChange(PREDICTION_CATEGORY_GROUPS_TAB);
-                    }}
-                    className={classNames(
-                        'flex h-full flex-1 items-center justify-center whitespace-nowrap rounded-md px-4 text-sm font-bold transition-colors',
-                        tab === PREDICTION_CATEGORY_GROUPS_TAB ? 'bg-primaryBottom text-main shadow-sm' : 'text-second',
-                    )}
-                >
-                    <Trans>Groups</Trans>
-                </ClickableButton>
-            ) : null}
             {availableTabs.includes(PREDICTION_CATEGORY_BRACKET_TAB) ? (
                 <ClickableButton
                     onClick={() => {
@@ -87,6 +73,20 @@ export const PredictionCategoryTabs = memo<Props>(function PredictionCategoryTab
                     )}
                 >
                     <Trans>Bracket</Trans>
+                </ClickableButton>
+            ) : null}
+            {availableTabs.includes(PREDICTION_CATEGORY_GROUPS_TAB) ? (
+                <ClickableButton
+                    onClick={() => {
+                        if (categorySlug) capturePolymarketHomeSportTypeClick('groups', categorySlug);
+                        onTabChange(PREDICTION_CATEGORY_GROUPS_TAB);
+                    }}
+                    className={classNames(
+                        'flex h-full flex-1 items-center justify-center whitespace-nowrap rounded-md px-4 text-sm font-bold transition-colors',
+                        tab === PREDICTION_CATEGORY_GROUPS_TAB ? 'bg-primaryBottom text-main shadow-sm' : 'text-second',
+                    )}
+                >
+                    <Trans>Groups</Trans>
                 </ClickableButton>
             ) : null}
         </div>

@@ -1550,7 +1550,7 @@ msgid "Wins"
 msgstr "Victorias"
 
 msgid "Bracket"
-msgstr ""
+msgstr "Cuadro"
 
 msgid "Event detail"
 msgstr "Detalle del evento"
@@ -2029,7 +2029,7 @@ msgid "Muted @{0} on {sourceName}."
 msgstr "Silenciaste a @{0} en {sourceName}."
 
 msgid "Semifinals"
-msgstr ""
+msgstr "Semifinales"
 
 msgid "Quotes"
 msgstr "Cotizaciones"
@@ -2643,7 +2643,7 @@ msgid "Failed to load groups"
 msgstr "No se pudieron cargar los grupos"
 
 msgid "Round of 16"
-msgstr ""
+msgstr "Octavos de final"
 
 msgid "Failed to update notification settings"
 msgstr "No se pudo actualizar la configuración de notificaciones"
@@ -3406,7 +3406,7 @@ msgid "This token contract has not been verified. We cannot check the contract c
 msgstr "Este contrato de token no ha sido verificado. No podemos consultar el código del contrato para más detalles. Los contratos de tokens sin código fuente probablemente tengan funciones maliciosas para defraudar a sus usuarios de sus activos."
 
 msgid "Round of 32"
-msgstr ""
+msgstr "Dieciseisavos de final"
 
 msgid "Replies"
 msgstr "Respuestas"
@@ -4200,7 +4200,7 @@ msgid "My Accounts"
 msgstr "Mis Cuentas"
 
 msgid "Champion"
-msgstr ""
+msgstr "Campeón"
 
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "No recomendamos compartirlo nunca con ninguna aplicación o persona."
@@ -4247,7 +4247,7 @@ msgid "Post your reply"
 msgstr "Publicar tu respuesta"
 
 msgid "Final"
-msgstr ""
+msgstr "Final"
 
 msgid "L"
 msgstr "D"
@@ -5392,7 +5392,7 @@ msgid "Please re-login this account with owner wallet{0} to continue using more 
 msgstr "Vuelva a iniciar sesión en esta cuenta con la billetera propietaria{0} para seguir usando más funciones."
 
 msgid "Quarterfinals"
-msgstr ""
+msgstr "Cuartos de final"
 
 msgid "Tip liked."
 msgstr "Consejo marcado como me gusta."

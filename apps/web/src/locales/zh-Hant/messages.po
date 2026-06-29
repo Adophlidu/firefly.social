@@ -1543,7 +1543,7 @@ msgid "Wins"
 msgstr "勝場"
 
 msgid "Bracket"
-msgstr ""
+msgstr "淘汰賽"
 
 msgid "Event detail"
 msgstr "市場詳情"
@@ -2019,7 +2019,7 @@ msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上隱藏 @{0}。"
 
 msgid "Semifinals"
-msgstr ""
+msgstr "半決賽"
 
 msgid "Quotes"
 msgstr "引用"
@@ -2630,7 +2630,7 @@ msgid "Failed to load groups"
 msgstr "載入群組失敗"
 
 msgid "Round of 16"
-msgstr ""
+msgstr "16強"
 
 msgid "Failed to update notification settings"
 msgstr "變更通知設定失敗"
@@ -3388,7 +3388,7 @@ msgid "This token contract has not been verified. We cannot check the contract c
 msgstr "此代幣合約未經驗證，無法檢查代碼。未驗證合約可能包含惡意功能。"
 
 msgid "Round of 32"
-msgstr ""
+msgstr "32強"
 
 msgid "Replies"
 msgstr "留言"
@@ -4177,7 +4177,7 @@ msgid "My Accounts"
 msgstr "我的帳戶"
 
 msgid "Champion"
-msgstr ""
+msgstr "冠軍"
 
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "我們強烈建議不要與任何應用程式或個人分享助記詞。"
@@ -4224,7 +4224,7 @@ msgid "Post your reply"
 msgstr "發布你的留言"
 
 msgid "Final"
-msgstr ""
+msgstr "決賽"
 
 msgid "L"
 msgstr "負"
@@ -5366,7 +5366,7 @@ msgid "Please re-login this account with owner wallet{0} to continue using more 
 msgstr "請使用擁有者錢包{0}重新登入此帳戶，以繼續使用更多功能。"
 
 msgid "Quarterfinals"
-msgstr ""
+msgstr "8強"
 
 msgid "Tip liked."
 msgstr "按赞成功。"

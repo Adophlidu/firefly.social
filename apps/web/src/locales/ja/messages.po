@@ -1543,7 +1543,7 @@ msgid "Wins"
 msgstr "勝利"
 
 msgid "Bracket"
-msgstr ""
+msgstr "トーナメント"
 
 msgid "Event detail"
 msgstr "イベント詳細"
@@ -2019,7 +2019,7 @@ msgid "Muted @{0} on {sourceName}."
 msgstr "{sourceName} で @{0} をミュートしました。"
 
 msgid "Semifinals"
-msgstr ""
+msgstr "ベスト4"
 
 msgid "Quotes"
 msgstr "引用"
@@ -2630,7 +2630,7 @@ msgid "Failed to load groups"
 msgstr "グループを読み込めませんでした"
 
 msgid "Round of 16"
-msgstr ""
+msgstr "ベスト16"
 
 msgid "Failed to update notification settings"
 msgstr "通知設定の更新に失敗しました"
@@ -3388,7 +3388,7 @@ msgid "This token contract has not been verified. We cannot check the contract c
 msgstr "このトークンコントラクトは検証されていません。コントラクトコードの詳細を確認できません。ソース不明のトークンコントラクトには、ユーザーの資産を詐取する悪意のある機能がある可能性があります。"
 
 msgid "Round of 32"
-msgstr ""
+msgstr "ベスト32"
 
 msgid "Replies"
 msgstr "返信"
@@ -4177,7 +4177,7 @@ msgid "My Accounts"
 msgstr "マイアカウント"
 
 msgid "Champion"
-msgstr ""
+msgstr "優勝"
 
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "いかなるアプリや人とも共有しないことをお勧めします。"
@@ -4224,7 +4224,7 @@ msgid "Post your reply"
 msgstr "返信を投稿"
 
 msgid "Final"
-msgstr ""
+msgstr "決勝"
 
 msgid "L"
 msgstr "敗"
@@ -5366,7 +5366,7 @@ msgid "Please re-login this account with owner wallet{0} to continue using more 
 msgstr "より多くの機能を引き続きご利用いただくには、オーナーウォレット{0}でこのアカウントに再ログインしてください。"
 
 msgid "Quarterfinals"
-msgstr ""
+msgstr "ベスト8"
 
 msgid "Tip liked."
 msgstr "チップにいいねしました。"
