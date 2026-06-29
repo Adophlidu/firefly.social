@@ -2888,7 +2888,7 @@ msgid "Try again"
 msgstr "请重试"
 
 msgid "Sign Decoded"
-msgstr "星座解读"
+msgstr "卦象解读"
 
 #. placeholder {0}: post.stats.comments
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
@@ -4453,7 +4453,7 @@ msgid "Font Color"
 msgstr "字体颜色"
 
 msgid "Decoding the sign…"
-msgstr "正在解读星座…"
+msgstr "正在解读卦象…"
 
 msgid "Choose Wallet"
 msgstr "选择钱包"
