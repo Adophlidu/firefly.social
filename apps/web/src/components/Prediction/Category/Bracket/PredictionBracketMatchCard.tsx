@@ -36,17 +36,17 @@ function TeamSide({
 }) {
     return (
         <div className={classNames('flex items-center justify-between', { 'opacity-40': dimmed })}>
-            <div className="flex min-w-0 items-center gap-3">
+            <div className="flex min-w-0 items-center gap-2 md:gap-3">
                 {team?.flagUrl ? (
                     <img src={team.flagUrl} alt="" className="h-[30px] w-[45px] shrink-0 rounded object-cover" />
                 ) : (
                     <span className="h-[30px] w-[45px] shrink-0 rounded-lg bg-bg" />
                 )}
-                <span className="line-clamp-2 min-w-0 flex-1 break-words text-sm font-semibold leading-4 text-main">
+                <span className="line-clamp-2 min-w-0 flex-1 break-words text-xs font-semibold leading-4 text-main md:text-sm">
                     {team ? localize(team.name) : <Trans>TBD</Trans>}
                 </span>
             </div>
-            <div className="flex h-9 w-10 shrink-0 items-center justify-center rounded-lg">
+            <div className="flex size-6 shrink-0 items-center justify-center rounded-lg empty:hidden md:size-8">
                 {hasScore && score !== null ? <span className="text-sm font-bold text-main">{score}</span> : null}
             </div>
         </div>
@@ -107,7 +107,7 @@ export const PredictionBracketMatchCard = memo<Props>(function PredictionBracket
         header = (
             <div className="flex h-8 items-center">
                 {dateLabel ? (
-                    <span className="flex h-7 items-center rounded-lg bg-bg px-2 text-[13px] font-semibold text-main">
+                    <span className="flex h-7 items-center whitespace-nowrap rounded-lg bg-bg px-2 text-[13px] font-semibold text-main">
                         {dateLabel}
                     </span>
                 ) : (
@@ -118,7 +118,7 @@ export const PredictionBracketMatchCard = memo<Props>(function PredictionBracket
     }
 
     const content = (
-        <div className="flex flex-col gap-3 rounded-xl border border-secondaryLine bg-lightBottom p-3 dark:bg-darkBottom">
+        <div className="flex flex-col gap-2 rounded-xl border border-secondaryLine bg-lightBottom p-2 dark:bg-darkBottom md:gap-3 md:p-3">
             {header}
             <TeamSide
                 team={match.teams[0]}
