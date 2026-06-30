@@ -1,5 +1,6 @@
 import CloseIcon from '@dimensiondev/assets/close.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { ChevronDown } from 'lucide-react';
@@ -35,7 +36,7 @@ interface Props {
     selectedChainId: number | null;
     /** Tokens available on the selected chain, in API order. */
     tokens: DepositAllSupportedTokenItem[];
-    selectedTokenSymbol: string | null;
+    selectedTokenAddress: string | null;
     /** Deposit address for the selected chain/token (Tron relay or proxy address). */
     address: string | null;
     /** Minimum deposit amount in USD for the selected token. */
@@ -43,7 +44,7 @@ interface Props {
     /** Tron exposes USDT only — disable the token selector. */
     isTron: boolean;
     onChangeChain: (chainId: number) => void;
-    onChangeToken: (tokenSymbol: string) => void;
+    onChangeToken: (token: DepositAllSupportedTokenItem) => void;
     onClose: () => void;
 }
 
@@ -171,7 +172,7 @@ export function DepositViaCryptoModal({
     chains,
     selectedChainId,
     tokens,
-    selectedTokenSymbol,
+    selectedTokenAddress,
     address,
     minDepositUsd,
     isTron,
@@ -187,8 +188,8 @@ export function DepositViaCryptoModal({
         [chains, selectedChainId],
     );
     const selectedToken = useMemo(
-        () => tokens.find((token) => token.token_symbol?.toUpperCase() === selectedTokenSymbol?.toUpperCase()) ?? null,
-        [tokens, selectedTokenSymbol],
+        () => tokens.find((token) => isSameAddress(token.token_address, selectedTokenAddress ?? undefined)) ?? null,
+        [tokens, selectedTokenAddress],
     );
 
     const tronPollingAddress = isTron ? address : null;
@@ -340,7 +341,7 @@ export function DepositViaCryptoModal({
                                             type="button"
                                             className="flex w-full items-center gap-2 px-4 py-[11px]"
                                             onClick={() => {
-                                                onChangeToken(token.token_symbol ?? '');
+                                                onChangeToken(token);
                                                 setOpenMenu(null);
                                             }}
                                         >
@@ -348,8 +349,7 @@ export function DepositViaCryptoModal({
                                             <span className="truncate text-sm font-semibold text-main">
                                                 {token.token_symbol}
                                             </span>
-                                            {token.token_symbol?.toUpperCase() ===
-                                            selectedTokenSymbol?.toUpperCase() ? (
+                                            {isSameAddress(token.token_address, selectedTokenAddress ?? undefined) ? (
                                                 <SelectedIcon className="ml-auto size-5 text-main" />
                                             ) : null}
                                         </button>
@@ -366,8 +366,8 @@ export function DepositViaCryptoModal({
                             </p>
 
                             <div className="flex flex-col items-center gap-4">
-                                <div className="relative size-[270px] rounded-2xl bg-white p-4">
-                                    {address ? <QRCode value={address} size={238} /> : null}
+                                <div className="relative size-[206px] rounded-2xl bg-white">
+                                    {address ? <QRCode value={address} size={206} /> : null}
                                     <QrTokenBadge
                                         tokenIcon={selectedToken?.token_icon}
                                         symbol={selectedToken?.token_symbol ?? ''}

@@ -20,11 +20,11 @@ const USDC_SYMBOL = 'USDC';
 const USDT_SYMBOL = 'USDT';
 const DEFAULT_MIN_DEPOSIT_USD = 9;
 
-function pickDefaultTokenSymbol(tokens: DepositAllSupportedTokenItem[], isTron: boolean): string | null {
+function pickDefaultTokenAddress(tokens: DepositAllSupportedTokenItem[], isTron: boolean): string | null {
     if (tokens.length === 0) return null;
     const preferred = isTron ? USDT_SYMBOL : USDC_SYMBOL;
     const match = tokens.find((token) => token.token_symbol?.toUpperCase() === preferred);
-    return match?.token_symbol ?? tokens[0].token_symbol ?? null;
+    return match?.token_address ?? tokens[0].token_address ?? null;
 }
 
 export function DepositViaCryptoModalWrapper({ modalType, open, onClose }: RouteModalProps) {
@@ -79,7 +79,7 @@ export function DepositViaCryptoModalWrapper({ modalType, open, onClose }: Route
     );
 
     const [selectedChainId, setSelectedChainId] = useState<number | null>(null);
-    const [selectedTokenSymbol, setSelectedTokenSymbol] = useState<string | null>(null);
+    const [selectedTokenAddress, setSelectedTokenAddress] = useState<string | null>(null);
 
     // Default to Ethereum when the chain list first loads.
     useEffect(() => {
@@ -97,7 +97,7 @@ export function DepositViaCryptoModalWrapper({ modalType, open, onClose }: Route
 
     useEffect(() => {
         if (!selectedChain) return;
-        setSelectedTokenSymbol(pickDefaultTokenSymbol(selectedChain.tokens, isTron));
+        setSelectedTokenAddress(pickDefaultTokenAddress(selectedChain.tokens, isTron));
     }, [selectedChain, isTron]);
 
     const address = selectedChain ? (depositAddressData?.[selectedChain.chain_type] ?? null) : null;
@@ -122,11 +122,11 @@ export function DepositViaCryptoModalWrapper({ modalType, open, onClose }: Route
             chain_id: String(chainId),
         });
     };
-    const handleChangeToken = (symbol: string) => {
-        setSelectedTokenSymbol(symbol);
+    const handleChangeToken = (token: DepositAllSupportedTokenItem) => {
+        setSelectedTokenAddress(token.token_address);
         captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_DEPOSIT_VIA_CRYPTO_CHANGE_TOKEN, {
             chain_id: String(selectedChainId ?? ''),
-            token_symbol: symbol,
+            token_symbol: token.token_symbol,
         });
     };
 
@@ -137,7 +137,7 @@ export function DepositViaCryptoModalWrapper({ modalType, open, onClose }: Route
             chains={chains}
             selectedChainId={selectedChainId}
             tokens={tokensForChain}
-            selectedTokenSymbol={selectedTokenSymbol}
+            selectedTokenAddress={selectedTokenAddress}
             address={address}
             minDepositUsd={minDepositUsd}
             isTron={isTron}
