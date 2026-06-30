@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
@@ -11,7 +12,11 @@ import { PredictionBracketMatchCard } from '@/components/Prediction/Category/Bra
 import { PredictionBracketRoundTabs } from '@/components/Prediction/Category/Bracket/PredictionBracketRoundTabs.js';
 import { resolveRoundWindow, ROUND_SEQUENCE } from '@/helpers/prediction/category/bracket/bracketView.js';
 import { buildConnectorPath } from '@/helpers/prediction/category/bracket/connectorPath.js';
-import type { BracketColumnId } from '@/helpers/prediction/category/bracket/types.js';
+import type {
+    BracketColumnId,
+    FifaBracketMatch,
+    FifaBracketRoundId,
+} from '@/helpers/prediction/category/bracket/types.js';
 import { getWorldCupBracket } from '@/providers/firefly/prediction/getWorldCupBracket.js';
 
 const COLUMN_GAP = 24; // matches gap-6 between columns
@@ -37,7 +42,6 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
     const [connectors, setConnectors] = useState<Connector[]>([]);
     const [cardWidth, setCardWidth] = useState(0);
     const [cardHeight, setCardHeight] = useState(FALLBACK_CARD_HEIGHT);
-    const [championHeight, setChampionHeight] = useState(FALLBACK_CARD_HEIGHT);
     const [selected, setSelected] = useState<BracketColumnId>('r32');
 
     const { data, isPending, isError } = useQuery({
@@ -72,18 +76,14 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
         const natural = firstId ? cardEls.current.get(firstId)?.scrollHeight : undefined;
         if (natural && Math.abs(natural - cardHeight) > 1) setCardHeight(natural);
 
-        // The champion card is taller than a match card; track its height so the canvas can grow
-        // to fit it when the final→champion pair is in view (otherwise it overflows and clips).
-        const championNatural = cardEls.current.get('champion')?.scrollHeight;
-        if (championNatural && Math.abs(championNatural - championHeight) > 1) setChampionHeight(championNatural);
-
         const innerRect = inner.getBoundingClientRect();
         const next: Connector[] = [];
         for (const round of data.rounds) {
             for (const match of round.matches) {
-                if (!match.feedsIntoMatchId) continue;
+                const target = match.feedsIntoMatchId;
+                if (!target) continue;
                 const childEl = cardEls.current.get(match.id);
-                const parentEl = cardEls.current.get(match.feedsIntoMatchId);
+                const parentEl = cardEls.current.get(target);
                 if (!childEl || !parentEl) continue;
                 const child = childEl.getBoundingClientRect();
                 const parent = parentEl.getBoundingClientRect();
@@ -95,9 +95,7 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
             }
         }
 
-        // The Final's feedsIntoMatchId is null, so the loop above skips it. Draw the terminal
-        // Final → Champion connector here (same L-shaped formula; the cards share the canvas
-        // vertical center, so it reads as a clean horizontal line).
+        // Final has no feedsIntoMatchId — draw the terminal Final→Champion connector here.
         const finalMatch = data.rounds.find((r) => r.id === 'final')?.matches[0];
         const finalEl = finalMatch ? cardEls.current.get(finalMatch.id) : undefined;
         const championEl = finalMatch ? cardEls.current.get('champion') : undefined;
@@ -111,7 +109,7 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
             next.push({ id: 'champion', d: buildConnectorPath(sx, sy, px, py, CONNECTOR_RADIUS) });
         }
         setConnectors(next);
-    }, [data, cardHeight, championHeight]);
+    }, [data, cardHeight]);
 
     // Single rAF loop drives the horizontal scroll for pill taps, on the same duration + easing as
     // the CSS height/collapse transition, so both axes start and finish together.
@@ -198,18 +196,28 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
 
     const roundWindow = resolveRoundWindow(selected);
     const leftIndex = ROUND_SEQUENCE.indexOf(roundWindow.left);
+    // Center the Final only while the Semifinals are focused; when the Final is focused, top-align it.
+    const finalCentered = roundWindow.right === 'final';
     // Rounds before the focused pair are already decided, so they collapse to make room. Derived
     // from the selection, not a scroll threshold.
     const isHalf = (roundId: BracketColumnId) => ROUND_SEQUENCE.indexOf(roundId) < leftIndex;
 
+    // The third-place round shares the Final column (rendered below the Final, no connectors).
+    const matchesForColumn = (roundId: BracketColumnId): FifaBracketMatch[] => {
+        const round = (id: FifaBracketRoundId) => data.rounds.find((r) => r.id === id)?.matches ?? [];
+        if (roundId === 'final') return [...round('final'), ...round('third')];
+        if (roundId === 'champion') return [];
+        return round(roundId);
+    };
+
     // The canvas height is driven by the focused left round (count × slot), not the tallest round.
     // Otherwise a deep focus (Semifinals/Final) leaves the earlier 16-match round dictating a huge
     // canvas, pushing the few focused cards far down with empty space above.
-    const leftCount = data.rounds.find((round) => round.id === roundWindow.left)?.matches.length ?? 1;
-    // The champion card is taller than a match card, so the canvas must also fit it — otherwise it
-    // clips when the final→champion pair is in view. For deeper focuses the slot-based height
-    // already dominates this floor, so it only bites on the final/champion window.
-    const canvasHeight = Math.max(Math.max(leftCount, 1) * (cardHeight + SLOT_GAP), championHeight + SLOT_GAP);
+    const leftCount = matchesForColumn(roundWindow.left).length;
+    // While finalCentered, reserve three card heights for the centered Final + third beneath it.
+    const hasThird = (data.rounds.find((r) => r.id === 'third')?.matches.length ?? 0) > 0;
+    const stackedFloor = hasThird && finalCentered ? 3 * cardHeight + 2 * SLOT_GAP : 0;
+    const canvasHeight = Math.max(Math.max(leftCount, 1) * (cardHeight + SLOT_GAP), stackedFloor);
 
     return (
         <div className="flex h-full grow flex-col gap-4 pt-0">
@@ -245,46 +253,76 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
                             return (
                                 <div
                                     key="champion"
-                                    className="relative z-10 flex h-full shrink-0 snap-start flex-col justify-center"
+                                    className={classNames(
+                                        'relative z-10 flex h-full shrink-0 snap-start flex-col',
+                                        finalCentered ? 'justify-center' : 'justify-start',
+                                    )}
                                     style={{ width: cardWidth || undefined }}
                                 >
                                     <div
                                         ref={(el) => {
                                             if (el) cardEls.current.set('champion', el);
                                         }}
+                                        style={{ height: cardHeight }}
                                     >
                                         <PredictionBracketChampionCard team={championTeam} />
                                     </div>
                                 </div>
                             );
                         }
-                        const round = data.rounds.find((item) => item.id === roundId);
-                        if (!round?.matches.length) return null;
+                        const columnMatches = matchesForColumn(roundId);
+                        if (!columnMatches.length) return null;
                         const half = isHalf(roundId);
+                        // Final column: center the Final (finalCentered) or top-align it; third-place hangs below.
+                        const stacked = !half && roundId === 'final' && columnMatches.length > 1;
+                        const columnJustify = !stacked
+                            ? 'justify-around'
+                            : finalCentered
+                              ? 'justify-center'
+                              : 'justify-start';
+                        // First third-place card sits beneath the Final (centered or top-aligned).
+                        const thirdTop = finalCentered
+                            ? canvasHeight / 2 + cardHeight / 2 + SLOT_GAP
+                            : cardHeight + SLOT_GAP;
                         return (
                             <div
                                 key={roundId}
-                                className="relative z-10 flex h-full shrink-0 snap-start flex-col justify-around"
+                                className={classNames(
+                                    'relative z-10 flex h-full shrink-0 snap-start flex-col',
+                                    columnJustify,
+                                )}
                                 style={{ width: cardWidth || undefined }}
                             >
-                                {round.matches.map((match) => (
-                                    <div
-                                        key={match.id}
-                                        ref={(el) => {
-                                            if (el) cardEls.current.set(match.id, el);
-                                        }}
-                                        className="overflow-hidden transition-[height] duration-300 ease-out"
-                                        style={{
-                                            // Collapsed rounds (more matches than the focus) shrink to fit the
-                                            // canvas; the focused/later rounds keep full card height.
-                                            height: half
-                                                ? Math.max(canvasHeight / round.matches.length, 8)
-                                                : cardHeight,
-                                        }}
-                                    >
-                                        <PredictionBracketMatchCard match={match} />
-                                    </div>
-                                ))}
+                                {columnMatches.map((match, index) => {
+                                    // In the stacked Final column only the Final (index 0) stays in normal
+                                    // flow (centered); third-place cards (index > 0) are absolutely stacked
+                                    // beneath it, with no connector drawn to them.
+                                    const isHanging = stacked && index > 0;
+                                    return (
+                                        <div
+                                            key={match.id}
+                                            ref={(el) => {
+                                                if (el) cardEls.current.set(match.id, el);
+                                            }}
+                                            className={classNames(
+                                                'overflow-hidden transition-[height] duration-300 ease-out',
+                                                { 'absolute inset-x-0': isHanging },
+                                            )}
+                                            style={{
+                                                // Collapsed rounds (more matches than the focus) shrink to fit the
+                                                // canvas; the focused/later rounds keep full card height.
+                                                height: half
+                                                    ? Math.max(canvasHeight / columnMatches.length, 8)
+                                                    : cardHeight,
+                                                ...(isHanging
+                                                    ? { top: thirdTop + (index - 1) * (cardHeight + SLOT_GAP) }
+                                                    : null),
+                                            }}
+                                        >
+                                            <PredictionBracketMatchCard match={match} />
+                                        </div>
+                                    );
+                                })}
                             </div>
                         );
                     })}

@@ -16,7 +16,7 @@ export const PredictionBracketChampionCard = memo<Props>(function PredictionBrac
 
     return (
         <div
-            className="rounded-2xl border border-warn p-4 text-center"
+            className="flex h-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-warn p-4 text-center"
             style={{ backgroundImage: 'linear-gradient(180deg, #FFF7E0 0%, #FBE8B5 100%)' }}
         >
             <CupIcon width={36} height={36} className="mx-auto block text-warn" />

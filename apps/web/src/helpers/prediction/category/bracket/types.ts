@@ -1,7 +1,8 @@
-export type FifaBracketRoundId = 'r32' | 'r16' | 'qf' | 'sf' | 'final';
+/** Data round ids emitted by the backend (GET /v1/fifa/bracket). 'third' = third-place play-off. */
+export type FifaBracketRoundId = 'r32' | 'r16' | 'qf' | 'sf' | 'final' | 'third';
 
-/** UI-only column appended after the final to display the tournament champion (no API backing). */
-export type BracketColumnId = FifaBracketRoundId | 'champion';
+/** UI column ids. 'third' folds into the 'final' column; 'champion' is UI-only (no API backing). */
+export type BracketColumnId = 'r32' | 'r16' | 'qf' | 'sf' | 'final' | 'champion';
 
 export interface FifaBracketTeam {
     countryCode: string;

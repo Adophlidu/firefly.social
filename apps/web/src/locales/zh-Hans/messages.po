@@ -3106,6 +3106,9 @@ msgstr "请连接一个 EVM 钱包和一个 Solana 钱包以体验 Firefly 的�
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "代币已添加到你的收藏中。<0>查看</0>"
 
+msgid "Final/3rd Place"
+msgstr "决赛/季军赛"
+
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "如果你之前使用 Farcaster 登录过，请重新连接。<0/>首次使用？请开启新的连接。"
 
@@ -4228,9 +4231,6 @@ msgstr "授予红包智能合约访问你 {0} 的权限。每个代币只需执�
 
 msgid "Post your reply"
 msgstr "发布你的评论"
-
-msgid "Final"
-msgstr "决赛"
 
 msgid "L"
 msgstr "负"

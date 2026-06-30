@@ -3123,6 +3123,9 @@ msgstr "Por favor seleccione una billetera EVM y una billetera Solana para las f
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "Token añadido a tus Marcadores. <0>Ver</0>"
 
+msgid "Final/3rd Place"
+msgstr "Final/Tercer puesto"
+
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "Reconéctate si ya has usado Farcaster para iniciar sesión antes.<0/>¿Primera vez? Conéctate para empezar."
 
@@ -4251,9 +4254,6 @@ msgstr "Otorga acceso a tu {0} al contrato inteligente Lucky Drop. Solo tienes q
 
 msgid "Post your reply"
 msgstr "Publicar tu respuesta"
-
-msgid "Final"
-msgstr "Final"
 
 msgid "L"
 msgstr "D"

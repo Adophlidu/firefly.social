@@ -6,7 +6,7 @@ import type {
     FifaBracketTeam,
 } from '@/helpers/prediction/category/bracket/types.js';
 
-const ROUND_IDS: readonly FifaBracketRoundId[] = ['r32', 'r16', 'qf', 'sf', 'final'];
+const ROUND_IDS: readonly FifaBracketRoundId[] = ['r32', 'r16', 'qf', 'sf', 'final', 'third'];
 
 function isObject(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null;
@@ -73,6 +73,21 @@ export function normalizeFifaBracketDto(raw: unknown): FifaBracketData {
             ? rawRound.matches.map(normalizeMatch).filter((m): m is FifaBracketMatch => m !== null)
             : [];
         rounds.push({ id: rawRound.id as FifaBracketRoundId, matches });
+    }
+
+    // The backend nests the third-place match inside the final round; move it into its own 'third'
+    // round so the Final stays the final round's first match and id-based lookups stay stable.
+    const nestedThird = rounds.flatMap((r) => (r.id === 'third' ? [] : r.matches.filter((m) => m.roundId === 'third')));
+    if (nestedThird.length) {
+        for (const round of rounds) {
+            if (round.id === 'third') continue;
+            round.matches = round.matches.filter((m) => m.roundId !== 'third');
+        }
+
+        const finalIdx = rounds.findIndex((r) => r.id === 'final');
+        const thirdRound: FifaBracketRound = { id: 'third', matches: nestedThird };
+        if (finalIdx >= 0) rounds.splice(finalIdx, 0, thirdRound);
+        else rounds.push(thirdRound);
     }
 
     const updatedAt = typeof raw.updated_at === 'string' && raw.updated_at.length > 0 ? raw.updated_at : null;

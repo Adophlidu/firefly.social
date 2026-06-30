@@ -2400,7 +2400,7 @@ export interface FifaBracketTeamDto {
 }
 export interface FifaBracketMatchDto {
     id: string;
-    round_id: 'r32' | 'r16' | 'qf' | 'sf' | 'final';
+    round_id: 'r32' | 'r16' | 'qf' | 'sf' | 'final' | 'third';
     start_time: string | null;
     status: string;
     teams: [FifaBracketTeamDto | null, FifaBracketTeamDto | null];
@@ -2410,7 +2410,7 @@ export interface FifaBracketMatchDto {
     feeds_into_match_id: string | null;
 }
 export interface FifaBracketRoundDto {
-    id: 'r32' | 'r16' | 'qf' | 'sf' | 'final';
+    id: 'r32' | 'r16' | 'qf' | 'sf' | 'final' | 'third';
     matches: FifaBracketMatchDto[];
 }
 export interface FifaBracketDataDto {

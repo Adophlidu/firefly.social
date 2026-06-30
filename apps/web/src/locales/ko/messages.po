@@ -3106,6 +3106,9 @@ msgstr "Firefly 온체인 기능을 사용하려면 EVM 지갑 1개와 Solana �
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "토큰이 북마크에 추가되었습니다. <0>보기</0>"
 
+msgid "Final/3rd Place"
+msgstr "결승/3·4위전"
+
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "이전에 Farcaster로 로그인한 적이 있다면 다시 연결하세요.<0/>처음이신가요? 새 연결로 시작하세요."
 
@@ -4228,9 +4231,6 @@ msgstr "럭키 드롭 스마트 컨트랙트에 {0} 접근 권한을 부여하�
 
 msgid "Post your reply"
 msgstr "답글 게시"
-
-msgid "Final"
-msgstr "결승"
 
 msgid "L"
 msgstr "패"

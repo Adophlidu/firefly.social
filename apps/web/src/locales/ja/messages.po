@@ -3106,6 +3106,9 @@ msgstr "Firefly のオンチェーン機能には、EVM ウォレット 1 つと
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "トークンがブックマークに追加されました。<0>表示</0>"
 
+msgid "Final/3rd Place"
+msgstr "決勝/3位決定戦"
+
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "以前 Farcaster でログインしたことがある場合は再接続してください。<0/>初めてですか？新規接続で始めてください。"
 
@@ -4228,9 +4231,6 @@ msgstr "ラッキードロップスマートコントラクトに {0} へのア�
 
 msgid "Post your reply"
 msgstr "返信を投稿"
-
-msgid "Final"
-msgstr "決勝"
 
 msgid "L"
 msgstr "敗"

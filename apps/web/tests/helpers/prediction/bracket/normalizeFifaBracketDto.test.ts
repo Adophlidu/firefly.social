@@ -188,6 +188,93 @@ describe('normalizeFifaBracketDto', () => {
         expect(data.rounds.map((r) => r.id)).toEqual(['r32']);
     });
 
+    it('preserves the third-place round and match (rendered inside the Final column)', () => {
+        const data = normalizeFifaBracketDto({
+            rounds: [
+                { id: 'r32', matches: [] },
+                {
+                    id: 'third',
+                    matches: [
+                        {
+                            id: 'third-1',
+                            round_id: 'third',
+                            start_time: '2026-07-18T17:00:00-04:00',
+                            status: 'tbd',
+                            teams: [null, null],
+                            scores: null,
+                            market_slugs: [null, null],
+                            event_slug: null,
+                            feeds_into_match_id: null,
+                        },
+                    ],
+                },
+                {
+                    id: 'final',
+                    matches: [
+                        {
+                            id: 'final-1',
+                            round_id: 'final',
+                            start_time: null,
+                            status: 'tbd',
+                            teams: [null, null],
+                            scores: null,
+                            market_slugs: [null, null],
+                            event_slug: null,
+                            feeds_into_match_id: null,
+                        },
+                    ],
+                },
+            ],
+            updated_at: null,
+        });
+        expect(data.rounds.map((r) => r.id)).toEqual(['r32', 'third', 'final']);
+        const third = data.rounds.find((r) => r.id === 'third')!.matches[0];
+        expect(third.id).toBe('third-1');
+        expect(third.roundId).toBe('third');
+        expect(third.feedsIntoMatchId).toBeNull();
+    });
+
+    it('extracts a third-place match nested inside the final round into its own round', () => {
+        const data = normalizeFifaBracketDto({
+            rounds: [
+                {
+                    id: 'final',
+                    matches: [
+                        {
+                            id: 'third-1',
+                            round_id: 'third',
+                            start_time: null,
+                            status: 'tbd',
+                            teams: [null, null],
+                            scores: null,
+                            market_slugs: [null, null],
+                            event_slug: null,
+                            feeds_into_match_id: null,
+                        },
+                        {
+                            id: 'final-1',
+                            round_id: 'final',
+                            start_time: null,
+                            status: 'tbd',
+                            teams: [null, null],
+                            scores: null,
+                            market_slugs: [null, null],
+                            event_slug: null,
+                            feeds_into_match_id: null,
+                        },
+                    ],
+                },
+            ],
+            updated_at: null,
+        });
+        // The Final stays the final round's only match (so it remains matches[0]); third-1 moves out.
+        const finalRound = data.rounds.find((r) => r.id === 'final')!;
+        expect(finalRound.matches.map((m) => m.id)).toEqual(['final-1']);
+        const third = data.rounds.find((r) => r.id === 'third')!.matches[0];
+        expect(third.id).toBe('third-1');
+        expect(third.roundId).toBe('third');
+    });
+
     it('coerces missing team fields to empty strings without throwing', () => {
         const data = normalizeFifaBracketDto({
             rounds: [

@@ -3123,6 +3123,9 @@ msgstr "Please select one EVM wallet and one Solana wallet for onchain features 
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "Token added to your Bookmarks. <0>View</0>"
 
+msgid "Final/3rd Place"
+msgstr "Final/3rd Place"
+
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 
@@ -4251,9 +4254,6 @@ msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only hav
 
 msgid "Post your reply"
 msgstr "Post your reply"
-
-msgid "Final"
-msgstr "Final"
 
 msgid "L"
 msgstr "L"
