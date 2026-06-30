@@ -3,6 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { FootballLoading } from '@/components/FootballLoading.js';
@@ -42,7 +43,12 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
     const [connectors, setConnectors] = useState<Connector[]>([]);
     const [cardWidth, setCardWidth] = useState(0);
     const [cardHeight, setCardHeight] = useState(FALLBACK_CARD_HEIGHT);
-    const [selected, setSelected] = useState<BracketColumnId>('r32');
+    const [selected, setSelected] = useQueryState<BracketColumnId>(
+        'round',
+        parseAsStringEnum<BracketColumnId>([...ROUND_SEQUENCE])
+            .withDefault('r32')
+            .withOptions({ clearOnDefault: true, history: 'replace' }),
+    );
 
     const { data, isPending, isError } = useQuery({
         queryKey: ['prediction', 'category', 'fifa-bracket'],
@@ -145,7 +151,7 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
         const index = Math.round(container.scrollLeft / (cardWidth + COLUMN_GAP));
         const clamped = Math.min(Math.max(index, 0), ROUND_SEQUENCE.length - 2);
         setSelected(ROUND_SEQUENCE[clamped]);
-    }, [cardWidth]);
+    }, [cardWidth, setSelected]);
 
     useLayoutEffect(() => {
         measureWidth();
@@ -177,7 +183,7 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
                 animateScrollTo(leftIndex * (cardWidth + COLUMN_GAP));
             }
         },
-        [cardWidth, animateScrollTo],
+        [cardWidth, animateScrollTo, setSelected],
     );
 
     useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
