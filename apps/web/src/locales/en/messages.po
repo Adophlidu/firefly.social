@@ -3830,6 +3830,9 @@ msgstr "This article is no longer available"
 msgid "Connecting Wallet"
 msgstr "Connecting Wallet"
 
+msgid "Team to Advance"
+msgstr "Team to Advance"
+
 msgid "Report article"
 msgstr "Report article"
 

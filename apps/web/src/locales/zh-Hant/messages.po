@@ -3809,6 +3809,9 @@ msgstr "此文章已不可用"
 msgid "Connecting Wallet"
 msgstr "連接中錢包"
 
+msgid "Team to Advance"
+msgstr "球隊晉級"
+
 msgid "Report article"
 msgstr "檢舉文章"
 

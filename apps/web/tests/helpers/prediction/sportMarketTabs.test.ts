@@ -4,11 +4,13 @@ import {
     extractPlayerName,
     extractSetNumber,
     extractTeamName,
+    getSportMarketTabs,
     parseGameNumberFromQuestion,
     playerGroupKey,
     teamTotalsPeriod,
 } from '@/helpers/prediction/sportMarketTabs.js';
 import type { BetsMarketDataForUI, SportTeam } from '@/types/prediction.js';
+import { SportMarketGroupType } from '@/types/prediction.js';
 
 const homeTeam: SportTeam = { name: 'Qatar', abbreviation: 'qat', color: '#96173D' };
 const awayTeam: SportTeam = { name: 'Switzerland', abbreviation: 'che', color: '#DA291C' };
@@ -189,5 +191,35 @@ describe('teamTotalsPeriod — disambiguate 1H/2H team totals', () => {
     it('returns undefined for full-game team totals (no qualifier)', () => {
         expect(teamTotalsPeriod('team_totals')).toBeUndefined();
         expect(teamTotalsPeriod('soccer_team_totals')).toBeUndefined();
+    });
+});
+
+describe('getSportMarketTabs — Team to Advance (knockout soccer)', () => {
+    it('renders soccer_team_to_advance first in the Game Lines tab as a moneyline section', () => {
+        const advance = mk({
+            sportsMarketType: 'soccer_team_to_advance',
+            title: 'Team to Advance',
+            slug: 'fifwc-bra-jpn-2026-06-29-team-to-advance',
+            outcomes: [
+                { id: 'home', label: 'Brazil', price: '0.6' },
+                { id: 'away', label: 'Japan', price: '0.4' },
+            ],
+        });
+        const moneyline = mk({
+            sportsMarketType: 'soccer_moneyline',
+            title: 'Moneyline',
+            outcomes: [
+                { id: 'home', label: 'Brazil', price: '0.5' },
+                { id: 'away', label: 'Japan', price: '0.5' },
+            ],
+        });
+        const tabs = getSportMarketTabs([moneyline, advance], homeTeam, awayTeam);
+        const gameLines = tabs.find((t) => t.key === 'game-lines');
+        expect(gameLines).toBeDefined();
+        // Team to Advance is pinned to the top of Game Lines (knockout headline market).
+        expect(gameLines!.sections[0].sportsMarketType).toBe('soccer_team_to_advance');
+        const section = gameLines!.sections.find((s) => s.sportsMarketType === 'soccer_team_to_advance');
+        expect(section).toBeDefined();
+        expect(section!.renderAs).toBe(SportMarketGroupType.Moneyline);
     });
 });

@@ -5,6 +5,15 @@ import { defineConfig } from 'vitest/config';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+    // Transform .tsx with the automatic JSX runtime, matching the production SWC
+    // setup (tsconfig "jsx": "preserve" + @lingui/swc-plugin). Without this, esbuild
+    // falls back to the classic runtime (React.createElement), so any test that calls
+    // a .tsx helper which builds JSX titles (e.g. getSportMarketTabs' <Trans>) throws
+    // "React is not defined" because those modules don't import React.
+    esbuild: {
+        jsx: 'automatic',
+        jsxImportSource: 'react',
+    },
     test: {
         include: ['tests/**/*.ts'],
     },

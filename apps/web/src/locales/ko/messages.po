@@ -3809,6 +3809,9 @@ msgstr "이 아티클은 더 이상 이용할 수 없습니다"
 msgid "Connecting Wallet"
 msgstr "지갑 연결 중"
 
+msgid "Team to Advance"
+msgstr "진출 팀"
+
 msgid "Report article"
 msgstr "아티클 신고"
 

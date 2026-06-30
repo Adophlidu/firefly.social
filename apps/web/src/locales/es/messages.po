@@ -3830,6 +3830,9 @@ msgstr "Este artículo ya no está disponible"
 msgid "Connecting Wallet"
 msgstr "Conectando billetera"
 
+msgid "Team to Advance"
+msgstr "Equipo que avanza"
+
 msgid "Report article"
 msgstr "Denunciar artículo"
 

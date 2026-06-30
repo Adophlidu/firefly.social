@@ -3809,6 +3809,9 @@ msgstr "文章已不存在"
 msgid "Connecting Wallet"
 msgstr "连接中钱包"
 
+msgid "Team to Advance"
+msgstr "球队晋级"
+
 msgid "Report article"
 msgstr "举报文章"
 

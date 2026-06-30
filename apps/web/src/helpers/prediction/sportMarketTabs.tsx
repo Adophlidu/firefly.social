@@ -221,6 +221,9 @@ function getSectionConfig(type: string): SectionConfig {
             return { title: <Trans>Both Teams To Score - 2nd Half</Trans> };
         case 'soccer_first_to_score':
             return { title: <Trans>First Team to Score</Trans>, renderAs: SportMarketGroupType.Moneyline };
+        // Soccer: knockout/elimination — who advances after extra time / penalties (2-way market)
+        case 'soccer_team_to_advance':
+            return { title: <Trans>Team to Advance</Trans>, renderAs: SportMarketGroupType.Moneyline };
 
         // Soccer: Corners
         case 'total_corners':
@@ -451,7 +454,6 @@ const IGNORED_TYPES = new Set([
     'map_participant_win_total',
     'cricket_first_inning_runs',
     'cricket_second_inning_runs',
-    'soccer_team_to_advance',
     'firsts',
     'q1_team_totals',
     'q1_totals',
@@ -600,10 +602,11 @@ export function playerGroupKey(market: BetsMarketDataForUI): string {
 }
 
 /**
- * Desired section ordering — matches Polymarket's SPORTS_GAME_LINE_MARKET_TYPES order:
- * moneyline → spreads → winner (Game N / 1st Set) → handicap → totals → rest
+ * Desired section ordering. `soccer_team_to_advance` is pinned to the very top — for
+ * knockout matches the "who advances" market is the headline. Then Polymarket's
+ * SPORTS_GAME_LINE_MARKET_TYPES order: moneyline → spreads → winner → handicap → totals → rest.
  */
-const SECTION_PRIORITY = ['moneyline', 'result', 'spreads', 'winner', 'handicap', 'totals'];
+const SECTION_PRIORITY = ['soccer_team_to_advance', 'moneyline', 'result', 'spreads', 'winner', 'handicap', 'totals'];
 
 /**
  * Normalize per-game/map winner and handicap market types into their

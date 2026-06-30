@@ -3809,6 +3809,9 @@ msgstr "この記事は利用できなくなりました"
 msgid "Connecting Wallet"
 msgstr "ウォレットを接続中"
 
+msgid "Team to Advance"
+msgstr "勝ち進出チーム"
+
 msgid "Report article"
 msgstr "記事を報告"
 

@@ -26,6 +26,7 @@ const EDGE_PAD = 16; // matches px-4 on the inner track
 const SLOT_GAP = 16; // vertical breathing room per match slot
 const FALLBACK_CARD_HEIGHT = 150;
 const ANIM_MS = 300; // must match the CSS transition duration so both axes finish together
+const SCROLL_URL_SYNC_MS = 150; // trailing debounce before a drag writes the focused round to the URL
 
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
 
@@ -40,6 +41,9 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
     const cardEls = useRef(new Map<string, HTMLElement>());
     const rafRef = useRef(0);
     const animatingRef = useRef(false);
+    const didInitScrollRef = useRef(false);
+    const urlSyncTimerRef = useRef<number | null>(null);
+    const remeasureTimerRef = useRef<number | null>(null);
     const [connectors, setConnectors] = useState<Connector[]>([]);
     const [cardWidth, setCardWidth] = useState(0);
     const [cardHeight, setCardHeight] = useState(FALLBACK_CARD_HEIGHT);
@@ -49,6 +53,8 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
             .withDefault('r32')
             .withOptions({ clearOnDefault: true, history: 'replace' }),
     );
+    // Drives layout; the URL (`selected`) is written on a debounce (handleScroll), not per frame.
+    const [focus, setFocus] = useState<BracketColumnId>(selected);
 
     const { data, isPending, isError } = useQuery({
         queryKey: ['prediction', 'category', 'fifa-bracket'],
@@ -143,23 +149,62 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
         rafRef.current = requestAnimationFrame(step);
     }, []);
 
-    // Manual drag keeps focus in sync: the round nearest the left edge becomes the focused left, so
-    // the collapse follows the scroll. Skipped during the rAF tween (selection is already set).
+    // The round nearest the left edge becomes the focus so the collapse tracks the drag. The URL write
+    // is debounced to scroll-end — calling nuqs setSelected every frame stuttered long drags (champion→R32).
     const handleScroll = useCallback(() => {
         const container = scrollRef.current;
         if (!container || cardWidth <= 0 || animatingRef.current) return;
         const index = Math.round(container.scrollLeft / (cardWidth + COLUMN_GAP));
         const clamped = Math.min(Math.max(index, 0), ROUND_SEQUENCE.length - 2);
-        setSelected(ROUND_SEQUENCE[clamped]);
+        const round = ROUND_SEQUENCE[clamped];
+        setFocus(round);
+        if (urlSyncTimerRef.current !== null) window.clearTimeout(urlSyncTimerRef.current);
+        urlSyncTimerRef.current = window.setTimeout(() => {
+            urlSyncTimerRef.current = null;
+            setSelected(round);
+        }, SCROLL_URL_SYNC_MS);
     }, [cardWidth, setSelected]);
 
     useLayoutEffect(() => {
         measureWidth();
     }, [measureWidth]);
 
+    // On mount, jump once (no animation) to the focused round's column. The canvas is already sized for
+    // it, but the scroll container starts at 0, so without this a non-r32 deep-link shows r32 crammed.
+    useLayoutEffect(() => {
+        if (didInitScrollRef.current || cardWidth <= 0) return;
+        const container = scrollRef.current;
+        if (!container) return;
+        const leftIndex = ROUND_SEQUENCE.indexOf(resolveRoundWindow(selected).left);
+        container.scrollLeft = leftIndex * (cardWidth + COLUMN_GAP);
+        didInitScrollRef.current = true;
+    }, [cardWidth, selected]);
+
+    // Not keyed on `focus` — recomputing connectors (a getBoundingClientRect sweep) on every scroll
+    // boundary blocks paint and freezes the drag. Deferred to settle below.
     useLayoutEffect(() => {
         remeasure();
-    }, [remeasure, cardWidth, selected]);
+    }, [remeasure, cardWidth]);
+
+    // Redraw connectors once the collapse transition (ANIM_MS) has settled after a focus change.
+    useEffect(() => {
+        if (remeasureTimerRef.current !== null) window.clearTimeout(remeasureTimerRef.current);
+        remeasureTimerRef.current = window.setTimeout(() => {
+            remeasureTimerRef.current = null;
+            remeasure();
+        }, ANIM_MS + 32);
+        return () => {
+            if (remeasureTimerRef.current !== null) {
+                window.clearTimeout(remeasureTimerRef.current);
+                remeasureTimerRef.current = null;
+            }
+        };
+    }, [focus, remeasure]);
+
+    // Mirror external URL changes (back/forward) into focus. Internal writes keep focus === selected, so no loop.
+    useEffect(() => {
+        setFocus((prev) => (prev === selected ? prev : selected));
+    }, [selected]);
 
     useEffect(() => {
         const container = scrollRef.current;
@@ -177,6 +222,12 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
     const handlePillClick = useCallback(
         (roundId: BracketColumnId) => {
             const { left } = resolveRoundWindow(roundId);
+            // Explicit intent: set focus + URL now, and cancel any pending drag-debounce write.
+            if (urlSyncTimerRef.current !== null) {
+                window.clearTimeout(urlSyncTimerRef.current);
+                urlSyncTimerRef.current = null;
+            }
+            setFocus(left);
             setSelected(left);
             if (cardWidth > 0) {
                 const leftIndex = ROUND_SEQUENCE.indexOf(left);
@@ -186,7 +237,13 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
         [cardWidth, animateScrollTo, setSelected],
     );
 
-    useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
+    useEffect(() => {
+        return () => {
+            cancelAnimationFrame(rafRef.current);
+            if (urlSyncTimerRef.current !== null) window.clearTimeout(urlSyncTimerRef.current);
+            if (remeasureTimerRef.current !== null) window.clearTimeout(remeasureTimerRef.current);
+        };
+    }, []);
 
     if (isPending) {
         return (
@@ -200,12 +257,12 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
         return <NoResultsFallback message={<Trans>No predictions found</Trans>} />;
     }
 
-    const roundWindow = resolveRoundWindow(selected);
+    const roundWindow = resolveRoundWindow(focus);
     const leftIndex = ROUND_SEQUENCE.indexOf(roundWindow.left);
     // Center the Final only while the Semifinals are focused; when the Final is focused, top-align it.
     const finalCentered = roundWindow.right === 'final';
     // Rounds before the focused pair are already decided, so they collapse to make room. Derived
-    // from the selection, not a scroll threshold.
+    // from the live focus (follows scroll), not a scroll threshold.
     const isHalf = (roundId: BracketColumnId) => ROUND_SEQUENCE.indexOf(roundId) < leftIndex;
 
     // The third-place round shares the Final column (rendered below the Final, no connectors).
