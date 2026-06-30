@@ -5,7 +5,6 @@ import urlcat from 'urlcat';
 
 import { ProjectTrendingList } from '@/components/ProjectTrendingList.js';
 import { TrumpTruthSocialPosts } from '@/components/TrumpTruthSocial/TrumpTruthSocialPosts.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
@@ -20,8 +19,9 @@ export default async function Page(props: Props) {
     if (explore === ExploreType.Projects) return <ProjectTrendingList />;
     if (explore === ExploreType.TruthSocial) return <TrumpTruthSocialPosts />;
     if (explore === ExploreType.Prediction) {
+        // Do NOT seed the shared queryClient singleton here: this branch redirects away, so
+        // the write never reaches the destination page and only leaks state across requests.
         const slugList = await getEventSlugList();
-        queryClient.setQueryData(['bets', 'slugs-list'], slugList);
         const slug = first(slugList);
         if (!slug) return notFound();
         redirect(urlcat('/explore/:explore/:source', { explore, source: slug.slug }), RedirectType.replace);

@@ -1,11 +1,12 @@
 'use client';
 
 import type { SocialSource } from '@dimensiondev/enums';
-import { SocialProfileCategory } from '@dimensiondev/enums';
+import { SocialProfileCategory, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { memo } from 'react';
+import { memo, type ReactNode } from 'react';
 
 import { Loading } from '@/components/Loading.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { ChannelList } from '@/components/Profile/ChannelList.js';
 import { CollectedList } from '@/components/Profile/CollectedList.js';
 import { FeedList } from '@/components/Profile/FeedList.js';
@@ -25,25 +26,52 @@ export const SocialProfileContentList = memo(function SocialProfileContentList({
     profileId: string;
 }) {
     const isSyncing = useAsyncStatus(source);
+
+    // Feed is the canonical, viewer-independent timeline. Its first page is prefetched
+    // in the profile layout, so render it server-side (no NoSSR, no viewer-sync gate) to
+    // ship real posts in the initial HTML. The viewer-relationship overlay (hasLiked, …)
+    // is filled in client-side once the authenticated query refetches.
+    if (type === SocialProfileCategory.Feed) {
+        // Twitter timelines need the viewer's token (no anonymous prefetch in the layout),
+        // so keep them client-only to avoid a session-dependent SSR/hydration divergence.
+        if (source === Source.Twitter) {
+            return (
+                <NoSSR>
+                    <FeedList source={source} profileId={profileId} />
+                </NoSSR>
+            );
+        }
+        return <FeedList source={source} profileId={profileId} />;
+    }
+
     if (isSyncing) return <Loading />;
 
+    // Other tabs stay client-only (auth-gated and/or not prefetched). NoSSR preserves
+    // their previous behaviour now that the layout no longer wraps the whole subtree.
+    let content: ReactNode;
     switch (type) {
-        case SocialProfileCategory.Feed:
-            return <FeedList source={source} profileId={profileId} />;
         case SocialProfileCategory.Collected:
-            return <CollectedList source={source} profileId={profileId} />;
+            content = <CollectedList source={source} profileId={profileId} />;
+            break;
         case SocialProfileCategory.Channels:
-            return <ChannelList source={source} profileId={profileId} />;
+            content = <ChannelList source={source} profileId={profileId} />;
+            break;
         case SocialProfileCategory.Replies:
-            return <RepliesList source={source} profileId={profileId} />;
+            content = <RepliesList source={source} profileId={profileId} />;
+            break;
         case SocialProfileCategory.Likes:
-            return <LikedFeedList source={source} profileId={profileId} />;
+            content = <LikedFeedList source={source} profileId={profileId} />;
+            break;
         case SocialProfileCategory.Media:
-            return <MediaList source={source} profileId={profileId} />;
+            content = <MediaList source={source} profileId={profileId} />;
+            break;
         case SocialProfileCategory.TruthSocial:
-            return <TrumpTruthSocialPosts />;
+            content = <TrumpTruthSocialPosts />;
+            break;
         default:
             safeUnreachable(type);
-            return null;
+            content = null;
     }
+
+    return <NoSSR>{content}</NoSSR>;
 });

@@ -9,7 +9,7 @@ import type { Components } from 'react-markdown';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
-import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
+import { PlainLink, PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
@@ -30,6 +30,9 @@ interface ProfileInListProps {
 }
 
 const overrideComponents: Components = {
+    // The bio is wrapped in a <Link>; render its links as plain text so they don't nest an
+    // <a> inside that <a> (invalid HTML → hydration mismatch).
+    a: PlainLink,
     p: PlainParagraph,
     br: VoidLineBreak,
 };

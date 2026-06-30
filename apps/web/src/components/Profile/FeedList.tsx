@@ -15,9 +15,14 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';
+import { useRefetchWhenReady } from '@/hooks/useRefetchWhenReady.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+
+// Number of posts react-virtuoso renders/measures on the initial (server) render.
+const SSR_INITIAL_ITEM_COUNT = 10;
 
 interface FeedListProps {
     profileId: string;
@@ -35,9 +40,12 @@ export function FeedList({ profileId, source }: FeedListProps) {
         enabled: SUPPORTED_PINNED_POST_SOURCES.includes(source) && !!profileId,
     });
 
+    // The viewer's session (and its provider client) resumes asynchronously after first
+    // paint; `isSyncing` is true until that completes.
+    const isSyncing = useAsyncStatus(source);
+
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', profileId, forceTwitterOfficial],
-
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
@@ -63,6 +71,11 @@ export function FeedList({ profileId, source }: FeedListProps) {
         },
     });
 
+    // The first page may be server-prefetched anonymously (see the profile layout), so it
+    // carries no viewer relationship (hasLiked, …). Refetch once the viewer's session has
+    // finished resuming to fill it in.
+    useRefetchWhenReady(isLogin && !isSyncing, queryResult.refetch);
+
     return (
         <ListInPage
             source={source}
@@ -70,6 +83,10 @@ export function FeedList({ profileId, source }: FeedListProps) {
             queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${profileId}`,
+                // Render the first screen of posts during SSR. Without this react-virtuoso
+                // emits an empty list on the server (it measures in the browser), so the
+                // server-prefetched timeline would never reach the initial HTML.
+                initialItemCount: Math.min(queryResult.data.length, SSR_INITIAL_ITEM_COUNT),
                 computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Profile}:${profileId}`),
             }}

@@ -11,6 +11,11 @@
             "types": "./src/index.ts",
             "import": "./src/index.ts",
             "require": "./src/index.ts"
+        },
+        "./getMultiInfiniteQueryPageableFetchOptions": {
+            "types": "./src/getMultiInfiniteQueryPageableFetchOptions.ts",
+            "import": "./src/getMultiInfiniteQueryPageableFetchOptions.ts",
+            "require": "./src/getMultiInfiniteQueryPageableFetchOptions.ts"
         }
     },
     "files": [

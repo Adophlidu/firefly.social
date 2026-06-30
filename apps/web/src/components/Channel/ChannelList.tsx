@@ -9,6 +9,9 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
+// Number of items react-virtuoso renders/measures on the initial (server) render.
+const SSR_INITIAL_ITEM_COUNT = 10;
+
 const getChannelItemContent = (index: number, channel: Channel, listKey: string) => {
     return (
         <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} hideFollowersCount={false} />
@@ -45,6 +48,9 @@ export function ChannelList({ source, useWindowScroll = true }: ChannelListProps
             VirtualListProps={{
                 useWindowScroll,
                 listKey: `${ScrollListKey.Channel}:trending`,
+                // Render the first screen during SSR; without it react-virtuoso emits an
+                // empty list on the server and the prefetched channels never reach the HTML.
+                initialItemCount: Math.min(queryResult.data.length, SSR_INITIAL_ITEM_COUNT),
                 computeItemKey: (index, channel) => `${channel.id}-${index}`,
                 itemContent: (index, channel) =>
                     getChannelItemContent(index, channel, `${ScrollListKey.Channel}:trending`),

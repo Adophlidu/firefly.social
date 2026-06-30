@@ -12,7 +12,7 @@ import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
-import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
+import { PlainLink, PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
@@ -33,6 +33,9 @@ interface ChannelInListProps extends HTMLProps<HTMLDivElement> {
 }
 
 const overrideComponents = {
+    // The whole row is already a <Link>; render bio links as plain text so they don't nest
+    // an <a> inside that <a> (invalid HTML → hydration mismatch).
+    a: PlainLink,
     p: PlainParagraph,
     br: VoidLineBreak,
 };
