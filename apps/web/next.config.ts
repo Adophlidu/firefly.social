@@ -18,6 +18,10 @@ const config: NextConfig = {
     allowedDevOrigins: ['firefly.social'],
     productionBrowserSourceMaps: false,
 
+    // Vercel Skew Protection: pins clients to their deployment so RSC router-state
+    // matches the rendering server (fixes E10 parse errors). Undefined off-Vercel.
+    deploymentId: process.env.VERCEL_DEPLOYMENT_ID,
+
     serverExternalPackages: ['@napi-rs/image'],
 
     // Note: we run tsc and eslint in other places
