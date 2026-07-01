@@ -67,10 +67,10 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
                     )}
                     aria-label="Comment"
                     onClick={() => {
-                        // `toast` (continue on X) and `restricted` (Lens rule gate
-                        // → warning toast) are still actionable on click, so defer
-                        // to onComment; other disabled states are inert.
-                        if (buttonDisabled && type !== 'toast' && type !== 'restricted') return;
+                        // `toast` (continue on X), `restricted` (Lens rule gate), and
+                        // `tooltip` (legacy reply rules) still route through onComment
+                        // so the user gets the same warning as the detail quick-reply panel.
+                        if (buttonDisabled && type !== 'toast' && type !== 'restricted' && type !== 'tooltip') return;
                         onComment();
                     }}
                 >

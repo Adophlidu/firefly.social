@@ -6,7 +6,8 @@ import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { forwardRef, memo } from 'react';
 
-import { PostActions, PostActionsWithGrid } from '@/components/Actions/index.js';
+import { PostActions } from '@/components/Actions/PostActions.js';
+import { PostActionsWithGrid } from '@/components/Actions/PostActionsWithGrid.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';

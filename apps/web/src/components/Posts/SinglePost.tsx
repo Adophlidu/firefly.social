@@ -9,7 +9,7 @@ import { type HTMLProps, memo, type ReactNode, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
 import { useHover } from 'usehooks-ts';
 
-import { PostActions } from '@/components/Actions/index.js';
+import { PostActions } from '@/components/Actions/PostActions.js';
 import { useDisableScrollRestore } from '@/components/DisableScrollRestore/index.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';

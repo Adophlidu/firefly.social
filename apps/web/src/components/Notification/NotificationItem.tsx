@@ -7,8 +7,8 @@ import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
 import { memo, useCallback, useMemo } from 'react';
 
-import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
+import { PostActions } from '@/components/Actions/PostActions.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { Link } from '@/components/Link.js';
 import { NotificationPostBody } from '@/components/Notification/NotificationPostBody.js';

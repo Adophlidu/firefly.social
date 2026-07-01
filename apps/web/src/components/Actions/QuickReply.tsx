@@ -2,15 +2,16 @@
 
 import SendIcon from '@dimensiondev/assets/send.svg';
 import type { SocialSource } from '@dimensiondev/enums';
+import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
-import { ActionDisabledMessage } from '@/components/Actions/ActionDisabledMessage.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { useCommentPost } from '@/hooks/useCommentPost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useDetailPostForActions } from '@/hooks/useDetailPostForActions.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface QuickReplyProps {
@@ -18,19 +19,24 @@ interface QuickReplyProps {
     post: Post;
 }
 
-export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, post }) {
+export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, post: initialPost }) {
     const currentProfile = useCurrentProfile(source);
-    const { buttonDisabled, message, onComment } = useCommentPost(post, !currentProfile);
+    const { data: post = initialPost } = useDetailPostForActions(initialPost);
+    const { buttonDisabled, message: disabledMessage, onComment } = useCommentPost(post, !currentProfile);
 
     if (!currentProfile) return null;
-    // Any reply restriction (club gate, X API limit, or a legacy tooltip rule
-    // such as followers-only) disables the quick-reply box in the detail page.
-    if (buttonDisabled && message?.message) {
-        return <ActionDisabledMessage message={message.message} />;
-    }
+
+    const { message, type } = disabledMessage || {};
+    const commentDisabled = buttonDisabled && (!message || type !== 'toast');
 
     return (
-        <ClickableArea className="flex cursor-pointer items-center border-b border-line px-4 py-3" onClick={onComment}>
+        <ClickableArea
+            className={classNames(
+                'flex items-center border-b border-line px-4 py-3',
+                commentDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+            )}
+            onClick={onComment}
+        >
             <Avatar src={currentProfile.pfp} size={40} alt={currentProfile.profileId} />
             <div className="flex-1 p-3 text-[20px] text-secondary">
                 <Trans>Post your reply</Trans>

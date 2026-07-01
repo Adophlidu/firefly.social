@@ -9,7 +9,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
 
 import { getPostDetailQuery, getPostThreadQuery } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
-import { PostActionsWithGrid } from '@/components/Actions/index.js';
+import { PostActionsWithGrid } from '@/components/Actions/PostActionsWithGrid.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { QuickReply } from '@/components/Actions/QuickReply.js';
 import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';

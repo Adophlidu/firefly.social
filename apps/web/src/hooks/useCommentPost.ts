@@ -25,7 +25,18 @@ export function useCommentPost(post: Post, disabled = false) {
     const { following, followedBy } = author.viewerContext || {};
 
     const { data: canReply } = useQuery({
-        queryKey: ['reply-permission', source, post.postId, myProfile?.profileId, following, followedBy],
+        // `canComment` is part of the key so the permission re-evaluates once the
+        // detail fetch resolves the gate — the initial (SSR/session-less) post can
+        // report `canComment: true` before the authenticated refetch flips it.
+        queryKey: [
+            'reply-permission',
+            source,
+            post.postId,
+            myProfile?.profileId,
+            following,
+            followedBy,
+            post.canComment,
+        ],
         enabled: isLogin && !disabled,
         staleTime: STALE_TIMES.MINUTE_1,
         queryFn: () => canReplyToPost(post, myProfile),
@@ -39,7 +50,11 @@ export function useCommentPost(post: Post, disabled = false) {
         post.replyRestriction?.clubGated ? post.replyRestriction.clubAddress : undefined,
     );
 
-    const commentDisabled = disabled || (canReply === false && !replyClubJoined);
+    // Gate on the post's own `canComment` too, not just the async `canReply`:
+    // the permission query can still be loading or stale when the user clicks,
+    // and without this the quick-reply panel would open the composer for a post
+    // whose gate is already resolved (FW-7785).
+    const commentDisabled = disabled || ((canReply === false || post.canComment === false) && !replyClubJoined);
     const disabledMessage = commentDisabled ? resolveMessageForCommentDisabled(post) : null;
 
     const { canPost, sources } = useAnonymousPostAvailability();
@@ -67,6 +82,10 @@ export function useCommentPost(post: Post, disabled = false) {
             // Lens rule gate (club membership, etc.): surface a clear hint with
             // an inline "Join now" action instead of a raw rule error.
             enqueueWarningMessage(disabledMessage.toastMessage ?? disabledMessage.message);
+        } else if (disabledMessage?.message) {
+            // Legacy tooltip rules (nobody, followers-only, etc.): same copy as
+            // the detail quick-reply panel and the comment-icon hover hint.
+            enqueueWarningMessage(disabledMessage.message);
         } else {
             enqueueErrorMessage(t`You cannot reply to @${author.handle} on ${resolveSourceName(source)}.`);
         }
