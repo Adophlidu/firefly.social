@@ -463,7 +463,19 @@ export interface PolymarketDepositAddresses {
 
 export type PolymarketDepositAddressesResponse = Response<PolymarketDepositAddresses>;
 
-export type TronDepositTransactionStatus = 'deposit_detected' | 'processing' | 'completed' | 'failed' | 'fail';
+/**
+ * Per-transaction deposit status. The bridge emits these in UPPERCASE
+ * (`DEPOSIT_DETECTED | PROCESSING | ORIGIN_TX_CONFIRMED | SUBMITTED | COMPLETED | FAILED`);
+ * `useTronDepositStatusPolling` normalizes them to this lowercase union at the
+ * feature boundary so the rest of the app can compare against stable values.
+ */
+export type TronDepositTransactionStatus =
+    | 'deposit_detected'
+    | 'processing'
+    | 'origin_tx_confirmed'
+    | 'submitted'
+    | 'completed'
+    | 'failed';
 
 export interface TronDepositTransaction {
     from_chain_id: string | null;

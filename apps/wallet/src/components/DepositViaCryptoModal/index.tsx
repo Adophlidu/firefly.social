@@ -204,22 +204,18 @@ export function DepositViaCryptoModal({
     }, [tronPollingAddress]);
 
     useEffect(() => {
-        if (!latestTransaction?.status) return;
+        const status = latestTransaction?.status;
+        if (!status) return;
 
-        const txKey = latestTransaction.tx_hash ?? latestTransaction.created_time_ms?.toString();
-        if (!txKey) return;
-
-        const status = latestTransaction.status;
+        // Fall back to a stable key before the bridge assigns tx_hash/created_time_ms,
+        // so the "deposit detected" toast still fires during DEPOSIT_DETECTED.
+        const txKey = latestTransaction.tx_hash ?? latestTransaction.created_time_ms?.toString() ?? 'pending';
+        const txHash = latestTransaction.tx_hash;
         const notificationKey = `${txKey}:${status}`;
         if (notifiedStatusesRef.current.has(notificationKey)) return;
+        notifiedStatusesRef.current.add(notificationKey);
 
-        const txHash = latestTransaction.tx_hash;
-
-        if (status === 'deposit_detected' || status === 'processing') {
-            notifiedStatusesRef.current.add(notificationKey);
-            toastLoading(t`Deposit detected and processing...`, { id: toastId });
-        } else if (status === 'completed') {
-            notifiedStatusesRef.current.add(notificationKey);
+        if (status === 'completed') {
             toast.success(t`Your deposit has been credited to your account.`, {
                 id: toastId,
                 ...(txHash
@@ -231,9 +227,11 @@ export function DepositViaCryptoModal({
                       }
                     : {}),
             });
-        } else if (status === 'failed' || status === 'fail') {
-            notifiedStatusesRef.current.add(notificationKey);
+        } else if (status === 'failed') {
             toast.error(t`Failed to deposit.`, { id: toastId });
+        } else {
+            // deposit_detected | processing | origin_tx_confirmed | submitted
+            toastLoading(t`Deposit detected and processing...`, { id: toastId });
         }
     }, [latestTransaction, toastId]);
 

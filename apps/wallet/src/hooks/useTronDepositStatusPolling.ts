@@ -11,8 +11,28 @@ export interface TronDepositStatusState {
 
 const POLL_INTERVAL_MS = 5000;
 
+const KNOWN_STATUSES = new Set<TronDepositTransactionStatus>([
+    'deposit_detected',
+    'processing',
+    'origin_tx_confirmed',
+    'submitted',
+    'completed',
+    'failed',
+]);
+
+/**
+ * The bridge emits statuses in UPPERCASE (e.g. `DEPOSIT_DETECTED`, `COMPLETED`).
+ * Normalize to the lowercase union the app compares against; treat anything
+ * unexpected as a safe intermediate (`processing`) so toasts still fire and
+ * polling continues until a real terminal status arrives.
+ */
+function normalizeStatus(raw: string): TronDepositTransactionStatus {
+    const value = raw.toLowerCase() as TronDepositTransactionStatus;
+    return KNOWN_STATUSES.has(value) ? value : 'processing';
+}
+
 function isTerminalStatus(status: TronDepositTransactionStatus): boolean {
-    return status === 'completed' || status === 'failed' || status === 'fail';
+    return status === 'completed' || status === 'failed';
 }
 
 function isSameTransaction(a: TronDepositTransaction | null, b: TronDepositTransaction): boolean {
@@ -56,16 +76,19 @@ export function useTronDepositStatusPolling(address: string | null) {
             const latest = transactions[transactions.length - 1];
             if (!latest) return;
 
+            const status = normalizeStatus(latest.status);
+            const normalized = { ...latest, status };
+
             setState((prev) => {
-                if (isSameTransaction(prev.latestTransaction, latest)) return prev;
+                if (isSameTransaction(prev.latestTransaction, normalized)) return prev;
                 return {
                     isPolling: true,
-                    latestTransaction: latest,
-                    status: latest.status,
+                    latestTransaction: normalized,
+                    status,
                 };
             });
 
-            if (isTerminalStatus(latest.status)) {
+            if (isTerminalStatus(status)) {
                 stopPolling();
             }
         } catch {
