@@ -71,7 +71,7 @@ function TokenLogo({ tokenIcon, symbol }: { tokenIcon?: string | null; symbol: s
 
 function QrTokenBadge({ tokenIcon, symbol }: { tokenIcon?: string | null; symbol: string }) {
     return (
-        <div className="absolute inset-0 m-auto flex size-16 items-center justify-center rounded-full bg-white p-2">
+        <div className="absolute inset-0 m-auto flex size-12 items-center justify-center rounded-full bg-white p-2">
             {tokenIcon ? (
                 <Image unoptimized src={tokenIcon} alt={symbol} className="size-full rounded-full object-cover" />
             ) : (

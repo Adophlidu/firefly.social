@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { isAddressEqual } from 'viem';
 
-import { isValidAddressEthereum, isValidAddressSolana } from '@/utils/isValidAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana, isValidAddressTron } from '@/utils/isValidAddress.js';
 
 export function isSameEthereumAddress(
     address: string | null | undefined,
@@ -33,6 +33,19 @@ export function isSameSolanaAddress(
     }
 }
 
+export function isSameTronAddress(
+    address: string | null | undefined,
+    otherAddress: string | null | undefined,
+): boolean {
+    if (!address || !otherAddress) return false;
+    if (!isValidAddressTron(address) || !isValidAddressTron(otherAddress)) return false;
+    return address === otherAddress;
+}
+
 export function isSameAddress(address: string | undefined, otherAddress: string | undefined): boolean {
-    return isSameEthereumAddress(address, otherAddress) || isSameSolanaAddress(address, otherAddress);
+    return (
+        isSameEthereumAddress(address, otherAddress) ||
+        isSameSolanaAddress(address, otherAddress) ||
+        isSameTronAddress(address, otherAddress)
+    );
 }
