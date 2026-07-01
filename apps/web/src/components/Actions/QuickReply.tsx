@@ -23,7 +23,9 @@ export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, po
     const { buttonDisabled, message, onComment } = useCommentPost(post, !currentProfile);
 
     if (!currentProfile) return null;
-    if (buttonDisabled && message?.message && (message.type === 'toast' || message.type === 'restricted')) {
+    // Any reply restriction (club gate, X API limit, or a legacy tooltip rule
+    // such as followers-only) disables the quick-reply box in the detail page.
+    if (buttonDisabled && message?.message) {
         return <ActionDisabledMessage message={message.message} />;
     }
 
