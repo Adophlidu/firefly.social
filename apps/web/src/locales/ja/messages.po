@@ -1199,6 +1199,9 @@ msgstr "{handleOrEnsOrAddress} の全ての動向があなたから非表示に�
 msgid "Open Google Form"
 msgstr "Google フォームを開く"
 
+msgid "This feature is currently unavailable in your region."
+msgstr "この機能は現在、お住まいの地域ではご利用いただけません。"
+
 msgid "Received time:"
 msgstr "受信時刻:"
 
@@ -3977,6 +3980,9 @@ msgstr "プライマリアカウント"
 #. placeholder {0}: notification.post.type
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> が <1>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</1> であなたにメンションしました"
+
+msgid "Restricted Region"
+msgstr "制限地域"
 
 #. placeholder {0}: outcomeLabel || '-'
 msgid "Trade {0}"

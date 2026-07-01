@@ -245,6 +245,9 @@ msgstr "가격"
 msgid "Enable skip reviews"
 msgstr "검토 건너뛰기 활성화"
 
+msgid "This feature is currently unavailable in your region."
+msgstr "이 기능은 현재 해당 지역에서 사용할 수 없습니다."
+
 msgid "Connection taking longer than expected"
 msgstr "연결이 예상보다 오래 걸리고 있습니다"
 
@@ -789,6 +792,9 @@ msgstr "해제 실패"
 
 msgid "Buy"
 msgstr "매수"
+
+msgid "Restricted Region"
+msgstr "제한 지역"
 
 msgid "Swapped"
 msgstr "스왑됨"

@@ -5,10 +5,12 @@ import { useAtomValue } from 'jotai';
 import { memo, type ReactNode, useMemo } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip.js';
 import { useNativeTokenGasReserve } from '@/hooks/swap/useNativeTokenGasReserve.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
+import { useIsSwapBlocked } from '@/hooks/useGeoblock.js';
 import { fromAmountAtom, isCrossChainAtom } from '@/store/swap/swapState.js';
 
 export interface SwapActionButtonProps {
@@ -31,6 +33,7 @@ export const SwapActionButton = memo(function SwapActionButton({
     const isCrossChain = useAtomValue(isCrossChainAtom);
     const { quote, isPending } = useSwapQuote();
     const { gasReserve } = useNativeTokenGasReserve(fromToken, resolvedFromChain);
+    const { isBlocked: isSwapBlocked } = useIsSwapBlocked();
 
     const { evmAddress, solanaAddress, isPrivyReady } = useSwapContextWalletAddresses();
 
@@ -59,6 +62,13 @@ export const SwapActionButton = memo(function SwapActionButton({
 
     const buttonState = useMemo<{ label: ReactNode; disabled: boolean; isLoading?: boolean }>(() => {
         const actionLabel = isCrossChain ? <Trans>Bridge</Trans> : <Trans>Swap</Trans>;
+
+        if (isSwapBlocked) {
+            return {
+                label: <Trans>Restricted Region</Trans>,
+                disabled: true,
+            };
+        }
 
         if (!isPrivyReady || !hasWallet) {
             return {
@@ -121,6 +131,7 @@ export const SwapActionButton = memo(function SwapActionButton({
             disabled: false,
         };
     }, [
+        isSwapBlocked,
         isPrivyReady,
         hasWallet,
         fromToken,
@@ -134,6 +145,25 @@ export const SwapActionButton = memo(function SwapActionButton({
     ]);
 
     const isDisabled = disabled || buttonState.disabled || loading;
+
+    if (isSwapBlocked) {
+        return (
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <ActionButton
+                        type="button"
+                        className="box-border h-14 w-full shrink-0 grow-0 rounded-[48px] text-base font-bold leading-[32px] transition-opacity"
+                        disabled
+                    >
+                        <Trans>Restricted Region</Trans>
+                    </ActionButton>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <Trans>This feature is currently unavailable in your region.</Trans>
+                </TooltipContent>
+            </Tooltip>
+        );
+    }
 
     return (
         <ActionButton

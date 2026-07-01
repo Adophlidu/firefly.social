@@ -34,6 +34,7 @@ import {
 import { computePolymarketMarketBuyFeeUsd, parsePolymarketTakerFeeRate } from '@/helpers/polymarketTakerFee.js';
 import { resolveBetEventPageConfig } from '@/helpers/resolveBetEventPageConfig.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
+import { useIsBetsBlocked } from '@/hooks/useGeoblock.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import {
@@ -133,6 +134,7 @@ export default function BetEventClient({ id }: { id: string }) {
     const { side, orderType, outcome: selectedOutcomeIndex, priceFromUrl, setQueryParams } = useBetEventQueryParams();
     const queryClient = useQueryClient();
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
+    const { isBlocked: isBetsBlocked } = useIsBetsBlocked();
     const [prices, setPrices] = useState<MarketPriceChangeData[]>();
 
     const { data } = useSuspenseQuery({
@@ -524,6 +526,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         tokenId={selectedTokenId}
                         loading={isPending}
                         submitDisabled={isMarketResolvedOrDisputed}
+                        geoRestricted={isBetsBlocked}
                         feesEnabled={data?.feesEnabled}
                         feeSchedule={data?.feeSchedule}
                         outcomeAvgPriceForFee={outcomeAvgPriceForFee}
@@ -538,6 +541,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         orderPriceMinTickSize={orderPriceMinTickSize}
                         loading={isPending}
                         submitDisabled={isMarketResolvedOrDisputed}
+                        geoRestricted={isBetsBlocked}
                         onSubmit={({ shares, limitPrice }) =>
                             placeOrder({ side: 'BUY', amount: shares, overrideLimitPrice: limitPrice })
                         }
@@ -554,6 +558,7 @@ export default function BetEventClient({ id }: { id: string }) {
                             conditionId={conditionId}
                             loading={isPending}
                             submitDisabled={isMarketResolvedOrDisputed}
+                            geoRestricted={isBetsBlocked}
                             onSubmit={({ shares, fullSell }) => placeOrder({ side: 'SELL', amount: shares, fullSell })}
                             telemetryContext={formTelemetryContext}
                         />
@@ -566,6 +571,7 @@ export default function BetEventClient({ id }: { id: string }) {
                             orderPriceMinTickSize={orderPriceMinTickSize}
                             loading={isPending}
                             submitDisabled={isMarketResolvedOrDisputed}
+                            geoRestricted={isBetsBlocked}
                             onSubmit={({ shares, limitPrice }) =>
                                 placeOrder({ side: 'SELL', amount: shares, overrideLimitPrice: limitPrice })
                             }

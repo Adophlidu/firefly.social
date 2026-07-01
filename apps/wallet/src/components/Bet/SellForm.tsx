@@ -9,6 +9,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { BetAmountStepper } from '@/components/Bet/BetAmountStepper.js';
 import { BetLimitPriceCentsInput } from '@/components/Bet/BetLimitPriceCentsInput.js';
 import { useSyncLimitPriceCents } from '@/components/Bet/useSyncLimitPriceCents.js';
+import { RestrictedRegionButton } from '@/components/Geoblock/RestrictedRegionButton.js';
 import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
@@ -40,6 +41,7 @@ export function SellMarketForm({
     loading,
     onSubmit,
     submitDisabled,
+    geoRestricted,
     telemetryContext,
 }: {
     outcome: string;
@@ -48,6 +50,7 @@ export function SellMarketForm({
     loading?: boolean;
     onSubmit: (args: SubmitMarketArgs) => Promise<unknown> | void;
     submitDisabled?: boolean;
+    geoRestricted?: boolean;
     telemetryContext?: {
         event_slug: string;
         event_title: string;
@@ -173,32 +176,36 @@ export function SellMarketForm({
                     ))}
                 </div>
 
-                <Button
-                    variant="primary"
-                    size="lg"
-                    className="h-12 w-full rounded-full"
-                    disabled={Boolean(submitDisabled) || !canSubmit || loading}
-                    loading={loading}
-                    onClick={() => {
-                        if (submitDisabled) return;
-                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {
-                            ...(telemetryContext || {}),
-                            market_outcome: outcome,
-                            proxy_wallet_address: account.proxyAddress,
-                            order_type: 'market',
-                            shares: sharesBN.toString(),
-                            avg_price: String(toWin?.avg_price ?? ''),
-                            amount_usd: String(toWin?.win_amount ?? ''),
-                        });
-                        return onSubmit({
-                            shares: sharesBN.toNumber(),
-                            fullSell:
-                                availableSharesBN.gt(0) && availableSharesBN.minus(sharesBN).lte(SELL_ALL_EPSILON),
-                        });
-                    }}
-                >
-                    {isOverMax ? <Trans>Insufficient Balance</Trans> : <Trans>Sell {outcome}</Trans>}
-                </Button>
+                {geoRestricted ? (
+                    <RestrictedRegionButton className="h-12 w-full rounded-full opacity-50" />
+                ) : (
+                    <Button
+                        variant="primary"
+                        size="lg"
+                        className="h-12 w-full rounded-full"
+                        disabled={Boolean(submitDisabled) || !canSubmit || loading}
+                        loading={loading}
+                        onClick={() => {
+                            if (submitDisabled) return;
+                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {
+                                ...(telemetryContext || {}),
+                                market_outcome: outcome,
+                                proxy_wallet_address: account.proxyAddress,
+                                order_type: 'market',
+                                shares: sharesBN.toString(),
+                                avg_price: String(toWin?.avg_price ?? ''),
+                                amount_usd: String(toWin?.win_amount ?? ''),
+                            });
+                            return onSubmit({
+                                shares: sharesBN.toNumber(),
+                                fullSell:
+                                    availableSharesBN.gt(0) && availableSharesBN.minus(sharesBN).lte(SELL_ALL_EPSILON),
+                            });
+                        }}
+                    >
+                        {isOverMax ? <Trans>Insufficient Balance</Trans> : <Trans>Sell {outcome}</Trans>}
+                    </Button>
+                )}
             </div>
         </div>
     );
@@ -213,6 +220,7 @@ export function SellLimitForm({
     loading,
     onSubmit,
     submitDisabled,
+    geoRestricted,
     telemetryContext,
 }: {
     outcome: string;
@@ -223,6 +231,7 @@ export function SellLimitForm({
     loading?: boolean;
     onSubmit: (args: SubmitLimitArgs) => Promise<unknown> | void;
     submitDisabled?: boolean;
+    geoRestricted?: boolean;
     telemetryContext?: {
         event_slug: string;
         event_title: string;
@@ -377,28 +386,32 @@ export function SellLimitForm({
                     </Skeleton>
                 </div>
 
-                <Button
-                    variant="primary"
-                    size="lg"
-                    className="h-12 w-full rounded-full"
-                    disabled={Boolean(submitDisabled) || !canSubmit || loading}
-                    loading={loading}
-                    onClick={() => {
-                        if (submitDisabled) return;
-                        captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {
-                            ...(telemetryContext || {}),
-                            market_outcome: outcome,
-                            proxy_wallet_address: account.proxyAddress,
-                            order_type: 'limit',
-                            shares: sharesBN.toString(),
-                            avg_price: limitPriceDollars.isFinite() ? limitPriceDollars.toString() : '',
-                            amount_usd: String(toWin?.win_amount ?? ''),
-                        });
-                        return onSubmit({ shares: sharesBN.toNumber(), limitPrice: limitPriceDollars.toNumber() });
-                    }}
-                >
-                    {isOverMax ? <Trans>Insufficient Balance</Trans> : <Trans>Sell {outcome}</Trans>}
-                </Button>
+                {geoRestricted ? (
+                    <RestrictedRegionButton className="h-12 w-full rounded-full opacity-50" />
+                ) : (
+                    <Button
+                        variant="primary"
+                        size="lg"
+                        className="h-12 w-full rounded-full"
+                        disabled={Boolean(submitDisabled) || !canSubmit || loading}
+                        loading={loading}
+                        onClick={() => {
+                            if (submitDisabled) return;
+                            captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_POSITION_SELL_CLICK, {
+                                ...(telemetryContext || {}),
+                                market_outcome: outcome,
+                                proxy_wallet_address: account.proxyAddress,
+                                order_type: 'limit',
+                                shares: sharesBN.toString(),
+                                avg_price: limitPriceDollars.isFinite() ? limitPriceDollars.toString() : '',
+                                amount_usd: String(toWin?.win_amount ?? ''),
+                            });
+                            return onSubmit({ shares: sharesBN.toNumber(), limitPrice: limitPriceDollars.toNumber() });
+                        }}
+                    >
+                        {isOverMax ? <Trans>Insufficient Balance</Trans> : <Trans>Sell {outcome}</Trans>}
+                    </Button>
+                )}
             </div>
         </div>
     );

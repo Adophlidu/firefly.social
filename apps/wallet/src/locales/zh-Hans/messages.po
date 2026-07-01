@@ -245,6 +245,9 @@ msgstr "价格"
 msgid "Enable skip reviews"
 msgstr "开启跳过预览"
 
+msgid "This feature is currently unavailable in your region."
+msgstr "此功能目前在您所在的地区不可用。"
+
 msgid "Connection taking longer than expected"
 msgstr "连接时间较长，请稍候"
 
@@ -789,6 +792,9 @@ msgstr "待释放资产"
 
 msgid "Buy"
 msgstr "买入"
+
+msgid "Restricted Region"
+msgstr "受限地区"
 
 msgid "Swapped"
 msgstr "已兑换"

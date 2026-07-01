@@ -21,6 +21,7 @@ import { BetAmountStepper } from '@/components/Bet/BetAmountStepper.js';
 import { BetLimitPriceCentsInput } from '@/components/Bet/BetLimitPriceCentsInput.js';
 import { QuickBuyConfirmDialog } from '@/components/Bet/QuickBuyConfirmDialog.js';
 import { useSyncLimitPriceCents } from '@/components/Bet/useSyncLimitPriceCents.js';
+import { RestrictedRegionButton } from '@/components/Geoblock/RestrictedRegionButton.js';
 import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { InsufficientGasError } from '@/constants/error.js';
@@ -206,6 +207,7 @@ export function BuyMarketForm({
     onSubmit,
     loading,
     submitDisabled,
+    geoRestricted,
     feesEnabled,
     feeSchedule,
     outcomeAvgPriceForFee,
@@ -216,6 +218,7 @@ export function BuyMarketForm({
     onSubmit: (amount: string) => Promise<unknown> | void;
     loading?: boolean;
     submitDisabled?: boolean;
+    geoRestricted?: boolean;
     feesEnabled?: boolean | null;
     feeSchedule?: { rate?: number | null } | null;
     /** Gamma outcome price (0–1) for fee math; mirrors Android `conditionOutcomes` price. */
@@ -420,7 +423,9 @@ export function BuyMarketForm({
                         </button>
                     ))}
                 </div>
-                {showQuickBuyButtons ? (
+                {geoRestricted ? (
+                    <RestrictedRegionButton className="h-12 w-full rounded-full opacity-50" />
+                ) : showQuickBuyButtons ? (
                     <>
                         <Button
                             variant="outline"
@@ -498,6 +503,7 @@ export function BuyLimitForm({
     onSubmit,
     loading,
     submitDisabled,
+    geoRestricted,
     telemetryContext,
 }: {
     outcome: string;
@@ -507,6 +513,7 @@ export function BuyLimitForm({
     onSubmit: (params: { shares: number; limitPrice: number }) => Promise<unknown> | void;
     loading?: boolean;
     submitDisabled?: boolean;
+    geoRestricted?: boolean;
     telemetryContext?: {
         event_slug: string;
         event_title: string;
@@ -770,7 +777,9 @@ export function BuyLimitForm({
                     </div>
                 </div>
 
-                {showQuickBuyButtons ? (
+                {geoRestricted ? (
+                    <RestrictedRegionButton className="h-12 w-full rounded-full opacity-50" />
+                ) : showQuickBuyButtons ? (
                     <>
                         <Button
                             variant="outline"

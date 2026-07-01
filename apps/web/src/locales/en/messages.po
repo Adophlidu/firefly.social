@@ -1204,6 +1204,9 @@ msgstr "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgid "Open Google Form"
 msgstr "Open Google Form"
 
+msgid "This feature is currently unavailable in your region."
+msgstr "This feature is currently unavailable in your region."
+
 msgid "Received time:"
 msgstr "Received time:"
 
@@ -3999,6 +4002,9 @@ msgstr "Primary account"
 #. placeholder {0}: notification.post.type
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
+
+msgid "Restricted Region"
+msgstr "Restricted Region"
 
 #. placeholder {0}: outcomeLabel || '-'
 msgid "Trade {0}"

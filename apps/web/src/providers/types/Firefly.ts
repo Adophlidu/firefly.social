@@ -3147,3 +3147,24 @@ export interface UpdateArticleResult {
 }
 
 export type UpdateArticleResponse = Response<UpdateArticleResult>;
+
+export interface GeoblockCountryItem {
+    country_code: string;
+    country_name: string;
+}
+
+export interface GeoblockItem {
+    blocked: boolean;
+    type: 'bets' | 'swap' | 'perps';
+    block_country_list: GeoblockCountryItem[];
+}
+
+export interface GeoblockResponse {
+    ip: string;
+    country: string;
+    city: string;
+    region: string;
+    items: GeoblockItem[];
+}
+
+export type GeoblockResponseWrapper = Response<GeoblockResponse>;

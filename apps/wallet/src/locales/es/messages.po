@@ -245,6 +245,9 @@ msgstr "Precio"
 msgid "Enable skip reviews"
 msgstr "Habilitar omisión de revisión"
 
+msgid "This feature is currently unavailable in your region."
+msgstr "Esta función no está disponible actualmente en tu región."
+
 msgid "Connection taking longer than expected"
 msgstr "La conexión está tardando más de lo esperado"
 
@@ -789,6 +792,9 @@ msgstr "Error al liberar"
 
 msgid "Buy"
 msgstr "Comprar"
+
+msgid "Restricted Region"
+msgstr "Región restringida"
 
 msgid "Swapped"
 msgstr "Intercambiado"

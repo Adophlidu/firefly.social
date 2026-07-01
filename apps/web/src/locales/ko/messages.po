@@ -1199,6 +1199,9 @@ msgstr "{handleOrEnsOrAddress}의 모든 활동이 숨겨집니다"
 msgid "Open Google Form"
 msgstr "Google Form 열기"
 
+msgid "This feature is currently unavailable in your region."
+msgstr "이 기능은 현재 해당 지역에서 사용할 수 없습니다."
+
 msgid "Received time:"
 msgstr "수신 시간:"
 
@@ -3977,6 +3980,9 @@ msgstr "기본 계정"
 #. placeholder {0}: notification.post.type
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/>님이 <1>{0, select, Post {게시물} Comment {댓글} Quote {인용} Mirror {리포스트} other {게시물}}</1>에서 회원님을 멘션했습니다"
+
+msgid "Restricted Region"
+msgstr "제한 지역"
 
 #. placeholder {0}: outcomeLabel || '-'
 msgid "Trade {0}"

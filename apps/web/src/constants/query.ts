@@ -14,6 +14,8 @@ export const STALE_TIMES = {
     MINUTE_30: 1_000 * 60 * 30,
     /** 1 hour */
     HOUR_1: 1_000 * 60 * 60,
+    /** 1 day */
+    DAY_1: 1_000 * 60 * 60 * 24,
     /** Never expire */
     INFINITY: Infinity,
 } as const;

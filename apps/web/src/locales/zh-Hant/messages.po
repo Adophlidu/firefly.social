@@ -1199,6 +1199,9 @@ msgstr "將隱藏 {handleOrEnsOrAddress} 的所有動態"
 msgid "Open Google Form"
 msgstr "打開 Google Form"
 
+msgid "This feature is currently unavailable in your region."
+msgstr "此功能目前在您所在的地區無法使用。"
+
 msgid "Received time:"
 msgstr "領取時間："
 
@@ -3977,6 +3980,9 @@ msgstr "主要帳號"
 #. placeholder {0}: notification.post.type
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> 在<1>{0, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</1>中提及您"
+
+msgid "Restricted Region"
+msgstr "受限地區"
 
 #. placeholder {0}: outcomeLabel || '-'
 msgid "Trade {0}"

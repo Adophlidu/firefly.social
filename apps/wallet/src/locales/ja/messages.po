@@ -245,6 +245,9 @@ msgstr "価格"
 msgid "Enable skip reviews"
 msgstr "確認スキップを有効にする"
 
+msgid "This feature is currently unavailable in your region."
+msgstr "この機能は現在、お住まいの地域ではご利用いただけません。"
+
 msgid "Connection taking longer than expected"
 msgstr "接続に予想以上の時間がかかっています"
 
@@ -789,6 +792,9 @@ msgstr "解放に失敗しました"
 
 msgid "Buy"
 msgstr "買い"
+
+msgid "Restricted Region"
+msgstr "制限地域"
 
 msgid "Swapped"
 msgstr "スワップ済み"
