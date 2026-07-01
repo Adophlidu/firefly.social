@@ -32,7 +32,7 @@ function PercentBadge({ team, percent }: { team: FifaBracketTeam | null; percent
     return (
         <span
             className={classNames(
-                'flex h-8 w-[66px] shrink-0 items-center justify-center rounded-lg text-[13px] font-medium',
+                'flex h-6 w-12 shrink-0 items-center justify-center rounded-lg text-xs font-medium md:h-8 md:w-[66px] md:text-[13px]',
                 color ? '' : 'bg-highlight',
             )}
             style={style}
@@ -61,9 +61,13 @@ function TeamSide({
         <div className={classNames('flex items-center justify-between', { 'opacity-40': dimmed })}>
             <div className="flex min-w-0 items-center gap-2 md:gap-3">
                 {team?.flagUrl ? (
-                    <img src={team.flagUrl} alt="" className="h-[30px] w-[45px] shrink-0 rounded object-cover" />
+                    <img
+                        src={team.flagUrl}
+                        alt=""
+                        className="h-6 w-9 shrink-0 rounded object-cover md:h-[30px] md:w-[45px]"
+                    />
                 ) : (
-                    <span className="h-[30px] w-[45px] shrink-0 rounded-lg bg-bg" />
+                    <span className="h-6 w-9 shrink-0 rounded-lg bg-bg md:h-[30px] md:w-[45px]" />
                 )}
                 <span className="line-clamp-2 min-w-0 flex-1 break-words text-xs font-semibold leading-[14px] text-main md:text-sm">
                     {team ? localize(team.name) : <Trans>TBD</Trans>}
@@ -119,31 +123,34 @@ export const PredictionBracketMatchCard = memo<Props>(function PredictionBracket
     let header: ReactNode;
     if (isLive) {
         header = (
-            <div className="flex h-8 items-center gap-2 text-[13px] font-medium" style={{ color: LIVE_COLOR }}>
+            <div
+                className="flex h-7 items-center gap-2 text-xs font-medium md:h-8 md:text-[13px]"
+                style={{ color: LIVE_COLOR }}
+            >
                 <Trans>LIVE</Trans>
                 <span aria-hidden>●</span>
             </div>
         );
     } else if (isFinal) {
         header = (
-            <div className="flex h-8 items-center justify-center gap-2">
+            <div className="flex h-7 items-center justify-center gap-2 md:h-8">
                 {winnerTeam?.flagUrl ? (
-                    <img src={winnerTeam.flagUrl} alt="" className="h-5 w-[30px] rounded object-cover" />
+                    <img src={winnerTeam.flagUrl} alt="" className="h-4 w-6 rounded object-cover md:h-5 md:w-[30px]" />
                 ) : null}
-                <span className="text-[13px] font-medium text-main">
+                <span className="text-xs font-medium text-main md:text-[13px]">
                     <Trans>Advances</Trans>
                 </span>
             </div>
         );
     } else {
         header = (
-            <div className="flex h-8 items-center">
+            <div className="flex h-7 items-center md:h-8">
                 {dateLabel ? (
-                    <span className="flex h-7 items-center whitespace-nowrap rounded-lg bg-bg px-2 text-[13px] font-semibold text-main">
+                    <span className="flex h-6 items-center whitespace-nowrap rounded-lg bg-bg px-2 text-xs font-semibold text-main md:h-7 md:text-[13px]">
                         {dateLabel}
                     </span>
                 ) : (
-                    <span className="h-7" />
+                    <span className="h-6 md:h-7" />
                 )}
             </div>
         );
