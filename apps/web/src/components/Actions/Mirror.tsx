@@ -25,6 +25,7 @@ import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailabili
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useHasJoinedChannel } from '@/store/useJoinedChannelStore.js';
 
 function getTooltipContent(source: SocialSource, shares: number) {
     if (shares === 0) {
@@ -240,9 +241,19 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
     const { canPost, sources } = useAnonymousPostAvailability();
     const anonymousPostEnabled = !isLogin && canPost && sources.includes(source);
 
-    const mirrorDisabled = post.canMirror === false && !!profile;
+    // A club-gated repost/quote unblocks the moment the user joins the club,
+    // ahead of the Lens indexer catching up (FW-7831).
+    const repostClubJoined = useHasJoinedChannel(
+        profile?.profileId,
+        post.repostRestriction?.clubGated ? post.repostRestriction.clubAddress : undefined,
+    );
+
+    const mirrorDisabled = post.canMirror === false && !!profile && !repostClubJoined;
     const quoteDisabled =
-        post.canQuote === false && !!profile && (post.source !== Source.Bsky || !isSameProfile(post.author, profile));
+        post.canQuote === false &&
+        !!profile &&
+        (post.source !== Source.Bsky || !isSameProfile(post.author, profile)) &&
+        !repostClubJoined;
     const allDisabled = mirrorDisabled && quoteDisabled;
 
     const onClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {

@@ -17,6 +17,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { captureFollowChannelEvent, captureUnfollowChannelEvent } from '@/providers/telemetry/captureChannelEvent.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import { useJoinedChannelStore } from '@/store/useJoinedChannelStore.js';
 
 interface ToggleFollowChannelButtonProps extends ClickableButtonProps {
     channel: Channel;
@@ -160,6 +161,14 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
             const result = isFollowing ? await provider.leaveChannel(channel) : await provider.joinChannel(channel);
             if (!result) {
                 throw new Error('Failed to toggle follow channel');
+            }
+
+            // Keep the club-gate override (FW-7831) in sync when membership is
+            // toggled from the channel page, so a later leave re-locks replies.
+            if (channel.source === Source.Lens) {
+                const store = useJoinedChannelStore.getState();
+                if (isFollowing) store.markLeft(profile.profileId, channel.id);
+                else store.markJoined(profile.profileId, channel.id);
             }
 
             enqueueSuccessMessage(getFollowSuccessMessage(channel, isFollowing));

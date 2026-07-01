@@ -15,6 +15,7 @@ import { resolveXReplyUrl } from '@/helpers/resolveXReplyUrl.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useHasJoinedChannel } from '@/store/useJoinedChannelStore.js';
 
 export function useCommentPost(post: Post, disabled = false) {
     const { source, author } = post;
@@ -30,7 +31,15 @@ export function useCommentPost(post: Post, disabled = false) {
         queryFn: () => canReplyToPost(post, myProfile),
     });
 
-    const commentDisabled = disabled || canReply === false;
+    // If the reply is club-gated and the user just joined that club, unblock it
+    // reactively — the indexer-backed `canReply` still reports the old gate for
+    // a while after the on-chain join (FW-7831).
+    const replyClubJoined = useHasJoinedChannel(
+        myProfile?.profileId,
+        post.replyRestriction?.clubGated ? post.replyRestriction.clubAddress : undefined,
+    );
+
+    const commentDisabled = disabled || (canReply === false && !replyClubJoined);
     const disabledMessage = commentDisabled ? resolveMessageForCommentDisabled(post) : null;
 
     const { canPost, sources } = useAnonymousPostAvailability();
