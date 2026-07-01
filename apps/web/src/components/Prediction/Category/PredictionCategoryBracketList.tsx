@@ -13,6 +13,7 @@ import { PredictionBracketMatchCard } from '@/components/Prediction/Category/Bra
 import { PredictionBracketRoundTabs } from '@/components/Prediction/Category/Bracket/PredictionBracketRoundTabs.js';
 import { resolveRoundWindow, ROUND_SEQUENCE } from '@/helpers/prediction/category/bracket/bracketView.js';
 import { buildConnectorPath } from '@/helpers/prediction/category/bracket/connectorPath.js';
+import { inferBracketWinners } from '@/helpers/prediction/category/bracket/inferBracketWinners.js';
 import type {
     BracketColumnId,
     FifaBracketMatch,
@@ -70,6 +71,10 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
         if (a === b) return null;
         return fm.teams[a > b ? 0 : 1] ?? null;
     }, [data]);
+
+    // TEMPORARY: infer penalty-shootout winners (finalized draws) from the next-round match until
+    // the backend exposes winner data. TODO: replace with a backend-provided winner field.
+    const inferredWinners = useMemo(() => (data ? inferBracketWinners(data) : null), [data]);
 
     // Two full columns fit the viewport: width = (container − side padding − one gap) / 2.
     const measureWidth = useCallback(() => {
@@ -382,7 +387,10 @@ export const PredictionCategoryBracketList = memo(function PredictionCategoryBra
                                                     : null),
                                             }}
                                         >
-                                            <PredictionBracketMatchCard match={match} />
+                                            <PredictionBracketMatchCard
+                                                match={match}
+                                                inferredWinnerSide={inferredWinners?.get(match.id) ?? null}
+                                            />
                                         </div>
                                     );
                                 })}

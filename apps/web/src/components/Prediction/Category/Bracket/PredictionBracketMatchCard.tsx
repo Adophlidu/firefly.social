@@ -18,6 +18,12 @@ import { capturePolymarketOrderClick } from '@/providers/telemetry/capturePolyma
 
 interface Props {
     match: FifaBracketMatch;
+    /**
+     * TEMPORARY: inferred winner side for finalized draws decided on penalties (see
+     * inferBracketWinners). Omitted/null keeps today's behavior for non-draws and undecided ties.
+     * TODO: replace once the backend exposes penalty/winner data on the match itself.
+     */
+    inferredWinnerSide?: 0 | 1 | null;
 }
 
 /** Polymarket "live" red, used for the LIVE badge + dot. */
@@ -86,7 +92,10 @@ function TeamSide({
     );
 }
 
-export const PredictionBracketMatchCard = memo<Props>(function PredictionBracketMatchCard({ match }) {
+export const PredictionBracketMatchCard = memo<Props>(function PredictionBracketMatchCard({
+    match,
+    inferredWinnerSide,
+}) {
     const localize = useLocalizedSportsTeamName();
     const locale = useLocale();
     const marketSlug = match.marketSlugs.find((slug): slug is string => !!slug);
@@ -97,13 +106,16 @@ export const PredictionBracketMatchCard = memo<Props>(function PredictionBracket
     // Win-rate badges show only for upcoming matches; scores are null then, so the two slots never compete.
     // Null when not upcoming or unavailable; the `percentages &&` gate below narrows it to the tuple.
     const percentages = match.status === 'upcoming' ? match.percentages : null;
-    // Winner side (higher score) — only when finalized and decisive; ties leave both sides undimmed.
-    const winnerSide =
+    // Winner side: the higher score wins once finalized. Finalized draws (penalty shootouts) fall
+    // back to the temporarily inferred winner until the backend exposes penalty/winner data.
+    const decisiveSide =
         isFinal && match.scores && match.scores[0] !== match.scores[1]
             ? match.scores[0] > match.scores[1]
                 ? 0
                 : 1
             : null;
+    const isDraw = isFinal && !!match.scores && match.scores[0] === match.scores[1];
+    const winnerSide = decisiveSide ?? (isDraw ? (inferredWinnerSide ?? null) : null);
 
     const dateLabel = useMemo(() => {
         if (!match.startTime) return null;
