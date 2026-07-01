@@ -27,6 +27,7 @@ const RAW = {
                         },
                     ],
                     scores: [2, 1],
+                    percentages: [56, 19.5],
                     market_slugs: ['rsa-can-market', null],
                     event_slug: null,
                     feeds_into_match_id: 'r16-1',
@@ -54,6 +55,7 @@ const RAW = {
                     status: 'final',
                     teams: [null, null],
                     scores: null,
+                    percentages: [100, 0],
                     market_slugs: [null, null],
                     event_slug: 'world-cup-final',
                     feeds_into_match_id: null,
@@ -75,6 +77,7 @@ describe('normalizeFifaBracketDto', () => {
         expect(m.startTime).toBe('2026-06-28T19:00:00-04:00');
         expect(m.status).toBe('upcoming');
         expect(m.scores).toEqual([2, 1]);
+        expect(m.percentages).toEqual([56, 19.5]);
         expect(m.marketSlugs).toEqual(['rsa-can-market', null]);
         expect(m.feedsIntoMatchId).toBe('r16-1');
 
@@ -90,6 +93,7 @@ describe('normalizeFifaBracketDto', () => {
         const tbd = data.rounds[0].matches[1];
         expect(tbd.teams).toEqual([null, null]);
         expect(tbd.scores).toBeNull();
+        expect(tbd.percentages).toBeNull();
     });
 
     it('keeps the final with null feedsIntoMatchId and a non-null eventSlug', () => {
@@ -97,6 +101,8 @@ describe('normalizeFifaBracketDto', () => {
         const finalMatch = data.rounds[1].matches[0];
         expect(finalMatch.feedsIntoMatchId).toBeNull();
         expect(finalMatch.eventSlug).toBe('world-cup-final');
+        // Percentages are kept for all statuses (UI gates display); a final match carries [100, 0].
+        expect(finalMatch.percentages).toEqual([100, 0]);
     });
 
     it('encodeURI-escapes flag URLs containing literal spaces', () => {
@@ -139,6 +145,71 @@ describe('normalizeFifaBracketDto', () => {
         });
         expect(data.rounds[0].matches[0].scores).toBeNull();
         expect(data.rounds[0].matches[1].scores).toBeNull();
+    });
+
+    it('collapses inner-null / non-finite percentages tuples to a null percentages value', () => {
+        const data = normalizeFifaBracketDto({
+            rounds: [
+                {
+                    id: 'r16',
+                    matches: [
+                        {
+                            id: 'inner-null',
+                            round_id: 'r16',
+                            start_time: null,
+                            status: 'upcoming',
+                            teams: [null, null],
+                            scores: null,
+                            percentages: [54.5, null],
+                            market_slugs: [null, null],
+                            event_slug: null,
+                            feeds_into_match_id: null,
+                        },
+                        {
+                            id: 'non-finite',
+                            round_id: 'r16',
+                            start_time: null,
+                            status: 'upcoming',
+                            teams: [null, null],
+                            scores: null,
+                            percentages: [NaN, 1],
+                            market_slugs: [null, null],
+                            event_slug: null,
+                            feeds_into_match_id: null,
+                        },
+                        {
+                            id: 'missing',
+                            round_id: 'r16',
+                            start_time: null,
+                            status: 'upcoming',
+                            teams: [null, null],
+                            scores: null,
+                            market_slugs: [null, null],
+                            event_slug: null,
+                            feeds_into_match_id: null,
+                        },
+                        {
+                            id: 'well-formed',
+                            round_id: 'r16',
+                            start_time: null,
+                            status: 'upcoming',
+                            teams: [null, null],
+                            scores: null,
+                            percentages: [0, 100],
+                            market_slugs: [null, null],
+                            event_slug: null,
+                            feeds_into_match_id: null,
+                        },
+                    ],
+                },
+            ],
+            updated_at: null,
+        });
+        expect(data.rounds[0].matches[0].percentages).toBeNull();
+        expect(data.rounds[0].matches[1].percentages).toBeNull();
+        expect(data.rounds[0].matches[2].percentages).toBeNull();
+        // A 0 win-rate is a finite, legitimate value and must round-trip (not collapse).
+        expect(data.rounds[0].matches[3].percentages).toEqual([0, 100]);
     });
 
     it('drops matches with an unknown round_id but keeps valid siblings', () => {

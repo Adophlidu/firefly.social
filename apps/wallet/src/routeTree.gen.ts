@@ -257,7 +257,7 @@ const BetHomeOrderOpenRoute = BetHomeOrderOpenRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof HomeIndexRoute
-  '/bet': typeof BetRouteWithChildren
+  '/bet': typeof BetHomeRouteWithChildren
   '/dev': typeof DevRouteWithChildren
   '/perp-kline-chart': typeof PerpKlineChartRoute
   '/perps': typeof PerpsRouteWithChildren

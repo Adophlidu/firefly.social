@@ -20,6 +20,8 @@ export interface FifaBracketMatch {
     status: string;
     teams: [FifaBracketTeam | null, FifaBracketTeam | null];
     scores: [number, number] | null;
+    /** Per-team win-rate percentages [home, away]; null when unavailable. Shown only for upcoming matches. */
+    percentages: [number, number] | null;
     marketSlugs: [string | null, string | null];
     eventSlug: string | null;
     /** Tree connectivity: id of the next-round match this winner feeds. */

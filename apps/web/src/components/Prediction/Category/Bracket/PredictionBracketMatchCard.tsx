@@ -3,12 +3,14 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { memo, type ReactNode, useMemo } from 'react';
+import { type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
+import { getReadableTextColor } from '@/helpers/getReadableTextColor.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import type { FifaBracketMatch, FifaBracketTeam } from '@/helpers/prediction/category/bracket/types.js';
+import { formatPercent } from '@/helpers/prediction/category/fifaGroups.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 import { useLocale } from '@/hooks/useLocale.js';
@@ -21,16 +23,37 @@ interface Props {
 /** Polymarket "live" red, used for the LIVE badge + dot. */
 const LIVE_COLOR = '#ff564d';
 
+/** Win-rate badge filled with the team's national color; non-interactive (the card wraps it). */
+function PercentBadge({ team, percent }: { team: FifaBracketTeam | null; percent: number }) {
+    const color = team?.teamColor.trim();
+    const style: CSSProperties | undefined = color
+        ? { backgroundColor: color, color: getReadableTextColor(color) }
+        : undefined;
+    return (
+        <span
+            className={classNames(
+                'flex h-8 w-[66px] shrink-0 items-center justify-center rounded-lg text-[13px] font-medium',
+                color ? '' : 'bg-highlight',
+            )}
+            style={style}
+        >
+            {formatPercent(percent)}
+        </span>
+    );
+}
+
 function TeamSide({
     team,
     score,
     hasScore,
+    percent,
     dimmed,
     localize,
 }: {
     team: FifaBracketTeam | null;
     score: number | null;
     hasScore: boolean;
+    percent: number | null;
     dimmed: boolean;
     localize: (name: string) => string;
 }) {
@@ -46,9 +69,15 @@ function TeamSide({
                     {team ? localize(team.name) : <Trans>TBD</Trans>}
                 </span>
             </div>
-            <div className="flex size-6 shrink-0 items-center justify-center rounded-lg empty:hidden md:size-8">
-                {hasScore && score !== null ? <span className="text-sm font-bold text-main">{score}</span> : null}
-            </div>
+            {hasScore && score !== null ? (
+                <span className="flex size-6 shrink-0 items-center justify-center text-sm font-bold text-main md:size-8">
+                    {score}
+                </span>
+            ) : percent !== null ? (
+                <PercentBadge team={team} percent={percent} />
+            ) : (
+                <span className="size-6 shrink-0 md:size-8" aria-hidden />
+            )}
         </div>
     );
 }
@@ -61,6 +90,9 @@ export const PredictionBracketMatchCard = memo<Props>(function PredictionBracket
     const isFinal = match.status === 'final';
     const isLive = match.status === 'live';
     const hasScores = match.scores !== null;
+    // Win-rate badges show only for upcoming matches; scores are null then, so the two slots never compete.
+    // Null when not upcoming or unavailable; the `percentages &&` gate below narrows it to the tuple.
+    const percentages = match.status === 'upcoming' ? match.percentages : null;
     // Winner side (higher score) — only when finalized and decisive; ties leave both sides undimmed.
     const winnerSide =
         isFinal && match.scores && match.scores[0] !== match.scores[1]
@@ -124,6 +156,7 @@ export const PredictionBracketMatchCard = memo<Props>(function PredictionBracket
                 team={match.teams[0]}
                 score={match.scores?.[0] ?? null}
                 hasScore={hasScores}
+                percent={percentages && match.teams[0] ? percentages[0] : null}
                 dimmed={winnerSide === 1}
                 localize={localize}
             />
@@ -131,6 +164,7 @@ export const PredictionBracketMatchCard = memo<Props>(function PredictionBracket
                 team={match.teams[1]}
                 score={match.scores?.[1] ?? null}
                 hasScore={hasScores}
+                percent={percentages && match.teams[1] ? percentages[1] : null}
                 dimmed={winnerSide === 0}
                 localize={localize}
             />

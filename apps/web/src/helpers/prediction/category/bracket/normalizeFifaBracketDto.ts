@@ -44,6 +44,11 @@ function normalizeMatch(raw: unknown): FifaBracketMatch | null {
     const scores: [number, number] | null = rawScores?.every((s) => Number.isFinite(s))
         ? (rawScores as [number, number])
         : null;
+    const rawPercents = normalizeTuple(raw.percentages, (v) => (typeof v === 'number' ? v : NaN));
+    // Same inner-null collapse as scores; the UI gates display to status === 'upcoming'.
+    const percentages: [number, number] | null = rawPercents?.every((p) => Number.isFinite(p))
+        ? (rawPercents as [number, number])
+        : null;
 
     return {
         id: raw.id,
@@ -52,6 +57,7 @@ function normalizeMatch(raw: unknown): FifaBracketMatch | null {
         status: typeof raw.status === 'string' ? raw.status : 'tbd',
         teams,
         scores,
+        percentages,
         marketSlugs,
         eventSlug: typeof raw.event_slug === 'string' ? raw.event_slug : null,
         feedsIntoMatchId: typeof raw.feeds_into_match_id === 'string' ? raw.feeds_into_match_id : null,

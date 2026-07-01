@@ -2405,6 +2405,8 @@ export interface FifaBracketMatchDto {
     status: string;
     teams: [FifaBracketTeamDto | null, FifaBracketTeamDto | null];
     scores: [number | null, number | null] | null;
+    /** Per-team win-rate percentages [home, away]; null when unavailable. Shown only for upcoming matches. */
+    percentages: [number | null, number | null] | null;
     market_slugs: [string | null, string | null];
     event_slug: string | null;
     feeds_into_match_id: string | null;
