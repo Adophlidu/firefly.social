@@ -76,6 +76,10 @@ function pickWalletProfile(
  * priority as apps/web's `usePredictionProfileData`: Twitter > Lens > Farcaster > Bsky > Wallet.
  */
 function extractShareIdentity(profile: WalletProfiles): { displayName?: string; avatarUrl?: string } {
+    if (profile.account?.displayName) {
+        return { displayName: profile.account.displayName, avatarUrl: profile.account.avatar || '' };
+    }
+
     const twitter = first(profile.twitterProfiles);
     if (twitter) {
         return {

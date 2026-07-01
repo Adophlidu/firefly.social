@@ -221,7 +221,12 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                     </div>
                 </div>
                 <div className="ml-auto shrink-0" id={BET_PROFILE_FOLLOW_BUTTON_ID}>
-                    <PredictionProfileFollowButton address={address} platform={platform} />
+                    <PredictionProfileFollowButton
+                        address={address}
+                        platform={platform}
+                        fallbackName={profile.platform_name}
+                        fallbackAvatar={profile.platform_avatar}
+                    />
                 </div>
             </div>
             {profile.tags?.length ? (

@@ -24,16 +24,18 @@ export function usePredictionProfileData({ platform, address, fallbackInfo }: Op
         source,
         profileId,
     } = useMemo(() => {
-        if (!socialProfile) return { name: undefined, avatar: undefined };
+        if (!socialProfile || (!socialProfile.account && !!fallbackInfo?.name))
+            return { name: undefined, avatar: undefined };
 
         return extractFallbackInfo(socialProfile, [
+            Source.Firefly,
             Source.Twitter,
             Source.Lens,
             Source.Farcaster,
             Source.Bsky,
             Source.Wallet,
         ]);
-    }, [socialProfile]);
+    }, [socialProfile, fallbackInfo?.name]);
 
     return {
         source,

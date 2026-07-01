@@ -14,10 +14,20 @@ interface PredictionProfilePageHeaderProps {
     address: string;
     platform: PredictionPlatform;
     fallbackName?: string;
+    fallbackAvatar?: string;
 }
 
-export function PredictionProfilePageHeader({ address, platform, fallbackName }: PredictionProfilePageHeaderProps) {
-    const { name } = usePredictionProfileData({ address, platform, fallbackInfo: { name: fallbackName } });
+export function PredictionProfilePageHeader({
+    address,
+    platform,
+    fallbackName,
+    fallbackAvatar,
+}: PredictionProfilePageHeaderProps) {
+    const { name } = usePredictionProfileData({
+        address,
+        platform,
+        fallbackInfo: { name: fallbackName, avatar: fallbackAvatar },
+    });
     const [followButtonRef, followButtonEntry] = useIntersectionObserver({
         threshold: 0.2,
         rootMargin: '-60px 0px 0px',

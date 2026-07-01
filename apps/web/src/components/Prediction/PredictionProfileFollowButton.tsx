@@ -21,13 +21,27 @@ import { captureBetProfileFollowEvent } from '@/providers/telemetry/captureBetPr
 interface Props {
     address: string;
     platform: PredictionPlatform;
+    fallbackName?: string;
+    fallbackAvatar?: string;
 }
 
-export const PredictionProfileFollowButton = memo<Props>(function PredictionProfileFollowButton({ address, platform }) {
+export const PredictionProfileFollowButton = memo<Props>(function PredictionProfileFollowButton({
+    address,
+    platform,
+    fallbackName,
+    fallbackAvatar,
+}) {
     const isLogin = useIsLoginFirefly();
     const profiles = useCurrentFireflyProfilesAll();
     const profilesAll = useCurrentProfilesAll();
-    const { source, profileId, name, isLoading } = usePredictionProfileData({ platform, address });
+    const { source, profileId, name, isLoading } = usePredictionProfileData({
+        platform,
+        address,
+        fallbackInfo: {
+            name: fallbackName,
+            avatar: fallbackAvatar,
+        },
+    });
 
     const { data, isLoading: isProfileLoading } = useQuery({
         queryKey: ['profile', source, profileId, profilesAll[source as SocialSource]?.profileId],
