@@ -4511,7 +4511,7 @@ msgid "All Chains"
 msgstr "모든 체인"
 
 msgid "Advances"
-msgstr ""
+msgstr "진출"
 
 msgid "Status"
 msgstr "상태"

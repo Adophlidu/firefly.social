@@ -4511,7 +4511,7 @@ msgid "All Chains"
 msgstr "所有鏈"
 
 msgid "Advances"
-msgstr ""
+msgstr "晉級"
 
 msgid "Status"
 msgstr "狀態"

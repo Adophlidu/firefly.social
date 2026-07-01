@@ -4534,7 +4534,7 @@ msgid "All Chains"
 msgstr "Todas las Cadenas"
 
 msgid "Advances"
-msgstr ""
+msgstr "Avanza"
 
 msgid "Status"
 msgstr "Estado"

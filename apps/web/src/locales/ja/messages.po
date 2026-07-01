@@ -4511,7 +4511,7 @@ msgid "All Chains"
 msgstr "すべてのチェーン"
 
 msgid "Advances"
-msgstr ""
+msgstr "勝ち上がり"
 
 msgid "Status"
 msgstr "ステータス"
