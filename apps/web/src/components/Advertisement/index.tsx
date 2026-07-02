@@ -1,7 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ActivityStatus, AdvertisementType } from '@dimensiondev/enums';
-import { runInSafeAsync } from '@dimensiondev/utils';
-import { headers } from 'next/headers.js';
+import { envs } from '@dimensiondev/envs/web';
+import { parseUrl, runInSafeAsync } from '@dimensiondev/utils';
 import { Suspense } from 'react';
 
 import { AdvertisementItem } from '@/components/Advertisement/AdvertisementItem.js';
@@ -49,8 +49,7 @@ async function fetchAdvertisements(): Promise<AdvertisementInterface[]> {
 async function AdvertisementContent() {
     try {
         const ads = await fetchAdvertisements();
-        const requestUrl = await headers().then((h) => h.get('X-URL'));
-        const origin = requestUrl ? new URL(requestUrl).origin : '';
+        const origin = parseUrl(envs.external.NEXT_PUBLIC_SITE_URL)?.origin ?? '';
 
         if (!ads.length) return null;
         if (ads.length === 1)
