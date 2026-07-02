@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { BLOCKED_EVERYTHING, isGeoBlocked } from '@/constants/geoblock.js';
+import { ALLOWED_EVERYTHING, isGeoBlocked } from '@/constants/geoblock.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getGeoblock } from '@/providers/firefly/endpoint/getGeoblock.js';
 
@@ -13,7 +13,7 @@ export function useGeoblock() {
         refetchOnReconnect: false,
     });
 
-    const result = data ?? BLOCKED_EVERYTHING;
+    const result = data ?? ALLOWED_EVERYTHING;
 
     return {
         isBetsBlocked: isGeoBlocked(result, 'bets'),

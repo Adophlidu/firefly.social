@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { BLOCKED_EVERYTHING, isGeoBlocked } from '@/constants/geoblock.js';
+import { ALLOWED_EVERYTHING, isGeoBlocked } from '@/constants/geoblock.js';
 import { getGeoblock } from '@/providers/firefly/getGeoblock.js';
 
 const STALE_TIME_DAY = 1000 * 60 * 60 * 24;
@@ -18,23 +18,23 @@ function getGeoblockQueryOptions() {
 export function useIsBetsBlocked() {
     const { data, isLoading } = useQuery({
         ...getGeoblockQueryOptions(),
-        select: (data) => isGeoBlocked(data ?? BLOCKED_EVERYTHING, 'bets'),
+        select: (data) => isGeoBlocked(data ?? ALLOWED_EVERYTHING, 'bets'),
     });
-    return { isBlocked: data ?? true, isLoading };
+    return { isBlocked: data ?? false, isLoading };
 }
 
 export function useIsSwapBlocked() {
     const { data, isLoading } = useQuery({
         ...getGeoblockQueryOptions(),
-        select: (data) => isGeoBlocked(data ?? BLOCKED_EVERYTHING, 'swap'),
+        select: (data) => isGeoBlocked(data ?? ALLOWED_EVERYTHING, 'swap'),
     });
-    return { isBlocked: data ?? true, isLoading };
+    return { isBlocked: data ?? false, isLoading };
 }
 
 export function useIsPerpsBlocked() {
     const { data, isLoading } = useQuery({
         ...getGeoblockQueryOptions(),
-        select: (data) => isGeoBlocked(data ?? BLOCKED_EVERYTHING, 'perps'),
+        select: (data) => isGeoBlocked(data ?? ALLOWED_EVERYTHING, 'perps'),
     });
-    return { isBlocked: data ?? true, isLoading };
+    return { isBlocked: data ?? false, isLoading };
 }
