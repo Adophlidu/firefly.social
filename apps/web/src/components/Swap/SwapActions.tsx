@@ -19,7 +19,6 @@ import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Image } from '@/components/Image.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
@@ -27,10 +26,8 @@ import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.js';
-import { openConfirmModal } from '@/controllers/openConfirmModal.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
-import { downloadImage } from '@/helpers/downloadImage.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { openShareImageModal } from '@/controllers/openShareImageModal.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
@@ -161,41 +158,17 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                             {({ close }) => (
                                 <MenuButton
                                     onClick={() => {
-                                        openConfirmModal({
-                                            title: <Trans>Share Image</Trans>,
-                                            content: (
-                                                <Image
-                                                    src={urlcat(SITE_URL, 'api/og/swap/:chainId/:hash/image', {
-                                                        chainId: activity.chain_id,
-                                                        hash: activity.hash,
-                                                    })}
-                                                    alt="swap-image"
-                                                    width={432}
-                                                    height={226}
-                                                    className="h-[226px] w-[432px]"
-                                                />
-                                            ),
-                                            enableCancelButton: false,
-                                            confirmButtonText: <Trans>Download</Trans>,
-                                            onConfirm: () => {
-                                                try {
-                                                    downloadImage(
-                                                        urlcat(SITE_URL, 'api/og/swap/:chainId/:hash/image', {
-                                                            chainId: activity.chain_id,
-                                                            hash: activity.hash,
-                                                        }),
-                                                        'firefly_swap_share.jpg',
-                                                    );
-                                                } catch (error) {
-                                                    enqueueMessageFromError(error, 'Failed to download image');
-                                                }
-                                            },
-                                            variant: 'normal',
-                                            modalStyle: {
-                                                width: 480,
-                                            },
-                                        });
                                         close();
+                                        openShareImageModal({
+                                            imageUrl: urlcat(SITE_URL, 'api/og/swap/:chainId/:hash/image', {
+                                                chainId: activity.chain_id,
+                                                hash: activity.hash,
+                                            }),
+                                            aspectRatio: '432 / 226',
+                                            fileName: 'firefly_swap_share.jpg',
+                                            enableCopy: true,
+                                            onPost: handleMirror,
+                                        });
                                     }}
                                 >
                                     <ShareImageIcon width={18} height={18} className="text-main" />
