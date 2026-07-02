@@ -13,7 +13,8 @@ import { RecipientItem, type RecipientItemProps } from '@/components/SendTransac
 import { type FormValues, RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
-import { formatPrice } from '@/helpers/formatPrice.js';
+import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
+import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 
 export function SuccessView() {
     const navigate = useNavigate();
@@ -50,8 +51,8 @@ export function SuccessView() {
                     </p>
                 </div>
                 <div className="relative w-full">
-                    <div className="mb-2 flex w-full items-center justify-between rounded-2xl bg-bg px-4 py-6">
-                        <div className="flex items-center gap-x-4">
+                    <div className="mb-2 flex w-full items-center justify-between gap-x-2 rounded-2xl bg-bg px-4 py-6">
+                        <div className="flex shrink-0 items-center gap-x-4">
                             <TokenIcon
                                 icon={token.logoUrl}
                                 networkType={token.networkType}
@@ -67,9 +68,13 @@ export function SuccessView() {
                                 </span>
                             </div>
                         </div>
-                        <div className="flex flex-col items-end justify-center space-y-1">
-                            <div className="h-[18px] text-lg font-semibold leading-[18px]">{formatPrice(amount)}</div>
-                            <div className="text-sm text-second">${multipliedBy(token.price, amount).toFormat()}</div>
+                        <div className="flex min-w-0 flex-1 flex-col items-end justify-center space-y-1">
+                            <div className="h-[18px] w-full truncate text-right text-lg font-semibold leading-[18px]">
+                                {formatTokenItemAmount(amount)}
+                            </div>
+                            <div className="w-full truncate text-right text-sm text-second">
+                                {formatTokenUSD(multipliedBy(token.price, amount).toString())}
+                            </div>
                         </div>
                     </div>
                     <div className="absolute left-1/2 top-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-primaryBottom bg-bg dark:bg-[#222]">
