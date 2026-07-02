@@ -2,17 +2,9 @@ import { Locale } from '@dimensiondev/enums';
 import { type NextRequest, NextResponse } from 'next/server.js';
 
 import { resolveLanguageLocale } from '@/helpers/resolveLocale.js';
+import { hasLocalePrefix } from '@/helpers/stripLocalePathname.js';
 
 const SUPPORTED_LOCALES = Object.values(Locale) as string[];
-
-/**
- * Check if pathname already starts with /{locale}/ prefix.
- */
-export function hasLocalePrefix(pathname: string): boolean {
-    const parts = pathname.split('/');
-    if (parts.length < 2) return false;
-    return SUPPORTED_LOCALES.includes(parts[1]);
-}
 
 /**
  * Resolve locale from cookie → Accept-Language → default 'en'.

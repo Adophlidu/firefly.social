@@ -6,6 +6,7 @@ import { useUpdateEffect } from 'react-use';
 
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { stripLocalePathname } from '@/helpers/stripLocalePathname.js';
 
 interface RE {
     r: string;
@@ -27,7 +28,8 @@ export const IfPathname = memo(function IfPathname({
     children,
     otherwise = null,
 }: IfPathname) {
-    const pathname = usePathname();
+    // normalize away the locale prefix so /en/signup matches the same routes as /signup
+    const pathname = stripLocalePathname(usePathname());
     const [lastPathname, setLastPathname] = useState(
         !isRoutePathname(pathname, '/post/:source/:id/photos/:index', true) ? pathname : '',
     );

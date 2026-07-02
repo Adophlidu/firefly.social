@@ -1,13 +1,13 @@
 import { compose } from '@dimensiondev/utils';
 import { type NextRequest, NextResponse } from 'next/server.js';
 
+import { hasLocalePrefix } from '@/helpers/stripLocalePathname.js';
 import { handleClubRoutes } from '@/proxy/handlers/clubRoutes.js';
 import { handleCSP } from '@/proxy/handlers/cspHandler.js';
 import { handleLegacyRedirects } from '@/proxy/handlers/legacyRedirects.js';
 import {
     addPrefixToRewriteResponse,
     buildPrefixedRewriteUrl,
-    hasLocalePrefix,
     resolveLocaleFromRequest,
     setGeoCookies,
 } from '@/proxy/handlers/localeRewrite.js';

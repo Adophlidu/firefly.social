@@ -17,6 +17,13 @@ function updateAudioVolume() {
     audioTimer = setTimeout(updateAudioVolume, 200);
 }
 
+export function preloadSignupAudio() {
+    const audio = document.getElementById(SIGNUP_AUDIO_ID) as HTMLAudioElement | null;
+    if (!audio || audio.readyState > HTMLMediaElement.HAVE_NOTHING) return;
+    audio.preload = 'auto';
+    audio.load();
+}
+
 export function playSignupAudio() {
     const audio = document.getElementById(SIGNUP_AUDIO_ID) as HTMLAudioElement | null;
     if (!audio) {

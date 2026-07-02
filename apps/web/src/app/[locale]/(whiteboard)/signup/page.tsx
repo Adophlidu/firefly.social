@@ -1,18 +1,15 @@
-'use client';
-
-import { SignupStep } from '@dimensiondev/enums';
-import { getEnumAsArray } from '@dimensiondev/utils';
-import { useSearchParams } from 'next/navigation.js';
+import { Suspense } from 'react';
 
 import { Signup } from '@/app/[locale]/(whiteboard)/signup/pages/Signup.js';
 
+// Server page with a page-level Suspense boundary: `useSearchParams` inside
+// <Signup> bails out here instead of the empty layout-level boundary, so the
+// route can still be rendered as static HTML once site-wide dynamic rendering
+// is lifted.
 export default function Page() {
-    const searchParams = useSearchParams();
-    const step = searchParams.get('step') as SignupStep | null;
-
-    const validStep = step
-        ? getEnumAsArray(SignupStep).find((s) => s.value === step)?.value || SignupStep.Welcome
-        : undefined;
-
-    return <Signup initialStep={validStep} />;
+    return (
+        <Suspense>
+            <Signup />
+        </Suspense>
+    );
 }
