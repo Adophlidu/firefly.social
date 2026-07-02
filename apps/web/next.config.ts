@@ -39,6 +39,12 @@ const config: NextConfig = {
         FIREFLY_EXCEPTION_TRACKER_API_KEY: process.env.FIREFLY_EXCEPTION_TRACKER_API_KEY,
     },
     experimental: {
+        // On Vercel builds Next auto-enables this flag (hasNextSupport + NEXT_DEPLOYMENT_ID),
+        // deferring chunk-URL deployment ids to a runtime env var that is absent in the
+        // serverless functions — dynamic pages then emit every chunk twice, once with
+        // `?dpl=undefined` (~1.9MB duplicate downloads per cold visit). Forcing it off bakes
+        // the id at build time; skew protection (x-nextjs-deployment-id) is unaffected.
+        runtimeServerDeploymentId: false,
         inlineCss: false,
         cssChunking: false,
         esmExternals: true,
