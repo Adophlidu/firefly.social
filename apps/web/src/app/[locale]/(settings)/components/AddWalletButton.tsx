@@ -8,7 +8,7 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { openAndWaitForCloseAddWalletModal } from '@/controllers/openAddWalletModal.js';
 import { openAndWaitForCloseWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
-import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
+import { bindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface AddWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {
@@ -26,21 +26,20 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     ref,
     ...rest
 }) {
-    const [, handleBind] = useVerifyAndBindWallet(connections);
     const [{ loading }, handleAddWallet] = useAsyncFn(async () => {
         if (!openWallets) {
-            await openAndWaitForCloseAddWalletModal({
-                connections,
-            });
+            await openAndWaitForCloseAddWalletModal({ connections });
             onSuccess?.();
             return;
         }
-        const selectedWallet = await openAndWaitForCloseWalletConnectModal({ customTitle: t`Select Wallet` });
-        if (!selectedWallet) return;
-
-        await handleBind(selectedWallet.networkType);
+        // Bind inside onConnect, while the wallet is still connected: the EVM
+        // connection is torn down once the modal closes.
+        await openAndWaitForCloseWalletConnectModal({
+            customTitle: t`Select Wallet`,
+            onConnect: (networkType, caipAddress) => bindWallet(networkType, connections, { caipAddress }),
+        });
         onSuccess?.();
-    }, [connections, openWallets, onSuccess, handleBind]);
+    }, [connections, openWallets, onSuccess]);
 
     return (
         <ClickableButton

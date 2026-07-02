@@ -8,7 +8,8 @@ import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
 
-function deleteWalletsFromQueryData(address: string) {
+// Optimistically drop a wallet from every ['allConnections'] cache array.
+export function deleteWalletsFromQueryData(address: string) {
     queryClient.setQueriesData<
         Record<'connected' | 'related' | 'solanaConnections' | 'evmConnections', FireflyWalletConnection[]>
     >(

@@ -1,7 +1,7 @@
 import type { NetworkType } from '@dimensiondev/enums';
 import { ClickOrigin } from '@dimensiondev/enums';
 import { ApiController as CoreApiController } from '@reown/appkit-controllers';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createContainer } from 'unstated-next';
 
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
@@ -20,6 +20,16 @@ interface WalletConnectContext {
     networkType: NetworkType | null;
     setNetworkType: (networkType?: NetworkType) => void;
     unsetNetworkType: () => void;
+
+    /**
+     * Ref, not state: onConnect is set when the modal opens and read when the
+     * wallet connects. It must NOT trigger a re-render (a setState here during the
+     * open event overlaps the caller's render and trips React's
+     * "cannot update a component while rendering a different component" guard).
+     */
+    onConnectRef: React.MutableRefObject<
+        ((networkType: NetworkType, caipAddress: string) => Promise<void> | void) | null
+    >;
 }
 
 async function setupApi() {
@@ -37,6 +47,7 @@ function useWalletConnectContext(): WalletConnectContext {
 
     const [loading, setLoading] = useState(true);
     const [networkType, setNetworkType] = useState<NetworkType | null>(null);
+    const onConnectRef = useRef<((networkType: NetworkType, caipAddress: string) => Promise<void> | void) | null>(null);
 
     // setup api
     useEffect(() => {
@@ -58,6 +69,8 @@ function useWalletConnectContext(): WalletConnectContext {
         networkType,
         setNetworkType: (networkType?: NetworkType) => setNetworkType(networkType ?? null),
         unsetNetworkType: () => setNetworkType(null),
+
+        onConnectRef,
     };
 }
 

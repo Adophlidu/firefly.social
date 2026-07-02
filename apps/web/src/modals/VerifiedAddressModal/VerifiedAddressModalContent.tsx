@@ -9,19 +9,17 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { forwardRef } from 'react';
-import { getAccount, getConnections } from 'wagmi/actions';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { WalletNotConnectedError } from '@/constants/error.js';
 import { openAndWaitForCloseWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
-import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
 import { updateCacheAfterAdd, updateCacheAfterDelete } from '@/helpers/updateVerifiedAddressesCache.js';
 import { WalletItem } from '@/modals/VerifiedAddressModal/WalletItem.js';
 import { deleteVerifiedAddress } from '@/providers/farcaster/deleteVerifiedAddress.js';
@@ -113,27 +111,7 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
 
                 switch (network) {
                     case NetworkType.Ethereum: {
-                        const recentConnectionId = getWagmiCurrentConnectionId();
-
-                        const connections = getConnections(wagmiConfig);
-
-                        let targetConnector = connections.find(
-                            (conn) =>
-                                conn.connector.id === recentConnectionId || conn.connector.uid === recentConnectionId,
-                        )?.connector;
-
-                        if (!targetConnector) {
-                            const account = getAccount(wagmiConfig);
-                            targetConnector = account.connector;
-                        }
-
-                        // fallback to first non-privy
-                        if (!targetConnector || targetConnector.id === PRIVY_CONNECTOR_ID) {
-                            targetConnector = connections.find(
-                                (conn) => conn.connector.id !== PRIVY_CONNECTOR_ID,
-                            )?.connector;
-                        }
-
+                        const targetConnector = resolveEvmConnector(wagmiConfig);
                         if (!targetConnector) {
                             throw new WalletNotConnectedError();
                         }
