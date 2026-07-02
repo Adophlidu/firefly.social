@@ -20,12 +20,16 @@ export function useDetailPostForActions(initialPost: Post, enabled = true) {
     return useQuery({
         queryKey: [initialPost.source, 'post-detail', 'actions', initialPost.postId, asyncStatus],
         queryFn: async () => {
-            if (!postId) return;
+            // React Query v5 rejects an `undefined` queryFn result ("Query data
+            // cannot be undefined"), so every branch falls back to `initialPost`
+            // rather than returning nothing — callers keep the hydrated post and
+            // the query never lands in an error state.
+            if (!postId) return initialPost;
 
             try {
                 const provider = resolveSocialMediaProvider(initialPost.source);
                 const post = await provider.getPostById(postId);
-                if (!post) return;
+                if (!post) return initialPost;
                 if (initialPost.source === Source.Twitter) {
                     queryClient.setQueryData(
                         [initialPost.source, 'post-detail', initialPost.postId],
@@ -35,7 +39,7 @@ export function useDetailPostForActions(initialPost: Post, enabled = true) {
 
                 return post;
             } catch (error) {
-                if (error instanceof NotFoundError) return;
+                if (error instanceof NotFoundError) return initialPost;
                 throw error;
             }
         },

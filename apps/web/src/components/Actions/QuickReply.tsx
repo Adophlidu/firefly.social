@@ -22,12 +22,9 @@ interface QuickReplyProps {
 export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, post: initialPost }) {
     const currentProfile = useCurrentProfile(source);
     const { data: post = initialPost } = useDetailPostForActions(initialPost);
-    const { buttonDisabled, message: disabledMessage, onComment } = useCommentPost(post, !currentProfile);
+    const { visuallyDisabled: commentDisabled, onComment } = useCommentPost(post, !currentProfile);
 
     if (!currentProfile) return null;
-
-    const { message, type } = disabledMessage || {};
-    const commentDisabled = buttonDisabled && (!message || type !== 'toast');
 
     return (
         <ClickableArea

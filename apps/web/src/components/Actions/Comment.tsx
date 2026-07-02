@@ -23,9 +23,13 @@ interface CommentProps {
 export const Comment = memo<CommentProps>(function Comment({ post, disabled = false, hiddenCount = false }) {
     const count = post.stats?.comments ?? 0;
 
-    const { buttonDisabled, message: disabledMessage, onComment } = useCommentPost(post, disabled);
+    const {
+        buttonDisabled,
+        message: disabledMessage,
+        visuallyDisabled: commentDisabled,
+        onComment,
+    } = useCommentPost(post, disabled);
     const { message, type } = disabledMessage || {};
-    const commentDisabled = buttonDisabled && (!message || type !== 'toast');
 
     // A `toast` message means the reply is blocked by X's API but the click is
     // still actionable: offer to continue on X via a dropdown menu. Once the

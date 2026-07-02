@@ -91,9 +91,18 @@ export function useCommentPost(post: Post, disabled = false) {
         }
     }, [isLogin, commentDisabled, source, post, author.handle, anonymousPostEnabled, disabledMessage]);
 
+    const buttonDisabled = !isLogin ? disabled : commentDisabled;
+
+    // `toast` restrictions (X's API limit) keep the surface clickable so the
+    // user can continue on X; every other restriction greys it out. Shared by
+    // the comment icon and the detail quick-reply box so the two can't drift.
+    const { message, type } = disabledMessage || {};
+    const visuallyDisabled = buttonDisabled && (!message || type !== 'toast');
+
     return {
-        buttonDisabled: !isLogin ? disabled : commentDisabled,
+        buttonDisabled,
         message: disabledMessage,
+        visuallyDisabled,
         onComment: handleClick,
     };
 }
