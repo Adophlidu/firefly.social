@@ -1,4 +1,4 @@
-import type { MessageDataPatch } from '@/farcaster-message/src/encodeMessageData.js';
+import type { MessageDataPatch } from '@/farcaster/src/message/encodeMessageData.js';
 
 /**
  * Type for hash objects with numeric string keys representing byte values

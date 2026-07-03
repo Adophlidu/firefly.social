@@ -1,9 +1,10 @@
 {
-    "name": "@dimensiondev/workers-x-identity",
+    "name": "@dimensiondev/workers-x",
     "version": "0.0.1",
     "private": true,
     "type": "module",
     "exports": {
+        "./*": "./src/*",
         ".": {
             "types": "./types/index.d.ts",
             "import": "./src/index.ts"

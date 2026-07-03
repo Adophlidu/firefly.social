@@ -1,4 +1,4 @@
-import { farcasterMessageWorker } from '@dimensiondev/workers-client';
+import { farcasterWorker } from '@dimensiondev/workers-client';
 import type { MessageData } from '@farcaster/core'; /* type only on runtime code */
 
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
@@ -24,7 +24,7 @@ export async function encodeMessageData(withMessageData: WithMessageData, sessio
     const messageData =
         typeof withMessageData === 'function' ? withMessageData(Number.parseInt(profileId, 10)) : withMessageData;
 
-    const res = await farcasterMessageWorker['farcaster-message'].encode.$post({
+    const res = await farcasterWorker.farcaster.message.encode.$post({
         json: {
             profileId,
             token,

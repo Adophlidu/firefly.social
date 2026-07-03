@@ -1,7 +1,7 @@
 import {
     getPublicKeyInHexFromPrivateKey,
     signMessageWithPrivateKey,
-} from '@dimensiondev/workers-farcaster-message/ed25519.js';
+} from '@dimensiondev/workers-farcaster/message/ed25519.js';
 import { bytesToBase64url, stringToBytes } from '@dimensiondev/workers-shared/helpers/base64url.js';
 
 import type { SnapJFSPayload } from '@/snap/src/types.js';

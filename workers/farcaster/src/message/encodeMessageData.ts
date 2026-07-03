@@ -5,10 +5,10 @@ import type { MessageData } from '@farcaster/core';
 import { blake3 } from '@noble/hashes/blake3';
 import { bytesToHex, hexToBytes } from 'viem';
 
-import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/farcaster-message/src/ed25519.js';
-import { HashScheme, SignatureScheme } from '@/farcaster-message/src/enums.js';
-import { processMessageData } from '@/farcaster-message/src/processMessageData.js';
-import { toFarcasterTime } from '@/farcaster-message/src/toFarcasterTime.js';
+import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/farcaster/src/message/ed25519.js';
+import { HashScheme, SignatureScheme } from '@/farcaster/src/message/enums.js';
+import { processMessageData } from '@/farcaster/src/message/processMessageData.js';
+import { toFarcasterTime } from '@/farcaster/src/message/toFarcasterTime.js';
 
 export type MessageDataPatch = PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>;
 

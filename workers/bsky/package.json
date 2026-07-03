@@ -1,5 +1,5 @@
 {
-    "name": "@dimensiondev/workers-bsky-identity",
+    "name": "@dimensiondev/workers-bsky",
     "version": "0.0.1",
     "private": true,
     "type": "module",

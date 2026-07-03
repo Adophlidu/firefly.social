@@ -1,4 +1,4 @@
-import { resolveHandle } from '@dimensiondev/workers-bsky-identity/resolveHandle.js';
+import { resolveHandle } from '@dimensiondev/workers-bsky/identity/resolveHandle.js';
 import type { Context } from 'hono';
 
 import type { PlatformIdentityKey } from '@/metadata/src/firefly-profile/types.js';

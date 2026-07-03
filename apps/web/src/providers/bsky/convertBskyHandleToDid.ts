@@ -1,13 +1,10 @@
-import { bskyIdentityWorker } from '@dimensiondev/workers-client';
+import { bskyWorker } from '@dimensiondev/workers-client';
 
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 async function convertBskyHandleToDidViaFireflyWorker(handle: string, signal?: AbortSignal) {
-    const res = await bskyIdentityWorker['bsky-identity']['resolve-handle'].$get(
-        { query: { handle } },
-        { init: { signal } },
-    );
+    const res = await bskyWorker.bsky.identity['resolve-handle'].$get({ query: { handle } }, { init: { signal } });
     const response = (await res.json()) as ResponseJson<{ did: string }>;
     if (response.success && response.data.did) return response.data.did;
     return null;

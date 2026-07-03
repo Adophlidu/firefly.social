@@ -1,6 +1,6 @@
 import type { ServerErrorCodes } from '@dimensiondev/enums';
 import { isValidAddressEthereum, isValidDomainEthereum } from '@dimensiondev/web3/utils';
-import { bskyIdentityWorker, ensWorker } from '@dimensiondev/workers-client';
+import { bskyWorker, ensWorker } from '@dimensiondev/workers-client';
 
 export type ResponseJson<T> =
     | {
@@ -32,7 +32,7 @@ export class FireflyWorkerEndpoint {
     }
 
     async convertBskyHandleToDid(handle: string) {
-        const res = await bskyIdentityWorker['bsky-identity']['resolve-handle'].$get({ query: { handle } });
+        const res = await bskyWorker.bsky.identity['resolve-handle'].$get({ query: { handle } });
         const response = (await res.json()) as ResponseJson<{ did: string }>;
         if (!response.success) return null;
         return response.data.did;

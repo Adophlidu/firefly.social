@@ -17,7 +17,7 @@
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
-        "@dimensiondev/workers-bsky-identity": "workspace:*",
+        "@dimensiondev/workers-bsky": "workspace:*",
         "@dimensiondev/workers-frame": "workspace:*",
         "@dimensiondev/workers-metadata": "workspace:*",
         "@dimensiondev/workers-oembed": "workspace:*",

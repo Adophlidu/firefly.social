@@ -4,7 +4,7 @@ import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
-import { resolveIdentity } from '@/x-identity/src/resolveIdentity.js';
+import { resolveIdentity } from '@/x/src/identity/resolveIdentity.js';
 
 const VERSION = 1;
 

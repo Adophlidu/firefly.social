@@ -607,7 +607,7 @@ importers:
         version: link:../../workers/client
       '@farcaster/core':
         specifier: ^0.18.11
-        version: 0.18.11(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)(zod@3.25.76)
+        version: 0.18.11(bufferutil@4.1.0)(typescript@7.0.1-rc)(utf-8-validate@6.0.6)(zod@3.25.76)
       '@farcaster/miniapp-host':
         specifier: ^0.2.16
         version: 0.2.16(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(react@19.2.7)(utf-8-validate@6.0.6)(zod@3.25.76)
@@ -924,9 +924,9 @@ importers:
       '@dimensiondev/workers-ui':
         specifier: workspace:*
         version: link:../../workers/ui
-      '@dimensiondev/workers-x-identity':
+      '@dimensiondev/workers-x':
         specifier: workspace:*
-        version: link:../../workers/x-identity
+        version: link:../../workers/x
       '@lingui/cli':
         specifier: ^5.9.5
         version: 5.9.5(babel-plugin-macros@3.1.0)(typescript@7.0.1-rc)
@@ -1319,7 +1319,7 @@ importers:
         specifier: ^0.21.10
         version: 0.21.10(@typescript/typescript6@6.0.1)(oxc-resolver@11.20.0)
 
-  workers/bsky-identity:
+  workers/bsky:
     dependencies:
       '@dimensiondev/workers-shared':
         specifier: workspace:*
@@ -1352,15 +1352,15 @@ importers:
       '@dimensiondev/constants':
         specifier: workspace:^
         version: link:../../packages/constants
-      '@dimensiondev/workers-bsky-identity':
+      '@dimensiondev/workers-bsky':
         specifier: workspace:*
-        version: link:../bsky-identity
+        version: link:../bsky
       '@dimensiondev/workers-ens':
         specifier: workspace:*
         version: link:../ens
-      '@dimensiondev/workers-farcaster-message':
+      '@dimensiondev/workers-farcaster':
         specifier: workspace:*
-        version: link:../farcaster-message
+        version: link:../farcaster
       '@dimensiondev/workers-frame':
         specifier: workspace:*
         version: link:../frame
@@ -1406,9 +1406,9 @@ importers:
       '@dimensiondev/workers-unifi-badge-level':
         specifier: workspace:*
         version: link:../unifi-badge-level
-      '@dimensiondev/workers-x-identity':
+      '@dimensiondev/workers-x':
         specifier: workspace:*
-        version: link:../x-identity
+        version: link:../x
       hono:
         specifier: ^4.12.25
         version: 4.12.25
@@ -1454,7 +1454,7 @@ importers:
         specifier: '>=4.59.1'
         version: 4.100.0(@cloudflare/workers-types@4.20260613.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
 
-  workers/farcaster-message:
+  workers/farcaster:
     dependencies:
       '@dimensiondev/enums':
         specifier: workspace:^
@@ -1601,9 +1601,9 @@ importers:
       '@dimensiondev/web3':
         specifier: workspace:^
         version: link:../../packages/web3
-      '@dimensiondev/workers-bsky-identity':
+      '@dimensiondev/workers-bsky':
         specifier: workspace:*
-        version: link:../bsky-identity
+        version: link:../bsky
       '@dimensiondev/workers-oembed':
         specifier: workspace:*
         version: link:../oembed
@@ -1681,9 +1681,9 @@ importers:
       '@dimensiondev/enums':
         specifier: workspace:^
         version: link:../../packages/enums
-      '@dimensiondev/workers-bsky-identity':
+      '@dimensiondev/workers-bsky':
         specifier: workspace:*
-        version: link:../bsky-identity
+        version: link:../bsky
       '@dimensiondev/workers-frame':
         specifier: workspace:*
         version: link:../frame
@@ -1851,9 +1851,9 @@ importers:
 
   workers/snap:
     dependencies:
-      '@dimensiondev/workers-farcaster-message':
+      '@dimensiondev/workers-farcaster':
         specifier: workspace:*
-        version: link:../farcaster-message
+        version: link:../farcaster
       '@dimensiondev/workers-shared':
         specifier: workspace:*
         version: link:../shared
@@ -2032,7 +2032,7 @@ importers:
         specifier: '>=4.59.1'
         version: 4.100.0(@cloudflare/workers-types@4.20260613.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
 
-  workers/x-identity:
+  workers/x:
     dependencies:
       '@dimensiondev/workers-shared':
         specifier: workspace:*
@@ -18094,20 +18094,6 @@ snapshots:
 
   '@faker-js/faker@7.6.0': {}
 
-  '@farcaster/core@0.18.11(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)(zod@3.25.76)':
-    dependencies:
-      '@faker-js/faker': 7.6.0
-      '@noble/curves': 1.9.2
-      '@noble/hashes': 1.8.0
-      bs58: 5.0.0
-      neverthrow: 6.2.2
-      viem: 2.52.2(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)(zod@3.25.76)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-
   '@farcaster/core@0.18.11(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)(zod@4.4.3)':
     dependencies:
       '@faker-js/faker': 7.6.0
@@ -18116,6 +18102,20 @@ snapshots:
       bs58: 5.0.0
       neverthrow: 6.2.2
       viem: 2.52.2(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)(zod@4.4.3)
+    transitivePeerDependencies:
+      - bufferutil
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@farcaster/core@0.18.11(bufferutil@4.1.0)(typescript@7.0.1-rc)(utf-8-validate@6.0.6)(zod@3.25.76)':
+    dependencies:
+      '@faker-js/faker': 7.6.0
+      '@noble/curves': 1.9.2
+      '@noble/hashes': 1.8.0
+      bs58: 5.0.0
+      neverthrow: 6.2.2
+      viem: 2.52.2(bufferutil@4.1.0)(typescript@7.0.1-rc)(utf-8-validate@6.0.6)(zod@3.25.76)
     transitivePeerDependencies:
       - bufferutil
       - typescript

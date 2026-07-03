@@ -1,7 +1,7 @@
 import { attemptUntil } from '@dimensiondev/workers-shared/helpers/attemptUntil.js';
 import type { Context } from 'hono';
 
-import { NITTER_INSTANCES } from '@/x-identity/src/constants.js';
+import { NITTER_INSTANCES } from '@/x/src/identity/constants.js';
 
 // Different browser headers configurations to avoid detection
 const BROWSER_HEADERS: Array<Record<string, string>> = [

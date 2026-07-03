@@ -1,8 +1,8 @@
 import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { Context } from 'hono';
 
-import { BSKY_SOCIAL_ROOT_URL } from '@/bsky-identity/src/constants.js';
-import { fetchBskyApi } from '@/bsky-identity/src/fetchBskyApi.js';
+import { BSKY_SOCIAL_ROOT_URL } from '@/bsky/src/identity/constants.js';
+import { fetchBskyApi } from '@/bsky/src/identity/fetchBskyApi.js';
 
 export async function resolveIdentity(did: string, c: Context): Promise<string | null> {
     try {

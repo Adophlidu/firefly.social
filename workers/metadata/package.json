@@ -20,7 +20,7 @@
     "dependencies": {
         "@dimensiondev/enums": "workspace:^",
         "@dimensiondev/web3": "workspace:^",
-        "@dimensiondev/workers-bsky-identity": "workspace:*",
+        "@dimensiondev/workers-bsky": "workspace:*",
         "@dimensiondev/workers-oembed": "workspace:*",
         "@dimensiondev/workers-shared": "workspace:*",
         "@dimensiondev/workers-token": "workspace:*",

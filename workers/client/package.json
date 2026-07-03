@@ -12,9 +12,9 @@
     },
     "dependencies": {
         "@dimensiondev/constants": "workspace:^",
-        "@dimensiondev/workers-bsky-identity": "workspace:*",
+        "@dimensiondev/workers-bsky": "workspace:*",
         "@dimensiondev/workers-ens": "workspace:*",
-        "@dimensiondev/workers-farcaster-message": "workspace:*",
+        "@dimensiondev/workers-farcaster": "workspace:*",
         "@dimensiondev/workers-frame": "workspace:*",
         "@dimensiondev/workers-iframe-blocker": "workspace:*",
         "@dimensiondev/workers-lens": "workspace:*",
@@ -30,7 +30,7 @@
         "@dimensiondev/workers-token": "workspace:*",
         "@dimensiondev/workers-ui": "workspace:*",
         "@dimensiondev/workers-unifi-badge-level": "workspace:*",
-        "@dimensiondev/workers-x-identity": "workspace:*",
+        "@dimensiondev/workers-x": "workspace:*",
         "hono": "^4.12.25"
     },
     "devDependencies": {

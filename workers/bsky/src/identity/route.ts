@@ -11,8 +11,8 @@ import type { Context } from 'hono';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
-import { resolveHandle } from '@/bsky-identity/src/resolveHandle.js';
-import { resolveIdentity } from '@/bsky-identity/src/resolveIdentity.js';
+import { resolveHandle } from '@/bsky/src/identity/resolveHandle.js';
+import { resolveIdentity } from '@/bsky/src/identity/resolveIdentity.js';
 
 const VERSION = 1;
 

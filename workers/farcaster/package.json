@@ -1,5 +1,5 @@
 {
-    "name": "@dimensiondev/workers-farcaster-message",
+    "name": "@dimensiondev/workers-farcaster",
     "version": "0.0.1",
     "private": true,
     "type": "module",

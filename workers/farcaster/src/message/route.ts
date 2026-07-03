@@ -7,8 +7,8 @@ import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
-import type { MessageDataPatch } from '@/farcaster-message/src/encodeMessageData.js';
-import { encodeMessageData } from '@/farcaster-message/src/encodeMessageData.js';
+import type { MessageDataPatch } from '@/farcaster/src/message/encodeMessageData.js';
+import { encodeMessageData } from '@/farcaster/src/message/encodeMessageData.js';
 
 const EncodeSchema = z.object({
     token: z.string(),
