@@ -62,7 +62,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                 onFund={openDepositModal}
             >
                 <BetEntry className="mt-3" />
-                <PerpsEntry className="mt-3" />
+                {envs.external.NEXT_PUBLIC_PERPS_FEATURES === STATUS.Enabled ? <PerpsEntry className="mt-3" /> : null}
             </FireflyWalletHomePageUI>
             <Tabs
                 value={currentPathname}

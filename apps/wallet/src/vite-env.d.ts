@@ -9,6 +9,7 @@ interface ImportMetaEnv {
     readonly NEXT_PUBLIC_FIREFLY_DEV_API?: string;
     readonly NEXT_PUBLIC_DEV_SITE?: string;
     readonly NEXT_PUBLIC_NFT_FEATURES?: string;
+    readonly NEXT_PUBLIC_PERPS_FEATURES?: string;
     readonly NEXT_PUBLIC_PIN_CODE?: string;
     readonly NODE_ENV?: string;
 }
