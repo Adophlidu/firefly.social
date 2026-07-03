@@ -2078,6 +2078,9 @@ msgstr "{contentLanguage}에서 번역됨"
 msgid "Post with image"
 msgstr "이미지와 함께 게시"
 
+msgid "3rd Place"
+msgstr ""
+
 msgid "Losses"
 msgstr "패"
 
@@ -4237,6 +4240,9 @@ msgstr "럭키 드롭 스마트 컨트랙트에 {0} 접근 권한을 부여하�
 
 msgid "Post your reply"
 msgstr "답글 게시"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "패"

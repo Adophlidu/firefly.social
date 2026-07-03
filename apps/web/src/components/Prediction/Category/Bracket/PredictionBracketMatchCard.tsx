@@ -75,7 +75,7 @@ function TeamSide({
                 ) : (
                     <span className="h-6 w-9 shrink-0 rounded-lg bg-bg md:h-[30px] md:w-[45px]" />
                 )}
-                <span className="line-clamp-2 min-w-0 flex-1 break-words text-xs font-semibold leading-[14px] text-main md:text-sm">
+                <span className="line-clamp-2 min-w-0 flex-1 break-words text-xs font-semibold leading-4 text-main md:text-[14px]">
                     {team ? localize(team.name) : <Trans>TBD</Trans>}
                 </span>
             </div>
@@ -132,41 +132,56 @@ export const PredictionBracketMatchCard = memo<Props>(function PredictionBracket
 
     const winnerTeam = winnerSide !== null ? match.teams[winnerSide] : null;
 
-    let header: ReactNode;
+    // Round label is shown only for the Final and 3rd-place play-off, in every match state
+    // (upcoming date pill, LIVE, and finished "Advances"). Other rounds render no label.
+    const roundLabel: ReactNode =
+        match.roundId === 'final' ? <Trans>Final</Trans> : match.roundId === 'third' ? <Trans>3rd Place</Trans> : null;
+    const hasRoundLabel = roundLabel !== null;
+
+    // Inner status content; the shared header wrapper below adds the row layout + label.
+    let status: ReactNode;
     if (isLive) {
-        header = (
-            <div
-                className="flex h-7 items-center gap-2 text-xs font-medium md:h-8 md:text-[13px]"
-                style={{ color: LIVE_COLOR }}
-            >
+        status = (
+            <span className="flex items-center gap-2 text-xs font-medium md:text-[13px]" style={{ color: LIVE_COLOR }}>
                 <Trans>LIVE</Trans>
                 <span aria-hidden>●</span>
-            </div>
+            </span>
         );
     } else if (isFinal) {
-        header = (
-            <div className="flex h-7 items-center justify-center gap-2 md:h-8">
+        status = (
+            <>
                 {winnerTeam?.flagUrl ? (
                     <img src={winnerTeam.flagUrl} alt="" className="h-4 w-6 rounded object-cover md:h-5 md:w-[30px]" />
                 ) : null}
                 <span className="text-xs font-medium text-main md:text-[13px]">
                     <Trans>Advances</Trans>
                 </span>
-            </div>
+            </>
         );
     } else {
-        header = (
-            <div className="flex h-7 items-center md:h-8">
-                {dateLabel ? (
-                    <span className="flex h-6 items-center whitespace-nowrap rounded-lg bg-bg px-2 text-xs font-semibold text-main md:h-7 md:text-[13px]">
-                        {dateLabel}
-                    </span>
-                ) : (
-                    <span className="h-6 md:h-7" />
-                )}
-            </div>
+        status = dateLabel ? (
+            <span className="flex h-6 items-center whitespace-nowrap rounded-lg bg-bg px-2 text-xs font-semibold text-main md:h-7 md:text-[13px]">
+                {dateLabel}
+            </span>
+        ) : (
+            <span className="h-6 md:h-7" />
         );
     }
+
+    const header = (
+        <div
+            className={classNames('flex h-7 items-center gap-2 md:h-8', {
+                // Finished matches center the "Advances" indicator — keep that for every round
+                // except Final/3rd, where the trailing label needs left alignment.
+                'justify-center': isFinal && !hasRoundLabel,
+            })}
+        >
+            {status}
+            {hasRoundLabel ? (
+                <span className="text-xs font-medium text-second md:text-[13px]">{roundLabel}</span>
+            ) : null}
+        </div>
+    );
 
     const content = (
         <div className="flex flex-col gap-2 rounded-xl border border-secondaryLine bg-lightBottom p-2 dark:bg-darkBottom md:gap-3 md:p-3">

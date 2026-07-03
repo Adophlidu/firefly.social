@@ -2078,6 +2078,9 @@ msgstr "{contentLanguage} から翻訳"
 msgid "Post with image"
 msgstr "画像付きで投稿"
 
+msgid "3rd Place"
+msgstr ""
+
 msgid "Losses"
 msgstr "敗北"
 
@@ -4237,6 +4240,9 @@ msgstr "ラッキードロップスマートコントラクトに {0} へのア�
 
 msgid "Post your reply"
 msgstr "返信を投稿"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "敗"

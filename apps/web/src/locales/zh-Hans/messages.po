@@ -2078,6 +2078,9 @@ msgstr "翻译自{contentLanguage}"
 msgid "Post with image"
 msgstr "带图片发布"
 
+msgid "3rd Place"
+msgstr ""
+
 msgid "Losses"
 msgstr "负场"
 
@@ -4237,6 +4240,9 @@ msgstr "授予红包智能合约访问你 {0} 的权限。每个代币只需执�
 
 msgid "Post your reply"
 msgstr "发布你的评论"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "负"

@@ -2078,6 +2078,9 @@ msgstr "翻譯自{contentLanguage}"
 msgid "Post with image"
 msgstr "帶圖片發佈"
 
+msgid "3rd Place"
+msgstr ""
+
 msgid "Losses"
 msgstr "負場"
 
@@ -4237,6 +4240,9 @@ msgstr "授予紅包智能合約訪問你 {0} 的權限。每個代幣只需執�
 
 msgid "Post your reply"
 msgstr "發布你的留言"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "負"

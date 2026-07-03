@@ -2088,6 +2088,9 @@ msgstr "Translated from {contentLanguage}"
 msgid "Post with image"
 msgstr "Post with image"
 
+msgid "3rd Place"
+msgstr "3rd Place"
+
 msgid "Losses"
 msgstr "Losses"
 
@@ -4260,6 +4263,9 @@ msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only hav
 
 msgid "Post your reply"
 msgstr "Post your reply"
+
+msgid "Final"
+msgstr "Final"
 
 msgid "L"
 msgstr "L"

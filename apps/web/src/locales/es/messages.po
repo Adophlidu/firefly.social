@@ -2088,6 +2088,9 @@ msgstr "Traducido de {contentLanguage}"
 msgid "Post with image"
 msgstr "Publicar con imagen"
 
+msgid "3rd Place"
+msgstr ""
+
 msgid "Losses"
 msgstr "Derrotas"
 
@@ -4260,6 +4263,9 @@ msgstr "Otorga acceso a tu {0} al contrato inteligente Lucky Drop. Solo tienes q
 
 msgid "Post your reply"
 msgstr "Publicar tu respuesta"
+
+msgid "Final"
+msgstr ""
 
 msgid "L"
 msgstr "D"
