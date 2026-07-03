@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
+import { refetchAllConnectionsUntil } from '@/helpers/refetchAllConnectionsUntil.js';
+
 const mockGetAllConnectionsFormatted = vi.fn();
 const mockSetQueryData = vi.fn();
 const mockRefetchQueries = vi.fn();
@@ -23,12 +25,10 @@ vi.mock('@/providers/firefly/endpoint/getAllConnectionsFormatted.js', () => ({
     getAllConnectionsFormatted: (...args: unknown[]) => mockGetAllConnectionsFormatted(...args),
 }));
 
-import { refetchAllConnectionsUntil } from '@/helpers/refetchAllConnectionsUntil.js';
-
 // Minimal AllConnectionsData shaped for the predicates under test.
 const data = (addresses: string[]) => ({ connected: addresses.map((address) => ({ address })) }) as never;
 
-const includes = (address: string) => (d: { connected: { address: string }[] }) =>
+const includes = (address: string) => (d: { connected: Array<{ address: string }> }) =>
     d.connected.some((c) => c.address === address);
 
 describe('refetchAllConnectionsUntil', () => {
