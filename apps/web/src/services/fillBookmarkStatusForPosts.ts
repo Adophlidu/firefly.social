@@ -4,6 +4,7 @@ import { compact, uniq } from 'lodash-es';
 
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { GetBookmarksResponse } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -15,6 +16,11 @@ function fillBookmarkStatus(post: Post, bookmarkData: Required<GetBookmarksRespo
 }
 
 export async function fillBookmarkStatusForPosts(posts: Post[], source: SocialSource) {
+    // Bookmark status is user-scoped. Without a Firefly session (e.g. Vercel
+    // build / SSR with no signed-in user) the query endpoint always 401s and
+    // every post would come back un-bookmarked anyway, so skip the request.
+    if (!fireflySessionHolder.session) return posts;
+
     const postIds = uniq(
         posts.flatMap((p) =>
             compact([p.postId, p.root?.postId, p.commentOn?.postId].concat(p.comments?.map((p) => p.postId) || [])),
