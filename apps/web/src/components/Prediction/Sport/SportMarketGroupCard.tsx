@@ -58,6 +58,17 @@ function getMarketLine(market: BetsMarketDataForUI): number {
     return typeof market.line === 'number' && Number.isFinite(market.line) ? market.line : 0;
 }
 
+/**
+ * Recover the home-perspective signed handicap. Each spread market stores its own team's handicap
+ * (always <= 0); the side lives in the slug (-spread-home-X / -spread-away-X), so an away-side -X
+ * market is the home team +X.
+ */
+function getSpreadSignedLine(market: BetsMarketDataForUI): number {
+    const line = getMarketLine(market);
+    const side = market.slug?.toLowerCase().match(/-(home|away)-/)?.[1];
+    return side === 'away' ? -line : line;
+}
+
 function getMarketBalancedDistance(market: BetsMarketDataForUI): number {
     let closestDistance = Number.POSITIVE_INFINITY;
     for (const outcome of market.outcomes) {
@@ -112,13 +123,17 @@ function resolveOutcomeTeams(
     return market.outcomes.map((outcome) => resolveOutcomeTeam(outcome.label, homeTeam, awayTeam));
 }
 
-interface SportLineOption {
+export interface SportLineOption {
     key: string;
     label: string;
     market: BetsMarketDataForUI;
 }
 
-function createSportLineOptions(renderAs: SportMarketGroupType, markets: BetsMarketDataForUI[]): SportLineOption[] {
+/** Build the switcher line options. Spreads mirror around the smallest magnitude; others sort ascending. */
+export function createSportLineOptions(
+    renderAs: SportMarketGroupType,
+    markets: BetsMarketDataForUI[],
+): SportLineOption[] {
     // child_moneyline uses game numbers as line values — show plain "1", "2", "3" (no "+" prefix)
     const isGameWinner = markets.some((m) => m.sportsMarketType === 'child_moneyline');
     const options: SportLineOption[] = markets.map((market, index) => {
@@ -138,6 +153,11 @@ function createSportLineOptions(renderAs: SportMarketGroupType, markets: BetsMar
     });
 
     return options.sort((a, b) => {
+        // Spreads: order by the home-perspective signed handicap descending
+        // (+3.5, +2.5, +1.5, -1.5, -2.5, -3.5, -4.5) so the pill sequence matches Polymarket.
+        if (renderAs === SportMarketGroupType.Spread) {
+            return getSpreadSignedLine(b.market) - getSpreadSignedLine(a.market);
+        }
         const diff = parseFloat(a.label) - parseFloat(b.label);
         return diff === 0 ? a.label.localeCompare(b.label) : diff;
     });

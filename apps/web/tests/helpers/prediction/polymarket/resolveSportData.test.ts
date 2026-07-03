@@ -107,6 +107,16 @@ describe('resolveSportData', () => {
         expect(result?.scores).toEqual([]);
     });
 
+    it('passes penaltyShootout through to SportEventData', () => {
+        const result = resolveSportData(baseEvent({ penaltyShootout: { home: [1, 0], away: [2] } }));
+        expect(result?.penaltyShootout).toEqual({ home: [1, 0], away: [2] });
+    });
+
+    it('leaves penaltyShootout undefined when absent', () => {
+        const result = resolveSportData(baseEvent());
+        expect(result?.penaltyShootout).toBeUndefined();
+    });
+
     describe('ended detection fallbacks', () => {
         it('detects ended via gameStatus = "finished"', () => {
             const result = resolveSportData(baseEvent({ ended: false, gameStatus: 'finished' }));

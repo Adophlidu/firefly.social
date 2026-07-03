@@ -3921,6 +3921,9 @@ msgstr "カバー背景"
 msgid "Proposal"
 msgstr "提案"
 
+msgid "PENALTY"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
 msgstr "あなたの投稿が {0} に送信されました"

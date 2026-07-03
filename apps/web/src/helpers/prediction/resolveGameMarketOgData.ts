@@ -120,6 +120,7 @@ export function resolveGameMarketOgData(event: BetsEventDataForUI): GameMarketOg
         homeScore,
         awayScore,
         multipleSets: sportData.scoreType === SportScoreType.Multiple,
-        loser: state === 'ended' ? getLoser(sportData.winResult, sportData.scores) : undefined,
+        loser:
+            state === 'ended' ? getLoser(sportData.winResult, sportData.scores, sportData.penaltyShootout) : undefined,
     };
 }

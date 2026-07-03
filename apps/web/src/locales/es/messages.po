@@ -3943,6 +3943,9 @@ msgstr "Fondo de portada"
 msgid "Proposal"
 msgstr "Propuesta"
 
+msgid "PENALTY"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
 msgstr "Tu publicación fue enviada a {0}"

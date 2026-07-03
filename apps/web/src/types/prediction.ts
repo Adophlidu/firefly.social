@@ -198,6 +198,24 @@ export interface SportScore {
     memo?: number[];
 }
 
+/**
+ * Per-kick result in a penalty shootout.
+ * - 0 = pending (not yet taken)
+ * - 1 = scored
+ * - 2 = missed
+ */
+export type PenaltyKickOutcome = 0 | 1 | 2;
+
+/**
+ * Penalty-shootout data. `home`/`away` are ordered per-kick results in kick order,
+ * one entry per kick taken (or pending slot) for that side. Presence of this object
+ * signals the match is in (or finished via) a shootout.
+ */
+export interface PenaltyShootout {
+    home: PenaltyKickOutcome[];
+    away: PenaltyKickOutcome[];
+}
+
 export enum SportScoreType {
     Unknown = 0,
     Single = 1,
@@ -219,6 +237,8 @@ export interface SportEventData {
     scores: SportScore[];
     scoreType: SportScoreType;
     period?: string;
+    /** Per-kick penalty-shootout results. Presence ⇒ match is in/finished via a shootout. */
+    penaltyShootout?: PenaltyShootout;
     startTime?: string;
     livestreamInfo?: SportLiveStreamInfo;
     winResult?: number;

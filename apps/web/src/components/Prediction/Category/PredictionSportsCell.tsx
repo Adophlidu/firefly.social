@@ -11,6 +11,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { Link } from '@/components/Link.js';
 import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
+import { PenaltyShootoutDots } from '@/components/Prediction/Sport/PenaltyShootoutDots.js';
 import { SportTeamAvatar } from '@/components/Prediction/Sport/SportTeamAvatar.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -23,8 +24,10 @@ import {
     type PredictionSportsDrawOutcomeForUI,
     type PredictionSportsTeamForUI,
 } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
+import { isPenaltyPeriod } from '@/helpers/prediction/sportScoreUtils.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
+import type { PenaltyKickOutcome } from '@/types/prediction.js';
 
 interface Props {
     model: PredictionSportsCellViewModel;
@@ -84,6 +87,7 @@ const SportsCellHeaderInfo = memo<{ model: PredictionSportsCellViewModel }>(func
 });
 
 const LiveSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(function LiveSportsCellHeader({ model }) {
+    const isPenalty = isPenaltyPeriod(model.statusLabel) || !!model.penaltyShootout;
     return (
         <div className="flex min-w-0 flex-1 items-center gap-2 whitespace-nowrap text-[13px] leading-[17px]">
             <div className="flex shrink-0 items-center gap-0.5">
@@ -95,7 +99,11 @@ const LiveSportsCellHeader = memo<{ model: PredictionSportsCellViewModel }>(func
                 </span>
             </div>
             <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden">
-                {model.statusLabel ? (
+                {isPenalty ? (
+                    <span className="shrink-0 font-semibold text-danger">
+                        <Trans>PENALTY</Trans>
+                    </span>
+                ) : model.statusLabel ? (
                     <span className="shrink-0 font-semibold text-main">{model.statusLabel}</span>
                 ) : null}
                 <HeaderMeta volumeLabel={model.volumeLabel} leagueLabel={model.leagueLabel} />
@@ -206,8 +214,16 @@ const SportsCellBody = memo<{ model: PredictionSportsCellViewModel }>(function S
     return (
         <div className="flex flex-col gap-3 md:flex-row md:items-center">
             <div className="flex min-w-0 flex-1 flex-col gap-3">
-                <TeamInfoRow team={model.homeTeam} gamePhase={model.gamePhase} />
-                <TeamInfoRow team={model.awayTeam} gamePhase={model.gamePhase} />
+                <TeamInfoRow
+                    team={model.homeTeam}
+                    gamePhase={model.gamePhase}
+                    penaltyOutcomes={model.penaltyShootout?.home}
+                />
+                <TeamInfoRow
+                    team={model.awayTeam}
+                    gamePhase={model.gamePhase}
+                    penaltyOutcomes={model.penaltyShootout?.away}
+                />
             </div>
             {showActions ? (
                 <div className="pointer-events-auto relative z-20 flex w-full flex-row gap-2 md:w-32 md:shrink-0 md:flex-col md:gap-3">
@@ -225,10 +241,12 @@ const SportsCellBody = memo<{ model: PredictionSportsCellViewModel }>(function S
 const TeamInfoRow = memo<{
     team: PredictionSportsTeamForUI;
     gamePhase: PredictionSportsCellViewModel['gamePhase'];
-}>(function TeamInfoRow({ team, gamePhase }) {
+    penaltyOutcomes?: PenaltyKickOutcome[];
+}>(function TeamInfoRow({ team, gamePhase, penaltyOutcomes }) {
     const isFinished = gamePhase === 'finished';
     const showLoserStyle = isFinished && team.isLoser;
     const resolveTeamName = useLocalizedSportsTeamName();
+    const hasPenaltyDots = !!penaltyOutcomes && penaltyOutcomes.length > 0;
 
     return (
         <div className={classNames('flex min-w-0 items-center gap-2', showLoserStyle ? 'opacity-40' : '')}>
@@ -243,13 +261,16 @@ const TeamInfoRow = memo<{
                 </span>
             ) : null}
             <SportTeamAvatar logo={team.logo} name={team.name} abbreviation={team.abbreviation} color={team.color} />
-            <div className="flex min-w-0 items-center gap-2">
-                <span className="truncate text-sm font-semibold leading-[18px] text-main">
-                    {resolveTeamName(team.name)}
-                </span>
-                {team.record ? (
-                    <span className="shrink-0 text-sm font-medium leading-[18px] text-second">{team.record}</span>
-                ) : null}
+            <div className="flex min-w-0 flex-col gap-1">
+                <div className="flex min-w-0 items-center gap-2">
+                    <span className="truncate text-sm font-semibold leading-[18px] text-main">
+                        {resolveTeamName(team.name)}
+                    </span>
+                    {team.record ? (
+                        <span className="shrink-0 text-sm font-medium leading-[18px] text-second">{team.record}</span>
+                    ) : null}
+                </div>
+                {hasPenaltyDots ? <PenaltyShootoutDots outcomes={penaltyOutcomes} /> : null}
             </div>
         </div>
     );

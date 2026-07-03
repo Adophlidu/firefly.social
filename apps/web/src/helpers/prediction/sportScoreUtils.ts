@@ -1,4 +1,4 @@
-import type { BetsMarketDataForUI, SportScore } from '@/types/prediction.js';
+import type { BetsMarketDataForUI, PenaltyShootout, SportScore } from '@/types/prediction.js';
 import { SportMarketGroupType } from '@/types/prediction.js';
 
 export function getScoreValue(score: number[] | undefined, index: number) {
@@ -67,19 +67,29 @@ export function getSingleScore(scores: SportScore[]): [number, number] {
     return [score?.[0] ?? 0, score?.[1] ?? 0];
 }
 
-/**
- * Resolves the losing side so it can be visually muted. Prefers the explicit `winResult`
- * (0 = home won, 2 = away won, 1 = draw/no loser) and falls back to comparing the single score.
- */
-export function getLoser(winResult: number | undefined, scores: SportScore[]): 'home' | 'away' | undefined {
+/** Derive the shootout loser by counting scored kicks; undefined when absent or level. */
+export function getPenaltyShootoutLoser(penaltyShootout?: PenaltyShootout): 'home' | 'away' | undefined {
+    if (!penaltyShootout) return undefined;
+    const homeGoals = penaltyShootout.home.filter((kick) => kick === 1).length;
+    const awayGoals = penaltyShootout.away.filter((kick) => kick === 1).length;
+    if (homeGoals === awayGoals) return undefined;
+    return homeGoals > awayGoals ? 'away' : 'home';
+}
+
+/** Resolve the losing side to mute. Falls back to penalty kicks when the match is drawn. */
+export function getLoser(
+    winResult: number | undefined,
+    scores: SportScore[],
+    penaltyShootout?: PenaltyShootout,
+): 'home' | 'away' | undefined {
     if (winResult === 0) return 'away';
     if (winResult === 2) return 'home';
-    if (winResult === 1) return undefined;
+    if (winResult === 1) return getPenaltyShootoutLoser(penaltyShootout);
 
     const [homeScore, awayScore] = getSingleScore(scores);
     if (homeScore > awayScore) return 'away';
     if (awayScore > homeScore) return 'home';
-    return undefined;
+    return getPenaltyShootoutLoser(penaltyShootout);
 }
 
 export function getPrimaryMarket(markets: BetsMarketDataForUI[]) {
@@ -87,6 +97,11 @@ export function getPrimaryMarket(markets: BetsMarketDataForUI[]) {
         markets.find((market) => market.sportsMarketType?.toLowerCase() === SportMarketGroupType.Moneyline) ||
         markets[0]
     );
+}
+
+/** Detects a penalty-shootout period label (e.g. "Penalty Shootout", "PENALTY"). */
+export function isPenaltyPeriod(period?: string): boolean {
+    return !!period && /penalty|shootout/i.test(period);
 }
 
 export function formatLine(line: number, showPositiveSign = true): string {

@@ -3921,6 +3921,9 @@ msgstr "커버 배경"
 msgid "Proposal"
 msgstr "제안"
 
+msgid "PENALTY"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
 msgstr "게시물이 {0}에 전송되었습니다"

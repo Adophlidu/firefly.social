@@ -3921,6 +3921,9 @@ msgstr "封面背景"
 msgid "Proposal"
 msgstr "提案"
 
+msgid "PENALTY"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
 msgstr "你的帖文已发布至{0}"

@@ -3943,6 +3943,9 @@ msgstr "Cover background"
 msgid "Proposal"
 msgstr "Proposal"
 
+msgid "PENALTY"
+msgstr "PENALTY"
+
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
 msgstr "Your post was sent to {0}"

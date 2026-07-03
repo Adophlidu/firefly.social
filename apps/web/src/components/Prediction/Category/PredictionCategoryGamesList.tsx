@@ -27,13 +27,41 @@ import {
 } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { applySportsMarketPriceOverrides } from '@/helpers/prediction/category/sportsMarketLivePrices.js';
+import { enrichSportsEventWithFifa } from '@/helpers/prediction/fifaMatchResults.js';
+import { FIFA_LIVE_REFETCH_INTERVAL_MS, useFifaMatchResults } from '@/hooks/prediction/useFifaMatchResults.js';
 import { useLiveSportsMarketPrices } from '@/hooks/prediction/useLiveSportsMarketPrices.js';
 import { useLocale } from '@/hooks/useLocale.js';
 import { getSportsEventList } from '@/providers/firefly/prediction/getSportsEventList.js';
-import type { PolymarketSportsEvent } from '@/providers/types/Firefly.js';
+import type {
+    FifaMatchResultData,
+    PolymarketSportsEvent,
+    PolymarketSportsListResponse,
+} from '@/providers/types/Firefly.js';
 
 interface Props {
     context: CategorySlugContext;
+}
+
+/** Refresh the games list every ~10s while live matches are present. */
+const LIVE_GAMES_REFETCH_INTERVAL_MS = 10_000;
+
+/** Overlay FIFA match-results (penalty shootout + fresher scores) onto every list bucket. */
+function enrichSportsListWithFifa(
+    response: PolymarketSportsListResponse,
+    fifa: Map<string, FifaMatchResultData> | undefined,
+): PolymarketSportsListResponse {
+    if (!fifa?.size) return response;
+    const enrichBucket = (events: PolymarketSportsEvent[]) =>
+        events.map((event) => enrichSportsEventWithFifa(event, fifa.get(event.slug)));
+    return {
+        ...response,
+        live: enrichBucket(response.live),
+        today: enrichBucket(response.today),
+        tomorrow: enrichBucket(response.tomorrow),
+        afterTomorrow: enrichBucket(response.afterTomorrow),
+        afterThreeDays: response.afterThreeDays ? enrichBucket(response.afterThreeDays) : undefined,
+        closed: enrichBucket(response.closed),
+    };
 }
 
 export const PredictionCategoryGamesList = memo<Props>(function PredictionCategoryGamesList({ context }) {
@@ -54,14 +82,22 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
                 ...sportsRequest,
                 locale,
             }),
+        refetchInterval: (query) =>
+            query.state.data && query.state.data.live.length > 0 ? LIVE_GAMES_REFETCH_INTERVAL_MS : false,
     });
 
-    // The Sports `live` branch still returns esports events — strip them client-side so the
-    // Sports lists never show LoL/CS2/Dota2/Valorant. Esports has its own tab now.
-    const displayData = useMemo(
-        () => (data && isSportsPrimary ? excludeEsportEvents(data) : data),
-        [data, isSportsPrimary],
-    );
+    // FIFA feed: injects penalty-shootout dots and fresher scores (CDN-cached, deduped by React Query).
+    const fifaMatchResults = useFifaMatchResults({
+        enabled: !!data?.live.length,
+        refetchInterval: FIFA_LIVE_REFETCH_INTERVAL_MS,
+    });
+
+    // Strip esports (Sports `live` still returns them) then overlay FIFA penalty/score data.
+    const displayData = useMemo(() => {
+        if (!data) return data;
+        const withoutEsports = isSportsPrimary ? excludeEsportEvents(data) : data;
+        return enrichSportsListWithFifa(withoutEsports, fifaMatchResults);
+    }, [data, isSportsPrimary, fifaMatchResults]);
 
     const liveDisplay = useMemo(() => {
         if (!displayData || !isLiveCategory) return null;

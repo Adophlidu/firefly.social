@@ -2420,6 +2420,53 @@ export interface FifaBracketDataDto {
     updated_at: string | null;
 }
 
+/** Backend `FifaPenaltyKickStatus` — string enum from Sportmonks per-kick data. */
+export type FifaPenaltyKickStatus = 'scored' | 'missed' | 'pending';
+
+export interface FifaPenaltyKicksData {
+    /** Home-side per-kick results, left→right (scored/missed/pending). */
+    home: FifaPenaltyKickStatus[];
+    /** Away-side per-kick results, same encoding as `home`. */
+    away: FifaPenaltyKickStatus[];
+}
+
+export interface FifaMatchResultTeamData {
+    country_code: string;
+    name: string;
+    flag_url: string;
+    team_color: string;
+    text_color: string;
+}
+
+/**
+ * One FIFA World Cup match from `/v1/fifa/match-results` (Sportmonks-backed).
+ * `event_slug` joins to the Polymarket event slug. Penalty fields feed the
+ * live shootout dots; `scores` updates faster than the Polymarket cache.
+ */
+export interface FifaMatchResultData {
+    fixture_id: number;
+    fifa_match_num?: number | null;
+    stage: string;
+    round?: string | null;
+    start_time?: string | null;
+    status: string;
+    result_info?: string | null;
+    event_slug: string | null;
+    teams: [FifaMatchResultTeamData, FifaMatchResultTeamData];
+    /** Regulation-time score `[home, away]`. */
+    scores: [number | null, number | null] | null;
+    /** Penalty shootout tally `[home, away]`; `[null, null]` when no shootout. */
+    penalty_scores: [number | null, number | null];
+    has_penalty_shootout: boolean;
+    /** Per-kick detail; populated when `has_penalty_shootout` is true. */
+    penalty_kicks: FifaPenaltyKicksData | null;
+}
+
+export interface FifaMatchResultsData {
+    matches: FifaMatchResultData[];
+    updated_at?: string | null;
+}
+
 export type GetExploreSwitchConfigResponse = Response<{
     explore_switch: boolean;
     list: Array<{
@@ -2611,6 +2658,12 @@ export interface PolymarketSportsScoreShow {
     memo?: number[];
 }
 
+export interface PolymarketSportsPenaltyShootout {
+    /** Per-kick results in kick order. 0 = pending, 1 = scored, 2 = missed. */
+    home: number[];
+    away: number[];
+}
+
 export interface PolymarketSportsLivestreamInfo {
     livestream_url?: string;
     player_url?: string;
@@ -2625,6 +2678,8 @@ export interface PolymarketSportsEvent extends PolymarketEventListData {
     score_show?: PolymarketSportsScoreShow[];
     score_type?: number;
     period_show?: string;
+    /** Per-kick penalty-shootout results. Backend data contract for FW-7839. */
+    penaltyShootout?: PolymarketSportsPenaltyShootout;
     livestream_info?: PolymarketSportsLivestreamInfo | null;
     leagueName?: string;
     leagueId?: string;

@@ -501,4 +501,65 @@ describe('formatPolymarketSportsEventForUI', () => {
 
         expect(formatPolymarketSportsEventForUI(viaGameStatus)?.gamePhase).toBe('finished');
     });
+
+    it('sets statusLabel to PENALTY and carries penaltyShootout when a shootout is active (binary)', () => {
+        const event = baseEvent({
+            game_status: 0,
+            period_show: '2nd Half',
+            penaltyShootout: { home: [1, 0, 2], away: [1, 1, 0] },
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    outcomes: '["A","B"]',
+                    outcomePrices: '["0.5","0.5"]',
+                    teams: [{ name: 'A' }, { name: 'B' }],
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.gamePhase).toBe('live');
+        expect(model?.statusLabel).toBe('PENALTY');
+        expect(model?.penaltyShootout).toEqual({ home: [1, 0, 2], away: [1, 1, 0] });
+    });
+
+    it('falls back to PENALTY when period_show signals a shootout without an explicit field', () => {
+        const event = baseEvent({
+            game_status: 0,
+            period_show: 'Penalty Shootout',
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    outcomes: '["A","B"]',
+                    outcomePrices: '["0.5","0.5"]',
+                    teams: [{ name: 'A' }, { name: 'B' }],
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.statusLabel).toBe('PENALTY');
+        expect(model?.penaltyShootout).toBeUndefined();
+    });
+
+    it('sanitizes out-of-range penalty kicks to pending on the view model', () => {
+        const event = baseEvent({
+            game_status: 0,
+            penaltyShootout: { home: [9, 1, 2], away: [3] },
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    outcomes: '["A","B"]',
+                    outcomePrices: '["0.5","0.5"]',
+                    teams: [{ name: 'A' }, { name: 'B' }],
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.penaltyShootout).toEqual({ home: [0, 1, 2], away: [0] });
+    });
 });

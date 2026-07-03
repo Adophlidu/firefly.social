@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { memo, useMemo } from 'react';
 
 import { Image } from '@/components/Image.js';
+import { PenaltyShootoutDots } from '@/components/Prediction/Sport/PenaltyShootoutDots.js';
 import { SportTennisScoreValue } from '@/components/Prediction/Sport/SportTennisScoreValue.js';
 import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -18,10 +19,11 @@ import {
     getSingleScore,
     getTennisSetKey,
     getTieBreakValue,
+    isPenaltyPeriod,
 } from '@/helpers/prediction/sportScoreUtils.js';
 import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 import { useLocale } from '@/hooks/useLocale.js';
-import type { BetsEventDataForUI, SportEventData, SportTeam } from '@/types/prediction.js';
+import type { BetsEventDataForUI, PenaltyKickOutcome, SportEventData, SportTeam } from '@/types/prediction.js';
 import { SportScoreType } from '@/types/prediction.js';
 
 interface SportTeamDataDisplayProps {
@@ -29,9 +31,20 @@ interface SportTeamDataDisplayProps {
     event: BetsEventDataForUI;
 }
 
-function TeamColumn({ team, fallbackLabel, muted }: { team: SportTeam; fallbackLabel: string; muted?: boolean }) {
+function TeamColumn({
+    team,
+    fallbackLabel,
+    muted,
+    penaltyOutcomes,
+}: {
+    team: SportTeam;
+    fallbackLabel: string;
+    muted?: boolean;
+    penaltyOutcomes?: PenaltyKickOutcome[];
+}) {
     const resolveTeamName = useLocalizedSportsTeamName();
     const label = (team.name ? resolveTeamName(team.name) : '') || team.abbreviation || fallbackLabel;
+    const hasPenaltyDots = !!penaltyOutcomes && penaltyOutcomes.length > 0;
 
     return (
         <div
@@ -40,7 +53,7 @@ function TeamColumn({ team, fallbackLabel, muted }: { team: SportTeam; fallbackL
                 muted ? 'opacity-40' : '',
             )}
         >
-            <div className="flex h-[81px] w-full max-w-[156px] flex-col items-center justify-center gap-2">
+            <div className="flex min-h-[81px] w-full max-w-[156px] flex-col items-center justify-center gap-2">
                 <div
                     className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg"
                     style={{
@@ -63,6 +76,7 @@ function TeamColumn({ team, fallbackLabel, muted }: { team: SportTeam; fallbackL
                 <p className="w-full max-w-[156px] truncate text-center text-[13px] font-semibold leading-4 text-lightMain">
                     {label}
                 </p>
+                {hasPenaltyDots ? <PenaltyShootoutDots outcomes={penaltyOutcomes} /> : null}
             </div>
         </div>
     );
@@ -188,13 +202,20 @@ function ScoreRow({
     );
 }
 
-function LiveStatus({ period }: { period?: string }) {
+function LiveStatus({ period, isPenalty }: { period?: string; isPenalty?: boolean }) {
     return (
         <div className="flex h-6 items-center justify-center gap-1.5">
             <span className="text-xs font-medium leading-[14px] text-danger">
                 <Trans>LIVE</Trans>
             </span>
-            {period ? (
+            {isPenalty ? (
+                <>
+                    <span className="size-1.5 rounded-full bg-danger" />
+                    <span className="text-xs font-medium leading-[14px] text-danger">
+                        <Trans>PENALTY</Trans>
+                    </span>
+                </>
+            ) : period ? (
                 <>
                     <span className="size-1.5 rounded-full bg-danger" />
                     <span className="text-xs font-medium leading-[14px] text-lightMain">{period}</span>
@@ -220,9 +241,22 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
 }: SportTeamDataDisplayProps) {
     const locale = useLocale();
 
-    const { homeTeam, awayTeam, scores, live, ended, period, winResult, isDraw, startTime, leagueName, scoreType } =
-        sportData;
+    const {
+        homeTeam,
+        awayTeam,
+        scores,
+        live,
+        ended,
+        period,
+        penaltyShootout,
+        winResult,
+        isDraw,
+        startTime,
+        leagueName,
+        scoreType,
+    } = sportData;
     const multipleSets = scoreType === SportScoreType.Multiple;
+    const isPenalty = live && (isPenaltyPeriod(period) || !!penaltyShootout);
     const primaryMarket = getPrimaryMarket(event.markets);
     const homePrice = Number.parseFloat(primaryMarket?.outcomes[0]?.price || '0');
     const awayPrice = Number.parseFloat(primaryMarket?.outcomes[1]?.price || '0');
@@ -234,7 +268,7 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
     const homePct = total > 0 ? Math.round((homePrice / total) * 100) : 50;
     const awayPct = total > 0 ? Math.round((awayPrice / total) * 100) : 50;
     const drawPct = drawPrice && total > 0 ? Math.round((drawPrice / total) * 100) : undefined;
-    const loser = ended ? getLoser(winResult, scores) : undefined;
+    const loser = ended ? getLoser(winResult, scores, penaltyShootout) : undefined;
     const formattedMeta = [eventVolume > 0 ? `$${nFormatter(eventVolume, 2, true)}` : null, leagueName]
         .filter(Boolean)
         .join(' · ');
@@ -251,7 +285,12 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
     return (
         <div className="px-4">
             <div className="mx-auto flex h-[125px] w-full max-w-[500px] items-center justify-center">
-                <TeamColumn team={homeTeam} fallbackLabel="Home" muted={loser === 'home'} />
+                <TeamColumn
+                    team={homeTeam}
+                    fallbackLabel="Home"
+                    muted={loser === 'home'}
+                    penaltyOutcomes={penaltyShootout?.home}
+                />
 
                 <div className="flex h-full min-w-0 flex-1 flex-col items-center justify-center">
                     <div className="flex w-full flex-col items-center gap-2">
@@ -269,7 +308,7 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
                         {live ? (
                             <>
                                 <ScoreRow scores={scores} multipleSets={multipleSets} />
-                                <LiveStatus period={period} />
+                                <LiveStatus period={period} isPenalty={isPenalty} />
                             </>
                         ) : null}
 
@@ -288,7 +327,12 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
                     </div>
                 </div>
 
-                <TeamColumn team={awayTeam} fallbackLabel="Away" muted={loser === 'away'} />
+                <TeamColumn
+                    team={awayTeam}
+                    fallbackLabel="Away"
+                    muted={loser === 'away'}
+                    penaltyOutcomes={penaltyShootout?.away}
+                />
             </div>
         </div>
     );

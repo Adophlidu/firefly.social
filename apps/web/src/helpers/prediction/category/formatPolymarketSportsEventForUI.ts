@@ -2,12 +2,15 @@ import { parseJson, removeTrailingZeros } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { sanitizePenaltyKicks } from '@/helpers/prediction/penaltyShootout.js';
+import { isPenaltyPeriod } from '@/helpers/prediction/sportScoreUtils.js';
 import type {
     PolymarketSportsEvent,
     PolymarketSportsLivestreamInfo,
     PolymarketSportsMarketData,
     PolymarketSportsMarketTeam,
 } from '@/providers/types/Firefly.js';
+import type { PenaltyShootout } from '@/types/prediction.js';
 
 export type PredictionSportsGamePhase = 'live' | 'scheduled' | 'finished';
 export type PredictionSportsLayout = 'binary' | 'threeWay';
@@ -50,13 +53,15 @@ export interface PredictionSportsCellViewModel {
     awayTeam: PredictionSportsTeamForUI;
     drawOutcome?: PredictionSportsDrawOutcomeForUI;
     gamePhase: PredictionSportsGamePhase;
-    /** Live: period clock (e.g. Q4 - 3:20). */
+    /** Live: period clock (e.g. Q4 - 3:20), or `PENALTY` when a shootout is active. */
     statusLabel?: string;
     /** Scheduled: start time shown in the gray pill (e.g. 10:00 PM). */
     scheduledTimeLabel?: string;
     volumeLabel?: string;
     leagueLabel?: string;
     livestreamUrl?: string;
+    /** Per-kick penalty-shootout results; presence ⇒ shootout is/was active. */
+    penaltyShootout?: PenaltyShootout;
 }
 
 /** Polymarket gamma may return JSON-encoded arrays or real arrays after parsing. */
@@ -351,6 +356,13 @@ function resolveThreeWayTeamData(
     };
 }
 
+/** Returns `PENALTY` when a shootout is active (or a penalty period label), else the period clock. */
+function resolveLiveStatusLabel(event: PolymarketSportsEvent): string | undefined {
+    if (event.penaltyShootout) return 'PENALTY';
+    const period = event.period_show || undefined;
+    return period && isPenaltyPeriod(period) ? 'PENALTY' : period;
+}
+
 function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCellViewModel | null {
     const drawTeams = event.drawTeams;
     if (!event.isDraw || !drawTeams || drawTeams.length < 2) return null;
@@ -380,7 +392,7 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
     let scheduledTimeLabel: string | undefined;
 
     if (gamePhase === 'live') {
-        statusLabel = event.period_show || undefined;
+        statusLabel = resolveLiveStatusLabel(event);
     } else if (gamePhase === 'finished') {
         statusLabel = event.period_show?.toUpperCase() === 'FINAL' ? event.period_show : 'FINAL';
     } else if (startTimeMs) {
@@ -428,6 +440,12 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
         volumeLabel: formatVolumeLabel(event.volume || event.volume24hr),
         leagueLabel: event.leagueName,
         livestreamUrl: gamePhase === 'live' ? resolveSportsLivestreamUrl(event.livestream_info) : undefined,
+        penaltyShootout: event.penaltyShootout
+            ? {
+                  home: sanitizePenaltyKicks(event.penaltyShootout.home),
+                  away: sanitizePenaltyKicks(event.penaltyShootout.away),
+              }
+            : undefined,
     };
 }
 
@@ -490,7 +508,7 @@ export function formatPolymarketSportsEventForUI(event: PolymarketSportsEvent): 
     let scheduledTimeLabel: string | undefined;
 
     if (gamePhase === 'live') {
-        statusLabel = event.period_show || undefined;
+        statusLabel = resolveLiveStatusLabel(event);
     } else if (gamePhase === 'finished') {
         statusLabel = event.period_show?.toUpperCase() === 'FINAL' ? event.period_show : 'FINAL';
     } else if (startTimeMs) {
@@ -509,6 +527,12 @@ export function formatPolymarketSportsEventForUI(event: PolymarketSportsEvent): 
         volumeLabel: formatVolumeLabel(event.volume || event.volume24hr),
         leagueLabel: event.leagueName,
         livestreamUrl: gamePhase === 'live' ? resolveSportsLivestreamUrl(event.livestream_info) : undefined,
+        penaltyShootout: event.penaltyShootout
+            ? {
+                  home: sanitizePenaltyKicks(event.penaltyShootout.home),
+                  away: sanitizePenaltyKicks(event.penaltyShootout.away),
+              }
+            : undefined,
     };
 }
 

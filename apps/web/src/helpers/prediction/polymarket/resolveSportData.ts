@@ -143,6 +143,7 @@ export function resolveSportData(detail: PolymarketEvent): SportEventData | unde
         scores: mapScores(detail),
         scoreType,
         period: detail.period_show || detail.period,
+        penaltyShootout: detail.penaltyShootout,
         startTime: detail.startTime,
         livestreamInfo: mapLivestreamInfo(detail),
         winResult: detail.winResult,
