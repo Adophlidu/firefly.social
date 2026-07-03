@@ -1,15 +1,20 @@
 import { Trans } from '@lingui/react/macro';
-import { createRootRoute, createRoute } from '@tanstack/react-router';
+import { createRootRoute, createRoute, lazyRouteComponent } from '@tanstack/react-router';
 
 import { BskyView, BskyViewBeforeLoad } from '@/modals/LoginModal/BskyView.js';
 import { EmailView, EmailViewBeforeLoad } from '@/modals/LoginModal/EmailView.js';
 import { FarcasterView, FarcasterViewBeforeLoad } from '@/modals/LoginModal/FarcasterView.js';
-import { LensView, LensViewBeforeLoad } from '@/modals/LoginModal/LensView.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
 import { OrbView, OrbViewBeforeLoad } from '@/modals/LoginModal/OrbView.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/refs.js';
 import { RootView } from '@/modals/LoginModal/RootView.js';
 import { TwitterView } from '@/modals/LoginModal/TwitterView.js';
+
+// Deferred so wagmi / @reown/appkit hooks used by the Lens login view are not
+// pulled into the login-modal chunk on whiteboard first paint. The view still
+// requires the wallet context, which is mounted before it renders (non-whiteboard
+// routes, or on-demand once the signup login step activates the wallet stack).
+const LensView = lazyRouteComponent(() => import('@/modals/LoginModal/LensView.js'), 'LensView');
 
 const rootRoute = createRootRoute({
     component: RootView,
@@ -47,9 +52,10 @@ const farcasterRoute = createRoute({
 const lensRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: LensView,
-    pendingComponent: LensView,
     path: '/lens',
-    beforeLoad: LensViewBeforeLoad,
+    beforeLoad: () => ({
+        title: <Trans>Sign in with Lens</Trans>,
+    }),
 });
 
 const twitterRoute = createRoute({

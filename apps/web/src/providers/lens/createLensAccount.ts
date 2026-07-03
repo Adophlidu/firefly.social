@@ -5,7 +5,6 @@ import type { SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';
 import { mainnet } from 'viem/chains';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
@@ -25,6 +24,7 @@ import type { Profile, ProfileForSignup } from '@/providers/types/SocialMedia.js
 
 const loginOnboardingUser = memoizePromise(
     async (address: string) => {
+        const { wagmiConfig } = await import('@/configs/wagmiClient.js');
         const walletClient = await getWalletClientRequired(wagmiConfig, { chainId: mainnet.id });
         const client = createLensPublicClient();
         return ensureLensResult(

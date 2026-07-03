@@ -4,11 +4,30 @@ import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { resolveFarcasterDefaultSignType } from '@/providers/farcaster/resolveFarcasterDefaultSignType.js';
+
+function FarcasterViewLoading() {
+    return (
+        <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">
+            <div className="flex min-h-[200px] flex-col items-center justify-center">
+                <LoadingIcon />
+            </div>
+        </div>
+    );
+}
+
+// Deferred so @wagmi/core is not pulled into the login-modal chunk on whiteboard
+// first paint; loads when the Farcaster login view actually renders. The loading
+// placeholder keeps the modal height stable while the chunk loads (otherwise the
+// content collapses to zero height and then pops in).
+const LoginFarcaster = dynamic(() => import('@/components/Login/LoginFarcaster.js').then((m) => m.LoginFarcaster), {
+    ssr: false,
+    loading: () => <FarcasterViewLoading />,
+});
 
 export const FarcasterViewBeforeLoad = () => {
     return {
@@ -57,14 +76,7 @@ function Title() {
 export function FarcasterView() {
     const { signType, isLoading } = useSignType();
 
-    if (isLoading) {
-        return (
-            <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">
-                <div className="flex min-h-[200px] flex-col items-center justify-center">
-                    <LoadingIcon />
-                </div>
-            </div>
-        );
-    }
+    if (isLoading) return <FarcasterViewLoading />;
+
     return <LoginFarcaster key={`farcaster_${signType ?? 'unknown'}`} signType={signType} />;
 }

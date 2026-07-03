@@ -19,6 +19,7 @@ import {
 import { LoginButton } from '@/app/[locale]/(whiteboard)/components/Signup/LoginButton.js';
 import { ShadowInAndOut } from '@/app/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
+import { activateWalletStack } from '@/controllers/activateWalletStack.js';
 import { openLoginModal } from '@/controllers/openLoginModal.js';
 import { openSignInWithFireflyAppModal } from '@/controllers/openSignInWithFireflyAppModal.js';
 import { useRouter } from '@/esm/navigation.js';
@@ -68,6 +69,15 @@ function QrScanLogin({ logo, title, description, onLogin }: QrScanLoginProps) {
 }
 
 export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
+    // Reaching the login step is the first point a wallet flow (Lens / wallet
+    // connect) can be triggered on /signup. Mount the deferred wallet stack now,
+    // before any login modal opens, so the wagmi/AppKit context is ready without
+    // racing the modal open. Off first paint (the Welcome step), the stack — and
+    // its ~wallet chunks — stay unloaded.
+    useEffect(() => {
+        void activateWalletStack();
+    }, []);
+
     const isLogin = useIsLogin();
     const { currentProfileSession, status: asyncStatus } = useFireflyProfileStore();
     const isLoginFirefly = !!currentProfileSession;

@@ -1,9 +1,7 @@
 import { NetworkType } from '@dimensiondev/enums';
-import { switchEthereumChain } from '@dimensiondev/web3/actions';
-import { chains } from '@dimensiondev/web3/chains';
-import { ConnectorChainMismatchError, ConnectorNotConnectedError } from '@wagmi/core';
+import type { ConnectorChainMismatchError } from '@wagmi/core';
 import type { Config } from 'wagmi';
-import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
+import type { GetWalletClientParameters, GetWalletClientReturnType } from 'wagmi/actions';
 
 import { SwitchChainError } from '@/constants/error.js';
 import { openAndWaitForCloseWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
@@ -21,6 +19,16 @@ export async function getWalletClientRequired(
     clientParameters?: GetWalletClientParameters,
     openProps?: OpenProps,
 ): Promise<Exclude<GetWalletClientReturnType, null>> {
+    // Loaded lazily so wagmi is not pulled into the static graph of the many
+    // (login / lens / metrics) modules that call this helper — keeping wagmi out
+    // of whiteboard first paint.
+    const { getWalletClient } = await import('wagmi/actions');
+    const { ConnectorChainMismatchError, ConnectorNotConnectedError } = await import('@wagmi/core');
+    // @dimensiondev/web3/actions re-exports wagmi-core-backed helpers, so it is
+    // loaded lazily too to keep wagmi out of whiteboard first paint.
+    const { switchEthereumChain } = await import('@dimensiondev/web3/actions');
+    const { chains } = await import('@dimensiondev/web3/chains');
+
     try {
         await getWalletClient(config, clientParameters);
     } catch (error) {
