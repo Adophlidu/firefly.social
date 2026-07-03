@@ -12,11 +12,19 @@ export function SanitizerDiv(props: React.HTMLProps<HTMLDivElement>) {
         return <div {...props} />;
     }
 
-    return (
-        <div
-            {...props}
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
-        />
-    );
+    // DOMPurify can throw on malformed/clobbered markup; fail safe instead of crashing render.
+    try {
+        const sanitized = DOMPurify.sanitize(html);
+
+        return (
+            <div
+                {...props}
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{ __html: sanitized }}
+            />
+        );
+    } catch {
+        const { dangerouslySetInnerHTML: _, ...rest } = props;
+        return <div {...rest} />;
+    }
 }
