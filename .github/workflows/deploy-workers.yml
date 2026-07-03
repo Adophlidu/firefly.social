@@ -1,0 +1,143 @@
+name: Deploy Workers
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - 'workers/**'
+            - '.github/workflows/deploy-workers.yml'
+            - '.github/scripts/setup.sh'
+    workflow_dispatch:
+        inputs:
+            worker:
+                description: 'Worker directory under workers/ to deploy, or "all"'
+                required: false
+                default: all
+                type: string
+
+permissions:
+    contents: read
+
+concurrency:
+    group: deploy-workers-${{ github.ref }}
+    cancel-in-progress: false
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version-file: '.node-version'
+
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Setup Github Actions
+              run: .github/scripts/setup.sh
+
+            - name: Determine target workers
+              id: targets
+              run: |
+                  set -euo pipefail
+
+                  # Collect deployable workers: a wrangler config + a "deploy" script.
+                  deployable=()
+                  for dir in workers/*/; do
+                    name="$(basename "$dir")"
+                    if ls "$dir"wrangler.* >/dev/null 2>&1 \
+                      && node -e "process.exit(require('./$dir/package.json').scripts?.deploy ? 0 : 1)" 2>/dev/null; then
+                      deployable+=("$name")
+                    fi
+                  done
+
+                  if [ ${#deployable[@]} -eq 0 ]; then
+                    echo "::error::No deployable workers found under workers/"
+                    exit 1
+                  fi
+
+                  targets=()
+
+                  if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.worker }}" != "all" ]; then
+                    # Manual deploy of a single worker.
+                    input="${{ github.event.inputs.worker }}"
+                    matched=false
+                    for name in "${deployable[@]}"; do
+                      if [ "$name" = "$input" ]; then matched=true; break; fi
+                    done
+                    if [ "$matched" != true ]; then
+                      echo "::error::'$input' is not a deployable worker. Options: ${deployable[*]}"
+                      exit 1
+                    fi
+                    targets=("$input")
+                  elif [ "${{ github.event_name }}" = "push" ]; then
+                    # Deploy only workers touched since the previous commit.
+                    before="${{ github.event.before }}"
+                    if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "$before^{commit}" 2>/dev/null; then
+                      before="${{ github.sha }}^"
+                    fi
+                    changed="$(git diff --name-only "$before" "${{ github.sha }}" -- workers/ || true)"
+
+                    # Shared libraries are consumed by every worker, so a change there redeploys all.
+                    if echo "$changed" | grep -Eq '^workers/(shared|client)/'; then
+                      echo "Shared worker code changed -> deploying all workers"
+                      targets=("${deployable[@]}")
+                    else
+                      for name in "${deployable[@]}"; do
+                        if echo "$changed" | grep -q "^workers/$name/"; then
+                          targets+=("$name")
+                        fi
+                      done
+                    fi
+                  else
+                    # Manual "all".
+                    targets=("${deployable[@]}")
+                  fi
+
+                  if [ ${#targets[@]} -eq 0 ]; then
+                    echo "No worker changes detected; nothing to deploy."
+                    echo "targets=" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "Deploy targets: ${targets[*]}"
+                    echo "targets=${targets[*]}" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Deploy workers
+              if: steps.targets.outputs.targets != ''
+              env:
+                  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+              run: |
+                  set -uo pipefail
+
+                  if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then
+                    echo "::error::CLOUDFLARE_API_TOKEN secret is not set"
+                    exit 1
+                  fi
+
+                  failed=()
+                  for name in ${{ steps.targets.outputs.targets }}; do
+                    echo "::group::Deploy $name"
+                    if pnpm --filter "./workers/$name" run deploy; then
+                      echo "Deployed $name"
+                    else
+                      echo "::error::Failed to deploy $name"
+                      failed+=("$name")
+                    fi
+                    echo "::endgroup::"
+                  done
+
+                  if [ ${#failed[@]} -gt 0 ]; then
+                    echo "::error::Failed workers: ${failed[*]}"
+                    exit 1
+                  fi
