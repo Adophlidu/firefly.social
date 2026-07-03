@@ -8,7 +8,6 @@ import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { formatAddressEthereum, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useConnection } from 'wagmi';
@@ -18,13 +17,13 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { openAndWaitForCloseAddLensManagerModal } from '@/controllers/openAddLensManagerModal.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { usePrivyAddresses } from '@/hooks/usePrivyAddresses.js';
 import { logger } from '@/libs/Logger.js';
 import { createMemorySessionClient } from '@/providers/lens/createMemorySessionClient.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 interface Props {
@@ -35,14 +34,13 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
     const connection = useConnection();
     const lensAccounts = useLensProfileStore.getState().accounts;
     const currentProfile = useLensProfileStore.getState().currentProfile;
-    const { wallets } = useFireflyWalletStore();
+    const { evm: privyEvm } = usePrivyAddresses();
 
     const account = useMemo(
         () => lensAccounts.find((account) => isSameProfile(account.profile, profile)),
         [lensAccounts, profile],
     );
 
-    const privyEvm = first(wallets.ethereum)?.address;
     const disabled = !account || !privyEvm;
 
     const { data, isLoading, isRefetching } = useQuery({
@@ -139,8 +137,7 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
         connectionAddress: connection.address,
     });
 
-    if (isAlreadyBound) return null;
-    if (disabled || isLoading || isRefetching || isLoadingSigner) return null;
+    if (disabled || isLoading || isRefetching || isLoadingSigner || isAlreadyBound || !isSessionValid) return null;
 
     return (
         <IconButton onlyLoading loading={loading} tooltip={<Trans>Lens Auto login</Trans>} onClick={onMoreButtonClick}>

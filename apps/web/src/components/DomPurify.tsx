@@ -1,6 +1,7 @@
-import { logger } from '@/libs/Logger.js';
 import DOMPurify from 'dompurify';
 import { noSSR } from 'foxact/no-ssr';
+
+import { logger } from '@/libs/Logger.js';
 
 export function SanitizerDiv(props: React.HTMLProps<HTMLDivElement>) {
     noSSR();

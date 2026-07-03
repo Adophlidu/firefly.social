@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ConnectionSource, NetworkType } from '@dimensiondev/enums';
-import { getAddressType, isSameAddress } from '@dimensiondev/web3/utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import type { CaipAddress, Connection } from '@reown/appkit/react';
 import {
     AssetUtil as CoreAssetUtil,
@@ -14,7 +14,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
-import { usePrivyConnections } from '@/hooks/usePrivyConnections.js';
+import { usePrivyAddresses } from '@/hooks/usePrivyAddresses.js';
 import type { ChainNamespace } from '@/types/utility.js';
 
 export interface AppKitAccount {
@@ -190,21 +190,18 @@ export function usePrivyAppKitAccounts(): {
     isLoading: boolean;
 } {
     const allAccounts = useAppKitAccounts();
-    const { connections, isLoading } = usePrivyConnections();
-
-    const privyEvm = connections.find((x) => getAddressType(x.address) === NetworkType.Ethereum);
-    const privySolana = connections.find((x) => getAddressType(x.address) === NetworkType.Solana);
+    const { evm: privyEvm, solana: privySolana, isLoading } = usePrivyAddresses();
 
     const accounts = compact([
         privyEvm
             ? {
-                  address: privyEvm.address,
+                  address: privyEvm,
                   network: NetworkType.Ethereum,
               }
             : null,
         privySolana
             ? {
-                  address: privySolana.address,
+                  address: privySolana,
                   network: NetworkType.Solana,
               }
             : null,
