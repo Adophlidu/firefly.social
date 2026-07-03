@@ -1,3 +1,4 @@
+import { logger } from '@/libs/Logger.js';
 import DOMPurify from 'dompurify';
 import { noSSR } from 'foxact/no-ssr';
 
@@ -23,7 +24,9 @@ export function SanitizerDiv(props: React.HTMLProps<HTMLDivElement>) {
                 dangerouslySetInnerHTML={{ __html: sanitized }}
             />
         );
-    } catch {
+    } catch (error) {
+        logger.error(`Failed to sanitize HTML, ${error}`)
+
         const { dangerouslySetInnerHTML: _, ...rest } = props;
         return <div {...rest} />;
     }
