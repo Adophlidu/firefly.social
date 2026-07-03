@@ -12,6 +12,7 @@ import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs/index.
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { AccountSuspendedError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation/server.js';
+import { createProfileJsonLd, serializeJsonLd } from '@/helpers/createProfileJsonLd.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
@@ -57,10 +58,56 @@ export default async function Layout(props: Props) {
     queryClient.setQueryData(['firefly-profile', identityFromUrl.source, identityFromUrl.id], relatedProfile);
 
     if (isRequestedLoginSource(source) && !resolveSessionHolder(source).session) {
+        // The viewer isn't logged in, but the profile itself is public: on the server the
+        // provider resolves to the session-free nitter proxy, so fetch it anonymously to keep
+        // profile text and JSON-LD in the SSR HTML. On failure, degrade to the plain fallback.
+        const socialProfile = identityFromUrl.id
+            ? ((await runInSafeAsync(() =>
+                  resolveSocialMediaProvider(narrowToSocialSource(identity.source)).getProfileByHandle(
+                      identityFromUrl.id,
+                      true,
+                  ),
+              )) ?? null)
+            : null;
+
+        if (socialProfile) {
+            queryClient.setQueryData(['profile', socialProfile.source, socialProfile.profileId], socialProfile);
+            queryClient.setQueryData(['profile', socialProfile.source, socialProfile.handle], socialProfile);
+            queryClient.setQueryData(['profile', socialProfile.source, id], socialProfile);
+            queryClient.setQueryData(
+                ['firefly-profile', socialProfile.source, socialProfile.profileId],
+                relatedProfile,
+            );
+            queryClient.setQueryData(['firefly-profile', socialProfile.source, socialProfile.handle], relatedProfile);
+        }
+
         return (
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <FireflyAccountInfo identity={identity} relatedProfile={relatedProfile} />
-                <ProfileSourceTabs profiles={profiles} identity={identity} identityFromUrl={identityFromUrl} />
+                {/* eslint-disable react/no-danger -- JSON-LD is serialized with `<` escaped */}
+                {socialProfile ? (
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: serializeJsonLd(createProfileJsonLd(socialProfile)) }}
+                    />
+                ) : null}
+                {/* eslint-enable react/no-danger */}
+                <FireflyAccountInfo identity={identity} relatedProfile={relatedProfile} socialProfile={socialProfile} />
+                <ProfileSourceTabs
+                    profiles={profiles}
+                    identity={identity}
+                    socialProfile={socialProfile}
+                    identityFromUrl={identityFromUrl}
+                />
+                {socialProfile ? (
+                    <ProfileContextProvider profiles={profiles} identity={identity} socialProfile={socialProfile}>
+                        <ProfileInfoCard
+                            source={source}
+                            socialProfile={socialProfile}
+                            profiles={profiles}
+                            hasFireflyAccount={!!relatedProfile.account}
+                        />
+                    </ProfileContextProvider>
+                ) : null}
                 <NotLoginFallback source={source as LoginFallbackSource} />
             </HydrationBoundary>
         );
@@ -116,6 +163,14 @@ export default async function Layout(props: Props) {
 
         return (
             <HydrationBoundary state={dehydrate(queryClient)}>
+                {/* eslint-disable react/no-danger -- JSON-LD is serialized with `<` escaped */}
+                {socialProfile ? (
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: serializeJsonLd(createProfileJsonLd(socialProfile)) }}
+                    />
+                ) : null}
+                {/* eslint-enable react/no-danger */}
                 <ProfileContextProvider profiles={profiles} identity={identity} socialProfile={socialProfile}>
                     <FireflyAccountInfo
                         relatedProfile={relatedProfile}

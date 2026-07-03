@@ -13,7 +13,7 @@ import z from 'zod';
 
 import { createMetadataProfileByHandle } from '@/metadata/src/profile/createMetadataProfileByHandle.js';
 
-const VERSION = 2;
+const VERSION = 3;
 
 const QuerySchema = z.object({
     source: z.string(),

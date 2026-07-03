@@ -1,7 +1,7 @@
-import type {
-    ProfilePageSourceInURL,
+import {
+    type ProfilePageSourceInURL,
     SocialProfileCategory,
-    SocialSource,
+    type SocialSource,
     WalletProfileCategory,
 } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
@@ -12,7 +12,7 @@ import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
-import { isProfilePageSource } from '@/helpers/isSource.js';
+import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 
@@ -23,7 +23,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
 
     if (resolvedSource && isProfilePageSource(resolvedSource)) {
-        return createMetadataProfileById(source as ProfilePageSourceInURL, id, `/profile/${source}/${id}/${category}`);
+        // the public URL of the default category is the bare profile URL (see proxy/handlers/profileRoutes.ts)
+        const defaultCategory = isSocialSource(resolvedSource)
+            ? SocialProfileCategory.Feed
+            : WalletProfileCategory.Transactions;
+        const pathname =
+            category === defaultCategory ? `/profile/${source}/${id}` : `/profile/${source}/${id}/${category}`;
+        return createMetadataProfileById(source as ProfilePageSourceInURL, id, pathname);
     }
     return createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`);
 }

@@ -9,6 +9,12 @@ import type { Context } from 'hono';
 import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/metadata/src/profile/getProfileUrl.js';
 
+const MAX_DESCRIPTION_LENGTH = 300;
+
+function formatFollowerCount(count: number) {
+    return new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(count);
+}
+
 export async function createMetadataProfileByHandle(
     source: SocialSourceInURL,
     pathname: string,
@@ -29,12 +35,28 @@ export async function createMetadataProfileByHandle(
         },
     ];
 
-    const title = createPageTitleOG(`@${profile.handle}`);
-    const description = `Follow @${profile.handle} to see their unified activity across X, Farcaster, Lens and Bluesky.`;
+    // remote RPC data may omit fields even though the type claims they are present
+    const displayName = profile.displayName?.trim();
+    const bio = profile.bio?.trim();
+    const followers = Number.isFinite(profile.followerCount)
+        ? `${formatFollowerCount(profile.followerCount)} followers`
+        : null;
+    const nameOnFirefly = displayName
+        ? `${displayName} (@${profile.handle}) on Firefly`
+        : `@${profile.handle} on Firefly`;
+
+    const title = displayName ? nameOnFirefly : createPageTitleOG(`@${profile.handle}`);
+    // truncate by code point to avoid splitting a surrogate pair at the boundary
+    const description = Array.from([nameOnFirefly, followers, bio].filter(Boolean).join(' · '))
+        .slice(0, MAX_DESCRIPTION_LENGTH)
+        .join('');
 
     return createSiteMetadata(pathname, {
         title,
         description,
+        alternates: {
+            canonical: urlcat(SITE_URL, getProfileUrl(profile)),
+        },
         openGraph: {
             type: 'profile',
             url: urlcat(SITE_URL, getProfileUrl(profile)),
