@@ -40,9 +40,9 @@
         "production": "https://world-cup.firefly.social/world-cup-iframe"
     },
     "/about": {
-        "staging": "https://about-firefly-social.vercel.app/about",
-        "canary": "https://about-firefly-social.vercel.app/about",
-        "production": "https://about-firefly-social.vercel.app/about"
+        "staging": "https://firefly-social-about.vercel.app/about",
+        "canary": "https://firefly-social-about.vercel.app/about",
+        "production": "https://firefly-social-about.vercel.app/about"
     },
     "/chat": {
         "staging": "https://firefly-chatbot-git-main-dimension-dev.vercel.app/chat",
