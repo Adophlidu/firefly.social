@@ -2079,7 +2079,7 @@ msgid "Post with image"
 msgstr "이미지와 함께 게시"
 
 msgid "3rd Place"
-msgstr ""
+msgstr "3·4위전"
 
 msgid "Losses"
 msgstr "패"
@@ -2512,7 +2512,7 @@ msgid "Days"
 msgstr "일"
 
 msgid "TBD"
-msgstr ""
+msgstr "미정"
 
 msgid "Custom token amount"
 msgstr "사용자 지정 토큰 금액"
@@ -3721,7 +3721,7 @@ msgid "Your {0} account is now connected."
 msgstr "{0} 계정이 연결되었습니다."
 
 msgid "Rewards have been sent to your Prediction Account."
-msgstr ""
+msgstr "보상이 예측 계정으로 전송되었습니다."
 
 msgid "Not Found"
 msgstr "찾을 수 없음"
@@ -3925,7 +3925,7 @@ msgid "Proposal"
 msgstr "제안"
 
 msgid "PENALTY"
-msgstr ""
+msgstr "승부차기"
 
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
@@ -4242,7 +4242,7 @@ msgid "Post your reply"
 msgstr "답글 게시"
 
 msgid "Final"
-msgstr ""
+msgstr "결승"
 
 msgid "L"
 msgstr "패"

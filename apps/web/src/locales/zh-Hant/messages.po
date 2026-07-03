@@ -2079,7 +2079,7 @@ msgid "Post with image"
 msgstr "帶圖片發佈"
 
 msgid "3rd Place"
-msgstr ""
+msgstr "季軍賽"
 
 msgid "Losses"
 msgstr "負場"
@@ -2512,7 +2512,7 @@ msgid "Days"
 msgstr "日"
 
 msgid "TBD"
-msgstr ""
+msgstr "待定"
 
 msgid "Custom token amount"
 msgstr "自訂代幣數額"
@@ -3721,7 +3721,7 @@ msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳號已連接。"
 
 msgid "Rewards have been sent to your Prediction Account."
-msgstr ""
+msgstr "獎勵已發送至您的預測帳戶。"
 
 msgid "Not Found"
 msgstr "找不到內容"
@@ -3925,7 +3925,7 @@ msgid "Proposal"
 msgstr "提案"
 
 msgid "PENALTY"
-msgstr ""
+msgstr "PK"
 
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
@@ -4242,7 +4242,7 @@ msgid "Post your reply"
 msgstr "發布你的留言"
 
 msgid "Final"
-msgstr ""
+msgstr "決賽"
 
 msgid "L"
 msgstr "負"

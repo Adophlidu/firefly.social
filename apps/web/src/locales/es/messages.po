@@ -2089,7 +2089,7 @@ msgid "Post with image"
 msgstr "Publicar con imagen"
 
 msgid "3rd Place"
-msgstr ""
+msgstr "Tercer puesto"
 
 msgid "Losses"
 msgstr "Derrotas"
@@ -2525,7 +2525,7 @@ msgid "Days"
 msgstr "Días"
 
 msgid "TBD"
-msgstr ""
+msgstr "Por definir"
 
 msgid "Custom token amount"
 msgstr "Cantidad personalizada de tokens"
@@ -3741,7 +3741,7 @@ msgid "Your {0} account is now connected."
 msgstr "Tu cuenta de {0} ahora está conectada."
 
 msgid "Rewards have been sent to your Prediction Account."
-msgstr ""
+msgstr "Las recompensas se han enviado a tu cuenta de Predicción."
 
 msgid "Not Found"
 msgstr "No Encontrado"
@@ -3947,7 +3947,7 @@ msgid "Proposal"
 msgstr "Propuesta"
 
 msgid "PENALTY"
-msgstr ""
+msgstr "PENAL"
 
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
@@ -4265,7 +4265,7 @@ msgid "Post your reply"
 msgstr "Publicar tu respuesta"
 
 msgid "Final"
-msgstr ""
+msgstr "Final"
 
 msgid "L"
 msgstr "D"

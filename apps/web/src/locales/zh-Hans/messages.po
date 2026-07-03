@@ -2079,7 +2079,7 @@ msgid "Post with image"
 msgstr "带图片发布"
 
 msgid "3rd Place"
-msgstr ""
+msgstr "季军赛"
 
 msgid "Losses"
 msgstr "负场"
@@ -2512,7 +2512,7 @@ msgid "Days"
 msgstr "天"
 
 msgid "TBD"
-msgstr ""
+msgstr "待定"
 
 msgid "Custom token amount"
 msgstr "自定义代币数额"
@@ -3721,7 +3721,7 @@ msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账号已连接。"
 
 msgid "Rewards have been sent to your Prediction Account."
-msgstr ""
+msgstr "奖励已发送至你的预测账户。"
 
 msgid "Not Found"
 msgstr "未发现内容"
@@ -3925,7 +3925,7 @@ msgid "Proposal"
 msgstr "提案"
 
 msgid "PENALTY"
-msgstr ""
+msgstr "点球"
 
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
@@ -4242,7 +4242,7 @@ msgid "Post your reply"
 msgstr "发布你的评论"
 
 msgid "Final"
-msgstr ""
+msgstr "决赛"
 
 msgid "L"
 msgstr "负"

@@ -2079,7 +2079,7 @@ msgid "Post with image"
 msgstr "画像付きで投稿"
 
 msgid "3rd Place"
-msgstr ""
+msgstr "3位決定戦"
 
 msgid "Losses"
 msgstr "敗北"
@@ -2512,7 +2512,7 @@ msgid "Days"
 msgstr "日"
 
 msgid "TBD"
-msgstr ""
+msgstr "未定"
 
 msgid "Custom token amount"
 msgstr "カスタムトークン金額"
@@ -3721,7 +3721,7 @@ msgid "Your {0} account is now connected."
 msgstr "あなたの {0} アカウントが接続されました。"
 
 msgid "Rewards have been sent to your Prediction Account."
-msgstr ""
+msgstr "報酬が予測アカウントに送信されました。"
 
 msgid "Not Found"
 msgstr "見つかりません"
@@ -3925,7 +3925,7 @@ msgid "Proposal"
 msgstr "提案"
 
 msgid "PENALTY"
-msgstr ""
+msgstr "PK"
 
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
@@ -4242,7 +4242,7 @@ msgid "Post your reply"
 msgstr "返信を投稿"
 
 msgid "Final"
-msgstr ""
+msgstr "決勝"
 
 msgid "L"
 msgstr "敗"
