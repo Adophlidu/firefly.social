@@ -921,9 +921,9 @@ importers:
       '@dimensiondev/workers-token':
         specifier: workspace:*
         version: link:../../workers/token
-      '@dimensiondev/workers-ui-suggested-channels':
+      '@dimensiondev/workers-ui':
         specifier: workspace:*
-        version: link:../../workers/ui-suggested-channels
+        version: link:../../workers/ui
       '@dimensiondev/workers-x-identity':
         specifier: workspace:*
         version: link:../../workers/x-identity
@@ -1400,9 +1400,9 @@ importers:
       '@dimensiondev/workers-token':
         specifier: workspace:*
         version: link:../token
-      '@dimensiondev/workers-ui-suggested-channels':
+      '@dimensiondev/workers-ui':
         specifier: workspace:*
-        version: link:../ui-suggested-channels
+        version: link:../ui
       '@dimensiondev/workers-unifi-badge-level':
         specifier: workspace:*
         version: link:../unifi-badge-level
@@ -1973,7 +1973,7 @@ importers:
         specifier: '>=4.59.1'
         version: 4.100.0(@cloudflare/workers-types@4.20260613.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
 
-  workers/ui-suggested-channels:
+  workers/ui:
     dependencies:
       '@dimensiondev/enums':
         specifier: workspace:^

@@ -5,7 +5,7 @@ import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
-import { getTrendingChannels } from '@/ui-suggested-channels/src/getSuggestedChannels.js';
+import { getTrendingChannels } from '@/ui/src/suggested-channels/getSuggestedChannels.js';
 
 const VERSION = 1;
 

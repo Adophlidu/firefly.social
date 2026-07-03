@@ -1,12 +1,12 @@
-import { uiSuggestedChannelsWorker } from '@dimensiondev/workers-client';
-import type { SuggestedChannel } from '@dimensiondev/workers-ui-suggested-channels';
+import { uiWorker } from '@dimensiondev/workers-client';
+import type { SuggestedChannel } from '@dimensiondev/workers-ui';
 
 import { formatSuggestedChannel } from '@/helpers/formatSuggestedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getTrendingChannels(): Promise<Channel[]> {
-    const res = await uiSuggestedChannelsWorker.ui['suggested-channels'].$get(
+    const res = await uiWorker.ui['suggested-channels'].$get(
         { query: {} },
         { headers: { 'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false' } },
     );

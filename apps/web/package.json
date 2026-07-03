@@ -150,7 +150,7 @@
         "@dimensiondev/workers-snap": "workspace:*",
         "@dimensiondev/workers-snapshot": "workspace:*",
         "@dimensiondev/workers-token": "workspace:*",
-        "@dimensiondev/workers-ui-suggested-channels": "workspace:*",
+        "@dimensiondev/workers-ui": "workspace:*",
         "@dimensiondev/workers-x-identity": "workspace:*",
         "@lingui/cli": "^5.9.5",
         "@lingui/conf": "^5.9.5",

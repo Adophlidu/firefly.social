@@ -1,4 +1,4 @@
-import type { SuggestedChannel } from '@dimensiondev/workers-ui-suggested-channels';
+import type { SuggestedChannel } from '@dimensiondev/workers-ui';
 
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';

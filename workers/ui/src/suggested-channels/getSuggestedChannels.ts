@@ -6,8 +6,8 @@ import { resolveSocialSourceInUrl } from '@dimensiondev/workers-shared/helpers/r
 import type { FireflyChannel } from '@dimensiondev/workers-shared/types/firefly.js';
 import type { Context } from 'hono';
 
-import { mergeLists } from '@/ui-suggested-channels/src/mergeLists.js';
-import type { SuggestedChannel } from '@/ui-suggested-channels/src/types.js';
+import { mergeLists } from '@/ui/src/suggested-channels/mergeLists.js';
+import type { SuggestedChannel } from '@/ui/src/suggested-channels/types.js';
 
 const suggestedLensGroups = [
     { name: 'orb', id: '0xB49d9dBbaC3aCbd5C263f5C204Ad9CF859f54869' },

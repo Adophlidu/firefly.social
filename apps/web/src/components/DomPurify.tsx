@@ -25,7 +25,7 @@ export function SanitizerDiv(props: React.HTMLProps<HTMLDivElement>) {
             />
         );
     } catch (error) {
-        logger.error(`Failed to sanitize HTML, ${error}`)
+        logger.error(`Failed to sanitize HTML, ${error}`);
 
         const { dangerouslySetInnerHTML: _, ...rest } = props;
         return <div {...rest} />;

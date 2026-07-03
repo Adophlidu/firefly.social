@@ -15,7 +15,7 @@ import type { AppType as SnapAppType } from '@dimensiondev/workers-snap';
 import type { AppType as SnapshotAppType } from '@dimensiondev/workers-snapshot';
 import type { AppType as TcoAppType } from '@dimensiondev/workers-tco';
 import type { AppType as TokenAppType } from '@dimensiondev/workers-token';
-import type { AppType as UiSuggestedChannelsAppType } from '@dimensiondev/workers-ui-suggested-channels';
+import type { AppType as UiAppType } from '@dimensiondev/workers-ui';
 import type { AppType as UnifiBadgeLevelAppType } from '@dimensiondev/workers-unifi-badge-level';
 import type { AppType as XIdentityAppType } from '@dimensiondev/workers-x-identity';
 import { hc } from 'hono/client';
@@ -40,7 +40,7 @@ export const snapWorker = hc<SnapAppType>(FIREFLY_WORKER_HOST);
 export const snapshotWorker = hc<SnapshotAppType>(FIREFLY_WORKER_HOST);
 export const tcoWorker = hc<TcoAppType>(FIREFLY_WORKER_HOST);
 export const tokenWorker = hc<TokenAppType>(FIREFLY_WORKER_HOST);
-export const uiSuggestedChannelsWorker = hc<UiSuggestedChannelsAppType>(FIREFLY_WORKER_HOST);
+export const uiWorker = hc<UiAppType>(FIREFLY_WORKER_HOST);
 export const unifiBadgeLevelWorker = hc<UnifiBadgeLevelAppType>(FIREFLY_WORKER_HOST);
 export const xIdentityWorker = hc<XIdentityAppType>(FIREFLY_WORKER_HOST);
 
@@ -65,7 +65,7 @@ export type {
     SnapshotAppType,
     TcoAppType,
     TokenAppType,
-    UiSuggestedChannelsAppType,
+    UiAppType,
     UnifiBadgeLevelAppType,
     XIdentityAppType,
 };

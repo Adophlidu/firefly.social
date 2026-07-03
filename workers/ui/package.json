@@ -1,5 +1,5 @@
 {
-    "name": "@dimensiondev/workers-ui-suggested-channels",
+    "name": "@dimensiondev/workers-ui",
     "version": "0.0.1",
     "private": true,
     "type": "module",

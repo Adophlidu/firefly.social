@@ -28,7 +28,7 @@
         "@dimensiondev/workers-snapshot": "workspace:*",
         "@dimensiondev/workers-tco": "workspace:*",
         "@dimensiondev/workers-token": "workspace:*",
-        "@dimensiondev/workers-ui-suggested-channels": "workspace:*",
+        "@dimensiondev/workers-ui": "workspace:*",
         "@dimensiondev/workers-unifi-badge-level": "workspace:*",
         "@dimensiondev/workers-x-identity": "workspace:*",
         "hono": "^4.12.25"
