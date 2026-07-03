@@ -1,9 +1,9 @@
 import type { ConnectionPlatform } from '@dimensiondev/enums';
-import { WatchType } from '@dimensiondev/enums';
+import { NetworkType, WatchType } from '@dimensiondev/enums';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
+import type { Address } from 'viem';
 
-import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { SetQueryDataForReportAndDeleteWallet } from '@/decorators/SetQueryDataForReportAndDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
@@ -14,6 +14,7 @@ import { unblock } from '@/providers/firefly/endpoint/unblock.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type {
     BindWalletResponse,
+    BindWalletV3Response,
     DetectAddressResponse,
     EmptyResponse,
     FireflyWalletConnection,
@@ -25,22 +26,31 @@ import type {
 import { settings } from '@/settings/index.js';
 
 @SetQueryDataForBlockWallet()
-@SetQueryDataForAddWallet()
 @SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
 class FireflyWallet {
-    async verifyAndBindWallet(signMessage: string, signature: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/verify');
-        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
+    /** Bind an EVM wallet via `/v3/user/bindWallet` (synchronous write, so no post-bind poll). `isForce` is omitted so an already-linked wallet still throws (code 231). */
+    async verifyAndBindWallet(
+        address: string,
+        message: string,
+        signature: string,
+    ): Promise<BindWalletResponse['data']> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindWallet');
+        const response = await fireflySessionHolder.fetchWithSession<BindWalletV3Response>(url, {
             method: 'POST',
-            body: JSON.stringify({
-                signMessage,
-                signature,
-            }),
+            body: JSON.stringify({ address, signedMessage: message, signature }),
         });
+        resolveFireflyResponseData(response); // throws on { error }
 
-        const data = resolveFireflyResponseData(response);
-        return data;
+        return {
+            id: '',
+            address: address as Address,
+            ens: '',
+            is_connected: true,
+            blockchain: NetworkType.Ethereum,
+            signMessage: message,
+            signature,
+        };
     }
 
     async getMessageToSignMessageForBindSolanaWallet(address: string) {

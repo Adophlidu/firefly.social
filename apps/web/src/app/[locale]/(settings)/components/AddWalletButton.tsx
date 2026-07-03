@@ -32,12 +32,14 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
             onSuccess?.();
             return;
         }
-        // Bind inside onConnect, while the wallet is still connected: the EVM
-        // connection is torn down once the modal closes.
-        await openAndWaitForCloseWalletConnectModal({
-            customTitle: t`Select Wallet`,
-            onConnect: (networkType, caipAddress) => bindWallet(networkType, connections, { caipAddress }),
-        });
+        // Connect first, then bind after the modal closes. Signing inside the
+        // modal's onConnect window is unstable — right after AppKit connect,
+        // wagmi/AppKit state is mid-cascade and the account is transiently
+        // de-authorized (double Connect popup / UnauthorizedProviderError).
+        // Post-close the connection is stable (same pattern as verifyEthereumAddress).
+        const selectedWallet = await openAndWaitForCloseWalletConnectModal({ customTitle: t`Select Wallet` });
+        if (!selectedWallet) return;
+        await bindWallet(selectedWallet.networkType, connections);
         onSuccess?.();
     }, [connections, openWallets, onSuccess]);
 

@@ -809,6 +809,11 @@ export type BindWalletResponse = Response<{
     signature: string;
 }>;
 
+/** `/v3/user/bindWallet` returns the full AuthSummary with the updated wallet list; only the envelope is consumed here. */
+export type BindWalletV3Response = Response<{
+    account_id: string;
+}>;
+
 export type IsMutedAllResponse = Response<{
     isBlockAll: boolean;
 }>;

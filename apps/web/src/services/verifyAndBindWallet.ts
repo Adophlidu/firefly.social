@@ -1,8 +1,7 @@
 import { ClickOrigin, NetworkType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import bs58 from 'bs58';
-import { type Address, createWalletClient, custom } from 'viem';
-import { getConnections } from 'wagmi/actions';
+import type { Address } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { WalletNotConnectedError } from '@/constants/error.js';
@@ -12,74 +11,10 @@ import { getMessageToSignForBindWallet } from '@/providers/firefly/endpoint/getM
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
 
-function parseEvmAddressFromCaip(caipAddress: string): string | undefined {
-    // eip155:<chainId>:<address>
-    if (!caipAddress.startsWith('eip155:')) return undefined;
-    return caipAddress.split(':')[2];
-}
-
-/**
- * Bind the currently-connected wallet of `network`.
- *
- * For EVM, callers inside the wallet-connect modal's onConnect window pass
- * `caipAddress`. The wagmi connection is torn down within the first await, so
- * wagmi's getWalletClient can't produce a signer — instead the connector is
- * captured synchronously and a viem walletClient is built from its EIP-1193
- * provider, which outlives the teardown.
- */
-export async function verifyAndBindWallet(
-    network: NetworkType,
-    checkExistedConnection?: (address: string) => boolean,
-    caipAddress?: string,
-) {
+/** Bind the currently-connected wallet of `network`. EVM signs via wagmi's walletClient after the connect modal closes — signing inside onConnect is unstable (transiently de-authorized). Same pattern as verifyEthereumAddress. */
+export async function verifyAndBindWallet(network: NetworkType, checkExistedConnection?: (address: string) => boolean) {
     switch (network) {
         case NetworkType.Ethereum: {
-            const evmAddress = parseEvmAddressFromCaip(caipAddress ?? '');
-            if (evmAddress) {
-                if (checkExistedConnection?.(evmAddress)) return;
-                // Capture synchronously: getConnections still lists the wallet here,
-                // but it'll be empty after the first await below.
-                const connection = getConnections(wagmiConfig).find((c) =>
-                    c.accounts.some((a) => a.toLowerCase() === evmAddress.toLowerCase()),
-                );
-                // Re-resolve the canonical connector from wagmiConfig.connectors (as
-                // AppKit's WagmiAdapter does): the ref on a Connection right after
-                // reconnect() can be a stale snapshot without getProvider().
-                const connector = connection
-                    ? (wagmiConfig.connectors.find((c) => c.id === connection.connector.id) ?? connection.connector)
-                    : undefined;
-                if (!connector) throw new WalletNotConnectedError();
-
-                const provider = (await connector.getProvider()) as unknown as Parameters<typeof custom>[0] | null;
-                if (!provider) throw new WalletNotConnectedError();
-
-                // Sign via the raw provider without a second eth_requestAccounts:
-                // authorization from AppKit's connect already lives in MetaMask, and
-                // re-requesting pops a redundant Connect that wagmi's torn-down state
-                // returns as "user rejected" (FW-7834). Suspend accountsChanged listeners
-                // so wagmi/AppKit don't tear the connection down mid fetch + sign.
-                const emitter = provider as unknown as {
-                    listeners?: (event: string) => unknown[];
-                    off?: (event: string, listener: unknown) => void;
-                    on?: (event: string, listener: unknown) => void;
-                };
-                const suspendedListeners = emitter.listeners?.('accountsChanged') ?? [];
-                suspendedListeners.forEach((listener) => emitter.off?.('accountsChanged', listener));
-
-                try {
-                    const message = await getMessageToSignForBindWallet(evmAddress.toLowerCase());
-                    const walletClient = createWalletClient({
-                        account: evmAddress as Address,
-                        transport: custom(provider),
-                    });
-                    const signature = await walletClient.signMessage({ message: { raw: message } });
-                    return fireflyWalletProvider.verifyAndBindWallet(message, signature);
-                } finally {
-                    suspendedListeners.forEach((listener) => emitter.on?.('accountsChanged', listener));
-                }
-            }
-
-            // Fallback for callers without a caipAddress (resolve via wagmi).
             const connector = resolveEvmConnector(wagmiConfig);
             const walletClient = await getWalletClientRequired(wagmiConfig, connector ? { connector } : undefined, {
                 origin: ClickOrigin.Settings,
@@ -91,7 +26,7 @@ export async function verifyAndBindWallet(
                 message: { raw: message },
                 account: address as Address,
             });
-            return fireflyWalletProvider.verifyAndBindWallet(message, signature);
+            return fireflyWalletProvider.verifyAndBindWallet(address.toLowerCase(), message, signature);
         }
         case NetworkType.Solana: {
             const adapter = await getWalletAdaptorRequired({

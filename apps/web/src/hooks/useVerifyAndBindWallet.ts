@@ -5,9 +5,11 @@ import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { FetchError } from '@/constants/error.js';
 import { openAndWaitForCloseMyWalletsModal } from '@/controllers/openMyWalletsModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { verifyAndBindWallet } from '@/services/verifyAndBindWallet.js';
 
@@ -16,44 +18,34 @@ export interface BindWalletCallbacks {
     onError?: (error: Error) => void;
 }
 
-export interface BindWalletOptions extends BindWalletCallbacks {
-    /** CAIP address (e.g. `eip155:1:0x…`) of the just-connected wallet, if known. */
-    caipAddress?: string;
-}
+export type BindWalletOptions = BindWalletCallbacks;
 
 /**
- * Bind the currently-connected wallet of `network`. Stateless (no React hooks) so
- * it is safe to invoke from inside the wallet-connect modal's onConnect window,
- * where the EVM connection is still live — it is torn down once the modal closes.
- * Routing this through a hook (useAsyncFn) from onConnect would trigger a
- * setState-in-render violation, so callers that need loading state wrap this in
- * {@link useVerifyAndBindWallet} themselves. Toasts for success/failure are shown
- * here; re-throws so hook callers can still observe the error state.
+ * Bind the currently-connected wallet of `network`. Stateless (no React hooks);
+ * callers that need loading state wrap this in {@link useVerifyAndBindWallet}.
+ * Toasts for success/failure are shown here; re-throws so hook callers can
+ * observe the error state.
  */
 export async function bindWallet(
     network: NetworkType,
     connections: FireflyWalletConnection[],
     options?: BindWalletOptions,
 ) {
-    const { onSuccess, onError, caipAddress } = options ?? {};
+    const { onSuccess, onError } = options ?? {};
     try {
         let isPrivyConnected = false;
-        const result = await verifyAndBindWallet(
-            network,
-            (address: string) => {
-                const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
-                if (!existedConnection) return false;
-                if (existedConnection.source === WalletSource.Privy) {
-                    isPrivyConnected = true;
-                    return true;
-                }
-                const addressName = first(existedConnection.ens) || formatAddress(address, 8);
-                enqueueWarningMessage(t`${addressName} is already connected.`);
-                onError?.(new Error(`Already connected address name = ${addressName}.`));
+        const result = await verifyAndBindWallet(network, (address: string) => {
+            const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
+            if (!existedConnection) return false;
+            if (existedConnection.source === WalletSource.Privy) {
+                isPrivyConnected = true;
                 return true;
-            },
-            caipAddress,
-        );
+            }
+            const addressName = first(existedConnection.ens) || formatAddress(address, 8);
+            enqueueWarningMessage(t`${addressName} is already connected.`);
+            onError?.(new Error(`Already connected address name = ${addressName}.`));
+            return true;
+        });
         if (!result) {
             if (isPrivyConnected) {
                 enqueueWarningMessage(t`Please switch the wallet you want to connect`);
@@ -63,6 +55,8 @@ export async function bindWallet(
             onError?.(new Error('This address type is not supported'));
             return;
         }
+        // v3 writes synchronously — one refetch surfaces the new wallet.
+        await queryClient.refetchQueries({ queryKey: queryMyAllConnections.queryKey });
         enqueueSuccessMessage(t`Wallet added successfully`);
         onSuccess?.(result);
     } catch (error) {
