@@ -14,6 +14,7 @@ import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { openPreviewMediaModal } from '@/controllers/openPreviewMediaModal.js';
+import { getArticleHtmlContent } from '@/helpers/getArticleHtmlContent.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -28,6 +29,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
     const isMedium = useIsMedium();
 
     const isDarkMode = useIsDarkMode();
+    const htmlContent = getArticleHtmlContent(article);
 
     return (
         <ClickableArea
@@ -36,7 +38,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
             className={classNames(
                 'relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-secondaryLine bg-bg p-3 text-left text-main',
                 {
-                    'overflow-hidden': !!article.content,
+                    'overflow-hidden': !!htmlContent,
                 },
             )}
         >
@@ -72,7 +74,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                 <ArticleAuthor className="min-w-0" article={article} />
                 {isMedium ? <ArticleActions article={article} /> : null}
             </div>
-            {article.content ? (
+            {htmlContent ? (
                 <div className="h-[100px]">
                     {article.platform !== ArticlePlatform.Mirror ? (
                         <div
@@ -86,7 +88,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                                 className={classNames('markdown-body comment-enabled', {
                                     dark: isDarkMode,
                                 })}
-                                dangerouslySetInnerHTML={{ __html: article.content }}
+                                dangerouslySetInnerHTML={{ __html: htmlContent }}
                             />
                         </div>
                     ) : (

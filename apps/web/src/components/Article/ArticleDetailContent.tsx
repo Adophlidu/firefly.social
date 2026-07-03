@@ -19,6 +19,7 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { openAndWaitForCloseConfirmLeavingModal } from '@/controllers/openConfirmLeavingModal.js';
 import { openPreviewMediaModal } from '@/controllers/openPreviewMediaModal.js';
+import { getArticleHtmlContent } from '@/helpers/getArticleHtmlContent.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
@@ -39,6 +40,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
     const isMuted = useIsProfileMuted(Source.Wallet, article.author.id, article.author.isMuted);
     const articleOrigin = article.origin;
     const identity = useFireflyIdentity(Source.Wallet, article.author.id);
+    const htmlContent = getArticleHtmlContent(article);
 
     const handleViewSourceClick = useCallback(() => {
         captureArticleViewSourceClickEvent(article.id, identity.id);
@@ -80,7 +82,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                 </div>
                 {isMuted ? (
                     <CollapsedContent className="mt-2" authorMuted isQuote={false} />
-                ) : article.platform !== ArticlePlatform.Mirror ? (
+                ) : article.platform !== ArticlePlatform.Mirror && htmlContent ? (
                     <div
                         className={classNames({
                             'limo-article': article.platform === ArticlePlatform.Limo,
@@ -94,10 +96,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                                 dark: isDarkMode,
                             })}
                             dangerouslySetInnerHTML={{
-                                __html:
-                                    article.platform === ArticlePlatform.Matters
-                                        ? (article.htmlContent ?? article.content)
-                                        : article.content,
+                                __html: htmlContent,
                             }}
                             onClick={async (event) => {
                                 event.stopPropagation();

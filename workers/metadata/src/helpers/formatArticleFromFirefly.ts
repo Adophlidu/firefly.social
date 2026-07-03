@@ -47,5 +47,7 @@ export async function formatArticleFromFirefly(article: FireflyArticle): Promise
         // paragraph only
         json: article.paragraph_raw_data?.json,
         displayInfo: article.displayInfo,
+        // matters only
+        htmlContent: isMattersArticle ? article.contents?.body : undefined,
     };
 }

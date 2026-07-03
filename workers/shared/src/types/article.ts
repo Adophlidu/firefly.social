@@ -53,4 +53,5 @@ export interface Article {
 
     // Matters only
     likeCount?: number;
+    htmlContent?: string;
 }

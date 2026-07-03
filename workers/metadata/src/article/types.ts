@@ -15,6 +15,10 @@ export interface Article {
         body: string;
         title: string;
     };
+    contents?: {
+        body: string;
+        title: string;
+    };
     author: string;
     displayInfo: FireflyDisplayInfo;
     authorship: {
