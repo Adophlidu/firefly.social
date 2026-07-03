@@ -53,12 +53,11 @@ export async function verifyAndBindWallet(
                 const provider = (await connector.getProvider()) as unknown as Parameters<typeof custom>[0] | null;
                 if (!provider) throw new WalletNotConnectedError();
 
-                // MetaMask emits a spurious accountsChanged([]) right after connect.
-                // It cascades through wagmi → AppKit and tears down (and de-authorizes)
-                // the connection before the backend challenge fetch returns, forcing a
-                // second eth_requestAccounts popup. Temporarily detach the provider's
-                // accountsChanged listeners so that event is ignored, keeping the
-                // connection (and authorization) alive across the fetch + sign.
+                // Sign via the raw provider without a second eth_requestAccounts:
+                // authorization from AppKit's connect already lives in MetaMask, and
+                // re-requesting pops a redundant Connect that wagmi's torn-down state
+                // returns as "user rejected" (FW-7834). Suspend accountsChanged listeners
+                // so wagmi/AppKit don't tear the connection down mid fetch + sign.
                 const emitter = provider as unknown as {
                     listeners?: (event: string) => unknown[];
                     off?: (event: string, listener: unknown) => void;
@@ -69,10 +68,6 @@ export async function verifyAndBindWallet(
 
                 try {
                     const message = await getMessageToSignForBindWallet(evmAddress.toLowerCase());
-                    // Re-authorize in case the spurious accountsChanged([]) de-selected
-                    // the account. Silent if authorization persisted; otherwise MetaMask
-                    // prompts once to re-select the account.
-                    await provider.request({ method: 'eth_requestAccounts' });
                     const walletClient = createWalletClient({
                         account: evmAddress as Address,
                         transport: custom(provider),
