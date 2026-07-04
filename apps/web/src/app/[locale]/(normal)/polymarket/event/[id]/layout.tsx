@@ -1,18 +1,28 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
-import type { LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
-import { createPredictionEventMetadata } from '@/providers/firefly/metadata/createPredictionEventMetadata.js';
+import { getPolymarketEventPageMetadata } from '@/app/[locale]/(normal)/polymarket/event/[id]/getPolymarketEventPageData.js';
 
-interface Props extends LayoutProps<{
-    id: string;
-}> {}
+interface MetadataProps extends LayoutProps<{ id: string; locale: string }>, SearchProps<{ type: 'multi' | string }> {}
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-    const { id } = await props.params;
-    return createPredictionEventMetadata(id, PredictionPlatform.Polymarket, `/polymarket/event/${id}`);
+type LayoutPropsOnly = LayoutProps<{ id: string; locale: string }>;
+
+export async function generateMetadata(props: MetadataProps): Promise<Metadata> {
+    const [{ id, locale }, searchParams] = await Promise.all([props.params, props.searchParams]);
+    const type = searchParams.type;
+    const isMutil = type === 'multi';
+
+    return getPolymarketEventPageMetadata({
+        id,
+        isMutil,
+        locale,
+        platform: PredictionPlatform.Polymarket,
+        pathname: `/polymarket/event/${id}`,
+        type,
+    });
 }
 
-export default async function PolymarketEventLayout(props: Props) {
+export default async function PolymarketEventLayout(props: LayoutPropsOnly) {
     return props.children;
 }

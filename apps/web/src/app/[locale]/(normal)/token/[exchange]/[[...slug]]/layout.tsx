@@ -1,28 +1,18 @@
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
-import { runInSafeAsync } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
-import type { GetTokenOptions } from '@dimensiondev/workers-token';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
-import { z } from 'zod';
 
 import { CategoryTabs } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
+import {
+    getTokenDetailPageData,
+    getTokenDetailPageMetadata,
+} from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/getTokenDetailPageData.js';
 import { MobileSwapButton } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
+import { resolveTokenDetailQueryOptions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
 import { WrapTokenMarketData } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
-import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
-import { searchToken } from '@/providers/firefly/worker/searchToken.js';
-
-const QueryOptionsSchema = z.object({
-    address: z.string().optional(),
-    isCoinId: z
-        .string()
-        .optional()
-        .transform((val) => (val === 'true' ? true : undefined)),
-    chainId: z.coerce.number().int().optional(),
-});
 
 type Props = LayoutProps<{
     exchange: string;
@@ -43,16 +33,21 @@ function updateSearch(originSearch: string, patch: Record<string, string>) {
 export async function generateMetadata(props: Props & SearchProps) {
     const params = await props.params;
     const searchParams = await props.searchParams;
-    const options = QueryOptionsSchema.safeParse(searchParams).data;
+    const query = resolveTokenDetailQueryOptions(params.exchange, params.slug, searchParams);
+    const keyword = query.isCexCoin ? query.coingecko_id : query.isDexCoin ? query.address : query.legacySymbol;
 
-    const isCexCoin = params.exchange === 'cex';
-    const isDexCoin = params.exchange === 'dex';
-
-    const keyword = isCexCoin ? params.slug?.[0] : isDexCoin ? params.slug?.[1] : params.exchange;
-    return createTokenMetadata(
+    return getTokenDetailPageMetadata(
+        query.token_symbol,
+        query.coingecko_id,
+        query.chain_id,
+        query.address,
+        query.pathname,
         keyword ?? '-',
-        params.slug ? `/token/${params.exchange}/${params.slug.join('/')}` : `/token/${params.exchange}`,
-        { ...options, isCoinId: isCexCoin ? true : options?.isCoinId },
+        {
+            chainId: query.chain_id,
+            address: query.address,
+            isCoinId: query.isCexCoin ? true : query.isCoinId,
+        },
     );
 }
 
@@ -87,23 +82,22 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
         redirect(`/token/cex/${legacySymbol}${newSearch}`);
     }
 
-    const paramChainId = search?.get('chainId') ? Number(search.get('chainId')) : undefined;
-    const isAddress = isValidAddressEthereum(legacySymbol) || isValidAddressSolana(legacySymbol);
-    const paramAddress = isDexCoin ? slugs[1] : isAddress ? legacySymbol : search?.get('address') || undefined;
-    const tokenQueryOptions: GetTokenOptions = {
-        token_symbol: isAddress || isCoinId || isNewRoute ? undefined : legacySymbol,
-        coingecko_id: isCexCoin ? slug : undefined,
-        chain_id: paramChainId,
-        address: paramAddress,
-    };
-    const token = await runInSafeAsync(() => searchToken(tokenQueryOptions));
+    const query = resolveTokenDetailQueryOptions(params.exchange, params.slug, search);
+    const pageData = await getTokenDetailPageData(
+        query.token_symbol,
+        query.coingecko_id,
+        query.chain_id,
+        query.address,
+    );
 
-    if (!token) notFound();
+    if (!pageData) notFound();
+
+    const { token, tokenQueryOptions } = pageData;
 
     if (!isNewRoute) {
         const url = token.id
             ? `/token/cex/${token.id}${newSearch}`
-            : `/token/dex/${paramChainId || token.chainId}/${paramAddress || token.address}${newSearch}`;
+            : `/token/dex/${query.chain_id || token.chainId}/${query.address || token.address}${newSearch}`;
         redirect(url, RedirectType.replace);
     }
 

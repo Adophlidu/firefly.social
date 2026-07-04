@@ -3,11 +3,13 @@ import { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
-import { getChannelPageData } from '@/app/[locale]/(normal)/club/[source]/[id]/getChannelPageData.js';
+import {
+    getChannelPageData,
+    getChannelPageMetadata,
+} from '@/app/[locale]/(normal)/club/[source]/[id]/getChannelPageData.js';
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { Title } from '@/components/Channel/Title.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 
 type Props = LayoutProps<{
     id: string;
@@ -16,7 +18,7 @@ type Props = LayoutProps<{
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id } = await props.params;
-    return createChannelMetadata(source, id, `/club/${source}/${id}`);
+    return getChannelPageMetadata(source as SocialSourceInURL, id, `/club/${source}/${id}`);
 }
 
 export default async function Page(props: Props) {

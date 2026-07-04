@@ -20,15 +20,18 @@ import { shouldShowSuperfortuneEntry } from '@/helpers/prediction/superfortune.j
 import { resolveLocale } from '@/helpers/resolveLocale.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
+import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PredictionEventDetailContentProps {
     id: string;
     isMutil: boolean;
     locale: string;
     platform: PredictionPlatform;
+    event?: BetsEventDataForUI;
 }
 
 export async function PredictionEventDetailContent({
+    event: initialEvent,
     id,
     isMutil,
     locale,
@@ -36,7 +39,8 @@ export async function PredictionEventDetailContent({
 }: PredictionEventDetailContentProps) {
     setupLocaleFromParams(locale); // Ensure i18n is set for <Trans> in this server component
     const resolvedLocale = resolveLocale(locale);
-    const event = await runInSafeAsync(() => getEventDetail(platform, { id, isMutil, locale: resolvedLocale }));
+    const event =
+        initialEvent ?? (await runInSafeAsync(() => getEventDetail(platform, { id, isMutil, locale: resolvedLocale })));
     if (!event) notFound();
 
     const markets = event.markets || EMPTY_LIST;
