@@ -654,7 +654,7 @@ msgid "Confirm new PIN"
 msgstr "新しい PIN を確認"
 
 msgid "Activity Rewards"
-msgstr ""
+msgstr "アクティビティ報酬"
 
 msgid "Sort closed positions"
 msgstr "クローズドポジションを並び替え"

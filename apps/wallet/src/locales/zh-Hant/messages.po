@@ -654,7 +654,7 @@ msgid "Confirm new PIN"
 msgstr "確認新 PIN 碼"
 
 msgid "Activity Rewards"
-msgstr ""
+msgstr "活動獎勵"
 
 msgid "Sort closed positions"
 msgstr "排序已平倉位"
