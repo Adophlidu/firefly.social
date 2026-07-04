@@ -29,7 +29,6 @@ export function formatChannelFromOrb(club: OrbClub | WorkerClub, owner?: Profile
             timestamp: club.timestamp,
             ownerId: overrideOwnerId ?? club.ownerId,
             lead: owner,
-            __original__: club,
         } satisfies Channel;
     }
 
@@ -51,6 +50,5 @@ export function formatChannelFromOrb(club: OrbClub | WorkerClub, owner?: Profile
         isMember: club.operations?.isMember,
         unavailable: !canPost || !feedId,
         feedId,
-        __original__: club,
     } satisfies Channel;
 }

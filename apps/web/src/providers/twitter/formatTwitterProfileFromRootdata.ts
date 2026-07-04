@@ -5,7 +5,7 @@ import { TWITTER_MENTION_REGEX } from '@/constants/regexp.js';
 import type { RootdataPeople } from '@/providers/types/Firefly.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function formatTwitterProfileFromRootdata(user: RootdataPeople): Profile<RootdataPeople> {
+export function formatTwitterProfileFromRootdata(user: RootdataPeople): Profile {
     assert(user.people_detail?.x_id, '.people_detail.x_id of rootdata user is required');
     const bio = user.people_detail.introduce || user.people_detail.one_liner;
     return {
@@ -27,6 +27,5 @@ export function formatTwitterProfileFromRootdata(user: RootdataPeople): Profile<
         status: ProfileStatus.Active,
         verified: true,
         source: Source.Twitter,
-        __original__: user,
     };
 }

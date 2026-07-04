@@ -31,6 +31,7 @@ describe('useResourceFallback', () => {
 
     it('skips a candidate whose host is flooding', () => {
         for (let i = 0; i < 5; i += 1) reportResourceFailure(`https://flood.test/${i}.png`);
+
         const { result } = renderHook(() =>
             useResourceFallback(['https://flood.test/banner.png', 'https://safe.test/ok.png']),
         );

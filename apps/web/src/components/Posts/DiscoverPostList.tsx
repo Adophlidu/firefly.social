@@ -6,8 +6,10 @@ import { createIndicator } from '@dimensiondev/utils';
 import { uniqBy } from 'lodash-es';
 import { memo } from 'react';
 
+import type { DiscoverFeedInitialData } from '@/app/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
+import { SSR_LIST_LIMIT } from '@/constants/ssr.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
@@ -15,12 +17,13 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useRefetchWhenReady } from '@/hooks/useRefetchWhenReady.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-// Number of posts react-virtuoso renders/measures on the initial (server) render.
-const SSR_INITIAL_ITEM_COUNT = 10;
-
-export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(function DiscoverPostList({ source }) {
+export const DiscoverPostList = memo<{
+    source: SocialSource | Source.Posts;
+    initialFeedPage?: DiscoverFeedInitialData;
+}>(function DiscoverPostList({ source, initialFeedPage }) {
     const { sources, selectedSources } = useDiscoverSources(HomeTab.Discover);
     const isLogin = useIsLogin();
+    const hasSourceFilter = selectedSources.length > 0;
     // The viewer's sessions resume asynchronously after first paint; true until they finish.
     const isSyncing = useAsyncStatusAll();
     const queryResult = useMultiInfiniteQueryPageable(
@@ -43,13 +46,17 @@ export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(fu
         },
         {
             gcTime: 10 * 60 * 1000,
+            initialData: hasSourceFilter ? undefined : initialFeedPage,
         },
     );
 
-    // The first page may be server-prefetched anonymously (see the discover posts page),
-    // carrying no viewer relationship (hasLiked, …). Refetch once the viewer's sessions have
-    // finished resuming to fill it in.
-    useRefetchWhenReady(isLogin && !isSyncing, queryResult.refetch);
+    // The first page may be server-rendered anonymously (see getDiscoverPostsPageData): it
+    // carries no viewer relationship (hasLiked, …) and is sliced to SSR_LIST_LIMIT items while
+    // keeping the full page's cursor — paginating from it would skip the items beyond the
+    // slice. Refetch once sessions have finished resuming — for anonymous viewers too when the
+    // list was seeded with the sliced SSR page — to replace it with the complete first page.
+    const seededWithSlicedPage = !hasSourceFilter && !!initialFeedPage;
+    useRefetchWhenReady((isLogin || seededWithSlicedPage) && !isSyncing, queryResult.refetch);
 
     return (
         <ListInPage<Post>
@@ -60,7 +67,7 @@ export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(fu
                 listKey: `${ScrollListKey.Discover}:${source}`,
                 // Render the first screen during SSR; without it react-virtuoso emits an
                 // empty list on the server and the prefetched feed never reaches the HTML.
-                initialItemCount: Math.min(queryResult.data.length, SSR_INITIAL_ITEM_COUNT),
+                initialItemCount: Math.min(queryResult.data.length, SSR_LIST_LIMIT),
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Discover}:${source}`),
             }}

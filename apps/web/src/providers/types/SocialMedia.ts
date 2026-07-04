@@ -53,7 +53,7 @@ interface ProfileChannel {
     name: string;
 }
 
-export interface Profile<O = unknown> {
+export interface Profile {
     /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
     /** the source of profile's session */
@@ -106,7 +106,6 @@ export interface Profile<O = unknown> {
     fifaCampCountryCode?: string;
     /** FIFA camp flag image URL from camp/check API */
     fifaCampCountryLogo?: string;
-    __original__?: O;
     __lazy__?: boolean;
 }
 
@@ -333,6 +332,8 @@ export interface Post {
     }>;
     /** Post from tako could be incomplete, the full content is stored in embedded ipfs */
     incomplete?: boolean;
+    /** IPFS URL for externally hosted full content when `incomplete` is true (Tako posts) */
+    externalHostedContentUrl?: string;
     /** Firefly long article URL detected from trailing link in Bluesky posts */
     fireflyArticleUrl?: string;
 
@@ -343,8 +344,6 @@ export interface Post {
     // ! Just for posts from nitter (X/Twitter)
     isAd?: boolean;
     isAI?: boolean;
-
-    __original__?: unknown;
 }
 
 interface Comment {
@@ -417,7 +416,7 @@ export type Notification =
     | PolymarketRewardNotification
     | UnifiedNotification;
 
-export interface Channel<T = unknown> {
+export interface Channel {
     source: SocialSource;
     id: string;
     name: string;
@@ -442,7 +441,6 @@ export interface Channel<T = unknown> {
     feedId?: string;
     // lazy load owner for Lens
     ownerId?: string;
-    __original__?: T;
     // lazy load channel for Lens
     __lazy__?: boolean;
 }

@@ -13,7 +13,6 @@ export function formatBskyChannel(original: AppBskyFeedDefs.GeneratorView): Chan
         description: original.description,
         imageUrl: original.avatar || '',
         url: original.uri,
-        __original__: original,
         timestamp: new Date(original.indexedAt).getTime(),
         parentUrl: original.uri,
         followerCount: original.likeCount || 0,

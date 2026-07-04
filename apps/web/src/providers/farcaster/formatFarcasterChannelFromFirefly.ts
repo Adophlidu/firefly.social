@@ -63,7 +63,6 @@ export function formatChannelFromFirefly(channel: FireflyChannel): Channel {
         parentUrl: channel.parent_url,
         followerCount: channel.follower_count ?? 0,
         timestamp: createdAt * 1000,
-        __original__: channel,
     };
     if (channel.lead) {
         formatted.lead = formatChannelProfileFromFirefly(channel.lead);
@@ -106,7 +105,6 @@ export function formatBriefChannelFromFirefly(channel: ChannelBrief, blocked?: b
         imageUrl: channel.image_url,
         followerCount: channel.follower_count ?? 0,
         timestamp: createdAt * 1000,
-        __original__: channel,
         blocked,
     };
 
@@ -133,6 +131,5 @@ export function formatFireflyFarcasterProfile(profile: FireflyFarcasterProfile):
             followedBy: profile.isFollowedBack,
         },
         isProUser: profile.isProUser ?? false,
-        __original__: profile,
     };
 }

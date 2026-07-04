@@ -1,6 +1,5 @@
 'use client';
 
-import { EMPTY_LIST } from '@dimensiondev/constants';
 import { MIN_POST_SIZE_PER_THREAD } from '@dimensiondev/constants/static';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
@@ -23,6 +22,7 @@ import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { TweetUnavailableError } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { resolvePostDetailAllPosts } from '@/helpers/resolvePostDetailAllPosts.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 interface PostMediaSidebarProps {
@@ -50,7 +50,7 @@ function PostMediaSidebarContent({
 
     if (!post) return null;
 
-    const allPosts = threads?.data || EMPTY_LIST;
+    const allPosts = resolvePostDetailAllPosts(post, threads);
 
     return (
         <article className="pb-20">

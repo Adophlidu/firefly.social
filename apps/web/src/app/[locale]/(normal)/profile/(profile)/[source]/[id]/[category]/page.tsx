@@ -21,7 +21,7 @@ interface Props extends LayoutProps<{ id: string; category: ProfileCategory; sou
 
 export default function Page(props: Props) {
     const params = use(props.params);
-    const { identity: cachedIdentity } = use(ProfileContext);
+    const { identity: cachedIdentity, refreshedSocialProfile: cachedSocialProfile } = use(ProfileContext);
     const searchParams = useSearchParams();
 
     const source = resolveSourceFromUrlNoFallback(params.source);
@@ -29,6 +29,19 @@ export default function Page(props: Props) {
 
     const idForQuery =
         source === Source.Farcaster && searchParams.get('fid') ? `!${searchParams.get('fid')}` : params.id;
+
+    const profileInitialData = useMemo(() => {
+        if (!cachedSocialProfile) return undefined;
+        if (
+            cachedSocialProfile.handle === idForQuery ||
+            cachedSocialProfile.profileId === idForQuery ||
+            cachedSocialProfile.handle === params.id ||
+            cachedSocialProfile.profileId === params.id
+        ) {
+            return cachedSocialProfile;
+        }
+        return undefined;
+    }, [cachedSocialProfile, idForQuery, params.id]);
 
     // Lens used handle in profile page, while timeline can only be queried using profileId, it is necessary to convert handle to profileId.
     const { data: profile = null } = useQuery({
@@ -38,6 +51,7 @@ export default function Page(props: Props) {
             const provider = resolveSocialMediaProvider(source);
             return provider.getProfileByHandle(idForQuery, true);
         },
+        initialData: profileInitialData,
     });
 
     const profileId = profile?.profileId || cachedIdentity?.id || idForQuery || params.id;

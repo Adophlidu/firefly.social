@@ -15,7 +15,7 @@ export interface TokenSelectorModalOpenProps {
     validChainIds?: number[];
 }
 
-export type TokenSelectorModalCloseProps = FungibleToken<number, EthereumSchemaType, Token> | null;
+export type TokenSelectorModalCloseProps = FungibleToken<number, EthereumSchemaType> | null;
 
 export type TokenSelectorModalRefType = SingletonModalRefCreator<
     TokenSelectorModalOpenProps,

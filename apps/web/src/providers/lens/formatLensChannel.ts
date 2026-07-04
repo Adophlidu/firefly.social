@@ -33,7 +33,6 @@ export function formatLensChannelFromGroup(group: Group): Channel {
             !feed || (!!feed.operations && feed.operations.canPost.__typename !== 'FeedOperationValidationPassed'),
         feedId: feed?.address,
         ownerId: group.owner,
-        __original__: group,
         __lazy__: true, // need to lazy load followers count and owner
     };
 }
@@ -57,7 +56,6 @@ export function formatLensChannelFromPostGroup(group: PostGroupInfo): Channel {
         unavailable: false,
         feedId: undefined,
         ownerId: undefined,
-        __original__: group,
         __lazy__: true, // need to lazy load followers count and owner
     };
 }

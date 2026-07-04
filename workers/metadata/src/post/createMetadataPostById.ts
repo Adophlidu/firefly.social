@@ -11,6 +11,7 @@ import type { FireflyPost } from '@dimensiondev/workers-shared/types/firefly.js'
 import type { Context } from 'hono';
 
 import { createSiteMetadata } from '@/metadata/src/helpers/createSiteMetadata.js';
+import { getPostDescription } from '@/metadata/src/post/getPostDescription.js';
 import { getPostPathname } from '@/metadata/src/post/getPostPathname.js';
 import { extractTwitterProfileByOpengraphTitle } from '@/metadata/src/post/getTwitterProfileByOG.js';
 
@@ -85,17 +86,16 @@ export async function createMetadataPostById(
 
     const handle = post.author?.handle;
     const title = handle ? `View @${handle}'s post on Firefly` : SITE_NAME;
+    const description = getPostDescription(post);
 
     return createSiteMetadata(pathname, {
         title,
-        description:
-            'Join the conversation on Firefly: follow, comment and engage with Web3 social posts in real time.',
+        description,
         openGraph: {
             type: 'article',
             url: urlcat(resolveSiteUrl(context), getPostPathname(post)),
             title,
-            description:
-                'Join the conversation on Firefly: follow, comment and engage with Web3 social posts in real time.',
+            description,
             images: [ogImage],
             audio: audios,
             videos,
@@ -103,8 +103,7 @@ export async function createMetadataPostById(
         twitter: {
             card: 'summary_large_image',
             title,
-            description:
-                'Join the conversation on Firefly: follow, comment and engage with Web3 social posts in real time.',
+            description,
             images: [ogImage],
         },
     });

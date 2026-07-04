@@ -157,7 +157,6 @@ export function formatTwitterPostFromNitter(
                 oembedUrl: last(oembedUrls),
             },
         },
-        __original__: tweet,
     };
 
     if (tweet.isAd) post.isAd = true;

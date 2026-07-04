@@ -47,7 +47,6 @@ function formatNotificationUser(user: NotificationUser): Profile {
         website: user.url,
         location: user.location,
         __lazy__: true,
-        __original__: user,
     };
 }
 
@@ -166,7 +165,6 @@ function formatNotificationPost(data: NotificationPost): Post {
                   name: sendFromName,
               }
             : undefined,
-        __original__: data,
     };
 
     if (type === PostType.Quote && data.quoted_status) {

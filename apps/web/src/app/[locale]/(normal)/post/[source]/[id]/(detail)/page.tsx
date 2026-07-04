@@ -1,23 +1,17 @@
 import type { SocialSourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
-import { UnauthorizedError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { Suspense } from 'react';
 
 import { PageDetail } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/client.js';
-import LoadingPage from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/loading.js';
-import { getPostDetailQuery, getPostThreadQuery } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
+import { getPostDetailPageData } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/getPostDetailPageData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { queryClientConfig } from '@/configs/queryClient.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { isValidPostId } from '@/helpers/postId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 
 export const revalidate = 60;
 
@@ -34,21 +28,7 @@ export default async function Page(props: Props) {
         notFound();
     }
 
-    const queryClient = new QueryClient(queryClientConfig);
-
-    // Always prefetch post data for ISR caching.
-    // ISR cached pages include full post data for both users and crawlers.
-    let post: Post | null | undefined;
-    let unauthorized = false;
-    try {
-        post = await queryClient.ensureQueryData(getPostDetailQuery(source, params.id));
-    } catch (error) {
-        if (error instanceof UnauthorizedError) {
-            unauthorized = true;
-        } else {
-            post = undefined;
-        }
-    }
+    const { post, unauthorized, initialThread } = await getPostDetailPageData(source, params.id);
 
     if (!post && !unauthorized) {
         if (isRequestedLoginSource(source)) {
@@ -67,15 +47,5 @@ export default async function Page(props: Props) {
         notFound();
     }
 
-    if (post) {
-        await queryClient.prefetchQuery(getPostThreadQuery(source, params.id, post));
-    }
-
-    return (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-            <Suspense fallback={<LoadingPage />}>
-                <PageDetail id={params.id} source={source} />
-            </Suspense>
-        </HydrationBoundary>
-    );
+    return <PageDetail id={params.id} source={source} initialPost={post ?? null} initialThread={initialThread} />;
 }

@@ -16,6 +16,5 @@ export function formatFarcasterChannelFromWarpcast(channel: WarpcastChannel): Ch
         timestamp: (channel.createdAt || 0) * 1000,
         lead: undefined,
         isMember: false,
-        __original__: channel,
     };
 }

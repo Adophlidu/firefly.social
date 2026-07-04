@@ -234,7 +234,6 @@ function formatBskyViewRecordWithMedia(post: Post, original: AppBskyEmbedRecordW
 
 export function formatBskyPost(original: AppBskyFeedDefs.PostView) {
     let post: Post = formatBskyPostView(original);
-    post.__original__ = original;
     if (AppBskyEmbedRecord.isView(original.embed) && AppBskyEmbedRecord.isViewRecord(original.embed.record)) {
         post.type = PostType.Quote;
         post.quoteOn = formatBskyViewRecord(original.embed.record);
@@ -252,7 +251,6 @@ function isReplyRef(reply: unknown): reply is AppBskyFeedDefs.ReplyRef {
 
 export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost | AppBskyFeedDefs.ThreadViewPost): Post {
     let post: Post = formatBskyPostView(original.post);
-    post.__original__ = original;
     if (AppBskyFeed.isThreadViewPost(original) && AppBskyFeed.isThreadViewPost(original.parent)) {
         post.type = PostType.Comment;
         post.commentOn = formatBskyFeedPost(original.parent);

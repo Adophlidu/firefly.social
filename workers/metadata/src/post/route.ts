@@ -13,7 +13,7 @@ import z from 'zod';
 
 import { createMetadataPostById } from '@/metadata/src/post/createMetadataPostById.js';
 
-const VERSION = 3;
+const VERSION = 4;
 
 const QuerySchema = z.object({
     source: z.string(),

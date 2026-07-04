@@ -3,10 +3,10 @@ import type { LayoutProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
-import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
+import { resolveProfilePageMetadata } from '@/helpers/resolveProfilePageMetadata.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 type Props = LayoutProps<{ source: ProfilePageSourceInURL; id: string }>;
@@ -15,7 +15,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
     if (resolvedSource && isProfilePageSource(resolvedSource)) {
-        return createMetadataProfileById(source, id, `/profile/${source}/${id}`);
+        return resolveProfilePageMetadata(source, id, `/profile/${source}/${id}`);
     }
     return createSiteMetadata(`/profile/${source}/${id}`);
 }

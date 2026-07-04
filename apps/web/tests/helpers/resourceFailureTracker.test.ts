@@ -20,12 +20,14 @@ describe('resourceFailureTracker', () => {
     it('does not trip the host below the failure threshold', () => {
         const host = 'https://below.test';
         for (let i = 0; i < 4; i += 1) reportResourceFailure(`${host}/${i}.png`);
+
         expect(shouldSkipResource(`${host}/fresh.png`)).toBe(false);
     });
 
     it('trips the host breaker after enough failures and skips other URLs from that host', () => {
         const host = 'https://storm.test';
         for (let i = 0; i < 5; i += 1) reportResourceFailure(`${host}/${i}.png`);
+
         expect(shouldSkipResource(`${host}/never-requested.png`)).toBe(true);
         expect(shouldSkipResource('https://other.test/x.png')).toBe(false);
     });
@@ -33,6 +35,7 @@ describe('resourceFailureTracker', () => {
     it('recovers after the cooldown elapses', () => {
         const host = 'https://recover.test';
         for (let i = 0; i < 5; i += 1) reportResourceFailure(`${host}/${i}.png`);
+
         expect(shouldSkipResource(`${host}/probe.png`)).toBe(true);
 
         vi.advanceTimersByTime(30_000);

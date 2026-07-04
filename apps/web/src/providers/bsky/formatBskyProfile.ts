@@ -30,9 +30,7 @@ function getProfileStatus(status?: AppBskyActorDefs.StatusView) {
         : ProfileStatus.Active;
 }
 
-function formatProfileViewBasic(
-    profile: AppBskyActorDefs.ProfileViewBasic,
-): Profile<AppBskyActorDefs.ProfileViewBasic> {
+function formatProfileViewBasic(profile: AppBskyActorDefs.ProfileViewBasic): Profile {
     return {
         ...createDummyProfile(Source.Bsky),
         profileId: profile.did,
@@ -53,11 +51,10 @@ function formatProfileViewBasic(
                   blocking: profile.viewer.muted,
               }
             : undefined,
-        __original__: profile,
         __lazy__: true,
     };
 }
-function formatProfileView(profile: AppBskyActorDefs.ProfileView): Profile<AppBskyActorDefs.ProfileView> {
+function formatProfileView(profile: AppBskyActorDefs.ProfileView): Profile {
     return {
         ...createDummyProfile(Source.Bsky),
         profileId: profile.did,
@@ -78,7 +75,6 @@ function formatProfileView(profile: AppBskyActorDefs.ProfileView): Profile<AppBs
                   blocking: profile.viewer.muted,
               }
             : undefined,
-        __original__: profile,
         __lazy__: true,
     };
 }
@@ -88,14 +84,10 @@ type AllProfileType =
     | AppBskyActorDefs.ProfileView
     | AppBskyActorDefs.ProfileViewBasic;
 
-export function formatBskyProfile(
-    profile: AppBskyActorDefs.ProfileViewDetailed,
-): Profile<AppBskyActorDefs.ProfileViewDetailed>;
-export function formatBskyProfile(profile: AppBskyActorDefs.ProfileView): Profile<AppBskyActorDefs.ProfileView>;
-export function formatBskyProfile(
-    profile: AppBskyActorDefs.ProfileViewBasic,
-): Profile<AppBskyActorDefs.ProfileViewBasic>;
-export function formatBskyProfile(profile: AllProfileType): Profile<AllProfileType> {
+export function formatBskyProfile(profile: AppBskyActorDefs.ProfileViewDetailed): Profile;
+export function formatBskyProfile(profile: AppBskyActorDefs.ProfileView): Profile;
+export function formatBskyProfile(profile: AppBskyActorDefs.ProfileViewBasic): Profile;
+export function formatBskyProfile(profile: AllProfileType): Profile {
     if (AppBskyProfile.isProfileViewBasic(profile)) return formatProfileViewBasic(profile);
     if (AppBskyProfile.isProfileView(profile)) return formatProfileView(profile);
 
@@ -119,6 +111,5 @@ export function formatBskyProfile(profile: AllProfileType): Profile<AllProfileTy
                   blocking: profile.viewer.muted,
               }
             : undefined,
-        __original__: profile,
     };
 }

@@ -1,13 +1,16 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
-import { NotFoundError } from '@dimensiondev/utils';
+import { createPageable, NotFoundError, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 
 import { TweetUnavailableError } from '@/constants/error.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
+import { isSamePost } from '@/helpers/isSamePost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { getThreads } from '@/services/getThreads.js';
+
+export type PostThreadQueryData = Pageable<Post, PageIndicator | undefined>;
 
 export function getPostDetailQuery(source: SocialSource, postId: string) {
     return {
@@ -35,9 +38,13 @@ export function getPostThreadQuery(source: SocialSource, postId: string, post?: 
     return {
         queryKey: [source, 'post-thread', postId],
         enabled: !!post,
-        queryFn: async () => {
-            if (!post?.postId) return { data: EMPTY_LIST };
-            return getThreads(post, source);
+        queryFn: async (): Promise<PostThreadQueryData> => {
+            if (!post?.postId) return createPageable<Post, undefined>(EMPTY_LIST, undefined);
+            const result = await getThreads(post, source);
+            return {
+                ...result,
+                data: result.data.filter((item) => !isSamePost(item, post)),
+            };
         },
     };
 }

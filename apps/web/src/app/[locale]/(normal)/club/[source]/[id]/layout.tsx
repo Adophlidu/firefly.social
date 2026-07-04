@@ -1,14 +1,12 @@
 import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
-import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 
+import { getChannelPageData } from '@/app/[locale]/(normal)/club/[source]/[id]/getChannelPageData.js';
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { Title } from '@/components/Channel/Title.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 
 type Props = LayoutProps<{
@@ -24,10 +22,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function Page(props: Props) {
     const { id } = await props.params;
     const source = (await props.params).source as SocialSourceInURL;
-    const resolvedSource = resolveSocialSource(source);
 
-    const provider = resolveSocialMediaProvider(resolvedSource);
-    const channel = await runInSafeAsync(() => provider.getChannelById(id));
+    const channel = await getChannelPageData(source, id);
     if (!channel) notFound();
 
     return (

@@ -7,7 +7,7 @@ import { isNativeTokenDebank, isValidAddressEthereum } from '@dimensiondev/web3/
 
 import type { Token } from '@/providers/types/Transfer.js';
 
-export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number, Token> {
+export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number> {
     // it is not a valid address if its native token
     const address =
         token.networkType === NetworkType.Solana
@@ -26,8 +26,7 @@ export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<nu
         type: TokenType.Fungible,
         schema: isNativeTokenDebank(token) ? EthereumSchemaType.Native : EthereumSchemaType.ERC20,
         address,
-        __original__: token,
-    } as FungibleToken<number, EthereumSchemaType, Token>;
+    } as FungibleToken<number, EthereumSchemaType>;
 }
 
 export function formatFungibleTokenToDebankToken(token: FungibleToken<number, number>) {

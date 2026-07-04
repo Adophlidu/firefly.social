@@ -14,6 +14,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
         staleTime?: number;
         gcTime?: number;
         formatter?: (data: D[]) => D[];
+        initialData?: InfiniteData<T, string>;
     },
 ) {
     return useSuspenseInfiniteQuery({
@@ -21,5 +22,6 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
         select,
         staleTime: options?.staleTime,
         gcTime: options?.gcTime,
+        initialData: options?.initialData,
     });
 }

@@ -31,56 +31,74 @@ function shouldReportQueryError(error: unknown): boolean {
     return true;
 }
 
-const queryCache = new QueryCache({
-    onError: (error, query) => {
-        // Only report errors after initial success (reduces noise from expected failures)
-        // If query has never succeeded, it might be a permission/auth issue that's expected
-        if (query.state.dataUpdateCount === 0) {
-            return;
-        }
+function createQueryCache() {
+    return new QueryCache({
+        onError: (error, query) => {
+            // Only report errors after initial success (reduces noise from expected failures)
+            // If query has never succeeded, it might be a permission/auth issue that's expected
+            if (query.state.dataUpdateCount === 0) {
+                return;
+            }
 
-        if (!shouldReportQueryError(error)) {
-            return;
-        }
+            if (!shouldReportQueryError(error)) {
+                return;
+            }
 
-        captureException(ExceptionId.REACT_QUERY_ERROR, error, {
-            queryKey: JSON.stringify(query.queryKey).substring(0, 200),
-            handler: 'QueryCache.onError',
-            errorType: 'query',
-        });
+            captureException(ExceptionId.REACT_QUERY_ERROR, error, {
+                queryKey: JSON.stringify(query.queryKey).substring(0, 200),
+                handler: 'QueryCache.onError',
+                errorType: 'query',
+            });
+        },
+    });
+}
+
+function createMutationCache() {
+    return new MutationCache({
+        onError: (error, _variables, _context, mutation) => {
+            if (!shouldReportQueryError(error)) {
+                return;
+            }
+
+            captureException(ExceptionId.REACT_QUERY_ERROR, error, {
+                mutationKey: mutation.options.mutationKey
+                    ? JSON.stringify(mutation.options.mutationKey).substring(0, 200)
+                    : 'unknown',
+                handler: 'MutationCache.onError',
+                errorType: 'mutation',
+            });
+        },
+    });
+}
+
+const defaultQueryClientOptions: QueryClientConfig['defaultOptions'] = {
+    queries: {
+        refetchOnWindowFocus: false,
+        staleTime: (query) => {
+            const primaryScope = query.queryKey[0];
+            if (primaryScope === 'firefly-profile' || primaryScope === 'profile') return 0;
+            return 60_000;
+        },
     },
-});
+};
 
-const mutationCache = new MutationCache({
-    onError: (error, _variables, _context, mutation) => {
-        if (!shouldReportQueryError(error)) {
-            return;
-        }
-
-        captureException(ExceptionId.REACT_QUERY_ERROR, error, {
-            mutationKey: mutation.options.mutationKey
-                ? JSON.stringify(mutation.options.mutationKey).substring(0, 200)
-                : 'unknown',
-            handler: 'MutationCache.onError',
-            errorType: 'mutation',
-        });
-    },
-});
+const queryCache = createQueryCache();
+const mutationCache = createMutationCache();
 
 export const queryClientConfig: QueryClientConfig = {
     queryCache,
     mutationCache,
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            staleTime: (query) => {
-                const primaryScope = query.queryKey[0];
-                if (primaryScope === 'firefly-profile' || primaryScope === 'profile') return 0;
-                return 60_000;
-            },
-        },
-    },
+    defaultOptions: defaultQueryClientOptions,
 };
+
+/** Request-scoped QueryClient for SSR dehydration. Avoids serializing the global cache. */
+export function createServerQueryClient() {
+    return new QueryClient({
+        queryCache: createQueryCache(),
+        mutationCache: createMutationCache(),
+        defaultOptions: defaultQueryClientOptions,
+    });
+}
 
 export const queryClient = new QueryClient(queryClientConfig);
 

@@ -2,7 +2,6 @@ import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import type { GetTokenOptions } from '@dimensiondev/workers-token';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
@@ -13,7 +12,6 @@ import { MobileSwapButton } from '@/app/[locale]/(normal)/token/[exchange]/[[...
 import { WrapTokenMarketData } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
 
@@ -92,18 +90,13 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const paramChainId = search?.get('chainId') ? Number(search.get('chainId')) : undefined;
     const isAddress = isValidAddressEthereum(legacySymbol) || isValidAddressSolana(legacySymbol);
     const paramAddress = isDexCoin ? slugs[1] : isAddress ? legacySymbol : search?.get('address') || undefined;
-    const token = await runInSafeAsync(async () => {
-        const coinId = isCexCoin ? slug : undefined;
-        const options: GetTokenOptions = {
-            token_symbol: isAddress || isCoinId || isNewRoute ? undefined : legacySymbol,
-            coingecko_id: coinId,
-            chain_id: paramChainId,
-            address: paramAddress,
-        };
-        const token = await searchToken(options);
-        queryClient.setQueryData(['token', options], token);
-        return token;
-    });
+    const tokenQueryOptions: GetTokenOptions = {
+        token_symbol: isAddress || isCoinId || isNewRoute ? undefined : legacySymbol,
+        coingecko_id: isCexCoin ? slug : undefined,
+        chain_id: paramChainId,
+        address: paramAddress,
+    };
+    const token = await runInSafeAsync(() => searchToken(tokenQueryOptions));
 
     if (!token) notFound();
 
@@ -115,21 +108,19 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     }
 
     return (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-            <TokenContextProvider>
-                <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
-                    <div className="flex min-w-0 items-center gap-7">
-                        <Comeback className="cursor-pointer text-lightMain" />
-                        <span className="min-w-0 truncate text-xl font-black uppercase text-lightMain">
-                            {token?.symbol || (isNewRoute ? slug : legacySymbol)}
-                        </span>
-                    </div>
-                    <MobileSwapButton className="ml-auto flex !gap-2 whitespace-nowrap !px-4 font-bold" token={token} />
+        <TokenContextProvider token={token} tokenQueryOptions={tokenQueryOptions}>
+            <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
+                <div className="flex min-w-0 items-center gap-7">
+                    <Comeback className="cursor-pointer text-lightMain" />
+                    <span className="min-w-0 truncate text-xl font-black uppercase text-lightMain">
+                        {token?.symbol || (isNewRoute ? slug : legacySymbol)}
+                    </span>
                 </div>
-                <WrapTokenMarketData className="sticky" token={token} />
-                <CategoryTabs token={token} className="sticky top-[54px] !z-30 md:top-[60px]" />
-                <div className="flex grow flex-col p-3">{props.children}</div>
-            </TokenContextProvider>
-        </HydrationBoundary>
+                <MobileSwapButton className="ml-auto flex !gap-2 whitespace-nowrap !px-4 font-bold" token={token} />
+            </div>
+            <WrapTokenMarketData className="sticky" token={token} />
+            <CategoryTabs token={token} className="sticky top-[54px] !z-30 md:top-[60px]" />
+            <div className="flex grow flex-col p-3">{props.children}</div>
+        </TokenContextProvider>
     );
 }

@@ -26,7 +26,7 @@ export const ToggleMore = memo<Props>(function ToggleMore({ post, ...rest }) {
                 const result = await queryClient.fetchQuery({
                     queryKey: ['load-external-host-data', post.source, post.postId],
                     queryFn: async () => {
-                        const ipfs = (post.__original__ as any).embeds[0].url;
+                        const ipfs = post.externalHostedContentUrl;
                         if (!ipfs) return null;
                         const result = await getTakoExternalHostedData(ipfs);
                         return result;

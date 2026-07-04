@@ -9,7 +9,11 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { Suspense, useEffect, useRef, useState } from 'react';
 
-import { getPostDetailQuery, getPostThreadQuery } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
+import {
+    getPostDetailQuery,
+    getPostThreadQuery,
+    type PostThreadQueryData,
+} from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/PostActionsWithGrid.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { QuickReply } from '@/components/Actions/QuickReply.js';
@@ -27,21 +31,31 @@ import { queryClient } from '@/configs/queryClient.js';
 import { TweetUnavailableError } from '@/constants/error.js';
 import { notFound, useSearchParams } from '@/esm/navigation.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { resolvePostDetailAllPosts } from '@/helpers/resolvePostDetailAllPosts.js';
 import { useFixedScrollInToViewBeforeUserInteraction } from '@/hooks/useFixedScrollInToViewBeforeUserInteraction.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 
 interface Props {
     id: string;
     source: SocialSource;
+    initialPost: Post | null;
+    initialThread?: PostThreadQueryData;
 }
 
-export function PageDetail({ id: postId, source }: Props) {
+export function PageDetail({ id: postId, source, initialPost, initialThread }: Props) {
     if (!postId) notFound();
 
     const pinMore = useSearchParams().get('more');
 
-    const { data: post } = useSuspenseQuery(getPostDetailQuery(source, postId));
-    const { data: threads } = useSuspenseQuery(getPostThreadQuery(source, postId, post));
+    const { data: post } = useSuspenseQuery({
+        ...getPostDetailQuery(source, postId),
+        initialData: initialPost ?? undefined,
+    });
+    const { data: threads } = useSuspenseQuery({
+        ...getPostThreadQuery(source, postId, post),
+        initialData: initialThread,
+    });
     const [threadsRef, setThreadsRef] = useState<Record<string, HTMLElement | null>>({});
 
     const isUnavailableTweet =
@@ -73,7 +87,8 @@ export function PageDetail({ id: postId, source }: Props) {
             .catch(() => {});
     }, [post?.source, postHasMedia, isUnavailableTweet, source, postId]);
 
-    const lastThread = last(threads?.data)?.postId;
+    const allPosts = post ? resolvePostDetailAllPosts(post, threads) : EMPTY_LIST;
+    const lastThread = last(allPosts)?.postId;
     useFixedScrollInToViewBeforeUserInteraction(
         !(pinMore && !lastThread),
         pinMore ? threadsRef[lastThread || ''] : threadsRef[postId],
@@ -90,8 +105,6 @@ export function PageDetail({ id: postId, source }: Props) {
             />
         );
     }
-
-    const allPosts = threads?.data || EMPTY_LIST;
 
     return (
         <article className="min-h-svh pb-20 md:pb-0">

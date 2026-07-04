@@ -312,7 +312,6 @@ export function formatLensQuoteOrCommentV3(
         mentions: mentions.profiles,
         groups: mentions.groups,
         collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
-        __original__: result,
         momoka: undefined,
         sendFrom: result.app?.metadata?.name
             ? {
@@ -427,7 +426,6 @@ export function formatLensPostV3(result: AnyPost): Post {
             mentions: mentions.profiles,
             groups: mentions.groups,
             collectModule: formatCollectModuleV3(mirrorOn.actions, mirrorOn.stats.collects),
-            __original__: result,
             sendFrom: mirrorOn.app?.metadata?.name
                 ? {
                       displayName: mirrorOn.app.metadata.name,
@@ -473,7 +471,6 @@ export function formatLensPostV3(result: AnyPost): Post {
             },
             stats: formatLensPostStats(result.stats),
             ...formatLensPostOperations(result.operations, result.actions),
-            __original__: result,
             quoteOn: formatLensQuoteOrCommentV3(result.quoteOf),
             mentions: mentions.profiles,
             groups: mentions.groups,
@@ -509,7 +506,6 @@ export function formatLensPostV3(result: AnyPost): Post {
             },
             stats: formatLensPostStats(result.stats),
             ...formatLensPostOperations(result.operations, result.actions),
-            __original__: result,
             commentOn: formatLensQuoteOrCommentV3(result.commentOn),
             firstComment: undefined,
             mentions: mentions.profiles,
@@ -553,7 +549,6 @@ export function formatLensPostV3(result: AnyPost): Post {
             collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
             mentions: mentions.profiles,
             groups: mentions.groups,
-            __original__: result,
             momoka: undefined,
             sendFrom: result.app?.metadata?.name
                 ? {

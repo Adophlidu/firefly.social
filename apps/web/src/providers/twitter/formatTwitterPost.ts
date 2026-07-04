@@ -102,7 +102,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 : undefined,
         },
         sendFrom: item.sendFrom,
-        __original__: item,
     };
     if (repliedTweet) {
         ret.type = PostType.Comment;

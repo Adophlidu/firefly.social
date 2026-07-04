@@ -154,6 +154,6 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         incomplete,
         partialContent: incomplete ? content?.content : undefined,
         fullContent: incomplete ? undefined : content?.content,
-        __original__: cast,
+        externalHostedContentUrl: incomplete ? cast.embeds[0]?.url : undefined,
     };
 }

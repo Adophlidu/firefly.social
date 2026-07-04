@@ -6,9 +6,7 @@ import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyThreadByPostId(postId: string, localPost?: Post, signal?: AbortSignal): Promise<Post[]> {
-    const uri = AppBskyFeed.isPostView(localPost?.__original__)
-        ? localPost?.__original__.uri
-        : PostAtUri.fromId(postId).toUri();
+    const uri = localPost?.metadata.contentURI ?? PostAtUri.fromId(postId).toUri();
     const response = await bskySessionHolder.agent.getPostThread(
         {
             uri,

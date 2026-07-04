@@ -129,6 +129,5 @@ export function formatPostsFromTruthSocial(data: TruthSocialPost): Post {
                 content,
             },
         },
-        __original__: data,
     };
 }

@@ -30,42 +30,49 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                 const m = method as (...args: Parameters<Provider[K]>) => Promise<Pageable<Post, PageIndicator>>;
                 const result = await m.apply(target.prototype, args);
 
-                result.data.forEach((post) => {
-                    queryClient.setQueryData([post.source, 'post-detail', post.postId], (oldData: Post | undefined) =>
-                        mergePostDetailCache(post, oldData),
-                    );
-                    if (post.source !== Source.Farcaster) {
-                        const queryKeyGroups = [];
-                        for (const identity of [post.author.profileId, post.author.handle]) {
-                            queryKeyGroups.push(['profile', post.source, identity]);
-                        }
-
-                        queryKeyGroups.forEach((queryKey) => {
-                            if (!queryClient.getQueryData(queryKey)) {
-                                queryClient.setQueryData(queryKey, post.author);
+                // Warm the client cache only. On the server the global QueryCache is a module
+                // singleton shared across requests — writing here causes memory growth and, when
+                // accidentally dehydrated, multi-megabyte HTML payloads.
+                if (typeof window !== 'undefined') {
+                    result.data.forEach((post) => {
+                        queryClient.setQueryData(
+                            [post.source, 'post-detail', post.postId],
+                            (oldData: Post | undefined) => mergePostDetailCache(post, oldData),
+                        );
+                        if (post.source !== Source.Farcaster) {
+                            const queryKeyGroups = [];
+                            for (const identity of [post.author.profileId, post.author.handle]) {
+                                queryKeyGroups.push(['profile', post.source, identity]);
                             }
-                        });
+
+                            queryKeyGroups.forEach((queryKey) => {
+                                if (!queryClient.getQueryData(queryKey)) {
+                                    queryClient.setQueryData(queryKey, post.author);
+                                }
+                            });
+                        }
+                    });
+
+                    const identifiers = result.data.map((x) => ({
+                        source: x.source,
+                        id: x.author.profileId,
+                    }));
+
+                    if (identifiers.length) {
+                        runInSafeAsync(() => queryMutedProfiles(identifiers));
                     }
-                });
 
-                const identifiers = result.data.map((x) => ({
-                    source: x.source,
-                    id: x.author.profileId,
-                }));
-
-                if (identifiers.length) {
-                    runInSafeAsync(() => queryMutedProfiles(identifiers));
+                    /**
+                     * No need to await prefetching here
+                     * Will update query when prefetching is done
+                     */
+                    prefetchPostLinks(
+                        result.data.map((x) =>
+                            compact([x.metadata.content?.oembedUrl, ...(x.metadata.content?.oembedUrls ?? [])]),
+                        ),
+                    );
                 }
 
-                /**
-                 * No need to await prefetching here
-                 * Will update query when prefetching is done
-                 */
-                prefetchPostLinks(
-                    result.data.map((x) =>
-                        compact([x.metadata.content?.oembedUrl, ...(x.metadata.content?.oembedUrls ?? [])]),
-                    ),
-                );
                 return result;
             },
         });

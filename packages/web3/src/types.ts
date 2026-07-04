@@ -18,14 +18,13 @@ interface Token<ChainId, SchemaType> {
     isCustomToken?: boolean;
 }
 
-export interface FungibleToken<ChainId, SchemaType, Original = unknown> extends Token<ChainId, SchemaType> {
+export interface FungibleToken<ChainId, SchemaType> extends Token<ChainId, SchemaType> {
     name: string;
     symbol: string;
     decimals: number;
     logoURL?: string;
     // Sorted by market cap.
     rank?: number;
-    __original__?: Original;
 }
 
 export interface NonFungibleCollection<ChainId> {

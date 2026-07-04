@@ -7,11 +7,14 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useContext } from 'react';
 
 import { ProtectedPostsMessage } from '@/components/fallbacks/ProtectedPostsMessage.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { pinnedPostQueryOptions } from '@/components/Posts/queries/pinnedPostQueryOptions.js';
+import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
+import { SSR_LIST_LIMIT } from '@/constants/ssr.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -21,15 +24,13 @@ import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';
 import { useRefetchWhenReady } from '@/hooks/useRefetchWhenReady.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-// Number of posts react-virtuoso renders/measures on the initial (server) render.
-const SSR_INITIAL_ITEM_COUNT = 10;
-
 interface FeedListProps {
     profileId: string;
     source: SocialSource;
 }
 
 export function FeedList({ profileId, source }: FeedListProps) {
+    const { initialFeedPage } = useContext(ProfileContext);
     const isLogin = useIsLogin(source);
     const isProtected = useIsProfileProtected(source, profileId);
     // Twitter API might returns incomplete data, so only force it when the user protects his account
@@ -69,12 +70,16 @@ export function FeedList({ profileId, source }: FeedListProps) {
             const posts = getPostsSelector(source)(data);
             return pinnedPost ? posts.filter((post) => !isSamePost(post, pinnedPost)) : posts;
         },
+        initialData: forceTwitterOfficial ? undefined : initialFeedPage,
     });
 
-    // The first page may be server-prefetched anonymously (see the profile layout), so it
-    // carries no viewer relationship (hasLiked, …). Refetch once the viewer's session has
-    // finished resuming to fill it in.
-    useRefetchWhenReady(isLogin && !isSyncing, queryResult.refetch);
+    // The first page may be server-rendered anonymously (see getProfilePageData): it carries
+    // no viewer relationship (hasLiked, …) and is sliced to SSR_LIST_LIMIT items while keeping
+    // the full page's cursor — paginating from it would skip the items beyond the slice.
+    // Refetch once sessions have finished resuming — for anonymous viewers too when the list
+    // was seeded with the sliced SSR page — to replace it with the complete first page.
+    const seededWithSlicedPage = !forceTwitterOfficial && !!initialFeedPage;
+    useRefetchWhenReady((isLogin || seededWithSlicedPage) && !isSyncing, queryResult.refetch);
 
     return (
         <ListInPage
@@ -86,7 +91,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
                 // Render the first screen of posts during SSR. Without this react-virtuoso
                 // emits an empty list on the server (it measures in the browser), so the
                 // server-prefetched timeline would never reach the initial HTML.
-                initialItemCount: Math.min(queryResult.data.length, SSR_INITIAL_ITEM_COUNT),
+                initialItemCount: Math.min(queryResult.data.length, SSR_LIST_LIMIT),
                 computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Profile}:${profileId}`),
             }}
