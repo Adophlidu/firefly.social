@@ -76,7 +76,7 @@ function TeamSide({
                     <span className="h-6 w-9 shrink-0 rounded-lg bg-bg md:h-[30px] md:w-[45px]" />
                 )}
                 <span className="line-clamp-2 min-w-0 flex-1 break-words text-xs font-semibold leading-4 text-main md:text-[14px]">
-                    {team ? localize(team.name) : <Trans>TBD</Trans>}
+                    {team?.countryCode ? localize(team.name) : <Trans>TBD</Trans>}
                 </span>
             </div>
             {hasScore && score !== null ? (
