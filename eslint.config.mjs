@@ -23,7 +23,6 @@ export default defineConfig([
         '.github',
         '**/.next/**',
         '**/.output/**',
-        '**/.storybook/**',
         '**/.vercel/**',
         '**/next-env.d.ts',
         'apps/**/dist/**',

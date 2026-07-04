@@ -42,7 +42,6 @@ overrides:
     react-dom: 19.2.7
     react-use: 17.6.1
     serialize-javascript: '>=7.0.3'
-    storybook: '>=10.2.19'
     sha.js: 2.4.12
     svgo@3: '>=3.3.3'
     '@typescript/typescript6>typescript': 5.9.3

@@ -1,4 +1,4 @@
-/** Plain serializable SVGR options for webpack, turbopack, and Storybook. */
+/** Plain serializable SVGR options for webpack and turbopack. */
 export const svgrOptions = {
     ref: true,
     svgoConfig: {

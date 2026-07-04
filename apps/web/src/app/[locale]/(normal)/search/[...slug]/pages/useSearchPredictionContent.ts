@@ -2,9 +2,8 @@ import type { Source } from '@dimensiondev/enums';
 import { PredictionPlatform, SearchType } from '@dimensiondev/enums';
 import { createIndicator, type PageIndicator } from '@dimensiondev/utils';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { logger } from 'storybook/internal/client-logger';
-
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
+import { logger } from '@/libs/Logger.js';
 import { useLocale } from '@/hooks/useLocale.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { type PredictionSearchTag, searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';

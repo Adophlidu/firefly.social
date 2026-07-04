@@ -640,7 +640,6 @@
         "apps/**/proto/**",
         "apps/**/public/**",
         "apps/**/scripts/**",
-        "apps/**/stories/**",
         "apps/**/styles/**",
         "apps/**/tests/**",
         "*.test.ts",
