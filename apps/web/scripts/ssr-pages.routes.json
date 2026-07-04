@@ -24,6 +24,7 @@
     "explorePaths": [
         ["prediction", "trending"],
         ["users", "x"],
+        ["users", "lens"],
         ["truth-social"],
         ["tokens", "trending"],
         ["clubs", "lens"],
@@ -40,14 +41,27 @@
         ],
         "events": ["/en/events", "/en/event/fifa"],
         "search": ["/en/search", "/en/search/bitcoin"],
-        "profile": ["/en/profile/farcaster/dwr", "/en/profile/farcaster/3/posts"],
+        "profile": [
+            "/en/profile/farcaster/dwr",
+            "/en/profile/farcaster/3/posts",
+            "/en/profile/lens/sujiyan/media",
+            "/en/profile/lens/sujiyan/collected"
+        ],
         "post": [
             "/en/post/farcaster",
             "/en/post/farcaster/3",
             "/en/post/farcaster/3/posts",
-            "/en/post/farcaster/3/photos/0"
+            "/en/post/farcaster/3/photos/0",
+            "/en/post/lens/5kv26gs1zarcem8v24/likes",
+            "/en/post/lens/5kv26gs1zarcem8v24/quotes",
+            "/en/post/lens/5kv26gs1zarcem8v24/mirrors"
         ],
-        "club": ["/en/club/farcaster/firefly", "/en/club/farcaster/3/posts"],
+        "club": [
+            "/en/club/farcaster/firefly",
+            "/en/club/farcaster/3/posts",
+            "/en/club/lens/0x230c140a85Af16Aa444bA87e0823E5c62cFE3366",
+            "/en/club/lens/0xB49d9dBbaC3aCbd5C263f5C204Ad9CF859f54869/members"
+        ],
         "token": ["/en/token/cex/bitcoin"],
         "prediction": ["/en/prediction/leaderboard", "/en/prediction/category/politics"],
         "markets": [
