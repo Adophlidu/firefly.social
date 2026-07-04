@@ -47,7 +47,6 @@ export default defineConfig([
         'setups',
         'rules',
         'e2e/**',
-        'packages/tolgee/**',
         'packages/**/dist',
         'packages/**/node_modules',
     ]),

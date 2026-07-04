@@ -90,18 +90,6 @@ updates:
                 - version-update:semver-minor
 
     - package-ecosystem: 'npm'
-      directory: '/packages/tolgee'
-      schedule:
-          interval: 'weekly'
-      open-pull-requests-limit: 20
-      versioning-strategy: increase
-      ignore:
-          - dependency-name: '*'
-            update-types:
-                - version-update:semver-major
-                - version-update:semver-minor
-
-    - package-ecosystem: 'npm'
       directory: '/packages/utils'
       schedule:
           interval: 'weekly'

@@ -12,17 +12,13 @@
         "build:polyfills": ".vercel-config/build-polyfills.sh",
         "start": "next start",
         "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
         "test": "vitest",
         "typecheck": "tsc --noEmit",
         "clean": "rm -rf .next .turbo",
         "lingui:compile": "lingui compile",
         "lingui:extract": "NODE_ENV=development lingui extract --clean",
-        "lingui:regenerate-gettext-plural-metadata": "node ./scripts/regenerate-lingui-gettext-plural-metadata.cjs && pnpm -w exec prettier --write apps/web/lingui-gettext-plural-metadata.json",
-        "lingui": "pnpm run lingui:extract && pnpm run lingui:compile && pnpm run lingui:regenerate-gettext-plural-metadata",
-        "tolgee:push": "firefly-tolgee push",
-        "tolgee:push-sources": "firefly-tolgee push-sources",
-        "tolgee:pull": "firefly-tolgee pull",
-        "tolgee:sync": "firefly-tolgee sync"
+        "lingui": "pnpm run lingui:extract && pnpm run lingui:compile"
     },
     "dependencies": {
         "@atproto/api": "^0.18.21",
@@ -136,7 +132,6 @@
         "zustand": "^5.0.14"
     },
     "devDependencies": {
-        "@dimensiondev/tolgee": "workspace:^",
         "@dimensiondev/workers-frame": "workspace:*",
         "@dimensiondev/workers-iframe-blocker": "workspace:*",
         "@dimensiondev/workers-lens": "workspace:*",
@@ -165,7 +160,6 @@
         "@svgr/webpack": "^8.1.0",
         "@tailwindcss/forms": "^0.5.11",
         "@testing-library/react": "^16.3.2",
-        "@tolgee/cli": "^2.16.1",
         "@types/canvas-confetti": "^1.9.0",
         "@types/d3-scale": "^4.0.9",
         "@types/d3-shape": "^3.1.8",

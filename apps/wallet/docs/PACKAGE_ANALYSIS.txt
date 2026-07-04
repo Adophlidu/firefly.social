@@ -3,8 +3,8 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2444
-Packages with multiple versions: 261
+Total packages: 2425
+Packages with multiple versions: 257
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -52,10 +52,6 @@ Packages with Multiple Versions
  @esbuild/win32-ia32@0.25.12,0.27.3,0.27.7
  @esbuild/win32-x64@0.25.12,0.27.3,0.27.7
  @jridgewell/trace-mapping@0.3.31,0.3.9
-*@lingui/conf@5.5.2,5.9.5
- @lingui/format-po@5.5.2,5.9.5
-*@lingui/format-po-gettext@5.5.2,5.9.5
- @lingui/message-utils@5.5.2,5.9.5
  @napi-rs/wasm-runtime@1.0.7,1.1.5
 *@next/eslint-plugin-next@16.0.11,16.2.7,16.2.9
  @noble/hashes@1.4.0,1.7.0,1.8.0,2.2.0
@@ -155,7 +151,7 @@ Packages with Multiple Versions
  cookie@0.7.2,1.1.1
  cookie-es@1.2.3,3.1.1
 *core-js@2.6.12,3.49.0
- cosmiconfig@7.1.0,8.0.0,8.3.6,9.0.2
+ cosmiconfig@7.1.0,8.0.0,8.3.6
  cross-fetch@3.2.0,4.1.0
  crossws@0.3.5,0.4.6
  css-tree@1.1.3,2.2.1,3.2.1
@@ -669,8 +665,12 @@ Packages with Single Version
  @lingui/babel-plugin-extract-messages@5.9.5
  @lingui/babel-plugin-lingui-macro@5.9.5
 *@lingui/cli@5.9.5
+*@lingui/conf@5.9.5
 *@lingui/core@5.9.5
+ @lingui/format-po@5.9.5
+*@lingui/format-po-gettext@5.9.5
  @lingui/loader@5.9.5
+ @lingui/message-utils@5.9.5
 *@lingui/react@5.9.5
 *@lingui/swc-plugin@5.11.0
 *@lingui/vite-plugin@5.9.5
@@ -1054,7 +1054,6 @@ Packages with Single Version
  @statoscope/webpack-stats-extension-compressed@5.29.0
  @statoscope/webpack-stats-extension-package-info@5.29.0
  @statoscope/webpack-ui@5.29.0
- @stomp/stompjs@7.3.0
  @svgr/babel-plugin-add-jsx-attribute@8.0.0
  @svgr/babel-plugin-remove-jsx-attribute@8.0.0
  @svgr/babel-plugin-remove-jsx-empty-expression@8.0.0
@@ -1217,7 +1216,6 @@ Packages with Single Version
  @testing-library/dom@10.4.1
  @testing-library/react@16.3.2
  @tippyjs/react@4.2.6
-*@tolgee/cli@2.16.1
  @toon-format/toon@2.3.0
  @turbo/darwin-64@2.9.18
  @turbo/darwin-arm64@2.9.18
@@ -1403,7 +1401,6 @@ Packages with Single Version
  ajv-formats@2.1.1
  ajv-keywords@5.1.0
  anser@1.4.10
- ansi-colors@4.1.3
  ansis@4.3.1
  any-promise@1.3.0
  anymatch@3.1.3
@@ -1447,7 +1444,6 @@ Packages with Single Version
  babel-plugin-syntax-hermes-parser@0.36.0
  babel-plugin-transform-flow-enums@0.0.2
  bail@2.0.2
- base32-decode@1.0.0
  baseline-browser-mapping@2.10.37
  bidi-js@1.0.3
  big.js@6.2.2
@@ -1636,7 +1632,6 @@ Packages with Single Version
  empathic@2.0.1
  encode-utf8@1.0.3
  enhanced-resolve@5.24.0
- env-paths@2.2.1
  error-ex@1.3.4
  error-stack-parser@2.1.4
  error-stack-parser-es@1.0.5
@@ -1679,7 +1674,6 @@ Packages with Single Version
  event-target-bus@1.0.0
  event-target-shim@5.0.1
  events@3.3.0
- eventsource@2.0.2
  evp_bytestokey@1.0.3
  expect-type@1.3.0
  exponential-backoff@3.1.3
@@ -1879,7 +1873,6 @@ Packages with Single Version
  json-stable-stringify-without-jsonify@1.0.1
  json-stringify-safe@5.0.1
  jsonfile@6.2.1
- jsonschema@1.5.0
  jsx-ast-utils@3.3.5
  jwt-decode@4.0.0
  keyv@4.5.4
@@ -2054,8 +2047,6 @@ Packages with Single Version
  on-exit-leak-free@2.1.2
  once@1.4.0
  onetime@5.1.2
- openapi-fetch@0.13.1
- openapi-typescript-helpers@0.0.15
  opener@1.5.2
  openid-client@5.7.1
  optionator@0.9.4
@@ -2083,7 +2074,6 @@ Packages with Single Version
  pathe@2.0.3
  pathval@2.0.1
  pbkdf2@3.1.6
- pend@1.2.0
  picocolors@1.1.1
  picomatch@4.0.4
  pify@2.3.0
@@ -2130,7 +2120,6 @@ Packages with Single Version
  qs@6.15.2
  quansync@1.0.0
  querystring-es3@0.2.1
- querystringify@2.2.0
  queue@6.0.2
  queue-microtask@1.2.3
  quick-format-unescaped@4.0.4
@@ -2189,7 +2178,6 @@ Packages with Single Version
  require-from-string@2.0.2
  require-in-the-middle@8.0.1
  require-main-filename@2.0.0
- requires-port@1.0.0
  resize-observer-polyfill@1.5.1
  resolve-pkg-maps@1.0.0
  restore-cursor@3.1.0
@@ -2248,7 +2236,6 @@ Packages with Single Version
  slash@4.0.0
  slice-ansi@4.0.0
  snake-case@3.0.4
- sockjs-client@1.6.1
  sonic-boom@4.2.1
 *sonner@2.0.7
  source-map-js@1.2.1
@@ -2268,7 +2255,6 @@ Packages with Single Version
  stream-chain@2.2.5
  stream-http@3.2.0
  stream-json@1.9.1
- string.fromcodepoint@0.2.1
  string.prototype.codepointat@0.2.1
  string.prototype.includes@2.0.1
  string.prototype.matchall@4.0.12
@@ -2365,7 +2351,6 @@ Packages with Single Version
  uncrypto@0.1.3
  undici@7.27.2
  unenv@2.0.0-rc.24
- unescape-js@1.1.4
  unicode-canonical-property-names-ecmascript@2.0.1
  unicode-match-property-ecmascript@2.0.0
  unicode-match-property-value-ecmascript@2.2.1
@@ -2388,7 +2373,6 @@ Packages with Single Version
  update-browserslist-db@1.2.3
  uri-js@4.4.1
  url@0.11.4
- url-parse@1.5.10
  url-polyfill@1.1.14
 *urlcat@3.1.0
  use-callback-ref@1.3.3
@@ -2416,8 +2400,6 @@ Packages with Single Version
  vlq@1.0.1
  vm-browserify@1.1.2
  vscode-languageserver-textdocument@1.0.12
- vscode-oniguruma@2.0.1
- vscode-textmate@9.3.2
  vscode-uri@3.1.0
  w3c-xmlserializer@5.0.0
 *wagmi@3.6.16
@@ -2452,7 +2434,6 @@ Packages with Single Version
  xmlbuilder2@4.0.3
  xmlchars@2.2.0
  xtend@4.0.2
- yauzl@3.4.0
  yjs@13.6.31
  yoga-layout@3.2.1
  youch@4.1.0-beta.10

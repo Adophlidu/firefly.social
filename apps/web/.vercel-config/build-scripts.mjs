@@ -1,11 +1,24 @@
+import { existsSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import dotenv from 'dotenv';
 import esbuild from 'esbuild';
 
-import { findRepoRoot } from '../../../packages/tolgee/lib/repo-root.cjs';
+function findRepoRoot(fromDir) {
+    let dir = resolve(fromDir);
+    for (;;) {
+        if (existsSync(join(dir, 'pnpm-lock.yaml')) && existsSync(join(dir, 'package.json'))) {
+            return dir;
+        }
+        const parent = dirname(dir);
+        if (parent === dir) {
+            throw new Error(`Could not find monorepo root (pnpm-lock.yaml + package.json) starting from ${fromDir}`);
+        }
+        dir = parent;
+    }
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = findRepoRoot(__dirname);

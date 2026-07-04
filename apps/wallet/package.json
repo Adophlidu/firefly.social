@@ -9,18 +9,14 @@
         "start": "vite preview --port 3001",
         "build:logs": ".vercel-config/build-logs.sh",
         "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
         "test": "vitest run",
         "test:watch": "vitest",
         "typecheck": "tsc -b .",
         "clean": "rm -rf dist .turbo",
         "lingui:compile": "lingui compile",
         "lingui:extract": "NODE_ENV=development lingui extract --clean",
-        "lingui:regenerate-gettext-plural-metadata": "node ./scripts/regenerate-lingui-gettext-plural-metadata.cjs && pnpm -w exec prettier --write apps/wallet/lingui-gettext-plural-metadata.json",
-        "lingui": "pnpm run lingui:extract && pnpm run lingui:compile && pnpm run lingui:regenerate-gettext-plural-metadata",
-        "tolgee:push": "firefly-tolgee push",
-        "tolgee:push-sources": "firefly-tolgee push-sources",
-        "tolgee:pull": "firefly-tolgee pull",
-        "tolgee:sync": "firefly-tolgee sync"
+        "lingui": "pnpm run lingui:extract && pnpm run lingui:compile"
     },
     "dependencies": {
         "@coral-xyz/anchor": "^0.32.1",
@@ -111,7 +107,6 @@
         "zod": "^3.25.76"
     },
     "devDependencies": {
-        "@dimensiondev/tolgee": "workspace:^",
         "@lingui/cli": "^5.9.5",
         "@lingui/conf": "^5.9.5",
         "@lingui/core": "^5.9.5",
@@ -124,7 +119,6 @@
         "@svgr/plugin-svgo": "^8.1.0",
         "@tailwindcss/forms": "^0.5.11",
         "@tamagui/vite-plugin": "2.3.3",
-        "@tolgee/cli": "^2.16.1",
         "@types/bs58": "^4.0.4",
         "@types/lodash-es": "^4.17.12",
         "@types/node": "22.19.20",
