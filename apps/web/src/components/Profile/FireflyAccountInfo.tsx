@@ -31,7 +31,6 @@ import { useFifaCampAvatar } from '@/hooks/useFifaCampAvatar.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type {
     FireflyAccountProfile,
@@ -122,7 +121,6 @@ function FireflyAccountWithTitleUI({
             }
           : null;
 
-    const { data: highlighted } = useProfileHighlighted(highlightProfile, true, profile.uid);
     const { data: fifaCampCountryCode, flagUrl: fifaCampFlagUrl } = useFifaCampAvatar(highlightProfile);
 
     return (
@@ -132,7 +130,6 @@ function FireflyAccountWithTitleUI({
             </div>
             <FireflyAccountInfoUI
                 profile={profile}
-                highlighted={highlighted}
                 fifaCampCountryCode={fifaCampCountryCode}
                 fifaCampFlagUrl={fifaCampFlagUrl}
                 className="z-banner"

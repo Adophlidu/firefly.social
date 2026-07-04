@@ -4,13 +4,11 @@ import type {
     ArticleType,
     BookmarkType,
     ExploreSwitchType,
-    FansStatus,
     FireflyPlatform,
     Locale,
     MintStatus,
     NetworkType,
     NotificationType as SocialNotificationType,
-    OgStatus,
     PolymarketBetType,
     PredictionPlatform,
     RelatedWalletSource,
@@ -19,7 +17,6 @@ import type {
     SocialSourceInURL,
     Source,
     SourceInURL,
-    SparksAccountStatus,
     TipsNotificationType,
     TokenPlatformType,
     WalletProfileDataSource,
@@ -2339,17 +2336,6 @@ export type AllNotificationsResponse = Response<{
     };
 }>;
 
-export interface SparksAccountInfo {
-    account_id: string;
-    handle: string;
-    platform: SourceInURL;
-    platform_id: string;
-    status: SparksAccountStatus;
-}
-export type GenesisSparksAccountsResponse = Response<{
-    infoList: SparksAccountInfo[];
-} | null>;
-
 export interface FifaCampAccountInfo {
     platform: SourceInURL;
     platform_id: string;
@@ -2484,29 +2470,6 @@ export type GetExploreSwitchConfigResponse = Response<{
             title: string;
         }>;
     }>;
-}>;
-
-interface OgUser {
-    platform: string;
-    platform_id: string;
-    handle: string;
-    IsClaim: boolean;
-    IsActive: boolean;
-}
-
-export type SparksAccountResponse = Response<{
-    account_id: number;
-    account_uuid: string;
-    fansActive: boolean;
-    name: string;
-    ogActive: boolean;
-    rank: string;
-    uid: string;
-    avatar: string;
-    isFans: FansStatus;
-    isOg: OgStatus;
-    OgList?: OgUser[];
-    FansList?: OgUser[];
 }>;
 
 export interface PolymarketProfileData {

@@ -21,7 +21,6 @@ export function compactProfileForPageTransfer(profile: Profile): Profile {
         isProUser: profile.isProUser,
         canFollow: profile.canFollow,
         canUnfollow: profile.canUnfollow,
-        highlighted: profile.highlighted,
         fifaCampCountryCode: profile.fifaCampCountryCode,
         fifaCampCountryLogo: profile.fifaCampCountryLogo,
     };

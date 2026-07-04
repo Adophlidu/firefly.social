@@ -12,7 +12,6 @@ import { NftMetadataRoute } from '@/metadata/src/nft/route.js';
 import { PostMetadataRoute } from '@/metadata/src/post/route.js';
 import { PredictionMetadataRoute } from '@/metadata/src/prediction/route.js';
 import { ProfileMetadataRoute } from '@/metadata/src/profile/route.js';
-import { SparksAccountMetadataRoute } from '@/metadata/src/sparks-account/route.js';
 import { TokenMetadataRoute } from '@/metadata/src/token/route.js';
 import { TransactionMetadataRoute } from '@/metadata/src/transaction/route.js';
 import { WalletProfileMetadataRoute } from '@/metadata/src/wallet-profile/route.js';
@@ -27,7 +26,6 @@ const metadataV2 = new Hono()
     .route('/', PostMetadataRoute)
     .route('/', PredictionMetadataRoute)
     .route('/', ProfileMetadataRoute)
-    .route('/', SparksAccountMetadataRoute)
     .route('/', TokenMetadataRoute)
     .route('/', TransactionMetadataRoute)
     .route('/', WalletProfileMetadataRoute);

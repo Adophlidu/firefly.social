@@ -14,7 +14,6 @@
                     "/profile/*",
                     "/nft/*",
                     "/article/*",
-                    "/sparks/*",
                     "/login/desktop/*",
                     "/event/*",
                     "/wsegue/*",
@@ -58,10 +57,6 @@
                     {
                         "/": "/event/*",
                         "comment": "Matches any URL with a path that starts with /event/."
-                    },
-                    {
-                        "/": "/sparks/*",
-                        "comment": "Matches any URL with a path that starts with /sparks/."
                     },
                     {
                         "/": "/wsegue/*",

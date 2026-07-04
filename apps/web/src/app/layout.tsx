@@ -11,7 +11,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { ReactNode } from 'react';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
-import { GlobalLoadingIndicator } from '@/components/GlobalLoadingIndicator.js';
 import { Script } from '@/esm/Script.js';
 import { inter } from '@/fonts/inter.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -45,14 +44,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 {/* eslint-enable react/no-danger */}
                 <Script src="/js/home-redirect.js" strategy="beforeInteractive" />
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
-                <Script src="/js/global-loading-timeout.js" strategy="beforeInteractive" />
                 {IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
                     <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 ) : null}
             </head>
             <body className={`${inter.variable} notranslate font-inter`}>
                 <ErrorBoundary>{children}</ErrorBoundary>
-                <GlobalLoadingIndicator />
                 {IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? <SpeedInsights /> : null}
                 {IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? <Analytics /> : null}
             </body>

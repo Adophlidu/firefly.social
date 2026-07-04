@@ -1099,9 +1099,6 @@ msgstr "接続中"
 msgid "Translated"
 msgstr "翻訳済み"
 
-msgid "Genesis Sparks"
-msgstr "Genesis Sparks"
-
 msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
 msgstr "ガス悪用の仕組みは含まれていません。存在する場合、プロジェクトオーナーがコントラクトを制御できる可能性があります。"
 

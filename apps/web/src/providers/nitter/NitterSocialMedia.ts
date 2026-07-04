@@ -13,7 +13,6 @@ import { compact, last } from 'lodash-es';
 
 import { TweetUnavailableError } from '@/constants/error.js';
 import { AddAuthorFifaCampStatusForPosts } from '@/decorators/AddFifaCampStatusForPosts.js';
-import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { Throw } from '@/decorators/Throw.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
@@ -55,7 +54,6 @@ function whenNotV11Cursor(argIndex: number): (...args: unknown[]) => boolean {
 }
 
 @SetQueryDataForPosts
-@AddAuthorHighlightStatusForPosts(Source.Twitter)
 @AddAuthorFifaCampStatusForPosts(Source.Twitter)
 class NitterSocialMedia implements Provider {
     get type() {

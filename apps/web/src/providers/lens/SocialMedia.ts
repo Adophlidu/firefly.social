@@ -4,7 +4,6 @@ import { NotImplementedError } from '@dimensiondev/utils';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { AddAuthorFifaCampStatusForPosts } from '@/decorators/AddFifaCampStatusForPosts.js';
-import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -104,7 +103,6 @@ import type {
 @SetQueryDataForReportPost(Source.Lens)
 @SetQueryDataForJoinChannel(Source.Lens)
 @SetQueryDataForPosts
-@AddAuthorHighlightStatusForPosts(Source.Lens)
 @AddAuthorFifaCampStatusForPosts(Source.Lens)
 class LensSocialMedia implements Provider {
     get type() {

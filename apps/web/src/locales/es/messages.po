@@ -1104,9 +1104,6 @@ msgstr "Conectando"
 msgid "Translated"
 msgstr "Traducido"
 
-msgid "Genesis Sparks"
-msgstr "Chispas Génesis"
-
 msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
 msgstr "La función de abuso de gas no está incluida. Si existe una función de abuso de gas, el propietario del proyecto puede tener la capacidad de controlar el contrato."
 

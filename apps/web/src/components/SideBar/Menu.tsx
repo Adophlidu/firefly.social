@@ -3,8 +3,7 @@
 import CircleShareIcon from '@dimensiondev/assets/circle-share.svg';
 import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
 import SettingsIcon from '@dimensiondev/assets/setting.svg';
-import { PageRoute, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs/web';
+import { PageRoute } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo } from 'react';
@@ -14,7 +13,6 @@ import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { BookmarkMenu } from '@/components/SideBar/BookmarkMenu.js';
 import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
 import { ExploreEntranceMenu } from '@/components/SideBar/ExploreEntranceMenu.js';
-import { GenesisSparksMenu } from '@/components/SideBar/GenesisSparksMenu.js';
 import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
@@ -74,13 +72,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 href: '/profile',
                                 name: <Trans>Profile</Trans>,
                             },
-                            envs.external.NEXT_PUBLIC_SPARKS === STATUS.Enabled
-                                ? {
-                                      href: PageRoute.Sparks,
-                                      name: <Trans>Genesis Sparks</Trans>,
-                                      match: () => isRoutePathname(pathname, PageRoute.Sparks),
-                                  }
-                                : undefined,
                             {
                                 href: PageRoute.Events,
                                 name: <Trans>Exclusive Events</Trans>,
@@ -115,9 +106,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         ),
                                         [PageRoute.Bookmarks]: (
                                             <BookmarkMenu isSelected={isSelected} collapsed={collapsed} />
-                                        ),
-                                        [PageRoute.Sparks]: (
-                                            <GenesisSparksMenu isSelected={isSelected} collapsed={collapsed} />
                                         ),
                                         [PageRoute.Explore]: (
                                             <ExploreEntranceMenu isSelected={isSelected} collapsed={collapsed} />

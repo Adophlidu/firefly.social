@@ -5,11 +5,8 @@ import type { HTMLProps } from 'react';
 
 import { FifaCampAvatar } from '@/components/FifaCamp/FifaCampAvatar.js';
 import { Image } from '@/components/Image.js';
-import { HighlightedText } from '@/components/Profile/HighlightedText.js';
-import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 function FireflyAccountAvatarBanner({ src }: { src: string }) {
     return (
@@ -28,7 +25,6 @@ function FireflyAccountAvatarBanner({ src }: { src: string }) {
 export function FireflyAccountInfoUI({
     profile,
     banner,
-    highlighted,
     fifaCampCountryCode,
     fifaCampFlagUrl,
     children,
@@ -36,21 +32,13 @@ export function FireflyAccountInfoUI({
 }: HTMLProps<'div'> & {
     profile: FireflyAccountProfile;
     banner?: string;
-    highlighted?: boolean;
     fifaCampCountryCode?: string;
     fifaCampFlagUrl?: string | null;
 }) {
-    const { currentProfileSession } = useFireflyProfileStore();
-
     const { uid, avatar, displayName } = profile;
     const avatarWithFallback = avatar || getStampAvatarByProfileId(Source.Firefly, uid);
-    const isCurrentProfile = !!currentProfileSession && currentProfileSession?.profileId === profile.uid;
 
-    const accountName = highlighted ? (
-        <HighlightedText text={displayName || t`Firefly User`} />
-    ) : (
-        displayName || t`Firefly User`
-    );
+    const accountName = displayName || t`Firefly User`;
 
     return (
         <div className={classNames('relative flex w-full flex-col items-center bg-primaryBottom pt-2.5', className)}>
@@ -74,13 +62,7 @@ export function FireflyAccountInfoUI({
                     countryCode={fifaCampCountryCode}
                     flagUrl={fifaCampFlagUrl}
                 />
-                <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
-                    {isCurrentProfile && highlighted ? (
-                        <Link href={`/sparks/${profile.uid}`}>{accountName}</Link>
-                    ) : (
-                        accountName
-                    )}
-                </div>
+                <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">{accountName}</div>
             </div>
         </div>
     );

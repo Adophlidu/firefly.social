@@ -10,7 +10,6 @@ import { FifaCampAvatar } from '@/components/FifaCamp/FifaCampAvatar.js';
 import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { HighlightedText } from '@/components/Profile/HighlightedText.js';
 import { Mutuals } from '@/components/Profile/Mutuals.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
@@ -20,7 +19,6 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useDefiUnitedBadgeByProfile } from '@/hooks/useDefiUnitedBadge.js';
 import { useFifaCampAvatar } from '@/hooks/useFifaCampAvatar.js';
-import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { useRefreshedProfileInProfilePage } from '@/hooks/useRefreshedProfile.js';
 import { getLargeTwitterAvatar } from '@/providers/twitter/getLargeTwitterAvatar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -34,7 +32,6 @@ export const PROFILE_ACTION_ID = 'profile-action';
 export function SocialProfileInfo(props: InfoProps) {
     const { profile } = useRefreshedProfileInProfilePage(props.profile);
     const { source, followerCount = 0, followingCount = 0 } = profile;
-    const { data: highlighted } = useProfileHighlighted(props.profile);
     const { data: fifaCampCountryCode, flagUrl: fifaCampFlagUrl } = useFifaCampAvatar(profile);
     const { data: defiUnitedTier } = useDefiUnitedBadgeByProfile(profile);
 
@@ -75,13 +72,7 @@ export function SocialProfileInfo(props: InfoProps) {
                         <div className="flex h-8 min-w-0 flex-1 items-center gap-2 md:h-6">
                             <TextOverflowTooltip content={profile.displayName} placement="top">
                                 <h1 className="min-w-0 truncate text-lg font-black not-italic leading-6 text-lightMain">
-                                    {!profile.displayName ? (
-                                        '-'
-                                    ) : highlighted ? (
-                                        <HighlightedText text={profile.displayName} />
-                                    ) : (
-                                        profile.displayName
-                                    )}
+                                    {!profile.displayName ? '-' : profile.displayName}
                                 </h1>
                             </TextOverflowTooltip>
                             <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1" profile={profile} />

@@ -24,20 +24,22 @@ import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 
 export function SuggestedFollowsCard() {
-    const isLarge = useIsLarge('min');
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfilesAll();
     const asyncStatusAll = useAsyncStatusAll();
     const bskySession = useBskyProfileStore.use.currentProfileSession();
 
     const commonKeys = [...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId), asyncStatusAll, bskySession];
-    const { data: suggestedFollows, isLoading } = useQuery({
+    const {
+        data: suggestedFollows,
+        isLoading,
+        isError,
+    } = useQuery({
         queryKey: [
             'suggested-follows-lite',
             ...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId),
@@ -128,8 +130,10 @@ export function SuggestedFollowsCard() {
         );
     }, [currentSource, profileAll.Farcaster, profileAll.Lens, profileAll.Bsky]);
 
+    if (asyncStatusAll) return null;
+    if (isError) return null;
     if (isLoading) return <SuggestedFollowsSkeleton />;
-    if (!suggestedFollowsWithStats?.length || !isLarge) return null;
+    if (!suggestedFollowsWithStats?.length) return null;
 
     return (
         <section>

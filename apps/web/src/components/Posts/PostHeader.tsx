@@ -9,7 +9,6 @@ import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { FifaCampAvatar } from '@/components/FifaCamp/FifaCampAvatar.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { HighlightedText } from '@/components/Profile/HighlightedText.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Time } from '@/components/Semantic/Time.js';
@@ -24,7 +23,6 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import { useDefiUnitedBadgeByProfile } from '@/hooks/useDefiUnitedBadge.js';
 import { useFifaCampAvatar } from '@/hooks/useFifaCampAvatar.js';
-import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
@@ -46,7 +44,6 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     const profileLink = getProfileUrl(author);
 
     const isDetailPage = useIsPostDetailPage();
-    const { data: highlighted } = useProfileHighlighted(author);
     const { data: fifaCampCountryCode, flagUrl: fifaCampFlagUrl } = useFifaCampAvatar(author);
     const { data: defiUnitedTier } = useDefiUnitedBadgeByProfile(author);
     const avatarSize = isQuote ? 24 : 40;
@@ -106,11 +103,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                             className="mr-1 truncate text-medium font-bold leading-5 text-main hover:underline"
                             onClick={stopPropagation}
                         >
-                            {author.highlighted || highlighted ? (
-                                <HighlightedText text={author.displayName} />
-                            ) : (
-                                author.displayName
-                            )}
+                            {author.displayName}
                         </Link>
                     </ProfileTippy>
                     {post.isTruthSocial ? (

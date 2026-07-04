@@ -24,11 +24,6 @@
         "canary": "https://firefly-prophet.vercel.app/prophet-iframe",
         "production": "https://prophet.firefly.social/prophet-iframe"
     },
-    "/sparks-iframe": {
-        "staging": "https://firefly-sparks.vercel.app/sparks-iframe",
-        "canary": "https://firefly-sparks.vercel.app/sparks-iframe",
-        "production": "https://firefly-sparks.vercel.app/sparks-iframe"
-    },
     "/mystery-box-iframe": {
         "staging": "https://firefly-mystery-box.vercel.app/mystery-box-iframe",
         "canary": "https://mystery-box.firefly.social/mystery-box-iframe",

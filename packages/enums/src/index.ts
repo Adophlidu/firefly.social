@@ -271,28 +271,6 @@ export enum LensSignType {
     OrbScan = 'orb_scan',
 }
 
-export enum SparksAccountStatus {
-    Activated = 1,
-    HandleNotInList = 2,
-    AccountNotExist = 3,
-    AccountNotBindTwitterHandle = 4,
-    NotActivated = 5,
-}
-
-export enum OgStatus {
-    isOgActive = 1,
-    isOgInactive = 2,
-    isNotOg = 3,
-    isNotBoundX = 4,
-}
-
-export enum FansStatus {
-    isFansActive = 1,
-    isFansInactive = 2,
-    isNotFans = 3,
-    isNotBoundX = 4,
-}
-
 // --- Navigation & routing ---
 
 export enum PageRoute {
@@ -319,7 +297,6 @@ export enum PageRoute {
     SettingConnected = '/settings/connected',
     SettingsMutes = '/settings/mutes',
     Signup = '/signup',
-    Sparks = '/sparks',
     MysteryBox = '/mystery-box',
     WorldCup = '/world-cup',
     PredictionCategory = '/prediction/category',
