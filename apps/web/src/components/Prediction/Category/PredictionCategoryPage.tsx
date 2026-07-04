@@ -19,6 +19,7 @@ import { PredictionCategoryToolbar } from '@/components/Prediction/Category/Pred
 import { FIFA_SLUG } from '@/constants/bets.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useRouter } from '@/esm/navigation.js';
+import type { PredictionCategoryPropsInitialData } from '@/helpers/buildPredictionCategoryPropsInitialData.js';
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
 import {
     PREDICTION_CATEGORY_BRACKET_TAB,
@@ -41,6 +42,8 @@ import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
 interface Props {
     slugs: string[];
+    slugList: PolymarketEventSlugListData[];
+    initialPropsListPage?: PredictionCategoryPropsInitialData;
 }
 
 function PredictionCategoryStickyNav({
@@ -63,13 +66,14 @@ function PredictionCategoryStickyNav({
     );
 }
 
-export function PredictionCategoryPage({ slugs }: Props) {
+export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initialPropsListPage }: Props) {
     const router = useRouter();
-    const { data: slugList, isPending } = useQuery({
+    const { data: slugList = initialSlugList } = useQuery({
         queryKey: ['prediction', 'category', 'slugs-list'],
         queryFn: () => getEventSlugList(),
         staleTime: STALE_TIMES.INFINITY,
         select: (data) => data?.filter((x) => x.slug !== FIFA_SLUG),
+        initialData: initialSlugList,
     });
 
     const context = useMemo(() => {
@@ -132,7 +136,7 @@ export function PredictionCategoryPage({ slugs }: Props) {
         [setTab],
     );
 
-    if (isPending || shouldRedirectToDefaultSecondary) {
+    if (shouldRedirectToDefaultSecondary) {
         return (
             <div className="flex flex-col">
                 <PredictionCategoryStickyNav />
@@ -191,7 +195,7 @@ export function PredictionCategoryPage({ slugs }: Props) {
                             </div>
                         }
                     >
-                        <PredictionCategoryPropsList context={context} />
+                        <PredictionCategoryPropsList context={context} initialPropsListPage={initialPropsListPage} />
                     </Suspense>
                 )}
             </div>

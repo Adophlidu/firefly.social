@@ -3,6 +3,7 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 import { cache } from 'react';
 
+import { compactEventForPageTransfer } from '@/helpers/compactEventForPageTransfer.js';
 import { createPredictionEventMetadataFromEvent } from '@/helpers/createPredictionEventMetadataFromEvent.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveLocale } from '@/helpers/resolveLocale.js';
@@ -17,7 +18,7 @@ export const getPolymarketEventPageData = cache(async (id: string, isMutil: bool
 
     if (!event) return { event: null };
 
-    return { event };
+    return { event: compactEventForPageTransfer(event) };
 });
 
 export async function getPolymarketEventPageMetadata({

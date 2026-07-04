@@ -5,6 +5,7 @@ import type { CoinGeckoToken, GetTokenOptions } from '@dimensiondev/workers-toke
 import { noop } from 'lodash-es';
 import { createContext, type Dispatch, type PropsWithChildren, type SetStateAction, useMemo, useState } from 'react';
 
+import type { Trending } from '@/providers/types/Trending.js';
 import type { TradeRecord } from '@/types/token.js';
 
 interface TokenContextProps {
@@ -12,6 +13,7 @@ interface TokenContextProps {
     setTradeRecords: Dispatch<SetStateAction<TradeRecord[]>>;
     token?: CoinGeckoToken | null;
     tokenQueryOptions?: GetTokenOptions;
+    initialTrending?: Trending;
 }
 
 export const TokenContext = createContext<TokenContextProps>({
@@ -23,7 +25,8 @@ export function TokenContextProvider({
     children,
     token,
     tokenQueryOptions,
-}: PropsWithChildren<Pick<TokenContextProps, 'token' | 'tokenQueryOptions'>>) {
+    initialTrending,
+}: PropsWithChildren<Pick<TokenContextProps, 'token' | 'tokenQueryOptions' | 'initialTrending'>>) {
     const [tradeRecords, setTradeRecords] = useState<TradeRecord[]>(EMPTY_LIST);
     const contextValue = useMemo(
         () => ({
@@ -31,8 +34,9 @@ export function TokenContextProvider({
             setTradeRecords,
             token,
             tokenQueryOptions,
+            initialTrending,
         }),
-        [tradeRecords, token, tokenQueryOptions],
+        [tradeRecords, token, tokenQueryOptions, initialTrending],
     );
 
     return <TokenContext.Provider value={contextValue}>{children}</TokenContext.Provider>;

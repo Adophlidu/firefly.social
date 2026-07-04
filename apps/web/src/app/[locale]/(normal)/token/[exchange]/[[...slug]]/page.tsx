@@ -50,5 +50,3 @@ export default function TokenCategoryPage(props: TokenPageProps) {
             );
     }
 }
-
-export const dynamic = 'force-dynamic';

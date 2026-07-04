@@ -52,10 +52,12 @@ describe('compactPostForPageTransfer', () => {
         expect(compact.commentOn?.author.bio).toBeUndefined();
     });
 
-    it('shares one compacted root instance across posts of the same thread', () => {
-        const posts = compactPostsForPageTransfer([createPost({ postId: 'a' }), createPost({ postId: 'b' })]);
+    it('shares one compacted author instance across posts by the same author', () => {
+        const posts = compactPostsForPageTransfer([
+            createPost({ postId: 'a' }),
+            createPost({ postId: 'b', author: createPost().author }),
+        ]);
 
-        expect(posts[0]?.root).toBe(posts[1]?.root);
-        expect(posts[0]?.commentOn).toBe(posts[1]?.commentOn);
+        expect(posts[0]?.author).toBe(posts[1]?.author);
     });
 });

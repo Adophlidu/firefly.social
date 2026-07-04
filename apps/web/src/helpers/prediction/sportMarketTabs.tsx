@@ -1138,3 +1138,12 @@ function sortTypesByPriority(sectionsByType: Map<string, BetsMarketDataForUI[]>)
 
     return ordered;
 }
+
+/** True when a market belongs to a dedicated tab (not the default Game Lines / Series Lines tab). */
+export function isDedicatedSportMarketTab(market: BetsMarketDataForUI): boolean {
+    const type = market.sportsMarketType?.toLowerCase();
+    if (!type) return false;
+    if (IGNORED_TYPES.has(type)) return true;
+    if (/^round_(handicap|over_under)_game_\d+$/.test(type)) return true;
+    return TAB_RULES.some((rule) => rule.pattern.test(type));
+}

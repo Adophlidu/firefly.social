@@ -6,6 +6,7 @@ import { cache } from 'react';
 
 import { AccountSuspendedError } from '@/constants/error.js';
 import { buildProfileFeedInitialData } from '@/helpers/buildProfileFeedInitialData.js';
+import { compactProfileForPageTransfer } from '@/helpers/compactProfileForPageTransfer.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
@@ -91,7 +92,7 @@ export const getProfilePageData = cache(
             profiles,
             identity,
             identityFromUrl,
-            socialProfile,
+            socialProfile: socialProfile ? compactProfileForPageTransfer(socialProfile) : null,
             walletProfile,
             initialFeedPage,
             accountSuspended,

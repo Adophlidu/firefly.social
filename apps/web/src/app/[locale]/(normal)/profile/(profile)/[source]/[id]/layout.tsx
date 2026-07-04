@@ -43,39 +43,30 @@ export default async function Layout(props: Props) {
         accountSuspended,
     } = pageData;
 
+    const jsonLd = socialProfile ? (
+        <script
+            type="application/ld+json"
+            // eslint-disable-next-line react/no-danger -- JSON-LD is serialized with `<` escaped
+            dangerouslySetInnerHTML={{ __html: serializeJsonLd(createProfileJsonLd(socialProfile)) }}
+        />
+    ) : null;
+
     if (isRequestedLoginSource(source) && !resolveSessionHolder(source).session) {
         return (
             <>
-                {/* eslint-disable react/no-danger -- JSON-LD is serialized with `<` escaped */}
-                {socialProfile ? (
-                    <script
-                        type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: serializeJsonLd(createProfileJsonLd(socialProfile)) }}
-                    />
-                ) : null}
-                {/* eslint-enable react/no-danger */}
-                <FireflyAccountInfo identity={identity} relatedProfile={relatedProfile} socialProfile={socialProfile} />
-                <ProfileSourceTabs
+                {jsonLd}
+                <ProfileContextProvider
                     profiles={profiles}
                     identity={identity}
                     socialProfile={socialProfile}
-                    identityFromUrl={identityFromUrl}
-                />
-                {socialProfile ? (
-                    <ProfileContextProvider
-                        profiles={profiles}
-                        identity={identity}
-                        socialProfile={socialProfile}
-                        initialFeedPage={initialFeedPage}
-                    >
-                        <ProfileInfoCard
-                            source={source}
-                            socialProfile={socialProfile}
-                            profiles={profiles}
-                            hasFireflyAccount={!!relatedProfile.account}
-                        />
-                    </ProfileContextProvider>
-                ) : null}
+                    initialFeedPage={initialFeedPage}
+                >
+                    <FireflyAccountInfo identity={identity} relatedProfile={relatedProfile} />
+                    <ProfileSourceTabs identity={identity} identityFromUrl={identityFromUrl} />
+                    {socialProfile ? (
+                        <ProfileInfoCard source={source} hasFireflyAccount={!!relatedProfile.account} />
+                    ) : null}
+                </ProfileContextProvider>
                 <NotLoginFallback source={source as LoginFallbackSource} />
             </>
         );
@@ -83,51 +74,32 @@ export default async function Layout(props: Props) {
 
     if (accountSuspended) {
         return (
-            <>
+            <ProfileContextProvider profiles={profiles} identity={identity} socialProfile={null}>
                 <FireflyAccountInfo relatedProfile={relatedProfile} identity={identity} walletProfile={walletProfile} />
-                <ProfileSourceTabs profiles={profiles} identity={identity} identityFromUrl={identityFromUrl} />
+                <ProfileSourceTabs identity={identity} identityFromUrl={identityFromUrl} />
                 <SuspendedAccountFallback />
-            </>
+            </ProfileContextProvider>
         );
     }
 
     return (
         <>
-            {/* eslint-disable react/no-danger -- JSON-LD is serialized with `<` escaped */}
-            {socialProfile ? (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: serializeJsonLd(createProfileJsonLd(socialProfile)) }}
-                />
-            ) : null}
-            {/* eslint-enable react/no-danger */}
+            {jsonLd}
             <ProfileContextProvider
                 profiles={profiles}
                 identity={identity}
                 socialProfile={socialProfile}
                 initialFeedPage={initialFeedPage}
             >
-                <FireflyAccountInfo
-                    relatedProfile={relatedProfile}
-                    identity={identity}
-                    socialProfile={socialProfile}
-                    walletProfile={walletProfile}
-                />
-                <ProfileSourceTabs
-                    profiles={profiles}
-                    identity={identity}
-                    socialProfile={socialProfile}
-                    identityFromUrl={identityFromUrl}
-                />
+                <FireflyAccountInfo relatedProfile={relatedProfile} identity={identity} walletProfile={walletProfile} />
+                <ProfileSourceTabs identity={identity} identityFromUrl={identityFromUrl} />
                 {!socialProfile && !walletProfile ? (
                     <SuspendedAccountFallback />
                 ) : (
                     <>
                         <ProfileInfoCard
                             source={source}
-                            socialProfile={socialProfile}
                             walletProfile={walletProfile}
-                            profiles={profiles}
                             hasFireflyAccount={!!relatedProfile.account}
                         />
                         {props.children}

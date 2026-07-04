@@ -5,12 +5,15 @@ import { cache } from 'react';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createTokenMetadataFromToken } from '@/helpers/createTokenMetadataFromToken.js';
+import { getCoinTrending } from '@/providers/coingecko/getCoinTrending.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
+import type { Trending } from '@/providers/types/Trending.js';
 
 export interface TokenDetailPageData {
     token: NonNullable<Awaited<ReturnType<typeof searchToken>>>;
     tokenQueryOptions: GetTokenOptions;
+    initialTrending?: Trending;
 }
 
 // react `cache()` memoizes by argument identity — pass primitive fields so layout and metadata share one fetch.
@@ -30,7 +33,9 @@ export const getTokenDetailPageData = cache(
         const token = await runInSafeAsync(() => searchToken(tokenQueryOptions));
         if (!token) return null;
 
-        return { token, tokenQueryOptions };
+        const initialTrending = token.id ? await runInSafeAsync(() => getCoinTrending(token.id!)) : undefined;
+
+        return { token, tokenQueryOptions, initialTrending };
     },
 );
 

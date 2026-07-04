@@ -8,15 +8,15 @@ import {
     capturePolymarketCategoryView,
     capturePolymarketEventOpenSuccess,
 } from '@/providers/telemetry/capturePolymarketEvent.js';
-import type { BetsEventDataForUI } from '@/types/prediction.js';
+import type { BetsEventTagForUI } from '@/types/prediction.js';
 
 interface PolymarketEventTrackerProps {
     platform: PredictionPlatform;
     eventSlug: string;
-    detail: BetsEventDataForUI;
+    tags?: BetsEventTagForUI[];
 }
 
-export function PolymarketEventTracker({ platform, eventSlug, detail }: PolymarketEventTrackerProps) {
+export function PolymarketEventTracker({ platform, eventSlug, tags }: PolymarketEventTrackerProps) {
     useEffect(() => {
         if (platform === PredictionPlatform.Polymarket) {
             capturePolymarketEventOpenSuccess(eventSlug);
@@ -24,14 +24,14 @@ export function PolymarketEventTracker({ platform, eventSlug, detail }: Polymark
             captureOpinionEventOpenSuccess(eventSlug);
         }
 
-        if (platform === PredictionPlatform.Polymarket && detail.tags) {
-            detail.tags.forEach((tag) => {
+        if (platform === PredictionPlatform.Polymarket && tags) {
+            tags.forEach((tag) => {
                 if (tag.slug && tag.label) {
                     capturePolymarketCategoryView(tag.slug, tag.label);
                 }
             });
         }
-    }, [platform, eventSlug, detail]);
+    }, [platform, eventSlug, tags]);
 
     return null;
 }

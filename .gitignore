@@ -85,6 +85,9 @@ playwright-report/
 docs/agents/
 
 .venv-translate/
-scripts/
+# SSR page collection artifacts (apps/web/scripts/collect-ssr-pages.mjs)
+apps/web/.ssr-pages/
+
+/scripts/
 
 workers/**/types/

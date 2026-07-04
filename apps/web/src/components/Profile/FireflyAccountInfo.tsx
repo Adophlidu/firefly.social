@@ -6,7 +6,7 @@ import { classNames } from '@dimensiondev/utils';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { ComeBackButton } from '@/components/Profile/ComeBackButton.js';
@@ -14,6 +14,7 @@ import { EnsName } from '@/components/Profile/EnsName.js';
 import { FireflyAccountInfoUI } from '@/components/Profile/FireflyAccountInfoUI.js';
 import { FireflyAccountMoreButton } from '@/components/Profile/FireflyAccountMoreButton.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
+import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ShareButton } from '@/components/Profile/ShareButton.js';
 import { PROFILE_ACTION_ID } from '@/components/Profile/SocialProfileInfo.js';
 import { TipsButton } from '@/components/Profile/TipsButton.js';
@@ -43,13 +44,13 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     walletProfile?: WalletProfile | null;
-    socialProfile?: Profile | null;
     identity: FireflyIdentity;
     profile?: FireflyAccountProfile | null;
     relatedProfile: WalletProfiles;
 }
 
-export function FireflyAccountInfo({ walletProfile, socialProfile, identity, relatedProfile }: Props) {
+export function FireflyAccountInfo({ walletProfile, identity, relatedProfile }: Props) {
+    const { refreshedSocialProfile: socialProfile } = useContext(ProfileContext);
     const { data } = useQuery({
         queryKey: ['firefly-profile', identity],
         async queryFn() {

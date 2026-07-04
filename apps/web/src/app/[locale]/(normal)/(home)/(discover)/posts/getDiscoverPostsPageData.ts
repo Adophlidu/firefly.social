@@ -7,8 +7,6 @@ import { cache } from 'react';
 import { buildDiscoverFeedInitialData, type DiscoverFeedInitialData } from '@/helpers/buildDiscoverFeedInitialData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
-export type { DiscoverFeedInitialData };
-
 export const getDiscoverPostsPageData = cache(async (): Promise<DiscoverFeedInitialData | undefined> => {
     const fetchOptions = getMultiInfiniteQueryPageableFetchOptions(
         ['posts', Source.Posts, 'discover'],

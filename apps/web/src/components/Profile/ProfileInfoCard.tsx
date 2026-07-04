@@ -1,21 +1,25 @@
+'use client';
+
 import type { ProfilePageSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
+import { useContext } from 'react';
 
-import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
+import { ProfileContext } from '@/components/Profile/ProfileContext.js';
+import { SocialProfileInfo } from '@/components/Profile/SocialProfileInfo.js';
+import { WalletInfo } from '@/components/Profile/WalletInfo.js';
 import { WalletMixInfo } from '@/components/Profile/WalletMixInfo.js';
-import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 interface Props {
     walletProfile?: WalletProfile | null;
-    socialProfile?: Profile | null;
     source: ProfilePageSource;
-    profiles?: FireflyProfile[];
     hasFireflyAccount?: boolean;
 }
 
-export function ProfileInfoCard({ walletProfile, socialProfile, source, profiles, hasFireflyAccount }: Props) {
+export function ProfileInfoCard({ walletProfile, source, hasFireflyAccount }: Props) {
+    const { refreshedSocialProfile: socialProfile, profiles } = useContext(ProfileContext);
+
     return (
         <div
             className={classNames('relative z-30 mx-4 mb-2 rounded-lg', {
@@ -29,9 +33,11 @@ export function ProfileInfoCard({ walletProfile, socialProfile, source, profiles
         >
             {profiles && source === Source.WalletMix ? (
                 <WalletMixInfo profiles={profiles} hasFireflyAccount={hasFireflyAccount} />
-            ) : (
-                <ProfileInfo walletProfile={walletProfile} socialProfile={socialProfile} />
-            )}
+            ) : walletProfile ? (
+                <WalletInfo profile={walletProfile} />
+            ) : socialProfile ? (
+                <SocialProfileInfo profile={socialProfile} />
+            ) : null}
         </div>
     );
 }

@@ -9,8 +9,6 @@ import {
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
-export type { ExploreChannelsInitialData };
-
 export const getExploreChannelsPageData = cache(
     async (source: string): Promise<ExploreChannelsInitialData | undefined> => {
         const socialSource = resolveSourceFromUrl(source as ExploreSourceInURL) as SocialSource;

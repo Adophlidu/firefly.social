@@ -23,6 +23,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 
 function resolveTab(pathname: string, params: ReadonlyURLSearchParams, category: string) {
@@ -70,6 +71,7 @@ export const Transactions = memo<Props>(function Transactions({
         (isPending && pendingCategory) || (isMyOwnWallet ? 'mine' : params.get('tx') || subcategories[0].value);
     const isFollowing = subcategory === 'following';
     const isTrader = subcategory === 'trader';
+    const isLogin = useIsLoginFirefly();
 
     const { setTradeRecords } = useContext(TokenContext);
     const [traderAvatar, setTraderAvatar] = useState<string>();
@@ -124,54 +126,58 @@ export const Transactions = memo<Props>(function Transactions({
                     );
                 })}
             </div>
-            <Suspense
-                fallback={
-                    <div className="flex grow flex-col">
-                        <TokenPageLoading />
-                    </div>
-                }
-            >
-                <DisableScrollRestoreContext value>
-                    {isFollowing ? (
-                        <SwapTimeline
-                            isFollowing
-                            {...timelineProps}
-                            listSubScope={`${chainId}-${tokenAddress}-following`}
-                            NoResultsFallbackProps={{
-                                icon: null,
-                                message: <Trans>No one you follow has traded this token.</Trans>,
-                            }}
-                        />
-                    ) : subcategory === 'mine' || isMyOwnWallet ? (
-                        account ? (
+            {isFollowing && !isLogin ? (
+                <NotLoginFallback source={Source.Swap} />
+            ) : (
+                <Suspense
+                    fallback={
+                        <div className="flex grow flex-col">
+                            <TokenPageLoading />
+                        </div>
+                    }
+                >
+                    <DisableScrollRestoreContext value>
+                        {isFollowing ? (
                             <SwapTimeline
-                                address={account}
+                                isFollowing
                                 {...timelineProps}
-                                listSubScope={`${chainId}-${tokenAddress}-${account}`}
+                                listSubScope={`${chainId}-${tokenAddress}-following`}
                                 NoResultsFallbackProps={{
                                     icon: null,
-                                    message: <Trans>You haven&apos;t traded this token.</Trans>,
+                                    message: <Trans>No one you follow has traded this token.</Trans>,
                                 }}
                             />
-                        ) : (
-                            <NotLoginFallback
-                                source={Source.Wallet}
-                                message={<Trans>Connect your wallet to unlock all features</Trans>}
+                        ) : subcategory === 'mine' || isMyOwnWallet ? (
+                            account ? (
+                                <SwapTimeline
+                                    address={account}
+                                    {...timelineProps}
+                                    listSubScope={`${chainId}-${tokenAddress}-${account}`}
+                                    NoResultsFallbackProps={{
+                                        icon: null,
+                                        message: <Trans>You haven&apos;t traded this token.</Trans>,
+                                    }}
+                                />
+                            ) : (
+                                <NotLoginFallback
+                                    source={Source.Wallet}
+                                    message={<Trans>Connect your wallet to unlock all features</Trans>}
+                                />
+                            )
+                        ) : subcategory === 'trader' && trader ? (
+                            <SwapTimeline
+                                address={trader}
+                                {...timelineProps}
+                                listSubScope={`${chainId}-${tokenAddress}-${trader}`}
+                                NoResultsFallbackProps={{
+                                    icon: null,
+                                    message: <Trans>No trade records</Trans>,
+                                }}
                             />
-                        )
-                    ) : subcategory === 'trader' && trader ? (
-                        <SwapTimeline
-                            address={trader}
-                            {...timelineProps}
-                            listSubScope={`${chainId}-${tokenAddress}-${trader}`}
-                            NoResultsFallbackProps={{
-                                icon: null,
-                                message: <Trans>No trade records</Trans>,
-                            }}
-                        />
-                    ) : null}
-                </DisableScrollRestoreContext>
-            </Suspense>
+                        ) : null}
+                    </DisableScrollRestoreContext>
+                </Suspense>
+            )}
         </div>
     );
 });

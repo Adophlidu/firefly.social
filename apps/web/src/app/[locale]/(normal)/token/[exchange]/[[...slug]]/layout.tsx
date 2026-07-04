@@ -92,7 +92,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
 
     if (!pageData) notFound();
 
-    const { token, tokenQueryOptions } = pageData;
+    const { token, tokenQueryOptions, initialTrending } = pageData;
 
     if (!isNewRoute) {
         const url = token.id
@@ -102,7 +102,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     }
 
     return (
-        <TokenContextProvider token={token} tokenQueryOptions={tokenQueryOptions}>
+        <TokenContextProvider token={token} tokenQueryOptions={tokenQueryOptions} initialTrending={initialTrending}>
             <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
                 <div className="flex min-w-0 items-center gap-7">
                     <Comeback className="cursor-pointer text-lightMain" />

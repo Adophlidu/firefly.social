@@ -58,12 +58,11 @@ export function ProfileContextProvider({
         () => ({
             identity,
             profiles,
-            socialProfile,
             initialFeedPage,
             isRefreshing: isLoading || isSyncing,
             refreshedSocialProfile: refreshedProfile || socialProfile,
         }),
-        [identity, profiles, socialProfile, initialFeedPage, isLoading, isSyncing, refreshedProfile],
+        [identity, profiles, initialFeedPage, isLoading, isSyncing, refreshedProfile, socialProfile],
     );
 
     return <ProfileContext.Provider value={cachedValue}>{children}</ProfileContext.Provider>;

@@ -9,9 +9,10 @@ import { MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ProfileMenuItem, TopProfileMenuItem } from '@/components/Profile/ProfileSourceTabs/ProfileMenuItems.js';
 import { ProfileSourceTabsContainer } from '@/components/Profile/ProfileSourceTabs/ProfileSourceTabsContainer.js';
 import { TriggerButton } from '@/components/Profile/ProfileSourceTabs/TriggerButton.js';
@@ -22,20 +23,16 @@ import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 
 export function ProfileSourceTabs({
-    profiles: initialProfiles,
     identity,
-    socialProfile,
     identityFromUrl,
 }: {
-    profiles: FireflyProfile[];
     identity: FireflyIdentity;
     identityFromUrl: FireflyIdentity;
-    socialProfile?: Profile | null;
 }) {
+    const { refreshedSocialProfile: socialProfile, profiles: initialProfiles } = useContext(ProfileContext);
     const [isWalletProfilesExpanded, setIsWalletProfilesExpanded] = useState(false);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
     const { data = initialProfiles } = useQuery({

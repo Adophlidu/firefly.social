@@ -10,6 +10,8 @@ import { memo, useCallback } from 'react';
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionPolymarketListItem } from '@/components/Prediction/PredictionPolymarketListItem.js';
+import { SSR_LIST_LIMIT } from '@/constants/ssr.js';
+import type { PredictionCategoryPropsInitialData } from '@/helpers/buildPredictionCategoryPropsInitialData.js';
 import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import { FIFA_EXCLUDE_TAG_ID } from '@/helpers/prediction/category/isFifaCategoryContext.js';
 import {
@@ -19,13 +21,16 @@ import {
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { shouldShowGamesPropsTabs } from '@/helpers/prediction/category/shouldShowGamesTab.js';
 import { usePolymarketListSportsPrices } from '@/hooks/prediction/usePolymarketListSportsPrices.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useLocale } from '@/hooks/useLocale.js';
+import { useRefetchWhenReady } from '@/hooks/useRefetchWhenReady.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
 import { GAMMA_EVENTS_PAGE_SIZE, getGammaEvents } from '@/providers/firefly/prediction/getGammaEvents.js';
 import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
 
 interface Props {
     context: CategorySlugContext;
+    initialPropsListPage?: PredictionCategoryPropsInitialData;
 }
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
@@ -95,11 +100,13 @@ const SportsCategoryPropsList = memo<{ context: CategorySlugContext }>(function 
     return <SportsCategoryPropsListContent tagSlug={tagSlug} />;
 });
 
-const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(function CategoryEventListPropsList({
-    context,
-}) {
+const CategoryEventListPropsList = memo<{
+    context: CategorySlugContext;
+    initialPropsListPage?: PredictionCategoryPropsInitialData;
+}>(function CategoryEventListPropsList({ context, initialPropsListPage }) {
     const locale = useLocale();
     const { slug, subSlug } = getPropsListSlugParams(context);
+    const isSyncing = useAsyncStatusAll();
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['prediction', 'category', 'props-list', slug, subSlug, locale],
@@ -117,7 +124,11 @@ const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(functi
                 data.pages.flatMap((page) => page?.data || []),
                 'id',
             ),
+        initialData: initialPropsListPage,
+        initialDataUpdatedAt: initialPropsListPage ? 0 : undefined,
     });
+
+    useRefetchWhenReady(!!initialPropsListPage && !isSyncing, queryResult.refetch);
 
     const items = queryResult.data;
     const liveMarketPrices = usePolymarketListSportsPrices(items);
@@ -136,6 +147,7 @@ const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(functi
                 source={Source.Prediction}
                 VirtualListProps={{
                     listKey: `${ScrollListKey.Prediction}:category:${slug}:${subSlug ?? ''}`,
+                    initialItemCount: Math.min(items.length, SSR_LIST_LIMIT),
                     computeItemKey: (_, item) => item.id,
                     itemContent,
                 }}
@@ -147,10 +159,13 @@ const CategoryEventListPropsList = memo<{ context: CategorySlugContext }>(functi
     );
 });
 
-export const PredictionCategoryPropsList = memo<Props>(function PredictionCategoryPropsList({ context }) {
+export const PredictionCategoryPropsList = memo<Props>(function PredictionCategoryPropsList({
+    context,
+    initialPropsListPage,
+}) {
     if (shouldShowGamesPropsTabs(context)) {
         return <SportsCategoryPropsList context={context} />;
     }
 
-    return <CategoryEventListPropsList context={context} />;
+    return <CategoryEventListPropsList context={context} initialPropsListPage={initialPropsListPage} />;
 });

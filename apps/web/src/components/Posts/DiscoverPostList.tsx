@@ -6,10 +6,10 @@ import { createIndicator } from '@dimensiondev/utils';
 import { uniqBy } from 'lodash-es';
 import { memo } from 'react';
 
-import type { DiscoverFeedInitialData } from '@/app/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { SSR_LIST_LIMIT } from '@/constants/ssr.js';
+import type { DiscoverFeedInitialData } from '@/helpers/buildDiscoverFeedInitialData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';

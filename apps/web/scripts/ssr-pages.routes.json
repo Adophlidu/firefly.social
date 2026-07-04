@@ -1,0 +1,84 @@
+{
+    "locale": "en",
+    "samples": {
+        "[locale]": "en",
+        "[source]": "farcaster",
+        "[id]": "3",
+        "[address]": "0x0000000000000000000000000000000000000001",
+        "[exchange]": "cex",
+        "[chain_id]": "1",
+        "[hash]": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "[name]": "fifa",
+        "[explore]": "channels",
+        "[category]": "posts",
+        "[type]": "posts",
+        "[index]": "0",
+        "[session]": "test-session",
+        "[otp]": "000000",
+        "[accountId]": "1",
+        "[...slug]": "bitcoin",
+        "[...slugs]": "politics",
+        "[[...slug]]": "bitcoin",
+        "[[...accountId]]": ""
+    },
+    "explorePaths": [
+        ["prediction", "trending"],
+        ["users", "x"],
+        ["truth-social"],
+        ["tokens", "trending"],
+        ["clubs", "lens"],
+        ["projects"],
+        ["channels", "farcaster"]
+    ],
+    "pathGroups": {
+        "discover": ["/en/posts", "/en/activities", "/en/prediction"],
+        "following": [
+            "/en/following/activities",
+            "/en/following/posts",
+            "/en/following/prediction",
+            "/en/following/trades"
+        ],
+        "events": ["/en/events", "/en/event/fifa"],
+        "search": ["/en/search", "/en/search/bitcoin"],
+        "profile": ["/en/profile/farcaster/dwr", "/en/profile/farcaster/3/posts"],
+        "post": [
+            "/en/post/farcaster",
+            "/en/post/farcaster/3",
+            "/en/post/farcaster/3/posts",
+            "/en/post/farcaster/3/photos/0"
+        ],
+        "club": ["/en/club/farcaster/firefly", "/en/club/farcaster/3/posts"],
+        "token": ["/en/token/cex/bitcoin"],
+        "prediction": ["/en/prediction/leaderboard", "/en/prediction/category/politics"],
+        "markets": [
+            "/en/polymarket/event/12345",
+            "/en/polymarket/profile/0x0000000000000000000000000000000000000001",
+            "/en/opinion/event/3",
+            "/en/opinion/profile/0x0000000000000000000000000000000000000001"
+        ],
+        "article": ["/en/article/1"]
+    },
+    "paths": [],
+    "skipPatterns": [
+        "^/\\[locale\\]$",
+        "^/\\[locale\\]/profile$",
+        "^/\\[locale\\]/profile/\\[source\\]$",
+        "/settings",
+        "/auth",
+        "/login",
+        "/signup",
+        "/redirect",
+        "/telegram",
+        "/intent",
+        "/frame",
+        "/bookmarks",
+        "/notifications",
+        "/world-cup",
+        "/mystery-box",
+        "/sparks",
+        "/tx/",
+        "/relation/",
+        "/event/prediction-campaign",
+        "^/event/prediction-campaign"
+    ]
+}

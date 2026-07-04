@@ -59,7 +59,7 @@ export async function PredictionEventDetailContent({
 
     return (
         <div className="pb-20">
-            <PolymarketEventTracker platform={platform} eventSlug={id} detail={event} />
+            <PolymarketEventTracker platform={platform} eventSlug={id} tags={event.tags} />
             <PredictionEventPageHeader
                 pageTitle={sportPageTitle || <Trans>Event detail</Trans>}
                 action={

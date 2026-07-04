@@ -60,6 +60,7 @@ export const PredictionContextProvider = memo<PropsWithChildren<PredictionContex
             queryKey: [Source.Prediction, 'event', platform, event.slug],
             staleTime: STALE_TIMES.MINUTE_30,
             enabled: !!event.slug,
+            initialData: event,
             queryFn: !event.slug
                 ? skipToken
                 : () =>

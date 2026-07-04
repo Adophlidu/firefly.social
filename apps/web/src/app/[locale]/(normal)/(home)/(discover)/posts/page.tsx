@@ -1,8 +1,6 @@
 import { Source } from '@dimensiondev/enums';
-import { Suspense } from 'react';
 
 import { getDiscoverPostsPageData } from '@/app/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
-import { Loading } from '@/components/Loading.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
@@ -17,9 +15,5 @@ export default async function Posts() {
     // Relationship fields (hasLiked, …) stay empty here; the client fills them in on mount.
     const initialFeedPage = await getDiscoverPostsPageData();
 
-    return (
-        <Suspense fallback={<Loading />}>
-            <DiscoverPostList source={Source.Posts} initialFeedPage={initialFeedPage} />
-        </Suspense>
-    );
+    return <DiscoverPostList source={Source.Posts} initialFeedPage={initialFeedPage} />;
 }
