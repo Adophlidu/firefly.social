@@ -25,6 +25,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { useRefetchWhenReady } from '@/hooks/useRefetchWhenReady.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
@@ -33,24 +34,23 @@ export function SuggestedFollowsCard() {
     const isLarge = useIsLarge('min');
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfilesAll();
+    // The viewer's sessions resume asynchronously after first paint and can flip between
+    // pending/settled a few times; it must not sit in a query key (see useRefetchWhenReady).
     const asyncStatusAll = useAsyncStatusAll();
     const bskySession = useBskyProfileStore.use.currentProfileSession();
 
-    const commonKeys = [...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId), asyncStatusAll, bskySession];
     const {
         data: suggestedFollows,
         isLoading,
         isError,
+        refetch: refetchSuggestedFollows,
     } = useQuery({
         queryKey: [
             'suggested-follows-lite',
             ...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId),
-            asyncStatusAll,
             bskySession,
         ],
         staleTime: STALE_TIMES.MINUTE_30,
-
-        enabled: !asyncStatusAll,
         queryFn: async () => {
             const suggestedProfiles = await Promise.allSettled(
                 SORTED_SOCIAL_SOURCES.map((source) =>
@@ -68,8 +68,14 @@ export function SuggestedFollowsCard() {
         },
     });
 
+    // Sessions may still be restoring on first fetch, so this can start out generic; refetch
+    // once they settle to swap in the personalized suggestions without flashing a loading state.
+    useRefetchWhenReady(!asyncStatusAll, refetchSuggestedFollows);
+
+    const suggestedFollowsKey = suggestedFollows?.map((profile) => `${profile.source}:${profile.profileId}`).join(',');
+
     const { data: profilesWithStats } = useQuery({
-        queryKey: ['profile-stats', ...commonKeys],
+        queryKey: ['profile-stats', suggestedFollowsKey],
         enabled: !!suggestedFollows?.length && !isLoading,
         staleTime: STALE_TIMES.MINUTE_30,
 
@@ -132,7 +138,6 @@ export function SuggestedFollowsCard() {
         );
     }, [currentSource, profileAll.Farcaster, profileAll.Lens, profileAll.Bsky]);
 
-    if (asyncStatusAll) return null;
     if (isError) return null;
     if (isLoading) return <SuggestedFollowsSkeleton />;
     if (!suggestedFollowsWithStats?.length || !isLarge) return null;
