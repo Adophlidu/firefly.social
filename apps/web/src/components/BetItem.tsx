@@ -4,7 +4,6 @@ import TimeIcon from '@dimensiondev/assets/time.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
-import { isZero } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { capitalize, first } from 'lodash-es';
@@ -17,42 +16,16 @@ import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { SportBetItem } from '@/components/Prediction/Sport/SportBetItem.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
+import { SSR_POLYMARKET_LIST_MARKETS_LIMIT } from '@/constants/ssr.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
+import {
+    selectPolymarketListMarketsForDisplay,
+    sortMarkets,
+} from '@/helpers/prediction/selectPolymarketListMarketsForDisplay.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';
-
-const MAX_DISPLAYED_MARKETS = 2;
-
-const calculateRatio = (market: BetsMarketDataForUI): number => {
-    const prices = market.outcomes.map((outcome) => outcome.price ?? '0');
-
-    if (!prices || prices.length < 2) return 0;
-
-    if (prices.every((price) => isZero(price))) {
-        return 0;
-    }
-
-    const firstPrice = Number.parseFloat(String(prices[0]));
-    const secondPrice = Number.parseFloat(String(prices[1]));
-
-    if (Number.isNaN(firstPrice) || Number.isNaN(secondPrice)) return 0;
-
-    const sum = firstPrice + secondPrice;
-
-    if (isZero(sum)) return 0;
-
-    const ratio = firstPrice / sum;
-    return Math.max(0, Math.min(1, ratio));
-};
-
-const isMarketDecided = (market: BetsMarketDataForUI): boolean => {
-    return market.outcomes.some((outcome) => {
-        const price = Number.parseFloat(outcome.price ?? '0');
-        return !Number.isNaN(price) && price >= 1;
-    });
-};
 
 const formatPriceCents = (price: string | null): string => {
     if (!price) return '50¢';
@@ -70,46 +43,6 @@ const formatPriceCents = (price: string | null): string => {
 const formatWinRate = (percentage: number): string => {
     if (percentage < 1) return '<1%';
     return `${Math.ceil(percentage)}%`;
-};
-
-const tryParseIntOrMax = (value: string | null | undefined): number => {
-    const parsed = value ? Number.parseInt(value, 10) : NaN;
-    return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
-};
-
-const sortMarkets = (markets: BetsMarketDataForUI[], sortBy?: string): BetsMarketDataForUI[] => {
-    const unresolved = markets.filter((market) => !market.isResolved && !market.isClosed);
-    const resolved = markets.filter((market) => market.isResolved || market.isClosed);
-
-    const sortInternal = (marketsToSort: BetsMarketDataForUI[]): BetsMarketDataForUI[] => {
-        if (sortBy === 'price') {
-            return [...marketsToSort].sort((a, b) => {
-                const aRatio = calculateRatio(a);
-                const bRatio = calculateRatio(b);
-                return bRatio - aRatio;
-            });
-        } else {
-            const sortedWithThreshold = marketsToSort
-                .filter((market) => !!market.groupItemThreshold)
-                .sort((a, b) => {
-                    const aThreshold = tryParseIntOrMax(a.groupItemThreshold);
-                    const bThreshold = tryParseIntOrMax(b.groupItemThreshold);
-                    return aThreshold - bThreshold;
-                });
-
-            const sortedWithoutThreshold = marketsToSort
-                .filter((market) => !market.groupItemThreshold)
-                .sort((a, b) => {
-                    const aId = tryParseIntOrMax(a.id);
-                    const bId = tryParseIntOrMax(b.id);
-                    return aId - bId;
-                });
-
-            return sortedWithThreshold.concat(sortedWithoutThreshold);
-        }
-    };
-
-    return sortInternal(unresolved).concat(sortInternal(resolved));
 };
 
 const getMarketData = (market: BetsMarketDataForUI) => {
@@ -275,31 +208,13 @@ export const BetItem = memo(function BetItem({
         );
     }, [isResolved, isMultiMarket, eventClosed, eventArchived, endTime]);
 
-    const displayedMarkets = useMemo(() => {
-        // Single-market events: keep existing behavior
-        if (!isMultiMarket) return sortedMarkets.slice(0, MAX_DISPLAYED_MARKETS);
-
-        // Multi-market: exclude resolved, closed, decided, and inactive markets.
-        // Inactive template outcomes carry default 50/50 prices and would outrank real ones.
-        const isEligible = (m: BetsMarketDataForUI) =>
-            !m.isResolved && !m.isClosed && !isMarketDecided(m) && m.active !== false;
-
-        const eligible = sortedMarkets.filter(isEligible);
-
-        // Sort by win ratio descending (highest percentage first) — matches detail page
-        const sorted = [...eligible].sort((a, b) => calculateRatio(b) - calculateRatio(a));
-
-        if (sorted.length >= MAX_DISPLAYED_MARKETS) {
-            return sorted.slice(0, MAX_DISPLAYED_MARKETS);
-        }
-
-        // Fallback: fill remaining slots from the full list (still skip inactive)
-        const usedIds = new Set(sorted.map((m) => m.id));
-        const fallback = sortedMarkets.filter((m) => !usedIds.has(m.id) && m.active !== false);
-        return [...sorted, ...fallback].slice(0, MAX_DISPLAYED_MARKETS);
-    }, [sortedMarkets, isMultiMarket]);
+    // Shared with the SSR compaction helper so the server-rendered markets match what hydrates here.
+    const displayedMarkets = useMemo(
+        () => selectPolymarketListMarketsForDisplay(event.markets, event.sortBy, SSR_POLYMARKET_LIST_MARKETS_LIMIT),
+        [event.markets, event.sortBy],
+    );
     const activeMarkets = sortedMarkets.filter((market) => market.active ?? (!market.isClosed && !market.isResolved));
-    const remainingCount = Math.max(0, activeMarkets.length - MAX_DISPLAYED_MARKETS);
+    const remainingCount = Math.max(0, activeMarkets.length - SSR_POLYMARKET_LIST_MARKETS_LIMIT);
     const series = event.series ? first(event.series) : undefined;
 
     const isNew = useMemo(() => {

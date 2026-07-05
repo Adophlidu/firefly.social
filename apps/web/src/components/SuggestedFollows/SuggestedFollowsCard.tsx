@@ -24,11 +24,13 @@ import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 
 export function SuggestedFollowsCard() {
+    const isLarge = useIsLarge('min');
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfilesAll();
     const asyncStatusAll = useAsyncStatusAll();
@@ -133,7 +135,7 @@ export function SuggestedFollowsCard() {
     if (asyncStatusAll) return null;
     if (isError) return null;
     if (isLoading) return <SuggestedFollowsSkeleton />;
-    if (!suggestedFollowsWithStats?.length) return null;
+    if (!suggestedFollowsWithStats?.length || !isLarge) return null;
 
     return (
         <section>

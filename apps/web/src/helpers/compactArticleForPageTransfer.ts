@@ -11,7 +11,6 @@ export function compactArticleForPageTransfer(article: Article): Article {
         ...article,
         json: undefined,
         htmlContent,
-        followingSources: [],
         customPayload: undefined,
         displayInfo: {
             avatarUrl: article.displayInfo.avatarUrl,

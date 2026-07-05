@@ -40,4 +40,17 @@ describe('resolvePostDetailAllPosts', () => {
 
         expect(resolvePostDetailAllPosts(reply2, thread)).toEqual([root, reply1, reply2]);
     });
+
+    it('does not sort a reply with a missing timestamp ahead of the thread root', () => {
+        const root = createPost('root', 1);
+        const reply1 = createPost('reply-1', 2);
+        const replyWithoutTimestamp = { ...createPost('reply-2', 3), timestamp: undefined } as Post;
+        const thread = createPageable([reply1, replyWithoutTimestamp], undefined);
+
+        const result = resolvePostDetailAllPosts(root, thread);
+
+        // `timestamp ?? 0` used to coerce the missing timestamp to epoch 0, forcing this post to
+        // index 0 ahead of every real post in the thread, including the actual root.
+        expect(result[0]).not.toBe(replyWithoutTimestamp);
+    });
 });

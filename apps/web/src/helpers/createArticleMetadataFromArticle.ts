@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { resolveArticleCoverUrl } from '@/helpers/resolveArticleCoverUrl.js';
 import type { Article } from '@/providers/types/Article.js';
 
 function getArticleDescription(article: Article) {
@@ -11,10 +12,11 @@ function getArticleDescription(article: Article) {
     return description.length > 160 ? `${description.slice(0, 157)}...` : description;
 }
 
-export function createArticleMetadataFromArticle(article: Article, pathname: string): Metadata {
+export async function createArticleMetadataFromArticle(article: Article, pathname: string): Promise<Metadata> {
     const title = `View ${article.title} on Firefly`;
     const description = getArticleDescription(article);
-    const images = article.coverUrl ? [article.coverUrl] : undefined;
+    const coverUrl = await resolveArticleCoverUrl(article);
+    const images = coverUrl ? [coverUrl] : undefined;
 
     return createSiteMetadata(pathname, {
         title,

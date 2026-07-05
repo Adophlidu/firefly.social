@@ -36,7 +36,8 @@ const tryParseIntOrMax = (value: string | null | undefined): number => {
     return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
 };
 
-const sortMarkets = (markets: BetsMarketDataForUI[], sortBy?: string): BetsMarketDataForUI[] => {
+/** Shared by BetItem (client render) and the SSR compaction helper below so both pick identical markets. */
+export const sortMarkets = (markets: BetsMarketDataForUI[], sortBy?: string): BetsMarketDataForUI[] => {
     const unresolved = markets.filter((market) => !market.isResolved && !market.isClosed);
     const resolved = markets.filter((market) => market.isResolved || market.isClosed);
 

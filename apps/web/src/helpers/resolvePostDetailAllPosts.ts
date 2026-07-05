@@ -12,7 +12,12 @@ export function resolvePostDetailAllPosts(
     const threadPosts = thread?.data ?? EMPTY_LIST;
     if (threadPosts.length === 0) return EMPTY_LIST;
 
-    const merged = [...threadPosts, detailPost].sort((a, b) => (a.timestamp ?? 0) - (b.timestamp ?? 0));
+    // Posts can lack a timestamp (e.g. some Farcaster casts); coercing that to 0 would sort them
+    // ahead of the thread root. Leave relative order untouched when either side is missing one.
+    const merged = [...threadPosts, detailPost].sort((a, b) => {
+        if (typeof a.timestamp !== 'number' || typeof b.timestamp !== 'number') return 0;
+        return a.timestamp - b.timestamp;
+    });
     if (merged.length >= MIN_POST_SIZE_PER_THREAD) return merged;
     return EMPTY_LIST;
 }
