@@ -22,8 +22,7 @@
         "ssr:collect": "node ./scripts/collect-ssr-pages.mjs --config-paths-only",
         "ssr:collect:all": "node ./scripts/collect-ssr-pages.mjs",
         "ssr:routes:verify": "node ./scripts/collect-ssr-pages.mjs --verify-routes",
-        "ssr:analyze": "node ./scripts/collect-ssr-pages.mjs --analyze-only",
-        "rsc:analyze": "node ./scripts/analyze-rsc-flight.mjs"
+        "ssr:analyze": "node ./scripts/collect-ssr-pages.mjs --analyze-only"
     },
     "dependencies": {
         "@atproto/api": "^0.18.21",
