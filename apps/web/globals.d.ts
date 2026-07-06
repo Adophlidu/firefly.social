@@ -59,15 +59,6 @@ namespace React {
     }
 }
 
-declare module 'dompurify' {
-    class DOMPurity {
-        sanitize: (html: string) => string;
-    }
-
-    declare const purity: DOMPurity;
-    export default purity;
-}
-
 declare module 'dayjs-twitter' {
     import type { PluginFunc } from 'dayjs';
 

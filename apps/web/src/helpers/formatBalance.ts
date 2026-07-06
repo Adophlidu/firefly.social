@@ -47,6 +47,7 @@ export function formatBalance(rawValue: BigNumber.Value = '0', decimals = 0, opt
             dustLabel: false,
             hasSeparators,
             trimTrailingZeros: true,
+            roundingMode: BigNumber.ROUND_HALF_UP,
         });
     }
 

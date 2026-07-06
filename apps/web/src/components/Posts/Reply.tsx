@@ -6,7 +6,7 @@ import { ENABLED_REPLY_SOURCES } from '@dimensiondev/constants/computed';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
-import { memo, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 import { Editor } from '@/components/Compose/Editor.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -18,7 +18,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { CompositePost } from '@/types/compose.js';
 
@@ -82,6 +82,30 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
         );
     }, [excludeReplyProfileIds, post.author.handle, post.source, profiles]);
 
+    const handleCloseExcludeReplyModal = useCallback(() => setOpen(false), []);
+    const handleOpenExcludeReplyModal = useCallback(() => setOpen(true), []);
+    const handleClickExcludeReplyProfile = useCallback(
+        (x: Profile, checked: boolean) => {
+            updateExcludeReplyProfileIds(
+                !checked
+                    ? [...excludeReplyProfileIds, x.profileId]
+                    : excludeReplyProfileIds.filter((id) => id !== x.profileId),
+            );
+        },
+        [excludeReplyProfileIds, updateExcludeReplyProfileIds],
+    );
+    const excludeReplyModalChildren = useMemo(
+        () => (
+            <div
+                className="mt-3 min-h-[20px] cursor-pointer text-medium text-placeholder"
+                onClick={handleOpenExcludeReplyModal}
+            >
+                {replyingProfilesContent}
+            </div>
+        ),
+        [handleOpenExcludeReplyModal, replyingProfilesContent],
+    );
+
     return (
         <>
             <div className="flex gap-3">
@@ -106,23 +130,12 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                             <ExcludeReplyUserListModal
                                 post={post}
                                 profiles={profiles}
-                                onClose={() => setOpen(false)}
+                                onClose={handleCloseExcludeReplyModal}
                                 open={open}
                                 excluded={excludeReplyProfileIds}
-                                onClickProfile={(x, checked) => {
-                                    updateExcludeReplyProfileIds(
-                                        !checked
-                                            ? [...excludeReplyProfileIds, x.profileId]
-                                            : excludeReplyProfileIds.filter((id) => id !== x.profileId),
-                                    );
-                                }}
+                                onClickProfile={handleClickExcludeReplyProfile}
                             >
-                                <div
-                                    className="mt-3 min-h-[20px] cursor-pointer text-medium text-placeholder"
-                                    onClick={() => setOpen(true)}
-                                >
-                                    {replyingProfilesContent}
-                                </div>
+                                {excludeReplyModalChildren}
                             </ExcludeReplyUserListModal>
                         )}
                     </div>

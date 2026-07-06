@@ -4,6 +4,7 @@ import ExchangeIcon from '@dimensiondev/assets/exchange.svg';
 import { Source } from '@dimensiondev/enums';
 import { formatAddress, formatTokenAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
+import { BigNumber } from 'bignumber.js';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo, useRef } from 'react';
@@ -183,7 +184,12 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                             {activity.from_token?.name}
                                         </span>
                                         {activity.from_token?.amount_num ? (
-                                            <span>- {formatTokenAmount(activity.from_token?.amount_num)}</span>
+                                            <span>
+                                                -{' '}
+                                                {formatTokenAmount(activity.from_token?.amount_num, {
+                                                    roundingMode: BigNumber.ROUND_HALF_UP,
+                                                })}
+                                            </span>
                                         ) : null}
                                     </div>
 
@@ -221,7 +227,10 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                         </span>
                                         {activity.to_token?.amount_num ? (
                                             <span className="text-success">
-                                                + {formatTokenAmount(activity.to_token?.amount_num)}
+                                                +{' '}
+                                                {formatTokenAmount(activity.to_token?.amount_num, {
+                                                    roundingMode: BigNumber.ROUND_HALF_UP,
+                                                })}
                                             </span>
                                         ) : null}
                                     </div>

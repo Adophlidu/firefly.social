@@ -9,7 +9,7 @@ import { AttachmentType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
-import { memo, type SyntheticEvent, useCallback } from 'react';
+import { memo, type SyntheticEvent, useCallback, useMemo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -59,6 +59,72 @@ interface AttachmentsProps {
     minimal?: boolean;
 }
 
+interface AttachmentGridItemProps {
+    post: Post;
+    attachment: Attachment;
+    index: number;
+    minimal: boolean;
+    isSoloImage: boolean;
+}
+
+// Renders a single grid attachment's WithPreviewLink + media as its own memoized
+// component so the media element passed as `children` has a stable reference
+// across parent re-renders instead of being recreated inline in a `.map()`.
+const AttachmentGridItem = memo<AttachmentGridItemProps>(function AttachmentGridItem({
+    post,
+    attachment,
+    index,
+    minimal,
+    isSoloImage,
+}) {
+    const uri = attachment.uri ?? '';
+    const handleError = useCallback(
+        ({ currentTarget }: SyntheticEvent<HTMLImageElement>) => {
+            currentTarget.src = uri;
+        },
+        [uri],
+    );
+
+    const media = useMemo(
+        () =>
+            attachment.type === AttachmentType.Image ? (
+                <Image
+                    className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
+                    loading="lazy"
+                    fill={isSoloImage}
+                    width={!isSoloImage ? (minimal ? 120 : 1000) : undefined}
+                    height={!isSoloImage ? (minimal ? 120 : 1000) : undefined}
+                    style={{
+                        maxHeight: isSoloImage && minimal ? 288 : undefined,
+                    }}
+                    onError={handleError}
+                    src={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
+                    alt={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
+                />
+            ) : (
+                <div className="flex size-full flex-col overflow-hidden rounded-lg">
+                    <VideoAsset
+                        videoClassName="mini-video flex-1"
+                        asset={attachment}
+                        minimal={minimal}
+                        source={post.source}
+                    />
+                </div>
+            ),
+        [attachment, handleError, isSoloImage, minimal, post.source, uri],
+    );
+
+    return (
+        <WithPreviewLink
+            post={post}
+            index={index}
+            disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(attachment.type)}
+        >
+            {media}
+        </WithPreviewLink>
+    );
+});
+
 export const Attachments = memo<AttachmentsProps>(function Attachments({
     attachments,
     post,
@@ -86,6 +152,42 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
             event.currentTarget.src = asset.uri;
         },
         [asset],
+    );
+
+    const isSoloImage =
+        !post?.metadata.content?.content &&
+        attachmentsSnapshot.length === 1 &&
+        attachmentsSnapshot[0].type === AttachmentType.Image;
+
+    const singleAttachmentMedia = useMemo(
+        () =>
+            asset?.type === AttachmentType.Image ? (
+                <div
+                    className={classNames({
+                        'w-full': !minimal,
+                        'w-[120px]': minimal,
+                    })}
+                >
+                    <SingleImage
+                        className="cursor-pointer rounded-lg object-cover"
+                        width={minimal ? 120 : 1000}
+                        height={minimal ? 120 : 1000}
+                        onError={handleImageError}
+                        src={formatImageUrl(asset.uri, IMAGE_KIT_ATTACHMENT)}
+                        alt={formatImageUrl(asset.uri, IMAGE_KIT_ATTACHMENT)}
+                    />
+                </div>
+            ) : asset ? (
+                <div
+                    className={classNames('overflow-hidden rounded-lg', {
+                        'size-[120px] shrink-0 grow-0 basis-[120px]': minimal,
+                        'w-full': !minimal,
+                    })}
+                >
+                    <VideoAsset asset={asset} minimal={minimal} source={post.source} />
+                </div>
+            ) : null,
+        [asset, handleImageError, minimal, post.source],
     );
 
     if (minimal && asset?.type === AttachmentType.Audio) {
@@ -118,11 +220,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         );
     }
 
-    const isSoloImage =
-        !post?.metadata.content?.content &&
-        attachmentsSnapshot.length === 1 &&
-        attachmentsSnapshot[0].type === AttachmentType.Image;
-
     return (
         <div
             className={classNames('flex flex-col gap-3 empty:hidden', {
@@ -137,32 +234,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     index={0}
                     disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(asset.type)}
                 >
-                    {asset.type === AttachmentType.Image ? (
-                        <div
-                            className={classNames({
-                                'w-full': !minimal,
-                                'w-[120px]': minimal,
-                            })}
-                        >
-                            <SingleImage
-                                className="cursor-pointer rounded-lg object-cover"
-                                width={minimal ? 120 : 1000}
-                                height={minimal ? 120 : 1000}
-                                onError={handleImageError}
-                                src={formatImageUrl(asset.uri, IMAGE_KIT_ATTACHMENT)}
-                                alt={formatImageUrl(asset.uri, IMAGE_KIT_ATTACHMENT)}
-                            />
-                        </div>
-                    ) : (
-                        <div
-                            className={classNames('overflow-hidden rounded-lg', {
-                                'size-[120px] shrink-0 grow-0 basis-[120px]': minimal,
-                                'w-full': !minimal,
-                            })}
-                        >
-                            <VideoAsset asset={asset} minimal={minimal} source={post.source} />
-                        </div>
-                    )}
+                    {singleAttachmentMedia}
                 </WithPreviewLink>
             ) : null}
 
@@ -179,7 +251,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     )}
                 >
                     {attachmentsSnapshot.map((attachment, index) => {
-                        const uri = attachment.uri ?? '';
                         const isLast = attachmentsSnapshot.length === index + 1;
                         return (
                             <div
@@ -193,38 +264,13 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                     relative: isLast && moreImageCount > 0,
                                 })}
                             >
-                                <WithPreviewLink
+                                <AttachmentGridItem
                                     post={post}
+                                    attachment={attachment}
                                     index={index}
-                                    disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(attachment.type)}
-                                >
-                                    {attachment.type === AttachmentType.Image ? (
-                                        <Image
-                                            className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
-                                            loading="lazy"
-                                            fill={isSoloImage}
-                                            width={!isSoloImage ? (minimal ? 120 : 1000) : undefined}
-                                            height={!isSoloImage ? (minimal ? 120 : 1000) : undefined}
-                                            style={{
-                                                maxHeight: isSoloImage && minimal ? 288 : undefined,
-                                            }}
-                                            onError={({ currentTarget }) => (currentTarget.src = uri)}
-                                            src={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
-                                            alt={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
-                                        />
-                                    ) : (
-                                        <div className="flex size-full flex-col overflow-hidden rounded-lg">
-                                            <VideoAsset
-                                                videoClassName={
-                                                    attachmentsSnapshot.length >= 2 ? 'mini-video flex-1' : undefined
-                                                }
-                                                asset={attachment}
-                                                minimal={minimal}
-                                                source={post.source}
-                                            />
-                                        </div>
-                                    )}
-                                </WithPreviewLink>
+                                    minimal={minimal}
+                                    isSoloImage={isSoloImage}
+                                />
                                 {isLast && moreImageCount > 0 ? (
                                     <div className="absolute right-0 top-0 flex size-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                         <div className={classNames('font-bold', minimal ? 'text-medium' : 'text-2xl')}>

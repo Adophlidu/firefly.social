@@ -54,4 +54,12 @@ describe('parseEmbedPlayerIframe', () => {
             parseEmbedPlayerIframe('<iframe src="http://www.youtube.com/embed/abc" height="415"></iframe>'),
         ).toBeNull();
     });
+
+    it('does not read a decoy `data-src` attribute as `src`', () => {
+        expect(
+            parseEmbedPlayerIframe(
+                '<iframe data-src="https://evil.example/embed" src="https://www.youtube.com/embed/abc" height="415"></iframe>',
+            ),
+        ).toMatchObject({ src: 'https://www.youtube.com/embed/abc' });
+    });
 });

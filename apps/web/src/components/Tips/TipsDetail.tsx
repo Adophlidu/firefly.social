@@ -7,6 +7,7 @@ import { classNames } from '@dimensiondev/utils';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { formatTokenAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
+import { BigNumber } from 'bignumber.js';
 import { memo } from 'react';
 import type { Address } from 'viem';
 
@@ -138,7 +139,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                                     'text-base font-semibold',
                                     isSender ? 'text-main' : 'text-success',
                                 )}
-                            >{`${isSender ? '-' : '+'}${formatTokenAmount(tipsData.amount)}`}</span>
+                            >{`${isSender ? '-' : '+'}${formatTokenAmount(tipsData.amount, { roundingMode: BigNumber.ROUND_HALF_UP })}`}</span>
                             {tipsData.token_price ? (
                                 <span>
                                     $

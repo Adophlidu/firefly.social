@@ -7,6 +7,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { getChainName } from '@dimensiondev/web3/chains';
 import { formatAddress, formatTokenAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
+import { BigNumber } from 'bignumber.js';
 import { motion } from 'framer-motion';
 import type { Address } from 'viem';
 
@@ -153,7 +154,7 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                                         chainId: data.chain_id,
                                     })}
                                     className="font-bold"
-                                >{`${formatTokenAmount(data.amount)} $${data.token_symbol}`}</Link>{' '}
+                                >{`${formatTokenAmount(data.amount, { roundingMode: BigNumber.ROUND_HALF_UP })} $${data.token_symbol}`}</Link>{' '}
                                 on <span className="font-bold">{getChainName(data.chain_id)}</span>
                             </Trans>
                         ) : (

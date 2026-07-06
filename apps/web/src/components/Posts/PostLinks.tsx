@@ -170,21 +170,20 @@ function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: 
         return { data, frames, otherLinks, lastOpenGraph };
     }, [rawData, urls, hasRpPayload]);
 
+    // Stabilize the mapped frame list so FrameSwiper's memo() isn't defeated by a
+    // freshly-mapped array on every render when `processed` hasn't changed.
+    const frameSwiperFrames = useMemo(
+        () => processed?.frames.map((x) => ({ frame: x.result.frame as Frame, url: x.url })) ?? null,
+        [processed],
+    );
+
     if (isLoading || !processed) return null;
 
     const { frames, otherLinks, lastOpenGraph } = processed;
 
     return (
         <>
-            {frames.length > 1 ? (
-                <FrameSwiper
-                    frames={frames.map((x) => ({
-                        frame: x.result.frame as Frame,
-                        url: x.url,
-                    }))}
-                    post={post}
-                />
-            ) : null}
+            {frames.length > 1 && frameSwiperFrames ? <FrameSwiper frames={frameSwiperFrames} post={post} /> : null}
             {compact([...otherLinks, lastOpenGraph]).map((x) => (
                 <PostLinkContent key={x.url} data={x.result} url={x.url} post={post} isInCompose={isInCompose} />
             ))}

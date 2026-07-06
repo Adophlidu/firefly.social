@@ -17,7 +17,9 @@ const ALLOWED_EMBED_HOSTS = new Set([
 const SINGLE_IFRAME_RE = /^<iframe\s+([^>]+)>\s*<\/iframe>$/i;
 
 function getIframeAttribute(attributes: string, name: string) {
-    const match = attributes.match(new RegExp(`${name}\\s*=\\s*"([^"]*)"`, 'i'));
+    // Negative lookbehind prevents matching `name` as a suffix of another attribute,
+    // e.g. looking up "src" must not match inside "data-src".
+    const match = attributes.match(new RegExp(`(?<![\\w-])${name}\\s*=\\s*"([^"]*)"`, 'i'));
     return match?.[1];
 }
 

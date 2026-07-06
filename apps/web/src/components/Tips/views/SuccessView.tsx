@@ -6,6 +6,7 @@ import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { formatAddress, formatTokenAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
+import { BigNumber } from 'bignumber.js';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -122,7 +123,7 @@ export function SuccessView() {
                     <div className="min-w-0 flex-1">
                         <div className="flex justify-between text-lg font-semibold text-main">
                             <span className="uppercase">{token.symbol}</span>
-                            <span>{formatTokenAmount(tokenAmount)}</span>
+                            <span>{formatTokenAmount(tokenAmount, { roundingMode: BigNumber.ROUND_HALF_UP })}</span>
                         </div>
                         <div className="mt-1 flex justify-between text-sm text-second">
                             <span>

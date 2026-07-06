@@ -2496,7 +2496,7 @@ msgid "No cryptocurrency mixer involved."
 msgstr "未涉及加密货币混合器。"
 
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
-#. placeholder {1}: formatTokenAmount(data.amount)
+#. placeholder {1}: formatTokenAmount(data.amount, { roundingMode: BigNumber.ROUND_HALF_UP })
 #. placeholder {2}: data.token_symbol
 #. placeholder {3}: getChainName(data.chain_id)
 msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
