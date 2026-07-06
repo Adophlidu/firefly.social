@@ -8,7 +8,7 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { openAndWaitForCloseAddWalletModal } from '@/controllers/openAddWalletModal.js';
 import { openAndWaitForCloseWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
-import { bindWallet } from '@/hooks/useVerifyAndBindWallet.js';
+import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface AddWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {
@@ -26,22 +26,21 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     ref,
     ...rest
 }) {
+    const [, handleBind] = useVerifyAndBindWallet(connections);
     const [{ loading }, handleAddWallet] = useAsyncFn(async () => {
         if (!openWallets) {
-            await openAndWaitForCloseAddWalletModal({ connections });
+            await openAndWaitForCloseAddWalletModal({
+                connections,
+            });
             onSuccess?.();
             return;
         }
-        // Connect first, then bind after the modal closes. Signing inside the
-        // modal's onConnect window is unstable — right after AppKit connect,
-        // wagmi/AppKit state is mid-cascade and the account is transiently
-        // de-authorized (double Connect popup / UnauthorizedProviderError).
-        // Post-close the connection is stable (same pattern as verifyEthereumAddress).
         const selectedWallet = await openAndWaitForCloseWalletConnectModal({ customTitle: t`Select Wallet` });
         if (!selectedWallet) return;
-        await bindWallet(selectedWallet.networkType, connections);
+
+        await handleBind(selectedWallet.networkType);
         onSuccess?.();
-    }, [connections, openWallets, onSuccess]);
+    }, [connections, openWallets, onSuccess, handleBind]);
 
     return (
         <ClickableButton

@@ -78,6 +78,17 @@ export const wagmiAdapter = new WagmiAdapter({
     },
     storage,
     connectors: [createPrivyWalletConnector()],
+    // FW-7834: this app is the embedded-wallet iframe, not a host for external
+    // wallets. MIPD is on by default, which made this iframe auto-discover
+    // MetaMask via the shared per-origin window.ethereum grant — so when the host
+    // connected MetaMask, it appeared here as the active connector and
+    // PrivyWalletAutomator disconnected it ("to avoid conflicts"), calling
+    // wallet_revokePermissions and tearing the host's per-origin eth_accounts
+    // grant → EIP-1193 4100 on the host's personal_sign. With MIPD off, this
+    // iframe only ever registers the Privy connector above; external wallets the
+    // host connects are invisible here, so the automator never sees a conflict
+    // and the host grant is never revoked.
+    multiInjectedProviderDiscovery: false,
 });
 
 export const config = wagmiAdapter.wagmiConfig;

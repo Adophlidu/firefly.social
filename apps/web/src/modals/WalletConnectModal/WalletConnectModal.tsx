@@ -20,8 +20,7 @@ interface Props {
 function WalletConnectModalRoot({ ref }: Props) {
     const isDark = useIsDarkMode();
     const { setThemeMode } = useAppKitTheme();
-    const { setNetworkType, unsetNetworkType, setOrigin, setCustomTitle, onConnectRef } =
-        WalletConnectContext.useContainer();
+    const { setNetworkType, unsetNetworkType, setOrigin, setCustomTitle } = WalletConnectContext.useContainer();
 
     const [open, dispatch] = useSingletonModal(ref, {
         name: 'wallet-connect-modal',
@@ -30,13 +29,11 @@ function WalletConnectModalRoot({ ref }: Props) {
             setNetworkType(props?.networkType ? props.networkType : undefined);
             setOrigin(props?.origin ?? ClickOrigin.Others);
             setCustomTitle(props?.customTitle || null);
-            onConnectRef.current = props?.onConnect ?? null;
         },
         onClose: async () => {
             await delay(300);
 
             unsetNetworkType();
-            onConnectRef.current = null;
             walletRouter.navigate({ to: '/main', replace: true });
         },
     });
