@@ -2,6 +2,7 @@
 
 import type { ProfileSource, SocialSource } from '@dimensiondev/enums';
 import {
+    type EvmRpcResult,
     IframeBridgeMethod,
     iframeBridgeProvider,
     type IframeBridgeRequestArguments,
@@ -9,7 +10,7 @@ import {
 } from '@dimensiondev/iframe-bridge';
 import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
-import { type Address, type Hex, isHex, toHex } from 'viem';
+import { type Address, isHex, toHex, type WalletClient } from 'viem';
 import { getWalletClient } from 'wagmi/actions';
 
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
@@ -87,7 +88,16 @@ async function handleHostEvmRpc(args: IframeBridgeRequestArguments[IframeBridgeM
                 connector,
             });
             const { requestOrigin: _requestOrigin, walletAddress: _walletAddress, ...rpcPayload } = args;
-            return walletClient.request(rpcPayload as any) as Promise<Hex>;
+            const params = Array.isArray(rpcPayload.params)
+                ? rpcPayload.params
+                : rpcPayload.params !== undefined
+                  ? [rpcPayload.params]
+                  : undefined;
+            // Method/params come from the wallet iframe at runtime; viem's request overloads are method-specific.
+            return walletClient.request({
+                method: rpcPayload.method,
+                params,
+            } as Parameters<WalletClient['request']>[0]) as Promise<EvmRpcResult>;
         }
     }
 }

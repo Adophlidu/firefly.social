@@ -1,7 +1,7 @@
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
-import type { Link, Node as MdastNode, Root, Text } from 'mdast';
+import type { Link, Root, Text } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
 import {
@@ -65,12 +65,12 @@ export function MentionPlugin(source?: SocialSource) {
     });
     return () => {
         return (ast: Root) => {
-            flatMap(ast, ((node: MdastNode, _index: number, parent: MdastNode | null) => {
+            flatMap(ast, (node, _index, parent) => {
                 if (node.type !== 'text') return [node];
                 // Skip text inside link nodes to prevent nested <a> tags
                 if (parent?.type === 'link') return [node];
-                return splitTextChildren(regex, (node as Text).value);
-            }) as any);
+                return splitTextChildren(regex, node.value);
+            });
             return ast;
         };
     };

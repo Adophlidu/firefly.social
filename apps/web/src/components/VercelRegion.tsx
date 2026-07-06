@@ -10,10 +10,10 @@ function getCookieValue(name: string): string | null {
 
 export function VercelRegion() {
     useEffect(() => {
-        (window as any).VERCEL_IP_TIMEZONE = getCookieValue('__ff_geo_tz');
-        (window as any).VERCEL_IP_CITY = getCookieValue('__ff_geo_city');
-        (window as any).VERCEL_IP_COUNTRY = getCookieValue('__ff_geo_country');
-        (window as any).VERCEL_IP_REGION = getCookieValue('__ff_geo_region');
+        window.VERCEL_IP_TIMEZONE = getCookieValue('__ff_geo_tz');
+        window.VERCEL_IP_CITY = getCookieValue('__ff_geo_city');
+        window.VERCEL_IP_COUNTRY = getCookieValue('__ff_geo_country');
+        window.VERCEL_IP_REGION = getCookieValue('__ff_geo_region');
     }, []);
 
     return null;

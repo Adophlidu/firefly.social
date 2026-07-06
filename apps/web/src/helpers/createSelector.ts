@@ -10,19 +10,22 @@ export function createSelectors<S extends UseBoundStore<StoreApi<object>>>(
     _store: S,
     customSelectors?: CustomSelectors<S extends { getState: () => infer T } ? T : never>,
 ) {
-    const store = _store as WithSelectors<typeof _store>;
-    store.use = {};
+    type State = S extends { getState: () => infer T } ? T : never;
+    type UseSelectors = { [K in keyof State]: () => State[K] };
 
-    const state = store.getState();
+    const store = _store as WithSelectors<S>;
+    const state = store.getState() as State;
+    const useSelectors = {} as UseSelectors;
 
     for (const k of Object.keys(state)) {
-        const key = k as keyof typeof state;
+        const key = k as keyof State;
         if (customSelectors?.[key]) {
-            (store.use as any)[k] = () => store(customSelectors[key]!);
+            useSelectors[key] = () => store((s) => customSelectors[key]!(s as State));
         } else {
-            (store.use as any)[k] = () => store((s) => s[key]);
+            useSelectors[key] = () => store((s) => (s as State)[key]);
         }
     }
 
+    store.use = useSelectors as WithSelectors<S>['use'];
     return store;
 }

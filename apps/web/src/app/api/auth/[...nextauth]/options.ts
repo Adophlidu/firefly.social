@@ -106,10 +106,10 @@ export const authOptions: AuthOptions = {
                 token.id_token = account.id_token;
             }
 
-            // @ts-expect-error
-            if (rest.profile?.nonce) {
-                // @ts-expect-error
-                token.nonce = rest.profile.nonce;
+            // Apple Sign-In passes nonce on the OAuth profile object during the JWT callback.
+            const profile = rest.profile as { nonce?: string } | undefined;
+            if (profile?.nonce) {
+                token.nonce = profile.nonce;
             }
 
             return token;

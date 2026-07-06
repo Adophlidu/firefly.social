@@ -1,3 +1,4 @@
+import type { PageIndicator } from '@dimensiondev/utils';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { addDays, startOfDay } from 'date-fns';
 
@@ -9,7 +10,7 @@ export function useLumaEvents(date: Date) {
 
     return useInfiniteQuery({
         queryKey: ['luma-events', startTime, endTime],
-        initialPageParam: undefined as any,
+        initialPageParam: undefined as PageIndicator | undefined,
         queryFn: async ({ pageParam }) => {
             return getEventList(startTime, endTime, pageParam);
         },

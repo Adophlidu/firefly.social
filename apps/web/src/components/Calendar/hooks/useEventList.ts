@@ -1,3 +1,4 @@
+import type { PageIndicator } from '@dimensiondev/utils';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { addDays, startOfDay } from 'date-fns';
 import { uniqBy } from 'lodash-es';
@@ -11,7 +12,7 @@ export function useNewsList(date: Date) {
     return useInfiniteQuery({
         queryKey: ['calendar-news', startTime, endTime],
         queryFn: ({ pageParam }) => getNewsList(startTime, endTime, pageParam),
-        initialPageParam: undefined as any,
+        initialPageParam: undefined as PageIndicator | undefined,
         getNextPageParam: (page) => page.nextIndicator,
         select(data) {
             return uniqBy(

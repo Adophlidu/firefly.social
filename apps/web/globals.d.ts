@@ -21,6 +21,13 @@ declare const HTMLRewriter: {
     new (): HTMLRewriter;
 };
 
+interface Window {
+    VERCEL_IP_TIMEZONE?: string | null;
+    VERCEL_IP_CITY?: string | null;
+    VERCEL_IP_COUNTRY?: string | null;
+    VERCEL_IP_REGION?: string | null;
+}
+
 interface Navigator {
     virtualKeyboard: {
         boundingRect: DOMRect;

@@ -76,6 +76,50 @@ interface WalletCapabilities {
     };
 }
 
+interface JsonRpcError extends Error {
+    code: number;
+    data?: unknown;
+}
+
+interface RpcTransactionReceiptLog {
+    address: Address;
+    topics: Hex[];
+    data: Hex;
+    blockNumber?: Hex;
+    transactionHash?: Hex;
+    transactionIndex?: Hex;
+    blockHash?: Hex;
+    logIndex?: Hex;
+}
+
+interface RpcTransactionReceipt {
+    transactionHash: Hex;
+    transactionIndex: Hex;
+    blockHash: Hex;
+    blockNumber: Hex;
+    from: Address;
+    to?: Address;
+    gasUsed: Hex;
+    effectiveGasPrice?: Hex;
+    contractAddress?: Address | null;
+    logs?: RpcTransactionReceiptLog[];
+    status: Hex;
+}
+
+type CallRecord = Record<(typeof CALL_HEX_FIELDS)[number], unknown> & {
+    to?: unknown;
+    from?: unknown;
+};
+
+type SendCallsParamsRecord = Record<string, unknown> & {
+    calls?: unknown;
+    from?: unknown;
+    chainId?: unknown;
+    atomicRequired?: unknown;
+};
+
+const CALL_HEX_FIELDS = ['data', 'value', 'gas', 'gasPrice', 'maxFeePerGas', 'maxPriorityFeePerGas'] as const;
+
 // In-memory storage for tracking call batches
 const callBatches = new Map<
     string,
@@ -83,8 +127,8 @@ const callBatches = new Map<
 >();
 
 // JSON-RPC error helper
-function makeJsonRpcError(code: number, message: string, data?: unknown): Error {
-    const err: any = new Error(message);
+function makeJsonRpcError(code: number, message: string, data?: unknown): JsonRpcError {
+    const err = new Error(message) as JsonRpcError;
     err.code = code;
     if (data !== undefined) err.data = data;
     return err;
@@ -96,11 +140,11 @@ function isHex(value: unknown): value is Hex {
 
 function isCall(x: unknown): x is Call {
     if (!x || typeof x !== 'object') return false;
-    const c = x as any;
-    if (c.to !== undefined && !isAddress(c.to)) return false;
-    if (c.from !== undefined && !isAddress(c.from)) return false;
+    const c = x as CallRecord;
+    if (c.to !== undefined && (typeof c.to !== 'string' || !isAddress(c.to))) return false;
+    if (c.from !== undefined && (typeof c.from !== 'string' || !isAddress(c.from))) return false;
 
-    for (const k of ['data', 'value', 'gas', 'gasPrice', 'maxFeePerGas', 'maxPriorityFeePerGas'] as const) {
+    for (const k of CALL_HEX_FIELDS) {
         if (c[k] !== undefined && !isHex(c[k])) return false;
     }
 
@@ -109,9 +153,9 @@ function isCall(x: unknown): x is Call {
 
 function isSendCallsParams(x: unknown): x is SendCallsParams {
     if (!x || typeof x !== 'object') return false;
-    const p = x as any;
+    const p = x as SendCallsParamsRecord;
     if (!Array.isArray(p.calls)) return false;
-    if (p.from !== undefined && !isAddress(p.from)) return false;
+    if (p.from !== undefined && (typeof p.from !== 'string' || !isAddress(p.from))) return false;
     if (p.chainId !== undefined && !isHex(p.chainId)) return false;
     if (p.atomicRequired !== undefined && typeof p.atomicRequired !== 'boolean') return false;
     return p.calls.every(isCall);
@@ -246,7 +290,7 @@ async function handleSendCalls(params: unknown[], requestHandler: RequestHandler
             if (activeChainId !== chainId) {
                 await requestHandler({
                     method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
-                    params: [{ chainId } as any],
+                    params: [{ chainId }],
                 });
                 activeChainId = chainId;
             }
@@ -326,7 +370,7 @@ async function handleGetCallsStatus(batchId: string, requestHandler: RequestHand
         if (activeChainId !== callChainId) {
             await requestHandler({
                 method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
-                params: [{ chainId: callChainId } as any],
+                params: [{ chainId: callChainId }],
             });
             activeChainId = callChainId;
         }
@@ -334,31 +378,31 @@ async function handleGetCallsStatus(batchId: string, requestHandler: RequestHand
         const rc = (await requestHandler({
             method: EthereumMethodType.ETH_GET_TRANSACTION_RECEIPT,
             params: [hash],
-        })) as any | null;
+        })) as RpcTransactionReceipt | null;
 
         if (rc) {
             // Normalize receipt to our internal shape
             const normalized: InternalReceipt = {
-                transactionHash: rc.transactionHash as Hex,
-                transactionIndex: rc.transactionIndex as Hex,
-                blockHash: rc.blockHash as Hex,
-                blockNumber: rc.blockNumber as Hex,
-                from: rc.from as Address,
-                to: rc.to as Address | undefined,
-                gasUsed: rc.gasUsed as Hex,
-                effectiveGasPrice: rc.effectiveGasPrice as Hex | undefined,
-                contractAddress: (rc.contractAddress as Address | null) ?? null,
-                logs: (rc.logs ?? []).map((l: any) => ({
-                    address: l.address as Address,
-                    topics: l.topics as Hex[],
-                    data: l.data as Hex,
-                    blockNumber: l.blockNumber as Hex | undefined,
-                    transactionHash: l.transactionHash as Hex | undefined,
-                    transactionIndex: l.transactionIndex as Hex | undefined,
-                    blockHash: l.blockHash as Hex | undefined,
-                    logIndex: l.logIndex as Hex | undefined,
+                transactionHash: rc.transactionHash,
+                transactionIndex: rc.transactionIndex,
+                blockHash: rc.blockHash,
+                blockNumber: rc.blockNumber,
+                from: rc.from,
+                to: rc.to,
+                gasUsed: rc.gasUsed,
+                effectiveGasPrice: rc.effectiveGasPrice,
+                contractAddress: rc.contractAddress ?? null,
+                logs: (rc.logs ?? []).map((log) => ({
+                    address: log.address,
+                    topics: log.topics,
+                    data: log.data,
+                    blockNumber: log.blockNumber,
+                    transactionHash: log.transactionHash,
+                    transactionIndex: log.transactionIndex,
+                    blockHash: log.blockHash,
+                    logIndex: log.logIndex,
                 })),
-                status: rc.status as Hex,
+                status: rc.status,
             };
             st.status = 'confirmed';
             st.receipt = normalized;
