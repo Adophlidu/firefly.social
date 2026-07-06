@@ -1,8 +1,8 @@
 import { NODE_ENV } from '@dimensiondev/enums';
+import { removeTrailingZeros } from '@dimensiondev/utils';
 import { isLessThan, leftShift, scale10 } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
 
-import { trimZero } from '@/helpers/trimZero.js';
 import { logger } from '@/libs/Logger.js';
 
 function addThousandSeparators(num: string | number) {
@@ -42,7 +42,7 @@ export function formatBalance(rawValue: BigNumber.Value = '0', decimals = 0, opt
         const minimum = scale10(1, -fixedDecimals);
         if (value.eq(0)) return '0';
         if (isLessThan(value, minimum)) return '<' + minimum.toFixed();
-        const result = trimZero(value.toFixed(fixedDecimals));
+        const result = removeTrailingZeros(value.toFixed(fixedDecimals));
         return hasSeparators ? addThousandSeparators(result) : result;
     }
 
