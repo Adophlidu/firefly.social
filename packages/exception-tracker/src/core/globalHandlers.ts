@@ -5,6 +5,7 @@ import { getExceptionTrackerConfig } from '@/config.js';
 import { captureException, ExceptionId } from '@/core/captureException.js';
 import { classifyError } from '@/helpers/classifyError.js';
 import { getErrorMessage } from '@/helpers/getErrorMessage.js';
+import { reloadOnceForChunkError } from '@/helpers/reloadOnChunkError.js';
 
 let initialized = false;
 
@@ -101,6 +102,11 @@ function handleWindowError(
         handler: 'window.onerror',
     });
 
+    // Transient chunk-load failures (e.g. Google's renderer flaking on a lazy
+    // JS chunk) would otherwise bubble to the crash boundary and get indexed as
+    // a soft 404. Recover by reloading once per failure cycle.
+    reloadOnceForChunkError(err);
+
     // Don't prevent default error handling
     return false;
 }
@@ -135,6 +141,10 @@ function handleUnhandledRejection(event: PromiseRejectionEvent): void {
     captureException(exceptionId, error, {
         handler: 'unhandledrejection',
     });
+
+    // See handleWindowError: recover from a transient chunk-load failure once
+    // before it can bubble to the crash boundary and be indexed as a soft 404.
+    reloadOnceForChunkError(error);
 }
 
 /**

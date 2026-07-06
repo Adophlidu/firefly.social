@@ -1,7 +1,7 @@
 'use client';
 
 import { SessionType } from '@dimensiondev/enums';
-import { initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
+import { clearChunkReloadGuard, initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
 import { bom, classNames } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
@@ -32,6 +32,12 @@ initGlobalErrorHandlers();
 export const InitialProviders = memo(function Providers(props: { children: ReactNode }) {
     const isDarkMode = useIsDarkMode();
     const themeMode = useThemeModeStore.use.themeMode();
+
+    // The app mounted successfully client-side, so any earlier chunk-reload
+    // attempt recovered. Clear the guard so a future genuine chunk failure can
+    // also recover once. If a reload never recovers, this never runs and the
+    // guard stays set — no infinite loop.
+    useEffect(() => clearChunkReloadGuard(), []);
 
     useLayoutEffect(() => {
         document.documentElement.classList.toggle('dark', isDarkMode);

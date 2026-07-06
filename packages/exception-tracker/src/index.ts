@@ -9,9 +9,10 @@ export { reportExceptionServer } from '@/core/reportExceptionServer.js';
 /**
  * Helpers
  */
-export { classifyError } from '@/helpers/classifyError.js';
+export { classifyError, isChunkLoadError } from '@/helpers/classifyError.js';
 export { getErrorMessage } from '@/helpers/getErrorMessage.js';
 export { normalizeError } from '@/helpers/normalizeError.js';
+export { clearChunkReloadGuard, reloadOnceForChunkError } from '@/helpers/reloadOnChunkError.js';
 
 /**
  * Configuration

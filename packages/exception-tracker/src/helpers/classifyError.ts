@@ -3,7 +3,7 @@ import { ExceptionId } from '@/enums.js';
 /**
  * Detects if error is a Next.js chunk loading failure
  */
-function isChunkLoadError(error: Error | string): boolean {
+export function isChunkLoadError(error: Error | string): boolean {
     const message = typeof error === 'string' ? error : error.message;
     return (
         message.includes('Loading chunk') ||
