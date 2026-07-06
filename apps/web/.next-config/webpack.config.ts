@@ -104,8 +104,9 @@ export const webpackConfig: NonNullable<NextConfig['webpack']> = (config, contex
         },
     );
 
+    // Merge with Next.js defaults — replacing the whole object drops framework/vendor cacheGroups.
     config.optimization.splitChunks = {
-        chunks: 'all',
+        ...config.optimization.splitChunks,
         maxInitialRequests: 10,
     };
 
