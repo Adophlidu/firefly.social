@@ -7,7 +7,6 @@ function compactMarketForPageTransfer(market: BetsMarketDataForUI): BetsMarketDa
     return {
         ...market,
         question: undefined,
-        slug: undefined,
         image: undefined,
         originalMoneylineMarkets: undefined,
     };

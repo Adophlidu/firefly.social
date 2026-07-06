@@ -63,7 +63,10 @@ describe('compactEventForPageTransfer', () => {
 
         expect(compacted.markets.map((market) => market.id)).toEqual(['moneyline', 'spread']);
         expect(compacted.markets[0]?.question).toBeUndefined();
-        expect(compacted.markets[0]?.slug).toBeUndefined();
+        // slug must survive compaction: SportBuyButtons reads `market.slug` for non-moneyline
+        // sport markets (whose outcomes carry no slug) to open the wallet trade.
+        expect(compacted.markets[0]?.slug).toBe('market-moneyline');
+        expect(compacted.markets[1]?.slug).toBe('market-spread');
         expect(compacted.markets[0]?.groupItemTitle).toBe('Group moneyline');
     });
 
