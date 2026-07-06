@@ -3,7 +3,7 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2425
+Total packages: 2424
 Packages with multiple versions: 257
 
 Legend:
@@ -1724,7 +1724,6 @@ Packages with Single Version
  function-bind@1.1.2
  function.prototype.name@1.2.0
  functions-have-names@1.2.3
- fuse.js@7.4.2
  generator-function@2.0.1
  gensequence@6.0.0
  gensync@1.0.0-beta.2

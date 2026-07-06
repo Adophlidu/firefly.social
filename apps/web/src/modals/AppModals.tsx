@@ -26,8 +26,6 @@ import { FrameViewerModal } from '@/modals/FrameViewerModal/FrameViewerModal.js'
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
 import { MyWalletsModal } from '@/modals/MyWalletsModal/MyWalletsModal.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';
-import { NonFungibleCollectionSelectModal } from '@/modals/NonFungibleCollectionSelectModal/NonFungibleCollectionSelectModal.js';
-import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/NonFungibleCollectionSelectModal/refs.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import { RecoveryPhraseModal } from '@/modals/RecoveryPhraseModal/RecoveryPhraseModal.js';
@@ -67,7 +65,6 @@ export function AppModals() {
             <EditProfileModal ref={EditProfileModalRef.register} />
             <FrameViewerModal ref={FrameViewerModalRef.register} />
             <MyWalletsModal ref={MyWalletsModalRef.register} />
-            <NonFungibleCollectionSelectModal ref={NonFungibleTokenCollectionSelectModalRef.register} />
             <PreviewMediaModal ref={PreviewMediaModalRef.register} />
             <RedPacketModal ref={RedPacketModalRef.register} />
             <SchedulePostModal ref={SchedulePostModalRef.register} />

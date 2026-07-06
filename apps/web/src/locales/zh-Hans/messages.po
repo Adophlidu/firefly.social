@@ -122,9 +122,6 @@ msgstr "请输入你的邮箱地址，我们将发送一次性验证码以确认
 msgid "Followed @{0} on {sourceName}"
 msgstr "已在 {sourceName} 上关注 @{0}"
 
-msgid "Search collection"
-msgstr "搜索 NFT 系列"
-
 msgid "Communities"
 msgstr "社区"
 
@@ -2137,10 +2134,6 @@ msgstr "进行中"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "反鲸鱼（有限的交易次数）"
-
-#. placeholder {0}: collection.ownersTotal
-msgid "{0} items"
-msgstr "{0} 项"
 
 msgid "Most Drakes"
 msgstr "最多小龙"
@@ -5085,9 +5078,6 @@ msgstr "文本"
 
 msgid "Reauthorize connected account"
 msgstr "重新授权已链接账号"
-
-msgid "Select Collection"
-msgstr "选择 NFT 系列"
 
 msgid "Continue"
 msgstr "继续"

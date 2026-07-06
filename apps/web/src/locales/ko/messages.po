@@ -122,9 +122,6 @@ msgstr "이메일 주소를 입력하시면 이메일 확인을 위해 일회성
 msgid "Followed @{0} on {sourceName}"
 msgstr "{sourceName}에서 @{0}을(를) 팔로우했습니다"
 
-msgid "Search collection"
-msgstr "NFT 컬렉션 검색"
-
 msgid "Communities"
 msgstr "커뮤니티"
 
@@ -2137,10 +2134,6 @@ msgstr "LIVE"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "반고래(거래 횟수 제한)"
-
-#. placeholder {0}: collection.ownersTotal
-msgid "{0} items"
-msgstr "{0}개 항목"
 
 msgid "Most Drakes"
 msgstr "최다 드래곤"
@@ -5085,9 +5078,6 @@ msgstr "텍스트"
 
 msgid "Reauthorize connected account"
 msgstr "연결된 계정 재인증"
-
-msgid "Select Collection"
-msgstr "컬렉션 선택"
 
 msgid "Continue"
 msgstr "계속"

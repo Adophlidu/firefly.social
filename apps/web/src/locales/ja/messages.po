@@ -122,9 +122,6 @@ msgstr "メール アドレスを入力してください。メールを確認�
 msgid "Followed @{0} on {sourceName}"
 msgstr "{sourceName} で @{0} をフォローしました"
 
-msgid "Search collection"
-msgstr "NFT コレクションを検索"
-
 msgid "Communities"
 msgstr "コミュニティ"
 
@@ -2137,10 +2134,6 @@ msgstr "LIVE"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "反クジラ（取引回数制限あり）"
-
-#. placeholder {0}: collection.ownersTotal
-msgid "{0} items"
-msgstr "{0} 件"
 
 msgid "Most Drakes"
 msgstr "ドラゴン最多"
@@ -5085,9 +5078,6 @@ msgstr "テキスト"
 
 msgid "Reauthorize connected account"
 msgstr "接続済みアカウントを再認証"
-
-msgid "Select Collection"
-msgstr "コレクションを選択"
 
 msgid "Continue"
 msgstr "続ける"

@@ -123,9 +123,6 @@ msgstr "Introduce tu dirección de correo electrónico a continuación y te envi
 msgid "Followed @{0} on {sourceName}"
 msgstr "Seguiste a @{0} en {sourceName}"
 
-msgid "Search collection"
-msgstr "Buscar colección"
-
 msgid "Communities"
 msgstr "Comunidades"
 
@@ -2147,10 +2144,6 @@ msgstr "EN VIVO"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_ballena(Número limitado de transacciones)"
-
-#. placeholder {0}: collection.ownersTotal
-msgid "{0} items"
-msgstr "{0} elementos"
 
 msgid "Most Drakes"
 msgstr "Más dragones"
@@ -5110,9 +5103,6 @@ msgstr "Texto"
 
 msgid "Reauthorize connected account"
 msgstr "Reautorizar cuenta conectada"
-
-msgid "Select Collection"
-msgstr "Seleccionar colección"
 
 msgid "Continue"
 msgstr "Continuar"

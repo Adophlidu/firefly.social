@@ -123,9 +123,6 @@ msgstr "Enter your email address below, and we’ll send a one-time passcode to 
 msgid "Followed @{0} on {sourceName}"
 msgstr "Followed @{0} on {sourceName}"
 
-msgid "Search collection"
-msgstr "Search collection"
-
 msgid "Communities"
 msgstr "Communities"
 
@@ -2147,10 +2144,6 @@ msgstr "LIVE"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_whale(Limited number of transactions)"
-
-#. placeholder {0}: collection.ownersTotal
-msgid "{0} items"
-msgstr "{0} items"
 
 msgid "Most Drakes"
 msgstr "Most Drakes"
@@ -5110,9 +5103,6 @@ msgstr "Text"
 
 msgid "Reauthorize connected account"
 msgstr "Reauthorize connected account"
-
-msgid "Select Collection"
-msgstr "Select Collection"
 
 msgid "Continue"
 msgstr "Continue"

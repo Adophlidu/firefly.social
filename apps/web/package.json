@@ -91,7 +91,6 @@
         "foxact": "^0.2.55",
         "framer-motion": "^12.38.0",
         "franc-min": "^6.2.0",
-        "fuse.js": "^7.1.0",
         "hls.js": "^1.6.16",
         "immer": "^10.2.0",
         "jwt-decode": "^4.0.0",

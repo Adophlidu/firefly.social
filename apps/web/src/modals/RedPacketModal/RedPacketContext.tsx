@@ -30,7 +30,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
-import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
+import type { RedPacketNFTCollection } from '@/types/rp.js';
 import type { RequirementType, ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -95,8 +95,8 @@ interface RedPacketContextValue {
     setRawAmount: Dispatch<SetStateAction<string>>;
     totalAmount: string;
     rules: RequirementType[];
-    requireCollections: Collection[];
-    setRequireCollections: Dispatch<SetStateAction<Collection[]>>;
+    requireCollections: RedPacketNFTCollection[];
+    setRequireCollections: Dispatch<SetStateAction<RedPacketNFTCollection[]>>;
     requireTokens: Array<{ token: FungibleToken<number, EthereumSchemaType>; quantity: string }>;
     setRequireTokens: Dispatch<
         SetStateAction<Array<{ token: FungibleToken<number, EthereumSchemaType>; quantity: string }>>
