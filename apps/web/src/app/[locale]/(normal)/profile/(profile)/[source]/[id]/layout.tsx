@@ -15,10 +15,27 @@ import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import type { FireflyIdentity, WalletProfile, WalletProfiles } from '@/providers/types/Firefly.js';
 
 export const revalidate = 60;
 
 interface Props extends LayoutProps<{ id: string; source: string }> {}
+
+interface ProfileHeaderProps {
+    identity: FireflyIdentity;
+    identityFromUrl: FireflyIdentity;
+    relatedProfile: WalletProfiles;
+    walletProfile?: WalletProfile | null;
+}
+
+function ProfileHeader({ identity, identityFromUrl, relatedProfile, walletProfile }: ProfileHeaderProps) {
+    return (
+        <>
+            <FireflyAccountInfo relatedProfile={relatedProfile} identity={identity} walletProfile={walletProfile} />
+            <ProfileSourceTabs identity={identity} identityFromUrl={identityFromUrl} />
+        </>
+    );
+}
 
 export default async function Layout(props: Props) {
     const params = await props.params;
@@ -61,8 +78,11 @@ export default async function Layout(props: Props) {
                     socialProfile={socialProfile}
                     initialFeedPage={initialFeedPage}
                 >
-                    <FireflyAccountInfo identity={identity} relatedProfile={relatedProfile} />
-                    <ProfileSourceTabs identity={identity} identityFromUrl={identityFromUrl} />
+                    <ProfileHeader
+                        identity={identity}
+                        identityFromUrl={identityFromUrl}
+                        relatedProfile={relatedProfile}
+                    />
                     {socialProfile ? (
                         <ProfileInfoCard source={source} hasFireflyAccount={!!relatedProfile.account} />
                     ) : null}
@@ -75,8 +95,12 @@ export default async function Layout(props: Props) {
     if (accountSuspended) {
         return (
             <ProfileContextProvider profiles={profiles} identity={identity} socialProfile={null}>
-                <FireflyAccountInfo relatedProfile={relatedProfile} identity={identity} walletProfile={walletProfile} />
-                <ProfileSourceTabs identity={identity} identityFromUrl={identityFromUrl} />
+                <ProfileHeader
+                    identity={identity}
+                    identityFromUrl={identityFromUrl}
+                    relatedProfile={relatedProfile}
+                    walletProfile={walletProfile}
+                />
                 <SuspendedAccountFallback />
             </ProfileContextProvider>
         );
@@ -91,8 +115,12 @@ export default async function Layout(props: Props) {
                 socialProfile={socialProfile}
                 initialFeedPage={initialFeedPage}
             >
-                <FireflyAccountInfo relatedProfile={relatedProfile} identity={identity} walletProfile={walletProfile} />
-                <ProfileSourceTabs identity={identity} identityFromUrl={identityFromUrl} />
+                <ProfileHeader
+                    identity={identity}
+                    identityFromUrl={identityFromUrl}
+                    relatedProfile={relatedProfile}
+                    walletProfile={walletProfile}
+                />
                 {!socialProfile && !walletProfile ? (
                     <SuspendedAccountFallback />
                 ) : (
