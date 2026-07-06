@@ -6,13 +6,7 @@ import { trimZero } from '@/helpers/trimZero.js';
 import { logger } from '@/libs/Logger.js';
 
 function addThousandSeparators(num: string | number) {
-    try {
-        return num.toString().replaceAll(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-    } catch (err) {
-        // Safari doesn't support regexp look behind yet
-        const value = typeof num === 'number' ? num : Number.parseFloat(num);
-        return value.toLocaleString('en-US');
-    }
+    return num.toString().replaceAll(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 }
 
 interface FormatBalanceOptions {
