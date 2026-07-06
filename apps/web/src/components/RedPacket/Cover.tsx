@@ -4,7 +4,7 @@ import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
 import type { ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
-import { type TokenType, UsageType } from '@/types/rp.js';
+import { UsageType } from '@/types/rp.js';
 
 interface CoverProps {
     theme: ThemeGroupSettings;
@@ -15,7 +15,7 @@ interface CoverProps {
     amount: string; // bigint in str
     remainingAmount: string; // bigint in str
     token: {
-        type: TokenType;
+        type: 'fungible';
         symbol: string;
         decimals?: number;
     };

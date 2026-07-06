@@ -11,12 +11,12 @@ import { z } from 'zod';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createRedPacketImage } from '@/services/createRedPacketImage.js';
-import { TokenType, UsageType } from '@/types/rp.js';
+import { UsageType } from '@/types/rp.js';
 
 export const runtime = 'edge';
 
 const TokenSchema = z.object({
-    type: z.nativeEnum(TokenType),
+    type: z.literal('fungible'),
     symbol: z.string(),
     decimals: z.coerce.number().int().nonnegative(),
 });
@@ -71,7 +71,7 @@ const ParamsSchema = z.object({
     'remaining-amount': z.string().optional(),
     shares: z.string().default('0'),
     'remaining-shares': z.string().optional(),
-    type: z.nativeEnum(TokenType).default(TokenType.Fungible),
+    type: z.literal('fungible').default('fungible'),
     symbol: z.string().default('?'),
     decimals: z.string().default('0'),
 });

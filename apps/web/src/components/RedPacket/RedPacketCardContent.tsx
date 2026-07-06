@@ -44,7 +44,6 @@ import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { TokenType } from '@/types/rp.js';
 
 interface Props {
     payload: RedPacketJSONPayload;
@@ -244,7 +243,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                                     theme={cover?.theme}
                                     amount={payload.total}
                                     token={{
-                                        type: TokenType.Fungible,
+                                        type: 'fungible',
                                         symbol: payload.token?.symbol,
                                         decimals: payload.token?.decimals,
                                     }}

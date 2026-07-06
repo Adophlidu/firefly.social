@@ -9,11 +9,6 @@ export interface RedPacketNFTCollection extends Pick<
     custom?: boolean;
 }
 
-export enum TokenType {
-    Fungible = 'fungible',
-    NonFungible = 'non-fungible',
-}
-
 export enum UsageType {
     Cover = 'cover',
     Payload = 'payload',

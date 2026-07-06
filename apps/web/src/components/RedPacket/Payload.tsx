@@ -3,7 +3,7 @@ import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
 import { PayloadContainer } from '@/components/RedPacket/PayloadContainer.js';
 import type { ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
-import { type TokenType, UsageType } from '@/types/rp.js';
+import { UsageType } from '@/types/rp.js';
 
 interface PayloadProps {
     theme: ThemeGroupSettings;
@@ -11,7 +11,7 @@ interface PayloadProps {
     from?: string;
     message: string;
     token: {
-        type: TokenType;
+        type: 'fungible';
         symbol: string;
         decimals?: number;
     };

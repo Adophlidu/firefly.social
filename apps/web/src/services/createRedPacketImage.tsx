@@ -13,7 +13,7 @@ import { logger } from '@/libs/Logger.js';
 import type { ThemeByIdResponse } from '@/providers/types/FireflyRedPacket.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { settings } from '@/settings/index.js';
-import { type TokenType, UsageType } from '@/types/rp.js';
+import { UsageType } from '@/types/rp.js';
 
 interface Cover {
     locale: Locale;
@@ -26,7 +26,7 @@ interface Cover {
     shares: number;
     remainingShares: number;
     token: {
-        type: TokenType;
+        type: 'fungible';
         symbol: string;
         decimals: number;
     };
@@ -40,7 +40,7 @@ interface Payload {
     amount: string;
     message: string;
     token: {
-        type: TokenType;
+        type: 'fungible';
         symbol: string;
         decimals: number;
     };
