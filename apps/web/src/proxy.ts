@@ -54,6 +54,8 @@ function isPublicAssetPath(pathname: string) {
 
 export default function proxy(request: NextRequest) {
     request.headers.set('X-URL', request.url);
+    // Internal-only header (set by handleTokenRequests); never trust an inbound value.
+    request.headers.delete('X-SEARCH-PARAMS');
 
     const { pathname } = request.nextUrl;
 

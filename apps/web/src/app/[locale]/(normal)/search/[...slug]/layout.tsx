@@ -63,13 +63,11 @@ export async function generateMetadata(props: Props) {
 
 export default async function Layout(props: Props) {
     const params = await props.params;
-    // TODO: according to Next.js doc
-    // https://nextjs.org/docs/app/api-reference/file-conventions/layout#query-params
-    // A Layout cannot access searchParams, so code here should be a no-op.
-    const searchParams = await (props as any).searchParams;
 
     if (params.slug[1] === SearchType.Channels) {
-        redirect(resolveSearchUrl(searchParams.q, SearchType.Clubs));
+        // A layout never receives searchParams, so the original `q` cannot be preserved here.
+        // https://nextjs.org/docs/app/api-reference/file-conventions/layout#query-params
+        redirect(resolveSearchUrl('', SearchType.Clubs));
     }
 
     if (!checkSlug(params.slug)) notFound();

@@ -1,4 +1,4 @@
-import type { LayoutProps, SearchProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
@@ -19,6 +19,12 @@ type Props = LayoutProps<{
     slug?: string[] | undefined;
 }>;
 
+/** Layouts never receive searchParams; the proxy forwards the query via X-SEARCH-PARAMS. */
+async function getForwardedSearch() {
+    const rawSearch = (await headers()).get('X-SEARCH-PARAMS') || '';
+    return { rawSearch, search: rawSearch ? new URLSearchParams(rawSearch) : null };
+}
+
 function updateSearch(originSearch: string, patch: Record<string, string>) {
     const newSearch = new URLSearchParams(originSearch);
     newSearch.delete('isCoinId');
@@ -30,10 +36,10 @@ function updateSearch(originSearch: string, patch: Record<string, string>) {
     return newSearch.size ? `?${newSearch.toString()}` : '';
 }
 
-export async function generateMetadata(props: Props & SearchProps) {
+export async function generateMetadata(props: Props) {
     const params = await props.params;
-    const searchParams = await props.searchParams;
-    const query = resolveTokenDetailQueryOptions(params.exchange, params.slug, searchParams);
+    const { search } = await getForwardedSearch();
+    const query = resolveTokenDetailQueryOptions(params.exchange, params.slug, search);
     const keyword = query.isCexCoin ? query.coingecko_id : query.isDexCoin ? query.address : query.legacySymbol;
 
     return getTokenDetailPageMetadata(
@@ -61,8 +67,7 @@ export async function generateMetadata(props: Props & SearchProps) {
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const params = await props.params;
     const legacySymbol = decodeURIComponent(params.exchange).replace(/^\$/, '');
-    const rawSearch = (await headers()).get('X-SEARCH-PARAMS') || '';
-    const search = rawSearch ? new URLSearchParams(rawSearch) : null;
+    const { rawSearch, search } = await getForwardedSearch();
 
     // legacy search param
     const isCoinId = search?.get('isCoinId') === 'true';
