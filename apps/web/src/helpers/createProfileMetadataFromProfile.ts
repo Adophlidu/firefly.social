@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { shouldIndexProfile } from '@/helpers/shouldIndexProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function createProfileMetadataFromProfile(
@@ -25,6 +26,10 @@ export function createProfileMetadataFromProfile(
     return createSiteMetadata(pathname, {
         title,
         description,
+        // Thin/empty-shell profiles (no real display name, bio, or followers)
+        // are served `noindex` to protect crawl quality, while links are still
+        // followed. Rich profiles keep the default indexable behavior.
+        ...(shouldIndexProfile(profile) ? {} : { robots: { index: false, follow: true } }),
         openGraph: {
             type: 'profile',
             title,
