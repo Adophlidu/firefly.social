@@ -13,7 +13,6 @@ import { SuggestedChannelsSkeleton } from '@/components/SuggestedChannels/Sugges
 import { STALE_TIMES } from '@/constants/query.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
-import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { getTrendingChannels } from '@/providers/firefly/worker/getTrendingChannels.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -33,9 +32,8 @@ function SuggestedChannelItem({ channel }: { channel: Channel }) {
 }
 
 export function SuggestedChannelsCard() {
-    const profileIds = useCurrentProfileIds();
     const { data, isLoading, isError } = useQuery({
-        queryKey: ['suggest-channels', ...profileIds],
+        queryKey: ['suggest-channels'],
         staleTime: STALE_TIMES.MINUTE_5,
 
         queryFn: () => getTrendingChannels(),
