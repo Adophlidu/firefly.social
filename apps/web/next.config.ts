@@ -39,12 +39,9 @@ const config: NextConfig = {
         FIREFLY_EXCEPTION_TRACKER_API_KEY: process.env.FIREFLY_EXCEPTION_TRACKER_API_KEY,
     },
     experimental: {
-        // Turbopack production default (true) pre-computes every dynamic-import path and embeds
-        // the full transitive chunk URL list in each RSC client ref I[id,[...chunks],name]. On
-        // profile/home routes ~78% of the ~250KB flight payload is duplicated chunk URLs (~53
-        // URLs/ref × 47 refs, only 13 unique lists). Disabling loads nested async chunks on
-        // demand instead of serializing them into every client reference.
-        turbopackClientSideNestedAsyncChunking: false,
+        // Persist Turbopack output between `next build` runs (Vercel restores .next/cache).
+        // Keeps warm production builds fast; unrelated to RSC flight payload size.
+        turbopackFileSystemCacheForBuild: true,
         // On Vercel builds Next auto-enables this flag (hasNextSupport + NEXT_DEPLOYMENT_ID),
         // deferring chunk-URL deployment ids to a runtime env var that is absent in the
         // serverless functions — dynamic pages then emit every chunk twice, once with
