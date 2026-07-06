@@ -98,7 +98,7 @@ export function renderRscFlightMarkdown(path, analysis) {
         '## Notes',
         '',
         '- High **chunk-list share** (>60%) is bundler-level: Turbopack nested async chunking pre-enumerates all dynamic-import paths per client ref.',
-        '- Disabling it (`turbopackClientSideNestedAsyncChunking: false`) shrinks flight payloads but regressed Vercel build times on this app; wait for React upstream dedup (facebook/react#36198).',
+        '- Set `experimental.turbopackClientSideNestedAsyncChunking: false` to shorten per-ref chunk lists (React upstream dedup: facebook/react#36198).',
         '',
     );
 
