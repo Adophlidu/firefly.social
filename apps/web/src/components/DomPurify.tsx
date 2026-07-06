@@ -3,6 +3,10 @@ import { noSSR } from 'foxact/no-ssr';
 
 import { logger } from '@/libs/Logger.js';
 
+export function sanitizeHtml(html: string) {
+    return DOMPurify.sanitize(html);
+}
+
 export function SanitizerDiv(props: React.HTMLProps<HTMLDivElement>) {
     noSSR();
     if (!props.dangerouslySetInnerHTML) {
@@ -16,7 +20,7 @@ export function SanitizerDiv(props: React.HTMLProps<HTMLDivElement>) {
 
     // DOMPurify can throw on malformed/clobbered markup; fail safe instead of crashing render.
     try {
-        const sanitized = DOMPurify.sanitize(html);
+        const sanitized = sanitizeHtml(html);
 
         return (
             <div
