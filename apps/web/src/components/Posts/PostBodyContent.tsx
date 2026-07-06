@@ -8,7 +8,7 @@ import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -70,7 +70,7 @@ export function checkIfHasRedPacket(post: Post) {
     return content?.includes(RP_HASH_TAG) || !!getEncryptedPayloadFromText(content);
 }
 
-export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
+export const PostBodyContent = memo<PostBodyContentProps>(function PostBodyContent({ ref, ...props }) {
     const {
         post,
         isQuote = false,
@@ -311,4 +311,4 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} listKey={listKey} index={index} /> : null}
         </article>
     );
-}
+});

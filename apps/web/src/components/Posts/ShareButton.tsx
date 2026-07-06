@@ -2,10 +2,10 @@ import '@/components/Posts/ShareButton.css';
 
 import Send2Icon from '@dimensiondev/assets/send2.svg';
 import Send2FilledIcon from '@dimensiondev/assets/send2filled.svg';
-import { createContext, use, useRef } from 'react';
+import { createContext, memo, use, useRef } from 'react';
 
 export const ShareButtonWithAnimationContext = createContext(false);
-export function ShareButtonWithAnimation() {
+export const ShareButtonWithAnimation = memo(function ShareButtonWithAnimation() {
     const ref = useRef<HTMLElement>(null);
     const hover = use(ShareButtonWithAnimationContext);
     const animate = hover;
@@ -21,4 +21,4 @@ export function ShareButtonWithAnimation() {
             )}
         </span>
     );
-}
+});

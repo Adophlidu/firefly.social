@@ -3,6 +3,7 @@
 import type { SocialSource } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
+import { memo } from 'react';
 
 import { ThreadBody, type ThreadBodyProps } from '@/components/Posts/ThreadBody.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -35,7 +36,7 @@ function ThreadBodyLoading({ isLast = false }: { isLast?: boolean }) {
     );
 }
 
-export function ThreadBodyWithQuery({ postId, source, ...rest }: ThreadBodyWithQuery) {
+export const ThreadBodyWithQuery = memo<ThreadBodyWithQuery>(function ThreadBodyWithQuery({ postId, source, ...rest }) {
     const { data: post, isLoading } = useQuery({
         queryKey: [source, 'post-detail', postId],
         queryFn: async () => {
@@ -49,4 +50,4 @@ export function ThreadBodyWithQuery({ postId, source, ...rest }: ThreadBodyWithQ
     }
     if (!post) return null;
     return <ThreadBody post={post} {...rest} />;
-}
+});

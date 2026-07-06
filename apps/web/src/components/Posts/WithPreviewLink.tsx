@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { openPreviewMediaModal } from '@/controllers/openPreviewMediaModal.js';
@@ -16,14 +16,14 @@ interface WithPreviewLinkProps {
     prefetch?: boolean;
 }
 
-export function WithPreviewLink({
+export const WithPreviewLink = memo<WithPreviewLinkProps>(function WithPreviewLink({
     disablePreview = false,
     children,
     post,
     index,
     useModal = false,
     prefetch = false,
-}: WithPreviewLinkProps) {
+}) {
     const isPostPage = useIsPostDetailPage();
 
     const openPreviewModal = () => {
@@ -55,4 +55,4 @@ export function WithPreviewLink({
             {children}
         </span>
     );
-}
+});

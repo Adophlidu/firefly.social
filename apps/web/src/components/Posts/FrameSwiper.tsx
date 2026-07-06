@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 
 import { FrameLayout } from '@/components/Frame/Layout.js';
 import { SwiperIndicator } from '@/components/Posts/SwiperIndicator.js';
@@ -14,7 +14,7 @@ interface FrameSwiperProps {
     post: Post;
 }
 
-export function FrameSwiper({ frames, post }: FrameSwiperProps) {
+export const FrameSwiper = memo<FrameSwiperProps>(function FrameSwiper({ frames, post }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -45,4 +45,4 @@ export function FrameSwiper({ frames, post }: FrameSwiperProps) {
             />
         </div>
     );
-}
+});

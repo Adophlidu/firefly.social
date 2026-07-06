@@ -1,5 +1,5 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import { SwiperIndicator } from '@/components/Posts/SwiperIndicator.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
@@ -11,7 +11,7 @@ interface VideoSwiperProps {
     minimal?: boolean;
 }
 
-export function VideoSwiper({ videos, source, minimal }: VideoSwiperProps) {
+export const VideoSwiper = memo<VideoSwiperProps>(function VideoSwiper({ videos, source, minimal }) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const currentVideo = videos[activeIndex];
@@ -36,4 +36,4 @@ export function VideoSwiper({ videos, source, minimal }: VideoSwiperProps) {
             />
         </div>
     );
-}
+});

@@ -4,7 +4,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Popover } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import type { PropsWithChildren } from 'react';
+import { memo, type PropsWithChildren } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
@@ -83,7 +83,7 @@ function ExcludeReplyUserList({ post, profiles, excluded = EMPTY_LIST, onClickPr
     );
 }
 
-export function ExcludeReplyUserListModal({
+export const ExcludeReplyUserListModal = memo(function ExcludeReplyUserListModal({
     open,
     onClose,
     children,
@@ -121,4 +121,4 @@ export function ExcludeReplyUserListModal({
             </PopoverModal>
         </>
     );
-}
+});

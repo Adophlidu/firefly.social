@@ -1,5 +1,5 @@
 import { PostType } from '@dimensiondev/enums';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { TokenCard } from '@/components/EmbedCards/TokenCard.js';
@@ -29,7 +29,7 @@ interface PostLinkContentProps {
     isInCompose?: boolean;
 }
 
-export function PostLinkContent({ data, url, post, isInCompose }: PostLinkContentProps) {
+export const PostLinkContent = memo<PostLinkContentProps>(function PostLinkContent({ data, url, post, isInCompose }) {
     const router = useRouter();
 
     const farcasterToken = useMemo(() => parseFarcasterTokenUrl(url), [url]);
@@ -103,4 +103,4 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
         </>
     );
-}
+});

@@ -4,14 +4,14 @@ import EyeSlash from '@dimensiondev/assets/eye-slash.svg';
 import TrashIcon from '@dimensiondev/assets/trash.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { HTMLProps } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     authorMuted?: boolean;
     isQuote: boolean;
 }
 
-export function CollapsedContent({ isQuote, authorMuted: muted, ...rest }: Props) {
+export const CollapsedContent = memo<Props>(function CollapsedContent({ isQuote, authorMuted: muted, ...rest }) {
     return (
         <div {...rest}>
             <div
@@ -25,4 +25,4 @@ export function CollapsedContent({ isQuote, authorMuted: muted, ...rest }: Props
             </div>
         </div>
     );
-}
+});

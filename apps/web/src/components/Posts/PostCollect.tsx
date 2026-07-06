@@ -7,7 +7,7 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { lens, polygon } from 'viem/chains';
 import { useConnection } from 'wagmi';
@@ -50,7 +50,7 @@ interface PostCollectProps {
     onClose?: () => void;
 }
 
-export function PostCollect({ post, onClose }: PostCollectProps) {
+export const PostCollect = memo<PostCollectProps>(function PostCollect({ post, onClose }) {
     const account = useConnection();
     const currentProfile = useCurrentProfile(post.source);
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
@@ -278,4 +278,4 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             </div>
         </div>
     );
-}
+});

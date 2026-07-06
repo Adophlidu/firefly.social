@@ -1,5 +1,6 @@
 import PureLinkIcon from '@dimensiondev/assets/pure-link.svg';
 import { classNames, parseUrl } from '@dimensiondev/utils';
+import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
@@ -11,7 +12,7 @@ interface PureLinkProps {
     className?: string;
 }
 
-export function PureLink({ url, title, description, className }: PureLinkProps) {
+export const PureLink = memo<PureLinkProps>(function PureLink({ url, title, description, className }) {
     const domain = parseUrl(url)?.hostname;
 
     return (
@@ -41,4 +42,4 @@ export function PureLink({ url, title, description, className }: PureLinkProps) 
             </div>
         </Link>
     );
-}
+});

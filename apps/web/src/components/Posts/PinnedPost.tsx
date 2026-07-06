@@ -5,6 +5,7 @@ import { SUPPORTED_PINNED_POST_SOURCES } from '@dimensiondev/constants/computed'
 import type { SocialSource } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { memo } from 'react';
 
 import { pinnedPostQueryOptions } from '@/components/Posts/queries/pinnedPostQueryOptions.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
@@ -34,7 +35,7 @@ function PinnedPostContent({ source, profileId }: Props) {
     );
 }
 
-export function PinnedPost(props: Props) {
+export const PinnedPost = memo<Props>(function PinnedPost(props) {
     if (!SUPPORTED_PINNED_POST_SOURCES.includes(props.source)) return null;
     return <PinnedPostContent {...props} />;
-}
+});
