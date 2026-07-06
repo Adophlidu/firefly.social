@@ -1,5 +1,6 @@
 import { formatPriceToCents } from '@dimensiondev/utils';
 import { safe } from '@dimensiondev/web3/numbers';
+import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
@@ -13,7 +14,6 @@ import { RestrictedRegionButton } from '@/components/Geoblock/RestrictedRegionBu
 import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';

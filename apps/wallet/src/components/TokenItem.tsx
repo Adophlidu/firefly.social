@@ -1,12 +1,12 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
+import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { cn } from '@/lib/utils.js';
 import type { Token } from '@/providers/types/Transfer.js';
 

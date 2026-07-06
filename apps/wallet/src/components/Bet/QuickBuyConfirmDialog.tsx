@@ -1,10 +1,10 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
+import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
 import { DialogOrDrawer, DialogOrDrawerContent, DialogOrDrawerFooter } from '@/components/DialogOrDrawer.js';
 import { Button } from '@/components/ui/button.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSDConditional } from '@/helpers/formatTokenUSDConditional.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { pusdTokenFallback } from '@/hooks/bet/useTokenDetail.js';

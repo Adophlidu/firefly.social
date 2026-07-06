@@ -3,7 +3,7 @@ import { BET_DEPOSIT_MIN_USD, PRIVY_CONNECTOR_ID } from '@dimensiondev/constants
 import { SwapFromPage } from '@dimensiondev/enums';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isGreaterThan, isLessThan } from '@dimensiondev/web3/numbers';
-import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
+import { formatTokenItemAmount, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
@@ -21,7 +21,6 @@ import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { useComeback } from '@/components/useComeback.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { toastLoading } from '@/helpers/toastLoading.js';

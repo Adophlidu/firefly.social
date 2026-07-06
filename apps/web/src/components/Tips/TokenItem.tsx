@@ -2,12 +2,12 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
+import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';
 
 type Token = Pick<

@@ -2,7 +2,7 @@ import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
 import SuccessIcon from '@dimensiondev/assets/success.svg';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
-import { getBlockExplorersURL } from '@dimensiondev/web3/utils';
+import { formatTokenItemAmount, getBlockExplorersURL } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { Navigate, useLocation, useNavigate } from '@tanstack/react-router';
 import { omit } from 'lodash-es';
@@ -13,7 +13,6 @@ import { RecipientItem, type RecipientItemProps } from '@/components/SendTransac
 import { type FormValues, RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 
 export function SuccessView() {

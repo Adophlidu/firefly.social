@@ -1,6 +1,7 @@
 'use client';
 
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
@@ -10,7 +11,6 @@ import { useAsyncFn } from 'react-use';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 

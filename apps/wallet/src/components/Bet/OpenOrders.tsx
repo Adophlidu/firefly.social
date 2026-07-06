@@ -4,6 +4,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { formatPriceToCents } from '@dimensiondev/utils';
 import { multipliedBy, safe } from '@dimensiondev/web3/numbers';
+import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import {
     type InfiniteData,
@@ -29,7 +30,6 @@ import {
 import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Button } from '@/components/ui/button.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { cn } from '@/lib/utils.js';

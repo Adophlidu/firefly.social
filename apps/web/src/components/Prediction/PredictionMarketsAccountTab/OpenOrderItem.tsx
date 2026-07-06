@@ -4,6 +4,7 @@ import type { PredictionPlatform } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames, formatPriceToCents } from '@dimensiondev/utils';
 import { multipliedBy, safe } from '@dimensiondev/web3/numbers';
+import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { memo } from 'react';
@@ -12,7 +13,6 @@ import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

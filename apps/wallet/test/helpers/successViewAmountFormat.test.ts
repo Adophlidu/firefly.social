@@ -1,7 +1,7 @@
 import { multipliedBy } from '@dimensiondev/web3/numbers';
+import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { describe, expect, it } from 'vitest';
 
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD';
 
 /**

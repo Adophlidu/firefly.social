@@ -1,6 +1,6 @@
 import { NODE_ENV } from '@dimensiondev/enums';
-import { removeTrailingZeros } from '@dimensiondev/utils';
 import { isLessThan, leftShift, scale10 } from '@dimensiondev/web3/numbers';
+import { formatTokenAmount } from '@dimensiondev/web3/utils';
 import { BigNumber } from 'bignumber.js';
 
 import { logger } from '@/libs/Logger.js';
@@ -42,8 +42,12 @@ export function formatBalance(rawValue: BigNumber.Value = '0', decimals = 0, opt
         const minimum = scale10(1, -fixedDecimals);
         if (value.eq(0)) return '0';
         if (isLessThan(value, minimum)) return '<' + minimum.toFixed();
-        const result = removeTrailingZeros(value.toFixed(fixedDecimals));
-        return hasSeparators ? addThousandSeparators(result) : result;
+        return formatTokenAmount(value, {
+            decimals: fixedDecimals,
+            dustLabel: false,
+            hasSeparators,
+            trimTrailingZeros: true,
+        });
     }
 
     const base = scale10(1, decimals);

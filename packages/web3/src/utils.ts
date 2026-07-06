@@ -2,6 +2,7 @@ export * from '@/utils/addAndSwitchChain.js';
 export * from '@/utils/ensureHexPrefix.js';
 export * from '@/utils/formatAddress.js';
 export * from '@/utils/formatLamportsToSol.js';
+export * from '@/utils/formatTokenAmount.js';
 export * from '@/utils/getAddressType.js';
 export * from '@/utils/getBlockExplorersURL.js';
 export * from '@/utils/getNetworkTypeFromCaipAddress.js';
