@@ -1,3 +1,4 @@
+import { SITE_NAME } from '@dimensiondev/constants/static';
 import type { Metadata } from 'next';
 
 import { WorldCupModal } from '@/components/WorldCup/WorldCupModal.js';
@@ -16,6 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
         openGraph: {
             type: 'website',
             url: 'https://firefly.social/event/fifa',
+            siteName: SITE_NAME,
             title: 'FIFA Prediction Festival',
             description:
                 'Back your favorite team on Firefly and turn your soccer insights into real rewards with a massive $50,000 prize pool!',

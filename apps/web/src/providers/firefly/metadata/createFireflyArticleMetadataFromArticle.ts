@@ -1,4 +1,3 @@
-import { SITE_NAME } from '@dimensiondev/constants/static';
 import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { runInSafeAsync } from '@dimensiondev/utils';
@@ -37,7 +36,6 @@ export async function createFireflyArticleMetadataFromArticle(
             url: urlcat(SITE_URL, pathname),
             title,
             description,
-            siteName: SITE_NAME,
             images: [cover],
         },
         twitter: {

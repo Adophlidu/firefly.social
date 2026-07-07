@@ -7,6 +7,7 @@ import urlcat from 'urlcat';
 export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata>) {
     const title = metadata?.title ?? SITE_NAME;
     const description = metadata?.description ?? SITE_DESCRIPTION;
+    const { openGraph, twitter, ...restMetadata } = metadata ?? {};
 
     return {
         metadataBase: new URL(SITE_URL),
@@ -19,7 +20,9 @@ export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata
             title,
             description,
             url: urlcat(SITE_URL, pathname),
+            siteName: SITE_NAME,
             images: [`${SITE_URL}/image/og.png`],
+            ...openGraph,
         },
         twitter: {
             card: 'summary_large_image',
@@ -27,6 +30,7 @@ export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata
             description,
             creator: '@thefireflyapp',
             images: [`${SITE_URL}/image/og.png`],
+            ...twitter,
         },
         manifest: '/site.webmanifest',
         icons: [
@@ -52,6 +56,6 @@ export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata
         alternates: {
             canonical: urlcat(SITE_URL_OFFICIAL, pathname),
         },
-        ...metadata,
+        ...restMetadata,
     } satisfies Metadata;
 }
