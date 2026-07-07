@@ -5,13 +5,11 @@ import { prettyJSON } from 'hono/pretty-json';
 
 import { ArticleMetadataRoute } from '@/metadata/src/article/route.js';
 import { FireflyProfileMetadataRoute } from '@/metadata/src/firefly-profile/route.js';
-import { PostMetadataRoute } from '@/metadata/src/post/route.js';
 import { PredictionMetadataRoute } from '@/metadata/src/prediction/route.js';
 
 const metadataV2 = new Hono()
     .route('/', ArticleMetadataRoute)
     .route('/', FireflyProfileMetadataRoute)
-    .route('/', PostMetadataRoute)
     .route('/', PredictionMetadataRoute);
 
 const app = new Hono().use(prettyJSON()).use(withCors()).route('/metadata-v2', metadataV2).onError(onError);
