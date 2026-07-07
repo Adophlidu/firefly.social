@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getPublicUrl } from '@/helpers/getPublicUrl.js';
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -26,7 +26,7 @@ export async function createFireflyArticleMetadataFromArticle(
 
     const post = await runInSafeAsync(() => getPostById(resolveSocialSource(source), postId));
     const cover =
-        post?.metadata.content?.attachments?.find((attachment) => attachment.uri)?.uri ?? getPublicUrl('/image/og.png');
+        post?.metadata.content?.attachments?.find((attachment) => attachment.uri)?.uri ?? getDefaultOgImageUrl();
 
     return createSiteMetadata(pathname, {
         title,

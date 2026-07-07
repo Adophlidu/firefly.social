@@ -12,6 +12,7 @@ import { z } from 'zod';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64, fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
@@ -324,10 +325,10 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { hash } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!hash) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!hash) return createProxyImageResponse(getDefaultOgImageUrl());
 
     const tip = await getTipsTransactionDetail(hash, TipsNotificationType.Tip);
-    if (!tip) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!tip) return createProxyImageResponse(getDefaultOgImageUrl());
 
     return createTipOpenGraphImageResponse({ tip });
 });

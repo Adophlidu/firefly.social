@@ -14,6 +14,7 @@ import { z } from 'zod';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
@@ -281,10 +282,10 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { hash, chainId } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!hash || !chainId) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!hash || !chainId) return createProxyImageResponse(getDefaultOgImageUrl());
 
     const activity = await getSwapActivityByHash(hash, chainId);
-    if (!activity) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!activity) return createProxyImageResponse(getDefaultOgImageUrl());
 
     const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('sid'));
 

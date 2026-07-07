@@ -4,6 +4,8 @@ import { SITE_URL } from '@dimensiondev/envs/web';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
+
 export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata>) {
     const title = metadata?.title ?? SITE_NAME;
     const description = metadata?.description ?? SITE_DESCRIPTION;
@@ -21,7 +23,7 @@ export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata
             description,
             url: urlcat(SITE_URL, pathname),
             siteName: SITE_NAME,
-            images: [`${SITE_URL}/image/og.png`],
+            images: [getDefaultOgImageUrl()],
             ...openGraph,
         },
         twitter: {
@@ -29,7 +31,7 @@ export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata
             title,
             description,
             creator: '@thefireflyapp',
-            images: [`${SITE_URL}/image/og.png`],
+            images: [getDefaultOgImageUrl()],
             ...twitter,
         },
         manifest: '/site.webmanifest',

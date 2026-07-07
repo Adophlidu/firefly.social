@@ -10,6 +10,7 @@ import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
@@ -968,12 +969,12 @@ const SearchParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { platform, id } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!id) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!id) return createProxyImageResponse(getDefaultOgImageUrl());
 
     const { type } = getSearchParamsWithZodSchema(request, SearchParamsSchema);
 
     const event = await getEventDetail(platform, { id, isMutil: type === 'multi' });
-    if (!event) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!event) return createProxyImageResponse(getDefaultOgImageUrl());
 
     const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('sid'));
 

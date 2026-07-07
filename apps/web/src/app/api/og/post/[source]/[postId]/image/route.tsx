@@ -11,6 +11,7 @@ import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
@@ -470,10 +471,10 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { postId, source } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!postId || !source) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!postId || !source) return createProxyImageResponse(getDefaultOgImageUrl());
 
     const post = await resolveSocialMediaProvider(source).getPostById(postId);
-    if (!post) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!post) return createProxyImageResponse(getDefaultOgImageUrl());
 
     const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('sid'));
 

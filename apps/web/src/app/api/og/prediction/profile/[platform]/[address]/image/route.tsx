@@ -13,6 +13,7 @@ import { z } from 'zod';
 
 import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
@@ -23,7 +24,7 @@ import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWall
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
-const predictionDefaultOgImage = getPublicUrl('/image/og.png');
+const predictionDefaultOgImage = getDefaultOgImageUrl();
 const bgImageUrl = getPublicUrl('/svg/prediction-profile-background.svg');
 const bottomBgImageUrl = getPublicUrl('/svg/prediction-profile-background-bottom.svg');
 const vectorBgUrl = getPublicUrl('/svg/prediction-profile-white-background.svg');

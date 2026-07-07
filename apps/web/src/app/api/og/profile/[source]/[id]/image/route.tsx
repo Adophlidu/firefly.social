@@ -14,6 +14,7 @@ import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
@@ -309,13 +310,13 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { id, debug, source } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!id || !source) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!id || !source) return createProxyImageResponse(getDefaultOgImageUrl());
 
     const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('sid'));
 
     if (source === Source.Firefly) {
         const profiles = await getAllRelatedProfileInfo({ uid: id });
-        if (!profiles.account) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+        if (!profiles.account) return createProxyImageResponse(getDefaultOgImageUrl());
 
         const avatar = walletProfilesToAvatar(profiles) ?? OG_FALLBACK_AVATAR;
         return createProfileOpenGraphImageResponse({
@@ -329,7 +330,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     }
 
     if (!isSocialSource(source) && !isWalletSource(source)) {
-        return createProxyImageResponse(getPublicUrl('/image/og.png'));
+        return createProxyImageResponse(getDefaultOgImageUrl());
     }
 
     const identity = { source, id };
@@ -337,7 +338,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
 
     if (isWalletSource(source)) {
         const networkType = getAddressType(id);
-        if (!networkType) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+        if (!networkType) return createProxyImageResponse(getDefaultOgImageUrl());
 
         return createProfileOpenGraphImageResponse({
             avatar: getStampAvatarByProfileId(Source.Wallet, id, OG_AVATAR_SIZE * 2),
@@ -352,7 +353,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const profile = await runInSafeAsync(() =>
         resolveSocialMediaProvider(source as SocialSource).getProfileByIdOrHandle(id),
     );
-    if (!profile) return createProxyImageResponse(getPublicUrl('/image/og.png'));
+    if (!profile) return createProxyImageResponse(getDefaultOgImageUrl());
 
     return createProfileOpenGraphImageResponse({
         avatar: profile.pfp,
