@@ -1,13 +1,11 @@
 import { ActivityStatus } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
-import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { getFireflyActivityInfo } from '@/providers/firefly/activity/getFireflyActivityInfo.js';
-import { createEventMetadata } from '@/providers/firefly/metadata/createEventMetadata.js';
+import { getEventPageData, getEventPageMetadata } from '@/helpers/getEventPageData.js';
 
 export const revalidate = 300;
 
@@ -28,12 +26,12 @@ interface Props extends LayoutProps<{ name: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { name } = await props.params;
-    return createEventMetadata(name, `/event/${name}`);
+    return getEventPageMetadata(name, `/event/${name}`);
 }
 
 export default async function Page(props: Props) {
     const { name } = await props.params;
-    const data = await runInSafeAsync(() => getFireflyActivityInfo(name));
+    const data = await getEventPageData(name);
     if (!data) notFound();
 
     return (
