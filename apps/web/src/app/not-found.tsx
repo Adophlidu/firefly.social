@@ -1,5 +1,4 @@
 import { Locale } from '@dimensiondev/enums';
-import { cookies } from 'next/headers.js';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import { LayoutBody } from '@/app/layout-body.js';
@@ -7,13 +6,12 @@ import { AgentProvider } from '@/components/AgentProvider.js';
 import { NotFoundView } from '@/components/NotFoundView.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 
-async function getLocaleFromCookie(): Promise<Locale> {
-    const value = await cookies().then((store) => store.get('locale')?.value);
-    return value && Object.values(Locale).includes(value as Locale) ? (value as Locale) : Locale.en;
-}
-
-export default async function NotFound() {
-    const locale = await getLocaleFromCookie();
+// The root not-found boundary must not touch dynamic APIs (cookies/headers). In Next 16 a
+// dynamic API here forces every route in the app to render as ƒ Dynamic, silently disabling
+// ISR/CDN caching site-wide. Hardcode Locale.en instead of reading the locale cookie — this
+// mirrors [locale]/not-found.tsx, which also hardcodes Locale.en.
+export default function NotFound() {
+    const locale = Locale.en;
     setupLocaleFromParams(locale);
 
     return (

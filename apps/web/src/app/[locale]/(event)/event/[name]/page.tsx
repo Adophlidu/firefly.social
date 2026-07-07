@@ -10,6 +10,12 @@ import { getEventPageMetadata } from '@/providers/firefly/metadata/getEventPageM
 
 export const revalidate = 300;
 
+// Static-class stub: with no build-time params, every path is rendered on demand
+// and cached per `revalidate` (routes without generateStaticParams are forced dynamic).
+export function generateStaticParams() {
+    return [];
+}
+
 const ActivityNavigationBar = dynamic(
     () => import('@/components/Activity/ActivityNavigationBar.js').then((m) => m.ActivityNavigationBar),
     { ssr: false },

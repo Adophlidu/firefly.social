@@ -61,6 +61,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
 
     // Extract Authorization header and initialize fireflySessionHolder if token exists
     const headers = getHeadersWithZodSchema(request, HeadersSchema);
+    let resumedSession = false;
     if (headers.authorization) {
         const token = headers.authorization.replace('Bearer ', '');
         if (!token) return createErrorResponseJson('Invalid Authorization header', { status: 400 });
@@ -69,14 +70,23 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         // We use a dummy accountId since we only need the token for API calls
         const session = new FireflySession('dummy-account-id', token, null, null, false, null, null);
         fireflySessionHolder.resumeSession(session);
+        resumedSession = true;
     }
 
-    const result = await (availableMethods[method as keyof typeof availableMethods] as Function)(
-        ...Object.values(parsedParams),
-    );
+    try {
+        const result = await (availableMethods[method as keyof typeof availableMethods] as Function)(
+            ...Object.values(parsedParams),
+        );
 
-    return createSuccessResponseJson({
-        method,
-        result,
-    });
+        return createSuccessResponseJson({
+            method,
+            result,
+        });
+    } finally {
+        // fireflySessionHolder is a module singleton shared with RSC renders in the same warm
+        // serverless instance. Leaving a resumed session on it would let authenticated variants
+        // leak into the shared ISR/data cache, so clear it before the handler returns. (Vercel
+        // runs one invocation per instance at a time, so finally-cleanup is sufficient.)
+        if (resumedSession) fireflySessionHolder.removeSession();
+    }
 });

@@ -6,7 +6,13 @@ import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
-export const revalidate = 60;
+export const revalidate = 300;
+
+// Static-class stub: with no build-time params, every path is rendered on demand
+// and cached per `revalidate` (routes without generateStaticParams are forced dynamic).
+export function generateStaticParams() {
+    return [];
+}
 
 interface Props extends LayoutProps<{
     id: string;

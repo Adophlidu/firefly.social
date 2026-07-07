@@ -20,32 +20,6 @@ export function resolveLocaleFromRequest(request: NextRequest): string {
 }
 
 /**
- * Copy Vercel geo headers to cookies so client components can read them.
- */
-export function setGeoCookies(request: NextRequest, response: NextResponse): void {
-    const geoHeaders: Array<[string, string]> = [
-        ['x-vercel-ip-timezone', '__ff_geo_tz'],
-        ['x-vercel-ip-city', '__ff_geo_city'],
-        ['x-vercel-ip-country', '__ff_geo_country'],
-        ['x-vercel-ip-country-region', '__ff_geo_region'],
-    ];
-
-    for (const [header, cookie] of geoHeaders) {
-        // Only set if not already present — avoid Set-Cookie on every response
-        // which prevents Vercel CDN from caching ISR pages
-        if (request.cookies.get(cookie)) continue;
-        const value = request.headers.get(header);
-        if (value) {
-            response.cookies.set(cookie, value, {
-                path: '/',
-                httpOnly: false,
-                sameSite: 'lax',
-            });
-        }
-    }
-}
-
-/**
  * Build the rewrite URL with locale prefix.
  */
 export function buildPrefixedRewriteUrl(request: NextRequest, locale: string): URL {

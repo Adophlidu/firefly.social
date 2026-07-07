@@ -13,6 +13,12 @@ import { getProfilePageMetadata } from '@/providers/firefly/metadata/getProfileP
 
 interface Props extends LayoutProps<{ id: string; category: string; source: string }> {}
 
+// Static-class stub: with no build-time params, every path is rendered on demand
+// and cached per `revalidate` (routes without generateStaticParams are forced dynamic).
+export function generateStaticParams() {
+    return [];
+}
+
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id, category } = await props.params;
     const resolvedSource = resolveSourceFromUrlNoFallback(source);

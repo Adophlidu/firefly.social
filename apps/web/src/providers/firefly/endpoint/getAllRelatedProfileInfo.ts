@@ -24,12 +24,18 @@ const WALLET_PROFILES_FALLBACK: WalletProfiles = {
 
 async function getWalletsStatus(addresses: string[]) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/status');
-    const response = await fireflySessionHolder.fetch<WalletsStatusResponse>(url, {
-        method: 'POST',
-        body: JSON.stringify({
-            addresses,
-        }),
-    });
+    const response = await fireflySessionHolder.fetch<WalletsStatusResponse>(
+        url,
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                addresses,
+            }),
+        },
+        // Global wallet-hack status (not viewer-specific) rendered inside the ISR-cached profile
+        // page — never attach a session token, or an authenticated variant leaks into the cache.
+        { withSession: false },
+    );
     return resolveFireflyResponseData(response);
 }
 
@@ -60,7 +66,7 @@ export async function getAllRelatedProfileInfo(
         url,
         {
             next: {
-                revalidate: 1,
+                revalidate: 300,
             },
         },
         {

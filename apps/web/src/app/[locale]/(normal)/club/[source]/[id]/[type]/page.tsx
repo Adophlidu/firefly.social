@@ -12,7 +12,13 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { getChannelPageData } from '@/providers/firefly/metadata/getChannelPageData.js';
 import { getChannelPageMetadata } from '@/providers/firefly/metadata/getChannelPageMetadata.js';
 
-export const revalidate = 60;
+export const revalidate = 300;
+
+// Static-class stub: with no build-time params, every path is rendered on demand
+// and cached per `revalidate` (routes without generateStaticParams are forced dynamic).
+export function generateStaticParams() {
+    return [];
+}
 
 type Props = LayoutProps<{
     id: string;

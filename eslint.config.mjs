@@ -124,6 +124,31 @@ export default defineConfig([
         },
     },
     {
+        // The root layout and not-found are the two files that gate ISR/CDN caching for the whole
+        // site: pulling a dynamic request API (cookies/headers via next/headers) into either one
+        // opts every route into per-request dynamic rendering. Keep them free of next/headers.
+        files: ['apps/web/src/app/not-found.tsx', 'apps/web/src/app/layout.tsx'],
+        rules: {
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: 'next/headers',
+                            message:
+                                'Dynamic request APIs in the root layout/not-found force every route to dynamic rendering and disable ISR site-wide.',
+                        },
+                        {
+                            name: 'next/headers.js',
+                            message:
+                                'Dynamic request APIs in the root layout/not-found force every route to dynamic rendering and disable ISR site-wide.',
+                        },
+                    ],
+                },
+            ],
+        },
+    },
+    {
         files: ['packages/**/*.{ts,tsx,js,jsx,mjs,cjs}', 'apps/web/src/services/**/*.{ts,tsx,js,jsx,mjs,cjs}'],
         rules: {
             'no-console': 'off',

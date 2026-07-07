@@ -9,7 +9,6 @@ import {
     addPrefixToRewriteResponse,
     buildPrefixedRewriteUrl,
     resolveLocaleFromRequest,
-    setGeoCookies,
 } from '@/proxy/handlers/localeRewrite.js';
 import { handlePostRequests } from '@/proxy/handlers/postRequests.js';
 import { handleProfileRoutes } from '@/proxy/handlers/profileRoutes.js';
@@ -62,14 +61,12 @@ export default function proxy(request: NextRequest) {
     // Skip locale rewrite for external app proxies and already-prefixed locale routes.
     if (shouldSkipLocaleRewrite(pathname) || isPublicAssetPath(pathname) || hasLocalePrefix(pathname)) {
         const response = NextResponse.next({ request });
-        setGeoCookies(request, response);
         handleReferralTracking(request, response);
         return response;
     }
 
-    // Resolve locale for rewrite
+    // Resolve locale for rewrite (still reads the locale cookie internally).
     const locale = resolveLocaleFromRequest(request);
-    const localeCookie = request.cookies.get('locale')?.value;
 
     const middleware = compose<MiddlewareHandler>(
         ...handlers.map(adaptMiddleware),
@@ -86,17 +83,12 @@ export default function proxy(request: NextRequest) {
         // If a handler produced a rewrite (not the terminal), add locale prefix to it
         response = addPrefixToRewriteResponse(response, request, locale);
 
-        // Set geo cookies from Vercel headers
-        setGeoCookies(request, response);
-
-        // Set locale cookie if not present
-        if (!localeCookie) {
-            response.cookies.set('locale', locale, {
-                path: '/',
-                httpOnly: false,
-                sameSite: 'lax',
-            });
-        }
+        // Intentionally NOT setting geo/locale cookies here. Middleware must not
+        // Set-Cookie on regular HTML responses: Vercel's CDN refuses to cache any
+        // response carrying Set-Cookie, which silently disables ISR/CDN caching for
+        // cookieless (crawler/first-visit) traffic — exactly the traffic we want
+        // cached. An explicit locale choice is persisted by the changeCookies server
+        // action; geo hints are fetched client-side from /api/geo.
     }
 
     return response;

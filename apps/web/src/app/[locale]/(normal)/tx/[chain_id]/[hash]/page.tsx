@@ -9,6 +9,12 @@ import { getTransactionPageMetadata } from '@/providers/firefly/metadata/getTran
 
 export const revalidate = 3600;
 
+// Static-class stub: with no build-time params, every path is rendered on demand
+// and cached per `revalidate` (routes without generateStaticParams are forced dynamic).
+export function generateStaticParams() {
+    return [];
+}
+
 interface Props extends LayoutProps<{ chain_id: string; hash: string }> {}
 
 export async function generateMetadata(props: Props) {

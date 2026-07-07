@@ -32,11 +32,11 @@ function loadI18nInstance(locale: Locale): Promise<I18n> {
     return instance;
 }
 
-function getLocaleFromClientCookie(): Locale {
+function getLocaleFromClientCookie(): Locale | null {
     const pair = bom.document?.cookie.split('; ').find((x) => x.startsWith(`${SiteCookies.Locale}=`));
-    if (!pair) return Locale.en;
+    if (!pair) return null;
     const value = pair.split('=')[1];
-    return Object.values(Locale).includes(value as Locale) ? (value as Locale) : Locale.en;
+    return Object.values(Locale).includes(value as Locale) ? (value as Locale) : null;
 }
 
 function resolveLocale(locale?: string): Locale {
@@ -45,10 +45,13 @@ function resolveLocale(locale?: string): Locale {
 }
 
 export function LinguiClientProvider({ locale, children }: LinguiClientProviderProps) {
-    // SSR renders in the [app-ssr] bundle with the locale prop from the route param;
-    // the browser reads the locale cookie so a cookie change (settings page) takes
-    // effect on the next RSC refresh without navigation.
-    const resolved = isServer ? resolveLocale(locale) : getLocaleFromClientCookie();
+    // SSR renders in the [app-ssr] bundle with the locale prop from the route param.
+    // In the browser, the locale cookie only exists after an explicit language switch
+    // (changeCookies server action) — a valid cookie wins so that switch takes effect
+    // on the next RSC refresh without navigation. First-time visitors have no cookie
+    // and must stay on the route-param locale (via the same prop SSR used) instead of
+    // hard-defaulting to English.
+    const resolved = isServer ? resolveLocale(locale) : (getLocaleFromClientCookie() ?? resolveLocale(locale));
 
     // Suspends until the active locale's catalog chunk is loaded. On the server the
     // import resolves within the same tick; in the browser hydration waits for the
