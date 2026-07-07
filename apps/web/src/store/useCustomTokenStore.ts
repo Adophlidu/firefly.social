@@ -1,4 +1,4 @@
-import { CustomTokenType } from '@dimensiondev/enums';
+import type { CustomTokenType } from '@dimensiondev/enums';
 import type { Address } from 'viem';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';

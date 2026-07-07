@@ -1,4 +1,5 @@
-import { BookmarkType, FireflyPlatform } from '@dimensiondev/enums';
+import type { FireflyPlatform } from '@dimensiondev/enums';
+import { BookmarkType } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -12,7 +13,7 @@ export async function getFireflyBookmarksByIds(platform: FireflyPlatform, ids: s
         method: 'POST',
         body: JSON.stringify({
             post_ids: ids,
-            platform: platform,
+            platform,
             post_type: postType,
         }),
     });

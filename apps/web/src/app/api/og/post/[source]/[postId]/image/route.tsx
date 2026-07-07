@@ -13,6 +13,7 @@ import { z } from 'zod';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
+import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
