@@ -4,7 +4,8 @@ import { TipsDetailWithView } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]
 import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
-import { getTxPageData, getTxPageMetadata } from '@/providers/firefly/metadata/getTxPageData.js';
+import { getTransactionPageData } from '@/providers/firefly/metadata/getTransactionPageData.js';
+import { getTransactionPageMetadata } from '@/providers/firefly/metadata/getTransactionPageMetadata.js';
 
 export const revalidate = 3600;
 
@@ -12,7 +13,7 @@ interface Props extends LayoutProps<{ chain_id: string; hash: string }> {}
 
 export async function generateMetadata(props: Props) {
     const { chain_id, hash } = await props.params;
-    return getTxPageMetadata(Number.parseInt(chain_id, 10), hash, `/tx/${chain_id}/${hash}`);
+    return getTransactionPageMetadata(Number.parseInt(chain_id, 10), hash, `/tx/${chain_id}/${hash}`);
 }
 
 export default async function Page(props: Props) {
@@ -21,7 +22,7 @@ export default async function Page(props: Props) {
 
     if (!isValidTxId(hash)) notFound();
 
-    const pageData = await getTxPageData(chainId, hash);
+    const pageData = await getTransactionPageData(chainId, hash);
     if (pageData?.kind === 'tips') return <TipsDetailWithView tipsData={pageData.data} />;
 
     return <SwapDetail chainId={chainId} hash={hash} />;

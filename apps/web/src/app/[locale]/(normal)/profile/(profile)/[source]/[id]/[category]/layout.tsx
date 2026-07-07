@@ -9,7 +9,7 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
-import { resolveProfilePageMetadata } from '@/providers/firefly/metadata/resolveProfilePageMetadata.js';
+import { getProfilePageMetadata } from '@/providers/firefly/metadata/getProfilePageMetadata.js';
 
 interface Props extends LayoutProps<{ id: string; category: string; source: string }> {}
 
@@ -24,7 +24,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
             : WalletProfileCategory.Transactions;
         const pathname =
             category === defaultCategory ? `/profile/${source}/${id}` : `/profile/${source}/${id}/${category}`;
-        return resolveProfilePageMetadata(source, id, pathname);
+        return getProfilePageMetadata(source, id, pathname);
     }
     return createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`);
 }

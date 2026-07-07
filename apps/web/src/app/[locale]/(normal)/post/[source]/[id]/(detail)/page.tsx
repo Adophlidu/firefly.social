@@ -3,7 +3,6 @@ import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 
 import { PageDetail } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/client.js';
-import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { notFound } from '@/esm/navigation/server.js';
@@ -12,6 +11,7 @@ import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { isValidPostId } from '@/helpers/postId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
+import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
 
 export const revalidate = 60;
 

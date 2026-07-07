@@ -3,16 +3,16 @@ import { SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 
-import { getProfilePageData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { createProfileMetadataFromProfile } from '@/providers/firefly/metadata/createProfileMetadataFromProfile.js';
 import { createWalletProfileMetadataFromProfile } from '@/providers/firefly/metadata/createWalletProfileMetadataFromProfile.js';
-import { getSocialProfilePageMetadata } from '@/providers/firefly/metadata/getSocialProfilePageData.js';
-import { getWalletProfilePageMetadata } from '@/providers/firefly/metadata/getWalletProfilePageData.js';
+import { getProfilePageData } from '@/providers/firefly/metadata/getProfilePageData.js';
+import { getSocialProfilePageMetadata } from '@/providers/firefly/metadata/getSocialProfilePageMetadata.js';
+import { getWalletProfilePageMetadata } from '@/providers/firefly/metadata/getWalletProfilePageMetadata.js';
 
-export async function resolveProfilePageMetadata(source: string, id: string, pathname: string): Promise<Metadata> {
+export async function getProfilePageMetadata(source: string, id: string, pathname: string): Promise<Metadata> {
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
     if (!resolvedSource || !isProfilePageSource(resolvedSource)) {
         return createSiteMetadata(pathname);

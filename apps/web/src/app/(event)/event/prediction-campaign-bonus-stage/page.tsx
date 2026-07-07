@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { PredictionCampaignModal } from '@/components/PredictionCampaign/PredictionCampaignModal.js';
-import { getEventPageMetadata } from '@/providers/firefly/metadata/getEventPageData.js';
+import { getEventPageMetadata } from '@/providers/firefly/metadata/getEventPageMetadata.js';
 
 export const dynamic = 'force-dynamic';
 

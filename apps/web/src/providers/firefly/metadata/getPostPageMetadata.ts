@@ -4,12 +4,12 @@ import { SITE_URL } from '@dimensiondev/envs/web';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { createPostMetadataFromPost } from '@/providers/firefly/metadata/createPostMetadataFromPost.js';
 import { createTwitterPostMetadataFromOembed } from '@/providers/firefly/metadata/createTwitterPostMetadataFromOembed.js';
+import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
 
 export async function getPostPageMetadata(
     sourceInUrl: SocialSourceInURL,

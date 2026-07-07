@@ -2,9 +2,9 @@ import { PredictionPlatform } from '@dimensiondev/enums';
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
-import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPolymarketEventPageData.js';
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { notFound } from '@/esm/navigation/server.js';
+import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPolymarketEventPageData.js';
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
 
 export const revalidate = 60;

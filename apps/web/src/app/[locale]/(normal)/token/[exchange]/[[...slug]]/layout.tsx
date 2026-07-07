@@ -4,15 +4,13 @@ import { notFound, redirect, RedirectType } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
 import { CategoryTabs } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
-import {
-    getTokenDetailPageData,
-    getTokenDetailPageMetadata,
-} from '@/providers/firefly/metadata/getTokenDetailPageData.js';
 import { MobileSwapButton } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
 import { resolveTokenDetailQueryOptions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
 import { WrapTokenMarketData } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
+import { getTokenDetailPageData } from '@/providers/firefly/metadata/getTokenDetailPageData.js';
+import { getTokenDetailPageMetadata } from '@/providers/firefly/metadata/getTokenDetailPageMetadata.js';
 
 type Props = LayoutProps<{
     exchange: string;

@@ -1,12 +1,8 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
 import type { GetTokenOptions } from '@dimensiondev/workers-token';
-import type { Metadata } from 'next';
 import { cache } from 'react';
 
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getCoinTrending } from '@/providers/coingecko/getCoinTrending.js';
-import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
-import { createTokenMetadataFromToken } from '@/providers/firefly/metadata/createTokenMetadataFromToken.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
 import type { Trending } from '@/providers/types/Trending.js';
 
@@ -38,28 +34,3 @@ export const getTokenDetailPageData = cache(
         return { token, tokenQueryOptions, initialTrending };
     },
 );
-
-export async function getTokenDetailPageMetadata(
-    token_symbol: string | undefined,
-    coingecko_id: string | undefined,
-    chain_id: number | undefined,
-    address: string | undefined,
-    pathname: string,
-    fallbackKeyword: string,
-    fallbackOptions?: {
-        chainId?: number;
-        address?: string;
-        isCoinId?: boolean;
-    },
-): Promise<Metadata> {
-    const pageData = await runInSafeAsync(() => getTokenDetailPageData(token_symbol, coingecko_id, chain_id, address));
-    if (pageData?.token) {
-        return createTokenMetadataFromToken(pageData.token, pathname);
-    }
-
-    try {
-        return await createTokenMetadata(fallbackKeyword, pathname, fallbackOptions);
-    } catch {
-        return createSiteMetadata(pathname);
-    }
-}

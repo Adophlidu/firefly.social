@@ -2,7 +2,6 @@ import type { LoginFallbackSource } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
-import { getProfilePageData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
 import { ProfileContextProvider } from '@/components/Profile/ProfileContext.js';
@@ -15,6 +14,7 @@ import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { getProfilePageData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import type { FireflyIdentity, WalletProfile, WalletProfiles } from '@/providers/types/Firefly.js';
 
 export const revalidate = 60;

@@ -4,11 +4,11 @@ import { Source } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { createContext, type PropsWithChildren, useMemo } from 'react';
 
-import type { ProfileFeedInitialData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import type { ProfileFeedInitialData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

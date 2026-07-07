@@ -7,7 +7,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { resolveProfilePageMetadata } from '@/providers/firefly/metadata/resolveProfilePageMetadata.js';
+import { getProfilePageMetadata } from '@/providers/firefly/metadata/getProfilePageMetadata.js';
 
 type Props = LayoutProps<{ source: ProfilePageSourceInURL; id: string }>;
 
@@ -15,7 +15,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
     if (resolvedSource && isProfilePageSource(resolvedSource)) {
-        return resolveProfilePageMetadata(source, id, `/profile/${source}/${id}`);
+        return getProfilePageMetadata(source, id, `/profile/${source}/${id}`);
     }
     return createSiteMetadata(`/profile/${source}/${id}`);
 }

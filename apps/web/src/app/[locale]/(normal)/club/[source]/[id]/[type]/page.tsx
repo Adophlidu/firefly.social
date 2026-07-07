@@ -4,12 +4,13 @@ import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import type { Metadata } from 'next';
 
-import { getChannelPageData, getChannelPageMetadata } from '@/providers/firefly/metadata/getChannelPageData.js';
 import { ChannelContentList } from '@/components/Channel/ChannelContentList.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { getChannelPageData } from '@/providers/firefly/metadata/getChannelPageData.js';
+import { getChannelPageMetadata } from '@/providers/firefly/metadata/getChannelPageMetadata.js';
 
 export const revalidate = 60;
 

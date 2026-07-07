@@ -10,7 +10,7 @@ import type { Article } from '@/providers/types/Article.js';
  * from the article page when needed. Cached per request since this can be awaited from
  * both the page content and generateMetadata.
  */
-export const resolveArticleCoverUrl = cache(async (article: Article): Promise<string | null> => {
+export const getArticleCoverUrl = cache(async (article: Article): Promise<string | null> => {
     if (article.coverUrl) return article.coverUrl;
     if (article.platform !== ArticlePlatform.Mirror || !article.origin) return null;
 
