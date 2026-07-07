@@ -1,5 +1,5 @@
-import { resolveIPFS_URL } from '@/metadata/src/nft/resolveIPFS_URL.js';
-import type { Asset } from '@/metadata/src/nft/types.js';
+import { resolveIPFS_URL } from '@/og/src/nft/resolveIPFS_URL.js';
+import type { Asset } from '@/og/src/nft/types.js';
 
 const isArweave = (url: string | undefined) => (url ? url.startsWith('ar://') : false);
 

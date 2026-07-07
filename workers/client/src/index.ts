@@ -5,7 +5,6 @@ import type { AppType as FarcasterAppType } from '@dimensiondev/workers-farcaste
 import type { AppType as FrameAppType } from '@dimensiondev/workers-frame';
 import type { AppType as IframeBlockerAppType } from '@dimensiondev/workers-iframe-blocker';
 import type { AppType as LensAppType } from '@dimensiondev/workers-lens';
-import type { AppType as MetadataAppType } from '@dimensiondev/workers-metadata';
 import type { AppType as OembedAppType } from '@dimensiondev/workers-oembed';
 import type { AppType as OgAppType } from '@dimensiondev/workers-og';
 import type { AppType as ProxyImageAppType } from '@dimensiondev/workers-proxy-image';
@@ -30,7 +29,6 @@ export const farcasterWorker = hc<FarcasterAppType>(FIREFLY_WORKER_HOST);
 export const frameWorker = hc<FrameAppType>(FIREFLY_WORKER_HOST);
 export const iframeBlockerWorker = hc<IframeBlockerAppType>(FIREFLY_WORKER_HOST);
 export const lensWorker = hc<LensAppType>(FIREFLY_WORKER_HOST);
-export const metadataWorker = hc<MetadataAppType>(FIREFLY_WORKER_HOST);
 export const oembedWorker = hc<OembedAppType>(FIREFLY_WORKER_HOST);
 export const ogWorker = hc<OgAppType>(FIREFLY_WORKER_HOST);
 export const proxyImageWorker = hc<ProxyImageAppType>(FIREFLY_WORKER_HOST);
@@ -55,7 +53,6 @@ export type {
     FrameAppType,
     IframeBlockerAppType,
     LensAppType,
-    MetadataAppType,
     OembedAppType,
     OgAppType,
     ProxyImageAppType,

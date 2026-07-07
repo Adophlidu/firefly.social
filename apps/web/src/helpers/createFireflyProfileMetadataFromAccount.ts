@@ -1,5 +1,5 @@
 import { SITE_DESCRIPTION } from '@dimensiondev/constants/static';
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';

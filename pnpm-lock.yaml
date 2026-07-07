@@ -881,9 +881,6 @@ importers:
       '@dimensiondev/workers-lens':
         specifier: workspace:*
         version: link:../../workers/lens
-      '@dimensiondev/workers-metadata':
-        specifier: workspace:*
-        version: link:../../workers/metadata
       '@dimensiondev/workers-oembed':
         specifier: workspace:*
         version: link:../../workers/oembed
@@ -1324,9 +1321,6 @@ importers:
       '@dimensiondev/workers-lens':
         specifier: workspace:*
         version: link:../lens
-      '@dimensiondev/workers-metadata':
-        specifier: workspace:*
-        version: link:../metadata
       '@dimensiondev/workers-oembed':
         specifier: workspace:*
         version: link:../oembed
@@ -1547,58 +1541,6 @@ importers:
         specifier: '>=4.59.1'
         version: 4.100.0(@cloudflare/workers-types@4.20260613.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
 
-  workers/metadata:
-    dependencies:
-      '@dimensiondev/enums':
-        specifier: workspace:^
-        version: link:../../packages/enums
-      '@dimensiondev/web3':
-        specifier: workspace:^
-        version: link:../../packages/web3
-      '@dimensiondev/workers-bsky':
-        specifier: workspace:*
-        version: link:../bsky
-      '@dimensiondev/workers-oembed':
-        specifier: workspace:*
-        version: link:../oembed
-      '@dimensiondev/workers-shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@dimensiondev/workers-token':
-        specifier: workspace:*
-        version: link:../token
-      '@hono/zod-validator':
-        specifier: ^0.7.6
-        version: 0.7.6(hono@4.12.25)(zod@4.4.3)
-      bs58:
-        specifier: ^6.0.0
-        version: 6.0.0
-      hono:
-        specifier: ^4.12.25
-        version: 4.12.25
-      next:
-        specifier: 16.2.7
-        version: 16.2.7(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      typescript:
-        specifier: npm:@typescript/typescript6@^6.0.0
-        version: '@typescript/typescript6@6.0.1'
-      viem:
-        specifier: ^2.48.11
-        version: 2.52.2(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)(zod@4.4.3)
-      zod:
-        specifier: ^4.0.17
-        version: 4.4.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20251011.0
-        version: 4.20260613.1
-      '@types/node':
-        specifier: 22.19.20
-        version: 22.19.20
-      wrangler:
-        specifier: '>=4.59.1'
-        version: 4.100.0(@cloudflare/workers-types@4.20260613.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-
   workers/oembed:
     dependencies:
       '@dimensiondev/workers-shared':
@@ -1641,9 +1583,6 @@ importers:
       '@dimensiondev/workers-frame':
         specifier: workspace:*
         version: link:../frame
-      '@dimensiondev/workers-metadata':
-        specifier: workspace:*
-        version: link:../metadata
       '@dimensiondev/workers-oembed':
         specifier: workspace:*
         version: link:../oembed

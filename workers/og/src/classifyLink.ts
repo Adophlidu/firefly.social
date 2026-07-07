@@ -1,9 +1,5 @@
 import { digestDocumentUrl as digestFrameDocumentUrl } from '@dimensiondev/workers-frame/digestDocumentUrl.js';
 import type { Frame } from '@dimensiondev/workers-frame/types.js';
-import { detectCollection } from '@dimensiondev/workers-metadata/nft/detectCollection.js';
-import { getNftDetail } from '@dimensiondev/workers-metadata/nft/getNftDetail.js';
-import type { NFTDetail } from '@dimensiondev/workers-metadata/nft/types.js';
-import type { BetPortfolioItem, BetsEventDataForUI } from '@dimensiondev/workers-metadata/prediction/types.js';
 import { digestDocumentUrl as digestOembedDocumentUrl } from '@dimensiondev/workers-oembed/digestDocumentUrl.js';
 import type { LinkDigested } from '@dimensiondev/workers-oembed/types.js';
 import { ONE_MONTH, SIX_HOURS } from '@dimensiondev/workers-shared/constants/duration.js';
@@ -25,6 +21,10 @@ import { getEmbedUrl } from '@/og/src/getEmbedUrl.js';
 import { getPostFromUrl } from '@/og/src/getPostFromUrl.js';
 import { getPostIframeContent } from '@/og/src/getPostIframeContent.js';
 import { getPredictionFromUrl } from '@/og/src/getPredictionFromUrl.js';
+import { detectCollection } from '@/og/src/nft/detectCollection.js';
+import { getNftDetail } from '@/og/src/nft/getNftDetail.js';
+import type { NFTDetail } from '@/og/src/nft/types.js';
+import type { BetPortfolioItem, BetsEventDataForUI } from '@/og/src/prediction/types.js';
 import { EVM_ADDRESS, TWEET_SPACE_REGEX } from '@/og/src/regexp.js';
 
 export interface ClassifiedLinkResult {

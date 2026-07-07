@@ -18,7 +18,6 @@
         "@dimensiondev/workers-frame": "workspace:*",
         "@dimensiondev/workers-iframe-blocker": "workspace:*",
         "@dimensiondev/workers-lens": "workspace:*",
-        "@dimensiondev/workers-metadata": "workspace:*",
         "@dimensiondev/workers-oembed": "workspace:*",
         "@dimensiondev/workers-og": "workspace:*",
         "@dimensiondev/workers-proxy-image": "workspace:*",

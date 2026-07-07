@@ -4,7 +4,7 @@ import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { EVM } from '@dimensiondev/workers-shared/types/nftscan.js';
 import type { Context } from 'hono';
 
-import type { CollectionResponse } from '@/metadata/src/nft/types.js';
+import type { CollectionResponse } from '@/og/src/nft/types.js';
 
 function fixCollection(collection: EVM.Collection): EVM.Collection {
     return {

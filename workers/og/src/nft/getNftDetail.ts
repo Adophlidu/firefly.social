@@ -5,8 +5,8 @@ import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import { EthereumChainId } from '@dimensiondev/workers-shared/types/ethereum.js';
 import type { Context } from 'hono';
 
-import { adjustAssetUris } from '@/metadata/src/nft/adjustAssetUris.js';
-import type { NFTDetailResponse } from '@/metadata/src/nft/types.js';
+import { adjustAssetUris } from '@/og/src/nft/adjustAssetUris.js';
+import type { NFTDetailResponse } from '@/og/src/nft/types.js';
 
 export const NFTSCAN_CHAIN_IDS = [
     EthereumChainId.Mainnet,

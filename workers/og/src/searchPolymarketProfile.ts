@@ -1,7 +1,8 @@
-import { POLYMARKET_MARKET_API_DOMAIN } from '@dimensiondev/workers-metadata/prediction/constants.js';
 import { fetchJson } from '@dimensiondev/workers-shared/helpers/fetchJson.js';
 import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { Context } from 'hono';
+
+import { POLYMARKET_MARKET_API_DOMAIN } from '@/og/src/prediction/constants.js';
 
 interface PolymarketSearchProfile {
     name: string;

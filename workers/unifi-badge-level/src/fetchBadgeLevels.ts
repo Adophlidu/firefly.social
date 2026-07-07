@@ -1,6 +1,6 @@
 import { ONE_DAY } from '@dimensiondev/workers-shared/constants/duration.js';
 import { withCache } from '@dimensiondev/workers-shared/middlewares/withCache.js';
-import { Context } from 'hono';
+import type { Context } from 'hono';
 
 import { fetchBadgeLevel } from '@/unifi-badge-level/src/fetchBadgeLevel.js';
 import type { BadgeLevelQuery, BadgeLevelResult } from '@/unifi-badge-level/src/types.js';

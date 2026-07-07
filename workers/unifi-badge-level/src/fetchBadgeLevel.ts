@@ -3,7 +3,7 @@ import { resolveFireflyResponseData } from '@dimensiondev/workers-shared/helpers
 import { resolveFireflyRootUrl } from '@dimensiondev/workers-shared/helpers/resolveFireflyRootUrl.js';
 import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
-import { Context } from 'hono';
+import type { Context } from 'hono';
 
 import type { BadgeLevelQuery, BadgeLevelResult } from '@/unifi-badge-level/src/types.js';
 

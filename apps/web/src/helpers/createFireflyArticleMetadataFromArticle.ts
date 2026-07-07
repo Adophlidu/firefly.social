@@ -27,8 +27,7 @@ export async function createFireflyArticleMetadataFromArticle(
 
     const post = await runInSafeAsync(() => getPostById(resolveSocialSource(source), postId));
     const cover =
-        post?.metadata.content?.attachments?.find((attachment) => attachment.uri)?.uri ??
-        getPublicUrl('/image/og.png');
+        post?.metadata.content?.attachments?.find((attachment) => attachment.uri)?.uri ?? getPublicUrl('/image/og.png');
 
     return createSiteMetadata(pathname, {
         title,

@@ -1,13 +1,27 @@
-import type { ArticlePlatform, ArticleType } from '@dimensiondev/enums';
+import type { ArticlePlatform, ArticleType, WatchType } from '@dimensiondev/enums';
 import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
-import type { Address } from 'viem';
 
-import type { FireflyDisplayInfo, FollowingSource } from '@/metadata/src/transaction/types.js';
+export interface FollowingSource {
+    id?: string;
+    handle?: string;
+    name?: string;
+    type: WatchType;
+    socialId?: string;
+    walletAddress?: `0x${string}`;
+}
+
+export interface FireflyDisplayInfo {
+    ensHandle: string;
+    avatarUrl: string;
+    fireflyName: string;
+    fireflyUid: string;
+    fireflyAvatarUrl: string;
+}
 
 export interface Article {
     timestamp: string;
     hash: string;
-    owner: Address;
+    owner: `0x${string}`;
     digest: string;
     type: ArticleType;
     platform: ArticlePlatform;

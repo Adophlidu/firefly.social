@@ -16,7 +16,7 @@ export async function getImageSizeFromBase64(base64: string): Promise<ImageDiges
     const bytes = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
     const result = imageSize(bytes);
-    if (!result || !result.width || !result.height) throw new Error('Unable to determine image size from base64');
+    if (!result?.width || !result.height) throw new Error('Unable to determine image size from base64');
 
     return {
         width: result.width,
@@ -32,7 +32,7 @@ export async function getImageSizeFromUrl(url: string, c: Context): Promise<Imag
     const arrayBuffer = await response.arrayBuffer();
     const bytes = new Uint8Array(arrayBuffer);
     const result = imageSize(bytes);
-    if (!result || !result.width || !result.height) throw new Error('Unable to determine image size from URL');
+    if (!result?.width || !result.height) throw new Error('Unable to determine image size from URL');
 
     return {
         width: result.width,

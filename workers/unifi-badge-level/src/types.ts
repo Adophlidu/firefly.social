@@ -1,4 +1,4 @@
-import { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
+import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
 
 export type BadgeLevelPlatform = 'eth' | 'twitter' | 'lens' | 'farcaster' | 'account' | 'bsky';
 

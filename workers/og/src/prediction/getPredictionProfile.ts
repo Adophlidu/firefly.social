@@ -9,7 +9,7 @@ import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
 import type { Context } from 'hono';
 
-import type { BetPortfolioItem, PolymarketProfileData } from '@/metadata/src/prediction/types.js';
+import type { BetPortfolioItem, PolymarketProfileData } from '@/og/src/prediction/types.js';
 
 export async function getPolyMarketProfile(address: string, c: Context) {
     const url = urlcat(resolveFireflyRootUrl(c), '/v1/polymarket/profile/info');

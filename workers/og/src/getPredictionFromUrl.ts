@@ -1,15 +1,15 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
-import { getEventDetail } from '@dimensiondev/workers-metadata/prediction/getEventDetail.js';
-import { getPredictionProfile } from '@dimensiondev/workers-metadata/prediction/getPredictionProfile.js';
+import { parseJson } from '@dimensiondev/workers-shared/helpers/parseJson.js';
+import type { Context } from 'hono';
+
+import { getEventDetail } from '@/og/src/prediction/getEventDetail.js';
+import { getPredictionProfile } from '@/og/src/prediction/getPredictionProfile.js';
 import type {
     BetPortfolioItem,
     BetsEventDataForUI,
     OpinionMarketDetail,
     PolymarketEvent,
-} from '@dimensiondev/workers-metadata/prediction/types.js';
-import { parseJson } from '@dimensiondev/workers-shared/helpers/parseJson.js';
-import type { Context } from 'hono';
-
+} from '@/og/src/prediction/types.js';
 import {
     OPINION_EVENT_REGEX,
     OPINION_PROFILE_REGEX,
