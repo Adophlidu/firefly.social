@@ -4,8 +4,8 @@ import { cache } from 'react';
 
 import { compactArticleForPageTransfer } from '@/helpers/compactArticleForPageTransfer.js';
 import { createArticleMetadataFromArticle } from '@/helpers/createArticleMetadataFromArticle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
-import { createArticleMetadata } from '@/providers/firefly/metadata/createArticleMetadata.js';
 import type { Article } from '@/providers/types/Article.js';
 
 export const getArticleDetailPageData = cache(async (articleId: string): Promise<Article | null> => {
@@ -20,5 +20,5 @@ export async function getArticleDetailPageMetadata(articleId: string, pathname: 
         return createArticleMetadataFromArticle(article, pathname);
     }
 
-    return createArticleMetadata(articleId, pathname);
+    return createSiteMetadata(pathname);
 }

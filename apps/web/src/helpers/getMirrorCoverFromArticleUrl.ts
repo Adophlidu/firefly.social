@@ -1,4 +1,4 @@
-import { parseJson } from '@dimensiondev/workers-shared/helpers/parseJson.js';
+import { parseJson } from '@dimensiondev/utils';
 
 interface Payload {
     props: {
@@ -23,7 +23,6 @@ interface Payload {
     };
 }
 
-// Helper to extract the content of a <script id=...> tag from HTML
 async function extractNextData(html: string): Promise<string | null> {
     let scriptContent = '';
     let found = false;
@@ -37,27 +36,26 @@ async function extractNextData(html: string): Promise<string | null> {
     return found && scriptContent ? scriptContent : null;
 }
 
-export async function getMirrorPayload(html: string) {
+export async function getMirrorCoverFromHtml(html: string) {
     const nextDataJson = await extractNextData(html);
     if (!nextDataJson) return null;
 
     const data = parseJson<Payload>(nextDataJson);
     if (!data) return null;
 
-    const address = data?.props?.pageProps?.publicationLayoutProject?.address;
     const digest = data?.props?.pageProps?.digest;
     const entry = data?.props?.pageProps?.__APOLLO_STATE__?.[`entry:${digest}`];
-    const timestamp = entry?.publishedAtTimestamp ? entry.publishedAtTimestamp * 1000 : undefined;
-    const ens = data?.props?.pageProps?.publicationLayoutProject?.ens;
-    const displayName = data?.props?.pageProps?.publicationLayoutProject?.displayName;
-    const body = entry?.body;
-    const cover = entry?.featuredImage?.url;
-    return {
-        address,
-        timestamp,
-        ens,
-        displayName,
-        body,
-        cover,
-    };
+    return entry?.featuredImage?.url ?? null;
+}
+
+export async function getMirrorCoverFromArticleUrl(articleUrl: string) {
+    const response = await fetch(articleUrl, {
+        headers: {
+            'User-Agent': 'Twitterbot',
+        },
+    });
+    if (!response.ok || (response.status >= 500 && response.status < 600)) return null;
+
+    const html = await response.text();
+    return getMirrorCoverFromHtml(html);
 }
