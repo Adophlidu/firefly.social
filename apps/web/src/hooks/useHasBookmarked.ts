@@ -1,4 +1,4 @@
-import type { BookmarkType , FireflyPlatform } from '@dimensiondev/enums';
+import type { BookmarkType, FireflyPlatform } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { STALE_TIMES } from '@/constants/query.js';

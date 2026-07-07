@@ -225,7 +225,9 @@ async function createChannelOpenGraphImageResponse({ channel }: ChannelOpenGraph
     return new ImageResponse(await ChannelOpenGraphImage({ channel }), {
         width: 1200,
         height: 630,
-        fonts: await getSatoriFonts([...new Set([...getFontPreferences(displayName), ...getFontPreferences(subtitle)])]),
+        fonts: await getSatoriFonts([
+            ...new Set([...getFontPreferences(displayName), ...getFontPreferences(subtitle)]),
+        ]),
         headers: {
             'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
         },

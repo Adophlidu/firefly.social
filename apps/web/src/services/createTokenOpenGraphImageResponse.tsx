@@ -50,10 +50,7 @@ function resolveTokenLogoCandidates(token: CoinGeckoToken, chainId?: number) {
     const resolvedChainId = chainId ?? token.chainId;
     const address = token.address;
 
-    return [
-        token.logoURL,
-        resolvedChainId && address ? resolveTokenLogoURL(resolvedChainId, address) : undefined,
-    ];
+    return [token.logoURL, resolvedChainId && address ? resolveTokenLogoURL(resolvedChainId, address) : undefined];
 }
 
 interface TokenOpenGraphImageProps {
@@ -64,11 +61,12 @@ interface TokenOpenGraphImageProps {
 async function TokenOpenGraphImage({ token, chainId }: TokenOpenGraphImageProps) {
     const displayName = formatTokenDisplayName(token);
     const subtitle = formatTokenSubtitle(token);
-    const avatarBase64 = await fetchImageAsBase64FromUrls(resolveTokenLogoCandidates(token, chainId), OG_FALLBACK_AVATAR);
+    const avatarBase64 = await fetchImageAsBase64FromUrls(
+        resolveTokenLogoCandidates(token, chainId),
+        OG_FALLBACK_AVATAR,
+    );
     const chainIconUrl = resolveChainIconUrl(chainId ?? token.chainId);
-    const chainIconBase64 = chainIconUrl
-        ? await fetchImageAsBase64FromUrls([chainIconUrl], OG_FALLBACK_AVATAR)
-        : null;
+    const chainIconBase64 = chainIconUrl ? await fetchImageAsBase64FromUrls([chainIconUrl], OG_FALLBACK_AVATAR) : null;
     const displayNameFontFamily = getFontPreferences(displayName);
     const subtitleFontFamily = getFontPreferences(subtitle);
 
@@ -207,7 +205,9 @@ export async function createTokenOpenGraphImageResponse(props: TokenOpenGraphIma
     return new ImageResponse(await TokenOpenGraphImage(props), {
         width: 1200,
         height: 630,
-        fonts: await getSatoriFonts([...new Set([...getFontPreferences(displayName), ...getFontPreferences(subtitle)])]),
+        fonts: await getSatoriFonts([
+            ...new Set([...getFontPreferences(displayName), ...getFontPreferences(subtitle)]),
+        ]),
         headers: {
             'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
         },

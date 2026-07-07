@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getArticleCoverUrl } from '@/providers/firefly/metadata/getArticleCoverUrl.js';
 import type { Article } from '@/providers/types/Article.js';
 
 function getArticleDescription(article: Article) {
@@ -12,11 +11,10 @@ function getArticleDescription(article: Article) {
     return description.length > 160 ? `${description.slice(0, 157)}...` : description;
 }
 
-export async function createArticleMetadataFromArticle(article: Article, pathname: string): Promise<Metadata> {
+export function createArticleMetadataFromArticle(article: Article, pathname: string): Metadata {
     const title = `View ${article.title} on Firefly`;
     const description = getArticleDescription(article);
-    const coverUrl = await getArticleCoverUrl(article);
-    const images = coverUrl ? [coverUrl] : undefined;
+    const ogImageUrl = urlcat(SITE_URL, '/api/og/article/:id/image', { id: article.id });
 
     return createSiteMetadata(pathname, {
         title,
@@ -26,13 +24,13 @@ export async function createArticleMetadataFromArticle(article: Article, pathnam
             url: urlcat(SITE_URL, `/article/${article.id}`),
             title,
             description,
-            images,
+            images: [ogImageUrl],
         },
         twitter: {
             card: 'summary_large_image',
             title,
             description,
-            images,
+            images: [ogImageUrl],
         },
     });
 }
