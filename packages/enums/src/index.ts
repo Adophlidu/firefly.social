@@ -55,7 +55,6 @@ export enum FireflyPlatform {
     Firefly = 'firefly',
     Article = 'article',
     Wallet = 'wallet',
-    NFTs = 'nfts',
     Token = 'token',
     DAOs = 'snapshot',
     Polymarket = 'polymarket',
@@ -71,7 +70,6 @@ export enum Source {
     Article = 'Article',
     Wallet = 'Wallet',
     WalletMix = 'Wallets',
-    NFTs = 'NFTs',
     Tokens = 'Tokens',
     Telegram = 'Telegram',
     Google = 'Google',
@@ -96,7 +94,6 @@ export enum SourceInURL {
     Article = 'article',
     Wallet = 'wallet',
     WalletMix = 'wallets',
-    NFTs = 'nfts',
     Tokens = 'tokens',
     Telegram = 'telegram',
     Google = 'google',
@@ -178,7 +175,6 @@ export type LoginFallbackSource =
     | Source.Tokens
     | Source.Posts
     | Source.Notifications
-    | Source.NFTs
     | Source.Swap
     | Source.Wallet;
 
@@ -297,7 +293,6 @@ export enum PageRoute {
     SettingConnected = '/settings/connected',
     SettingsMutes = '/settings/mutes',
     Signup = '/signup',
-    MysteryBox = '/mystery-box',
     WorldCup = '/world-cup',
     PredictionCategory = '/prediction/category',
 }
@@ -343,7 +338,6 @@ export type ExploreSourceInURL =
 
 export enum ExploreSwitchType {
     TrendingToken = 'trending_token',
-    TrendingNFT = 'trending_nft',
     TruthSocial = 'trump_truth',
 }
 
@@ -382,7 +376,6 @@ export enum SocialProfileCategory {
 }
 
 export enum WalletProfileCategory {
-    NFTs = 'nfts',
     Activities = 'activities',
     Transactions = 'transactions',
     Bets = 'bets',
@@ -481,7 +474,6 @@ export enum TxReactionType {
     LikeParagraph = 'like_paragraph',
     LikeLimo = 'like_limo',
     LikeDAO = 'like_dao',
-    LikeNFT = 'like_nft',
     LikeBets = 'like_bets',
     ShareTip = 'repost_token_tips',
     ShareSwap = 'repost_swap',
@@ -588,7 +580,6 @@ export enum ScrollListKey {
     Bookmark = 'bookmark',
     Collected = 'profile-collected-list',
     Engagement = 'post-engagement',
-    NFTList = 'nft-list',
     TopCollectors = 'top-collectors',
     SuggestedUsers = 'suggested-users',
     SchedulePosts = 'schedule-posts',
@@ -643,7 +634,6 @@ export enum NotificationType {
     LikeLimo = 'like_limo',
     LikeBets = 'like_bets',
     LikeDAO = 'like_dao',
-    LikeNFT = 'like_nft',
     PredictionReward = 'prediction_reward',
 }
 
@@ -661,7 +651,6 @@ export enum WalletSource {
     Firefly = 'firefly',
     Article = 'article',
     Wallet = 'wallet',
-    NFTs = 'nfts',
     LensContract = 'lens_contract',
     Particle = 'particle',
     Privy = 'privy',
@@ -671,7 +660,6 @@ export enum RelatedWalletSource {
     firefly = 'firefly',
     cyber = 'cyber',
     hand_writing = 'hand_writing',
-    opensea = 'opensea',
     pfp = 'pfp',
     rss3 = 'rss3',
     twitter_hexagon = 'twitter_hexagon',
@@ -700,7 +688,6 @@ export enum WatchType {
 
 export enum TokenType {
     Fungible = 'Fungible',
-    NonFungible = 'NonFungible',
 }
 
 export enum TokenCategory {
@@ -716,7 +703,6 @@ export enum TokenPlatformType {
 
 export enum CustomTokenType {
     ERC20 = 'ERC20',
-    ERC721 = 'ERC721',
 }
 
 export enum SwapAccessPath {

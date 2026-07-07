@@ -523,9 +523,6 @@ msgstr "{0} のプロフィールが作成されました。"
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "10% 以上は高税率とみなされる可能性があります。50% 以上の税率は取引不可能な場合があります。"
 
-msgid "Add Collection"
-msgstr "NFT コレクションを追加"
-
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "所在地は {maxLocationSize} 文字以内にしてください"
 
@@ -932,9 +929,6 @@ msgstr "スリーポイント"
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
 msgstr "予約投稿は {0} でのみ利用可能です"
-
-msgid "NFTs"
-msgstr "NFT"
 
 msgid "Bought"
 msgstr "購入済み"
@@ -2677,9 +2671,6 @@ msgstr "Firefly アカウントを削除"
 msgid "Estimated network fee"
 msgstr "推定ネットワーク手数料"
 
-msgid "Sorry, we are not able to find this collection"
-msgstr "申し訳ありません。このコレクションが見つかりません"
-
 msgid "<0>You</0> reposted"
 msgstr "<0>あなた</0> がリポストしました"
 
@@ -3064,9 +3055,6 @@ msgstr "Firefly"
 
 msgid "No voting power"
 msgstr "投票権がありません"
-
-msgid "NFT holder"
-msgstr "NFT ホルダー"
 
 msgid "Invalid website format"
 msgstr "無効なウェブサイト形式"
@@ -4270,9 +4258,6 @@ msgstr "{sourceName} で #{0} の削除に失敗しました"
 msgid "Price · Change"
 msgstr "価格 · 変動"
 
-msgid "NFT holder of any one below"
-msgstr "以下のいずれかの NFT ホルダー"
-
 msgid "Users"
 msgstr "ユーザー"
 
@@ -4568,9 +4553,6 @@ msgstr "ゲームハンディキャップ"
 
 msgid "Total Games"
 msgstr "合計ゲーム"
-
-msgid "Users must hold at least one NFT from the collections you specify."
-msgstr "ユーザーは指定したコレクションから少なくとも 1 つの NFT を保有している必要があります。"
 
 msgid "Successfully bound Lens manager."
 msgstr "Lens マネージャーのバインドに成功しました。"

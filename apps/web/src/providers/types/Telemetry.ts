@@ -123,11 +123,6 @@ export enum EventId {
     SNAPSHOT_VOTE_SUBMIT = 'snapshot_vote_submit', // ✅
     SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
 
-    // mint
-    MINT_NFT_SUBMIT = 'nft_mint_submit', // ✅
-    MINT_NFT_SUCCESS = 'nft_mint_success', // ✅
-    NFT_MINT_CLICK = 'nft_mint_click',
-
     // profile
     PROFILE_EDIT_CLICK = 'account_edit_profile_click', // ✅
     PROFILE_EDIT_SUCCESS = 'account_edit_profile_success', // ✅
@@ -318,7 +313,6 @@ export enum EventId {
     FIREFLY_WALLET_SWAP_CLICK = 'Firefly_wallet_swap_click',
     FIREFLY_WALLET_CHAIN_FILTER_CLICK = 'Firefly_wallet_chain_filter_click',
     FIREFLY_WALLET_TOKENS_TAB_CLICK = 'Firefly_wallet_tokens_tab_click',
-    FIREFLY_WALLET_NFTS_TAB_CLICK = 'Firefly_wallet_NFTs_tab_click',
     FIREFLY_WALLET_TRANSACTIONS_TAB_CLICK = 'Firefly_wallet_transactions_tab_click',
     FIREFLY_WALLET_SEND_SUCCESS = 'Firefly_wallet_send_success',
     FIREFLY_WALLET_TRANSACTION_CALL = 'Firefly_wallet_transaction_call',
@@ -914,30 +908,6 @@ export interface Events extends Record<EventId, Event> {
     [EventId.SNAPSHOT_VOTE_SUCCESS]: {
         type: EventType.Interact;
         parameters: WalletEventParameters;
-    };
-    [EventId.MINT_NFT_SUBMIT]: {
-        type: EventType.Interact;
-        parameters: {
-            chain_id: string;
-            free_mint: boolean;
-            nft_ca: string;
-        } & WalletEventParameters;
-    };
-    [EventId.MINT_NFT_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            chain_id: string;
-            free_mint: boolean;
-            nft_ca: string;
-        } & WalletEventParameters;
-    };
-    [EventId.NFT_MINT_CLICK]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            chain_id: number;
-            nft_ca: string;
-        };
     };
     [EventId.ARTICLE_COLLECT_SUBMIT]: {
         type: EventType.Interact;
@@ -1726,12 +1696,6 @@ export interface Events extends Record<EventId, Event> {
         };
     };
     [EventId.FIREFLY_WALLET_TOKENS_TAB_CLICK]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-        };
-    };
-    [EventId.FIREFLY_WALLET_NFTS_TAB_CLICK]: {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;

@@ -15,7 +15,6 @@ export const resolveFallbackImageUrl = createLookupTableResolver<LoginFallbackSo
         [Source.Tokens]: '/image/firefly-fallback.png',
         [Source.Posts]: '/image/firefly-fallback.png',
         [Source.Notifications]: '/image/firefly-fallback.png',
-        [Source.NFTs]: '/image/firefly-fallback.png',
         [Source.Swap]: '/image/firefly-fallback.png',
     },
     '',

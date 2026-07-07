@@ -311,9 +311,6 @@ msgstr "交易详情"
 msgid "Slippage"
 msgstr "滑点"
 
-msgid "NFT Minted Failed"
-msgstr "NFT 铸造失败"
-
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
@@ -580,9 +577,6 @@ msgstr "出错了。"
 msgid "Your funds are on the way..."
 msgstr "资金正在到账途中..."
 
-msgid "NFT Minted"
-msgstr "NFT 已铸造"
-
 msgid "Deposit"
 msgstr "充值"
 
@@ -596,9 +590,6 @@ msgstr "合约"
 
 msgid "Limit Price"
 msgstr "限价"
-
-msgid "NFT Received"
-msgstr "收到 NFT"
 
 msgid "Close position"
 msgstr "平仓"
@@ -863,9 +854,6 @@ msgstr "添加代币"
 msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
 msgstr "为了保护您的资产安全，请输入发送到您的恢复邮箱 {0} 的验证码以验证您的身份。"
 
-msgid "NFT Received Failed"
-msgstr "接收 NFT 失败"
-
 msgid "Close losses"
 msgstr "平掉亏损"
 
@@ -1043,9 +1031,6 @@ msgstr "充值"
 msgid "Post"
 msgstr "发布"
 
-msgid "NFT Sent Failed"
-msgstr "发送 NFT 失败"
-
 msgid "Failed to search. Please try again."
 msgstr "搜索失败，请重试。"
 
@@ -1084,12 +1069,6 @@ msgstr "平均 {0}"
 
 msgid "Current settings"
 msgstr "当前设置"
-
-msgid "NFT"
-msgstr "NFT"
-
-msgid "NFT Sent"
-msgstr "NFT 已发送"
 
 msgid "Failed to cancel order"
 msgstr "取消订单失败"

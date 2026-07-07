@@ -31,7 +31,6 @@ export interface ExplorerOptions {
     transactionPathname?: string;
     domainPathname?: string;
     fungibleTokenPathname?: string;
-    nonFungibleTokenPathname?: string;
     collectionPathname?: string;
 }
 
@@ -80,7 +79,6 @@ export class ExplorerResolver {
             transactionPathname: '/tx/:id',
             domainPathname: '/address/:domain',
             fungibleTokenPathname: '/address/:address',
-            nonFungibleTokenPathname: '/nft/:address/:tokenId',
             collectionPathname: '/token/:address',
             ...this.initial,
         };

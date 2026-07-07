@@ -39,7 +39,6 @@ function getQueryKey(identity: FireflyIdentity, forceHandle: boolean) {
         case Source.Firefly:
             return 'uid';
         case Source.Article:
-        case Source.NFTs:
         case Source.Tokens:
         case Source.Telegram:
         case Source.Google:

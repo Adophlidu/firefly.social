@@ -1,7 +1,6 @@
 import AddUser from '@dimensiondev/assets/add-user.svg';
 import Comment from '@dimensiondev/assets/comment-rp.svg';
 import Like from '@dimensiondev/assets/like.svg';
-import NFTHolder from '@dimensiondev/assets/nft.svg';
 import Repost from '@dimensiondev/assets/repost.svg';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
@@ -13,7 +12,6 @@ export const REQUIREMENT_TITLE_MAP: Record<RequirementType, ReactNode> = {
     [RequirementType.Like]: <Trans id="action-like">Like</Trans>,
     [RequirementType.Repost]: <Trans>Repost</Trans>,
     [RequirementType.Comment]: <Trans>Comment</Trans>,
-    [RequirementType.NFTHolder]: <Trans>NFT holder</Trans>,
 };
 
 export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionComponent<React.SVGAttributes<SVGElement>>> = {
@@ -21,5 +19,4 @@ export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionCompone
     [RequirementType.Like]: Like,
     [RequirementType.Repost]: Repost,
     [RequirementType.Comment]: Comment,
-    [RequirementType.NFTHolder]: NFTHolder,
 };

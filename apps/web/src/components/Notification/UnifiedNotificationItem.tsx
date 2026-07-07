@@ -41,7 +41,7 @@ interface UnifiedNotificationBaseProps {
 
 interface LikeNotificationTitleProps {
     userName: string;
-    itemType: 'article' | 'bet activity' | 'DAO activity' | 'NFT';
+    itemType: 'article' | 'bet activity' | 'DAO activity';
 }
 
 function LikeNotificationTitle({ userName, itemType }: LikeNotificationTitleProps) {
@@ -218,25 +218,6 @@ function DAOLikeNotification({ notification }: DAOLikeNotificationProps) {
     );
 }
 
-interface NFTLikeNotificationProps {
-    notification: UnifiedNotification;
-}
-
-function NFTLikeNotification({ notification }: NFTLikeNotificationProps) {
-    const user = notification.data.user;
-    const userName = user?.display_name;
-
-    if (!userName) return null;
-
-    return (
-        <UnifiedNotificationBase
-            user={user}
-            timestamp={notification.timestamp}
-            title={<LikeNotificationTitle userName={userName} itemType="NFT" />}
-        />
-    );
-}
-
 export const UnifiedNotificationItem = memo<UnifiedNotificationItemProps>(function UnifiedNotificationItem({
     notification,
 }) {
@@ -248,8 +229,6 @@ export const UnifiedNotificationItem = memo<UnifiedNotificationItemProps>(functi
             return <BetLikeNotification notification={notification} />;
         case NotificationType.LikeDAO:
             return <DAOLikeNotification notification={notification} />;
-        case NotificationType.LikeNFT:
-            return <NFTLikeNotification notification={notification} />;
         case NotificationType.Act:
         case NotificationType.Comment:
         case NotificationType.Follow:

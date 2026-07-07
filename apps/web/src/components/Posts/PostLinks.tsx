@@ -39,7 +39,6 @@ function getResultDedupeKey(result: ClassifyPostLinkResult): string | null {
     }
     if (result.article?.id) return `article:${result.article.id}`;
     if (result.snapshot?.id) return `snapshot:${result.snapshot.id}`;
-    if (result.nft) return `nft:${result.nft.contract_address}:${result.nft.token_id}`;
     if (result.collection?.contract_address) return `collection:${result.collection.contract_address}`;
     if (result.quote?.postId) return `quote:${result.quote.postId}`;
     if (result.prediction_event?.id) return `prediction_event:${result.prediction_event.id}`;
@@ -111,19 +110,9 @@ function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: 
             data.push(item);
             dataByUrl.set(item.url, item);
             if (item.result.frame) frames.push(item);
-            const { snap, frame, article, snapshot, nft, collection, quote, prediction_event, prediction_profile } =
+            const { snap, frame, article, snapshot, collection, quote, prediction_event, prediction_profile } =
                 item.result;
-            if (
-                snap ||
-                frame ||
-                article ||
-                snapshot ||
-                nft ||
-                collection ||
-                quote ||
-                prediction_event ||
-                prediction_profile
-            ) {
+            if (snap || frame || article || snapshot || collection || quote || prediction_event || prediction_profile) {
                 try {
                     richContentHostnames.add(new URL(item.url).hostname);
                 } catch {}

@@ -4,7 +4,7 @@ import { bom, ForbiddenError, NetworkError, parseUrl } from '@dimensiondev/utils
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { FetchError, NftScanError } from '@/constants/error.js';
+import { FetchError } from '@/constants/error.js';
 import { EVENT_FIREFLY_SESSION_FORBIDDEN } from '@/constants/event.js';
 import { addHeaders } from '@/helpers/addHeader.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
@@ -110,7 +110,6 @@ async function executeFetch(
     // If the request is not successful and the noStrictOK option is not set, throw a fetch error
     if (!response.ok && !options?.noStrictOK) {
         const text = await getResponseText(response);
-        if (u && isFireflyLandApi(u) && text.includes('nftscan get fail')) throw new NftScanError();
 
         const fetchError = FetchError.from(u ?? input, response, text);
         fetchError.toThrow();

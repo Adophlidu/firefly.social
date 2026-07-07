@@ -8,7 +8,6 @@ function fixFollowingSource(source: Source | null) {
 
     switch (source) {
         case Source.Swap:
-        case Source.NFTs:
             return Source.Transactions;
         case Source.Article:
         case Source.DAOs:

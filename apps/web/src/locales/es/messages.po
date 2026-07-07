@@ -527,9 +527,6 @@ msgstr "Perfil de {0} creado."
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "Por encima del 10% puede considerarse una tasa impositiva alta. Una tasa impositiva superior al 50% puede significar que no sea negociable."
 
-msgid "Add Collection"
-msgstr "Agregar colección"
-
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "La ubicación no debe exceder {maxLocationSize} caracteres"
 
@@ -937,9 +934,6 @@ msgstr "Tríos"
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
 msgstr "Las publicaciones programadas solo están disponibles en {0}"
-
-msgid "NFTs"
-msgstr "NFTs"
 
 msgid "Bought"
 msgstr "Comprado"
@@ -2690,9 +2684,6 @@ msgstr "Eliminar cuenta de Firefly"
 msgid "Estimated network fee"
 msgstr "Tarifa de red estimada"
 
-msgid "Sorry, we are not able to find this collection"
-msgstr "Lo sentimos, no podemos encontrar esta colección"
-
 msgid "<0>You</0> reposted"
 msgstr "<0>Tú</0> republicaste"
 
@@ -3081,9 +3072,6 @@ msgstr "Firefly"
 
 msgid "No voting power"
 msgstr "Sin poder de voto"
-
-msgid "NFT holder"
-msgstr "Titular de NFT"
 
 msgid "Invalid website format"
 msgstr "Formato De Sitio Web No Válido"
@@ -4293,9 +4281,6 @@ msgstr "No se pudo eliminar #{0} en {sourceName}"
 msgid "Price · Change"
 msgstr "Precio · Cambio"
 
-msgid "NFT holder of any one below"
-msgstr "Titular del NFT de cualquiera de los siguientes"
-
 msgid "Users"
 msgstr "Usuarios"
 
@@ -4591,9 +4576,6 @@ msgstr "Hándicap del juego"
 
 msgid "Total Games"
 msgstr "Juegos totales"
-
-msgid "Users must hold at least one NFT from the collections you specify."
-msgstr "Los usuarios deben poseer al menos un NFT de las colecciones que especifique."
 
 msgid "Successfully bound Lens manager."
 msgstr "Administrador de Lens vinculado correctamente."

@@ -31,7 +31,6 @@ export const RelatedSourceIcon = memo(function RelatedSourceIcon({
         case RelatedWalletSource.ethLeaderboard:
         case RelatedWalletSource.firefly:
         case RelatedWalletSource.hand_writing:
-        case RelatedWalletSource.opensea:
         case RelatedWalletSource.other:
         case RelatedWalletSource.pfp:
         case RelatedWalletSource.rss3:

@@ -15,7 +15,7 @@ export async function bookmark(
     const response = await fireflySessionHolder.fetch<string>(url, {
         method: 'POST',
         body: JSON.stringify({
-            platform: (platform === FireflyPlatform.NFTs ? 'nft' : platform) ?? FireflyPlatform.Farcaster,
+            platform: platform ?? FireflyPlatform.Farcaster,
             platform_id: profileId,
             post_type: postType,
             post_id: postId,

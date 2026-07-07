@@ -13,7 +13,6 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.Article]: FireflyPlatform.Article,
         [Source.Wallet]: FireflyPlatform.Wallet,
         [Source.WalletMix]: FireflyPlatform.Wallet,
-        [Source.NFTs]: FireflyPlatform.NFTs,
         [Source.Tokens]: FireflyPlatform.Token,
         [Source.DAOs]: FireflyPlatform.DAOs,
         [Source.Prediction]: FireflyPlatform.Polymarket,

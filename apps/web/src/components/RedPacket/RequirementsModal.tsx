@@ -10,16 +10,13 @@ import Like from '@dimensiondev/assets/like.svg';
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import LoadingIcon from '@dimensiondev/assets/loader2.svg';
 import Repost from '@dimensiondev/assets/repost.svg';
-import NFTHolder from '@dimensiondev/assets/rp-nft-holder.svg';
 import TickSquareIcon from '@dimensiondev/assets/tick-square.svg';
 import { NetworkType, Source } from '@dimensiondev/enums';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
-import { EthExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { Trans } from '@lingui/react/macro';
-import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
-import { Fragment, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { CloseButton } from '@/components/IconButton.js';
@@ -32,66 +29,9 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { getCollection } from '@/providers/firefly/nft/getCollection.js';
-import type {
-    ClaimStrategyStatus,
-    NftOwnedStrategyPayload,
-    PostReactionKind,
-} from '@/providers/types/FireflyRedPacket.js';
+import type { ClaimStrategyStatus, PostReactionKind } from '@/providers/types/FireflyRedPacket.js';
 import { StrategyType } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-
-interface NFTListProps {
-    nfts: NftOwnedStrategyPayload[];
-}
-
-function NFTList({ nfts }: NFTListProps) {
-    const queries = useQueries({
-        queries: nfts.map((nft) => ({
-            queryKey: ['nft-contract', nft.chainId, nft.contractAddress.toLowerCase()],
-            queryFn: async () => {
-                return getCollection(+nft.chainId, nft.contractAddress);
-            },
-        })),
-    });
-    return (
-        <div className="mx-1 flex flex-col gap-1 text-left text-sm text-main">
-            {queries.map((query, index) => {
-                const { data } = query;
-                const nft = nfts[index];
-                const name = nft.collectionName || data?.name || data?.symbol;
-                const url = EthExplorerResolver.addressLink(+nft.chainId, nft.contractAddress);
-                const node = (
-                    <Fragment key={`${nft.chainId}-${nft.contractAddress}`}>
-                        <TokenIcon
-                            className="inline-block shrink-0"
-                            chainId={+nft.chainId}
-                            name={name}
-                            icon={nft.icon || data?.logo_url || ''}
-                            size={18}
-                            disableBadge
-                        />
-
-                        <TextOverflowTooltip content={name}>
-                            <span className="truncate">{name}</span>
-                        </TextOverflowTooltip>
-                    </Fragment>
-                );
-                if (!url) return node;
-                return (
-                    <Link
-                        key={`${nft.chainId}-${nft.contractAddress}`}
-                        href={url!}
-                        target="_blank"
-                        className="inline-flex gap-1 truncate text-highlight"
-                    >
-                        {node}
-                    </Link>
-                );
-            })}
-        </div>
-    );
-}
 
 function ResultIcon({ result }: { result: boolean }) {
     return result ? (
@@ -106,7 +46,7 @@ const IconMap: Record<PostReactionKind, React.FunctionComponent<React.SVGAttribu
     repost: Repost,
     quote: Repost,
     comment: Comment,
-    collect: NFTHolder,
+    collect: Repost,
 };
 
 interface RequirementsModalProps {
@@ -135,7 +75,7 @@ export function RequirementsModal({
         repost: <Trans>Repost</Trans>,
         quote: <Trans>Repost</Trans>,
         comment: <Trans>Comment</Trans>,
-        collect: <Trans>NFT holder</Trans>,
+        collect: <Trans>Collect</Trans>,
     };
 
     const requirements = useMemo(() => {
@@ -260,39 +200,6 @@ export function RequirementsModal({
                                         </div>
                                     );
                                 });
-                        }
-
-                        if (status.type === StrategyType.nftOwned) {
-                            return (
-                                <div
-                                    className={classNames(
-                                        'flex items-center gap-x-2.5 rounded-lg px-2 py-4 text-base leading-[18px]',
-                                        !isVerifying && status.result.hasPassed
-                                            ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
-                                            : 'group-[.unclaimed]:bg-bg',
-                                    )}
-                                    key={status.type}
-                                >
-                                    <NFTHolder width={16} height={16} />
-                                    <div className="flex max-w-[352px] flex-1 flex-col gap-1">
-                                        <div className="text-left text-base">
-                                            <Trans>NFT holder of any one below</Trans>
-                                        </div>
-                                        <NFTList nfts={status.payload} />
-                                    </div>
-                                    {showResults ? (
-                                        isVerifying && !status.result ? (
-                                            <LoadingIcon
-                                                className="animate-spin text-secondary"
-                                                width={24}
-                                                height={24}
-                                            />
-                                        ) : (
-                                            <ResultIcon result={status.result.hasPassed} />
-                                        )
-                                    ) : null}
-                                </div>
-                            );
                         }
 
                         if (status.type === StrategyType.tokens) {

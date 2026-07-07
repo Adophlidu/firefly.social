@@ -128,7 +128,6 @@ export function setBlockStatus(source: SocialSource, profileId: string, status: 
                         case NotificationType.LikeLimo:
                         case NotificationType.LikeBets:
                         case NotificationType.LikeDAO:
-                        case NotificationType.LikeNFT:
                         case NotificationType.PredictionReward:
                             return true;
                         default:

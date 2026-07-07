@@ -176,11 +176,6 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
-    'add-custom-erc721-modal': {
-        open?: unknown;
-        close?: unknown;
-        abort?: Error;
-    };
     'add-custom-erc20-modal': {
         open?: unknown;
         close?: unknown;

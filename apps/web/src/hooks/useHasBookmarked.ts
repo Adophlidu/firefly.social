@@ -1,7 +1,6 @@
 import type { BookmarkType } from '@dimensiondev/enums';
 import { FireflyPlatform } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
-import { uniq } from 'lodash-es';
 
 import { STALE_TIMES } from '@/constants/query.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -10,20 +9,15 @@ import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFirefl
 export function useHasBookmarked(platform: FireflyPlatform, id: string, postType?: BookmarkType, disabled?: boolean) {
     const isLogin = useIsLogin();
     const lowerCaseId = id.toLowerCase();
-    const isNFT = platform === FireflyPlatform.NFTs;
 
     const result = useQuery({
-        queryKey: ['has-bookmarked', platform, isNFT ? lowerCaseId : id, isLogin],
+        queryKey: ['has-bookmarked', platform, id, isLogin],
         staleTime: STALE_TIMES.MINUTE_5,
         enabled: !disabled && isLogin,
         queryFn: disabled
             ? skipToken
             : async () => {
-                  const data = await getFireflyBookmarksByIds(
-                      platform,
-                      isNFT ? uniq([id, lowerCaseId]) : [id],
-                      postType,
-                  );
+                  const data = await getFireflyBookmarksByIds(platform, [id], postType);
 
                   const matched = data.find(
                       (x) => x.post_id.toLowerCase() === lowerCaseId && x.has_book_marked === true,

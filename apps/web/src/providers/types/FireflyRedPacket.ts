@@ -13,7 +13,6 @@ export enum RequirementType {
     Like = 'Like',
     Repost = 'Repost',
     Comment = 'Comment',
-    NFTHolder = 'NFTHolder',
 }
 
 export enum RedPacketStatus {
@@ -88,7 +87,6 @@ export enum FireflyRedPacketStatus {
 export enum StrategyType {
     profileFollow = 'profileFollow',
     postReaction = 'postReaction',
-    nftOwned = 'nftOwned',
     channel = 'channel',
     tokens = 'tokens',
 }
@@ -101,10 +99,6 @@ export type ClaimStrategy =
     | {
           type: StrategyType.postReaction;
           payload: PostReactionStrategyPayload;
-      }
-    | {
-          type: StrategyType.nftOwned;
-          payload: NftOwnedStrategyPayload[];
       }
     | {
           type: StrategyType.tokens;
@@ -134,13 +128,6 @@ export interface PostReactionStrategyPayload {
     reactions: string[];
 }
 
-export interface NftOwnedStrategyPayload {
-    /** instead of number, it's string */
-    chainId: string;
-    contractAddress: string;
-    collectionName: string;
-    icon?: string;
-}
 export interface TokensStrategyPayload {
     /** instead of number, it's string */
     chainId: string;
@@ -383,19 +370,6 @@ export type ClaimStrategyStatus =
                     hasPassed: boolean;
                 }
               | boolean;
-      }
-    | {
-          type: StrategyType.nftOwned;
-          payload: NftOwnedStrategyPayload[];
-          result: {
-              hasPassed: boolean;
-              nfts: {
-                  /** instead of number, it's string */
-                  chainId: string;
-                  contractAddress: Hex;
-                  tokenIds: string[];
-              };
-          };
       }
     | {
           type: StrategyType.tokens;

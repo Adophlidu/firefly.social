@@ -83,7 +83,6 @@ export function patchNotificationQueryDataOnPost(_source: Source, patcher: PostP
             case NotificationType.LikeLimo:
             case NotificationType.LikeBets:
             case NotificationType.LikeDAO:
-            case NotificationType.LikeNFT:
             case NotificationType.PredictionReward:
                 break;
             default:
@@ -149,7 +148,6 @@ export function patchNotificationQueryDataOnAuthor(_source: Source, patcher: Pro
             case NotificationType.LikeLimo:
             case NotificationType.LikeBets:
             case NotificationType.LikeDAO:
-            case NotificationType.LikeNFT:
             case NotificationType.PredictionReward:
                 break;
             default:

@@ -12,7 +12,7 @@ import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
 export default memo(function RequirementsView() {
     const { history } = useRouter();
-    const { rules, setRules, setRequireCollections, setRequireTokens, token } = useContext(RedPacketContext);
+    const { rules, setRules, setRequireTokens, token } = useContext(RedPacketContext);
 
     return (
         <>
@@ -31,8 +31,6 @@ export default memo(function RequirementsView() {
                         const checked = rules.includes(value);
                         const Icon = REQUIREMENT_ICON_MAP[value];
                         const title = REQUIREMENT_TITLE_MAP[value];
-
-                        if (value === RequirementType.NFTHolder) return null;
 
                         const item = (
                             <div className="flex items-center gap-x-2 px-3 py-1" key={value}>
@@ -62,7 +60,6 @@ export default memo(function RequirementsView() {
                         onClick={() => {
                             setRules(EMPTY_LIST);
                             setRequireTokens(EMPTY_LIST);
-                            setRequireCollections(EMPTY_LIST);
                         }}
                     >
                         <Trans>Clear all requirements</Trans>

@@ -37,7 +37,6 @@ export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity
             case Source.Firefly:
                 return 'uid';
             case Source.Article:
-            case Source.NFTs:
             case Source.Tokens:
             case Source.Polymarket:
             case Source.Prediction:

@@ -38,7 +38,6 @@ function resolveVerifiedText({ source, provider }: VerifiedSource) {
             return <Trans>Verified by Firefly</Trans>;
         case RelatedWalletSource.cyber:
         case RelatedWalletSource.hand_writing:
-        case RelatedWalletSource.opensea:
         case RelatedWalletSource.pfp:
         case RelatedWalletSource.rss3:
         case RelatedWalletSource.twitter_hexagon:

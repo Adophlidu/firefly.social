@@ -523,9 +523,6 @@ msgstr "{0} 프로필이 생성되었습니다."
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "10% 이상은 높은 세율로 간주될 수 있습니다. 세율이 50% 이상이면 거래가 불가능할 수 있습니다."
 
-msgid "Add Collection"
-msgstr "NFT 컬렉션 추가"
-
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "위치는 {maxLocationSize}자를 초과할 수 없습니다"
 
@@ -932,9 +929,6 @@ msgstr "3점슛"
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
 msgstr "예약 게시물은 {0}에서만 사용할 수 있습니다"
-
-msgid "NFTs"
-msgstr "NFTs"
 
 msgid "Bought"
 msgstr "구매됨"
@@ -2677,9 +2671,6 @@ msgstr "Firefly 계정 삭제"
 msgid "Estimated network fee"
 msgstr "예상 네트워크 수수료"
 
-msgid "Sorry, we are not able to find this collection"
-msgstr "죄송합니다. 이 컬렉션을 찾을 수 없습니다"
-
 msgid "<0>You</0> reposted"
 msgstr "<0>회원님</0>이 리포스트했습니다"
 
@@ -3064,9 +3055,6 @@ msgstr "Firefly"
 
 msgid "No voting power"
 msgstr "투표권 없음"
-
-msgid "NFT holder"
-msgstr "NFT 보유자"
 
 msgid "Invalid website format"
 msgstr "유효하지 않은 웹사이트 형식"
@@ -4270,9 +4258,6 @@ msgstr "{sourceName}에서 #{0} 제거에 실패했습니다"
 msgid "Price · Change"
 msgstr "가격 · 변동"
 
-msgid "NFT holder of any one below"
-msgstr "아래 NFT 중 하나 보유"
-
 msgid "Users"
 msgstr "사용자"
 
@@ -4568,9 +4553,6 @@ msgstr "게임 핸디캡"
 
 msgid "Total Games"
 msgstr "총 게임"
-
-msgid "Users must hold at least one NFT from the collections you specify."
-msgstr "사용자는 지정한 컬렉션에서 최소 하나의 NFT를 보유해야 합니다."
 
 msgid "Successfully bound Lens manager."
 msgstr "Lens 매니저가 연결되었습니다."

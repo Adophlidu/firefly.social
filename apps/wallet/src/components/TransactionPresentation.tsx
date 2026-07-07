@@ -17,7 +17,6 @@ import { isUnlimitedApproval } from '@/helpers/isUnlimitedApproval.js';
 import {
     TransactionHistoryCategory,
     type TransactionHistoryItem,
-    type TransactionHistoryNFTAction,
     type TransactionHistoryTokenAction,
     TransactionState,
 } from '@/providers/types/Firefly.js';
@@ -50,18 +49,10 @@ export interface TransactionAmountPresentation {
     compact?: boolean;
 }
 
-export type TransactionAssetEffectPresentation =
-    | {
-          type: 'amounts';
-          amounts: TransactionAmountPresentation[];
-      }
-    | {
-          type: 'nft';
-          address?: string;
-          symbol?: string;
-          explorerUrl?: string;
-      }
-    | null;
+export type TransactionAssetEffectPresentation = {
+    type: 'amounts';
+    amounts: TransactionAmountPresentation[];
+} | null;
 
 export type TransactionListSubtitlePresentation =
     | {
@@ -142,7 +133,6 @@ export interface TransactionPresentation {
     profileAddress?: string;
     explorerUrl?: string;
     primaryToken?: TransactionHistoryTokenAction;
-    primaryNft?: TransactionHistoryNFTAction;
     icon: TransactionIconPresentation;
     assetEffect: TransactionAssetEffectPresentation;
     listSubtitle: TransactionListSubtitlePresentation;
@@ -235,27 +225,17 @@ export function buildTransactionPresentation(transaction: TransactionHistoryItem
     const networkType = isSolana ? NetworkType.Solana : NetworkType.Ethereum;
     const sentToken = first(transaction.token_sends);
     const receivedToken = first(transaction.token_receives);
-    const sentNft = first(transaction.nft_sends);
-    const receivedNft = first(transaction.nft_receives);
     const primaryToken = receivedToken || sentToken;
-    const primaryNft = receivedNft || sentNft;
 
-    const fromAddress = transaction.from_address || primaryToken?.sender || primaryNft?.sender || undefined;
+    const fromAddress = transaction.from_address || primaryToken?.sender || undefined;
     const toAddress =
         transaction.category === TransactionHistoryCategory.TokenSend
-            ? primaryToken?.recipient || primaryNft?.recipient || transaction.to_address || undefined
-            : transaction.to_address || primaryToken?.recipient || primaryNft?.recipient || undefined;
+            ? primaryToken?.recipient || transaction.to_address || undefined
+            : transaction.to_address || primaryToken?.recipient || undefined;
     const contractAddress = transaction.to_address || toAddress;
 
-    const assetEffect = buildTransactionAssetEffect(transaction, primaryToken, primaryNft);
-    const listSubtitle = buildTransactionListSubtitle(
-        transaction,
-        isSolana,
-        fromAddress,
-        toAddress,
-        primaryToken,
-        primaryNft,
-    );
+    const assetEffect = buildTransactionAssetEffect(transaction, primaryToken);
+    const listSubtitle = buildTransactionListSubtitle(transaction, isSolana, fromAddress, toAddress, primaryToken);
     const assetRows = buildTransactionAssetRows(transaction, chainId, sentToken, receivedToken);
     const subtitleTarget = buildTransactionSubtitleTarget(transaction, fromAddress, toAddress);
 
@@ -269,8 +249,7 @@ export function buildTransactionPresentation(transaction: TransactionHistoryItem
         profileAddress: fromAddress,
         explorerUrl: getTransactionExplorerUrl(transaction),
         primaryToken,
-        primaryNft,
-        icon: buildTransactionIcon(transaction, isSolana, primaryToken, primaryNft),
+        icon: buildTransactionIcon(transaction, isSolana, primaryToken),
         assetEffect,
         listSubtitle,
         assetRows,
@@ -281,7 +260,6 @@ export function buildTransactionPresentation(transaction: TransactionHistoryItem
 function buildTransactionAssetEffect(
     transaction: TransactionHistoryItem,
     primaryToken: TransactionHistoryTokenAction | undefined,
-    primaryNft: TransactionHistoryNFTAction | undefined,
 ): TransactionAssetEffectPresentation {
     if (
         transaction.category === TransactionHistoryCategory.TokenSwap ||
@@ -345,22 +323,6 @@ function buildTransactionAssetEffect(
         };
     }
 
-    if (
-        transaction.category === TransactionHistoryCategory.NftReceive ||
-        transaction.category === TransactionHistoryCategory.NftSend ||
-        transaction.category === TransactionHistoryCategory.NftMint
-    ) {
-        return {
-            type: 'nft',
-            address: primaryNft?.nft.address,
-            symbol: primaryNft?.nft.symbol,
-            explorerUrl: primaryNft?.nft.address
-                ? runInSafe(() => getBlockExplorersURL(transaction.chain_id, primaryNft.nft.address, 'address')) ||
-                  undefined
-                : undefined,
-        };
-    }
-
     if (!primaryToken) return null;
 
     if (transaction.category === TransactionHistoryCategory.TokenReceive) {
@@ -410,7 +372,6 @@ function buildTransactionListSubtitle(
     fromAddress: string | undefined,
     toAddress: string | undefined,
     primaryToken: TransactionHistoryTokenAction | undefined,
-    primaryNft: TransactionHistoryNFTAction | undefined,
 ): TransactionListSubtitlePresentation {
     switch (transaction.category) {
         case TransactionHistoryCategory.TokenApprove:
@@ -450,23 +411,6 @@ function buildTransactionListSubtitle(
                 type: 'from-address',
                 text: formatOptionalAddress(isSolana ? primaryToken?.sender || fromAddress : fromAddress),
             };
-        case TransactionHistoryCategory.NftMint:
-            return {
-                type: 'with-address',
-                text:
-                    transaction.project_name ||
-                    formatOptionalAddress(primaryNft?.nft.address || transaction.to_address),
-            };
-        case TransactionHistoryCategory.NftReceive:
-            return {
-                type: 'from-address',
-                text: formatOptionalAddress(primaryNft?.sender || fromAddress),
-            };
-        case TransactionHistoryCategory.NftSend:
-            return {
-                type: 'to-address',
-                text: formatOptionalAddress(primaryNft?.recipient || toAddress),
-            };
         default:
             safeUnreachable(transaction.category);
             return null;
@@ -477,22 +421,7 @@ function buildTransactionIcon(
     transaction: TransactionHistoryItem,
     isSolana: boolean,
     primaryToken: TransactionHistoryTokenAction | undefined,
-    primaryNft: TransactionHistoryNFTAction | undefined,
 ): TransactionIconPresentation {
-    if (
-        transaction.category === TransactionHistoryCategory.NftReceive ||
-        transaction.category === TransactionHistoryCategory.NftSend ||
-        transaction.category === TransactionHistoryCategory.NftMint
-    ) {
-        return {
-            type: 'token',
-            icon: primaryNft?.nft.logo,
-            symbol: primaryNft?.nft.symbol,
-            name: primaryNft?.nft.name,
-            disableBadge: isSolana,
-        };
-    }
-
     if (transaction.category === TransactionHistoryCategory.TokenApprove) {
         const token = transaction.token_approve?.token;
         return {
@@ -530,19 +459,10 @@ function buildTransactionIcon(
     }
 
     if (transaction.category === TransactionHistoryCategory.ContractInteraction) {
-        const relatedNft = primaryNft;
         const icon =
-            transaction.project_logo ||
-            primaryToken?.token.logo ||
-            transaction.token_approve?.token.logo ||
-            relatedNft?.nft.logo ||
-            undefined;
-        const symbol = primaryToken?.token.symbol || transaction.token_approve?.token.symbol || relatedNft?.nft.symbol;
-        const name =
-            transaction.project_name ||
-            primaryToken?.token.name ||
-            transaction.token_approve?.token.name ||
-            relatedNft?.nft.name;
+            transaction.project_logo || primaryToken?.token.logo || transaction.token_approve?.token.logo || undefined;
+        const symbol = primaryToken?.token.symbol || transaction.token_approve?.token.symbol;
+        const name = transaction.project_name || primaryToken?.token.name || transaction.token_approve?.token.name;
         if (!icon && !symbol && !name) return { type: 'document' };
         return {
             type: 'token',
@@ -679,10 +599,6 @@ function buildTransactionAssetRows(
             }
             return rows;
         }
-        case TransactionHistoryCategory.NftReceive:
-        case TransactionHistoryCategory.NftSend:
-        case TransactionHistoryCategory.NftMint:
-            return [];
         default:
             safeUnreachable(transaction.category);
             return [];
@@ -725,10 +641,6 @@ function buildTransactionSubtitleTarget(
                     first(transaction.token_receives)?.token.logo ||
                     transaction.token_approve?.token.logo,
             };
-        case TransactionHistoryCategory.NftReceive:
-        case TransactionHistoryCategory.NftSend:
-        case TransactionHistoryCategory.NftMint:
-            return null;
         default:
             safeUnreachable(transaction.category);
             return null;
@@ -738,10 +650,8 @@ function buildTransactionSubtitleTarget(
 export function TransactionCategoryIcon({ category }: { category: TransactionHistoryCategory }) {
     switch (category) {
         case TransactionHistoryCategory.TokenReceive:
-        case TransactionHistoryCategory.NftReceive:
             return <Receive className="size-3" />;
         case TransactionHistoryCategory.TokenSend:
-        case TransactionHistoryCategory.NftSend:
             return <Send className="size-3" />;
         case TransactionHistoryCategory.TokenApprove:
             return <Approve className="size-3" />;
@@ -749,7 +659,6 @@ export function TransactionCategoryIcon({ category }: { category: TransactionHis
             return <Revoke className="size-3" />;
         case TransactionHistoryCategory.ContractInteraction:
         case TransactionHistoryCategory.TokenSwap:
-        case TransactionHistoryCategory.NftMint:
         case TransactionHistoryCategory.TokenBridge:
             return <Interaction className="size-3" />;
         default:
@@ -777,12 +686,6 @@ export function TransactionCategoryLabel({
                 return <Trans>Approved Failed</Trans>;
             case TransactionHistoryCategory.TokenRevoke:
                 return <Trans>Revoked Failed</Trans>;
-            case TransactionHistoryCategory.NftReceive:
-                return <Trans>NFT Received Failed</Trans>;
-            case TransactionHistoryCategory.NftSend:
-                return <Trans>NFT Sent Failed</Trans>;
-            case TransactionHistoryCategory.NftMint:
-                return <Trans>NFT Minted Failed</Trans>;
             case TransactionHistoryCategory.ContractInteraction:
                 return <Trans>Interacted Failed</Trans>;
             case TransactionHistoryCategory.TokenBridge:
@@ -804,12 +707,6 @@ export function TransactionCategoryLabel({
             return <Trans>Approved</Trans>;
         case TransactionHistoryCategory.TokenRevoke:
             return <Trans>Revoked</Trans>;
-        case TransactionHistoryCategory.NftReceive:
-            return <Trans>NFT Received</Trans>;
-        case TransactionHistoryCategory.NftSend:
-            return <Trans>NFT Sent</Trans>;
-        case TransactionHistoryCategory.NftMint:
-            return <Trans>NFT Minted</Trans>;
         case TransactionHistoryCategory.ContractInteraction:
             return <Trans>Interacted</Trans>;
         case TransactionHistoryCategory.TokenBridge:
@@ -832,9 +729,6 @@ export function TransactionDetailActionLabel({ category }: { category: Transacti
             return <Trans>Revoked</Trans>;
         case TransactionHistoryCategory.TokenSwap:
         case TransactionHistoryCategory.ContractInteraction:
-        case TransactionHistoryCategory.NftReceive:
-        case TransactionHistoryCategory.NftSend:
-        case TransactionHistoryCategory.NftMint:
         case TransactionHistoryCategory.TokenBridge:
             return <Trans>Interacted</Trans>;
         default:
@@ -854,9 +748,6 @@ export function TransactionDetailPreposition({ category }: { category: Transacti
             return <Trans>on</Trans>;
         case TransactionHistoryCategory.TokenSwap:
         case TransactionHistoryCategory.ContractInteraction:
-        case TransactionHistoryCategory.NftReceive:
-        case TransactionHistoryCategory.NftSend:
-        case TransactionHistoryCategory.NftMint:
         case TransactionHistoryCategory.TokenBridge:
             return <Trans>with</Trans>;
         default:

@@ -90,24 +90,6 @@ export function captureDraftDeleteClickEvent() {
     });
 }
 
-export function captureNFTMintClickEvent(chainId: number, nftCa: string) {
-    return runInSafeAsync(async () => {
-        return TelemetryProvider.captureEvent(EventId.NFT_MINT_CLICK, {
-            chain_id: chainId,
-            nft_ca: nftCa,
-        });
-    });
-}
-
-export function captureNFTViewWebsiteClickEvent(chainId: number, nftCa: string) {
-    return runInSafeAsync(async () => {
-        return TelemetryProvider.captureEvent(EventId.NFT_MINT_CLICK, {
-            chain_id: chainId,
-            nft_ca: nftCa,
-        });
-    });
-}
-
 export function captureBetsSuperfortuneClickEvent(fireflyAccountId: string) {
     return runInSafeAsync(async () => {
         return TelemetryProvider.captureEvent(EventId.BETS_SUPERFORTUNE_CLICK, {

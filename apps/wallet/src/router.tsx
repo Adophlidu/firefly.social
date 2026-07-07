@@ -7,7 +7,6 @@ import { routeTree } from '@/routeTree.gen.js';
 // All static routes to preload (excluding dynamic routes with params)
 const staticRoutes = [
     '/',
-    '/nfts',
     '/receive',
     '/send',
     '/transactions',

@@ -219,14 +219,6 @@ export class WalletNotConnectedError extends Error {
     override name = 'WalletNotConnectedError';
 }
 
-export class NftScanError extends Error {
-    override name = 'NftScanError';
-
-    constructor(message?: string) {
-        super(message ?? 'NftScan error.');
-    }
-}
-
 export class SessionExpiredError extends Error {
     override name = 'SessionExpiredError';
 

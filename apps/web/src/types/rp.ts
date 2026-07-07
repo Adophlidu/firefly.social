@@ -1,13 +1,4 @@
-import type { NonFungibleCollection } from '@dimensiondev/web3/types';
-
 import type { ClaimStrategy } from '@/providers/types/FireflyRedPacket.js';
-
-export interface RedPacketNFTCollection extends Pick<
-    NonFungibleCollection<number>,
-    'chainId' | 'address' | 'name' | 'iconURL' | 'ownersTotal' | 'id'
-> {
-    custom?: boolean;
-}
 
 export enum UsageType {
     Cover = 'cover',

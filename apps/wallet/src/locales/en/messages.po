@@ -311,9 +311,6 @@ msgstr "Transaction Detail"
 msgid "Slippage"
 msgstr "Slippage"
 
-msgid "NFT Minted Failed"
-msgstr "NFT Minted Failed"
-
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
@@ -580,9 +577,6 @@ msgstr "Something went wrong."
 msgid "Your funds are on the way..."
 msgstr "Your funds are on the way..."
 
-msgid "NFT Minted"
-msgstr "NFT Minted"
-
 msgid "Deposit"
 msgstr "Deposit"
 
@@ -596,9 +590,6 @@ msgstr "Contract"
 
 msgid "Limit Price"
 msgstr "Limit Price"
-
-msgid "NFT Received"
-msgstr "NFT Received"
 
 msgid "Close position"
 msgstr "Close position"
@@ -863,9 +854,6 @@ msgstr "Add Token"
 msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
 msgstr "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
 
-msgid "NFT Received Failed"
-msgstr "NFT Received Failed"
-
 msgid "Close losses"
 msgstr "Close losses"
 
@@ -1043,9 +1031,6 @@ msgstr "Add Funds"
 msgid "Post"
 msgstr "Post"
 
-msgid "NFT Sent Failed"
-msgstr "NFT Sent Failed"
-
 msgid "Failed to search. Please try again."
 msgstr "Failed to search. Please try again."
 
@@ -1084,12 +1069,6 @@ msgstr "Avg {0}"
 
 msgid "Current settings"
 msgstr "Current settings"
-
-msgid "NFT"
-msgstr "NFT"
-
-msgid "NFT Sent"
-msgstr "NFT Sent"
 
 msgid "Failed to cancel order"
 msgstr "Failed to cancel order"

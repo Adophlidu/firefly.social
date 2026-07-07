@@ -368,7 +368,6 @@ export const UNIFIED_NOTIFICATION_TYPES: NotificationType[] = [
     ...ARTICLE_LIKE_NOTIFICATION_TYPES,
     NotificationType.LikeBets,
     NotificationType.LikeDAO,
-    NotificationType.LikeNFT,
 ];
 
 export const SOCIAL_NOTIFICATION_TYPES: NotificationType[] = [
@@ -394,7 +393,6 @@ export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory
     [NetworkType.Ethereum]: [
         WalletProfileCategory.Transactions,
         WalletProfileCategory.Bets,
-        WalletProfileCategory.NFTs,
         WalletProfileCategory.Activities,
     ],
     [NetworkType.Solana]: [WalletProfileCategory.Transactions],

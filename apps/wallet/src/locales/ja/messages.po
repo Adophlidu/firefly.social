@@ -311,9 +311,6 @@ msgstr "トランザクション詳細"
 msgid "Slippage"
 msgstr "スリッページ"
 
-msgid "NFT Minted Failed"
-msgstr "NFT の発行に失敗しました"
-
 msgid "Connect Wallet"
 msgstr "ウォレットを接続"
 
@@ -580,9 +577,6 @@ msgstr "エラーが発生しました。"
 msgid "Your funds are on the way..."
 msgstr "資金が送金中です..."
 
-msgid "NFT Minted"
-msgstr "NFT を発行しました"
-
 msgid "Deposit"
 msgstr "入金"
 
@@ -596,9 +590,6 @@ msgstr "コントラクト"
 
 msgid "Limit Price"
 msgstr "指値"
-
-msgid "NFT Received"
-msgstr "NFT を受け取りました"
 
 msgid "Close position"
 msgstr "ポジションをクローズ"
@@ -863,9 +854,6 @@ msgstr "トークンを追加"
 msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
 msgstr "資産を保護するため、リカバリーメール {0} に送信された確認コードを入力して本人確認を完了してください。"
 
-msgid "NFT Received Failed"
-msgstr "NFT の受取に失敗しました"
-
 msgid "Close losses"
 msgstr "損失をクローズ"
 
@@ -1043,9 +1031,6 @@ msgstr "入金"
 msgid "Post"
 msgstr "投稿"
 
-msgid "NFT Sent Failed"
-msgstr "NFT の送信に失敗しました"
-
 msgid "Failed to search. Please try again."
 msgstr "検索に失敗しました。再試行してください。"
 
@@ -1084,12 +1069,6 @@ msgstr "平均 {0}"
 
 msgid "Current settings"
 msgstr "現在の設定"
-
-msgid "NFT"
-msgstr "NFT"
-
-msgid "NFT Sent"
-msgstr "NFT を送信しました"
 
 msgid "Failed to cancel order"
 msgstr "注文のキャンセルに失敗しました"

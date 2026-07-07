@@ -8,8 +8,6 @@ import type {
 } from '@dimensiondev/enums';
 import type { Address, Hex } from 'viem';
 
-import type { EVM } from '@/providers/nftscan/types.js';
-
 export interface TokenAsset {
     chainIndex: string;
     name: string;
@@ -39,9 +37,6 @@ export const enum TransactionHistoryCategory {
     TokenSwap = 'token_swap',
     TokenApprove = 'token_approve',
     TokenRevoke = 'token_revoke',
-    NftReceive = 'nft_receive',
-    NftSend = 'nft_send',
-    NftMint = 'nft_mint',
     ContractInteraction = 'contract_interaction',
 }
 
@@ -73,20 +68,6 @@ export interface TransactionHistoryTokenAction {
     sender: string;
 }
 
-export interface TransactionHistoryNFTAction {
-    nft: {
-        address: string;
-        symbol: string;
-        name: string;
-        token_id: string;
-        logo: string | null;
-    };
-    amount: string;
-    user_address: string;
-    recipient: string;
-    sender: string;
-}
-
 export interface TransactionHistoryItem {
     chain_id: number;
     hash: string;
@@ -100,8 +81,6 @@ export interface TransactionHistoryItem {
     token_sends: TransactionHistoryTokenAction[];
     token_receives: TransactionHistoryTokenAction[];
     token_approve?: TransactionHistoryTokenApprove;
-    nft_receives: TransactionHistoryNFTAction[];
-    nft_sends: TransactionHistoryNFTAction[];
     category: TransactionHistoryCategory;
 }
 
@@ -111,51 +90,6 @@ export interface WalletHistoryTransactionsResponseData {
 }
 
 export type WalletHistoryTransactionsResponse = Response<WalletHistoryTransactionsResponseData>;
-
-export interface Poap {
-    event: {
-        id: number;
-        fancy_id: string;
-        name: string;
-        event_url: string;
-        image_url: string;
-        country: string;
-        city: string;
-        description: string;
-        year: number;
-        /** @example "18-Nov-2021" */
-        start_date: string;
-        /** @example "18-Nov-2021" */
-        end_date: string;
-        /** @example "18-Nov-2021" */
-        expiry_date: string;
-        supply: number;
-    };
-    tokenId: string;
-    /** owner address */
-    owner: string;
-    chain: 'xdai';
-    /** @example "2021-11-20 02:17:40" */
-    created: string;
-    /** extends at runtime */
-    hasBookmarked?: boolean;
-}
-
-export type PoapResponse = Response<Poap[]>;
-
-export interface NFTDetail extends EVM.Asset {
-    collection: EVM.Collection;
-}
-
-export type CollectionsResponse = Response<{
-    collections: EVM.Collection[];
-    cursor: string;
-}>;
-
-export type NFTDetailsResponse = Response<{
-    nfts: NFTDetail[];
-    cursor: string;
-}>;
 
 export interface Profile {
     platform_id: string;
@@ -317,8 +251,6 @@ export type WalletProfileInfoListResponse = Response<{
 export type SearchTokenResponse = Response<{
     coins?: Array<{ largeLogo?: string }>;
 }>;
-
-export type GetCollectionResponse = Response<EVM.Collection>;
 
 export interface FireflyProfile {
     identity: FireflyIdentity;

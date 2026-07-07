@@ -17,14 +17,7 @@ export interface ERC20Token {
     decimals: number;
 }
 
-export interface ERC721Token {
-    type: CustomTokenType.ERC721;
-    chainId: number;
-    address: Address;
-    name: string;
-}
-
-export type CustomToken = ERC20Token | ERC721Token;
+export type CustomToken = ERC20Token;
 
 export type TokenIndex = Pick<CustomToken, 'chainId' | 'address' | 'type'>;
 
@@ -39,8 +32,6 @@ function generateTokenKey(token: TokenIndex): string | null {
     const type = token.type;
     switch (type) {
         case CustomTokenType.ERC20:
-            return `${type}:${token.chainId}:${token.address}`;
-        case CustomTokenType.ERC721:
             return `${type}:${token.chainId}:${token.address}`;
         default:
             safeUnreachable(type);

@@ -30,7 +30,6 @@ export const resolveNotificationIcon = createLookupTableResolver<
         [NotificationType.LikeLimo]: LikeIcon,
         [NotificationType.LikeBets]: LikeIcon,
         [NotificationType.LikeDAO]: LikeIcon,
-        [NotificationType.LikeNFT]: LikeIcon,
         // Reward notifications render via their own component (PolymarketRewardNotificationItem),
         // but the lookup table requires every NotificationType to be covered.
         [NotificationType.PredictionReward]: PredictionIcon,

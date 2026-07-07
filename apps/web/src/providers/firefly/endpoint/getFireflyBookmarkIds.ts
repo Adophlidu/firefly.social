@@ -12,7 +12,7 @@ export async function getFireflyBookmarksByIds(platform: FireflyPlatform, ids: s
         method: 'POST',
         body: JSON.stringify({
             post_ids: ids,
-            platform: platform === FireflyPlatform.NFTs ? 'nft' : platform,
+            platform: platform,
             post_type: postType,
         }),
     });

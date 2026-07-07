@@ -125,7 +125,6 @@ export enum SecurityType {
     Address = 'address-security',
     Info = 'info-security',
     Site = 'site-security',
-    NFT = 'nft-security',
 }
 export enum SecurityMessageLevel {
     High = 'High',

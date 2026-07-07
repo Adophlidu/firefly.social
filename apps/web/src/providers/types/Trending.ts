@@ -23,7 +23,7 @@ interface Coin {
     chainId?: number;
     name: string;
     symbol: string;
-    type: 'Fungible' | 'NonFungible';
+    type: 'Fungible';
     decimals?: number;
     platform_url?: string;
     tags?: string[];
@@ -32,7 +32,6 @@ interface Coin {
     source_code_urls?: string[];
     community_urls?: ClubUrl[];
     home_urls?: string[];
-    nftscan_url?: string;
     announcement_urls?: string[];
     blockchain_urls?: string[];
     image_url?: string;
@@ -87,22 +86,6 @@ interface Market {
     price_change_percentage_60d_in_currency?: number;
     price_change_percentage_200d_in_currency?: number;
     atl_change_percentage?: number;
-    /** NFT only */
-    floor_price?: string;
-    /** NFT only */
-    highest_price?: number;
-    /** NFT only */
-    owners_count?: number;
-    /** NFT only */
-    royalty?: string;
-    /** NFT only */
-    total_24h?: number;
-    /** NFT only */
-    volume_24h?: number;
-    /** NFT only */
-    average_volume_24h?: number;
-    /** NFT only */
-    volume_all?: number;
 }
 
 export enum TrendingProvider {

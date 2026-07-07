@@ -311,9 +311,6 @@ msgstr "트랜잭션 상세"
 msgid "Slippage"
 msgstr "슬리피지"
 
-msgid "NFT Minted Failed"
-msgstr "NFT 발행 실패"
-
 msgid "Connect Wallet"
 msgstr "지갑 연결"
 
@@ -580,9 +577,6 @@ msgstr "오류가 발생했습니다."
 msgid "Your funds are on the way..."
 msgstr "자금이 전송 중입니다..."
 
-msgid "NFT Minted"
-msgstr "NFT 발행됨"
-
 msgid "Deposit"
 msgstr "입금"
 
@@ -596,9 +590,6 @@ msgstr "컨트랙트"
 
 msgid "Limit Price"
 msgstr "지정가"
-
-msgid "NFT Received"
-msgstr "NFT 수신됨"
 
 msgid "Close position"
 msgstr "포지션 종료"
@@ -863,9 +854,6 @@ msgstr "토큰 추가"
 msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
 msgstr "자산 보호를 위해 복구 이메일 {0}로 전송된 인증 코드를 입력하여 신원을 확인해 주세요."
 
-msgid "NFT Received Failed"
-msgstr "NFT 수신 실패"
-
 msgid "Close losses"
 msgstr "손실 포지션 종료"
 
@@ -1043,9 +1031,6 @@ msgstr "자금 추가"
 msgid "Post"
 msgstr "게시"
 
-msgid "NFT Sent Failed"
-msgstr "NFT 전송 실패"
-
 msgid "Failed to search. Please try again."
 msgstr "검색 실패. 다시 시도해 주세요."
 
@@ -1084,12 +1069,6 @@ msgstr "평균 {0}"
 
 msgid "Current settings"
 msgstr "현재 설정"
-
-msgid "NFT"
-msgstr "NFT"
-
-msgid "NFT Sent"
-msgstr "NFT 전송됨"
 
 msgid "Failed to cancel order"
 msgstr "주문 취소 실패"

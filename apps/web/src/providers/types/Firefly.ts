@@ -27,7 +27,6 @@ import type { MediaToken } from '@dimensiondev/workers-s3';
 import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
-import type { EVM } from '@/providers/nftscan/types.js';
 import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
@@ -1601,11 +1600,6 @@ export interface SetNotificationPushSwitchParams {
     }>;
 }
 
-/** With collection */
-export interface NFTDetail extends EVM.Asset {
-    collection: EVM.Collection;
-}
-
 export type ProjectResponse = Response<Project[]>;
 
 export type RootdataPeopleResponse = Response<{ total: number; items: RootdataPeople[] }>;
@@ -1619,17 +1613,6 @@ export type GetBookmarksResponse = Response<{
         post_type: BookmarkType;
     }>;
 }>;
-
-export interface SponsorMintOptions {
-    walletAddress: string;
-    contractAddress: string;
-    tokenId: string;
-    chainId: number;
-    buyCount: number;
-    vectorId?: number;
-    color?: string;
-    collectionId?: string;
-}
 
 export interface MintMetadata {
     mintStatus: MintStatus;
@@ -1655,10 +1638,6 @@ interface FreeMintResult {
     errormessage: string;
     gasStatus: boolean;
 }
-
-export type GetSponsorMintStatusResponse = Response<MintMetadata>;
-
-export type MintBySponsorResponse = Response<FreeMintResult>;
 
 export type GetCollectStatusResponse = Response<MintMetadata>;
 
@@ -1848,9 +1827,6 @@ export type SwapActivityTimeline = Response<{
 }>;
 
 export type FollowingTraderCountResponse = Response<{ total: number }>;
-
-export type CollectionResponse = Response<EVM.Collection | null>;
-export type CollectionsResponse = Response<{ collections: EVM.Collection[]; cursor: string }>;
 
 type Stat = [number, number];
 

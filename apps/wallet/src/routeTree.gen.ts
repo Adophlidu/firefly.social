@@ -40,7 +40,6 @@ import { Route as BetDepositRouteImport } from './routes/bet.deposit'
 import { Route as BetHomeRouteImport } from './routes/bet._home'
 import { Route as HomeTransactionsRouteImport } from './routes/_home.transactions'
 import { Route as HomeReceiveRouteImport } from './routes/_home.receive'
-import { Route as HomeNftsRouteImport } from './routes/_home.nfts'
 import { Route as BetHomeIndexRouteImport } from './routes/bet._home.index'
 import { Route as SendRecipientChooseRouteImport } from './routes/send.recipient.choose'
 import { Route as BetEventIdRouteImport } from './routes/bet.event.$id'
@@ -204,11 +203,6 @@ const HomeReceiveRoute = HomeReceiveRouteImport.update({
   path: '/receive',
   getParentRoute: () => HomeRoute,
 } as any)
-const HomeNftsRoute = HomeNftsRouteImport.update({
-  id: '/nfts',
-  path: '/nfts',
-  getParentRoute: () => HomeRoute,
-} as any)
 const BetHomeIndexRoute = BetHomeIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -257,14 +251,13 @@ const BetHomeOrderOpenRoute = BetHomeOrderOpenRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof HomeIndexRoute
-  '/bet': typeof BetHomeRouteWithChildren
+  '/bet': typeof BetRouteWithChildren
   '/dev': typeof DevRouteWithChildren
   '/perp-kline-chart': typeof PerpKlineChartRoute
   '/perps': typeof PerpsRouteWithChildren
   '/security': typeof SecurityRouteWithChildren
   '/send': typeof SendRouteWithChildren
   '/swap': typeof SwapRouteWithChildren
-  '/nfts': typeof HomeNftsRoute
   '/receive': typeof HomeReceiveRoute
   '/transactions': typeof HomeTransactionsRoute
   '/bet/deposit': typeof BetDepositRoute
@@ -300,7 +293,6 @@ export interface FileRoutesByTo {
   '/bet': typeof BetHomeIndexRoute
   '/dev': typeof DevRouteWithChildren
   '/perp-kline-chart': typeof PerpKlineChartRoute
-  '/nfts': typeof HomeNftsRoute
   '/receive': typeof HomeReceiveRoute
   '/transactions': typeof HomeTransactionsRoute
   '/bet/deposit': typeof BetDepositRoute
@@ -342,7 +334,6 @@ export interface FileRoutesById {
   '/security': typeof SecurityRouteWithChildren
   '/send': typeof SendRouteWithChildren
   '/swap': typeof SwapRouteWithChildren
-  '/_home/nfts': typeof HomeNftsRoute
   '/_home/receive': typeof HomeReceiveRoute
   '/_home/transactions': typeof HomeTransactionsRoute
   '/bet/_home': typeof BetHomeRouteWithChildren
@@ -387,7 +378,6 @@ export interface FileRouteTypes {
     | '/security'
     | '/send'
     | '/swap'
-    | '/nfts'
     | '/receive'
     | '/transactions'
     | '/bet/deposit'
@@ -423,7 +413,6 @@ export interface FileRouteTypes {
     | '/bet'
     | '/dev'
     | '/perp-kline-chart'
-    | '/nfts'
     | '/receive'
     | '/transactions'
     | '/bet/deposit'
@@ -464,7 +453,6 @@ export interface FileRouteTypes {
     | '/security'
     | '/send'
     | '/swap'
-    | '/_home/nfts'
     | '/_home/receive'
     | '/_home/transactions'
     | '/bet/_home'
@@ -732,13 +720,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeReceiveRouteImport
       parentRoute: typeof HomeRoute
     }
-    '/_home/nfts': {
-      id: '/_home/nfts'
-      path: '/nfts'
-      fullPath: '/nfts'
-      preLoaderRoute: typeof HomeNftsRouteImport
-      parentRoute: typeof HomeRoute
-    }
     '/bet/_home/': {
       id: '/bet/_home/'
       path: '/'
@@ -806,14 +787,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface HomeRouteChildren {
-  HomeNftsRoute: typeof HomeNftsRoute
   HomeReceiveRoute: typeof HomeReceiveRoute
   HomeTransactionsRoute: typeof HomeTransactionsRoute
   HomeIndexRoute: typeof HomeIndexRoute
 }
 
 const HomeRouteChildren: HomeRouteChildren = {
-  HomeNftsRoute: HomeNftsRoute,
   HomeReceiveRoute: HomeReceiveRoute,
   HomeTransactionsRoute: HomeTransactionsRoute,
   HomeIndexRoute: HomeIndexRoute,

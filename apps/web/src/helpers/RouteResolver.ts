@@ -37,7 +37,6 @@ export class RouteResolver {
     static post() {}
     static club() {}
     static token() {}
-    static nft() {}
     static article() {}
     static betsProfile(
         address: string,

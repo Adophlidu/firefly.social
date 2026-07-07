@@ -2,8 +2,6 @@
 
 import { AddCustomERC20Modal } from '@/modals/AddCustomERC20Modal/AddCustomERC20Modal.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal/refs.js';
-import { AddCustomERC721Modal } from '@/modals/AddCustomERC721Modal/AddCustomERC721Modal.js';
-import { AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal/refs.js';
 import { AddWalletModal } from '@/modals/AddWalletModal/AddWalletModal.js';
 import { AddWalletModalRef } from '@/modals/AddWalletModal/refs.js';
 import { CollectArticleModal } from '@/modals/CollectArticleModal/CollectArticleModal.js';
@@ -53,7 +51,6 @@ export function AppModals() {
     return (
         <>
             <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />
-            <AddCustomERC721Modal ref={AddCustomERC721ModalRef.register} />
             <AddWalletModal ref={AddWalletModalRef.register} />
             <CollectArticleModal ref={CollectArticleModalRef.register} />
             <CollectPostModal ref={CollectPostModalRef.register} />

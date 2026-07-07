@@ -40,7 +40,6 @@ export function ListInPage<T = unknown, C = unknown>({
         Source.Article,
         Source.DAOs,
         Source.Posts,
-        Source.NFTs,
         Source.Tokens,
         Source.Notifications,
         Source.Prediction,

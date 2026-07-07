@@ -10,7 +10,6 @@ import { Fetch } from '@/lib/Fetch.js';
 import { resolveRelatedProfileParams } from '@/providers/firefly/resolveRelatedProfileParams.js';
 import {
     type CancelPolymarketOrderResponse,
-    type CollectionsResponse,
     type CreatePolymarketLimitOrderBody,
     type CreatePolymarketLimitOrderResponse,
     type CreatePolymarketMarketOrderBody,
@@ -19,15 +18,12 @@ import {
     type DepositStatusResponse,
     type DepositSupportedTokensResponse,
     ErrorCode,
-    type GetCollectionResponse,
     type GetMultiChainTokenListResponse,
     type GetPolymarketAccountOpenOrdersResponse,
     type GetPolymarketHistoryResponse,
     type GetPolymarketToWinAmountResponse,
     type GetPolymarketV2PositionsResponse,
-    type NFTDetailsResponse,
     type PlatformIdentityKey,
-    type PoapResponse,
     type PolymarketAccount,
     type PolymarketActivityResponse,
     type PolymarketBatchClaimV2Body,
@@ -117,48 +113,6 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    async getPOAPs(wallet: string) {
-        const url = urlcat('/v1/nft/wallet/poap', {
-            walletAddress: wallet,
-        });
-        const result = await this.get<PoapResponse>(url);
-        return resolveFireflyResponseData(result.data);
-    }
-
-    async getUserCollections(
-        chainId: number,
-        walletAddress: string,
-        options?: {
-            cursor?: string;
-        },
-    ) {
-        const url = urlcat('/v1/nft/wallet/own/collection', {
-            chainId,
-            walletAddress,
-            cursor: options?.cursor,
-        });
-        const result = await this.get<CollectionsResponse>(url);
-        return resolveFireflyResponseData(result.data);
-    }
-
-    async getUserCollectionNFTs(
-        walletAddress: string,
-        chainId: number,
-        contractAddress: string,
-        options?: {
-            cursor?: string;
-        },
-    ) {
-        const url = urlcat('/v1/nft/wallet/own', {
-            walletAddress,
-            chainId,
-            contractAddress,
-            cursor: options?.cursor,
-        });
-        const result = await this.get<NFTDetailsResponse>(url);
-        return resolveFireflyResponseData(result.data);
-    }
-
     async searchIdentity(
         keyword: string,
         {
@@ -210,15 +164,6 @@ export class FireflyEndpoint extends Fetch {
             query,
         });
         const result = await this.get<SearchTokenResponse>(url);
-        return resolveFireflyResponseData(result.data);
-    }
-
-    async getCollection(chainId: number, contractAddress: string) {
-        const url = urlcat('/v1/nft/collection', {
-            chainId,
-            contractAddress,
-        });
-        const result = await this.get<GetCollectionResponse>(url);
         return resolveFireflyResponseData(result.data);
     }
 

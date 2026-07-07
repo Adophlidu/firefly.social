@@ -66,7 +66,6 @@ export default memo(function ConfirmView() {
         token,
         rawAmount,
         rules,
-        requireCollections,
         customThemes,
         setCustomThemes,
         themes,
@@ -145,17 +144,6 @@ export default memo(function ConfirmView() {
                     },
                 });
             }
-            if (rules.includes(RequirementType.NFTHolder) && requireCollections.length) {
-                strategies.push({
-                    type: StrategyType.nftOwned,
-                    payload: requireCollections.map((collection) => ({
-                        chainId: (collection.chainId ?? chainId).toString(),
-                        contractAddress: collection.address!,
-                        collectionName: collection.name,
-                        icon: collection.iconURL!,
-                    })),
-                });
-            }
         }
 
         const publicKey = await createPublicKey(themeId, shareFrom, strategies, networkType);
@@ -166,7 +154,6 @@ export default memo(function ConfirmView() {
     }, [
         rules,
         themeId,
-        requireCollections,
         currentLensProfile,
         currentFarcasterProfile,
         currentTwitterProfile,

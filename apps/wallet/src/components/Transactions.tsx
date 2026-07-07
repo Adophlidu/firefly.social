@@ -1,10 +1,9 @@
-import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { FileTextIcon } from 'lucide-react';
-import { Fragment, type KeyboardEvent, type MouseEvent } from 'react';
+import { Fragment, type KeyboardEvent } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -121,31 +120,9 @@ function TransactionHistoryItem({
     );
 }
 
-function stopRowClick(event: MouseEvent<HTMLElement>) {
-    event.stopPropagation();
-}
-
 function ItemEnd({ presentation }: { presentation: TransactionPresentation }) {
     const { assetEffect } = presentation;
     if (!assetEffect) return null;
-
-    if (assetEffect.type === 'nft') {
-        const content = assetEffect.symbol || <LinkIcon width={16} height={16} className="shrink-0 text-second" />;
-        if (assetEffect.explorerUrl) {
-            return (
-                <a
-                    href={assetEffect.explorerUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ml-auto truncate text-right text-sm font-medium hover:underline"
-                    onClick={stopRowClick}
-                >
-                    {content}
-                </a>
-            );
-        }
-        return <div className="ml-auto truncate text-right text-sm font-medium">{content}</div>;
-    }
 
     return (
         <div className="ml-auto min-w-0 text-right text-sm font-medium">

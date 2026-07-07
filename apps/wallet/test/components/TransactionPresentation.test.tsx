@@ -13,7 +13,6 @@ import {
 import {
     TransactionHistoryCategory,
     type TransactionHistoryItem,
-    type TransactionHistoryNFTAction,
     type TransactionHistoryToken,
     type TransactionHistoryTokenAction,
     TransactionState,
@@ -67,26 +66,6 @@ function tokenAction(overrides: Partial<TransactionHistoryTokenAction> = {}): Tr
     };
 }
 
-function nftAction(overrides: Partial<TransactionHistoryNFTAction> = {}): TransactionHistoryNFTAction {
-    const nft = overrides.nft ?? {
-        address: evmAddress('9'),
-        symbol: 'MASK',
-        name: 'Mask NFT',
-        token_id: '1',
-        logo: 'https://example.com/mask.png',
-    };
-    const { nft: _nft, ...rest } = overrides;
-
-    return {
-        nft,
-        amount: '1',
-        user_address: walletAddress,
-        recipient: recipientAddress,
-        sender: senderAddress,
-        ...rest,
-    };
-}
-
 function transaction(overrides: Partial<TransactionHistoryItem> = {}): TransactionHistoryItem {
     return {
         chain_id: 1,
@@ -100,8 +79,6 @@ function transaction(overrides: Partial<TransactionHistoryItem> = {}): Transacti
         from_address: walletAddress,
         token_sends: [],
         token_receives: [],
-        nft_receives: [],
-        nft_sends: [],
         category: TransactionHistoryCategory.TokenReceive,
         ...overrides,
     };
@@ -460,31 +437,6 @@ describe('buildTransactionPresentation', () => {
         });
     });
 
-    it('does not throw when an NFT transaction is missing action payloads', () => {
-        const presentation = buildTransactionPresentation(
-            transaction({
-                category: TransactionHistoryCategory.NftReceive,
-                nft_receives: [],
-                nft_sends: [],
-            }),
-        );
-
-        expect(presentation.icon).toEqual({
-            type: 'token',
-            icon: undefined,
-            symbol: undefined,
-            name: undefined,
-            disableBadge: false,
-        });
-        expect(presentation.assetEffect).toEqual({
-            type: 'nft',
-            address: undefined,
-            symbol: undefined,
-            explorerUrl: undefined,
-        });
-        expect(presentation.assetRows).toEqual([]);
-    });
-
     it('uses Solana token action addresses and disables token badges for Solana history', () => {
         const receivedToken = tokenAction({
             amount: '0.5',
@@ -513,78 +465,6 @@ describe('buildTransactionPresentation', () => {
         expect(presentation.listSubtitle).toEqual({
             type: 'from-address',
             text: formatAddress(solanaSenderAddress, 4),
-        });
-    });
-
-    it('keeps NFT action payloads readable when they are present', () => {
-        const nft = nftAction({
-            recipient: walletAddress,
-            sender: senderAddress,
-        });
-        const presentation = buildTransactionPresentation(
-            transaction({
-                category: TransactionHistoryCategory.NftReceive,
-                from_address: senderAddress,
-                to_address: walletAddress,
-                nft_receives: [nft],
-            }),
-        );
-
-        expect(presentation.primaryNft).toBe(nft);
-        expect(presentation.icon).toMatchObject({
-            type: 'token',
-            symbol: 'MASK',
-            name: 'Mask NFT',
-        });
-        expect(presentation.assetEffect).toMatchObject({
-            type: 'nft',
-            address: nft.nft.address,
-            symbol: 'MASK',
-        });
-        expect(presentation.listSubtitle).toEqual({
-            type: 'from-address',
-            text: formatAddress(senderAddress, 4),
-        });
-        expect(presentation.subtitleTarget).toBeNull();
-    });
-
-    it('returns null subtitle target for NFT send and mint categories', () => {
-        const nftSend = nftAction({
-            sender: walletAddress,
-            recipient: recipientAddress,
-        });
-        const sendPresentation = buildTransactionPresentation(
-            transaction({
-                category: TransactionHistoryCategory.NftSend,
-                from_address: walletAddress,
-                to_address: recipientAddress,
-                nft_sends: [nftSend],
-            }),
-        );
-        expect(sendPresentation.subtitleTarget).toBeNull();
-        expect(sendPresentation.assetEffect).toMatchObject({
-            type: 'nft',
-            address: nftSend.nft.address,
-            symbol: 'MASK',
-        });
-
-        const nftMint = nftAction({
-            sender: transactionToAddress,
-            recipient: walletAddress,
-        });
-        const mintPresentation = buildTransactionPresentation(
-            transaction({
-                category: TransactionHistoryCategory.NftMint,
-                from_address: transactionToAddress,
-                to_address: walletAddress,
-                nft_receives: [nftMint],
-            }),
-        );
-        expect(mintPresentation.subtitleTarget).toBeNull();
-        expect(mintPresentation.assetEffect).toMatchObject({
-            type: 'nft',
-            address: nftMint.nft.address,
-            symbol: 'MASK',
         });
     });
 

@@ -29,8 +29,6 @@ export const walletHistoryTransactionFixtures = [
                 sender: '0x9325fe809fdc5821e92cddad6dfb432e2b9fb819',
             },
         ],
-        nft_sends: [],
-        nft_receives: [],
         category: TransactionHistoryCategory.TokenReceive,
     },
     {
@@ -61,8 +59,6 @@ export const walletHistoryTransactionFixtures = [
             },
         ],
         token_receives: [],
-        nft_sends: [],
-        nft_receives: [],
         category: TransactionHistoryCategory.TokenSend,
     },
     {
@@ -109,8 +105,6 @@ export const walletHistoryTransactionFixtures = [
                 },
             },
         ],
-        nft_sends: [],
-        nft_receives: [],
         category: TransactionHistoryCategory.TokenSwap,
     },
     {
@@ -125,8 +119,6 @@ export const walletHistoryTransactionFixtures = [
         from_address: '0x6987047d2993f6987edd93249758f49b3fb210a9',
         token_sends: [],
         token_receives: [],
-        nft_sends: [],
-        nft_receives: [],
         token_approve: {
             token: {
                 address: '0x09b8903abf2ea0721e34427353988c2f43c6d64f',
@@ -185,8 +177,6 @@ export const walletHistoryTransactionFixtures = [
                 },
             },
         ],
-        nft_sends: [],
-        nft_receives: [],
         category: TransactionHistoryCategory.TokenBridge,
     },
     {
@@ -201,8 +191,6 @@ export const walletHistoryTransactionFixtures = [
         from_address: '0x6987047d2993f6987edd93249758f49b3fb210a9',
         token_sends: [],
         token_receives: [],
-        nft_sends: [],
-        nft_receives: [],
         category: TransactionHistoryCategory.ContractInteraction,
     },
 ] satisfies TransactionHistoryItem[];

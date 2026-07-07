@@ -26,14 +26,6 @@ export default memo(function RequirementRulesView() {
                     <Trans>Users must like, repost/quote, or comment on your post containing the Lucky Drop.</Trans>
                 </div>
             </div>
-            <div className="flex flex-col gap-3">
-                <h2 className="text-base font-bold leading-4">
-                    <Trans>NFT holder</Trans>
-                </h2>
-                <div className="text-sm leading-[18px]">
-                    <Trans>Users must hold at least one NFT from the collections you specify.</Trans>
-                </div>
-            </div>
         </div>
     );
 });

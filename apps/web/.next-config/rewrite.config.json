@@ -24,11 +24,6 @@
         "canary": "https://firefly-prophet.vercel.app/prophet-iframe",
         "production": "https://prophet.firefly.social/prophet-iframe"
     },
-    "/mystery-box-iframe": {
-        "staging": "https://firefly-mystery-box.vercel.app/mystery-box-iframe",
-        "canary": "https://mystery-box.firefly.social/mystery-box-iframe",
-        "production": "https://mystery-box.firefly.social/mystery-box-iframe"
-    },
     "/world-cup-iframe": {
         "staging": "https://firefly-world-cup.vercel.app/world-cup-iframe",
         "canary": "https://firefly-world-cup.vercel.app/world-cup-iframe",

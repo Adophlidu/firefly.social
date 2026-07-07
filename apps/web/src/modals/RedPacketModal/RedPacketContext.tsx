@@ -32,7 +32,6 @@ import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import type { RequirementType, ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import type { RedPacketNFTCollection } from '@/types/rp.js';
 
 export const redPacketRandomTabs = [
     {
@@ -95,8 +94,6 @@ interface RedPacketContextValue {
     setRawAmount: Dispatch<SetStateAction<string>>;
     totalAmount: string;
     rules: RequirementType[];
-    requireCollections: RedPacketNFTCollection[];
-    setRequireCollections: Dispatch<SetStateAction<RedPacketNFTCollection[]>>;
     requireTokens: Array<{ token: FungibleToken<number, EthereumSchemaType>; quantity: string }>;
     setRequireTokens: Dispatch<
         SetStateAction<Array<{ token: FungibleToken<number, EthereumSchemaType>; quantity: string }>>
@@ -133,8 +130,6 @@ const initialRedPacketContextValue: RedPacketContextValue = {
     shareFrom: '',
     token: null!,
     totalAmount: '',
-    requireCollections: EMPTY_LIST,
-    setRequireCollections: noop,
     requireTokens: EMPTY_LIST,
     setRequireTokens: noop,
     requireChannel: undefined,
@@ -201,8 +196,6 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [fontColor, setFontColor] = useState<FontColorTabType>('golden');
     const [shareFrom, setShareFrom] = useState<string>('');
     const [rules, setRules] = useState<RequirementType[]>([]);
-    const [requireCollections, setRequireCollections] =
-        useState<RedPacketContextValue['requireCollections']>(EMPTY_LIST);
     const [requireTokens, setRequireTokens] = useState<RedPacketContextValue['requireTokens']>(EMPTY_LIST);
     const [requireChannel, setRequireChannel] = useState<RedPacketContextValue['requireChannel']>();
     const [requireClub, setRequireClub] = useState<RedPacketContextValue['requireClub']>();
@@ -265,8 +258,6 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             totalAmount,
             rules,
             setRules,
-            requireCollections,
-            setRequireCollections,
             requireTokens,
             setRequireTokens,
             requireChannel,
@@ -294,7 +285,6 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             shareFrom,
             totalAmount,
             rules,
-            requireCollections,
             requireTokens,
             requireChannel,
             requireClub,

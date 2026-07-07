@@ -5,14 +5,18 @@ import type { Snap } from '@dimensiondev/workers-snap';
 import { uniqWith } from 'lodash-es';
 
 import { addSharerParam, getSharerParam, removeSharerParam } from '@/helpers/sharerUrl.js';
-import type { EVM } from '@/providers/nftscan/types.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
-import type { BetPortfolioItem, NFTDetail } from '@/providers/types/Firefly.js';
+import type { BetPortfolioItem } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame } from '@/types/frame.js';
 import type { LinkDigested } from '@/types/og.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
+
+/** NFT collection detected from a contract address in a post (OG link classification). */
+interface PostLinkCollection {
+    contract_address: string;
+}
 
 export interface ClassifyPostLinkResult {
     oembed?: LinkDigested;
@@ -22,8 +26,7 @@ export interface ClassifyPostLinkResult {
     article?: Article;
     spaceId?: string;
     snapshot?: SnapshotProposal;
-    nft?: NFTDetail;
-    collection?: EVM.Collection;
+    collection?: PostLinkCollection;
     quote?: Post;
     prediction_event?: BetsEventDataForUI;
     prediction_profile?: BetPortfolioItem;

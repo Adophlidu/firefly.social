@@ -523,9 +523,6 @@ msgstr "已建立 {0} 個人檔案。"
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "超過 10% 可能視為高稅率，50% 以上可能導致無法交易。"
 
-msgid "Add Collection"
-msgstr "新增 NFT 系列"
-
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "位置不得超過 {maxLocationSize} 個字元"
 
@@ -932,9 +929,6 @@ msgstr "三分球"
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
 msgstr "預約發佈僅支援 {0}"
-
-msgid "NFTs"
-msgstr "NFTs"
 
 msgid "Bought"
 msgstr "已購買"
@@ -2677,9 +2671,6 @@ msgstr "刪除 Firefly 帳戶"
 msgid "Estimated network fee"
 msgstr "預估手續費"
 
-msgid "Sorry, we are not able to find this collection"
-msgstr "抱歉，找不到此系列"
-
 msgid "<0>You</0> reposted"
 msgstr "<0>您</0>轉發了"
 
@@ -3064,9 +3055,6 @@ msgstr "Firefly"
 
 msgid "No voting power"
 msgstr "無投票權"
-
-msgid "NFT holder"
-msgstr "NFT 擁有者"
 
 msgid "Invalid website format"
 msgstr "網站格式無效"
@@ -4270,9 +4258,6 @@ msgstr "在 {sourceName} 移除 #{0} 失敗"
 msgid "Price · Change"
 msgstr "價格 | 漲跌幅"
 
-msgid "NFT holder of any one below"
-msgstr "擁有以下任意 NFT 系列"
-
 msgid "Users"
 msgstr "用戶"
 
@@ -4568,9 +4553,6 @@ msgstr "單局讓分"
 
 msgid "Total Games"
 msgstr "總局數"
-
-msgid "Users must hold at least one NFT from the collections you specify."
-msgstr "用戶必須持有你指定系列中的至少一個 NFT。"
 
 msgid "Successfully bound Lens manager."
 msgstr "已成功綁定 Lens 管理器。"

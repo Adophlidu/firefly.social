@@ -79,9 +79,6 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                 <TabsList variant="second" className="w-full">
                     {compact([
                         { pathname: '/', label: <Trans>Tokens</Trans> },
-                        envs.external.NEXT_PUBLIC_NFT_FEATURES === STATUS.Enabled
-                            ? { pathname: '/nfts', label: <Trans>NFT</Trans> }
-                            : null,
                         { pathname: '/transactions', label: <Trans>Transactions</Trans> },
                     ]).map(({ pathname, label }) => {
                         return (
