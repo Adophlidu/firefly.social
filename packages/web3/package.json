@@ -78,7 +78,6 @@
     "dependencies": {
         "@dimensiondev/constants": "workspace:^",
         "@dimensiondev/enums": "workspace:^",
-        "@coral-xyz/anchor": "^0.31.1",
         "bignumber.js": "9.3.1",
         "punycode": "^2.3.1",
         "urlcat": "^3.1.0",

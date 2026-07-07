@@ -1,4 +1,4 @@
-import { web3 } from '@coral-xyz/anchor';
+import { LAMPORTS_PER_SOL } from '@dimensiondev/web3/constants';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 
 // Note: if the latest version has been changed, please update packages/mask/content-script/components/CompositionDialog/useSubmit.ts
@@ -22,8 +22,8 @@ export const RED_PACKET_MAX_SHARES_SOLANA = 200;
 export const RED_PACKET_DURATION = 60 * 60 * 24;
 export const RED_PACKET_CONTRACT_VERSION = 4;
 export const DEFAULT_THEME_ID = 'e171b936-b5f5-415c-8938-fa1b74d1d612';
-export const SOLANA_REDPACKET_CREATE_GAS = multipliedBy(0.0072, web3.LAMPORTS_PER_SOL);
-export const SOLANA_REDPACKET_CLAIM_GAS = multipliedBy(0.00175, web3.LAMPORTS_PER_SOL);
+export const SOLANA_REDPACKET_CREATE_GAS = multipliedBy(0.0072, LAMPORTS_PER_SOL);
+export const SOLANA_REDPACKET_CLAIM_GAS = multipliedBy(0.00175, LAMPORTS_PER_SOL);
 
 export const DEFAULT_THEME = {
     tid: DEFAULT_THEME_ID,

@@ -1235,9 +1235,6 @@ importers:
 
   packages/web3:
     dependencies:
-      '@coral-xyz/anchor':
-        specifier: ^0.31.1
-        version: 0.31.1(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
       '@dimensiondev/constants':
         specifier: workspace:^
         version: link:../constants
@@ -2901,10 +2898,6 @@ packages:
   '@coral-xyz/anchor-errors@0.31.1':
     resolution: {integrity: sha512-NhNEku4F3zzUSBtrYz84FzYWm48+9OvmT1Hhnwr6GnPQry2dsEqH/ti/7ASjjpoFTWRnPXrjAIT1qM6Isop+LQ==}
     engines: {node: '>=10'}
-
-  '@coral-xyz/anchor@0.31.1':
-    resolution: {integrity: sha512-QUqpoEK+gi2S6nlYc2atgT2r41TT3caWr/cPUEL8n8Md9437trZ68STknq897b82p5mW0XrTBNOzRbmIRJtfsA==}
-    engines: {node: '>=17'}
 
   '@coral-xyz/anchor@0.32.1':
     resolution: {integrity: sha512-zAyxFtfeje2FbMA1wzgcdVs7Hng/MijPKpRijoySPCicnvcTQs/+dnPZ/cR+LcXM9v9UYSyW81uRNYZtN5G4yg==}
@@ -16930,27 +16923,6 @@ snapshots:
 
   '@coral-xyz/anchor-errors@0.31.1': {}
 
-  '@coral-xyz/anchor@0.31.1(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
-    dependencies:
-      '@coral-xyz/anchor-errors': 0.31.1
-      '@coral-xyz/borsh': 0.31.1(@solana/web3.js@1.98.4(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6))
-      '@noble/hashes': 1.8.0
-      '@solana/web3.js': 1.98.4(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-      bn.js: 5.2.3
-      bs58: 4.0.1
-      buffer-layout: 1.2.2
-      camelcase: 6.3.0
-      cross-fetch: 3.2.0
-      eventemitter3: 4.0.7
-      pako: 2.1.0
-      superstruct: 0.15.5
-      toml: 3.0.0
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - typescript
-      - utf-8-validate
-
   '@coral-xyz/anchor@0.32.1(bufferutil@4.1.0)(typescript@7.0.1-rc)':
     dependencies:
       '@coral-xyz/anchor-errors': 0.31.1
@@ -16992,12 +16964,6 @@ snapshots:
       - encoding
       - typescript
       - utf-8-validate
-
-  '@coral-xyz/borsh@0.31.1(@solana/web3.js@1.98.4(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6))':
-    dependencies:
-      '@solana/web3.js': 1.98.4(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-      bn.js: 5.2.3
-      buffer-layout: 1.2.2
 
   '@coral-xyz/borsh@0.31.1(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@7.0.1-rc)(utf-8-validate@6.0.6))':
     dependencies:
@@ -34313,7 +34279,6 @@ time:
   '@aws-sdk/lib-storage@3.658.1': '2024-09-25T19:26:22.245Z'
   '@bprogress/next@3.2.12': '2025-04-14T15:15:02.291Z'
   '@cloudflare/workers-types@4.20260613.1': '2026-06-13T01:41:29.469Z'
-  '@coral-xyz/anchor@0.31.1': '2025-04-20T02:05:11.092Z'
   '@coral-xyz/anchor@0.32.1': '2025-10-10T02:34:12.654Z'
   '@dimensiondev/rn-ui@0.2.0': '2026-06-24T12:30:23Z'
   '@farcaster/core@0.18.11': '2026-05-06T18:59:46.209Z'

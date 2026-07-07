@@ -1,17 +1,20 @@
-import { web3 } from '@coral-xyz/anchor';
 import { type Address, isAddress } from 'viem';
+
+import { decodeBase58 } from '@/utils/decodeBase58.js';
+
+/** A Solana address is an ed25519 public key: exactly 32 bytes, base58-encoded. */
+const SOLANA_ADDRESS_BYTE_LENGTH = 32;
 
 export function isValidAddressSolana(address: string | null | undefined, strict = true): boolean {
     const length = address?.length;
     if (!length || length < 32 || length > 44) return false;
 
-    try {
-        new web3.PublicKey(address);
-        return true;
-    } catch {
-        // For broken solana address, such as all lowercase.
-        return strict ? false : /^[1-9a-zA-Z]+$/.test(address);
-    }
+    // Matches `new web3.PublicKey(address)`: base58 decode must yield exactly 32 bytes.
+    const decoded = decodeBase58(address);
+    if (decoded?.length === SOLANA_ADDRESS_BYTE_LENGTH) return true;
+
+    // For broken solana address, such as all lowercase.
+    return strict ? false : /^[1-9a-zA-Z]+$/.test(address);
 }
 
 export function isValidAddressEthereum(address: string | null | undefined): address is Address {

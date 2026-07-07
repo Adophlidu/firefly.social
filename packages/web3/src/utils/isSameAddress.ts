@@ -1,6 +1,6 @@
-import { web3 } from '@coral-xyz/anchor';
 import { isAddressEqual } from 'viem';
 
+import { decodeBase58 } from '@/utils/decodeBase58.js';
 import { isValidAddressEthereum, isValidAddressSolana, isValidAddressTron } from '@/utils/isValidAddress.js';
 
 export function isSameEthereumAddress(
@@ -17,20 +17,21 @@ export function isSameSolanaAddress(
     otherAddress: string | null | undefined,
     strict = true,
 ): boolean {
-    try {
-        if (!address || !otherAddress) return false;
-        if (!strict) {
-            return (
-                isValidAddressSolana(address, strict) &&
-                isValidAddressSolana(otherAddress, strict) &&
-                address.toLowerCase() === otherAddress.toLowerCase()
-            );
-        }
-
-        return new web3.PublicKey(address).equals(new web3.PublicKey(otherAddress));
-    } catch {
-        return false;
+    if (!address || !otherAddress) return false;
+    if (!strict) {
+        return (
+            isValidAddressSolana(address, strict) &&
+            isValidAddressSolana(otherAddress, strict) &&
+            address.toLowerCase() === otherAddress.toLowerCase()
+        );
     }
+
+    // Matches `new web3.PublicKey(a).equals(new web3.PublicKey(b))`: both sides must
+    // base58-decode to exactly 32 bytes, and the decoded bytes must be identical.
+    const decoded = decodeBase58(address);
+    const otherDecoded = decodeBase58(otherAddress);
+    if (decoded?.length !== 32 || otherDecoded?.length !== 32) return false;
+    return decoded.every((byte, index) => byte === otherDecoded[index]);
 }
 
 export function isSameTronAddress(

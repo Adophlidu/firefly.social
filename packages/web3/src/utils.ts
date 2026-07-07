@@ -1,4 +1,5 @@
 export * from '@/utils/addAndSwitchChain.js';
+export * from '@/utils/decodeBase58.js';
 export * from '@/utils/ensureHexPrefix.js';
 export * from '@/utils/formatAddress.js';
 export * from '@/utils/formatLamportsToSol.js';

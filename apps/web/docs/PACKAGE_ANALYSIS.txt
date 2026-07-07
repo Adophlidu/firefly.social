@@ -4,7 +4,7 @@ Package Analysis
 Application: apps/web
 
 Total packages: 2424
-Packages with multiple versions: 257
+Packages with multiple versions: 256
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -19,7 +19,6 @@ Packages with Multiple Versions
  @babel/helper-validator-identifier@7.29.7,8.0.0-rc.3
  @babel/parser@7.29.7,8.0.0-rc.3
  @babel/types@7.29.7,8.0.0-rc.3
-*@coral-xyz/anchor@0.31.1,0.32.1
  @emnapi/core@1.10.0,1.11.1
  @emnapi/runtime@1.10.0,1.11.1
  @emnapi/wasi-threads@1.2.1,1.2.2
@@ -446,6 +445,7 @@ Packages with Single Version
  @cloudflare/workers-types@4.20260613.1
  @coinbase/cdp-sdk@1.51.0
  @coinbase/wallet-sdk@4.3.6
+*@coral-xyz/anchor@0.32.1
  @coral-xyz/anchor-errors@0.31.1
  @coral-xyz/borsh@0.31.1
  @cspell/cspell-bundled-dicts@7.3.9

@@ -1,4 +1,8 @@
-import { web3 } from '@coral-xyz/anchor';
+/**
+ * Mainnet fallback endpoint — same URL (including the trailing slash) as
+ * `web3.clusterApiUrl('mainnet-beta')` from `@solana/web3.js`.
+ */
+const SOLANA_MAINNET_BETA_RPC_URL = 'https://api.mainnet-beta.solana.com/';
 
 /** Shared devnet HTTP endpoint when `useDevCluster` is true and no custom `devHttpUrl` is set. */
 const DEFAULT_PUBLIC_SOLANA_DEV_HTTP_URL =
@@ -16,5 +20,5 @@ interface GetSolanaRPCUrlParams {
 export function getSolanaRPCUrl(params?: GetSolanaRPCUrlParams): string {
     const { httpUrl, useDevCluster, devHttpUrl } = params ?? {};
     if (useDevCluster) return devHttpUrl ?? DEFAULT_PUBLIC_SOLANA_DEV_HTTP_URL;
-    return httpUrl || web3.clusterApiUrl('mainnet-beta');
+    return httpUrl || SOLANA_MAINNET_BETA_RPC_URL;
 }
