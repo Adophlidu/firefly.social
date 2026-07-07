@@ -10,7 +10,6 @@ import { PostMetadataRoute } from '@/metadata/src/post/route.js';
 import { PredictionMetadataRoute } from '@/metadata/src/prediction/route.js';
 import { ProfileMetadataRoute } from '@/metadata/src/profile/route.js';
 import { TokenMetadataRoute } from '@/metadata/src/token/route.js';
-import { WalletProfileMetadataRoute } from '@/metadata/src/wallet-profile/route.js';
 
 const metadataV2 = new Hono()
     .route('/', ArticleMetadataRoute)
@@ -19,8 +18,7 @@ const metadataV2 = new Hono()
     .route('/', PostMetadataRoute)
     .route('/', PredictionMetadataRoute)
     .route('/', ProfileMetadataRoute)
-    .route('/', TokenMetadataRoute)
-    .route('/', WalletProfileMetadataRoute);
+    .route('/', TokenMetadataRoute);
 
 const app = new Hono().use(prettyJSON()).use(withCors()).route('/metadata-v2', metadataV2).onError(onError);
 
