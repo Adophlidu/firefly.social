@@ -6,8 +6,8 @@ import { cache } from 'react';
 
 import { AccountSuspendedError } from '@/constants/error.js';
 import { buildProfileFeedInitialData } from '@/helpers/buildProfileFeedInitialData.js';
-import { compactProfileForPageTransfer } from '@/helpers/compactProfileForPageTransfer.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
+import { getSocialProfileByHandlePageData } from '@/helpers/getSocialProfilePageData.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
@@ -60,9 +60,10 @@ export const getProfilePageData = cache(
 
         if (identityFromUrl.id && !walletProfile) {
             try {
-                socialProfile = await resolveSocialMediaProvider(
+                socialProfile = await getSocialProfileByHandlePageData(
                     narrowToSocialSource(identity.source),
-                ).getProfileByHandle(identityFromUrl.id, true);
+                    identityFromUrl.id,
+                );
 
                 if (socialProfile && !sessionless && socialProfile.source !== Source.Twitter) {
                     const page = await runInSafeAsync(() =>
@@ -92,7 +93,7 @@ export const getProfilePageData = cache(
             profiles,
             identity,
             identityFromUrl,
-            socialProfile: socialProfile ? compactProfileForPageTransfer(socialProfile) : null,
+            socialProfile: socialProfile,
             walletProfile,
             initialFeedPage,
             accountSuspended,
