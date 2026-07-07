@@ -5,9 +5,9 @@ import { cache } from 'react';
 
 import { compactChannelForPageTransfer } from '@/helpers/compactChannelForPageTransfer.js';
 import { createChannelMetadataFromChannel } from '@/helpers/createChannelMetadataFromChannel.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export const getChannelPageData = cache(async (source: SocialSourceInURL, id: string): Promise<Channel | null> => {
@@ -27,5 +27,5 @@ export async function getChannelPageMetadata(
         return createChannelMetadataFromChannel(channel, source, id, pathname);
     }
 
-    return createChannelMetadata(source, id, pathname);
+    return createSiteMetadata(pathname);
 }

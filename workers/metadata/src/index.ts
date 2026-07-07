@@ -4,7 +4,6 @@ import { Hono } from 'hono';
 import { prettyJSON } from 'hono/pretty-json';
 
 import { ArticleMetadataRoute } from '@/metadata/src/article/route.js';
-import { ChannelMetadataRoute } from '@/metadata/src/channel/route.js';
 import { FireflyProfileMetadataRoute } from '@/metadata/src/firefly-profile/route.js';
 import { PostMetadataRoute } from '@/metadata/src/post/route.js';
 import { PredictionMetadataRoute } from '@/metadata/src/prediction/route.js';
@@ -12,7 +11,6 @@ import { TokenMetadataRoute } from '@/metadata/src/token/route.js';
 
 const metadataV2 = new Hono()
     .route('/', ArticleMetadataRoute)
-    .route('/', ChannelMetadataRoute)
     .route('/', FireflyProfileMetadataRoute)
     .route('/', PostMetadataRoute)
     .route('/', PredictionMetadataRoute)

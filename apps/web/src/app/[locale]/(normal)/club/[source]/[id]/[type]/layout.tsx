@@ -4,10 +4,10 @@ import { ChannelTabType, SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
+import { getChannelPageMetadata } from '@/app/[locale]/(normal)/club/[source]/[id]/getChannelPageData.js';
 import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 
 type Props = LayoutProps<{
     id: string;
@@ -17,7 +17,7 @@ type Props = LayoutProps<{
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id, type = ChannelTabType.Posts } = await props.params;
-    return createChannelMetadata(source, id, `/club/${source}/${id}/${type}`);
+    return getChannelPageMetadata(source as SocialSourceInURL, id, `/club/${source}/${id}/${type}`);
 }
 
 export default async function Layout(props: Props) {
