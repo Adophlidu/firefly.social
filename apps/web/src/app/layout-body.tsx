@@ -7,6 +7,7 @@ import { type ReactNode, Suspense } from 'react';
 
 import { useAgent } from '@/components/AgentProvider.js';
 import { IfPathname } from '@/components/IfPathname.js';
+import { IfWalletStackActive } from '@/components/IfWalletStackActive.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SessionUnauthorizedBoundaryTrigger } from '@/components/SessionUnauthorizedBoundaryTrigger.js';
@@ -90,9 +91,14 @@ export function LayoutBody({ locale, children }: LayoutBodyProps) {
                         <Suspense>
                             <NotificationListener />
                         </Suspense>
-                        <Suspense>
-                            <FireflyWallet />
-                        </Suspense>
+                        {/* FireflyWallet requires a Firefly login (which activates the
+                            wallet stack at boot) and pulls AppKit controllers, so keep
+                            it unmounted until the wallet stack is active. */}
+                        <IfWalletStackActive>
+                            <Suspense>
+                                <FireflyWallet />
+                            </Suspense>
+                        </IfWalletStackActive>
                     </IfPathname>
                 ) : null}
             </Providers>

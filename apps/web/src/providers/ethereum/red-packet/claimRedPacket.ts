@@ -6,7 +6,7 @@ import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';

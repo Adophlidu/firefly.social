@@ -19,7 +19,7 @@ import { Modal } from '@/components/Modal.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

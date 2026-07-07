@@ -3,7 +3,7 @@ import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import type { SnapSendTokenAction } from '@dimensiondev/workers-snap';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
+import { FIREFLY_WALLET_IFRAME_ID } from '@/constants/fireflyWallet.js';
 import { logger } from '@/libs/Logger.js';
 import { getProfileById } from '@/providers/firefly/farcaster-hub/getProfileById.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

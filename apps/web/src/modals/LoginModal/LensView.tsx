@@ -22,8 +22,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { closeLoginModal } from '@/controllers/openLoginModal.js';
 import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import {

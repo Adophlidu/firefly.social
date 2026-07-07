@@ -13,7 +13,7 @@ import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/V1/Card.js';
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { openAndWaitForCloseConfirmLeavingModal } from '@/controllers/openConfirmLeavingModal.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
@@ -122,6 +122,9 @@ async function getNextFrame(
         return (await res.json()) as ResponseJson<T>;
     }
 
+    // Loaded on demand: frame button clicks are user interactions, so the heavy
+    // wagmi config stays out of the feed chunks that render frames.
+    const { wagmiConfig } = await loadWagmiClient();
     const address = getAccount(wagmiConfig)?.address;
     await captureFrameActionEvent('others', frame, address, true);
 

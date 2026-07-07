@@ -6,13 +6,12 @@ import { getConnection } from '@wagmi/core';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 
-import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
-import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
+import { FIREFLY_WALLET_IFRAME_ID } from '@/constants/fireflyWallet.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { walletConnectIcon, walletConnectId, WalletId } from '@/constants/reown.js';
 import { fetchEnsName } from '@/hooks/useEnsName.js';
 import { logger } from '@/libs/Logger.js';
-import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export const frameSwapToken = async function frameSwapToken(options) {
@@ -31,6 +30,13 @@ export const frameSwapToken = async function frameSwapToken(options) {
     const buyTokenAddress = buyToken?.reference;
     const sellTokenAddress = sellToken?.reference;
 
+    // Loaded on demand: frame swaps are user interactions, so the heavy wagmi
+    // config and the Solana network provider (AppKit controllers) stay out of
+    // the feed chunks that render frames and snaps.
+    const [{ wagmiConfig }, { SolanaNetwork }] = await Promise.all([
+        loadWagmiClient(),
+        import('@/providers/solana/Network.js'),
+    ]);
     const evmAccount = getConnection(wagmiConfig);
     const evmEnsName = evmAccount.address
         ? await fetchEnsName({ address: evmAccount.address as Address, chainId: mainnet.id }).catch(() => null)

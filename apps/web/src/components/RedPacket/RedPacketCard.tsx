@@ -4,9 +4,18 @@ import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { Trans } from '@lingui/react/macro';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
-import { RedPacketCardContent } from '@/components/RedPacket/RedPacketCardContent.js';
+import { dynamic } from '@/esm/dynamic.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+
+// Deferred so the red packet claim stack (wagmi config + AppKit controllers +
+// Solana program client) loads only when a feed actually contains a red packet
+// post, instead of shipping with every feed/profile page chunk. The card
+// wrapper's min-height reserves the space while the chunk loads.
+const RedPacketCardContent = dynamic(
+    () => import('@/components/RedPacket/RedPacketCardContent.js').then((m) => m.RedPacketCardContent),
+    { ssr: true },
+);
 
 interface Props {
     payload: RedPacketJSONPayload;

@@ -20,7 +20,6 @@ import {
 } from '@solana/spl-token';
 
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
-import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
@@ -100,6 +99,9 @@ class Provider implements TransferProvider {
     }
 
     private async transferNative(options: TransactionOptions): Promise<string> {
+        // Loaded on demand: transfers require a connected wallet, so the AppKit
+        // controllers stay out of the chunks that render tips/wallet embeds.
+        const { getWalletAdapter } = await import('@/providers/solana/getWalletAdapter.js');
         const adapter = getWalletAdapter();
         const account = await SolanaNetwork.getAccount();
 
@@ -115,6 +117,7 @@ class Provider implements TransferProvider {
     }
 
     private async transferContract(options: TransactionOptions): Promise<string> {
+        const { getWalletAdapter } = await import('@/providers/solana/getWalletAdapter.js');
         const adapter = getWalletAdapter();
         const account = await SolanaNetwork.getAccount();
 

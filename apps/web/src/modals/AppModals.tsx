@@ -24,8 +24,6 @@ import { EditProfileModal } from '@/modals/EditProfileModal/EditProfileModal.js'
 import { EditProfileModalRef } from '@/modals/EditProfileModal/refs.js';
 import { FrameViewerModal } from '@/modals/FrameViewerModal/FrameViewerModal.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
-import { MyWalletsModal } from '@/modals/MyWalletsModal/MyWalletsModal.js';
-import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import { RecoveryPhraseModal } from '@/modals/RecoveryPhraseModal/RecoveryPhraseModal.js';
@@ -44,10 +42,12 @@ import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/refs.js';
 import { VerifiedAddressModal } from '@/modals/VerifiedAddressModal/VerifiedAddressModal.js';
 
 /**
- * Modals that are never used on whiteboard routes (e.g. /signup). Split into its
- * own chunk and rendered only on non-whiteboard routes so the heavy wallet
- * cluster these modals pull in (wagmi / AppKit / WalletConnect / red packet /
- * compose) stays out of whiteboard first paint.
+ * The deferred non-critical modal cluster: split into its own chunk and mounted
+ * only after the first open of any modal in it (see `activateAppModals` and the
+ * gate in `controllers/dispatchModalEvent.ts`), so the heavy dependencies these
+ * modals pull in (red packet / compose / tips / token selector) stay out of the
+ * eager bundle. Opens dispatched while unmounted are re-dispatched after the
+ * cluster mounts.
  */
 export function AppModals() {
     return (
@@ -64,7 +64,6 @@ export function AppModals() {
             <EditFireflyProfileModal ref={EditFireflyProfileModalRef.register} />
             <EditProfileModal ref={EditProfileModalRef.register} />
             <FrameViewerModal ref={FrameViewerModalRef.register} />
-            <MyWalletsModal ref={MyWalletsModalRef.register} />
             <PreviewMediaModal ref={PreviewMediaModalRef.register} />
             <RedPacketModal ref={RedPacketModalRef.register} />
             <SchedulePostModal ref={SchedulePostModalRef.register} />

@@ -2,7 +2,7 @@ import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { getAccount } from 'wagmi/actions';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
@@ -30,6 +30,9 @@ export function captureFrameActionEvent(
     justSubmitted?: boolean,
 ) {
     return runInSafeAsync(async () => {
+        // Loaded on demand: frame actions are user interactions, so the heavy
+        // wagmi config stays out of the feed chunks that render frames.
+        const { wagmiConfig } = await loadWagmiClient();
         const walletAddress = address || getAccount(wagmiConfig)?.address || ETH_ZERO_ADDRESS;
         return TelemetryProvider.captureEvent(resolveEventId(action, justSubmitted), {
             frame_action: action,

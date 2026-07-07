@@ -19,7 +19,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import type { AppKitAccount } from '@/hooks/useAppKitAccounts.js';
 import type { ChainNamespace } from '@/types/utility.js';

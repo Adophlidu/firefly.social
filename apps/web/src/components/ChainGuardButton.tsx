@@ -8,7 +8,7 @@ import { useAsyncFn } from 'react-use';
 import { switchChain } from 'wagmi/actions';
 
 import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.js';
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 
@@ -31,6 +31,10 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
             switch (networkType) {
                 case NetworkType.Ethereum:
                     if (targetChainId && account.chainId !== targetChainId) {
+                        // Loaded on demand: this button renders on read-only pages
+                        // (collect / vote / red packet), and switching chains implies a
+                        // connected wallet, i.e. the wallet stack is already loaded.
+                        const { wagmiConfig } = await loadWagmiClient();
                         await switchChain(wagmiConfig, { chainId: targetChainId });
                     }
                     onClick?.(event);

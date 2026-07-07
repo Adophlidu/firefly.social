@@ -1,13 +1,14 @@
 import type { Eip712TransactionRequest, TxHash } from '@lens-protocol/client';
 import { lens } from 'viem/chains';
 
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
 
 export async function sendSponsoredTransaction(raw: Eip712TransactionRequest): Promise<TxHash> {
     // Lazy so wagmiClient and the wagmi-backed web3 actions stay out of the static
     // graph reaching this module.
     const [{ wagmiConfig }, { sendCustomEip712Transaction }] = await Promise.all([
-        import('@/configs/wagmiClient.js'),
+        loadWagmiClient(),
         import('@dimensiondev/web3/actions'),
     ]);
     const walletClient = await getWalletClientForLensChain();

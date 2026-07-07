@@ -7,10 +7,9 @@ import { getAddress } from 'viem';
 import { lens } from 'viem/chains';
 import { getAccount } from 'wagmi/actions';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { WalletAddressMismatchError } from '@/constants/error.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
-import { createPrivyWalletClient } from '@/helpers/createPrivyWalletClient.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
@@ -68,6 +67,14 @@ class LensPoll implements Provider {
         return withSkipWalletAuth(async () => {
             const currentProfile = getCurrentProfileFromStorage(Source.Lens) as Profile;
             if (!currentProfile?.profileId) throw new AuthenticationError('No profile found, please login first.');
+
+            // Loaded on demand: voting on a Lens poll requires a connected wallet,
+            // so the heavy wagmi config and the Privy wallet client stay out of
+            // the feed chunks that render poll cards.
+            const [{ wagmiConfig }, { createPrivyWalletClient }] = await Promise.all([
+                loadWagmiClient(),
+                import('@/helpers/createPrivyWalletClient.js'),
+            ]);
 
             const privyEvm = first(useFireflyWalletStore.getState().wallets.ethereum)?.address ?? null;
             const { connector } = getAccount(wagmiConfig);

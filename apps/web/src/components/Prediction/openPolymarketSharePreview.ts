@@ -1,5 +1,6 @@
 import { t } from '@lingui/core/macro';
 
+import { openShareImageModal } from '@/controllers/openShareImageModal.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import {
     type PolymarketShareImagePayload,
@@ -7,7 +8,6 @@ import {
     SHARE_IMAGE_ASPECT_RATIO,
     SHARE_IMAGE_FILE_NAME,
 } from '@/hooks/prediction/usePolymarketShareImageActions.js';
-import { ShareImageModalRef } from '@/modals/ShareImageModal/refs.js';
 
 // The preview shows a blob: object URL; revoke the previous one when a new card is generated so we
 // don't leak (the modal owns no revoke hook, and at most one preview is open at a time).
@@ -24,7 +24,9 @@ export async function openPolymarketSharePreview(payload: PolymarketShareImagePa
         const blob = await createPolymarketShareImage(params);
         if (lastObjectUrl) URL.revokeObjectURL(lastObjectUrl);
         lastObjectUrl = URL.createObjectURL(blob);
-        ShareImageModalRef.open({
+        // Routed through the controller so the deferred AppModals cluster mounts
+        // before the open event fires (see controllers/dispatchModalEvent.ts).
+        openShareImageModal({
             imageUrl: lastObjectUrl,
             aspectRatio: SHARE_IMAGE_ASPECT_RATIO,
             fileName: SHARE_IMAGE_FILE_NAME,

@@ -13,9 +13,9 @@ import { memo, useEffect } from 'react';
 import { type Address, isHex, toHex, type WalletClient } from 'viem';
 import { getWalletClient } from 'wagmi/actions';
 
-import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
+import { FIREFLY_WALLET_IFRAME_ID } from '@/constants/fireflyWallet.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.js';
 import { openDownloadMobileAppModal } from '@/controllers/openDownloadMobileAppModal.js';
@@ -31,9 +31,9 @@ import {
 import { fetchImageAsMediaObject } from '@/helpers/fetchImageAsMediaObject.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import type { PolymarketShareImageParams } from '@/helpers/polymarketShareImage.js';
-import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useWalletTelemetrySubscriber } from '@/hooks/useWalletTelemetrySubscriber.js';
+import { logger } from '@/libs/Logger.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
@@ -44,9 +44,13 @@ interface FollowAccountsData {
     accounts: Array<{ source: SocialSource; handle: string; profileId: string }>;
 }
 
+// The wagmi config (chains + AppKit adapter + Privy connector) is imported on
+// demand inside the wallet RPC handlers so it stays out of the iframe-bridge
+// chunk, which mounts on every page.
 async function resolveHostEvmConnector(walletAddress?: string) {
     if (!walletAddress) return undefined;
 
+    const { wagmiConfig } = await loadWagmiClient();
     for (const connector of wagmiConfig.connectors) {
         const accounts = await connector.getAccounts().catch(() => []);
         if (accounts.some((account) => account.toLowerCase() === walletAddress.toLowerCase())) {
@@ -63,6 +67,7 @@ async function handleHostEvmRpc(args: IframeBridgeRequestArguments[IframeBridgeM
         throw new Error('Selected host EVM wallet is not available for signing');
     }
 
+    const { wagmiConfig } = await loadWagmiClient();
     switch (args.method) {
         case 'wallet_switchEthereumChain': {
             if (
@@ -263,7 +268,9 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
             useFireflyWalletStore.getState().setIsAuthorized(true);
             // This notification is retried by the iframe, so the bridge response should not wait
             // on connector recovery work that can be slower than the message round trip.
-            void reconnectPrivyWallet();
+            void import('@/helpers/reconnectPrivyWallet.js')
+                .then(({ reconnectPrivyWallet }) => reconnectPrivyWallet())
+                .catch((error) => logger.error('[iframe bridge] failed to reconnect the privy wallet:', error));
         },
         [IframeBridgeMethod.NAVIGATE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.NAVIGATE]) => {
             if (params.external) {

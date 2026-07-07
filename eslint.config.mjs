@@ -14,6 +14,7 @@ import { walletEnvsImportRestriction, webEnvsImportRestriction } from './rules/e
 import { importArchitecturalLayerZones } from './rules/eslint-import-architecture-zones.mjs';
 import { packageBoundaryConfigs } from './rules/eslint-package-layer-boundaries.mjs';
 import useClientNewline from './rules/eslint-plugin-use-client-newline.mjs';
+import { walletStackLazyBoundaryConfigs } from './rules/eslint-wallet-stack-lazy-boundary.mjs';
 
 export default defineConfig([
     {
@@ -240,4 +241,9 @@ export default defineConfig([
     // Package boundary rules — one config per workspace package (see rules/eslint-package-layer-boundaries.mjs).
     // These override the baseline no-restricted-imports for each package's src directory.
     ...packageBoundaryConfigs,
+
+    // Wallet stack laziness — raw dynamic imports of configs/wagmiClient.ts / configs/appkit.ts
+    // outside the loader funnel re-eagerize the wallet stack on every page
+    // (see rules/eslint-wallet-stack-lazy-boundary.mjs for the Turbopack mechanism).
+    ...walletStackLazyBoundaryConfigs,
 ]);

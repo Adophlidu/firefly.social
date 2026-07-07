@@ -2,7 +2,7 @@ import { SNAPSHOT_RELAY_URL, SNAPSHOT_SEQ_URL } from '@dimensiondev/constants/st
 import { omit } from 'lodash-es';
 import { mainnet } from 'viem/chains';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { SNAPSHOT_NAME, SNAPSHOT_VERSION } from '@/providers/snapshot/constants.js';
@@ -53,6 +53,9 @@ export async function vote(payload: {
         app: message.app ?? '',
         metadata: message.metadata ?? '{}',
     };
+    // Loaded on demand: voting requires a connected wallet, so the heavy wagmi
+    // config stays out of the feed chunks that render snapshot embeds.
+    const { wagmiConfig } = await loadWagmiClient();
     const client = await getWalletClientRequired(wagmiConfig, { chainId: mainnet.id });
     const signedTypedData = await client.signTypedData({
         domain: {

@@ -3,16 +3,19 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import bs58 from 'bs58';
 import type { Address } from 'viem';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { WalletNotConnectedError } from '@/constants/error.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { getMessageToSignForBindWallet } from '@/providers/firefly/endpoint/getMessageToSignForBindWallet.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
 
+// The wagmi config and the Solana wallet adapter (AppKit controllers) are
+// imported on demand: binding a wallet is a user interaction, so the heavy
+// wallet stack stays out of the settings page chunk.
 export async function verifyAndBindWallet(network: NetworkType, checkExistedConnection?: (address: string) => boolean) {
     switch (network) {
         case NetworkType.Ethereum: {
+            const { wagmiConfig } = await loadWagmiClient();
             const walletClient = await getWalletClientRequired(wagmiConfig, undefined, {
                 origin: ClickOrigin.Settings,
             });
@@ -26,6 +29,7 @@ export async function verifyAndBindWallet(network: NetworkType, checkExistedConn
             return fireflyWalletProvider.verifyAndBindWallet(address.toLowerCase(), message, signature);
         }
         case NetworkType.Solana: {
+            const { getWalletAdaptorRequired } = await import('@/providers/solana/getWalletAdapter.js');
             const adapter = await getWalletAdaptorRequired({
                 origin: ClickOrigin.Settings,
             });

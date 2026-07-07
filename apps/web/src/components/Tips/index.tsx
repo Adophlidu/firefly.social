@@ -15,12 +15,12 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
+import { openTipsModal } from '@/controllers/openTipsModal.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { TipsModalRef } from '@/modals/TipsModal/refs.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -76,7 +76,9 @@ export function Tips({
             }
 
             onClick?.();
-            TipsModalRef.open({
+            // Routed through the controller so the deferred AppModals cluster mounts
+            // before the open event fires (see controllers/dispatchModalEvent.ts).
+            openTipsModal({
                 identity,
                 handle,
                 pureWallet,

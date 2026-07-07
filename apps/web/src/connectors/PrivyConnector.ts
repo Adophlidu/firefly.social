@@ -11,13 +11,13 @@ import { mainnet } from 'viem/chains';
 import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, type CreateConnectorFn } from 'wagmi';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
+import { waitForAuthorization } from '@/helpers/waitForPrivyAuthorization.js';
 import { logger } from '@/libs/Logger.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-
-export const PRIVY_CONNECTOR_ID = 'network.privy';
 
 const INTERACTIVE_METHODS = new Set([
     'eth_sendTransaction',
@@ -56,17 +56,6 @@ function isFreeGasCandidate(params: { method: string; params?: unknown[] | objec
     // Approve / red packet: only check chain support when chainId is present
     if (chainId !== null && !isFreeGasSupportedChain(chainId)) return false;
     return true;
-}
-
-export async function waitForAuthorization(): Promise<void> {
-    if (useFireflyWalletStore.getState().isAuthorized) return;
-    await new Promise<void>((resolve) => {
-        const unsubscribe = useFireflyWalletStore.subscribe((state) => {
-            if (!state.isAuthorized) return;
-            unsubscribe();
-            resolve();
-        });
-    });
 }
 
 function getPrivyEvmProvider({

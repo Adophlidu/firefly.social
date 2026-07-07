@@ -4,8 +4,8 @@ import {
     ConnectorController as CoreConnectorController,
 } from '@reown/appkit-controllers';
 
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { logger } from '@/libs/Logger.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 

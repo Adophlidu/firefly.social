@@ -11,7 +11,7 @@ import { useAsyncFn } from 'react-use';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
+import { resolveNetworkProvider } from '@/helpers/resolveNetworkProvider.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TipsTokenInput = memo(function TipsTokenInput() {

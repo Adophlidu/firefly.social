@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useConnection } from 'wagmi';
 import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { getArticleCollectStatus } from '@/providers/firefly/wallet-transaction/getArticleCollectStatus.js';
 import type { Article } from '@/providers/types/Article.js';
 
@@ -18,6 +18,9 @@ export function useArticleCollectStatus(article: Article) {
                 if (!account.address) return;
                 const data = await getArticleCollectStatus(article.id, account.address, article.platform);
 
+                // Loaded on demand: this only runs with a connected wallet, so the
+                // heavy wagmi config stays out of the article page chunk.
+                const { wagmiConfig } = await loadWagmiClient();
                 const balance = await getBalance(wagmiConfig, {
                     address: account.address,
                     chainId: data.chainId,

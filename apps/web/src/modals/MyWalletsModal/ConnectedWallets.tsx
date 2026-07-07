@@ -13,7 +13,7 @@ import { useConnection, useConnections } from 'wagmi';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { closeWalletConnectModal, openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { type AppKitAccount, useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';

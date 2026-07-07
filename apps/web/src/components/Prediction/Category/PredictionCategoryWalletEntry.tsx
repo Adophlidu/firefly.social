@@ -6,9 +6,9 @@ import { BigNumber } from 'bignumber.js';
 import { memo, type ReactNode, useCallback } from 'react';
 import type { Address } from 'viem';
 
-import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
+import { waitForAuthorization } from '@/helpers/waitForPrivyAuthorization.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { getPolymarketAccount } from '@/providers/firefly/prediction/getPolymarketAccount.js';
 import { getPolymarketWalletCash } from '@/providers/firefly/prediction/getPolymarketWalletCash.js';

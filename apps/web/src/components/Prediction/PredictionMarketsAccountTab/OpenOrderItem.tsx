@@ -12,8 +12,8 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { waitForAuthorization } from '@/helpers/waitForPrivyAuthorization.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { PredictionOpenOrder } from '@/types/prediction.js';

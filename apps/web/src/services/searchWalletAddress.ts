@@ -5,7 +5,10 @@ import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+// The fallback config shares the mainnet transport with the real config and
+// needs no connectors for these read-only ENS lookups, so anonymous searches
+// never load the heavy wallet stack.
+import { fallbackWagmiConfig } from '@/configs/wagmiFallbackClient.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 
@@ -14,10 +17,10 @@ export async function searchWalletAddress(address: string): Promise<FireflyProfi
 
     if (isValidAddressEthereum(trimmed)) {
         const ensName = await runInSafeAsync(() =>
-            getEnsName(wagmiConfig, { address: trimmed.toLowerCase() as Address, chainId: mainnet.id }),
+            getEnsName(fallbackWagmiConfig, { address: trimmed.toLowerCase() as Address, chainId: mainnet.id }),
         );
         const ensAvatar = ensName
-            ? await runInSafeAsync(() => getEnsAvatar(wagmiConfig, { name: ensName, chainId: mainnet.id }))
+            ? await runInSafeAsync(() => getEnsAvatar(fallbackWagmiConfig, { name: ensName, chainId: mainnet.id }))
             : undefined;
 
         return {

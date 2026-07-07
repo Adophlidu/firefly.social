@@ -5,7 +5,7 @@ import { useAsync } from 'react-use';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
+import { resolveNetworkProvider } from '@/helpers/resolveNetworkProvider.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 

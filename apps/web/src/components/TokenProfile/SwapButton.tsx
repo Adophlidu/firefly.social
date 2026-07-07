@@ -10,7 +10,7 @@ import { mainnet } from 'viem/chains';
 import { useConnection } from 'wagmi';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { walletConnectIcon, walletConnectId, WalletId } from '@/constants/reown.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';

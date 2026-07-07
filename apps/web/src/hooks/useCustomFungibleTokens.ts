@@ -10,7 +10,7 @@ import { multicall } from 'wagmi/actions';
 import { useShallow } from 'zustand/shallow';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { formatCustomTokenToTipsToken } from '@/helpers/formatCustomTokenToTipsToken.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
@@ -36,6 +36,9 @@ export function useCustomFungibleTokens(chainId?: number) {
                 queryKey: ['custom-fungible-tokens', account.address?.toLowerCase(), chainId, tokensByChainId],
                 async queryFn() {
                     if (!account.address) return;
+                    // Loaded on demand: this only runs with a connected wallet, so
+                    // the heavy wagmi config stays out of the search page chunk.
+                    const { wagmiConfig } = await loadWagmiClient();
                     const contracts = tokensByChainId.map((x) => {
                         return {
                             abi: erc20Abi,

@@ -4,13 +4,12 @@ import { NetworkType } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
 import { isSameSolanaAddress } from '@dimensiondev/web3/utils';
-import { useAppKitAccount } from '@reown/appkit/react';
-import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useConnection } from 'wagmi';
 
 import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
+import { useAppKitSolanaStore } from '@/store/useAppKitSolanaStore.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
 enum SolanaNetworkType {
@@ -18,10 +17,15 @@ enum SolanaNetworkType {
     Privy = 'privy-solana',
 }
 
+// The Solana state is read from the bridge store (see `AppKitSolanaStateBridge`)
+// instead of the AppKit react hooks so `@reown/appkit/react` /
+// `@reown/appkit-adapter-solana` stay out of the eager bundle: these hooks are
+// called by components on read-only pages (collect, tips, swap buttons, ...).
+
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
     const account = useConnection();
-    const { connection } = useAppKitConnection();
-    const { address: solanaAddress } = useAppKitAccount({ namespace: 'solana' });
+    const connection = useAppKitSolanaStore((state) => state.connection);
+    const solanaAddress = useAppKitSolanaStore((state) => state.address);
 
     switch (networkType) {
         case NetworkType.Ethereum:
@@ -42,8 +46,8 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
 }
 
 export function useSolanaAccount() {
-    const { address: solanaAddress } = useAppKitAccount({ namespace: 'solana' });
-    const { connection } = useAppKitConnection();
+    const solanaAddress = useAppKitSolanaStore((state) => state.address);
+    const connection = useAppKitSolanaStore((state) => state.connection);
     const solanaWallets = useFireflyWalletStore((state) => state.wallets[NetworkType.Solana]);
 
     const privySolana = first(solanaWallets)?.address;

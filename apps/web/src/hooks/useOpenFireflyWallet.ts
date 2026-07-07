@@ -5,7 +5,7 @@ import {
 } from '@dimensiondev/iframe-bridge';
 import { useCallback } from 'react';
 
-import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
+import { FIREFLY_WALLET_IFRAME_ID } from '@/constants/fireflyWallet.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function useOpenFireflyWallet() {

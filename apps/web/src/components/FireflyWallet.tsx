@@ -16,6 +16,7 @@ import { useUpdateEffect } from 'react-use';
 import type { Address } from 'viem';
 
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { FIREFLY_WALLET_IFRAME_ID } from '@/constants/fireflyWallet.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
@@ -25,8 +26,6 @@ import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyW
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-
-export const FIREFLY_WALLET_IFRAME_ID = `firefly-wallet-iframe`;
 
 export function FireflyWallet() {
     const isLogin = useIsLoginFirefly();

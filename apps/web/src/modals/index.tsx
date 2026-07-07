@@ -38,12 +38,13 @@ import { SnackbarRef } from '@/modals/Snackbar/refs.js';
 import { Snackbar } from '@/modals/Snackbar/Snackbar.js';
 import { useWalletStackStore } from '@/store/useWalletStackStore.js';
 
-// Deferred, non-whiteboard-only cluster: heavy wallet/compose modals kept out of
-// whiteboard first paint.
+// Deferred cluster: heavy compose/tips/red-packet/collect modals kept out of the
+// eager bundle; mounted on the first open of any of them (see
+// `controllers/activateAppModals.ts`).
 const AppModals = dynamic(() => import('@/modals/AppModals.js').then((m) => m.AppModals), { ssr: false });
 
-// Deferred wallet modals (WalletConnect + AppKit init). Rendered only where the
-// wallet stack is mounted.
+// Deferred wallet modals (WalletConnect + MyWallets + AppKit init). Rendered
+// only once the wallet stack is active.
 const WalletModals = dynamic(() => import('@/modals/WalletModals.js').then((m) => m.WalletModals), { ssr: false });
 
 // Deferred so it is not part of the eager modal barrel on whiteboard first paint.
@@ -56,20 +57,22 @@ const WagmiProvider = dynamic(() => import('@/components/WagmiProvider.js').then
  *
  * On non-whiteboard routes the app-wide WagmiProvider (see `WalletStackBoundary`)
  * is already an ancestor, so this is a passthrough. On whiteboard routes there is
- * no app-wide provider, so once the wallet stack is activated this wraps the
- * modal tree (LoginModal's LensView, WalletConnectModal, …) in its own provider.
+ * no app-wide provider, so once the wallet stack — or the AppModals cluster,
+ * whose modals call wagmi hooks at their roots — is activated, this wraps the
+ * modal tree (LoginModal's LensView, WalletConnectModal, TokenSelectorModal, …)
+ * in its own provider.
  */
 const ModalsWalletBoundary = memo(function ModalsWalletBoundary({
-    active,
+    withProvider,
     children,
 }: {
-    active: boolean;
+    withProvider: boolean;
     children: ReactNode;
 }) {
     return (
         <IfPathname
             isNotOneOf={WHITEBOARD_ROUTES}
-            otherwise={active ? <WagmiProvider>{children}</WagmiProvider> : <>{children}</>}
+            otherwise={withProvider ? <WagmiProvider>{children}</WagmiProvider> : <>{children}</>}
         >
             {children}
         </IfPathname>
@@ -78,10 +81,11 @@ const ModalsWalletBoundary = memo(function ModalsWalletBoundary({
 
 export const Modals = memo(function Modals() {
     const active = useWalletStackStore((state) => state.active);
+    const appModalsActive = useWalletStackStore((state) => state.appModalsActive);
 
     return (
         <NoSSR>
-            <ModalsWalletBoundary active={active}>
+            <ModalsWalletBoundary withProvider={active || appModalsActive}>
                 {/* Shared Modals */}
                 <DisconnectFireflyAccountModal ref={DisconnectFireflyAccountModalRef.register} />
                 <DownloadMobileAppModal ref={DownloadMobileAppModalRef.register} />
@@ -99,15 +103,15 @@ export const Modals = memo(function Modals() {
                 <AddLensManagerModal ref={AddLensManagerModalRef.register} />
                 <DraggablePopover ref={DraggablePopoverRef.register} />
 
-                {/* WalletConnect + AppKit: only where the wallet stack is mounted. */}
-                <IfPathname isNotOneOf={WHITEBOARD_ROUTES} otherwise={active ? <WalletModals /> : null}>
-                    <WalletModals />
-                </IfPathname>
+                {/* WalletConnect + MyWallets + AppKit init: only once the wallet
+                    stack is active (boot session or first wallet interaction). */}
+                {active ? <WalletModals /> : null}
 
-                {/* Non-whiteboard-only modals. */}
-                <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
-                    <AppModals />
-                </IfPathname>
+                {/* Compose / tips / red packet / collect / ...: only once the first
+                    open of any of them activates the cluster (see
+                    `controllers/dispatchModalEvent.ts`, which re-dispatches the
+                    pending open after the mount). */}
+                {appModalsActive ? <AppModals /> : null}
             </ModalsWalletBoundary>
         </NoSSR>
     );

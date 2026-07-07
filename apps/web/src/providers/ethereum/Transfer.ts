@@ -4,7 +4,7 @@ import { getTokenAbiForWagmi, isNativeTokenDebank } from '@dimensiondev/web3/uti
 import { type Address, type Hash, parseUnits } from 'viem';
 import { getAccount, getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { getWagmiConfig } from '@/configs/wagmiConfigHolder.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
@@ -13,13 +13,13 @@ import type { Token, TransactionOptions, TransferProvider } from '@/providers/ty
 class Provider implements TransferProvider<number, Address, Hash> {
     async transfer(options: TransactionOptions<number, Address>): Promise<Address> {
         const { token } = options;
-        const account = getAccount(wagmiConfig);
+        const account = getAccount(getWagmiConfig());
         const currentConnector = account.connector;
         const currentChainId = currentConnector
             ? await currentConnector.getChainId().catch(() => EthereumNetwork.getChainId())
             : EthereumNetwork.getChainId();
         if (!currentChainId || token.chainId !== currentChainId) {
-            await switchEthereumChain(wagmiConfig, token.chainId, { connector: currentConnector });
+            await switchEthereumChain(getWagmiConfig(), token.chainId, { connector: currentConnector });
         }
 
         const hash = this.isNativeToken(token)
@@ -33,9 +33,9 @@ class Provider implements TransferProvider<number, Address, Hash> {
     }
 
     async validateBalance(options: TransactionOptions<number, Address>): Promise<boolean> {
-        const account = getAccount(wagmiConfig);
+        const account = getAccount(getWagmiConfig());
         if (!account.address) return false;
-        const balance = await getAvailableBalance(wagmiConfig, account.address, options.token);
+        const balance = await getAvailableBalance(getWagmiConfig(), account.address, options.token);
         return !isGreaterThan(rightShift(options.amount, options.token.decimals), balance);
     }
 
@@ -53,7 +53,7 @@ class Provider implements TransferProvider<number, Address, Hash> {
             if (canFreeGas) return { isValid: true, gas: ZERO };
         }
 
-        const nativeBalance = await getBalance(wagmiConfig, {
+        const nativeBalance = await getBalance(getWagmiConfig(), {
             address: account,
             chainId: token.chainId,
         });
@@ -67,16 +67,16 @@ class Provider implements TransferProvider<number, Address, Hash> {
 
     async getAvailableBalance(options: TransactionOptions<number, Address>): Promise<string> {
         const { token } = options;
-        const account = getAccount(wagmiConfig);
+        const account = getAccount(getWagmiConfig());
         if (!account.address) throw new Error('Wallet not connected');
-        const balance = await getAvailableBalance(wagmiConfig, account.address, token);
+        const balance = await getAvailableBalance(getWagmiConfig(), account.address, token);
         return leftShift(balance, token.decimals).toString();
     }
 
     private async transferNative(options: TransactionOptions<number, Address>): Promise<Address> {
         const { isEIP1559, gasPrice, maxFeePerGas } = await getDefaultGas(options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
-        const account = getAccount(wagmiConfig);
+        const account = getAccount(getWagmiConfig());
         if (!account.address) {
             throw new Error('Wallet not connected');
         }
@@ -90,14 +90,14 @@ class Provider implements TransferProvider<number, Address, Hash> {
         } as const;
 
         if (isEIP1559) {
-            return sendTransaction(wagmiConfig, {
+            return sendTransaction(getWagmiConfig(), {
                 ...parameters,
                 connector: account.connector,
                 type: 'eip1559',
                 maxFeePerGas,
             });
         }
-        return sendTransaction(wagmiConfig, {
+        return sendTransaction(getWagmiConfig(), {
             ...parameters,
             connector: account.connector,
             type: 'legacy',
@@ -108,7 +108,7 @@ class Provider implements TransferProvider<number, Address, Hash> {
     private async transferContract(options: TransactionOptions<number, Address>): Promise<Address> {
         const { isEIP1559, gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await getDefaultGas(options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '3').toFixed(0);
-        const account = getAccount(wagmiConfig);
+        const account = getAccount(getWagmiConfig());
         if (!account.address) {
             throw new Error('Wallet not connected');
         }
@@ -127,7 +127,7 @@ class Provider implements TransferProvider<number, Address, Hash> {
         } as const;
 
         if (isEIP1559) {
-            return writeContract(wagmiConfig, {
+            return writeContract(getWagmiConfig(), {
                 ...parameters,
                 connector: account.connector,
                 type: 'eip1559',
@@ -136,7 +136,7 @@ class Provider implements TransferProvider<number, Address, Hash> {
                 maxPriorityFeePerGas,
             });
         }
-        return writeContract(wagmiConfig, {
+        return writeContract(getWagmiConfig(), {
             ...parameters,
             connector: account.connector,
             type: 'legacy',
@@ -145,7 +145,7 @@ class Provider implements TransferProvider<number, Address, Hash> {
     }
 
     async waitForTransaction(hash: string, chainId: number): Promise<void> {
-        await waitForEthereumTransaction(wagmiConfig, chainId, hash as Hash);
+        await waitForEthereumTransaction(getWagmiConfig(), chainId, hash as Hash);
     }
 }
 

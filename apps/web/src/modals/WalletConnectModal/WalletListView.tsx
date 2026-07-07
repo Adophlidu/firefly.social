@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { useAppkitWalletList } from '@/hooks/appkit/useAppkitWalletList.js';
 import { AllWalletsEntry } from '@/modals/WalletConnectModal/AllWalletsEntry.js';
 import { AppkitConnector } from '@/modals/WalletConnectModal/AppkitConnector.js';

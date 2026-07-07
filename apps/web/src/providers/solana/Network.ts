@@ -1,11 +1,13 @@
 import { solana } from '@dimensiondev/web3/chains';
 import { SolanaExplorerResolver } from '@dimensiondev/web3/resolvers';
 
-import { getWalletAdapter, getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 
 class Provider implements NetworkProvider {
     async connect() {
+        // Loaded on demand: connecting requires the wallet stack, so the AppKit
+        // controllers stay out of the chunks that render tips/wallet embeds.
+        const { getWalletAdapter } = await import('@/providers/solana/getWalletAdapter.js');
         const adapter = getWalletAdapter();
         if (!adapter.publicKey) await adapter.connect();
     }
@@ -13,6 +15,7 @@ class Provider implements NetworkProvider {
     async getAccount(): Promise<string> {
         await this.connect();
 
+        const { getWalletAdaptorConnected } = await import('@/providers/solana/getWalletAdapter.js');
         const adapter = getWalletAdaptorConnected();
         return adapter.publicKey.toBase58();
     }

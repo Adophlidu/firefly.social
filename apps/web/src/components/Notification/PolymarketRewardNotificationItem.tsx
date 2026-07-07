@@ -6,7 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
+import { waitForAuthorization } from '@/helpers/waitForPrivyAuthorization.js';
 import type { PolymarketRewardNotification } from '@/providers/types/Firefly.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

@@ -18,7 +18,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { loadWagmiClient } from '@/configs/wagmiClientLoader.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openWindow } from '@/helpers/openWindow.js';
@@ -77,6 +77,9 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             if (!isFree || !hasBalance) {
                 if (account.address)
                     captureArticleCollectEvent(EventId.ARTICLE_COLLECT_SUBMIT, article.id, account.address, isFree);
+                // Loaded on demand: sending a transaction implies a connected wallet,
+                // so the heavy wagmi config stays out of the article page chunk.
+                const { wagmiConfig } = await loadWagmiClient();
                 const confirmation = await sendTransaction(wagmiConfig, {
                     to: collectParams.txData.to as `0x${string}`,
                     value: BigInt(collectParams.txData.value),

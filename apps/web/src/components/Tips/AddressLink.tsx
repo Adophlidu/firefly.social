@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
+import { resolveNetworkProvider } from '@/helpers/resolveNetworkProvider.js';
 
 interface AddressLinkProps {
     address: string;

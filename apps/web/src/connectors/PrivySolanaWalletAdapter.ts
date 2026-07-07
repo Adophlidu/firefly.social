@@ -31,12 +31,13 @@ import bs58 from 'bs58';
 import { compact, first } from 'lodash-es';
 import { UserRejectedRequestError } from 'viem';
 
-import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { PRIVY_CONNECTOR_ID, waitForAuthorization } from '@/connectors/PrivyConnector.js';
 import { ProviderEventEmitter } from '@/connectors/ProviderEventEmitter.js';
+import { FIREFLY_WALLET_IFRAME_ID } from '@/constants/fireflyWallet.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/privy.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
+import { waitForAuthorization } from '@/helpers/waitForPrivyAuthorization.js';
 import { logger } from '@/libs/Logger.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

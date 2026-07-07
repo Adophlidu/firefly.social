@@ -82,6 +82,11 @@ export function useSingletonModal<OpenProps, CloseProps>(
 
             if (detail.name !== name || !dispatchRef.current) return;
 
+            // Mark the event as handled so `dispatchModalEvent` knows the modal is
+            // mounted; unhandled opens of deferred modals are re-dispatched after
+            // their cluster mounts (see `controllers/dispatchModalEvent.ts`).
+            event.preventDefault();
+
             const { action, props, error } = detail;
             if (action === 'open') {
                 dispatchRef.current.open(props as OpenProps);

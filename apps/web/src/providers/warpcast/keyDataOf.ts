@@ -2,7 +2,10 @@ import { pad, parseUnits } from 'viem';
 import { optimism } from 'viem/chains';
 import { readContract } from 'wagmi/actions';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+// The fallback config shares the optimism transport with the real config and
+// needs no connectors for this read-only contract call, so callers (e.g. frame
+// hosts on feed pages) never pull the heavy wallet stack into their chunk.
+import { fallbackWagmiConfig } from '@/configs/wagmiFallbackClient.js';
 
 const ABI = [
     {
@@ -44,7 +47,7 @@ const ABI = [
 ] as const;
 
 export async function keyDataOf(fid: number, address: `0x${string}`) {
-    const result = await readContract(wagmiConfig, {
+    const result = await readContract(fallbackWagmiConfig, {
         abi: ABI,
         address: '0x00000000fc1237824fb747abde0ff18990e59b7e',
         functionName: 'keyDataOf',
