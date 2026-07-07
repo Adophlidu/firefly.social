@@ -93,7 +93,7 @@ export const getProfilePageData = cache(
             profiles,
             identity,
             identityFromUrl,
-            socialProfile: socialProfile,
+            socialProfile,
             walletProfile,
             initialFeedPage,
             accountSuspended,
