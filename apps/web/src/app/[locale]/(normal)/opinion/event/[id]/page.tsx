@@ -3,7 +3,7 @@ import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
-import { createPredictionEventMetadata } from '@/providers/firefly/metadata/createPredictionEventMetadata.js';
+import { getPredictionEventPageMetadata } from '@/helpers/getPredictionEventPageMetadata.js';
 
 export const revalidate = 60;
 
@@ -16,14 +16,16 @@ type Props = LayoutProps<{
     }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const [{ id }, { type }] = await Promise.all([props.params, props.searchParams]);
+    const [{ id, locale }, { type }] = await Promise.all([props.params, props.searchParams]);
 
-    return createPredictionEventMetadata(
+    return getPredictionEventPageMetadata({
         id,
-        PredictionPlatform.Opinion,
-        `/opinion/event/${id}${type ? `?type=${type}` : ''}`,
+        isMutil: type === 'multi',
+        locale,
+        platform: PredictionPlatform.Opinion,
+        pathname: `/opinion/event/${id}${type ? `?type=${type}` : ''}`,
         type,
-    );
+    });
 }
 
 export default async function OpinionEventPage(props: Props) {

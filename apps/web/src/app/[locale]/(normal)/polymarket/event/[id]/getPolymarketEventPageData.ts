@@ -4,10 +4,8 @@ import type { Metadata } from 'next';
 import { cache } from 'react';
 
 import { compactEventForPageTransfer } from '@/helpers/compactEventForPageTransfer.js';
-import { createPredictionEventMetadataFromEvent } from '@/helpers/createPredictionEventMetadataFromEvent.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getPredictionEventPageMetadata } from '@/helpers/getPredictionEventPageMetadata.js';
 import { resolveLocale } from '@/helpers/resolveLocale.js';
-import { createPredictionEventMetadata } from '@/providers/firefly/metadata/createPredictionEventMetadata.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 
 export const getPolymarketEventPageData = cache(async (id: string, isMutil: boolean, locale: string) => {
@@ -36,14 +34,12 @@ export async function getPolymarketEventPageMetadata({
     pathname: string;
     type?: string;
 }): Promise<Metadata> {
-    const pageData = await runInSafeAsync(() => getPolymarketEventPageData(id, isMutil, locale));
-    if (pageData?.event) {
-        return createPredictionEventMetadataFromEvent(pageData.event, pathname, platform, id, type);
-    }
-
-    try {
-        return await createPredictionEventMetadata(id, platform, pathname, type);
-    } catch {
-        return createSiteMetadata(pathname);
-    }
+    return getPredictionEventPageMetadata({
+        id,
+        isMutil,
+        locale,
+        platform,
+        pathname,
+        type,
+    });
 }

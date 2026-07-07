@@ -1,5 +1,5 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
-import { getEventDetail } from '@dimensiondev/workers-metadata/prediction/getPredictionBySlug.js';
+import { getEventDetail } from '@dimensiondev/workers-metadata/prediction/getEventDetail.js';
 import { getPredictionProfile } from '@dimensiondev/workers-metadata/prediction/getPredictionProfile.js';
 import type {
     BetPortfolioItem,
