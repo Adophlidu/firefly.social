@@ -1,7 +1,7 @@
 import { getI18n } from '@lingui/react/server';
 
 import { getLocaleFromCookies, getLocalFromClientCookies } from '@/helpers/getCookies.js';
-import { setupAndActiveI18n } from '@/i18n/core.js';
+import { setupAndActiveI18n } from '@/i18n/server.js';
 
 export async function setupLocaleForSSR() {
     const instance = getI18n();

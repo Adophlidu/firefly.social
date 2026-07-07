@@ -3,7 +3,7 @@ import { Agent, Locale } from '@dimensiondev/enums';
 import { isValidEnumValue } from '@dimensiondev/utils';
 import { cookies } from 'next/headers.js';
 
-import { setupAndActiveI18n } from '@/i18n/core.js';
+import { setupAndActiveI18n } from '@/i18n/server.js';
 
 export async function changeCookies(formData: FormData) {
     const agent_ = formData.get('agent') as string | undefined;

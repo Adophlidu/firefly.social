@@ -5,7 +5,7 @@
 import { Locale } from '@dimensiondev/enums';
 import { getI18n } from '@lingui/react/server';
 
-import { setupAndActiveI18n } from '@/i18n/core.js';
+import { setupAndActiveI18n } from '@/i18n/server.js';
 
 const LOCALES = Object.values(Locale);
 
