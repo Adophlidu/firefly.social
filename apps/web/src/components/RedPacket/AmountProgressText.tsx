@@ -7,6 +7,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import type { ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
+
 interface AmountProgressTextProps {
     theme: ThemeGroupSettings;
     amount: string; // bigint in str

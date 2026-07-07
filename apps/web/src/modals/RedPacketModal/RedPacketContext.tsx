@@ -30,9 +30,9 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
-import type { RedPacketNFTCollection } from '@/types/rp.js';
 import type { RequirementType, ThemeGroupSettings } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import type { RedPacketNFTCollection } from '@/types/rp.js';
 
 export const redPacketRandomTabs = [
     {

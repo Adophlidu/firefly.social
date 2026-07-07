@@ -5,10 +5,8 @@ import { prettyJSON } from 'hono/pretty-json';
 
 import { ArticleMetadataRoute } from '@/metadata/src/article/route.js';
 import { ChannelMetadataRoute } from '@/metadata/src/channel/route.js';
-import { CollectionMetadataRoute } from '@/metadata/src/collection/route.js';
 import { EventMetadataRoute } from '@/metadata/src/event/route.js';
 import { FireflyProfileMetadataRoute } from '@/metadata/src/firefly-profile/route.js';
-import { NftMetadataRoute } from '@/metadata/src/nft/route.js';
 import { PostMetadataRoute } from '@/metadata/src/post/route.js';
 import { PredictionMetadataRoute } from '@/metadata/src/prediction/route.js';
 import { ProfileMetadataRoute } from '@/metadata/src/profile/route.js';
@@ -19,10 +17,8 @@ import { WalletProfileMetadataRoute } from '@/metadata/src/wallet-profile/route.
 const metadataV2 = new Hono()
     .route('/', ArticleMetadataRoute)
     .route('/', ChannelMetadataRoute)
-    .route('/', CollectionMetadataRoute)
     .route('/', EventMetadataRoute)
     .route('/', FireflyProfileMetadataRoute)
-    .route('/', NftMetadataRoute)
     .route('/', PostMetadataRoute)
     .route('/', PredictionMetadataRoute)
     .route('/', ProfileMetadataRoute)
