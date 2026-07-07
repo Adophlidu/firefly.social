@@ -34,6 +34,7 @@ import type { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Article as FormattedArticle } from '@/providers/types/Article.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
+import type { PenaltyShootout } from '@/types/prediction.js';
 import type { LiteralOrString, PartialWith } from '@/types/utility.js';
 
 export enum EmbedMediaType {
@@ -1314,6 +1315,8 @@ export interface SportActivityData {
     scoreType?: number;
     periodShow?: string;
     winResult?: number;
+    /** Per-kick penalty-shootout results (home/away); overlaid from FIFA match-results. */
+    penaltyShootout?: PenaltyShootout;
 }
 
 /** A single moneyline market within a game (from gameData.markets). */

@@ -4,10 +4,12 @@ import { SORTED_BETS_PLATFORM } from '@dimensiondev/constants/computed';
 import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionActivityItem } from '@/components/Prediction/PredictionActivityItem.js';
+import { enrichActivityWithFifa } from '@/helpers/prediction/fifaMatchResults.js';
+import { useFifaMatchResults } from '@/hooks/prediction/useFifaMatchResults.js';
 import { getPredictionTimelineByAddress } from '@/providers/firefly/prediction/getPredictionTimelineByAddress.js';
 import { captureProfilePolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
@@ -43,6 +45,20 @@ export const ProfilePredictionTimeline = memo<ProfilePredictionTimelineProps>(fu
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
+    // Overlay FIFA penalty-shootout data so drawn matches can render shootout dots.
+    const hasSportActivity = useMemo(
+        () => (queryResult.data ?? []).some((activity) => !!activity.sportData),
+        [queryResult.data],
+    );
+    const fifaMatchResults = useFifaMatchResults({ enabled: hasSportActivity, refetchInterval: false });
+
+    const enrichedQueryResult = useMemo(() => {
+        const data = (queryResult.data ?? []).map((activity) =>
+            enrichActivityWithFifa(activity, fifaMatchResults?.get(activity.topicId)),
+        );
+        return { ...queryResult, data };
+    }, [queryResult, fifaMatchResults]);
+
     const onPolymarketLinkClick = useCallback(() => {
         captureProfilePolymarketLinkClick();
     }, []);
@@ -51,7 +67,7 @@ export const ProfilePredictionTimeline = memo<ProfilePredictionTimelineProps>(fu
         <ListInPage
             source={Source.Prediction}
             key={Source.Prediction}
-            queryResult={queryResult}
+            queryResult={enrichedQueryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Prediction}:${address}`,
                 computeItemKey: (index, data) => `${data.transactionHash}-${index}`,

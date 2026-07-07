@@ -9,6 +9,7 @@ import { memo, type ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { PenaltyShootoutDots } from '@/components/Prediction/Sport/PenaltyShootoutDots.js';
 import { SportTennisScoreValue } from '@/components/Prediction/Sport/SportTennisScoreValue.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -17,6 +18,7 @@ import { formatPriceCents } from '@/helpers/prediction/category/formatPolymarket
 import {
     abbreviateOutcomeLabel,
     compareScorePair,
+    getPenaltyShootoutLoser,
     getScoreValue,
     getTennisSetKey,
     getTieBreakValue,
@@ -30,6 +32,7 @@ import type {
     SportActivityScore,
     SportActivityTeam,
 } from '@/providers/types/Firefly.js';
+import type { PenaltyKickOutcome } from '@/types/prediction.js';
 
 const HOME_FALLBACK_COLOR = '#3DC233';
 const AWAY_FALLBACK_COLOR = '#FF3545';
@@ -239,7 +242,11 @@ function resolveWinner(activity: BetsActivity): 'home' | 'away' | 'draw' | undef
 
     if (sport.winResult === 0) return 'home';
     if (sport.winResult === 2) return 'away';
-    if (sport.winResult === 1 && sport.isDraw) return 'draw';
+    if (sport.winResult === 1 && sport.isDraw) {
+        // Drawn → mute the shootout loser.
+        const loser = getPenaltyShootoutLoser(sport.penaltyShootout);
+        return loser === 'home' ? 'away' : loser === 'away' ? 'home' : 'draw';
+    }
 
     const latestScores = getLatestScores(sport.scoreShow ?? []);
     const scoreComparison = compareScorePair(latestScores);
@@ -289,7 +296,15 @@ function TeamLogo({ team }: { team: TeamViewModel }) {
     );
 }
 
-function TeamColumn({ team, isLoser }: { team: TeamViewModel; isLoser?: boolean }) {
+function TeamColumn({
+    team,
+    isLoser,
+    penaltyOutcomes,
+}: {
+    team: TeamViewModel;
+    isLoser?: boolean;
+    penaltyOutcomes?: PenaltyKickOutcome[];
+}) {
     const resolveTeamName = useLocalizedSportsTeamName();
     return (
         <div
@@ -301,6 +316,7 @@ function TeamColumn({ team, isLoser }: { team: TeamViewModel; isLoser?: boolean 
             <p className="line-clamp-2 min-h-4 w-full break-words text-[10px] font-semibold leading-4 text-lightMain md:text-[13px]">
                 {resolveTeamName(team.name)}
             </p>
+            {penaltyOutcomes?.length ? <PenaltyShootoutDots outcomes={penaltyOutcomes} /> : null}
         </div>
     );
 }
@@ -548,12 +564,14 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
     const drawSlug = marketOutcomes?.draw?.slug ?? slug;
     const awaySlug = marketOutcomes?.away?.slug ?? slug;
 
+    const penaltyShootout = sport.penaltyShootout;
+
     return (
         <div className="mt-2 rounded-2xl border border-line p-3 md:p-4">
             <div className="grid w-full grid-cols-[minmax(84px,156px)_minmax(88px,1fr)_minmax(84px,156px)] items-center gap-2">
-                <TeamColumn team={homeTeam} isLoser={winner === 'away'} />
+                <TeamColumn team={homeTeam} isLoser={winner === 'away'} penaltyOutcomes={penaltyShootout?.home} />
                 <CenterColumn activity={activity} outcomes={outcomes} winner={winner} />
-                <TeamColumn team={awayTeam} isLoser={winner === 'home'} />
+                <TeamColumn team={awayTeam} isLoser={winner === 'home'} penaltyOutcomes={penaltyShootout?.away} />
             </div>
             {canShowButtons ? (
                 <div className="mt-2 grid grid-cols-3 gap-2">

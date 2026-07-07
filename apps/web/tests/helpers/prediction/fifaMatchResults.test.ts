@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+    enrichActivityWithFifa,
     enrichSportsEventWithFifa,
     indexFifaMatchResultsBySlug,
     mapFifaKickStatus,
     overlaySportEventDataWithFifa,
     toPenaltyShootout,
 } from '@/helpers/prediction/fifaMatchResults.js';
-import type { FifaMatchResultData, PolymarketSportsEvent } from '@/providers/types/Firefly.js';
+import type { BetsActivity, FifaMatchResultData, PolymarketSportsEvent } from '@/providers/types/Firefly.js';
 import type { SportEventData } from '@/types/prediction.js';
 import { SportScoreType } from '@/types/prediction.js';
 
@@ -59,6 +60,14 @@ function baseSportData(overrides: Partial<SportEventData> = {}): SportEventData 
         isDraw: true,
         ...overrides,
     };
+}
+
+function baseActivity(overrides: Partial<BetsActivity> = {}): BetsActivity {
+    return {
+        topicId: SHOOTOUT_SLUG,
+        sportData: { isDraw: true, ended: true, winResult: 1, leagueName: 'World Cup' },
+        ...overrides,
+    } as BetsActivity;
 }
 
 describe('mapFifaKickStatus', () => {
@@ -212,5 +221,46 @@ describe('overlaySportEventDataWithFifa', () => {
         });
         expect(overlaySportEventDataWithFifa(data, fifa)).toBe(data);
         expect(overlaySportEventDataWithFifa(data, undefined)).toBe(data);
+    });
+});
+
+describe('enrichActivityWithFifa', () => {
+    it('injects penaltyShootout into sportData for a shootout match', () => {
+        const activity = baseActivity();
+        const enriched = enrichActivityWithFifa(activity, baseFifaMatch());
+        expect(enriched.sportData?.penaltyShootout).toEqual({
+            home: [1, 1, 2, 1, 1, 1],
+            away: [1, 2, 1, 1, 1, 2],
+        });
+    });
+
+    it('preserves the rest of sportData', () => {
+        const activity = baseActivity();
+        const enriched = enrichActivityWithFifa(activity, baseFifaMatch());
+        expect(enriched.sportData?.leagueName).toBe('World Cup');
+        expect(enriched.sportData?.isDraw).toBe(true);
+    });
+
+    it('returns the same ref when the FIFA match is absent', () => {
+        const activity = baseActivity();
+        expect(enrichActivityWithFifa(activity, undefined)).toBe(activity);
+    });
+
+    it('returns the same ref when there is no shootout', () => {
+        const activity = baseActivity();
+        const fifa = baseFifaMatch({ has_penalty_shootout: false, penalty_kicks: null });
+        expect(enrichActivityWithFifa(activity, fifa)).toBe(activity);
+    });
+
+    it('returns the same ref when the activity has no sportData', () => {
+        const activity = baseActivity({ sportData: undefined });
+        expect(enrichActivityWithFifa(activity, baseFifaMatch())).toBe(activity);
+    });
+
+    it('still injects penaltyShootout when kicks are briefly null', () => {
+        const activity = baseActivity();
+        const fifa = baseFifaMatch({ penalty_kicks: null });
+        const enriched = enrichActivityWithFifa(activity, fifa);
+        expect(enriched.sportData?.penaltyShootout).toEqual({ home: [], away: [] });
     });
 });

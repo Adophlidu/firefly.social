@@ -1,4 +1,5 @@
 import type {
+    BetsActivity,
     FifaMatchResultData,
     FifaPenaltyKickStatus,
     PolymarketSportsEvent,
@@ -115,5 +116,20 @@ export function overlaySportEventDataWithFifa(
         ...data,
         ...(penaltyShootout ? { penaltyShootout } : {}),
         ...(liveScoreOverride ? { scores: overrideLiveSportScores(data.scores, liveScoreOverride) } : {}),
+    };
+}
+
+/** Inject `penaltyShootout` (joined by `activity.topicId`) into the activity's `sportData`; no-op, same ref, when there's no shootout. */
+export function enrichActivityWithFifa(activity: BetsActivity, fifa: FifaMatchResultData | undefined): BetsActivity {
+    if (!fifa?.has_penalty_shootout || !activity.sportData) return activity;
+
+    const penaltyShootout = toPenaltyShootout(fifa.penalty_kicks) ?? { home: [], away: [] };
+
+    return {
+        ...activity,
+        sportData: {
+            ...activity.sportData,
+            penaltyShootout,
+        },
     };
 }
