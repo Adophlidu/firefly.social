@@ -12,7 +12,6 @@ import { z } from 'zod';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64, fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';

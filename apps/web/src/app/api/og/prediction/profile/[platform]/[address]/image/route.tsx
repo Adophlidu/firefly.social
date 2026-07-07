@@ -13,7 +13,6 @@ import { z } from 'zod';
 
 import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';
 import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
