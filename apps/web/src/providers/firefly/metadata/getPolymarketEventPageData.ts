@@ -2,7 +2,6 @@ import { PredictionPlatform } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { cache } from 'react';
 
-import { compactEventForPageTransfer } from '@/helpers/compactEventForPageTransfer.js';
 import { resolveLocale } from '@/helpers/resolveLocale.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 
@@ -14,5 +13,5 @@ export const getPolymarketEventPageData = cache(async (id: string, isMutil: bool
 
     if (!event) return { event: null };
 
-    return { event: compactEventForPageTransfer(event) };
+    return { event };
 });

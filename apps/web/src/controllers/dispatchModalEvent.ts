@@ -198,7 +198,6 @@ const WALLET_STACK_MODALS: ReadonlySet<keyof ModalEvents> = new Set<keyof ModalE
  */
 const APP_MODALS: ReadonlySet<keyof ModalEvents> = new Set<keyof ModalEvents>([
     'add-custom-erc20-modal',
-    'add-custom-erc721-modal',
     'add-wallet-modal',
     'collect-post-modal',
     'compose-modal',
@@ -225,7 +224,6 @@ const APP_MODALS: ReadonlySet<keyof ModalEvents> = new Set<keyof ModalEvents>([
  */
 const WALLET_FLOW_MODALS: ReadonlySet<keyof ModalEvents> = new Set<keyof ModalEvents>([
     'add-custom-erc20-modal',
-    'add-custom-erc721-modal',
     'add-wallet-modal',
     'collect-post-modal',
     'compose-modal',

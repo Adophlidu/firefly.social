@@ -1,6 +1,7 @@
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-/** Drop heavy nested fields before passing profile data through the RSC client boundary. */
+/** Whitelist: only listed fields survive. Add any new rendered field here, or it'll be
+ *  missing from SSR (ProfileContextProvider refetches the full profile after hydration). */
 export function compactProfileForPageTransfer(profile: Profile): Profile {
     return {
         profileId: profile.profileId,
