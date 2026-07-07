@@ -2,7 +2,7 @@ import { PredictionPlatform } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
-import { createPredictionProfileMetadata } from '@/providers/firefly/metadata/createPredictionProfileMetadata.js';
+import { getPredictionProfilePageMetadata } from '@/providers/firefly/metadata/getPredictionProfilePageMetadata.js';
 
 interface Props extends LayoutProps<{
     address: string;
@@ -10,7 +10,7 @@ interface Props extends LayoutProps<{
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { address } = await props.params;
-    return createPredictionProfileMetadata(address, PredictionPlatform.Opinion, `/opinion/profile/${address}`);
+    return getPredictionProfilePageMetadata(address, PredictionPlatform.Opinion, `/opinion/profile/${address}`);
 }
 export default async function OpinionProfileLayout(props: Props) {
     return props.children;

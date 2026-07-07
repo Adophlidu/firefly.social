@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createTokenMetadataFromToken } from '@/helpers/createTokenMetadataFromToken.js';
-import { searchTokenByKeyword } from '@/helpers/searchTokenByKeyword.js';
+import { createTokenMetadataFromToken } from '@/providers/firefly/metadata/createTokenMetadataFromToken.js';
+import { searchTokenByKeyword } from '@/providers/firefly/metadata/searchTokenByKeyword.js';
 
 export async function createTokenMetadata(
     keyword: string,

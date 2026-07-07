@@ -1,7 +1,7 @@
 import type { LayoutProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
-import { getArticleDetailPageMetadata } from '@/app/[locale]/(normal)/article/[id]/getArticleDetailPageData.js';
+import { getArticleDetailPageMetadata } from '@/providers/firefly/metadata/getArticleDetailPageData.js';
 import { ArticleDetailPage } from '@/app/[locale]/(normal)/article/[id]/pages/DetailPage.js';
 
 export const revalidate = 300;

@@ -4,13 +4,13 @@ import type { Metadata } from 'next';
 import { cache } from 'react';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import {
-    createSwapTransactionMetadata,
-    createTipsTransactionMetadata,
-} from '@/helpers/createTransactionMetadataFromData.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
+import {
+    createSwapTransactionMetadata,
+    createTipsTransactionMetadata,
+} from '@/providers/firefly/metadata/createTransactionMetadataFromData.js';
 import type { SwapActivity, TipsDetail } from '@/providers/types/Firefly.js';
 
 export type TxPageData = { kind: 'tips'; data: TipsDetail } | { kind: 'swap'; data: SwapActivity };

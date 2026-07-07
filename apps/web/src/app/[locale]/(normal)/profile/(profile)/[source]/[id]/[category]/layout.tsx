@@ -7,9 +7,9 @@ import { notFound } from '@/esm/navigation/server.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
-import { resolveProfilePageMetadata } from '@/helpers/resolveProfilePageMetadata.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
+import { resolveProfilePageMetadata } from '@/providers/firefly/metadata/resolveProfilePageMetadata.js';
 
 interface Props extends LayoutProps<{ id: string; category: string; source: string }> {}
 

@@ -4,7 +4,7 @@ import { Source } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { createContext, type PropsWithChildren, useMemo } from 'react';
 
-import type { ProfileFeedInitialData } from '@/app/[locale]/(normal)/profile/(profile)/[source]/[id]/getProfilePageData.js';
+import type { ProfileFeedInitialData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';

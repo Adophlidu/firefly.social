@@ -2,7 +2,7 @@ import { ArticlePlatform } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { cache } from 'react';
 
-import { getMirrorCoverFromArticleUrl } from '@/helpers/getMirrorCoverFromArticleUrl.js';
+import { getMirrorCoverFromArticleUrl } from '@/providers/firefly/metadata/getMirrorCoverFromArticleUrl.js';
 import type { Article } from '@/providers/types/Article.js';
 
 /**

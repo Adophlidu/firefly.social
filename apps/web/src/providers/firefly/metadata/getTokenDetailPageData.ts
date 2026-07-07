@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import { cache } from 'react';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createTokenMetadataFromToken } from '@/helpers/createTokenMetadataFromToken.js';
 import { getCoinTrending } from '@/providers/coingecko/getCoinTrending.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
+import { createTokenMetadataFromToken } from '@/providers/firefly/metadata/createTokenMetadataFromToken.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
 import type { Trending } from '@/providers/types/Trending.js';
 

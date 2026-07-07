@@ -13,8 +13,8 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
-import { createFireflyArticleMetadata } from '@/providers/firefly/metadata/createFireflyArticleMetadata.js';
-import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
+import { getFireflyArticlePageMetadata } from '@/providers/firefly/metadata/getFireflyArticlePageMetadata.js';
+import { getPostPageMetadata } from '@/providers/firefly/metadata/getPostPageMetadata.js';
 
 export const revalidate = 60;
 
@@ -28,13 +28,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     // Article metadata: /post/{articleId}?s={source}
     if (searchParams.s && isSocialSourceInUrl(searchParams.s)) {
         const pathname = `/post/${params.source}?s=${searchParams.s}`;
-        return createFireflyArticleMetadata(params.source, searchParams.s, pathname);
+        return getFireflyArticlePageMetadata(params.source, searchParams.s, pathname);
     }
 
     // Existing post redirect metadata
     const pathname = `/post/${params.source}?${new URLSearchParams(searchParams as Record<string, string>).toString()}`;
     return searchParams.source && isSocialSourceInUrl(searchParams.source)
-        ? createPostMetadata(searchParams.source, params.source, pathname)
+        ? getPostPageMetadata(searchParams.source, params.source, pathname)
         : createSiteMetadata(pathname);
 }
 

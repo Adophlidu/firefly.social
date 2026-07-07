@@ -1,14 +1,16 @@
 import type { ProfilePageSourceInURL } from '@dimensiondev/enums';
+import { SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 
-import { getProfilePageData } from '@/app/[locale]/(normal)/profile/(profile)/[source]/[id]/getProfilePageData.js';
-import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
-import { createProfileMetadataFromProfile } from '@/helpers/createProfileMetadataFromProfile.js';
+import { getProfilePageData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createWalletProfileMetadataFromProfile } from '@/helpers/createWalletProfileMetadataFromProfile.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { createProfileMetadataFromProfile } from '@/providers/firefly/metadata/createProfileMetadataFromProfile.js';
+import { createWalletProfileMetadataFromProfile } from '@/providers/firefly/metadata/createWalletProfileMetadataFromProfile.js';
+import { getSocialProfilePageMetadata } from '@/providers/firefly/metadata/getSocialProfilePageData.js';
+import { getWalletProfilePageMetadata } from '@/providers/firefly/metadata/getWalletProfilePageData.js';
 
 export async function resolveProfilePageMetadata(source: string, id: string, pathname: string): Promise<Metadata> {
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
@@ -25,5 +27,9 @@ export async function resolveProfilePageMetadata(source: string, id: string, pat
         return createWalletProfileMetadataFromProfile(pageData.walletProfile, id, pathname);
     }
 
-    return createMetadataProfileById(source as ProfilePageSourceInURL, id, pathname);
+    if (source === SourceInURL.Wallet || source === SourceInURL.WalletMix) {
+        return getWalletProfilePageMetadata(id, pathname);
+    }
+
+    return getSocialProfilePageMetadata(source as ProfilePageSourceInURL, id, pathname);
 }

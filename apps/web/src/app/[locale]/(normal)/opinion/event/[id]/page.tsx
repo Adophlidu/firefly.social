@@ -3,7 +3,7 @@ import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
-import { getPredictionEventPageMetadata } from '@/helpers/getPredictionEventPageMetadata.js';
+import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
 
 export const revalidate = 60;
 

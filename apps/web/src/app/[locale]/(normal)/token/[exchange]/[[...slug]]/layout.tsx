@@ -7,7 +7,7 @@ import { CategoryTabs } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug
 import {
     getTokenDetailPageData,
     getTokenDetailPageMetadata,
-} from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/getTokenDetailPageData.js';
+} from '@/providers/firefly/metadata/getTokenDetailPageData.js';
 import { MobileSwapButton } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
 import { resolveTokenDetailQueryOptions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
 import { WrapTokenMarketData } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';

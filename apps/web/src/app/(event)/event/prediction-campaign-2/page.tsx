@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 
 import { PredictionCampaignModal } from '@/components/PredictionCampaign/PredictionCampaignModal.js';
-import { createEventMetadata } from '@/providers/firefly/metadata/createEventMetadata.js';
+import { getEventPageMetadata } from '@/providers/firefly/metadata/getEventPageData.js';
 
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
-    return createEventMetadata('polymarket_prediction2', '/event/prediction-campaign-2');
+    return getEventPageMetadata('polymarket_prediction2', '/event/prediction-campaign-2');
 }
 
 export default async function Page() {

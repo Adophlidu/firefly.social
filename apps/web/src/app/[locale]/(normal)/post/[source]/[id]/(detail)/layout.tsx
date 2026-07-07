@@ -5,9 +5,9 @@ import type { Metadata } from 'next';
 
 import { Comeback } from '@/components/Comeback.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getPostPageMetadata } from '@/helpers/getPostPageMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
+import { getPostPageMetadata } from '@/providers/firefly/metadata/getPostPageMetadata.js';
 
 interface Props extends LayoutProps<{ id: string; source: string; locale: string }> {}
 

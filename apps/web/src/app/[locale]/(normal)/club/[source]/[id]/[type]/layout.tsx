@@ -4,7 +4,7 @@ import { ChannelTabType, SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
-import { getChannelPageMetadata } from '@/app/[locale]/(normal)/club/[source]/[id]/getChannelPageData.js';
+import { getChannelPageMetadata } from '@/providers/firefly/metadata/getChannelPageData.js';
 import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';

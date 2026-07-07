@@ -4,9 +4,9 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { createPredictionEventMetadataFromEvent } from '@/helpers/createPredictionEventMetadataFromEvent.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveLocale } from '@/helpers/resolveLocale.js';
+import { createPredictionEventMetadataFromEvent } from '@/providers/firefly/metadata/createPredictionEventMetadataFromEvent.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 
 export async function getPredictionEventPageMetadata({

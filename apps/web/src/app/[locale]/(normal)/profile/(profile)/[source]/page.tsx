@@ -7,7 +7,7 @@ import { notFound } from '@/esm/navigation/server.js';
 import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { createFireflyProfileMetadata } from '@/providers/firefly/metadata/createFireflyProfileMetadata.js';
+import { getFireflyProfilePageMetadata } from '@/providers/firefly/metadata/getFireflyProfilePageMetadata.js';
 
 export function generateStaticParams() {
     return [
@@ -23,7 +23,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata(props: Props) {
     const { source } = await props.params;
-    return createFireflyProfileMetadata(source, `/profile/${source}`);
+    return getFireflyProfilePageMetadata(source, `/profile/${source}`);
 }
 
 interface Props extends LayoutProps<{ source: string }> {}

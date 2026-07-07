@@ -2,9 +2,9 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 import { cache } from 'react';
 
-import { createEventMetadataFromActivity } from '@/helpers/createEventMetadataFromActivity.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFireflyActivityInfo } from '@/providers/firefly/activity/getFireflyActivityInfo.js';
+import { createEventMetadataFromActivity } from '@/providers/firefly/metadata/createEventMetadataFromActivity.js';
 
 export const getEventPageData = cache(async (name: string) => {
     return runInSafeAsync(() => getFireflyActivityInfo(name));

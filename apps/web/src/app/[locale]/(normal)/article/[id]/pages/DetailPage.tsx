@@ -1,10 +1,10 @@
 import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 
-import { getArticleDetailPageData } from '@/app/[locale]/(normal)/article/[id]/getArticleDetailPageData.js';
+import { getArticleDetailPageData } from '@/providers/firefly/metadata/getArticleDetailPageData.js';
 import { ArticleDetailContent } from '@/components/Article/ArticleDetailContent.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { resolveArticleCoverUrl } from '@/helpers/resolveArticleCoverUrl.js';
+import { resolveArticleCoverUrl } from '@/providers/firefly/metadata/resolveArticleCoverUrl.js';
 
 interface Props {
     id: string;

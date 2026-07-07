@@ -1,6 +1,6 @@
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 
-import type { ProfileFeedInitialData } from '@/app/[locale]/(normal)/profile/(profile)/[source]/[id]/getProfilePageData.js';
+import type { ProfileFeedInitialData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import { SSR_LIST_LIMIT } from '@/constants/ssr.js';
 import { compactPostsForPageTransfer } from '@/helpers/compactPostForPageTransfer.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

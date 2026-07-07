@@ -2,12 +2,10 @@ import { PredictionPlatform } from '@dimensiondev/enums';
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
-import {
-    getPolymarketEventPageData,
-    getPolymarketEventPageMetadata,
-} from '@/app/[locale]/(normal)/polymarket/event/[id]/getPolymarketEventPageData.js';
+import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPolymarketEventPageData.js';
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { notFound } from '@/esm/navigation/server.js';
+import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
 
 export const revalidate = 60;
 
@@ -18,7 +16,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     const [{ id, locale }, { type }] = await Promise.all([props.params, props.searchParams]);
     const isMutil = type === 'multi';
 
-    return getPolymarketEventPageMetadata({
+    return getPredictionEventPageMetadata({
         id,
         isMutil,
         locale,

@@ -3,10 +3,7 @@ import { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
-import {
-    getChannelPageData,
-    getChannelPageMetadata,
-} from '@/app/[locale]/(normal)/club/[source]/[id]/getChannelPageData.js';
+import { getChannelPageData, getChannelPageMetadata } from '@/providers/firefly/metadata/getChannelPageData.js';
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { Title } from '@/components/Channel/Title.js';
 import { notFound } from '@/esm/navigation/server.js';

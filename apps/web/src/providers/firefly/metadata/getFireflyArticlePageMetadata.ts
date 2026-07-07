@@ -3,9 +3,9 @@ import { SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 
-import { getArticleDetailPageData } from '@/app/[locale]/(normal)/article/[id]/getArticleDetailPageData.js';
-import { createFireflyArticleMetadataFromArticle } from '@/helpers/createFireflyArticleMetadataFromArticle.js';
+import { getArticleDetailPageData } from '@/providers/firefly/metadata/getArticleDetailPageData.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { createFireflyArticleMetadataFromArticle } from '@/providers/firefly/metadata/createFireflyArticleMetadataFromArticle.js';
 
 export async function getFireflyArticlePageMetadata(
     articleId: string,

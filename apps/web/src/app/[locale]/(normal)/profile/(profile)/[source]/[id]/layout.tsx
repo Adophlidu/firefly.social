@@ -2,7 +2,7 @@ import type { LoginFallbackSource } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
-import { getProfilePageData } from '@/app/[locale]/(normal)/profile/(profile)/[source]/[id]/getProfilePageData.js';
+import { getProfilePageData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
 import { ProfileContextProvider } from '@/components/Profile/ProfileContext.js';

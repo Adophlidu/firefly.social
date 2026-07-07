@@ -6,8 +6,8 @@ import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
-import { resolveProfilePageMetadata } from '@/helpers/resolveProfilePageMetadata.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { resolveProfilePageMetadata } from '@/providers/firefly/metadata/resolveProfilePageMetadata.js';
 
 type Props = LayoutProps<{ source: ProfilePageSourceInURL; id: string }>;
 

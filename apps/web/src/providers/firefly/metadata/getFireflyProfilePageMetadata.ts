@@ -3,11 +3,11 @@ import { SITE_URL } from '@dimensiondev/envs/web';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { createFireflyProfileMetadataFromAccount } from '@/helpers/createFireflyProfileMetadataFromAccount.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getFireflyProfilePageData } from '@/helpers/getFireflyProfilePageData.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { createFireflyProfileMetadataFromAccount } from '@/providers/firefly/metadata/createFireflyProfileMetadataFromAccount.js';
+import { getFireflyProfilePageData } from '@/providers/firefly/metadata/getFireflyProfilePageData.js';
 
 export async function getFireflyProfilePageMetadata(source: string, pathname: string): Promise<Metadata> {
     const ogImageUrl = urlcat(SITE_URL, '/api/og/profile/:source/:id/image', {

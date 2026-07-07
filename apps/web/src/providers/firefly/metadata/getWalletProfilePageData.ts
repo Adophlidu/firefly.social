@@ -5,8 +5,8 @@ import { cache } from 'react';
 import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createWalletProfileMetadataFromProfile } from '@/helpers/createWalletProfileMetadataFromProfile.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
+import { createWalletProfileMetadataFromProfile } from '@/providers/firefly/metadata/createWalletProfileMetadataFromProfile.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export const getWalletProfilePageData = cache(async (addressOrEns: string): Promise<WalletProfile | null> => {

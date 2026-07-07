@@ -1,10 +1,8 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import type { Metadata } from 'next';
 import { cache } from 'react';
 
 import { compactEventForPageTransfer } from '@/helpers/compactEventForPageTransfer.js';
-import { getPredictionEventPageMetadata } from '@/helpers/getPredictionEventPageMetadata.js';
 import { resolveLocale } from '@/helpers/resolveLocale.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 
@@ -18,28 +16,3 @@ export const getPolymarketEventPageData = cache(async (id: string, isMutil: bool
 
     return { event: compactEventForPageTransfer(event) };
 });
-
-export async function getPolymarketEventPageMetadata({
-    id,
-    isMutil,
-    locale,
-    platform,
-    pathname,
-    type,
-}: {
-    id: string;
-    isMutil: boolean;
-    locale: string;
-    platform: PredictionPlatform;
-    pathname: string;
-    type?: string;
-}): Promise<Metadata> {
-    return getPredictionEventPageMetadata({
-        id,
-        isMutil,
-        locale,
-        platform,
-        pathname,
-        type,
-    });
-}

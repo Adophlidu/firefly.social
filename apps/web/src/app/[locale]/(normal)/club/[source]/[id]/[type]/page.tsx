@@ -4,10 +4,7 @@ import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import type { Metadata } from 'next';
 
-import {
-    getChannelPageData,
-    getChannelPageMetadata,
-} from '@/app/[locale]/(normal)/club/[source]/[id]/getChannelPageData.js';
+import { getChannelPageData, getChannelPageMetadata } from '@/providers/firefly/metadata/getChannelPageData.js';
 import { ChannelContentList } from '@/components/Channel/ChannelContentList.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { NoSSR } from '@/components/NoSSR.js';

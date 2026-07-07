@@ -5,12 +5,12 @@ import { cache } from 'react';
 import urlcat from 'urlcat';
 
 import { compactProfileForPageTransfer } from '@/helpers/compactProfileForPageTransfer.js';
-import { createProfileMetadataFromProfile } from '@/helpers/createProfileMetadataFromProfile.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { createProfileMetadataFromProfile } from '@/providers/firefly/metadata/createProfileMetadataFromProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export const getSocialProfileByHandlePageData = cache(

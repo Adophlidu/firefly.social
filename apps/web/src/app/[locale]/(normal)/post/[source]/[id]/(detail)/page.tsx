@@ -3,7 +3,7 @@ import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 
 import { PageDetail } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/client.js';
-import { getPostDetailPageData } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/getPostDetailPageData.js';
+import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { notFound } from '@/esm/navigation/server.js';

@@ -3,8 +3,8 @@ import type { LayoutProps } from '@dimensiondev/types';
 import { TipsDetailWithView } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/TipsDetailWithView.js';
 import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { getTxPageData, getTxPageMetadata } from '@/helpers/getTxPageData.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
+import { getTxPageData, getTxPageMetadata } from '@/providers/firefly/metadata/getTxPageData.js';
 
 export const revalidate = 3600;
 

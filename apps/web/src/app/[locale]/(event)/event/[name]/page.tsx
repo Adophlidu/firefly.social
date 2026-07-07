@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { getEventPageData, getEventPageMetadata } from '@/helpers/getEventPageData.js';
+import { getEventPageData, getEventPageMetadata } from '@/providers/firefly/metadata/getEventPageData.js';
 
 export const revalidate = 300;
 

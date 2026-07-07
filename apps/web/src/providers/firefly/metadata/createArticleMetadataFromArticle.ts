@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { resolveArticleCoverUrl } from '@/helpers/resolveArticleCoverUrl.js';
+import { resolveArticleCoverUrl } from '@/providers/firefly/metadata/resolveArticleCoverUrl.js';
 import type { Article } from '@/providers/types/Article.js';
 
 function getArticleDescription(article: Article) {
