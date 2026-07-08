@@ -3,7 +3,8 @@
 import { HIDDEN_SECRET } from '@dimensiondev/constants/static';
 import { KeyType } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
-import { kv } from '@vercel/kv';
+
+import { redis } from '@/libs/Redis.js';
 
 export interface SessionPayload {
     clientId: string;
@@ -20,7 +21,7 @@ export class TwitterSessionPayload {
             throw new Error('Cannot record internal secret');
 
         // save the consumer secret to KV
-        await kv.hsetnx(KeyType.ConsumerSecret, payload.consumerKey, payload.consumerSecret);
+        await redis.hsetnx(KeyType.ConsumerSecret, payload.consumerKey, payload.consumerSecret);
 
         return payload;
     }
@@ -39,7 +40,7 @@ export class TwitterSessionPayload {
         if (payload.consumerKey === envs.internal.TWITTER_CLIENT_ID) {
             payload.consumerSecret = envs.internal.TWITTER_CLIENT_SECRET;
         } else {
-            const secret = await kv.hget<string>(KeyType.ConsumerSecret, payload.consumerKey);
+            const secret = await redis.hget<string>(KeyType.ConsumerSecret, payload.consumerKey);
             if (!secret) throw new Error('Consumer secret not found');
 
             payload.consumerSecret = secret;

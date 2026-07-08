@@ -4,7 +4,7 @@ Package Analysis
 Application: apps/wallet
 
 Total packages: 2424
-Packages with multiple versions: 256
+Packages with multiple versions: 257
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -122,6 +122,7 @@ Packages with Multiple Versions
 *@tamagui/web@1.114.4,2.0.0,2.3.3
  @types/unist@2.0.11,3.0.3
  @types/ws@7.4.7,8.18.1
+ @upstash/redis@1.25.1,1.38.0
  @wallet-standard/base@1.1.0,1.1.1
  @wallet-standard/features@1.1.0,1.1.1
  @walletconnect/types@2.23.7,2.23.9
@@ -1332,7 +1333,6 @@ Packages with Single Version
  @unrs/resolver-binding-win32-arm64-msvc@1.12.2
  @unrs/resolver-binding-win32-ia32-msvc@1.12.2
  @unrs/resolver-binding-win32-x64-msvc@1.12.2
- @upstash/redis@1.25.1
  @urql/core@5.2.0
  @urql/exchange-auth@2.2.1
 *@vercel/analytics@2.0.1
