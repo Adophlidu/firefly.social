@@ -1165,7 +1165,7 @@ msgstr "좋아요"
 #. Compose dialog title: a social quote-post (not a price quote)
 #. js-lingui-explicit-id
 msgid "action-quote"
-msgstr ""
+msgstr "인용"
 
 #. js-lingui-explicit-id
 msgid "action-unlike"
@@ -4577,7 +4577,7 @@ msgstr "다중 기기 로그인이 꺼졌으며 이전 세션이 모두 삭제�
 #. Unmute (unblock) a wallet — social, not audio
 #. js-lingui-explicit-id
 msgid "unmute-wallet"
-msgstr ""
+msgstr "숨김 해제"
 
 msgid "Search token"
 msgstr "토큰 검색"

@@ -1165,7 +1165,7 @@ msgstr "いいね"
 #. Compose dialog title: a social quote-post (not a price quote)
 #. js-lingui-explicit-id
 msgid "action-quote"
-msgstr ""
+msgstr "引用"
 
 #. js-lingui-explicit-id
 msgid "action-unlike"
@@ -4577,7 +4577,7 @@ msgstr "マルチデバイスログインがオフになり、以前のセッシ
 #. Unmute (unblock) a wallet — social, not audio
 #. js-lingui-explicit-id
 msgid "unmute-wallet"
-msgstr ""
+msgstr "ミュート解除"
 
 msgid "Search token"
 msgstr "トークンを検索"
