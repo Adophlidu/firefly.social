@@ -1,19 +1,29 @@
-import { PredictionPlatform } from '@dimensiondev/enums';
+import { PredictionPlatform, Source } from '@dimensiondev/enums';
 import { formatAddress, formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 
+import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
+import { mapV2ToUI } from '@/components/Prediction/getPredictionPositionList.js';
 import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import {
     buildPolymarketEventShareUrl,
     computeTimelinePnlRate,
     type PolymarketShareIdentity,
+    type PolymarketSharePositionParams,
     type PolymarketShareSportInfo,
     type PolymarketShareSportTeam,
     resolvePredictedSide,
 } from '@/helpers/polymarketShareImage.js';
+import { pickWalletProfileByAddress } from '@/helpers/prediction/pickWalletProfileByAddress.js';
+import { computePositionShareMetrics } from '@/helpers/prediction/polymarket/computePositionShareMetrics.js';
+import { findMatchingPosition } from '@/helpers/prediction/polymarket/findMatchingPosition.js';
 import type { PolymarketShareImagePayload } from '@/hooks/prediction/usePolymarketShareImageActions.js';
+import { getClosedPositions } from '@/providers/firefly/prediction/getClosedPositions.js';
+import { getCurrentPositions } from '@/providers/firefly/prediction/getCurrentPositions.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
+import { getRedeemablePositions } from '@/providers/firefly/prediction/getRedeemablePositions.js';
+import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 import type { BetsEventDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 
@@ -157,28 +167,6 @@ export function getPositionShareImagePayload(
     const link = buildPolymarketEventShareUrl(eventSlug, sharerUid);
     const resolveSport = resolvePositionSport(position, eventSlug);
 
-    if (position.is_closed) {
-        const totalBought = position.total_buy || position.shares;
-        const totalTrade = position.avg_price * totalBought;
-        const pnlRate = Math.max(-1, totalTrade > 0 ? position.pnl / totalTrade : position.pnl_rate) * 100;
-        return {
-            link,
-            resolveSport,
-            params: {
-                type: 'position',
-                title: position.title,
-                outcome: position.vote_status,
-                status: position.pnl > 0 ? 'won' : 'lost',
-                pnlRate,
-                totalCost: totalTrade,
-                avgPrice: position.avg_price,
-                currentPnl: position.pnl,
-                identity: resolvedIdentity,
-                imageUrl: position.image,
-            },
-        };
-    }
-
     return {
         link,
         resolveSport,
@@ -186,20 +174,159 @@ export function getPositionShareImagePayload(
             type: 'position',
             title: position.title,
             outcome: position.vote_status,
-            status: 'active',
-            pnlRate: position.pnl_rate * 100,
-            totalCost: position.avg_price * position.shares,
-            avgPrice: position.avg_price,
-            currentPnl: position.pnl,
             identity: resolvedIdentity,
             imageUrl: position.image,
+            ...computePositionShareMetrics(position),
         },
     };
+}
+
+// FW-7848 — a timeline activity's share must match the wallet's position share: the same holder
+// identity and the server-authoritative PnL, not the per-activity approximation below. Both are
+// resolved on demand at share time (like `resolveSport`), so the feed render pays nothing.
+const activityIdentityCache = new Map<string, Promise<PolymarketShareIdentity | null>>();
+const activityPositionCache = new Map<string, Promise<PredictionPositionDataForUI | null>>();
+
+// Only the first page of positions is scanned; a match beyond it falls back to the computed value.
+// A recently-placed bet (the usual share) sits near the top of the CURRENT / TIMESTAMP-DESC lists.
+const POSITION_SCAN_LIMIT = 100;
+
+/**
+ * Memoizes an on-demand resolver, evicting the entry when it rejects OR resolves to null so a later
+ * share retries (e.g. a just-placed bet the backend hasn't indexed yet).
+ */
+function memoizeResolver<T>(
+    cache: Map<string, Promise<T | null>>,
+    key: string,
+    factory: () => Promise<T | null>,
+): Promise<T | null> {
+    const cached = cache.get(key);
+    if (cached) return cached;
+
+    const promise = factory();
+    cache.set(key, promise);
+    void promise.then(
+        (value) => {
+            if (value === null) cache.delete(key);
+        },
+        () => cache.delete(key),
+    );
+    return promise;
+}
+
+/**
+ * Resolves the holder's social identity from `/v2/wallet/profileinfo/list`, following the same source
+ * and priority the wallet share and the web profile page use (`resolveShareIdentityFromProfile` /
+ * `usePredictionProfileData`): Firefly > Twitter > Lens > Farcaster > Bsky > Wallet. `proxyAddress` is
+ * the Polymarket proxy, so the lookup runs with `is_polymarketProxy = true`. `avatarUrl` may be
+ * undefined (a resolved name with no avatar) — the caller keeps the timeline avatar in that case.
+ */
+function resolveActivityShareIdentity(proxyAddress: string): Promise<PolymarketShareIdentity | null> {
+    return memoizeResolver(activityIdentityCache, proxyAddress.toLowerCase(), async () => {
+        const response = await getWalletProfileInfoList(proxyAddress, PredictionPlatform.Polymarket, true);
+        const profile = pickWalletProfileByAddress(response, proxyAddress);
+        if (!profile) return null;
+
+        const { name, avatar } = extractFallbackInfo(profile, [
+            Source.Firefly,
+            Source.Twitter,
+            Source.Lens,
+            Source.Farcaster,
+            Source.Bsky,
+            Source.Wallet,
+        ]);
+        return name ? { displayName: name, avatarUrl: avatar } : null;
+    });
+}
+
+/**
+ * Fetches the holder's authoritative position for the activity's market outcome, matched by
+ * `(conditionId, outcomeIndex)` — the unambiguous key both surfaces share. Current positions are
+ * scanned first, then redeemable + closed. The raw V2 rows are used (not `getPredictionPositionList`,
+ * whose closed path dedupes by conditionId and would drop the other outcome of a two-sided holding).
+ * Returns null when no position matches → the caller keeps the computed approximation.
+ */
+function resolveActivityPosition(input: {
+    proxyAddress: string;
+    conditionId: string;
+    outcomeIndex: number;
+}): Promise<PredictionPositionDataForUI | null> {
+    const key = `${input.proxyAddress.toLowerCase()}:${input.conditionId.toLowerCase()}:${input.outcomeIndex}`;
+    return memoizeResolver(activityPositionCache, key, async () => {
+        const current = await getCurrentPositions({ address: input.proxyAddress, limit: POSITION_SCAN_LIMIT });
+        const inCurrent = findMatchingPosition(
+            current.data.map((position) => mapV2ToUI(position, false)),
+            input.conditionId,
+            input.outcomeIndex,
+        );
+        if (inCurrent) return inCurrent;
+
+        const [redeemable, closed] = await Promise.all([
+            getRedeemablePositions({ address: input.proxyAddress }),
+            getClosedPositions({ address: input.proxyAddress, limit: POSITION_SCAN_LIMIT }),
+        ]);
+        const closedUI = [...redeemable, ...closed.data].map((position) => mapV2ToUI(position, true));
+        return findMatchingPosition(closedUI, input.conditionId, input.outcomeIndex);
+    });
+}
+
+/**
+ * FW-7848 — resolves the share-param overrides that align a timeline activity's share image with the
+ * wallet's position share: the holder's social identity and the server-authoritative PnL. Best-effort
+ * — anything that fails to resolve is omitted, leaving the computed timeline value in place. Returns
+ * undefined when nothing resolved.
+ */
+async function resolveActivityShareOverrides(
+    activity: BetsActivity,
+): Promise<Partial<PolymarketSharePositionParams> | undefined> {
+    // The Polymarket positions and proxy-profile lookups are both keyed by the proxy address.
+    const proxyAddress = activity.proxyWallet || activity.wallet || activity.owner;
+    if (!proxyAddress) return undefined;
+
+    const [identity, position] = await Promise.all([
+        resolveActivityShareIdentity(proxyAddress).catch(() => null),
+        activity.conditionId
+            ? resolveActivityPosition({
+                  proxyAddress,
+                  conditionId: activity.conditionId,
+                  outcomeIndex: activity.outcomeIndex,
+              }).catch(() => null)
+            : Promise.resolve(null),
+    ]);
+
+    const overrides: Partial<PolymarketSharePositionParams> = {};
+
+    if (identity) {
+        overrides.identity = {
+            displayName: identity.displayName,
+            // Keep the timeline cell's avatar when the resolved identity has none, mirroring
+            // usePredictionProfileData's `socialAvatar || fallback` so a source that yields a name
+            // but no avatar doesn't blank the card.
+            avatarUrl: identity.avatarUrl || getWalletProfileAvatar(activity.displayInfo),
+        };
+    }
+
+    if (position) {
+        const metrics = computePositionShareMetrics(position);
+        overrides.pnlRate = metrics.pnlRate;
+        overrides.totalCost = metrics.totalCost;
+        overrides.avgPrice = metrics.avgPrice;
+        overrides.currentPnl = metrics.currentPnl;
+        // Only a definitively closed position carries an authoritative won/lost; an open position is
+        // always 'active', so keep the timeline's status there rather than downgrading a bet whose
+        // market has already resolved.
+        if (position.is_closed) overrides.status = metrics.status;
+    }
+
+    return Object.keys(overrides).length ? overrides : undefined;
 }
 
 /**
  * Builds the share payload for a predictions-timeline activity. PnL% = (cur − avg) / avg; when the
  * market resolved against the predicted outcome it becomes a Full Loss (-100%).
+ *
+ * At share time `resolveOverrides` aligns the identity + PnL with the wallet's authoritative position
+ * (FW-7848); the values below are the render-cheap fallback used until (or if) that resolves.
  */
 export function getActivityShareImagePayload(
     activity: BetsActivity,
@@ -239,6 +366,7 @@ export function getActivityShareImagePayload(
 
     return {
         link,
+        resolveOverrides: () => resolveActivityShareOverrides(activity),
         params: {
             type: 'position',
             variant: 'timeline',

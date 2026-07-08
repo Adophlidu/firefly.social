@@ -24,7 +24,7 @@ interface Options {
     sortDirection?: PolymarketV2PositionSortDirection;
 }
 
-function mapV2ToUI(position: PolymarketPositionV2Data, isClosed: boolean): PredictionPositionDataForUI {
+export function mapV2ToUI(position: PolymarketPositionV2Data, isClosed: boolean): PredictionPositionDataForUI {
     // current position
     const isCurrent = 'redeemable' in position;
     const curPrice = position.curPrice ?? 0;
