@@ -658,12 +658,9 @@ body {
     pointer-events: visible;
 }
 
-.ff-suggested-follows-swiper {
-    overflow: hidden;
-    border-radius: 16px;
-}
-
 .ff-suggested-follows-swiper--firefox {
+    overflow: visible;
+    border-radius: 16px;
     padding: 12px 0 14px;
 }
 

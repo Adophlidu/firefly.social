@@ -23,12 +23,6 @@ import { isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import {
-    resolveSuggestedFollowsSwiperClassName,
-    resolveSuggestedFollowsSwiperEffect,
-    resolveSuggestedFollowsSwiperSlideClassName,
-    resolveSuggestedFollowsSwiperSpaceBetween,
-} from '@/helpers/resolveSuggestedFollowsSwiperEffect.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
@@ -149,10 +143,9 @@ export function SuggestedFollowsCard() {
     if (isLoading) return <SuggestedFollowsSkeleton />;
     if (!suggestedFollowsWithStats?.length || !isLarge) return null;
 
-    const swiperEffect = resolveSuggestedFollowsSwiperEffect(IS_FIREFOX);
-    const swiperClassName = resolveSuggestedFollowsSwiperClassName(IS_FIREFOX);
-    const swiperSpaceBetween = resolveSuggestedFollowsSwiperSpaceBetween(IS_FIREFOX);
-    const swiperSlideClassName = resolveSuggestedFollowsSwiperSlideClassName();
+    const swiperEffect = IS_FIREFOX ? 'slide' : 'coverflow';
+    const swiperClassName = IS_FIREFOX ? 'ff-suggested-follows-swiper--firefox' : undefined;
+    const swiperSpaceBetween = IS_FIREFOX ? 12 : 0;
 
     return (
         <section>
@@ -189,8 +182,8 @@ export function SuggestedFollowsCard() {
                     modules={IS_FIREFOX ? [Autoplay] : [Autoplay, EffectCoverflow]}
                 >
                     {suggestedFollowsWithStats.map((profile, key) => (
-                        <SwiperSlide className={swiperSlideClassName} key={key}>
-                            <div className="flex justify-center py-3">
+                        <SwiperSlide className="!h-[208px] !w-[164px]" key={key}>
+                            <div className="py-3">
                                 <ProfileSlide profile={profile} />
                             </div>
                         </SwiperSlide>
