@@ -179,6 +179,9 @@ export const BetItem = memo(function BetItem({
 
     const formattedTime = useMemo(() => {
         if (isResolved) return null;
+        // Open-ended events arrive with no end date (empty/missing endDate → NaN/0).
+        // Hide the row instead of rendering "Invalid Date" from dayjs(NaN).format(...). See FW-7857.
+        if (!endTime || Number.isNaN(endTime)) return null;
 
         const now = Date.now();
         const isExpired = dayjs(now).isAfter(endTime);

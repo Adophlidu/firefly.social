@@ -47,7 +47,8 @@ export function formatPolymarketEventListData(event: PolymarketEventListData): B
         id: event.id,
         title: event.title,
         image: event.image,
-        endTime: new Date(event.endDate).getTime(),
+        // Backend omits/empties endDate for open-ended events; normalize NaN → 0 so it's hidden downstream (FW-7857).
+        endTime: new Date(event.endDate).getTime() || 0,
         isSingleEvent: event.markets.length === 1,
         platform: PredictionPlatform.Polymarket,
         status: event.closed ? 'ended' : 'active',

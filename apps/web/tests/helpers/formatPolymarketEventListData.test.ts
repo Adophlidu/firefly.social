@@ -1,8 +1,8 @@
 import { BetsMarketResolveStatus } from '@dimensiondev/enums';
 import { describe, expect, it } from 'vitest';
 
-import { formatPolymarketMarketToBetsMarket } from '@/helpers/formatPolymarketEventListData.js';
-import type { PolymarketMarketData } from '@/providers/types/Firefly.js';
+import { formatPolymarketEventListData, formatPolymarketMarketToBetsMarket } from '@/helpers/formatPolymarketEventListData.js';
+import type { PolymarketEventListData, PolymarketMarketData } from '@/providers/types/Firefly.js';
 import { PolymarketUmaResolutionStatus } from '@/providers/types/Firefly.js';
 
 function baseMarket(overrides: Partial<PolymarketMarketData> = {}): PolymarketMarketData {
@@ -134,5 +134,50 @@ describe('formatPolymarketMarketToBetsMarket — isResolved', () => {
             baseMarket({ umaResolutionStatuses: 'Resolved' }), // malformed, not valid JSON array
         );
         expect(result.isResolved).toBe(false);
+    });
+});
+
+function baseEvent(overrides: Partial<PolymarketEventListData> = {}): PolymarketEventListData {
+    return {
+        id: 'evt-1',
+        title: 'Will X happen?',
+        image: 'https://example.com/i.png',
+        endDate: '2026-12-31T00:00:00Z',
+        markets: [baseMarket()],
+        volume: 5000,
+        slug: 'will-x-happen',
+        icon: 'https://example.com/i.png',
+        closed: false,
+        archived: false,
+        startDate: '2026-01-01T00:00:00Z',
+        tags: [],
+        ...overrides,
+    } as PolymarketEventListData;
+}
+
+describe('formatPolymarketEventListData — endTime', () => {
+    it('is a finite timestamp when endDate is a valid ISO date', () => {
+        const result = formatPolymarketEventListData(baseEvent({ endDate: '2026-12-31T00:00:00Z' }));
+        expect(Number.isFinite(result.endTime)).toBe(true);
+        expect(result.endTime).toBe(new Date('2026-12-31T00:00:00Z').getTime());
+    });
+
+    it('is 0 (never NaN) when endDate is an empty string', () => {
+        // Reproduces FW-7857: open-ended events arrive with endDate="" and rendered "Invalid Date".
+        const result = formatPolymarketEventListData(baseEvent({ endDate: '' }));
+        expect(Number.isNaN(result.endTime)).toBe(false);
+        expect(result.endTime).toBe(0);
+    });
+
+    it('is 0 when endDate is missing', () => {
+        const result = formatPolymarketEventListData(baseEvent({ endDate: undefined }));
+        expect(Number.isNaN(result.endTime)).toBe(false);
+        expect(result.endTime).toBe(0);
+    });
+
+    it('is 0 when endDate is an unparseable string', () => {
+        const result = formatPolymarketEventListData(baseEvent({ endDate: 'not-a-date' }));
+        expect(Number.isNaN(result.endTime)).toBe(false);
+        expect(result.endTime).toBe(0);
     });
 });
