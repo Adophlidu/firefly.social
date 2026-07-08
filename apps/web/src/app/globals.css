@@ -658,6 +658,28 @@ body {
     pointer-events: visible;
 }
 
+.ff-suggested-follows-swiper {
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.ff-suggested-follows-swiper--firefox {
+    padding: 12px 0 14px;
+}
+
+.ff-suggested-follows-swiper--firefox .swiper-wrapper {
+    align-items: center;
+}
+
+.ff-suggested-follows-swiper--firefox .swiper-slide {
+    opacity: 0.72;
+    transition: opacity 200ms ease;
+}
+
+.ff-suggested-follows-swiper--firefox .swiper-slide-active {
+    opacity: 1;
+}
+
 .tippy-card {
     background: none !important;
 }

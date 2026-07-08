@@ -17,11 +17,18 @@ import { AsideTitle } from '@/components/AsideTitle.js';
 import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { SuggestedFollowsSkeleton } from '@/components/SuggestedFollows/SuggestedFollowsSkeleton.js';
+import { IS_FIREFOX } from '@/constants/browser.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import {
+    resolveSuggestedFollowsSwiperClassName,
+    resolveSuggestedFollowsSwiperEffect,
+    resolveSuggestedFollowsSwiperSlideClassName,
+    resolveSuggestedFollowsSwiperSpaceBetween,
+} from '@/helpers/resolveSuggestedFollowsSwiperEffect.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
@@ -142,6 +149,11 @@ export function SuggestedFollowsCard() {
     if (isLoading) return <SuggestedFollowsSkeleton />;
     if (!suggestedFollowsWithStats?.length || !isLarge) return null;
 
+    const swiperEffect = resolveSuggestedFollowsSwiperEffect(IS_FIREFOX);
+    const swiperClassName = resolveSuggestedFollowsSwiperClassName(IS_FIREFOX);
+    const swiperSpaceBetween = resolveSuggestedFollowsSwiperSpaceBetween(IS_FIREFOX);
+    const swiperSlideClassName = resolveSuggestedFollowsSwiperSlideClassName();
+
     return (
         <section>
             <AsideTitle
@@ -154,8 +166,9 @@ export function SuggestedFollowsCard() {
             />
             <div className="rounded-xl bg-bg">
                 <Swiper
+                    className={swiperClassName}
                     initialSlide={suggestedFollowsWithStats.length > 2 ? 1 : 0}
-                    effect={'coverflow'}
+                    effect={swiperEffect}
                     grabCursor
                     centeredSlides
                     slidesPerView={'auto'}
@@ -168,15 +181,16 @@ export function SuggestedFollowsCard() {
                     }}
                     pagination
                     loop
+                    spaceBetween={swiperSpaceBetween}
                     updateOnWindowResize={false}
                     resizeObserver={false}
                     wrapperClass="!box-border"
                     autoplay={{ delay: 5000, pauseOnMouseEnter: true, disableOnInteraction: false }}
-                    modules={[Autoplay, EffectCoverflow]}
+                    modules={IS_FIREFOX ? [Autoplay] : [Autoplay, EffectCoverflow]}
                 >
                     {suggestedFollowsWithStats.map((profile, key) => (
-                        <SwiperSlide className="!h-[208px] !w-[164px]" key={key}>
-                            <div className="py-3">
+                        <SwiperSlide className={swiperSlideClassName} key={key}>
+                            <div className="flex justify-center py-3">
                                 <ProfileSlide profile={profile} />
                             </div>
                         </SwiperSlide>
