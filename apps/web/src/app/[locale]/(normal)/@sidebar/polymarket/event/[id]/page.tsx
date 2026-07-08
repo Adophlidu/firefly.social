@@ -5,14 +5,11 @@ import { DefaultRightSidebarContent } from '@/components/DefaultRightSidebarCont
 import { SportRecommendationsSidebarLoader } from '@/components/Prediction/Sport/SportRecommendationsSidebarLoader.js';
 import { Section } from '@/components/Semantic/Section.js';
 
-export const revalidate = 60;
-
-// Static-class stub: with no build-time params, every path is rendered on demand
-// and cached per `revalidate` (routes without generateStaticParams are forced dynamic).
-export function generateStaticParams() {
-    return [];
-}
-
+// Parallel slot of /polymarket/event/[id]. The sibling main page reads `searchParams`,
+// so the whole route is fully dynamic and this slot renders in the same per-request pass.
+// Do NOT add `revalidate` (ISR) here: it conflicts with the dynamic render and bails out
+// with DYNAMIC_SERVER_USAGE on every request, and buys no caching. Same fix as the main
+// page in #9388.
 type Props = LayoutProps<{ id: string }>;
 
 export default async function PolymarketEventSidebarPage(props: Props) {
