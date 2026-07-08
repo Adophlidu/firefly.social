@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { sanitizePenaltyKicks } from '@/helpers/prediction/penaltyShootout.js';
-import { isPenaltyPeriod } from '@/helpers/prediction/sportScoreUtils.js';
+import { getPenaltyShootoutLoser, isPenaltyPeriod } from '@/helpers/prediction/sportScoreUtils.js';
 import type {
     PolymarketSportsEvent,
     PolymarketSportsLivestreamInfo,
@@ -317,7 +317,10 @@ function resolveThreeWayMarkets(
     return { homeMarket, drawMarket, awayMarket };
 }
 
-function resolveThreeWayFinishedFlags(winResult: number | undefined): {
+function resolveThreeWayFinishedFlags(
+    winResult: number | undefined,
+    penaltyShootout?: PenaltyShootout,
+): {
     home: { isWinner?: boolean; isLoser?: boolean };
     away: { isWinner?: boolean; isLoser?: boolean };
     draw: { isWinner?: boolean; isLoser?: boolean };
@@ -337,11 +340,16 @@ function resolveThreeWayFinishedFlags(winResult: number | undefined): {
         };
     }
     if (winResult === 1) {
-        return {
-            home: {},
-            away: {},
-            draw: { isWinner: true },
-        };
+        // Regulation ended level: the Draw leg wins the 3-way market, but a knockout is decided by
+        // penalties — derive the advancing side from the shootout so the cell still shows the winner.
+        const penaltyLoser = getPenaltyShootoutLoser(penaltyShootout);
+        if (penaltyLoser === 'home') {
+            return { home: { isLoser: true }, away: { isWinner: true }, draw: { isWinner: true } };
+        }
+        if (penaltyLoser === 'away') {
+            return { home: { isWinner: true }, away: { isLoser: true }, draw: { isWinner: true } };
+        }
+        return { home: {}, away: {}, draw: { isWinner: true } };
     }
     return { home: {}, away: {}, draw: {} };
 }
@@ -382,8 +390,16 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
     const awayTeamData = resolveThreeWayTeamData(drawAwayTeamData, awayMarket);
     const gamePhase = resolveGamePhase(event);
     const latestScores = event.score_show?.at(-1)?.score;
+    const penaltyShootout = event.penaltyShootout
+        ? {
+              home: sanitizePenaltyKicks(event.penaltyShootout.home),
+              away: sanitizePenaltyKicks(event.penaltyShootout.away),
+          }
+        : undefined;
     const finishedFlags =
-        gamePhase === 'finished' ? resolveThreeWayFinishedFlags(event.winResult) : { home: {}, away: {}, draw: {} };
+        gamePhase === 'finished'
+            ? resolveThreeWayFinishedFlags(event.winResult, penaltyShootout)
+            : { home: {}, away: {}, draw: {} };
 
     const startDate = homeMarket.gameStartTime || awayMarket.gameStartTime || event.startDate;
     const startTimeMs = startDate ? new Date(startDate).getTime() : undefined;
@@ -440,12 +456,7 @@ function formatThreeWayEvent(event: PolymarketSportsEvent): PredictionSportsCell
         volumeLabel: formatVolumeLabel(event.volume || event.volume24hr),
         leagueLabel: event.leagueName,
         livestreamUrl: gamePhase === 'live' ? resolveSportsLivestreamUrl(event.livestream_info) : undefined,
-        penaltyShootout: event.penaltyShootout
-            ? {
-                  home: sanitizePenaltyKicks(event.penaltyShootout.home),
-                  away: sanitizePenaltyKicks(event.penaltyShootout.away),
-              }
-            : undefined,
+        penaltyShootout,
     };
 }
 

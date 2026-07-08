@@ -26,6 +26,7 @@ import {
     parseSportsListRequest,
 } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
+import { sportsListHasTiedScore } from '@/helpers/prediction/category/sportsListHasTiedScore.js';
 import { applySportsMarketPriceOverrides } from '@/helpers/prediction/category/sportsMarketLivePrices.js';
 import { enrichSportsEventWithFifa } from '@/helpers/prediction/fifaMatchResults.js';
 import { FIFA_LIVE_REFETCH_INTERVAL_MS, useFifaMatchResults } from '@/hooks/prediction/useFifaMatchResults.js';
@@ -86,10 +87,13 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
             query.state.data && query.state.data.live.length > 0 ? LIVE_GAMES_REFETCH_INTERVAL_MS : false,
     });
 
-    // FIFA feed: injects penalty-shootout dots and fresher scores (CDN-cached, deduped by React Query).
+    const isFifa = context.secondaryItem?.slug === FIFA_SLUG;
+
+    // FIFA feed: penalty-shootout dots + fresher live scores. Fetch only when a match is live or level
+    // (a level score is the only time a shootout exists); poll every 5s only while live matches exist.
     const fifaMatchResults = useFifaMatchResults({
-        enabled: !!data?.live.length,
-        refetchInterval: FIFA_LIVE_REFETCH_INTERVAL_MS,
+        enabled: !!data?.live.length || sportsListHasTiedScore(data),
+        refetchInterval: data?.live.length ? FIFA_LIVE_REFETCH_INTERVAL_MS : false,
     });
 
     // Strip esports (Sports `live` still returns them) then overlay FIFA penalty/score data.
@@ -133,7 +137,6 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
         return <PredictionSportsCell key={event.id} model={displayModel} />;
     };
 
-    const isFifa = context.secondaryItem?.slug === FIFA_SLUG;
     if (isPending) {
         return <div className="flex justify-center py-12">{isFifa ? <FootballLoading /> : <Loading />}</div>;
     }

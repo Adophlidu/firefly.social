@@ -263,6 +263,58 @@ describe('formatPolymarketSportsEventForUI', () => {
         expect(model?.drawOutcome?.isWinner).toBe(true);
     });
 
+    it('derives the winner from penalties for a finished three-way draw decided by shootout', () => {
+        const event = baseEvent({
+            isDraw: true,
+            game_status: 2,
+            winResult: 1,
+            penaltyShootout: { home: [1, 1, 2, 1, 1], away: [1, 2, 1, 2, 1] },
+            drawTeams: [
+                { name: 'Arsenal', abbreviation: 'ARS', color: '#EF0107' },
+                { name: 'Chelsea', abbreviation: 'CHE', color: '#034694' },
+            ],
+            markets: [
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'arsenal-win',
+                    groupItemTitle: 'Arsenal',
+                    groupTypeFF: 0,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.45","0.55"]',
+                    gameStartTime: '2026-05-20T22:00:00Z',
+                },
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'draw-ars-chel',
+                    groupItemTitle: 'Draw (Arsenal vs. Chelsea)',
+                    groupTypeFF: 1,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.28","0.72"]',
+                },
+                {
+                    sportsMarketType: 'moneyline',
+                    slug: 'chelsea-win',
+                    groupItemTitle: 'Chelsea',
+                    groupTypeFF: 2,
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.32","0.68"]',
+                },
+            ] as PolymarketSportsMarketData[],
+        });
+
+        const model = formatPolymarketSportsEventForUI(event);
+
+        expect(model?.gamePhase).toBe('finished');
+        expect(model?.penaltyShootout).toEqual({ home: [1, 1, 2, 1, 1], away: [1, 2, 1, 2, 1] });
+        // Regulation was level, so the Draw leg still wins the 3-way market…
+        expect(model?.drawOutcome?.isWinner).toBe(true);
+        // …but Arsenal (home) won the shootout 4-3, so they advance.
+        expect(model?.homeTeam.isWinner).toBe(true);
+        expect(model?.awayTeam.isLoser).toBe(true);
+        expect(model?.homeTeam.isLoser).not.toBe(true);
+        expect(model?.awayTeam.isWinner).not.toBe(true);
+    });
+
     it('maps livestream_info.livestream_url for live games', () => {
         const event = baseEvent({
             game_status: 0,
