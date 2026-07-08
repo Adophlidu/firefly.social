@@ -16,8 +16,9 @@ import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { getFireflyArticlePageMetadata } from '@/providers/firefly/metadata/getFireflyArticlePageMetadata.js';
 import { getPostPageMetadata } from '@/providers/firefly/metadata/getPostPageMetadata.js';
 
-export const revalidate = 60;
-
+// Reads ?s= / ?source= searchParams, so this route is fully dynamic. Do NOT add
+// `revalidate`: it makes Next attempt ISR prerenders that bail out with
+// DYNAMIC_SERVER_USAGE on every request (the page renders dynamically regardless).
 type Props = LayoutProps<{ source: SocialSourceInURL; locale: string }> &
     SearchProps<{ s?: SocialSourceInURL; source?: SocialSourceInURL }>;
 

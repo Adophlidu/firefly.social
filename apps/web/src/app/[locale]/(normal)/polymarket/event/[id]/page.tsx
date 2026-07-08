@@ -7,8 +7,9 @@ import { notFound } from '@/esm/navigation/server.js';
 import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPolymarketEventPageData.js';
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
 
-export const revalidate = 60;
-
+// Reads ?type= searchParams, so this route is fully dynamic. Do NOT add `revalidate`:
+// it makes Next attempt ISR prerenders that bail out with DYNAMIC_SERVER_USAGE on every
+// request (the page renders dynamically regardless, so it buys no caching).
 type Props = LayoutProps<{ id: string; locale: string }> & SearchProps<{ type: 'multi' | string }>;
 
 // generateMetadata must live on the page: Next.js never passes searchParams to layouts.

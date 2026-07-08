@@ -5,8 +5,9 @@ import type { Metadata } from 'next';
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
 
-export const revalidate = 60;
-
+// Reads ?type= searchParams, so this route is fully dynamic. Do NOT add `revalidate`:
+// it makes Next attempt ISR prerenders that bail out with DYNAMIC_SERVER_USAGE on every
+// request (the page renders dynamically regardless, so it buys no caching).
 type Props = LayoutProps<{
     id: string;
     locale: string;
