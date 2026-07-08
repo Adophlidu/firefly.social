@@ -18,6 +18,8 @@ export async function getTopHolders({ ids, limit, minBalance, signal }: Options)
         limit,
         minBalance,
     });
-    const response = await fetchJson<TopHoldersResponse>(url, { signal });
+    const response = await fetchJson<TopHoldersResponse | null>(url, { signal });
+    if (!response) return [];
+
     return resolvePolymarketResponse(response);
 }

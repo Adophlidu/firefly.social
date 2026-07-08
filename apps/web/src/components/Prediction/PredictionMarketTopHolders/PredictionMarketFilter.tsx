@@ -34,7 +34,7 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
         <Popover as="div" className="relative px-4 pt-4">
             {({ close }) => (
                 <>
-                    <PopoverButton className="flex h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border border-secondaryLine bg-bottom px-2 text-sm font-semibold text-main focus:outline-none">
+                    <PopoverButton className="flex min-h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border border-secondaryLine bg-bottom px-2 py-1 text-sm font-semibold text-main focus:outline-none">
                         <span>{market?.title ? resolveTeamName(market.title) : ''}</span>
                         <ChevronDownIcon className="size-4 text-secondary" />
                     </PopoverButton>
