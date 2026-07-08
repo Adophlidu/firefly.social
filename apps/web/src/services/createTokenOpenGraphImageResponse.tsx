@@ -108,7 +108,7 @@ async function TokenOpenGraphImage({ token, chainId }: TokenOpenGraphImageProps)
                     }}
                 >
                     <Image
-                        src={avatarBase64}
+                        src={avatarBase64 ?? OG_FALLBACK_AVATAR}
                         alt="og-token"
                         style={{
                             width: `${OG_AVATAR_SIZE}px`,

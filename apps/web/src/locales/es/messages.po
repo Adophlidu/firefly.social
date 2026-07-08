@@ -375,6 +375,9 @@ msgstr "Tu frase de recuperación es como una contraseña, mantenla en secreto."
 msgid "Open"
 msgstr "Abrir"
 
+msgid "No"
+msgstr "No"
+
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "No se pudo deshabilitar el inicio de sesión multidispositivo. Por favor, inténtelo de nuevo más tarde."
 
@@ -846,6 +849,9 @@ msgstr "El autor está silenciado por ti."
 
 msgid "Bookmarks"
 msgstr "Marcadores"
+
+msgid "Under"
+msgstr "Menos"
 
 #. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
@@ -2114,6 +2120,9 @@ msgstr "Volumen Negociado(acciones)"
 
 msgid "Non-contract address."
 msgstr "Dirección no contractual."
+
+msgid "Over"
+msgstr "Más"
 
 msgid "Darkweb transactions."
 msgstr "Transacciones Darkweb."

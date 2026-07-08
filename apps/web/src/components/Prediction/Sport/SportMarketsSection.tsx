@@ -51,7 +51,8 @@ interface SportMarketsSectionProps {
 }
 
 export const SportMarketsSection = memo(function SportMarketsSection({ event, sportData }: SportMarketsSectionProps) {
-    const { homeTeam, awayTeam, isDraw, ended, spreadsMainLine, totalsMainLine } = sportData;
+    const { homeTeam, awayTeam, isDraw, ended, spreadsMainLine, totalsMainLine, scores, winResult, penaltyShootout } =
+        sportData;
     const disabled = !!ended || !!event.closed;
     const isEventEnded = !!sportData.ended || !!event.closed;
 
@@ -134,6 +135,9 @@ export const SportMarketsSection = memo(function SportMarketsSection({ event, sp
                     onLineChange={setLine}
                     config={chartConfig}
                     eventSlug={event.slug}
+                    scores={scores}
+                    winResult={winResult}
+                    penaltyShootout={penaltyShootout}
                 />
             ))}
         </div>

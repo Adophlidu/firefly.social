@@ -375,6 +375,9 @@ msgstr "Your recovery phrase is like a password, keep it secret."
 msgid "Open"
 msgstr "Open"
 
+msgid "No"
+msgstr "No"
+
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "Failed to disable Multi-device login. Please try again later."
 
@@ -846,6 +849,9 @@ msgstr "The author is muted by you."
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
+
+msgid "Under"
+msgstr "Under"
 
 #. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
@@ -2114,6 +2120,9 @@ msgstr "Volume Traded(shares)"
 
 msgid "Non-contract address."
 msgstr "Non-contract address."
+
+msgid "Over"
+msgstr "Over"
 
 msgid "Darkweb transactions."
 msgstr "Darkweb transactions."

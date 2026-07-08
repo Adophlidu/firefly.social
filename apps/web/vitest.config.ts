@@ -28,6 +28,8 @@ export default defineConfig({
             mdast: resolve(__dirname, 'src/stubs/mdast.ts'),
             // @lingui/core/macro requires SWC/Babel transform; stub for tests
             '@lingui/core/macro': resolve(__dirname, 'src/stubs/lingui-core-macro.ts'),
+            // next/font/local has no jsdom implementation; stub so font modules load in tests
+            'next/font/local': resolve(__dirname, 'src/stubs/next-font-local.ts'),
         },
     },
 });

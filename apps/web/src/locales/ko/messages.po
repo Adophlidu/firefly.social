@@ -373,6 +373,9 @@ msgstr "복구 구문은 비밀번호와 같습니다. 반드시 비밀로 유�
 msgid "Open"
 msgstr "열기"
 
+msgid "No"
+msgstr "아니요"
+
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "다중 기기 로그인을 비활성화하는 데 실패했습니다. 나중에 다시 시도해 주세요."
 
@@ -842,6 +845,9 @@ msgstr "이 작성자를 숨겼습니다."
 
 msgid "Bookmarks"
 msgstr "북마크"
+
+msgid "Under"
+msgstr "언더"
 
 #. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
@@ -2104,6 +2110,9 @@ msgstr "거래량(지분)"
 
 msgid "Non-contract address."
 msgstr "비컨트랙트 주소입니다."
+
+msgid "Over"
+msgstr "오버"
 
 msgid "Darkweb transactions."
 msgstr "다크웹 거래."

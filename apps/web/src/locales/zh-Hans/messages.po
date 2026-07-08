@@ -373,6 +373,9 @@ msgstr "你的助记词就像密码一样，请务必妥善保管并保持私密
 msgid "Open"
 msgstr "打开"
 
+msgid "No"
+msgstr "否"
+
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "无法关闭多设备登录功能，请稍后重试。"
 
@@ -842,6 +845,9 @@ msgstr "您已隐藏此作者。"
 
 msgid "Bookmarks"
 msgstr "收藏夹"
+
+msgid "Under"
+msgstr "小"
 
 #. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
@@ -2104,6 +2110,9 @@ msgstr "成交量（份额）"
 
 msgid "Non-contract address."
 msgstr "非合约地址。"
+
+msgid "Over"
+msgstr "大"
 
 msgid "Darkweb transactions."
 msgstr "暗网交易。"

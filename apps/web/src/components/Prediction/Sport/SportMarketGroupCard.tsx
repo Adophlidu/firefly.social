@@ -9,11 +9,17 @@ import { memo, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { TimeRangeSettings } from '@/components/Prediction/PredictionMarketsPriceLineChart/TimeRangeSettings.js';
 import { SportBuyButtons } from '@/components/Prediction/Sport/SportBuyButtons.js';
+import { SportMarketResultLabel } from '@/components/Prediction/Sport/SportMarketResultLabel.js';
 import type { SportChartConfig } from '@/components/Prediction/Sport/SportPriceLineChart.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { formatLine, matchesTeamLabel } from '@/helpers/prediction/sportScoreUtils.js';
+import {
+    formatLine,
+    getMarketLine,
+    getSpreadSignedLine,
+    resolveOutcomeTeams,
+} from '@/helpers/prediction/sportScoreUtils.js';
 import { parseAsBetsPriceTimeRange } from '@/hooks/prediction/parsers.js';
 import type { BetsMarketDataForUI, SportEventData } from '@/types/prediction.js';
 import { SportMarketGroupType } from '@/types/prediction.js';
@@ -54,21 +60,6 @@ function MarketTitle({ title, markets }: { title: React.ReactNode; markets: Bets
 type MarketContentTab = 'order-book' | 'graph' | 'resolution';
 const sportMarketSectionClassName = 'border-line rounded-xl border p-4';
 
-function getMarketLine(market: BetsMarketDataForUI): number {
-    return typeof market.line === 'number' && Number.isFinite(market.line) ? market.line : 0;
-}
-
-/**
- * Recover the home-perspective signed handicap. Each spread market stores its own team's handicap
- * (always <= 0); the side lives in the slug (-spread-home-X / -spread-away-X), so an away-side -X
- * market is the home team +X.
- */
-function getSpreadSignedLine(market: BetsMarketDataForUI): number {
-    const line = getMarketLine(market);
-    const side = market.slug?.toLowerCase().match(/-(home|away)-/)?.[1];
-    return side === 'away' ? -line : line;
-}
-
 function getMarketBalancedDistance(market: BetsMarketDataForUI): number {
     let closestDistance = Number.POSITIVE_INFINITY;
     for (const outcome of market.outcomes) {
@@ -103,24 +94,6 @@ function findDefaultMarket(
         const nextVolume = Number.parseFloat(market.volume || '0');
         return nextVolume > currentVolume ? market : current;
     }, markets[0]);
-}
-
-function resolveOutcomeTeam(
-    label: string | undefined,
-    homeTeam: SportEventData['homeTeam'],
-    awayTeam: SportEventData['awayTeam'],
-) {
-    if (matchesTeamLabel(homeTeam, label)) return homeTeam;
-    if (matchesTeamLabel(awayTeam, label)) return awayTeam;
-    return undefined;
-}
-
-function resolveOutcomeTeams(
-    market: BetsMarketDataForUI,
-    homeTeam: SportEventData['homeTeam'],
-    awayTeam: SportEventData['awayTeam'],
-) {
-    return market.outcomes.map((outcome) => resolveOutcomeTeam(outcome.label, homeTeam, awayTeam));
 }
 
 export interface SportLineOption {
@@ -430,6 +403,9 @@ interface SportMarketGroupCardProps {
     onLineChange: (value: string | null) => void;
     config?: SportChartConfig;
     eventSlug?: string;
+    scores: SportEventData['scores'];
+    winResult?: SportEventData['winResult'];
+    penaltyShootout?: SportEventData['penaltyShootout'];
 }
 
 export const SportMarketGroupCard = memo(function SportMarketGroupCard({
@@ -445,6 +421,9 @@ export const SportMarketGroupCard = memo(function SportMarketGroupCard({
     onLineChange,
     config,
     eventSlug,
+    scores,
+    winResult,
+    penaltyShootout,
 }: SportMarketGroupCardProps) {
     const usesLineOptions = section.mergeByLine;
     const effectiveRenderAs = section.renderAs ?? section.type;
@@ -502,6 +481,16 @@ export const SportMarketGroupCard = memo(function SportMarketGroupCard({
                         softColor={effectiveRenderAs === SportMarketGroupType.Spread && !active}
                         responsiveFullWidth
                         line={selectedMarket.line}
+                    />
+                ) : selectedMarket ? (
+                    <SportMarketResultLabel
+                        market={selectedMarket}
+                        renderAs={effectiveRenderAs}
+                        homeTeam={homeTeam}
+                        awayTeam={awayTeam}
+                        scores={scores}
+                        winResult={winResult}
+                        penaltyShootout={penaltyShootout}
                     />
                 ) : null}
             </div>
