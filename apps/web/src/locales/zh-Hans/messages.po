@@ -1162,6 +1162,11 @@ msgstr "收藏帖子失败。"
 msgid "action-like"
 msgstr "点赞"
 
+#. Compose dialog title: a social quote-post (not a price quote)
+#. js-lingui-explicit-id
+msgid "action-quote"
+msgstr ""
+
 #. js-lingui-explicit-id
 msgid "action-unlike"
 msgstr "取消点赞"
@@ -4569,6 +4574,11 @@ msgstr "成功设置Lens 管理员。"
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
 msgstr "多设备登录功能已关闭，将清除所有已加密的登录授权。"
 
+#. Unmute (unblock) a wallet — social, not audio
+#. js-lingui-explicit-id
+msgid "unmute-wallet"
+msgstr ""
+
 msgid "Search token"
 msgstr "搜索代币"
 
@@ -5375,9 +5385,6 @@ msgstr "确定"
 
 msgid "Final price"
 msgstr "最终价格"
-
-msgid "Quote"
-msgstr "引用"
 
 msgid "Groups"
 msgstr "小组赛"

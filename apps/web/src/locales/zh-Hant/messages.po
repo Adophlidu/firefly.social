@@ -1162,6 +1162,11 @@ msgstr "收藏貼文失敗。"
 msgid "action-like"
 msgstr "讚"
 
+#. Compose dialog title: a social quote-post (not a price quote)
+#. js-lingui-explicit-id
+msgid "action-quote"
+msgstr ""
+
 #. js-lingui-explicit-id
 msgid "action-unlike"
 msgstr "收回讚"
@@ -4569,6 +4574,11 @@ msgstr "已成功綁定 Lens 管理器。"
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
 msgstr "多裝置登入功能已關閉，將清除所有已加密的登入授權。"
 
+#. Unmute (unblock) a wallet — social, not audio
+#. js-lingui-explicit-id
+msgid "unmute-wallet"
+msgstr ""
+
 msgid "Search token"
 msgstr "搜尋代幣"
 
@@ -5375,9 +5385,6 @@ msgstr "確認"
 
 msgid "Final price"
 msgstr "最終價格"
-
-msgid "Quote"
-msgstr "引用"
 
 msgid "Groups"
 msgstr "小組賽"

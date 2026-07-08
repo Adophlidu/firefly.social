@@ -1167,6 +1167,11 @@ msgstr "Failed to bookmark post."
 msgid "action-like"
 msgstr "Like"
 
+#. Compose dialog title: a social quote-post (not a price quote)
+#. js-lingui-explicit-id
+msgid "action-quote"
+msgstr "Quote"
+
 #. js-lingui-explicit-id
 msgid "action-unlike"
 msgstr "Unlike"
@@ -4592,6 +4597,11 @@ msgstr "Successfully bound Lens manager."
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
 msgstr "Multi-device login is now turned off and all previously sessions are cleared."
 
+#. Unmute (unblock) a wallet — social, not audio
+#. js-lingui-explicit-id
+msgid "unmute-wallet"
+msgstr "Unmute"
+
 msgid "Search token"
 msgstr "Search token"
 
@@ -5401,9 +5411,6 @@ msgstr "OK"
 
 msgid "Final price"
 msgstr "Final price"
-
-msgid "Quote"
-msgstr "Quote"
 
 msgid "Groups"
 msgstr "Groups"

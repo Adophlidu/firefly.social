@@ -1162,6 +1162,11 @@ msgstr "投稿のブックマークに失敗しました。"
 msgid "action-like"
 msgstr "いいね"
 
+#. Compose dialog title: a social quote-post (not a price quote)
+#. js-lingui-explicit-id
+msgid "action-quote"
+msgstr ""
+
 #. js-lingui-explicit-id
 msgid "action-unlike"
 msgstr "いいね取り消し"
@@ -4569,6 +4574,11 @@ msgstr "Lens マネージャーのバインドに成功しました。"
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
 msgstr "マルチデバイスログインがオフになり、以前のセッションはすべてクリアされました。"
 
+#. Unmute (unblock) a wallet — social, not audio
+#. js-lingui-explicit-id
+msgid "unmute-wallet"
+msgstr ""
+
 msgid "Search token"
 msgstr "トークンを検索"
 
@@ -5375,9 +5385,6 @@ msgstr "OK"
 
 msgid "Final price"
 msgstr "最終価格"
-
-msgid "Quote"
-msgstr "引用"
 
 msgid "Groups"
 msgstr "グループ"

@@ -184,7 +184,7 @@ msgid "Failed to upload. File type is not supported on X."
 msgstr "No se pudo cargar. El tipo de archivo no es compatible con X."
 
 msgid "Open Orders"
-msgstr "Pedidos Abiertos"
+msgstr "Órdenes abiertas"
 
 #. placeholder {0}: profile.handle
 msgid "Report @{0}"
@@ -468,7 +468,7 @@ msgid "Opinion"
 msgstr "Opinión"
 
 msgid "Draw"
-msgstr "Dibujar"
+msgstr "Empate"
 
 msgid "Game {gameNum}"
 msgstr "Juego {gameNum}"
@@ -543,7 +543,7 @@ msgid "Invalid password. Please ensure it is a 6-digit number."
 msgstr "Contraseña no válida. Asegúrese de que sea un número de 6 dígitos."
 
 msgid "Props"
-msgstr "Propiedades"
+msgstr "Mercados"
 
 msgid "Potential risk of external call."
 msgstr "Riesgo potencial de llamada externa."
@@ -855,7 +855,7 @@ msgstr "Menos"
 
 #. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
-msgstr "×{0} compartidos"
+msgstr "×{0} acciones"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
@@ -1167,6 +1167,11 @@ msgstr "No se pudo marcar la publicación como favorita."
 msgid "action-like"
 msgstr "Me gusta"
 
+#. Compose dialog title: a social quote-post (not a price quote)
+#. js-lingui-explicit-id
+msgid "action-quote"
+msgstr "Citar"
+
 #. js-lingui-explicit-id
 msgid "action-unlike"
 msgstr "Quitar Me gusta"
@@ -1328,7 +1333,7 @@ msgid "It is wallet retrieved from public verifiable data registries or our enti
 msgstr "Es una billetera recuperada de registros públicos de datos verificables o de nuestro algoritmo de entidad. Por favor añade esta billetera para establecerla como billetera principal."
 
 msgid "Shares"
-msgstr "Compartidos"
+msgstr "Acciones"
 
 msgid "2FA confirmation code"
 msgstr "Código de confirmación 2FA"
@@ -1455,7 +1460,7 @@ msgid "Go the Distance?"
 msgstr "¿Llegar hasta el final?"
 
 msgid "Total trade"
-msgstr "Comercio total"
+msgstr "Total operado"
 
 #. placeholder {0}: outcome.label
 msgid "Buy {0}"
@@ -1568,7 +1573,7 @@ msgid "Multi-device login is required for schedule post. Enter your password to 
 msgstr "Se requiere inicio de sesión en varios dispositivos para programar la publicación. Introduce tu contraseña para confirmar tu identidad."
 
 msgid "Block"
-msgstr "Bloquear"
+msgstr "Bloque"
 
 msgid "Free Collect"
 msgstr "Recopilar Gratis"
@@ -1788,7 +1793,7 @@ msgid "Done"
 msgstr "Hecho"
 
 msgid "Recasts"
-msgstr "Reformular"
+msgstr "Republicaciones"
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
@@ -2385,7 +2390,7 @@ msgid "Unmute /{0}"
 msgstr "Activar sonido /{0}"
 
 msgid "No open orders found."
-msgstr "No se encontraron pedidos abiertos."
+msgstr "No se encontraron órdenes abiertas."
 
 msgid "No trades found in this wallet"
 msgstr "No se encontraron operaciones en esta cartera"
@@ -2817,7 +2822,7 @@ msgstr "Iniciar sesión en el móvil"
 
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
-msgstr "{0} Compartidos"
+msgstr "{0} acciones"
 
 msgid "You've hit rock bottom."
 msgstr "Has tocado fondo."
@@ -4123,7 +4128,7 @@ msgid "Reposts"
 msgstr "Republicaciones"
 
 msgid "Tip"
-msgstr "Consejo"
+msgstr "Propina"
 
 msgid "Unmute"
 msgstr "Activar sonido"
@@ -4339,7 +4344,7 @@ msgid "Biggest Win"
 msgstr "Mayor ganancia"
 
 msgid "Cancel Recast"
-msgstr "Cancelar Reformulación"
+msgstr "Cancelar republicación"
 
 msgid "Remove Truth Social"
 msgstr "Eliminar Truth Social"
@@ -4591,6 +4596,11 @@ msgstr "Administrador de Lens vinculado correctamente."
 
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
 msgstr "El inicio de sesión multidispositivo ahora está desactivado y todas las sesiones anteriores se han borrado."
+
+#. Unmute (unblock) a wallet — social, not audio
+#. js-lingui-explicit-id
+msgid "unmute-wallet"
+msgstr "Dejar de silenciar"
 
 msgid "Search token"
 msgstr "Buscar token"
@@ -4933,7 +4943,7 @@ msgstr "Seleccionar Token"
 #. placeholder {0}: formatPolymarketNumber(position.shares, { symbol: null })
 #. placeholder {0}: formatPolymarketNumber(totalBought, { symbol: null })
 msgid "{0} shares"
-msgstr "{0} compartidos"
+msgstr "{0} acciones"
 
 msgid "Members"
 msgstr "Miembros"
@@ -4974,7 +4984,7 @@ msgid "GIF"
 msgstr "GIF"
 
 msgid "Recast"
-msgstr "Reformular"
+msgstr "Republicar"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "Esto no es una estafa de airdrop. Muchas estafas atraen a los usuarios a través de airdrops."
@@ -5039,7 +5049,7 @@ msgid "The contract owner has no restrictions on buying."
 msgstr "El propietario del contrato no tiene restricciones sobre la compra."
 
 msgid "Tips"
-msgstr "Consejos"
+msgstr "Propinas"
 
 msgid "Back to home"
 msgstr "Volver al inicio"
@@ -5401,9 +5411,6 @@ msgstr "Aceptar"
 
 msgid "Final price"
 msgstr "Precio final"
-
-msgid "Quote"
-msgstr "Cotización"
 
 msgid "Groups"
 msgstr "Grupos"

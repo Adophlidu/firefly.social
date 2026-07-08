@@ -34,7 +34,11 @@ export function Title() {
         case 'compose':
             return <Trans>Compose</Trans>;
         case 'quote':
-            return <Trans>Quote</Trans>;
+            return (
+                <Trans id="action-quote" comment="Compose dialog title: a social quote-post (not a price quote)">
+                    Quote
+                </Trans>
+            );
         case 'reply':
             return <Trans>Reply</Trans>;
         default:

@@ -39,7 +39,9 @@ export const ToggleMuteWalletButton = memo(function ToggleMuteWalletButton({
 
     const buttonText = isMuted ? (
         hovering && !loading ? (
-            <Trans>Unmute</Trans>
+            <Trans id="unmute-wallet" comment="Unmute (unblock) a wallet — social, not audio">
+                Unmute
+            </Trans>
         ) : (
             <Trans>Muted</Trans>
         )
