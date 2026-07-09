@@ -36,7 +36,7 @@ const MAX_ID_LENGTH = 256;
 const SID_PATTERN = /^[1-9][0-9]*$/;
 const MAX_SID_LENGTH = 20;
 
-// Unlike parseUrl in @dimensiondev/utils (unimportable here — Layer-1 sibling),
+// Unlike parseUrl in @dimensiondev/utils (not importable here — Layer-1 sibling),
 // this never auto-fixes a missing protocol: protocol-less strings must reject.
 function parseUrl(url: string): URL | null {
     try {

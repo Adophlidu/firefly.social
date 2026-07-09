@@ -5,7 +5,7 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import { sha256, stringToHex } from 'viem';
 
 import { logger } from '@/libs/Logger.js';
-import { redis } from '@/libs/Redis.js';
+import { redisReader, redisWriter } from '@/libs/Redis.js';
 
 interface MemoizedFunction {
     cache: {
@@ -53,7 +53,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
     const cache = {
         async get(fieldKey: string) {
             const redisKey = resolveRedisKey(key, fieldKey);
-            const fieldValue = await redis.hget(redisKey, fieldKey);
+            const fieldValue = await redisReader.hget(redisKey, fieldKey);
             const fieldValueWithTTL = fieldValue as { expiresAt: number; ttl: number; value: unknown } | null;
 
             // field value with TTL when set
@@ -75,7 +75,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
 
             const redisKey = resolveRedisKey(key, fieldKey);
             try {
-                await redis.hset(redisKey, {
+                await redisWriter.hset(redisKey, {
                     [fieldKey]: {
                         expiresAt: Date.now() + ttl,
                         ttl,
@@ -95,7 +95,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             return fieldValue !== null;
         },
         async delete(fieldKey: string) {
-            return (await redis.hdel(resolveRedisKey(key, fieldKey), fieldKey)) === 1;
+            return (await redisWriter.hdel(resolveRedisKey(key, fieldKey), fieldKey)) === 1;
         },
     } satisfies MemoizedFunction['cache'];
 
