@@ -104,11 +104,43 @@ describe('parseLink', () => {
         });
     });
 
-    it('rejects non-production hosts and protocols', () => {
-        expect(parseLink('https://www.firefly.social/post/lens/123')).toBeNull();
+    it('accepts firefly.social and the allowlisted deployment subdomains', () => {
+        for (const host of [
+            'firefly.social',
+            'canary.firefly.social',
+            'staging.firefly.social',
+            'alpha.firefly.social',
+            'beta.firefly.social',
+        ]) {
+            expect(parseLink(`https://${host}/post/lens/123`), host).toEqual({
+                kind: 'post',
+                source: 'lens',
+                id: '123',
+            });
+        }
+
+        expect(parseLink('https://canary.firefly.social/post/lens/123?sid=456')).toEqual({
+            kind: 'post',
+            source: 'lens',
+            id: '123',
+            sid: '456',
+        });
+    });
+
+    it('rejects hosts outside the explicit allowlist — no open *.firefly.social wildcard', () => {
         expect(parseLink('https://evil.example.com/post/lens/123')).toBeNull();
+        expect(parseLink('https://evilfirefly.social/post/lens/123')).toBeNull();
+        expect(parseLink('https://firefly.social.evil.com/post/lens/123')).toBeNull();
+        // Not on the allowlist, even though it's a real firefly.social subdomain.
+        expect(parseLink('https://www.firefly.social/post/lens/123')).toBeNull();
+        expect(parseLink('https://preview-123.firefly.social/post/lens/123')).toBeNull();
+    });
+
+    it('rejects http and non-default ports even on allowlisted hosts', () => {
         expect(parseLink('http://firefly.social/post/lens/123')).toBeNull();
+        expect(parseLink('http://staging.firefly.social/post/lens/123')).toBeNull();
         expect(parseLink('https://firefly.social:8443/post/lens/123')).toBeNull();
+        expect(parseLink('https://staging.firefly.social:8443/post/lens/123')).toBeNull();
         expect(parseLink('not a url')).toBeNull();
     });
 

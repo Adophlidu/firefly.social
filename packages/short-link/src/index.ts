@@ -22,7 +22,20 @@ export interface ShortLinkIdentity {
     sid?: string;
 }
 
-export const SHORT_LINK_SITE_URL = 'https://firefly.social';
+export const SHORT_LINK_SITE_HOST = 'firefly.social';
+export const SHORT_LINK_SITE_URL = `https://${SHORT_LINK_SITE_HOST}`;
+
+// Explicit allowlist, not a `*.firefly.social` wildcard: an open wildcard would
+// accept any subdomain, including ones subject to future subdomain takeover.
+// Add new deployment subdomains here deliberately as they're provisioned.
+const SHORT_LINK_ALLOWED_HOSTS = new Set([
+    SHORT_LINK_SITE_HOST,
+    `canary.${SHORT_LINK_SITE_HOST}`,
+    `staging.${SHORT_LINK_SITE_HOST}`,
+    `alpha.${SHORT_LINK_SITE_HOST}`,
+    `beta.${SHORT_LINK_SITE_HOST}`,
+]);
+
 export const SHORT_LINK_HASH_LENGTH = 10;
 export const SHORT_LINK_HASH_PATTERN = /^[0-9A-Za-z]{10}$/;
 
@@ -46,6 +59,10 @@ function parseUrl(url: string): URL | null {
     }
 }
 
+function isShortLinkHost(hostname: string): boolean {
+    return SHORT_LINK_ALLOWED_HOSTS.has(hostname);
+}
+
 function isShortLinkKind(value: string): value is ShortLinkKind {
     return value === 'post' || value === 'profile';
 }
@@ -55,15 +72,20 @@ function isShortLinkSource(value: string): value is ShortLinkSource {
 }
 
 /**
- * Accepts production-host post and profile links only:
- * `https://firefly.social/{post|profile}/{source}/{id}` with an optional
+ * Accepts post and profile links on an allowlisted host only — the apex
+ * domain or one of a fixed set of deployment subdomains (see
+ * SHORT_LINK_ALLOWED_HOSTS), never an open `*.firefly.social` wildcard:
+ * `https://{allowed-host}/{post|profile}/{source}/{id}` with an optional
  * `?sid=` query param. Every other query param is ignored; anything else
- * about the URL (host, protocol, locale prefix, trailing slash, malformed
- * sid) rejects the link with `null`.
+ * about the URL (host, protocol, non-default port, locale prefix, trailing
+ * slash, malformed sid) rejects the link with `null`.
  */
 export function parseLink(url: string): ShortLinkIdentity | null {
     const parsed = parseUrl(url);
-    if (!parsed || parsed.origin !== SHORT_LINK_SITE_URL) return null;
+    // https only, default port, an allowlisted host.
+    if (parsed?.protocol !== 'https:' || parsed.port || !isShortLinkHost(parsed.hostname)) {
+        return null;
+    }
 
     // Exactly /{kind}/{source}/{id}: split the raw pathname and pick by index.
     const segments = parsed.pathname.split('/');
@@ -109,6 +131,7 @@ export async function computeHash(identity: ShortLinkIdentity): Promise<string> 
         hash += ALPHABET[Number(value % 62n)];
         value /= 62n;
     }
+
     return hash;
 }
 

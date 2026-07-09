@@ -18,6 +18,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { captureShareIconClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -29,7 +30,8 @@ interface ShareProps extends HTMLProps<HTMLDivElement> {
 
 export const Share = memo<ShareProps>(function Share({ post, disabled = false, className }) {
     const baseUrl = urlcat(SITE_URL, getPostUrl(post));
-    const url = useShareUrl(baseUrl);
+    const longUrl = useShareUrl(baseUrl);
+    const { url, register } = useShortShareUrl(longUrl);
 
     return (
         <MoreActionMenu
@@ -43,6 +45,7 @@ export const Share = memo<ShareProps>(function Share({ post, disabled = false, c
                         onClick={() => {
                             captureShareIconClickEvent('Post');
                             capturePostActionEvent('share', post);
+                            register();
                         }}
                         whileTap={{ scale: 0.9 }}
                         className="group inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"

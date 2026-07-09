@@ -1,7 +1,10 @@
 import { BetsMarketResolveStatus } from '@dimensiondev/enums';
 import { describe, expect, it } from 'vitest';
 
-import { formatPolymarketEventListData, formatPolymarketMarketToBetsMarket } from '@/helpers/formatPolymarketEventListData.js';
+import {
+    formatPolymarketEventListData,
+    formatPolymarketMarketToBetsMarket,
+} from '@/helpers/formatPolymarketEventListData.js';
 import type { PolymarketEventListData, PolymarketMarketData } from '@/providers/types/Firefly.js';
 import { PolymarketUmaResolutionStatus } from '@/providers/types/Firefly.js';
 
