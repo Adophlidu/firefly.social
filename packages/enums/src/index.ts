@@ -83,6 +83,7 @@ export enum Source {
     Activities = 'Activities',
     Prediction = 'Prediction',
     Polymarket = 'Polymarket',
+    WorldCup = 'WorldCup',
 }
 
 export enum SourceInURL {
@@ -109,6 +110,7 @@ export enum SourceInURL {
     Activities = 'activities',
     Prediction = 'prediction',
     Polymarket = 'polymarket',
+    WorldCup = 'world-cup-feed',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky;
@@ -145,7 +147,12 @@ export type RequestedLoginSource = Source.Twitter;
 
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter;
 
-export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions | Source.Prediction;
+export type DiscoverSource =
+    | Source.Posts
+    | Source.Activities
+    | Source.Transactions
+    | Source.Prediction
+    | Source.WorldCup;
 
 export type BookmarkSource =
     | Source.Farcaster
@@ -294,6 +301,7 @@ export enum PageRoute {
     SettingsMutes = '/settings/mutes',
     Signup = '/signup',
     WorldCup = '/world-cup',
+    WorldCupFeed = '/world-cup-feed',
     PredictionCategory = '/prediction/category',
 }
 

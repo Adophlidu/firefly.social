@@ -26,6 +26,13 @@ const PredictionEventInfo = dynamic(
         loading: () => <Loading />,
     },
 );
+const PredictionEventComments = dynamic(
+    () => import('@/components/Prediction/PredictionEventComments.js').then((m) => m.PredictionEventComments),
+    {
+        ssr: false,
+        loading: () => <Loading />,
+    },
+);
 
 interface PredictionBaseInfoTabContentProps {
     platform: PredictionPlatform;
@@ -51,6 +58,9 @@ export function PredictionBaseInfoTabContent({
     if (!detail || !marketIds) return null;
 
     switch (tab) {
+        case BetsEventInfoTab.Comments:
+            if (!eventSlug) return null;
+            return <PredictionEventComments eventSlug={eventSlug} />;
         case BetsEventInfoTab.TopHolders:
             return (
                 <PredictionMarketTopHolders

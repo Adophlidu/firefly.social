@@ -1442,7 +1442,7 @@ msgstr "Método de transacción desconocido: {method}."
 msgid "Connect Ethereum Wallet"
 msgstr "Conectar cartera de Ethereum"
 
-#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
+#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : post.lpt1Tags?.length ? ( <Trans>Add a comment</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {Añadir un comentario} reply {Publicar tu respuesta} other {{1}}}"
@@ -2036,6 +2036,9 @@ msgstr "Semifinales"
 msgid "Quotes"
 msgstr "Cotizaciones"
 
+msgid "View game"
+msgstr "Ver partido"
+
 msgid "Token removed from your Bookmarks."
 msgstr "Token eliminado de tus Marcadores."
 
@@ -2543,6 +2546,12 @@ msgstr "Siguiente"
 msgid "Failed to send."
 msgstr "No se pudo enviar."
 
+#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] "Ver # respuesta"
+msgstr[1] "Ver # respuestas"
+
 msgid "Matters article"
 msgstr "Artículo de Matters"
 
@@ -2823,6 +2832,9 @@ msgstr "Iniciar sesión en el móvil"
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
 msgstr "{0} acciones"
+
+msgid "No comments yet. Be the first to post!"
+msgstr "Aún no hay comentarios. ¡Sé el primero en publicar!"
 
 msgid "You've hit rock bottom."
 msgstr "Has tocado fondo."
@@ -4709,6 +4721,9 @@ msgstr "No se encontró evento de opinión."
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Las notificaciones de Firefly están desactivadas."
 
+msgid "Comments"
+msgstr "Comentarios"
+
 msgid "Unsupported Chain"
 msgstr "Cadena no compatible"
 
@@ -4855,6 +4870,9 @@ msgstr "Dirección en Listas de Seguimiento"
 
 msgid "Please confirm the login with X."
 msgstr "Por favor confirma el inicio de sesión con X."
+
+msgid "Add a comment"
+msgstr "Añadir un comentario"
 
 #. placeholder {0}: expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')
 #. placeholder {1}: resolveSourceName(source)

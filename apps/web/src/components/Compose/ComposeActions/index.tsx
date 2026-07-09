@@ -26,7 +26,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function ComposeActions() {
     const isMedium = useIsMedium();
-    const { type, posts } = useComposeStateStore();
+    const { type, posts, lockThread } = useComposeStateStore();
     const { scheduleTime, disableSchedule } = useComposeScheduleStateStore();
     const { availableSources, images, videos, poll, rpPayload, isAnonymous } = useCompositePost();
 
@@ -76,15 +76,18 @@ export function ComposeActions() {
 
                     <EmojiAction />
 
-                    {type === 'compose' && envs.external.NEXT_PUBLIC_POLL === STATUS.Enabled && !isAnonymous ? (
+                    {type === 'compose' &&
+                    envs.external.NEXT_PUBLIC_POLL === STATUS.Enabled &&
+                    !isAnonymous &&
+                    !lockThread ? (
                         <PollButton />
                     ) : null}
 
-                    {!isAnonymous && !disableSchedule ? (
+                    {!isAnonymous && !disableSchedule && !lockThread ? (
                         <SchedulePostEntryButton className="text-main" disabled={!!rpPayload} />
                     ) : null}
 
-                    {!scheduleTime && !mediaDisabled && isMedium && !isAnonymous ? (
+                    {!scheduleTime && !mediaDisabled && isMedium && !isAnonymous && !lockThread ? (
                         <RedPacketAction disabled={mediaDisabled} />
                     ) : null}
                 </div>

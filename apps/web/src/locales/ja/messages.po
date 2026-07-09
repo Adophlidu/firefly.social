@@ -1435,7 +1435,7 @@ msgstr "不明な取引メソッド: {method}。"
 msgid "Connect Ethereum Wallet"
 msgstr "Ethereum ウォレットを接続"
 
-#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
+#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : post.lpt1Tags?.length ? ( <Trans>Add a comment</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {コメントを追加} reply {返信を投稿} other {{1}}}"
@@ -2026,6 +2026,9 @@ msgstr "ベスト4"
 msgid "Quotes"
 msgstr "引用"
 
+msgid "View game"
+msgstr "試合を表示"
+
 msgid "Token removed from your Bookmarks."
 msgstr "トークンがブックマークから削除されました。"
 
@@ -2530,6 +2533,11 @@ msgstr "次へ"
 msgid "Failed to send."
 msgstr "送信に失敗しました。"
 
+#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] "# 件の返信を表示"
+
 msgid "Matters article"
 msgstr "Matters 記事"
 
@@ -2809,6 +2817,9 @@ msgstr "モバイルでログイン"
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
 msgstr "{0} シェア"
+
+msgid "No comments yet. Be the first to post!"
+msgstr "まだコメントはありません。最初に投稿してみよう!"
 
 msgid "You've hit rock bottom."
 msgstr "最下部に到達しました。"
@@ -4686,6 +4697,9 @@ msgstr "Opinion イベントが見つかりません。"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly の通知がオフです。 "
 
+msgid "Comments"
+msgstr "コメント"
+
 msgid "Unsupported Chain"
 msgstr "サポートされていないチェーン"
 
@@ -4831,6 +4845,9 @@ msgstr "ウォッチリストのアドレス"
 
 msgid "Please confirm the login with X."
 msgstr "X でログインを確認してください。"
+
+msgid "Add a comment"
+msgstr "コメントを追加"
 
 #. placeholder {0}: expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')
 #. placeholder {1}: resolveSourceName(source)

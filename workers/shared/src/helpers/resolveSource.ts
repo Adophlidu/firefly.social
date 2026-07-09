@@ -23,6 +23,7 @@ export const resolveSourceInUrlForApi = createLookupTableResolver<Source, Source
         [Source.DAOs]: SourceInURL.DAOs,
         [Source.Polymarket]: SourceInURL.Polymarket,
         [Source.Prediction]: SourceInURL.Prediction,
+        [Source.WorldCup]: SourceInURL.WorldCup,
         [Source.Tokens]: SourceInURL.Tokens,
         [Source.Telegram]: SourceInURL.Telegram,
         [Source.Google]: SourceInURL.Google,

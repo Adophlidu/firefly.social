@@ -20,12 +20,23 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
+/** Drop selected actions from the PostActions row (used by the Orb comment cell). */
+export interface PostActionsMask {
+    mirror?: boolean;
+    collect?: boolean;
+    bookmark?: boolean;
+    comment?: boolean;
+}
+
 interface PostActionsProps extends HTMLProps<HTMLDivElement> {
     showChannelTag?: boolean;
     post: Post;
     disablePadding?: boolean;
     hideDate?: boolean;
     onSetScrollIndex?: () => void;
+    actionsMask?: PostActionsMask;
+    /** Show the Like count (default hides it). */
+    showLikeCount?: boolean;
 }
 
 export const PostActions = memo<PostActionsProps>(function PostActions({
@@ -36,6 +47,8 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     showChannelTag,
     hideDate,
     onSetScrollIndex,
+    actionsMask,
+    showLikeCount = false,
     ...rest
 }) {
     const isMedium = useIsMedium('max');
@@ -55,18 +68,20 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
         >
             <ClickableArea className="flex justify-between">
                 <div className="flex -translate-x-1.5 items-center space-x-2">
-                    <Comment post={post} hiddenCount disabled={disabled} />
-                    <Mirror
-                        disabled={disabled}
-                        shares={(post.stats?.mirrors || 0) + (post.stats?.quotes || 0)}
-                        source={post.source}
-                        postId={post.postId}
-                        post={post}
-                    />
-                    <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
+                    {actionsMask?.comment ? null : <Comment post={post} hiddenCount disabled={disabled} />}
+                    {actionsMask?.mirror ? null : (
+                        <Mirror
+                            disabled={disabled}
+                            shares={(post.stats?.mirrors || 0) + (post.stats?.quotes || 0)}
+                            source={post.source}
+                            postId={post.postId}
+                            post={post}
+                        />
+                    )}
+                    <Like isComment={isComment} post={post} disabled={disabled} hiddenCount={!showLikeCount} />
                 </div>
                 <div className="flex translate-x-1.5 items-center space-x-2">
-                    {post.source !== Source.Farcaster && post.canAct ? (
+                    {post.source !== Source.Farcaster && post.canAct && !actionsMask?.collect ? (
                         <Collect
                             post={post}
                             count={post.stats?.countOpenActions}
@@ -75,7 +90,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             hiddenCount
                         />
                     ) : null}
-                    {ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
+                    {ENABLED_BOOKMARK_SOURCES.includes(post.source) && !actionsMask?.bookmark ? (
                         <PostBookmark post={post} disabled={disabled} />
                     ) : null}
                     {identity.id ? (

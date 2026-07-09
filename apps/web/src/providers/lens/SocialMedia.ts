@@ -44,6 +44,7 @@ import { getLensNotificationSettings } from '@/providers/lens/getLensNotificatio
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
 import { getLensPostsBeMentioned } from '@/providers/lens/getLensPostsBeMentioned.js';
 import { getLensPostsByChannelId } from '@/providers/lens/getLensPostsByChannelId.js';
+import { getLensPostsByLpt1Item } from '@/providers/lens/getLensPostsByLpt1Item.js';
 import { getLensPostsByProfileId } from '@/providers/lens/getLensPostsByProfileId.js';
 import { getLensPostsQuoteOn } from '@/providers/lens/getLensPostsQuoteOn.js';
 import { getLensPostsReplies } from '@/providers/lens/getLensPostsReplies.js';
@@ -55,6 +56,7 @@ import { getLensRepliesPostsByProfileId } from '@/providers/lens/getLensRepliesP
 import { getLensRepostReactors } from '@/providers/lens/getLensRepostReactors.js';
 import { getLensSuggestedFollows } from '@/providers/lens/getLensSuggestedFollows.js';
 import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
+import { getLensWorldCupPosts } from '@/providers/lens/getLensWorldCupPosts.js';
 import { isLensFollowedByMe } from '@/providers/lens/isLensFollowedByMe.js';
 import { isLensFollowingMe } from '@/providers/lens/isLensFollowingMe.js';
 import { joinLensChannel } from '@/providers/lens/joinLensChannel.js';
@@ -256,6 +258,14 @@ class LensSocialMedia implements Provider {
         hasFilter = true,
     ): Promise<Pageable<Post, PageIndicator>> {
         return getCommentsByPostId(postId, indicator, hasFilter);
+    }
+
+    async getOrbCommentsByEvent(eventSlug: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        return getLensPostsByLpt1Item(eventSlug, indicator);
+    }
+
+    async getOrbTimeline(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        return getLensWorldCupPosts(indicator);
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

@@ -13,6 +13,7 @@ import type {
     SocialSource,
 } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
+import type { MetadataAttribute } from '@lens-protocol/client';
 
 import type { Account } from '@/providers/types/Account.js';
 import type {
@@ -184,6 +185,10 @@ export interface Post {
     metadata: {
         locale: string;
         description?: string;
+        /** Lens metadata tags (used by LPT-1 Orb comments). */
+        tags?: string[];
+        /** Lens metadata attributes (e.g. LPT-1 position data). */
+        attributes?: MetadataAttribute[];
         content: {
             content?: string;
             /** Post content that has been truncated links at the end */
@@ -652,6 +657,16 @@ export interface Provider {
      * @returns A promise that resolves to Comments list.
      */
     getCommentsById: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Retrieves Firefly LPT-1 Orb comments for a given Polymarket event (Lens-only).
+     */
+    getOrbCommentsByEvent?: (eventSlug: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Retrieves the global LPT-1 Orb timeline (Lens-only). Powers the Home "World Cup" tab.
+     */
+    getOrbTimeline?: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 
     /**
      * Retrieves recent posts in reverse chronological order.

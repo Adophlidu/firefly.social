@@ -1435,7 +1435,7 @@ msgstr "알 수 없는 거래 방법: {method}."
 msgid "Connect Ethereum Wallet"
 msgstr "이더리움 지갑 연결"
 
-#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
+#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : post.lpt1Tags?.length ? ( <Trans>Add a comment</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {댓글 추가} reply {답글 게시} other {{1}}}"
@@ -2026,6 +2026,9 @@ msgstr "4강"
 msgid "Quotes"
 msgstr "인용"
 
+msgid "View game"
+msgstr "경기 보기"
+
 msgid "Token removed from your Bookmarks."
 msgstr "토큰이 북마크에서 제거되었습니다."
 
@@ -2530,6 +2533,11 @@ msgstr "다음"
 msgid "Failed to send."
 msgstr "전송에 실패했습니다."
 
+#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] "답글 #개 보기"
+
 msgid "Matters article"
 msgstr "Matters 아티클"
 
@@ -2809,6 +2817,9 @@ msgstr "모바일에서 로그인"
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
 msgstr "{0}지분"
+
+msgid "No comments yet. Be the first to post!"
+msgstr "아직 댓글이 없습니다. 첫 댓글을 남겨보세요!"
 
 msgid "You've hit rock bottom."
 msgstr "더 이상 콘텐츠가 없습니다."
@@ -4686,6 +4697,9 @@ msgstr "Opinion 이벤트를 찾을 수 없습니다."
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 알림이 꺼져 있습니다. "
 
+msgid "Comments"
+msgstr "댓글"
+
 msgid "Unsupported Chain"
 msgstr "지원하지 않는 체인"
 
@@ -4831,6 +4845,9 @@ msgstr "관심 목록의 주소"
 
 msgid "Please confirm the login with X."
 msgstr "X에서 로그인을 확인해 주세요."
+
+msgid "Add a comment"
+msgstr "댓글 추가"
 
 #. placeholder {0}: expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')
 #. placeholder {1}: resolveSourceName(source)

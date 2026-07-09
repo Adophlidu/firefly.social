@@ -79,7 +79,7 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
                 isLiked={!!hasLiked}
                 disabled={disabled}
                 likeCount={!hiddenCount ? post.stats?.reactions : undefined}
-                className="inline-flex size-7 items-center justify-center rounded-full hover:bg-danger/[.20]"
+                className="inline-flex items-center gap-1"
             />
         </ClickableArea>
     );

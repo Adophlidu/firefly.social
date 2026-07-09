@@ -14,6 +14,7 @@ import {
 } from '@/providers/telemetry/capturePolymarketEvent.js';
 
 const tabs = [
+    { value: BetsEventInfoTab.Comments, label: <Trans>Comments</Trans> },
     { value: BetsEventInfoTab.TopHolders, label: <Trans>Top Holders</Trans> },
     { value: BetsEventInfoTab.Trades, label: <Trans>Trades</Trans> },
     { value: BetsEventInfoTab.Info, label: <Trans>Info</Trans> },
@@ -31,12 +32,15 @@ interface PredictionBaseInfoTabsProps {
     showResolution?: boolean;
     eventSlug?: string;
 }
-const tabNameMap = {
+// Comments is a new tab not yet in the analytics tab schema; omitting it here
+// makes tab-click telemetry gracefully no-op for Comments (see handleTabChange).
+type TrackedEventTab = 'Top holders' | 'Trades' | 'Info' | 'Resolution';
+const tabNameMap: Partial<Record<BetsEventInfoTab, TrackedEventTab>> = {
     [BetsEventInfoTab.TopHolders]: 'Top holders',
     [BetsEventInfoTab.Trades]: 'Trades',
     [BetsEventInfoTab.Info]: 'Info',
     [BetsEventInfoTab.Resolution]: 'Resolution',
-} as const;
+};
 
 export const PredictionBaseInfoTabs = memo<PredictionBaseInfoTabsProps>(function PredictionBaseInfoTabs({
     showResolution,

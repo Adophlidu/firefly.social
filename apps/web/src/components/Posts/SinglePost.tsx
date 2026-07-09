@@ -9,7 +9,7 @@ import { type HTMLProps, memo, type ReactNode, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
 import { useHover } from 'usehooks-ts';
 
-import { PostActions } from '@/components/Actions/PostActions.js';
+import { PostActions, type PostActionsMask } from '@/components/Actions/PostActions.js';
 import { useDisableScrollRestore } from '@/components/DisableScrollRestore/index.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
@@ -40,6 +40,12 @@ export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     header?: ReactNode;
     keepMutedSpace?: boolean;
     hideAttachments?: boolean;
+    /** Orb-comment cell flags — forwarded to PostHeader / PostActions. */
+    hideHeaderHandle?: boolean;
+    hideMoreMenu?: boolean;
+    hideNonFireflySourceIcon?: boolean;
+    actionsMask?: PostActionsMask;
+    showLikeCount?: boolean;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
@@ -55,6 +61,11 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     header,
     keepMutedSpace,
     hideAttachments,
+    hideHeaderHandle,
+    hideMoreMenu,
+    hideNonFireflySourceIcon,
+    actionsMask,
+    showLikeCount,
 }) {
     const router = useRouter();
     const pathname = usePathname();
@@ -155,6 +166,9 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 <PostHeader
                     isComment={isComment}
                     post={post}
+                    hideHeaderHandle={hideHeaderHandle}
+                    hideMoreMenu={hideMoreMenu}
+                    hideNonFireflySourceIcon={hideNonFireflySourceIcon}
                     onClickProfileLink={() => {
                         if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                     }}
@@ -177,6 +191,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                             post={post}
                             disabled={!isBookmarkPage && post.isHidden}
                             showChannelTag={!isComment && !isChannelPage && showChannelTag}
+                            actionsMask={actionsMask}
+                            showLikeCount={showLikeCount}
                             onSetScrollIndex={() => {
                                 if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                             }}

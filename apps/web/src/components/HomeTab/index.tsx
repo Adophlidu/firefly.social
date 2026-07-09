@@ -29,7 +29,7 @@ import { PredictionFilterNamespace } from '@/store/usePredictionSourceFilterStor
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 const types = {
-    [HomeTab.Discover]: [Source.Posts, Source.Prediction, Source.Activities],
+    [HomeTab.Discover]: [Source.Posts, Source.Prediction, Source.WorldCup, Source.Activities],
     [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Prediction, Source.Activities],
 };
 const tabLabels = {

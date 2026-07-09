@@ -214,6 +214,7 @@ export const DISCOVER_SOURCES: DiscoverSource[] = [
     Source.Transactions,
     Source.Prediction,
     Source.Activities,
+    Source.WorldCup,
 ] as const;
 
 export const FOLLOWING_SOURCES: FollowingSource[] = [

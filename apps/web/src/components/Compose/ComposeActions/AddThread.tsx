@@ -16,13 +16,13 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const AddThread = memo(function AddThread() {
     const post = useCompositePost();
-    const { type, posts, addPostInThread } = useComposeStateStore();
+    const { type, posts, addPostInThread, lockThread } = useComposeStateStore();
 
     const { usedLength, availableLength } = measureChars(post);
 
     const setEditorContent = useSetEditorContent();
 
-    const hasThread = (post.images.length > 0 || usedLength) && type === 'compose' && !post.isAnonymous;
+    const hasThread = (post.images.length > 0 || usedLength) && type === 'compose' && !post.isAnonymous && !lockThread;
 
     return (
         <>

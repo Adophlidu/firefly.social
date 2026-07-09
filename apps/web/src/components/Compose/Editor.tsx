@@ -158,6 +158,8 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                             _compose={
                                 post.poll ? (
                                     <Trans>Ask a question</Trans>
+                                ) : post.lpt1Tags?.length ? (
+                                    <Trans>Add a comment</Trans>
                                 ) : index === 0 ? (
                                     <Trans>What&apos;s happening...</Trans>
                                 ) : (

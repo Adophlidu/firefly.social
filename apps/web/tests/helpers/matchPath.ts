@@ -62,4 +62,14 @@ describe('matchPath', () => {
         const result = matchPath('/product/:id', '/product/42');
         expect(result).toEqual({ id: '42' });
     });
+
+    it('should match a parameter value containing hyphens (exact match)', () => {
+        const result = matchPath('/:source', '/world-cup-feed');
+        expect(result).toEqual({ source: 'world-cup-feed' });
+    });
+
+    it('should match a parameter value containing hyphens (fuzzy match)', () => {
+        const result = matchPath('/:source', '/world-cup-feed/extra', true);
+        expect(result).toEqual({ source: 'world-cup-feed' });
+    });
 });

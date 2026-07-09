@@ -19,6 +19,7 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.DAOs]: Source.DAOs,
         [SourceInURL.Prediction]: Source.Prediction,
         [SourceInURL.Polymarket]: Source.Prediction,
+        [SourceInURL.WorldCup]: Source.WorldCup,
         [SourceInURL.Telegram]: Source.Telegram,
         [SourceInURL.Google]: Source.Google,
         [SourceInURL.Apple]: Source.Apple,

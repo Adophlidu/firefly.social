@@ -1,6 +1,6 @@
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { NODE_ENV } from '@dimensiondev/enums';
+import { NODE_ENV, Source } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { t } from '@lingui/core/macro';
 import { produce } from 'immer';
@@ -42,6 +42,18 @@ async function refreshProfileFeed(source: SocialSource) {
         stale: true,
         type: 'active',
     });
+}
+
+/**
+ * Invalidate the Orb (LPT-1) Lens comment queries so a freshly published Orb
+ * comment appears in the event Comments tab and the World Cup feed without a
+ * manual reload. Prefix-matched (no eventSlug) so the active list refetches.
+ */
+async function refreshOrbCommentQueries() {
+    await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['posts', Source.Lens, 'orb-comments'] }),
+        queryClient.invalidateQueries({ queryKey: ['posts', Source.Lens, 'orb-timeline'] }),
+    ]);
 }
 
 async function updateRpClaimStrategy(compositePost: CompositePost) {
@@ -337,6 +349,13 @@ export async function crossPost(
         if (type === 'quote') await setQueryDataForQuote(compositePost);
     } catch (error) {
         logger.error(`[cross post]: failed to set query data: ${error}`);
+    }
+
+    // refresh Orb (LPT-1) comment lists so the new comment shows without a manual reload
+    try {
+        if (updatedCompositePost.lpt1Tags?.length) await refreshOrbCommentQueries();
+    } catch (error) {
+        logger.error(`[cross post]: failed to refresh Orb comment queries: ${error}`);
     }
 
     return updatedCompositePost;

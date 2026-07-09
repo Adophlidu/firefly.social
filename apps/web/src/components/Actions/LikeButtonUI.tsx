@@ -82,7 +82,7 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
         <motion.button
             whileTap={{ scale: 0.8 }}
             className={classNames(
-                'relative z-10 rounded-full transition-colors duration-300',
+                'group relative z-10 rounded-full transition-colors duration-300',
                 isLiked ? 'text-danger' : 'text-second hover:text-danger',
                 className,
             )}
@@ -107,10 +107,11 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
                                 : { scale: 1 }
                         }
                         transition={{ duration: 0.4 }}
+                        className="inline-flex size-7 items-center justify-center rounded-full group-hover:bg-danger/[.20]"
                     >
                         <LikeIcon fill={isLiked ? 'currentColor' : 'none'} width={size} height={size} />
                     </motion.div>
-                    {likeCount > 0 ? <span className="text-xs font-bold">{nFormatter(likeCount)}</span> : null}
+                    {likeCount > 0 ? <span className="-ml-1 text-xs font-bold">{nFormatter(likeCount)}</span> : null}
                 </>
             )}
         </motion.button>

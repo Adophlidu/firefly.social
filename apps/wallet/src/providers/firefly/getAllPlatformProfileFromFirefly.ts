@@ -40,6 +40,7 @@ export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity
             case Source.Tokens:
             case Source.Polymarket:
             case Source.Prediction:
+            case Source.WorldCup:
             case Source.Telegram:
             case Source.Google:
             case Source.Apple:

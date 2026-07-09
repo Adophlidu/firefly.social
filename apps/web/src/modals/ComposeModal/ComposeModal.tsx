@@ -84,6 +84,9 @@ function ComposeModalUI({ ref }: Props) {
         clear,
         updateIsFailedSchedulePost,
         updateDisabledSources,
+        updateLpt1Tags,
+        updateLpt1Attributes,
+        updateLockThread,
     } = useComposeStateStore();
     const { clearScheduleTime, resetScheduleState, updateDisableSchedule } = useComposeScheduleStateStore();
     const [, applyTempDraftPost] = useApplyTempDraftPost();
@@ -108,6 +111,9 @@ function ComposeModalUI({ ref }: Props) {
             isAnonymous,
             disabledSources,
             disableSchedule,
+            lpt1Tags,
+            lpt1Attributes,
+            lockThread,
         }) => {
             // Close firefly wallet when compose modal opens
             updateFireflyWalletIsOpen(false);
@@ -126,6 +132,9 @@ function ComposeModalUI({ ref }: Props) {
             if (disabledSources && disabledSources.length > 0) updateDisabledSources(disabledSources);
             if (channel) updateChannel(channel);
             if (isAnonymous) toggleAnonymous(true);
+            if (lpt1Tags) updateLpt1Tags(lpt1Tags);
+            if (lpt1Attributes) updateLpt1Attributes(lpt1Attributes);
+            if (lockThread) updateLockThread(true);
             if (initialPath) router.navigate({ to: initialPath });
             embeds?.forEach((embedUrl) => addUrl(embedUrl));
             images?.forEach((image, index) => addImage(image, index));

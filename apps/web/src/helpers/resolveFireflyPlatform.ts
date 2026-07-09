@@ -17,6 +17,7 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.DAOs]: FireflyPlatform.DAOs,
         [Source.Prediction]: FireflyPlatform.Polymarket,
         [Source.Polymarket]: FireflyPlatform.Polymarket,
+        [Source.WorldCup]: null,
         [Source.Telegram]: null,
         [Source.Google]: null,
         [Source.Email]: null,

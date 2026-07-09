@@ -52,6 +52,7 @@ function getQueryKey(identity: FireflyIdentity, forceHandle: boolean) {
         case Source.Activities:
         case Source.Prediction:
         case Source.Polymarket:
+        case Source.WorldCup:
             return '';
         default:
             safeUnreachable(identity.source);

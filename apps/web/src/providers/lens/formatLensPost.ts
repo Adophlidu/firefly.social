@@ -5,6 +5,7 @@ import type {
     AnyMedia,
     AnyPost,
     FullPostMetadata,
+    MetadataAttribute,
     Post as LensPost,
     PostAction,
     PostMention,
@@ -304,6 +305,8 @@ export function formatLensQuoteOrCommentV3(
             locale: getPostLocale(result.metadata),
             content: formatContentV3(result.metadata, profile, result.mentions),
             contentURI: result.contentUri,
+            tags: readMetadataTags(result.metadata),
+            attributes: readMetadataAttributes(result.metadata),
         },
 
         ...formatLensPostOperations(result.operations, result.actions),
@@ -348,6 +351,18 @@ function getPostLocale(metadata: FullPostMetadata) {
             safeUnreachable(metadata.__typename);
             return 'en';
     }
+}
+
+/** Read LPT-1 / Lens tags from a metadata union (not every member carries tags). */
+function readMetadataTags(metadata: FullPostMetadata): string[] | undefined {
+    if ('tags' in metadata && Array.isArray(metadata.tags)) return metadata.tags;
+    return undefined;
+}
+
+/** Read Lens attributes (e.g. LPT-1 position data) from a metadata union. */
+function readMetadataAttributes(metadata: FullPostMetadata): MetadataAttribute[] | undefined {
+    if ('attributes' in metadata && Array.isArray(metadata.attributes)) return metadata.attributes;
+    return undefined;
 }
 
 /**
@@ -420,6 +435,8 @@ export function formatLensPostV3(result: AnyPost): Post {
                     oembedUrl: last(oembedUrls),
                 },
                 contentURI: mirrorOn.contentUri,
+                tags: readMetadataTags(mirrorOn.metadata),
+                attributes: readMetadataAttributes(mirrorOn.metadata),
             },
             stats: formatLensPostStats(mirrorOn.stats),
             ...formatLensPostOperations(mirrorOn.operations, mirrorOn.actions),
@@ -468,6 +485,8 @@ export function formatLensPostV3(result: AnyPost): Post {
                     oembedUrl,
                 },
                 contentURI: result.contentUri,
+                tags: readMetadataTags(result.metadata),
+                attributes: readMetadataAttributes(result.metadata),
             },
             stats: formatLensPostStats(result.stats),
             ...formatLensPostOperations(result.operations, result.actions),
@@ -503,6 +522,8 @@ export function formatLensPostV3(result: AnyPost): Post {
                     oembedUrl,
                 },
                 contentURI: result.contentUri,
+                tags: readMetadataTags(result.metadata),
+                attributes: readMetadataAttributes(result.metadata),
             },
             stats: formatLensPostStats(result.stats),
             ...formatLensPostOperations(result.operations, result.actions),
@@ -543,6 +564,8 @@ export function formatLensPostV3(result: AnyPost): Post {
                     oembedUrl,
                 },
                 contentURI: result.contentUri,
+                tags: readMetadataTags(result.metadata),
+                attributes: readMetadataAttributes(result.metadata),
             },
             stats: formatLensPostStats(result.stats),
             ...formatLensPostOperations(result.operations, result.actions),

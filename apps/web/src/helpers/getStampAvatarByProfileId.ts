@@ -43,6 +43,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string, siz
         case Source.Swap:
         case Source.Transactions:
         case Source.Activities:
+        case Source.WorldCup:
             return '';
         default:
             safeUnreachable(source);

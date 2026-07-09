@@ -1442,7 +1442,7 @@ msgstr "Unknown transaction method: {method}."
 msgid "Connect Ethereum Wallet"
 msgstr "Connect Ethereum Wallet"
 
-#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
+#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : post.lpt1Tags?.length ? ( <Trans>Add a comment</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
@@ -2036,6 +2036,9 @@ msgstr "Semifinals"
 msgid "Quotes"
 msgstr "Quotes"
 
+msgid "View game"
+msgstr "View game"
+
 msgid "Token removed from your Bookmarks."
 msgstr "Token removed from your Bookmarks."
 
@@ -2543,6 +2546,12 @@ msgstr "Next"
 msgid "Failed to send."
 msgstr "Failed to send."
 
+#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] "View # reply"
+msgstr[1] "View # replies"
+
 msgid "Matters article"
 msgstr "Matters article"
 
@@ -2823,6 +2832,9 @@ msgstr "Sign in on mobile"
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
 msgstr "{0} Shares"
+
+msgid "No comments yet. Be the first to post!"
+msgstr "No comments yet. Be the first to post!"
 
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
@@ -4709,6 +4721,9 @@ msgstr "No opinion event found."
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly notifications are off. "
 
+msgid "Comments"
+msgstr "Comments"
+
 msgid "Unsupported Chain"
 msgstr "Unsupported Chain"
 
@@ -4855,6 +4870,9 @@ msgstr "Address on Watching Lists"
 
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."
+
+msgid "Add a comment"
+msgstr "Add a comment"
 
 #. placeholder {0}: expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')
 #. placeholder {1}: resolveSourceName(source)

@@ -1435,7 +1435,7 @@ msgstr "未知交易方法：{method}。"
 msgid "Connect Ethereum Wallet"
 msgstr "連接 EVM 相容錢包"
 
-#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
+#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : post.lpt1Tags?.length ? ( <Trans>Add a comment</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {新增留言} reply {發佈你的留言} other {{1}}}"
@@ -2026,6 +2026,9 @@ msgstr "半決賽"
 msgid "Quotes"
 msgstr "引用"
 
+msgid "View game"
+msgstr "查看比賽"
+
 msgid "Token removed from your Bookmarks."
 msgstr "已從書籤移除代幣。"
 
@@ -2530,6 +2533,11 @@ msgstr "下一步"
 msgid "Failed to send."
 msgstr "發布失敗。"
 
+#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] "查看 # 則回覆"
+
 msgid "Matters article"
 msgstr "Matters 文章"
 
@@ -2809,6 +2817,9 @@ msgstr "登入行動應用程式"
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
 msgstr "{0} 份"
+
+msgid "No comments yet. Be the first to post!"
+msgstr "還沒有評論。來發表第一條吧!"
 
 msgid "You've hit rock bottom."
 msgstr "你已經滾到底部啦～"
@@ -4686,6 +4697,9 @@ msgstr "未找到 Opinion 市場。"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未開啟！"
 
+msgid "Comments"
+msgstr "評論"
+
 msgid "Unsupported Chain"
 msgstr "不支援的鏈"
 
@@ -4831,6 +4845,9 @@ msgstr "關注名單地址"
 
 msgid "Please confirm the login with X."
 msgstr "請至 X 確認登入。"
+
+msgid "Add a comment"
+msgstr "新增評論"
 
 #. placeholder {0}: expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')
 #. placeholder {1}: resolveSourceName(source)

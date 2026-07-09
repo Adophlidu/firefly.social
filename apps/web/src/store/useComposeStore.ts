@@ -16,6 +16,7 @@ import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
 import { createPoll } from '@/helpers/polls.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
+import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import { OpenGraphLoader } from '@/providers/og/Loader.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
@@ -49,6 +50,13 @@ interface ComposeBaseState {
 
     // for cloud draft with media, show alert to remind user that the media can not be retrieved
     showMediaAlert: boolean;
+
+    /**
+     * When true, lock the compose to a plain single root post: hide the thread "+",
+     * poll, schedule, and red-packet actions (media / GIF / emoji are kept). Used
+     * for Orb (LPT-1) comments.
+     */
+    lockThread?: boolean;
 }
 
 interface ComposeState extends ComposeBaseState {
@@ -88,6 +96,11 @@ interface ComposeState extends ComposeBaseState {
     updateRestriction: (restriction: RestrictionType) => void;
     updateChannel: (channel: Channel) => void;
     toggleAnonymous: (isAnonymous: boolean) => void;
+
+    // LPT-1 Orb-comment fields (thread-wide, like channel/restriction)
+    updateLpt1Tags: (tags: string[]) => void;
+    updateLpt1Attributes: (attributes: MetadataAttribute[]) => void;
+    updateLockThread: (lockThread: boolean) => void;
 
     // operations upon the current editable post
     updatePostId: (source: SocialSource, postId: string, cursor?: Cursor) => void;
@@ -154,6 +167,8 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
             [Source.Bsky]: null,
         },
         poll: null,
+        lpt1Tags: EMPTY_LIST,
+        lpt1Attributes: EMPTY_LIST,
     };
 }
 
@@ -368,6 +383,20 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     },
                 })),
             })),
+        updateLpt1Tags: (tags) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({ ...x, lpt1Tags: tags })),
+            })),
+        updateLpt1Attributes: (attributes) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({ ...x, lpt1Attributes: attributes })),
+            })),
+        updateLockThread: (lockThread) =>
+            set((state) => {
+                state.lockThread = lockThread;
+            }),
         updateChars: (charsOrUpdater, cursor) =>
             set((state) =>
                 next(
@@ -653,6 +682,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     isFailedSchedulePost: false,
                     isBusy: false,
                     showMediaAlert: false,
+                    lockThread: false,
                 } satisfies ComposeBaseState;
 
                 Object.assign(state, nextState);

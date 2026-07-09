@@ -1,6 +1,7 @@
 import type { BlobRef } from '@atproto/api';
 import type { MediaSource, RestrictionType, SocialSource } from '@dimensiondev/enums';
 
+import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import type { Chars } from '@/types/chars.js';
@@ -69,6 +70,11 @@ export interface CompositePost {
     openGraphs: OpenGraph[];
 
     excludeReplyProfileIds?: string[];
+
+    // LPT-1 (Lens Post Tag Protocol) — set when composing an Orb comment so the
+    // published Lens root post carries machine-readable tags + position attributes.
+    lpt1Tags?: string[];
+    lpt1Attributes?: MetadataAttribute[];
 }
 
 export interface PostFunctionParams {

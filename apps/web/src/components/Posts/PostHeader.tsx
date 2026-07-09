@@ -31,6 +31,12 @@ interface PostHeaderProps {
     isComment?: boolean;
     showDate?: boolean;
     onClickProfileLink?: () => void;
+    /** Hide the @handle (used by the stripped-down Orb comment cell). */
+    hideHeaderHandle?: boolean;
+    /** Hide the more (…) menu. */
+    hideMoreMenu?: boolean;
+    /** Hide the non-Firefly source icon (the Firefly icon stays). */
+    hideNonFireflySourceIcon?: boolean;
 }
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({
@@ -39,6 +45,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     isComment = false,
     showDate = false,
     onClickProfileLink,
+    hideHeaderHandle = false,
+    hideMoreMenu = false,
+    hideNonFireflySourceIcon = false,
 }) {
     const author = post.author;
     const profileLink = getProfileUrl(author);
@@ -121,7 +130,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                             className="shrink-0 sm:mr-2"
                         />
                     ) : null}
-                    {!isQuote
+                    {!isQuote && !hideHeaderHandle
                         ? renderHandle(shouldAlwaysBreakHandleLine ? 'hidden' : 'hidden min-[620px]:block')
                         : null}
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
@@ -144,20 +153,20 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                             className="mr-1 inline shrink-0 text-second"
                         />
                     ) : null}
-                    {post.isTruthSocial ? (
+                    {hideNonFireflySourceIcon ? null : post.isTruthSocial ? (
                         <TruthSocialIcon width={15} height={15} className="shrink-0 text-second" />
                     ) : (
                         <SocialSourceIcon mono className="shrink-0 text-second" source={post.source} size={15} />
                     )}
                     {post.isAd ? <span className="ml-1 shrink-0 text-medium leading-5 text-secondary">Ad</span> : null}
                 </div>
-                {!isQuote ? (
+                {!isQuote && !hideHeaderHandle ? (
                     <div className={shouldAlwaysBreakHandleLine ? '' : 'min-[620px]:hidden'}>{renderHandle()}</div>
                 ) : null}
             </address>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
                 <NoSSR mode="mounted">
-                    {!post.isHidden && !isQuote ? (
+                    {!post.isHidden && !isQuote && !hideMoreMenu ? (
                         post.isTruthSocial ? (
                             <PostMoreAction post={post} />
                         ) : (

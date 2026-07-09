@@ -14,6 +14,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
+import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import type { MediaImage, MediaImageMimeType, MediaVideoMimeType } from '@/providers/lens/metadata/post/Base.js';
 import { image } from '@/providers/lens/metadata/post/Image.js';
 import { link } from '@/providers/lens/metadata/post/Link.js';
@@ -32,6 +33,7 @@ interface BaseMetadata {
     title: string;
     content: string;
     tags?: string[];
+    attributes?: MetadataAttribute[];
 }
 
 interface Attachments {
@@ -111,7 +113,12 @@ export function createLensPostMetadata(metadata: BaseMetadata, attachments?: Att
     const baseMetadata = {
         title: metadata.title,
         content: metadata.content || undefined,
-        tags: metadata.tags,
+        // The Lens schema requires `attributes` to be non-empty when present
+        // (`.array().min(1).optional()`); an empty array fails validation, so
+        // coerce empty tags/attributes to undefined (omit) — this also covers
+        // normal posts whose `lpt1Tags`/`lpt1Attributes` seed to EMPTY_LIST.
+        tags: metadata.tags?.length ? metadata.tags : undefined,
+        attributes: metadata.attributes?.length ? metadata.attributes : undefined,
     };
 
     if (attachments) {
@@ -178,6 +185,8 @@ async function publishPostForLens(
     channel: Channel | null,
     poll: CompositePoll | null,
     restrictions?: RestrictionType[],
+    tags?: string[],
+    attributes?: MetadataAttribute[],
 ) {
     if (poll) {
         const result = await createPollPost(content, poll);
@@ -190,6 +199,8 @@ async function publishPostForLens(
         {
             title,
             content,
+            tags,
+            attributes,
         },
         await createPayloadAttachments(images, video),
     );
@@ -270,7 +281,8 @@ async function quotePostForLens(
 }
 
 export async function postToLens({ type, compositePost, keepPostLinks, signal }: PostFunctionParams) {
-    const { chars, images, postId, parentPost, videos, poll, channel, restriction } = compositePost;
+    const { chars, images, postId, parentPost, videos, poll, channel, restriction, lpt1Tags, lpt1Attributes } =
+        compositePost;
 
     const lensPostId = postId.Lens;
     const lensParentPost = parentPost.Lens;
@@ -315,6 +327,8 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
                 channel[Source.Lens],
                 poll,
                 [restriction],
+                lpt1Tags,
+                lpt1Attributes,
             );
         },
         reply(images, videos) {
