@@ -30,3 +30,9 @@ export function buildPenaltyDots(outcomes: PenaltyKickOutcome[] | undefined | nu
     if (!outcomes?.length) return null;
     return outcomes.map((outcome, index) => ({ key: index, variant: getPenaltyDotVariant(outcome) }));
 }
+
+/** Count of scored kicks (outcome === 1) for one shootout side. 0 when absent/empty. */
+export function getPenaltyScore(outcomes: PenaltyKickOutcome[] | undefined | null): number {
+    if (!outcomes?.length) return 0;
+    return outcomes.filter((kick) => kick === 1).length;
+}

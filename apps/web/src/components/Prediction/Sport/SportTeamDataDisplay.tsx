@@ -8,9 +8,11 @@ import { memo, useMemo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { PenaltyShootoutDots } from '@/components/Prediction/Sport/PenaltyShootoutDots.js';
+import { SportScoreWithPenalty } from '@/components/Prediction/Sport/SportScoreWithPenalty.js';
 import { SportTennisScoreValue } from '@/components/Prediction/Sport/SportTennisScoreValue.js';
 import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { getPenaltyScore } from '@/helpers/prediction/penaltyShootout.js';
 import {
     compareScorePair,
     getLoser,
@@ -23,7 +25,13 @@ import {
 } from '@/helpers/prediction/sportScoreUtils.js';
 import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
 import { useLocale } from '@/hooks/useLocale.js';
-import type { BetsEventDataForUI, PenaltyKickOutcome, SportEventData, SportTeam } from '@/types/prediction.js';
+import type {
+    BetsEventDataForUI,
+    PenaltyKickOutcome,
+    PenaltyShootout,
+    SportEventData,
+    SportTeam,
+} from '@/types/prediction.js';
 import { SportScoreType } from '@/types/prediction.js';
 
 interface SportTeamDataDisplayProps {
@@ -159,10 +167,12 @@ function ScoreRow({
     scores,
     loser,
     multipleSets,
+    penaltyShootout,
 }: {
     scores: SportEventData['scores'];
     loser?: 'home' | 'away';
     multipleSets?: boolean;
+    penaltyShootout?: PenaltyShootout;
 }) {
     if (multipleSets && scores.length > 1) {
         return (
@@ -193,11 +203,17 @@ function ScoreRow({
     }
 
     const [homeScore, awayScore] = getSingleScore(scores);
+    const homePenaltyScore = getPenaltyScore(penaltyShootout?.home);
+    const awayPenaltyScore = getPenaltyScore(penaltyShootout?.away);
     return (
         <div className="flex w-full items-center justify-center gap-1 text-base font-semibold leading-6 text-lightMain">
-            <span className={classNames(loser === 'home' ? 'opacity-40' : '')}>{homeScore}</span>
+            <span className={classNames(loser === 'home' ? 'opacity-40' : '')}>
+                <SportScoreWithPenalty score={homeScore} penaltyScore={homePenaltyScore} />
+            </span>
             <span>-</span>
-            <span className={classNames(loser === 'away' ? 'opacity-40' : '')}>{awayScore}</span>
+            <span className={classNames(loser === 'away' ? 'opacity-40' : '')}>
+                <SportScoreWithPenalty score={awayScore} penaltyScore={awayPenaltyScore} />
+            </span>
         </div>
     );
 }
@@ -307,14 +323,23 @@ export const SportTeamDataDisplay = memo(function SportTeamDataDisplay({
 
                         {live ? (
                             <>
-                                <ScoreRow scores={scores} multipleSets={multipleSets} />
+                                <ScoreRow
+                                    scores={scores}
+                                    multipleSets={multipleSets}
+                                    penaltyShootout={penaltyShootout}
+                                />
                                 <LiveStatus period={period} isPenalty={isPenalty} />
                             </>
                         ) : null}
 
                         {ended ? (
                             <>
-                                <ScoreRow scores={scores} loser={loser} multipleSets={multipleSets} />
+                                <ScoreRow
+                                    scores={scores}
+                                    loser={loser}
+                                    multipleSets={multipleSets}
+                                    penaltyShootout={penaltyShootout}
+                                />
                                 <FinalStatus />
                             </>
                         ) : null}

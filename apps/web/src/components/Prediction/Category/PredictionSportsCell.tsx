@@ -12,6 +12,7 @@ import { Link } from '@/components/Link.js';
 import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
 import { PenaltyShootoutDots } from '@/components/Prediction/Sport/PenaltyShootoutDots.js';
+import { SportScoreWithPenalty } from '@/components/Prediction/Sport/SportScoreWithPenalty.js';
 import { SportTeamAvatar } from '@/components/Prediction/Sport/SportTeamAvatar.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -24,6 +25,7 @@ import {
     type PredictionSportsDrawOutcomeForUI,
     type PredictionSportsTeamForUI,
 } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
+import { getPenaltyScore } from '@/helpers/prediction/penaltyShootout.js';
 import { isPenaltyPeriod } from '@/helpers/prediction/sportScoreUtils.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSportsTeamName.js';
@@ -247,6 +249,7 @@ const TeamInfoRow = memo<{
     const showLoserStyle = isFinished && team.isLoser;
     const resolveTeamName = useLocalizedSportsTeamName();
     const hasPenaltyDots = !!penaltyOutcomes && penaltyOutcomes.length > 0;
+    const penaltyScore = getPenaltyScore(penaltyOutcomes);
 
     return (
         <div className={classNames('flex min-w-0 items-center gap-2', showLoserStyle ? 'opacity-40' : '')}>
@@ -257,7 +260,7 @@ const TeamInfoRow = memo<{
                         team.isWinner ? 'bg-main text-white dark:bg-bg' : 'bg-bg text-main',
                     )}
                 >
-                    {team.score}
+                    <SportScoreWithPenalty score={team.score} penaltyScore={penaltyScore} />
                 </span>
             ) : null}
             <SportTeamAvatar logo={team.logo} name={team.name} abbreviation={team.abbreviation} color={team.color} />

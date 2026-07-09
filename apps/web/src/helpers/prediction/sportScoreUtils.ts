@@ -1,3 +1,4 @@
+import { getPenaltyScore } from '@/helpers/prediction/penaltyShootout.js';
 import type { BetsMarketDataForUI, PenaltyShootout, SportScore, SportTeam } from '@/types/prediction.js';
 import { SportMarketGroupType } from '@/types/prediction.js';
 
@@ -71,8 +72,8 @@ export function getSingleScore(scores: SportScore[]): [number, number] {
 /** Derive the shootout loser by counting scored kicks; undefined when absent or level. */
 export function getPenaltyShootoutLoser(penaltyShootout?: PenaltyShootout): 'home' | 'away' | undefined {
     if (!penaltyShootout) return undefined;
-    const homeGoals = penaltyShootout.home.filter((kick) => kick === 1).length;
-    const awayGoals = penaltyShootout.away.filter((kick) => kick === 1).length;
+    const homeGoals = getPenaltyScore(penaltyShootout.home);
+    const awayGoals = getPenaltyScore(penaltyShootout.away);
     if (homeGoals === awayGoals) return undefined;
     return homeGoals > awayGoals ? 'away' : 'home';
 }

@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildPenaltyDots, getPenaltyDotVariant, sanitizePenaltyKicks } from '@/helpers/prediction/penaltyShootout.js';
+import {
+    buildPenaltyDots,
+    getPenaltyDotVariant,
+    getPenaltyScore,
+    sanitizePenaltyKicks,
+} from '@/helpers/prediction/penaltyShootout.js';
 
 describe('getPenaltyDotVariant', () => {
     it('maps each outcome to its dot variant', () => {
@@ -46,5 +51,27 @@ describe('buildPenaltyDots', () => {
         const seven = buildPenaltyDots([1, 1, 1, 1, 1, 1, 1]);
         expect(seven).toHaveLength(7);
         expect(seven?.[6]).toEqual({ key: 6, variant: 'scored' });
+    });
+});
+
+describe('getPenaltyScore', () => {
+    it('counts only scored kicks (1), ignoring missed (2) and pending (0)', () => {
+        // NLD vs MAR shootout: home scored 2 (kicks 1, 3), away scored 3 (kicks 2, 3, 5).
+        expect(getPenaltyScore([1, 2, 1, 2, 2])).toBe(2);
+        expect(getPenaltyScore([2, 1, 1, 2, 1])).toBe(3);
+    });
+
+    it('counts every kick as scored in a perfect 5-for-5', () => {
+        expect(getPenaltyScore([1, 1, 1, 1, 1])).toBe(5);
+    });
+
+    it('returns 0 when no kicks were scored (all missed/pending)', () => {
+        expect(getPenaltyScore([2, 2, 0])).toBe(0);
+    });
+
+    it('returns 0 for empty / undefined / null so the UI renders no superscript', () => {
+        expect(getPenaltyScore(undefined)).toBe(0);
+        expect(getPenaltyScore(null)).toBe(0);
+        expect(getPenaltyScore([])).toBe(0);
     });
 });
