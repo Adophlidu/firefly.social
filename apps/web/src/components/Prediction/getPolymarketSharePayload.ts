@@ -22,6 +22,7 @@ import type { PolymarketShareImagePayload } from '@/hooks/prediction/usePolymark
 import { getClosedPositions } from '@/providers/firefly/prediction/getClosedPositions.js';
 import { getCurrentPositions } from '@/providers/firefly/prediction/getCurrentPositions.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
+import { getProfile } from '@/providers/firefly/prediction/getProfile.js';
 import { getRedeemablePositions } from '@/providers/firefly/prediction/getRedeemablePositions.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
@@ -223,8 +224,21 @@ function memoizeResolver<T>(
  */
 function resolveActivityShareIdentity(proxyAddress: string): Promise<PolymarketShareIdentity | null> {
     return memoizeResolver(activityIdentityCache, proxyAddress.toLowerCase(), async () => {
-        const response = await getWalletProfileInfoList(proxyAddress, PredictionPlatform.Polymarket, true);
-        const profile = pickWalletProfileByAddress(response, proxyAddress);
+        const [walletProfilesResponse, profileResponse] = await Promise.allSettled([
+            getWalletProfileInfoList(proxyAddress, PredictionPlatform.Polymarket, true),
+            getProfile(proxyAddress, true),
+        ]);
+        const walletProfiles = walletProfilesResponse.status === 'fulfilled' ? walletProfilesResponse.value : null;
+        const polymarketProfile = profileResponse.status === 'fulfilled' ? profileResponse.value : null;
+        if (!walletProfiles && !polymarketProfile) return null;
+
+        const profile = pickWalletProfileByAddress(walletProfiles, proxyAddress);
+        if (polymarketProfile?.platform_name && !profile?.account) {
+            return {
+                displayName: polymarketProfile.platform_name,
+                avatarUrl: polymarketProfile.platform_avatar || undefined,
+            };
+        }
         if (!profile) return null;
 
         const { name, avatar } = extractFallbackInfo(profile, [
