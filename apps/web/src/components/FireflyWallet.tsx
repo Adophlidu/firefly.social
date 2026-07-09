@@ -11,7 +11,7 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useUpdateEffect } from 'react-use';
 import type { Address } from 'viem';
 
@@ -27,6 +27,10 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
+// Auto-reload the crashed wallet iframe at most once per this window, so an iframe that keeps
+// crashing on load can't trigger an infinite reload loop.
+const AUTO_RELOAD_COOLDOWN = 10_000;
+
 export function FireflyWallet() {
     const isLogin = useIsLoginFirefly();
     const isOpen = useGlobalState.use.fireflyWalletIsOpen();
@@ -34,16 +38,31 @@ export function FireflyWallet() {
     const pathname = usePathname();
     const isAuthorized = useFireflyWalletStore((state) => state.isAuthorized);
     const setWallet = useFireflyWalletStore((state) => state.setWallet);
-    const { updateFireflyWalletIsOpen } = useGlobalState();
+    const { updateFireflyWalletIsOpen, subscribeToWalletEvents } = useGlobalState();
     const allConnectionsQuery = useAllConnections();
     const appKitAccounts = useAppKitAccounts();
+
+    // The wallet content lives in a cross-app iframe (apps/wallet) that can crash into its own
+    // error boundary after the tab is idle. Collapse/expand only toggles opacity, so the crash
+    // sticks. We reload the iframe to recover — but only when it actually crashed, tracked here.
+    const hasWalletErrorRef = useRef(false);
+    const lastReloadAtRef = useRef(0);
 
     const handleRefresh = useCallback(() => {
         const iframe = document.getElementById(FIREFLY_WALLET_IFRAME_ID) as HTMLIFrameElement | null;
         if (iframe) {
             iframe.contentWindow?.location.reload();
         }
+        hasWalletErrorRef.current = false;
+        lastReloadAtRef.current = Date.now();
     }, []);
+
+    // Reload the iframe only if it has crashed and we are outside the cooldown window.
+    const autoReloadCrashedIframe = useCallback(() => {
+        if (!hasWalletErrorRef.current) return;
+        if (Date.now() - lastReloadAtRef.current < AUTO_RELOAD_COOLDOWN) return;
+        handleRefresh();
+    }, [handleRefresh]);
 
     const privyConnections = useMemo(() => {
         if (!allConnectionsQuery.data) return [];
@@ -111,6 +130,38 @@ export function FireflyWallet() {
             });
         }
     }, [isOpen, privyConnections]);
+
+    // The iframe (apps/wallet) reports a crash via the bridge (see GlobalError.tsx). Mark it, and if
+    // the crash was triggered by returning to the tab (e.g. refetch-on-focus), the focus handler
+    // below already ran before the crash — so reload right away when we're visible and expanded.
+    useEffect(() => {
+        return subscribeToWalletEvents('wallet-error', () => {
+            hasWalletErrorRef.current = true;
+            if (isOpen && document.visibilityState === 'visible') {
+                autoReloadCrashedIframe();
+            }
+        });
+    }, [subscribeToWalletEvents, isOpen, autoReloadCrashedIframe]);
+
+    // Case 1: wallet is expanded and the page regains focus/visibility — reload the crashed iframe.
+    useEffect(() => {
+        const reloadIfCrashed = () => {
+            if (!isOpen) return;
+            if (document.visibilityState !== 'visible') return;
+            autoReloadCrashedIframe();
+        };
+        document.addEventListener('visibilitychange', reloadIfCrashed);
+        window.addEventListener('focus', reloadIfCrashed);
+        return () => {
+            document.removeEventListener('visibilitychange', reloadIfCrashed);
+            window.removeEventListener('focus', reloadIfCrashed);
+        };
+    }, [isOpen, autoReloadCrashedIframe]);
+
+    // Case 2: wallet was collapsed while crashed — reload the iframe when it is expanded again.
+    useUpdateEffect(() => {
+        if (isOpen) autoReloadCrashedIframe();
+    }, [isOpen, autoReloadCrashedIframe]);
 
     if (!isLogin || !isCreatedPrivyWallet) return null;
 

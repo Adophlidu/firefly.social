@@ -1,10 +1,25 @@
 import LoadFailedIcon from '@dimensiondev/assets/bet-load-failed.svg';
+import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import type { ErrorPageProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
+import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button.js';
+import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
+
+// Kept in sync with the host subscriber in apps/web/src/components/FireflyWallet.tsx.
+const WALLET_ERROR_NOTIFY_TYPE = 'wallet-error';
 
 export function GlobalError({ reset }: ErrorPageProps) {
+    useEffect(() => {
+        if (!isRunningInIframe()) return;
+        // Notify the host (apps/web) that the embedded wallet has crashed so it can
+        // auto-reload this iframe when the page regains focus or the wallet is expanded.
+        iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_NOTIFY, {
+            type: WALLET_ERROR_NOTIFY_TYPE,
+        });
+    }, []);
+
     return (
         <div className="flex w-full flex-1 items-center justify-center">
             <div className="flex w-[160px] flex-col items-center gap-4">
