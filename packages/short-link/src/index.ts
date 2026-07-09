@@ -100,6 +100,7 @@ export async function computeHash(identity: ShortLinkIdentity): Promise<string> 
 
     let value = 0n;
     for (const byte of new Uint8Array(digest)) {
+        // eslint-disable-next-line no-bitwise -- digest bytes → one big-endian BigInt
         value = (value << 8n) | BigInt(byte);
     }
 

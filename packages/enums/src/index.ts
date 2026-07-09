@@ -917,6 +917,7 @@ export enum KeyType {
     ConsumerSecret = '/v2/consumerSecret',
     GetTwitterAvatarById = '/v2/getTwitterAvatar',
     PostState = '/v2/post-state',
+    ShortLink = '/v1/shortLink',
 }
 
 export enum ServerErrorCodes {

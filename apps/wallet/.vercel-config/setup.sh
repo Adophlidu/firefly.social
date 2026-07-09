@@ -13,6 +13,7 @@ pnpm --filter @dimensiondev/iframe-bridge build
 pnpm --filter @dimensiondev/native-bridge build
 pnpm --filter @dimensiondev/exception-tracker build
 pnpm --filter @dimensiondev/auth build
+pnpm --filter @dimensiondev/short-link build
 
 # Build workers (depends on the packages built above)
 pnpm --filter "@dimensiondev/workers-*" build

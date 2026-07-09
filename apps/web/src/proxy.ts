@@ -20,7 +20,8 @@ import proxyRewriteRoutes from '../.next-config/rewrite.config.json' with { type
 type ProxyHandler = (request: NextRequest, next: () => NextResponse | undefined) => NextResponse | undefined;
 type MiddlewareHandler = (request: NextRequest) => NextResponse | undefined;
 
-const localeRewriteExcludedPaths = [...Object.keys(proxyRewriteRoutes), '/next-debug.log'];
+// '/i' hosts short-link redirects (app/i/[hash]/route.ts) and must reach the route un-prefixed.
+const localeRewriteExcludedPaths = [...Object.keys(proxyRewriteRoutes), '/next-debug.log', '/i'];
 const publicAssetPrefixes = ['/.well-known', '/font', '/image', '/music', '/svg', '/webm'] as const;
 const publicAssetExtensionPattern =
     /\.(?:svg|png|jpg|jpeg|gif|webp|js|css|map|ico|xml|txt|ttf|otf|woff|woff2|mp3|mp4|webm|webmanifest)$/;
