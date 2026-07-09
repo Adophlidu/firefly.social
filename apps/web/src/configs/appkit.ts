@@ -5,6 +5,7 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { SITE_DESCRIPTION, SITE_NAME } from '@dimensiondev/constants/static';
 import { envs, SITE_URL } from '@dimensiondev/envs/web';
+import { robinhood } from '@dimensiondev/web3/chains';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 import { lens, lensTestnet } from 'viem/chains';
@@ -45,5 +46,6 @@ export const appkit = createAppKit({
     chainImages: {
         [lens.id]: '/image/chains/lens.png',
         [lensTestnet.id]: '/image/chains/lens.png',
+        [robinhood.id]: '/image/chains/robinhood.png',
     },
 });

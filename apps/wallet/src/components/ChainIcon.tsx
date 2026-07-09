@@ -13,6 +13,7 @@ import metisImage from '@dimensiondev/assets/chains/metis.png';
 import optimismImage from '@dimensiondev/assets/chains/optimism.png';
 import plasmaImage from '@dimensiondev/assets/chains/plasma.png';
 import polygonImage from '@dimensiondev/assets/chains/polygon.png';
+import robinhoodImage from '@dimensiondev/assets/chains/robinhood.png';
 import scrollImage from '@dimensiondev/assets/chains/scroll.png';
 import solanaImage from '@dimensiondev/assets/chains/solana.png';
 import xdaiImage from '@dimensiondev/assets/chains/xdai.png';
@@ -20,7 +21,7 @@ import xlayerImage from '@dimensiondev/assets/chains/xlayer.png';
 import zksyncImage from '@dimensiondev/assets/chains/zksync.png';
 import zoraImage from '@dimensiondev/assets/chains/zora.png';
 import type { NetworkType } from '@dimensiondev/enums';
-import { isSameSolanaChainId, solana } from '@dimensiondev/web3/chains';
+import { isSameSolanaChainId, robinhood, solana } from '@dimensiondev/web3/chains';
 import { type HTMLProps, memo } from 'react';
 import {
     arbitrum,
@@ -70,6 +71,7 @@ const ICONS = [
     { icon: plasmaImage, chainId: plasma.id },
     { icon: solanaImage, chainId: solana.id },
     { icon: blastImage, chainId: blast.id },
+    { icon: robinhoodImage, chainId: robinhood.id },
 ];
 
 interface ChainIconProps extends HTMLProps<HTMLImageElement> {

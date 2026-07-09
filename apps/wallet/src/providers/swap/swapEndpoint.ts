@@ -8,7 +8,6 @@ import type {
     ApproveTransaction,
     CrossChainBuildTxResponse,
     CrossChainQuote,
-    GetApproveParams,
     GetCrossChainBuildTxParams,
     GetCrossChainQuoteParams,
     GetQuoteParams,
@@ -271,26 +270,6 @@ export class SwapEndpoint extends Fetch {
             routerAddress: raw.tx.to,
             minReceived,
         };
-    }
-
-    // Backend response is double-wrapped: TransformInterceptor { code: 0, data: SwapService { code: "0", data: [...] } }
-    async getApproveTransaction(params: GetApproveParams): Promise<ApproveTransaction | null> {
-        const url = urlcat('/swap/dex/aggregator/approve-transaction', {
-            tokenContractAddress: params.tokenAddress,
-            approveAmount: params.amount,
-            chainId: params.chainId,
-            userWalletAddress: params.userWalletAddress,
-            spender: params.spender,
-        });
-        const result = await this.get<SwapApiResponse<InnerSwapResponse<ApproveTransaction>>>(url);
-        if (!result.ok || result.data.code !== 0) {
-            return null;
-        }
-        const inner = result.data.data;
-        if (inner?.code !== '0' || !inner.data?.length) {
-            return null;
-        }
-        return inner.data[0] ?? null;
     }
 
     // Uses POST /swap/dex/cross-chain/approve-transaction/v2 which returns the correct

@@ -102,14 +102,6 @@ export interface GetSwapParams {
     swapReceiverAddress?: string;
 }
 
-export interface GetApproveParams {
-    tokenAddress: string;
-    amount: string;
-    chainId: number;
-    userWalletAddress: string;
-    spender?: string;
-}
-
 export interface GetCrossChainQuoteParams {
     fromTokenAddress: string;
     toTokenAddress: string;

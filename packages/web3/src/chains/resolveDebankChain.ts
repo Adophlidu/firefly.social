@@ -351,6 +351,14 @@ const DEBANK_CHAINS: readonly DebankChain[] = [
         native_token_id: 'xpl',
         logo_url: '/image/chains/plasma.png',
     },
+    // Debank chain slug is "hood" (network_id 4663) — confirmed via Debank /chain/list.
+    {
+        id: 'hood',
+        community_id: 4663,
+        name: 'Robinhood',
+        native_token_id: 'hood',
+        logo_url: '/image/chains/robinhood.png',
+    },
 ];
 
 export function resolveDebankChain(chainIdOrDebankChain: string | number | undefined): DebankChain | undefined {

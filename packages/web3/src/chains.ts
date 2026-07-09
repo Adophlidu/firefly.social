@@ -15,4 +15,5 @@ export * from '@/chains/parseSolanaChainId.js';
 export * from '@/chains/resolveDebankChain.js';
 export * from '@/chains/resolveDebankChainId.js';
 export * from '@/chains/resolveWagmiChain.js';
+export * from '@/chains/robinhood.js';
 export * from '@/chains/sol.js';

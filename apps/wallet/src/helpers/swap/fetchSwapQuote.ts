@@ -1,3 +1,5 @@
+import { isSolanaChain } from '@dimensiondev/web3/chains';
+
 import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 
 export interface QuoteTxResult {
@@ -39,7 +41,11 @@ export async function fetchSwapQuote(params: FetchSwapQuoteParams): Promise<Quot
         recipientAddress,
     } = params;
 
-    const result = isCrossChain
+    // All EVM swaps route through the cross-chain endpoint (the OKX aggregator does not cover
+    // every EVM chain, e.g. Robinhood). Solana same-chain keeps the aggregator/Jupiter path.
+    const useCrossChainEndpoint = isCrossChain || !isSolanaChain(fromChainId);
+
+    const result = useCrossChainEndpoint
         ? await endpoint.getCrossChainBuildTx({
               fromTokenAddress,
               toTokenAddress,

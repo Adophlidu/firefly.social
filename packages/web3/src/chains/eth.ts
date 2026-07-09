@@ -29,6 +29,8 @@ import {
     zora,
 } from 'viem/chains';
 
+import { robinhood } from '@/chains/robinhood.js';
+
 /**
  * Full list of supported chains (Firefly web / wagmi).
  */
@@ -59,6 +61,7 @@ export const chains = [
     monadTestnet,
     plasma,
     hyperEvm,
+    robinhood,
 ] as const;
 /**
  * Chains shown in wallet UI (Firefly wallet).
@@ -77,6 +80,7 @@ export const visibleChains = [
     zkSync,
     celo,
     plasma,
+    robinhood,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
 /**
@@ -93,9 +97,10 @@ export const privyVisibleChains = [
     zkSync,
     celo,
     plasma,
+    robinhood,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
-export const rpSupportedChains = [mainnet, bsc, base, optimism, polygon, arbitrum];
+export const rpSupportedChains = [mainnet, bsc, base, optimism, polygon, arbitrum, robinhood];
 
 export const ETHEREUM_CHAIN_IDS = chains.map((x) => x.id);
 

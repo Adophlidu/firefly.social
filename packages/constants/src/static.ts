@@ -156,3 +156,5 @@ export const POLYGON_RPC_URL =
     'https://thrumming-flashy-replica.matic.quiknode.pro/a5385e01c5d86056ee9c58742ad2a42d78f77e7a';
 export const SOLANA_RPC_URL =
     'https://twilight-icy-fog.solana-mainnet.quiknode.pro/95201eba4c05903e956afc5bb7f4cb0c0f007b60';
+export const ROBINHOOD_RPC_URL =
+    'https://radial-cosmopolitan-isle.robinhood-mainnet.quiknode.pro/e324cbebecb85c3fd6fb9340a714e2cd0097037e/';

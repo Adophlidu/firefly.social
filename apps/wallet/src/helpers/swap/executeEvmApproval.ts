@@ -39,10 +39,8 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
         fromAmount,
         chainId,
         walletAddress,
-        routerAddress,
         connector,
         requestHostEvmRpc,
-        isCrossChain,
         toChainId,
         toTokenAddress,
         slippage,
@@ -50,32 +48,21 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
     } = params;
     const amountInSmallest = rightShift(fromAmount, fromToken.decimals).toFixed(0);
 
-    let approveTxData;
-    let spenderAddress: string;
-
-    if (isCrossChain) {
-        approveTxData = await endpoint.getCrossChainApproveTransaction({
-            fromTokenAddress: fromToken.address,
-            toTokenAddress: toTokenAddress!,
-            amount: fromAmount,
-            fromChainId: chainId,
-            toChainId: toChainId!,
-            fromDecimals: fromToken.decimals,
-            slippage,
-            userWalletAddress: walletAddress,
-            recipientWalletAddress: recipientAddress,
-        });
-        spenderAddress = approveTxData?.dexContractAddress ?? '';
-    } else {
-        approveTxData = await endpoint.getApproveTransaction({
-            tokenAddress: fromToken.address,
-            amount: amountInSmallest,
-            chainId,
-            userWalletAddress: walletAddress,
-            spender: routerAddress,
-        });
-        spenderAddress = approveTxData?.dexContractAddress ?? routerAddress;
-    }
+    // All EVM approvals now go through the cross-chain approve endpoint (the aggregator
+    // approve endpoint doesn't cover every EVM chain, e.g. Robinhood). Spender comes from the
+    // Relay quote response. `routerAddress` / `isCrossChain` are intentionally unused.
+    const approveTxData = await endpoint.getCrossChainApproveTransaction({
+        fromTokenAddress: fromToken.address,
+        toTokenAddress: toTokenAddress!,
+        amount: fromAmount,
+        fromChainId: chainId,
+        toChainId: toChainId!,
+        fromDecimals: fromToken.decimals,
+        slippage,
+        userWalletAddress: walletAddress,
+        recipientWalletAddress: recipientAddress,
+    });
+    const spenderAddress: string = approveTxData?.dexContractAddress ?? '';
 
     const needsApproval =
         !isNativeTokenAddress(fromToken.address) && fromToken.address && walletAddress && spenderAddress;

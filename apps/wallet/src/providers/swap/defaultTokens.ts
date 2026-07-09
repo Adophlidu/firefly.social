@@ -96,6 +96,12 @@ export const DEFAULT_SWAP_TOKENS: DefaultSwapTokenPair[] = [
         second: { symbol: 'USDC', contractAddress: '0x06eFdBFf2a14D7aAe658D48f57F2a2c3a27B6E5a', decimals: 6 },
     },
     {
+        chainId: 4663,
+        chainName: 'Robinhood',
+        first: { symbol: 'ETH', contractAddress: ETH_NATIVE_TOKEN_ADDRESS, decimals: 18 },
+        second: { symbol: 'USDG', contractAddress: '0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168', decimals: 6 },
+    },
+    {
         chainId: 501,
         chainName: 'Solana',
         first: { symbol: 'SOL', contractAddress: SOL_NATIVE_TOKEN_ADDRESS, decimals: 9 },

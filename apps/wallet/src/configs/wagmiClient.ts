@@ -1,5 +1,6 @@
-import { ETHEREUM_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL } from '@dimensiondev/constants/static';
+import { ETHEREUM_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL, ROBINHOOD_RPC_URL } from '@dimensiondev/constants/static';
 import { envs } from '@dimensiondev/envs/wallet';
+import { robinhood } from '@dimensiondev/web3/chains';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { createStorage } from '@wagmi/core';
@@ -65,6 +66,7 @@ export const wagmiNetworks = [
     monadTestnet,
     plasma,
     hyperEvm,
+    robinhood,
 ] as AppKitNetwork[];
 
 export const wagmiAdapter = new WagmiAdapter({
@@ -75,6 +77,7 @@ export const wagmiAdapter = new WagmiAdapter({
         [optimism.id]: http(OPTIMISM_RPC_URL),
         [polygon.id]: http(POLYGON_RPC_URL),
         [fantom.id]: http('https://rpc.ftm.tools'),
+        [robinhood.id]: http(ROBINHOOD_RPC_URL),
     },
     storage,
     connectors: [createPrivyWalletConnector()],

@@ -2,8 +2,9 @@
 
 'use client';
 
-import { ETHEREUM_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL } from '@dimensiondev/constants/static';
+import { ETHEREUM_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL, ROBINHOOD_RPC_URL } from '@dimensiondev/constants/static';
 import { envs } from '@dimensiondev/envs/web';
+import { robinhood } from '@dimensiondev/web3/chains';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { fantom, mainnet, optimism, polygon } from 'viem/chains';
@@ -28,6 +29,7 @@ export const wagmiAdapter = new WagmiAdapter({
         [optimism.id]: http(OPTIMISM_RPC_URL),
         [polygon.id]: http(POLYGON_RPC_URL),
         [fantom.id]: http('https://rpc.ftm.tools'),
+        [robinhood.id]: http(ROBINHOOD_RPC_URL),
     },
     connectors: [privyConnector],
 });

@@ -1,3 +1,4 @@
+import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -36,6 +37,10 @@ export function useSwapQuoteCore({
 
     const slippagePercent = getSlippagePercent(slippage);
     const isCrossChain = !!fromChainId && fromChainId !== toChainId;
+    // OKX DEX aggregator does not cover every EVM chain (e.g. Robinhood), so all EVM swaps route
+    // through the cross-chain endpoint (same-chain when origin === destination). Solana same-chain
+    // keeps the aggregator/Jupiter path. `isCrossChain` is unchanged for UI labels / analytics.
+    const useCrossChainEndpoint = isCrossChain || !isSolanaChain(fromChainId);
 
     const shouldFetch =
         enabled &&
@@ -77,9 +82,9 @@ export function useSwapQuoteCore({
                 userWalletAddress: walletAddress,
             });
         },
-        enabled: shouldFetch && !isCrossChain,
+        enabled: shouldFetch && !useCrossChainEndpoint,
         staleTime: 10_000, // 10 seconds
-        refetchInterval: shouldFetch && !isCrossChain ? refetchInterval : false,
+        refetchInterval: shouldFetch && !useCrossChainEndpoint ? refetchInterval : false,
         retry: 1,
     });
 
@@ -117,16 +122,16 @@ export function useSwapQuoteCore({
                 recipientWalletAddress: recipientAddress ?? undefined,
             });
         },
-        enabled: shouldFetch && isCrossChain,
+        enabled: shouldFetch && useCrossChainEndpoint,
         staleTime: 10_000, // 10 seconds
-        refetchInterval: shouldFetch && isCrossChain ? refetchInterval : false,
+        refetchInterval: shouldFetch && useCrossChainEndpoint ? refetchInterval : false,
         retry: 1,
     });
 
-    const quote = isCrossChain ? bridgeQuote : swapQuote;
-    const isLoading = isCrossChain ? isLoadingBridge : isLoadingSwap;
-    const isFetching = isCrossChain ? isFetchingBridge : isFetchingSwap;
-    const error = isCrossChain ? bridgeError : swapError;
+    const quote = useCrossChainEndpoint ? bridgeQuote : swapQuote;
+    const isLoading = useCrossChainEndpoint ? isLoadingBridge : isLoadingSwap;
+    const isFetching = useCrossChainEndpoint ? isFetchingBridge : isFetchingSwap;
+    const error = useCrossChainEndpoint ? bridgeError : swapError;
 
     // Track when quote is pending (debouncing or loading)
     // Handles the case where queries are disabled during debounce period
@@ -155,7 +160,7 @@ export function useSwapQuoteCore({
         isPending,
         error: error?.message ?? null,
         refetch: () => {
-            if (isCrossChain) {
+            if (useCrossChainEndpoint) {
                 refetchBridge();
             } else {
                 refetchSwap();

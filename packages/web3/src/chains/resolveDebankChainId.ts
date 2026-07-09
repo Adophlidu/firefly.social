@@ -20,6 +20,8 @@ import {
     zkSync,
 } from 'viem/chains';
 
+import { robinhood } from '@/chains/robinhood.js';
+
 const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
     arb: arbitrum.id,
     aurora: aurora.id,
@@ -39,6 +41,8 @@ const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
     era: zkSync.id,
     celo: celo.id,
     plasma: plasma.id,
+    // Debank chain slug is "hood" (network_id 4663) — confirmed via Debank /chain/list.
+    hood: robinhood.id,
 };
 
 export function resolveDebankChainId(chain: string): number | undefined {

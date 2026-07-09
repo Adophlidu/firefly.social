@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import { ETHEREUM_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL } from '@dimensiondev/constants/static';
+import { robinhood } from '@dimensiondev/web3/chains';
 import type { Chain } from 'viem';
 import {
     arbitrum,
@@ -66,6 +67,7 @@ export const wagmiChains: readonly [Chain, ...Chain[]] = [
     monadTestnet,
     plasma,
     hyperEvm,
+    robinhood,
 ];
 
 /**

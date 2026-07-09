@@ -23,6 +23,7 @@ import {
     zora,
 } from 'viem/chains';
 
+import { robinhood } from '@/chains/robinhood.js';
 import { solana, solanaDevnet, solanaTestnet } from '@/chains/sol.js';
 
 export const CHAIN_ICON_MAP: Readonly<Record<number, string>> = {
@@ -51,6 +52,7 @@ export const CHAIN_ICON_MAP: Readonly<Record<number, string>> = {
     [solana.id]: '/image/chains/solana.png',
     [solanaDevnet.id]: '/image/chains/solana.png',
     [solanaTestnet.id]: '/image/chains/solana.png',
+    [robinhood.id]: '/image/chains/robinhood.png',
 };
 
 export function getChainIcon(chainId: number | undefined) {

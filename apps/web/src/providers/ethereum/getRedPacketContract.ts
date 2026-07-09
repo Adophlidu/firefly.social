@@ -1,4 +1,5 @@
 import { assert } from '@dimensiondev/utils';
+import { robinhood } from '@dimensiondev/web3/chains';
 import type { Address } from 'viem';
 import {
     arbitrum,
@@ -40,6 +41,7 @@ const RED_PACKETS: Partial<Record<number, Address>> = {
     [lens.id]: '0x2CB304F176775Fcb4D9763f488c486B0Af9A6Bf8',
     [zkSync.id]: '0x5916FEE647A7f0aC234D6828Fe76636bd730B40A',
     [linea.id]: '0xB349AC5E5C037C2ecb2AE9fCDc8F122b5f384620',
+    [robinhood.id]: '0x16f61cb37169523635B6761f3C946892fb3c18fB',
 };
 
 export function getRedPacketContractAddress(chainId: number) {
