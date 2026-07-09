@@ -34,6 +34,7 @@ interface AssetPriceChartProps {
     recurrence?: PredictionRecurrence;
     priceToBeat?: number;
     finalPrice?: number;
+    isMultiStrike?: boolean;
 }
 
 export function AssetPriceChart({
@@ -46,6 +47,7 @@ export function AssetPriceChart({
     seriesId,
     priceToBeat,
     finalPrice,
+    isMultiStrike,
 }: AssetPriceChartProps) {
     const [latestPrice, setLatestPrice] = useState<number | null>(null);
 
@@ -64,6 +66,7 @@ export function AssetPriceChart({
                 crypto={crypto}
                 priceToBeat={priceToBeat}
                 finalPrice={finalPrice}
+                isMultiStrike={isMultiStrike}
             />
 
             <div className="px-4">

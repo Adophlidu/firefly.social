@@ -26,6 +26,13 @@ interface PastSeriesDropdownProps {
     outcomesBySlug: Map<string, PastOutcome>;
 }
 
+// Multi-strike events have no single up/down outcome, so their outcome arrow icon is hidden.
+// Decided per past event since a series can in theory mix strike counts across events.
+function resolveOutcome(event: BetsEventDataForUI, outcomesBySlug: Map<string, PastOutcome>) {
+    if (event.markets.length !== 1) return null;
+    return resolvePastEventOutcome(event, outcomesBySlug);
+}
+
 export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSeriesDropdown({
     eventSlug,
     pastEvents,
@@ -45,7 +52,7 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
                             <Trans>Past</Trans>
                         </span>
                         {previewEvents.map((event) => {
-                            const outcome = resolvePastEventOutcome(event, outcomesBySlug);
+                            const outcome = resolveOutcome(event, outcomesBySlug);
                             return outcome ? (
                                 <PastOutcomeIcon key={event.id} outcome={outcome} className="size-[15px]" />
                             ) : null;
@@ -74,7 +81,7 @@ export const PastSeriesDropdown = memo<PastSeriesDropdownProps>(function PastSer
                                         ? formatPastDropdownTime(logic, t`Today`, t`Tomorrow`)
                                         : { timeText: event.slug ?? event.id, dateText: null };
                                     const { main, period, suffix } = splitAmPmTime(timeText);
-                                    const outcome = resolvePastEventOutcome(event, outcomesBySlug);
+                                    const outcome = resolveOutcome(event, outcomesBySlug);
 
                                     return (
                                         <Link

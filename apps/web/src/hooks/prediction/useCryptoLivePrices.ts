@@ -41,9 +41,13 @@ export function useCryptoLivePrices(crypto: PredictionCrypto, { onPriceUpdate }:
                     time: p.timestamp / 1000,
                     value: p.price,
                 }));
+                // Always replace points so switching feeds clears the previous crypto's line,
+                // even when the new feed's first history frame is empty.
                 setPoints(historical);
-                setLatestPrice(historical[historical.length - 1].value);
-                onPriceUpdateRef.current?.(historical[historical.length - 1].value);
+                const last = historical[historical.length - 1];
+                if (!last) return;
+                setLatestPrice(last.value);
+                onPriceUpdateRef.current?.(last.value);
             },
         );
 

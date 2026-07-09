@@ -65,6 +65,9 @@ function buildCSP(): string {
         // polymarket
         '*.polymarket.com',
         'wss://ws-subscriptions-clob.polymarket.com',
+        // Live crypto price feed (RtdsWebSocketProvider) — schemeless *.polymarket.com does not
+        // cover wss here, so the live price chart WS must be allow-listed explicitly.
+        'wss://ws-live-data.polymarket.com',
 
         // SuperFortune (FW-7814) share-card image download
         '*.superfortune.xyz',

@@ -33,6 +33,8 @@ interface AssetPricesProps {
     startTime: string;
     crypto: PredictionCrypto;
     isActive: boolean;
+    /** Multi-strike events have no single price-to-beat; show just the crypto symbol per Figma. */
+    isMultiStrike?: boolean;
 }
 
 export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
@@ -44,12 +46,15 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
     startTime,
     crypto,
     isActive,
+    isMultiStrike,
     ...rest
 }) {
     const { data } = useQuery({
         queryKey: [Source.Prediction, 'crypto-price', platform, crypto, startTime, endDate],
         staleTime: STALE_TIMES.MINUTE_5,
-        enabled: !rest.priceToBeat || !rest.finalPrice, // skip if both prices are provided
+        // Ended multi-strike shows only the BTC label (no price row), so its open/close price is
+        // never needed. Live multi-strike still needs the open price to compute the live change.
+        enabled: (!isMultiStrike || isActive) && (!rest.priceToBeat || !rest.finalPrice), // skip if both prices are provided
         queryFn: async () => {
             const response = await fetchJson<ResponseJson<CryptoPrice>>(
                 urlcat('/api/polymarket/crypto-price', {
@@ -73,37 +78,63 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
 
     return (
         <div className="mb-3 flex items-end justify-between px-4">
-            <div className="flex gap-5">
+            {isMultiStrike ? (
                 <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-bold text-second">
-                        <Trans>Price to beat</Trans>
-                    </span>
-                    <span className="text-base font-black text-second">
-                        {priceToBeat ? formatCryptoPrice(crypto, priceToBeat) : 'N/A'}
-                    </span>
+                    <span className="text-base font-bold leading-none text-main">{resolveBinanceCrypto(crypto)}</span>
+                    {!completed ? (
+                        <div className="flex items-center gap-1 text-[10px] font-semibold leading-none">
+                            <span className="text-second">
+                                {currentPrice !== null ? formatCryptoPrice(crypto, currentPrice) : 'N/A'}
+                            </span>
+                            {priceChanged ? (
+                                <span
+                                    className={classNames(
+                                        'flex items-center gap-0.5',
+                                        priceDiff > 0 ? 'text-success' : 'text-danger',
+                                    )}
+                                >
+                                    <PriceDiffIndicator crypto={crypto} priceDiff={priceDiff} />
+                                </span>
+                            ) : null}
+                        </div>
+                    ) : null}
                 </div>
-                <div className="flex flex-col gap-1 border-l border-lightLineSecond pl-5">
-                    <div
-                        className={classNames(
-                            'flex items-center gap-1',
-                            priceChanged ? (priceDiff > 0 ? 'text-success' : 'text-danger') : '',
-                        )}
-                    >
-                        <span className={classNames('text-[10px] font-bold', completed ? 'text-main' : 'text-warn')}>
-                            {completed ? <Trans>Final price</Trans> : <Trans>Current price</Trans>}
+            ) : (
+                <div className="flex gap-5">
+                    <div className="flex flex-col gap-1">
+                        <span className="text-[10px] font-bold text-second">
+                            <Trans>Price to beat</Trans>
                         </span>
-                        {priceChanged ? (
-                            <>
-                                {priceDiff > 0 ? <PriceUpIcon /> : <PriceDownIcon />}
-                                <span className="text-[10px] font-bold">{`${priceDiff > 0 ? '+' : '-'}${formatCryptoPrice(crypto, Math.abs(priceDiff))}`}</span>
-                            </>
-                        ) : null}
+                        <span className="text-base font-black text-second">
+                            {priceToBeat ? formatCryptoPrice(crypto, priceToBeat) : 'N/A'}
+                        </span>
                     </div>
-                    <span className={classNames('text-base font-black', completed ? 'text-main' : 'text-warn')}>
-                        {currentPrice !== null ? formatCryptoPrice(crypto, currentPrice) : 'N/A'}
-                    </span>
+                    <div className="flex flex-col gap-1 border-l border-lightLineSecond pl-5">
+                        <div
+                            className={classNames(
+                                'flex items-center gap-1',
+                                priceChanged ? (priceDiff > 0 ? 'text-success' : 'text-danger') : '',
+                            )}
+                        >
+                            <span
+                                className={classNames('text-[10px] font-bold', completed ? 'text-main' : 'text-warn')}
+                            >
+                                {completed ? <Trans>Final price</Trans> : <Trans>Current price</Trans>}
+                            </span>
+                            {priceChanged ? (
+                                <PriceDiffIndicator
+                                    crypto={crypto}
+                                    priceDiff={priceDiff}
+                                    valueClassName="text-[10px] font-bold"
+                                />
+                            ) : null}
+                        </div>
+                        <span className={classNames('text-base font-black', completed ? 'text-main' : 'text-warn')}>
+                            {currentPrice !== null ? formatCryptoPrice(crypto, currentPrice) : 'N/A'}
+                        </span>
+                    </div>
                 </div>
-            </div>
+            )}
 
             {completed ? (
                 <GoLiveButton platform={platform} seriesId={seriesId} recurrence={recurrence} />
@@ -113,3 +144,21 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
         </div>
     );
 });
+
+interface PriceDiffIndicatorProps {
+    crypto: PredictionCrypto;
+    priceDiff: number;
+    valueClassName?: string;
+}
+
+function PriceDiffIndicator({ crypto, priceDiff, valueClassName }: PriceDiffIndicatorProps) {
+    const isUp = priceDiff > 0;
+    return (
+        <>
+            {isUp ? <PriceUpIcon /> : <PriceDownIcon />}
+            <span
+                className={valueClassName}
+            >{`${isUp ? '+' : '-'}${formatCryptoPrice(crypto, Math.abs(priceDiff))}`}</span>
+        </>
+    );
+}
