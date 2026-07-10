@@ -100,7 +100,7 @@ export const privyVisibleChains = [
     robinhood,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
-export const rpSupportedChains = [mainnet, bsc, base, optimism, polygon, arbitrum, robinhood];
+export const rpSupportedChains = [mainnet, bsc, base, optimism, polygon, arbitrum];
 
 export const ETHEREUM_CHAIN_IDS = chains.map((x) => x.id);
 

@@ -1,4 +1,5 @@
 import { getChainInfo } from '@dimensiondev/web3/chains';
+import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -24,7 +25,12 @@ function pickDefaultTokenAddress(tokens: DepositAllSupportedTokenItem[], isTron:
     if (tokens.length === 0) return null;
     const preferred = isTron ? USDT_SYMBOL : USDC_SYMBOL;
     const match = tokens.find((token) => token.token_symbol?.toUpperCase() === preferred);
-    return match?.token_address ?? tokens[0].token_address ?? null;
+    // Stablecoins come first; on chains with no stablecoin (e.g. Robinhood: USDG + ETH),
+    // prefer the native ETH token before falling back to tokens[0].
+    const native = tokens.find(
+        (token) => isNativeTokenAddress(token.token_address) || token.token_symbol?.toUpperCase() === 'ETH',
+    );
+    return match?.token_address ?? native?.token_address ?? tokens[0].token_address ?? null;
 }
 
 export function DepositViaCryptoModalWrapper({ modalType, open, onClose }: RouteModalProps) {

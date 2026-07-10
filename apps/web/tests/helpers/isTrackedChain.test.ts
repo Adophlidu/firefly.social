@@ -1,4 +1,4 @@
-import { isTrackedChain } from '@dimensiondev/web3/chains';
+import { isTrackedChain, robinhood } from '@dimensiondev/web3/chains';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 import { describe, expect, it } from 'vitest';
 
@@ -10,6 +10,7 @@ describe('isTrackedChain', () => {
         expect(isTrackedChain(bsc.id)).toBe(true);
         expect(isTrackedChain(arbitrum.id)).toBe(true);
         expect(isTrackedChain(optimism.id)).toBe(true);
+        expect(isTrackedChain(robinhood.id)).toBe(true);
     });
 
     it('returns true for Solana (chain id 101)', () => {

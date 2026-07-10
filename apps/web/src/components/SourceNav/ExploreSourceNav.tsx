@@ -4,7 +4,7 @@ import { EXPLORE_SOURCES } from '@dimensiondev/constants/computed';
 import { type ExploreSource, type ExploreSourceInURL, ExploreType, Source, TrendingType } from '@dimensiondev/enums';
 import { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
-import { solana } from '@dimensiondev/web3/chains';
+import { robinhood, solana } from '@dimensiondev/web3/chains';
 import { omit } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 import { base, bsc, mainnet } from 'viem/chains';
@@ -37,6 +37,11 @@ const exploreTokenChainList = [
         id: base.id,
         networkType: NetworkType.Ethereum,
         name: base.name,
+    },
+    {
+        id: robinhood.id,
+        networkType: NetworkType.Ethereum,
+        name: 'Robinhood',
     },
 ];
 

@@ -1,4 +1,5 @@
 import { NetworkType } from '@dimensiondev/enums';
+import { robinhood } from '@dimensiondev/web3/chains';
 import { useMemo } from 'react';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 import { create } from 'zustand';
@@ -49,6 +50,11 @@ export const chainsList = [
         id: polygon.id,
         networkType: NetworkType.Ethereum,
         name: polygon.name,
+    },
+    {
+        id: robinhood.id,
+        networkType: NetworkType.Ethereum,
+        name: 'Robinhood',
     },
 ];
 
