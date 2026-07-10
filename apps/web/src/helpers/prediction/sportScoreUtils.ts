@@ -287,3 +287,13 @@ function pickTeamOutcome(
     const index = teams.findIndex((team) => !!team && !!targetTeam && team === targetTeam);
     return index >= 0 ? { index, team: teams[index] } : undefined;
 }
+
+/**
+ * Whether a market's line group should default to its FIRST listed line (feed order) instead of the
+ * desirability pick (findDefaultMarket). Applies to team totals, player props, and corners, matching
+ * Polymarket — parseLinesWithMarket leaves these unsorted, so section.markets[0] is the default.
+ */
+export function isFirstLineDefaultMarket(market: BetsMarketDataForUI): boolean {
+    const type = market.sportsMarketType?.toLowerCase() ?? '';
+    return type.includes('team_total') || type.startsWith('soccer_player_') || type.includes('total_corners');
+}

@@ -4,6 +4,7 @@ import {
     getLoser,
     getPenaltyShootoutLoser,
     getResolvedSportOutcome,
+    isFirstLineDefaultMarket,
     isPenaltyPeriod,
     type ResolvedSportOutcomeContext,
 } from '@/helpers/prediction/sportScoreUtils.js';
@@ -489,5 +490,43 @@ describe('getResolvedSportOutcome', () => {
                 getResolvedSportOutcome(market, SportMarketGroupType.Other, makeCtx({ winResult: 0 })),
             ).toBeUndefined();
         });
+    });
+});
+
+describe('isFirstLineDefaultMarket', () => {
+    it.each<[string, boolean]>([
+        // Team totals (per team) → default to the first line.
+        ['team_totals', true],
+        ['first_half_team_totals', true],
+        ['soccer_team_totals', true],
+        ['soccer_first_half_team_totals', true],
+        ['soccer_second_half_team_totals', true],
+        ['soccer_team_total_corners', true],
+        // Player props (per player) → default to the first line.
+        ['soccer_player_goals', true],
+        ['soccer_player_assists', true],
+        ['soccer_player_shots', true],
+        // Corners totals → default to the first market in feed order.
+        ['total_corners', true],
+        ['soccer_first_half_total_corners', true],
+        ['soccer_second_half_total_corners', true],
+        // Game-level line groups → keep the desirability/volume pick.
+        ['totals', false],
+        ['first_half_totals', false],
+        ['second_half_totals', false],
+        ['spreads', false],
+        ['moneyline', false],
+        ['soccer_anytime_goalscorer', false],
+        ['soccer_game_corners_odd_even', false],
+    ])('classifies %s as %s', (sportsMarketType, expected) => {
+        expect(isFirstLineDefaultMarket(makeMarket({ sportsMarketType }))).toBe(expected);
+    });
+
+    it('matches case-insensitively', () => {
+        expect(isFirstLineDefaultMarket(makeMarket({ sportsMarketType: 'TOTAL_CORNERS' }))).toBe(true);
+    });
+
+    it('is false when sportsMarketType is missing', () => {
+        expect(isFirstLineDefaultMarket(makeMarket({}))).toBe(false);
     });
 });

@@ -18,6 +18,7 @@ import {
     formatLine,
     getMarketLine,
     getSpreadSignedLine,
+    isFirstLineDefaultMarket,
     resolveOutcomeTeams,
 } from '@/helpers/prediction/sportScoreUtils.js';
 import { parseAsBetsPriceTimeRange } from '@/hooks/prediction/parsers.js';
@@ -431,10 +432,12 @@ export const SportMarketGroupCard = memo(function SportMarketGroupCard({
         () => (usesLineOptions ? createSportLineOptions(effectiveRenderAs, section.markets) : []),
         [section.markets, effectiveRenderAs, usesLineOptions],
     );
-    const defaultMarket = useMemo(
-        () => (usesLineOptions ? findDefaultMarket(section.markets, section.mainLine) : section.markets[0]),
-        [section.mainLine, section.markets, usesLineOptions],
-    );
+    const defaultMarket = useMemo(() => {
+        if (!usesLineOptions) return section.markets[0];
+        // Team totals, player props, and corners keep feed order (no desirability sort), matching Polymarket.
+        if (section.markets[0] && isFirstLineDefaultMarket(section.markets[0])) return section.markets[0];
+        return findDefaultMarket(section.markets, section.mainLine);
+    }, [usesLineOptions, section.markets, section.mainLine]);
     const defaultOption = useMemo(
         () => lineOptions.find((option) => option.market === defaultMarket) || lineOptions[0],
         [defaultMarket, lineOptions],
