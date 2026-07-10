@@ -1,8 +1,10 @@
 /// @vitest-environment jsdom
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs/web';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import { createElement, type ReactNode } from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { registerShortLink } from '@/actions/registerShortLink.js';
 import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
@@ -26,6 +28,10 @@ const LENS_SHORT_URL = 'https://firefly.social/i/jBXQNDxHpn';
 
 beforeEach(() => {
     registerShortLinkMock.mockReset();
+});
+
+afterEach(() => {
+    envs.external.NEXT_PUBLIC_SHORT_LINK = STATUS.Enabled;
 });
 
 describe('useShortShareUrl', () => {
@@ -80,5 +86,15 @@ describe('useShortShareUrl', () => {
 
         expect(() => result.current.register()).not.toThrow();
         await waitFor(() => expect(registerShortLinkMock).toHaveBeenCalled());
+    });
+
+    it('falls back to the input URL and never registers when NEXT_PUBLIC_SHORT_LINK is disabled', () => {
+        envs.external.NEXT_PUBLIC_SHORT_LINK = STATUS.Disabled;
+
+        const { result } = renderHook(() => useShortShareUrl(LENS_LINK), { wrapper: createWrapper() });
+        expect(result.current.url).toBe(LENS_LINK);
+
+        result.current.register();
+        expect(registerShortLinkMock).not.toHaveBeenCalled();
     });
 });
