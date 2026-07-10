@@ -118,16 +118,58 @@ async function setQueryDataForComment(post: CompositePost, updatedPost: Composit
      */
     const mockPost = createDummyCommentPost(source, updatedPost);
     const queryKey = ['posts', source, 'comments', parentPost.postId];
+    // Orb nested replies use a distinct query key from the generic comments list.
+    const orbRepliesQueryKey = ['posts', Source.Lens, 'orb-replies', parentPost.postId];
 
     if (mockPost) {
-        queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>({ queryKey }, (data) => {
+        const prependMock = (data: { pages: Array<{ data: Post[] }> } | undefined) => {
             if (!data?.pages.length) return data;
             return produce(data, (draft) => {
                 draft.pages[0].data.unshift(mockPost);
             });
-        });
+        };
+        queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>({ queryKey }, prependMock);
+        if (source === Source.Lens) {
+            queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>(
+                { queryKey: orbRepliesQueryKey },
+                prependMock,
+            );
+        }
     }
     queryClient.invalidateQueries({ queryKey, refetchType: 'none' });
+
+    if (source === Source.Lens) {
+        // Bump the parent's declared comment count in the Orb comment / reply lists so
+        // the collapsed "View N replies" toggle stays accurate, and refresh the reply
+        // list so a freshly posted reply appears without a manual reload.
+        const bumpParentCommentCount = (data: { pages: Array<{ data: Post[] }> } | undefined) => {
+            if (!data?.pages.length) return data;
+            return produce(data, (draft) => {
+                for (const page of draft.pages) {
+                    const found = page.data.find((p) => p.postId === parentPost.postId);
+                    if (!found) continue;
+                    found.stats = {
+                        comments: (found.stats?.comments || 0) + 1,
+                        mirrors: found.stats?.mirrors || 0,
+                        reactions: found.stats?.reactions || 0,
+                        quotes: found.stats?.quotes,
+                        bookmarks: found.stats?.bookmarks,
+                        countOpenActions: found.stats?.countOpenActions,
+                        views: found.stats?.views,
+                    };
+                }
+            });
+        };
+        queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>(
+            { queryKey: ['posts', Source.Lens, 'orb-comments'] },
+            bumpParentCommentCount,
+        );
+        queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>(
+            { queryKey: ['posts', Source.Lens, 'orb-replies'] },
+            bumpParentCommentCount,
+        );
+        await queryClient.invalidateQueries({ queryKey: orbRepliesQueryKey });
+    }
 }
 
 async function setQueryDataForQuote(post: CompositePost) {

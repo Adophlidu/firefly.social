@@ -13,8 +13,12 @@ export interface OrbCommentCellProps {
     post: Post;
     /** Optional sport team colors [home (index 0), away (index 1)] for the position badge. */
     teamColors?: [string | undefined, string | undefined];
-    /** Drop the comment action (used for level-2 replies to prevent a level-3). */
+    /** Drop the comment action (used for replies, which have no deeper nesting). */
     hideCommentAction?: boolean;
+    /** Feed list key — forwarded to SinglePost so the scroll position is saved on navigation. */
+    listKey?: string;
+    /** Feed index — forwarded to SinglePost so the scroll position is saved on navigation. */
+    index?: number;
 }
 
 /**
@@ -45,6 +49,8 @@ export const OrbCommentCell = memo(function OrbCommentCell({
     post,
     teamColors,
     hideCommentAction = false,
+    listKey,
+    index,
 }: OrbCommentCellProps) {
     const { event } = useContext(PredictionContext);
     const marketTitle = useMemo(() => resolveMarketTitle(event?.markets, post), [event?.markets, post]);
@@ -59,11 +65,17 @@ export const OrbCommentCell = memo(function OrbCommentCell({
     return (
         <SinglePost
             post={post}
+            // Replies are Lens Comments whose `commentOn` is the top-level Orb comment.
+            // Render them as comments so SinglePost skips FeedActionType — otherwise
+            // PostParent re-renders the parent as a thread above each reply (FW-7875).
+            isComment={hideCommentAction}
             hideHeaderHandle
             hideMoreMenu
             hideNonFireflySourceIcon
             showLikeCount
             actionsMask={actionsMask}
+            listKey={listKey}
+            index={index}
             header={<PositionBadge post={post} teamColors={teamColors} marketTitle={marketTitle} />}
         />
     );

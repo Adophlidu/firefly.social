@@ -7,6 +7,7 @@ import { use, useMemo } from 'react';
 import { Loading } from '@/components/Loading.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { PredictionMarketResolution } from '@/components/Prediction/PredictionMarketResolution.js';
+import { FIFA_SLUG } from '@/constants/bets.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { BetsEventInfoTab, useBetsEventInfoTab } from '@/hooks/prediction/useBetsEventInfoTab.js';
 
@@ -48,7 +49,9 @@ export function PredictionBaseInfoTabContent({
     eventTitle,
 }: PredictionBaseInfoTabContentProps) {
     const { event: detail } = use(PredictionContext);
-    const [tab] = useBetsEventInfoTab(showResolution);
+    // Orb comments are FIFA-only for now.
+    const showComments = !!eventSlug?.startsWith(FIFA_SLUG);
+    const [tab] = useBetsEventInfoTab(showResolution, showComments);
 
     const marketIds = useMemo(
         () => detail?.markets.map((x) => (platform === PredictionPlatform.Opinion ? x.questionId : x.conditionId)),
@@ -59,7 +62,7 @@ export function PredictionBaseInfoTabContent({
 
     switch (tab) {
         case BetsEventInfoTab.Comments:
-            if (!eventSlug) return null;
+            if (!showComments || !eventSlug) return null;
             return <PredictionEventComments eventSlug={eventSlug} />;
         case BetsEventInfoTab.TopHolders:
             return (

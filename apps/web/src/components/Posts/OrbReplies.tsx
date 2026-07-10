@@ -14,8 +14,6 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 export interface OrbRepliesProps {
     /** The parent post whose Lens comments (replies) are rendered. */
     post: Post;
-    /** 1 = replies to an Orb comment (comment action enabled → allows level-2); 2 = leaf replies. */
-    depth: 1 | 2;
     /** Optional sport team colors forwarded to each reply's PositionBadge. */
     teamColors?: [string | undefined, string | undefined];
 }
@@ -23,17 +21,18 @@ export interface OrbRepliesProps {
 const REPLIES_PAGE_INCREMENT = 10;
 
 /**
- * Nested replies under an Orb comment, capped at two levels. Level-1 replies keep
- * their comment action (replying creates a level-2 reply); level-2 replies hide it
- * (no level-3). The list starts collapsed and expands with a "show 10 / load 10
- * more" pager. Reply compose is handled by each cell's own Comment action.
+ * A single level of replies under an Orb comment (FW-7875 — matches the Figma
+ * hierarchy: one indented reply level only). Each reply hides its comment
+ * action (Like / Tip / Share only) so no deeper nesting is possible. The list
+ * starts collapsed behind a "View N replies" toggle and pages 10 at a time
+ * via "Show more". Reply compose is left to the top-level comment cell.
  */
-export const OrbReplies = memo(function OrbReplies({ post, depth, teamColors }: OrbRepliesProps) {
+export const OrbReplies = memo(function OrbReplies({ post, teamColors }: OrbRepliesProps) {
     const [expanded, setExpanded] = useState(false);
     const [visibleCount, setVisibleCount] = useState(REPLIES_PAGE_INCREMENT);
 
     const queryResult = useInfiniteQuery({
-        queryKey: ['posts', Source.Lens, 'orb-replies', post.postId, depth],
+        queryKey: ['posts', Source.Lens, 'orb-replies', post.postId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(Source.Lens, resolveProviderOptions(Source.Lens, pageParam));
             return provider.getCommentsById(post.postId, createIndicator(undefined, pageParam));
@@ -68,12 +67,7 @@ export const OrbReplies = memo(function OrbReplies({ post, depth, teamColors }: 
     return (
         <div className="ml-[52px] flex flex-col gap-2 border-l border-line pl-3">
             {visible.map((reply) => (
-                <div key={reply.postId} className="flex flex-col gap-1">
-                    <OrbCommentCell post={reply} teamColors={teamColors} hideCommentAction={depth === 2} />
-                    {depth === 1 && (reply.stats?.comments ?? 0) > 0 ? (
-                        <OrbReplies post={reply} depth={2} teamColors={teamColors} />
-                    ) : null}
-                </div>
+                <OrbCommentCell key={reply.postId} post={reply} teamColors={teamColors} hideCommentAction />
             ))}
 
             <div className="flex items-center gap-4 pt-1 text-medium font-bold text-highlight">

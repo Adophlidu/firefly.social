@@ -8,7 +8,10 @@ export enum BetsEventInfoTab {
     Resolution = 'resolution',
 }
 
-export function useBetsEventInfoTab(showResolution = false) {
+export function useBetsEventInfoTab(showResolution = false, showComments = true) {
+    // Default to the Comments tab on events that have it (FIFA), else Top Holders.
+    // Only applies when the URL has no `infoTab` — an explicit selection always wins.
+    const defaultTab = showComments ? BetsEventInfoTab.Comments : BetsEventInfoTab.TopHolders;
     const [tab, setTab] = useQueryState<BetsEventInfoTab>(
         'infoTab',
         parseAsStringEnum([
@@ -17,8 +20,14 @@ export function useBetsEventInfoTab(showResolution = false) {
             BetsEventInfoTab.Trades,
             BetsEventInfoTab.Info,
             BetsEventInfoTab.Resolution,
-        ]).withDefault(BetsEventInfoTab.TopHolders),
+        ]).withDefault(defaultTab),
     );
 
-    return [showResolution || tab !== BetsEventInfoTab.Resolution ? tab : BetsEventInfoTab.Info, setTab] as const;
+    // Resolve unsupported tabs to a safe default so a direct URL (e.g. ?infoTab=comments
+    // on a non-FIFA event, or ?infoTab=resolution when hidden) never renders a hidden tab.
+    let resolved = tab;
+    if (!showResolution && tab === BetsEventInfoTab.Resolution) resolved = BetsEventInfoTab.Info;
+    if (!showComments && tab === BetsEventInfoTab.Comments) resolved = BetsEventInfoTab.TopHolders;
+
+    return [resolved, setTab] as const;
 }

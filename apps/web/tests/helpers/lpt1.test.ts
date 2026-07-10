@@ -121,8 +121,18 @@ describe('per-type length limits (spec §9)', () => {
 });
 
 describe('buildLpt1Tags', () => {
-    test('emits the LPT-1 base set + worldcup interop tag, ordered per spec', () => {
+    test('emits the LPT-1 base set without worldcup tags by default', () => {
         expect(buildLpt1Tags({ eventSlug: 'fifwc-arg-egy-2026-07-07' })).toEqual([
+            'lpt1',
+            LPT1_APP_TAG,
+            LPT1_TOPIC_POLYMARKET,
+            LPT1_TOPIC_POLYMARKET_EVENT,
+            LPT1_SOURCE_POLYMARKET,
+            lpt1ItemTag('fifwc-arg-egy-2026-07-07'),
+        ]);
+    });
+    test('emits the worldcup interop tags when includeWorldCup is true, ordered per spec', () => {
+        expect(buildLpt1Tags({ eventSlug: 'fifwc-arg-egy-2026-07-07', includeWorldCup: true })).toEqual([
             'lpt1',
             LPT1_APP_TAG,
             'lpt1/topic/worldcup26',
@@ -134,7 +144,11 @@ describe('buildLpt1Tags', () => {
         ]);
     });
     test('appends the position signal tag when hasPosition', () => {
-        const tags = buildLpt1Tags({ eventSlug: 'fifwc-arg-egy-2026-07-07', hasPosition: true });
+        const tags = buildLpt1Tags({
+            eventSlug: 'fifwc-arg-egy-2026-07-07',
+            hasPosition: true,
+            includeWorldCup: true,
+        });
         expect(tags).toContain(LPT1_TOPIC_POLYMARKET_POSITION);
         // position topic sits after polymarket/event (topic group, broadest→specific).
         expect(tags.indexOf(LPT1_TOPIC_POLYMARKET_EVENT)).toBeLessThan(tags.indexOf(LPT1_TOPIC_POLYMARKET_POSITION));
@@ -148,7 +162,11 @@ describe('buildLpt1Tags', () => {
         expect(() => buildLpt1Tags({ eventSlug: '' })).toThrow();
     });
     test('produces only valid, unique tags', () => {
-        const tags = buildLpt1Tags({ eventSlug: 'fifwc-arg-egy-2026-07-07', hasPosition: true });
+        const tags = buildLpt1Tags({
+            eventSlug: 'fifwc-arg-egy-2026-07-07',
+            hasPosition: true,
+            includeWorldCup: true,
+        });
         expect(new Set(tags).size).toBe(tags.length);
 
         // every tag is either a valid LPT-1 tag or the non-protocol worldcup interop tag
@@ -159,7 +177,7 @@ describe('buildLpt1Tags', () => {
 describe('parseLpt1Tags', () => {
     test('round-trips buildLpt1Tags output', () => {
         const slug = 'fifwc-arg-egy-2026-07-07';
-        const parsed = parseLpt1Tags(buildLpt1Tags({ eventSlug: slug, hasPosition: true }));
+        const parsed = parseLpt1Tags(buildLpt1Tags({ eventSlug: slug, hasPosition: true, includeWorldCup: true }));
         expect(parsed.app).toBe('firefly');
         expect(parsed.source).toBe('polymarket');
         expect(parsed.eventSlug).toBe(slug);

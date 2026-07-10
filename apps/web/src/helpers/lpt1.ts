@@ -197,18 +197,30 @@ export interface BuildLpt1TagsOptions {
     eventSlug: string;
     /** True when the author holds a position in the event (emits the position signal tag). */
     hasPosition?: boolean;
+    /**
+     * Emit the `lpt1/topic/worldcup26` topic + the bare `worldcup` interop tag.
+     * Only FIFA World Cup events should set this — the Home World Cup feed
+     * queries the bare `worldcup` tag, so attaching it to non-FIFA comments
+     * would pollute that feed.
+     */
+    includeWorldCup?: boolean;
 }
 
 /**
  * Build the ordered, parent-closed, de-duplicated, validated tag set for a
- * FIFA/Polymarket Orb comment (spec §13 parent closure, §18.11 ordering).
+ * Polymarket Orb comment (spec §13 parent closure, §18.11 ordering).
  *
- * Emits the LPT-1 base set (7 tags; +`lpt1/topic/polymarket/position` when
- * `hasPosition`) followed by the non-protocol `worldcup` interop tag.
+ * Emits the LPT-1 base set (+`lpt1/topic/polymarket/position` when `hasPosition`).
+ * When `includeWorldCup` is true, also emits `lpt1/topic/worldcup26` and the
+ * non-protocol `worldcup` interop tag (FIFA events only).
  * Throws on an invalid event slug — a producer MUST NOT publish invalid tags
  * (spec §18.7), and our route slugs are always valid direct keys.
  */
-export function buildLpt1Tags({ eventSlug, hasPosition = false }: BuildLpt1TagsOptions): string[] {
+export function buildLpt1Tags({
+    eventSlug,
+    hasPosition = false,
+    includeWorldCup = false,
+}: BuildLpt1TagsOptions): string[] {
     if (!isValidDirectItemKey(eventSlug)) {
         throw new Error(`Invalid LPT-1 event slug (direct item key): "${eventSlug}"`);
     }
@@ -216,13 +228,13 @@ export function buildLpt1Tags({ eventSlug, hasPosition = false }: BuildLpt1TagsO
     const ordered = [
         LPT1_ROOT_TAG,
         LPT1_APP_TAG,
-        LPT1_TOPIC_WORLDCUP26,
+        ...(includeWorldCup ? [LPT1_TOPIC_WORLDCUP26] : []),
         LPT1_TOPIC_POLYMARKET,
         LPT1_TOPIC_POLYMARKET_EVENT,
         ...(hasPosition ? [LPT1_TOPIC_POLYMARKET_POSITION] : []),
         LPT1_SOURCE_POLYMARKET,
         lpt1ItemTag(eventSlug),
-        WORLD_CUP_TAG, // non-protocol interop tag (spec §18.11: ordinary tags last)
+        ...(includeWorldCup ? [WORLD_CUP_TAG] : []), // non-protocol interop tag (spec §18.11: ordinary tags last)
     ];
 
     const seen = new Set<string>();

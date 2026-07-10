@@ -6,6 +6,7 @@ import { memo, useContext } from 'react';
 
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
+import { FIFA_SLUG } from '@/constants/bets.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { BetsEventInfoTab, useBetsEventInfoTab } from '@/hooks/prediction/useBetsEventInfoTab.js';
 import {
@@ -47,7 +48,9 @@ export const PredictionBaseInfoTabs = memo<PredictionBaseInfoTabsProps>(function
     eventSlug,
 }) {
     const { platform } = useContext(PredictionContext);
-    const [tab, setTab] = useBetsEventInfoTab(showResolution);
+    // Orb comments are FIFA-only for now
+    const showComments = !!eventSlug?.startsWith(FIFA_SLUG);
+    const [tab, setTab] = useBetsEventInfoTab(showResolution, showComments);
 
     const handleTabChange = (newTab: BetsEventInfoTab) => {
         setTab(newTab);
@@ -74,7 +77,11 @@ export const PredictionBaseInfoTabs = memo<PredictionBaseInfoTabsProps>(function
             variant="main"
         >
             {tabs
-                .filter((tab) => showResolution || tab.value !== BetsEventInfoTab.Resolution)
+                .filter((tab) => {
+                    if (!showResolution && tab.value === BetsEventInfoTab.Resolution) return false;
+                    if (!showComments && tab.value === BetsEventInfoTab.Comments) return false;
+                    return true;
+                })
                 .map((tab) => (
                     <Tab value={tab.value} key={tab.value}>
                         {tab.label}
