@@ -177,11 +177,6 @@ export class SessionFactory {
                         ? (decodeAsciiPayload<z.infer<typeof FireflySessionSignature>>(thirdPart) ?? null)
                         : null;
 
-                    const payload = {
-                        ...parsed.data,
-                        isNew: fourthPart === '1',
-                    };
-
                     const jwtPayloadParsed = sixthPart
                         ? FireflyJwtPayload.safeParse(decodeAsciiPayload(sixthPart))
                         : undefined;
@@ -193,7 +188,7 @@ export class SessionFactory {
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
                         signature,
                         false, // @deprecated
-                        payload,
+                        parsed.data,
                         jwtPayloadParsed?.data ?? null,
                     );
                 }

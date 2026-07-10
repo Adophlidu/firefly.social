@@ -86,7 +86,7 @@ export class FireflySession extends BaseSession implements Session {
             // signature if session created by signing a message
             this.signature ? encodeAsciiPayload(this.signature) : '',
             // isNew flag
-            this.isNew ? '1' : '0',
+            this.payload?.isNew ? '1' : '0',
             // extra data payload
             this.payload ? encodeNoAsciiPayload(this.payload) : '',
             // JWT token data (legacy accessToken + refresh token + session ID)
