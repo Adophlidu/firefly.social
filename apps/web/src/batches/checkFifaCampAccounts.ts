@@ -1,5 +1,6 @@
 import type { ProfilePageSource } from '@dimensiondev/enums';
 import { createBatcher } from '@dimensiondev/utils';
+import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -51,7 +52,7 @@ const batchedCheck = createBatcher<AccountPayload, FifaCampAccountInfo>('checkFi
 });
 
 export async function checkFifaCampAccount(source: ProfilePageSource, id: string, handle: string) {
-    if (!isWorldCupEnabled()) return null;
+    if (!isWorldCupEnabled() || isServer) return null;
 
     try {
         const info = await batchedCheck({ source, id, handle });
@@ -71,7 +72,7 @@ export async function checkFifaCampAccounts(
     source: ProfilePageSource,
     idAndHandleList: Array<{ id: string; handle: string }>,
 ) {
-    if (!isWorldCupEnabled()) return [];
+    if (!isWorldCupEnabled() || isServer) return [];
 
     const infos = await Promise.all(idAndHandleList.map((x) => checkFifaCampAccount(source, x.id, x.handle)));
     return infos.filter((x) => typeof x !== 'undefined');
