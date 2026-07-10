@@ -55,10 +55,14 @@ export const PredictionEventComments = memo<PredictionEventCommentsProps>(functi
                     computeItemKey: (index, post) => `${post.postId}-${index}`,
                     // eslint-disable-next-line react/no-unstable-nested-components -- render prop, not a component
                     itemContent: (index, post) => (
-                        <div key={post.postId} className="flex flex-col gap-1 py-1">
-                            <OrbCommentCell post={post} teamColors={teamColors} listKey={listKey} index={index} />
-                            <OrbReplies post={post} teamColors={teamColors} />
-                        </div>
+                        <OrbCommentCell
+                            key={post.postId}
+                            post={post}
+                            teamColors={teamColors}
+                            listKey={listKey}
+                            index={index}
+                            footer={<OrbReplies post={post} teamColors={teamColors} />}
+                        />
                     ),
                 }}
                 NoResultsFallbackProps={{

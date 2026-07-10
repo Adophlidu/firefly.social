@@ -53,8 +53,9 @@ interface ComposeBaseState {
 
     /**
      * When true, lock the compose to a plain single root post: hide the thread "+",
-     * poll, schedule, and red-packet actions (media / GIF / emoji are kept). Used
-     * for Orb (LPT-1) comments.
+     * poll, schedule, and red-packet actions (media / GIF / emoji are kept), and
+     * hide the draft-restore prompt + drafts button (auto-save and save-on-close
+     * are kept). Used for Orb (LPT-1) comments.
      */
     lockThread?: boolean;
 }

@@ -9,6 +9,7 @@ import { memo, useState } from 'react';
 
 import { OrbCommentCell } from '@/components/Posts/OrbCommentCell.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface OrbRepliesProps {
@@ -22,10 +23,13 @@ const REPLIES_PAGE_INCREMENT = 10;
 
 /**
  * A single level of replies under an Orb comment (FW-7875 — matches the Figma
- * hierarchy: one indented reply level only). Each reply hides its comment
- * action (Like / Tip / Share only) so no deeper nesting is possible. The list
- * starts collapsed behind a "View N replies" toggle and pages 10 at a time
- * via "Show more". Reply compose is left to the top-level comment cell.
+ * hierarchy: one indented reply level only). Rendered as the comment cell's
+ * footer, below the action bar and inside the cell border. Each reply hides its
+ * comment action (Like / Tip / Share only) so no deeper nesting is possible.
+ * The list starts collapsed behind a "View N replies" toggle and pages 10 at a
+ * time via "Show more". Reply compose is left to the top-level comment cell.
+ * Clicks are stopped from bubbling so toggling/expanding doesn't trigger the
+ * parent comment's navigate-on-click.
  */
 export const OrbReplies = memo(function OrbReplies({ post, teamColors }: OrbRepliesProps) {
     const [expanded, setExpanded] = useState(false);
@@ -49,7 +53,7 @@ export const OrbReplies = memo(function OrbReplies({ post, teamColors }: OrbRepl
     if (!expanded) {
         if (declaredCount <= 0) return null;
         return (
-            <div className="ml-[52px] flex flex-col gap-2">
+            <div className="ml-[52px] flex flex-col gap-2" onClick={stopPropagation}>
                 <button
                     type="button"
                     className="w-fit text-medium font-bold text-highlight"
@@ -65,7 +69,7 @@ export const OrbReplies = memo(function OrbReplies({ post, teamColors }: OrbRepl
     const hasMore = visibleCount < replies.length || !!queryResult.hasNextPage;
 
     return (
-        <div className="ml-[52px] flex flex-col gap-2 border-l border-line pl-3">
+        <div className="ml-[52px] flex flex-col gap-2 border-l border-line pl-3" onClick={stopPropagation}>
             {visible.map((reply) => (
                 <OrbCommentCell key={reply.postId} post={reply} teamColors={teamColors} hideCommentAction />
             ))}

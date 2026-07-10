@@ -40,6 +40,10 @@ export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     header?: ReactNode;
     keepMutedSpace?: boolean;
     hideAttachments?: boolean;
+    /** Extra content rendered between the post body and the action bar. */
+    bodyFooter?: ReactNode;
+    /** Extra content rendered below the action bar, at the bottom of the cell. */
+    footer?: ReactNode;
     /** Orb-comment cell flags — forwarded to PostHeader / PostActions. */
     hideHeaderHandle?: boolean;
     hideMoreMenu?: boolean;
@@ -61,6 +65,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     header,
     keepMutedSpace,
     hideAttachments,
+    bodyFooter,
+    footer,
     hideHeaderHandle,
     hideMoreMenu,
     hideNonFireflySourceIcon,
@@ -185,6 +191,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                     listKey={listKey}
                     index={index}
                 />
+                {bodyFooter}
                 <NoSSR mode="mounted">
                     {showPostAction && !post.isTruthSocial ? (
                         <PostActions
@@ -199,6 +206,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                         />
                     ) : null}
                 </NoSSR>
+
+                {footer}
 
                 {show ? (
                     <div

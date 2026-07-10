@@ -144,9 +144,13 @@ function ComposeModalUI({ ref }: Props) {
                 updateDisableSchedule(true);
             }
 
-            setTimeout(() => {
-                applyTempDraftPost(newType, post || undefined);
-            }, 500); // wait for modal animation
+            // Orb comments (lockThread) are ephemeral — skip the "Unsaved draft
+            // found?" restore prompt. Auto-save + save-on-close are preserved (FW-7894).
+            if (!lockThread) {
+                setTimeout(() => {
+                    applyTempDraftPost(newType, post || undefined);
+                }, 500); // wait for modal animation
+            }
         },
         onClose: async (_props) => {
             // wait for animation to finish

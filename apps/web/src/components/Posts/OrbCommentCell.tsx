@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useContext, useMemo } from 'react';
+import { memo, type ReactNode, useContext, useMemo } from 'react';
 
 import type { PostActionsMask } from '@/components/Actions/PostActions.js';
 import { PositionBadge } from '@/components/Posts/PositionBadge.js';
@@ -19,6 +19,10 @@ export interface OrbCommentCellProps {
     listKey?: string;
     /** Feed index — forwarded to SinglePost so the scroll position is saved on navigation. */
     index?: number;
+    /** Extra content rendered between the comment body and the action bar (e.g. the match card). */
+    bodyFooter?: ReactNode;
+    /** Extra content rendered below the action bar, at the bottom of the cell (e.g. the replies toggle). */
+    footer?: ReactNode;
 }
 
 /**
@@ -51,6 +55,8 @@ export const OrbCommentCell = memo(function OrbCommentCell({
     hideCommentAction = false,
     listKey,
     index,
+    bodyFooter,
+    footer,
 }: OrbCommentCellProps) {
     const { event } = useContext(PredictionContext);
     const marketTitle = useMemo(() => resolveMarketTitle(event?.markets, post), [event?.markets, post]);
@@ -77,6 +83,8 @@ export const OrbCommentCell = memo(function OrbCommentCell({
             listKey={listKey}
             index={index}
             header={<PositionBadge post={post} teamColors={teamColors} marketTitle={marketTitle} />}
+            bodyFooter={bodyFooter}
+            footer={footer}
         />
     );
 });

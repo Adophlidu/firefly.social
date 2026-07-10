@@ -3,7 +3,7 @@ import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
-import { HOME_CLUB } from '@/constants/channel.js';
+import { HOME_CLUB, WORLDCUP_2026_GROUP, WORLDCUP_2026_GROUP_ADDRESS } from '@/constants/channel.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { detectMentionsForLens } from '@/helpers/detectMentions.js';
@@ -12,6 +12,7 @@ import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
+import { ensureLensGroupMembership } from '@/providers/lens/ensureLensGroupMembership.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
@@ -317,14 +318,22 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
                 }),
             );
         },
-        compose(images, videos) {
+        async compose(images, videos) {
             const video = first(videos) ?? null;
+            const lensChannel = channel[Source.Lens];
+            // Orb (LPT-1) comments publish as a root post into the WorldCup2026
+            // group feed, which is group-gated. Silently join the group first so
+            // the post doesn't fail with FeedGroupGatedNotAMember (FW-7895).
+            // Gated on the feed id so normal channel posts are untouched.
+            if (lensChannel?.feedId === WORLDCUP_2026_GROUP.feedId) {
+                await ensureLensGroupMembership(session.profileId, WORLDCUP_2026_GROUP_ADDRESS);
+            }
             return publishPostForLens(
                 session.profileId,
                 readChars({ chars: newChars, strategy: 'both', source: Source.Lens, keepPostLinks }),
                 images,
                 video,
-                channel[Source.Lens],
+                lensChannel,
                 poll,
                 [restriction],
                 lpt1Tags,

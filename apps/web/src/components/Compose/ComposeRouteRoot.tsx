@@ -24,6 +24,10 @@ export function ComposeRouteRoot() {
     const { onClose } = useComposeModalContext();
     const { removeTempDrafts } = useComposeDraftState();
     const [, saveDraftInCompose] = useSaveDraftInCompose(DraftPostType.LocalTemp);
+    // Orb comments (lockThread) are ephemeral — hide the drafts button (FW-7894).
+    // Plain selector (not `.use.lockThread`): `lockThread` is absent from the
+    // store's initial state, so createSelectors never registers it under `.use`.
+    const lockThread = useComposeStateStore((state) => state.lockThread);
 
     const pathname = location.pathname;
 
@@ -65,10 +69,10 @@ export function ComposeRouteRoot() {
                             {[...state.matches].reverse().find((x) => x.context.title)?.context.title ?? (
                                 <Trans>Compose</Trans>
                             )}
-                            {!isMedium && !isDraft && !isGif ? draftButton : null}
+                            {!isMedium && !isDraft && !isGif && !lockThread ? draftButton : null}
                         </div>
                     }
-                    actions={enableBack ? null : isMedium ? draftButton : <ComposeSend />}
+                    actions={enableBack ? null : isMedium ? lockThread ? null : draftButton : <ComposeSend />}
                     enableClose={!enableBack}
                     enableBack={enableBack}
                     onBack={() => history.replace('/')}
