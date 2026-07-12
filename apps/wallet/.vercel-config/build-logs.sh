@@ -55,6 +55,18 @@ if [ -f "$WALLET_ROOT/package.json" ]; then
   echo "PNPM Version: $pnpm_version" >> "$output_file"
   echo "Application Version: v$version" >> "$output_file"
 
+  # This is a Vite app, so Vercel does NOT auto-inject the NEXT_PUBLIC_VERCEL_GIT_*
+  # built-ins the way it does for apps/web (Next.js). Mirror the universal,
+  # non-secret VERCEL_GIT_* built-ins into NEXT_PUBLIC_VERCEL_GIT_* so this log
+  # matches the apps/web format (commit hash et al. under External Envs).
+  git_vars=$(env | grep -o '^VERCEL_GIT_[A-Z_]*' || true)
+  for var in $git_vars; do
+    mirror="NEXT_PUBLIC_${var}"
+    if [ -z "${!mirror:-}" ]; then
+      export "${mirror}=${!var}"
+    fi
+  done
+
   # Append client-exposed (NEXT_PUBLIC_*) environment variables, sorted by name.
   # This file is served from public/, so to avoid leaking secrets we only print:
   #   - feature-flag envs whose value is exactly "enabled" or "disabled"
