@@ -31,6 +31,7 @@ import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.j
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
+import { isCrossChainSwap } from '@/helpers/isCrossChainSwap.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
@@ -55,7 +56,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
     const detailUrl = resolveTxPageUrl(activity.hash, activity.chain_id);
     const disableScrollRestore = useDisableScrollRestore();
     const ensHandle = getEnsNameFromDisplayInfo(activity, activity.owner);
-    const isCrossChain = activity.is_cross_chain;
+    const isCrossChain = isCrossChainSwap(activity);
     const { data: defiUnitedTier } = useDefiUnitedBadge(activity.owner);
     const root = useRef(null!);
     const isHovered = useHover(root);

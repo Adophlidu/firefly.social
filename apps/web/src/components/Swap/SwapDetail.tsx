@@ -31,6 +31,7 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isCrossChainSwap } from '@/helpers/isCrossChainSwap.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
@@ -147,7 +148,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                             <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
                                 <ExchangeIcon className="size-3" />
                                 <span className="text-medium leading-6">
-                                    {activity.is_cross_chain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
+                                    {isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
                                 </span>
                             </div>
                             <span>on</span>

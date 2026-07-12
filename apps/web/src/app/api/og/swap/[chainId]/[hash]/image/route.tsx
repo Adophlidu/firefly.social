@@ -22,6 +22,7 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isCrossChainSwap } from '@/helpers/isCrossChainSwap.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
@@ -55,7 +56,7 @@ async function SwapOpenGraphImage({ swap, sharerHandle }: { swap: SwapActivity; 
     const avatar = await fetchImageAsBase64(avatarUrl, OG_FALLBACK_AVATAR);
 
     // Use absolute paths for SVG files
-    const backgroundImageUrl = swap.is_cross_chain ? BRIDGE_OG_BACKGROUND_SVG : SWAP_OG_BACKGROUND_SVG;
+    const backgroundImageUrl = isCrossChainSwap(swap) ? BRIDGE_OG_BACKGROUND_SVG : SWAP_OG_BACKGROUND_SVG;
 
     const copyTradeButtonImageUrl = COPY_TRADE_BUTTON_SVG;
 

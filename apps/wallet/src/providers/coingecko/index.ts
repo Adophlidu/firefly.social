@@ -1,5 +1,5 @@
 import { COINGECKO_ROOT_URL } from '@dimensiondev/constants/static';
-import { isValidChainIdSolana, solana } from '@dimensiondev/web3/chains';
+import { isValidChainIdSolana, robinhood, solana } from '@dimensiondev/web3/chains';
 import {
     isSameAddress,
     isValidAddressEthereum,
@@ -89,6 +89,7 @@ function getCoinGeckoConstants(chainId: number) {
         Scroll: 'ethereum',
         Linea: 'ethereum',
         ZksyncEra: 'ethereum',
+        Robinhood: 'ethereum',
     };
     const key = (
         {
@@ -108,6 +109,7 @@ function getCoinGeckoConstants(chainId: number) {
             [scroll.id]: 'Scroll',
             [linea.id]: 'Linea',
             [zkSync.id]: 'ZksyncEra',
+            [robinhood.id]: 'Robinhood',
         } as const
     )[chainId];
 
