@@ -1542,6 +1542,9 @@ msgstr "Sorry, give edit permission from Orb is necessary to continue."
 msgid "Info"
 msgstr "Info"
 
+msgid "View match"
+msgstr "View match"
+
 msgid "Failed to bookmark article."
 msgstr "Failed to bookmark article."
 

@@ -75,9 +75,12 @@ export const PositionBadge = memo(function PositionBadge({
     // the meaningful selection and a bare Yes/No would be redundant. But a Yes/No
     // QUESTION market (title ends with "?", e.g. "Will the Match Go to a Penalty
     // Shootout?") makes the answer the selection, so keep two pills and show the
-    // Yes/No explicitly. Descriptive outcomes (ENG, Over/Under) always use two pills.
+    // Yes/No explicitly. The trailing-"?" check also matches the full-width "?"
+    // because CJK locales localize the Polymarket title (e.g. a question market
+    // title renders as "比赛会进入加时赛吗？"). Descriptive outcomes (ENG, Over/Under)
+    // always use two pills.
     const isBinaryOutcome = outcome === 'Yes' || outcome === 'No';
-    const isQuestionMarket = isBinaryOutcome && !!marketTitle && marketTitle.trim().endsWith('?');
+    const isQuestionMarket = isBinaryOutcome && !!marketTitle && /[?？]$/.test(marketTitle.trim());
     const collapseToMarket = isBinaryOutcome && !!marketTitle && !isQuestionMarket;
     const displayOutcome = collapseToMarket ? marketTitle : outcome;
 

@@ -1542,6 +1542,9 @@ msgstr "Lo sentimos, es necesario otorgar permiso de edición desde Orb para con
 msgid "Info"
 msgstr "Información"
 
+msgid "View match"
+msgstr ""
+
 msgid "Failed to bookmark article."
 msgstr "No se pudo marcar el artículo como favorito."
 

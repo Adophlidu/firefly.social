@@ -1535,6 +1535,9 @@ msgstr "죄송합니다. 계속하려면 Orb에서 편집 권한을 부여해야
 msgid "Info"
 msgstr "정보"
 
+msgid "View match"
+msgstr ""
+
 msgid "Failed to bookmark article."
 msgstr "아티클 북마크에 실패했습니다."
 

@@ -9,6 +9,7 @@ import { memo, type ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Link } from '@/components/Link.js';
 import { PenaltyShootoutDots } from '@/components/Prediction/Sport/PenaltyShootoutDots.js';
 import { SportTennisScoreValue } from '@/components/Prediction/Sport/SportTennisScoreValue.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
@@ -53,6 +54,13 @@ export type SportTimelineActivityCardData = Pick<
 
 interface SportTimelineActivityCardProps {
     activity: SportTimelineActivityCardData;
+    /**
+     * When provided, the card body becomes a link to this href via an overlay
+     * `<Link>`, while the Home/Draw/Away buy buttons stay clickable above it.
+     * Omit for consumers that already wrap the card in a link (e.g.
+     * `PredictionActivityItem`) — a link must not be nested inside another link.
+     */
+    href?: string;
 }
 
 interface TeamViewModel {
@@ -521,7 +529,12 @@ function SportTimelineOutcomeButton({ slug, outcome }: { slug?: string; outcome:
             disabled={!canOpen}
             loading={loading}
             type="button"
-            onClick={() => {
+            onClick={(event) => {
+                // Stop the click from also firing the card's overlay link (or a
+                // wrapping link in PredictionActivityItem) — the buy button opens
+                // the wallet bet page on its own.
+                event.preventDefault();
+                event.stopPropagation();
                 if (!canOpen || loading) return;
                 handleOpenPredictionPage();
             }}
@@ -536,6 +549,7 @@ function SportTimelineOutcomeButton({ slug, outcome }: { slug?: string; outcome:
 
 export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(function SportTimelineActivityCard({
     activity,
+    href,
 }) {
     const isDarkMode = useIsDarkMode();
     const sport = activity.sportData;
@@ -588,19 +602,27 @@ export const SportTimelineActivityCard = memo<SportTimelineActivityCardProps>(fu
     const penaltyShootout = sport.penaltyShootout;
 
     return (
-        <div className="mt-2 rounded-2xl border border-line p-3 md:p-4">
-            <div className="grid w-full grid-cols-[minmax(84px,156px)_minmax(88px,1fr)_minmax(84px,156px)] items-center gap-2">
-                <TeamColumn team={homeTeam} isLoser={winner === 'away'} penaltyOutcomes={penaltyShootout?.home} />
-                <CenterColumn activity={activity} outcomes={outcomes} winner={winner} />
-                <TeamColumn team={awayTeam} isLoser={winner === 'home'} penaltyOutcomes={penaltyShootout?.away} />
-            </div>
-            {canShowButtons ? (
-                <div className="mt-2 grid grid-cols-3 gap-2">
-                    <SportTimelineOutcomeButton slug={homeSlug} outcome={homeOutcome} />
-                    {drawOutcome ? <SportTimelineOutcomeButton slug={drawSlug} outcome={drawOutcome} /> : <div />}
-                    <SportTimelineOutcomeButton slug={awaySlug} outcome={awayOutcome} />
+        <div className="relative mt-2 rounded-2xl border border-line p-3 md:p-4">
+            {href ? <Link href={href} className="absolute inset-0 z-0 rounded-2xl" aria-label={t`View match`} /> : null}
+            <div className={classNames('relative', href && 'pointer-events-none z-10')}>
+                <div className="grid w-full grid-cols-[minmax(84px,156px)_minmax(88px,1fr)_minmax(84px,156px)] items-center gap-2">
+                    <TeamColumn team={homeTeam} isLoser={winner === 'away'} penaltyOutcomes={penaltyShootout?.home} />
+                    <CenterColumn activity={activity} outcomes={outcomes} winner={winner} />
+                    <TeamColumn team={awayTeam} isLoser={winner === 'home'} penaltyOutcomes={penaltyShootout?.away} />
                 </div>
-            ) : null}
+                {canShowButtons ? (
+                    <div
+                        className={classNames(
+                            'mt-2 grid grid-cols-3 gap-2',
+                            href && 'pointer-events-auto relative z-20',
+                        )}
+                    >
+                        <SportTimelineOutcomeButton slug={homeSlug} outcome={homeOutcome} />
+                        {drawOutcome ? <SportTimelineOutcomeButton slug={drawSlug} outcome={drawOutcome} /> : <div />}
+                        <SportTimelineOutcomeButton slug={awaySlug} outcome={awayOutcome} />
+                    </div>
+                ) : null}
+            </div>
         </div>
     );
 });

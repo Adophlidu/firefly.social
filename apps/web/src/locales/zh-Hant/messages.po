@@ -1535,6 +1535,9 @@ msgstr "抱歉，需透過Orb授予編輯權限方可繼續。"
 msgid "Info"
 msgstr "資訊"
 
+msgid "View match"
+msgstr ""
+
 msgid "Failed to bookmark article."
 msgstr "收藏文章失敗。"
 

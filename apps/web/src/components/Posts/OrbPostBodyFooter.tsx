@@ -63,10 +63,18 @@ export const OrbPostBodyFooter = memo(function OrbPostBodyFooter({ post }: OrbPo
 
     if (event) {
         const activity = betsEventDataToSportTimelineActivity(event);
+        const eventDetailSlug = event.slug || eventSlug;
+        const eventDetailHref = eventDetailSlug
+            ? RouteResolver.betsEventDetail(event.platform, eventDetailSlug)
+            : undefined;
         return (
             <div className="ml-[52px]">
                 {badge}
-                {activity ? <SportTimelineActivityCard activity={activity} /> : <PredictionEventCard event={event} />}
+                {activity ? (
+                    <SportTimelineActivityCard activity={activity} href={eventDetailHref} />
+                ) : (
+                    <PredictionEventCard event={event} />
+                )}
             </div>
         );
     }

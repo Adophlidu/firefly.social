@@ -1535,6 +1535,9 @@ msgstr "申し訳ありません。続行するには Orb からの編集権限�
 msgid "Info"
 msgstr "情報"
 
+msgid "View match"
+msgstr ""
+
 msgid "Failed to bookmark article."
 msgstr "記事のブックマークに失敗しました。"
 
