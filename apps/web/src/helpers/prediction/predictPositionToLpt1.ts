@@ -1,5 +1,5 @@
 import type { Lpt1PositionInput } from '@/helpers/lpt1.js';
-import type { PredictionPositionDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 
 /**
  * Size signal for picking the largest holding. `current_value` is the
@@ -48,4 +48,24 @@ export function mapPositionToLpt1Input(p: PredictionPositionDataForUI): Lpt1Posi
         shares: p.shares,
         price: p.avg_price,
     };
+}
+
+/**
+ * Resolve the Polymarket numeric market id for a position by its `conditionId`,
+ * searching an event's top-level markets and the 2-way legs nested under each
+ * merged moneyline's `originalMoneylineMarkets` (a position often lives on a
+ * leg that is not a top-level entry). Mirrors iOS `getMarketId`
+ * (PolymarketDetailViewModel+Comments.swift:81-92). Returns `undefined` when the
+ * conditionId is absent or its market isn't in the event — the producer then
+ * omits the `lpt1/item/marketId/…` tag, exactly as iOS does when `marketId` is
+ * absent. `marketId` is only used for deep-linking; the position pill renders
+ * from `shares × price + outcome` without it.
+ */
+export function resolveMarketIdByConditionId(
+    conditionId: string | undefined,
+    markets: BetsMarketDataForUI[] | undefined,
+): string | undefined {
+    if (!conditionId || !markets?.length) return undefined;
+    const flat = markets.flatMap((m) => [m, ...(m.originalMoneylineMarkets ?? [])]);
+    return flat.find((m) => m.conditionId === conditionId)?.id;
 }

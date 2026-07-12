@@ -10,7 +10,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { CommentOnXMenu } from '@/components/CommentOnXMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
-import { useCommentPost } from '@/hooks/useCommentPost.js';
+import { type CommentComposeOptions, useCommentPost } from '@/hooks/useCommentPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
@@ -18,9 +18,16 @@ interface CommentProps {
     post: Post;
     disabled?: boolean;
     hiddenCount?: boolean;
+    /** Reply-compose overrides (e.g. LPT-1 position for an Orb comment reply). */
+    commentComposeOptions?: CommentComposeOptions;
 }
 
-export const Comment = memo<CommentProps>(function Comment({ post, disabled = false, hiddenCount = false }) {
+export const Comment = memo<CommentProps>(function Comment({
+    post,
+    disabled = false,
+    hiddenCount = false,
+    commentComposeOptions,
+}) {
     const count = post.stats?.comments ?? 0;
 
     const {
@@ -28,7 +35,7 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
         message: disabledMessage,
         visuallyDisabled: commentDisabled,
         onComment,
-    } = useCommentPost(post, disabled);
+    } = useCommentPost(post, disabled, commentComposeOptions);
     const { message, type } = disabledMessage || {};
 
     // A `toast` message means the reply is blocked by X's API but the click is

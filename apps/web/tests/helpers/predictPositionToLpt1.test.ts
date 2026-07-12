@@ -1,8 +1,12 @@
 import { describe, expect, test } from 'vitest';
 
 import { buildLpt1PositionAttributes, readLpt1Position } from '@/helpers/lpt1.js';
-import { mapPositionToLpt1Input, pickLargestPosition } from '@/helpers/prediction/predictPositionToLpt1.js';
-import type { PredictionPositionDataForUI } from '@/types/prediction.js';
+import {
+    mapPositionToLpt1Input,
+    pickLargestPosition,
+    resolveMarketIdByConditionId,
+} from '@/helpers/prediction/predictPositionToLpt1.js';
+import type { BetsMarketDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 
 function makePosition(overrides: Partial<PredictionPositionDataForUI> = {}): PredictionPositionDataForUI {
     return {
@@ -106,5 +110,55 @@ describe('mapPositionToLpt1Input', () => {
         expect(recovered?.outcomeIndex).toBe(input.outcomeIndex);
         expect(recovered?.outcome).toBe(input.outcome);
         expect(recovered?.conditionId).toBe(input.conditionId);
+    });
+});
+
+function makeMarket(overrides: Partial<BetsMarketDataForUI> = {}): BetsMarketDataForUI {
+    return {
+        id: '111',
+        conditionId: '0xcond-a',
+        questionId: 'q1',
+        title: 'Market A',
+        volume: '0',
+        isResolved: false,
+        isClosed: false,
+        createTime: 0,
+        outcomes: [{ id: '0', label: 'Yes', price: '0.5' }],
+        ...overrides,
+    };
+}
+
+describe('resolveMarketIdByConditionId', () => {
+    test('returns the top-level market id matching the conditionId', () => {
+        const markets = [
+            makeMarket({ id: '5566', conditionId: '0xcond-a' }),
+            makeMarket({ id: '7788', conditionId: '0xcond-b' }),
+        ];
+        expect(resolveMarketIdByConditionId('0xcond-b', markets)).toBe('7788');
+    });
+
+    test('searches 2-way legs nested under originalMoneylineMarkets', () => {
+        // a position often lives on a leg that is not a top-level entry
+        const leg = makeMarket({ id: 'leg-9', conditionId: '0xcond-leg' });
+        const markets = [makeMarket({ id: 'ml', conditionId: '0xcond-ml', originalMoneylineMarkets: [leg] })];
+        expect(resolveMarketIdByConditionId('0xcond-leg', markets)).toBe('leg-9');
+    });
+
+    test('first match wins when multiple markets share a conditionId', () => {
+        const markets = [
+            makeMarket({ id: 'first', conditionId: '0xdup' }),
+            makeMarket({ id: 'second', conditionId: '0xdup' }),
+        ];
+        expect(resolveMarketIdByConditionId('0xdup', markets)).toBe('first');
+    });
+
+    test('returns undefined when the conditionId is not in the event', () => {
+        expect(resolveMarketIdByConditionId('0xmissing', [makeMarket()])).toBeUndefined();
+    });
+
+    test('returns undefined for an absent conditionId or empty markets', () => {
+        expect(resolveMarketIdByConditionId(undefined, [makeMarket()])).toBeUndefined();
+        expect(resolveMarketIdByConditionId('0xcond-a', [])).toBeUndefined();
+        expect(resolveMarketIdByConditionId('0xcond-a', undefined)).toBeUndefined();
     });
 });

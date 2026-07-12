@@ -23,6 +23,7 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import type { CommentComposeOptions } from '@/hooks/useCommentPost.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -50,6 +51,8 @@ export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     hideNonFireflySourceIcon?: boolean;
     actionsMask?: PostActionsMask;
     showLikeCount?: boolean;
+    /** Reply-compose overrides forwarded to the Comment action (e.g. Orb reply position). */
+    commentComposeOptions?: CommentComposeOptions;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
@@ -72,6 +75,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     hideNonFireflySourceIcon,
     actionsMask,
     showLikeCount,
+    commentComposeOptions,
 }) {
     const router = useRouter();
     const pathname = usePathname();
@@ -200,6 +204,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                             showChannelTag={!isComment && !isChannelPage && showChannelTag}
                             actionsMask={actionsMask}
                             showLikeCount={showLikeCount}
+                            commentComposeOptions={commentComposeOptions}
                             onSetScrollIndex={() => {
                                 if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                             }}

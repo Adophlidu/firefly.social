@@ -1,5 +1,6 @@
 import { MetadataAttributeType } from '@dimensiondev/enums';
 
+import { FIFA_SLUG } from '@/constants/bets.js';
 import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 
 /**
@@ -7,12 +8,14 @@ import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
  *
  * An "Orb comment" is a Lens ROOT post carrying LPT-1 tags (machine-readable
  * event/source/item classification) plus optional position `attributes`. Tags
- * are queryable; position data lives in metadata `attributes` (not queryable).
+ * are queryable; position data lives in BOTH the tags (iOS-style data-bearing
+ * `lpt1/item/{field}/{value}` tags, so iOS/Orb can render the position pill) and
+ * `attributes[]` (which also carries `conditionId` the tag format cannot encode,
+ * and which web's `PositionBadge` reads first as a fast path).
  *
- * Spec: "Lens Post Tag Protocol Specification" (draft 0.1). This implementation
- * deviates from the spec's §4 position example on purpose: position *data* is
- * stored in `attributes[]` (STRING/NUMBER) and only the signal tag
- * `lpt1/topic/polymarket/position` is emitted, keeping every tag grammar-valid.
+ * Spec: "Lens Post Tag Protocol Specification" (draft 0.1). Position data tags
+ * follow the spec's §4 example and the iOS/Orb producer exactly, so posts are
+ * mutually readable across web / iOS / Orb.
  */
 
 // ---- Grammar (spec §9, §10, §11) --------------------------------------------------
@@ -45,7 +48,8 @@ const BASE32_ALPHABET = 'abcdefghijklmnopqrstuvwxyz234567';
 export const LPT1_ROOT_TAG = 'lpt1';
 export const LPT1_PREFIX = 'lpt1/';
 export const LPT1_APP_TAG = 'lpt1/app/firefly';
-export const LPT1_TOPIC_WORLDCUP26 = 'lpt1/topic/worldcup26';
+/** FIFA World Cup topic. Matches iOS/Orb (`lpt1/topic/worldcup`); the Home World Cup feed queries the bare `worldcup` tag, not this namespaced topic. */
+export const LPT1_TOPIC_WORLDCUP = 'lpt1/topic/worldcup';
 export const LPT1_TOPIC_POLYMARKET = 'lpt1/topic/polymarket';
 /** Topic path used by the event-scoped Comments query (`lpt1/topic/` prefix omitted). */
 export const LPT1_EVENT_TOPIC = 'polymarket/event';
@@ -54,6 +58,12 @@ export const LPT1_TOPIC_POLYMARKET_EVENT = `lpt1/topic/${LPT1_EVENT_TOPIC}`;
 export const LPT1_POSITION_TOPIC = 'polymarket/position';
 export const LPT1_TOPIC_POLYMARKET_POSITION = `lpt1/topic/${LPT1_POSITION_TOPIC}`;
 export const LPT1_SOURCE_POLYMARKET = 'lpt1/source/polymarket';
+/**
+ * Position-specific source tag emitted alongside the position data item tags
+ * (`lpt1/item/{marketId|shares|price|outcome}/…`). Matches the iOS/Orb producer
+ * (Mask-X-iOS RN bundle) so web-published positions are readable cross-app.
+ */
+export const LPT1_SOURCE_POLYMARKET_POSITION = 'lpt1/source/polymarket/position';
 
 /**
  * Non-LPT-1 interop tag. Orb publishes World Cup posts with this bare tag, so we
@@ -197,13 +207,47 @@ export async function hashItemKey(sourceSlug: string, canonicalId: string): Prom
 
 // ---- Producer: build tags ---------------------------------------------------------
 
+/**
+ * Cap a produced tag at the spec's 50-char ceiling (spec §5), matching the iOS
+ * producer's `{truncate:!0}` behavior. Only long `marketId` values can approach
+ * the limit in practice; `shares`/`price`/`outcome` values are always short.
+ */
+function clampTag(tag: string): string {
+    return tag.length > LPT1_MAX_TAG_LENGTH ? tag.slice(0, LPT1_MAX_TAG_LENGTH) : tag;
+}
+
+/**
+ * Truncate toward zero to ≤`maxFractionDigits` fraction digits, then format with
+ * an en-US decimal dot — no thousands grouping, no trailing zeros. Mirrors iOS
+ * `truncatedDecimalString` (Mask-X-iOS PolymarketDetailViewModel+Comments.swift:68-79)
+ * so web-published position tag values are byte-identical to iOS/Orb: both use
+ * IEEE-754 doubles and the same truncation, so the outputs match by construction.
+ */
+export function truncatedDecimalString(value: number, maxFractionDigits = 6): string {
+    if (!Number.isFinite(value)) return '0';
+    const multiplier = Math.pow(10, maxFractionDigits);
+    const truncated = Math.trunc(value * multiplier) / multiplier; // toward zero (iOS .rounded(.towardZero))
+    return truncated.toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: maxFractionDigits,
+        useGrouping: false,
+    });
+}
+
 export interface BuildLpt1TagsOptions {
     /** Event slug = the detail-page route param `[id]` (a valid direct item key). */
     eventSlug: string;
     /** True when the author holds a position in the event (emits the position signal tag). */
     hasPosition?: boolean;
     /**
-     * Emit the `lpt1/topic/worldcup26` topic + the bare `worldcup` interop tag.
+     * The author's position in the event. When present, emits the iOS-style
+     * data-bearing position tags (`lpt1/source/polymarket/position` +
+     * `lpt1/item/{marketId|shares|price|outcome}/…`) so iOS/Orb can render the
+     * position pill on web-published comments. Implies `hasPosition`.
+     */
+    position?: Lpt1PositionInput;
+    /**
+     * Emit the `lpt1/topic/worldcup` topic + the bare `worldcup` interop tag.
      * Only FIFA World Cup events should set this — the Home World Cup feed
      * queries the bare `worldcup` tag, so attaching it to non-FIFA comments
      * would pollute that feed.
@@ -216,42 +260,81 @@ export interface BuildLpt1TagsOptions {
  * Polymarket Orb comment (spec §13 parent closure, §18.11 ordering).
  *
  * Emits the LPT-1 base set (+`lpt1/topic/polymarket/position` when `hasPosition`).
- * When `includeWorldCup` is true, also emits `lpt1/topic/worldcup26` and the
- * non-protocol `worldcup` interop tag (FIFA events only).
- * Throws on an invalid event slug — a producer MUST NOT publish invalid tags
- * (spec §18.7), and our route slugs are always valid direct keys.
+ * When `position` is present, also emits the iOS-style data-bearing position tags
+ * (`buildLpt1PositionTags`) right after the event-slug item, matching the iOS/Orb
+ * tag order. When `includeWorldCup` is true, also emits `lpt1/topic/worldcup` and
+ * the non-protocol `worldcup` interop tag (FIFA events only).
+ * Throws on an invalid event slug — a producer MUST NOT publish invalid base tags
+ * (spec §18.7), and our route slugs are always valid direct keys. Position data
+ * tags are clamped + de-duped but intentionally skip the strict grammar check
+ * (they carry a camelCase `marketId` to match iOS/Orb byte-for-byte).
  */
 export function buildLpt1Tags({
     eventSlug,
     hasPosition = false,
+    position,
     includeWorldCup = false,
 }: BuildLpt1TagsOptions): string[] {
     if (!isValidDirectItemKey(eventSlug)) {
         throw new Error(`Invalid LPT-1 event slug (direct item key): "${eventSlug}"`);
     }
 
-    const ordered = [
-        LPT1_ROOT_TAG,
-        LPT1_APP_TAG,
-        ...(includeWorldCup ? [LPT1_TOPIC_WORLDCUP26] : []),
-        LPT1_TOPIC_POLYMARKET,
-        LPT1_TOPIC_POLYMARKET_EVENT,
-        ...(hasPosition ? [LPT1_TOPIC_POLYMARKET_POSITION] : []),
-        LPT1_SOURCE_POLYMARKET,
-        lpt1ItemTag(eventSlug),
-        ...(includeWorldCup ? [WORLD_CUP_TAG] : []), // non-protocol interop tag (spec §18.11: ordinary tags last)
-    ];
-
+    const withPosition = hasPosition || !!position;
     const seen = new Set<string>();
     const tags: string[] = [];
-    for (const tag of ordered) {
+
+    /** Grammar-validate (a producer MUST NOT publish invalid base tags, spec §18.7), then de-dupe. */
+    const pushBase = (tag: string) => {
         const valid =
             tag === LPT1_ROOT_TAG || tag.startsWith(LPT1_PREFIX) ? isValidLpt1Tag(tag) : isValidGeneralTag(tag);
         if (!valid) throw new Error(`Invalid tag produced: "${tag}"`);
-        if (seen.has(tag)) continue; // de-dupe preserving order (spec §5 uniqueness)
+        if (seen.has(tag)) return; // de-dupe preserving order (spec §5 uniqueness)
         seen.add(tag);
         tags.push(tag);
+    };
+    /**
+     * De-dupe only — no grammar check. The iOS-style position data tags carry a
+     * camelCase `marketId` field name and decimal values that the strict lowercase
+     * grammar rejects, but iOS/Orb emit exactly these strings (and do not grammar-
+     * validate either). To be readable cross-app, web must emit byte-identical
+     * tags; `buildLpt1PositionTags` already clamps each to ≤50 chars.
+     */
+    const pushPosition = (tag: string) => {
+        if (seen.has(tag)) return;
+        seen.add(tag);
+        tags.push(tag);
+    };
+
+    // 1. Base LPT-1 set (grammar-validated), parent-closed, broadest→specific.
+    //    When `position` data is present, the position signal topic is emitted in
+    //    the contiguous block below (iOS's state-machine consumer requires
+    //    topic/position immediately followed by source/position). The signal-only
+    //    path (`hasPosition` without data) keeps the topic here.
+    pushBase(LPT1_ROOT_TAG);
+    pushBase(LPT1_APP_TAG);
+    if (includeWorldCup) pushBase(LPT1_TOPIC_WORLDCUP);
+    pushBase(LPT1_TOPIC_POLYMARKET);
+    pushBase(LPT1_TOPIC_POLYMARKET_EVENT);
+    if (withPosition && !position) pushBase(LPT1_TOPIC_POLYMARKET_POSITION);
+    pushBase(LPT1_SOURCE_POLYMARKET);
+    pushBase(lpt1ItemTag(eventSlug));
+
+    // 2. iOS-style position block (CONTIGUOUS): topic/polymarket/position →
+    //    source/polymarket/position → lpt1/item/{marketId|shares|price|outcome}.
+    //    iOS's consumer (RN `parseLensTags`) enters the data section ONLY when
+    //    `lpt1/source/polymarket/position` immediately follows
+    //    `lpt1/topic/polymarket/position` with no intervening topic/source tag in
+    //    between (any `lpt1/topic/…` or `lpt1/source/…` resets its state) — so this
+    //    block MUST stay together, after the event-slug item (matching the iOS
+    //    producer's order). Position tags are clamped + de-duped but NOT grammar-
+    //    validated (the camelCase `marketId` matches iOS byte-for-byte).
+    if (position) {
+        pushBase(LPT1_TOPIC_POLYMARKET_POSITION);
+        for (const tag of buildLpt1PositionTags(position)) pushPosition(tag);
     }
+
+    // 3. Non-protocol interop tag last (spec §18.11: ordinary tags last).
+    if (includeWorldCup) pushBase(WORLD_CUP_TAG);
 
     if (tags.length > LPT1_MAX_TAGS) {
         throw new Error(`LPT-1 tag count ${tags.length} exceeds limit of ${LPT1_MAX_TAGS}`);
@@ -362,6 +445,121 @@ export function buildLpt1PositionAttributes(pos: Lpt1PositionInput): MetadataAtt
         attributes.push({ key: ATTR_MARKET_ID, type: MetadataAttributeType.STRING, value: pos.marketId });
     }
     return attributes;
+}
+
+/**
+ * Build the `{ lpt1Tags, lpt1Attributes }` payload for any Orb (LPT-1) compose
+ * surface — root comments (`openOrbCommentCompose`) and replies
+ * (`OrbCommentCell` → reply action). Centralizing the position encoding keeps
+ * the two surfaces from drifting.
+ *
+ * `scope`:
+ * - `'root'` (default) — a top-level Orb comment: the full event-scoped tag set
+ *   (event item + polymarket source + event topic, plus the World Cup interop
+ *   tag for FIFA slugs) so the post is discoverable in the event Comments tab
+ *   and the Home World Cup feed.
+ * - `'reply'` — a comment-of-comment: the position block ONLY (see
+ *   `buildLpt1ReplyTags`). A reply inherits event scoping from its parent (Lens
+ *   `commentOn`) and is nested under it by `OrbReplies` (parent-child fetch), so
+ *   it must NOT carry the event/worldcup discovery tags — otherwise it matches
+ *   the event Comments query / the World Cup feed and renders as a standalone
+ *   root post instead of nesting.
+ *
+ * `lpt1Attributes` (read first by web's `PositionBadge`) is `undefined` when
+ * there is no position.
+ */
+export function buildOrbComposePayload({
+    eventSlug,
+    position,
+    scope = 'root',
+}: {
+    eventSlug: string;
+    position?: Lpt1PositionInput | null;
+    scope?: 'root' | 'reply';
+}): {
+    lpt1Tags: string[];
+    lpt1Attributes: MetadataAttribute[] | undefined;
+} {
+    const lpt1Attributes = position ? buildLpt1PositionAttributes(position) : undefined;
+    if (scope === 'reply') {
+        return {
+            lpt1Tags: position ? buildLpt1ReplyTags(position) : [],
+            lpt1Attributes,
+        };
+    }
+    return {
+        lpt1Tags: buildLpt1Tags({
+            eventSlug,
+            hasPosition: !!position,
+            position: position ?? undefined,
+            includeWorldCup: eventSlug.startsWith(FIFA_SLUG),
+        }),
+        lpt1Attributes,
+    };
+}
+
+/**
+ * Build the LPT-1 tag set for an Orb comment REPLY (comment-of-comment): the
+ * position block ONLY — root marker + app + the `polymarket` parent topic (spec
+ * §13 parent closure for `polymarket/position`) + the contiguous iOS-style
+ * position signal/data block (`polymarket/position` → `source/polymarket/
+ * position` → `lpt1/item/{marketId|shares|price|outcome}/…`).
+ *
+ * Deliberately OMITS the event-discovery tags (`lpt1/topic/polymarket/event`,
+ * `lpt1/source/polymarket`, `lpt1/item/{eventSlug}`) and the `worldcup`
+ * interop tag. A reply is scoped to its event through its parent (`commentOn`)
+ * and is nested under that parent by `OrbReplies` (parent-child fetch), so
+ * carrying the discovery tags would make it match `getLensPostsByLpt1Item`
+ * (event Comments) and `getLensWorldCupPosts` (Home World Cup feed, which
+ * queries the bare `worldcup` tag) and render as a standalone root post. The
+ * position block alone is all iOS/Orb and web need to render the reply's pill.
+ */
+export function buildLpt1ReplyTags(position: Lpt1PositionInput): string[] {
+    const seen = new Set<string>();
+    const tags: string[] = [];
+    const push = (tag: string) => {
+        if (seen.has(tag)) return; // de-dupe preserving order (spec §5 uniqueness)
+        seen.add(tag);
+        tags.push(tag);
+    };
+
+    push(LPT1_ROOT_TAG);
+    push(LPT1_APP_TAG);
+    push(LPT1_TOPIC_POLYMARKET); // parent closure for polymarket/position (spec §13)
+    // Contiguous position block: topic → source → item data (iOS state-machine order).
+    push(LPT1_TOPIC_POLYMARKET_POSITION);
+    for (const tag of buildLpt1PositionTags(position)) push(tag);
+
+    if (tags.length > LPT1_MAX_TAGS) {
+        throw new Error(`LPT-1 tag count ${tags.length} exceeds limit of ${LPT1_MAX_TAGS}`);
+    }
+    return tags;
+}
+
+/**
+ * Build the iOS-style data-bearing position tags (LPT-1 spec §4 position example).
+ * Returned in this exact order to match the iOS/Orb producer
+ * (Mask-X-iOS PolymarketDetailViewModel+Comments.swift:48-66):
+ *
+ *   1. `lpt1/source/polymarket/position`
+ *   2. `lpt1/item/marketId/{marketId}` — only when `marketId` is present (iOS emits conditionally)
+ *   3. `lpt1/item/shares/{shares}` — decimal, truncated toward zero to 6 digits
+ *   4. `lpt1/item/price/{price}` — fraction (0–1) → cents (0–100), truncated toward zero
+ *   5. `lpt1/item/outcome/{0|1}` — outcome index collapsed to 0 (Yes) or 1 (No), per iOS
+ *
+ * Each value tag is clamped to the spec's 50-char ceiling (iOS `{truncate:!0}`).
+ * The consumer `readLpt1PositionFromTags` reads these back; web's own
+ * `PositionBadge` reads `attributes` first (unchanged), so emitting both is harmless.
+ */
+export function buildLpt1PositionTags(pos: Lpt1PositionInput): string[] {
+    const outcome = pos.outcomeIndex === 0 ? '0' : '1'; // iOS collapses to 0|1
+    return [
+        LPT1_SOURCE_POLYMARKET_POSITION,
+        ...(pos.marketId ? [clampTag(`${LPT1_PREFIX}item/marketId/${pos.marketId}`)] : []),
+        clampTag(`${LPT1_PREFIX}item/shares/${truncatedDecimalString(Number(pos.shares))}`),
+        clampTag(`${LPT1_PREFIX}item/price/${truncatedDecimalString(Number(pos.price) * 100)}`),
+        clampTag(`${LPT1_PREFIX}item/outcome/${outcome}`),
+    ];
 }
 
 function readNumberAttribute(attributes: MetadataAttribute[], key: string): number {

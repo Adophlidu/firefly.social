@@ -14,10 +14,23 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { resolveXReplyUrl } from '@/helpers/resolveXReplyUrl.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useHasJoinedChannel } from '@/store/useJoinedChannelStore.js';
 
-export function useCommentPost(post: Post, disabled = false) {
+/**
+ * Reply-compose overrides merged into the reply's `openComposeModal` call.
+ * Structurally the LPT-1 subset of `ComposeModalOpenProps` (defined inline here
+ * because hooks must not import from `@/modals` — layer rule). Used by the Orb
+ * comment cell to carry the replier's own LPT-1 position onto a reply.
+ */
+export interface CommentComposeOptions {
+    lpt1Tags?: string[];
+    lpt1Attributes?: MetadataAttribute[];
+    lockThread?: boolean;
+}
+
+export function useCommentPost(post: Post, disabled = false, commentComposeOptions?: CommentComposeOptions) {
     const { source, author } = post;
 
     const myProfile = useCurrentProfile(source);
@@ -72,6 +85,10 @@ export function useCommentPost(post: Post, disabled = false) {
                 source,
                 channel: post.channel,
                 isAnonymous: anonymousPostEnabled,
+                // Spread last so a caller (e.g. the Orb comment cell) can carry the
+                // replier's own LPT-1 position / lockThread onto the reply. Defaults
+                // to undefined for normal replies — the composer stays position-less.
+                ...commentComposeOptions,
             });
         } else if (source === Source.Twitter) {
             // X's API only allows replying to posts that mention you. The reply
@@ -89,7 +106,16 @@ export function useCommentPost(post: Post, disabled = false) {
         } else {
             enqueueErrorMessage(t`You cannot reply to @${author.handle} on ${resolveSourceName(source)}.`);
         }
-    }, [isLogin, commentDisabled, source, post, author.handle, anonymousPostEnabled, disabledMessage]);
+    }, [
+        isLogin,
+        commentDisabled,
+        source,
+        post,
+        author.handle,
+        anonymousPostEnabled,
+        disabledMessage,
+        commentComposeOptions,
+    ]);
 
     const buttonDisabled = !isLogin ? disabled : commentDisabled;
 

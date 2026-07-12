@@ -232,6 +232,8 @@ async function commentPostForLens(
     images: MediaObject[],
     video: MediaObject | null,
     channel: Channel | null,
+    tags?: string[],
+    attributes?: MetadataAttribute[],
 ) {
     const profile = await getLensProfileById(profileId);
 
@@ -240,6 +242,8 @@ async function commentPostForLens(
         {
             title,
             content,
+            tags,
+            attributes,
         },
         await createPayloadAttachments(images, video),
     );
@@ -262,6 +266,8 @@ async function quotePostForLens(
     video: MediaObject | null,
     channel: Channel | null,
     restrictions?: RestrictionType[],
+    tags?: string[],
+    attributes?: MetadataAttribute[],
 ) {
     const profile = await getLensProfileById(profileId);
 
@@ -270,6 +276,8 @@ async function quotePostForLens(
         {
             title,
             content,
+            tags,
+            attributes,
         },
         await createPayloadAttachments(images, video),
     );
@@ -362,6 +370,8 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
                 images,
                 video,
                 channel[Source.Lens],
+                lpt1Tags,
+                lpt1Attributes,
             );
         },
         quote(images, videos) {
@@ -375,6 +385,8 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
                 video,
                 channel[Source.Lens],
                 [restriction],
+                lpt1Tags,
+                lpt1Attributes,
             );
         },
     });

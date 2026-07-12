@@ -6,6 +6,7 @@ import type { PostActionsMask } from '@/components/Actions/PostActions.js';
 import { PositionBadge } from '@/components/Posts/PositionBadge.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
+import { buildOrbComposePayload, type Lpt1PositionInput } from '@/helpers/lpt1.js';
 import { resolvePositionDisplayContext } from '@/helpers/prediction/lpt1PositionDisplay.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { SportTeam } from '@/types/prediction.js';
@@ -24,6 +25,16 @@ export interface OrbCommentCellProps {
     bodyFooter?: ReactNode;
     /** Extra content rendered below the action bar, at the bottom of the cell (e.g. the replies toggle). */
     footer?: ReactNode;
+    /**
+     * Event slug for the reply compose path. When this cell exposes a reply action
+     * (`!hideCommentAction`) and an `eventSlug` is given, the reply carries the
+     * replier's own LPT-1 position (same as a root Orb comment) so its position
+     * pill renders. Omit on feed cells / replies (`hideCommentAction`) — those keep
+     * the default position-less reply composer.
+     */
+    eventSlug?: string;
+    /** The replier's own position in the event, pre-fetched by the page (largest holding). */
+    position?: Lpt1PositionInput | null;
 }
 
 /**
@@ -46,6 +57,8 @@ export const OrbCommentCell = memo(function OrbCommentCell({
     index,
     bodyFooter,
     footer,
+    eventSlug,
+    position,
 }: OrbCommentCellProps) {
     const { event } = useContext(PredictionContext);
     const { marketTitle, outcomeLabel } = useMemo(
@@ -61,6 +74,20 @@ export const OrbCommentCell = memo(function OrbCommentCell({
         statistics: true,
     };
 
+    // Only the top-level Orb comment cell (reply action visible) on the event
+    // detail page threads the replier's LPT-1 position onto its replies. Reply
+    // cells (`hideCommentAction`) and feed cells (no `eventSlug`) stay default.
+    // `scope: 'reply'` emits the position block only (no event/worldcup
+    // discovery tags) so the reply nests under its parent via OrbReplies instead
+    // of surfacing as a standalone root post in the event/World Cup feeds.
+    const commentComposeOptions = useMemo(
+        () =>
+            !hideCommentAction && eventSlug
+                ? { ...buildOrbComposePayload({ eventSlug, position, scope: 'reply' }), lockThread: true }
+                : undefined,
+        [hideCommentAction, eventSlug, position],
+    );
+
     return (
         <SinglePost
             post={post}
@@ -73,6 +100,7 @@ export const OrbCommentCell = memo(function OrbCommentCell({
             hideNonFireflySourceIcon
             showLikeCount
             actionsMask={actionsMask}
+            commentComposeOptions={commentComposeOptions}
             listKey={listKey}
             index={index}
             bodyFooter={

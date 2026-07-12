@@ -3,7 +3,10 @@ import { describe, expect, test } from 'vitest';
 
 import {
     buildLpt1PositionAttributes,
+    buildLpt1PositionTags,
+    buildLpt1ReplyTags,
     buildLpt1Tags,
+    buildOrbComposePayload,
     hashItemKey,
     isLpt1Post,
     isValidAppSlug,
@@ -16,16 +19,19 @@ import {
     LPT1_APP_TAG,
     LPT1_MAX_TAG_LENGTH,
     LPT1_SOURCE_POLYMARKET,
+    LPT1_SOURCE_POLYMARKET_POSITION,
     LPT1_SOURCE_SLUG_MAX_LENGTH,
     LPT1_TOPIC_PATH_MAX_LENGTH,
     LPT1_TOPIC_POLYMARKET,
     LPT1_TOPIC_POLYMARKET_EVENT,
     LPT1_TOPIC_POLYMARKET_POSITION,
+    LPT1_TOPIC_WORLDCUP,
     lpt1EventQueryTags,
     lpt1ItemTag,
     parseLpt1Tags,
     readLpt1Position,
     readLpt1PositionFromTags,
+    truncatedDecimalString,
     WORLD_CUP_TAG,
 } from '@/helpers/lpt1.js';
 
@@ -157,7 +163,7 @@ describe('buildLpt1Tags', () => {
         expect(buildLpt1Tags({ eventSlug: 'fifwc-arg-egy-2026-07-07', includeWorldCup: true })).toEqual([
             'lpt1',
             LPT1_APP_TAG,
-            'lpt1/topic/worldcup26',
+            LPT1_TOPIC_WORLDCUP,
             LPT1_TOPIC_POLYMARKET,
             LPT1_TOPIC_POLYMARKET_EVENT,
             LPT1_SOURCE_POLYMARKET,
@@ -179,6 +185,70 @@ describe('buildLpt1Tags', () => {
         // worldcup interop tag is always last.
         expect(tags[tags.length - 1]).toBe(WORLD_CUP_TAG);
     });
+    test('appends iOS-style position data tags when position is supplied', () => {
+        const tags = buildLpt1Tags({
+            eventSlug: 'fifwc-arg-egy-2026-07-07',
+            position: {
+                conditionId: '0xcond',
+                outcome: 'Yes',
+                outcomeIndex: 0,
+                shares: 2.8169,
+                price: 0.3549,
+                marketId: '2815607',
+            },
+        });
+        // signal topic still emits, and the position data item tags are appended
+        // right after it so iOS/Orb can read the position off the tags.
+        expect(tags).toContain(LPT1_TOPIC_POLYMARKET_POSITION);
+        expect(tags).toContain(LPT1_SOURCE_POLYMARKET_POSITION);
+        expect(tags).toContain('lpt1/item/marketId/2815607');
+        expect(tags).toContain('lpt1/item/shares/2.8169');
+        expect(tags).toContain('lpt1/item/price/35.49'); // 0.3549 × 100 → cents
+        expect(tags).toContain('lpt1/item/outcome/0');
+        // the data tags sit after the event-slug item (matching the iOS/Orb tag order),
+        // and after the position signal topic.
+        expect(tags.indexOf(LPT1_TOPIC_POLYMARKET_POSITION)).toBeLessThan(tags.indexOf('lpt1/item/shares/2.8169'));
+        expect(tags.indexOf(lpt1ItemTag('fifwc-arg-egy-2026-07-07'))).toBeLessThan(tags.indexOf('lpt1/item/outcome/0'));
+    });
+    test('position implies hasPosition (signal topic emits without hasPosition)', () => {
+        const tags = buildLpt1Tags({
+            eventSlug: 'fifwc-arg-egy-2026-07-07',
+            position: { conditionId: 'c', outcome: 'No', outcomeIndex: 1, shares: 1, price: 0.5 },
+        });
+        expect(tags).toContain(LPT1_TOPIC_POLYMARKET_POSITION);
+    });
+    test('position block is contiguous and iOS state-machine-parseable', () => {
+        // iOS's `parseLensTags` consumer enters the position data section ONLY when
+        // `lpt1/source/polymarket/position` immediately follows
+        // `lpt1/topic/polymarket/position`; any intervening `lpt1/topic/…` or
+        // `lpt1/source/…` tag resets its state and the position is dropped. So the
+        // topic → source → item-data tags must be contiguous (this is the real
+        // cross-app acceptance criterion for FW-7899).
+        const tags = buildLpt1Tags({
+            eventSlug: 'fifwc-fra-esp-2026-07-14',
+            includeWorldCup: true,
+            position: {
+                conditionId: '0xcond',
+                outcome: 'Yes',
+                outcomeIndex: 0,
+                shares: 5.8823,
+                price: 0.1699,
+                marketId: '2880321',
+            },
+        });
+        const topicIdx = tags.indexOf(LPT1_TOPIC_POLYMARKET_POSITION);
+        const sourceIdx = tags.indexOf(LPT1_SOURCE_POLYMARKET_POSITION);
+        // source/polymarket/position must IMMEDIATELY follow topic/polymarket/position.
+        expect(sourceIdx).toBe(topicIdx + 1);
+        // nothing between the position topic and the last data tag may be a
+        // topic/source tag (that would reset iOS's parser).
+        const lastDataIdx = tags.indexOf('lpt1/item/outcome/0');
+        for (let i = topicIdx; i <= lastDataIdx; i += 1) {
+            expect(tags[i].startsWith('lpt1/topic/') || tags[i].startsWith('lpt1/source/')).toBe(
+                i === topicIdx || i === sourceIdx,
+            );
+        }
+    });
     test('throws on an invalid event slug', () => {
         expect(() => buildLpt1Tags({ eventSlug: 'Invalid Slug' })).toThrow();
         expect(() => buildLpt1Tags({ eventSlug: '' })).toThrow();
@@ -196,6 +266,154 @@ describe('buildLpt1Tags', () => {
     });
 });
 
+describe('buildOrbComposePayload (root comment + reply composition)', () => {
+    const position = {
+        conditionId: '0xcond',
+        outcome: 'Yes',
+        outcomeIndex: 0,
+        shares: 2.8169,
+        price: 0.3549,
+        marketId: '2815607',
+    } as const;
+
+    test('with a position emits the position-topic tag + iOS data tags + lpt1_* attributes', () => {
+        const payload = buildOrbComposePayload({ eventSlug: 'fifwc-arg-egy-2026-07-07', position });
+        // signal topic emits ...
+        expect(payload.lpt1Tags).toContain(LPT1_TOPIC_POLYMARKET_POSITION);
+        // ... and so do the iOS-style data-bearing position tags (parity with a root
+        // Orb comment — these are what iOS/Orb read to render the position pill).
+        expect(payload.lpt1Tags).toContain(LPT1_SOURCE_POLYMARKET_POSITION);
+        expect(payload.lpt1Tags).toContain('lpt1/item/shares/2.8169');
+        expect(payload.lpt1Tags).toContain('lpt1/item/price/35.49');
+        expect(payload.lpt1Tags).toContain('lpt1/item/outcome/0');
+        // attributes carry the namespaced lpt1_* keys (web's PositionBadge reads these first).
+        const keys = payload.lpt1Attributes?.map((a) => a.key) ?? [];
+        expect(keys).toEqual(
+            expect.arrayContaining([
+                'lpt1_conditionId',
+                'lpt1_outcome',
+                'lpt1_outcomeIndex',
+                'lpt1_shares',
+                'lpt1_price',
+                'lpt1_marketId',
+            ]),
+        );
+    });
+
+    test('without a position emits the event tags but lpt1Attributes === undefined', () => {
+        const payload = buildOrbComposePayload({ eventSlug: 'fifwc-arg-egy-2026-07-07', position: null });
+        // event-scoped base tags still present ...
+        expect(payload.lpt1Tags).toContain(LPT1_TOPIC_POLYMARKET_EVENT);
+        expect(payload.lpt1Tags).toContain(lpt1ItemTag('fifwc-arg-egy-2026-07-07'));
+        // ... with no position signal and no data tags.
+        expect(payload.lpt1Tags).not.toContain(LPT1_TOPIC_POLYMARKET_POSITION);
+        expect(payload.lpt1Tags).not.toContain(LPT1_SOURCE_POLYMARKET_POSITION);
+        expect(payload.lpt1Attributes).toBeUndefined();
+    });
+
+    test('FIFA slug adds the World Cup interop tags; non-FIFA does not', () => {
+        const fifa = buildOrbComposePayload({ eventSlug: 'fifwc-arg-egy-2026-07-07' });
+        expect(fifa.lpt1Tags).toContain(LPT1_TOPIC_WORLDCUP);
+        expect(fifa.lpt1Tags).toContain(WORLD_CUP_TAG);
+
+        const nonFifa = buildOrbComposePayload({ eventSlug: 'btc-updown-5m-1780540200' });
+        expect(nonFifa.lpt1Tags).not.toContain(LPT1_TOPIC_WORLDCUP);
+        expect(nonFifa.lpt1Tags).not.toContain(WORLD_CUP_TAG);
+        // non-FIFA still emits the polymarket event topic + item tag.
+        expect(nonFifa.lpt1Tags).toContain(LPT1_TOPIC_POLYMARKET_EVENT);
+        expect(nonFifa.lpt1Tags).toContain(lpt1ItemTag('btc-updown-5m-1780540200'));
+    });
+
+    test('lpt1Tags is always a defined array (even without a position)', () => {
+        const payload = buildOrbComposePayload({ eventSlug: 'btc-updown-5m-1780540200' });
+        expect(Array.isArray(payload.lpt1Tags)).toBe(true);
+        expect(payload.lpt1Tags.length).toBeGreaterThan(0);
+    });
+
+    test('reply scope emits the position block but NOT the event/worldcup discovery tags', () => {
+        const payload = buildOrbComposePayload({
+            eventSlug: 'fifwc-fra-esp-2026-07-14',
+            position,
+            scope: 'reply',
+        });
+        // position signal + iOS data block present (pill renders, iOS/Orb can read it)
+        expect(payload.lpt1Tags).toContain(LPT1_TOPIC_POLYMARKET_POSITION);
+        expect(payload.lpt1Tags).toContain(LPT1_SOURCE_POLYMARKET_POSITION);
+        expect(payload.lpt1Tags).toContain('lpt1/item/shares/2.8169');
+        expect(payload.lpt1Tags).toContain('lpt1/item/outcome/0');
+        // attributes still carry the full position (web's PositionBadge reads these first)
+        expect(payload.lpt1Attributes?.map((a) => a.key)).toEqual(
+            expect.arrayContaining(['lpt1_conditionId', 'lpt1_outcome', 'lpt1_shares', 'lpt1_price']),
+        );
+        // event-discovery tags OMITTED so the reply doesn't match the event Comments
+        // query (`getLensPostsByLpt1Item`) or the Home World Cup feed (`worldcup`).
+        expect(payload.lpt1Tags).not.toContain(LPT1_TOPIC_POLYMARKET_EVENT);
+        expect(payload.lpt1Tags).not.toContain(LPT1_SOURCE_POLYMARKET);
+        expect(payload.lpt1Tags).not.toContain(lpt1ItemTag('fifwc-fra-esp-2026-07-14'));
+        expect(payload.lpt1Tags).not.toContain(LPT1_TOPIC_WORLDCUP);
+        expect(payload.lpt1Tags).not.toContain(WORLD_CUP_TAG);
+    });
+
+    test('reply scope without a position emits no tags and undefined attributes', () => {
+        const payload = buildOrbComposePayload({
+            eventSlug: 'fifwc-fra-esp-2026-07-14',
+            position: null,
+            scope: 'reply',
+        });
+        expect(payload.lpt1Tags).toEqual([]);
+        expect(payload.lpt1Attributes).toBeUndefined();
+    });
+});
+
+describe('buildLpt1ReplyTags (position-only reply tag set)', () => {
+    const position = {
+        conditionId: '0xcond',
+        outcome: 'Yes',
+        outcomeIndex: 0,
+        shares: 2.8169,
+        price: 0.3549,
+        marketId: '2815607',
+    } as const;
+
+    test('emits the contiguous position block with parent closure, in iOS order', () => {
+        const tags = buildLpt1ReplyTags(position);
+        // root marker + app + polymarket parent (§13 closure) then the position block
+        expect(tags).toEqual([
+            'lpt1',
+            LPT1_APP_TAG,
+            LPT1_TOPIC_POLYMARKET,
+            LPT1_TOPIC_POLYMARKET_POSITION,
+            LPT1_SOURCE_POLYMARKET_POSITION,
+            'lpt1/item/marketId/2815607',
+            'lpt1/item/shares/2.8169',
+            'lpt1/item/price/35.49',
+            'lpt1/item/outcome/0',
+        ]);
+        // source/polymarket/position immediately follows topic/polymarket/position
+        // (iOS state-machine requirement).
+        expect(tags.indexOf(LPT1_SOURCE_POLYMARKET_POSITION)).toBe(tags.indexOf(LPT1_TOPIC_POLYMARKET_POSITION) + 1);
+    });
+
+    test('omits the event-discovery and worldcup tags entirely', () => {
+        const tags = buildLpt1ReplyTags(position);
+        expect(tags).not.toContain(LPT1_TOPIC_POLYMARKET_EVENT);
+        expect(tags).not.toContain(LPT1_SOURCE_POLYMARKET);
+        expect(tags).not.toContain(LPT1_TOPIC_WORLDCUP);
+        expect(tags).not.toContain(WORLD_CUP_TAG);
+        // no single-segment event-slug item key (`lpt1/item/{slug}`); only the
+        // multi-segment position data tags (`lpt1/item/{field}/{value}`) remain.
+        expect(tags).not.toContain(lpt1ItemTag('fifwc-fra-esp-2026-07-14'));
+        expect(tags.filter((t) => t.startsWith('lpt1/item/') && !t.slice('lpt1/item/'.length).includes('/'))).toEqual(
+            [],
+        );
+    });
+
+    test('is discoverable as having a position via parseLpt1Tags (pill gate)', () => {
+        // PositionBadge renders only when parseLpt1Tags().hasPosition is true.
+        expect(parseLpt1Tags(buildLpt1ReplyTags(position)).hasPosition).toBe(true);
+    });
+});
+
 describe('parseLpt1Tags', () => {
     test('round-trips buildLpt1Tags output', () => {
         const slug = 'fifwc-arg-egy-2026-07-07';
@@ -204,7 +422,7 @@ describe('parseLpt1Tags', () => {
         expect(parsed.source).toBe('polymarket');
         expect(parsed.eventSlug).toBe(slug);
         expect(parsed.hasPosition).toBe(true);
-        expect(parsed.topics).toEqual(['worldcup26', 'polymarket', 'polymarket/event', 'polymarket/position']);
+        expect(parsed.topics).toEqual(['worldcup', 'polymarket', 'polymarket/event', 'polymarket/position']);
     });
     test('hasPosition is false without the position topic', () => {
         const parsed = parseLpt1Tags(buildLpt1Tags({ eventSlug: 'fifwc-arg-egy-2026-07-07' }));
@@ -271,6 +489,126 @@ describe('parseLpt1Tags', () => {
     test('returns empty result for no tags', () => {
         expect(parseLpt1Tags([])).toEqual({ topics: [], hasPosition: false });
         expect(parseLpt1Tags(undefined)).toEqual({ topics: [], hasPosition: false });
+    });
+});
+
+describe('truncatedDecimalString (iOS parity)', () => {
+    test('truncates toward zero, not rounds (7th digit dropped)', () => {
+        expect(truncatedDecimalString(100.259999)).toBe('100.259999'); // 6 digits, unchanged
+        expect(truncatedDecimalString(100.2599999)).toBe('100.259999'); // 7th digit truncated, not rounded
+        expect(truncatedDecimalString(1234.5678901)).toBe('1234.56789'); // truncated to 6 fraction digits
+    });
+    test('no thousands grouping, no trailing zeros, en-US decimal dot', () => {
+        expect(truncatedDecimalString(0.655 * 100)).toBe('65.5'); // no trailing .0
+        expect(truncatedDecimalString(0.5 * 100)).toBe('50');
+        expect(truncatedDecimalString(0.37 * 100)).toBe('37');
+        expect(truncatedDecimalString(1234.5)).toBe('1234.5'); // no grouping separator
+        expect(truncatedDecimalString(2.8169)).toBe('2.8169');
+    });
+    test('zero and sub-epsilon values collapse to 0', () => {
+        expect(truncatedDecimalString(0)).toBe('0');
+        expect(truncatedDecimalString(0.0000009)).toBe('0'); // below 1e-6 truncates to 0
+        expect(truncatedDecimalString(0.000001)).toBe('0.000001'); // exactly 1e-6 kept
+    });
+    test('accepts string-coercible numeric input via Number()', () => {
+        // buildLpt1PositionTags passes Number(pos.shares); confirm the helper itself
+        // takes a number. String inputs are converted at the call site.
+        expect(truncatedDecimalString(Number('12.5'))).toBe('12.5');
+    });
+});
+
+describe('buildLpt1PositionTags (iOS-style data tags, LPT-1 §4)', () => {
+    test('emits source + item tags in iOS order, fraction→cents, outcome 0|1', () => {
+        const tags = buildLpt1PositionTags({
+            conditionId: '0xcond',
+            outcome: 'Yes',
+            outcomeIndex: 0,
+            shares: 2.8169,
+            price: 0.3549,
+            marketId: '2815607',
+        });
+        expect(tags).toEqual([
+            LPT1_SOURCE_POLYMARKET_POSITION,
+            'lpt1/item/marketId/2815607',
+            'lpt1/item/shares/2.8169',
+            'lpt1/item/price/35.49', // 0.3549 × 100
+            'lpt1/item/outcome/0',
+        ]);
+    });
+    test('omits the marketId tag when marketId is absent (iOS conditional emission)', () => {
+        const tags = buildLpt1PositionTags({
+            conditionId: '0xcond',
+            outcome: 'No',
+            outcomeIndex: 1,
+            shares: 100,
+            price: 0.655,
+        });
+        expect(tags).not.toContainEqual(expect.stringContaining('item/marketId/'));
+        expect(tags).toEqual([
+            LPT1_SOURCE_POLYMARKET_POSITION,
+            'lpt1/item/shares/100',
+            'lpt1/item/price/65.5', // 0.655 × 100
+            'lpt1/item/outcome/1',
+        ]);
+    });
+    test('collapses any non-zero outcomeIndex to 1 (iOS parity)', () => {
+        const odd = buildLpt1PositionTags({
+            conditionId: 'c',
+            outcome: 'X',
+            outcomeIndex: 2,
+            shares: 1,
+            price: 0.5,
+        });
+        expect(odd).toContain('lpt1/item/outcome/1');
+    });
+    test('truncates share/price values toward zero (not round)', () => {
+        const tags = buildLpt1PositionTags({
+            conditionId: 'c',
+            outcome: 'Yes',
+            outcomeIndex: 0,
+            shares: 100.2599999,
+            price: 0.123456789, // × 100 = 12.3456789 → 12.345678 (truncated)
+        });
+        expect(tags).toContain('lpt1/item/shares/100.259999');
+        expect(tags).toContain('lpt1/item/price/12.345678');
+    });
+    test('every produced tag is ≤50 chars, ASCII, and round-trips through the consumer', () => {
+        // The marketId tag is intentionally camelCase (uppercase `I`) to match
+        // iOS/Orb, so it is NOT strict-grammar-valid — but it must still satisfy
+        // the universal length/ASCII invariants and be readable back.
+        const tags = buildLpt1PositionTags({
+            conditionId: 'c',
+            outcome: 'Yes',
+            outcomeIndex: 0,
+            shares: 2.8169,
+            price: 0.3549,
+            marketId: '2815607',
+        });
+        for (const tag of tags) {
+            expect(tag.length).toBeLessThanOrEqual(LPT1_MAX_TAG_LENGTH);
+            expect(tag.startsWith('lpt1/')).toBe(true);
+            for (let i = 0; i < tag.length; i += 1) expect(tag.charCodeAt(i)).toBeLessThanOrEqual(127);
+        }
+        // the shares/price/outcome/source tags (no camelCase) ARE grammar-valid.
+        expect(isValidLpt1Tag('lpt1/item/shares/2.8169')).toBe(true);
+        expect(isValidLpt1Tag('lpt1/item/price/35.49')).toBe(true);
+        expect(isValidLpt1Tag(LPT1_SOURCE_POLYMARKET_POSITION)).toBe(true);
+        // round-trips through the tag-encoded position consumer.
+        expect(readLpt1PositionFromTags(tags)?.marketId).toBe('2815607');
+    });
+    test('clamps a pathologically long marketId to the 50-char tag ceiling', () => {
+        const tags = buildLpt1PositionTags({
+            conditionId: 'c',
+            outcome: 'Yes',
+            outcomeIndex: 0,
+            shares: 1,
+            price: 0.5,
+            marketId: '1'.repeat(80),
+        });
+        const marketTag = tags.find((t) => t.startsWith('lpt1/item/marketId/'))!;
+        expect(marketTag.length).toBe(LPT1_MAX_TAG_LENGTH);
+        // clamped tag still carries the prefix.
+        expect(marketTag.startsWith('lpt1/item/marketId/')).toBe(true);
     });
 });
 

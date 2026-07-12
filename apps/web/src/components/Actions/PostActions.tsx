@@ -16,6 +16,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
+import type { CommentComposeOptions } from '@/hooks/useCommentPost.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -39,6 +40,8 @@ interface PostActionsProps extends HTMLProps<HTMLDivElement> {
     actionsMask?: PostActionsMask;
     /** Show the Like count (default hides it). */
     showLikeCount?: boolean;
+    /** Reply-compose overrides forwarded to the Comment action (e.g. Orb reply position). */
+    commentComposeOptions?: CommentComposeOptions;
 }
 
 export const PostActions = memo<PostActionsProps>(function PostActions({
@@ -51,6 +54,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     onSetScrollIndex,
     actionsMask,
     showLikeCount = false,
+    commentComposeOptions,
     ...rest
 }) {
     const isMedium = useIsMedium('max');
@@ -70,7 +74,14 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
         >
             <ClickableArea className="flex justify-between">
                 <div className="flex -translate-x-1.5 items-center space-x-2">
-                    {actionsMask?.comment ? null : <Comment post={post} hiddenCount disabled={disabled} />}
+                    {actionsMask?.comment ? null : (
+                        <Comment
+                            post={post}
+                            hiddenCount
+                            disabled={disabled}
+                            commentComposeOptions={commentComposeOptions}
+                        />
+                    )}
                     {actionsMask?.mirror ? null : (
                         <Mirror
                             disabled={disabled}

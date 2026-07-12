@@ -16,7 +16,11 @@ import { getPredictionPositionList } from '@/components/Prediction/getPrediction
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { openOrbCommentCompose } from '@/controllers/openOrbCommentCompose.js';
-import { mapPositionToLpt1Input, pickLargestPosition } from '@/helpers/prediction/predictPositionToLpt1.js';
+import {
+    mapPositionToLpt1Input,
+    pickLargestPosition,
+    resolveMarketIdByConditionId,
+} from '@/helpers/prediction/predictPositionToLpt1.js';
 import { getAccountMarketPositions } from '@/providers/firefly/prediction/getAccountMarketPositions.js';
 import { getLensPostsByLpt1Item } from '@/providers/lens/getLensPostsByLpt1Item.js';
 import { ensureInternalLensAccountCurrent } from '@/services/ensureInternalLensAccountCurrent.js';
@@ -81,8 +85,14 @@ export const PredictionEventComments = memo<PredictionEventCommentsProps>(functi
     });
     const lpt1Position = useMemo(() => {
         const largest = pickLargestPosition(positionQuery.data?.data ?? []);
-        return largest ? mapPositionToLpt1Input(largest) : null;
-    }, [positionQuery.data?.data]);
+        if (!largest) return null;
+        const input = mapPositionToLpt1Input(largest);
+        // Best-effort marketId for the iOS-style deep-link tag (matches iOS
+        // getMarketId). Omitted when the market isn't in the event — the tag is
+        // simply not emitted, exactly as iOS does when marketId is absent.
+        const marketId = resolveMarketIdByConditionId(largest.conditionId, event?.markets);
+        return marketId ? { ...input, marketId } : input;
+    }, [positionQuery.data?.data, event?.markets]);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', Source.Lens, 'orb-comments', eventSlug],
@@ -120,6 +130,10 @@ export const PredictionEventComments = memo<PredictionEventCommentsProps>(functi
                             teams={teams}
                             listKey={listKey}
                             index={index}
+                            // Thread the replier's own LPT-1 position onto replies opened from
+                            // this top-level Orb comment so the reply renders a position pill too.
+                            eventSlug={eventSlug}
+                            position={lpt1Position}
                             footer={<OrbReplies post={post} teams={teams} />}
                         />
                     ),
