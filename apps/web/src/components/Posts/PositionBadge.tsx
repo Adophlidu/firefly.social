@@ -70,12 +70,16 @@ export const PositionBadge = memo(function PositionBadge({
     // encoded positions have none), then a bare Yes/No fallback.
     const outcome = position.outcome || outcomeLabel || (isYesSide ? 'Yes' : 'No');
 
-    // For a binary Yes/No market the market subject (e.g. "Draw", "Argentina")
-    // IS the meaningful selection, so collapse to a single pill "Draw - $1" and
-    // drop the redundant market pill + bare Yes/No. Descriptive outcomes (a team
-    // code like "ENG", "Over"/"Under") keep the two-pill [market] [outcome] form.
+    // A binary Yes/No market whose title IS the bet target (e.g. "Draw",
+    // "Argentina") collapses to a single pill "Argentina - $1" — the subject is
+    // the meaningful selection and a bare Yes/No would be redundant. But a Yes/No
+    // QUESTION market (title ends with "?", e.g. "Will the Match Go to a Penalty
+    // Shootout?") makes the answer the selection, so keep two pills and show the
+    // Yes/No explicitly. Descriptive outcomes (ENG, Over/Under) always use two pills.
     const isBinaryOutcome = outcome === 'Yes' || outcome === 'No';
-    const displayOutcome = isBinaryOutcome && marketTitle ? marketTitle : outcome;
+    const isQuestionMarket = isBinaryOutcome && !!marketTitle && marketTitle.trim().endsWith('?');
+    const collapseToMarket = isBinaryOutcome && !!marketTitle && !isQuestionMarket;
+    const displayOutcome = collapseToMarket ? marketTitle : outcome;
 
     // Resolve the held side's team color from the displayed selection; fall back
     // to the default green (Yes/home) / magenta (No/away) shades by outcomeIndex
@@ -87,7 +91,7 @@ export const PositionBadge = memo(function PositionBadge({
 
     return (
         <span className="mb-1 mr-auto inline-flex max-w-full items-center gap-1">
-            {marketTitle && !isBinaryOutcome ? (
+            {marketTitle && !collapseToMarket ? (
                 <span
                     className="inline-flex h-6 min-w-0 items-center truncate rounded-[8px] px-2 text-sm font-semibold"
                     style={{ color: '#181818', backgroundColor: '#f5f5f9' }}

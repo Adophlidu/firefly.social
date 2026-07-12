@@ -5,6 +5,7 @@ import {
     buildLpt1PositionAttributes,
     buildLpt1Tags,
     hashItemKey,
+    isLpt1Post,
     isValidAppSlug,
     isValidDirectItemKey,
     isValidHashedItemKey,
@@ -61,6 +62,26 @@ describe('isValidLpt1Tag', () => {
     });
     test('rejects tags over 50 chars', () => {
         expect(isValidLpt1Tag(`${'lpt1/topic/'}${'a'.repeat(LPT1_MAX_TAG_LENGTH)}`)).toBe(false);
+    });
+});
+
+describe('isLpt1Post', () => {
+    test('false for a plain post with no LPT-1 tags', () => {
+        expect(isLpt1Post(['firefly', 'worldcup'])).toBe(false);
+    });
+    test('true when the bare lpt1 root marker is present', () => {
+        expect(isLpt1Post(['lpt1', 'worldcup'])).toBe(true);
+    });
+    test('true for a full lpt1/… tag set (Orb comment / World Cup post)', () => {
+        expect(isLpt1Post(buildLpt1Tags({ eventSlug: 'fifwc-arg-egy-2026-07-07', includeWorldCup: true }))).toBe(true);
+    });
+    test('true when only a single lpt1/… prefix tag is present', () => {
+        expect(isLpt1Post([LPT1_APP_TAG])).toBe(true);
+    });
+    test('false for empty / undefined tags', () => {
+        expect(isLpt1Post([])).toBe(false);
+        expect(isLpt1Post(undefined)).toBe(false);
+        expect(isLpt1Post(null)).toBe(false);
     });
 });
 

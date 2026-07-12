@@ -62,6 +62,13 @@ export const getEventDetail = cache(async function getEventDetail(
 
             try {
                 const sportDetail = await getSportEventDetail(id, locale);
+                // Plumb child event ids onto sportData so position lookups can batch
+                // parent + children — a user's position may live on a child event and
+                // querying the parent id alone misses it (matches iOS, FW-7899).
+                // Set before the merge; mergeSportGroupedMarkets preserves sportData.
+                if (sportDetail?.childEventIds?.length && formatted.sportData) {
+                    formatted.sportData = { ...formatted.sportData, childEventIds: sportDetail.childEventIds };
+                }
                 if (sportDetail?.groupedMarkets?.length) {
                     return mergeSportGroupedMarkets(formatted, sportDetail);
                 }

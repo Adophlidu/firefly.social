@@ -24,6 +24,7 @@ import { Loading } from '@/components/Loading.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotFound } from '@/components/NotFound.js';
 import { PostDetailEffect } from '@/components/PostDetailEffect.js';
+import { OrbPostBodyFooter } from '@/components/Posts/OrbPostBodyFooter.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
@@ -133,7 +134,14 @@ export function PageDetail({ id: postId, source, initialPost, initialThread }: P
                 </article>
             ) : (
                 <>
-                    <SinglePost post={post} className="border-b-0" disableAnimate isDetail showTranslate />
+                    <SinglePost
+                        post={post}
+                        className="border-b-0"
+                        disableAnimate
+                        isDetail
+                        showTranslate
+                        bodyFooter={<OrbPostBodyFooter post={post} />}
+                    />
 
                     <Section title="Post Statistics And Actions">
                         <NoSSR>

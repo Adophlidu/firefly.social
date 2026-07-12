@@ -250,6 +250,12 @@ export interface SportEventData {
     spreadsMainLine?: number;
     totalsMainLine?: number;
     sportCategory?: SportCategory;
+    /**
+     * Child event IDs under this sport event (e.g. series games / prop sub-events).
+     * A user's position may live on a child event, so position lookups must batch
+     * the parent id with these (matches iOS) — querying the parent alone misses them.
+     */
+    childEventIds?: string[];
 }
 
 export enum SportCategory {

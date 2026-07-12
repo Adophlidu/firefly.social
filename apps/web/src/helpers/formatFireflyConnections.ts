@@ -1,4 +1,5 @@
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveInternalLensHandle } from '@/helpers/resolveInternalLensHandle.js';
 import type { AllConnections, GetAllConnectionsResponse, LensConnection } from '@/providers/types/Firefly.js';
 
 export function formatFireflyConnections(response: GetAllConnectionsResponse): AllConnections {
@@ -7,7 +8,7 @@ export function formatFireflyConnections(response: GetAllConnectionsResponse): A
     // The auto-registered Lens account (handle `ff-<uid>`) is created for internal
     // use only — exclude it from every connection consumer. See FW-7824.
     const fireflyUid = data.account.find((x) => x.connected && x.uid)?.uid;
-    const autoRegisteredLensHandle = fireflyUid ? `ff-${fireflyUid}`.toLowerCase() : undefined;
+    const autoRegisteredLensHandle = resolveInternalLensHandle(fireflyUid);
 
     function excludeAutoRegisteredLens(groups: AllConnections['lens']['connected']) {
         if (!autoRegisteredLensHandle) return groups;

@@ -6,6 +6,7 @@ import { compact } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
+import { resolveInternalLensHandle } from '@/helpers/resolveInternalLensHandle.js';
 import { logger } from '@/libs/Logger.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { autoLoginProfileWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
@@ -51,7 +52,7 @@ export async function autoLoginLensAccounts({ updateStore = true }: Options = {}
     // setAsCurrent=false (see updateLensAccounts), so it does NOT steal the active Lens
     // account; it only becomes current when the user has no other Lens account.
     const fireflyUid = fireflySessionHolder.session?.payload?.uid;
-    const internalLensHandle = fireflyUid ? `ff-${fireflyUid}`.toLowerCase() : undefined;
+    const internalLensHandle = resolveInternalLensHandle(fireflyUid);
     const connectedAccounts = (social[Source.Lens]?.connected || []).flatMap((x) => x.lens || []);
     const filteredManagedProfiles = managedProfiles.filter((profile) => {
         if (lensProfiles.some((x) => isSameEthereumAddress(x.profileId, profile.profileId))) return false;

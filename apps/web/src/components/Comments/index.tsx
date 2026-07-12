@@ -12,6 +12,7 @@ import { memo, useMemo } from 'react';
 import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/CommentsFooter.js';
 import { HideComments } from '@/components/HideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { OrbPostBodyFooter } from '@/components/Posts/OrbPostBodyFooter.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -74,7 +75,10 @@ export const CommentList = memo<CommentListProps>(function CommentList({
                     listKey: `${ScrollListKey.Comment}:${postId}`,
                     computeItemKey: (index, post) => `${post.postId}-${index}`,
                     itemContent: (index, post) =>
-                        getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, { isComment: true }),
+                        getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, {
+                            isComment: true,
+                            bodyFooter: <OrbPostBodyFooter post={post} />,
+                        }),
                     context,
                     components: CommentListComponents,
                     ...(customScrollParent ? { customScrollParent, useWindowScroll: false } : undefined),

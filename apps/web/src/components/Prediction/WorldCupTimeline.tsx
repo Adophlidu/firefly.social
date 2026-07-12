@@ -12,6 +12,7 @@ import { OrbTimelineCell } from '@/components/Posts/OrbTimelineCell.js';
 import { getLensWorldCupPosts } from '@/providers/lens/getLensWorldCupPosts.js';
 
 export const WorldCupTimeline = memo(function WorldCupTimeline() {
+    const listKey = `${ScrollListKey.Discover}:world-cup`;
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', Source.Lens, 'orb-timeline'],
         queryFn: ({ pageParam }) => getLensWorldCupPosts(createIndicator(undefined, pageParam)),
@@ -25,10 +26,12 @@ export const WorldCupTimeline = memo(function WorldCupTimeline() {
             source={Source.Lens}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}:world-cup`,
+                listKey,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 // eslint-disable-next-line react/no-unstable-nested-components -- render prop, not a component
-                itemContent: (_index, post) => <OrbTimelineCell key={post.postId} post={post} />,
+                itemContent: (index, post) => (
+                    <OrbTimelineCell key={post.postId} post={post} listKey={listKey} index={index} />
+                ),
             }}
             NoResultsFallbackProps={{
                 icon: <MessagesIcon width={24} height={24} />,

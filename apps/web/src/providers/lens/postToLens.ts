@@ -1,5 +1,5 @@
 import type { RestrictionType } from '@dimensiondev/enums';
-import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
@@ -7,7 +7,6 @@ import { HOME_CLUB, WORLDCUP_2026_GROUP, WORLDCUP_2026_GROUP_ADDRESS } from '@/c
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { detectMentionsForLens } from '@/helpers/detectMentions.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -21,6 +20,8 @@ import { image } from '@/providers/lens/metadata/post/Image.js';
 import { link } from '@/providers/lens/metadata/post/Link.js';
 import { textOnly } from '@/providers/lens/metadata/post/TextOnly.js';
 import { video } from '@/providers/lens/metadata/post/Video.js';
+import type { LensSession } from '@/providers/lens/Session.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPollPost } from '@/providers/orb/createPollPost.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
@@ -28,6 +29,7 @@ import type { Channel } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import type { MediaObject, PostFunctionParams } from '@/types/compose.js';
 
 interface BaseMetadata {
@@ -292,9 +294,19 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
     // already posted to lens
     if (lensPostId) return;
 
-    // login required
-    const session = getSessionFromStorage(SessionType.Lens);
-    if (!session?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
+    // login required — read the authoritative current session from the in-memory
+    // store (not localStorage) so a just-switched account is honored immediately.
+    const currentSession = useLensProfileStore.getState().currentProfileSession as LensSession | null;
+    if (!currentSession?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
+
+    // switchAccount updates the profile store synchronously but resumes the Lens
+    // session client asynchronously; posting during that window would otherwise
+    // publish under the previous account (FW-7901). Re-sync the SDK session client
+    // to the account the compose UI shows as current. Steady state: already match → no-op.
+    if (lensSessionHolder.session?.profileId !== currentSession.profileId) {
+        await lensSessionHolder.resumeSession(currentSession);
+    }
+    const profileId = currentSession.profileId;
 
     const newChars = (await runInSafeAsync(() => detectMentionsForLens(chars))) || chars;
 
@@ -326,10 +338,10 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
             // the post doesn't fail with FeedGroupGatedNotAMember (FW-7895).
             // Gated on the feed id so normal channel posts are untouched.
             if (lensChannel?.feedId === WORLDCUP_2026_GROUP.feedId) {
-                await ensureLensGroupMembership(session.profileId, WORLDCUP_2026_GROUP_ADDRESS);
+                await ensureLensGroupMembership(profileId, WORLDCUP_2026_GROUP_ADDRESS);
             }
             return publishPostForLens(
-                session.profileId,
+                profileId,
                 readChars({ chars: newChars, strategy: 'both', source: Source.Lens, keepPostLinks }),
                 images,
                 video,
@@ -344,7 +356,7 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
             if (!lensParentPost) throw new Error('No parent post found.');
             const video = first(videos) ?? null;
             return commentPostForLens(
-                session.profileId,
+                profileId,
                 lensParentPost.postId,
                 readChars({ chars: newChars, strategy: 'both', source: Source.Lens, keepPostLinks }),
                 images,
@@ -356,7 +368,7 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
             if (!lensParentPost) throw new Error('No parent post found.');
             const video = first(videos) ?? null;
             return quotePostForLens(
-                session.profileId,
+                profileId,
                 lensParentPost.postId,
                 readChars({ chars: newChars, strategy: 'both', source: Source.Lens, keepPostLinks }),
                 images,

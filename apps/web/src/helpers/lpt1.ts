@@ -134,6 +134,11 @@ export function isValidLpt1Tag(tag: string): boolean {
     return isValidGeneralTag(tag) && (tag === LPT1_ROOT_TAG || tag.startsWith(LPT1_PREFIX));
 }
 
+/** True when the post carries LPT-1 tags (an Orb comment / World Cup post). */
+export function isLpt1Post(tags?: string[] | null): boolean {
+    return !!tags?.some((t) => t === LPT1_ROOT_TAG || t.startsWith(LPT1_PREFIX));
+}
+
 /** Build the item tag for a direct item key. */
 export function lpt1ItemTag(eventSlug: string): string {
     return `${LPT1_PREFIX}item/${eventSlug}`;
@@ -405,7 +410,7 @@ const TAG_POSITION_FIELD_OUTCOME = 'outcome';
  *
  * Tag-encoded positions carry no `conditionId` and no outcome *label* (only the 0/1
  * index), so `conditionId` is `''` and `outcome` is `''` — callers default to
- * `Yes`/`No` from `outcomeIndex`. `price` is encoded as cents (0–100) and normalised
+ * `Yes`/`No` from `outcomeIndex`. `price` is encoded as cents (0–100) and normalized
  * to the 0–1 fraction used elsewhere.
  */
 export function readLpt1PositionFromTags(tags?: string[] | null): Lpt1PositionOutput | null {
