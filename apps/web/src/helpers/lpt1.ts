@@ -301,8 +301,17 @@ export function parseLpt1Tags(tags?: string[] | null): ParsedLpt1Tags {
                 if (rest === LPT1_POSITION_TOPIC) result.hasPosition = true;
                 break;
             case 'item':
-                // Direct item key only; hashed keys (`h/…`) are not event slugs (spec §15).
-                if (!rest.startsWith('h/')) itemKey = rest;
+                // The event slug is a direct item key — a single segment with no '/' (spec §13).
+                // Multi-segment item tags (`lpt1/item/{marketId|shares|price|outcome}/…`) and
+                // hashed `h/…` keys are not event slugs. Some producers (e.g. `lpt1/app/orb`)
+                // ALSO emit short team-code item keys (`nor`, `eng`, `arg`, …) alongside the
+                // full event slug; the slug is always the longest direct item key, so prefer it
+                // (first-encountered wins on ties).
+                if (!rest.startsWith('h/') && !rest.includes('/')) {
+                    if (itemKey === undefined || rest.length > itemKey.length) {
+                        itemKey = rest;
+                    }
+                }
                 break;
             default:
                 break;
@@ -371,6 +380,96 @@ export function readLpt1Position(attributes?: MetadataAttribute[] | null): Lpt1P
         outcomeIndex: readNumberAttribute(attributes, ATTR_OUTCOME_INDEX),
         shares: readNumberAttribute(attributes, ATTR_SHARES),
         price: readNumberAttribute(attributes, ATTR_PRICE),
+        ...(marketId ? { marketId } : {}),
+    };
+}
+
+/**
+ * Tag-encoded position field keys. Some Firefly clients (e.g. `lpt1/app/firefly`)
+ * emit the position as `lpt1/item/{field}/{value}` tags instead of as metadata
+ * `attributes[]`; these constants identify those fields. Local to this reader.
+ */
+const TAG_POSITION_FIELD_MARKET_ID = 'marketId';
+const TAG_POSITION_FIELD_SHARES = 'shares';
+const TAG_POSITION_FIELD_PRICE = 'price';
+const TAG_POSITION_FIELD_OUTCOME = 'outcome';
+
+/**
+ * Read position data from `lpt1/item/{field}/{value}` tags (consumer side, fallback
+ * encoding used by some producers). Tolerates posts that encode the position as item
+ * tags rather than as metadata `attributes`.
+ *
+ * The event-slug item key (a single segment, no `/`) and hashed `h/…` keys are
+ * ignored — only multi-segment `lpt1/item/{field}/{value}` tags are read, first
+ * value per field wins. Returns null when no position item tags are present.
+ *
+ * Tag-encoded positions carry no `conditionId` and no outcome *label* (only the 0/1
+ * index), so `conditionId` is `''` and `outcome` is `''` — callers default to
+ * `Yes`/`No` from `outcomeIndex`. `price` is encoded as cents (0–100) and normalised
+ * to the 0–1 fraction used elsewhere.
+ */
+export function readLpt1PositionFromTags(tags?: string[] | null): Lpt1PositionOutput | null {
+    if (!tags || tags.length === 0) return null;
+
+    let marketId: string | undefined;
+    let outcomeIndex: number | undefined;
+    let shares: number | undefined;
+    let priceCents: number | undefined;
+
+    for (const tag of tags) {
+        if (typeof tag !== 'string') continue;
+        if (!tag.startsWith(LPT1_PREFIX)) continue; // not an LPT-1 tag
+        const body = tag.slice(LPT1_PREFIX.length);
+        if (!body.startsWith('item/')) continue;
+        const rest = body.slice('item/'.length);
+        if (!rest) continue;
+        const slash = rest.indexOf('/');
+        if (slash === -1) continue; // the event-slug item key (single segment) — not a position field
+        const field = rest.slice(0, slash);
+        const value = rest.slice(slash + 1);
+        if (!value) continue;
+
+        switch (field) {
+            case TAG_POSITION_FIELD_MARKET_ID:
+                if (marketId === undefined) marketId = value;
+                break;
+            case TAG_POSITION_FIELD_OUTCOME: {
+                if (outcomeIndex === undefined) {
+                    const parsed = Number(value);
+                    if (Number.isFinite(parsed)) outcomeIndex = parsed;
+                }
+                break;
+            }
+            case TAG_POSITION_FIELD_SHARES: {
+                if (shares === undefined) {
+                    const parsed = Number(value);
+                    if (Number.isFinite(parsed)) shares = parsed;
+                }
+                break;
+            }
+            case TAG_POSITION_FIELD_PRICE: {
+                if (priceCents === undefined) {
+                    const parsed = Number(value);
+                    if (Number.isFinite(parsed)) priceCents = parsed;
+                }
+                break;
+            }
+            default:
+                break; // `h/…` hashed keys and any unknown field are ignored
+        }
+    }
+
+    // No position fields found → not a tag-encoded position.
+    if (shares === undefined && priceCents === undefined && outcomeIndex === undefined && marketId === undefined) {
+        return null;
+    }
+
+    return {
+        conditionId: '',
+        outcome: '',
+        outcomeIndex: outcomeIndex ?? 0,
+        shares: shares ?? 0,
+        price: (priceCents ?? 0) / 100, // cents (0–100) → fraction (0–1)
         ...(marketId ? { marketId } : {}),
     };
 }

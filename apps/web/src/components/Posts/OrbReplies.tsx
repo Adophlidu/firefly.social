@@ -11,12 +11,13 @@ import { OrbCommentCell } from '@/components/Posts/OrbCommentCell.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import type { SportTeam } from '@/types/prediction.js';
 
 export interface OrbRepliesProps {
     /** The parent post whose Lens comments (replies) are rendered. */
     post: Post;
-    /** Optional sport team colors forwarded to each reply's PositionBadge. */
-    teamColors?: [string | undefined, string | undefined];
+    /** Optional sport teams [home (index 0), away (index 1)] forwarded to each reply's PositionBadge. */
+    teams?: [SportTeam?, SportTeam?];
 }
 
 const REPLIES_PAGE_INCREMENT = 10;
@@ -31,7 +32,7 @@ const REPLIES_PAGE_INCREMENT = 10;
  * Clicks are stopped from bubbling so toggling/expanding doesn't trigger the
  * parent comment's navigate-on-click.
  */
-export const OrbReplies = memo(function OrbReplies({ post, teamColors }: OrbRepliesProps) {
+export const OrbReplies = memo(function OrbReplies({ post, teams }: OrbRepliesProps) {
     const [expanded, setExpanded] = useState(false);
     const [visibleCount, setVisibleCount] = useState(REPLIES_PAGE_INCREMENT);
 
@@ -71,7 +72,7 @@ export const OrbReplies = memo(function OrbReplies({ post, teamColors }: OrbRepl
     return (
         <div className="ml-[52px] flex flex-col gap-2 border-l border-line pl-3" onClick={stopPropagation}>
             {visible.map((reply) => (
-                <OrbCommentCell key={reply.postId} post={reply} teamColors={teamColors} hideCommentAction />
+                <OrbCommentCell key={reply.postId} post={reply} teams={teams} hideCommentAction />
             ))}
 
             <div className="flex items-center gap-4 pt-1 text-medium font-bold text-highlight">

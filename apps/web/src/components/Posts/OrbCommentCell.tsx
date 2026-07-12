@@ -6,13 +6,14 @@ import type { PostActionsMask } from '@/components/Actions/PostActions.js';
 import { PositionBadge } from '@/components/Posts/PositionBadge.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
-import { readLpt1Position } from '@/helpers/lpt1.js';
+import { resolvePositionDisplayContext } from '@/helpers/prediction/lpt1PositionDisplay.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import type { SportTeam } from '@/types/prediction.js';
 
 export interface OrbCommentCellProps {
     post: Post;
-    /** Optional sport team colors [home (index 0), away (index 1)] for the position badge. */
-    teamColors?: [string | undefined, string | undefined];
+    /** Optional sport teams [home (index 0), away (index 1)] for the position badge. */
+    teams?: [SportTeam?, SportTeam?];
     /** Drop the comment action (used for replies, which have no deeper nesting). */
     hideCommentAction?: boolean;
     /** Feed list key — forwarded to SinglePost so the scroll position is saved on navigation. */
@@ -26,32 +27,20 @@ export interface OrbCommentCellProps {
 }
 
 /**
- * Resolve a market title for the post's LPT-1 position from the in-memory event
- * (no network call). The position's `conditionId` is the primary lookup key; the
- * optional `marketId` is a fallback. Returns undefined when there is no event
- * context (e.g. the World Cup feed) or the position's market isn't in the event.
- */
-function resolveMarketTitle(
-    markets: Array<{ conditionId: string; id: string; title: string }> | undefined,
-    post: Post,
-): string | undefined {
-    if (!markets?.length) return undefined;
-    const position = readLpt1Position(post.metadata.attributes);
-    if (!position) return undefined;
-    return (
-        markets.find((m) => m.conditionId === position.conditionId)?.title ??
-        (position.marketId ? markets.find((m) => m.id === position.marketId)?.title : undefined)
-    );
-}
-
-/**
  * A stripped-down Lens post cell for Orb (LPT-1) comments: no @handle, no more
  * menu, no non-Firefly source icon, only Comment / Like (with count) / Tips /
- * Share actions, plus an optional PositionBadge in the header slot.
+ * Share actions, plus an optional PositionBadge.
+ *
+ * The badge renders inside the post body, just above the action bar. It
+ * resolves its market title + outcome label from the PredictionContext event
+ * (event-detail Comments tab). On the World Cup feed the parent
+ * (`OrbTimelineCell`) resolves them from its own event and supplies its own
+ * `bodyFooter` (badge + match card), which takes precedence so the badge isn't
+ * duplicated.
  */
 export const OrbCommentCell = memo(function OrbCommentCell({
     post,
-    teamColors,
+    teams,
     hideCommentAction = false,
     listKey,
     index,
@@ -59,13 +48,17 @@ export const OrbCommentCell = memo(function OrbCommentCell({
     footer,
 }: OrbCommentCellProps) {
     const { event } = useContext(PredictionContext);
-    const marketTitle = useMemo(() => resolveMarketTitle(event?.markets, post), [event?.markets, post]);
+    const { marketTitle, outcomeLabel } = useMemo(
+        () => resolvePositionDisplayContext(post, event?.markets),
+        [post, event?.markets],
+    );
 
     const actionsMask: PostActionsMask = {
         mirror: true,
         collect: true,
         bookmark: true,
         comment: hideCommentAction,
+        statistics: true,
     };
 
     return (
@@ -82,8 +75,18 @@ export const OrbCommentCell = memo(function OrbCommentCell({
             actionsMask={actionsMask}
             listKey={listKey}
             index={index}
-            header={<PositionBadge post={post} teamColors={teamColors} marketTitle={marketTitle} />}
-            bodyFooter={bodyFooter}
+            bodyFooter={
+                bodyFooter ?? (
+                    <div className="ml-[52px]">
+                        <PositionBadge
+                            post={post}
+                            teams={teams}
+                            marketTitle={marketTitle}
+                            outcomeLabel={outcomeLabel}
+                        />
+                    </div>
+                )
+            }
             footer={footer}
         />
     );

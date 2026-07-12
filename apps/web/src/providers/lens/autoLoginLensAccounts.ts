@@ -7,6 +7,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { logger } from '@/libs/Logger.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { autoLoginProfileWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { updateLensAccounts } from '@/providers/lens/updateLensAccounts.js';
@@ -42,15 +43,21 @@ export async function autoLoginLensAccounts({ updateStore = true }: Options = {}
     // 4. get managed profiles by privy wallet and filter those already logged in
     const managedProfiles = await getProfilesByAddress(privyEvmAddress);
     const { social } = await queryClient.ensureQueryData(queryMyAllConnections);
-    // the auto-registered Lens account (handle `ff-<uid>`) is already excluded from the
-    // connections at the API response level (see formatFireflyConnections / FW-7824), so
-    // matching against connected accounts here keeps it out of auto-login automatically.
+    // The internally-registered Lens account (handle `ff-<uid>`) is auto-created at signup to
+    // serve as the default Orb/FIFA comment author (FW-7852). FW-7824 strips it from the
+    // connection list, so it would never pass the connected-accounts check and stayed
+    // logged-out — the reason it was missing from the comment compose. Re-include it here so
+    // it is auto-logged-in via the FF wallet. As with Far auto-login, it is added with
+    // setAsCurrent=false (see updateLensAccounts), so it does NOT steal the active Lens
+    // account; it only becomes current when the user has no other Lens account.
+    const fireflyUid = fireflySessionHolder.session?.payload?.uid;
+    const internalLensHandle = fireflyUid ? `ff-${fireflyUid}`.toLowerCase() : undefined;
+    const connectedAccounts = (social[Source.Lens]?.connected || []).flatMap((x) => x.lens || []);
     const filteredManagedProfiles = managedProfiles.filter((profile) => {
-        const connectedAccounts = (social[Source.Lens]?.connected || []).flatMap((x) => x.lens || []);
-        return (
-            !lensProfiles.some((x) => isSameEthereumAddress(x.profileId, profile.profileId)) &&
-            connectedAccounts.some((x) => isSameEthereumAddress(x.id, profile.profileId))
-        );
+        if (lensProfiles.some((x) => isSameEthereumAddress(x.profileId, profile.profileId))) return false;
+        if (connectedAccounts.some((x) => isSameEthereumAddress(x.id, profile.profileId))) return true;
+        if (internalLensHandle && profile.handle.toLowerCase() === internalLensHandle) return true;
+        return false;
     });
     if (!filteredManagedProfiles.length) {
         logger.warn('No managed lens profiles found to login.');

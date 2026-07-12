@@ -24,6 +24,7 @@ import {
     lpt1ItemTag,
     parseLpt1Tags,
     readLpt1Position,
+    readLpt1PositionFromTags,
     WORLD_CUP_TAG,
 } from '@/helpers/lpt1.js';
 
@@ -202,6 +203,50 @@ describe('parseLpt1Tags', () => {
         const parsed = parseLpt1Tags(['lpt1/item/h/qzltb22lvj4jtk2f2x7umzo2oz', LPT1_APP_TAG]);
         expect(parsed.eventSlug).toBeUndefined();
     });
+    test('event slug wins over multi-segment position-field item tags (FW-7899)', () => {
+        // Exact tag set from the FW-7899 bug report: a direct event-slug item key plus
+        // four position-field item tags emitted by another Firefly client. Previously
+        // the last item tag (`outcome/0`) overwrote the slug.
+        const parsed = parseLpt1Tags([
+            LPT1_APP_TAG,
+            LPT1_TOPIC_POLYMARKET,
+            LPT1_TOPIC_POLYMARKET_EVENT,
+            LPT1_TOPIC_POLYMARKET_POSITION,
+            LPT1_SOURCE_POLYMARKET,
+            lpt1ItemTag('fifwc-nor-eng-2026-07-11'),
+            'lpt1/item/marketId/2815607',
+            'lpt1/item/shares/2.8169',
+            'lpt1/item/price/35.49',
+            'lpt1/item/outcome/0',
+        ]);
+        expect(parsed.eventSlug).toBe('fifwc-nor-eng-2026-07-11');
+        expect(parsed.eventSlug).not.toBe('outcome/0');
+        expect(parsed.hasPosition).toBe(true);
+    });
+    test('event slug beats short team-code item keys — longest direct key wins (Orb producer)', () => {
+        // Real Orb (`lpt1/app/orb`) tag set: short team-code item keys (`nor`, `eng`) are
+        // emitted BEFORE the full event slug. The slug is the longest single-segment item
+        // key, so it must win (otherwise the "View game" link points at `/polymarket/event/nor`).
+        const parsed = parseLpt1Tags([
+            'football-game:world-cup-2026-099',
+            'worldcup',
+            'fifa-bot',
+            'prediction-won',
+            'lpt1/app/orb',
+            'lpt1/topic/sports',
+            'lpt1/topic/sports/football',
+            'lpt1/source/football-team',
+            'lpt1/item/nor',
+            'lpt1/item/eng',
+            'lpt1/topic/polymarket',
+            'lpt1/topic/polymarket/event',
+            'lpt1/source/polymarket',
+            'lpt1/item/fifwc-nor-eng-2026-07-11',
+        ]);
+        expect(parsed.eventSlug).toBe('fifwc-nor-eng-2026-07-11');
+        expect(parsed.eventSlug).not.toBe('nor');
+        expect(parsed.app).toBe('orb');
+    });
     test('returns empty result for no tags', () => {
         expect(parseLpt1Tags([])).toEqual({ topics: [], hasPosition: false });
         expect(parseLpt1Tags(undefined)).toEqual({ topics: [], hasPosition: false });
@@ -279,6 +324,54 @@ describe('position attributes', () => {
         expect(round?.shares).toBe(3);
         expect(round?.price).toBe(0.4);
         expect(round?.marketId).toBeUndefined();
+    });
+});
+
+describe('readLpt1PositionFromTags (tag-encoded position fallback, FW-7899)', () => {
+    const positionTags = [
+        'lpt1/item/marketId/2815607',
+        'lpt1/item/shares/2.8169',
+        'lpt1/item/price/35.49',
+        'lpt1/item/outcome/0',
+    ];
+
+    test('parses the four position fields from item tags', () => {
+        const position = readLpt1PositionFromTags(positionTags);
+        expect(position).not.toBeNull();
+        // tag-encoded positions carry no conditionId / outcome label.
+        expect(position?.conditionId).toBe('');
+        expect(position?.outcome).toBe('');
+        expect(position?.outcomeIndex).toBe(0);
+        expect(position?.shares).toBeCloseTo(2.8169, 10);
+        expect(position?.price).toBeCloseTo(0.3549, 10); // cents (35.49) → fraction
+        expect(position?.marketId).toBe('2815607');
+    });
+
+    test('normalises price from cents (0–100) to a 0–1 fraction', () => {
+        expect(readLpt1PositionFromTags(['lpt1/item/price/35.49'])?.price).toBeCloseTo(0.3549, 10);
+        expect(readLpt1PositionFromTags(['lpt1/item/price/0'])?.price).toBe(0);
+        expect(readLpt1PositionFromTags(['lpt1/item/price/100'])?.price).toBe(1);
+    });
+
+    test('reads the No/away outcome index', () => {
+        expect(readLpt1PositionFromTags(['lpt1/item/outcome/1'])?.outcomeIndex).toBe(1);
+    });
+
+    test('returns null when no position item tags are present', () => {
+        expect(readLpt1PositionFromTags([])).toBeNull();
+        expect(readLpt1PositionFromTags(undefined)).toBeNull();
+        expect(readLpt1PositionFromTags([LPT1_APP_TAG, LPT1_TOPIC_POLYMARKET])).toBeNull();
+    });
+
+    test('ignores the event-slug item key and hashed h/… keys', () => {
+        // event slug = single segment (no '/'); hashed = h/… — neither is a position field.
+        expect(
+            readLpt1PositionFromTags([
+                lpt1ItemTag('fifwc-nor-eng-2026-07-11'),
+                'lpt1/item/h/qzltb22lvj4jtk2f2x7umzo2oz',
+                LPT1_APP_TAG,
+            ]),
+        ).toBeNull();
     });
 });
 

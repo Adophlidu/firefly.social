@@ -28,6 +28,7 @@ import { useLocalizedSportsTeamName } from '@/hooks/prediction/useLocalizedSport
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type {
     BetsActivity,
+    PolymarketMarketData,
     SportActivityGameData,
     SportActivityScore,
     SportActivityTeam,
@@ -36,8 +37,22 @@ import type { PenaltyKickOutcome } from '@/types/prediction.js';
 
 const HOME_FALLBACK_COLOR = '#3DC233';
 const AWAY_FALLBACK_COLOR = '#FF3545';
+
+/**
+ * The subset of {@link BetsActivity} this card actually reads. Narrowing the prop type lets callers
+ * (e.g. the Orb timeline converter) supply just these fields instead of fabricating ~110 required
+ * dummy fields across `BetsActivity` + `PolymarketMarketData`. A full `BetsActivity` (with its
+ * required `rawData`) still satisfies this — `rawData` is optional here and the Pick is a superset.
+ */
+export type SportTimelineActivityCardData = Pick<
+    BetsActivity,
+    'platform' | 'volume' | 'slug' | 'conditionOutcomes' | 'conditionOutcomePrices' | 'sportData' | 'gameData'
+> & {
+    rawData?: Partial<Pick<PolymarketMarketData, 'outcomes' | 'outcomePrices' | 'startDateIso' | 'startDate' | 'slug'>>;
+};
+
 interface SportTimelineActivityCardProps {
-    activity: BetsActivity;
+    activity: SportTimelineActivityCardData;
 }
 
 interface TeamViewModel {
@@ -74,13 +89,13 @@ function parseStringArray(value: string | string[] | undefined | null): string[]
     return parsedValue ? normalizeStringArray(parsedValue) : [];
 }
 
-function getOutcomeLabels(activity: BetsActivity) {
+function getOutcomeLabels(activity: SportTimelineActivityCardData) {
     const directLabels = activity.conditionOutcomes ?? [];
     const rawLabels = parseStringArray(activity.rawData?.outcomes);
     return rawLabels.length > directLabels.length ? rawLabels : directLabels;
 }
 
-function getOutcomePrices(activity: BetsActivity) {
+function getOutcomePrices(activity: SportTimelineActivityCardData) {
     const directPrices = activity.conditionOutcomePrices ?? [];
     const rawPrices = parseStringArray(activity.rawData?.outcomePrices);
     return rawPrices.length > directPrices.length ? rawPrices : directPrices;
@@ -133,7 +148,7 @@ function normalizeTeam(
     };
 }
 
-function resolveTeams(activity: BetsActivity, labels: string[]) {
+function resolveTeams(activity: SportTimelineActivityCardData, labels: string[]) {
     const sport = activity.sportData;
     const sportTeams =
         sport?.isDraw && sport.drawTeams?.length === 2
@@ -172,7 +187,7 @@ interface MarketOutcome {
     closed?: boolean;
 }
 
-function resolveMarketOutcomes(activity: BetsActivity) {
+function resolveMarketOutcomes(activity: SportTimelineActivityCardData) {
     const markets = (activity.gameData as SportActivityGameData | undefined)?.markets;
     if (!markets?.length) return null;
 
@@ -236,7 +251,7 @@ function getLatestScores(scores: SportActivityScore[]) {
     return scores.at(-1)?.score;
 }
 
-function resolveWinner(activity: BetsActivity): 'home' | 'away' | 'draw' | undefined {
+function resolveWinner(activity: SportTimelineActivityCardData): 'home' | 'away' | 'draw' | undefined {
     const sport = activity.sportData;
     if (!sport?.ended) return undefined;
 
@@ -265,7 +280,7 @@ function formatVolumeLabel(volume: string | number | undefined) {
     return `$${nFormatter(numericVolume, 2)}`;
 }
 
-function formatStartTime(activity: BetsActivity) {
+function formatStartTime(activity: SportTimelineActivityCardData) {
     const startTime = activity.sportData?.startTime || activity.rawData?.startDateIso || activity.rawData?.startDate;
     if (!startTime) return undefined;
 
@@ -361,7 +376,13 @@ function ProbabilityBar({ outcomes }: { outcomes: OutcomeViewModel[] }) {
     );
 }
 
-function ScoreLine({ activity, winner }: { activity: BetsActivity; winner?: 'home' | 'away' | 'draw' }) {
+function ScoreLine({
+    activity,
+    winner,
+}: {
+    activity: SportTimelineActivityCardData;
+    winner?: 'home' | 'away' | 'draw';
+}) {
     const latestScores = getLatestScores(activity.sportData?.scoreShow ?? []);
     const homeScore = getScoreValue(latestScores, 0);
     const awayScore = getScoreValue(latestScores, 1);
@@ -402,7 +423,7 @@ function TennisScore({ scores }: { scores: SportActivityScore[] }) {
     );
 }
 
-function StatusLine({ activity }: { activity: BetsActivity }) {
+function StatusLine({ activity }: { activity: SportTimelineActivityCardData }) {
     const sport = activity.sportData;
     if (!sport) return null;
 
@@ -438,7 +459,7 @@ function StatusLine({ activity }: { activity: BetsActivity }) {
     ) : null;
 }
 
-function MetaLine({ activity }: { activity: BetsActivity }) {
+function MetaLine({ activity }: { activity: SportTimelineActivityCardData }) {
     const volumeLabel = formatVolumeLabel(activity.volume);
     const metaItems = [volumeLabel, activity.sportData?.leagueName].filter(Boolean);
     if (!metaItems.length) return null;
@@ -451,7 +472,7 @@ function CenterColumn({
     outcomes,
     winner,
 }: {
-    activity: BetsActivity;
+    activity: SportTimelineActivityCardData;
     outcomes: OutcomeViewModel[];
     winner?: 'home' | 'away' | 'draw';
 }) {

@@ -26,6 +26,8 @@ export interface PostActionsMask {
     collect?: boolean;
     bookmark?: boolean;
     comment?: boolean;
+    /** Hide the PostStatistics row (comment/like counts + channel tag). */
+    statistics?: boolean;
 }
 
 interface PostActionsProps extends HTMLProps<HTMLDivElement> {
@@ -99,14 +101,16 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                     <Share key="share" disabled={disabled} post={post} />
                 </div>
             </ClickableArea>
-            <PostStatistics
-                hideDate={hideDate}
-                hideSource={hideDate}
-                isComment={isComment}
-                post={post}
-                showChannelTag={showChannelTag}
-                onSetScrollIndex={onSetScrollIndex}
-            />
+            {!actionsMask?.statistics ? (
+                <PostStatistics
+                    hideDate={hideDate}
+                    hideSource={hideDate}
+                    isComment={isComment}
+                    post={post}
+                    showChannelTag={showChannelTag}
+                    onSetScrollIndex={onSetScrollIndex}
+                />
+            ) : null}
         </footer>
     );
 });
