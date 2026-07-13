@@ -6,7 +6,6 @@ import type { GetMultiChainTokenListResponse, TokenAsset } from '@/providers/typ
 import { settings } from '@/settings/index.js';
 
 export async function getMultiChainTokenList(addresses: string[], chains: number[]) {
-    // cspell: disable-next-line
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/swap/wallet/asset/muti-chain', {
         chains: chains.join(','),
         addresses: addresses.join(','),

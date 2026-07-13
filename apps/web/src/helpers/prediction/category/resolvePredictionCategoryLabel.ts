@@ -1,4 +1,3 @@
-// cspell:ignore Tendencias Nuevos Política Deportes Cripto Irán Finanzas Geopolítica Tecnología Cultura Economía Clima Menciones Elecciones Baloncesto Fútbol Béisbol Tenis Copa Mundo Liga
 import { Locale } from '@dimensiondev/enums';
 
 /**

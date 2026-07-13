@@ -1,5 +1,4 @@
 /** Bitcoin base58 alphabet (also used by Solana). Excludes 0, O, I and l. */
-// cspell:disable-next-line
 const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 
 /**

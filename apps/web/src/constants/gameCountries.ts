@@ -1,4 +1,3 @@
-// cspell:disable — localized country names span many languages (proper nouns)
 import { Locale } from '@dimensiondev/enums';
 
 export interface GameCountryEntry {

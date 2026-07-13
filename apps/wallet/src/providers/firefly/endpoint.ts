@@ -194,7 +194,6 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    // cspell:ignore platorm
     async getWalletProfileInfoList(address: Address, platform: PredictionPlatform, isPolymarketProxy?: boolean) {
         const result = await this.post<WalletProfileInfoListResponse>(`/v2/wallet/profileinfo/list`, {
             walletAddress: [address],

@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import urlcat from 'urlcat';
 
 const BLOCKSCAN_URL = 'https://blockscan.com';

@@ -531,7 +531,6 @@ export enum FileMimeType {
     WEBP = 'image/webp',
     BMP = 'image/bmp',
     MPEG = 'video/mpeg',
-    // cspell: disable-next-line
     MS_VIDEO = 'video/x-msvideo',
     OGG = 'video/ogg',
     WEBM = 'video/webm',

@@ -60,7 +60,6 @@ export async function getAllRelatedProfileInfo(
     isAuthRequired?: boolean,
 ) {
     const params = await resolveRelatedProfileParams(options);
-    // cspell: disable-next-line
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profileinfo', params);
     const response = await fireflySessionHolder.fetch<WalletProfileResponse>(
         url,

@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 'use client';
 
 import { IS_PRODUCTION } from '@dimensiondev/constants';

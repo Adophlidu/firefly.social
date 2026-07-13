@@ -1,4 +1,3 @@
-/* cspell:disable */
 import type {
     BookmarkSource,
     DiscoverSource,

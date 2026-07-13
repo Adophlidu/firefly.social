@@ -1,4 +1,3 @@
-/* cspell:disable */
 export const USDT_ABI = [
     {
         type: 'event',
@@ -95,4 +94,3 @@ export const USDT_ABI = [
         outputs: [{ name: '', type: 'bool' }],
     },
 ] as const;
-/* cspell:enable */

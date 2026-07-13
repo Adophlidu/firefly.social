@@ -1,4 +1,3 @@
-/* cspell:disable */
 interface DebankChain {
     id: string;
     community_id: number;

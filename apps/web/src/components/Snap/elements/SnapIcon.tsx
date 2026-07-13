@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 'use client';
 
 import { classNames } from '@dimensiondev/utils';

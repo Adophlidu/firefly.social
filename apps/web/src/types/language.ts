@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 // Learn more supported languages here:
 // https://api.cognitive.microsofttranslator.com/languages?api-version=3.0
 export enum Language {

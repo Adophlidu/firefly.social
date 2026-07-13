@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { Program, web3 } from '@coral-xyz/anchor';
 import { SOLANA_RPC_URL } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';

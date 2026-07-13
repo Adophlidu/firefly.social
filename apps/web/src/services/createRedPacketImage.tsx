@@ -1,4 +1,3 @@
-/* cspell:disable */
 import type { Locale } from '@dimensiondev/enums';
 import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import satori from 'satori';

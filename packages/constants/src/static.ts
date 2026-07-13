@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 export const SITE_NAME = 'Firefly ✨ Everything App for Web3 Natives';
 export const SITE_DESCRIPTION = "Firefly is a social app for exploring what's happening onchain.";
 export const SITE_HOSTNAME = 'firefly.social';

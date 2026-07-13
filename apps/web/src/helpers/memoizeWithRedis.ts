@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import type { KeyType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { sha256, stringToHex } from 'viem';

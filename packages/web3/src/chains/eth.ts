@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import {
     arbitrum,
     aurora,

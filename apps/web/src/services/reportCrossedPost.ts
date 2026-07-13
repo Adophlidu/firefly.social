@@ -86,7 +86,6 @@ async function report(post: CompositePost) {
                 },
             );
             return fireflySessionHolder.fetch<ReportCrossPostResponse>(
-                // cspell: disable-next-line
                 urlcat(settings.FIREFLY_ROOT_URL, '/api/logpush'),
                 {
                     method: 'POST',

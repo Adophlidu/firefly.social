@@ -1,5 +1,3 @@
-// cspell:disable
-
 import type { ClickOrigin, ProfilePageSource, SocialSource, Source } from '@dimensiondev/enums';
 import type { ExceptionId } from '@dimensiondev/exception-tracker';
 

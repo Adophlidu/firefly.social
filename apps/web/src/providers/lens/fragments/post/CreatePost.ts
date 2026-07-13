@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 export const createPostFragments = `
     mutation CreatePost($request: CreatePostRequest!) {
         post(request: $request) {

@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { CharTag, FireflyPlatform } from '@dimensiondev/enums';
 
 import type { Profile } from '@/providers/types/Firefly.js';

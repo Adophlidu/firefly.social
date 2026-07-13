@@ -36,7 +36,6 @@ export const FARCASTER_DETAIL_REGEX = /^https:\/\/farcaster\.xyz\/([^/]+)\/(0x[a
 export const FARCASTER_TOKEN_PATH_RE = /^\/~\/c\/([^:]+):(0x[a-fA-F0-9]{40})$/;
 
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
-// cspell: disable-next-line
 export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)$/;
 
 export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
@@ -51,7 +50,6 @@ export const FULL_ENS_REGEXP = /^(([a-zA-Z0-9_-]{1,256}\.)+(eth|base\.eth|sol|sk
 
 export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
 
-// cspell: disable-next-line
 export const LIMO_REGEXP = /^https:\/\/vitalik\.eth\.limo\/general\//;
 
 export const MIRROR_ARTICLE_REGEXP = /https?:\/\/mirror\.xyz\/[^/]+\/([^/]+)/;
@@ -71,7 +69,6 @@ export const SPECIAL_TOKEN_SYMBOLS_REGEX = new RegExp(`\\b(${SPECIAL_TOKEN_SYMBO
 // From x api error message: "The `query` query parameter value [x] does not match ^[A-Za-z0-9_' ]{1,50}$ (code: undefined)"
 export const TWITTER_PROFILE_SEARCH_REGEXP = /^[A-Za-z0-9_' ]{1,50}$/;
 
-/* cspell:ignore youtu */
 export const YOUTUBE_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
 export const YOUTUBE_SHORT_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/shorts\/|\.be\/)([\w-]+)(?:\?.*)?$/;
 

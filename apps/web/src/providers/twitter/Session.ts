@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { HIDDEN_SECRET } from '@dimensiondev/constants/static';
 import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError } from '@dimensiondev/utils';

@@ -1,4 +1,3 @@
-/* cspell:disable */
 /**
  * Collect from https://docs.cloud.debank.com/en/readme/api-pro-reference/chain#returns-1
  * To get the full list: `curl https://debank-proxy.r2d2.to/v1/chain/list | jq ".[].id"`

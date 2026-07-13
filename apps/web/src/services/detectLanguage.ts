@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { MIN_CHAR_LENGTH_TO_TRANSLATE } from '@dimensiondev/constants/static';
 import { franc } from 'franc-min';
 

@@ -1,4 +1,3 @@
-// cspell:disable
 const cloudflare = /https:\/\/imagedelivery\.net\/\w+\/[\w-]+\/original/;
 const imgur = /https:\/\/i\.imgur\.com\/[a-zA-Z0-9]+?(?:(?![tmlhsb])[a-zA-Z0-9])\.(?:jpg|png)/;
 const coinGecko = /https:\/\/coin-images\.coingecko\.com\/coins\/images\/(\d+)\/large\/(.+)/;

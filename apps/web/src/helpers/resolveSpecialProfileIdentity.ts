@@ -1,7 +1,5 @@
 import type { Source } from '@dimensiondev/enums';
 
-// cSpell:disable
-
 const NOT_CASE_SENSITIVE: Record<string, string> = {
     realmasknetwork: 'masknetwork',
 };

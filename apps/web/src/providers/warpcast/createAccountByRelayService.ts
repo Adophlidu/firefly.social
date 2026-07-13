@@ -14,7 +14,6 @@ interface FarcasterReplyResponse {
     url: string;
     // the same as url
     connectUri: string;
-    // cspell: disable-next-line
     // example: dpO7VRkrPcwyLhyFZ
     nonce: string;
 }

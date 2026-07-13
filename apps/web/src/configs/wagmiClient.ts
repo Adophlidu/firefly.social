@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 'use client';
 
 import { ETHEREUM_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL, ROBINHOOD_RPC_URL } from '@dimensiondev/constants/static';

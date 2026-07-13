@@ -9,7 +9,6 @@ import { settings } from '@/settings/index.js';
 
 export async function getTopSearchTokens({ indicator }: { indicator?: PageIndicator } = {}) {
     const page = !indicator?.id || indicator.id === '0' ? 1 : Number(indicator.id);
-    // cspell: disable-next-line
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/topsearch', {
         page,
     });

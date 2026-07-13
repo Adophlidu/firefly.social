@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NEYNAR_URL } from '@dimensiondev/constants/static';
 import urlcat from 'urlcat';

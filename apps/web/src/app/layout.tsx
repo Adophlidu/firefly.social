@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import '@/app/globals.css';
 
 import { IS_PRODUCTION } from '@dimensiondev/constants';

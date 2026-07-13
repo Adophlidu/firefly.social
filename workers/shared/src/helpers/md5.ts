@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 interface HasherState {
     buffer: string;
     buflen: number;

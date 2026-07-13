@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 export const TWITTER_TIMELINE_WHITELIST_UID_SET: ReadonlySet<string> = new Set([
     '1242864733', // x: @YourAirdropETH
     '1256554211', // x: @sleepy0x13

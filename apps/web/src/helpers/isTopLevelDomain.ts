@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { parseUrl } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
 

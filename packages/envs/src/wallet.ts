@@ -1,4 +1,3 @@
-/* cspell:disable */
 import type { NODE_ENV } from '@dimensiondev/enums';
 import { STATUS, VERCEL_ENV } from '@dimensiondev/enums';
 import { z } from 'zod';

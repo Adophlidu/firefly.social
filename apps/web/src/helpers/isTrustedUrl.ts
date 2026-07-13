@@ -1,4 +1,3 @@
-// cspell: disable
 import { parseUrl } from '@dimensiondev/utils';
 import type { LinkProps } from 'next/link.js';
 

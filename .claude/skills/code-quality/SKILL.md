@@ -1,22 +1,21 @@
 ---
 name: code-quality
-description: Firefly code-quality standards — lint (ESLint 9 flat config via Turbo), type check (tsgo), tests (Vitest), spellcheck (cspell), comment conventions, naming, single responsibility, avoiding over-abstraction. Use when writing new code, refactoring, fixing lint warnings, or preparing changes for commit. All comments must be English.
+description: Firefly code-quality standards — lint (ESLint 9 flat config via Turbo), type check (tsgo), tests (Vitest), comment conventions, naming, single responsibility, avoiding over-abstraction. Use when writing new code, refactoring, fixing lint warnings, or preparing changes for commit. All comments must be English.
 allowed-tools: Read, Grep, Glob, Bash
 ---
 
 # Firefly Code Quality
 
-Linting, type checking, testing, spellcheck, comments, and general code-quality standards for firefly. Apply when authoring code; consult before committing.
+Linting, type checking, testing, comments, and general code-quality standards for firefly. Apply when authoring code; consult before committing.
 
 ## Verification Commands
 
-The four checks firefly's CI gates on:
+The three checks firefly's CI gates on:
 
 ```bash
 pnpm typecheck    # tsgo --noEmit, via Turbo (fast)
 pnpm lint         # ESLint 9 flat config, via Turbo
 pnpm test         # Vitest (apps/web/tests/, packages/*/test/)
-npx cspell --no-progress "**/*"   # spellcheck (run by CI)
 ```
 
 There is **no** husky / lint-staged setup in firefly. The fast path for local pre-commit is either:
@@ -226,25 +225,6 @@ async function refreshSession() {}
 export const PostCard = memo(function PostCard(props: PostCardProps) { ... });
 ```
 
-## Spellcheck
-
-cspell config lives at `cspell.json` (root). Words are listed in the `words` array:
-
-```bash
-# Check if a word is already accepted
-grep -i "<yourword>" cspell.json
-
-# Run spellcheck on the project (matches CI)
-npx cspell --no-progress "**/*"
-
-# Run on changed files only (faster while iterating)
-git diff --name-only origin/main...HEAD | xargs -I{} npx cspell --no-progress "{}"
-```
-
-To add a new technical term, append it to the `words` array in `cspell.json` (keep alphabetical order). For known typos that can't be fixed (e.g. in a third-party API field name), add the word with a brief explanation in a sibling commit message — there's no inline comment mechanism in JSON.
-
-Decision rule: **add to cspell only if** the word is a real technical term (chain name, protocol, library, brand). If it's a typo in your own code, fix the spelling instead.
-
 ## Checklist
 
 Before opening a PR:
@@ -252,7 +232,6 @@ Before opening a PR:
 - [ ] `pnpm typecheck` passes
 - [ ] `pnpm lint` passes (or `npx eslint . --fix --cache` then re-check)
 - [ ] `pnpm test` passes for touched packages
-- [ ] `npx cspell --no-progress "**/*"` passes (or new technical terms added to `cspell.json`)
 - [ ] All comments are in English
 - [ ] No commented-out code
 - [ ] No relative `../` imports; `@/` imports include `.js` extension
@@ -266,7 +245,6 @@ Before opening a PR:
 ## Detailed Guides
 
 - [references/fix-lint.md](references/fix-lint.md) — per-ESLint-rule fix recipes (firefly's plugins: layer zones, no-relative-import-paths, tailwindcss, simple-import-sort, unused-imports, react-hooks, etc.)
-- [references/cspell-workflow.md](references/cspell-workflow.md) — add-word workflow, known-typo handling, ordering convention
 
 ## Related Skills
 

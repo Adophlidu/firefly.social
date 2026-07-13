@@ -236,7 +236,6 @@ Firefly CI blocks on:
 | `typecheck`  | `typecheck.yml`               | `npm run typecheck` (tsgo via turbo) |
 | `eslint`     | `eslint.yml`                  | `npx eslint . --quiet --cache`       |
 | `test`       | `test.yaml`                   | `pnpm run test` (Vitest)             |
-| `spellcheck` | `cspell.yml`                  | `npx cspell --no-progress "**/*"`    |
 | `validate`   | `conventional-commits.yml`    | PR title conventional commit format  |
 | `publish`    | `jira-issue-key-checking.yml` | PR title contains `FW-XXX`           |
 

@@ -39,7 +39,6 @@
         "@typescript/lib-dom": "npm:@types/web@^0.0.350",
         "typescript": "npm:@typescript/typescript6@^6.0.0",
         "typescript-7": "npm:typescript@rc",
-        "cspell": "^7.3.9",
         "eslint": "^9.39.4",
         "eslint-config-next": "16.0.11",
         "eslint-import-resolver-typescript": "^3.10.1",

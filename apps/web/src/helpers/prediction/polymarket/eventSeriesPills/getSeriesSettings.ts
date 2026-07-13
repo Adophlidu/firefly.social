@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import {
     ALLOWED_PREFIXES,
     DAILY_UP_OR_DOWN_EXTRA_PREFIXES,

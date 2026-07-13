@@ -22,7 +22,7 @@ To run a single test file (faster than the full suite):
 pnpm --filter @dimensiondev/firefly-web exec vitest run tests/<path>
 ```
 
-CI blocks on: typecheck, lint, vitest, cspell, conventional commits.
+CI blocks on: typecheck, lint, vitest, conventional commits.
 
 ## Other Commands
 
@@ -87,7 +87,6 @@ See `/architecture` for the full layer diagram, package list, violation examples
 - **Commit format**: `feat(scope): description` / `fix(scope):` / `chore(scope):`
 - ❌ NEVER commit directly to `origin/main` or `released` — create a feature branch first (`feat/...`, `fix/...`, etc.)
 - ❌ Do NOT include AI tool attribution lines in commit messages
-- cspell checks commit messages — add new technical terms to `cspell.json`
 - ✅ Before creating a PR, run a code review pass on the diff (`/code-review`, or the `code-review-pr` skill for the full Firefly checklist) and fix confirmed findings first
 - ✅ PR bodies must follow `.github/PULL_REQUEST_TEMPLATE.md` (`Closes FW-XXXX` first line, Description, Screenshots for visual changes, the `Ready?` checklist). Passing `--body` to `gh pr create` overrides GitHub's auto-fill, so reproduce the template yourself. Never check the "Manually verified" box without user confirmation.
 

@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { type NextRequest, NextResponse } from 'next/server.js';
 

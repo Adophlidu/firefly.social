@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { IS_PREVIEW } from '@dimensiondev/constants';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@dimensiondev/constants/static';
 import { Locale } from '@dimensiondev/enums';

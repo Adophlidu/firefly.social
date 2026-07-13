@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 export const DEFAULT_SERVICE_URL = 'https://bsky.social';
 export const DEFAULT_DID_SERVICE_URL = 'https://waxcap.us-west.host.bsky.network';
 export const PUBLIC_SERVICE_URL = 'https://public.api.bsky.app';

@@ -48,7 +48,6 @@ Many rules (`simple-import-sort/imports`, `tailwindcss/classnames-order`, `unuse
 | React hooks deps          | `react-hooks/exhaustive-deps`                       | ⚠️ partial | Add missing dep, or extract callback          |
 | Layer-zone violation      | `firefly/import-architecture-zones` (or similar)    | ❌         | Restructure imports (see `/architecture`)     |
 | Workspace layer violation | `firefly/package-layer-boundaries` (or similar)     | ❌         | Move shared code to a lower layer             |
-| Spellcheck                | (no eslint integration — cspell runs separately)    | ❌         | Add word or fix typo                          |
 
 ### Step 3: Verify
 
@@ -225,22 +224,6 @@ import { something } from '@dimensiondev/utils';
 - `unicorn/filename-case` — match the project's casing convention (PascalCase for components, kebab-case for everything else).
 
 When a unicorn rule conflicts with project convention, **don't disable in-line**. File a discussion to disable the rule in the eslint config so the convention is consistent.
-
----
-
-## Spellcheck (`cspell`)
-
-cspell is a separate tool, not an ESLint rule, but its CI failures look like lint failures so they're worth covering here.
-
-```bash
-# Match what CI runs
-npx cspell --no-progress "**/*"
-
-# Faster: only changed files
-git diff --name-only origin/main...HEAD | xargs -I{} npx cspell --no-progress "{}"
-```
-
-To add a legitimate technical term, append it to the `words` array in `cspell.json` at the repo root. See [cspell-workflow.md](cspell-workflow.md) for the full add-word workflow, ordering convention, and how to handle known typos (e.g. in third-party API field names).
 
 ---
 

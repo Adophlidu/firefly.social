@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 /** Polymarket `HOURLY_UP_OR_DOWN_PREFIXES` (module 162923). */
 export const HOURLY_UP_OR_DOWN_PREFIXES = [
     'bitcoin-up-or-down',

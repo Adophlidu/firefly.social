@@ -1,6 +1,6 @@
 ---
 name: monitor-pr-ci
-description: Monitors a Firefly PR's CI checks and review comments until all pass and issues are resolved. Auto-fixes CI failures (typecheck, eslint, vitest, cspell), addresses inline review comments, replies, and resolves threads. Use when watching CI status, waiting for checks to pass, fixing CI errors, or resolving review feedback on a pull request.
+description: Monitors a Firefly PR's CI checks and review comments until all pass and issues are resolved. Auto-fixes CI failures (typecheck, eslint, vitest), addresses inline review comments, replies, and resolves threads. Use when watching CI status, waiting for checks to pass, fixing CI errors, or resolving review feedback on a pull request.
 disable-model-invocation: true
 argument-hint: '<PR number or URL> [polling interval]'
 ---
@@ -127,7 +127,6 @@ CI Status:
 | typecheck   | pass    | 2m04s    |
 | eslint      | pending | -        |
 | test        | pass    | 1m12s    |
-| spellcheck  | pass    | 0m18s    |
 | validate    | pass    | 0m02s    |
 | publish     | pass    | 0m02s    |
 
@@ -152,7 +151,6 @@ Firefly CI check names and the workflow file each belongs to:
 | `typecheck`  | `.github/workflows/typecheck.yml`               | `pnpm typecheck`                                           |
 | `eslint`     | `.github/workflows/eslint.yml`                  | Scoped `eslint --fix` on PR-changed files (see Step 2)     |
 | `test`       | `.github/workflows/test.yaml`                   | `pnpm test`                                                |
-| `spellcheck` | `.github/workflows/cspell.yml`                  | Add new words to `cspell.json`                             |
 | `validate`   | `.github/workflows/conventional-commits.yml`    | Fix PR title to conventional format                        |
 | `publish`    | `.github/workflows/jira-issue-key-checking.yml` | Add `FW-XXX` to PR title                                   |
 
@@ -199,7 +197,6 @@ For each failed check:
         - direct `next/image` / `next/link` imports — switch to `@/esm/Image.js` etc.
         - `clsx` / template-literal class names — switch to `classNames` from `@dimensiondev/utils`
     - **`test` failures**: Run `pnpm test` locally. Fix tests at their source, not by changing the expectations.
-    - **`spellcheck` failures**: Add the unknown word(s) to `cspell.json` if legitimate, otherwise fix the spelling.
     - **`validate` failures** (conventional commits): Update the PR title to `type(scope): description` format via `gh pr edit <PR> --title "..."`.
     - **`publish` failures** (Jira key missing): Append `FW-XXX` to the PR title. If no Jira issue exists, ask the user before proceeding.
 
@@ -319,7 +316,6 @@ CI:
 | typecheck   | pass   | 2m04s    |
 | eslint      | pass   | 1m45s    |
 | test        | pass   | 1m12s    |
-| spellcheck  | pass   | 0m18s    |
 | validate    | pass   | 0m02s    |
 | publish     | pass   | 0m02s    |
 

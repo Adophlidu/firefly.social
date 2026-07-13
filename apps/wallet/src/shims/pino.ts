@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 // src/shims/pino.ts
 const noop = (...args: unknown[]) => {
     console.warn('Pino logger is not available in this environment. Please install pino to enable logging.', ...args);

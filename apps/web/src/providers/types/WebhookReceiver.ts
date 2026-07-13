@@ -1,4 +1,3 @@
-/* cspell:disable */
 export interface NotificationUser {
     id: string;
     id_str?: string;

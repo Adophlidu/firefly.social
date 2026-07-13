@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { SITE_URL } from '@dimensiondev/envs/web';
 import type { Font, FontStyle, FontWeight } from 'satori';
 import urlcat from 'urlcat';

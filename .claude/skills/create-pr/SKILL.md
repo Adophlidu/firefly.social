@@ -49,7 +49,7 @@ git branch --show-current
 
 ### 3. Pre-checks (match Firefly's CI)
 
-Run before committing. Firefly's CI blocks on `typecheck`, `eslint`, `test`, `spellcheck`, and conventional-commits validation.
+Run before committing. Firefly's CI blocks on `typecheck`, `eslint`, `test`, and conventional-commits validation.
 
 ```bash
 pnpm typecheck   # tsgo, fast
@@ -85,7 +85,6 @@ Common Firefly scopes: `web`, `wallet`, `rn-ui`, `utils`, `constants`, `exceptio
 - Keep the first line ≤ 72 characters.
 - NEVER add `Co-Authored-By: Claude` or any AI attribution.
 - One commit per logical concern. Suggest splitting if multiple unrelated changes are staged.
-- cspell checks commit messages — propose `cspell.json` additions for new technical terms.
 
 ### 5. Push to Remote
 

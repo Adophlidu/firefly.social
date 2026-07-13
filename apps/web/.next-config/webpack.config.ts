@@ -1,4 +1,3 @@
-/* cspell:disable */
 /* eslint-disable no-relative-import-paths/no-relative-import-paths */
 
 import { createRequire } from 'module';

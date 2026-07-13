@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import type { ChainControllerState, WcWallet } from '@reown/appkit';
 import {
     ChainController as CoreChainController,

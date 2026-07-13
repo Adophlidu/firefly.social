@@ -17,8 +17,8 @@ const identity = parseLink(
 // { kind: 'post', source: 'lens', id: '754657…851', sid: '2296550846' } — or null if not a
 // production-host post/profile link.
 
-const hash = await computeHash(identity); // 'jBXQNDxHpn' cspell:disable-line
-formatShortLink(hash); // 'https://firefly.social/i/jBXQNDxHpn' cspell:disable-line
+const hash = await computeHash(identity); // 'jBXQNDxHpn'
+formatShortLink(hash); // 'https://firefly.social/i/jBXQNDxHpn'
 ```
 
 ## The contract is frozen

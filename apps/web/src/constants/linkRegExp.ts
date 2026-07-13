@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 // https://github.com/prosekit/prosekit/blob/master/packages/extensions/src/link/link-regex.ts
 
 var TLD_RE_PATTERN =

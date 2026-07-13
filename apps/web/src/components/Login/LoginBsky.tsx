@@ -1,6 +1,5 @@
 'use client';
 
-/* cspell:disable */
 import type { AuthFactorTokenRequiredError } from '@atproto/api/dist/client/types/com/atproto/server/createSession.js';
 import AtIcon from '@dimensiondev/assets/at.svg';
 import GlobalIcon from '@dimensiondev/assets/global.svg';

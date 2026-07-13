@@ -7,7 +7,7 @@ const defaultAllowedOriginRegexps = [
     /^https?:\/\/firefly\.social$/,
     /^https?:\/\/[\w-]+\.firefly\.social$/,
     /^https?:\/\/[\w-]+-dimension-dev\.vercel\.app$/,
-    /^chrome-extension:\/\/jkoeaghipilijlahjplgbfiocjhldnap$/, // cspell:disable-line
+    /^chrome-extension:\/\/jkoeaghipilijlahjplgbfiocjhldnap$/,
     /^https?:\/\/poc?ker-lab\.vercel\.app$/,
     /^https?:\/\/angleo\.poker$/,
 ];

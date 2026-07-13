@@ -1,4 +1,3 @@
-/* cspell:disable */
 /// <reference lib="webworker" />
 
 importScripts('https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js');

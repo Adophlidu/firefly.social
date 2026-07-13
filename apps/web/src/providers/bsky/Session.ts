@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import type { AtpSessionData } from '@atproto/api';
 import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError } from '@dimensiondev/utils';

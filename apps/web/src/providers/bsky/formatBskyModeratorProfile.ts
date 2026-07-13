@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { Source } from '@dimensiondev/enums';
 
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';

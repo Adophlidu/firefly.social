@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 // #region Snap Actions
 
 export interface SnapSubmitAction {

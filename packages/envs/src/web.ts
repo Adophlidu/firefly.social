@@ -1,4 +1,3 @@
-/* cspell:disable */
 import type { NODE_ENV, RequestedLoginSource, SocialSource } from '@dimensiondev/enums';
 import { NODE_ENV as NodeEnv, Source, STATUS, VERCEL_ENV } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';

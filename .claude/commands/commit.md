@@ -40,7 +40,6 @@ Helps create well-formatted commits with pre-checks and conventional commit mess
 - ❌ Do NOT add "Co-Authored-By: Claude" or any AI attribution
 - ❌ Do NOT commit if typecheck or lint fails (unless user explicitly asks)
 - ✅ One commit per logical concern — suggest splitting if multiple concerns detected
-- ✅ cspell checks commit messages — propose `cspell.json` additions for new technical terms
 - ✅ Keep first line under 72 characters
 
 ## Branch Naming

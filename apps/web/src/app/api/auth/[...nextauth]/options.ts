@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 import { NODE_ENV } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import type { AuthOptions } from 'next-auth';
