@@ -8,6 +8,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { memo, useState } from 'react';
 
 import { OrbCommentCell } from '@/components/Posts/OrbCommentCell.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -36,23 +37,33 @@ export const OrbReplies = memo(function OrbReplies({ post, teams }: OrbRepliesPr
     const [expanded, setExpanded] = useState(false);
     const [visibleCount, setVisibleCount] = useState(REPLIES_PAGE_INCREMENT);
 
+    // Eagerly fetch the first page of replies. Lens's denormalized
+    // `stats.comments` undercounts Orb reply threads — a post can carry real
+    // replies while `stats.comments === 0` (verified against postReferences),
+    // so the stat can't gate the "View N replies" toggle. The reply graph
+    // (getCommentsById) is the only reliable existence/count signal here. One
+    // cached request per comment; expanding later reuses the same cache.
     const queryResult = useInfiniteQuery({
         queryKey: ['posts', Source.Lens, 'orb-replies', post.postId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(Source.Lens, resolveProviderOptions(Source.Lens, pageParam));
             return provider.getCommentsById(post.postId, createIndicator(undefined, pageParam));
         },
-        enabled: expanded,
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => data.pages.flatMap((x) => x.data),
+        staleTime: STALE_TIMES.MINUTE_5,
     });
 
     const replies = queryResult.data ?? EMPTY_LIST;
-    const declaredCount = post.stats?.comments ?? 0;
+    // `stats.comments` is the claimed total but unreliable for Orb threads;
+    // `replies.length` is the verified floor (fetched first page). Take the max
+    // so the toggle shows whenever replies exist and never under-displays a
+    // count we've actually verified.
+    const replyCount = Math.max(post.stats?.comments ?? 0, replies.length);
 
     if (!expanded) {
-        if (declaredCount <= 0) return null;
+        if (replyCount <= 0) return null;
         return (
             <div className="ml-[52px] flex flex-col gap-2" onClick={stopPropagation}>
                 <button
@@ -60,7 +71,7 @@ export const OrbReplies = memo(function OrbReplies({ post, teams }: OrbRepliesPr
                     className="w-fit text-medium font-bold text-highlight"
                     onClick={() => setExpanded(true)}
                 >
-                    <Plural value={declaredCount} one="View # reply" other="View # replies" />
+                    <Plural value={replyCount} one="View # reply" other="View # replies" />
                 </button>
             </div>
         );

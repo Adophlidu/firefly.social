@@ -2767,11 +2767,6 @@ msgstr "下一步"
 msgid "Failed to send."
 msgstr "發布失敗。"
 
-#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
-msgid "View # reply"
-msgid_plural "View # replies"
-msgstr[0] "查看 # 則回覆"
-
 msgid "Matters article"
 msgstr "Matters 文章"
 
@@ -4797,6 +4792,11 @@ msgstr "此迷你應用程式僅限在 Farcaster 內運行。請在該處開啟�
 
 msgid "Standard"
 msgstr "標準"
+
+#. js-lingui:icu=%7BreplyCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=replyCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] ""
 
 msgid "Emoji"
 msgstr "表情"

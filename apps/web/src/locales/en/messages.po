@@ -2781,12 +2781,6 @@ msgstr "Next"
 msgid "Failed to send."
 msgstr "Failed to send."
 
-#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
-msgid "View # reply"
-msgid_plural "View # replies"
-msgstr[0] "View # reply"
-msgstr[1] "View # replies"
-
 msgid "Matters article"
 msgstr "Matters article"
 
@@ -4823,6 +4817,12 @@ msgstr "This mini app works only inside Farcaster. Open it there to check it out
 
 msgid "Standard"
 msgstr "Standard"
+
+#. js-lingui:icu=%7BreplyCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=replyCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] "View # reply"
+msgstr[1] "View # replies"
 
 msgid "Emoji"
 msgstr "Emoji"

@@ -2767,11 +2767,6 @@ msgstr "다음"
 msgid "Failed to send."
 msgstr "전송에 실패했습니다."
 
-#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
-msgid "View # reply"
-msgid_plural "View # replies"
-msgstr[0] "답글 #개 보기"
-
 msgid "Matters article"
 msgstr "Matters 아티클"
 
@@ -4797,6 +4792,11 @@ msgstr "이 미니 앱은 Farcaster 내에서만 작동합니다. Farcaster에�
 
 msgid "Standard"
 msgstr "표준"
+
+#. js-lingui:icu=%7BreplyCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=replyCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] ""
 
 msgid "Emoji"
 msgstr "이모지"
