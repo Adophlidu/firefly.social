@@ -4,7 +4,7 @@
     "tasks": {
         "build": {
             "dependsOn": ["$TURBO_EXTENDS$", "lingui"],
-            "outputs": [".vercel/**"]
+            "cache": false
         },
         "lingui": {
             "outputs": ["src/locales/**/*.ts"],
