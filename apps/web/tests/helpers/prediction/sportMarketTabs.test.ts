@@ -223,3 +223,55 @@ describe('getSportMarketTabs — Team to Advance (knockout soccer)', () => {
         expect(section!.renderAs).toBe(SportMarketGroupType.Moneyline);
     });
 });
+
+describe('getSportMarketTabs — LoL novelty markets dropped to match Polymarket (FW-7861)', () => {
+    const blueTeam: SportTeam = { name: 'T1', abbreviation: 't1', color: '#E2012D' };
+    const redTeam: SportTeam = { name: 'GenG', abbreviation: 'geng', color: '#AA824F' };
+
+    const noveltyTypes = [
+        'lol_both_teams_baron',
+        'lol_both_teams_dragon',
+        'lol_both_teams_inhibitors',
+        'lol_quadra_kill',
+        'lol_penta_kill',
+    ];
+
+    it('drops the game_N_-prefixed novelty markets so per-game tabs only show Polymarket types', () => {
+        const markets = [
+            // The three Polymarket-rendered per-game types
+            mk({ sportsMarketType: 'game_1_first_blood_game', question: 'Game 1: First Blood?' }),
+            mk({ sportsMarketType: 'game_1_kill_over_under_game', question: 'Game 1: Kill Totals' }),
+            mk({
+                sportsMarketType: 'game_1_lol_odd_even_total_kills',
+                question: 'Game 1: Odd/Even Total Kills',
+            }),
+            // The five novelty types Polymarket loads but does NOT render (prefixed form)
+            ...noveltyTypes.map((type) => mk({ sportsMarketType: `game_1_${type}`, question: `Game 1: ${type}` })),
+        ];
+        const tabs = getSportMarketTabs(markets, blueTeam, redTeam);
+        const allSectionTypes = tabs.flatMap((t) => t.sections.map((s) => s.sportsMarketType));
+
+        // None of the novelty types render in any tab (bare or game_1_-prefixed).
+        for (const type of noveltyTypes) {
+            expect(allSectionTypes).not.toContain(type);
+            expect(allSectionTypes).not.toContain(`game_1_${type}`);
+        }
+
+        // The three Polymarket-rendered per-game types still render under the Game 1 tab.
+        const game1 = tabs.find((t) => t.key === 'game-1');
+        expect(game1).toBeDefined();
+        const game1Types = game1!.sections.map((s) => s.sportsMarketType);
+        expect(game1Types).toContain('game_1_first_blood_game');
+        expect(game1Types).toContain('game_1_kill_over_under_game');
+        expect(game1Types).toContain('game_1_lol_odd_even_total_kills');
+    });
+
+    it('also drops the bare (non-prefixed) novelty types', () => {
+        const markets = noveltyTypes.map((type) => mk({ sportsMarketType: type, question: 'Game 1: novelty' }));
+        const tabs = getSportMarketTabs(markets, blueTeam, redTeam);
+        const allSectionTypes = tabs.flatMap((t) => t.sections.map((s) => s.sportsMarketType));
+        for (const type of noveltyTypes) {
+            expect(allSectionTypes).not.toContain(type);
+        }
+    });
+});

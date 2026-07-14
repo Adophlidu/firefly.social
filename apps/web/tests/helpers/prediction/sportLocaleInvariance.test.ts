@@ -13,8 +13,10 @@ import { PredictionPlatform } from '@dimensiondev/enums';
 import { describe, expect, it } from 'vitest';
 
 import { extractPlayerName, extractTeamName, playerGroupKey } from '@/helpers/prediction/sportMarketTabs.js';
-import { mergeSportGroupedMarkets } from '@/providers/firefly/prediction/formatEvents.js';
+import { formatPolymarketEvent, mergeSportGroupedMarkets } from '@/providers/firefly/prediction/formatEvents.js';
 import type {
+    PolymarketEvent,
+    PolymarketMarket,
     PolymarketSportDetail,
     PolymarketSportGroupedMarket,
     PolymarketSportGroupedMarketItem,
@@ -113,6 +115,68 @@ function buildEvent(): BetsEventDataForUI {
     };
 }
 
+/** Minimal Gamma (PolymarketEvent) market with required fields pre-filled. */
+function gammaMarket(overrides: Partial<PolymarketMarket>): PolymarketMarket {
+    return {
+        id: 'm-id',
+        question: '',
+        conditionId: 'cond',
+        slug: '',
+        endDate: '',
+        createdAt: '',
+        liquidity: '0',
+        image: '',
+        icon: '',
+        description: '',
+        outcomes: '[]',
+        outcomePrices: '[]',
+        volume: '0',
+        active: true,
+        closed: false,
+        new: false,
+        negRisk: false,
+        umaResolutionStatus: '',
+        umaResolutionStatuses: '[]',
+        groupItemTitle: '',
+        groupItemThreshold: '0',
+        clobTokenIds: '[]',
+        oneDayPriceChange: '0',
+        oneWeekPriceChange: '0',
+        events: [],
+        orderPriceMinTickSize: '0',
+        ...overrides,
+    };
+}
+
+/** Minimal Gamma event wrapping the given markets. */
+function gammaEvent(markets: PolymarketMarket[]): PolymarketEvent {
+    return {
+        id: 'e-id',
+        slug: LOL_SLUG,
+        title: 'LoL',
+        description: '',
+        startDate: '',
+        creationDate: '',
+        endDate: '',
+        image: '',
+        icon: '',
+        active: true,
+        closed: false,
+        archived: false,
+        new: false,
+        liquidity: '0',
+        volume: '0',
+        openInterest: '0',
+        createdAt: '',
+        updatedAt: '',
+        negRisk: false,
+        sortBy: '',
+        markets,
+        series: [],
+        tags: [],
+    };
+}
+
 describe('sport-market classification is locale-invariant', () => {
     describe.each(LOCALES)('locale %s', (locale) => {
         it('merges first-to-score into one 3-outcome market from translated binary markets', () => {
@@ -159,5 +223,127 @@ describe('sport-market classification is locale-invariant', () => {
             // (zh gte3 uses "：", ja gte2 uses ":").
             expect(extractPlayerName(mk({ title: titles[0] }))).toBe('Breel Embolo');
         });
+    });
+});
+
+// Real fixtures from the LoL sport-detail API (event lol-ly-tsw-2026-07-08). The backend
+// translates groupItemTitle per locale but keeps the slug English with a "-gameN-" segment,
+// and eventSlugs only carries the series slug — so per-game tab routing must come from the item
+// slug, not the localized title. The "-gameN-" form (no dash before the digit) is what Polymarket
+// actually emits; the regex must tolerate it as well as "-game-N-".
+const LOL_SLUG = 'lol-ly-tsw-2026-07-08';
+
+function lolItem(type: string, gameNum: number, groupItemTitle: string): PolymarketSportGroupedMarketItem {
+    return {
+        id: `${type}-game${gameNum}-id`,
+        slug: `${LOL_SLUG}-game${gameNum}-${type.replace(/_/g, '-')}`,
+        eventSlug: LOL_SLUG,
+        groupItemTitle,
+        outcomes: ['是', '否'],
+        outcomePrices: ['0.5', '0.5'],
+        clobTokenIds: [`${type}-a`, `${type}-b`],
+        volumeClob: 1000,
+    };
+}
+
+describe('esports per-game routing is locale-invariant (slug-driven)', () => {
+    it.each([
+        ['en', 'First Blood in Game 4?'],
+        ['zh', '游戏4一血？'],
+    ])('prefixes per-game types from the slug, not the %s groupItemTitle', (_locale, firstBloodTitle) => {
+        const detail: PolymarketSportDetail = {
+            slug: LOL_SLUG,
+            // Backend returns only the series slug → slugToGameNumber map is empty, so routing
+            // falls to the item slug (locale-independent), not the localized title.
+            eventSlugs: [LOL_SLUG],
+            groupedMarkets: [
+                { sportsMarketType: 'first_blood_game', markets: [lolItem('first_blood_game', 4, firstBloodTitle)] },
+                {
+                    sportsMarketType: 'kill_over_under_game',
+                    markets: [lolItem('kill_over_under_game', 4, '第四局总击杀数大于/小于33.5？')],
+                },
+                {
+                    sportsMarketType: 'lol_odd_even_total_kills',
+                    markets: [lolItem('lol_odd_even_total_kills', 1, '总击杀数奇/偶')],
+                },
+            ],
+        };
+
+        const result = mergeSportGroupedMarkets(buildEvent(), detail);
+        const types = result.markets.map((m) => m.sportsMarketType);
+
+        // Identical prefixes in en and zh — driven by the slug, not the localized title.
+        expect(types).toContain('game_4_first_blood_game');
+        expect(types).toContain('game_4_kill_over_under_game');
+        expect(types).toContain('game_1_lol_odd_even_total_kills');
+        // Bare (un-prefixed) types must NOT leak into the default tab.
+        expect(types).not.toContain('first_blood_game');
+        expect(types).not.toContain('lol_odd_even_total_kills');
+    });
+
+    it('derives the child_moneyline line from the slug when the title is localized (zh)', () => {
+        const itemId = 'cm-game1-id';
+        const detail: PolymarketSportDetail = {
+            slug: LOL_SLUG,
+            eventSlugs: [LOL_SLUG],
+            groupedMarkets: [
+                {
+                    sportsMarketType: 'child_moneyline',
+                    markets: [
+                        {
+                            id: itemId,
+                            slug: `${LOL_SLUG}-game1`,
+                            eventSlug: LOL_SLUG,
+                            groupItemTitle: '第一局胜者',
+                            outcomes: ['里昂', '秘密鲸鱼队'],
+                            outcomePrices: ['0.5', '0.5'],
+                            clobTokenIds: ['cm-a', 'cm-b'],
+                            volumeClob: 1000,
+                        },
+                    ],
+                },
+            ],
+        };
+        // Phase 2 matches the Gamma market by id and applies the slug-derived line.
+        const event = { ...buildEvent(), markets: [mk({ id: itemId, sportsMarketType: 'child_moneyline' })] };
+
+        const result = mergeSportGroupedMarkets(event, detail);
+        const cm = result.markets.find((m) => m.sportsMarketType === 'child_moneyline');
+        expect(cm).toBeDefined();
+        // Line switcher shows "1", not "0".
+        expect(cm?.line).toBe(1);
+    });
+});
+
+describe('formatPolymarketEvent — series types are never game-prefixed', () => {
+    // Real Gamma fixtures from lol-ly-tsw-2026-07-08. child_moneyline's slug carries "-gameN-" but
+    // it is a SERIES type → must stay un-prefixed so it merges into one Series Lines section with a
+    // line switcher (matching Polymarket), not split into "Game N 第 N 局胜者" per-game tabs.
+    it('keeps child_moneyline un-prefixed even though its slug contains -gameN-', () => {
+        const event = gammaEvent([
+            gammaMarket({
+                id: 'cm-game1',
+                sportsMarketType: 'child_moneyline',
+                slug: `${LOL_SLUG}-game1`,
+                question: 'LoL: LYON vs Team Secret Whales - Game 1 Winner',
+                groupItemTitle: 'Game 1 Winner',
+            }),
+            gammaMarket({
+                id: 'fb-game4',
+                sportsMarketType: 'first_blood_game',
+                slug: `${LOL_SLUG}-game4-first-blood`,
+                question: 'LoL: LYON vs Team Secret Whales - Game 4 First Blood',
+                groupItemTitle: 'First Blood in Game 4?',
+            }),
+        ]);
+
+        const result = formatPolymarketEvent(event);
+        const types = result.markets.map((m) => m.sportsMarketType);
+
+        // child_moneyline stays un-prefixed → one Series Lines section with a line switcher.
+        expect(types).toContain('child_moneyline');
+        expect(types).not.toContain('game_1_child_moneyline');
+        // Per-game fun types ARE still prefixed from the slug.
+        expect(types).toContain('game_4_first_blood_game');
     });
 });

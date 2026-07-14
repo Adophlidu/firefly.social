@@ -76,3 +76,18 @@ describe('createSportLineOptions — totals keep label-ascending order', () => {
         expect(options.map((o) => o.label)).toEqual(['1.5', '2.5', '3.5']);
     });
 });
+
+describe('createSportLineOptions — Game Winner (child_moneyline) ascends by game number', () => {
+    it('sorts game-winner lines ascending 1,2,3,4 even though the section renders as Spread', () => {
+        // child_moneyline normalizes to game_winner (renderAs Spread). Its line switcher must show
+        // game numbers ascending to match Polymarket — NOT spread-descending 4,3,2,1.
+        const cm = (id: string, game: number) =>
+            mk({ id, line: game, sportsMarketType: 'child_moneyline', groupItemTitle: `Game ${game} Winner` });
+        const markets = [cm('g4', 4), cm('g1', 1), cm('g3', 3), cm('g2', 2)];
+
+        const options = createSportLineOptions(SportMarketGroupType.Spread, markets);
+
+        expect(options.map((o) => o.label)).toEqual(['1', '2', '3', '4']);
+        expect(options.map((o) => o.key)).toEqual(['g1', 'g2', 'g3', 'g4']);
+    });
+});

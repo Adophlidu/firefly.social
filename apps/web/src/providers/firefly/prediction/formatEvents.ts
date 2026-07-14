@@ -194,6 +194,74 @@ function mergeThreeWayMarketsOfType(
     return result;
 }
 
+/** Extract a game/map number from the locale-independent slug segment.
+ *  Polymarket market slugs keep an English "-gameN-" / "-gameN" (or "-game-N-") segment even
+ *  when the title is translated (zh "游戏4一血？"), so this is locale-safe — unlike the
+ *  groupItemTitle/question text, which the sport-detail API translates per locale.
+ *  Returns the digit string, or undefined if the slug carries no game/map number. */
+function gameNumberFromSlug(slug?: string): string | undefined {
+    return slug?.toLowerCase().match(/(?:^|-)(?:game|map)-?(\d+)(?:-|$)/)?.[1];
+}
+
+/** Series-level market types that belong in the default "Series Lines" / "Game Lines" tab and
+ *  must NOT be game-prefixed. `child_moneyline` (per-game winner) is the key case: it renders as
+ *  ONE section with a line switcher in Series Lines, not split across Game N tabs. Shared by
+ *  formatPolymarketEvent (to skip prefixing) and mergeSportGroupedMarkets (to keep un-prefixed). */
+const SERIES_TYPES = new Set([
+    // Standard series types
+    'total_games',
+    'total_maps',
+    'total_sets',
+    'game_winner',
+    'game_handicap',
+    'map_winner',
+    'map_handicap',
+    'totals',
+    'spreads',
+    // Per-game winner displayed as a single section with line switcher in Series Lines tab
+    'child_moneyline',
+    // Esports series-level handicap types (_match = series aggregate)
+    'round_handicap_match',
+    'kill_handicap_match',
+    'tower_handicap_match',
+    'drake_handicap_match',
+    'nashor_handicap_match',
+    'inhibitor_handicap_match',
+    'barrack_handicap_match',
+    // Esports series-level totals
+    'round_over_under_match',
+    // Esports series-level "most" types
+    'kill_most_2_way_match',
+    'tower_most_2_way_match',
+    'drake_most_2_way_match',
+    'nashor_most_2_way_match',
+    'inhibitor_most_2_way_match',
+    'barrack_most_2_way_match',
+    // Per-game CS2 types that appear in Series Lines tab (already contain game number)
+    'round_handicap_game_1',
+    'round_handicap_game_2',
+    'round_handicap_game_3',
+    'round_over_under_game_1',
+    'round_over_under_game_2',
+    'round_over_under_game_3',
+    // Tennis set-specific types (should not get game_ prefix)
+    'tennis_set_winner',
+    'tennis_set_games_totals',
+    // Soccer market types (sub-category slugs represent market categories, not games)
+    'soccer_exact_score',
+    'soccer_halftime_result',
+    'both_teams_to_score',
+    'both_teams_to_score_first_half',
+    'soccer_team_totals',
+    'soccer_first_half_team_totals',
+    'first_half_totals',
+    // Soccer-prefixed variants (future-proofing)
+    'soccer_moneyline',
+    'soccer_spreads',
+    'soccer_totals',
+    'soccer_both_teams_to_score',
+]);
+
 export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
     const isSameImage = detail.markets?.every((market) => market.image === detail.image);
 
@@ -234,12 +302,17 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
         }
 
         // For esports fun markets (dota2_*, lol_*, cs2_*), the Gamma API returns all games'
-        // markets with the same sportsMarketType. The game number is only in the question field
-        // (e.g. "Game 1: Ends in Daytime?"). Prefix the type with game_N_ for tab routing.
+        // markets with the same sportsMarketType. Prefix the type with game_N_ for tab routing.
+        // Prefer the locale-independent slug ("-gameN-"); fall back to the English question text,
+        // since translated questions (zh "游戏1:…") break the English regex.
         const rawType = market.sportsMarketType?.toLowerCase() || '';
         let effectiveType = rawType;
-        if (rawType && !rawType.startsWith('game_') && !rawType.startsWith('map_') && market.question) {
-            const gameNum = market.question.match(/^(?:Game|Map)\s*(\d+)\s*:/i)?.[1];
+        // Series types (child_moneyline, game_winner, …) must NOT be game-prefixed — they render
+        // as one section in Series Lines (with a line switcher), not split across Game N tabs.
+        const isSeriesType = SERIES_TYPES.has(rawType);
+        if (rawType && !rawType.startsWith('game_') && !rawType.startsWith('map_') && !isSeriesType) {
+            const gameNum =
+                gameNumberFromSlug(market.slug) ?? market.question?.match(/^(?:Game|Map)\s*(\d+)\s*:/i)?.[1];
             if (gameNum) {
                 effectiveType = `game_${gameNum}_${rawType}`;
             }
@@ -475,62 +548,7 @@ export function mergeSportGroupedMarkets(
         }
     }
 
-    // Series-level types that should NOT be game-prefixed
-    // These appear in the default "Series Lines" / "Game Lines" tab
-    const SERIES_TYPES = new Set([
-        // Standard series types
-        'total_games',
-        'total_maps',
-        'total_sets',
-        'game_winner',
-        'game_handicap',
-        'map_winner',
-        'map_handicap',
-        'totals',
-        'spreads',
-        // Per-game winner displayed as a single section with line switcher in Series Lines tab
-        'child_moneyline',
-        // Esports series-level handicap types (_match = series aggregate)
-        'round_handicap_match',
-        'kill_handicap_match',
-        'tower_handicap_match',
-        'drake_handicap_match',
-        'nashor_handicap_match',
-        'inhibitor_handicap_match',
-        'barrack_handicap_match',
-        // Esports series-level totals
-        'round_over_under_match',
-        // Esports series-level "most" types
-        'kill_most_2_way_match',
-        'tower_most_2_way_match',
-        'drake_most_2_way_match',
-        'nashor_most_2_way_match',
-        'inhibitor_most_2_way_match',
-        'barrack_most_2_way_match',
-        // Per-game CS2 types that appear in Series Lines tab (already contain game number)
-        'round_handicap_game_1',
-        'round_handicap_game_2',
-        'round_handicap_game_3',
-        'round_over_under_game_1',
-        'round_over_under_game_2',
-        'round_over_under_game_3',
-        // Tennis set-specific types (should not get game_ prefix)
-        'tennis_set_winner',
-        'tennis_set_games_totals',
-        // Soccer market types (sub-category slugs represent market categories, not games)
-        'soccer_exact_score',
-        'soccer_halftime_result',
-        'both_teams_to_score',
-        'both_teams_to_score_first_half',
-        'soccer_team_totals',
-        'soccer_first_half_team_totals',
-        'first_half_totals',
-        // Soccer-prefixed variants (future-proofing)
-        'soccer_moneyline',
-        'soccer_spreads',
-        'soccer_totals',
-        'soccer_both_teams_to_score',
-    ]);
+    // SERIES_TYPES is declared at module scope (shared with formatPolymarketEvent).
 
     // Helper: compute game-prefixed type for a market item
     function getGamePrefixedType(type: string, eventSlug?: string): string {
@@ -547,15 +565,18 @@ export function mergeSportGroupedMarkets(
     // Also track line overrides: child_moneyline markets need game number as line for the switcher.
     const idToGameLine = new Map<string, number>();
 
-    // Helper: resolve game-prefixed type, falling back to groupItemTitle when eventSlug is missing.
+    // Helper: resolve game-prefixed type. eventSlug is the primary mechanism, but the sport-detail
+    // API only returns the series slug (so slugToGameNumber is usually empty); fall back to the
+    // locale-independent market slug before the English groupItemTitle regex, since translated
+    // titles (zh "游戏4一血？") break that regex.
     function resolveGameType(type: string, item: PolymarketSportGroupedMarketItem): string {
         // Series-level types keep their original type (no game prefix)
         if (SERIES_TYPES.has(type)) return type;
         // Try eventSlug first (the primary mechanism)
         const prefixed = getGamePrefixedType(type, item.eventSlug);
         if (prefixed !== type) return prefixed;
-        // Fallback: extract game number from groupItemTitle (e.g. "Game 1 Ends in Daytime" → 1)
-        // This handles cases where the sport detail API omits eventSlug on items.
+        const slugNum = gameNumberFromSlug(item.slug);
+        if (slugNum) return `game_${slugNum}_${type}`;
         if (item.groupItemTitle) {
             const gameNum = item.groupItemTitle.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
             if (gameNum) return `game_${gameNum}_${type}`;
@@ -574,10 +595,12 @@ export function mergeSportGroupedMarkets(
             if (prefixed !== marketType) {
                 idToGameType.set(item.id, prefixed);
             }
-            // For child_moneyline, extract game number from groupItemTitle (e.g. "Game 1" → 1)
-            // so the line switcher shows "1", "2" instead of "0".
-            if (marketType === 'child_moneyline' && item.groupItemTitle) {
-                const gameNum = item.groupItemTitle.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
+            // For child_moneyline, extract the game number so the line switcher shows "1","2"
+            // instead of "0". Slug-first for locale independence; translated titles (zh "第一局
+            // 胜者") break the English "Game N" regex.
+            if (marketType === 'child_moneyline') {
+                const gameNum =
+                    gameNumberFromSlug(item.slug) ?? item.groupItemTitle?.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
                 if (gameNum) {
                     idToGameLine.set(item.id, Number(gameNum));
                 }

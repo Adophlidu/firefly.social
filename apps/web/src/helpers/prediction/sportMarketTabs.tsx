@@ -475,6 +475,18 @@ const IGNORED_TYPES = new Set([
     'table_tennis_game_handicap',
 ]);
 
+/** LoL novelty/fun markets that Polymarket loads in event data but does NOT render
+ *  on the event page ( Baron / Dragon / Inhibitors / Quadra / Penta ). Matched against
+ *  the type with any game_/map_ prefix stripped, so both `lol_both_teams_baron` and
+ *  `game_1_lol_both_teams_baron` are dropped (FW-7861). */
+const ESPORT_NOVELTY_TYPES = new Set([
+    'lol_both_teams_baron',
+    'lol_both_teams_dragon',
+    'lol_both_teams_inhibitors',
+    'lol_quadra_kill',
+    'lol_penta_kill',
+]);
+
 /** Team totals types: markets must be split by team name and deduplicated by line. */
 const TEAM_TOTALS_TYPES = new Set([
     'team_totals',
@@ -667,6 +679,11 @@ export function getSportMarketTabs(
         // Skip market types that should not be rendered
         if (IGNORED_TYPES.has(type)) continue;
 
+        // LoL novelty markets (Baron/Dragon/Inhibitors/Quadra/Penta) are loaded by Polymarket
+        // but not rendered on the event page. Drop them and any game/map-prefixed variant
+        // (game_N_lol_*) so per-game tabs match Polymarket (FW-7861).
+        if (ESPORT_NOVELTY_TYPES.has(type.replace(/^(?:game|map)_\d+_/, ''))) continue;
+
         // Per-game round markets (CS2/Valorant): route to per-map tabs
         // round_handicap_game_N → map-N tab, section type: round_handicap
         // round_over_under_game_N → map-N tab, section type: total_rounds
@@ -809,21 +826,6 @@ export function getSportMarketTabs(
     const sortedTabs = [...tabMap.values()].sort((a, b) => a.priority - b.priority);
     for (const tabInfo of sortedTabs) {
         const sections = buildResolvedSections(tabInfo.sectionsByType, hasEsportTabs, homeTeam, awayTeam);
-
-        // Prefix section titles with map/game number for per-map/game tabs
-        // e.g. "Round Handicap" → "Map 1 Round Handicap" inside the Map 1 tab
-        const mapGameMatch = tabInfo.key.match(/^(map|game)-(\d+)$/);
-        if (mapGameMatch) {
-            const prefix = mapGameMatch[1] === 'map' ? `Map ${mapGameMatch[2]} ` : `Game ${mapGameMatch[2]} `;
-            for (const section of sections) {
-                section.title = (
-                    <>
-                        {prefix}
-                        {section.title}
-                    </>
-                );
-            }
-        }
 
         tabs.push({
             key: tabInfo.key,

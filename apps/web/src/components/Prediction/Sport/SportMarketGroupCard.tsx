@@ -127,6 +127,12 @@ export function createSportLineOptions(
     });
 
     return options.sort((a, b) => {
+        // Game Winner (child_moneyline) uses game numbers as line values — ascending 1,2,3,4 to
+        // match Polymarket. (The Spread branch below would otherwise sort them descending 4,3,2,1.)
+        if (isGameWinner) {
+            const diff = getMarketLine(a.market) - getMarketLine(b.market);
+            return diff === 0 ? a.label.localeCompare(b.label) : diff;
+        }
         // Spreads: order by the home-perspective signed handicap descending
         // (+3.5, +2.5, +1.5, -1.5, -2.5, -3.5, -4.5) so the pill sequence matches Polymarket.
         if (renderAs === SportMarketGroupType.Spread) {
