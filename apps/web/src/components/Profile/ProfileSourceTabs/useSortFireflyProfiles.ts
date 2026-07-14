@@ -12,11 +12,14 @@ export function useSortFireflyProfiles() {
     return useCallback(
         (source: ProfilePageSource, identity: FireflyIdentity, a: FireflyProfile, b: FireflyProfile) => {
             const getSortLevel = (profile: FireflyProfile) => {
-                // Keep URL identity at the highest priority so the selected tab
-                // always matches the profile currently shown in the route.
+                // Route identity stays highest so the active tab always matches
+                // the URL handle (FW-7649).
                 if (isSameFireflyIdentity(profile.identity, identity)) return 5;
-                if (profileAll?.[source as SocialSource]?.profileId === profile.identity.id) return 4;
-                if (source !== Source.Wallet && profile?.isDefault) return 3;
+                // The explicitly-set primary account must outrank the merely-logged-in
+                // account, otherwise "Set as primary" has no effect on the profile
+                // source tab (FW-7908).
+                if (source !== Source.Wallet && profile?.isDefault) return 4;
+                if (profileAll?.[source as SocialSource]?.profileId === profile.identity.id) return 3;
                 if (profile?.isDefault) return 2;
                 if ((profile?.__origin__ as WalletProfile)?.dataSource === WalletProfileDataSource.Privy) return 1;
                 return 0;
