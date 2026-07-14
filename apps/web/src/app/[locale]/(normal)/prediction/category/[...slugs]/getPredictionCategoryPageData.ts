@@ -6,6 +6,8 @@ import {
     buildPredictionCategoryPropsInitialData,
     type PredictionCategoryPropsInitialData,
 } from '@/helpers/buildPredictionCategoryPropsInitialData.js';
+import { CRYPTO_PRIMARY_SLUG } from '@/helpers/prediction/category/constants.js';
+import { enrichSlugListWithCryptoTree } from '@/helpers/prediction/category/enrichSlugListWithCryptoTree.js';
 import { getDefaultSecondaryCategoryItem } from '@/helpers/prediction/category/getDefaultSecondaryCategoryItem.js';
 import { getPropsListSlugParams } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import { resolveCategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
@@ -24,7 +26,8 @@ export const getPredictionCategoryPageData = cache(
     async (slugs: string[], locale: string): Promise<PredictionCategoryPageData> => {
         const resolvedLocale = resolveLocale(locale);
         const slugListRaw = await runInSafeAsync(() => getEventSlugList());
-        const slugList = (slugListRaw ?? []).filter((item) => item.slug !== FIFA_SLUG);
+        // Graft the frontend-defined Crypto tab tree so crypto/quick-buy/1h etc. resolve on SSR.
+        const slugList = enrichSlugListWithCryptoTree((slugListRaw ?? []).filter((item) => item.slug !== FIFA_SLUG));
 
         const context = resolveCategorySlugContext(slugList, slugs);
         if (!context) {
@@ -32,6 +35,12 @@ export const getPredictionCategoryPageData = cache(
         }
 
         if (context.depth === 1 && getDefaultSecondaryCategoryItem(context.primaryItem)) {
+            return { slugList };
+        }
+
+        // Crypto lists are client-fetched via the gamma/events endpoints (see
+        // PredictionCategoryCryptoPropsList) — skip the generic SSR props prefetch for them.
+        if (context.primaryItem.slug === CRYPTO_PRIMARY_SLUG) {
             return { slugList };
         }
 

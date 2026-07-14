@@ -47,11 +47,13 @@ export function PredictionList({ source }: Props) {
 
     const itemContent = useCallback(
         (_: number, data: PolymarketEventListData) => (
-            <PredictionPolymarketListItem
-                data={data}
-                liveMarketPrices={liveMarketPrices}
-                sportsCellClassName="hover:!bg-bg"
-            />
+            <div className="pb-3">
+                <PredictionPolymarketListItem
+                    data={data}
+                    liveMarketPrices={liveMarketPrices}
+                    sportsCellClassName="hover:!bg-bg"
+                />
+            </div>
         ),
         [liveMarketPrices],
     );

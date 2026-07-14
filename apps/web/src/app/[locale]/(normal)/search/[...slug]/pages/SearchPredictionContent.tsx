@@ -61,13 +61,15 @@ export function SearchPredictionContent() {
             }
             // Raw search result — render through the same component the trending page uses.
             return (
-                <PredictionPolymarketListItem
-                    key={data.id}
-                    data={data}
-                    liveMarketPrices={liveMarketPrices}
-                    sportsCellClassName="hover:!bg-bg"
-                    onLinkClick={() => capturePolymarketSearchEventClick(data.slug ?? '', data.title)}
-                />
+                <div className="pb-3">
+                    <PredictionPolymarketListItem
+                        key={data.id}
+                        data={data}
+                        liveMarketPrices={liveMarketPrices}
+                        sportsCellClassName="hover:!bg-bg"
+                        onLinkClick={() => capturePolymarketSearchEventClick(data.slug ?? '', data.title)}
+                    />
+                </div>
             );
         },
         [liveMarketPrices],

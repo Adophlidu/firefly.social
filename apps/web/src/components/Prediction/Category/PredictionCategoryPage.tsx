@@ -9,6 +9,9 @@ import { FootballLoading } from '@/components/FootballLoading.js';
 import { Loading } from '@/components/Loading.js';
 import { NotFound } from '@/components/NotFound.js';
 import { PredictionCategoryBracketList } from '@/components/Prediction/Category/PredictionCategoryBracketList.js';
+import { PredictionCategoryCryptoPeriodSwitcher } from '@/components/Prediction/Category/PredictionCategoryCryptoPeriodSwitcher.js';
+import { PredictionCategoryCryptoPropsList } from '@/components/Prediction/Category/PredictionCategoryCryptoPropsList.js';
+import { PredictionCategoryCryptoSecondaryNav } from '@/components/Prediction/Category/PredictionCategoryCryptoSecondaryNav.js';
 import { PredictionCategoryGamesList } from '@/components/Prediction/Category/PredictionCategoryGamesList.js';
 import { PredictionCategoryGroupsList } from '@/components/Prediction/Category/PredictionCategoryGroupsList.js';
 import { PredictionCategoryHeader } from '@/components/Prediction/Category/PredictionCategoryHeader.js';
@@ -22,12 +25,19 @@ import { useRouter } from '@/esm/navigation.js';
 import type { PredictionCategoryPropsInitialData } from '@/helpers/buildPredictionCategoryPropsInitialData.js';
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
 import {
+    CRYPTO_PRIMARY_SLUG,
     PREDICTION_CATEGORY_BRACKET_TAB,
     PREDICTION_CATEGORY_GAMES_TAB,
     PREDICTION_CATEGORY_GROUPS_TAB,
     PREDICTION_CATEGORY_PROPS_TAB,
     type PredictionCategoryTab,
 } from '@/helpers/prediction/category/constants.js';
+import {
+    CRYPTO_QUICK_BUY_SLUG,
+    getCryptoDefaultPeriodItem,
+    resolveCryptoCategoryTitle,
+} from '@/helpers/prediction/category/cryptoCategoryConfig.js';
+import { enrichSlugListWithCryptoTree } from '@/helpers/prediction/category/enrichSlugListWithCryptoTree.js';
 import { getCategoryHeaderLabel } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
 import { getDefaultSecondaryCategoryItem } from '@/helpers/prediction/category/getDefaultSecondaryCategoryItem.js';
 import { isSportsLiveCategoryContext } from '@/helpers/prediction/category/isSportsLiveCategoryContext.js';
@@ -35,8 +45,10 @@ import {
     type CategorySlugContext,
     resolveCategorySlugContext,
 } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
+import { resolvePredictionCategoryLabel } from '@/helpers/prediction/category/resolvePredictionCategoryLabel.js';
 import { shouldShowGamesPropsTabs, shouldShowGamesTab } from '@/helpers/prediction/category/shouldShowGamesTab.js';
 import { useCategoryGamesPropsAvailability } from '@/hooks/prediction/useCategoryGamesPropsAvailability.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -53,13 +65,18 @@ function PredictionCategoryStickyNav({
     slugs?: PolymarketEventSlugListData[];
     context?: CategorySlugContext;
 }) {
+    const isCryptoPrimary = context?.primaryItem.slug === CRYPTO_PRIMARY_SLUG;
     return (
         <div className="sticky top-0 z-30 bg-primaryBottom">
             <PredictionCategoryToolbar />
             {slugs && context ? (
                 <div className="flex flex-col gap-3">
                     <PredictionCategoryPrimaryTabs slugs={slugs} context={context} />
-                    <PredictionCategorySecondaryNav slugs={slugs} context={context} />
+                    {isCryptoPrimary ? (
+                        <PredictionCategoryCryptoSecondaryNav context={context} />
+                    ) : (
+                        <PredictionCategorySecondaryNav slugs={slugs} context={context} />
+                    )}
                 </div>
             ) : null}
         </div>
@@ -68,6 +85,7 @@ function PredictionCategoryStickyNav({
 
 export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initialPropsListPage }: Props) {
     const router = useRouter();
+    const locale = useLocale();
     const { data: slugList = initialSlugList } = useQuery({
         queryKey: ['prediction', 'category', 'slugs-list'],
         queryFn: () => getEventSlugList(),
@@ -78,12 +96,24 @@ export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initi
 
     const context = useMemo(() => {
         if (!slugList) return null;
-        return resolveCategorySlugContext(slugList, slugs);
+        // Graft the frontend-defined Crypto tab tree so crypto/quick-buy/1h etc. resolve.
+        return resolveCategorySlugContext(enrichSlugListWithCryptoTree(slugList), slugs);
     }, [slugList, slugs]);
 
     const shouldRedirectToDefaultSecondary = useMemo(() => {
         if (context?.depth !== 1) return false;
         return !!getDefaultSecondaryCategoryItem(context.primaryItem);
+    }, [context]);
+
+    // Crypto Quick Buy lives one level deeper than its secondary — send /crypto/quick-buy to the
+    // default period (/crypto/quick-buy/1h). Crypto-only; no generic depth-3 redirect.
+    const shouldRedirectToDefaultPeriod = useMemo(() => {
+        return (
+            !!context &&
+            context.primaryItem.slug === CRYPTO_PRIMARY_SLUG &&
+            context.secondaryItem?.slug === CRYPTO_QUICK_BUY_SLUG &&
+            context.depth === 2
+        );
     }, [context]);
 
     useEffect(() => {
@@ -94,6 +124,15 @@ export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initi
 
         router.replace(buildPredictionCategoryHref(defaultSecondary, [context.primaryItem]));
     }, [context, router, shouldRedirectToDefaultSecondary]);
+
+    useEffect(() => {
+        if (!shouldRedirectToDefaultPeriod || !context) return;
+
+        const quickBuy = context.secondaryItem;
+        if (!quickBuy) return;
+
+        router.replace(buildPredictionCategoryHref(getCryptoDefaultPeriodItem(), [context.primaryItem, quickBuy]));
+    }, [context, router, shouldRedirectToDefaultPeriod]);
 
     const showGamesList = shouldShowGamesTab(context?.activeItem);
     const isLiveGamesOnly = context ? isSportsLiveCategoryContext(context) : false;
@@ -136,7 +175,7 @@ export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initi
         [setTab],
     );
 
-    if (shouldRedirectToDefaultSecondary) {
+    if (shouldRedirectToDefaultSecondary || shouldRedirectToDefaultPeriod) {
         return (
             <div className="flex flex-col">
                 <PredictionCategoryStickyNav />
@@ -156,15 +195,29 @@ export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initi
         );
     }
 
+    const isCryptoPrimary = context.primaryItem.slug === CRYPTO_PRIMARY_SLUG;
+    const isCryptoQuickBuy = isCryptoPrimary && context.secondaryItem?.slug === CRYPTO_QUICK_BUY_SLUG;
+    // Title follows the active secondary: "{All/Weekly/Monthly/Yearly} Crypto" for the period
+    // roll-ups, otherwise the tab label (Quick Buy, Targets, …). Falls back to "Crypto" for the
+    // transient bare /crypto depth-1 state (immediately redirected to a secondary).
+    const cryptoTitle = context.secondaryItem
+        ? resolveCryptoCategoryTitle(locale, context.secondaryItem.label, context.secondaryItem.slug)
+        : resolvePredictionCategoryLabel(locale, 'Crypto');
     const headerTitle = getCategoryHeaderLabel(context.activeItem);
     const showCategoryHeader = tabAvailability.showTabSwitcher || !isLiveGamesOnly;
+    const hasHeader = isCryptoPrimary || showCategoryHeader;
     const isFifa = context.secondaryItem?.slug === FIFA_SLUG;
     const isNotFeeds = tab === PREDICTION_CATEGORY_GROUPS_TAB || tab === PREDICTION_CATEGORY_BRACKET_TAB;
 
     return (
         <div className={classNames('flex flex-col', isNotFeeds ? 'h-screen' : null)}>
             <PredictionCategoryStickyNav slugs={slugList} context={context} />
-            {showCategoryHeader ? (
+            {isCryptoPrimary ? (
+                <div className="flex items-center justify-between gap-3 px-4 py-3">
+                    <h1 className="min-w-0 truncate text-2xl font-black text-main max-md:hidden">{cryptoTitle}</h1>
+                    {isCryptoQuickBuy ? <PredictionCategoryCryptoPeriodSwitcher context={context} /> : null}
+                </div>
+            ) : showCategoryHeader ? (
                 <PredictionCategoryHeader
                     title={headerTitle}
                     tab={effectiveTab}
@@ -175,11 +228,21 @@ export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initi
             ) : null}
             <div
                 className={classNames(
-                    !showCategoryHeader ? 'pt-3' : '',
+                    !hasHeader ? 'pt-3' : '',
                     isNotFeeds ? 'no-scrollbar min-h-0 grow overflow-auto' : '',
                 )}
             >
-                {isTabAvailabilityPending ? (
+                {isCryptoPrimary ? (
+                    <Suspense
+                        fallback={
+                            <div className="flex justify-center py-12">
+                                <Loading />
+                            </div>
+                        }
+                    >
+                        <PredictionCategoryCryptoPropsList context={context} />
+                    </Suspense>
+                ) : isTabAvailabilityPending ? (
                     <div className="flex justify-center py-12">{isFifa ? <FootballLoading /> : <Loading />}</div>
                 ) : effectiveTab === PREDICTION_CATEGORY_GAMES_TAB ? (
                     <PredictionCategoryGamesList context={context} />

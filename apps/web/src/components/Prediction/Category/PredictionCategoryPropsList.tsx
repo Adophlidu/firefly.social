@@ -35,8 +35,9 @@ interface Props {
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
     return (
-        <div className="pb-3" key={data.id}>
+        <div className="pb-3">
             <BetItem
+                key={data.id}
                 event={formatPolymarketEventListData(data)}
                 openLinkInNewTab={false}
                 platform={PredictionPlatform.Polymarket}
@@ -135,7 +136,9 @@ const CategoryEventListPropsList = memo<{
 
     const itemContent = useCallback(
         (_: number, data: PolymarketEventListData) => (
-            <PredictionPolymarketListItem data={data} liveMarketPrices={liveMarketPrices} />
+            <div className="pb-3">
+                <PredictionPolymarketListItem data={data} liveMarketPrices={liveMarketPrices} />
+            </div>
         ),
         [liveMarketPrices],
     );

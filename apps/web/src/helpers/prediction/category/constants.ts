@@ -2,6 +2,8 @@
 export const SPORTS_PRIMARY_SLUG = 'sports';
 /** Slug of the Esports primary tab (top-level, not the Sports sub-category). */
 export const ESPORTS_PRIMARY_SLUG = 'esports';
+/** Slug of the Crypto primary tab (its 2nd/3rd-level tab tree is frontend-defined). */
+export const CRYPTO_PRIMARY_SLUG = 'crypto';
 
 /** Primary tabs shown before the vertical divider (display order). */
 export const LEADING_PRIMARY_SLUGS = ['trending', 'fifwc', 'new'] as const;
