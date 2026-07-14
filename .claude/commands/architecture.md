@@ -61,7 +61,7 @@ LOW (cannot import anything above)
 
 ```ts
 // ❌ VIOLATION: src/store/usePostStore.ts
-import { useProfile } from '@/hooks/useProfile.js';
+import { useProfile } from '#/hooks/useProfile.js';
 
 // ✅ FIX: Move the logic into a helper or call from a hook instead
 // Store should only contain state and actions, not consume hooks
@@ -71,10 +71,10 @@ import { useProfile } from '@/hooks/useProfile.js';
 
 ```ts
 // ❌ VIOLATION: src/hooks/useComposeModal.ts
-import { ComposeModal } from '@/components/ComposeModal.js';
+import { ComposeModal } from '#/components/ComposeModal.js';
 
 // ✅ FIX: Use the modal ref pattern instead
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
+import { ComposeModalRef } from '#/modals/ComposeModal/refs.js';
 // Then: ComposeModalRef.open({})
 ```
 
@@ -82,10 +82,10 @@ import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 
 ```ts
 // ❌ VIOLATION: src/services/FireflySession.ts
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfile } from '#/hooks/useCurrentProfile.js';
 
 // ✅ FIX: Pass data as parameters, or read from store directly
-import { useCurrentProfileStore } from '@/store/useCurrentProfileStore.js';
+import { useCurrentProfileStore } from '#/store/useCurrentProfileStore.js';
 const profile =
     useCurrentProfileStore.getState().currentProfile;
 ```
@@ -96,7 +96,7 @@ All modals use `SingletonModal` so any layer can open them without importing the
 
 ```ts
 // src/modals/FooModal/refs.ts
-import { SingletonModal } from '@/libs/SingletonModal.js';
+import { SingletonModal } from '#/libs/SingletonModal.js';
 export interface FooModalOpenProps {
     id: string;
 }
@@ -106,15 +106,15 @@ export const FooModalRef = new SingletonModal<
 >();
 
 // Open from anywhere (store, service, hook, component):
-import { FooModalRef } from '@/modals/FooModal/refs.js';
+import { FooModalRef } from '#/modals/FooModal/refs.js';
 FooModalRef.open({ id: 'xyz' });
 ```
 
 ## Import Rules (apps/web)
 
-- ✅ Use `@/` alias with `.js` extension: `import { x } from '@/helpers/foo.js'`
+- ✅ Use `#/` (or legacy `@/`) alias with `.js` extension: `import { x } from '#/helpers/foo.js'`
 - ❌ No relative paths: `import { x } from '../../helpers/foo'`
-- ❌ No `next/image`, `next/link`, `next/navigation` — use ESM shims in `@/esm/`
+- ❌ No `next/image`, `next/link`, `next/navigation` — use ESM shims in `#/esm/`
 
 ## Enforcing
 

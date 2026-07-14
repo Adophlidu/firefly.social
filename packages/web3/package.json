@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/web3",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.41",
     "description": "Shared Web3 utility functions for Firefly projects",
     "type": "module",

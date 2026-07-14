@@ -30,15 +30,15 @@ git diff origin/main...HEAD | grep -B5 -A10 "file\." | grep -v "size"
 ```bash
 # In-app: store importing from hooks/components/modals (forbidden)
 git diff origin/main...HEAD --name-only | grep -E '^apps/web/src/store/' | \
-  xargs -I{} grep -Hn "from ['\"]@/\(hooks\|components\|modals\)" {} 2>/dev/null
+  xargs -I{} grep -Hn "from ['\"][@#]/\(hooks\|components\|modals\)" {} 2>/dev/null
 
 # In-app: service or provider importing from a hook (forbidden)
 git diff origin/main...HEAD --name-only | grep -E '^apps/web/src/(services|providers)/' | \
-  xargs -I{} grep -Hn "from ['\"]@/hooks/" {} 2>/dev/null
+  xargs -I{} grep -Hn "from ['\"][@#]/hooks/" {} 2>/dev/null
 
 # In-app: hook importing a component or modal (forbidden — use SingletonModal ref pattern)
 git diff origin/main...HEAD --name-only | grep -E '^apps/web/src/hooks/' | \
-  xargs -I{} grep -Hn "from ['\"]@/\(components\|modals\)" {} 2>/dev/null
+  xargs -I{} grep -Hn "from ['\"][@#]/\(components\|modals\)" {} 2>/dev/null
 
 # Workspace: Layer 1 package importing sibling Layer 1 (forbidden)
 git diff origin/main...HEAD --name-only | grep -E '^packages/(hooks|web3|web3-utils|constants|envs|native-bridge|iframe-bridge|rn-ui)/' | \
@@ -48,18 +48,18 @@ git diff origin/main...HEAD --name-only | grep -E '^packages/(hooks|web3|web3-ut
 ## Firefly Restricted Patterns
 
 ```bash
-# Relative imports (forbidden — use @/ alias)
+# Relative imports (forbidden — use #/ alias)
 git diff origin/main...HEAD | grep -E "^\+.*from ['\"]\.\.?/" | grep -v "node_modules"
 
-# Direct next/image, next/link, next/navigation (forbidden — use @/esm/ shims)
+# Direct next/image, next/link, next/navigation (forbidden — use #/esm/ shims)
 git diff origin/main...HEAD | grep -E "^\+.*from ['\"]next/(image|link|navigation)['\"]"
 
 # clsx / cx / template-literal class names (forbidden — use classNames)
 git diff origin/main...HEAD | grep -E "^\+.*from ['\"](clsx|classnames)['\"]"
 git diff origin/main...HEAD | grep -E "^\+.*className=\{\`"
 
-# Missing .js extension on @/ imports
-git diff origin/main...HEAD | grep -E "^\+.*from ['\"]@/[^'\"]+['\"]" | grep -v "\.js['\"]"
+# Missing .js extension on #/ imports
+git diff origin/main...HEAD | grep -E "^\+.*from ['\"][@#]/[^'\"]+['\"]" | grep -v "\.js['\"]"
 
 # 'use client' not on the first line of a client component
 git diff origin/main...HEAD --name-only | grep -E '\.tsx?$' | \

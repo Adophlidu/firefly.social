@@ -1,12 +1,12 @@
 import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 
-import { type FireflyAuthClientOptions, resolveConfig } from '@/config.js';
-import type { AuthContext } from '@/internal/context.js';
-import { createLogger } from '@/logger.js';
-import type { FireflySession } from '@/session/FireflySession.js';
-import { FireflySessionNative } from '@/session/FireflySessionNative.js';
-import { FireflySessionWeb } from '@/session/FireflySessionWeb.js';
-import type { AccessTokenListener } from '@/types.js';
+import { type FireflyAuthClientOptions, resolveConfig } from '#/config.js';
+import type { AuthContext } from '#/internal/context.js';
+import { createLogger } from '#/logger.js';
+import type { FireflySession } from '#/session/FireflySession.js';
+import { FireflySessionNative } from '#/session/FireflySessionNative.js';
+import { FireflySessionWeb } from '#/session/FireflySessionWeb.js';
+import type { AccessTokenListener } from '#/types.js';
 
 /**
  * The Firefly session access-token provider for sub-sites hosted under

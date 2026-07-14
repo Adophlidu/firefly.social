@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/workers-iframe-blocker",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.0.1",
     "private": true,
     "type": "module",

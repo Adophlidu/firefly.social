@@ -1,4 +1,4 @@
-import type { ResolvedConfig } from '@/config.js';
+import type { ResolvedConfig } from '#/config.js';
 
 /** Shape of the Firefly v3 token-rotation response data. */
 export interface FireflyTokenData {

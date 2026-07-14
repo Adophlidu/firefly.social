@@ -1,5 +1,5 @@
-import type { AuthContext } from '@/internal/context.js';
-import type { AccessTokenListener } from '@/types.js';
+import type { AuthContext } from '#/internal/context.js';
+import type { AccessTokenListener } from '#/types.js';
 
 /** Origin-wide lock name that serializes JWT rotation across tabs and sub-sites. */
 export const TOKEN_LOCK = 'firefly:jwt:token';

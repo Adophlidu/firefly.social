@@ -1,6 +1,6 @@
 import { parseJson } from '@dimensiondev/utils';
 
-import type { AuthContext } from '@/internal/context.js';
+import type { AuthContext } from '#/internal/context.js';
 
 /** Default Firefly JWT v3 access-token TTL (ms). The token carries `issued_at_ms`. */
 export const DEFAULT_ACCESS_TOKEN_TTL_MS = 15 * 60 * 1000; // 15 minutes

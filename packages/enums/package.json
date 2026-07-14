@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/enums",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.41",
     "description": "Shared enums for Firefly projects",
     "type": "module",

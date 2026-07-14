@@ -183,7 +183,7 @@ For each failed check:
 4. Analyze the failure and determine the cause.
 
 5. **Fixable** — apply the routing table above:
-    - **`typecheck` failures**: Re-run `pnpm typecheck` locally to see errors faster than parsing the log. Fix type errors at their source. Common causes: missing `.js` extension on `@/` imports, layer-rule violations surfaced by type-only imports.
+    - **`typecheck` failures**: Re-run `pnpm typecheck` locally to see errors faster than parsing the log. Fix type errors at their source. Common causes: missing `.js` extension on `#/` and `@/` imports, layer-rule violations surfaced by type-only imports.
     - **`eslint` failures**: Auto-fix **only the files this PR changed** — never repo-wide, or unrelated files get swept into the PR's commits:
 
         ```bash
@@ -192,9 +192,9 @@ For each failed check:
         ```
 
         If unfixable, read the violation and fix manually. Common Firefly issues:
-        - `no-relative-import-paths` — replace `../` with `@/`
+        - `no-relative-import-paths` — replace `../` with `#/`
         - layer-rule violations (custom rules `eslint-import-architecture-zones`, `eslint-package-layer-boundaries`) — see `/architecture`
-        - direct `next/image` / `next/link` imports — switch to `@/esm/Image.js` etc.
+        - direct `next/image` / `next/link` imports — switch to `#/esm/Image.js` etc.
         - `clsx` / template-literal class names — switch to `classNames` from `@dimensiondev/utils`
     - **`test` failures**: Run `pnpm test` locally. Fix tests at their source, not by changing the expectations.
     - **`validate` failures** (conventional commits): Update the PR title to `type(scope): description` format via `gh pr edit <PR> --title "..."`.

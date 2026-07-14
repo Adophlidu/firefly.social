@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/firefly-web",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "type": "module",
     "version": "8.3.0",
     "private": true,

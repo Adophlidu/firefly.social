@@ -1,8 +1,8 @@
 import { parseJson } from '@dimensiondev/utils';
 
-import { decodeAscii, encodeAscii } from '@/internal/codec.js';
-import type { AuthContext } from '@/internal/context.js';
-import type { FireflySnapshot, JwtPayload } from '@/types.js';
+import { decodeAscii, encodeAscii } from '#/internal/codec.js';
+import type { AuthContext } from '#/internal/context.js';
+import type { FireflySnapshot, JwtPayload } from '#/types.js';
 
 /** Session-type prefix every serialized Firefly session string starts with. */
 const SESSION_TYPE = 'Firefly';

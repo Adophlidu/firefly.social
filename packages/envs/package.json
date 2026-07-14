@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/envs",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.41",
     "description": "Environment configuration for Firefly projects",
     "type": "module",

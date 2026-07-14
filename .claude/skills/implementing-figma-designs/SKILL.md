@@ -43,7 +43,7 @@ Both apps are **web** today — apps/wallet ships through Vite SSR, not iOS/Andr
 | Surface                                       | When                                                                      | What you import                                                                                                                                                                                                       | Styling                                                                                            |
 | --------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | `apps/web` (Next.js 16)                       | Social pages, feeds, modals, profiles                                     | Local components in `apps/web/src/components/` + modals in `apps/web/src/modals/`                                                                                                                                     | Tailwind + `classNames` from `@dimensiondev/utils`                                                 |
-| `apps/wallet` (Vite SSR + `react-native-web`) | Wallet, send/receive, transaction flows, perps host shell                 | shadcn/ui primitives in `apps/wallet/src/components/ui/` (Radix-based) + feature composites in `apps/wallet/src/components/`                                                                                          | Tailwind + `cn()` from `@/lib/utils.js`; `lucide-react-native` icons                               |
+| `apps/wallet` (Vite SSR + `react-native-web`) | Wallet, send/receive, transaction flows, perps host shell                 | shadcn/ui primitives in `apps/wallet/src/components/ui/` (Radix-based) + feature composites in `apps/wallet/src/components/`                                                                                          | Tailwind + `cn()` from `#/lib/utils.js`; `lucide-react-native` icons                               |
 | `apps/wallet` perps routes                    | `apps/wallet/src/routes/perps.*.tsx`, `apps/wallet/src/components/Perps/` | Whole-screen + provider exports from `@dimensiondev/rn-ui`: `PerpsMarketDetail`, `PerpsTradeDetail`, `TradesHistory`, `Provider`, `PerpsAuthGate`, `PerpsBindingsProvider` (plus type-only `NavigateFunc`, `ToastFn`) | None at this layer — apps/wallet only mounts these screens; all styling is inside rn-ui's tree     |
 | `@dimensiondev/rn-ui` (external repo)         | The rn-ui source itself (perps screens + providers) — `DimensionDev/firefly-rn-ui` | **The only place** `tamagui` / `@tamagui/*` and primitives like `XStack`, `YStack`, `SizableText` are imported                                                                                                | Tamagui tokens (`$1`–`$10`, `$text`, `$bg`, `$bodyMd`, …) — authored there, never at consumer sites |
 
@@ -81,6 +81,7 @@ ls apps/web/src/modals/ | grep -i <NAME>
 
 # Find usages of a component to learn its API
 grep -rln "from '@/components/<Component>" apps/web/src/
+grep -rln "from '#/components/<Component>" apps/web/src/
 ```
 
 Common reusable building blocks in `apps/web/src/components/`:
@@ -114,14 +115,14 @@ import {
     Dialog,
     DialogContent,
     DialogTitle,
-} from '@/components/ui/dialog.js';
+} from '#/components/ui/dialog.js';
 import {
     Tabs,
     TabsList,
     TabsTrigger,
-} from '@/components/ui/tabs.js';
-import { Button } from '@/components/ui/button.js';
-import { cn } from '@/lib/utils.js';
+} from '#/components/ui/tabs.js';
+import { Button } from '#/components/ui/button.js';
+import { cn } from '#/lib/utils.js';
 ```
 
 shadcn's `components.json` is at `apps/wallet/components.json` (style: `new-york`, neutral base, lucide icons). New primitives can be generated via `npx shadcn add <component>` and will land in `src/components/ui/`.
@@ -176,8 +177,8 @@ Tailwind classes match the design tokens defined in the project's Tailwind confi
 #### apps/wallet — Tailwind + `cn`
 
 ```tsx
-import { cn } from '@/lib/utils.js';
-import { Button } from '@/components/ui/button.js';
+import { cn } from '#/lib/utils.js';
+import { Button } from '#/components/ui/button.js';
 
 <Button
     variant="default"
@@ -189,7 +190,7 @@ import { Button } from '@/components/ui/button.js';
 
 Notes:
 
-- `cn` comes from `@/lib/utils.js` in apps/wallet (shadcn's convention — `clsx` + `tailwind-merge` under the hood), **NOT** `classNames` from `@dimensiondev/utils`. Don't mix the two.
+- `cn` comes from `#/lib/utils.js` in apps/wallet (shadcn's convention — `clsx` + `tailwind-merge` under the hood), **NOT** `classNames` from `@dimensiondev/utils`. Don't mix the two.
 - Tailwind tokens follow `apps/wallet/tailwind.config.cjs` (neutral base color, CSS variables on). Use semantic tokens like `bg-background`, `text-foreground`, `border` rather than raw color values.
 - Icons: `lucide-react-native` (so they render correctly through `react-native-web`). Example: `import { ArrowRight } from 'lucide-react-native';`.
 - Safe-area: `tailwindcss-safe-area` plugin provides classes like `pt-safe`, `pb-safe-bottom` for notched displays in PWA mode.
@@ -232,12 +233,12 @@ export const NewScreen = memo(function NewScreen(
 });
 ```
 
-- Imports use the `@/` alias with `.js` extension. Never relative `../`.
+- Imports use the `#/` (or legacy `@/`) alias with `.js` extension. Never relative `../`.
 - Never import `next/image`, `next/link`, `next/navigation`, `next/dynamic` directly — use the ESM shims:
-    - `@/esm/Image.js`
-    - `@/esm/Link.js`
-    - `@/esm/navigation.js`
-    - `@/esm/dynamic.js`
+    - `#/esm/Image.js`
+    - `#/esm/Link.js`
+    - `#/esm/navigation.js`
+    - `#/esm/dynamic.js`
 
 ### 5. Mock data
 
@@ -297,11 +298,11 @@ A hook cannot import a component or a modal. A service cannot import a hook. See
 
 - **Treating apps/wallet like a native RN app.** It's web (Vite SSR + `react-native-web`). No iOS/Android build, no AsyncStorage, no Metro. Standard web storage and browser APIs apply.
 - **Importing `tamagui` / `@tamagui/*` / `XStack` / `YStack` / `SizableText` anywhere in `apps/*`.** Tamagui is authored only in the external `@dimensiondev/rn-ui` package. If apps/wallet needs a visual change inside a perps screen, the work happens in the `DimensionDev/firefly-rn-ui` repo (then publish + bump the dependency). Non-perps wallet UI is shadcn.
-- **Mixing `classNames` and `cn`.** apps/web uses `classNames` from `@dimensiondev/utils`; apps/wallet uses `cn` from `@/lib/utils.js`. Don't import the other into the wrong app.
+- **Mixing `classNames` and `cn`.** apps/web uses `classNames` from `@dimensiondev/utils`; apps/wallet uses `cn` from `#/lib/utils.js`. Don't import the other into the wrong app.
 - **Mounting a sheet per call site (rn-ui perps).** For shared/triggered-from-many-places sheets, mount **one global instance** in the perps `Provider.tsx` subtree and trigger via a jotai atom in `store/tradeForm.ts`. Don't mount per-callsite.
 - **Wrong `<Trans>` import path.** Must be `@lingui/react/macro` (or `@lingui/core/macro` for JS). Importing from `@lingui/macro` will silently break extraction.
 - **Hardcoded class strings via template literals.** ESLint will reject. Use `classNames(...)` in apps/web or `cn(...)` in apps/wallet.
-- **Forgetting `.js` extension** on `@/` imports — ESLint will reject.
+- **Forgetting `.js` extension** on `#/` (or legacy `@/`) imports — ESLint will reject.
 - **Adding `'use client'`** to a page component that doesn't need it. Pages should stay server components unless they use hooks/event handlers. Note: apps/wallet is SPA-style under Vite SSR — `'use client'` is a Next.js (apps/web) concept and doesn't apply to apps/wallet.
 - **`'use client'` not on the first line** of the file (apps/web only).
 - **Reaching into `@dimensiondev/rn-ui` internals** directly. Always import from the published export paths (`@dimensiondev/rn-ui`, `/perps`, `/provider`).

@@ -52,7 +52,7 @@ LOW (cannot import anything above)
 
 ```typescript
 // ❌ VIOLATION: src/store/usePostStore.ts
-import { useProfile } from '@/hooks/useProfile.js';
+import { useProfile } from '#/hooks/useProfile.js';
 
 // ✅ FIX: Move the logic into a helper or call it from the hook layer
 ```
@@ -61,10 +61,10 @@ import { useProfile } from '@/hooks/useProfile.js';
 
 ```typescript
 // ❌ VIOLATION: src/hooks/useComposeModal.ts
-import { ComposeModal } from '@/components/ComposeModal.js';
+import { ComposeModal } from '#/components/ComposeModal.js';
 
 // ✅ FIX: Use the SingletonModal ref pattern
-import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
+import { ComposeModalRef } from '#/modals/ComposeModal/refs.js';
 ComposeModalRef.open({});
 ```
 
@@ -72,10 +72,10 @@ ComposeModalRef.open({});
 
 ```typescript
 // ❌ VIOLATION: src/services/FireflySession.ts
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfile } from '#/hooks/useCurrentProfile.js';
 
 // ✅ FIX: Read from the store directly, or accept the data as a parameter
-import { useCurrentProfileStore } from '@/store/useCurrentProfileStore.js';
+import { useCurrentProfileStore } from '#/store/useCurrentProfileStore.js';
 const profile =
     useCurrentProfileStore.getState().currentProfile;
 ```
@@ -86,7 +86,7 @@ All modals use `SingletonModal` so any layer can open them without importing the
 
 ```typescript
 // src/modals/FooModal/refs.ts
-import { SingletonModal } from '@/libs/SingletonModal.js';
+import { SingletonModal } from '#/libs/SingletonModal.js';
 export interface FooModalOpenProps {
     id: string;
 }
@@ -96,7 +96,7 @@ export const FooModalRef = new SingletonModal<
 >();
 
 // Open from anywhere (store, service, hook, component):
-import { FooModalRef } from '@/modals/FooModal/refs.js';
+import { FooModalRef } from '#/modals/FooModal/refs.js';
 FooModalRef.open({ id: 'xyz' });
 ```
 
@@ -106,12 +106,12 @@ FooModalRef.open({ id: 'xyz' });
 
 | Rule                                           | Bad                                           | Good                                              |
 | ---------------------------------------------- | --------------------------------------------- | ------------------------------------------------- |
-| Use `@/` alias, never relative `../`           | `import { x } from '../../helpers/foo'`       | `import { x } from '@/helpers/foo.js'`            |
-| Always include `.js` extension on `@/` imports | `import { x } from '@/helpers/foo'`           | `import { x } from '@/helpers/foo.js'`            |
-| Never import `next/image` directly             | `import Image from 'next/image'`              | `import Image from '@/esm/Image.js'`              |
-| Never import `next/link` directly              | `import Link from 'next/link'`                | `import Link from '@/esm/Link.js'`                |
-| Never import `next/navigation` directly        | `import { useRouter } from 'next/navigation'` | `import { useRouter } from '@/esm/navigation.js'` |
-| Never import `next/dynamic` directly           | `import dynamic from 'next/dynamic'`          | `import dynamic from '@/esm/dynamic.js'`          |
+| Use `#/` alias, never relative `../`           | `import { x } from '../../helpers/foo'`       | `import { x } from '#/helpers/foo.js'`            |
+| Always include `.js` extension on `#/` (or legacy `@/`) imports | `import { x } from '#/helpers/foo'`           | `import { x } from '#/helpers/foo.js'`            |
+| Never import `next/image` directly             | `import Image from 'next/image'`              | `import Image from '#/esm/Image.js'`              |
+| Never import `next/link` directly              | `import Link from 'next/link'`                | `import Link from '#/esm/Link.js'`                |
+| Never import `next/navigation` directly        | `import { useRouter } from 'next/navigation'` | `import { useRouter } from '#/esm/navigation.js'` |
+| Never import `next/dynamic` directly           | `import dynamic from 'next/dynamic'`          | `import dynamic from '#/esm/dynamic.js'`          |
 
 ## 4. Class Names
 
@@ -138,7 +138,7 @@ For client components in `app/`:
 'use client';                              // FIRST line
 
 import { useState } from 'react';          // blank line, then imports
-import { Foo } from '@/components/Foo.js';
+import { Foo } from '#/components/Foo.js';
 
 export const MyComponent = memo(function MyComponent() { ... });
 ```
@@ -188,7 +188,7 @@ Firefly has three distinct UI stacks with strict boundaries:
 | Surface                            | Stack                                                                                                                 | Where Tamagui lives                                   |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | `apps/web`                         | Next.js 16 + Tailwind + `classNames` from `@dimensiondev/utils`                                                       | —                                                     |
-| `apps/wallet`                      | Vite SSR + `react-native-web` + **shadcn/ui** (Radix in `src/components/ui/`) + Tailwind + `cn` from `@/lib/utils.js` | — (only mounts rn-ui screens; doesn't author Tamagui) |
+| `apps/wallet`                      | Vite SSR + `react-native-web` + **shadcn/ui** (Radix in `src/components/ui/`) + Tailwind + `cn` from `#/lib/utils.js` | — (only mounts rn-ui screens; doesn't author Tamagui) |
 | `@dimensiondev/rn-ui` (ext. repo)  | React Native API + Tamagui (`XStack`, `YStack`, `SizableText`, tokens like `$1`–`$10`, `$bodyMd`, `$text`)            | **There, exclusively** — `DimensionDev/firefly-rn-ui` |
 
 **Tamagui rule (verifiable by grep):** `tamagui` and `@tamagui/*` are **never** imported in this repo — they live only inside the external `@dimensiondev/rn-ui` package (its own repo `DimensionDev/firefly-rn-ui`, published to GitHub Packages). Verify with `grep -r "from ['\"]\(tamagui\|@tamagui/\)" apps/` (expect no matches). The Tamagui packages present in `apps/wallet/package.json` are there because rn-ui declares them as **peer dependencies**.
@@ -222,8 +222,8 @@ Quick rules:
 
 - ❌ **Any** import from `tamagui` or `@tamagui/*` inside `apps/`. Tamagui authoring belongs in the external `@dimensiondev/rn-ui` package, never in this repo.
 - ❌ Importing `XStack`, `YStack`, `SizableText`, or any Tamagui-derived re-export from `@dimensiondev/rn-ui` into apps/. apps/wallet should only import whole screens + providers from rn-ui.
-- ❌ Using `classNames` (from `@dimensiondev/utils`) inside apps/wallet — should be `cn` from `@/lib/utils.js`.
-- ❌ Using `cn` from `@/lib/utils.js` inside apps/web — should be `classNames` from `@dimensiondev/utils`.
+- ❌ Using `classNames` (from `@dimensiondev/utils`) inside apps/wallet — should be `cn` from `#/lib/utils.js`.
+- ❌ Using `cn` from `#/lib/utils.js` inside apps/web — should be `classNames` from `@dimensiondev/utils`.
 - ❌ Reaching into `@dimensiondev/rn-ui` internals. Always import from its public exports (`@dimensiondev/rn-ui`, `/perps`, `/provider`).
 - ❌ Treating apps/wallet as native (no `AsyncStorage`, no Expo APIs, no Metro-only assumptions).
 
@@ -249,7 +249,7 @@ If a PR changes `.github/workflows/*.yml`, review the change carefully for:
 
 - Direct `next/image` / `next/link` / `next/navigation` import → use ESM shim.
 - `clsx` / `cx` / template-literal `className` → use `classNames`.
-- Relative `../` imports → use `@/` alias with `.js`.
+- Relative `../` imports → use `#/` (or legacy `@/`) alias with `.js`.
 - Missing `'use client'` directive in a file that uses hooks under `app/`.
 - `'use client'` not on the first line.
 - Non-trivial component not wrapped in `memo()`.

@@ -1,5 +1,5 @@
-import { DEFAULT_ACCESS_TOKEN_TTL_MS } from '@/internal/jwt.js';
-import type { FireflyAuthMode, FireflyAuthPolicy, StorageAdapter } from '@/types.js';
+import { DEFAULT_ACCESS_TOKEN_TTL_MS } from '#/internal/jwt.js';
+import type { FireflyAuthMode, FireflyAuthPolicy, StorageAdapter } from '#/types.js';
 
 /** Production Firefly API root. The refresh endpoint lives under `/v3/auth`. */
 const DEFAULT_FIREFLY_ROOT_URL = 'https://api.firefly.land';

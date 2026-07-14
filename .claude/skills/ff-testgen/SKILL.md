@@ -65,7 +65,7 @@ Follow the existing layout and conventions (read a couple of neighbouring tests 
 - apps/web → `apps/web/tests/<area>/<name>.test.ts(x)`
 - apps/wallet → `apps/wallet/test/<area>/<name>.test.tsx`
 
-These files **are linted and typechecked**, so obey repo rules: `@/…` imports with `.js` extension,
+These files **are linted and typechecked**, so obey repo rules: `#/...` (or legacy `@/...`) imports with `.js` extension,
 **no relative `../` imports**, `classNames` (web) / `cn` (wallet) for class strings, ESM shims for
 `next/*`. One `describe` per unit; one `it` per acceptance criterion or branch (happy path + the
 negative/edge paths the spec calls out). Make assertions specific — assert values/states, not just "truthy."

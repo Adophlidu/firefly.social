@@ -48,9 +48,9 @@ See `/architecture` for the full layer diagram, package list, violation examples
 **Imports:**
 
 - ❌ NEVER use relative paths (`../`) for internal imports — ESLint forbids them
-- ✅ All `@/` internal imports require `.js` extension: `import { Foo } from '@/components/Foo.js'`
+- ✅ All `#/` (or legacy `@/`) internal imports require `.js` extension: `import { Foo } from '#/components/Foo.js'`
 - ❌ NEVER import `next/image` / `next/link` / `next/navigation` directly
-- ✅ Use ESM shims: `@/esm/Image.js`, `@/esm/Link.js`, `@/esm/navigation.js`, `@/esm/dynamic.js`
+- ✅ Use ESM shims: `#/esm/Image.js`, `#/esm/Link.js`, `#/esm/navigation.js`, `#/esm/dynamic.js`
 - ❌ NEVER use `clsx`, `cx`, or template literals for class names
 - ✅ Use `classNames(...)` from `@dimensiondev/utils`
 

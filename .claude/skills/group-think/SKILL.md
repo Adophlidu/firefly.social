@@ -60,7 +60,7 @@ The exploration MUST produce a **Context Brief** covering:
 1. **Entry Point** — where the user interaction starts (page, component, route).
 2. **Call Chain** — full execution path (component → hook → service / provider → store → helpers, or the @dimensiondev/rn-ui equivalent).
 3. **State Flow** — Zustand stores, jotai atoms, or context providers involved.
-4. **Surface-Specific Variants** — `apps/web` vs `apps/wallet` differences; `@/esm/*` shims used.
+4. **Surface-Specific Variants** — `apps/web` vs `apps/wallet` differences; `#/esm/*` shims used.
 5. **Key Code Snippets** — the actual code (not just file paths) for the critical sections (each snippet < 50 lines, with file path + line range as header).
 6. **Recent Changes** — `git log --oneline -10` on the relevant files to spot recent regressions.
 7. **Related Issues** — any TODO/FIXME/HACK comments or FW-XXX Jira refs in the code.
@@ -127,7 +127,7 @@ Agent({
 Any proposed fix MUST respect:
 - Layer hierarchy (apps/web/src: components → hooks → services → store → helpers)
 - @dimensiondev/* workspace layers (Layer 1 packages may not import sibling Layer 1)
-- Restricted patterns: no clsx, no relative imports, ESM shims for next/*, classNames util, .js extensions on @/ imports
+- Restricted patterns: no clsx, no relative imports, ESM shims for next/*, classNames util, .js extensions on `#/` (or legacy `@/`) imports
 - i18n via Lingui macros (@lingui/react/macro for JSX, @lingui/core/macro for JS)
 - 'use client' as the first line of client components in app/
 - memo() wrap on non-trivial components

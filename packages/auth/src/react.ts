@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import type { FireflyAuthClient } from '@/FireflyAuthClient.js';
+import type { FireflyAuthClient } from '#/FireflyAuthClient.js';
 
 /**
  * Subscribe a component to the freshest Firefly access token from a given

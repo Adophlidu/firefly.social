@@ -213,7 +213,7 @@ const handleSubmit = () => {
 
 // Fix: tell the user (via Lingui-translated message)
 import { t } from '@lingui/core/macro';
-import { Toast } from '@/components/Toast.js';
+import { Toast } from '#/components/Toast.js';
 
 if (!data) {
     Toast.warning({
@@ -234,7 +234,7 @@ Look for `catch {}` or `catch(e) { console.error(e) }` in Web3 transactions, sig
 ```typescript
 // Bug: page imports a hook that calls useState — but page has no 'use client'
 // app/feed/page.tsx
-import { useFeed } from '@/hooks/useFeed.js'; // hook uses useState
+import { useFeed } from '#/hooks/useFeed.js'; // hook uses useState
 ```
 
 The build will fail or the page will silently render on the server with broken hydration. Either:
@@ -246,11 +246,11 @@ The build will fail or the page will silently render on the server with broken h
 
 ```typescript
 // Bug: directive ignored because it's not the first line
-import { foo } from '@/...';
+import { foo } from '#/...';
 ('use client');
 
 // Fix: directive first, then a blank line, then imports
 ('use client');
 
-import { foo } from '@/...';
+import { foo } from '#/...';
 ```

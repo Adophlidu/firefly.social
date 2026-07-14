@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/utils",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.41",
     "description": "Shared utility functions for Firefly projects",
     "type": "module",

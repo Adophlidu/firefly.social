@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/auth",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.0",
     "description": "Firefly session access-token provider for sub-sites under firefly.social/*",
     "type": "module",

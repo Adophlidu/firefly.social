@@ -1,10 +1,10 @@
-import type { AuthContext } from '@/internal/context.js';
-import { getAccessTokenExpiresAt, shouldProactivelyRefresh } from '@/internal/jwt.js';
-import { withTokenLock } from '@/internal/locks.js';
-import { exchangeLegacyFireflyToken, type FireflyTokenData, refreshFireflyToken } from '@/internal/refreshEndpoint.js';
-import { readFireflySnapshot, writeRotatedTokens } from '@/internal/storage.js';
-import { FireflySession, TOKEN_LOCK } from '@/session/FireflySession.js';
-import type { FireflySnapshot, JwtPayload } from '@/types.js';
+import type { AuthContext } from '#/internal/context.js';
+import { getAccessTokenExpiresAt, shouldProactivelyRefresh } from '#/internal/jwt.js';
+import { withTokenLock } from '#/internal/locks.js';
+import { exchangeLegacyFireflyToken, type FireflyTokenData, refreshFireflyToken } from '#/internal/refreshEndpoint.js';
+import { readFireflySnapshot, writeRotatedTokens } from '#/internal/storage.js';
+import { FireflySession, TOKEN_LOCK } from '#/session/FireflySession.js';
+import type { FireflySnapshot, JwtPayload } from '#/types.js';
 
 /**
  * Web Firefly session: the shared `localStorage` (or a custom

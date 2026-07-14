@@ -247,7 +247,7 @@ Use this exact structure:
 ### Layer / restricted-pattern checks (from `/architecture` + `CLAUDE.md`)
 
 - Layer hierarchy respected (apps/web: components/modals → hooks → services → store → helpers)
-- `@/` imports with `.js` extension; no relative `../`
+- `#/` (or legacy `@/`) imports with `.js` extension; no relative `../`
 - `classNames` (apps/web) or `cn` (apps/wallet) for class strings
 - ESM shims for `next/image` / `next/link` / `next/navigation` / `next/dynamic`
 - `'use client'` on first line where needed

@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/iframe-bridge",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.41",
     "description": "IframeBridge provides communication between iframe and its host page",
     "type": "module",

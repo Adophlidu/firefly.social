@@ -1,5 +1,5 @@
-import type { ResolvedConfig } from '@/config.js';
-import type { Logger } from '@/logger.js';
+import type { ResolvedConfig } from '#/config.js';
+import type { Logger } from '#/logger.js';
 
 /**
  * Per-client runtime context threaded through the session classes and internal

@@ -182,11 +182,11 @@ git diff origin/main...HEAD --name-only | grep -E '^packages/(hooks|web3|web3-ut
 
 # In-app: store importing from hooks/components/modals (forbidden)
 git diff origin/main...HEAD --name-only | grep -E '^apps/web/src/store/' | \
-  while IFS= read -r f; do [ -f "$f" ] && grep -Hn "from ['\"]@/\(hooks\|components\|modals\)" "$f"; done
+  while IFS= read -r f; do [ -f "$f" ] && grep -Hn "from ['\"][@#]/\(hooks\|components\|modals\)" "$f"; done
 
 # In-app: service importing from a hook (forbidden)
 git diff origin/main...HEAD --name-only | grep -E '^apps/web/src/services/' | \
-  while IFS= read -r f; do [ -f "$f" ] && grep -Hn "from ['\"]@/hooks/" "$f"; done
+  while IFS= read -r f; do [ -f "$f" ] && grep -Hn "from ['\"][@#]/hooks/" "$f"; done
 ```
 
 See `/architecture` for the full rules including the SingletonModal pattern for opening modals across layers.
@@ -248,7 +248,7 @@ Cross-validated findings (primary + cross-review agree, or primary + PR comment 
 - Missing optional chaining on nullable refs
 - Layer hierarchy violations
 - Missing cleanup in `useEffect`
-- Missing `.js` extension on `@/` imports
+- Missing `.js` extension on `#/` (or legacy `@/`) imports
 - Direct `next/image` / `next/link` / `next/navigation` imports → ESM shims
 - `clsx` / `cx` / template-literal class names → `classNames` from `@dimensiondev/utils`
 - Hardcoded user-visible strings without Lingui wrapping

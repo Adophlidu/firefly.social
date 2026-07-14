@@ -46,8 +46,8 @@ The `/commit` slash command runs `pnpm typecheck` + `pnpm lint` before producing
 Don't duplicate the rules here — read the authoritative docs and use ESLint to enforce them:
 
 - **Layer hierarchy** (in-app and workspace package layers, SingletonModal pattern, common violations) → `/architecture`
-- **Import paths** (`@/` alias with `.js` extension, no relative `../`, no `next/image`/`next/link`/`next/navigation` direct) → `CLAUDE.md` + `/architecture`
-- **Class names** (`classNames` from `@dimensiondev/utils` in apps/web, `cn` from `@/lib/utils.js` in apps/wallet; no `clsx`, no template literals) → `CLAUDE.md`
+- **Import paths** (`#/` (or legacy `@/`) alias with `.js` extension, no relative `../`, no `next/image`/`next/link`/`next/navigation` direct) → `CLAUDE.md` + `/architecture`
+- **Class names** (`classNames` from `@dimensiondev/utils` in apps/web, `cn` from `#/lib/utils.js` in apps/wallet; no `clsx`, no template literals) → `CLAUDE.md`
 - **Client/server components** (`'use client'` as the first line + blank line, then imports) → `CLAUDE.md`
 - **i18n** (Lingui macros from `@lingui/react/macro` and `@lingui/core/macro` — NOT `@lingui/macro`) → `/i18n`
 - **rn-ui imports** (whole-screen + Provider only from the external `@dimensiondev/rn-ui` package; tamagui is never authored in this repo) → `CLAUDE.md` (Tamagui boundary)
@@ -75,9 +75,9 @@ someAsync();          // ❌
 void someAsync();     // ✅ fire-and-forget
 await someAsync();    // ✅ wait for result
 
-// Relative import — use @/ alias (no-relative-import-paths/no-relative-import-paths)
+// Relative import — use #/ alias (no-relative-import-paths/no-relative-import-paths)
 import { x } from '../../helpers/foo';        // ❌
-import { x } from '@/helpers/foo.js';         // ✅ with .js extension
+import { x } from '#/helpers/foo.js';         // ✅ with .js extension
 
 // Tailwind class order — auto-fixable (tailwindcss/classnames-order)
 className="text-sm px-4 flex"   // ❌ unordered
@@ -234,7 +234,7 @@ Before opening a PR:
 - [ ] `pnpm test` passes for touched packages
 - [ ] All comments are in English
 - [ ] No commented-out code
-- [ ] No relative `../` imports; `@/` imports include `.js` extension
+- [ ] No relative `../` imports; `#/` (or legacy `@/`) imports include `.js` extension
 - [ ] No `clsx` / template-literal class names (apps/web uses `classNames`, apps/wallet uses `cn`)
 - [ ] No direct `next/image` / `next/link` / `next/navigation` / `next/dynamic` imports
 - [ ] User-visible strings wrapped with Lingui macros (`<Trans>` / ` t` ``)

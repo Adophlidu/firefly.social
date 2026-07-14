@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/exception-tracker",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.41",
     "description": "Exception tracking for Firefly projects",
     "type": "module",

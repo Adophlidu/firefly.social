@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/hooks",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.41",
     "description": "Shared React hooks for Firefly projects",
     "type": "module",

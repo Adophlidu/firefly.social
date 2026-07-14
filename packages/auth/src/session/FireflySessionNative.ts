@@ -1,9 +1,9 @@
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 
-import { getAccessTokenExpiresAt, shouldProactivelyRefresh } from '@/internal/jwt.js';
-import { withTokenLock } from '@/internal/locks.js';
-import { type FireflyTokenData, isUnauthorized, refreshFireflyToken } from '@/internal/refreshEndpoint.js';
-import { FireflySession, TOKEN_LOCK } from '@/session/FireflySession.js';
+import { getAccessTokenExpiresAt, shouldProactivelyRefresh } from '#/internal/jwt.js';
+import { withTokenLock } from '#/internal/locks.js';
+import { type FireflyTokenData, isUnauthorized, refreshFireflyToken } from '#/internal/refreshEndpoint.js';
+import { FireflySession, TOKEN_LOCK } from '#/session/FireflySession.js';
 
 /**
  * Native Firefly session (inside the Firefly app webview).

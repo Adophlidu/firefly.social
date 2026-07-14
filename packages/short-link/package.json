@@ -1,5 +1,8 @@
 {
     "name": "@dimensiondev/short-link",
+    "imports": {
+        "#/*": "./src/*"
+    },
     "version": "0.1.0",
     "description": "Deterministic short-link identity parsing and hashing shared by Firefly clients and servers",
     "type": "module",
