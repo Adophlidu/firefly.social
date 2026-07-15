@@ -11,8 +11,6 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createRedPacketImage } from '@/services/createRedPacketImage.js';
 import { UsageType } from '@/types/rp.js';
 
-export const runtime = 'edge';
-
 const TokenSchema = z.object({
     type: z.literal('fungible'),
     symbol: z.string(),

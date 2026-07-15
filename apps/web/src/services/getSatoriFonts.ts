@@ -24,7 +24,7 @@ const FONT_CONFIGS: FontConfig[] = [
 ];
 
 // Memoize in module scope: avoids Next.js's 2 MB fetch data-cache limit (the
-// NotoSans TTFs are ~22 MB) and stays edge-compatible (/api/rp is runtime: edge).
+// NotoSans TTFs are ~22 MB) and keeps the buffers resident across warm invocations.
 const fontBufferCache = new Map<string, Promise<ArrayBuffer>>();
 
 function loadOgFont(url: string, signal?: AbortSignal): Promise<ArrayBuffer> {
