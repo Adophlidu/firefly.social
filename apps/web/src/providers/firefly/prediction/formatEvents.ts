@@ -1,6 +1,6 @@
 import { BetsMarketResolveStatus, PredictionPlatform } from '@dimensiondev/enums';
 import { parseJson } from '@dimensiondev/utils';
-import { first, last } from 'lodash-es';
+import { first, isNil, last } from 'lodash-es';
 
 import { resolveSportData } from '@/helpers/prediction/polymarket/resolveSportData.js';
 import { matchesTeamLabel } from '@/helpers/prediction/sportScoreUtils.js';
@@ -271,10 +271,26 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
         const outcomeIds = parseJson<string[]>(market.clobTokenIds);
         const prices = parseJson<string[]>(market.outcomePrices);
         const isResolved = market.umaResolutionStatus === BetsMarketResolveStatus.Resolved;
+        // The Buy buttons show each token's live order-book ask, not the mid price
+        // (the Yes/No asks are independent and do NOT sum to $1). Gamma only exposes
+        // bestBid/bestAsk for the first (Yes) token, so derive the No-token ask as
+        // (1 - bestBid). Without this, unselected illiquid markets fell back to
+        // outcomePrices and showed complementary mid prices (e.g. 50.5¢/49.5¢) instead of
+        // the official site's independent asks (e.g. 99¢/99¢). Each side is derived
+        // independently so a market missing only one of bestAsk/bestBid still shows the
+        // other side's real ask.
+        const yesNoBestAsks =
+            (outcomeLabels?.length ?? 0) === 2
+                ? [
+                      !isNil(market.bestAsk) ? `${market.bestAsk}` : undefined,
+                      !isNil(market.bestBid) ? `${1 - market.bestBid}` : undefined,
+                  ]
+                : undefined;
         const outcomes = (outcomeLabels || []).map((x, i) => ({
             id: outcomeIds?.[i] || '',
             label: x,
             price: prices?.[i] || '0',
+            bestAsk: yesNoBestAsks?.[i],
         }));
         const statusList: BetsMarketResolveStatus[] = [];
         const statuses = parseJson<BetsMarketResolveStatus[]>(market.umaResolutionStatuses || '[]');

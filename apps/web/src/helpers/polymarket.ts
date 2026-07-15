@@ -1,9 +1,19 @@
-import { runInSafe } from '@dimensiondev/utils';
+import { removeTrailingZeros, runInSafe } from '@dimensiondev/utils';
 
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 const tailZero = /\.0+$|(\.\d*[1-9])0+$/;
+
+/**
+ * Format a token's order-book ask (0..1) as the label shown on a Polymarket Buy button.
+ * An ask of 1 (100¢) or 0 means there is no real ask liquidity — show "--" like the
+ * official site. Only 0 < ask < 1 is a genuine ask (e.g. 0.99 → "99¢").
+ */
+export function formatBuyButtonAsk(ask: number): string {
+    if (!(ask > 0 && ask < 1)) return '--';
+    return `${removeTrailingZeros((ask * 100).toFixed(1))}¢`;
+}
 
 export function toFixedTrimmed(num: number, fixed: number) {
     if (Number.isNaN(num)) return '0';

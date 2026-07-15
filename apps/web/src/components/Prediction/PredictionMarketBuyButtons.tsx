@@ -1,7 +1,7 @@
 'use client';
 
 import { PredictionPlatform, Source } from '@dimensiondev/enums';
-import { classNames, removeTrailingZeros } from '@dimensiondev/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined, last } from 'lodash-es';
@@ -12,6 +12,7 @@ import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
+import { formatBuyButtonAsk } from '@/helpers/polymarket.js';
 import { getPolymarketOrderBooks } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';
 import { capturePolymarketOrderClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
@@ -57,6 +58,10 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
             const price = !Number.isNaN(+outcome.price) ? Number.parseFloat(outcome.price) : 0;
             const orderBook = orderBooks?.find((book) => book.asset_id === outcome.id);
             const orderBookPrice = !!orderBook && !orderBook.asks.length ? '0' : last(orderBook?.asks)?.price;
+            // Show each token's live order-book ask (Yes = bestAsk, No = 1 - bestBid), set on
+            // the outcome by formatPolymarketEvent and refreshed for the opened market via the
+            // market websocket (PredictionContext). Fall back to the per-outcome order-book
+            // fetch when Gamma omits an ask, then to the mid price as a last resort.
             const bestPrice = !isUndefined(outcome.bestAsk)
                 ? !Number.isNaN(+outcome.bestAsk)
                     ? Number.parseFloat(outcome.bestAsk)
@@ -65,7 +70,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                   ? Number.parseFloat(orderBookPrice)
                   : price;
 
-            return { ...outcome, displayPrice: bestPrice === 1 ? 0 : bestPrice };
+            return { ...outcome, displayPrice: bestPrice };
         });
     }, [market.outcomes, orderBooks]);
 
@@ -101,10 +106,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         {showPrice ? (
                             <Trans>
                                 <span className="min-w-0 truncate">Buy {outcome.label}</span>
-                                <AnimatedText
-                                    className="shrink-0"
-                                    text={`${removeTrailingZeros((outcome.displayPrice * 100).toFixed(1))}¢`}
-                                />
+                                <AnimatedText className="shrink-0" text={formatBuyButtonAsk(outcome.displayPrice)} />
                             </Trans>
                         ) : (
                             <Trans>Buy {outcome.label}</Trans>
