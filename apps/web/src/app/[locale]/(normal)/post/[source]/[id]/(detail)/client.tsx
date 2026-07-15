@@ -140,7 +140,7 @@ export function PageDetail({ id: postId, source, initialPost, initialThread }: P
                         disableAnimate
                         isDetail
                         showTranslate
-                        bodyFooter={<OrbPostBodyFooter post={post} />}
+                        bodyFooter={<OrbPostBodyFooter post={post} fullWidth />}
                     />
 
                     <Section title="Post Statistics And Actions">

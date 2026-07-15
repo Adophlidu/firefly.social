@@ -1,6 +1,7 @@
 'use client';
 
 import { PredictionPlatform } from '@dimensiondev/enums';
+import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 
@@ -18,6 +19,8 @@ import type { SportTeam } from '@/types/prediction.js';
 
 export interface OrbPostBodyFooterProps {
     post: Post;
+    /** Drop the 52px indent so the card fills the detail page's full-width body. */
+    fullWidth?: boolean;
 }
 
 /**
@@ -33,7 +36,7 @@ export interface OrbPostBodyFooterProps {
  * and this footer is null when no event/slug is present — so it is safe to
  * attach as the `bodyFooter` of any `SinglePost` (non-Orb posts render nothing).
  */
-export const OrbPostBodyFooter = memo(function OrbPostBodyFooter({ post }: OrbPostBodyFooterProps) {
+export const OrbPostBodyFooter = memo(function OrbPostBodyFooter({ post, fullWidth }: OrbPostBodyFooterProps) {
     const { eventSlug } = parseLpt1Tags(post.metadata.tags);
     const event = useBetsEventBySlug(eventSlug);
 
@@ -68,7 +71,7 @@ export const OrbPostBodyFooter = memo(function OrbPostBodyFooter({ post }: OrbPo
             ? RouteResolver.betsEventDetail(event.platform, eventDetailSlug)
             : undefined;
         return (
-            <div className="ml-[52px]">
+            <div className={classNames(fullWidth ? '' : 'ml-[52px]')}>
                 {badge}
                 {activity ? (
                     <SportTimelineActivityCard activity={activity} href={eventDetailHref} />
@@ -81,7 +84,7 @@ export const OrbPostBodyFooter = memo(function OrbPostBodyFooter({ post }: OrbPo
 
     if (eventSlug) {
         return (
-            <div className="ml-[52px]">
+            <div className={classNames(fullWidth ? '' : 'ml-[52px]')}>
                 {badge}
                 <Link
                     className="w-fit text-medium font-bold text-highlight"
