@@ -18,6 +18,7 @@ import {
 } from '@/components/Prediction/PredictionMarketsAccountTab/WalletsFilter.js';
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import type { BetsMarketDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 
@@ -89,6 +90,7 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
     wallets,
     eventId,
 }) {
+    const locale = useLocale();
     const { wallets: fireflyWallets } = useFireflyWalletStore();
     const betAccounts = useMemo<PolymarketWallet[]>(
         () =>
@@ -114,6 +116,7 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
                 eventId,
                 isProxyAddress: true,
                 positionType: 'current',
+                locale,
             }),
         select: (result) => result?.data?.filter((position) => position.shares >= 0.01),
     });

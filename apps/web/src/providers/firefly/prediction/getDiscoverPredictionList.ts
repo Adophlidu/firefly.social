@@ -1,9 +1,10 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import type { PredictionPlatform } from '@dimensiondev/enums';
+import type { Locale, PredictionPlatform } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
+import { resolvePolymarketLocale } from '@/helpers/prediction/resolvePolymarketLocale.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { BetsActivity, Response as FireflyResponse } from '@/providers/types/Firefly.js';
@@ -14,6 +15,7 @@ interface Options {
     cursor?: string;
     platforms?: PredictionPlatform[];
     indicator?: PageIndicator;
+    locale?: Locale;
 }
 
 export async function getDiscoverPredictionList(options: Options) {
@@ -21,6 +23,7 @@ export async function getDiscoverPredictionList(options: Options) {
         platform: options.platforms?.join(',') || undefined,
         size: options.size || 20,
         cursor: options.indicator?.id,
+        locale: resolvePolymarketLocale(options.locale),
     });
     const response = await fireflySessionHolder.fetch<
         FireflyResponse<{

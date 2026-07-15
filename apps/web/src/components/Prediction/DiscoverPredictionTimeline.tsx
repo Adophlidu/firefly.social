@@ -6,6 +6,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionActivityItem } from '@/components/Prediction/PredictionActivityItem.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getDiscoverPredictionList } from '@/providers/firefly/prediction/getDiscoverPredictionList.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 import { PredictionFilterNamespace, usePredictionSourceFilterStore } from '@/store/usePredictionSourceFilterStore.js';
@@ -15,16 +16,18 @@ function getPredictionActivityItem(index: number, activity: BetsActivity, onClic
 }
 
 export function DiscoverPredictionTimeline() {
+    const locale = useLocale();
     const { platforms } = usePredictionSourceFilterStore(PredictionFilterNamespace.Discover);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'list', 'discover', platforms],
+        queryKey: ['bets', 'list', 'discover', platforms, locale],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
                 return await getDiscoverPredictionList({
                     indicator,
                     platforms,
+                    locale,
                 });
             } catch {
                 return createPageable([], indicator);

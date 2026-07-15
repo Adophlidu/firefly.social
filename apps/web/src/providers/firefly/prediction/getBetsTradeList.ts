@@ -1,7 +1,8 @@
-import type { PredictionPlatform } from '@dimensiondev/enums';
+import type { Locale, PredictionPlatform } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
+import { resolvePolymarketLocale } from '@/helpers/prediction/resolvePolymarketLocale.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { BetsActivity, Response } from '@/providers/types/Firefly.js';
@@ -16,9 +17,10 @@ interface Options {
     tokenIds?: string[];
     startTime?: number;
     endTime?: number;
+    locale?: Locale;
 }
 
-export async function getBetsTradeList({ indicator, size = 20, ...rest }: Options) {
+export async function getBetsTradeList({ indicator, size = 20, locale, ...rest }: Options) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/bets/market');
     const response = await fireflySessionHolder.fetch<
         Response<{
@@ -31,6 +33,7 @@ export async function getBetsTradeList({ indicator, size = 20, ...rest }: Option
             ...rest,
             size,
             cursor: indicator?.id,
+            ...(locale ? { locale: resolvePolymarketLocale(locale) } : {}),
         }),
     });
     const data = resolveFireflyResponseData(response);

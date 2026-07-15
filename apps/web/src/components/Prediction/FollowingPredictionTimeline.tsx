@@ -7,6 +7,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionActivityItem } from '@/components/Prediction/PredictionActivityItem.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getFollowingPredictionList } from '@/providers/firefly/prediction/getFollowingPredictionList.js';
 import { captureFollowingPredictionsClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
@@ -18,17 +19,19 @@ function getPredictionActivityItem(index: number, activity: BetsActivity, onClic
 }
 
 export function FollowingPredictionTimeline() {
+    const locale = useLocale();
     const { currentProfileSession } = useFireflyProfileStore();
     const { platforms } = usePredictionSourceFilterStore(PredictionFilterNamespace.Following);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'list', 'following', currentProfileSession?.profileId, platforms],
+        queryKey: ['bets', 'list', 'following', currentProfileSession?.profileId, platforms, locale],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
                 return await getFollowingPredictionList({
                     indicator,
                     platforms,
+                    locale,
                 });
             } catch {
                 return createPageable([], indicator);

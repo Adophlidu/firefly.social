@@ -16,6 +16,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import type { PolymarketShareIdentity } from '@/helpers/polymarketShareImage.js';
 import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
 import { usePredictionProfileData } from '@/hooks/prediction/usePredictionProfileData.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { PredictionPositionDataForUI, PredictionProfileDataForUI } from '@/types/prediction.js';
 
@@ -79,6 +80,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     address,
     proxyAddress,
 }) {
+    const locale = useLocale();
     const { data: allProxyWallets = EMPTY_LIST } = useAllProxyWallets();
     const isMyAddress = useMemo(
         () => allProxyWallets.some((x) => isSameEthereumAddress(x, address)),
@@ -137,6 +139,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                     isProxyAddress: !!proxyAddress,
                     indicator,
                     positionType: 'current',
+                    locale,
                 });
             } catch {
                 return createPageable([], indicator);
@@ -160,6 +163,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                     positionType: 'closed',
                     sortBy: 'TIMESTAMP',
                     sortDirection: 'DESC',
+                    locale,
                 });
             } catch {
                 return createPageable([], indicator);

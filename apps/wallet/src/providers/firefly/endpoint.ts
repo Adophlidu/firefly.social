@@ -53,14 +53,17 @@ import {
 } from '@/providers/types/Firefly.js';
 import type { FreeGasRequestBody, FreeGasResponse } from '@/providers/types/FreeGas.js';
 
-function resolvePolymarketLocale(locale?: Locale) {
+function resolvePolymarketLocale(locale?: Locale, rewrites?: Partial<Record<Locale, string>>) {
     if (!locale) return;
+    if (rewrites?.[locale]) {
+        return rewrites[locale];
+    }
 
     switch (locale) {
         case Locale.zhHans:
             return 'zh';
         case Locale.zhHant:
-            return 'zh-hant';
+            return 'zh-Hant';
         case Locale.en:
             return;
         case Locale.es:
@@ -259,6 +262,7 @@ export class FireflyEndpoint extends Fetch {
             offset?: number;
             limit?: number;
             eventId?: string;
+            locale?: Locale;
             sortBy?: PolymarketV2PositionSortBy;
             sortDirection?: PolymarketV2PositionSortDirection;
         },
@@ -268,6 +272,7 @@ export class FireflyEndpoint extends Fetch {
             redeemable: options?.redeemable ?? false,
             offset: options?.offset ?? 0,
             limit: options?.limit ?? 20,
+            locale: resolvePolymarketLocale(options?.locale),
             ...(options?.eventId ? { eventId: options.eventId } : {}),
             ...(options?.sortBy ? { sortBy: options.sortBy } : {}),
             ...(options?.sortDirection ? { sortDirection: options.sortDirection } : {}),
@@ -282,6 +287,7 @@ export class FireflyEndpoint extends Fetch {
             offset?: number;
             limit?: number;
             eventId?: string;
+            locale?: Locale;
             sortBy?: PolymarketV2PositionSortBy;
             sortDirection?: PolymarketV2PositionSortDirection;
         },
@@ -290,6 +296,7 @@ export class FireflyEndpoint extends Fetch {
             user: wallet,
             offset: options?.offset ?? 0,
             limit: options?.limit ?? 20,
+            locale: resolvePolymarketLocale(options?.locale),
             ...(options?.eventId ? { eventId: options.eventId } : {}),
             ...(options?.sortBy ? { sortBy: options.sortBy } : {}),
             ...(options?.sortDirection ? { sortDirection: options.sortDirection } : {}),
@@ -298,11 +305,14 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    async getPolymarketOpenOrdersList(options?: { cursor?: string }) {
-        const url = urlcat('/polymarket/v1/polymarket/getOpensOrdersList', {
-            cursor: options?.cursor || '0',
-        });
-        const result = await this.post<GetPolymarketAccountOpenOrdersResponse>(url);
+    async getPolymarketOpenOrdersList(options?: { cursor?: string; locale?: Locale }) {
+        const result = await this.post<GetPolymarketAccountOpenOrdersResponse>(
+            '/polymarket/v1/polymarket/getOpensOrdersList',
+            {
+                cursor: options?.cursor || null,
+                ...(options?.locale ? { locale: resolvePolymarketLocale(options.locale) } : {}),
+            },
+        );
         return resolveFireflyResponseData(result.data);
     }
 
@@ -322,11 +332,17 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    async getPolymarketUserActivity(options: { proxyWallet: string; limit?: number; cursor?: string }) {
+    async getPolymarketUserActivity(options: {
+        proxyWallet: string;
+        limit?: number;
+        cursor?: string;
+        locale?: Locale;
+    }) {
         const url = urlcat('/v2/polymarket/user/activity', {
             proxy_wallet: options.proxyWallet,
             limit: options.limit,
             cursor: options.cursor,
+            locale: resolvePolymarketLocale(options.locale),
         });
         const result = await this.get<PolymarketActivityResponse>(url);
         return resolveFireflyResponseData(result.data);
@@ -493,7 +509,12 @@ export class FireflyEndpoint extends Fetch {
     }
 
     async getPolymarketEventBySlug(slug: string, locale?: Locale) {
-        const url = urlcat('/v1/polymarket/event/detail', { slug, locale: resolvePolymarketLocale(locale) });
+        const url = urlcat('/v1/polymarket/event/detail', {
+            slug,
+            locale: resolvePolymarketLocale(locale, {
+                [Locale.zhHant]: 'zh-hant',
+            }),
+        });
         const result = await this.get<Response<PolymarketEvent>>(url);
         return resolveFireflyResponseData(result.data);
     }

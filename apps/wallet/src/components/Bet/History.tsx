@@ -131,6 +131,7 @@ export function History({ initialTab }: { initialTab?: 'closed-positions' | 'tra
 }
 
 function ClosedPositionsHistory() {
+    const locale = useLocale();
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const [sortBy, setSortBy] = useState<ClosedPositionSortBy>('TIMESTAMP');
     const proxyAddress = account.proxyAddress;
@@ -144,6 +145,7 @@ function ClosedPositionsHistory() {
                 redeemable: true,
                 offset: 0,
                 limit: 200,
+                locale,
                 sortBy: sortBy === 'TIMESTAMP' ? 'CURRENT' : undefined,
             });
             if (!positions) return EMPTY_LIST;
@@ -162,6 +164,7 @@ function ClosedPositionsHistory() {
                 limit: PAGE_SIZE,
                 sortBy,
                 sortDirection: 'DESC',
+                locale,
             });
             return {
                 data: (closedPositions ?? []).map((p) => mapPolymarketV2ToLegacy(p, true)).filter((x) => x.shares > 0),
@@ -235,6 +238,8 @@ function ClosedPositionsHistory() {
 }
 
 function TradingActivitiesHistory() {
+    const locale = useLocale();
+
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const proxy = account.proxyAddress.toLowerCase();
     const queryResult = useSuspenseInfiniteQuery({
@@ -244,6 +249,7 @@ function TradingActivitiesHistory() {
             return getFireflyEndpoint().getPolymarketUserActivity({
                 proxyWallet: proxy,
                 cursor: pageParam,
+                locale,
             });
         },
         getNextPageParam: (lastPage) => {

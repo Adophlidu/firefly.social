@@ -9,6 +9,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionTradeItem } from '@/components/Prediction/PredictionTradeItem.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getPredictionTimelineByAddress } from '@/providers/firefly/prediction/getPredictionTimelineByAddress.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -53,10 +54,11 @@ export function PredictionTradeList({
     polymarketName,
     opinionName,
 }: PredictionTradeListProps) {
+    const locale = useLocale();
     const { currentProfileSession } = useFireflyProfileStore();
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'trades', address.toLowerCase()],
+        queryKey: ['bets', 'trades', address.toLowerCase(), locale],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
@@ -65,6 +67,7 @@ export function PredictionTradeList({
                     platforms: [platform],
                     indicator,
                     size: 15,
+                    locale,
                 });
             } catch {
                 return createPageable([], indicator);

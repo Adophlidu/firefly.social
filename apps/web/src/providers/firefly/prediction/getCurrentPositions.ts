@@ -1,3 +1,4 @@
+import type { Locale } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -7,6 +8,7 @@ import {
 } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
+import { resolvePolymarketLocale } from '@/helpers/prediction/resolvePolymarketLocale.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { PolymarketPositionV2Data, Response } from '@/providers/types/Firefly.js';
@@ -17,11 +19,13 @@ export async function getCurrentPositions({
     indicator,
     limit = 20,
     eventId,
+    locale,
 }: {
     address: string;
     indicator?: PageIndicator;
     limit?: number;
     eventId?: string;
+    locale?: Locale;
 }): Promise<Pageable<PolymarketPositionV2Data, PageIndicator>> {
     const offset = indicator?.id ? +indicator.id : 0;
 
@@ -32,6 +36,7 @@ export async function getCurrentPositions({
         limit,
         sortBy: 'CURRENT',
         sortDirection: 'DESC',
+        locale: resolvePolymarketLocale(locale),
         ...(eventId ? { eventId } : {}),
     });
 

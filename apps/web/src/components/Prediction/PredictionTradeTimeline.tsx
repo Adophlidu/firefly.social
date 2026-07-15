@@ -14,6 +14,7 @@ import { Loading } from '@/components/Loading.js';
 import { PredictionTradeTimelineItem } from '@/components/Prediction/PredictionTradeTimelineItem.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getBetsTradeList } from '@/providers/firefly/prediction/getBetsTradeList.js';
 import { capturePolymarketEventTradesTabClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
@@ -33,8 +34,9 @@ const PredictionTradeTimelineContent = memo<
         isFollowing: boolean;
     }
 >(function PredictionTradeTimelineContent({ platform, marketIds, eventSlug, isFollowing }) {
+    const locale = useLocale();
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'trades-timeline', platform, marketIds.join(','), `${isFollowing}`],
+        queryKey: ['bets', 'trades-timeline', platform, marketIds.join(','), `${isFollowing}`, locale],
         staleTime: STALE_TIMES.MINUTE_2,
 
         queryFn: async ({ pageParam }) => {
@@ -46,6 +48,7 @@ const PredictionTradeTimelineContent = memo<
                     size: 20,
                     isFollowing,
                     conditionIds: marketIds,
+                    locale,
                 });
             } catch {
                 return createPageable([], indicator);

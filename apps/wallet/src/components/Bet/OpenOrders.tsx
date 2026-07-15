@@ -31,6 +31,7 @@ import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Button } from '@/components/ui/button.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
@@ -39,12 +40,13 @@ import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarke
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export function OpenOrders() {
+    const locale = useLocale();
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['polymarket-open-orders', account.proxyAddress.toLowerCase()],
-        initialPageParam: '0',
+        initialPageParam: '',
         async queryFn({ pageParam }) {
-            return getFireflyEndpoint().getPolymarketOpenOrdersList({ cursor: pageParam || '0' });
+            return getFireflyEndpoint().getPolymarketOpenOrdersList({ cursor: pageParam, locale });
         },
         getNextPageParam: (lastPage) => {
             const list = lastPage?.list ?? EMPTY_LIST;

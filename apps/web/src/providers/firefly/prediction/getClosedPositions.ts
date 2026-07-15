@@ -1,3 +1,4 @@
+import type { Locale } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -7,6 +8,7 @@ import {
 } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
+import { resolvePolymarketLocale } from '@/helpers/prediction/resolvePolymarketLocale.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type {
@@ -26,12 +28,14 @@ export async function getClosedPositions({
     limit = 20,
     eventId,
     sortBy,
+    locale,
     sortDirection,
 }: {
     address: string;
     indicator?: PageIndicator;
     limit?: number;
     eventId?: string;
+    locale?: Locale;
     sortBy?: PolymarketV2PositionSortBy;
     sortDirection?: PolymarketV2PositionSortDirection;
 }): Promise<Pageable<PolymarketPositionV2Data, PageIndicator>> {
@@ -43,6 +47,7 @@ export async function getClosedPositions({
         user: address,
         offset,
         limit,
+        locale: resolvePolymarketLocale(locale),
         ...(apiSortBy ? { sortBy: apiSortBy } : {}),
         sortDirection: sortDirection ?? 'DESC',
         ...(eventId ? { eventId } : {}),

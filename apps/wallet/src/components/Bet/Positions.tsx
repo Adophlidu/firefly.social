@@ -6,6 +6,7 @@ import { useQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/
 import { BetEmptyState } from '@/components/Bet/BetEmptyState.js';
 import { PositionCard } from '@/components/Bet/PositionCard.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import {
     filterSoldPositions,
     getPositionsQueryKeys,
@@ -19,6 +20,7 @@ import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 const PAGE_SIZE = 20;
 
 export function Positions() {
+    const locale = useLocale();
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const proxyAddress = account.proxyAddress;
     const proxy = proxyAddress.toLowerCase();
@@ -38,6 +40,7 @@ export function Positions() {
                 limit: PAGE_SIZE,
                 sortBy: 'CURRENT',
                 sortDirection: 'DESC',
+                locale,
             });
             return {
                 data: (positions ?? []).map((p) => mapPolymarketV2ToLegacy(p, false)),

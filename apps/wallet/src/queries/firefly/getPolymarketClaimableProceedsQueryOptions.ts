@@ -1,3 +1,4 @@
+import type { Locale } from '@dimensiondev/enums';
 import { queryOptions } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
@@ -8,7 +9,7 @@ export interface ClaimableProceedsItem extends PolymarketPosition {
     won: number;
 }
 
-export function getPolymarketClaimableProceedsQueryOptions(proxyAddress: Address) {
+export function getPolymarketClaimableProceedsQueryOptions(proxyAddress: Address, locale?: Locale) {
     return queryOptions({
         queryKey: ['polymarket-claimable-proceeds', proxyAddress.toLowerCase()],
         async queryFn() {
@@ -16,6 +17,7 @@ export function getPolymarketClaimableProceedsQueryOptions(proxyAddress: Address
                 redeemable: true,
                 offset: 0,
                 limit: 200,
+                locale,
             });
         },
         enabled: Boolean(proxyAddress),

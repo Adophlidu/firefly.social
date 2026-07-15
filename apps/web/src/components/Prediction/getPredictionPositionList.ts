@@ -1,3 +1,4 @@
+import type { Locale } from '@dimensiondev/enums';
 import { PredictionPlatform } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { unreachable } from '@dimensiondev/utils';
@@ -19,6 +20,7 @@ interface Options {
     limit?: number;
     indicator?: PageIndicator;
     eventId?: string;
+    locale?: Locale;
     positionType?: 'current' | 'closed';
     sortBy?: PolymarketV2PositionSortBy;
     sortDirection?: PolymarketV2PositionSortDirection;
@@ -70,14 +72,23 @@ export async function getPredictionPositionList(
 ): Promise<Pageable<PredictionPositionDataForUI, PageIndicator>> {
     switch (platform) {
         case PredictionPlatform.Polymarket: {
-            const { positionType = 'current', address, indicator, limit, eventId, sortBy, sortDirection } = options;
+            const {
+                positionType = 'current',
+                address,
+                indicator,
+                limit,
+                eventId,
+                sortBy,
+                sortDirection,
+                locale,
+            } = options;
             const isClosed = positionType === 'closed';
 
             if (isClosed) {
                 const isFirstPage = !indicator?.id;
                 const [redeemableResult, closedResult] = await Promise.all([
-                    isFirstPage ? getRedeemablePositions({ address, eventId }) : Promise.resolve([]),
-                    getClosedPositions({ address, indicator, limit, eventId, sortBy, sortDirection }),
+                    isFirstPage ? getRedeemablePositions({ address, eventId, locale }) : Promise.resolve([]),
+                    getClosedPositions({ address, indicator, limit, eventId, sortBy, sortDirection, locale }),
                 ]);
 
                 const redeemableUI = redeemableResult.map((p) => mapV2ToUI(p, true));
@@ -117,7 +128,7 @@ export async function getPredictionPositionList(
                 };
             }
 
-            const result = await getCurrentPositions({ address, indicator, limit, eventId });
+            const result = await getCurrentPositions({ address, indicator, limit, eventId, locale });
             return {
                 ...result,
                 data: result.data.map((position) => mapV2ToUI(position, false)),

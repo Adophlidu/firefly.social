@@ -10,6 +10,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionActivityItem } from '@/components/Prediction/PredictionActivityItem.js';
 import { enrichActivityWithFifa } from '@/helpers/prediction/fifaMatchResults.js';
 import { useFifaMatchResults } from '@/hooks/prediction/useFifaMatchResults.js';
+import { useLocale } from '@/hooks/useLocale.js';
 import { getPredictionTimelineByAddress } from '@/providers/firefly/prediction/getPredictionTimelineByAddress.js';
 import { captureProfilePolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
@@ -26,18 +27,20 @@ function getPredictionActivityItem(data: BetsActivity, onClick?: () => void) {
 export const ProfilePredictionTimeline = memo<ProfilePredictionTimelineProps>(function ProfilePredictionTimeline({
     address,
 }) {
+    const locale = useLocale();
     const { platforms } = usePredictionSourceFilterStore(PredictionFilterNamespace.Profile);
     // If all platforms are selected, we don't need to filter by platform, so we pass an empty array to the query function.
     const validPlatforms = platforms.length === SORTED_BETS_PLATFORM.length ? [] : platforms;
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'list', 'profile', address.toLowerCase(), validPlatforms.join(',')],
+        queryKey: ['bets', 'list', 'profile', address.toLowerCase(), validPlatforms.join(','), locale],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             return getPredictionTimelineByAddress({
                 walletAddresses: [address],
                 indicator,
                 platforms: validPlatforms,
+                locale,
             });
         },
         initialPageParam: '',

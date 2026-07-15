@@ -7,6 +7,7 @@ import type { Address } from 'viem';
 import { DialogOrDrawer, DialogOrDrawerTrigger } from '@/components/DialogOrDrawer.js';
 import { Image } from '@/components/Image.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { getPolymarketClaimableProceedsQueryOptions } from '@/queries/firefly/getPolymarketClaimableProceedsQueryOptions.js';
 
@@ -17,7 +18,8 @@ const SettleResolvedMarketsModal = lazy(() =>
 export function SettleResolvedMarketsSection({ proxyAddress }: { proxyAddress: Address }) {
     const [open, setOpen] = useState(false);
 
-    const { data } = useSuspenseQuery(getPolymarketClaimableProceedsQueryOptions(proxyAddress));
+    const locale = useLocale();
+    const { data } = useSuspenseQuery(getPolymarketClaimableProceedsQueryOptions(proxyAddress, locale));
     const { items: winningItems, totalWon: totalWinAmount } = data;
 
     // Only render if there are winning positions to claim
