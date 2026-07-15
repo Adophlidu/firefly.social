@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
 import { formatPolymarketCryptoCellForUI } from '@/helpers/prediction/category/formatPolymarketCryptoCellForUI.js';
-import type { PolymarketEventListData, PolymarketMarketData } from '@/providers/types/Firefly.js';
+import {
+    type PolymarketEventListData,
+    type PolymarketMarketData,
+    PolymarketUmaResolutionStatus,
+} from '@/providers/types/Firefly.js';
 
 function baseMarket(overrides: Partial<PolymarketMarketData>): PolymarketMarketData {
     return {
@@ -268,12 +272,179 @@ describe('formatPolymarketCryptoCellForUI — single body', () => {
         });
     });
 
-    it('marks a closed event as not live', () => {
-        const event = singleEvent('bitcoin-up-or-down-5m-1', 'Bitcoin');
-        event.closed = true;
+    it('clamps an out-of-range price to the 50¢ fallback and a 0–100 percent', () => {
+        const model = formatPolymarketCryptoCellForUI(singleEvent('bitcoin-up-or-down-5m-1', 'Bitcoin', ['2', '0']));
+        expect(model).not.toBeNull();
+        expect(model!.body).toMatchObject({
+            variant: 'single',
+            outcomes: [
+                { label: 'Up', priceCents: '50¢', percent: 100 },
+                { label: 'Down', priceCents: '0.0¢', percent: 0 },
+            ],
+        });
+    });
+});
+
+describe('formatPolymarketCryptoCellForUI — isLive derivation', () => {
+    it('shows Live for an active, not-decided recurring market', () => {
+        const model = formatPolymarketCryptoCellForUI(
+            singleEvent('bitcoin-up-or-down-5m-1', 'Bitcoin', ['0.6', '0.4']),
+        );
+        expect(model).not.toBeNull();
+        expect(model!.isLive).toBe(true);
+    });
+
+    it('hides Live when the market is decided (an outcome pinned at 100%)', () => {
+        const event = singleEvent('bitcoin-up-or-down-5m-1', 'Bitcoin', ['1', '0']);
         const model = formatPolymarketCryptoCellForUI(event);
         expect(model).not.toBeNull();
         expect(model!.isLive).toBe(false);
+    });
+
+    it('hides Live when the market is closed', () => {
+        const event = singleEvent('bitcoin-up-or-down-5m-1', 'Bitcoin');
+        event.markets[0].closed = true;
+        const model = formatPolymarketCryptoCellForUI(event);
+        expect(model).not.toBeNull();
+        expect(model!.isLive).toBe(false);
+    });
+
+    it('hides Live when the market is UMA-resolved even if not closed or decided', () => {
+        // A resolved market is no longer tradable even in the transient window before its outcome
+        // price pins at 100% — Live must not sit over a market the row selector would exclude.
+        const event = singleEvent('bitcoin-up-or-down-5m-1', 'Bitcoin', ['0.6', '0.4']);
+        event.markets[0].umaResolutionStatus = PolymarketUmaResolutionStatus.Resolved;
+        const model = formatPolymarketCryptoCellForUI(event);
+        expect(model).not.toBeNull();
+        expect(model!.isLive).toBe(false);
+    });
+
+    it('still shows Live when the event-level closed flag lags a still-tradable market', () => {
+        // event.closed flips between recurring cycles even while the underlying market stays
+        // tradable — Live must follow the market state, not the event flag.
+        const event = singleEvent('bitcoin-up-or-down-5m-1', 'Bitcoin', ['0.6', '0.4']);
+        event.closed = true;
+        const model = formatPolymarketCryptoCellForUI(event);
+        expect(model).not.toBeNull();
+        expect(model!.isLive).toBe(true);
+    });
+
+    it('shows Live for a multi-market event as long as any market is tradable', () => {
+        const event = baseEvent({
+            slug: 'bitcoin-multistrike-4h-jul-15',
+            markets: [
+                baseMarket({ id: 'a', slug: 'a', outcomes: '["Yes","No"]', outcomePrices: '["1","0"]' }), // decided
+                baseMarket({ id: 'b', slug: 'b', outcomes: '["Yes","No"]', outcomePrices: '["0.6","0.4"]' }), // tradable
+            ],
+        });
+        const model = formatPolymarketCryptoCellForUI(event);
+        expect(model).not.toBeNull();
+        expect(model!.isLive).toBe(true);
+    });
+});
+
+describe('formatPolymarketCryptoCellForUI — threshold-multi classification', () => {
+    it('routes a crypto "hit-price" multi-market threshold event through the multi cell', () => {
+        // Not an Up/Down slug, but a crypto multi-market threshold event — must use the periodic
+        // multi-cell (coin label, no countdown) instead of falling through to BetItem.
+        const event = baseEvent({
+            slug: 'what-price-will-bitcoin-hit-on-july-14',
+            title: 'What price will Bitcoin hit on July 14?',
+            markets: [
+                baseMarket({
+                    id: 'a',
+                    slug: 'a',
+                    groupItemTitle: '↑ 65,000',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.6","0.4"]',
+                }),
+                baseMarket({
+                    id: 'b',
+                    slug: 'b',
+                    groupItemTitle: '↑ 70,000',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.3","0.7"]',
+                }),
+                baseMarket({
+                    id: 'c',
+                    slug: 'c',
+                    groupItemTitle: '↑ 75,000',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["1","0"]', // decided — excluded
+                }),
+            ],
+        });
+        const model = formatPolymarketCryptoCellForUI(event);
+        expect(model).not.toBeNull();
+        expect(model!.coinLabel).toBe('Bitcoin');
+        expect(model!.body.variant).toBe('multi');
+        if (model!.body.variant !== 'multi') return;
+        // Top-2 by win-rate, decided market excluded.
+        expect(model!.body.rows.map((row) => row.thresholdLabel)).toEqual(['↑ 65,000', '↑ 70,000']);
+        expect(model!.body.rows.map((row) => row.winRateLabel)).toEqual(['60%', '30%']);
+    });
+
+    it('excludes markets that render as 100% (price 0.99–1.0) from the top-2', () => {
+        // Real "bitcoin-above-on-july-15-2026" shape: four low thresholds sit at 0.996–0.9995, which
+        // render as "100%" via Math.ceil but are < 1.0 so the >=1 decided check misses them. The cell
+        // must skip them and show the next two highest (99%, 95%) instead of two 100% rows.
+        const threshold = (id: string, yes: string) =>
+            baseMarket({
+                id,
+                slug: id,
+                groupItemTitle: id,
+                outcomes: '["Yes","No"]',
+                outcomePrices: JSON.stringify([yes, String(1 - Number.parseFloat(yes))]),
+            });
+        const event = baseEvent({
+            slug: 'bitcoin-above-on-july-15-2026',
+            title: 'Bitcoin above ___ on July 15?',
+            markets: [
+                threshold('52,000', '0.9995'), // renders 100%
+                threshold('54,000', '0.9995'), // renders 100%
+                threshold('56,000', '0.9995'), // renders 100%
+                threshold('58,000', '0.996'), // renders 100%
+                threshold('60,000', '0.9865'), // 99%
+                threshold('62,000', '0.945'), // 95%
+                threshold('64,000', '0.5'), // 50%
+                threshold('66,000', '0.0575'),
+                threshold('68,000', '0.0065'),
+                threshold('70,000', '0.0025'),
+                threshold('72,000', '0.0005'),
+            ],
+        });
+        const model = formatPolymarketCryptoCellForUI(event);
+        expect(model).not.toBeNull();
+        if (model!.body.variant !== 'multi') return;
+        // 52k/54k/56k/58k (all "100%") excluded; top-2 = 60,000 (99%) and 62,000 (95%).
+        expect(model!.body.rows.map((row) => row.thresholdLabel)).toEqual(['60,000', '62,000']);
+        expect(model!.body.rows.map((row) => row.winRateLabel)).toEqual(['99%', '95%']);
+        expect(model!.body.rows.map((row) => row.winRateLabel)).not.toContain('100%');
+    });
+
+    it('keeps a non-crypto (stock) multi-market threshold event on BetItem', () => {
+        // SPY has threshold markets like a crypto hit-price event, but no coin resolves — must NOT
+        // be swept into the periodic crypto cell by the threshold-multi broadening.
+        const event = baseEvent({
+            slug: 'spy-closes-above-on-july-15-2026',
+            markets: [
+                baseMarket({
+                    id: 'a',
+                    slug: 'a',
+                    groupItemTitle: '↑ 550',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.6","0.4"]',
+                }),
+                baseMarket({
+                    id: 'b',
+                    slug: 'b',
+                    groupItemTitle: '↑ 560',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.3","0.7"]',
+                }),
+            ],
+        });
+        expect(formatPolymarketCryptoCellForUI(event)).toBeNull();
     });
 });
 

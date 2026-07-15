@@ -50,9 +50,8 @@ function NoPredictions() {
 }
 
 /**
- * Volume-ordered gamma events for a tag (Weekly/Monthly/…, or Quick Buy periods). An optional
- * `transform` is applied in `select` — Quick Buy passes the BTC/ETH/SOL filter + coin-priority
- * sort. Mirrors `SportsCategoryPropsListContent`'s infinite-scroll shape.
+ * Volume-ordered gamma events for a tag (Weekly/Monthly/…, or Quick Buy periods); all tags fetch
+ * active-only markets. Quick Buy passes a `transform` that filters to BTC/ETH/SOL and coin-sorts.
  */
 const CryptoGammaEventsList = memo<{
     tagSlug: string;

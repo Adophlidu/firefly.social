@@ -1,12 +1,12 @@
 'use client';
 
-import LightningIcon from '@dimensiondev/assets/lightning-sharp.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { PredictionCategoryHorizontalScroll } from '@/components/Prediction/Category/PredictionCategoryHorizontalScroll.js';
 import { secondaryChipClassName } from '@/components/Prediction/Category/PredictionCategorySecondaryChip.js';
+import { PredictionCategorySlugIcon } from '@/components/Prediction/Category/PredictionCategorySlugIcon.js';
 import { PredictionCategoryVerticalDivider } from '@/components/Prediction/Category/PredictionCategoryVerticalDivider.js';
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
 import { CRYPTO_QUICK_BUY_SLUG } from '@/helpers/prediction/category/cryptoCategoryConfig.js';
@@ -32,7 +32,7 @@ function isSecondaryChipActive(context: CategorySlugContext, slug: string): bool
 }
 
 /**
- * Crypto-only secondary nav: Quick Buy chip (lightning icon, leading/pinned before the divider) +
+ * Crypto-only secondary nav: Quick Buy chip (live icon, leading/pinned before the divider) +
  * the 9 topic category chips. Quick Buy renders as a plain chip even though it carries period
  * children — the periods surface in the separate `PredictionCategoryCryptoPeriodSwitcher`.
  */
@@ -64,7 +64,7 @@ export const PredictionCategoryCryptoSecondaryNav = memo<Props>(function Predict
                 {...{ [PREDICTION_CATEGORY_SCROLL_KEY_ATTR]: quickBuy.slug }}
                 className={secondaryChipClassName(isSecondaryChipActive(context, quickBuy.slug))}
             >
-                <LightningIcon width={18} height={18} className="shrink-0" />
+                <PredictionCategorySlugIcon item={quickBuy} />
                 <span className="whitespace-nowrap">{resolvePredictionCategoryLabel(locale, quickBuy.label)}</span>
             </Link>
             <PredictionCategoryVerticalDivider />

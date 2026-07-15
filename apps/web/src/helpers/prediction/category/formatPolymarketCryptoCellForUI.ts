@@ -3,9 +3,13 @@ import {
     CRYPTO_DISPLAY_NAME,
     resolveCryptoCoinFromEventListData,
 } from '@/helpers/prediction/category/cryptoCoinPatterns.js';
-import { selectPolymarketListMarketsForDisplay } from '@/helpers/prediction/selectPolymarketListMarketsForDisplay.js';
+import {
+    isMarketDecided,
+    selectPolymarketListMarketsForDisplay,
+} from '@/helpers/prediction/selectPolymarketListMarketsForDisplay.js';
 import { resolveCryptoUpDownFromEvent } from '@/providers/prediction/polymarket/resolveCryptoUpDownFromEvent.js';
 import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
+import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 export interface PredictionCryptoCellOutcome {
     label: string;
@@ -73,28 +77,30 @@ const parsePricePercent = (price: string | undefined | null): number =>
     Math.min(100, Math.max(0, parsePrice(price) * 100));
 
 /**
- * Build the view model for the periodic-crypto list cell (Figma 85151:45725). Returns `null` when
- * the event is not a periodic crypto Up/Down market or no coin resolves, so the caller falls back
- * to the generic `BetItem`.
- *
- * Periodic ⇔ `resolveCryptoUpDownFromEvent` classifies the slug as a known interval family
- * (5m/15m/4h/hourly/daily/multistrike) or an `isUpDownFamily` slug. `single` (`markets.length === 1`)
- * renders the Up/Down price row + buttons; `multi` renders up to 2 threshold option rows.
+ * View model for the periodic-crypto list cell (Figma 85151:45725). Returns `null` (→ caller falls
+ * back to `BetItem`) unless a coin resolves AND the event is periodic: a known interval slug
+ * (5m/15m/4h/hourly/daily/multistrite/up-down) OR a crypto multi-market threshold event
+ * ("What price will BTC hit", "BTC closes above"). The coin gate keeps stocks on `BetItem`.
  */
 export function formatPolymarketCryptoCellForUI(event: PolymarketEventListData): PredictionCryptoCellViewModel | null {
     const classification = resolveCryptoUpDownFromEvent(event);
-    const isPeriodic = classification.kind !== 'other' || classification.isUpDownFamily;
-    if (!isPeriodic) return null;
-
     const coin = resolveCryptoCoinFromEventListData(event);
     if (!coin) return null;
+
+    const isSlugPeriodic = classification.kind !== 'other' || classification.isUpDownFamily;
+    const isCryptoThresholdMulti = event.markets.length > 1 && event.markets.some((market) => !!market.groupItemTitle);
+    if (!isSlugPeriodic && !isCryptoThresholdMulti) return null;
 
     const formatted = formatPolymarketEventListData(event);
     const markets = formatted.markets;
     if (!markets.length) return null;
 
     const coinLabel = CRYPTO_DISPLAY_NAME[coin];
-    const isLive = formatted.status === 'active' && !formatted.closed;
+    // Follow market state, not the event-level `closed` flag (which lags recurring cycles): live
+    // while any market is active, open, unresolved, and not decided.
+    const isMarketTradable = (market: BetsMarketDataForUI): boolean =>
+        market.active !== false && !market.isClosed && !market.isResolved && !isMarketDecided(market);
+    const isLive = markets.some(isMarketTradable);
     const eventSlug = formatted.slug || event.id;
     const image = formatted.image || formatted.icon || '';
 
@@ -117,7 +123,15 @@ export function formatPolymarketCryptoCellForUI(event: PolymarketEventListData):
         };
     }
 
-    const selected = selectPolymarketListMarketsForDisplay(markets, formatted.sortBy, 2);
+    // Show the top-2 options excluding 100%: drop markets whose Yes price renders as 100%
+    // (ceil >= 100), not just price >= 1, so e.g. 0.9995 doesn't sneak in as a 100% row.
+    const notRenderedAsFullPercent = (market: BetsMarketDataForUI): boolean =>
+        Math.ceil(parsePrice(market.outcomes[0]?.price) * 100) < 100;
+    const selected = selectPolymarketListMarketsForDisplay(
+        markets.filter(notRenderedAsFullPercent),
+        formatted.sortBy,
+        2,
+    );
     const rows: PredictionCryptoCellMultiRow[] = selected.map((market) => {
         const o0 = market.outcomes[0];
         const o1 = market.outcomes[1];

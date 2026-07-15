@@ -12,7 +12,9 @@ export interface GetGammaEventsOptions {
     tag_slug: string;
     limit?: number;
     offset?: number;
+    /** Defaults to `true` (open markets only). */
     active?: boolean;
+    /** Defaults to `false` (excludes resolved markets). */
     closed?: boolean;
     archived?: boolean;
     order?: string;

@@ -75,4 +75,17 @@ describe('filterAndSortCryptoQuickBuyEvents', () => {
         const events = [baseEvent({ id: 'doge', slug: 'doge-a' }), baseEvent({ id: 'xrp', slug: 'xrp-a' })];
         expect(filterAndSortCryptoQuickBuyEvents(events)).toEqual([]);
     });
+
+    it('drops recurring markets whose endDate has passed (zombie cycles), keeps open-ended ones', () => {
+        // Polymarket leaves old cycles flagged active long after their window; Quick Buy must hide
+        // them so current ETH/SOL markets aren't buried under stale high-volume BTC cycles.
+        const events = [
+            baseEvent({ id: 'btc-past', slug: 'btc-a', endDate: '2020-01-01T00:00:00Z' }), // expired
+            baseEvent({ id: 'btc-live', slug: 'btc-b', endDate: '2099-01-01T00:00:00Z' }), // future
+            baseEvent({ id: 'eth-open', slug: 'eth-a', endDate: '' }), // open-ended → kept
+            baseEvent({ id: 'sol-past', slug: 'sol-a', endDate: '2020-01-01T00:00:00Z' }), // expired
+        ];
+        const result = filterAndSortCryptoQuickBuyEvents(events);
+        expect(result.map((event) => event.id)).toEqual(['btc-live', 'eth-open']);
+    });
 });

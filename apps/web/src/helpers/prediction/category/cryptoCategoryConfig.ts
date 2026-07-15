@@ -32,6 +32,8 @@ export interface CryptoCategorySecondaryConfig {
      * `null` for `quick-buy` (fetches by period tag) and `all` (uses the `crypto` event-list).
      */
     tagSlug: string | null;
+    /** Optional chip icon (backend media URL) shared by both themes; omitted renders no icon. */
+    icon?: string;
 }
 
 export interface CryptoCategoryPeriodConfig {
@@ -45,40 +47,33 @@ export interface CryptoCategoryPeriodConfig {
 }
 
 /**
- * Secondary tabs (2nd level) in nav order. Quick Buy leads, followed by the 9 topic categories.
- *
- * `tagSlug` values were probed against `/v1/polymarket/gamma/events?tag_slug=X`. Confirmed:
- * `weekly`, `monthly`, `yearly`, `pre-market`, `industry`. The `// TODO(fw-7878)` entries fall
- * back to the slug itself until the Polymarket tag is confirmed — trivial to correct here.
+ * Secondary tabs (2nd level) in nav order. Quick Buy leads, then the 9 topic categories.
+ * tagSlug values confirmed live against gamma-api: `weekly`, `monthly`, `yearly`, `pre-market`,
+ * `industry`, `hit-price` (Targets), `etf` (Institutions), `tvl` (Protocol Metrics).
  */
+/** Chip icon for Quick Buy — the sports "live" broadcast pictogram (shared by both themes). */
+const CRYPTO_QUICK_BUY_ICON = 'https://media.firefly.land/polymarket/live-x4.png';
+
 export const CRYPTO_SECONDARY_CATEGORIES: readonly CryptoCategorySecondaryConfig[] = [
-    { slug: CRYPTO_QUICK_BUY_SLUG, label: 'Quick Buy', tagSlug: null },
+    { slug: CRYPTO_QUICK_BUY_SLUG, label: 'Quick Buy', tagSlug: null, icon: CRYPTO_QUICK_BUY_ICON },
     { slug: CRYPTO_ALL_SLUG, label: 'All', tagSlug: null },
     { slug: 'weekly', label: 'Weekly', tagSlug: 'weekly' },
     { slug: 'monthly', label: 'Monthly', tagSlug: 'monthly' },
     { slug: 'yearly', label: 'Yearly', tagSlug: 'yearly' },
-    // TODO(fw-7878): confirm Polymarket tag slug.
-    { slug: 'targets', label: 'Targets', tagSlug: 'targets' },
+    { slug: 'targets', label: 'Targets', tagSlug: 'hit-price' },
     { slug: 'pre-market', label: 'Pre-Market', tagSlug: 'pre-market' },
-    // TODO(fw-7878): confirm Polymarket tag slug.
-    { slug: 'institutions', label: 'Institutions', tagSlug: 'institutions' },
+    { slug: 'institutions', label: 'Institutions', tagSlug: 'etf' },
     { slug: 'industry', label: 'Industry', tagSlug: 'industry' },
-    // TODO(fw-7878): confirm Polymarket tag slug.
-    { slug: 'protocol-metrics', label: 'Protocol Metrics', tagSlug: 'protocol-metrics' },
+    { slug: 'protocol-metrics', label: 'Protocol Metrics', tagSlug: 'tvl' },
 ];
 
 /**
- * Quick Buy periods (3rd level), default = `1h`.
- *
- * Confirmed tags: `5m`, `hourly` (1h), `daily`. The `// TODO(fw-7878)` entries (`15m`, `4h`)
- * fall back to the slug until confirmed.
+ * Quick Buy periods (3rd level), default = `1h`. All tag slugs confirmed live against gamma-api.
  */
 export const CRYPTO_QUICK_BUY_PERIODS: readonly CryptoCategoryPeriodConfig[] = [
     { slug: '5m', label: '5 Min', mobileLabel: '5m', tagSlug: '5m' },
-    // TODO(fw-7878): confirm Polymarket tag slug (5m is confirmed, 15m is not).
     { slug: '15m', label: '15 Min', mobileLabel: '15m', tagSlug: '15m' },
-    { slug: '1h', label: '1 Hour', mobileLabel: '1hr', tagSlug: 'hourly' },
-    // TODO(fw-7878): confirm Polymarket tag slug.
+    { slug: '1h', label: '1 Hour', mobileLabel: '1hr', tagSlug: '1h' },
     { slug: '4h', label: '4 Hours', mobileLabel: '4hrs', tagSlug: '4h' },
     { slug: 'daily', label: 'Daily', mobileLabel: 'Daily', tagSlug: 'daily' },
 ];
@@ -98,8 +93,9 @@ export function getCryptoDefaultPeriod(): CryptoCategoryPeriodConfig {
 
 /**
  * Secondary slugs whose header title is rendered as "{label} Crypto" — the four period roll-ups.
- * Every other secondary (Quick Buy, Targets, Pre-Market, Institutions, Industry, Protocol Metrics)
- * shows its translated tab label verbatim as the title.
+ * Every other secondary (Targets, Pre-Market, Institutions, Industry, Protocol Metrics) shows its
+ * translated tab label verbatim as the title. Quick Buy is special-cased below to the primary
+ * category "Crypto" (its chip text stays "Quick Buy" — the active period surfaces separately).
  */
 const CRYPTO_TITLE_SUFFIX_SLUGS = new Set(['all', 'weekly', 'monthly', 'yearly']);
 
@@ -109,9 +105,16 @@ const CRYPTO_TITLE_SUFFIX_SLUGS = new Set(['all', 'weekly', 'monthly', 'yearly']
  * For the period roll-ups (All/Weekly/Monthly/Yearly) the title is "{label} Crypto" — looked up as
  * a single compound translation so each locale renders it naturally (e.g. ja "週次の暗号資産"). For
  * every other secondary it returns the translated tab label, matching the chip text in
- * {@link PredictionCategoryCryptoSecondaryNav}.
+ * {@link PredictionCategoryCryptoSecondaryNav}. Quick Buy is the exception: its header reads the
+ * primary category "Crypto" while the active period is shown in the separate
+ * `PredictionCategoryCryptoPeriodSwitcher`.
  */
 export function resolveCryptoCategoryTitle(locale: string, label: string, slug: string): string {
+    // Quick Buy surfaces the primary category as its title; the active period is shown in the
+    // separate PredictionCategoryCryptoPeriodSwitcher, so the header reads "Crypto", not "Quick Buy".
+    if (slug === CRYPTO_QUICK_BUY_SLUG) {
+        return resolvePredictionCategoryLabel(locale, 'Crypto');
+    }
     if (CRYPTO_TITLE_SUFFIX_SLUGS.has(slug)) {
         return resolvePredictionCategoryLabel(locale, `${label} Crypto`);
     }
@@ -119,10 +122,15 @@ export function resolveCryptoCategoryTitle(locale: string, label: string, slug: 
 }
 
 function toSlugItem(
-    item: { slug: string; label: string },
+    item: { slug: string; label: string; icon?: string },
     sub_slug: PolymarketEventSlugListData[] = [],
 ): PolymarketEventSlugListData {
-    return { slug: item.slug, label: item.label, sub_slug };
+    return {
+        slug: item.slug,
+        label: item.label,
+        sub_slug,
+        ...(item.icon ? { icon_day: item.icon, icon_night: item.icon } : {}),
+    };
 }
 
 /** Quick Buy period children as slug-tree nodes (for routing resolution). */

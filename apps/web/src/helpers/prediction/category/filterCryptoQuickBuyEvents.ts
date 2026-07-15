@@ -18,12 +18,22 @@ function coinPriority(coin: PredictionCrypto): number {
 }
 
 /**
- * Filter Quick Buy period events to BTC / ETH / SOL and sort by coin priority (BTC → ETH → SOL),
- * preserving volume order within each coin. Coins outside the priority set (XRP, DOGE, …) still
- * resolve via {@link resolveCryptoCoinFromEventListData} but are dropped here.
+ * Drop markets whose resolution window already passed. Polymarket leaves recurring crypto markets
+ * flagged `active` long after their endDate, so the `closed=false` fetch filter alone lets stale
+ * high-volume BTC cycles bury the current ETH/SOL markets. Open-ended events (no endDate) are kept.
+ */
+function isQuickBuyEventLive(event: PolymarketEventListData): boolean {
+    const endTime = new Date(event.endDate).getTime();
+    return Number.isNaN(endTime) || endTime >= Date.now();
+}
+
+/**
+ * Quick Buy = BTC/ETH/SOL only (dropping past-window markets), sorted by coin priority
+ * (BTC → ETH → SOL), preserving volume order within each coin.
  */
 export function filterAndSortCryptoQuickBuyEvents(events: PolymarketEventListData[]): PolymarketEventListData[] {
     return events
+        .filter(isQuickBuyEventLive)
         .map((event) => ({ event, coin: resolveCryptoCoinFromEventListData(event) }))
         .filter(
             (entry): entry is { event: PolymarketEventListData; coin: PredictionCrypto } =>

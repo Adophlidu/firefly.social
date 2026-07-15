@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { parseAsStringEnum, useQueryState } from 'nuqs';
 import { Suspense, useCallback, useEffect, useMemo } from 'react';
 
+import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { FootballLoading } from '@/components/FootballLoading.js';
 import { Loading } from '@/components/Loading.js';
 import { NotFound } from '@/components/NotFound.js';
@@ -198,8 +199,9 @@ export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initi
     const isCryptoPrimary = context.primaryItem.slug === CRYPTO_PRIMARY_SLUG;
     const isCryptoQuickBuy = isCryptoPrimary && context.secondaryItem?.slug === CRYPTO_QUICK_BUY_SLUG;
     // Title follows the active secondary: "{All/Weekly/Monthly/Yearly} Crypto" for the period
-    // roll-ups, otherwise the tab label (Quick Buy, Targets, …). Falls back to "Crypto" for the
-    // transient bare /crypto depth-1 state (immediately redirected to a secondary).
+    // roll-ups, "Crypto" for Quick Buy (its active period surfaces in the period switcher), otherwise
+    // the tab label (Targets, …). Falls back to "Crypto" for the transient bare /crypto depth-1
+    // state (immediately redirected to a secondary).
     const cryptoTitle = context.secondaryItem
         ? resolveCryptoCategoryTitle(locale, context.secondaryItem.label, context.secondaryItem.slug)
         : resolvePredictionCategoryLabel(locale, 'Crypto');
@@ -233,15 +235,17 @@ export function PredictionCategoryPage({ slugs, slugList: initialSlugList, initi
                 )}
             >
                 {isCryptoPrimary ? (
-                    <Suspense
-                        fallback={
-                            <div className="flex justify-center py-12">
-                                <Loading />
-                            </div>
-                        }
-                    >
-                        <PredictionCategoryCryptoPropsList context={context} />
-                    </Suspense>
+                    <ErrorBoundary>
+                        <Suspense
+                            fallback={
+                                <div className="flex justify-center py-12">
+                                    <Loading />
+                                </div>
+                            }
+                        >
+                            <PredictionCategoryCryptoPropsList context={context} />
+                        </Suspense>
+                    </ErrorBoundary>
                 ) : isTabAvailabilityPending ? (
                     <div className="flex justify-center py-12">{isFifa ? <FootballLoading /> : <Loading />}</div>
                 ) : effectiveTab === PREDICTION_CATEGORY_GAMES_TAB ? (

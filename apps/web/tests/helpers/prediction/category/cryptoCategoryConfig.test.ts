@@ -50,8 +50,8 @@ describe('cryptoCategoryConfig', () => {
             expect(CRYPTO_DEFAULT_PERIOD_SLUG).toBe('1h');
         });
 
-        it('maps 1h to the confirmed hourly tag', () => {
-            expect(getCryptoPeriod('1h')?.tagSlug).toBe('hourly');
+        it('maps 1h to the confirmed 1h tag (active hourly markets use `1h`, not `hourly`)', () => {
+            expect(getCryptoPeriod('1h')?.tagSlug).toBe('1h');
             expect(getCryptoPeriod('5m')?.tagSlug).toBe('5m');
             expect(getCryptoPeriod('daily')?.tagSlug).toBe('daily');
         });
@@ -91,6 +91,21 @@ describe('cryptoCategoryConfig', () => {
             }
         });
 
+        it('attaches the sports "live" pictogram to the Quick Buy node (both themes)', () => {
+            // Rendered via <PredictionCategorySlugIcon>, so it must mirror the sports Live chip's
+            // icon_day/icon_night fields — same image, so the chips look identical.
+            const quickBuy = buildCryptoSlugTree()[0];
+            expect(quickBuy.icon_day).toBe('https://media.firefly.land/polymarket/live-x4.png');
+            expect(quickBuy.icon_night).toBe('https://media.firefly.land/polymarket/live-x4.png');
+        });
+
+        it('other secondaries carry no icon', () => {
+            for (const item of buildCryptoSlugTree().slice(1)) {
+                expect(item.icon_day).toBeUndefined();
+                expect(item.icon_night).toBeUndefined();
+            }
+        });
+
         it('mirrors CRYPTO_SECONDARY_CATEGORIES order', () => {
             expect(buildCryptoSlugTree().map((item) => item.slug)).toEqual(
                 CRYPTO_SECONDARY_CATEGORIES.map((item) => item.slug),
@@ -115,12 +130,20 @@ describe('cryptoCategoryConfig', () => {
         });
 
         it('returns the translated tab label for every other secondary', () => {
-            expect(resolveCryptoCategoryTitle(Locale.en, 'Quick Buy', 'quick-buy')).toBe('Quick Buy');
             expect(resolveCryptoCategoryTitle(Locale.en, 'Targets', 'targets')).toBe('Targets');
             expect(resolveCryptoCategoryTitle(Locale.en, 'Pre-Market', 'pre-market')).toBe('Pre-Market');
             expect(resolveCryptoCategoryTitle(Locale.en, 'Protocol Metrics', 'protocol-metrics')).toBe(
                 'Protocol Metrics',
             );
+        });
+
+        it('renders the primary category "Crypto" for Quick Buy (not the chip text)', () => {
+            // The header <h1> reads "Crypto"; the Quick Buy *chip* keeps its own label — the
+            // active period surfaces in the separate PredictionCategoryCryptoPeriodSwitcher.
+            expect(resolveCryptoCategoryTitle(Locale.en, 'Quick Buy', 'quick-buy')).toBe('Crypto');
+            expect(resolveCryptoCategoryTitle(Locale.zhHans, 'Quick Buy', 'quick-buy')).toBe('加密货币');
+            // Intentional chip ≠ title split: chip text stays "Quick Buy" / 快速交易.
+            expect(resolveCryptoCategoryTitle(Locale.zhHans, 'Quick Buy', 'quick-buy')).not.toBe('快速交易');
         });
 
         it('looks up the compound translation per locale for the period roll-ups', () => {

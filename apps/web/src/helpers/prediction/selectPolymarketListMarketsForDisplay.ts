@@ -24,7 +24,8 @@ const calculateRatio = (market: BetsMarketDataForUI): number => {
     return Math.max(0, Math.min(1, ratio));
 };
 
-const isMarketDecided = (market: BetsMarketDataForUI): boolean => {
+/** A market is "decided" once an outcome price reaches 100% — it has resolved even if not flagged closed. */
+export const isMarketDecided = (market: BetsMarketDataForUI): boolean => {
     return market.outcomes.some((outcome) => {
         const price = Number.parseFloat(outcome.price ?? '0');
         return !Number.isNaN(price) && price >= 1;
@@ -94,6 +95,9 @@ export function selectPolymarketListMarketsForDisplay(
     }
 
     const usedIds = new Set(sorted.map((market) => market.id));
-    const fallback = sortedMarkets.filter((market) => !usedIds.has(market.id) && market.active !== false);
+    // Fallback must also skip decided markets, else a cell backfills a 100% resolved row.
+    const fallback = sortedMarkets.filter(
+        (market) => !usedIds.has(market.id) && market.active !== false && !isMarketDecided(market),
+    );
     return [...sorted, ...fallback].slice(0, limit);
 }
