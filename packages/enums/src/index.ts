@@ -284,6 +284,7 @@ export enum PageRoute {
     DiscoverPosts = '/posts',
     DiscoverActivities = '/activities',
     Explore = '/explore',
+    Messages = '/messages',
     Notifications = '/notifications',
     Profile = '/profile',
     Bookmarks = '/bookmarks/:source',

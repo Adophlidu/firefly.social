@@ -2,13 +2,14 @@
 
 import EngagementIcon from '@dimensiondev/assets/engagement.svg';
 import FollowUserIcon from '@dimensiondev/assets/follow-user.svg';
+import MessagesIcon from '@dimensiondev/assets/messages.svg';
 import MoreIcon from '@dimensiondev/assets/more.svg';
 import PendingIcon from '@dimensiondev/assets/pending.svg';
 import TrashIcon from '@dimensiondev/assets/trash.svg';
 import UnFollowUserIcon from '@dimensiondev/assets/unfollow-user.svg';
 import { ENABLED_BOOKMARK_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { PageRoute, Source } from '@dimensiondev/enums';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
@@ -133,6 +134,24 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                     </MenuItem>
                 ) : (
                     <>
+                        {source === Source.Lens && !isMyPost && author.address ? (
+                            <MenuItem>
+                                <Link
+                                    href={`${PageRoute.Messages}?to=${encodeURIComponent(author.address)}`}
+                                    className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
+                                    onClick={stopPropagation}
+                                >
+                                    <MessagesIcon width={18} height={18} />
+                                    <span className="font-bold leading-[22px] text-main">
+                                        {author.handle ? (
+                                            <Trans>Message @{author.handle}</Trans>
+                                        ) : (
+                                            <Trans>Message</Trans>
+                                        )}
+                                    </span>
+                                </Link>
+                            </MenuItem>
+                        ) : null}
                         {!isMyProfile ? (
                             <>
                                 <MenuItem>

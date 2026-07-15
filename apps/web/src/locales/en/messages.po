@@ -116,6 +116,9 @@ msgstr "Any Player Quadra Kill"
 msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth reposted your tips"
 
+msgid "Active now"
+msgstr "Active now"
+
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 
@@ -150,6 +153,9 @@ msgstr "Do you want to retry with the full or remaining content?"
 
 msgid "Connected wallets"
 msgstr "Connected wallets"
+
+msgid "No messages yet"
+msgstr "No messages yet"
 
 msgid "Stealing attack found."
 msgstr "Stealing attack found."
@@ -378,6 +384,9 @@ msgstr "Open"
 msgid "No"
 msgstr "No"
 
+msgid "People"
+msgstr "People"
+
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "Failed to disable Multi-device login. Please try again later."
 
@@ -411,6 +420,9 @@ msgstr "Comment on X always"
 
 msgid "No cryptocurrency mixer found."
 msgstr "No cryptocurrency mixer found."
+
+msgid "Not sent"
+msgstr "Not sent"
 
 msgid "Feeds"
 msgstr "Feeds"
@@ -692,6 +704,9 @@ msgstr "Stealing attack."
 msgid "Failed to like snapshot."
 msgstr "Failed to like snapshot."
 
+msgid "Sticker"
+msgstr "Sticker"
+
 msgid "Trying auto login..."
 msgstr "Trying auto login..."
 
@@ -744,6 +759,9 @@ msgstr "Most Nashors"
 
 msgid "Made with AI"
 msgstr "Made with AI"
+
+msgid "Payment"
+msgstr "Payment"
 
 msgid "Stocks"
 msgstr "Stocks"
@@ -802,11 +820,20 @@ msgstr "Undo repost"
 msgid "Prediction"
 msgstr "Prediction"
 
+msgid "Hide conversations"
+msgstr "Hide conversations"
+
 msgid "Tokens"
 msgstr "Tokens"
 
 msgid "Tower Handicap"
 msgstr "Tower Handicap"
+
+#. js-lingui:icu=%7Bcount%2C+plural%2C+one+%7B%23+unread+message%7D+other+%7B%23+unread+messages%7D%7D&pluralize_on=count
+msgid "# unread message"
+msgid_plural "# unread messages"
+msgstr[0] "# unread message"
+msgstr[1] "# unread messages"
 
 msgid "Search {id}"
 msgstr "Search {id}"
@@ -828,6 +855,9 @@ msgstr "Total"
 
 msgid "Scan this QR code to establish a new connection via Farcaster for free."
 msgstr "Scan this QR code to establish a new connection via Farcaster for free."
+
+msgid "View profile"
+msgstr "View profile"
 
 msgid "Trading cooldown function."
 msgstr "Trading cooldown function."
@@ -1048,6 +1078,9 @@ msgstr "Failed to follow @{0} on {sourceName}."
 msgid "Failed to decrypt post on {sourceName}."
 msgstr "Failed to decrypt post on {sourceName}."
 
+msgid "Try a complete Lens handle, ENS name, or wallet address."
+msgstr "Try a complete Lens handle, ENS name, or wallet address."
+
 msgid "No predictions found"
 msgstr "No predictions found"
 
@@ -1131,6 +1164,9 @@ msgstr "Insufficient Balance for Gas Fee"
 msgid "Current Positions"
 msgstr "Current Positions"
 
+msgid "Press Enter to send · Shift + Enter for a new line"
+msgstr "Press Enter to send · Shift + Enter for a new line"
+
 msgid "Game N Winner"
 msgstr "Game N Winner"
 
@@ -1179,8 +1215,14 @@ msgstr "Unlike"
 msgid "Buy {firstOutcome}"
 msgstr "Buy {firstOutcome}"
 
+msgid "Payment requested"
+msgstr "Payment requested"
+
 msgid "Minutes"
 msgstr "Minutes"
+
+msgid "You follow each other on Lens. This conversation is private."
+msgstr "You follow each other on Lens. This conversation is private."
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
@@ -1311,6 +1353,9 @@ msgstr "Failed to delete scheduled post."
 msgid "You haven't bookmarked any tokens."
 msgstr "You haven't bookmarked any tokens."
 
+msgid "Files must be under 50 MB."
+msgstr "Files must be under 50 MB."
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 
@@ -1362,6 +1407,9 @@ msgstr "Failed to update profile."
 msgid "Today at {0}"
 msgstr "Today at {0}"
 
+msgid "Message {recipientName}"
+msgstr "Message {recipientName}"
+
 msgid "FINAL"
 msgstr "FINAL"
 
@@ -1409,6 +1457,9 @@ msgstr "POST"
 msgid "No opinion profile found."
 msgstr "No opinion profile found."
 
+msgid "Unsupported message"
+msgstr "Unsupported message"
+
 msgid "Transaction Hash"
 msgstr "Transaction Hash"
 
@@ -1446,6 +1497,9 @@ msgstr "Connect Ethereum Wallet"
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+
+msgid "This video could not be processed. Try an MP4 video under 50 MB."
+msgstr "This video could not be processed. Try an MP4 video under 50 MB."
 
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM wallets"
@@ -1506,6 +1560,9 @@ msgstr "Failed to upload. More than {maxImageCount} images."
 msgid "Available Balance"
 msgstr "Available Balance"
 
+msgid "Load earlier messages"
+msgstr "Load earlier messages"
+
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
 
@@ -1535,6 +1592,9 @@ msgstr "Fake Token"
 
 msgid "Recent"
 msgstr "Recent"
+
+msgid "Only images, GIFs, and videos are supported."
+msgstr "Only images, GIFs, and videos are supported."
 
 msgid "Sorry, give edit permission from Orb is necessary to continue."
 msgstr "Sorry, give edit permission from Orb is necessary to continue."
@@ -1644,6 +1704,9 @@ msgstr "Event Status"
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 
+msgid "Private conversations across Firefly"
+msgstr "Private conversations across Firefly"
+
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
@@ -1652,6 +1715,9 @@ msgstr "Both Teams To Score - 1st Half"
 
 msgid "Custom amount"
 msgstr "Custom amount"
+
+msgid "Preview image"
+msgstr "Preview image"
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
@@ -1832,6 +1898,9 @@ msgstr "{0} (UTC+8)"
 msgid "Failed to mute /{0}."
 msgstr "Failed to mute /{0}."
 
+msgid "Preview video"
+msgstr "Preview video"
+
 msgid "Newest"
 msgstr "Newest"
 
@@ -1962,6 +2031,9 @@ msgstr "Remove Choice"
 
 msgid "Repost again"
 msgstr "Repost again"
+
+msgid "No people found"
+msgstr "No people found"
 
 msgid "New connection via Farcaster"
 msgstr "New connection via Farcaster"
@@ -2111,6 +2183,12 @@ msgstr "Leaving Firefly"
 msgid "Authentication Failed"
 msgstr "Authentication Failed"
 
+msgid "Show conversations"
+msgstr "Show conversations"
+
+msgid "Preview sticker"
+msgstr "Preview sticker"
+
 msgid "Log out"
 msgstr "Log out"
 
@@ -2119,6 +2197,9 @@ msgstr "Owner can't change balance"
 
 msgid "Search predictions"
 msgstr "Search predictions"
+
+msgid "Failed to upload video. Please try again."
+msgstr "Failed to upload video. Please try again."
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "Oops... Not all the requirements have been met"
@@ -2137,6 +2218,9 @@ msgstr "Over"
 
 msgid "Darkweb transactions."
 msgstr "Darkweb transactions."
+
+msgid "Add GIF"
+msgstr "Add GIF"
 
 msgid "Resolution"
 msgstr "Resolution"
@@ -2395,6 +2479,9 @@ msgstr "No connector found for {0}"
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
 
+msgid "Sent"
+msgstr "Sent"
+
 msgid "No open orders found."
 msgstr "No open orders found."
 
@@ -2495,6 +2582,9 @@ msgstr "Join now"
 
 msgid "Share From"
 msgstr "Share From"
+
+msgid "Try another name or start a new conversation."
+msgstr "Try another name or start a new conversation."
 
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
@@ -2710,6 +2800,9 @@ msgstr "Delete Firefly account"
 msgid "Estimated network fee"
 msgstr "Estimated network fee"
 
+msgid "Payment request sent"
+msgstr "Payment request sent"
+
 msgid "<0>You</0> reposted"
 msgstr "<0>You</0> reposted"
 
@@ -2761,6 +2854,9 @@ msgstr "Your post will be sent on {0} at {1} <0>View</0>"
 
 msgid "GIF count limit reached"
 msgstr "GIF count limit reached"
+
+msgid "Loading payment request"
+msgstr "Loading payment request"
 
 msgid "Unsaved draft found"
 msgstr "Unsaved draft found"
@@ -2985,6 +3081,12 @@ msgstr "The contract owner may contain the authority to modify the transaction t
 msgid "All Wallets"
 msgstr "All Wallets"
 
+msgid "GIFs could not be loaded"
+msgstr "GIFs could not be loaded"
+
+msgid "Unread"
+msgstr "Unread"
+
 msgid "Failed to remove bookmark."
 msgstr "Failed to remove bookmark."
 
@@ -3114,6 +3216,9 @@ msgstr "Select Network"
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
+msgid "Messages are tied to your active Lens account."
+msgstr "Messages are tied to your active Lens account."
+
 #. placeholder {0}: channel.name
 msgid "Removed #{0} on {sourceName}"
 msgstr "Removed #{0} on {sourceName}"
@@ -3229,6 +3334,9 @@ msgstr[1] "# hours"
 msgid "Nickname must not contain restricted symbols"
 msgstr "Nickname must not contain restricted symbols"
 
+msgid "Search by name, handle, ENS or address"
+msgstr "Search by name, handle, ENS or address"
+
 msgid "Failed to login lens with orb"
 msgstr "Failed to login lens with orb"
 
@@ -3262,6 +3370,9 @@ msgstr "Failed to verify password."
 msgid "Any Player Rampage"
 msgstr "Any Player Rampage"
 
+msgid "Add media"
+msgstr "Add media"
+
 msgid "Club"
 msgstr "Club"
 
@@ -3278,6 +3389,12 @@ msgstr "Recast or Quote"
 #. js-lingui-explicit-id
 msgid "mirror-tooltip-repost-or-quote"
 msgstr "Repost or Quote"
+
+msgid "You can attach up to {MAX_CHAT_ATTACHMENTS} files."
+msgstr "You can attach up to {MAX_CHAT_ATTACHMENTS} files."
+
+msgid "Check your connection and try again."
+msgstr "Check your connection and try again."
 
 msgid "Oops… Something went wrong. Please try again"
 msgstr "Oops… Something went wrong. Please try again"
@@ -3331,6 +3448,12 @@ msgstr "Account or App Password"
 
 msgid "Total amount shared among all winners"
 msgstr "Total amount shared among all winners"
+
+msgid "No messages yet. Say hello!"
+msgstr "No messages yet. Say hello!"
+
+msgid "New message"
+msgstr "New message"
 
 msgid "Post details"
 msgstr "Post details"
@@ -3468,6 +3591,9 @@ msgstr "Set {setNum} Total Games"
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
 msgstr "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
 
+msgid "New messages"
+msgstr "New messages"
+
 msgid "[Poll]"
 msgstr "[Poll]"
 
@@ -3484,6 +3610,9 @@ msgstr "{0} liked your <0>tip</0>"
 #. placeholder {0}: dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')
 msgid "Saved on {0}"
 msgstr "Saved on {0}"
+
+msgid "Payment request"
+msgstr "Payment request"
 
 #. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
 msgid "Failed to vote.{0}"
@@ -3704,6 +3833,9 @@ msgstr "You may lose your assets if giving approval to the website of this token
 msgid "Your Firefly Identity is now active."
 msgstr "Your Firefly Identity is now active."
 
+msgid "Search conversations"
+msgstr "Search conversations"
+
 msgid "Map Handicap"
 msgstr "Map Handicap"
 
@@ -3724,6 +3856,9 @@ msgstr "Unfollow"
 
 msgid "Rank #{tokenRank}"
 msgstr "Rank #{tokenRank}"
+
+msgid "Back to latest message"
+msgstr "Back to latest message"
 
 msgid "No one can reply"
 msgstr "No one can reply"
@@ -3809,6 +3944,9 @@ msgstr "This Bluesky account is already linked to another Firefly account."
 msgid "Failed to send tip."
 msgstr "Failed to send tip."
 
+msgid "No conversations found"
+msgstr "No conversations found"
+
 msgid "Both Teams Destroy Barracks"
 msgstr "Both Teams Destroy Barracks"
 
@@ -3888,6 +4026,9 @@ msgid "# month"
 msgid_plural "# months"
 msgstr[0] "# month"
 msgstr[1] "# months"
+
+msgid "Requests"
+msgstr "Requests"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
@@ -4051,6 +4192,9 @@ msgstr "Failed to join the club."
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"
 
+msgid "Add emoji"
+msgstr "Add emoji"
+
 msgid "Swapped"
 msgstr "Swapped"
 
@@ -4181,6 +4325,9 @@ msgstr "Congratulations!"
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
 
+msgid "Select a conversation or start a new one."
+msgstr "Select a conversation or start a new one."
+
 msgid "Most Kills"
 msgstr "Most Kills"
 
@@ -4284,6 +4431,12 @@ msgstr "Add Token"
 msgid "UID: {0}"
 msgstr "UID: {0}"
 
+#. js-lingui:icu=%7BnewMessageCount%2C+plural%2C+one+%7B%23+new+message%7D+other+%7B%23+new+messages%7D%7D&pluralize_on=newMessageCount
+msgid "# new message"
+msgid_plural "# new messages"
+msgstr[0] "# new message"
+msgstr[1] "# new messages"
+
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "Owner can set a different tax rate for every assigned address."
 
@@ -4351,9 +4504,15 @@ msgstr "Associated wallet may be outdated or inaccurate. Please verify before se
 msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."
 
+msgid "Failed to send message. Please try again."
+msgstr "Failed to send message. Please try again."
+
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
 msgstr "Follow @{0}"
+
+msgid "Messages"
+msgstr "Messages"
 
 msgid "Biggest Win"
 msgstr "Biggest Win"
@@ -4375,6 +4534,9 @@ msgstr "Failed to disconnect"
 
 msgid "Odd/Even Total Rounds"
 msgstr "Odd/Even Total Rounds"
+
+msgid "Sign in to view messages"
+msgstr "Sign in to view messages"
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr "Website should not exceed {maxWebsiteSize} characters"
@@ -4419,11 +4581,17 @@ msgstr "<0/> and <1>{0} others</1>"
 msgid "Token ${symbol} could not be found."
 msgstr "Token ${symbol} could not be found."
 
+msgid "Media attachment"
+msgstr "Media attachment"
+
 msgid "Polymarket"
 msgstr "Polymarket"
 
 msgid "Video duration limit reached"
 msgstr "Video duration limit reached"
+
+msgid "Your messages follow the currently active Lens account."
+msgstr "Your messages follow the currently active Lens account."
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "Confirm to disconnect this wallet and its associated account from Firefly?"
@@ -4626,6 +4794,9 @@ msgstr "No one you follow has traded this token."
 msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
 msgstr "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
 
+msgid "Remove attachment"
+msgstr "Remove attachment"
+
 msgid "Search clubs"
 msgstr "Search clubs"
 
@@ -4699,6 +4870,9 @@ msgstr "Failed to create {0} profile.{1}"
 
 msgid "Lens Auto login"
 msgstr "Lens Auto login"
+
+msgid "Paid"
+msgstr "Paid"
 
 msgid "Download App"
 msgstr "Download App"
@@ -4836,6 +5010,9 @@ msgstr "Your sign-in process was interrupted, please try again"
 msgid "Access Denied"
 msgstr "Access Denied"
 
+msgid "Messages could not be loaded"
+msgstr "Messages could not be loaded"
+
 #. placeholder {0}: channel.name
 msgid "Joined #{0} on {sourceName}"
 msgstr "Joined #{0} on {sourceName}"
@@ -4848,6 +5025,9 @@ msgstr "Set as primary account"
 
 msgid "Firefly Mobile"
 msgstr "Firefly Mobile"
+
+msgid "Cancelled"
+msgstr "Cancelled"
 
 msgid "Streaming Error"
 msgstr "Streaming Error"
@@ -4942,6 +5122,9 @@ msgstr "General"
 
 msgid "Round Total"
 msgstr "Round Total"
+
+msgid "Payment request details unavailable"
+msgstr "Payment request details unavailable"
 
 msgid "Show more tokens"
 msgstr "Show more tokens"
@@ -5134,6 +5317,10 @@ msgstr "The scheduled time to send this post can be set up to 7 days in advance.
 
 msgid "One-time passcode"
 msgstr "One-time passcode"
+
+#. placeholder {0}: author.handle
+msgid "Message @{0}"
+msgstr "Message @{0}"
 
 msgid "Chain"
 msgstr "Chain"
@@ -5334,6 +5521,9 @@ msgstr "Assign your Firefly Wallet as your Lens account manager to authorize Fir
 msgid "2nd Half Totals"
 msgstr "2nd Half Totals"
 
+msgid "Failed to start the conversation."
+msgstr "Failed to start the conversation."
+
 msgid "Snapshot DAO"
 msgstr "Snapshot DAO"
 
@@ -5345,6 +5535,9 @@ msgstr "Failed to unlike snapshot."
 
 msgid "Unexpected step for verifying password: {step}."
 msgstr "Unexpected step for verifying password: {step}."
+
+msgid "Loading"
+msgstr "Loading"
 
 msgid "Transaction completed!"
 msgstr "Transaction completed!"
@@ -5364,6 +5557,9 @@ msgstr "Hide assets < 1 USD"
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
 msgstr "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
+
+msgid "Requested"
+msgstr "Requested"
 
 msgid "Hours"
 msgstr "Hours"
@@ -5483,6 +5679,9 @@ msgstr "Multi-device login"
 
 msgid "This token link is not supported."
 msgstr "This token link is not supported."
+
+msgid "Declined"
+msgstr "Declined"
 
 #. placeholder {0}: channel.id
 msgid "Failed to unfollow /{0} on {sourceName}"

@@ -115,6 +115,9 @@ msgstr "임의 선수 쿼드라 킬"
 msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth가 회원님의 팁을 리포스트했습니다"
 
+msgid "Active now"
+msgstr ""
+
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "이메일 주소를 입력하시면 이메일 확인을 위해 일회성 인증 코드를 보내드립니다."
 
@@ -148,6 +151,9 @@ msgstr "전체 내용 또는 남은 내용으로 다시 시도하시겠습니까
 
 msgid "Connected wallets"
 msgstr "연결된 지갑"
+
+msgid "No messages yet"
+msgstr ""
 
 msgid "Stealing attack found."
 msgstr "탈취 공격이 발견되었습니다."
@@ -376,6 +382,9 @@ msgstr "열기"
 msgid "No"
 msgstr "아니요"
 
+msgid "People"
+msgstr ""
+
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "다중 기기 로그인을 비활성화하는 데 실패했습니다. 나중에 다시 시도해 주세요."
 
@@ -408,6 +417,9 @@ msgstr "X에 항상 댓글 달기"
 
 msgid "No cryptocurrency mixer found."
 msgstr "암호화폐 믹서가 발견되지 않았습니다."
+
+msgid "Not sent"
+msgstr ""
 
 msgid "Feeds"
 msgstr "피드"
@@ -688,6 +700,9 @@ msgstr "탈취 공격."
 msgid "Failed to like snapshot."
 msgstr "스냅샷 좋아요에 실패했습니다."
 
+msgid "Sticker"
+msgstr ""
+
 msgid "Trying auto login..."
 msgstr "자동 로그인 시도 중..."
 
@@ -740,6 +755,9 @@ msgstr "최다 내셔"
 
 msgid "Made with AI"
 msgstr "AI로 제작됨"
+
+msgid "Payment"
+msgstr ""
 
 msgid "Stocks"
 msgstr "주식"
@@ -798,11 +816,19 @@ msgstr "리포스트 취소"
 msgid "Prediction"
 msgstr "예측"
 
+msgid "Hide conversations"
+msgstr ""
+
 msgid "Tokens"
 msgstr "토큰"
 
 msgid "Tower Handicap"
 msgstr "타워 핸디캡"
+
+#. js-lingui:icu=%7Bcount%2C+plural%2C+one+%7B%23+unread+message%7D+other+%7B%23+unread+messages%7D%7D&pluralize_on=count
+msgid "# unread message"
+msgid_plural "# unread messages"
+msgstr[0] ""
 
 msgid "Search {id}"
 msgstr "{id} 검색"
@@ -824,6 +850,9 @@ msgstr "합계"
 
 msgid "Scan this QR code to establish a new connection via Farcaster for free."
 msgstr "이 QR 코드를 스캔하여 Farcaster를 통해 무료로 새 연결을 설정하세요."
+
+msgid "View profile"
+msgstr ""
 
 msgid "Trading cooldown function."
 msgstr "거래 쿨다운 기능."
@@ -1043,6 +1072,9 @@ msgstr "{sourceName}에서 @{0} 팔로우에 실패했습니다."
 msgid "Failed to decrypt post on {sourceName}."
 msgstr "{sourceName}의 게시물 복호화에 실패했습니다."
 
+msgid "Try a complete Lens handle, ENS name, or wallet address."
+msgstr ""
+
 msgid "No predictions found"
 msgstr "예측 결과 없음"
 
@@ -1126,6 +1158,9 @@ msgstr "가스 수수료를 위한 잔액이 부족합니다"
 msgid "Current Positions"
 msgstr "현재 포지션"
 
+msgid "Press Enter to send · Shift + Enter for a new line"
+msgstr ""
+
 msgid "Game N Winner"
 msgstr "N 게임 승자"
 
@@ -1174,8 +1209,14 @@ msgstr "좋아요 취소"
 msgid "Buy {firstOutcome}"
 msgstr "{firstOutcome} 매수"
 
+msgid "Payment requested"
+msgstr ""
+
 msgid "Minutes"
 msgstr "분"
+
+msgid "You follow each other on Lens. This conversation is private."
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
@@ -1305,6 +1346,9 @@ msgstr "예약 게시물 삭제에 실패했습니다."
 msgid "You haven't bookmarked any tokens."
 msgstr "북마크한 토큰이 없습니다."
 
+msgid "Files must be under 50 MB."
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "블랙리스트 기능이 포함되어 있지 않습니다. 블랙리스트가 있으면 일부 주소가 정상적으로 거래하지 못할 수 있습니다(허니팟 위험)."
 
@@ -1356,6 +1400,9 @@ msgstr "프로필 업데이트에 실패했습니다."
 msgid "Today at {0}"
 msgstr "오늘 {0}"
 
+msgid "Message {recipientName}"
+msgstr ""
+
 msgid "FINAL"
 msgstr "FINAL"
 
@@ -1403,6 +1450,9 @@ msgstr "게시"
 msgid "No opinion profile found."
 msgstr "Opinion 프로필을 찾을 수 없습니다."
 
+msgid "Unsupported message"
+msgstr ""
+
 msgid "Transaction Hash"
 msgstr "거래 해시"
 
@@ -1439,6 +1489,9 @@ msgstr "이더리움 지갑 연결"
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {댓글 추가} reply {답글 게시} other {{1}}}"
+
+msgid "This video could not be processed. Try an MP4 video under 50 MB."
+msgstr ""
 
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM 지갑"
@@ -1499,6 +1552,9 @@ msgstr "업로드에 실패했습니다. 이미지가 {maxImageCount}개를 초�
 msgid "Available Balance"
 msgstr "사용 가능 잔액"
 
+msgid "Load earlier messages"
+msgstr ""
+
 msgid "Follow @thefireflyapp on X"
 msgstr "X에서 @thefireflyapp 팔로우"
 
@@ -1528,6 +1584,9 @@ msgstr "가짜 토큰"
 
 msgid "Recent"
 msgstr "최근"
+
+msgid "Only images, GIFs, and videos are supported."
+msgstr ""
 
 msgid "Sorry, give edit permission from Orb is necessary to continue."
 msgstr "죄송합니다. 계속하려면 Orb에서 편집 권한을 부여해야 합니다."
@@ -1637,6 +1696,9 @@ msgstr "이벤트 상태"
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr "{3}에서 <0>@{0}</0>, <1>@{1}</1> 및 <2>외 {2}명</2>에게 답글 중"
 
+msgid "Private conversations across Firefly"
+msgstr ""
+
 msgid "Connect Wallet"
 msgstr "지갑 연결"
 
@@ -1645,6 +1707,9 @@ msgstr "양 팀 득점 - 전반"
 
 msgid "Custom amount"
 msgstr "사용자 지정 금액"
+
+msgid "Preview image"
+msgstr ""
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>Firefly가 <1>Polymarket 거래</1>를 출시하여 온체인 예측 시장을 소셜 피드와 연결합니다! <2>콘텐츠 바운티 작업</2>부터 시작해 초기 기여자로 참여해 주세요!</0><3>💰 고품질 콘텐츠를 제작한 사용자는 각각 <4>100 USDC</4>를 받을 수 있습니다.</3><5>🧩 Firefly에 Polymarket 거래 이야기를 공유하는 게시물을 작성하세요. 예측, 거래 전략, 인사이트, 성공 또는 실패를 이야기할 수 있습니다. 제출물은 콘텐츠 품질, 창의성, 깊이, 가독성 및 도달 범위를 기준으로 평가됩니다. 수상자는 <6>@thefireflyapp</6>에서 발표되며 DM으로 연락드립니다.</5><7>📌 참여 방법:</7><8><9><10>작성</10> Firefly가 지원하는 소셜 플랫폼에 <11>Polymarket 거래 이야기</11>를 담은 아티클 또는 긴 스레드를 게시하세요.</9><12><13>팔로우 및 멘션</13> <14>@thefireflyapp</14>.</12><15><16>등록</16> 이 양식을 작성하여 제출물을 등록하세요.</15></8>"
@@ -1824,6 +1889,9 @@ msgstr "{0} (UTC+8)"
 msgid "Failed to mute /{0}."
 msgstr "/{0} 숨기기에 실패했습니다."
 
+msgid "Preview video"
+msgstr ""
+
 msgid "Newest"
 msgstr "최신"
 
@@ -1952,6 +2020,9 @@ msgstr "선택지 삭제"
 
 msgid "Repost again"
 msgstr "다시 리포스트"
+
+msgid "No people found"
+msgstr ""
 
 msgid "New connection via Farcaster"
 msgstr "Farcaster로 새 연결"
@@ -2101,6 +2172,12 @@ msgstr "Firefly를 떠납니다"
 msgid "Authentication Failed"
 msgstr "인증 실패"
 
+msgid "Show conversations"
+msgstr ""
+
+msgid "Preview sticker"
+msgstr ""
+
 msgid "Log out"
 msgstr "로그아웃"
 
@@ -2109,6 +2186,9 @@ msgstr "소유자가 잔액을 변경할 수 없음"
 
 msgid "Search predictions"
 msgstr "예측 검색"
+
+msgid "Failed to upload video. Please try again."
+msgstr ""
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "앗... 모든 요구 사항을 충족하지 못했습니다"
@@ -2127,6 +2207,9 @@ msgstr "오버"
 
 msgid "Darkweb transactions."
 msgstr "다크웹 거래."
+
+msgid "Add GIF"
+msgstr ""
 
 msgid "Resolution"
 msgstr "결산"
@@ -2383,6 +2466,9 @@ msgstr "{0}용 커넥터를 찾을 수 없습니다"
 msgid "Unmute /{0}"
 msgstr "/{0} 숨김 해제"
 
+msgid "Sent"
+msgstr ""
+
 msgid "No open orders found."
 msgstr "미체결 주문이 없습니다."
 
@@ -2483,6 +2569,9 @@ msgstr "지금 참여"
 
 msgid "Share From"
 msgstr "공유 출처"
+
+msgid "Try another name or start a new conversation."
+msgstr ""
 
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
@@ -2696,6 +2785,9 @@ msgstr "Firefly 계정 삭제"
 msgid "Estimated network fee"
 msgstr "예상 네트워크 수수료"
 
+msgid "Payment request sent"
+msgstr ""
+
 msgid "<0>You</0> reposted"
 msgstr "<0>회원님</0>이 리포스트했습니다"
 
@@ -2747,6 +2839,9 @@ msgstr "게시물이 {0} {1}에 전송됩니다 <0>보기</0>"
 
 msgid "GIF count limit reached"
 msgstr "GIF 개수 한도에 도달했습니다"
+
+msgid "Loading payment request"
+msgstr ""
 
 msgid "Unsaved draft found"
 msgstr "저장되지 않은 임시 저장을 찾았습니다"
@@ -2968,6 +3063,12 @@ msgstr "컨트랙트 소유자가 거래 세금을 수정할 권한을 가질 �
 msgid "All Wallets"
 msgstr "모든 지갑"
 
+msgid "GIFs could not be loaded"
+msgstr ""
+
+msgid "Unread"
+msgstr ""
+
 msgid "Failed to remove bookmark."
 msgstr "북마크 제거에 실패했습니다."
 
@@ -3096,6 +3197,9 @@ msgstr "네트워크 선택"
 msgid "Something went wrong. Please try again later."
 msgstr "문제가 발생했습니다. 나중에 다시 시도해 주세요."
 
+msgid "Messages are tied to your active Lens account."
+msgstr ""
+
 #. placeholder {0}: channel.name
 msgid "Removed #{0} on {sourceName}"
 msgstr "{sourceName}에서 #{0} 제거함"
@@ -3210,6 +3314,9 @@ msgstr[0] "# 시간"
 msgid "Nickname must not contain restricted symbols"
 msgstr "닉네임에 제한된 기호를 포함할 수 없습니다"
 
+msgid "Search by name, handle, ENS or address"
+msgstr ""
+
 msgid "Failed to login lens with orb"
 msgstr "orb로 Lens 로그인에 실패했습니다"
 
@@ -3243,6 +3350,9 @@ msgstr "비밀번호 확인에 실패했습니다."
 msgid "Any Player Rampage"
 msgstr "임의 선수 램페이지"
 
+msgid "Add media"
+msgstr ""
+
 msgid "Club"
 msgstr "클럽"
 
@@ -3259,6 +3369,12 @@ msgstr "리포스트 또는 인용"
 #. js-lingui-explicit-id
 msgid "mirror-tooltip-repost-or-quote"
 msgstr "리포스트 또는 인용"
+
+msgid "You can attach up to {MAX_CHAT_ATTACHMENTS} files."
+msgstr ""
+
+msgid "Check your connection and try again."
+msgstr ""
 
 msgid "Oops… Something went wrong. Please try again"
 msgstr "앗… 문제가 발생했습니다. 다시 시도해 주세요"
@@ -3312,6 +3428,12 @@ msgstr "계정 또는 앱 비밀번호"
 
 msgid "Total amount shared among all winners"
 msgstr "모든 수령자가 나눠 가질 총 금액"
+
+msgid "No messages yet. Say hello!"
+msgstr ""
+
+msgid "New message"
+msgstr ""
 
 msgid "Post details"
 msgstr "게시물 상세"
@@ -3449,6 +3571,9 @@ msgstr "{setNum}세트 총 게임"
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
 msgstr "<2/>에서 <1>${0} 상당의</1> <0>예측을 함</0>"
 
+msgid "New messages"
+msgstr ""
+
 msgid "[Poll]"
 msgstr "[투표]"
 
@@ -3465,6 +3590,9 @@ msgstr "{0}님이 회원님의 <0>팁</0>에 좋아요를 눌렀습니다"
 #. placeholder {0}: dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')
 msgid "Saved on {0}"
 msgstr "{0}에 저장됨"
+
+msgid "Payment request"
+msgstr ""
 
 #. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
 msgid "Failed to vote.{0}"
@@ -3683,6 +3811,9 @@ msgstr "이 토큰 웹사이트에 승인을 부여하면 자산을 잃을 수 �
 msgid "Your Firefly Identity is now active."
 msgstr "Firefly ID가 활성화되었습니다."
 
+msgid "Search conversations"
+msgstr ""
+
 msgid "Map Handicap"
 msgstr "맵 핸디캡"
 
@@ -3703,6 +3834,9 @@ msgstr "팔로우 취소"
 
 msgid "Rank #{tokenRank}"
 msgstr "순위 #{tokenRank}"
+
+msgid "Back to latest message"
+msgstr ""
 
 msgid "No one can reply"
 msgstr "답글 불가"
@@ -3788,6 +3922,9 @@ msgstr "이 Bluesky 계정은 이미 다른 Firefly 계정에 연결되어 있�
 msgid "Failed to send tip."
 msgstr "팁 전송에 실패했습니다."
 
+msgid "No conversations found"
+msgstr ""
+
 msgid "Both Teams Destroy Barracks"
 msgstr "양 팀 막사 파괴"
 
@@ -3865,6 +4002,9 @@ msgstr "낮에 종료"
 msgid "# month"
 msgid_plural "# months"
 msgstr[0] "# 개월"
+
+msgid "Requests"
+msgstr ""
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "이 토큰은 선언된 팀이 발행했습니다. 일부 사기는 동일한 이름의 유명 토큰을 만들어 사용자 자산을 사취합니다."
@@ -4028,6 +4168,9 @@ msgstr "클럽 참여에 실패했습니다."
 msgid "Show more tokens with small balances"
 msgstr "소액 잔액 토큰 더 보기"
 
+msgid "Add emoji"
+msgstr ""
+
 msgid "Swapped"
 msgstr "스왑함"
 
@@ -4157,6 +4300,9 @@ msgstr "축하합니다!"
 msgid "Post added to your Bookmarks"
 msgstr "게시물이 북마크에 추가되었습니다"
 
+msgid "Select a conversation or start a new one."
+msgstr ""
+
 msgid "Most Kills"
 msgstr "최다 킬"
 
@@ -4260,6 +4406,11 @@ msgstr "토큰 추가"
 msgid "UID: {0}"
 msgstr "UID: {0}"
 
+#. js-lingui:icu=%7BnewMessageCount%2C+plural%2C+one+%7B%23+new+message%7D+other+%7B%23+new+messages%7D%7D&pluralize_on=newMessageCount
+msgid "# new message"
+msgid_plural "# new messages"
+msgstr[0] ""
+
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "소유자는 지정된 각 주소에 다른 세율을 설정할 수 있습니다."
 
@@ -4327,9 +4478,15 @@ msgstr "연결된 지갑이 오래되었거나 부정확할 수 있습니다. �
 msgid "Cryptocurrency mixer."
 msgstr "암호화폐 믹서."
 
+msgid "Failed to send message. Please try again."
+msgstr ""
+
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
 msgstr "@{0} 팔로우"
+
+msgid "Messages"
+msgstr ""
 
 msgid "Biggest Win"
 msgstr "최대 수익"
@@ -4351,6 +4508,9 @@ msgstr "연결 해제에 실패했습니다"
 
 msgid "Odd/Even Total Rounds"
 msgstr "총 라운드 홀짝"
+
+msgid "Sign in to view messages"
+msgstr ""
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr "웹사이트는 {maxWebsiteSize}자를 초과할 수 없습니다"
@@ -4395,11 +4555,17 @@ msgstr "<0/> 및 <1>외 {0}명</1>"
 msgid "Token ${symbol} could not be found."
 msgstr "토큰 ${symbol}을(를) 찾을 수 없습니다."
 
+msgid "Media attachment"
+msgstr ""
+
 msgid "Polymarket"
 msgstr "Polymarket"
 
 msgid "Video duration limit reached"
 msgstr "동영상 길이 한도에 도달했습니다"
+
+msgid "Your messages follow the currently active Lens account."
+msgstr ""
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "이 지갑 및 연결된 계정을 Firefly에서 연결 해제하시겠습니까?"
@@ -4602,6 +4768,9 @@ msgstr "팔로우한 사람 중 이 토큰을 거래한 사람이 없습니다."
 msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
 msgstr "탐색 - Farcaster, Lens, Bluesky 인기 클럽 - Firefly"
 
+msgid "Remove attachment"
+msgstr ""
+
 msgid "Search clubs"
 msgstr "클럽 검색"
 
@@ -4675,6 +4844,9 @@ msgstr "{0} 프로필 생성에 실패했습니다.{1}"
 
 msgid "Lens Auto login"
 msgstr "Lens 자동 로그인"
+
+msgid "Paid"
+msgstr ""
 
 msgid "Download App"
 msgstr "앱 다운로드"
@@ -4811,6 +4983,9 @@ msgstr "로그인 과정이 중단되었습니다. 다시 시도해 주세요"
 msgid "Access Denied"
 msgstr "액세스 거부됨"
 
+msgid "Messages could not be loaded"
+msgstr ""
+
 #. placeholder {0}: channel.name
 msgid "Joined #{0} on {sourceName}"
 msgstr "{sourceName}에서 #{0}에 참여함"
@@ -4823,6 +4998,9 @@ msgstr "기본 계정으로 설정"
 
 msgid "Firefly Mobile"
 msgstr "Firefly 모바일"
+
+msgid "Cancelled"
+msgstr ""
 
 msgid "Streaming Error"
 msgstr "스트리밍 오류"
@@ -4917,6 +5095,9 @@ msgstr "일반"
 
 msgid "Round Total"
 msgstr "라운드 합계"
+
+msgid "Payment request details unavailable"
+msgstr ""
 
 msgid "Show more tokens"
 msgstr "더 많은 토큰 표시"
@@ -5108,6 +5289,10 @@ msgstr "이 게시물의 예약 전송 시간은 최대 7일 전까지 설정할
 
 msgid "One-time passcode"
 msgstr "일회용 인증 코드"
+
+#. placeholder {0}: author.handle
+msgid "Message @{0}"
+msgstr ""
 
 msgid "Chain"
 msgstr "체인"
@@ -5307,6 +5492,9 @@ msgstr "Firefly 지갑을 Lens 계정 관리자로 지정하여 Firefly 자동 �
 msgid "2nd Half Totals"
 msgstr "후반 합계"
 
+msgid "Failed to start the conversation."
+msgstr ""
+
 msgid "Snapshot DAO"
 msgstr "Snapshot DAO"
 
@@ -5318,6 +5506,9 @@ msgstr "스냅샷 좋아요 취소에 실패했습니다."
 
 msgid "Unexpected step for verifying password: {step}."
 msgstr "비밀번호 확인 중 예기치 않은 단계: {step}."
+
+msgid "Loading"
+msgstr ""
 
 msgid "Transaction completed!"
 msgstr "거래가 완료되었습니다!"
@@ -5337,6 +5528,9 @@ msgstr "1달러 미만 자산 숨기기"
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
 msgstr "<0/> <1>님이 회원님의 </1><2>{0, select, Post {게시물} Comment {댓글} Quote {인용} Mirror {리포스트} other {게시물}}</2>을(를) 수집함"
+
+msgid "Requested"
+msgstr ""
 
 msgid "Hours"
 msgstr "시간"
@@ -5455,6 +5649,9 @@ msgstr "다중 기기 로그인"
 
 msgid "This token link is not supported."
 msgstr "이 토큰 링크는 지원되지 않습니다."
+
+msgid "Declined"
+msgstr ""
 
 #. placeholder {0}: channel.id
 msgid "Failed to unfollow /{0} on {sourceName}"

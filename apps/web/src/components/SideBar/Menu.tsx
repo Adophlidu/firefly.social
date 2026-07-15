@@ -14,6 +14,7 @@ import { BookmarkMenu } from '@/components/SideBar/BookmarkMenu.js';
 import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
 import { ExploreEntranceMenu } from '@/components/SideBar/ExploreEntranceMenu.js';
 import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
+import { MessagesMenu } from '@/components/SideBar/MessagesMenu.js';
 import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { PredictionMenu } from '@/components/SideBar/PredictionMenu.js';
@@ -57,6 +58,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 href: PageRoute.PredictionCategory,
                                 name: <Trans>Predictions</Trans>,
                                 match: () => pathname.startsWith(PageRoute.PredictionCategory),
+                            },
+                            {
+                                href: PageRoute.Messages,
+                                name: <Trans>Messages</Trans>,
+                                match: () => isRoutePathname(pathname, PageRoute.Messages),
                             },
                             {
                                 href: PageRoute.Notifications,
@@ -103,6 +109,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         [PageRoute.Profile]: <Profile collapsed={collapsed} />,
                                         [PageRoute.Notifications]: (
                                             <NotificationMenu isSelected={isSelected} collapsed={collapsed} />
+                                        ),
+                                        [PageRoute.Messages]: (
+                                            <MessagesMenu isSelected={isSelected} collapsed={collapsed} />
                                         ),
                                         [PageRoute.Bookmarks]: (
                                             <BookmarkMenu isSelected={isSelected} collapsed={collapsed} />

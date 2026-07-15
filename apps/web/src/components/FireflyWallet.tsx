@@ -115,7 +115,7 @@ export function FireflyWallet() {
         setWallet(NetworkType.Solana, walletAccounts[NetworkType.Solana]);
     }, [walletAccounts, isAuthorized, setWallet]);
 
-    const isHidePath = pathname.startsWith(PageRoute.Settings);
+    const isHidePath = pathname.startsWith(PageRoute.Settings) || pathname.startsWith(PageRoute.Messages);
 
     useUpdateEffect(() => {
         if (isHidePath && isOpen) {
