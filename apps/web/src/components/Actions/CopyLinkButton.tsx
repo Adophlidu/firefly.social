@@ -43,7 +43,7 @@ export const CopyLinkButton = memo(function CopyLinkButton({ getLink, children, 
                 }
             }}
         >
-            {pending ? <LoadingIcon width={18} height={18} /> : <LinkIcon width={18} height={18} />}
+            {pending ? <LoadingIcon size={18} /> : <LinkIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">{children || <Trans>Copy link</Trans>}</span>
         </MenuButton>
     );

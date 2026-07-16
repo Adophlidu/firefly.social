@@ -79,11 +79,7 @@ export const PredictionPositionShareSheet = memo(function PredictionPositionShar
                         onClose();
                     }}
                 >
-                    {isPosting ? (
-                        <LoadingIcon width={20} height={20} className="animate-spin" />
-                    ) : (
-                        <SendIcon width={20} height={20} />
-                    )}
+                    {isPosting ? <LoadingIcon size={20} /> : <SendIcon width={20} height={20} />}
                     <span className="font-bold text-main">
                         <Trans>Post with image</Trans>
                     </span>

@@ -96,7 +96,7 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
                 {loading || hasError ? (
                     <div className="absolute inset-0 z-1 flex items-center justify-center bg-primaryBottom">
                         {loading ? (
-                            <LoadingIcon width={24} height={24} className="text-main" />
+                            <LoadingIcon size={24} className="text-main" />
                         ) : hasError ? (
                             <span className="text-medium font-medium text-secondary">
                                 <Trans>Failed to load image.</Trans>

@@ -39,7 +39,7 @@ export const PostWithLinkButton = memo(function PostWithLinkButton({ getLink, on
                 }
             }}
         >
-            {pending ? <LoadingIcon width={18} height={18} /> : <SendIcon width={18} height={18} />}
+            {pending ? <LoadingIcon size={18} /> : <SendIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
                 <Trans>Post with link</Trans>
             </span>
