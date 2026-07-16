@@ -11,6 +11,7 @@ import { QuoteList } from '@/components/Engagement/QuoteList.js';
 import { RepostList } from '@/components/Engagement/RepostList.js';
 import { Loading } from '@/components/Loading.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { useMounted } from '@/hooks/useMounted.js';
 
 interface ContentListProps {
     postId: string;
@@ -41,6 +42,11 @@ export default function Page(props: Props) {
 
     const sourceInURL = params.source;
     const source = resolveSocialSource(sourceInURL);
+    const mounted = useMounted();
+
+    // Engagement lists need a client session (e.g. a Twitter session for /post/x/...),
+    // which is absent during SSR. Render client-only to avoid a server-side Unauthorized 500.
+    if (!mounted) return <Loading />;
 
     return (
         <Suspense fallback={<Loading />}>
