@@ -23,6 +23,21 @@ export const CRYPTO_ALL_SLUG = 'all';
 /** Default Quick Buy period (the depth-2 → depth-3 redirect target). */
 export const CRYPTO_DEFAULT_PERIOD_SLUG = '1h';
 
+/**
+ * Numeric Polymarket tag ID for the `crypto` slug. Used to intersect crypto with a period/feature
+ * tag server-side via `tag_id=[CRYPTO_TAG_ID, <tagId>]` + `tag_match=all`: the gamma `/events`
+ * endpoint only ANDs repeated `tag_id` when `tag_match=all` is set (repeated `tag_slug` is OR, and
+ * drops the period filter entirely — verified live). See {@link CryptoCategorySecondaryConfig.tagId}.
+ */
+export const CRYPTO_TAG_ID = 21;
+
+/**
+ * Polymarket tag ID for ETF-flow markets (`etf`). Quick Buy excludes it server-side via
+ * `exclude_tag_id` — these daily flow markets slug-match a coin but aren't up/down price markets, so
+ * they'd otherwise leak into Quick Buy and render via `BetItem` (countdown / volume / NEW).
+ */
+export const CRYPTO_ETF_TAG_ID = 833;
+
 export interface CryptoCategorySecondaryConfig {
     slug: string;
     /** English label (translated at render time via `resolvePredictionCategoryLabel`). */
@@ -32,6 +47,31 @@ export interface CryptoCategorySecondaryConfig {
      * `null` for `quick-buy` (fetches by period tag) and `all` (uses the `crypto` event-list).
      */
     tagSlug: string | null;
+    /**
+     * Polymarket tag IDs fetched via `getGammaEvents`. Period tabs (weekly/monthly/yearly) intersect
+     * crypto with their tag (`[CRYPTO_TAG_ID, <tagId>]`, `tag_match=all`). The five topic tabs are
+     * `tag_match=any` unions of crypto-inherent tags (no crypto AND — those tags carry no non-crypto
+     * events): Industry `[crypto-legal, crypto-culture, protocol-risk, protocol-upgrade]`;
+     * Institutions `[crypto-listings, gov-reserve, crypto-treasury, corporate-financials, etf]`
+     * (liveOnly — `end_date_min` drops the past-day ETF-flow zombies the `etf` tag brings); Targets
+     * `[price-milestone, price-comparison, nft]`; Pre-Market `[pre-market, public-sales,
+     * token-sales]` minus `ipos` (excludeTagIds — IPOs stay in Institutions); Protocol Metrics
+     * `[tvl, open-interest, network-stats, fees]`. Omitted for `quick-buy`/`all`.
+     */
+    tagIds?: number[];
+    /** How to combine {@link tagIds}: `'all'` (AND, default) or `'any'` (OR, Protocol Metrics). */
+    tagMatch?: 'all' | 'any';
+    /**
+     * Hide events whose endDate already passed (server-side `end_date_min=now`) — drops zombie
+     * recurring markets (e.g. the daily ETF flows that `etf` brings into Institutions) while keeping
+     * live ones. Institutions uses this because it unions the `etf` tag.
+     */
+    liveOnly?: boolean;
+    /**
+     * Tag IDs to exclude server-side (`exclude_tag_id`). Pre-Market unions `pre-market` but excludes
+     * `ipos` so IPO events stay in Institutions.
+     */
+    excludeTagIds?: number[];
     /** Optional chip icon (backend media URL) shared by both themes; omitted renders no icon. */
     icon?: string;
 }
@@ -47,9 +87,18 @@ export interface CryptoCategoryPeriodConfig {
 }
 
 /**
- * Secondary tabs (2nd level) in nav order. Quick Buy leads, then the 9 topic categories.
- * tagSlug values confirmed live against gamma-api: `weekly`, `monthly`, `yearly`, `pre-market`,
- * `industry`, `hit-price` (Targets), `etf` (Institutions), `tvl` (Protocol Metrics).
+ * Secondary tabs (2nd level) in nav order. Quick Buy leads, then the topic categories. tagSlug is
+ * the primary Polymarket tag (documentation); the actual fetch uses `tagIds` + `tagMatch`. Period
+ * tabs (weekly/monthly/yearly) AND crypto with their tag (`tag_match=all`); the five topic
+ * tabs (industry/institutions/targets/pre-market/protocol-metrics) OR crypto-inherent tags
+ * (`tag_match=any`, no crypto AND). IDs confirmed live against gamma-api (`GET /tags/slug/{slug}`):
+ * crypto(21), weekly(102264), monthly(102144), yearly(102536), pre-market(102368),
+ * public-sales(102860), token-sales(102859), ipos(600), crypto-legal(105292),
+ * crypto-culture(105289), protocol-risk(105220), protocol-upgrade(105291),
+ * crypto-listings(105297), gov-reserve(105296), crypto-treasury(105293),
+ * corporate-financials(105300), etf/Institutions-flows(833), price-milestone(105299),
+ * price-comparison(105301), nft(1327), tvl(104698), open-interest(105287), network-stats(105288),
+ * fees(102809).
  */
 /** Chip icon for Quick Buy — the sports "live" broadcast pictogram (shared by both themes). */
 const CRYPTO_QUICK_BUY_ICON = 'https://media.firefly.land/polymarket/live-x4.png';
@@ -57,14 +106,46 @@ const CRYPTO_QUICK_BUY_ICON = 'https://media.firefly.land/polymarket/live-x4.png
 export const CRYPTO_SECONDARY_CATEGORIES: readonly CryptoCategorySecondaryConfig[] = [
     { slug: CRYPTO_QUICK_BUY_SLUG, label: 'Quick Buy', tagSlug: null, icon: CRYPTO_QUICK_BUY_ICON },
     { slug: CRYPTO_ALL_SLUG, label: 'All', tagSlug: null },
-    { slug: 'weekly', label: 'Weekly', tagSlug: 'weekly' },
-    { slug: 'monthly', label: 'Monthly', tagSlug: 'monthly' },
-    { slug: 'yearly', label: 'Yearly', tagSlug: 'yearly' },
-    { slug: 'targets', label: 'Targets', tagSlug: 'hit-price' },
-    { slug: 'pre-market', label: 'Pre-Market', tagSlug: 'pre-market' },
-    { slug: 'institutions', label: 'Institutions', tagSlug: 'etf' },
-    { slug: 'industry', label: 'Industry', tagSlug: 'industry' },
-    { slug: 'protocol-metrics', label: 'Protocol Metrics', tagSlug: 'tvl' },
+    { slug: 'weekly', label: 'Weekly', tagSlug: 'weekly', tagIds: [CRYPTO_TAG_ID, 102264] },
+    { slug: 'monthly', label: 'Monthly', tagSlug: 'monthly', tagIds: [CRYPTO_TAG_ID, 102144] },
+    { slug: 'yearly', label: 'Yearly', tagSlug: 'yearly', tagIds: [CRYPTO_TAG_ID, 102536] },
+    {
+        slug: 'targets',
+        label: 'Targets',
+        tagSlug: 'price-milestone',
+        tagIds: [105299, 105301, 1327],
+        tagMatch: 'any',
+    },
+    {
+        slug: 'pre-market',
+        label: 'Pre-Market',
+        tagSlug: 'pre-market',
+        tagIds: [102368, 102860, 102859],
+        tagMatch: 'any',
+        excludeTagIds: [600],
+    },
+    {
+        slug: 'institutions',
+        label: 'Institutions',
+        tagSlug: 'crypto-listings',
+        tagIds: [105297, 105296, 105293, 105300, 833],
+        tagMatch: 'any',
+        liveOnly: true,
+    },
+    {
+        slug: 'industry',
+        label: 'Industry',
+        tagSlug: 'crypto-legal',
+        tagIds: [105292, 105289, 105220, 105291],
+        tagMatch: 'any',
+    },
+    {
+        slug: 'protocol-metrics',
+        label: 'Protocol Metrics',
+        tagSlug: 'tvl',
+        tagIds: [104698, 105287, 105288, 102809],
+        tagMatch: 'any',
+    },
 ];
 
 /**

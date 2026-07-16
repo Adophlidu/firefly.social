@@ -1,8 +1,5 @@
 import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
-import {
-    CRYPTO_DISPLAY_NAME,
-    resolveCryptoCoinFromEventListData,
-} from '@/helpers/prediction/category/cryptoCoinPatterns.js';
+import { resolveCryptoCoinLabelFromEventListData } from '@/helpers/prediction/category/cryptoCoinPatterns.js';
 import {
     isMarketDecided,
     selectPolymarketListMarketsForDisplay,
@@ -78,14 +75,16 @@ const parsePricePercent = (price: string | undefined | null): number =>
 
 /**
  * View model for the periodic-crypto list cell (Figma 85151:45725). Returns `null` (→ caller falls
- * back to `BetItem`) unless a coin resolves AND the event is periodic: a known interval slug
- * (5m/15m/4h/hourly/daily/multistrite/up-down) OR a crypto multi-market threshold event
- * ("What price will BTC hit", "BTC closes above"). The coin gate keeps stocks on `BetItem`.
+ * back to `BetItem`) unless the event is crypto AND periodic: a known interval slug
+ * (5m/15m/4h/hourly/daily/multistrike/up-down) OR a crypto multi-market threshold event
+ * ("What price will BTC hit", "BTC closes above"). "Crypto" = a known coin (BTC/ETH/SOL/…) OR any
+ * event Polymarket tags `crypto` / `crypto-prices` — that admits the long tail of hit-price markets
+ * (Hyperliquid, Chainlink, …) while keeping stocks/commodities (tagged `finance`) on `BetItem`.
  */
 export function formatPolymarketCryptoCellForUI(event: PolymarketEventListData): PredictionCryptoCellViewModel | null {
     const classification = resolveCryptoUpDownFromEvent(event);
-    const coin = resolveCryptoCoinFromEventListData(event);
-    if (!coin) return null;
+    const coinLabel = resolveCryptoCoinLabelFromEventListData(event);
+    if (!coinLabel) return null;
 
     const isSlugPeriodic = classification.kind !== 'other' || classification.isUpDownFamily;
     const isCryptoThresholdMulti = event.markets.length > 1 && event.markets.some((market) => !!market.groupItemTitle);
@@ -94,8 +93,6 @@ export function formatPolymarketCryptoCellForUI(event: PolymarketEventListData):
     const formatted = formatPolymarketEventListData(event);
     const markets = formatted.markets;
     if (!markets.length) return null;
-
-    const coinLabel = CRYPTO_DISPLAY_NAME[coin];
     // Follow market state, not the event-level `closed` flag (which lags recurring cycles): live
     // while any market is active, open, unresolved, and not decided.
     const isMarketTradable = (market: BetsMarketDataForUI): boolean =>

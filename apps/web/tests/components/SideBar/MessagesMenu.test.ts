@@ -12,7 +12,11 @@ const { useActiveDmIdentityMock, useDmCountersMock } = vi.hoisted(() => ({
 }));
 
 vi.mock('@dimensiondev/assets/messages.svg', () => ({ default: () => null }));
-vi.mock('@lingui/core/macro', () => ({ t: (strings: TemplateStringsArray) => strings[0] }));
+vi.mock('@lingui/core/macro', () => ({
+    t: (strings: TemplateStringsArray) => strings[0],
+    plural: (count: number, forms: { one: string; other: string }) =>
+        (count === 1 ? forms.one : forms.other).split('#').join(String(count)),
+}));
 vi.mock('@lingui/react/macro', () => ({ Trans: ({ children }: { children?: unknown }) => children }));
 vi.mock('@/components/SideBar/BaseMenuItem.js', () => ({
     BaseMenuItem: ({ icon, menuName }: { icon: ReactNode; menuName: ReactNode }) =>

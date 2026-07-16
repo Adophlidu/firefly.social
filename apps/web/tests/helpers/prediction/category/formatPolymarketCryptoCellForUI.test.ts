@@ -4,6 +4,7 @@ import { formatPolymarketCryptoCellForUI } from '@/helpers/prediction/category/f
 import {
     type PolymarketEventListData,
     type PolymarketMarketData,
+    type PolymarketTagData,
     PolymarketUmaResolutionStatus,
 } from '@/providers/types/Firefly.js';
 
@@ -169,6 +170,10 @@ function singleEvent(slug: string, coinPrefix: string, prices: [string, string] 
     });
 }
 
+function tag(slug: string, label: string): PolymarketTagData {
+    return { id: slug, slug, label, forceShow: false, createdAt: '', updatedAt: '', requiresTranslation: false };
+}
+
 describe('formatPolymarketCryptoCellForUI — null fallback', () => {
     it('returns null for a non-periodic crypto event (coin resolves but not Up/Down)', () => {
         const event = baseEvent({
@@ -190,6 +195,57 @@ describe('formatPolymarketCryptoCellForUI — null fallback', () => {
         const event = baseEvent({
             slug: 'bitcoin-up-or-down-5m-1',
             markets: [baseMarket({ outcomes: '["Up"]', outcomePrices: '["1"]' })],
+        });
+        expect(formatPolymarketCryptoCellForUI(event)).toBeNull();
+    });
+});
+
+describe('formatPolymarketCryptoCellForUI — slug-based coin fallback', () => {
+    it('routes a tag-less hit-price coin (e.g. Avalanche) to the cell via its slug, not BetItem', () => {
+        // Long-tail hit-price markets carry only meta tags (no per-coin tag) and no known-coin slug,
+        // so the label comes from the slug to avoid the BetItem "+N others"/"Vol." fallback.
+        const event = baseEvent({
+            slug: 'what-price-will-avalanche-hit-before-2027',
+            title: 'What price will Avalanche hit in 2026?',
+            tags: [
+                tag('crypto', 'Crypto'),
+                tag('crypto-prices', 'Crypto Prices'),
+                tag('recurring', 'Recurring'),
+                tag('yearly', 'Yearly'),
+                tag('hit-price', 'Hit Price'),
+            ],
+            markets: [
+                baseMarket({ id: 'm1', slug: 'm1', groupItemTitle: '↑ 12', outcomePrices: '["0.55","0.45"]' }),
+                baseMarket({ id: 'm2', slug: 'm2', groupItemTitle: '↓ 5', outcomePrices: '["0.54","0.46"]' }),
+            ],
+        });
+        const model = formatPolymarketCryptoCellForUI(event);
+        expect(model).not.toBeNull();
+        expect(model!.coinLabel).toBe('Avalanche');
+        expect(model!.body.variant).toBe('multi');
+    });
+
+    it('resolves the coin from the English slug even when the title is localized (zh/ja)', () => {
+        // The displayed title may be machine-translated; the slug is always English, so coin
+        // resolution is locale-independent.
+        const event = baseEvent({
+            slug: 'what-price-will-avalanche-hit-before-2027',
+            title: 'アバランチェの価格はいくらになりますか？',
+            tags: [tag('crypto', 'Crypto'), tag('hit-price', 'Hit Price')],
+            markets: [
+                baseMarket({ id: 'm1', slug: 'm1', groupItemTitle: '↑ 12', outcomePrices: '["0.55","0.45"]' }),
+                baseMarket({ id: 'm2', slug: 'm2', groupItemTitle: '↓ 5', outcomePrices: '["0.54","0.46"]' }),
+            ],
+        });
+        expect(formatPolymarketCryptoCellForUI(event)?.coinLabel).toBe('Avalanche');
+    });
+
+    it('still returns null for an aggregate slug with no coin ("altcoin-market-cap-dip-…")', () => {
+        const event = baseEvent({
+            slug: 'altcoin-market-cap-dip-before-2027',
+            title: 'Altcoin market cap dip to $150B before 2027?',
+            tags: [tag('crypto', 'Crypto'), tag('price-milestone', 'Price Milestone')],
+            markets: [baseMarket({ id: 'm1', slug: 'm1', outcomePrices: '["0.5","0.5"]' })],
         });
         expect(formatPolymarketCryptoCellForUI(event)).toBeNull();
     });
@@ -529,5 +585,87 @@ describe('formatPolymarketCryptoCellForUI — multi body', () => {
         // Row 'a' has the higher win-rate (0.6) so it sorts first and shows its question fallback.
         expect(model!.body.rows[0].thresholdLabel).toBe('Bitcoin Above 62000');
         expect(model!.body.rows[1].thresholdLabel).toBe('63,000');
+    });
+});
+
+describe('formatPolymarketCryptoCellForUI — long-tail crypto coins (FW-7918)', () => {
+    it('routes a non-7-coin crypto hit-price event (Hyperliquid) through the multi cell with a tag-derived label', () => {
+        // Hyperliquid carries the `crypto` tag but no slug the 7-coin resolver recognizes, so before
+        // the fix it fell through to BetItem (with volume / NEW / "+N others"). It must now render the
+        // periodic multi-cell with a Live · Hyperliquid subtitle and the top-2 thresholds excl. 100%.
+        const event = baseEvent({
+            slug: 'what-price-will-hyperliquid-hit-before-2027',
+            title: 'What price will Hyperliquid hit in 2026?',
+            tags: [
+                tag('hyperliquid', 'hyperliquid'),
+                tag('crypto', 'Crypto'),
+                tag('crypto-prices', 'Crypto Prices'),
+                tag('yearly', 'Yearly'),
+                tag('hit-price', 'Hit Price'),
+            ],
+            markets: [
+                baseMarket({
+                    id: 'a',
+                    slug: 'a',
+                    groupItemTitle: '$40',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.6","0.4"]',
+                }),
+                baseMarket({
+                    id: 'b',
+                    slug: 'b',
+                    groupItemTitle: '$50',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.3","0.7"]',
+                }),
+                baseMarket({
+                    id: 'c',
+                    slug: 'c',
+                    groupItemTitle: '$60',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["1","0"]',
+                }),
+            ],
+        });
+        const model = formatPolymarketCryptoCellForUI(event);
+        expect(model).not.toBeNull();
+        expect(model!.coinLabel).toBe('Hyperliquid');
+        expect(model!.body.variant).toBe('multi');
+        if (model!.body.variant !== 'multi') return;
+        // Decided ($60, 100%) excluded; top-2 by win-rate.
+        expect(model!.body.rows.map((row) => row.thresholdLabel)).toEqual(['$40', '$50']);
+    });
+
+    it('keeps a stock hit-price event (finance tag) on BetItem even with a ticker tag', () => {
+        // NVDA has the same multi-market threshold shape as a crypto hit-price event plus an `nvda`
+        // tag — it must NOT be swept into the periodic crypto cell, only crypto-tagged events qualify.
+        const event = baseEvent({
+            slug: 'what-price-will-nvda-hit-in-july-2026',
+            title: 'What will NVIDIA (NVDA) hit in July 2026?',
+            tags: [
+                tag('finance', 'Finance'),
+                tag('stocks', 'Stocks'),
+                tag('equities', 'Equities'),
+                tag('nvda', 'NVDA'),
+                tag('hit-price', 'Hit Price'),
+            ],
+            markets: [
+                baseMarket({
+                    id: 'a',
+                    slug: 'a',
+                    groupItemTitle: '$160',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.6","0.4"]',
+                }),
+                baseMarket({
+                    id: 'b',
+                    slug: 'b',
+                    groupItemTitle: '$170',
+                    outcomes: '["Yes","No"]',
+                    outcomePrices: '["0.3","0.7"]',
+                }),
+            ],
+        });
+        expect(formatPolymarketCryptoCellForUI(event)).toBeNull();
     });
 });
