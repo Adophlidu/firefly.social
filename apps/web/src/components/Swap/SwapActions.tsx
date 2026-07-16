@@ -47,7 +47,7 @@ interface SwapActionsProps {
 export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activity, isDetail = false }) {
     const isLogin = useIsLoginFirefly();
     const longShareUrl = useShareUrl(urlcat(SITE_URL, resolveTxPageUrl(activity.hash, activity.chain_id)));
-    const { url: shareUrl, isPending: isShareLinkPending, register } = useShortShareUrl(longShareUrl);
+    const { register } = useShortShareUrl(longShareUrl);
 
     const { data = activity } = useQuery({
         enabled: isDetail,
@@ -150,10 +150,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     button={
                         <Tooltip placement="top" content={<Trans>Share</Trans>}>
                             <motion.div
-                                onClick={() => {
-                                    captureShareIconClickEvent('Swap');
-                                    register();
-                                }}
+                                onClick={() => captureShareIconClickEvent('Swap')}
                                 whileTap={{ scale: 0.9 }}
                                 className="inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
                             >
@@ -163,11 +160,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     }
                 >
                     <MenuGroup>
-                        <MenuItem>
-                            {({ close }) => (
-                                <CopyLinkButton link={shareUrl} onClick={close} pending={isShareLinkPending} />
-                            )}
-                        </MenuItem>
+                        <MenuItem>{({ close }) => <CopyLinkButton getLink={register} onClick={close} />}</MenuItem>
                         <MenuItem>
                             {({ close }) => (
                                 <MenuButton

@@ -133,7 +133,9 @@ html {
     --color-lens-button: 0 80 30; /* #00501E */
     --z-navbar: 37;
     --z-banner: 38;
-    --z-menu: 39;
+    /* Above the widespread `sticky top-0 z-40` page headers (post/article/prediction detail, etc.) —
+       a dropdown menu anchored near one of those headers must float above it, never get clipped by it. */
+    --z-menu: 41;
     /* Farcaster Snap palette (light) — https://docs.farcaster.xyz/snap/colors */
     --snap-palette-gray: #6e6a86;
     --snap-palette-blue: #286983;
@@ -838,7 +840,7 @@ body {
 }
 
 [data-tippy-root]:has(.symbol-tag-tippy) {
-    z-index: var(--z-menu, 39) !important;
+    z-index: var(--z-menu, 41) !important;
 }
 
 .floating-card {

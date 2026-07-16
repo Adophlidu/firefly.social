@@ -115,7 +115,7 @@ export function TipsTransactionActions({
     const longUrlWithView = useShareUrl(RouteResolver.tx(chainId, txHash, view));
     const { register: registerWithView } = useShortShareUrl(longUrlWithView);
     const longUrl = useShareUrl(RouteResolver.tx(chainId, txHash));
-    const { url: tipsLink, isPending: isTipsLinkPending, register } = useShortShareUrl(longUrl);
+    const { register } = useShortShareUrl(longUrl);
 
     const likedStatus = autoQuery && isLogin ? data?.has_liked : liked;
     const likeStatusData = useMemo<TipsLikeStatusData>(
@@ -196,7 +196,7 @@ export function TipsTransactionActions({
             <MoreActionMenu
                 button={
                     <Tooltip content={<Trans>Share</Trans>} placement="top">
-                        <span onClick={register} className="inline-flex">
+                        <span className="inline-flex">
                             <ShareIcon width={16} height={16} className="text-secondary" />
                         </span>
                     </Tooltip>
@@ -206,7 +206,7 @@ export function TipsTransactionActions({
                     <>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton link={tipsLink} onClick={close} pending={isTipsLinkPending}>
+                                <CopyLinkButton getLink={register} onClick={close}>
                                     <Trans>Copy link</Trans>
                                 </CopyLinkButton>
                             )}

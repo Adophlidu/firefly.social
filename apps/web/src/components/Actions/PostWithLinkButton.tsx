@@ -1,16 +1,15 @@
 'use client';
 
-import LinkIcon from '@dimensiondev/assets/small-link.svg';
+import SendIcon from '@dimensiondev/assets/send.svg';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps, memo, useState } from 'react';
-import urlcat from 'urlcat';
+import { memo, useState } from 'react';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { useCopyText } from '@/hooks/useCopyText.js';
+import { openComposeModal } from '@/controllers/openComposeModal.js';
 
-interface CopyLinkButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'onClick'> {
-    /** Resolves the link to copy — called (and awaited) only when this button is clicked. */
+interface PostWithLinkButtonProps {
+    /** Resolves the link to post — called (and awaited) only when this button is clicked. */
     getLink: () => string | Promise<string>;
     onClick?: () => void;
 }
@@ -20,31 +19,30 @@ interface CopyLinkButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'onClic
  * network work or a loading state — only clicking this specific item does, and only this item shows
  * the spinner while it's in flight.
  */
-export const CopyLinkButton = memo(function CopyLinkButton({ getLink, children, ref, onClick }: CopyLinkButtonProps) {
+export const PostWithLinkButton = memo(function PostWithLinkButton({ getLink, onClick }: PostWithLinkButtonProps) {
     const [pending, setPending] = useState(false);
-    const [, handleCopy] = useCopyText('');
 
     return (
         <MenuButton
-            ref={ref}
             disabled={pending}
             onClick={async (event) => {
                 // Keep the menu open while resolving — headless-ui closes it on click by default,
-                // which would unmount this button (and its spinner) before the copy even lands.
+                // which would unmount this button (and its spinner) before the compose modal opens.
                 event.preventDefault();
                 setPending(true);
                 try {
                     const link = await getLink();
-                    const url = link.startsWith('http') ? link : urlcat(location.origin, link);
-                    handleCopy(url);
+                    openComposeModal({ chars: link });
                     onClick?.();
                 } finally {
                     setPending(false);
                 }
             }}
         >
-            {pending ? <LoadingIcon width={18} height={18} /> : <LinkIcon width={18} height={18} />}
-            <span className="font-bold leading-[22px] text-main">{children || <Trans>Copy link</Trans>}</span>
+            {pending ? <LoadingIcon width={18} height={18} /> : <SendIcon width={18} height={18} />}
+            <span className="font-bold leading-[22px] text-main">
+                <Trans>Post with link</Trans>
+            </span>
         </MenuButton>
     );
 });

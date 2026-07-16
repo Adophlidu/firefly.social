@@ -4,11 +4,13 @@ import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@dimensiondev/constants/computed';
 import { SearchType, Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { compact, sum } from 'lodash-es';
 import { memo } from 'react';
+import urlcat from 'urlcat';
 
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -27,6 +29,7 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -46,7 +49,8 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     const profiles = useCurrentFireflyProfilesAll();
     const [, toggleMutedProfile] = useToggleMutedProfile(profile.source);
     const router = useRouter();
-    const profileUrl = useShareUrl(getProfileUrl(profile));
+    const profileUrl = useShareUrl(urlcat(SITE_URL, getProfileUrl(profile)));
+    const { register: registerProfileLink } = useShortShareUrl(profileUrl);
 
     const identity = {
         id: profile.profileId,
@@ -77,7 +81,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
             <MenuGroup>
                 <MenuItem>
                     {({ close }) => (
-                        <CopyLinkButton link={profileUrl} onClick={close}>
+                        <CopyLinkButton getLink={registerProfileLink} onClick={close}>
                             <Trans>Copy link to profile</Trans>
                         </CopyLinkButton>
                     )}

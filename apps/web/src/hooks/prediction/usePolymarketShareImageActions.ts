@@ -13,8 +13,13 @@ import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 
 export interface PolymarketShareImagePayload {
     params: PolymarketShareImageParams;
-    /** The firefly detail link (with `sid`) carried as the compose text. */
+    /** The firefly detail link (with `sid`) carried as the compose text — used only if `resolveLink` is absent. */
     link: string;
+    /**
+     * Lazily resolves the (possibly short) link at share time instead of upfront, so opening the
+     * share menu never kicks off the shortlink network request. Falls back to `link` if absent.
+     */
+    resolveLink?: () => Promise<string>;
     /**
      * Lazily resolves the sports matchup context for a position cell — the position-list API carries
      * no team/score data, so it's fetched (event detail) only when the user actually shares.
@@ -64,12 +69,15 @@ export function usePolymarketShareImageActions(payload: PolymarketShareImagePayl
     const [{ loading: isPosting }, postWithImage] = useAsyncFn(async () => {
         try {
             const { createPolymarketShareImage } = await import('@/services/polymarketShareImage/index.js');
-            const params = await resolvePolymarketShareParams(payload);
+            const [params, link] = await Promise.all([
+                resolvePolymarketShareParams(payload),
+                payload.resolveLink ? payload.resolveLink() : payload.link,
+            ]);
             const blob = await createPolymarketShareImage(params);
             const file = new File([blob], SHARE_IMAGE_FILE_NAME, { type: blob.type || FileMimeType.PNG });
             openComposeModal({
                 type: 'compose',
-                chars: payload.link,
+                chars: link,
                 images: [createLocalMediaObject(file)],
             });
         } catch {

@@ -40,7 +40,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const { data: ens } = useEnsName(address);
     const baseUrl = urlcat(SITE_URL, getArticleUrl(oldArticle));
     const longUrl = useShareUrl(baseUrl);
-    const { url, isPending, register } = useShortShareUrl(longUrl);
+    const { register } = useShortShareUrl(longUrl);
 
     const isLogin = !!currentProfileSession?.profileId;
     const { data, isLoading } = useQuery({
@@ -68,15 +68,11 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                 {isAddress ? (
                     <Tips identity={identity} handle={article.author.handle || ens} onClick={close} pureWallet />
                 ) : null}
-                {url ? (
+                {longUrl ? (
                     <ShareAction
-                        link={url}
                         cellType="article"
-                        isPending={isPending}
-                        onClick={() => {
-                            captureArticleShareClickEvent(article.id, identity.id);
-                            register();
-                        }}
+                        register={register}
+                        onIconClick={() => captureArticleShareClickEvent(article.id, identity.id)}
                     />
                 ) : null}
             </div>

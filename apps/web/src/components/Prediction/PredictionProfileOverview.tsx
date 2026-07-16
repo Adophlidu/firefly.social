@@ -47,11 +47,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
 
     const shareBaseUrl = urlcat(SITE_URL, RouteResolver.betsProfile(address, { platform }));
     const shareLongUrl = useShareUrl(shareBaseUrl);
-    const {
-        url: shareUrl,
-        isPending: isShareLinkPending,
-        register: registerShareLink,
-    } = useShortShareUrl(shareLongUrl);
+    const { register: registerShareLink } = useShortShareUrl(shareLongUrl);
 
     const { name, avatar, source, socialProfile, handle } = usePredictionProfileData({
         platform,
@@ -260,12 +256,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                     <div className="text-base font-bold leading-6 text-main">
                         <Trans>Overview</Trans>
                     </div>
-                    <ShareAction
-                        link={shareUrl}
-                        cellType="Prediction"
-                        isPending={isShareLinkPending}
-                        onClick={registerShareLink}
-                    />
+                    <ShareAction cellType="Prediction" register={registerShareLink} />
                 </div>
                 <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-3">
                     {dataConfig.map((item, i) => (

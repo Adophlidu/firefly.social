@@ -2,9 +2,11 @@
 
 import MoreIcon from '@dimensiondev/assets/more.svg';
 import { Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
+import urlcat from 'urlcat';
 
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteAllByProfile, MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
@@ -14,6 +16,7 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -37,10 +40,14 @@ function MuteAllByWalletProfileMenuItem({ profile }: { profile: WalletProfile })
 }
 
 export function FireflyAccountMoreButton({ profile, walletProfile, profiles = [] }: Props) {
-    const profileUrl = useShareUrl(profile ? getProfileUrl(profile) : '');
+    const profileUrl = useShareUrl(profile ? urlcat(SITE_URL, getProfileUrl(profile)) : '');
+    const { register: registerProfileLink } = useShortShareUrl(profileUrl);
     const walletProfileUrl = useShareUrl(
-        walletProfile ? getProfileUrl({ source: Source.Wallet, profileId: walletProfile.address }) : '',
+        walletProfile
+            ? urlcat(SITE_URL, getProfileUrl({ source: Source.Wallet, profileId: walletProfile.address }))
+            : '',
     );
+    const { register: registerWalletProfileLink } = useShortShareUrl(walletProfileUrl);
 
     return (
         <MoreActionMenu
@@ -60,7 +67,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile, profiles = []
                     <>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton link={profileUrl} onClick={close}>
+                                <CopyLinkButton getLink={registerProfileLink} onClick={close}>
                                     <Trans>Copy link to profile</Trans>
                                 </CopyLinkButton>
                             )}
@@ -74,7 +81,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile, profiles = []
                     <>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton link={walletProfileUrl} onClick={close}>
+                                <CopyLinkButton getLink={registerWalletProfileLink} onClick={close}>
                                     <Trans>Copy link to profile</Trans>
                                 </CopyLinkButton>
                             )}

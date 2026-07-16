@@ -129,7 +129,7 @@ module.exports = {
                 1: '1',
                 navbar: 'var(--z-navbar, 37)',
                 banner: 'var(--z-banner, 38)',
-                menu: 'var(--z-menu, 39)',
+                menu: 'var(--z-menu, 41)',
                 modal: '40',
             },
         },

@@ -22,7 +22,7 @@ export const PredictionEventShareButton = memo(function PredictionEventShareButt
 }: PredictionEventShareButtonProps) {
     const baseUrl = RouteResolver.betsEventDetail(platform, eventId, { multiple: isMulti, appendRoot: true });
     const longUrl = useShareUrl(baseUrl);
-    const { url, isPending, register } = useShortShareUrl(longUrl);
+    const { register } = useShortShareUrl(longUrl);
 
-    return <ShareAction link={url} cellType="Prediction" isPending={isPending} onClick={register} />;
+    return <ShareAction cellType="Prediction" register={register} />;
 });

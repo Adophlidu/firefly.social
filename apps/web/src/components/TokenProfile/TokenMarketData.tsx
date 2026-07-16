@@ -202,11 +202,7 @@ export const TokenMarketData = memo(function TokenMarketData({
         isCoinId: !!token.id,
     });
     const tokenShareLongUrl = useShareUrl(urlcat(SITE_URL, tokenPageUrl));
-    const {
-        url: tokenShareUrl,
-        isPending: isTokenShareLinkPending,
-        register: registerTokenShareLink,
-    } = useShortShareUrl(tokenShareLongUrl);
+    const { register: registerTokenShareLink } = useShortShareUrl(tokenShareLongUrl);
 
     const twitter_url = trending?.coin.twitter_url;
     const socialLinks = useMemo(() => {
@@ -311,12 +307,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                         </div>
                         <div className="ml-auto flex shrink-0 items-center gap-2 empty:hidden">
                             <TokenBookmarkButton coinId={token.id} chainId={chainId || mainnet.id} address={address} />
-                            <ShareAction
-                                link={tokenShareUrl}
-                                cellType="Token"
-                                isPending={isTokenShareLinkPending}
-                                onClick={registerTokenShareLink}
-                            />
+                            <ShareAction cellType="Token" register={registerTokenShareLink} />
                         </div>
                     </div>
                     <div className="mt-[18px] flex flex-col gap-2 leading-[22px]">

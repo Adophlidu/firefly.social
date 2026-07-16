@@ -29,7 +29,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
     const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleMutedChannel();
 
     const longUrl = useShareUrl(urlcat(SITE_URL, getClubShareUrl(channel)));
-    const { url: shareUrl, isPending: isShareLinkPending, register } = useShortShareUrl(longUrl);
+    const { register } = useShortShareUrl(longUrl);
 
     return (
         <MoreActionMenu
@@ -40,19 +40,14 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         <LoadingIcon size={16} />
                     </span>
                 ) : (
-                    <span
-                        onClick={register}
-                        className="inline-flex size-8 items-center justify-center rounded-lg border border-lightLineSecond"
-                    >
+                    <span className="inline-flex size-8 items-center justify-center rounded-lg border border-lightLineSecond">
                         <MoreIcon width={21} height={21} />
                     </span>
                 )
             }
         >
             <MenuGroup>
-                <MenuItem>
-                    {({ close }) => <CopyLinkButton link={shareUrl} onClick={close} pending={isShareLinkPending} />}
-                </MenuItem>
+                <MenuItem>{({ close }) => <CopyLinkButton getLink={register} onClick={close} />}</MenuItem>
                 {isLogin && channel.source === Source.Farcaster ? (
                     <MenuItem>
                         {({ close }) => (
