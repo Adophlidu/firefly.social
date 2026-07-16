@@ -10,9 +10,12 @@ const LINKS = [
     `https://firefly.social/post/lens/${LENS_ID}?sid=2296550846`,
     'https://firefly.social/post/farcaster/0x9a8bc31ae4d1b8b2a4d0d17a2d3f7ee94c2b0f11',
     'https://firefly.social/post/twitter/1859216517077843968?sid=1000234567',
+    // resolveSourceInUrl() emits 'x' (not 'twitter') for Source.Twitter — both must parse.
+    'https://firefly.social/post/x/1859216517077843968?sid=1000234567',
     // percent-encoded id stays verbatim (never decoded)
     `https://firefly.social/post/bsky/${BSKY_URI}`,
     'https://firefly.social/profile/farcaster/13432',
+    'https://firefly.social/profile/x/1859216517077843968',
     'https://firefly.social/profile/lens/lens%2Ffireflyapp?sid=2296550846',
     'https://firefly.social/article/9f8c1e2d-1234-4a5b-8c3d-abcdef123456',
     'https://firefly.social/tx/1/0x9a8bc31ae4d1b8b2a4d0d17a2d3f7ee94c2b0f11deadbeefdeadbeefdeadbeef',
@@ -120,6 +123,15 @@ describe('parseLink', () => {
         expect(parseLink('https://firefly.social/')).toBeNull();
     });
 
+    it('accepts both twitter and x as the Twitter/X source segment — resolveSourceInUrl() emits x', () => {
+        expect(parseLink('https://firefly.social/post/x/123')).toEqual({ kind: 'post', source: 'x', id: '123' });
+        expect(parseLink('https://firefly.social/profile/x/123')).toEqual({
+            kind: 'profile',
+            source: 'x',
+            id: '123',
+        });
+    });
+
     it('rejects sources outside the whitelist', () => {
         expect(parseLink('https://firefly.social/post/firefly/123')).toBeNull();
         expect(parseLink('https://firefly.social/post/Lens/123')).toBeNull();
@@ -216,8 +228,9 @@ describe('parseLink', () => {
         expect(parseLink('https://firefly.social/club/bsky/123')).toEqual({ kind: 'club', source: 'bsky', id: '123' });
     });
 
-    it('rejects club links on twitter — clubs only exist on lens/farcaster/bsky', () => {
+    it('rejects club links on twitter/x — clubs only exist on lens/farcaster/bsky', () => {
         expect(parseLink('https://firefly.social/club/twitter/123')).toBeNull();
+        expect(parseLink('https://firefly.social/club/x/123')).toBeNull();
     });
 
     it('parses /token/cex/:id and /token/dex/:chainId/:address', () => {

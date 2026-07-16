@@ -19,7 +19,10 @@ export type ShortLinkKind =
     | 'token'
     | 'club';
 
-export const SHORT_LINK_SOURCES = ['farcaster', 'lens', 'twitter', 'bsky'] as const;
+// 'twitter' and 'x' both route live: resolveSourceInUrl() emits 'x' for
+// Source.Twitter (the post/profile page accepts either segment), so both
+// must be accepted here or every X share link fails to parse.
+export const SHORT_LINK_SOURCES = ['farcaster', 'lens', 'twitter', 'x', 'bsky'] as const;
 export type ShortLinkSource = (typeof SHORT_LINK_SOURCES)[number];
 
 // Clubs only exist on Lens/Farcaster/Bluesky today — narrower than SHORT_LINK_SOURCES (no Twitter).
