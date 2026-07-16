@@ -2198,6 +2198,9 @@ msgstr "Owner can't change balance"
 msgid "Search predictions"
 msgstr "Search predictions"
 
+msgid "Post Restriction"
+msgstr "Post Restriction"
+
 msgid "Failed to upload video. Please try again."
 msgstr "Failed to upload video. Please try again."
 
@@ -2341,6 +2344,9 @@ msgstr "Content will be lost when leaving this page in anonymous mode."
 
 msgid "1st Set Winner"
 msgstr "1st Set Winner"
+
+msgid "To post in this club you must be a member."
+msgstr "To post in this club you must be a member."
 
 msgid "Post could not be found."
 msgstr "Post could not be found."

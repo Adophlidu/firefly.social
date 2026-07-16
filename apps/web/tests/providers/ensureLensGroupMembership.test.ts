@@ -51,7 +51,7 @@ describe('ensureLensGroupMembership', () => {
 
         await ensureLensGroupMembership(PROFILE_ID, GROUP_ADDRESS);
 
-        expect(mocks.getChannelById).toHaveBeenCalledWith(GROUP_ADDRESS, true);
+        expect(mocks.getChannelById).toHaveBeenCalledWith(GROUP_ADDRESS, true, undefined, PROFILE_ID);
         expect(mocks.joinChannel).not.toHaveBeenCalled();
         expect(mocks.markJoined).toHaveBeenCalledWith(PROFILE_ID, GROUP_ADDRESS);
     });
@@ -64,7 +64,7 @@ describe('ensureLensGroupMembership', () => {
 
         await ensureLensGroupMembership(PROFILE_ID, GROUP_ADDRESS);
 
-        expect(mocks.getChannelById).toHaveBeenCalledWith(GROUP_ADDRESS, true);
+        expect(mocks.getChannelById).toHaveBeenCalledWith(GROUP_ADDRESS, true, undefined, PROFILE_ID);
         expect(mocks.joinChannel).toHaveBeenCalledWith(channel);
         expect(mocks.markJoined).toHaveBeenCalledWith(PROFILE_ID, GROUP_ADDRESS);
     });

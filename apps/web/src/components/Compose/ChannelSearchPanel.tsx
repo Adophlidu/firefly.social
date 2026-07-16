@@ -1,5 +1,6 @@
 'use client';
 
+import AddIcon from '@dimensiondev/assets/add-circle-linear.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import UserIcon from '@dimensiondev/assets/user.svg';
 import type { SocialSource } from '@dimensiondev/enums';
@@ -14,12 +15,17 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { openPostRestrictionModal } from '@/controllers/openPostRestrictionModal.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
 import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSearchChannels } from '@/hooks/useSearchChannel.js';
+import {
+    canRequestLensClubMembership,
+    resolveChannelMembershipStatus,
+} from '@/providers/lens/resolveChannelMembershipStatus.js';
 import {
     captureFarcasterChannelChangeClickEvent,
     captureLensClubChangeClickEvent,
@@ -78,13 +84,41 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
             ) : (
                 data.map((channel) => {
                     const isSelected = isSameChannel(channel, selectedChannel[channel.source]);
+                    const membershipStatus =
+                        channel.source === Source.Lens ? resolveChannelMembershipStatus(channel) : undefined;
+                    const isUnjoinedLensClub =
+                        channel.source === Source.Lens && membershipStatus !== 'joined' && channel.id !== 'home';
+                    const isDisabledLensClub = isUnjoinedLensClub && !canRequestLensClubMembership(channel);
                     const channelName = resolveChannelName(channel, false);
 
                     return channel.unavailable || !channelName ? null : (
                         <Fragment key={channel.id}>
                             <div
-                                className="flex h-12 cursor-pointer items-center justify-between px-3 transition duration-150 ease-in hover:bg-lightBg"
-                                onClick={() => {
+                                className={classNames(
+                                    'flex h-12 items-center justify-between px-3 transition duration-150 ease-in',
+                                    isDisabledLensClub
+                                        ? 'cursor-not-allowed opacity-60'
+                                        : 'cursor-pointer hover:bg-lightBg',
+                                )}
+                                aria-disabled={isDisabledLensClub}
+                                onClick={async () => {
+                                    if (isUnjoinedLensClub) {
+                                        if (!canRequestLensClubMembership(channel)) return;
+                                        onSelected?.();
+                                        const outcome = await openPostRestrictionModal({ channel });
+                                        if (outcome === 'joined') {
+                                            updateChannel({
+                                                ...channel,
+                                                isMember: true,
+                                                canJoin: false,
+                                                canLeave: true,
+                                                membershipStatus: 'joined',
+                                            });
+                                        }
+                                        captureLensClubChangeClickEvent();
+                                        return;
+                                    }
+
                                     if (!isSelected) updateChannel(channel);
                                     onSelected?.();
                                     if (channel.source === Source.Farcaster) captureFarcasterChannelChangeClickEvent();
@@ -116,7 +150,11 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                                         ) : null}
                                     </div>
                                 </div>
-                                <CircleCheckboxIcon checked={isSelected} />
+                                {isUnjoinedLensClub && canRequestLensClubMembership(channel) ? (
+                                    <AddIcon className="size-5 shrink-0 text-main" />
+                                ) : (
+                                    <CircleCheckboxIcon checked={isSelected} />
+                                )}
                             </div>
                         </Fragment>
                     );

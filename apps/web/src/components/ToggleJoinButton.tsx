@@ -11,6 +11,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 
 interface ToggleJoinButtonProps extends ClickableButtonProps {
     joined: boolean;
+    pending?: boolean;
     variant?: 'text' | 'icon';
     joinLabel?: ReactNode;
     joinedLabel?: ReactNode;
@@ -19,6 +20,7 @@ interface ToggleJoinButtonProps extends ClickableButtonProps {
 
 export const ToggleJoinButton = memo<ToggleJoinButtonProps>(function ToggleJoinButton({
     joined,
+    pending = false,
     variant = 'text',
     joinLabel = <Trans>Join</Trans>,
     leaveLabel = <Trans>Leave</Trans>,
@@ -27,22 +29,23 @@ export const ToggleJoinButton = memo<ToggleJoinButtonProps>(function ToggleJoinB
     ...rest
 }) {
     const [hoverable] = useHover((hovered) => {
-        const label =
-            variant === 'icon' ? (
-                joined ? (
-                    <FollowedIcon className="size-4 shrink-0" />
-                ) : (
-                    <FollowIcon className="size-4 shrink-0" />
-                )
-            ) : joined ? (
-                hovered ? (
-                    leaveLabel
-                ) : (
-                    joinedLabel
-                )
+        const label = pending ? (
+            <Trans>Pending</Trans>
+        ) : variant === 'icon' ? (
+            joined ? (
+                <FollowedIcon className="size-4 shrink-0" />
             ) : (
-                joinLabel
-            );
+                <FollowIcon className="size-4 shrink-0" />
+            )
+        ) : joined ? (
+            hovered ? (
+                leaveLabel
+            ) : (
+                joinedLabel
+            )
+        ) : (
+            joinLabel
+        );
 
         return (
             <ClickableButton
@@ -51,10 +54,11 @@ export const ToggleJoinButton = memo<ToggleJoinButtonProps>(function ToggleJoinB
                     'rounded-lg px-5 text-medium font-bold': variant === 'text',
                     'bg-main text-primaryBottom hover:opacity-80': !joined,
                     'border border-main text-main hover:border-danger hover:bg-danger/50 hover:text-danger':
-                        joined && variant === 'text',
+                        joined && variant === 'text' && !pending,
                 })}
                 onlyLoading
                 {...rest}
+                disabled={pending || rest.disabled}
             >
                 {label}
             </ClickableButton>

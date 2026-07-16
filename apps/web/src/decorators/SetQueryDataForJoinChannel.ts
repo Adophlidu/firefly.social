@@ -20,6 +20,11 @@ function setJoinStatus(source: SocialSource, channel: Channel, status: boolean) 
             return produce(old, (draft) => {
                 if (draft.id === channel.id && draft.source === channel.source) {
                     draft.isMember = status;
+                    if (source === Source.Lens) {
+                        draft.membershipStatus = status ? 'joined' : 'join';
+                        draft.canJoin = !status;
+                        draft.canLeave = status;
+                    }
                     draft.followerCount = (draft.followerCount || 0) + (status ? 1 : -1);
                 }
                 return draft;

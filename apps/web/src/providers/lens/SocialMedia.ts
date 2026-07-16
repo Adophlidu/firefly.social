@@ -115,8 +115,13 @@ class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getChannelById(channelId: string, includeFollowingStatus?: boolean, ownerId?: string): Promise<Channel> {
-        return getLensChannelById(channelId, includeFollowingStatus, ownerId);
+    async getChannelById(
+        channelId: string,
+        _includeFollowingStatus?: boolean,
+        ownerId?: string,
+        viewerProfileId?: string,
+    ): Promise<Channel> {
+        return getLensChannelById(channelId, ownerId, viewerProfileId);
     }
 
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
@@ -134,8 +139,11 @@ class LensSocialMedia implements Provider {
         return getLensChannelsByProfileId(profileId, indicator);
     }
 
-    async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        return discoverLensChannels(indicator);
+    async discoverChannels(
+        indicator?: PageIndicator,
+        viewerProfileId?: string,
+    ): Promise<Pageable<Channel, PageIndicator>> {
+        return discoverLensChannels(indicator, viewerProfileId);
     }
 
     async getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -146,8 +154,12 @@ class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        return searchLensChannels(q, indicator);
+    async searchChannels(
+        q: string,
+        indicator?: PageIndicator,
+        viewerProfileId?: string,
+    ): Promise<Pageable<Channel, PageIndicator>> {
+        return searchLensChannels(q, indicator, viewerProfileId);
     }
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

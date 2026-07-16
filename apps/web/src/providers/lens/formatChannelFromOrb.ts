@@ -1,5 +1,6 @@
 import { Source } from '@dimensiondev/enums';
 
+import { resolveOrbClubMembershipStatus } from '@/providers/lens/resolveChannelMembershipStatus.js';
 import type { ExploreClubsResponse } from '@/providers/orb/type.js';
 import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 
@@ -34,6 +35,7 @@ export function formatChannelFromOrb(club: OrbClub | WorkerClub, owner?: Profile
 
     const canPost = club.operations?.canPost ?? true;
     const feedId = club.metadata?.feed;
+    const membershipStatus = resolveOrbClubMembershipStatus(club.operations, club.config);
 
     return {
         source: Source.Lens,
@@ -48,7 +50,10 @@ export function formatChannelFromOrb(club: OrbClub | WorkerClub, owner?: Profile
         ownerId: overrideOwnerId ?? club.metadata?.ownedBy,
         lead: owner,
         isMember: club.operations?.isMember,
-        unavailable: !canPost || !feedId,
+        canJoin: ['join', 'requestToJoin', 'pendingRequestRejected'].includes(membershipStatus),
+        canLeave: membershipStatus === 'joined',
+        membershipStatus,
+        unavailable: !feedId || (membershipStatus === 'joined' && !canPost),
         feedId,
     } satisfies Channel;
 }

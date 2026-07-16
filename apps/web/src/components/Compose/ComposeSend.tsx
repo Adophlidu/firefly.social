@@ -2,6 +2,7 @@
 
 import SendIcon from '@dimensiondev/assets/send.svg';
 import Send2Icon from '@dimensiondev/assets/send2.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
@@ -15,6 +16,8 @@ import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { closeComposeModal } from '@/controllers/openComposeModal.js';
+import { openPostRestrictionModal } from '@/controllers/openPostRestrictionModal.js';
+import { getLensPostRestrictionChannel } from '@/helpers/getLensPostRestrictionChannel.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -36,7 +39,7 @@ import type { CompositePost } from '@/types/compose.js';
 
 interface ComposeSendProps extends HTMLProps<HTMLDivElement> {}
 
-export function ComposeSend(props: ComposeSendProps) {
+export function ComposeSend(_props: ComposeSendProps) {
     const controller = useAbortController();
 
     const post = useCompositePost();
@@ -53,6 +56,16 @@ export function ComposeSend(props: ComposeSendProps) {
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
             if (checkPostMedias()) return;
+            const restrictedLensChannel = getLensPostRestrictionChannel(
+                posts.map((post) => ({
+                    channel: post.channel[Source.Lens],
+                    enabled: post.availableSources.includes(Source.Lens),
+                })),
+            );
+            if (restrictedLensChannel) {
+                await openPostRestrictionModal({ channel: restrictedLensChannel });
+                return;
+            }
 
             try {
                 controller.current.renew();
@@ -109,6 +122,7 @@ export function ComposeSend(props: ComposeSendProps) {
             checkPostMedias,
             removeDraft,
             removeTempDrafts,
+            posts,
         ],
     );
 

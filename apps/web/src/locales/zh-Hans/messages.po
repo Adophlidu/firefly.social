@@ -2187,6 +2187,9 @@ msgstr "所有者不能更改余额"
 msgid "Search predictions"
 msgstr "搜索预测"
 
+msgid "Post Restriction"
+msgstr ""
+
 msgid "Failed to upload video. Please try again."
 msgstr ""
 
@@ -2329,6 +2332,9 @@ msgstr "匿名模式下离开此页面内容将丢失。"
 
 msgid "1st Set Winner"
 msgstr "首盘胜者"
+
+msgid "To post in this club you must be a member."
+msgstr ""
 
 msgid "Post could not be found."
 msgstr "未找到相关帖子。"

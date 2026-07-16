@@ -11,6 +11,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -30,6 +31,7 @@ const getSearchItemContent = (channel: Channel, index: number, listKey: string) 
 export function SearchChannelContent() {
     const { searchKeyword, searchType, source } = useSearchStateStore();
     const currentSocialSource = narrowToSocialSource(source);
+    const currentProfile = useCurrentProfile(currentSocialSource);
     const isLogin = useIsLogin(currentSocialSource);
     const loginRequired = REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(currentSocialSource);
 
@@ -41,7 +43,11 @@ export function SearchChannelContent() {
                 const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
                 const provider = resolveSocialMediaProvider(currentSocialSource);
-                const channels = await provider.searchChannels(searchKeyword.replace(/^\//, ''), indicator);
+                const channels = await provider.searchChannels(
+                    searchKeyword.replace(/^\//, ''),
+                    indicator,
+                    currentProfile?.profileId,
+                );
                 if (!indicator?.id && currentSocialSource === Source.Lens) {
                     channels.data.reverse();
                 }

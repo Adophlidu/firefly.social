@@ -2198,6 +2198,9 @@ msgstr "El propietario no puede cambiar el saldo"
 msgid "Search predictions"
 msgstr "Sugerencias de búsqueda"
 
+msgid "Post Restriction"
+msgstr ""
+
 msgid "Failed to upload video. Please try again."
 msgstr ""
 
@@ -2341,6 +2344,9 @@ msgstr "Se perderá el contenido al abandonar esta página en modo anónimo."
 
 msgid "1st Set Winner"
 msgstr "Ganador del 1.er set"
+
+msgid "To post in this club you must be a member."
+msgstr ""
 
 msgid "Post could not be found."
 msgstr "Publicación no encontrada."

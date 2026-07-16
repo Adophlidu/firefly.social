@@ -12,12 +12,16 @@ import { compact } from 'lodash-es';
 
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { applyOptimisticLensChannelMemberships } from '@/providers/lens/applyOptimisticLensChannelMembership.js';
 import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';
 import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import type { ResponseJson } from '@/types/utility.js';
 
-export async function discoverLensChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+export async function discoverLensChannels(
+    indicator?: PageIndicator,
+    viewerProfileId?: string,
+): Promise<Pageable<Channel, PageIndicator>> {
     const skip = indicator?.id ? Number.parseInt(indicator.id, 10) || 0 : 0;
     const limit = 20;
 
@@ -57,7 +61,7 @@ export async function discoverLensChannels(indicator?: PageIndicator): Promise<P
     const nextSkip = data.pageInfo?.next ? Number.parseInt(data.pageInfo.next, 10) : skip + channels.length;
 
     return createPageable(
-        channels,
+        applyOptimisticLensChannelMemberships(channels, viewerProfileId),
         createIndicator(indicator),
         hasMore ? createNextIndicator(indicator, `${nextSkip}`) : undefined,
     );

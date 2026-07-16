@@ -419,6 +419,14 @@ export type Notification =
     | PolymarketRewardNotification
     | UnifiedNotification;
 
+export type ChannelMembershipStatus =
+    | 'joined'
+    | 'join'
+    | 'requestToJoin'
+    | 'pendingRequest'
+    | 'pendingRequestRejected'
+    | 'notEligible';
+
 export interface Channel {
     source: SocialSource;
     id: string;
@@ -438,6 +446,7 @@ export interface Channel {
     isMember?: boolean;
     canJoin?: boolean;
     canLeave?: boolean;
+    membershipStatus?: ChannelMembershipStatus;
     // if true, cant post to this channel
     unavailable?: boolean;
     // lens only
@@ -612,9 +621,16 @@ export interface Provider {
      * Retrieves a channel by its channel ID.
      * @param channelId
      * @param includeFollowingStatus
+     * @param ownerId
+     * @param viewerProfileId is used to provide optimistic membership status override
      * @returns
      */
-    getChannelById: (channelId: string, includeFollowingStatus?: boolean, ownerId?: string) => Promise<Channel>;
+    getChannelById: (
+        channelId: string,
+        includeFollowingStatus?: boolean,
+        ownerId?: string,
+        viewerProfileId?: string,
+    ) => Promise<Channel>;
 
     /**
      * Retrieves a channel by its channel handle.
@@ -679,9 +695,10 @@ export interface Provider {
     /**
      * Retrieves trending channels.
      * @param indicator
+     * @param viewerProfileId is used to provide optimistic membership status override
      * @returns
      */
-    discoverChannels: (indicator?: PageIndicator) => Promise<Pageable<Channel>>;
+    discoverChannels: (indicator?: PageIndicator, viewerProfileId?: string) => Promise<Pageable<Channel>>;
 
     /**
      * Retrieves recent post by a specific profile id.
@@ -888,9 +905,10 @@ export interface Provider {
     /**
      * Search channels.
      * @param indicator
+     * @param viewerProfileId is used to provide optimistic membership status override
      * @returns
      */
-    searchChannels: (q: string, indicator?: PageIndicator) => Promise<Pageable<Channel>>;
+    searchChannels: (q: string, indicator?: PageIndicator, viewerProfileId?: string) => Promise<Pageable<Channel>>;
 
     /**
      * Retrieves posts associated with a thread using the root post id.

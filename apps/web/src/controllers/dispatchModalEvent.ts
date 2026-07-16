@@ -36,6 +36,11 @@ export interface ModalEvents {
         close?: unknown;
         abort?: Error;
     };
+    'post-restriction-modal': {
+        open?: unknown;
+        close?: unknown;
+        abort?: Error;
+    };
     'password-modal': {
         open?: unknown;
         close?: unknown;
@@ -208,6 +213,7 @@ const APP_MODALS: ReadonlySet<keyof ModalEvents> = new Set<keyof ModalEvents>([
     'edit-profile-modal',
     'frame-viewer-modal',
     'preview-media-modal',
+    'post-restriction-modal',
     'recovery-phrase-modal',
     'red-packet-modal',
     'schedule-post-modal',

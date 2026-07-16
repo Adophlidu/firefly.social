@@ -25,7 +25,7 @@ export function useJoinClub(clubAddress?: string) {
 
         try {
             const provider = resolveSocialMediaProvider(Source.Lens);
-            const channel = await provider.getChannelById(clubAddress, true);
+            const channel = await provider.getChannelById(clubAddress, true, undefined, profile.profileId);
             const result = await provider.joinChannel(channel);
             if (!result) throw new Error('Failed to join the club.');
 

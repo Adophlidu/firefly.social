@@ -26,7 +26,12 @@ export function ChannelInfo({ channel, source, ...rest }: InfoProps) {
 
         queryFn: async () => {
             if (!needRefetch) return channel;
-            return resolveSocialMediaProvider(channel.source).getChannelById(channel.id);
+            return resolveSocialMediaProvider(channel.source).getChannelById(
+                channel.id,
+                undefined,
+                undefined,
+                profile?.profileId,
+            );
         },
     });
 

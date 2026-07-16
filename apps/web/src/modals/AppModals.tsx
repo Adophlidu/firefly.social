@@ -22,6 +22,8 @@ import { EditProfileModal } from '@/modals/EditProfileModal/EditProfileModal.js'
 import { EditProfileModalRef } from '@/modals/EditProfileModal/refs.js';
 import { FrameViewerModal } from '@/modals/FrameViewerModal/FrameViewerModal.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
+import { PostRestrictionModal } from '@/modals/PostRestrictionModal/PostRestrictionModal.js';
+import { PostRestrictionModalRef } from '@/modals/PostRestrictionModal/refs.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import { RecoveryPhraseModal } from '@/modals/RecoveryPhraseModal/RecoveryPhraseModal.js';
@@ -62,6 +64,7 @@ export function AppModals() {
             <EditProfileModal ref={EditProfileModalRef.register} />
             <FrameViewerModal ref={FrameViewerModalRef.register} />
             <PreviewMediaModal ref={PreviewMediaModalRef.register} />
+            <PostRestrictionModal ref={PostRestrictionModalRef.register} />
             <RedPacketModal ref={RedPacketModalRef.register} />
             <SchedulePostModal ref={SchedulePostModalRef.register} />
             <ShareImageModal ref={ShareImageModalRef.register} />

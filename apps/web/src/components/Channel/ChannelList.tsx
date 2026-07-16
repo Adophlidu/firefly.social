@@ -32,7 +32,7 @@ export function ChannelList({ source, useWindowScroll = true }: ChannelListProps
         queryKey: ['channels', source, 'trending', currentProfile?.profileId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
-            return provider.discoverChannels(createIndicator(undefined, pageParam));
+            return provider.discoverChannels(createIndicator(undefined, pageParam), currentProfile?.profileId);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

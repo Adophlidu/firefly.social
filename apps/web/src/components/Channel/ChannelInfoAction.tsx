@@ -26,6 +26,8 @@ export function ChannelInfoAction({ channel: defaultChannel, className, needRefe
             const channel = await resolveSocialMediaProvider(defaultChannel.source).getChannelById(
                 defaultChannel.id,
                 true,
+                undefined,
+                profile?.profileId,
             );
             return channel;
         },

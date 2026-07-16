@@ -2187,6 +2187,9 @@ msgstr "擁有者無法變更餘額"
 msgid "Search predictions"
 msgstr "搜尋預測"
 
+msgid "Post Restriction"
+msgstr ""
+
 msgid "Failed to upload video. Please try again."
 msgstr ""
 
@@ -2329,6 +2332,9 @@ msgstr "匿名模式下離開此頁面內容將丟失。"
 
 msgid "1st Set Winner"
 msgstr "第一盤勝者"
+
+msgid "To post in this club you must be a member."
+msgstr ""
 
 msgid "Post could not be found."
 msgstr "找不到貼文。"

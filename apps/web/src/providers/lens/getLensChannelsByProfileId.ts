@@ -10,6 +10,7 @@ import { fetchGroups } from '@lens-protocol/client/actions';
 import { compact } from 'lodash-es';
 
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { applyOptimisticLensChannelMemberships } from '@/providers/lens/applyOptimisticLensChannelMembership.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
@@ -30,7 +31,10 @@ export async function getLensChannelsByProfileId(
             },
         }),
     );
-    const channels = compact(result.items.map((x) => (x.feed ? formatLensChannelFromGroup(x) : null)));
+    const channels = applyOptimisticLensChannelMemberships(
+        compact(result.items.map((x) => (x.feed ? formatLensChannelFromGroup(x) : null))),
+        profileId,
+    );
 
     return createPageable(
         channels,

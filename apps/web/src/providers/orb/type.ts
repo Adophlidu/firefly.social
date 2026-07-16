@@ -75,32 +75,48 @@ export type PollSignInResponse = OrbResponse<PollSignInResponseData>;
 
 export type CreatePollResponse = OrbResponse<CreatePollResult>;
 
+export interface OrbClubOperations {
+    canManage?: boolean;
+    canPost?: boolean;
+    isAdmin?: boolean;
+    isMember?: boolean;
+    isOwner?: boolean;
+    isEligible?: boolean;
+    isBlocked?: boolean;
+    isAcceptedOrInvitedToJoin?: boolean;
+    hasBeenRejected?: boolean;
+    hasRequestedToJoin?: boolean;
+}
+
+export interface OrbClubConfig {
+    requestToJoinEnabled?: boolean;
+    isAnyoneCanJoin?: boolean;
+    nftGateEnabled?: boolean;
+}
+
+export interface OrbClub {
+    type: string;
+    id: string;
+    metadata?: {
+        name?: string;
+        handle?: string;
+        address?: string;
+        ownedBy?: string;
+        description?: string;
+        picture?: string;
+        cover?: string;
+        feed?: string;
+    };
+    stats?: {
+        totalMembers?: number;
+        timeCreated?: number;
+    };
+    operations?: OrbClubOperations;
+    config?: OrbClubConfig;
+}
+
 export interface ExploreClubsData {
-    clubs: Array<{
-        type: string;
-        id: string;
-        metadata?: {
-            name?: string;
-            handle?: string;
-            address?: string;
-            ownedBy?: string;
-            description?: string;
-            picture?: string;
-            cover?: string;
-            feed?: string;
-        };
-        stats?: {
-            totalMembers?: number;
-            timeCreated?: number;
-        };
-        operations?: {
-            canManage?: boolean;
-            canPost?: boolean;
-            isAdmin?: boolean;
-            isMember?: boolean;
-            isOwner?: boolean;
-        };
-    }>;
+    clubs: OrbClub[];
     pageInfo?: {
         total?: number;
         hasMore?: boolean;

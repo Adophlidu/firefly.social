@@ -2,6 +2,7 @@ import { Source } from '@dimensiondev/enums';
 import type { Group, LoggedInGroupOperations, PostGroupInfo } from '@lens-protocol/client';
 
 import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
+import { resolveLensGroupMembershipStatus } from '@/providers/lens/resolveChannelMembershipStatus.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 function formatOperations(operations?: LoggedInGroupOperations) {
@@ -15,6 +16,7 @@ function formatOperations(operations?: LoggedInGroupOperations) {
 
 export function formatLensChannelFromGroup(group: Group): Channel {
     const feed = group.feed;
+    const membershipStatus = resolveLensGroupMembershipStatus(group);
 
     return {
         source: Source.Lens,
@@ -29,8 +31,14 @@ export function formatLensChannelFromGroup(group: Group): Channel {
         timestamp: group.timestamp,
         lead: undefined,
         ...formatOperations(group.operations || undefined),
+        canJoin: ['join', 'requestToJoin', 'pendingRequestRejected'].includes(membershipStatus),
+        canLeave: membershipStatus === 'joined',
+        membershipStatus,
         unavailable:
-            !feed || (!!feed.operations && feed.operations.canPost.__typename !== 'FeedOperationValidationPassed'),
+            !feed ||
+            (membershipStatus === 'joined' &&
+                !!feed.operations &&
+                feed.operations.canPost.__typename !== 'FeedOperationValidationPassed'),
         feedId: feed?.address,
         ownerId: group.owner,
         __lazy__: true, // need to lazy load followers count and owner
@@ -53,6 +61,7 @@ export function formatLensChannelFromPostGroup(group: PostGroupInfo): Channel {
         blocked: false,
         isMember: false,
         canJoin: true,
+        membershipStatus: 'join',
         unavailable: false,
         feedId: undefined,
         ownerId: undefined,

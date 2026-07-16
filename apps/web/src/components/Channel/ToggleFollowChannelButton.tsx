@@ -15,9 +15,14 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import {
+    joinOrRequestLensChannel,
+    leaveLensChannelMembership,
+    type LensClubJoinOutcome,
+} from '@/providers/lens/requestLensChannelMembership.js';
+import { resolveChannelMembershipStatus } from '@/providers/lens/resolveChannelMembershipStatus.js';
 import { captureFollowChannelEvent, captureUnfollowChannelEvent } from '@/providers/telemetry/captureChannelEvent.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { useJoinedChannelStore } from '@/store/useJoinedChannelStore.js';
 
 interface ToggleFollowChannelButtonProps extends ClickableButtonProps {
     channel: Channel;
@@ -141,6 +146,7 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
                 defaultChannel?.id,
                 true,
                 defaultChannel.ownerId,
+                profile?.profileId,
             );
             return channel;
         },
@@ -149,6 +155,7 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
     const isFollowing = !!channel.isMember;
     const isBsky = channel.source === Source.Bsky;
     const isLens = channel.source === Source.Lens;
+    const membershipStatus = isLens ? resolveChannelMembershipStatus(channel) : undefined;
 
     const [{ loading }, toggleFollow] = useAsyncFn(async () => {
         if (!profile?.profileId) {
@@ -158,18 +165,21 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
 
         try {
             const provider = resolveSocialMediaProvider(channel.source);
-            const result = isFollowing ? await provider.leaveChannel(channel) : await provider.joinChannel(channel);
-            if (!result) {
-                throw new Error('Failed to toggle follow channel');
+            let lensJoinResult: LensClubJoinOutcome | undefined;
+            let otherResult: boolean;
+            if (isFollowing) {
+                if (isLens) otherResult = await leaveLensChannelMembership(channel, profile.profileId);
+                else otherResult = await provider.joinChannel(channel);
+            } else {
+                if (isLens) {
+                    lensJoinResult = await joinOrRequestLensChannel(channel, profile.profileId);
+                    otherResult = true;
+                } else {
+                    otherResult = await provider.leaveChannel(channel);
+                }
             }
-
-            // Keep the club-gate override (FW-7831) in sync when membership is
-            // toggled from the channel page, so a later leave re-locks replies.
-            if (channel.source === Source.Lens) {
-                const store = useJoinedChannelStore.getState();
-                if (isFollowing) store.markLeft(profile.profileId, channel.id);
-                else store.markJoined(profile.profileId, channel.id);
-            }
+            if (lensJoinResult === 'pending') return;
+            if (!otherResult) throw new Error('Failed to toggle follow channel');
 
             enqueueSuccessMessage(getFollowSuccessMessage(channel, isFollowing));
             if (isFollowing) {
@@ -183,15 +193,16 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
             });
             throw error;
         }
-    }, [channel, isFollowing, profile?.profileId]);
+    }, [channel, isFollowing, isLens, profile?.profileId]);
 
-    if (!enabled || (!isLoading && isLens && !channel.canJoin && !channel.canLeave)) return null;
+    if (!enabled || (!isLoading && isLens && membershipStatus === 'notEligible')) return null;
 
     return (
         <ToggleJoinButton
             {...rest}
             loading={loading || isLoading}
             joined={!!channel.isMember}
+            pending={membershipStatus === 'pendingRequest'}
             joinLabel={isBsky ? <Trans>Add</Trans> : isLens ? <Trans>Join</Trans> : <Trans>Follow</Trans>}
             joinedLabel={isBsky ? <Trans>Added</Trans> : isLens ? <Trans>Joined</Trans> : <Trans>Following</Trans>}
             leaveLabel={isBsky ? <Trans>Remove</Trans> : isLens ? <Trans>Leave</Trans> : <Trans>Unfollow</Trans>}

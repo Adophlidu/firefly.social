@@ -2187,6 +2187,9 @@ msgstr "소유자가 잔액을 변경할 수 없음"
 msgid "Search predictions"
 msgstr "예측 검색"
 
+msgid "Post Restriction"
+msgstr ""
+
 msgid "Failed to upload video. Please try again."
 msgstr ""
 
@@ -2329,6 +2332,9 @@ msgstr "익명 모드에서 이 페이지를 떠나면 콘텐츠가 사라집니
 
 msgid "1st Set Winner"
 msgstr "1세트 승자"
+
+msgid "To post in this club you must be a member."
+msgstr ""
 
 msgid "Post could not be found."
 msgstr "게시물을 찾을 수 없습니다."

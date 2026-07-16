@@ -17,7 +17,7 @@ export async function ensureLensGroupMembership(profileId: string, groupAddress:
     const store = useJoinedChannelStore.getState();
     if (store.hasJoined(profileId, groupAddress)) return; // optimistic fast path
 
-    const channel = await lensSocialMediaProvider.getChannelById(groupAddress, true);
+    const channel = await lensSocialMediaProvider.getChannelById(groupAddress, true, undefined, profileId);
     if (channel.isMember) {
         store.markJoined(profileId, groupAddress);
         return;

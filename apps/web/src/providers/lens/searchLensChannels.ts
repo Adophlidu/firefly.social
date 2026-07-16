@@ -11,6 +11,7 @@ import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { GroupsOrderBy, PageSize } from '@lens-protocol/client';
 import { fetchGroups } from '@lens-protocol/client/actions';
 
+import { applyOptimisticLensChannelMemberships } from '@/providers/lens/applyOptimisticLensChannelMembership.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
@@ -21,6 +22,7 @@ import type { Channel } from '@/providers/types/SocialMedia.js';
 export async function searchLensChannels(
     q: string,
     indicator?: PageIndicator,
+    viewerProfileId?: string,
 ): Promise<Pageable<Channel, PageIndicator>> {
     const result = await ensureLensResult(
         fetchGroups(getLensClient(), {
@@ -36,11 +38,13 @@ export async function searchLensChannels(
     const ownerIds = result.items.map((x) => x.owner);
     const owners = await runInSafeAsync(() => getLensProfilesByIds(ownerIds));
 
+    const channels = (result?.items.map(formatLensChannelFromGroup) ?? EMPTY_LIST).map((x) => ({
+        ...x,
+        lead: owners?.find((profile) => isSameEthereumAddress(profile.profileId, x.ownerId)),
+    }));
+
     return createPageable(
-        (result?.items.map(formatLensChannelFromGroup) ?? EMPTY_LIST).map((x) => ({
-            ...x,
-            lead: owners?.find((profile) => isSameEthereumAddress(profile.profileId, x.ownerId)),
-        })),
+        applyOptimisticLensChannelMemberships(channels, viewerProfileId),
         createIndicator(indicator),
         result?.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
     );
