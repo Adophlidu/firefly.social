@@ -1,3 +1,4 @@
+import { envs } from '@dimensiondev/envs/web';
 import type { NextRequestContext } from '@dimensiondev/types';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
@@ -40,9 +41,8 @@ const InteractiveActionRowSchema = z.object({
     metadata: z.object({ message: z.string().nullish() }).passthrough().nullish(),
 });
 
-const ORB_SUPABASE_URL = 'https://ruiftgqhbghujyxlnjql.supabase.co';
-const ORB_SUPABASE_ANON_KEY =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1aWZ0Z3FoYmdodWp5eGxuanFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM3NjEzMzYsImV4cCI6MjA1OTMzNzMzNn0.YhKaFQPZm8fFtpEZGmTRYk6G4w6O7cJ21hNiIva77qw';
+const ORB_SUPABASE_URL = envs.internal.ORB_SUPABASE_URL;
+const ORB_SUPABASE_ANON_KEY = envs.internal.ORB_SUPABASE_ANON_KEY;
 
 function createOrbHeaders(accessToken: string) {
     return {

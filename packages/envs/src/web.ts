@@ -25,6 +25,11 @@ const InternalEnvSchema = z.object({
 
     ORB_API_KEY: z.string(),
 
+    // Orb's Supabase project (payment-request / interactive-action lookups). Orb's public `anon`
+    // key and project URL — provided via env (Vercel / .env.local).
+    ORB_SUPABASE_URL: z.string(),
+    ORB_SUPABASE_ANON_KEY: z.string(),
+
     X_WEBHOOK_ID: z.string().optional(),
     X_WEBHOOK_RECEIVER_API_KEY: z.string().optional(),
 
