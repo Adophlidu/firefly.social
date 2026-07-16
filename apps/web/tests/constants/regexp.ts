@@ -86,6 +86,20 @@ function matchUrl(regExp: RegExp) {
             ['URL with comma in path: https://example.com/path,123/end', 'https://example.com/path,123/end'],
             ['URL with comma before space: https://test.com/page, text after', 'https://test.com/page'],
             ['URL with comma in query: https://site.com?param,value', 'https://site.com?param,value'],
+            // URL with balanced parentheses in the path (e.g. cell.com DOI-style paths)
+            [
+                'https://www.cell.com/cell/fulltext/S0092-8674(26)00505-2',
+                'https://www.cell.com/cell/fulltext/S0092-8674(26)00505-2',
+            ],
+            [
+                'Read this https://www.cell.com/cell/fulltext/S0092-8674(26)00505-2 today',
+                'https://www.cell.com/cell/fulltext/S0092-8674(26)00505-2',
+            ],
+            // URL wrapped in parentheses: interior paren kept, trailing paren dropped
+            [
+                'see (https://www.cell.com/cell/fulltext/S0092-8674(26)00505-2)',
+                'https://www.cell.com/cell/fulltext/S0092-8674(26)00505-2',
+            ],
         ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {
