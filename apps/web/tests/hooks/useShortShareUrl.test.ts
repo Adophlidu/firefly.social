@@ -6,6 +6,7 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import { createElement, type ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { FetchError } from '@/constants/error.js';
 import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { createShortlink } from '@/providers/firefly/endpoint/createShortlink.js';
 
@@ -130,6 +131,34 @@ describe('useShortShareUrl', () => {
 
         expect(resolved).toBe(LENS_LINK);
         expect(result.current.url).toBe(LENS_LINK);
+    });
+
+    it('register() retries a transient 5xx and resolves to the short link once it recovers', async () => {
+        createShortlinkMock
+            .mockRejectedValueOnce(new FetchError('server error', LENS_LINK, 503, 'Service Unavailable', ''))
+            .mockResolvedValueOnce({ code: 'AbCdEfGhIjKl', shortlink: LENS_SHORT_URL });
+        const { result } = renderHook(() => useShortShareUrl(LENS_LINK), { wrapper: createWrapper() });
+
+        let resolved: string | undefined;
+        await act(async () => {
+            resolved = await result.current.register();
+        });
+
+        expect(resolved).toBe(LENS_SHORT_URL);
+        expect(createShortlinkMock).toHaveBeenCalledTimes(2);
+    });
+
+    it('register() does not retry a 401 and falls back to the input URL immediately', async () => {
+        createShortlinkMock.mockRejectedValue(new FetchError('unauthorized', LENS_LINK, 401, 'Unauthorized', ''));
+        const { result } = renderHook(() => useShortShareUrl(LENS_LINK), { wrapper: createWrapper() });
+
+        let resolved: string | undefined;
+        await act(async () => {
+            resolved = await result.current.register();
+        });
+
+        expect(resolved).toBe(LENS_LINK);
+        expect(createShortlinkMock).toHaveBeenCalledTimes(1);
     });
 
     it('falls back to the input URL and never registers when NEXT_PUBLIC_SHORT_LINK is disabled', async () => {
