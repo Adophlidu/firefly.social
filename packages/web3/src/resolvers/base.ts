@@ -99,7 +99,7 @@ export class ExplorerResolver {
 
     transactionLink(chainId: number, id: string) {
         const explorerUrl = this.getExplorerURL(chainId);
-        if (!explorerUrl.url) return;
+        if (!explorerUrl.url || !id) return;
         return urlcat(explorerUrl.url, this.options.transactionPathname, {
             id,
             ...explorerUrl.parameters,
