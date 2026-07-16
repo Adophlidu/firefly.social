@@ -88,6 +88,7 @@ See `/architecture` for the full layer diagram, package list, violation examples
 - ❌ NEVER commit directly to `origin/main` or `released` — create a feature branch first (`feat/...`, `fix/...`, etc.)
 - ❌ Do NOT include AI tool attribution lines in commit messages
 - ✅ Before creating a PR, run a code review pass on the diff (`/code-review`, or the `code-review-pr` skill for the full Firefly checklist) and fix confirmed findings first
+- ✅ When a PR has a linked Jira issue, append the key to the PR **title** too, e.g. `fix(web): something (FW-1234)` — in addition to the `Closes FW-XXXX` body line. Makes PRs easy to find by Jira key later.
 - ✅ PR bodies must follow `.github/PULL_REQUEST_TEMPLATE.md` (`Closes FW-XXXX` first line, Description, Screenshots for visual changes, the `Ready?` checklist). Passing `--body` to `gh pr create` overrides GitHub's auto-fill, so reproduce the template yourself. Never check the "Manually verified" box without user confirmation.
 
 ## Debugging
