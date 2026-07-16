@@ -14,7 +14,6 @@ describe('GET /i/[hash]', () => {
     it('redirects to the destination with a permanent (301) status', async () => {
         getShortLinkMock.mockResolvedValueOnce({
             url: 'https://firefly.social/post/lens/123',
-            createdAt: Date.now(),
         });
 
         const request = new NextRequest('https://firefly.social/i/pXjGDMi4Tn');

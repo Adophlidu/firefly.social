@@ -11,6 +11,7 @@ import urlcat from 'urlcat';
 
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
@@ -31,7 +32,7 @@ interface ShareProps extends HTMLProps<HTMLDivElement> {
 export const Share = memo<ShareProps>(function Share({ post, disabled = false, className }) {
     const baseUrl = urlcat(SITE_URL, getPostUrl(post));
     const longUrl = useShareUrl(baseUrl);
-    const { url, register } = useShortShareUrl(longUrl);
+    const { url, isPending, register } = useShortShareUrl(longUrl);
 
     return (
         <MoreActionMenu
@@ -59,6 +60,7 @@ export const Share = memo<ShareProps>(function Share({ post, disabled = false, c
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton
+                            disabled={isPending}
                             onClick={() => {
                                 openComposeModal({
                                     chars: url,
@@ -66,14 +68,16 @@ export const Share = memo<ShareProps>(function Share({ post, disabled = false, c
                                 close();
                             }}
                         >
-                            <SendIcon width={18} height={18} />
+                            {isPending ? <LoadingIcon width={18} height={18} /> : <SendIcon width={18} height={18} />}
                             <span className="font-bold leading-[22px] text-main">
                                 <Trans>Post with link</Trans>
                             </span>
                         </MenuButton>
                     )}
                 </MenuItem>
-                <MenuItem>{({ close }) => <CopyLinkButton link={url || ''} onClick={close} />}</MenuItem>
+                <MenuItem>
+                    {({ close }) => <CopyLinkButton link={url || ''} onClick={close} pending={isPending} />}
+                </MenuItem>
             </MenuGroup>
         </MoreActionMenu>
     );

@@ -8,6 +8,7 @@ import { memo } from 'react';
 
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
@@ -23,9 +24,17 @@ interface ShareActionProps {
     cellType?: ShareIconCellType;
     /** FW-7696 — renders "Post with image" / "Share image" above the link options. */
     shareImage?: PolymarketShareImagePayload | null;
+    /** True while the short link is still being created on the server — blocks sharing the stale fallback. */
+    isPending?: boolean;
 }
 
-export const ShareAction = memo(function ShareAction({ link, onClick, cellType, shareImage }: ShareActionProps) {
+export const ShareAction = memo(function ShareAction({
+    link,
+    onClick,
+    cellType,
+    shareImage,
+    isPending,
+}: ShareActionProps) {
     return (
         <MoreActionMenu
             className="z-10"
@@ -50,6 +59,7 @@ export const ShareAction = memo(function ShareAction({ link, onClick, cellType, 
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton
+                            disabled={isPending}
                             onClick={() => {
                                 openComposeModal({
                                     chars: link,
@@ -57,14 +67,16 @@ export const ShareAction = memo(function ShareAction({ link, onClick, cellType, 
                                 close();
                             }}
                         >
-                            <SendIcon width={18} height={18} />
+                            {isPending ? <LoadingIcon width={18} height={18} /> : <SendIcon width={18} height={18} />}
                             <span className="font-bold leading-[22px] text-main">
                                 <Trans>Post with link</Trans>
                             </span>
                         </MenuButton>
                     )}
                 </MenuItem>
-                <MenuItem>{({ close }) => <CopyLinkButton link={link || ''} onClick={close} />}</MenuItem>
+                <MenuItem>
+                    {({ close }) => <CopyLinkButton link={link || ''} onClick={close} pending={isPending} />}
+                </MenuItem>
             </MenuGroup>
         </MoreActionMenu>
     );

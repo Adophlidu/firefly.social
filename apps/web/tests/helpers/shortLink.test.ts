@@ -1,43 +1,43 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { getShortLink, resolveShortLinkKey } from '@/helpers/shortLink.js';
-import { shortLinkRedisReader } from '@/libs/ShortLinkRedis.js';
+import { FetchError } from '@/constants/error.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
+import { getShortLink } from '@/helpers/shortLink.js';
 
-vi.mock('@/libs/ShortLinkRedis.js', () => ({
-    shortLinkRedisReader: { get: vi.fn() },
+vi.mock('@/helpers/fetchJson.js', () => ({
+    fetchJson: vi.fn(),
 }));
 
-const get = vi.mocked(shortLinkRedisReader.get);
+const mockedFetchJson = vi.mocked(fetchJson);
 
 beforeEach(() => {
-    get.mockReset();
-});
-
-describe('resolveShortLinkKey', () => {
-    it('prefixes with the versioned KeyType', () => {
-        expect(resolveShortLinkKey('pXjGDMi4Tn')).toBe('/v1/shortLink:pXjGDMi4Tn');
-    });
+    mockedFetchJson.mockReset();
 });
 
 describe('getShortLink', () => {
-    it('returns the record for a well-formed hash', async () => {
-        const record = { url: 'https://firefly.social/post/lens/123', createdAt: 1720000000000 };
-        get.mockResolvedValueOnce(record);
+    it('resolves the destination URL for a well-formed code', async () => {
+        mockedFetchJson.mockResolvedValueOnce({ code: 0, data: { url: 'https://firefly.social/post/lens/123' } });
 
-        await expect(getShortLink('pXjGDMi4Tn')).resolves.toEqual(record);
-        expect(get).toHaveBeenCalledWith('/v1/shortLink:pXjGDMi4Tn');
+        await expect(getShortLink('AbCdEfGhIjKl')).resolves.toEqual({ url: 'https://firefly.social/post/lens/123' });
+        expect(mockedFetchJson).toHaveBeenCalledWith(expect.stringContaining('/v1/shortlinks'));
+        expect(mockedFetchJson).toHaveBeenCalledWith(expect.stringContaining('code=AbCdEfGhIjKl'));
     });
 
-    it('returns null for an unknown hash', async () => {
-        get.mockResolvedValueOnce(null);
-        await expect(getShortLink('zzzzzzzzzz')).resolves.toBeNull();
+    it('returns null for an unknown code (backend 404)', async () => {
+        mockedFetchJson.mockRejectedValueOnce(new FetchError('Not Found', 'url', 404, 'Not Found', ''));
+        await expect(getShortLink('zzzzzzzzzzzz')).resolves.toBeNull();
     });
 
-    it('short-circuits malformed hashes without touching Redis', async () => {
-        for (const hash of ['', 'short', 'way-too-long-hash', 'bad!chars!', 'abcdefghijk', 'abcdefghi']) {
-            await expect(getShortLink(hash)).resolves.toBeNull();
+    it('re-throws non-404 backend errors', async () => {
+        mockedFetchJson.mockRejectedValueOnce(new FetchError('Server Error', 'url', 500, 'Server Error', ''));
+        await expect(getShortLink('zzzzzzzzzzzz')).rejects.toThrow();
+    });
+
+    it('short-circuits malformed codes without touching the backend', async () => {
+        for (const code of ['', 'short', 'waytoolongcodewaytoolong', 'bad!chars!!!', 'abcdefghijk', 'abcdefghi']) {
+            await expect(getShortLink(code)).resolves.toBeNull();
         }
 
-        expect(get).not.toHaveBeenCalled();
+        expect(mockedFetchJson).not.toHaveBeenCalled();
     });
 });

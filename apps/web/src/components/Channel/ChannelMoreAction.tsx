@@ -2,16 +2,20 @@
 
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import { Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { memo } from 'react';
+import urlcat from 'urlcat';
 
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { getClubShareUrl } from '@/helpers/getChannelUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -24,6 +28,9 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
     const isLogin = useIsLoginFirefly();
     const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleMutedChannel();
 
+    const longUrl = useShareUrl(urlcat(SITE_URL, getClubShareUrl(channel)));
+    const { url: shareUrl, isPending: isShareLinkPending, register } = useShortShareUrl(longUrl);
+
     return (
         <MoreActionMenu
             source={channel.source}
@@ -33,14 +40,19 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         <LoadingIcon size={16} />
                     </span>
                 ) : (
-                    <span className="inline-flex size-8 items-center justify-center rounded-lg border border-lightLineSecond">
+                    <span
+                        onClick={register}
+                        className="inline-flex size-8 items-center justify-center rounded-lg border border-lightLineSecond"
+                    >
                         <MoreIcon width={21} height={21} />
                     </span>
                 )
             }
         >
             <MenuGroup>
-                <MenuItem>{({ close }) => <CopyLinkButton link={getChannelUrl(channel)} onClick={close} />}</MenuItem>
+                <MenuItem>
+                    {({ close }) => <CopyLinkButton link={shareUrl} onClick={close} pending={isShareLinkPending} />}
+                </MenuItem>
                 {isLogin && channel.source === Source.Farcaster ? (
                     <MenuItem>
                         {({ close }) => (

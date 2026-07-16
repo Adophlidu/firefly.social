@@ -10,6 +10,7 @@ import { PredictionBaseInfoTabs } from '@/components/Prediction/PredictionBaseIn
 import { PredictionContextProvider } from '@/components/Prediction/PredictionContext.js';
 import { PredictionEventOverview } from '@/components/Prediction/PredictionEventOverview.js';
 import { PredictionEventPageHeader } from '@/components/Prediction/PredictionEventPageHeader.js';
+import { PredictionEventShareButton } from '@/components/Prediction/PredictionEventShareButton.js';
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionSingleChart } from '@/components/Prediction/PredictionSingleChart/index.js';
 import { SportEventDetailContent } from '@/components/Prediction/Sport/SportEventDetailContent.js';
@@ -63,9 +64,12 @@ export async function PredictionEventDetailContent({
             <PredictionEventPageHeader
                 pageTitle={sportPageTitle || <Trans>Event detail</Trans>}
                 action={
-                    shouldShowSuperfortuneEntry(event) ? (
-                        <SuperfortuneEntry matchKey={eventSlug} locale={resolvedLocale} />
-                    ) : null
+                    <div className="flex items-center gap-3">
+                        {shouldShowSuperfortuneEntry(event) ? (
+                            <SuperfortuneEntry matchKey={eventSlug} locale={resolvedLocale} />
+                        ) : null}
+                        <PredictionEventShareButton platform={platform} eventId={eventSlug} isMulti={isMutil} />
+                    </div>
                 }
             />
             {event.sportData ? (

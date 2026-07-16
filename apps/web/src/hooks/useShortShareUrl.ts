@@ -1,49 +1,73 @@
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
-import { computeHash, formatShortLink, parseLink } from '@dimensiondev/short-link';
-import { useQuery } from '@tanstack/react-query';
+import { buildDestinationUrl, parseLink } from '@dimensiondev/short-link';
+import { useMutation } from '@tanstack/react-query';
+import { useRef } from 'react';
 
-import { registerShortLink } from '@/actions/registerShortLink.js';
-import { STALE_TIMES } from '@/constants/query.js';
+import { createShortlink, type ShortlinkRecord } from '@/providers/firefly/endpoint/createShortlink.js';
 
 export interface ShortShareUrl {
-    /** The short link once its hash is computed on the client; the input URL otherwise. */
+    /** The short link once the backend has created it; the input URL otherwise. */
     url: string;
-    /** Fire-and-forget: registers the short link with the server. Never blocks or throws. */
-    register: () => void;
+    /** True while the short link is being created on the server — gate sharing/copying on this. */
+    isPending: boolean;
+    /**
+     * Registers the short link with the backend and resolves to the created
+     * short link, or the original long URL as a fallback (unsupported link
+     * shape, feature disabled, or the create call failed). Safe to call
+     * repeatedly — reuses the already-created link instead of registering
+     * again.
+     */
+    register: () => Promise<string>;
 }
 
 /**
- * Computes a short link for a share URL (already carrying `?sid=` if
- * applicable) entirely on the client, via @dimensiondev/short-link's
- * deterministic hash — no server round trip needed to display it.
+ * Registers a share URL as a Shortlink via the backend (`POST /v1/shortlinks`)
+ * and returns the created short link. Unlike a client-computed hash, the code
+ * is assigned by the server, so the short link isn't known until `register()`
+ * resolves — callers that let the user share/copy the link should gate that
+ * on `isPending` so a stale long URL never goes out while creation is still
+ * in flight.
  *
- * Registration (the Redis write) is separate: call the returned `register()`
- * on user intent (e.g. the share button click). It runs in the background —
- * never awaited by the UI, errors are swallowed — since the short link is
- * already shown regardless of whether the write has landed yet.
- *
- * Falls back to the input URL for link shapes short-link doesn't support
- * (not a recognized post/profile link) or while NEXT_PUBLIC_SHORT_LINK is
- * disabled — a shared link is always correct, short or not.
+ * Falls back to the input URL for link shapes short-link doesn't support (not
+ * a recognized share-link shape) or while NEXT_PUBLIC_SHORT_LINK is disabled
+ * — a shared link is always correct, short or not.
  */
 export function useShortShareUrl(url: string): ShortShareUrl {
     const identity = url && envs.external.NEXT_PUBLIC_SHORT_LINK === STATUS.Enabled ? parseLink(url) : null;
 
-    const { data: hash } = useQuery({
-        queryKey: ['short-link-hash', url],
-        enabled: !!identity,
-        staleTime: STALE_TIMES.INFINITY,
-        queryFn: () => computeHash(identity!),
+    const mutation = useMutation({
+        mutationFn: () => createShortlink(buildDestinationUrl(identity!)),
     });
 
-    const register = () => {
-        if (!identity) return;
-        void registerShortLink(url).catch(() => {
-            // Best-effort background write; the client-computed short link above
-            // is already shown to the user regardless of the outcome.
-        });
+    // Synchronous dedup guards, independent of when react-query re-renders with
+    // the settled mutation state: a record cache (so a second register() after
+    // the first resolved never re-registers) and an in-flight promise (so
+    // concurrent calls share the same request instead of firing twice).
+    const recordRef = useRef<ShortlinkRecord | null>(null);
+    const pendingRef = useRef<Promise<ShortlinkRecord> | null>(null);
+
+    const register = async (): Promise<string> => {
+        if (!identity) return url;
+        if (recordRef.current) return recordRef.current.shortlink;
+
+        try {
+            const promise = pendingRef.current ?? mutation.mutateAsync();
+            pendingRef.current = promise;
+            const result = await promise;
+            recordRef.current = result;
+            return result.shortlink;
+        } catch {
+            // Best-effort: the caller falls back to the long URL below.
+            return url;
+        } finally {
+            pendingRef.current = null;
+        }
     };
 
-    return { url: hash ? formatShortLink(hash) : url, register };
+    return {
+        url: recordRef.current?.shortlink ?? mutation.data?.shortlink ?? url,
+        isPending: mutation.isPending,
+        register,
+    };
 }

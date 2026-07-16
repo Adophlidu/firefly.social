@@ -1,19 +1,31 @@
-import { KeyType } from '@dimensiondev/enums';
-import { SHORT_LINK_HASH_PATTERN } from '@dimensiondev/short-link';
+import urlcat from 'urlcat';
 
-import { shortLinkRedisReader } from '@/libs/ShortLinkRedis.js';
+import { FetchError } from '@/constants/error.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
+import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import type { Response } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
+
+const SHORTLINK_CODE_PATTERN = /^[0-9A-Za-z]{12}$/;
 
 export interface ShortLinkRecord {
     url: string;
-    createdAt: number;
 }
 
-export function resolveShortLinkKey(hash: string) {
-    return `${KeyType.ShortLink}:${hash}`;
-}
+/**
+ * Resolves a Shortlink code via the backend (`GET /v1/shortlinks`, public —
+ * no session required). The format guard runs before the network call so
+ * junk paths never reach the backend.
+ */
+export async function getShortLink(code: string): Promise<ShortLinkRecord | null> {
+    if (!SHORTLINK_CODE_PATTERN.test(code)) return null;
 
-/** The format guard runs before the lookup so junk paths never reach Redis. */
-export async function getShortLink(hash: string): Promise<ShortLinkRecord | null> {
-    if (!SHORT_LINK_HASH_PATTERN.test(hash)) return null;
-    return shortLinkRedisReader.get<ShortLinkRecord>(resolveShortLinkKey(hash));
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/shortlinks', { code });
+    try {
+        const response = await fetchJson<Response<ShortLinkRecord>>(url);
+        return resolveFireflyResponseData(response);
+    } catch (error) {
+        if (error instanceof FetchError && error.status === 404) return null;
+        throw error;
+    }
 }

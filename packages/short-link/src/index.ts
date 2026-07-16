@@ -1,25 +1,48 @@
 /**
- * Deterministic short links: hash = f(canonical identity), computable on both
- * client and server. The canonical serialization and the base62 encoding are
- * forever-contracts — once a client ships, they can never change. Golden test
- * vectors live in apps/web/tests/short-link.test.ts.
+ * Short-link identity parsing: recognizes which Firefly URLs are
+ * share-linkable and rebuilds their canonical destination URL. The short code
+ * itself is assigned by the backend (`POST /v1/shortlinks`) — this package
+ * only decides what's eligible to register and normalizes the destination
+ * beforehand; it does not compute or format a code itself.
  *
- * Uses only Web globals (crypto.subtle, TextEncoder) — no node:crypto, no
- * dependencies — so it runs in browsers, Node >= 18, and the edge runtime.
+ * Uses only Web globals (URL/URLSearchParams) — no dependencies — so it runs
+ * in browsers, Node, and the edge runtime.
  */
 
-export type ShortLinkKind = 'post' | 'profile';
+export type ShortLinkKind =
+    | 'post'
+    | 'profile'
+    | 'article'
+    | 'swap'
+    | 'prediction'
+    | 'predictionProfile'
+    | 'token'
+    | 'club';
 
 export const SHORT_LINK_SOURCES = ['farcaster', 'lens', 'twitter', 'bsky'] as const;
 export type ShortLinkSource = (typeof SHORT_LINK_SOURCES)[number];
 
+// Clubs only exist on Lens/Farcaster/Bluesky today — narrower than SHORT_LINK_SOURCES (no Twitter).
+export const SHORT_LINK_CLUB_SOURCES = ['farcaster', 'lens', 'bsky'] as const;
+export type ShortLinkClubSource = (typeof SHORT_LINK_CLUB_SOURCES)[number];
+
+export const SHORT_LINK_PREDICTION_PLATFORMS = ['polymarket', 'opinion'] as const;
+export type ShortLinkPredictionPlatform = (typeof SHORT_LINK_PREDICTION_PLATFORMS)[number];
+
 export interface ShortLinkIdentity {
     kind: ShortLinkKind;
-    source: ShortLinkSource;
+    /** Empty string for kinds with no source segment in their route (article). */
+    source: string;
     /** Verbatim path segment from the link — platform-specific, not validated beyond length. */
     id: string;
     /** Sharer id from the `sid` query param: pure digits, no leading zero. */
     sid?: string;
+    /** prediction only: the event is a multi-outcome market (`?type=multi`) — changes the destination page's data fetch, so it must survive the round trip. */
+    multi?: boolean;
+    /** swap only: a Tips link's sender/receiver view (`?view=`) — changes which side of the tip the destination page renders. Absent for a plain Swap tx link. */
+    view?: 'sender' | 'receiver';
+    /** token only, dex sub-shape: the chain id (`/token/dex/:chainId/:address`). Absent for the cex sub-shape (`/token/cex/:id`). */
+    chainId?: string;
 }
 
 export const SHORT_LINK_SITE_HOST = 'firefly.social';
@@ -36,18 +59,17 @@ const SHORT_LINK_ALLOWED_HOSTS = new Set([
     `beta.${SHORT_LINK_SITE_HOST}`,
 ]);
 
-export const SHORT_LINK_HASH_LENGTH = 10;
-export const SHORT_LINK_HASH_PATTERN = /^[0-9A-Za-z]{10}$/;
-
-const ALPHABET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-
 // Ids vary per platform, so they are taken verbatim (still percent-encoded)
 // from the path segment with only a length guard.
 const MAX_ID_LENGTH = 256;
 
-// Sharer sid is a numeric ff uid: pure digits, starts with 1-9.
-const SID_PATTERN = /^[1-9][0-9]*$/;
-const MAX_SID_LENGTH = 20;
+// Shared by sharer sid (a numeric ff uid) and swap chain id: pure digits, no leading zero.
+const POSITIVE_INT_PATTERN = /^[1-9][0-9]*$/;
+const MAX_POSITIVE_INT_LENGTH = 20;
+
+const SOCIAL_SOURCES = new Set<string>(SHORT_LINK_SOURCES);
+const CLUB_SOURCES = new Set<string>(SHORT_LINK_CLUB_SOURCES);
+const PREDICTION_PLATFORMS = new Set<string>(SHORT_LINK_PREDICTION_PLATFORMS);
 
 // Unlike parseUrl in @dimensiondev/utils (not importable here — Layer-1 sibling),
 // this never auto-fixes a missing protocol: protocol-less strings must reject.
@@ -63,22 +85,100 @@ function isShortLinkHost(hostname: string): boolean {
     return SHORT_LINK_ALLOWED_HOSTS.has(hostname);
 }
 
-function isShortLinkKind(value: string): value is ShortLinkKind {
-    return value === 'post' || value === 'profile';
-}
-
-function isShortLinkSource(value: string): value is ShortLinkSource {
-    return (SHORT_LINK_SOURCES as readonly string[]).includes(value);
+function isValidId(id: string): boolean {
+    return !!id && id.length <= MAX_ID_LENGTH;
 }
 
 /**
- * Accepts post and profile links on an allowlisted host only — the apex
- * domain or one of a fixed set of deployment subdomains (see
- * SHORT_LINK_ALLOWED_HOSTS), never an open `*.firefly.social` wildcard:
- * `https://{allowed-host}/{post|profile}/{source}/{id}` with an optional
- * `?sid=` query param. Every other query param is ignored; anything else
- * about the URL (host, protocol, non-default port, locale prefix, trailing
- * slash, malformed sid) rejects the link with `null`.
+ * Matches a pathname against every supported kind's route shape:
+ * - `/post/:source/:id`, `/profile/:source/:id`, `/club/:source/:id` — source
+ *   is a social platform (club is narrower: no Twitter)
+ * - `/article/:id` — no source segment
+ * - `/tx/:chainId/:hash` — kind `swap`, source is the numeric chain id
+ * - `/:platform/event/:eventId` — kind `prediction`, source is the platform,
+ *   no literal kind segment (the platform itself sits where a kind name
+ *   normally would)
+ * - `/:platform/profile/:address` — kind `predictionProfile`, same shape as
+ *   `prediction` but with the literal `profile` keyword instead of `event`
+ * - `/token/cex/:id` — kind `token`, source `cex`
+ * - `/token/dex/:chainId/:address` — kind `token`, source `dex`, chain id
+ *   carried separately since `id` already holds the address
+ *
+ * Each shape is structurally distinct (segment count and/or a literal
+ * keyword), so there's no ambiguity between kinds.
+ */
+function matchPathname(pathname: string): Omit<ShortLinkIdentity, 'sid' | 'multi' | 'view'> | null {
+    const segments = pathname.split('/');
+    if (segments[0] !== '') return null;
+
+    if (segments.length === 3) {
+        const [, first, id] = segments;
+        if (first === 'article' && isValidId(id)) return { kind: 'article', source: '', id };
+        return null;
+    }
+
+    if (segments.length === 5) {
+        const [, first, second, third, fourth] = segments;
+        if (
+            first === 'token' &&
+            second === 'dex' &&
+            POSITIVE_INT_PATTERN.test(third) &&
+            third.length <= MAX_POSITIVE_INT_LENGTH &&
+            isValidId(fourth)
+        ) {
+            return { kind: 'token', source: 'dex', id: fourth, chainId: third };
+        }
+        return null;
+    }
+
+    if (segments.length !== 4) return null;
+    const [, first, second, third] = segments;
+
+    if ((first === 'post' || first === 'profile') && SOCIAL_SOURCES.has(second) && isValidId(third)) {
+        return { kind: first, source: second, id: third };
+    }
+
+    if (first === 'club' && CLUB_SOURCES.has(second) && isValidId(third)) {
+        return { kind: 'club', source: second, id: third };
+    }
+
+    if (first === 'token' && second === 'cex' && isValidId(third)) {
+        return { kind: 'token', source: 'cex', id: third };
+    }
+
+    if (
+        first === 'tx' &&
+        POSITIVE_INT_PATTERN.test(second) &&
+        second.length <= MAX_POSITIVE_INT_LENGTH &&
+        isValidId(third)
+    ) {
+        return { kind: 'swap', source: second, id: third };
+    }
+
+    if (second === 'event' && PREDICTION_PLATFORMS.has(first) && isValidId(third)) {
+        return { kind: 'prediction', source: first, id: third };
+    }
+
+    if (second === 'profile' && PREDICTION_PLATFORMS.has(first) && isValidId(third)) {
+        return { kind: 'predictionProfile', source: first, id: third };
+    }
+
+    return null;
+}
+
+/**
+ * Accepts post, profile, article, swap, prediction, predictionProfile, token,
+ * and club links on an allowlisted host only — the apex domain or one of a
+ * fixed set of deployment subdomains (see SHORT_LINK_ALLOWED_HOSTS), never an
+ * open `*.firefly.social` wildcard. See {@link matchPathname} for the
+ * accepted route shapes. Recognizes an optional `?sid=` query param on every
+ * kind, plus `?type=multi` on prediction links and `?view=sender|receiver` on
+ * swap links (the only other query params that change the destination page's
+ * behavior — the latter only applies to a Tips tx link, sharing the same
+ * `/tx/:chainId/:hash` shape as a plain Swap link). Every other query param
+ * is ignored; anything else about the URL (host, protocol, non-default port,
+ * locale prefix, trailing slash, malformed sid) rejects the link with
+ * `null`.
  */
 export function parseLink(url: string): ShortLinkIdentity | null {
     const parsed = parseUrl(url);
@@ -87,60 +187,61 @@ export function parseLink(url: string): ShortLinkIdentity | null {
         return null;
     }
 
-    // Exactly /{kind}/{source}/{id}: split the raw pathname and pick by index.
-    const segments = parsed.pathname.split('/');
-    if (segments.length !== 4 || segments[0] !== '') return null;
+    const matched = matchPathname(parsed.pathname);
+    if (!matched) return null;
 
-    const [, kind, source, id] = segments;
-    if (!isShortLinkKind(kind) || !isShortLinkSource(source)) return null;
-    if (!id || id.length > MAX_ID_LENGTH) return null;
+    const identity: ShortLinkIdentity = { ...matched };
+
+    if (matched.kind === 'prediction' && parsed.searchParams.get('type') === 'multi') {
+        identity.multi = true;
+    }
+
+    if (matched.kind === 'swap') {
+        const view = parsed.searchParams.get('view');
+        if (view === 'sender' || view === 'receiver') identity.view = view;
+    }
 
     const sid = parsed.searchParams.get('sid')?.trim();
-    if (!sid) return { kind, source, id };
+    if (sid) {
+        if (sid.length > MAX_POSITIVE_INT_LENGTH || !POSITIVE_INT_PATTERN.test(sid)) return null;
+        identity.sid = sid;
+    }
 
-    if (sid.length > MAX_SID_LENGTH || !SID_PATTERN.test(sid)) return null;
-    return { kind, source, id, sid };
+    return identity;
+}
+
+function buildPathname(identity: ShortLinkIdentity): string {
+    switch (identity.kind) {
+        case 'post':
+        case 'profile':
+        case 'club':
+            return `/${identity.kind}/${identity.source}/${identity.id}`;
+        case 'article':
+            return `/article/${identity.id}`;
+        case 'swap':
+            return `/tx/${identity.source}/${identity.id}`;
+        case 'prediction':
+            return `/${identity.source}/event/${identity.id}`;
+        case 'predictionProfile':
+            return `/${identity.source}/profile/${identity.id}`;
+        case 'token':
+            return identity.source === 'dex'
+                ? `/token/dex/${identity.chainId}/${identity.id}`
+                : `/token/cex/${identity.id}`;
+    }
 }
 
 /**
- * Fixed 4-field form, id last: `post:lens:<sid>:<id>` with an empty sid slot
- * when absent (`post:lens::<id>`). kind/source/sid all have closed charsets,
- * so the string stays unambiguous even though the id is unconstrained.
- * This is the exact string that gets hashed.
+ * Rebuilds the canonical destination URL from the identity, including
+ * `?sid=` and, for prediction, `?type=multi`, and, for swap, `?view=` (Tips
+ * links only).
  */
-export function canonicalize(identity: ShortLinkIdentity): string {
-    return `${identity.kind}:${identity.source}:${identity.sid ?? ''}:${identity.id}`;
-}
-
-/**
- * sha256(canonical) -> full 32-byte digest as one big-endian BigInt -> 10
- * least-significant base62 digits. Repeated division instead of per-byte
- * modulo keeps the encoding unbiased and byte-identical everywhere.
- */
-export async function computeHash(identity: ShortLinkIdentity): Promise<string> {
-    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(canonicalize(identity)));
-
-    let value = 0n;
-    for (const byte of new Uint8Array(digest)) {
-        // eslint-disable-next-line no-bitwise -- digest bytes → one big-endian BigInt
-        value = (value << 8n) | BigInt(byte);
-    }
-
-    let hash = '';
-    for (let i = 0; i < SHORT_LINK_HASH_LENGTH; i += 1) {
-        hash += ALPHABET[Number(value % 62n)];
-        value /= 62n;
-    }
-
-    return hash;
-}
-
-/** Rebuilds the canonical destination URL (including `?sid=`) from the identity. */
 export function buildDestinationUrl(identity: ShortLinkIdentity): string {
-    const url = `${SHORT_LINK_SITE_URL}/${identity.kind}/${identity.source}/${identity.id}`;
-    return identity.sid ? `${url}?sid=${identity.sid}` : url;
-}
+    const params = new URLSearchParams();
+    if (identity.kind === 'prediction' && identity.multi) params.set('type', 'multi');
+    if (identity.kind === 'swap' && identity.view) params.set('view', identity.view);
+    if (identity.sid) params.set('sid', identity.sid);
 
-export function formatShortLink(hash: string): string {
-    return `${SHORT_LINK_SITE_URL}/i/${hash}`;
+    const query = params.toString();
+    return `${SHORT_LINK_SITE_URL}${buildPathname(identity)}${query ? `?${query}` : ''}`;
 }

@@ -4,7 +4,7 @@ import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export type ShareIconCellType = 'Post' | 'Prediction' | 'Swap' | 'article' | 'Snapshot';
+export type ShareIconCellType = 'Post' | 'Prediction' | 'Swap' | 'article' | 'Snapshot' | 'Token' | 'Club';
 
 export function captureShareIconClickEvent(cellType: ShareIconCellType) {
     return TelemetryProvider.captureEventInSafe(EventId.SHARE_ICON_CLICK, {

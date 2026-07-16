@@ -1,6 +1,7 @@
 'use client';
 
 import { ArticlePlatform, Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
@@ -14,6 +15,7 @@ import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { captureArticleShareClickEvent } from '@/providers/telemetry/captureClickEvent.js';
@@ -36,8 +38,9 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const isAddress = isValidAddressEthereum(address);
     const identity = useFireflyIdentity(Source.Wallet, address);
     const { data: ens } = useEnsName(address);
-    const baseUrl = urlcat(location.origin, getArticleUrl(oldArticle));
-    const url = useShareUrl(baseUrl);
+    const baseUrl = urlcat(SITE_URL, getArticleUrl(oldArticle));
+    const longUrl = useShareUrl(baseUrl);
+    const { url, isPending, register } = useShortShareUrl(longUrl);
 
     const isLogin = !!currentProfileSession?.profileId;
     const { data, isLoading } = useQuery({
@@ -69,7 +72,11 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     <ShareAction
                         link={url}
                         cellType="article"
-                        onClick={() => captureArticleShareClickEvent(article.id, identity.id)}
+                        isPending={isPending}
+                        onClick={() => {
+                            captureArticleShareClickEvent(article.id, identity.id);
+                            register();
+                        }}
                     />
                 ) : null}
             </div>

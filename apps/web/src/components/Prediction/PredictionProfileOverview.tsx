@@ -2,13 +2,16 @@
 
 import { BET_PROFILE_FOLLOW_BUTTON_ID } from '@dimensiondev/constants/static';
 import { PredictionPlatform, Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
+import urlcat from 'urlcat';
 
+import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
@@ -22,7 +25,10 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { usePredictionProfileData } from '@/hooks/prediction/usePredictionProfileData.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { getPolymarketProfileBalance } from '@/providers/firefly/prediction/getPolymarketProfileBalance.js';
 import {
     captureOpinionProfileDetailClick,
@@ -38,6 +44,14 @@ interface PredictionProfileOverviewProps {
 
 export function PredictionProfileOverview({ profile, platform, address }: PredictionProfileOverviewProps) {
     const isOpinion = platform === PredictionPlatform.Opinion;
+
+    const shareBaseUrl = urlcat(SITE_URL, RouteResolver.betsProfile(address, { platform }));
+    const shareLongUrl = useShareUrl(shareBaseUrl);
+    const {
+        url: shareUrl,
+        isPending: isShareLinkPending,
+        register: registerShareLink,
+    } = useShortShareUrl(shareLongUrl);
 
     const { name, avatar, source, socialProfile, handle } = usePredictionProfileData({
         platform,
@@ -242,8 +256,16 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                 </div>
             ) : null}
             <div className="flex flex-col gap-4 p-4">
-                <div className="text-base font-bold leading-6 text-main">
-                    <Trans>Overview</Trans>
+                <div className="flex items-center justify-between">
+                    <div className="text-base font-bold leading-6 text-main">
+                        <Trans>Overview</Trans>
+                    </div>
+                    <ShareAction
+                        link={shareUrl}
+                        cellType="Prediction"
+                        isPending={isShareLinkPending}
+                        onClick={registerShareLink}
+                    />
                 </div>
                 <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-3">
                     {dataConfig.map((item, i) => (

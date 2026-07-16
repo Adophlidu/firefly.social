@@ -1,74 +1,41 @@
-import {
-    buildDestinationUrl,
-    canonicalize,
-    computeHash,
-    formatShortLink,
-    parseLink,
-    SHORT_LINK_HASH_PATTERN,
-} from '@dimensiondev/short-link';
+import { buildDestinationUrl, parseLink } from '@dimensiondev/short-link';
 import { describe, expect, it } from 'vitest';
 
 const LENS_ID = '75465786495708041024031980789350935549587309036456321130993194581442600477851';
 const BSKY_URI = 'at%3A%2F%2Fdid%3Aplc%3Az72i7hdynmk6r22z27h6tvur%2Fapp.bsky.feed.post%2F3lbmyrgnzuk2g';
 
-/**
- * GOLDEN VECTORS — frozen forever.
- *
- * The canonical string and the 10-char hash are a contract shared by every
- * client (web, server, native). If a change to @dimensiondev/short-link makes
- * any of these fail, the change breaks every short link already in the wild.
- * Do NOT update the expected values; fix the regression instead.
- */
-const GOLDEN_VECTORS = [
-    {
-        link: `https://firefly.social/post/lens/${LENS_ID}`,
-        canonical: `post:lens::${LENS_ID}`,
-        hash: 'pXjGDMi4Tn',
-    },
-    {
-        link: `https://firefly.social/post/lens/${LENS_ID}?sid=2296550846`,
-        canonical: `post:lens:2296550846:${LENS_ID}`,
-        hash: 'jBXQNDxHpn',
-    },
-    {
-        link: 'https://firefly.social/post/farcaster/0x9a8bc31ae4d1b8b2a4d0d17a2d3f7ee94c2b0f11',
-        canonical: 'post:farcaster::0x9a8bc31ae4d1b8b2a4d0d17a2d3f7ee94c2b0f11',
-        hash: 'ZVmun3fj6y',
-    },
-    {
-        link: 'https://firefly.social/post/twitter/1859216517077843968?sid=1000234567',
-        canonical: 'post:twitter:1000234567:1859216517077843968',
-        hash: 'pdWTbrGcUn',
-    },
-    {
-        // percent-encoded id stays verbatim (never decoded)
-        link: `https://firefly.social/post/bsky/${BSKY_URI}`,
-        canonical: `post:bsky::${BSKY_URI}`,
-        hash: 'BDd2u8IW0U',
-    },
-    {
-        link: 'https://firefly.social/profile/farcaster/13432',
-        canonical: 'profile:farcaster::13432',
-        hash: 'sDsNnLQwBJ',
-    },
-    {
-        link: 'https://firefly.social/profile/lens/lens%2Ffireflyapp?sid=2296550846',
-        canonical: 'profile:lens:2296550846:lens%2Ffireflyapp',
-        hash: 'FYZUsvEsue',
-    },
+/** One link per supported kind/shape, used to exercise parseLink <-> buildDestinationUrl round-tripping. */
+const LINKS = [
+    `https://firefly.social/post/lens/${LENS_ID}`,
+    `https://firefly.social/post/lens/${LENS_ID}?sid=2296550846`,
+    'https://firefly.social/post/farcaster/0x9a8bc31ae4d1b8b2a4d0d17a2d3f7ee94c2b0f11',
+    'https://firefly.social/post/twitter/1859216517077843968?sid=1000234567',
+    // percent-encoded id stays verbatim (never decoded)
+    `https://firefly.social/post/bsky/${BSKY_URI}`,
+    'https://firefly.social/profile/farcaster/13432',
+    'https://firefly.social/profile/lens/lens%2Ffireflyapp?sid=2296550846',
+    'https://firefly.social/article/9f8c1e2d-1234-4a5b-8c3d-abcdef123456',
+    'https://firefly.social/tx/1/0x9a8bc31ae4d1b8b2a4d0d17a2d3f7ee94c2b0f11deadbeefdeadbeefdeadbeef',
+    'https://firefly.social/polymarket/event/123456?sid=2296550846',
+    'https://firefly.social/polymarket/event/123456?type=multi',
+    'https://firefly.social/club/farcaster/123',
+    'https://firefly.social/club/lens/456?sid=2296550846',
+    'https://firefly.social/token/cex/mask-network',
+    'https://firefly.social/token/dex/56/0xda7ad9dea9397cffddae2f8a052b82f1484252b3',
+    'https://firefly.social/polymarket/profile/0x45d6fcdefd1188d3c3028eb649b6ad0f2981da4c',
+    'https://firefly.social/opinion/profile/0xabc123?sid=1000234567',
+    'https://firefly.social/tx/9745/0xc14631ce48904392bbf2f85b5b7fec5cbdcca64577d7c93729d81207e88f1f50',
+    'https://firefly.social/tx/9745/0xc14631ce48904392bbf2f85b5b7fec5cbdcca64577d7c93729d81207e88f1f50?view=receiver',
+    'https://firefly.social/tx/9745/0xc14631ce48904392bbf2f85b5b7fec5cbdcca64577d7c93729d81207e88f1f50?view=sender',
 ];
 
-describe('golden vectors', () => {
-    it.each(GOLDEN_VECTORS)('$link', async ({ link, canonical, hash }) => {
-        const identity = parseLink(link);
-        expect(identity).not.toBeNull();
-        expect(canonicalize(identity!)).toBe(canonical);
-        await expect(computeHash(identity!)).resolves.toBe(hash);
-        expect(hash).toMatch(SHORT_LINK_HASH_PATTERN);
-    });
-});
-
 describe('parseLink', () => {
+    it('recognizes every supported link shape', () => {
+        for (const link of LINKS) {
+            expect(parseLink(link), link).not.toBeNull();
+        }
+    });
+
     it('extracts kind, source, id and sid', () => {
         expect(parseLink('https://firefly.social/post/lens/123?sid=456')).toEqual({
             kind: 'post',
@@ -171,36 +138,157 @@ describe('parseLink', () => {
         expect(parseLink('https://firefly.social/post/lens/123?sid=12.5')).toBeNull();
         expect(parseLink(`https://firefly.social/post/lens/123?sid=${'1'.repeat(21)}`)).toBeNull();
     });
-});
 
-describe('canonicalize', () => {
-    it('keeps sid-bearing ids distinct from sid-present identities', () => {
-        // The id is unconstrained, so it sits last in a fixed 4-field form;
-        // these two must never serialize to the same string.
-        const sidInId = canonicalize({ kind: 'post', source: 'bsky', id: 'x:sid:12' });
-        const realSid = canonicalize({ kind: 'post', source: 'bsky', id: 'x', sid: '12' });
-        expect(sidInId).toBe('post:bsky::x:sid:12');
-        expect(realSid).toBe('post:bsky:12:x');
-        expect(sidInId).not.toBe(realSid);
-    });
-});
-
-describe('computeHash', () => {
-    it('is deterministic', async () => {
-        const identity = { kind: 'post', source: 'lens', id: '123' } as const;
-        await expect(computeHash(identity)).resolves.toBe(await computeHash(identity));
+    it('parses /article/:id with no source', () => {
+        expect(parseLink('https://firefly.social/article/abc-123')).toEqual({
+            kind: 'article',
+            source: '',
+            id: 'abc-123',
+        });
     });
 
-    it('distinguishes sid-absent from sid-present identities', async () => {
-        const withoutSid = await computeHash({ kind: 'post', source: 'lens', id: '123' });
-        const withSid = await computeHash({ kind: 'post', source: 'lens', id: '123', sid: '456' });
-        expect(withoutSid).not.toBe(withSid);
+    it('rejects malformed article paths', () => {
+        expect(parseLink('https://firefly.social/article')).toBeNull();
+        expect(parseLink('https://firefly.social/article/')).toBeNull();
+        expect(parseLink('https://firefly.social/article/abc/extra')).toBeNull();
+    });
+
+    it('parses /tx/:chainId/:hash as swap, source = chain id', () => {
+        expect(parseLink('https://firefly.social/tx/1/0xabc')).toEqual({
+            kind: 'swap',
+            source: '1',
+            id: '0xabc',
+        });
+    });
+
+    it('rejects swap chain ids that are not pure digits starting with 1-9', () => {
+        expect(parseLink('https://firefly.social/tx/0x1/0xabc')).toBeNull();
+        expect(parseLink('https://firefly.social/tx/01/0xabc')).toBeNull();
+        expect(parseLink('https://firefly.social/tx/0/0xabc')).toBeNull();
+        expect(parseLink('https://firefly.social/tx//0xabc')).toBeNull();
+    });
+
+    it('parses /:platform/event/:id as prediction for every known platform', () => {
+        expect(parseLink('https://firefly.social/polymarket/event/123')).toEqual({
+            kind: 'prediction',
+            source: 'polymarket',
+            id: '123',
+        });
+        expect(parseLink('https://firefly.social/opinion/event/123')).toEqual({
+            kind: 'prediction',
+            source: 'opinion',
+            id: '123',
+        });
+    });
+
+    it('rejects prediction links with an unknown platform', () => {
+        expect(parseLink('https://firefly.social/kalshi/event/123')).toBeNull();
+        expect(parseLink('https://firefly.social/post/event/123')).toBeNull();
+    });
+
+    it('sets multi only when ?type=multi is present on a prediction link', () => {
+        expect(parseLink('https://firefly.social/polymarket/event/123?type=multi')).toEqual({
+            kind: 'prediction',
+            source: 'polymarket',
+            id: '123',
+            multi: true,
+        });
+        expect(parseLink('https://firefly.social/polymarket/event/123?type=single')).toEqual({
+            kind: 'prediction',
+            source: 'polymarket',
+            id: '123',
+        });
+        // ?type is only meaningful on prediction links.
+        expect(parseLink('https://firefly.social/post/lens/123?type=multi')).toEqual({
+            kind: 'post',
+            source: 'lens',
+            id: '123',
+        });
+    });
+
+    it('parses /club/:source/:id for lens/farcaster/bsky, narrower than post/profile sources', () => {
+        expect(parseLink('https://firefly.social/club/farcaster/123')).toEqual({
+            kind: 'club',
+            source: 'farcaster',
+            id: '123',
+        });
+        expect(parseLink('https://firefly.social/club/lens/123')).toEqual({ kind: 'club', source: 'lens', id: '123' });
+        expect(parseLink('https://firefly.social/club/bsky/123')).toEqual({ kind: 'club', source: 'bsky', id: '123' });
+    });
+
+    it('rejects club links on twitter — clubs only exist on lens/farcaster/bsky', () => {
+        expect(parseLink('https://firefly.social/club/twitter/123')).toBeNull();
+    });
+
+    it('parses /token/cex/:id and /token/dex/:chainId/:address', () => {
+        expect(parseLink('https://firefly.social/token/cex/mask-network')).toEqual({
+            kind: 'token',
+            source: 'cex',
+            id: 'mask-network',
+        });
+        expect(parseLink('https://firefly.social/token/dex/56/0xabc')).toEqual({
+            kind: 'token',
+            source: 'dex',
+            id: '0xabc',
+            chainId: '56',
+        });
+    });
+
+    it('rejects malformed token paths', () => {
+        expect(parseLink('https://firefly.social/token/cex')).toBeNull();
+        expect(parseLink('https://firefly.social/token/dex/56')).toBeNull();
+        expect(parseLink('https://firefly.social/token/dex/0x1/0xabc')).toBeNull();
+        expect(parseLink('https://firefly.social/token/futures/56/0xabc')).toBeNull();
+    });
+
+    it('parses /:platform/profile/:address as predictionProfile for every known platform', () => {
+        expect(parseLink('https://firefly.social/polymarket/profile/0xabc')).toEqual({
+            kind: 'predictionProfile',
+            source: 'polymarket',
+            id: '0xabc',
+        });
+        expect(parseLink('https://firefly.social/opinion/profile/0xabc')).toEqual({
+            kind: 'predictionProfile',
+            source: 'opinion',
+            id: '0xabc',
+        });
+    });
+
+    it('rejects predictionProfile links with an unknown platform', () => {
+        expect(parseLink('https://firefly.social/kalshi/profile/0xabc')).toBeNull();
+        expect(parseLink('https://firefly.social/profile/profile/0xabc')).toBeNull();
+    });
+
+    it('sets view only when ?view=sender|receiver is present on a swap link', () => {
+        expect(parseLink('https://firefly.social/tx/1/0xabc?view=receiver')).toEqual({
+            kind: 'swap',
+            source: '1',
+            id: '0xabc',
+            view: 'receiver',
+        });
+        expect(parseLink('https://firefly.social/tx/1/0xabc?view=sender')).toEqual({
+            kind: 'swap',
+            source: '1',
+            id: '0xabc',
+            view: 'sender',
+        });
+        expect(parseLink('https://firefly.social/tx/1/0xabc?view=bogus')).toEqual({
+            kind: 'swap',
+            source: '1',
+            id: '0xabc',
+        });
+        // ?view is only meaningful on swap links.
+        expect(parseLink('https://firefly.social/post/lens/123?view=receiver')).toEqual({
+            kind: 'post',
+            source: 'lens',
+            id: '123',
+        });
     });
 });
 
 describe('buildDestinationUrl', () => {
-    it('round-trips every golden link', () => {
-        for (const { link } of GOLDEN_VECTORS) {
+    it('round-trips every supported link shape', () => {
+        for (const link of LINKS) {
             expect(buildDestinationUrl(parseLink(link)!)).toBe(link);
         }
     });
@@ -208,11 +296,5 @@ describe('buildDestinationUrl', () => {
     it('drops query params other than sid', () => {
         const identity = parseLink('https://firefly.social/post/lens/123?utm_source=x&sid=456')!;
         expect(buildDestinationUrl(identity)).toBe('https://firefly.social/post/lens/123?sid=456');
-    });
-});
-
-describe('formatShortLink', () => {
-    it('formats the /i/ URL', () => {
-        expect(formatShortLink('pXjGDMi4Tn')).toBe('https://firefly.social/i/pXjGDMi4Tn');
     });
 });

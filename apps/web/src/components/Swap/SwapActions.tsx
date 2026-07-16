@@ -33,6 +33,7 @@ import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import { captureShareIconClickEvent } from '@/providers/telemetry/captureClickEvent.js';
@@ -45,7 +46,8 @@ interface SwapActionsProps {
 
 export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activity, isDetail = false }) {
     const isLogin = useIsLoginFirefly();
-    const shareUrl = useShareUrl(urlcat(SITE_URL, resolveTxPageUrl(activity.hash, activity.chain_id)));
+    const longShareUrl = useShareUrl(urlcat(SITE_URL, resolveTxPageUrl(activity.hash, activity.chain_id)));
+    const { url: shareUrl, isPending: isShareLinkPending, register } = useShortShareUrl(longShareUrl);
 
     const { data = activity } = useQuery({
         enabled: isDetail,
@@ -63,12 +65,17 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             return;
         }
 
+        // Registers the short link embedded below — handleMirror is reachable directly from the
+        // Repost icon and the Share Image modal's Post action, not only via the share menu's register().
+        // Awaited so handleMirrorLoading blocks the Repost button until the short link is ready.
+        const resolvedShareUrl = await register();
+
         const result = await openAndWaitForCloseComposeModal({
             type: 'compose',
             chars: [
                 t`🔥 Spotted a smart swap on Firefly! One-tap copy trading now available. #OnChainSocial`,
                 ' \n\n',
-                shareUrl,
+                resolvedShareUrl,
             ],
         });
 
@@ -97,7 +104,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                 });
             }
         }
-    }, [isLogin, shareUrl, activity]);
+    }, [isLogin, register, activity]);
 
     return (
         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>
@@ -143,7 +150,10 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     button={
                         <Tooltip placement="top" content={<Trans>Share</Trans>}>
                             <motion.div
-                                onClick={() => captureShareIconClickEvent('Swap')}
+                                onClick={() => {
+                                    captureShareIconClickEvent('Swap');
+                                    register();
+                                }}
                                 whileTap={{ scale: 0.9 }}
                                 className="inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
                             >
@@ -153,7 +163,11 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     }
                 >
                     <MenuGroup>
-                        <MenuItem>{({ close }) => <CopyLinkButton link={shareUrl} onClick={close} />}</MenuItem>
+                        <MenuItem>
+                            {({ close }) => (
+                                <CopyLinkButton link={shareUrl} onClick={close} pending={isShareLinkPending} />
+                            )}
+                        </MenuItem>
                         <MenuItem>
                             {({ close }) => (
                                 <MenuButton

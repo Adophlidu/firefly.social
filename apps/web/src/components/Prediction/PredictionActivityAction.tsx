@@ -10,6 +10,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { useTogglePredictionBookmark } from '@/hooks/useTogglePredictionBookmark.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 
@@ -33,13 +34,14 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
           })
         : (activity.url ?? '');
     const polymarketUrl = useShareUrl(basePolymarketUrl);
+    const { url: shortPolymarketUrl, isPending: isShareLinkPending, register } = useShortShareUrl(polymarketUrl);
 
     const shareImage = useMemo(
         () =>
-            activity.platform === PredictionPlatform.Polymarket && polymarketUrl
-                ? getActivityShareImagePayload(activity, polymarketUrl)
+            activity.platform === PredictionPlatform.Polymarket && shortPolymarketUrl
+                ? getActivityShareImagePayload(activity, shortPolymarketUrl)
                 : null,
-        [activity, polymarketUrl],
+        [activity, shortPolymarketUrl],
     );
 
     const handleBookmark = useCallback(() => {
@@ -66,7 +68,13 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
                     className="hover:bg-fireflyBrand/[.20] inline-flex size-7 items-center justify-center rounded-full"
                     pureWallet
                 />
-                <ShareAction link={polymarketUrl} cellType="Prediction" shareImage={shareImage} />
+                <ShareAction
+                    link={shortPolymarketUrl}
+                    cellType="Prediction"
+                    shareImage={shareImage}
+                    isPending={isShareLinkPending}
+                    onClick={register}
+                />
             </div>
         </div>
     );

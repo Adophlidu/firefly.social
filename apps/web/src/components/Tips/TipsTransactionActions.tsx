@@ -28,10 +28,10 @@ import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { openShareImageModal } from '@/controllers/openShareImageModal.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
-import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import type { ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
@@ -54,22 +54,17 @@ interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {
 
 async function sharePost(
     {
-        txHash,
+        tipsLink,
         tokenSymbol,
         view,
-        chainId,
-        ffid,
     }: {
-        txHash: string;
+        tipsLink: string;
         tokenSymbol: string;
         view?: TipsDetailViewType;
-        chainId: number;
-        ffid?: string;
     },
     addressForMention: string,
     mentionChars: MentionChars | null,
 ) {
-    const tipsLink = addSharerParam(RouteResolver.tx(chainId, txHash, view), ffid);
     const mentionNode = mentionChars || formatAddress(addressForMention, 4);
 
     const options: ComposeModalOpenProps =
@@ -107,7 +102,6 @@ export function TipsTransactionActions({
     className,
 }: TipsTransactionActionsProps) {
     const isLogin = useIsLoginFirefly();
-    const ffid = useCurrentFireflyAccountUID();
     const { data, isLoading } = useQuery({
         queryKey: ['tips', txHash, isLogin],
         enabled: autoQuery && isLogin,
@@ -115,6 +109,13 @@ export function TipsTransactionActions({
             return getTipsTransactionDetail(txHash, TipsNotificationType.Tip);
         },
     });
+
+    // Composing ("Share" mirror action) carries the sender/receiver view; Copy link intentionally
+    // shares the neutral tx link — matches the pre-short-link behavior, which only passed `view` here.
+    const longUrlWithView = useShareUrl(RouteResolver.tx(chainId, txHash, view));
+    const { register: registerWithView } = useShortShareUrl(longUrlWithView);
+    const longUrl = useShareUrl(RouteResolver.tx(chainId, txHash));
+    const { url: tipsLink, isPending: isTipsLinkPending, register } = useShortShareUrl(longUrl);
 
     const likedStatus = autoQuery && isLogin ? data?.has_liked : liked;
     const likeStatusData = useMemo<TipsLikeStatusData>(
@@ -142,13 +143,12 @@ export function TipsTransactionActions({
                 source: accountIdForMention ? Source.Firefly : Source.Wallet,
                 id: accountIdForMention || addressForMention,
             });
+            const resolvedTipsLinkWithView = await registerWithView();
             const success = await sharePost(
                 {
-                    txHash,
+                    tipsLink: resolvedTipsLinkWithView,
                     tokenSymbol,
                     view,
-                    chainId,
-                    ffid,
                 },
                 addressForMention,
                 mentionChars,
@@ -160,7 +160,17 @@ export function TipsTransactionActions({
                 updateTipsReactionStatus(txHash, TxReactionType.ShareTip, true);
             }
         },
-        [txHash, tokenSymbol, isLogin, addressForMention, view, chainId, fromAddress, accountIdForMention, ffid],
+        [
+            txHash,
+            tokenSymbol,
+            isLogin,
+            addressForMention,
+            view,
+            chainId,
+            fromAddress,
+            accountIdForMention,
+            registerWithView,
+        ],
     );
 
     const repostedStatus = autoQuery && isLogin ? data?.has_reposted : reposted;
@@ -186,7 +196,9 @@ export function TipsTransactionActions({
             <MoreActionMenu
                 button={
                     <Tooltip content={<Trans>Share</Trans>} placement="top">
-                        <ShareIcon width={16} height={16} className="text-secondary" />
+                        <span onClick={register} className="inline-flex">
+                            <ShareIcon width={16} height={16} className="text-secondary" />
+                        </span>
                     </Tooltip>
                 }
             >
@@ -194,10 +206,7 @@ export function TipsTransactionActions({
                     <>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton
-                                    link={addSharerParam(RouteResolver.tx(chainId, txHash), ffid)}
-                                    onClick={close}
-                                >
+                                <CopyLinkButton link={tipsLink} onClick={close} pending={isTipsLinkPending}>
                                     <Trans>Copy link</Trans>
                                 </CopyLinkButton>
                             )}

@@ -14,14 +14,17 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export function ShareButton({ profile }: { profile: Profile }) {
     const baseUrl = urlcat(SITE_URL, getProfileUrl(profile));
     const longUrl = useShareUrl(baseUrl);
-    const { url, register } = useShortShareUrl(longUrl);
-    const [, handleCopy] = useCopyText(url);
+    const { isPending, register } = useShortShareUrl(longUrl);
+    const [, handleCopy] = useCopyText(longUrl);
     return (
         <ClickableButton
+            loading={isPending}
+            onlyLoading
+            loadingSize={16}
             className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
-            onClick={() => {
-                register();
-                handleCopy();
+            onClick={async () => {
+                const resolvedUrl = await register();
+                handleCopy(resolvedUrl);
             }}
         >
             <ShareIcon />
