@@ -1,14 +1,10 @@
 import { SORTED_POLL_SOURCES } from '@dimensiondev/constants/computed';
 import { Source } from '@dimensiondev/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
-import {
-    type LoggedInPostOperations,
-    type PostAction,
-    PostRuleUnsatisfiedReason,
-    type PostStats,
-} from '@lens-protocol/client';
+import type { LoggedInPostOperations, PostAction, PostStats } from '@lens-protocol/client';
 
 import { ORB_POLL_CONTRACT } from '@/constants/poll.js';
+import { resolveClubGateAddress } from '@/providers/lens/resolveClubGateAddress.js';
 import type { Post, PostInteractionRestriction } from '@/providers/types/SocialMedia.js';
 
 type PostOperationOutcome = LoggedInPostOperations['canComment'];
@@ -24,16 +20,8 @@ export function resolvePostInteractionRestriction(
 ): PostInteractionRestriction | undefined {
     if (outcome.__typename !== 'PostOperationValidationFailed') return undefined;
 
-    const rules = [...(outcome.unsatisfiedRules?.required ?? []), ...(outcome.unsatisfiedRules?.anyOf ?? [])];
-    const clubRule = rules.find((rule) => rule.reason === PostRuleUnsatisfiedReason.FeedGroupGatedNotAMember);
-    if (!clubRule) return { clubGated: false };
-
-    const groupConfig = clubRule.config.find(
-        (item): item is Extract<typeof item, { __typename: 'AddressKeyValue' }> =>
-            item.__typename === 'AddressKeyValue' && (item.key === 'group' || item.key === 'groupAddress'),
-    );
-
-    return { clubGated: true, clubAddress: groupConfig?.address };
+    const clubAddress = resolveClubGateAddress(outcome.unsatisfiedRules);
+    return clubAddress ? { clubGated: true, clubAddress } : { clubGated: false };
 }
 
 export function formatLensPostStats(stats: PostStats): NonNullable<Post['stats']> {

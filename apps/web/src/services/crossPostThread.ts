@@ -5,10 +5,17 @@ import { delay, safeUnreachable } from '@dimensiondev/utils';
 import { plural, t } from '@lingui/core/macro';
 import { compact, difference, first } from 'lodash-es';
 
+import { LensClubGatedError } from '@/constants/error.js';
 import { closeSnackbar } from '@/controllers/openSnackbar.js';
-import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueErrorsMessage,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+    MessageKey,
+} from '@/helpers/enqueueMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
+import { resolveClubGatedMessage } from '@/helpers/resolveClubGatedMessage.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -101,6 +108,7 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
     progressCallback?.(0);
 
     closeSnackbar({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
+    closeSnackbar({ key: MessageKey.COMPOSE_CLUB_GATED_NOTIFICATION_KEY });
 
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
@@ -144,20 +152,35 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
             }
         });
 
-        const firstPlatform = failedAt[0] ? resolveSourceName(failedAt[0]) : '';
-        const secondPlatform = failedAt[1] ? resolveSourceName(failedAt[1]) : '';
+        // Club-gated failures (Lens group gate) get the same "Join now" warning
+        // as the single-post compose flow, instead of being folded into the
+        // generic error toast (FW-7874).
+        const clubGatedFailure = SORTED_SOCIAL_SOURCES.map((source, i) => ({ source, error: allErrors[i] })).find(
+            (x): x is { source: SocialSource; error: LensClubGatedError } => x.error instanceof LensClubGatedError,
+        );
+        if (clubGatedFailure) {
+            enqueueWarningMessage(resolveClubGatedMessage(clubGatedFailure.error.clubAddress), {
+                key: MessageKey.COMPOSE_CLUB_GATED_NOTIFICATION_KEY,
+            });
+        }
 
-        const message = plural(failedAt.length, {
-            one: `Your posts failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
-            two: `Your posts failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
-            other: "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.",
-        });
+        const remainingFailedAt = failedAt.filter((x) => x !== clubGatedFailure?.source);
+        if (remainingFailedAt.length) {
+            const firstPlatform = remainingFailedAt[0] ? resolveSourceName(remainingFailedAt[0]) : '';
+            const secondPlatform = remainingFailedAt[1] ? resolveSourceName(remainingFailedAt[1]) : '';
 
-        enqueueErrorsMessage(message, {
-            errors: compact(allErrors),
-            persist: true,
-            key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY,
-        });
+            const message = plural(remainingFailedAt.length, {
+                one: `Your posts failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+                two: `Your posts failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+                other: "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.",
+            });
+
+            enqueueErrorsMessage(message, {
+                errors: compact(allErrors.filter((error) => !(error instanceof LensClubGatedError))),
+                persist: true,
+                key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY,
+            });
+        }
     } else {
         enqueueSuccessMessage(t`Your posts have published successfully.`);
     }

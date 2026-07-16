@@ -14,6 +14,7 @@ import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/
 
 export enum MessageKey {
     COMPOSE_ERROR_NOTIFICATION_KEY = 'COMPOSE_NOTIFICATION_KEY',
+    COMPOSE_CLUB_GATED_NOTIFICATION_KEY = 'COMPOSE_CLUB_GATED_NOTIFICATION_KEY',
 }
 
 export interface MessageOptions extends OptionsObject {

@@ -1437,7 +1437,7 @@ msgstr "全球"
 msgid "Add another post..."
 msgstr "新增其他貼文..."
 
-#. placeholder {0}: resolveSourcesName(failedAt, '/')
+#. placeholder {0}: resolveSourcesName( remainingFailures.map((x) => x.source), '/', )
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr "貼文發布至 {0} 失敗，點擊「重試」再次發布。"
 
@@ -4963,7 +4963,7 @@ msgstr "收集"
 msgid "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
 msgstr "帳戶因潛在風險已被禁用。請透過 <0>Telegram</0> 聯繫我們以恢復存取權限。"
 
-#. placeholder {0}: failedAt.length
+#. placeholder {0}: remainingFailedAt.length
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
 msgid "Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again."
 msgid_plural "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again."

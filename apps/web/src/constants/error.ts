@@ -230,6 +230,21 @@ export class SessionExpiredError extends Error {
     }
 }
 
+/**
+ * Thrown when a Lens post/reply/quote fails to publish because the author
+ * hasn't joined the club (Lens group) it's gated behind (FW-7874).
+ */
+export class LensClubGatedError extends Error {
+    override name = 'LensClubGatedError';
+
+    constructor(
+        public clubAddress: string,
+        options?: ErrorOptions,
+    ) {
+        super('Only club members can post to this content.', options);
+    }
+}
+
 export class NitterError extends Error {
     override name = 'NitterError';
 

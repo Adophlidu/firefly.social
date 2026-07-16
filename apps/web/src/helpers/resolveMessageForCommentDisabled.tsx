@@ -3,8 +3,8 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
-import { JoinClubLink } from '@/components/JoinClubLink.js';
 import { Link } from '@/components/Link.js';
+import { resolveClubGatedMessage } from '@/helpers/resolveClubGatedMessage.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface CommentDisabledMessage {
@@ -46,12 +46,7 @@ export function resolveMessageForCommentDisabled(post: Post): CommentDisabledMes
             // Club-gated reply: guide the user to join the club in place.
             if (replyRestriction?.clubGated && replyRestriction.clubAddress) {
                 return {
-                    message: (
-                        <>
-                            <Trans>Only club members can reply to this post.</Trans>{' '}
-                            <JoinClubLink clubAddress={replyRestriction.clubAddress} />
-                        </>
-                    ),
+                    message: resolveClubGatedMessage(replyRestriction.clubAddress),
                     type: 'restricted',
                 };
             }

@@ -7,16 +7,22 @@ import { produce } from 'immer';
 import { compact, difference, first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SessionExpiredError } from '@/constants/error.js';
+import { LensClubGatedError, SessionExpiredError } from '@/constants/error.js';
 import { closeSnackbar } from '@/controllers/openSnackbar.js';
 import { canQuotePost } from '@/helpers/canQuotePost.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
-import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueErrorsMessage,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+    MessageKey,
+} from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
+import { resolveClubGatedMessage } from '@/helpers/resolveClubGatedMessage.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
@@ -243,6 +249,7 @@ export async function crossPost(
     const parentPost = Object.values(compositePost.parentPost).find((x) => x);
 
     closeSnackbar({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
+    closeSnackbar({ key: MessageKey.COMPOSE_CLUB_GATED_NOTIFICATION_KEY });
     const allSettled = await Promise.allSettled(
         SORTED_SOCIAL_SOURCES.map(async (source) => {
             if (!availableSources.includes(source)) return null;
@@ -315,12 +322,40 @@ export async function crossPost(
                     enqueueSuccessMessage(t`Your post was sent to ${resolveSourceName(x)}.`);
                 }
             });
-            const filteredErrors = allErrors.filter((x) => !(x instanceof SessionExpiredError));
-            if (filteredErrors.length) {
+            // Partition this invocation's failures once: club-gated (Lens group
+            // gate) gets the same "Join now" warning as the reply-restriction
+            // hint, on its own key (distinct from COMPOSE_ERROR_NOTIFICATION_KEY
+            // so a future dedup change to one snackbar type can't clobber the
+            // other), instead of being folded into the generic error toast
+            // (FW-7874). Built from `allErrors` (fresh from this call) rather
+            // than the persisted `postError` store, since a source skipped this
+            // attempt (e.g. no parent post) would otherwise keep showing a stale
+            // error from an earlier attempt.
+            const failures = compact(
+                SORTED_SOCIAL_SOURCES.map((source, i) => {
+                    const error = allErrors[i];
+                    if (!error || error instanceof SessionExpiredError) return null;
+                    return { source, error };
+                }),
+            );
+            const clubGatedFailure = failures.find(
+                (x): x is { source: SocialSource; error: LensClubGatedError } => x.error instanceof LensClubGatedError,
+            );
+            if (clubGatedFailure) {
+                enqueueWarningMessage(resolveClubGatedMessage(clubGatedFailure.error.clubAddress), {
+                    key: MessageKey.COMPOSE_CLUB_GATED_NOTIFICATION_KEY,
+                });
+            }
+
+            const remainingFailures = failures.filter((x) => !(x.error instanceof LensClubGatedError));
+            if (remainingFailures.length) {
                 enqueueErrorsMessage(
-                    t`Your post failed to send to ${resolveSourcesName(failedAt, '/')}. Click 'Retry' to attempt posting again.`,
+                    t`Your post failed to send to ${resolveSourcesName(
+                        remainingFailures.map((x) => x.source),
+                        '/',
+                    )}. Click 'Retry' to attempt posting again.`,
                     {
-                        errors: compact(allErrors),
+                        errors: remainingFailures.map((x) => x.error),
                         key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY,
                         persist: true,
                     },
