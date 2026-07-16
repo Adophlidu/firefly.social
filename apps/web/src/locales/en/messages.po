@@ -507,6 +507,9 @@ msgstr "Price to beat"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "Posted via {0} <0>{platformName}</0>"
 
+msgid "Finals"
+msgstr "Finals"
+
 msgid "Firefly wallets"
 msgstr "Firefly wallets"
 
@@ -3243,9 +3246,6 @@ msgstr "Please select one EVM wallet and one Solana wallet for onchain features 
 
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "Token added to your Bookmarks. <0>View</0>"
-
-msgid "Final/3rd Place"
-msgstr "Final/3rd Place"
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."

@@ -13,7 +13,7 @@ const ROUND_LABELS: Record<BracketColumnId, ReactNode> = {
     r16: <Trans>Round of 16</Trans>,
     qf: <Trans>Quarterfinals</Trans>,
     sf: <Trans>Semifinals</Trans>,
-    final: <Trans>Final/3rd Place</Trans>,
+    final: <Trans>Finals</Trans>,
     champion: <Trans>Champion</Trans>,
 };
 

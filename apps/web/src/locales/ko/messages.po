@@ -504,6 +504,9 @@ msgstr "넘어야 할 가격"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "{0} <0>{platformName}</0>을(를) 통해 게시됨"
 
+msgid "Finals"
+msgstr "결승"
+
 msgid "Firefly wallets"
 msgstr "Firefly 지갑"
 
@@ -3224,9 +3227,6 @@ msgstr "Firefly 온체인 기능을 사용하려면 EVM 지갑 1개와 Solana �
 
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "토큰이 북마크에 추가되었습니다. <0>보기</0>"
-
-msgid "Final/3rd Place"
-msgstr "결승/3·4위전"
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "이전에 Farcaster로 로그인한 적이 있다면 다시 연결하세요.<0/>처음이신가요? 새 연결로 시작하세요."

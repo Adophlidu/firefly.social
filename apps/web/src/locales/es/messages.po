@@ -507,6 +507,9 @@ msgstr "Precio a batir"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "Publicado vía {0} <0>{platformName}</0>"
 
+msgid "Finals"
+msgstr "Finales"
+
 msgid "Firefly wallets"
 msgstr "Carteras Firefly"
 
@@ -3243,9 +3246,6 @@ msgstr "Por favor seleccione una billetera EVM y una billetera Solana para las f
 
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "Token añadido a tus Marcadores. <0>Ver</0>"
-
-msgid "Final/3rd Place"
-msgstr "Final/Tercer puesto"
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "Reconéctate si ya has usado Farcaster para iniciar sesión antes.<0/>¿Primera vez? Conéctate para empezar."

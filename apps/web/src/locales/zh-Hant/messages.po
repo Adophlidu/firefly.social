@@ -504,6 +504,9 @@ msgstr "目标价格"
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "透過 {0}<0>{platformName}</0> 發佈"
 
+msgid "Finals"
+msgstr "決賽"
+
 msgid "Firefly wallets"
 msgstr "Firefly 錢包"
 
@@ -3224,9 +3227,6 @@ msgstr "請選擇一個 EVM 錢包與一個 Solana 錢包以使用 Firefly 鏈�
 
 msgid "Token added to your Bookmarks. <0>View</0>"
 msgstr "代幣已加入書籤。<0>查看</0>"
-
-msgid "Final/3rd Place"
-msgstr "決賽/季軍賽"
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "如果你之前使用 Farcaster 登入過，請重新連接。<0/>第一次登入？請開啟新的連接。"
