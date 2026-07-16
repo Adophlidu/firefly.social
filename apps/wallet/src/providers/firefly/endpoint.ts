@@ -618,10 +618,4 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
     // #endregion
-
-    /** Creates a Shortlink for an allowlisted HTTPS destination. Requires a logged-in session. */
-    async createShortlink(url: string): Promise<{ code: string; shortlink: string }> {
-        const result = await this.post<Response<{ code: string; shortlink: string }>>('/v1/shortlinks', { url });
-        return resolveFireflyResponseData(result.data);
-    }
 }

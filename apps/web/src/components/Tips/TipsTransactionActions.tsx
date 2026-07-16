@@ -110,10 +110,10 @@ export function TipsTransactionActions({
         },
     });
 
-    // Composing ("Share" mirror action) carries the sender/receiver view; Copy link intentionally
-    // shares the neutral tx link — matches the pre-short-link behavior, which only passed `view` here.
+    // Composing ("Share" mirror action) carries the sender/receiver view and keeps the original link;
+    // Copy link intentionally shares the neutral tx link (as a shortlink) — matches the pre-short-link
+    // behavior, which only passed `view` here.
     const longUrlWithView = useShareUrl(RouteResolver.tx(chainId, txHash, view));
-    const { register: registerWithView } = useShortShareUrl(longUrlWithView);
     const longUrl = useShareUrl(RouteResolver.tx(chainId, txHash));
     const { register } = useShortShareUrl(longUrl);
 
@@ -143,10 +143,9 @@ export function TipsTransactionActions({
                 source: accountIdForMention ? Source.Firefly : Source.Wallet,
                 id: accountIdForMention || addressForMention,
             });
-            const resolvedTipsLinkWithView = await registerWithView();
             const success = await sharePost(
                 {
-                    tipsLink: resolvedTipsLinkWithView,
+                    tipsLink: longUrlWithView,
                     tokenSymbol,
                     view,
                 },
@@ -169,7 +168,7 @@ export function TipsTransactionActions({
             chainId,
             fromAddress,
             accountIdForMention,
-            registerWithView,
+            longUrlWithView,
         ],
     );
 

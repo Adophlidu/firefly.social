@@ -38,9 +38,8 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
 
     const shareImage = useMemo(() => {
         if (activity.platform !== PredictionPlatform.Polymarket || !polymarketUrl) return null;
-        const payload = getActivityShareImagePayload(activity, polymarketUrl);
-        return payload ? { ...payload, resolveLink: register } : null;
-    }, [activity, polymarketUrl, register]);
+        return getActivityShareImagePayload(activity, polymarketUrl);
+    }, [activity, polymarketUrl]);
 
     const handleBookmark = useCallback(() => {
         toggleBookmark(activity);
@@ -66,7 +65,7 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
                     className="hover:bg-fireflyBrand/[.20] inline-flex size-7 items-center justify-center rounded-full"
                     pureWallet
                 />
-                <ShareAction cellType="Prediction" shareImage={shareImage} register={register} />
+                <ShareAction cellType="Prediction" link={polymarketUrl} shareImage={shareImage} register={register} />
             </div>
         </div>
     );

@@ -36,7 +36,7 @@ export const SnapshotActions = memo<SnapshotActionsProps>(function SnapshotActio
                 />
             ) : null}
             <Tips identity={identity} handle={ens} onClick={close} pureWallet />
-            <ShareAction register={() => Promise.resolve(link)} cellType="Snapshot" />
+            <ShareAction link={link} register={() => Promise.resolve(link)} cellType="Snapshot" />
         </div>
     );
 });

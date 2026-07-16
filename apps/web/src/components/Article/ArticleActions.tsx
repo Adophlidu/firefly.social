@@ -71,6 +71,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                 {longUrl ? (
                     <ShareAction
                         cellType="article"
+                        link={longUrl}
                         register={register}
                         onIconClick={() => captureArticleShareClickEvent(article.id, identity.id)}
                     />

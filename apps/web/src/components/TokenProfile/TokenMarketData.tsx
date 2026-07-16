@@ -307,7 +307,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                         </div>
                         <div className="ml-auto flex shrink-0 items-center gap-2 empty:hidden">
                             <TokenBookmarkButton coinId={token.id} chainId={chainId || mainnet.id} address={address} />
-                            <ShareAction cellType="Token" register={registerTokenShareLink} />
+                            <ShareAction cellType="Token" link={tokenShareLongUrl} register={registerTokenShareLink} />
                         </div>
                     </div>
                     <div className="mt-[18px] flex flex-col gap-2 leading-[22px]">

@@ -16,7 +16,9 @@ import type { PolymarketShareImagePayload } from '@/hooks/prediction/usePolymark
 import { captureShareIconClickEvent, type ShareIconCellType } from '@/providers/telemetry/captureClickEvent.js';
 
 interface ShareActionProps {
-    /** Resolves the short link — called (and awaited) only when a menu item that needs it is clicked. */
+    /** The original (long) link — "Post with link" composes with this, never a shortlink. */
+    link: string;
+    /** Resolves the short link — called (and awaited) only by "Copy link" when clicked. */
     register: () => Promise<string>;
     /** Extra telemetry fired on the icon click itself — never triggers `register()`. */
     onIconClick?: () => void;
@@ -26,6 +28,7 @@ interface ShareActionProps {
 }
 
 export const ShareAction = memo(function ShareAction({
+    link,
     register,
     onIconClick,
     cellType,
@@ -52,7 +55,7 @@ export const ShareAction = memo(function ShareAction({
         >
             <MenuGroup>
                 {shareImage ? <PolymarketShareMenuItems payload={shareImage} /> : null}
-                <MenuItem>{({ close }) => <PostWithLinkButton getLink={register} onClick={close} />}</MenuItem>
+                <MenuItem>{({ close }) => <PostWithLinkButton link={link} onClick={close} />}</MenuItem>
                 <MenuItem>{({ close }) => <CopyLinkButton getLink={register} onClick={close} />}</MenuItem>
             </MenuGroup>
         </MoreActionMenu>

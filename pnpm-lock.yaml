@@ -177,9 +177,6 @@ importers:
       '@dimensiondev/rn-ui':
         specifier: ^0.2.0
         version: 0.2.0(c5c75777bda508764997ec4067832fb0)
-      '@dimensiondev/short-link':
-        specifier: workspace:^
-        version: link:../../packages/short-link
       '@dimensiondev/types':
         specifier: workspace:^
         version: link:../../packages/types

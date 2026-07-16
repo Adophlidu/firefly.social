@@ -23,7 +23,6 @@ import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
-import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
@@ -35,7 +34,6 @@ export function SuccessView() {
     const { token, tokenAmount, recipient, hash, post, identity } = useTipsStore();
 
     const longUrl = useShareUrl(hash && token?.chainId ? RouteResolver.tx(token.chainId, hash) : '');
-    const { register } = useShortShareUrl(longUrl);
 
     const [{ loading }, sharePost] = useAsyncFn(async () => {
         try {
@@ -54,7 +52,6 @@ export function SuccessView() {
 
             const mentionChars = await getMentionCharsByIdentity(identity, post?.source);
             if (mentionChars) {
-                const resolvedShareUrl = await register();
                 openAndWaitForCloseComposeModal({
                     type: post ? 'reply' : 'compose',
                     post,
@@ -66,7 +63,7 @@ export function SuccessView() {
                         ` , sent you some $${token?.symbol} via `,
                         fireflyMention,
                         ' ✨ Keep shinning! \r\n',
-                        resolvedShareUrl,
+                        longUrl,
                     ],
                 }).then((res) => {
                     if (!res?.post || !hash) return;
@@ -79,7 +76,7 @@ export function SuccessView() {
             enqueueErrorMessage(<Trans>Something went wrong, please try again.</Trans>, { error });
             throw error;
         }
-    }, [context, post, recipient, token?.symbol, hash, currentChannel, identity, register, isLogin]);
+    }, [context, post, recipient, token?.symbol, hash, currentChannel, identity, longUrl, isLogin]);
 
     if (!token || !recipient) return null;
 

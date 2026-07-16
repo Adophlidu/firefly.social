@@ -53,7 +53,7 @@ export const Share = memo<ShareProps>(function Share({ post, disabled = false, c
             }
         >
             <MenuGroup>
-                <MenuItem>{({ close }) => <PostWithLinkButton getLink={register} onClick={close} />}</MenuItem>
+                <MenuItem>{({ close }) => <PostWithLinkButton link={longUrl} onClick={close} />}</MenuItem>
                 <MenuItem>{({ close }) => <CopyLinkButton getLink={register} onClick={close} />}</MenuItem>
             </MenuGroup>
         </MoreActionMenu>

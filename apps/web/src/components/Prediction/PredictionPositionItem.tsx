@@ -21,7 +21,6 @@ import type { PolymarketShareIdentity } from '@/helpers/polymarketShareImage.js'
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useLongPress } from '@/hooks/useLongPress.js';
-import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import {
     captureOpinionProfilePositionsEventClick,
     capturePolymarketProfilePositionsEventClick,
@@ -81,7 +80,7 @@ export function PredictionPositionItem({
 }: PredictionPositionItemProps) {
     const [shareSheetOpen, setShareSheetOpen] = useState(false);
     const sharerUid = useCurrentFireflyAccountUID();
-    const rawSharePayload =
+    const sharePayload =
         platform === PredictionPlatform.Polymarket
             ? getPositionShareImagePayload(
                   position,
@@ -90,10 +89,6 @@ export function PredictionPositionItem({
                   targetProfileInfo?.proxyAddress || targetProfileInfo?.address,
               )
             : null;
-    // The share URL is already absolute with `sid` baked in (buildPolymarketEventShareUrl) — feed it
-    // straight to useShortShareUrl and resolve the short link lazily at share time, not upfront.
-    const { register: registerShareLink } = useShortShareUrl(rawSharePayload?.link ?? '');
-    const sharePayload = rawSharePayload ? { ...rawSharePayload, resolveLink: registerShareLink } : null;
     const longPressHandlers = useLongPress(() => {
         if (sharePayload) setShareSheetOpen(true);
     });

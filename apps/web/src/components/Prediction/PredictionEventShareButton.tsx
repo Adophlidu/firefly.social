@@ -24,5 +24,5 @@ export const PredictionEventShareButton = memo(function PredictionEventShareButt
     const longUrl = useShareUrl(baseUrl);
     const { register } = useShortShareUrl(longUrl);
 
-    return <ShareAction cellType="Prediction" register={register} />;
+    return <ShareAction cellType="Prediction" link={longUrl} register={register} />;
 });

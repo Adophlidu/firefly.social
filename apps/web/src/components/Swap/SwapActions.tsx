@@ -65,17 +65,12 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             return;
         }
 
-        // Registers the short link embedded below — handleMirror is reachable directly from the
-        // Repost icon and the Share Image modal's Post action, not only via the share menu's register().
-        // Awaited so handleMirrorLoading blocks the Repost button until the short link is ready.
-        const resolvedShareUrl = await register();
-
         const result = await openAndWaitForCloseComposeModal({
             type: 'compose',
             chars: [
                 t`🔥 Spotted a smart swap on Firefly! One-tap copy trading now available. #OnChainSocial`,
                 ' \n\n',
-                resolvedShareUrl,
+                longShareUrl,
             ],
         });
 
@@ -104,7 +99,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                 });
             }
         }
-    }, [isLogin, register, activity]);
+    }, [isLogin, longShareUrl, activity]);
 
     return (
         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>

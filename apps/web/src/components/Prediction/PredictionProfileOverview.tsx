@@ -256,7 +256,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                     <div className="text-base font-bold leading-6 text-main">
                         <Trans>Overview</Trans>
                     </div>
-                    <ShareAction cellType="Prediction" register={registerShareLink} />
+                    <ShareAction cellType="Prediction" link={shareLongUrl} register={registerShareLink} />
                 </div>
                 <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-3">
                     {dataConfig.map((item, i) => (
