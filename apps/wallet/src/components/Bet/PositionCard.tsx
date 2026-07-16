@@ -19,6 +19,7 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { useLongPress } from '@/hooks/useLongPress.js';
 import { usePolymarketShareIdentity } from '@/hooks/usePolymarketShareIdentity.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import type { PolymarketPosition } from '@/providers/types/Firefly.js';
@@ -30,7 +31,11 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
 
     const [shareSheetOpen, setShareSheetOpen] = useState(false);
     const shareIdentity = usePolymarketShareIdentity(position.wallet || '');
-    const sharePayload = getPositionShareImagePayload(position, shareIdentity);
+    const rawSharePayload = getPositionShareImagePayload(position, shareIdentity);
+    // The share URL is already absolute with `sid` baked in — resolve the short link lazily at share
+    // time (register() is only called once the user actually shares), not upfront on render.
+    const { register: registerShareLink } = useShortShareUrl(rawSharePayload?.link ?? '');
+    const sharePayload = rawSharePayload ? { ...rawSharePayload, resolveLink: registerShareLink } : null;
     const longPressHandlers = useLongPress(() => {
         if (sharePayload) setShareSheetOpen(true);
     });

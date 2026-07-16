@@ -26,8 +26,13 @@ export interface PolymarketShareIdentity {
 
 export interface PolymarketShareImagePayload {
     params: PolymarketShareBridgeParams;
-    /** The firefly detail link carried as the compose text. */
+    /** The firefly detail link carried as the compose text — used only if `resolveLink` is absent. */
     link: string;
+    /**
+     * Lazily resolves the (possibly short) link at share time instead of upfront, so opening the
+     * share sheet never kicks off the shortlink network request. Falls back to `link` if absent.
+     */
+    resolveLink?: () => Promise<string>;
 }
 
 function appendSid(url: string, sharerUid?: string) {

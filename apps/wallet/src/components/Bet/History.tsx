@@ -47,6 +47,7 @@ import { getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js'
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { useLongPress } from '@/hooks/useLongPress.js';
 import { usePolymarketShareIdentity } from '@/hooks/usePolymarketShareIdentity.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import { cn } from '@/lib/utils.js';
 import {
@@ -362,7 +363,11 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
 
     const [shareSheetOpen, setShareSheetOpen] = useState(false);
     const shareIdentity = usePolymarketShareIdentity(position.wallet || '');
-    const sharePayload = getPositionShareImagePayload({ ...position, is_closed: true }, shareIdentity);
+    const rawSharePayload = getPositionShareImagePayload({ ...position, is_closed: true }, shareIdentity);
+    // The share URL is already absolute with `sid` baked in — resolve the short link lazily at share
+    // time, not upfront on render.
+    const { register: registerShareLink } = useShortShareUrl(rawSharePayload?.link ?? '');
+    const sharePayload = rawSharePayload ? { ...rawSharePayload, resolveLink: registerShareLink } : null;
     const longPressHandlers = useLongPress(() => {
         if (sharePayload) setShareSheetOpen(true);
     });

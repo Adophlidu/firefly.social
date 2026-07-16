@@ -70,12 +70,14 @@ async function downloadImage(dataUrl: string, fileName: string) {
 function usePostWithShareImage(payload: PolymarketShareImagePayload, onDone?: () => void) {
     return useMutation({
         async mutationFn() {
-            const { dataUrl } = await iframeBridgeProvider.request(
-                IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE,
-                { params: payload.params },
-            );
+            const [{ dataUrl }, link] = await Promise.all([
+                iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE, {
+                    params: payload.params,
+                }),
+                payload.resolveLink ? payload.resolveLink() : payload.link,
+            ]);
             await iframeBridgeProvider.request(IframeBridgeMethod.COMPOSE, {
-                text: payload.link,
+                text: link,
                 imageUrls: [dataUrl],
             });
         },

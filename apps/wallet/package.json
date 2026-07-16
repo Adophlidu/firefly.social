@@ -33,6 +33,7 @@
         "@dimensiondev/iframe-bridge": "workspace:^",
         "@dimensiondev/native-bridge": "workspace:^",
         "@dimensiondev/rn-ui": "^0.2.0",
+        "@dimensiondev/short-link": "workspace:^",
         "@dimensiondev/types": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
         "@dimensiondev/web3": "workspace:^",

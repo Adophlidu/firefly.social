@@ -177,6 +177,9 @@ importers:
       '@dimensiondev/rn-ui':
         specifier: ^0.2.0
         version: 0.2.0(c5c75777bda508764997ec4067832fb0)
+      '@dimensiondev/short-link':
+        specifier: workspace:^
+        version: link:../../packages/short-link
       '@dimensiondev/types':
         specifier: workspace:^
         version: link:../../packages/types
@@ -483,7 +486,7 @@ importers:
         version: 9.39.4(jiti@1.21.7)
       eslint-plugin-import:
         specifier: ^2.32.0
-        version: 2.32.0(@typescript-eslint/parser@8.61.0(@typescript/typescript6@6.0.1)(eslint@9.39.4(jiti@1.21.7)))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.4(jiti@2.7.0)))(eslint@9.39.4(jiti@1.21.7))
+        version: 2.32.0(@typescript-eslint/parser@8.61.0(@typescript/typescript6@6.0.1)(eslint@9.39.4(jiti@1.21.7)))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.4(jiti@1.21.7))
       eslint-plugin-no-relative-import-paths:
         specifier: ^1.6.1
         version: 1.6.1
@@ -600,7 +603,7 @@ importers:
         version: 0.18.11(bufferutil@4.1.0)(typescript@7.0.1-rc)(zod@3.25.76)
       '@farcaster/miniapp-host':
         specifier: ^0.2.16
-        version: 0.2.16(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(react@19.2.7)(zod@3.25.76)
+        version: 0.2.16(bufferutil@4.1.0)(react@19.2.7)(typescript@7.0.1-rc)(zod@3.25.76)
       '@giphy/js-fetch-api':
         specifier: ^5.7.0
         version: 5.8.0
@@ -17051,9 +17054,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@farcaster/miniapp-core@0.5.1(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)':
+  '@farcaster/miniapp-core@0.5.1(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
     dependencies:
-      '@solana/web3.js': 1.98.4(bufferutil@4.1.0)(typescript@7.0.1-rc)
+      '@solana/web3.js': 1.98.4(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
       ox: 0.4.4(@typescript/typescript6@6.0.1)(zod@3.25.76)
       zod: 3.25.76
     transitivePeerDependencies:
@@ -17062,10 +17065,10 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@farcaster/miniapp-core@0.5.1(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
+  '@farcaster/miniapp-core@0.5.1(bufferutil@4.1.0)(typescript@7.0.1-rc)':
     dependencies:
-      '@solana/web3.js': 1.98.4(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-      ox: 0.4.4(@typescript/typescript6@6.0.1)(zod@3.25.76)
+      '@solana/web3.js': 1.98.4(bufferutil@4.1.0)(typescript@7.0.1-rc)
+      ox: 0.4.4(typescript@7.0.1-rc)(zod@3.25.76)
       zod: 3.25.76
     transitivePeerDependencies:
       - bufferutil
@@ -17085,10 +17088,10 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@farcaster/miniapp-host@0.2.16(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)(react@19.2.7)(zod@3.25.76)':
+  '@farcaster/miniapp-host@0.2.16(bufferutil@4.1.0)(react@19.2.7)(typescript@7.0.1-rc)(zod@3.25.76)':
     dependencies:
-      '@farcaster/miniapp-core': 0.5.1(@typescript/typescript6@6.0.1)(bufferutil@4.1.0)
-      ox: 0.4.4(@typescript/typescript6@6.0.1)(zod@3.25.76)
+      '@farcaster/miniapp-core': 0.5.1(bufferutil@4.1.0)(typescript@7.0.1-rc)
+      ox: 0.4.4(typescript@7.0.1-rc)(zod@3.25.76)
       react: 19.2.7
     transitivePeerDependencies:
       - bufferutil
@@ -27624,7 +27627,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.13.0(@typescript-eslint/parser@8.61.0(@typescript/typescript6@6.0.1)(eslint@9.39.4(jiti@1.21.7)))(eslint-import-resolver-node@0.3.10)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.4(jiti@2.7.0)))(eslint@9.39.4(jiti@1.21.7)):
+  eslint-module-utils@2.13.0(@typescript-eslint/parser@8.61.0(@typescript/typescript6@6.0.1)(eslint@9.39.4(jiti@1.21.7)))(eslint-import-resolver-node@0.3.10)(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.4(jiti@1.21.7)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -27646,7 +27649,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.61.0(@typescript/typescript6@6.0.1)(eslint@9.39.4(jiti@1.21.7)))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.4(jiti@2.7.0)))(eslint@9.39.4(jiti@1.21.7)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.61.0(@typescript/typescript6@6.0.1)(eslint@9.39.4(jiti@1.21.7)))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.4(jiti@1.21.7)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -27657,7 +27660,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.39.4(jiti@1.21.7)
       eslint-import-resolver-node: 0.3.10
-      eslint-module-utils: 2.13.0(@typescript-eslint/parser@8.61.0(@typescript/typescript6@6.0.1)(eslint@9.39.4(jiti@1.21.7)))(eslint-import-resolver-node@0.3.10)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.4(jiti@2.7.0)))(eslint@9.39.4(jiti@1.21.7))
+      eslint-module-utils: 2.13.0(@typescript-eslint/parser@8.61.0(@typescript/typescript6@6.0.1)(eslint@9.39.4(jiti@1.21.7)))(eslint-import-resolver-node@0.3.10)(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.4(jiti@1.21.7))
       hasown: 2.0.4
       is-core-module: 2.16.2
       is-glob: 4.0.3
@@ -30418,6 +30421,20 @@ snapshots:
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: '@typescript/typescript6@6.0.1'
+    transitivePeerDependencies:
+      - zod
+
+  ox@0.4.4(typescript@7.0.1-rc)(zod@3.25.76):
+    dependencies:
+      '@adraffy/ens-normalize': 1.11.1
+      '@noble/curves': 1.9.2
+      '@noble/hashes': 1.8.0
+      '@scure/bip32': 1.7.0
+      '@scure/bip39': 1.6.0
+      abitype: 1.2.4(typescript@7.0.1-rc)(zod@3.25.76)
+      eventemitter3: 5.0.1
+    optionalDependencies:
+      typescript: 7.0.1-rc
     transitivePeerDependencies:
       - zod
 

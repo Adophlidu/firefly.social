@@ -1,6 +1,6 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import ClaimProceedsSuccessIcon from '@dimensiondev/assets/claim-proceeds-success.svg';
-import ShareIcon from '@dimensiondev/assets/share.svg';
+import SendIcon from '@dimensiondev/assets/send.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { Trans } from '@lingui/react/macro';
@@ -22,6 +22,7 @@ import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
 import { getWinningsShareImagePayload } from '@/helpers/polymarketShareImage.js';
 import { usePolymarketShareIdentity } from '@/hooks/usePolymarketShareIdentity.js';
+import { useShortShareUrl } from '@/hooks/useShortShareUrl.js';
 import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import type { PolymarketClaimV2Item, PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
@@ -80,12 +81,17 @@ export function SettleResolvedMarketsModal({
 
             // Ask the host to play confetti full-screen; an in-iframe canvas would be clipped to the wallet box.
             if (sharePayload) {
-                // Render the share image on the host (web) via the bridge, then open compose with it.
-                iframeBridgeProvider
-                    .request(IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE, { params: sharePayload.params })
-                    .then(({ dataUrl }) =>
+                // Render the share image on the host (web) via the bridge, resolve the (short) link, and
+                // open compose with both once ready.
+                Promise.all([
+                    iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE, {
+                        params: sharePayload.params,
+                    }),
+                    sharePayload.resolveLink ? sharePayload.resolveLink() : sharePayload.link,
+                ])
+                    .then(([{ dataUrl }, link]) =>
                         iframeBridgeProvider.request(IframeBridgeMethod.COMPOSE, {
-                            text: sharePayload.link,
+                            text: link,
                             imageUrls: [dataUrl],
                         }),
                     )
@@ -131,7 +137,11 @@ export function SettleResolvedMarketsModal({
     });
 
     const shareIdentity = usePolymarketShareIdentity(proxyAddress);
-    const sharePayload = getWinningsShareImagePayload(winningItems, totalWinAmount, proxyAddress, shareIdentity);
+    const rawSharePayload = getWinningsShareImagePayload(winningItems, totalWinAmount, proxyAddress, shareIdentity);
+    // The share URL is already absolute with `sid` baked in — resolve the short link lazily at share
+    // time, not upfront on render.
+    const { register: registerShareLink } = useShortShareUrl(rawSharePayload?.link ?? '');
+    const sharePayload = rawSharePayload ? { ...rawSharePayload, resolveLink: registerShareLink } : null;
 
     return (
         <DialogOrDrawerContent className="w-full gap-4 rounded-t-2xl">
@@ -210,7 +220,7 @@ export function SettleResolvedMarketsModal({
                                 onClick={() => setOpen(true)}
                                 className="flex h-10 w-14 shrink-0 items-center justify-center rounded-full border border-secondaryLine"
                             >
-                                <ShareIcon className="text-main" width={20} height={20} />
+                                <SendIcon className="text-main" width={20} height={20} />
                             </button>
                             <PositionShareSheet payload={sharePayload} open={open} onOpenChange={setOpen} />
                         </>
