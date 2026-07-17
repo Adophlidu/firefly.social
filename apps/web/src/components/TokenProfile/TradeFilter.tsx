@@ -39,10 +39,10 @@ export function TradeFilter({ value, onChange }: Props) {
             renderMenu={({ close }) => (
                 <div>
                     <MenuButton
-                        className="size-4 text-placeholder outline-none"
+                        className="size-5 text-placeholder outline-none"
                         onMouseEnter={(e) => e.currentTarget.click()}
                     >
-                        <FilterIcon width={16} height={16} />
+                        <FilterIcon width={20} height={20} />
                     </MenuButton>
                     <MenuItems
                         transition
