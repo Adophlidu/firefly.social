@@ -5,6 +5,7 @@ import SendIcon from '@dimensiondev/assets/send.svg';
 import Send2Icon from '@dimensiondev/assets/send2.svg';
 import ShareImageIcon from '@dimensiondev/assets/share-image.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -23,6 +24,10 @@ import { cn } from '@/lib/utils.js';
 
 const SHARE_IMAGE_ASPECT_RATIO = '750 / 1060';
 const SHARE_IMAGE_FILE_NAME = 'firefly_position_share.png';
+// A near-instant copy/download/post flips the button's icon to a spinner and back within a single
+// frame — reads as a blink rather than a loading state. Floor the visible duration so the spinner
+// (or the checkmark it hands off to) is actually perceptible.
+const MIN_LOADING_DURATION_MS = 400;
 
 function supportsImageClipboard() {
     return typeof ClipboardItem !== 'undefined' && typeof navigator !== 'undefined' && !!navigator.clipboard?.write;
@@ -71,10 +76,12 @@ async function downloadImage(dataUrl: string, fileName: string) {
 function usePostWithShareImage(payload: PolymarketShareImagePayload, onDone?: () => void) {
     return useMutation({
         async mutationFn() {
-            const { dataUrl } = await iframeBridgeProvider.request(
-                IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE,
-                { params: payload.params },
-            );
+            const [{ dataUrl }] = await Promise.all([
+                iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_GENERATE_SHARE_IMAGE, {
+                    params: payload.params,
+                }),
+                delay(MIN_LOADING_DURATION_MS),
+            ]);
             await iframeBridgeProvider.request(IframeBridgeMethod.COMPOSE, {
                 text: payload.link,
                 imageUrls: [dataUrl],
@@ -186,7 +193,7 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
 
     const { mutate: copyImage, isPending: isCopying } = useMutation({
         async mutationFn() {
-            if (imageUrl) await copyImageToClipboard(imageUrl);
+            if (imageUrl) await Promise.all([copyImageToClipboard(imageUrl), delay(MIN_LOADING_DURATION_MS)]);
         },
         onSuccess() {
             toast.success(<Trans>Copied</Trans>);
@@ -201,7 +208,7 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
 
     const { mutate: download, isPending: isDownloading } = useMutation({
         async mutationFn() {
-            if (imageUrl) await downloadImage(imageUrl, SHARE_IMAGE_FILE_NAME);
+            if (imageUrl) await Promise.all([downloadImage(imageUrl, SHARE_IMAGE_FILE_NAME), delay(MIN_LOADING_DURATION_MS)]);
         },
         onError() {
             toast.error(<Trans>Failed to download image. Please try again later.</Trans>);

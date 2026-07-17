@@ -2,6 +2,7 @@ import CheckIcon from '@dimensiondev/assets/check.svg';
 import CopyLinearIcon from '@dimensiondev/assets/copy-linear.svg';
 import Download2Icon from '@dimensiondev/assets/download2.svg';
 import Send2Icon from '@dimensiondev/assets/send2.svg';
+import { delay } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useEffect, useRef, useState } from 'react';
@@ -31,6 +32,11 @@ interface ShareActionProps {
     loading?: boolean;
     onClick: () => void;
 }
+
+// A near-instant copy/download (the image is already loaded locally) flips the button's icon to a
+// spinner and back within a single frame — reads as a blink rather than a loading state. Floor the
+// visible duration so the spinner (or the checkmark it hands off to) is actually perceptible.
+const MIN_LOADING_DURATION_MS = 400;
 
 const ShareAction = memo(function ShareAction({
     label,
@@ -68,7 +74,10 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
             if (!props?.imageUrl) {
                 throw new Error('Image URL is not provided');
             }
-            await downloadImage(props.imageUrl, props.fileName || 'firefly_tip_share.png');
+            await Promise.all([
+                downloadImage(props.imageUrl, props.fileName || 'firefly_tip_share.png'),
+                delay(MIN_LOADING_DURATION_MS),
+            ]);
         } catch (error) {
             enqueueInfoMessage(<Trans>Failed to download image. Please try again later.</Trans>);
             throw error;
@@ -81,7 +90,7 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
 
     const [{ loading: isCopying }, handleCopy] = useAsyncFn(async () => {
         try {
-            await copyImageToClipboard(props.imageUrl);
+            await Promise.all([copyImageToClipboard(props.imageUrl), delay(MIN_LOADING_DURATION_MS)]);
             enqueueSuccessMessage(<Trans>Copied</Trans>);
             setCopied(true);
             clearTimeout(copiedTimerRef.current);
@@ -96,7 +105,7 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
     // matches the wallet's PositionSharePreviewDialog instead of closing before the post even starts.
     const { onPost, onClose } = props;
     const [{ loading: isPosting }, handlePost] = useAsyncFn(async () => {
-        await onPost?.();
+        await Promise.all([onPost?.(), delay(MIN_LOADING_DURATION_MS)]);
         onClose();
     }, [onPost, onClose]);
 
