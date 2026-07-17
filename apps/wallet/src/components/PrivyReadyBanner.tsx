@@ -8,7 +8,7 @@ import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 const TIMEOUT_MS = 10000;
 
 export function PrivyReadyBanner({ children }: PropsWithChildren) {
-    const { isPrivyReady, isLoading } = usePrivyWallet();
+    const { isPrivyReady } = usePrivyWallet();
     const [isTimeout, setIsTimeout] = useState(false);
 
     useEffect(() => {
@@ -19,31 +19,24 @@ export function PrivyReadyBanner({ children }: PropsWithChildren) {
         return () => clearTimeout(timer);
     }, []);
 
-    // If Privy is ready, just render children
-    if (isPrivyReady) {
-        return <>{children}</>;
-    }
-
-    // If loading with no cache, show full-page loading
-    if (isLoading && !isTimeout) {
-        return (
-            <div className="flex min-h-screen items-center justify-center">
-                <div className="flex flex-col items-center gap-2">
-                    <LoadingIcon size={24} />
-                    <span className="text-sm text-second">
-                        <Trans>Signing In</Trans>
-                    </span>
-                </div>
-            </div>
-        );
-    }
-
-    // Render children with floating banner overlay
+    // Content renders immediately and is never blocked on Privy readiness — write
+    // actions (send, swap, withdraw...) already guard on wallet-address readiness
+    // themselves. This is only a non-blocking status indicator over the content.
     return (
         <>
             {children}
             {/* Floating banner - doesn't affect layout */}
-            {isTimeout ? (
+            {!isPrivyReady && !isTimeout ? (
+                <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2">
+                    <div className="flex items-center gap-3 whitespace-nowrap rounded-lg bg-primaryBottom/95 px-4 py-2 shadow-lg backdrop-blur-sm">
+                        <LoadingIcon size={16} />
+                        <span className="text-sm font-medium text-main">
+                            <Trans>Signing In</Trans>
+                        </span>
+                    </div>
+                </div>
+            ) : null}
+            {!isPrivyReady && isTimeout ? (
                 <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2">
                     <div className="flex items-center gap-3 whitespace-nowrap rounded-lg bg-warn/95 px-4 py-2 shadow-lg backdrop-blur-sm">
                         <span className="text-sm font-medium text-white">

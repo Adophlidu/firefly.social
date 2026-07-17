@@ -12,7 +12,7 @@ export function shouldShowMessageDateDivider(previous: DirectMessageItem | undef
 }
 
 export function areMessagesGrouped(previous: DirectMessageItem | undefined, current: DirectMessageItem) {
-    if (!previous || previous.isSelf !== current.isSelf) return false;
+    if (previous?.isSelf !== current.isSelf) return false;
     if (toCalendarKey(previous.createdAt) !== toCalendarKey(current.createdAt)) return false;
 
     const elapsed = new Date(current.createdAt).getTime() - new Date(previous.createdAt).getTime();

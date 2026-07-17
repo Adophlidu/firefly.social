@@ -587,8 +587,10 @@ describe('buildLpt1PositionTags (iOS-style data tags, LPT-1 §4)', () => {
         for (const tag of tags) {
             expect(tag.length).toBeLessThanOrEqual(LPT1_MAX_TAG_LENGTH);
             expect(tag.startsWith('lpt1/')).toBe(true);
+
             for (let i = 0; i < tag.length; i += 1) expect(tag.charCodeAt(i)).toBeLessThanOrEqual(127);
         }
+
         // the shares/price/outcome/source tags (no camelCase) ARE grammar-valid.
         expect(isValidLpt1Tag('lpt1/item/shares/2.8169')).toBe(true);
         expect(isValidLpt1Tag('lpt1/item/price/35.49')).toBe(true);

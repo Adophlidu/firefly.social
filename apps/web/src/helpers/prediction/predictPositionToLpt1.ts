@@ -29,6 +29,7 @@ export function pickLargestPosition(positions: PredictionPositionDataForUI[]): P
             bestKey = key;
         }
     }
+
     return best;
 }
 

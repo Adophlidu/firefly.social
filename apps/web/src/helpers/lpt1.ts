@@ -167,11 +167,13 @@ function encodeBase32Unpadded(bytes: Uint8Array): string {
     for (let i = 0; i < bytes.length; i += 1) {
         value = (value << 8) | bytes[i];
         bits += 8;
+
         while (bits >= 5) {
             output += BASE32_ALPHABET[(value >>> (bits - 5)) & 0x1f];
             bits -= 5;
         }
     }
+
     if (bits > 0) {
         output += BASE32_ALPHABET[(value << (5 - bits)) & 0x1f];
     }
@@ -330,6 +332,7 @@ export function buildLpt1Tags({
     //    validated (the camelCase `marketId` matches iOS byte-for-byte).
     if (position) {
         pushBase(LPT1_TOPIC_POLYMARKET_POSITION);
+
         for (const tag of buildLpt1PositionTags(position)) pushPosition(tag);
     }
 
@@ -528,6 +531,7 @@ export function buildLpt1ReplyTags(position: Lpt1PositionInput): string[] {
     push(LPT1_TOPIC_POLYMARKET); // parent closure for polymarket/position (spec §13)
     // Contiguous position block: topic → source → item data (iOS state-machine order).
     push(LPT1_TOPIC_POLYMARKET_POSITION);
+
     for (const tag of buildLpt1PositionTags(position)) push(tag);
 
     if (tags.length > LPT1_MAX_TAGS) {

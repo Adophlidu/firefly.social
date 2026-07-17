@@ -2,12 +2,12 @@ import { initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
 import { type ComponentType, type ReactNode, useEffect, useState } from 'react';
 
 import { DefaultPendingComponent } from '@/components/DefaultPendingComponent.js';
-import { PrivyWalletAutomator } from '@/components/PrivyWalletAutomator.js';
 import { initExceptionTracker } from '@/configs/exceptionTracker.js';
 import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 
 interface PrivyClientModules {
     Providers: ComponentType<{ children: ReactNode }>;
+    PrivyWalletAutomator: ComponentType;
     FireflyWalletIframeBridge: ComponentType;
 }
 
@@ -22,15 +22,20 @@ export function ClientProviders({ children }: ClientProvidersProps) {
     const [modules, setModules] = useState<PrivyClientModules | null>(null);
 
     useEffect(() => {
-        // Only import Privy-dependent modules on the client side
-        Promise.all([import('./Providers.js'), import('./FireflyWalletIframeBridge.js')]).then(
-            ([providersModule, iframeBridgeModule]) => {
-                setModules({
-                    Providers: providersModule.Providers,
-                    FireflyWalletIframeBridge: iframeBridgeModule.FireflyWalletIframeBridge,
-                });
-            },
-        );
+        // Only import Privy-dependent modules on the client side. PrivyWalletAutomator
+        // pulls in wagmi + @reown/appkit-controllers, so it must stay in this group —
+        // a static import here would drag WalletConnect/wagmi into the eager root chunk.
+        Promise.all([
+            import('./Providers.js'),
+            import('./PrivyWalletAutomator.js'),
+            import('./FireflyWalletIframeBridge.js'),
+        ]).then(([providersModule, privyWalletAutomatorModule, iframeBridgeModule]) => {
+            setModules({
+                Providers: providersModule.Providers,
+                PrivyWalletAutomator: privyWalletAutomatorModule.PrivyWalletAutomator,
+                FireflyWalletIframeBridge: iframeBridgeModule.FireflyWalletIframeBridge,
+            });
+        });
     }, []);
 
     // During SSR or while loading, show spinner
@@ -38,7 +43,7 @@ export function ClientProviders({ children }: ClientProvidersProps) {
         return <DefaultPendingComponent />;
     }
 
-    const { Providers, FireflyWalletIframeBridge } = modules;
+    const { Providers, PrivyWalletAutomator, FireflyWalletIframeBridge } = modules;
 
     return (
         <Providers>

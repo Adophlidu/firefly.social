@@ -33,6 +33,7 @@ export const CopyLinkButton = memo(function CopyLinkButton({ getLink, children, 
                 // which would unmount this button (and its spinner) before the copy even lands.
                 event.preventDefault();
                 setPending(true);
+
                 try {
                     const link = await getLink();
                     const url = link.startsWith('http') ? link : urlcat(location.origin, link);

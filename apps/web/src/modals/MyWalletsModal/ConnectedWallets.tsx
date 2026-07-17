@@ -1,5 +1,5 @@
-import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
 import AddSmallIcon from '@dimensiondev/assets/add-small.svg';
+import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { ConnectionSource, NetworkType } from '@dimensiondev/enums';
 import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';

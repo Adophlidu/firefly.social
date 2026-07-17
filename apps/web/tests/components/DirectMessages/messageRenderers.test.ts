@@ -25,6 +25,7 @@ describe('MESSAGE_RENDERERS', () => {
         for (const kind of ALL_KINDS) {
             expect(typeof MESSAGE_RENDERERS[kind]).toBe('function');
         }
+
         // A new kind added to the registry without updating this list should trip here, mirroring the
         // compile-time guarantee that every kind must be registered.
         expect(Object.keys(MESSAGE_RENDERERS).sort()).toEqual([...ALL_KINDS].sort());

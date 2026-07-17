@@ -78,6 +78,7 @@ function buildGammaEventsQuery(options: {
     // intersect two tags.)
     if (options.tag_id && options.tag_id.length > 0) {
         for (const id of options.tag_id) search.append('tag_id', String(id));
+
         search.set('tag_match', options.tag_match ?? 'all');
     } else if (options.tag_slug) {
         search.set('tag_slug', options.tag_slug);
