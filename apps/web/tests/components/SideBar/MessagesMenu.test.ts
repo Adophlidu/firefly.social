@@ -50,11 +50,23 @@ describe('MessagesMenu', () => {
         expect(screen.queryByLabelText(/unread messages/)).toBeNull();
     });
 
+    test('shows the total unread message count instead of the unread conversation count', () => {
+        useActiveDmIdentityMock.mockReturnValue({ account: '0xA' });
+        useDmCountersMock.mockReturnValue({
+            data: { total_unread_count: 52, total_unread_dms_count: 1 },
+        });
+
+        render(createElement(MessagesMenu, { isSelected: false, collapsed: false }));
+
+        expect(screen.getByLabelText('52 unread messages')).toBeTruthy();
+        expect(screen.getByText('52')).toBeTruthy();
+    });
+
     test('uses only the active account and caps its unread count', () => {
         let account = '0xA';
         useActiveDmIdentityMock.mockImplementation(() => ({ account }));
         useDmCountersMock.mockImplementation((activeAccount: string | undefined) => ({
-            data: { total_unread_dms_count: activeAccount === '0xA' ? 120 : 2 },
+            data: { total_unread_count: activeAccount === '0xA' ? 120 : 2 },
         }));
 
         const view = render(createElement(MessagesMenu, { isSelected: false, collapsed: false }));

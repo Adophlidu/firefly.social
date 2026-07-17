@@ -44,7 +44,7 @@ const UnreadBadge = memo(function UnreadBadge({ count, collapsed }: UnreadBadgeP
 export const MessagesMenu = memo<MessagesMenuProps>(function MessagesMenu({ isSelected, collapsed, size = 20 }) {
     const { authenticatedAccount } = useAuthenticatedDmAccount();
     const counters = useDmCounters(authenticatedAccount);
-    const unreadCount = Math.max(0, counters.data?.total_unread_dms_count ?? 0);
+    const unreadCount = Math.max(0, counters.data?.total_unread_count ?? 0);
 
     return (
         <BaseMenuItem
