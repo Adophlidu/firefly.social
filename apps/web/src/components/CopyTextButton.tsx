@@ -16,7 +16,7 @@ interface Props extends HTMLProps<HTMLButtonElement> {
     size?: number;
 }
 
-export function CopyTextButton({ text, tooltipProps, size = 12, notification, ...rest }: Props) {
+export function CopyTextButton({ text, tooltipProps, size = 14, notification, ...rest }: Props) {
     const [copied, handleCopy] = useCopyText(text, { enqueueSuccessMessage: false });
     const showToast = notification === 'toast';
     const button = (
