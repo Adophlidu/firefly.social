@@ -1598,7 +1598,7 @@ msgid "Info"
 msgstr "信息"
 
 msgid "View match"
-msgstr ""
+msgstr "查看比赛"
 
 msgid "Failed to bookmark article."
 msgstr "收藏文章失败。"
@@ -2191,7 +2191,7 @@ msgid "Search predictions"
 msgstr "搜索预测"
 
 msgid "Post Restriction"
-msgstr ""
+msgstr "发帖限制"
 
 msgid "Failed to upload video. Please try again."
 msgstr "视频上传失败，请重试。"
@@ -2337,7 +2337,7 @@ msgid "1st Set Winner"
 msgstr "首盘胜者"
 
 msgid "To post in this club you must be a member."
-msgstr ""
+msgstr "要在此圈子发帖，你必须是成员。"
 
 msgid "Post could not be found."
 msgstr "未找到相关帖子。"

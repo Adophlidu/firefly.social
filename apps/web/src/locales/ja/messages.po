@@ -116,7 +116,7 @@ msgid "firefly.eth reposted your tips"
 msgstr "firefly.eth があなたのチップをリポストしました"
 
 msgid "Active now"
-msgstr ""
+msgstr "オンライン"
 
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "メール アドレスを入力してください。メールを確認するための 1 回限りの確認コードが送信されます。"
@@ -153,7 +153,7 @@ msgid "Connected wallets"
 msgstr "接続済みウォレット"
 
 msgid "No messages yet"
-msgstr ""
+msgstr "まだメッセージはありません"
 
 msgid "Stealing attack found."
 msgstr "窃取攻撃が検出されました。"
@@ -383,7 +383,7 @@ msgid "No"
 msgstr "いいえ"
 
 msgid "People"
-msgstr ""
+msgstr "ユーザー"
 
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "マルチデバイスログインの無効化に失敗しました。後でもう一度お試しください。"
@@ -419,7 +419,7 @@ msgid "No cryptocurrency mixer found."
 msgstr "暗号資産ミキサーは検出されませんでした。"
 
 msgid "Not sent"
-msgstr ""
+msgstr "未送信"
 
 msgid "Feeds"
 msgstr "フィード"
@@ -704,7 +704,7 @@ msgid "Failed to like snapshot."
 msgstr "スナップショットへのいいねに失敗しました。"
 
 msgid "Sticker"
-msgstr ""
+msgstr "ステッカー"
 
 msgid "Trying auto login..."
 msgstr "自動ログインを試みています..."
@@ -760,7 +760,7 @@ msgid "Made with AI"
 msgstr "AIで作成"
 
 msgid "Payment"
-msgstr ""
+msgstr "支払い"
 
 msgid "Stocks"
 msgstr "株式"
@@ -820,7 +820,7 @@ msgid "Prediction"
 msgstr "予測"
 
 msgid "Hide conversations"
-msgstr ""
+msgstr "会話を非表示"
 
 msgid "Tokens"
 msgstr "トークン"
@@ -855,7 +855,7 @@ msgid "Scan this QR code to establish a new connection via Farcaster for free."
 msgstr "この QR コードをスキャンして、Farcaster 経由で無料で新しい接続を確立してください。"
 
 msgid "View profile"
-msgstr ""
+msgstr "プロフィールを表示"
 
 msgid "Trading cooldown function."
 msgstr "取引クールダウン機能。"
@@ -1076,7 +1076,7 @@ msgid "Failed to decrypt post on {sourceName}."
 msgstr "{sourceName} の投稿の復号化に失敗しました。"
 
 msgid "Try a complete Lens handle, ENS name, or wallet address."
-msgstr ""
+msgstr "完全な Lens ハンドル、ENS 名、またはウォレットアドレスを入力してください。"
 
 msgid "No predictions found"
 msgstr "予測が見つかりません"
@@ -1162,7 +1162,7 @@ msgid "Current Positions"
 msgstr "現在のポジション"
 
 msgid "Press Enter to send · Shift + Enter for a new line"
-msgstr ""
+msgstr "Enter で送信 · Shift + Enter で改行"
 
 msgid "Game N Winner"
 msgstr "ゲームNの勝者"
@@ -1213,13 +1213,13 @@ msgid "Buy {firstOutcome}"
 msgstr "{firstOutcome} を購入"
 
 msgid "Payment requested"
-msgstr ""
+msgstr "支払いをリクエスト済み"
 
 msgid "Minutes"
 msgstr "分"
 
 msgid "You follow each other on Lens. This conversation is private."
-msgstr ""
+msgstr "Lens で相互フォローしています。この会話は非公開です。"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
@@ -1350,7 +1350,7 @@ msgid "You haven't bookmarked any tokens."
 msgstr "ブックマークしたトークンはありません。"
 
 msgid "Files must be under 50 MB."
-msgstr ""
+msgstr "ファイルは 50 MB 未満である必要があります。"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "ブラックリスト機能は含まれていません。ブラックリストがある場合、一部のアドレスは正常に取引できない可能性があります（ハニーポットのリスク）。"
@@ -1404,7 +1404,7 @@ msgid "Today at {0}"
 msgstr "今日 {0}"
 
 msgid "Message {recipientName}"
-msgstr ""
+msgstr "{recipientName} にメッセージ"
 
 msgid "FINAL"
 msgstr "FINAL"
@@ -1454,7 +1454,7 @@ msgid "No opinion profile found."
 msgstr "Opinion プロフィールが見つかりません。"
 
 msgid "Unsupported message"
-msgstr ""
+msgstr "サポートされていないメッセージ"
 
 msgid "Transaction Hash"
 msgstr "トランザクションハッシュ"
@@ -1494,7 +1494,7 @@ msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply
 msgstr "{type, select, compose {{0}} quote {コメントを追加} reply {返信を投稿} other {{1}}}"
 
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
-msgstr ""
+msgstr "この動画を処理できませんでした。50 MB 未満の MP4 動画をお試しください。"
 
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM ウォレット"
@@ -1556,7 +1556,7 @@ msgid "Available Balance"
 msgstr "利用可能残高"
 
 msgid "Load earlier messages"
-msgstr ""
+msgstr "以前のメッセージを読み込む"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "X で @thefireflyapp をフォロー"
@@ -1589,7 +1589,7 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "Only images, GIFs, and videos are supported."
-msgstr ""
+msgstr "画像、GIF、動画のみサポートされています。"
 
 msgid "Sorry, give edit permission from Orb is necessary to continue."
 msgstr "申し訳ありません。続行するには Orb からの編集権限が必要です。"
@@ -1598,7 +1598,7 @@ msgid "Info"
 msgstr "情報"
 
 msgid "View match"
-msgstr ""
+msgstr "試合を表示"
 
 msgid "Failed to bookmark article."
 msgstr "記事のブックマークに失敗しました。"
@@ -1709,7 +1709,7 @@ msgid "Custom amount"
 msgstr "カスタム金額"
 
 msgid "Preview image"
-msgstr ""
+msgstr "画像をプレビュー"
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>Firefly は <1>Polymarket 取引</1>を開始し、オンチェーンの予測市場をソーシャルフィードとつなぎます！<2>コンテンツバウンティタスク</2>から、早期コントリビューターとしての参加を歓迎します！</0><3>💰 高品質なコンテンツを制作したユーザーは、それぞれ <4>100 USDC</4> を獲得できます。</3><5>🧩 Firefly で投稿を作成し、Polymarket での取引ストーリーを共有してください。予測、取引戦略、洞察、成功、失敗などについて語ることができます。投稿はコンテンツの質、創造性、深さ、読みやすさ、リーチに基づいて評価されます。受賞者は <6>@thefireflyapp</6> で発表され、DM で連絡します。</5><7>📌 参加方法:</7><8><9><10>作成</10> Firefly がサポートする任意のソーシャルプラットフォームで、<11>Polymarket 取引ストーリー</11>を共有する記事または長いスレッドを公開する。</9><12><13>フォロー＆メンション</13> <14>@thefireflyapp</14>。</12><15><16>登録</16> このフォームに記入して投稿を登録する。</15></8>"
@@ -1890,7 +1890,7 @@ msgid "Failed to mute /{0}."
 msgstr "/{0} のミュートに失敗しました。"
 
 msgid "Preview video"
-msgstr ""
+msgstr "動画をプレビュー"
 
 msgid "Newest"
 msgstr "最新"
@@ -1970,7 +1970,7 @@ msgid "Your Firefly Account is now connected"
 msgstr "あなたの Firefly アカウントが接続されました"
 
 msgid "People could not be loaded"
-msgstr ""
+msgstr "ユーザーを読み込めませんでした"
 
 msgid "Legacy Firefly wallet"
 msgstr "レガシー Firefly ウォレット"
@@ -2025,7 +2025,7 @@ msgid "Repost again"
 msgstr "再度リポスト"
 
 msgid "No people found"
-msgstr ""
+msgstr "ユーザーが見つかりません"
 
 msgid "New connection via Farcaster"
 msgstr "Farcaster で新規接続"
@@ -2176,10 +2176,10 @@ msgid "Authentication Failed"
 msgstr "認証に失敗しました"
 
 msgid "Show conversations"
-msgstr ""
+msgstr "会話を表示"
 
 msgid "Preview sticker"
-msgstr ""
+msgstr "ステッカーをプレビュー"
 
 msgid "Log out"
 msgstr "ログアウト"
@@ -2191,10 +2191,10 @@ msgid "Search predictions"
 msgstr "予測を検索"
 
 msgid "Post Restriction"
-msgstr ""
+msgstr "投稿制限"
 
 msgid "Failed to upload video. Please try again."
-msgstr ""
+msgstr "動画のアップロードに失敗しました。もう一度お試しください。"
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "おっと... 全ての条件を満たしていません"
@@ -2215,7 +2215,7 @@ msgid "Darkweb transactions."
 msgstr "ダークウェブ取引。"
 
 msgid "Add GIF"
-msgstr ""
+msgstr "GIF を追加"
 
 msgid "Resolution"
 msgstr "決議"
@@ -2337,7 +2337,7 @@ msgid "1st Set Winner"
 msgstr "第1セットの勝者"
 
 msgid "To post in this club you must be a member."
-msgstr ""
+msgstr "このクラブに投稿するにはメンバーである必要があります。"
 
 msgid "Post could not be found."
 msgstr "投稿が見つかりませんでした。"
@@ -2476,7 +2476,7 @@ msgid "Unmute /{0}"
 msgstr "/{0} のミュートを解除"
 
 msgid "Sent"
-msgstr ""
+msgstr "送信済み"
 
 msgid "No open orders found."
 msgstr "未約定注文が見つかりません。"
@@ -2580,7 +2580,7 @@ msgid "Share From"
 msgstr "共有元"
 
 msgid "Try another name or start a new conversation."
-msgstr ""
+msgstr "別の名前を試すか、新しい会話を開始してください。"
 
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
@@ -2795,7 +2795,7 @@ msgid "Estimated network fee"
 msgstr "推定ネットワーク手数料"
 
 msgid "Payment request sent"
-msgstr ""
+msgstr "支払いリクエストを送信しました"
 
 msgid "<0>You</0> reposted"
 msgstr "<0>あなた</0> がリポストしました"
@@ -2850,7 +2850,7 @@ msgid "GIF count limit reached"
 msgstr "GIF 数の上限に達しました"
 
 msgid "Loading payment request"
-msgstr ""
+msgstr "支払いリクエストを読み込み中"
 
 msgid "Unsaved draft found"
 msgstr "未保存の下書きが見つかりました"
@@ -3073,10 +3073,10 @@ msgid "All Wallets"
 msgstr "全ウォレット"
 
 msgid "GIFs could not be loaded"
-msgstr ""
+msgstr "GIF を読み込めませんでした"
 
 msgid "Unread"
-msgstr ""
+msgstr "未読"
 
 msgid "Failed to remove bookmark."
 msgstr "ブックマークの削除に失敗しました。"
@@ -3207,7 +3207,7 @@ msgid "Something went wrong. Please try again later."
 msgstr "問題が発生しました。後でもう一度お試しください。"
 
 msgid "Messages are tied to your active Lens account."
-msgstr ""
+msgstr "メッセージは現在有効な Lens アカウントに紐づいています。"
 
 #. placeholder {0}: channel.name
 msgid "Removed #{0} on {sourceName}"
@@ -3321,7 +3321,7 @@ msgid "Nickname must not contain restricted symbols"
 msgstr "ニックネームに制限された記号を含めることはできません"
 
 msgid "Search by name, handle, ENS or address"
-msgstr ""
+msgstr "名前、ハンドル、ENS、またはアドレスで検索"
 
 msgid "Failed to login lens with orb"
 msgstr "Orb での Lens ログインに失敗しました"
@@ -3357,7 +3357,7 @@ msgid "Any Player Rampage"
 msgstr "いずれかの選手がランページ"
 
 msgid "Add media"
-msgstr ""
+msgstr "メディアを追加"
 
 msgid "Club"
 msgstr "クラブ"
@@ -3377,10 +3377,10 @@ msgid "mirror-tooltip-repost-or-quote"
 msgstr "リポストまたは引用"
 
 msgid "You can attach up to {MAX_CHAT_ATTACHMENTS} files."
-msgstr ""
+msgstr "最大 {MAX_CHAT_ATTACHMENTS} 個のファイルを添付できます。"
 
 msgid "Check your connection and try again."
-msgstr ""
+msgstr "接続を確認してもう一度お試しください。"
 
 msgid "Oops… Something went wrong. Please try again"
 msgstr "おっと… 問題が発生しました。もう一度お試しください"
@@ -3436,10 +3436,10 @@ msgid "Total amount shared among all winners"
 msgstr "全当選者で共有する総額"
 
 msgid "No messages yet. Say hello!"
-msgstr ""
+msgstr "まだメッセージはありません。あいさつしてみましょう！"
 
 msgid "New message"
-msgstr ""
+msgstr "新しいメッセージ"
 
 msgid "Post details"
 msgstr "投稿詳細"
@@ -3578,7 +3578,7 @@ msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
 msgstr "<0>予測しました</0><1><2/> で ${0} の価値</1>"
 
 msgid "New messages"
-msgstr ""
+msgstr "新しいメッセージ"
 
 msgid "[Poll]"
 msgstr "[アンケート]"
@@ -3598,7 +3598,7 @@ msgid "Saved on {0}"
 msgstr "{0} に保存"
 
 msgid "Payment request"
-msgstr ""
+msgstr "支払いリクエスト"
 
 #. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
 msgid "Failed to vote.{0}"
@@ -3818,7 +3818,7 @@ msgid "Your Firefly Identity is now active."
 msgstr "あなたの Firefly ID が有効になりました。"
 
 msgid "Search conversations"
-msgstr ""
+msgstr "会話を検索"
 
 msgid "Map Handicap"
 msgstr "マップハンディキャップ"
@@ -3842,7 +3842,7 @@ msgid "Rank #{tokenRank}"
 msgstr "ランキング #{tokenRank}"
 
 msgid "Back to latest message"
-msgstr ""
+msgstr "最新のメッセージに戻る"
 
 msgid "No one can reply"
 msgstr "誰も返信できません"
@@ -3929,7 +3929,7 @@ msgid "Failed to send tip."
 msgstr "チップの送信に失敗しました。"
 
 msgid "No conversations found"
-msgstr ""
+msgstr "会話が見つかりません"
 
 msgid "Both Teams Destroy Barracks"
 msgstr "両チームが兵舎を破壊"
@@ -4010,7 +4010,7 @@ msgid_plural "# months"
 msgstr[0] "# ヶ月"
 
 msgid "Requests"
-msgstr ""
+msgstr "リクエスト"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "このトークンは宣言されたチームによって発行されています。詐欺では同名の有名トークンを作成してユーザーの資産を詐取することがあります。"
@@ -4175,7 +4175,7 @@ msgid "Show more tokens with small balances"
 msgstr "少額残高のトークンをもっと表示"
 
 msgid "Add emoji"
-msgstr ""
+msgstr "絵文字を追加"
 
 msgid "Swapped"
 msgstr "スワップ済み"
@@ -4307,7 +4307,7 @@ msgid "Post added to your Bookmarks"
 msgstr "投稿がブックマークに追加されました"
 
 msgid "Select a conversation or start a new one."
-msgstr ""
+msgstr "会話を選択するか、新しい会話を開始してください。"
 
 msgid "Most Kills"
 msgstr "キル最多"
@@ -4485,14 +4485,14 @@ msgid "Cryptocurrency mixer."
 msgstr "暗号資産ミキサー。"
 
 msgid "Failed to send message. Please try again."
-msgstr ""
+msgstr "メッセージの送信に失敗しました。もう一度お試しください。"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
 msgstr "@{0} をフォロー"
 
 msgid "Messages"
-msgstr ""
+msgstr "メッセージ"
 
 msgid "Biggest Win"
 msgstr "最大利益"
@@ -4516,7 +4516,7 @@ msgid "Odd/Even Total Rounds"
 msgstr "合計ラウンド 奇数/偶数"
 
 msgid "Sign in to view messages"
-msgstr ""
+msgstr "ログインしてメッセージを表示"
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr "ウェブサイトは {maxWebsiteSize} 文字以内にしてください"
@@ -4562,7 +4562,7 @@ msgid "Token ${symbol} could not be found."
 msgstr "トークン ${symbol} が見つかりませんでした。"
 
 msgid "Media attachment"
-msgstr ""
+msgstr "メディア添付"
 
 msgid "Polymarket"
 msgstr "Polymarket"
@@ -4571,7 +4571,7 @@ msgid "Video duration limit reached"
 msgstr "動画の長さ上限に達しました"
 
 msgid "Your messages follow the currently active Lens account."
-msgstr ""
+msgstr "メッセージは現在有効な Lens アカウントに従います。"
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "このウォレットと関連アカウントを Firefly から切断しますか？"
@@ -4775,7 +4775,7 @@ msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
 msgstr "探索 - Farcaster、Lens、Bluesky のトレンドクラブ - Firefly"
 
 msgid "Remove attachment"
-msgstr ""
+msgstr "添付ファイルを削除"
 
 msgid "Search clubs"
 msgstr "クラブを検索"
@@ -4852,7 +4852,7 @@ msgid "Lens Auto login"
 msgstr "Lens 自動ログイン"
 
 msgid "Paid"
-msgstr ""
+msgstr "支払い済み"
 
 msgid "Download App"
 msgstr "アプリをダウンロード"
@@ -4990,7 +4990,7 @@ msgid "Access Denied"
 msgstr "アクセス拒否"
 
 msgid "Messages could not be loaded"
-msgstr ""
+msgstr "メッセージを読み込めませんでした"
 
 #. placeholder {0}: channel.name
 msgid "Joined #{0} on {sourceName}"
@@ -5006,7 +5006,7 @@ msgid "Firefly Mobile"
 msgstr "Firefly モバイル"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "キャンセル済み"
 
 msgid "Streaming Error"
 msgstr "ストリーミングエラー"
@@ -5103,7 +5103,7 @@ msgid "Round Total"
 msgstr "ラウンド合計"
 
 msgid "Payment request details unavailable"
-msgstr ""
+msgstr "支払いリクエストの詳細を取得できません"
 
 msgid "Show more tokens"
 msgstr "もっとトークンを表示"
@@ -5298,7 +5298,7 @@ msgstr "ワンタイムパスコード"
 
 #. placeholder {0}: author.handle
 msgid "Message @{0}"
-msgstr ""
+msgstr "@{0} にメッセージ"
 
 msgid "Chain"
 msgstr "チェーン"
@@ -5499,7 +5499,7 @@ msgid "2nd Half Totals"
 msgstr "後半合計"
 
 msgid "Failed to start the conversation."
-msgstr ""
+msgstr "会話の開始に失敗しました。"
 
 msgid "Snapshot DAO"
 msgstr "Snapshot DAO"
@@ -5514,7 +5514,7 @@ msgid "Unexpected step for verifying password: {step}."
 msgstr "パスワード確認の予期しないステップ: {step}。"
 
 msgid "Loading"
-msgstr ""
+msgstr "読み込み中"
 
 msgid "Transaction completed!"
 msgstr "取引が完了しました！"
@@ -5536,7 +5536,7 @@ msgid "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Q
 msgstr "<0/> <1>があなたの </1><2>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</2> を収集しました"
 
 msgid "Requested"
-msgstr ""
+msgstr "リクエスト済み"
 
 msgid "Hours"
 msgstr "時間"
@@ -5657,7 +5657,7 @@ msgid "This token link is not supported."
 msgstr "このトークンリンクはサポートされていません。"
 
 msgid "Declined"
-msgstr ""
+msgstr "拒否済み"
 
 #. placeholder {0}: channel.id
 msgid "Failed to unfollow /{0} on {sourceName}"
