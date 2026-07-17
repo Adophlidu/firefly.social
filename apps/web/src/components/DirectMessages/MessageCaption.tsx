@@ -13,10 +13,13 @@ export const MessageCaption = memo(function MessageCaption({ content, variant }:
 
     return (
         <p
-            className={classNames('max-w-full break-words text-sm leading-5 text-main [overflow-wrap:anywhere]', {
-                'px-3 py-2': variant === 'attached',
-                'mt-1': variant === 'detached',
-            })}
+            className={classNames(
+                'max-w-full whitespace-pre-wrap break-words text-sm leading-5 text-main [overflow-wrap:anywhere]',
+                {
+                    'px-3 py-2': variant === 'attached',
+                    'mt-1': variant === 'detached',
+                },
+            )}
         >
             {content}
         </p>

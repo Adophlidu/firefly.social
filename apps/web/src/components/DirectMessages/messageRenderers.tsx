@@ -39,7 +39,7 @@ function TextMessage({ item }: MessageContentProps<'text'>) {
     return (
         <div
             className={classNames(
-                'max-w-full break-words rounded-2xl px-4 py-2.5 text-sm leading-5 [overflow-wrap:anywhere]',
+                'max-w-full whitespace-pre-wrap break-words rounded-2xl px-4 py-2.5 text-sm leading-5 [overflow-wrap:anywhere]',
                 {
                     'rounded-br-md bg-fireflyBrand text-white': item.isSelf,
                     'rounded-bl-md border border-line bg-lightBg text-main': !item.isSelf,

@@ -31,16 +31,16 @@ describe('MESSAGE_RENDERERS', () => {
         expect(Object.keys(MESSAGE_RENDERERS).sort()).toEqual([...ALL_KINDS].sort());
     });
 
-    test('dispatches a text item to the text renderer', () => {
+    test('preserves line breaks in text messages', () => {
         const TextRenderer = MESSAGE_RENDERERS.text;
         render(
             createElement(TextRenderer, {
-                item: { ...baseItem, kind: 'text', content: 'hello world' },
+                item: { ...baseItem, kind: 'text', content: 'hello\nworld' },
                 account: '0x',
             }),
         );
 
-        expect(screen.getByText('hello world')).toBeTruthy();
+        expect(screen.getByText(/hello\s+world/).classList.contains('whitespace-pre-wrap')).toBe(true);
     });
 
     test('renders a fallback for unknown messages', () => {
