@@ -6,42 +6,32 @@ import { createElement, type ReactNode } from 'react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { useStartDmChat } from '@/hooks/useDirectMessages.js';
-import type * as OrbChatApi from '@/providers/orb/chat/api.js';
+import type { ChatChannel } from '@/providers/orb/chat/types.js';
 
-const { createChatMock, getChatChannelMock } = vi.hoisted(() => ({
-    createChatMock: vi.fn(),
-    getChatChannelMock: vi.fn(),
-}));
+const { resolveDmChannelMock } = vi.hoisted(() => ({ resolveDmChannelMock: vi.fn() }));
 
-vi.mock('@/providers/orb/chat/api.js', async (importOriginal) => ({
-    ...(await importOriginal<typeof OrbChatApi>()),
-    createChat: (...args: unknown[]) => createChatMock(...args),
-    getChatChannel: (...args: unknown[]) => getChatChannelMock(...args),
+vi.mock('@/providers/orb/chat/resolveDmChannel.js', () => ({
+    resolveDmChannel: (...args: unknown[]) => resolveDmChannelMock(...args),
 }));
 
 afterEach(() => {
     cleanup();
-    createChatMock.mockReset();
-    getChatChannelMock.mockReset();
+    resolveDmChannelMock.mockReset();
 });
 
 describe('useStartDmChat', () => {
-    test('rejects when the newly created channel cannot be loaded', async () => {
+    test('resolves the channel through the shared DM resolver', async () => {
         const queryClient = new QueryClient({ defaultOptions: { mutations: { retry: false } } });
         const wrapper = ({ children }: { children: ReactNode }) =>
             createElement(QueryClientProvider, { client: queryClient }, children);
-        createChatMock.mockResolvedValue('channel-1');
-        getChatChannelMock.mockResolvedValue(null);
+        const channel = { id: 'channel-1' } as ChatChannel;
+        resolveDmChannelMock.mockResolvedValue(channel);
 
         const { result } = renderHook(() => useStartDmChat('0x1234'), { wrapper });
         await act(async () => {
-            await expect(result.current.mutateAsync('0xabcd')).rejects.toMatchObject({
-                name: 'ChatApiError',
-                route: 'get-chat-channel',
-            });
+            await expect(result.current.mutateAsync('0xabcd')).resolves.toBe(channel);
         });
 
-        expect(createChatMock).toHaveBeenCalledWith('0x1234', '0xabcd');
-        expect(getChatChannelMock).toHaveBeenCalledWith('0x1234', 'channel-1');
+        expect(resolveDmChannelMock).toHaveBeenCalledWith('0x1234', '0xabcd');
     });
 });

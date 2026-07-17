@@ -41,6 +41,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
     Boolean(value && typeof value === 'object' && !Array.isArray(value));
 
 const stringOrNull = (value: unknown) => (typeof value === 'string' && value ? value : null);
+const normalizeLensAccount = (value: string) => value.trim().toLowerCase();
 
 const isExpiredAuthMessage = (message: string | undefined) =>
     /expired auth|unauthorized|unauthenticated|invalid token|token expired/i.test(message ?? '');
@@ -170,6 +171,14 @@ export async function getChatChannel(account: string, channelId: string): Promis
     return channel ? normalizeChatChannel(channel) : null;
 }
 
+export async function getChatChannelByUser(account: string, otherUserId: string): Promise<ChatChannel | null> {
+    const payload = await postOrb<ChatChannel>(account, 'get-chat-channel', {
+        otherUserId: normalizeLensAccount(otherUserId),
+    });
+    const channel = unwrapChatEnvelope('get-chat-channel', payload);
+    return channel ? normalizeChatChannel(channel) : null;
+}
+
 export async function getChatMessages(account: string, params: GetMessagesParams): Promise<ChatMessage[]> {
     const { channelId, cursor = 0, limit = CHAT_MESSAGE_PAGE_LIMIT } = params;
     const payload = await postOrb<ChatItemsPage<ChatMessage>>(account, 'get-chat-messages', {
@@ -193,7 +202,9 @@ export async function getInteractiveAction(account: string, interactiveActionId:
 }
 
 export async function createChat(account: string, targetUserId: string): Promise<string> {
-    const payload = await postOrb<{ channelId?: string }>(account, 'create-chat', { targetUserId });
+    const payload = await postOrb<{ channelId?: string }>(account, 'create-chat', {
+        targetUserId: normalizeLensAccount(targetUserId),
+    });
     unwrapChatEnvelope('create-chat', payload);
     const channelId = payload.channelId ?? payload.data?.channelId;
     if (!channelId) throw new ChatApiError('create-chat returned no channelId', 'create-chat');

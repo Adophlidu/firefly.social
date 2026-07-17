@@ -4,6 +4,7 @@ import {
     createChat,
     DmAuthenticationError,
     getChatChannel,
+    getChatChannelByUser,
     getChatChannels,
     getChatMessages,
     getInteractiveAction,
@@ -73,6 +74,23 @@ describe('Orb chat API', () => {
         });
     });
 
+    it('gets an existing DM channel by the other Lens account', async () => {
+        fetchJsonMock.mockResolvedValueOnce({ status: 'SUCCESS', data: { id: 'channel-4', name: 'Alice' } });
+
+        await expect(getChatChannelByUser(identity.account, ' 0xAbCd ')).resolves.toMatchObject({ id: 'channel-4' });
+        expect(fetchJsonMock).toHaveBeenCalledWith('/api/orb/chat/get-chat-channel', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: JSON.stringify({ otherUserId: '0xabcd' }),
+        });
+    });
+
+    it('returns null when the other Lens account has no DM channel', async () => {
+        fetchJsonMock.mockResolvedValueOnce({ status: 'SUCCESS', data: null });
+
+        await expect(getChatChannelByUser(identity.account, '0xabcd')).resolves.toBeNull();
+    });
+
     it('rejects a request when its query account is no longer active', async () => {
         await expect(getChatChannels('0xdifferent')).rejects.toBeInstanceOf(DmAuthenticationError);
         expect(fetchJsonMock).not.toHaveBeenCalled();
@@ -81,9 +99,14 @@ describe('Orb chat API', () => {
     it('accepts the channel id returned at the top level', async () => {
         fetchJsonMock.mockResolvedValueOnce({ status: 'SUCCESS', channelId: 'channel-2' });
 
-        await expect(createChat(identity.account, '0xc5b11b782856bd04b1441ff11c9f5b564c077c97')).resolves.toBe(
+        await expect(createChat(identity.account, ' 0xC5B11b782856bd04B1441fF11C9f5B564C077c97 ')).resolves.toBe(
             'channel-2',
         );
+        expect(fetchJsonMock).toHaveBeenCalledWith('/api/orb/chat/create-chat', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: JSON.stringify({ targetUserId: '0xc5b11b782856bd04b1441ff11c9f5b564c077c97' }),
+        });
     });
 
     it('normalizes the legacy author field in messages', async () => {

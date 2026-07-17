@@ -16,8 +16,6 @@ import { generateVideoCover } from '@/helpers/generateVideoCover.js';
 import { dmKeys } from '@/hooks/useDmSession.js';
 import {
     ChatApiError,
-    createChat,
-    getChatChannel,
     getChatChannels,
     getChatMessages,
     getInteractiveAction,
@@ -484,12 +482,7 @@ export function useStartDmChat(account: string) {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: [...dmKeys.root(account), 'start-chat'],
-        mutationFn: async (targetUserId: string) => {
-            const channelId = await createChat(account, targetUserId);
-            const channel = await getChatChannel(account, channelId);
-            if (!channel) throw new ChatApiError('get-chat-channel returned no channel', 'get-chat-channel');
-            return channel;
-        },
+        mutationFn: (targetUserId: string) => resolveDmChannel(account, targetUserId),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: dmKeys.root(account) }),
     });
 }

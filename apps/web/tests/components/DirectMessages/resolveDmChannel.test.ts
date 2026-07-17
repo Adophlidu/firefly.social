@@ -1,15 +1,14 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { createChat, getChatChannel, getChatChannels } from '@/providers/orb/chat/api.js';
-import { CHAT_CHANNEL_PAGE_LIMIT } from '@/providers/orb/chat/constants.js';
-import { isDmChannelForTarget, resolveDmChannel } from '@/providers/orb/chat/resolveDmChannel.js';
+import { createChat, getChatChannel, getChatChannelByUser } from '@/providers/orb/chat/api.js';
+import { resolveDmChannel } from '@/providers/orb/chat/resolveDmChannel.js';
 import type { ChatChannel } from '@/providers/orb/chat/types.js';
 
 vi.mock('@/providers/orb/chat/api.js', () => ({
     ChatApiError: class ChatApiError extends Error {},
     createChat: vi.fn(),
     getChatChannel: vi.fn(),
-    getChatChannels: vi.fn(),
+    getChatChannelByUser: vi.fn(),
 }));
 
 function createChannel(id: string, targetAccount: string): ChatChannel {
@@ -54,33 +53,21 @@ describe('resolveDmChannel', () => {
     beforeEach(() => {
         vi.mocked(createChat).mockReset();
         vi.mocked(getChatChannel).mockReset();
-        vi.mocked(getChatChannels).mockReset();
+        vi.mocked(getChatChannelByUser).mockReset();
     });
 
-    test('matches an existing channel by Lens account address', () => {
-        const channel = createChannel('existing', '0xAbC');
-
-        expect(isDmChannelForTarget(channel, ' 0xaBc ')).toBe(true);
-    });
-
-    test('reuses an existing channel from a later page', async () => {
-        const firstPage = Array.from({ length: CHAT_CHANNEL_PAGE_LIMIT }, (_, index) =>
-            createChannel(`other-${index}`, `0x${index}`),
-        );
+    test('reuses the channel returned for the other Lens account', async () => {
         const existingChannel = createChannel('existing', '0xTarget');
-        vi.mocked(getChatChannels).mockResolvedValueOnce(firstPage).mockResolvedValueOnce([existingChannel]);
+        vi.mocked(getChatChannelByUser).mockResolvedValue(existingChannel);
 
         await expect(resolveDmChannel('0xViewer', '0xtarget')).resolves.toBe(existingChannel);
-        expect(getChatChannels).toHaveBeenNthCalledWith(2, '0xViewer', {
-            type: 'dm',
-            cursor: CHAT_CHANNEL_PAGE_LIMIT,
-        });
+        expect(getChatChannelByUser).toHaveBeenCalledWith('0xViewer', '0xtarget');
         expect(createChat).not.toHaveBeenCalled();
     });
 
     test('deduplicates concurrent channel creation', async () => {
         const createdChannel = createChannel('created', '0xTarget');
-        vi.mocked(getChatChannels).mockResolvedValue([]);
+        vi.mocked(getChatChannelByUser).mockResolvedValue(null);
         vi.mocked(createChat).mockResolvedValue('created');
         vi.mocked(getChatChannel).mockResolvedValue(createdChannel);
 

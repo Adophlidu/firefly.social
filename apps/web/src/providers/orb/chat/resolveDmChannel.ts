@@ -1,31 +1,12 @@
-import { ChatApiError, createChat, getChatChannel, getChatChannels } from '@/providers/orb/chat/api.js';
-import { CHAT_CHANNEL_PAGE_LIMIT } from '@/providers/orb/chat/constants.js';
+import { ChatApiError, createChat, getChatChannel, getChatChannelByUser } from '@/providers/orb/chat/api.js';
 import type { ChatChannel } from '@/providers/orb/chat/types.js';
 
 function normalizeAccount(value: string) {
     return value.trim().toLowerCase();
 }
 
-export function isDmChannelForTarget(channel: ChatChannel, targetAccount: string) {
-    const target = normalizeAccount(targetAccount);
-    const profile = channel.other_member_profile;
-    return [profile?.address, profile?.id].some((value) => value && normalizeAccount(value) === target);
-}
-
-async function findDmChannel(account: string, targetAccount: string) {
-    let cursor = 0;
-
-    while (true) {
-        const channels = await getChatChannels(account, { type: 'dm', cursor });
-        const existingChannel = channels.find((channel) => isDmChannelForTarget(channel, targetAccount));
-        if (existingChannel) return existingChannel;
-        if (channels.length < CHAT_CHANNEL_PAGE_LIMIT) return null;
-        cursor += CHAT_CHANNEL_PAGE_LIMIT;
-    }
-}
-
 async function getOrCreateDmChannel(account: string, targetAccount: string) {
-    const existingChannel = await findDmChannel(account, targetAccount);
+    const existingChannel = await getChatChannelByUser(account, targetAccount);
     if (existingChannel) return existingChannel;
 
     const channelId = await createChat(account, targetAccount);
