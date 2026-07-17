@@ -1,7 +1,7 @@
 'use client';
 
 import FireflyAvatar from '@dimensiondev/assets/firefly.round.svg';
-import PlusIcon from '@dimensiondev/assets/plus.svg';
+import AddSmallIcon from '@dimensiondev/assets/add-small.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@dimensiondev/constants/computed';
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@dimensiondev/constants/static';
@@ -228,7 +228,7 @@ export function MainView() {
                                                 <span>{resolveSourceName(source)}</span>
                                             </div>
                                             {!loading && selectedSource !== source ? (
-                                                <PlusIcon className="size-5" />
+                                                <AddSmallIcon className="size-5" />
                                             ) : null}
                                         </>
                                     )}

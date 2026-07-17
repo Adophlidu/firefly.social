@@ -1,6 +1,6 @@
 'use client';
 
-import PlusIcon from '@dimensiondev/assets/plus.svg';
+import AddSmallIcon from '@dimensiondev/assets/add-small.svg';
 import SwitchIcon from '@dimensiondev/assets/switch.svg';
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@dimensiondev/constants/static';
 import type { SocialSource } from '@dimensiondev/enums';
@@ -159,7 +159,7 @@ export const CurrentProfilesCard = memo<CurrentProfilesCardProps>(function Curre
                     {loading ? (
                         <LoadingIcon size={20} />
                     ) : (
-                        <PlusIcon className={classNames('size-5', isExceed ? 'opacity-40' : '')} />
+                        <AddSmallIcon className={classNames('size-5', isExceed ? 'opacity-40' : '')} />
                     )}
                 </Tooltip>
             </ClickableButton>

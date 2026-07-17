@@ -1,5 +1,5 @@
 import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
-import PlusIcon from '@dimensiondev/assets/plus.svg';
+import AddSmallIcon from '@dimensiondev/assets/add-small.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { ConnectionSource, NetworkType } from '@dimensiondev/enums';
 import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -174,7 +174,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                     <span className="min-w-0 flex-1 truncate text-left text-sm">
                         <Trans>Connecting wallets</Trans>
                     </span>
-                    {loading || isLoading ? <LoadingIcon size={20} /> : <PlusIcon width={20} height={20} />}
+                    {loading || isLoading ? <LoadingIcon size={20} /> : <AddSmallIcon width={20} height={20} />}
                 </ClickableButton>
                 {!allAccountsWithEns.length ? (
                     <div className="flex h-20 items-center justify-center text-sm text-secondary">
