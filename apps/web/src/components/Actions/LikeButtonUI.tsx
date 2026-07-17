@@ -107,7 +107,7 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
                                 : { scale: 1 }
                         }
                         transition={{ duration: 0.4 }}
-                        className="inline-flex size-7 items-center justify-center rounded-full group-hover:bg-danger/[.20]"
+                        className="inline-flex size-7 items-center justify-center rounded-full group-hover:bg-danger/20"
                     >
                         <LikeIcon fill={isLiked ? 'currentColor' : 'none'} width={size} height={size} />
                     </motion.div>

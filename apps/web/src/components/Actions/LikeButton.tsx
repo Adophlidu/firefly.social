@@ -44,7 +44,7 @@ export const LikeButton = memo<LikeButtonProps>(function LikeButton({ disabled =
                 isLiked={isLiked}
                 disabled={isDisabled}
                 likeCount={likeData?.likeCount}
-                className="inline-flex h-7 items-center justify-center gap-1 rounded-full px-1.5 transition-colors hover:bg-danger/20"
+                className="inline-flex h-7 items-center justify-center gap-1 rounded-full px-1.5 transition-colors"
                 onToggle={() => mutateAsync(isLiked)}
             />
         </ClickableArea>
