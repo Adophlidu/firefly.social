@@ -21,6 +21,8 @@ export const dmKeys = {
     lastMessage: (account: string, channelId: string) => [...dmKeys.root(account), 'last-message', channelId] as const,
     lastMessageVersion: (account: string, channelId: string, lastMessageAt: string | null) =>
         [...dmKeys.lastMessage(account, channelId), lastMessageAt] as const,
+    targetChannel: (account: string, targetAccount: string) =>
+        [...dmKeys.root(account), 'target-channel', targetAccount.trim().toLowerCase()] as const,
     counters: (account: string) => [...dmKeys.root(account), 'counters'] as const,
     interactiveAction: (account: string, id: string) => [...dmKeys.root(account), 'interactive-action', id] as const,
     search: (account: string, query: string) => [...dmKeys.root(account), 'search', query] as const,

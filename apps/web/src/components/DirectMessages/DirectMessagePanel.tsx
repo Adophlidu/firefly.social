@@ -17,9 +17,8 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import type { DirectMessagePanelTarget } from '@/controllers/openDirectMessagePanel.js';
 import { openLoginModal } from '@/controllers/openLoginModal.js';
 import { useRouter } from '@/esm/navigation.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveInitials } from '@/helpers/resolveInitials.js';
-import { useAuthenticatedDmAccount, useStartDmChat } from '@/hooks/useDirectMessages.js';
+import { useAuthenticatedDmAccount, useDmTargetChannel } from '@/hooks/useDirectMessages.js';
 import type { ChatChannel } from '@/providers/orb/chat/types.js';
 
 interface DirectMessagePanelProps {
@@ -61,34 +60,14 @@ export const DirectMessagePanel = memo(function DirectMessagePanel({
 }: DirectMessagePanelProps) {
     const { identity, authenticatedAccount } = useAuthenticatedDmAccount();
     const router = useRouter();
-    const { mutateAsync: startChat, isError: isStartChatError } = useStartDmChat(
-        authenticatedAccount ?? '__signed-out__',
-    );
-    const [channel, setChannel] = useState<ChatChannel>();
+    const channelQuery = useDmTargetChannel(authenticatedAccount, target.targetUserId);
     const [isMinimized, setIsMinimized] = useState(false);
-    const [retryCount, setRetryCount] = useState(0);
-
-    useEffect(() => {
-        if (!authenticatedAccount) return;
-        let ignore = false;
-        setChannel(undefined);
-        void startChat(target.targetUserId)
-            .then((nextChannel) => {
-                if (!ignore) setChannel(nextChannel);
-            })
-            .catch((error: unknown) => {
-                if (ignore) return;
-                enqueueMessageFromError(error, <Trans>Failed to start the conversation.</Trans>);
-            });
-        return () => {
-            ignore = true;
-        };
-    }, [authenticatedAccount, openRequestId, retryCount, startChat, target.targetUserId]);
 
     useEffect(() => {
         setIsMinimized(false);
     }, [openRequestId]);
 
+    const channel = channelQuery.data;
     const conversation = useMemo(() => (channel ? toConversation(channel, target) : undefined), [channel, target]);
     const messagesUrl = conversation
         ? `${PageRoute.Messages}?channel=${encodeURIComponent(conversation.id)}`
@@ -200,7 +179,7 @@ export const DirectMessagePanel = memo(function DirectMessagePanel({
                         headerActions={headerActions}
                         shouldSyncConversationToUrl={false}
                     />
-                ) : isStartChatError ? (
+                ) : channelQuery.isError ? (
                     <div className="flex size-full flex-col items-center justify-center px-8 text-center">
                         <p className="text-sm font-bold">
                             <Trans>This conversation could not be opened.</Trans>
@@ -208,7 +187,9 @@ export const DirectMessagePanel = memo(function DirectMessagePanel({
                         <button
                             type="button"
                             className="mt-4 rounded-lg bg-lightBg px-4 py-2 text-sm font-bold"
-                            onClick={() => setRetryCount((count) => count + 1)}
+                            onClick={() => {
+                                void channelQuery.refetch();
+                            }}
                         >
                             <Trans>Retry</Trans>
                         </button>

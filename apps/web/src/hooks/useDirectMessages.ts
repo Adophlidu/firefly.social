@@ -27,6 +27,7 @@ import {
 } from '@/providers/orb/chat/api.js';
 import { CHAT_CHANNEL_PAGE_LIMIT, CHAT_MESSAGE_PAGE_LIMIT } from '@/providers/orb/chat/constants.js';
 import { createDmAttachment, toDmVideoCompatibilityAttachment } from '@/providers/orb/chat/media.js';
+import { resolveDmChannel } from '@/providers/orb/chat/resolveDmChannel.js';
 import type {
     ChannelCounters,
     ChatChannel,
@@ -72,6 +73,24 @@ export function useDmChannels(account: string | undefined, params: GetChannelsPa
                 : undefined,
         refetchInterval: DM_CHANNELS_REFETCH_INTERVAL_MS,
         refetchIntervalInBackground: false,
+    });
+}
+
+export function useDmTargetChannel(account: string | undefined, targetAccount: string) {
+    const queryClient = useQueryClient();
+    return useQuery({
+        queryKey: dmKeys.targetChannel(account ?? '__signed-out__', targetAccount),
+        queryFn: async () => {
+            const channel = await resolveDmChannel(account as string, targetAccount);
+            await queryClient.invalidateQueries({
+                queryKey: [...dmKeys.root(account as string), 'channels'],
+                refetchType: 'none',
+            });
+            return channel;
+        },
+        enabled: Boolean(account && targetAccount),
+        retry: false,
+        staleTime: 30_000,
     });
 }
 
