@@ -131,8 +131,10 @@ export function TipsTransactionActions({
     const addressForMention = view === TipsDetailViewType.Receiver ? fromAddress : toAddress;
     const accountIdForMention = view === TipsDetailViewType.Receiver ? fromAccountId : toAccountId;
     const [{ loading }, handleSharePost] = useAsyncFn(
-        async (event: React.MouseEvent) => {
-            event.stopPropagation();
+        // event is undefined when called from the Share Image modal's Post button (no click event to
+        // stop propagation on there — it's a modal, not a nested clickable row).
+        async (event?: React.MouseEvent) => {
+            event?.stopPropagation();
 
             if (!isLogin) {
                 openLoginModalWithGuard();
@@ -221,6 +223,8 @@ export function TipsTransactionActions({
                                                 view,
                                             }),
                                             aspectRatio: '1200 / 630',
+                                            enableCopy: true,
+                                            onPost: handleSharePost,
                                         });
                                     }}
                                 >
