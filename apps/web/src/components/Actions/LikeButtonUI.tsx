@@ -1,6 +1,6 @@
 'use client';
 
-import LikeIcon from '@dimensiondev/assets/like-large.svg';
+import LikeIcon from '@dimensiondev/assets/like.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -104,7 +104,7 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
                                       scale: [1, 1.4, 1],
                                       rotate: [0, 15, -15, 0],
                                   }
-                                : { scale: 1 }
+                                : { scale: 1, rotate: 0 }
                         }
                         transition={{ duration: 0.4 }}
                         className="inline-flex size-7 items-center justify-center rounded-full group-hover:bg-danger/20"
