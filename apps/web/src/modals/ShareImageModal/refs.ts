@@ -6,8 +6,8 @@ export interface ShareImageModalOpenProps {
     fileName?: string;
     /** Shows a Copy button (clipboard PNG) when the browser supports it. */
     enableCopy?: boolean;
-    /** Shows a Post button; the modal closes before invoking it. */
-    onPost?: () => void;
+    /** Shows a Post button; the modal stays open (with a spinner) until it resolves, then closes. */
+    onPost?: () => void | Promise<void>;
 }
 
 export type ShareImageModalCloseProps = void;

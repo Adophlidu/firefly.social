@@ -19,7 +19,7 @@ interface ShareImageModalContentProps {
     aspectRatio?: string;
     fileName?: string;
     enableCopy?: boolean;
-    onPost?: () => void;
+    onPost?: () => void | Promise<void>;
     onClose: () => void;
 }
 
@@ -91,6 +91,14 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
             throw error;
         }
     }, [props.imageUrl]);
+
+    // Keep the modal open (with a spinner) while posting, closing only once it actually lands —
+    // matches the wallet's PositionSharePreviewDialog instead of closing before the post even starts.
+    const { onPost, onClose } = props;
+    const [{ loading: isPosting }, handlePost] = useAsyncFn(async () => {
+        await onPost?.();
+        onClose();
+    }, [onPost, onClose]);
 
     return (
         <div>
@@ -164,10 +172,8 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
                         ariaLabel={t`Post`}
                         icon={<Send2Icon width={20} height={20} />}
                         disabled={loading || hasError}
-                        onClick={() => {
-                            props.onClose();
-                            props.onPost?.();
-                        }}
+                        loading={isPosting}
+                        onClick={handlePost}
                     />
                 ) : null}
             </div>
