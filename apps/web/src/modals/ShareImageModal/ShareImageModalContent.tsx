@@ -1,9 +1,10 @@
+import CheckIcon from '@dimensiondev/assets/check.svg';
 import CopyLinearIcon from '@dimensiondev/assets/copy-linear.svg';
 import Download2Icon from '@dimensiondev/assets/download2.svg';
 import Send2Icon from '@dimensiondev/assets/send2.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { memo, type ReactNode, useState } from 'react';
+import { memo, type ReactNode, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -74,10 +75,17 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
         }
     }, [props?.imageUrl, props?.fileName]);
 
+    const [copied, setCopied] = useState(false);
+    const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+    useEffect(() => () => clearTimeout(copiedTimerRef.current), []);
+
     const [{ loading: isCopying }, handleCopy] = useAsyncFn(async () => {
         try {
             await copyImageToClipboard(props.imageUrl);
             enqueueSuccessMessage(<Trans>Copied</Trans>);
+            setCopied(true);
+            clearTimeout(copiedTimerRef.current);
+            copiedTimerRef.current = setTimeout(setCopied, 1500, false);
         } catch (error) {
             enqueueInfoMessage(<Trans>Failed to copy image. Please try again later.</Trans>);
             throw error;
@@ -130,7 +138,13 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
                     <ShareAction
                         label={<Trans>Copy</Trans>}
                         ariaLabel={t`Copy`}
-                        icon={<CopyLinearIcon width={20} height={20} />}
+                        icon={
+                            copied ? (
+                                <CheckIcon width={20} height={20} className="text-highlight" />
+                            ) : (
+                                <CopyLinearIcon width={20} height={20} />
+                            )
+                        }
                         disabled={loading || hasError}
                         loading={isCopying}
                         onClick={handleCopy}

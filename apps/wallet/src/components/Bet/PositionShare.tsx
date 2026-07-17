@@ -1,3 +1,4 @@
+import CheckIcon from '@dimensiondev/assets/check.svg';
 import CopyLinearIcon from '@dimensiondev/assets/copy-linear.svg';
 import Download2Icon from '@dimensiondev/assets/download2.svg';
 import SendIcon from '@dimensiondev/assets/send.svg';
@@ -8,7 +9,7 @@ import { Trans } from '@lingui/react/macro';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
@@ -179,12 +180,19 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
     const ready = !!imageUrl && !isLoading && !isError;
     const { mutate: postWithImage, isPending } = usePostWithShareImage(payload, () => onOpenChange(false));
 
+    const [copied, setCopied] = useState(false);
+    const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+    useEffect(() => () => clearTimeout(copiedTimerRef.current), []);
+
     const { mutate: copyImage, isPending: isCopying } = useMutation({
         async mutationFn() {
             if (imageUrl) await copyImageToClipboard(imageUrl);
         },
         onSuccess() {
             toast.success(<Trans>Copied</Trans>);
+            setCopied(true);
+            clearTimeout(copiedTimerRef.current);
+            copiedTimerRef.current = setTimeout(setCopied, 1500, false);
         },
         onError() {
             toast.error(<Trans>Failed to copy image. Please try again later.</Trans>);
@@ -242,7 +250,13 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
                         <ShareAction
                             disabled={!ready}
                             loading={isCopying}
-                            icon={<CopyLinearIcon className="size-5" />}
+                            icon={
+                                copied ? (
+                                    <CheckIcon className="size-5 text-highlight" />
+                                ) : (
+                                    <CopyLinearIcon className="size-5" />
+                                )
+                            }
                             label={<Trans>Copy</Trans>}
                             onClick={() => copyImage()}
                         />
