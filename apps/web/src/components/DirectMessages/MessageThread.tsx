@@ -5,7 +5,7 @@ import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Plural, Trans } from '@lingui/react/macro';
-import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { memo, type ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { ContactAvatar } from '@/components/DirectMessages/ContactAvatar.js';
 import { ConversationListToggle } from '@/components/DirectMessages/ConversationListToggle.js';
@@ -46,13 +46,15 @@ interface MessageThreadProps {
     account: string;
     conversation: DirectMessageConversation;
     currentProfile: Profile | null;
-    isConversationListCollapsed: boolean;
+    isConversationListCollapsed?: boolean;
     isVisible: boolean;
     // Whether the user explicitly opened this conversation. False while it is only shown as the
     // desktop default, so we don't mark someone else's message as read without the user opening it.
     isActive: boolean;
-    onBack: () => void;
-    onConversationListToggle: () => void;
+    onBack?: () => void;
+    onConversationListToggle?: () => void;
+    headerActions?: ReactNode;
+    shouldSyncConversationToUrl?: boolean;
 }
 
 const MessageDateDivider = memo(function MessageDateDivider({ createdAt }: { createdAt: string }) {
@@ -118,6 +120,8 @@ export const MessageThread = memo(function MessageThread({
     isActive,
     onBack,
     onConversationListToggle,
+    headerActions,
+    shouldSyncConversationToUrl = true,
 }: MessageThreadProps) {
     const messagesQuery = useDmMessages(account, conversation.id);
     const latestMessagesQuery = useDmLatestMessages(isVisible ? account : undefined, conversation.id);
@@ -294,18 +298,22 @@ export const MessageThread = memo(function MessageThread({
                 )}
             >
                 <div className="flex min-w-0 flex-1 items-center gap-2.5">
-                    <ConversationListToggle
-                        isCollapsed={isConversationListCollapsed}
-                        onToggle={onConversationListToggle}
-                    />
-                    <BackButton className="md:hidden" onClick={onBack} />
+                    {onConversationListToggle ? (
+                        <ConversationListToggle
+                            isCollapsed={Boolean(isConversationListCollapsed)}
+                            onToggle={onConversationListToggle}
+                        />
+                    ) : null}
+                    {onBack ? <BackButton className="md:hidden" onClick={onBack} /> : null}
                     {profileUrl ? (
                         <Tooltip content={profileLabel} placement="bottom" withDelay>
                             <Link
                                 href={profileUrl}
                                 aria-label={profileLabel}
                                 className="group -ml-1 flex min-w-0 items-center gap-2.5 rounded-md border border-transparent p-1 transition-colors hover:bg-lightBg focus-visible:border-line focus-visible:bg-lightBg focus-visible:outline-none"
-                                onClick={() => replaceDmConversationInUrl(conversation.id)}
+                                onClick={() => {
+                                    if (shouldSyncConversationToUrl) replaceDmConversationInUrl(conversation.id);
+                                }}
                             >
                                 {profileIdentity}
                             </Link>
@@ -314,6 +322,7 @@ export const MessageThread = memo(function MessageThread({
                         <div className="flex min-w-0 items-center gap-2.5">{profileIdentity}</div>
                     )}
                 </div>
+                {headerActions ? <div className="ml-2 flex shrink-0 items-center gap-1">{headerActions}</div> : null}
             </header>
 
             <div className="relative min-h-0 flex-1">

@@ -6,6 +6,7 @@ import { envs } from '@dimensiondev/envs/web';
 import { type ReactNode, Suspense } from 'react';
 
 import { useAgent } from '@/components/AgentProvider.js';
+import { DirectMessagePanelHost } from '@/components/DirectMessages/DirectMessagePanelHost.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { IfWalletStackActive } from '@/components/IfWalletStackActive.js';
 import { Providers } from '@/components/Providers.js';
@@ -71,6 +72,7 @@ export function LayoutBody({ locale, children }: LayoutBodyProps) {
                     </IfPathname>
 
                     <Modals />
+                    <DirectMessagePanelHost />
 
                     {envs.external.NEXT_PUBLIC_IFRAME_BRIDGE === STATUS.Enabled && agent !== Agent.FireflyApp ? (
                         <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>

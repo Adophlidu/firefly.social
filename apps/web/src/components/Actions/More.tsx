@@ -26,6 +26,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { openDirectMessagePanel } from '@/controllers/openDirectMessagePanel.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
@@ -34,6 +35,7 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
@@ -50,6 +52,7 @@ interface MoreProps {
 export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: propAuthor, post, channel }) {
     const [seen, ref] = useEverSeen<HTMLButtonElement>();
     const currentProfile = useCurrentProfile(source);
+    const isMedium = useIsMedium();
 
     const isMyPost = isSameProfile(propAuthor, currentProfile);
     const isMyProfile = useIsMyRelatedProfile(source, resolveFireflyProfileId(propAuthor) ?? '');
@@ -136,20 +139,49 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                     <>
                         {source === Source.Lens && !isMyPost && author.address ? (
                             <MenuItem>
-                                <Link
-                                    href={`${PageRoute.Messages}?to=${encodeURIComponent(author.address)}`}
-                                    className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
-                                    onClick={stopPropagation}
-                                >
-                                    <MessagesIcon width={18} height={18} />
-                                    <span className="font-bold leading-[22px] text-main">
-                                        {author.handle ? (
-                                            <Trans>Message @{author.handle}</Trans>
-                                        ) : (
-                                            <Trans>Message</Trans>
-                                        )}
-                                    </span>
-                                </Link>
+                                {({ close }) =>
+                                    isMedium ? (
+                                        <MenuButton
+                                            onClick={(event) => {
+                                                stopPropagation(event);
+                                                close();
+                                                openDirectMessagePanel({
+                                                    targetUserId: author.address as string,
+                                                    name: author.displayName || author.handle,
+                                                    handle: author.handle,
+                                                    avatarUrl: author.pfp ?? undefined,
+                                                });
+                                            }}
+                                        >
+                                            <MessagesIcon width={18} height={18} />
+                                            <span className="font-bold leading-[22px] text-main">
+                                                {author.handle ? (
+                                                    <Trans>Message @{author.handle}</Trans>
+                                                ) : (
+                                                    <Trans>Message</Trans>
+                                                )}
+                                            </span>
+                                        </MenuButton>
+                                    ) : (
+                                        <Link
+                                            href={`${PageRoute.Messages}?to=${encodeURIComponent(author.address as string)}`}
+                                            className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
+                                            onClick={(event) => {
+                                                stopPropagation(event);
+                                                close();
+                                            }}
+                                        >
+                                            <MessagesIcon width={18} height={18} />
+                                            <span className="font-bold leading-[22px] text-main">
+                                                {author.handle ? (
+                                                    <Trans>Message @{author.handle}</Trans>
+                                                ) : (
+                                                    <Trans>Message</Trans>
+                                                )}
+                                            </span>
+                                        </Link>
+                                    )
+                                }
                             </MenuItem>
                         ) : null}
                         {!isMyProfile ? (

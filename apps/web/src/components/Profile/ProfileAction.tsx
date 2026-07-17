@@ -1,13 +1,18 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import MessagesIcon from '@dimensiondev/assets/messages.svg';
+import { PageRoute, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
+import { t } from '@lingui/core/macro';
 import { useMemo } from 'react';
 
 import { EditProfileButton } from '@/components/EditProfile/EditProfileButton.js';
+import { Link } from '@/components/Link.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileLoginStatus } from '@/components/Profile/ProfileLoginStatus.js';
 import { ProfileMoreAction, type ProfileMoreActionProps } from '@/components/Profile/ProfileMoreAction.js';
+import { Tooltip } from '@/components/Tooltip.js';
+import { openDirectMessagePanel } from '@/controllers/openDirectMessagePanel.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
@@ -63,6 +68,35 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
     return (
         <>
             {button}
+            {profile.source === Source.Lens && profile.address && !isEditableProfile && !isRelatedProfile ? (
+                <Tooltip content={t`Message`} placement="top">
+                    {isMedium ? (
+                        <button
+                            type="button"
+                            aria-label={t`Message`}
+                            className="grid size-8 place-items-center rounded-lg bg-primaryBottom text-lensButton dark:bg-white dark:bg-opacity-[0.08]"
+                            onClick={() =>
+                                openDirectMessagePanel({
+                                    targetUserId: profile.address as string,
+                                    name: profile.displayName || profile.handle,
+                                    handle: profile.handle,
+                                    avatarUrl: profile.pfp ?? undefined,
+                                })
+                            }
+                        >
+                            <MessagesIcon width={19} height={19} />
+                        </button>
+                    ) : (
+                        <Link
+                            href={`${PageRoute.Messages}?to=${encodeURIComponent(profile.address)}`}
+                            aria-label={t`Message`}
+                            className="grid size-8 place-items-center rounded-lg bg-primaryBottom text-lensButton dark:bg-white dark:bg-opacity-[0.08]"
+                        >
+                            <MessagesIcon width={19} height={19} />
+                        </Link>
+                    )}
+                </Tooltip>
+            ) : null}
             <ProfileMoreAction {...ProfileMoreActionProps} profile={profile} />
         </>
     );
