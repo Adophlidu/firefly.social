@@ -6,7 +6,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import type { Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-const SHORTLINK_CODE_PATTERN = /^[0-9A-Za-z]{12}$/;
+export const SHORTLINK_CODE_PATTERN = /^[0-9A-Za-z]{12}$/;
 
 export interface ShortLinkRecord {
     url: string;

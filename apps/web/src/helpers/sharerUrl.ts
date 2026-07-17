@@ -3,6 +3,7 @@ import { parseUrl } from '@dimensiondev/utils';
 
 import { URL_REGEX } from '@/constants/regexp.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
+import { SHORTLINK_CODE_PATTERN } from '@/helpers/shortLink.js';
 
 const FIREFLY_DOMAINS = ['firefly.social', 'firefly.land'];
 const HTTP_PROTOCOL_RE = /^https?:\/\//i;
@@ -91,6 +92,21 @@ export function getSharerParam(url: string): string | undefined {
 }
 
 /**
+ * Checks whether a URL is already a Firefly short link (`/i/<code>`). Its sid
+ * is baked into the destination server-side at creation time, so appending
+ * another one on top would be redundant - and the `/i/[hash]` route ignores
+ * query params entirely, making it a no-op that only uglifies the link.
+ */
+function isShortLinkUrl(url: string): boolean {
+    try {
+        const segments = createUrl(url).pathname.split('/');
+        return segments.length === 3 && segments[1] === 'i' && SHORTLINK_CODE_PATTERN.test(segments[2]);
+    } catch {
+        return false;
+    }
+}
+
+/**
  * Adds the sharer parameter to every Firefly-owned URL found in arbitrary pasted text.
  */
 export function addSharerParamToFireflyUrls(text: string, sharerId?: string): string {
@@ -99,7 +115,7 @@ export function addSharerParamToFireflyUrls(text: string, sharerId?: string): st
     URL_REGEX.lastIndex = 0;
 
     return text.replace(URL_REGEX, (match) => {
-        if (!match || !isFireflyOwnedUrl(match)) return match;
+        if (!match || !isFireflyOwnedUrl(match) || isShortLinkUrl(match)) return match;
         return addSharerParam(match, sharerId);
     });
 }
