@@ -228,11 +228,13 @@ function ComposeModalUI({ ref }: Props) {
                 });
                 return CloseAction.Saved;
             } else {
-                // Close first so the modal animates out immediately; clean up the
-                // content afterwards instead of blanking it while still visible.
+                // Close first so the modal animates out with the content still showing.
+                // The modal stays mounted for the leave transition (~200ms, see Modal.tsx),
+                // so clearing state right away would re-render it empty while still visible.
                 dispatch?.close();
+                await delay(300);
 
-                // Reset the whole compose state (chars + images + videos) synchronously.
+                // Reset the whole compose state (chars + images + videos) together.
                 // Clearing only the editor leaves images in the store, and the debounced
                 // editor onChange later writes back empty chars — the auto-save subscription
                 // then sees "empty text + images", treats the post as non-empty, and
