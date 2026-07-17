@@ -2153,6 +2153,7 @@ export interface TokenAsset {
     tokenPrice: string;
     tokenType: string;
     isRiskToken: boolean;
+    hide?: boolean;
 }
 
 export type GetMultiChainTokenListResponse = Response<Response<{ tokenAssets: TokenAsset[] }>>; // double layers from server response

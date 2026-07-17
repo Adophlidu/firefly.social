@@ -76,11 +76,15 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
         });
     }, [chainId, keyword, tokens]);
     const canExpand = useMemo(() => {
+        // When filtering by chain or searching, show every matching token (incl. <$1),
+        // matching the wallet home behavior. Otherwise a small-value token the user is
+        // looking for stays hidden behind the toggle (FW-7873).
+        if (keyword || chainId) return false;
         return (
             filteredTokens.some((token) => isGreaterThan(token.usdValue, 1) && !token.custom) &&
             filteredTokens.some((token) => isLessThan(token.usdValue, 1) && !token.custom)
         );
-    }, [filteredTokens]);
+    }, [filteredTokens, keyword, chainId]);
 
     const data =
         showSmall || !canExpand

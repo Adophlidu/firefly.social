@@ -12,6 +12,7 @@ export * from '@/chains/normalizeSolChainId.js';
 export * from '@/chains/parseChainId.js';
 export * from '@/chains/parseEthereumChainId.js';
 export * from '@/chains/parseSolanaChainId.js';
+export * from '@/chains/redPacket.js';
 export * from '@/chains/resolveDebankChain.js';
 export * from '@/chains/resolveDebankChainId.js';
 export * from '@/chains/resolveWagmiChain.js';
