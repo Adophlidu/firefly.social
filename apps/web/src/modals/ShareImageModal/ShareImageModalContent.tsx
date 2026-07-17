@@ -144,11 +144,11 @@ export const ShareImageModalContent = memo(function ShareImageModalContent(props
             <div className="mt-3 flex items-start justify-center gap-1.5 px-6 pb-6">
                 {showCopy ? (
                     <ShareAction
-                        label={<Trans>Copy</Trans>}
-                        ariaLabel={t`Copy`}
+                        label={copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
+                        ariaLabel={copied ? t`Copied` : t`Copy`}
                         icon={
                             copied ? (
-                                <CheckIcon width={20} height={20} className="text-highlight" />
+                                <CheckIcon width={20} height={20} className="text-success" />
                             ) : (
                                 <CopyLinearIcon width={20} height={20} />
                             )

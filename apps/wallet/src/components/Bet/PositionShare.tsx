@@ -252,12 +252,12 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
                             loading={isCopying}
                             icon={
                                 copied ? (
-                                    <CheckIcon className="size-5 text-highlight" />
+                                    <CheckIcon className="size-5 text-success" />
                                 ) : (
                                     <CopyLinearIcon className="size-5" />
                                 )
                             }
-                            label={<Trans>Copy</Trans>}
+                            label={copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
                             onClick={() => copyImage()}
                         />
                     ) : null}
