@@ -228,6 +228,10 @@ function ComposeModalUI({ ref }: Props) {
                 });
                 return CloseAction.Saved;
             } else {
+                // Close first so the modal animates out immediately; clean up the
+                // content afterwards instead of blanking it while still visible.
+                dispatch?.close();
+
                 // Reset the whole compose state (chars + images + videos) synchronously.
                 // Clearing only the editor leaves images in the store, and the debounced
                 // editor onChange later writes back empty chars — the auto-save subscription
@@ -236,7 +240,6 @@ function ComposeModalUI({ ref }: Props) {
                 clear();
                 editor.update(() => $getRoot().clear());
                 removeTempDrafts();
-                dispatch?.close();
             }
         } else {
             dispatch?.close();
