@@ -2,7 +2,6 @@
 
 import ImageDownloadIcon from '@dimensiondev/assets/image-download.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
-import Send2Icon from '@dimensiondev/assets/send2.svg';
 import { ExtraLikeType, Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { classNames, runInSafeAsync } from '@dimensiondev/utils';
@@ -21,6 +20,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { openAndWaitForCloseComposeModal } from '@/controllers/openComposeModal.js';
@@ -197,8 +197,8 @@ export function TipsTransactionActions({
             <MoreActionMenu
                 button={
                     <Tooltip content={<Trans>Share</Trans>} placement="top">
-                        <span className="inline-flex">
-                            <Send2Icon width={16} height={16} className="text-secondary" />
+                        <span className="inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link">
+                            <ShareButtonWithAnimation />
                         </span>
                     </Tooltip>
                 }

@@ -208,7 +208,8 @@ export function PositionSharePreviewDialog({ payload, open, onOpenChange }: Posi
 
     const { mutate: download, isPending: isDownloading } = useMutation({
         async mutationFn() {
-            if (imageUrl) await Promise.all([downloadImage(imageUrl, SHARE_IMAGE_FILE_NAME), delay(MIN_LOADING_DURATION_MS)]);
+            if (imageUrl)
+                await Promise.all([downloadImage(imageUrl, SHARE_IMAGE_FILE_NAME), delay(MIN_LOADING_DURATION_MS)]);
         },
         onError() {
             toast.error(<Trans>Failed to download image. Please try again later.</Trans>);
