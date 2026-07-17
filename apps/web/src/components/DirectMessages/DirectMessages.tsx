@@ -40,6 +40,7 @@ import {
     useStartDmChat,
 } from '@/hooks/useDirectMessages.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
 import type { ChatChannel, ChatMessage, UserMetadata } from '@/providers/orb/chat/types.js';
 
 const CONVERSATION_LIST_COLLAPSED_STORAGE_KEY = 'dm-conversation-list-collapsed';
@@ -250,6 +251,10 @@ export const DirectMessages = memo(function DirectMessages() {
 
     useEffect(() => {
         if (!authenticatedAccount || !targetUserId || !channelsQuery.isSuccess) return;
+        if (isSameDmAccount(authenticatedAccount, targetUserId)) {
+            clearDmTargetIntent();
+            return;
+        }
 
         const intentKey = `${authenticatedAccount.toLowerCase()}:${targetUserId.toLowerCase()}`;
         if (handledIntentRef.current === intentKey) return;

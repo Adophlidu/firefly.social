@@ -7,6 +7,7 @@ import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToS
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { CHAT_CHANNEL_PAGE_LIMIT, CHAT_MESSAGE_PAGE_LIMIT } from '@/providers/orb/chat/constants.js';
+import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
 import type {
     ChannelCounters,
     ChannelMembership,
@@ -202,6 +203,8 @@ export async function getInteractiveAction(account: string, interactiveActionId:
 }
 
 export async function createChat(account: string, targetUserId: string): Promise<string> {
+    if (isSameDmAccount(account, targetUserId)) throw new ChatApiError('Cannot send message to self', 'create-chat');
+
     const payload = await postOrb<{ channelId?: string }>(account, 'create-chat', {
         targetUserId: normalizeLensAccount(targetUserId),
     });
@@ -251,5 +254,5 @@ export async function searchProfiles(account: string, query: string): Promise<Me
 
     return (unwrapChatEnvelope('search', payload)?.items ?? [])
         .map(parseMention)
-        .filter((item): item is MentionResult => Boolean(item));
+        .filter((item): item is MentionResult => item !== null && !isSameDmAccount(account, item.id));
 }

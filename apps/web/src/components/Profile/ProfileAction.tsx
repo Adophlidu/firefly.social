@@ -18,8 +18,10 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useAuthenticatedDmAccount } from '@/hooks/useDmSession.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useRefreshedProfileInProfilePage } from '@/hooks/useRefreshedProfile.js';
+import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileActionProps {
@@ -34,6 +36,8 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
     const isRelatedProfile = identity ? profiles.some((x) => isSameFireflyIdentity(x.identity, identity)) : false;
     const myProfile = useCurrentProfile(profile.source);
     const isEditableProfile = isSameProfile(myProfile, profile);
+    const { authenticatedAccount } = useAuthenticatedDmAccount();
+    const isCurrentDmAccount = isSameDmAccount(authenticatedAccount, profile.address);
     const isMedium = useIsMedium();
 
     const button = useMemo(() => {
@@ -68,7 +72,11 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
     return (
         <>
             {button}
-            {profile.source === Source.Lens && profile.address && !isEditableProfile && !isRelatedProfile ? (
+            {profile.source === Source.Lens &&
+            profile.address &&
+            !isEditableProfile &&
+            !isRelatedProfile &&
+            !isCurrentDmAccount ? (
                 <Tooltip content={t`Message`} placement="top">
                     {isMedium ? (
                         <button

@@ -33,6 +33,7 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
+import { useAuthenticatedDmAccount } from '@/hooks/useDmSession.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -40,6 +41,7 @@ import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
+import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
@@ -52,6 +54,7 @@ interface MoreProps {
 export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: propAuthor, post, channel }) {
     const [seen, ref] = useEverSeen<HTMLButtonElement>();
     const currentProfile = useCurrentProfile(source);
+    const { authenticatedAccount } = useAuthenticatedDmAccount();
     const isMedium = useIsMedium();
 
     const isMyPost = isSameProfile(propAuthor, currentProfile);
@@ -61,6 +64,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
         !isMyProfile && seen && source === Source.Twitter && propAuthor?.viewerContext?.following === undefined;
     const { data: refreshedAuthor } = useRefreshedProfile(propAuthor, needToRefreshAuthor);
     const author = refreshedAuthor ?? propAuthor;
+    const isCurrentDmAccount = isSameDmAccount(authenticatedAccount, author.address);
 
     const isFollowing = !!author?.viewerContext?.following;
     const isPending = !!author?.viewerContext?.followPending;
@@ -137,7 +141,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                     </MenuItem>
                 ) : (
                     <>
-                        {source === Source.Lens && !isMyPost && author.address ? (
+                        {source === Source.Lens && !isMyPost && !isCurrentDmAccount && author.address ? (
                             <MenuItem>
                                 {({ close }) =>
                                     isMedium ? (

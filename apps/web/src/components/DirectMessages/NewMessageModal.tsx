@@ -14,6 +14,7 @@ import { Popover } from '@/components/Popover.js';
 import { resolveInitials } from '@/helpers/resolveInitials.js';
 import { useDmProfileSearch } from '@/hooks/useDirectMessages.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
 
 interface NewMessageModalProps {
     account: string;
@@ -37,26 +38,30 @@ export const NewMessageModal = memo(function NewMessageModal({
     const profileSearch = useDmProfileSearch(account, debouncedSearch);
     const filteredContacts = useMemo(() => {
         const normalizedSearch = search.trim().toLowerCase();
-        if (!normalizedSearch) return contacts;
+        if (!normalizedSearch) return contacts.filter((contact) => !isSameDmAccount(account, contact.targetUserId));
 
         if (normalizedSearch === debouncedSearch.trim().toLowerCase() && profileSearch.data) {
-            return profileSearch.data.map((profile) => {
-                const name = profile.name || profile.handle;
-                return {
-                    id: profile.id,
-                    targetUserId: profile.id,
-                    name,
-                    handle: profile.handle,
-                    initials: resolveInitials(name),
-                    avatarUrl: profile.avatar ?? undefined,
-                };
-            });
+            return profileSearch.data
+                .filter((profile) => !isSameDmAccount(account, profile.id))
+                .map((profile) => {
+                    const name = profile.name || profile.handle;
+                    return {
+                        id: profile.id,
+                        targetUserId: profile.id,
+                        name,
+                        handle: profile.handle,
+                        initials: resolveInitials(name),
+                        avatarUrl: profile.avatar ?? undefined,
+                    };
+                });
         }
 
-        return contacts.filter((contact) =>
-            `${contact.name} ${contact.handle}`.toLowerCase().includes(normalizedSearch),
+        return contacts.filter(
+            (contact) =>
+                !isSameDmAccount(account, contact.targetUserId) &&
+                `${contact.name} ${contact.handle}`.toLowerCase().includes(normalizedSearch),
         );
-    }, [contacts, debouncedSearch, profileSearch.data, search]);
+    }, [account, contacts, debouncedSearch, profileSearch.data, search]);
     const isSearchingProfiles =
         profileSearch.isFetching &&
         debouncedSearch.trim().length >= 2 &&

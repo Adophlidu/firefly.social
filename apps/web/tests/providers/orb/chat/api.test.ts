@@ -109,6 +109,14 @@ describe('Orb chat API', () => {
         });
     });
 
+    it('rejects creating a chat with the active account before sending a request', async () => {
+        await expect(createChat(identity.account, ' 0X1234 ')).rejects.toMatchObject({
+            message: 'Cannot send message to self',
+            route: 'create-chat',
+        });
+        expect(fetchJsonMock).not.toHaveBeenCalled();
+    });
+
     it('normalizes the legacy author field in messages', async () => {
         const author = { address: '0xabcd', name: 'Alice', handle: 'alice' };
         fetchJsonMock.mockResolvedValueOnce({
@@ -259,6 +267,14 @@ describe('Orb chat API', () => {
             status: 'SUCCESS',
             data: {
                 items: [
+                    {
+                        id: identity.account.toUpperCase(),
+                        metadata: {
+                            handle: 'self',
+                            name: 'Current user',
+                            address: identity.account,
+                        },
+                    },
                     {
                         // Orb's search returns the wallet address as both `id` and `metadata.address`.
                         id: '0xc5b11b782856bd04b1441ff11c9f5b564c077c97',
