@@ -15,12 +15,17 @@ interface SingleImageProps extends HTMLProps<HTMLImageElement> {
     maxHeight?: number;
     width: number;
     height: number;
+    /** Real intrinsic dimensions from the source API, when available — skips client-side remeasurement so the box is sized correctly on first paint instead of shifting once the image loads. */
+    knownWidth?: number;
+    knownHeight?: number;
 }
 
 export const SingleImage = memo<SingleImageProps>(function SingleImage({
     src,
     width,
     height,
+    knownWidth,
+    knownHeight,
     minWidth = 50,
     maxWidth = 550,
     minHeight = 50,
@@ -32,11 +37,12 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
     // Try the optimized URL, then the raw src; skips flooding/known-bad hosts.
     const resource = useResourceFallback([optimizedSrc, src]);
     const finalSrc = resource.src;
+    const hasKnownSize = !!knownWidth && !!knownHeight && knownWidth > 0 && knownHeight > 0;
 
     const { data } = useQuery({
         queryKey: ['single-image', finalSrc],
         staleTime: STALE_TIMES.INFINITY,
-        enabled: !!finalSrc,
+        enabled: !!finalSrc && !hasKnownSize,
         retry: false,
         queryFn: () =>
             new Promise<{ width: number; height: number }>((resolve, reject) => {
@@ -56,8 +62,8 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
 
     if (resource.failed) return null;
 
-    const imageWidth = data?.width || width;
-    const imageHeight = data?.height || height;
+    const imageWidth = (hasKnownSize ? knownWidth : undefined) || data?.width || width;
+    const imageHeight = (hasKnownSize ? knownHeight : undefined) || data?.height || height;
     const [renderWidth] = computeSize(imageWidth || width, imageHeight || height, {
         minWidth,
         minHeight,

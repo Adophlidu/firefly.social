@@ -38,6 +38,8 @@ function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
                 return {
                     type: AttachmentType.Image,
                     uri: image.thumb,
+                    width: image.aspectRatio?.width,
+                    height: image.aspectRatio?.height,
                 };
             }),
         );

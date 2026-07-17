@@ -66,6 +66,7 @@ function getAttachmentsV3(attachments?: AnyMedia[] | null) {
                         return {
                             uri: formatLensImageUrl(attachment.item),
                             type: AttachmentType.Image,
+                            ...resolveSizeFromS3Url(attachment.item),
                         };
                     }
                     return;
@@ -147,6 +148,7 @@ function formatContentV3(metadata: FullPostMetadata, author: Profile, mentions: 
                       uri: formatLensImageUrl(metadata.image.item),
                       type: AttachmentType.Image,
                       title: metadata.image.altTag || metadata.title || '',
+                      ...resolveSizeFromS3Url(metadata.image.item),
                   } satisfies Attachment)
                 : undefined;
 

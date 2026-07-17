@@ -24,6 +24,8 @@ export function formatTwitterMedia(twitterMedia: MediaObjectV2): Attachment | nu
                 ? {
                       type: AttachmentType.Image,
                       uri: twitterMedia.url,
+                      width: twitterMedia.width,
+                      height: twitterMedia.height,
                   }
                 : null;
         case 'animated_gif':
