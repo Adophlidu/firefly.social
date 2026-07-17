@@ -538,9 +538,6 @@ msgstr "已经到底啦。"
 msgid "View"
 msgstr "查看"
 
-msgid "Minimum <0>${minDepositUsd}</0> required"
-msgstr "最低需 <0>${minDepositUsd}</0>"
-
 msgid "Release Now"
 msgstr "立即释放"
 
@@ -1012,6 +1009,9 @@ msgstr "我们将寻找最优路径以确保兑换成功"
 
 msgid "Sell"
 msgstr "卖出"
+
+msgid "No direct transfers from <0>CEXs</0> and minimum <1>${minDepositUsd}</1> required."
+msgstr "不支持从 <0>CEX</0> 直接转入，最低需 <1>${minDepositUsd}</1>。"
 
 msgid "The market is marked as closed."
 msgstr "该市场已关闭。"

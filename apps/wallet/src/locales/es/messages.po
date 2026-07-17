@@ -538,9 +538,6 @@ msgstr "Has llegado al fondo."
 msgid "View"
 msgstr "Ver"
 
-msgid "Minimum <0>${minDepositUsd}</0> required"
-msgstr "Mínimo <0>${minDepositUsd}</0> requerido"
-
 msgid "Release Now"
 msgstr "Liberar ahora"
 
@@ -1012,6 +1009,9 @@ msgstr "Encontraremos el menor deslizamiento para un intercambio exitoso"
 
 msgid "Sell"
 msgstr "Vender"
+
+msgid "No direct transfers from <0>CEXs</0> and minimum <1>${minDepositUsd}</1> required."
+msgstr "No se aceptan transferencias directas desde <0>CEX</0>; mínimo <1>${minDepositUsd}</1> requerido."
 
 msgid "The market is marked as closed."
 msgstr "El mercado está marcado como cerrado."

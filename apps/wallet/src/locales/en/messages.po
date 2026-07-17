@@ -538,9 +538,6 @@ msgstr "You've hit rock bottom."
 msgid "View"
 msgstr "View"
 
-msgid "Minimum <0>${minDepositUsd}</0> required"
-msgstr "Minimum <0>${minDepositUsd}</0> required"
-
 msgid "Release Now"
 msgstr "Release Now"
 
@@ -1012,6 +1009,9 @@ msgstr "We will find the lowest slippage for a successful swap"
 
 msgid "Sell"
 msgstr "Sell"
+
+msgid "No direct transfers from <0>CEXs</0> and minimum <1>${minDepositUsd}</1> required."
+msgstr "No direct transfers from <0>CEXs</0> and minimum <1>${minDepositUsd}</1> required."
 
 msgid "The market is marked as closed."
 msgstr "The market is marked as closed."

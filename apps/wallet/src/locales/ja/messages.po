@@ -538,9 +538,6 @@ msgstr "一番下まで来ました。"
 msgid "View"
 msgstr "表示"
 
-msgid "Minimum <0>${minDepositUsd}</0> required"
-msgstr "最低 <0>${minDepositUsd}</0> が必要です"
-
 msgid "Release Now"
 msgstr "今すぐ解放"
 
@@ -1012,6 +1009,9 @@ msgstr "スワップを成功させるための最適なルートを見つけま
 
 msgid "Sell"
 msgstr "売り"
+
+msgid "No direct transfers from <0>CEXs</0> and minimum <1>${minDepositUsd}</1> required."
+msgstr "<0>CEX</0>からの直接送金には対応しておらず、最低 <1>${minDepositUsd}</1> が必要です。"
 
 msgid "The market is marked as closed."
 msgstr "このマーケットはクローズ済みとしてマークされています。"

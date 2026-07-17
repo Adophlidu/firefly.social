@@ -357,9 +357,10 @@ export function DepositViaCryptoModal({
                         </div>
 
                         <div className="no-scrollbar flex min-h-0 grow flex-col gap-4 overflow-auto pb-6">
-                            <p className="text-center text-[16px] font-medium leading-5 text-second">
+                            <p className="mx-4 text-center text-[16px] font-medium leading-5 text-second">
                                 <Trans>
-                                    Minimum <span className="text-highlight">${minDepositUsd}</span> required
+                                    No direct transfers from <span className="text-highlight">CEXs</span> and minimum{' '}
+                                    <span className="text-highlight">${minDepositUsd}</span> required.
                                 </Trans>
                             </p>
 
