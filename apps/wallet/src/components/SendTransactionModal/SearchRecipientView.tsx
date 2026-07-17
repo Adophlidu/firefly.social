@@ -1,4 +1,3 @@
-import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { NetworkType, Source } from '@dimensiondev/enums';
 import type { ErrorPageProps } from '@dimensiondev/types';
@@ -24,6 +23,7 @@ import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { NavigationBar } from '@/components/NavigationBar.js';
 import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { type FormValues, RoutePath } from '@/components/SendTransactionModal/types.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
@@ -116,46 +116,34 @@ function SearchRecipient({
     const isTyping = keyword !== debouncedKeyword;
 
     return (
-        <div className="flex h-svh w-full flex-col pb-6 md:h-full">
-            <div className="shrink-0 px-6">
-                <div className="relative flex items-center justify-center py-6">
-                    <button
-                        className="absolute left-0 top-6 cursor-pointer rounded p-1 text-main"
-                        onClick={() => {
-                            router.navigate({ to: RoutePath.Form, replace: true });
-                        }}
-                    >
-                        <LeftArrowIcon className="size-6" />
-                    </button>
-                    <h2 className="text-lg font-semibold text-main">
-                        <Trans>Recipient</Trans>
-                    </h2>
-                </div>
-                <div className="pb-2">
-                    <div className="flex w-full items-center rounded-lg border border-transparent bg-lightBg px-3 transition-all focus-within:border-highlight">
-                        <SearchIcon width={18} height={18} className="mr-2 shrink-0 text-second" />
-                        <input
-                            autoFocus
-                            className="h-10 w-full border-0 bg-transparent px-0 py-2 text-main placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
-                            autoComplete="off"
-                            placeholder={t`Address, ENS, or social handle`}
-                            value={keyword}
-                            onChange={(e) => setKeyword(e.target.value)}
-                        />
-                    </div>
+        <div className="flex h-svh w-full flex-col gap-2 pb-4 md:h-full">
+            <NavigationBar onBack={() => router.navigate({ to: RoutePath.Form, replace: true })}>
+                <Trans>Recipient</Trans>
+            </NavigationBar>
+            <div className="shrink-0 px-4">
+                <div className="flex w-full items-center rounded-lg border border-transparent bg-lightBg px-3 transition-all focus-within:border-highlight">
+                    <SearchIcon width={18} height={18} className="mr-2 shrink-0 text-second" />
+                    <input
+                        autoFocus
+                        className="h-10 w-full border-0 bg-transparent px-0 py-2 text-main placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                        autoComplete="off"
+                        placeholder={t`Address, ENS, or social handle`}
+                        value={keyword}
+                        onChange={(e) => setKeyword(e.target.value)}
+                    />
                 </div>
             </div>
 
-            <div className="min-h-0 flex-1 px-6">
+            <div className="min-h-0 flex-1 px-4">
                 {isTyping ? (
-                    <div className="flex w-full flex-1 items-center justify-center">
+                    <div className="flex h-full flex-1 items-center justify-center">
                         <LoadingIcon />
                     </div>
                 ) : debouncedKeyword ? (
                     <ErrorBoundary key={debouncedKeyword} fallback={SearchRecipientQueryErrorFallback}>
                         <Suspense
                             fallback={
-                                <div className="flex w-full flex-1 items-center justify-center">
+                                <div className="flex h-full flex-1 items-center justify-center">
                                     <LoadingIcon />
                                 </div>
                             }

@@ -595,6 +595,9 @@ msgstr "該代幣可購買。"
 msgid "Failed to like swap."
 msgstr "按赞失敗。"
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Liked."
 msgstr "已按讚。"
 
@@ -1209,6 +1212,9 @@ msgstr "引用"
 msgid "action-unlike"
 msgstr "收回讚"
 
+msgid "Conversation with {panelTitle}"
+msgstr ""
+
 msgid "Buy {firstOutcome}"
 msgstr "購買 {firstOutcome}"
 
@@ -1710,6 +1716,9 @@ msgstr "自訂數額"
 
 msgid "Preview image"
 msgstr "預覽圖片"
+
+msgid "This conversation could not be opened."
+msgstr ""
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>Firefly 正式推出 <1>Polymarket 交易功能</1>，將鏈上預測市場與您的社交動態完美結合！我們誠邀您作為早期貢獻者加入，從參與我們的 <2>內容賞金任務</2>開始！</0><3>💰 創作高品質內容的用戶，每人可獲得 <4>100 USDC</4> 獎勵。</3><5>🧩 在 Firefly 上發佈貼文，分享您的 Polymarket 交易故事。您可以聊聊您的預測、交易策略、見解、成功的經驗，甚至是失敗的教訓。我們將根據內容品質、創意、深度、可讀性和影響力進行評選。獲獎名單將在 <6>@thefireflyapp</6> 公佈，並透過私訊聯繫。</5><7>📌 如何參與：</7><8><9><10>撰寫</10>一篇文章或長推文，分享您的 <11>Polymarket 交易故事</11>，並發佈在 Firefly 支援的任何社交平台上。</9><12><13>關注並標記</13> <14>@thefireflyapp</14>。</12><15><16>填寫</16>此表單以登記您的參賽作品。</15></8>"
@@ -2350,6 +2359,9 @@ msgstr "重新連接"
 
 msgid "No suspected malicious behavior found."
 msgstr "未檢測到可疑惡意行為。"
+
+msgid "Open in Messages"
+msgstr ""
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "您的瀏覽器不支援 Firefly Bridge。"
@@ -3764,6 +3776,9 @@ msgstr "請在行動版應用確認登入"
 
 msgid "Website"
 msgstr "網站"
+
+msgid "Sign in to send a message"
+msgstr ""
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"

@@ -1,6 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
-import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
 import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
@@ -33,6 +32,7 @@ import { useConnections } from 'wagmi';
 import { ActionButton } from '@/components/ActionButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { NavigationBar } from '@/components/NavigationBar.js';
 import {
     isOnlyAddress,
     isSocialRecipient,
@@ -41,7 +41,6 @@ import {
 } from '@/components/SendTransactionModal/RecipientItem.js';
 import { type FormValues, RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
@@ -68,21 +67,13 @@ export function FormView() {
     }
 
     return (
-        <div className="flex w-full flex-col px-6 pb-6">
-            <div className="relative flex items-center justify-center py-6">
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute left-0 top-1/2 -translate-y-1/2 [&_svg]:size-6"
-                    onClick={() => navigate({ to: '/', replace: true })}
-                >
-                    <ComebackIcon />
-                </Button>
-                <h2 className="text-lg font-semibold text-main">
-                    <Trans>Send</Trans>
-                </h2>
+        <div className="box-border flex h-screen flex-col">
+            <NavigationBar onBack={() => navigate({ to: '/', replace: true })}>
+                <Trans>Send</Trans>
+            </NavigationBar>
+            <div className="no-scrollbar min-h-0 overflow-auto p-4 pb-0">
+                <Form />
             </div>
-            <Form />
         </div>
     );
 }
@@ -377,7 +368,7 @@ function Form() {
                             'opacity-0': !!showRecipient && !isFocusingAddressInput,
                         })}
                     >
-                        <div className="border-line2 flex size-9 items-center justify-center rounded-lg border bg-primaryBottom">
+                        <div className="flex size-9 items-center justify-center rounded-lg border bg-primaryBottom">
                             <WalletIcon width={24} height={24} className="text-third" />
                         </div>
                         <textarea

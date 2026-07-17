@@ -1,5 +1,4 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
-import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
 import SuccessIcon from '@dimensiondev/assets/success.svg';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { formatTokenItemAmount, getBlockExplorersURL } from '@dimensiondev/web3/utils';
@@ -9,10 +8,10 @@ import { omit } from 'lodash-es';
 import { useRef } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
+import { NavigationBar } from '@/components/NavigationBar.js';
 import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { type FormValues, RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { Button } from '@/components/ui/button.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 
 export function SuccessView() {
@@ -28,21 +27,11 @@ export function SuccessView() {
 
     const { token, recipient, amount, to, hash } = stateRef.current;
     return (
-        <div className="flex w-full flex-1 flex-col px-6 pb-6">
-            <div className="relative flex items-center justify-center py-6">
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute left-0 top-1/2 -translate-y-1/2 [&_svg]:size-6"
-                    onClick={() => navigate({ to: '/' })}
-                >
-                    <ComebackIcon />
-                </Button>
-                <h2 className="text-lg font-semibold text-main">
-                    <Trans>Transaction completed!</Trans>
-                </h2>
-            </div>
-            <div className="my-auto flex size-full flex-col justify-between">
+        <div className="flex w-full flex-1 flex-col">
+            <NavigationBar onBack={() => navigate({ to: '/' })}>
+                <Trans>Transaction completed!</Trans>
+            </NavigationBar>
+            <div className="my-auto flex size-full flex-col justify-between px-4 pb-4">
                 <div className="flex flex-col items-center space-y-4 pb-6">
                     <SuccessIcon width={64} height={64} className="shrink-0" />
                     <p className="text-2xl font-semibold text-main">

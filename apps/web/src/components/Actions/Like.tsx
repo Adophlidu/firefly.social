@@ -18,9 +18,10 @@ interface LikeProps {
     disabled?: boolean;
     isComment: boolean;
     hiddenCount?: boolean;
+    size?: number;
 }
 
-export const Like = memo<LikeProps>(function Like({ post, disabled = false, hiddenCount = false, isComment }) {
+export const Like = memo<LikeProps>(function Like({ post, disabled = false, hiddenCount = false, isComment, size }) {
     const { author, postId, source, hasLiked } = post;
 
     const isLogin = useIsLogin(source);
@@ -80,6 +81,7 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
                 disabled={disabled}
                 likeCount={!hiddenCount ? post.stats?.reactions : undefined}
                 className="inline-flex items-center gap-1"
+                size={size}
             />
         </ClickableArea>
     );

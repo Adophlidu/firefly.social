@@ -1,4 +1,3 @@
-import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import type { NetworkType, ProfilePageSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
@@ -11,6 +10,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { Loading } from '@/components/Loading.js';
+import { NavigationBar } from '@/components/NavigationBar.js';
 import { FireflyTag } from '@/components/SendTransactionModal/FireflyTag.js';
 import {
     isSocialRecipient,
@@ -45,42 +45,34 @@ export function ChooseRecipientView() {
         return <Navigate to={RoutePath.Form} />;
     }
     return (
-        <div className="flex w-full flex-col px-6 pb-6">
-            <div className="relative flex items-center justify-center py-6">
-                <button
-                    className="absolute left-0 top-6 cursor-pointer rounded p-1 text-main"
-                    onClick={() => {
-                        router.navigate({ to: RoutePath.Form, replace: true });
+        <div className="flex w-full flex-col gap-2 pb-6">
+            <NavigationBar onBack={() => router.navigate({ to: RoutePath.Form, replace: true })}>
+                <Trans>Recipient</Trans>
+            </NavigationBar>
+            <div className="px-4">
+                <ChooseRecipient
+                    recipient={recipient}
+                    networkType={token.networkType}
+                    onClick={(chosenRecipient) => {
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_SELECT, {
+                            chain_id: token.chainId,
+                            recipient_type: 'social_user',
+                            target_firefly_account_id: chosenRecipient.fireflyId ?? undefined,
+                            target_social_handle: chosenRecipient.handle ?? undefined,
+                            target_wallet_address: chosenRecipient.address,
+                            target_ens: chosenRecipient.ens ?? undefined,
+                        });
+                        captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_WALLET_CHANGE, {
+                            target_firefly_account_id: chosenRecipient.fireflyId ?? undefined,
+                            target_social_handle: chosenRecipient.handle ?? undefined,
+                            target_wallet_address: chosenRecipient.address,
+                        });
+                        setValue('recipient', chosenRecipient);
+                        setValue('to', chosenRecipient.address);
+                        router.navigate({ to: RoutePath.Form });
                     }}
-                >
-                    <LeftArrowIcon className="size-6" />
-                </button>
-                <h2 className="text-lg font-semibold text-main">
-                    <Trans>Recipient</Trans>
-                </h2>
+                />
             </div>
-            <ChooseRecipient
-                recipient={recipient}
-                networkType={token.networkType}
-                onClick={(chosenRecipient) => {
-                    captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_SELECT, {
-                        chain_id: token.chainId,
-                        recipient_type: 'social_user',
-                        target_firefly_account_id: chosenRecipient.fireflyId ?? undefined,
-                        target_social_handle: chosenRecipient.handle ?? undefined,
-                        target_wallet_address: chosenRecipient.address,
-                        target_ens: chosenRecipient.ens ?? undefined,
-                    });
-                    captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_WALLET_CHANGE, {
-                        target_firefly_account_id: chosenRecipient.fireflyId ?? undefined,
-                        target_social_handle: chosenRecipient.handle ?? undefined,
-                        target_wallet_address: chosenRecipient.address,
-                    });
-                    setValue('recipient', chosenRecipient);
-                    setValue('to', chosenRecipient.address);
-                    router.navigate({ to: RoutePath.Form });
-                }}
-            />
         </div>
     );
 }

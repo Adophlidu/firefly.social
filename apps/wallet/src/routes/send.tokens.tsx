@@ -1,4 +1,3 @@
-import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
 import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
 import { solana, visibleChains } from '@dimensiondev/web3/chains';
 import { t } from '@lingui/core/macro';
@@ -12,10 +11,10 @@ import { z } from 'zod';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { NavigationBar } from '@/components/NavigationBar.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { type FormValues, RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
 import { TokenItem } from '@/components/TokenItem.js';
-import { Button } from '@/components/ui/button.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';
 import { useMultiChainTokens } from '@/hooks/useMultiChainTokens.js';
@@ -171,21 +170,11 @@ function SelectTokenPage() {
     }, [data, isLoading, router, search.amount, search.chain, search.to, search.token, setToken, setValue]);
 
     return (
-        <div className="flex w-full flex-col pb-6">
-            <div className="sticky top-0 z-10 bg-primaryBottom px-6">
-                <div className="relative flex items-center justify-center py-6">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute left-0 top-1/2 -translate-y-1/2 [&_svg]:size-6"
-                        onClick={() => navigate({ to: '/', replace: true })}
-                    >
-                        <ComebackIcon />
-                    </Button>
-                    <h2 className="text-lg font-semibold text-main">
-                        <Trans>Select Token</Trans>
-                    </h2>
-                </div>
+        <div className="flex w-full flex-col gap-4 pb-4">
+            <NavigationBar onBack={() => navigate({ to: '/', replace: true })}>
+                <Trans>Select Token</Trans>
+            </NavigationBar>
+            <div className="sticky top-0 z-10 bg-primaryBottom px-4">
                 <div className="flex items-center space-x-2.5 pb-2">
                     <ChainFilterDropdown
                         chainId={chainId}
@@ -209,13 +198,13 @@ function SelectTokenPage() {
                     <LoadingIcon />
                 </div>
             ) : (
-                <div className="w-full space-y-2 px-6">
+                <div className="w-full space-y-2 px-4">
                     {tokens.length ? (
                         tokens.map((token) => (
                             <TokenItem
                                 token={token}
                                 key={`${token.chainId}-${token.id}`}
-                                className="duration-100 hover:bg-bg"
+                                className="px-2 duration-100 hover:bg-bg"
                                 onClick={() => {
                                     setToken(token);
                                     setValue('token', token);

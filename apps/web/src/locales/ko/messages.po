@@ -595,6 +595,9 @@ msgstr "이 토큰은 구매할 수 있습니다."
 msgid "Failed to like swap."
 msgstr "스왑 좋아요에 실패했습니다."
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Liked."
 msgstr "좋아요를 눌렀습니다."
 
@@ -1209,6 +1212,9 @@ msgstr "인용"
 msgid "action-unlike"
 msgstr "좋아요 취소"
 
+msgid "Conversation with {panelTitle}"
+msgstr ""
+
 msgid "Buy {firstOutcome}"
 msgstr "{firstOutcome} 매수"
 
@@ -1710,6 +1716,9 @@ msgstr "사용자 지정 금액"
 
 msgid "Preview image"
 msgstr "이미지 미리보기"
+
+msgid "This conversation could not be opened."
+msgstr ""
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>Firefly가 <1>Polymarket 거래</1>를 출시하여 온체인 예측 시장을 소셜 피드와 연결합니다! <2>콘텐츠 바운티 작업</2>부터 시작해 초기 기여자로 참여해 주세요!</0><3>💰 고품질 콘텐츠를 제작한 사용자는 각각 <4>100 USDC</4>를 받을 수 있습니다.</3><5>🧩 Firefly에 Polymarket 거래 이야기를 공유하는 게시물을 작성하세요. 예측, 거래 전략, 인사이트, 성공 또는 실패를 이야기할 수 있습니다. 제출물은 콘텐츠 품질, 창의성, 깊이, 가독성 및 도달 범위를 기준으로 평가됩니다. 수상자는 <6>@thefireflyapp</6>에서 발표되며 DM으로 연락드립니다.</5><7>📌 참여 방법:</7><8><9><10>작성</10> Firefly가 지원하는 소셜 플랫폼에 <11>Polymarket 거래 이야기</11>를 담은 아티클 또는 긴 스레드를 게시하세요.</9><12><13>팔로우 및 멘션</13> <14>@thefireflyapp</14>.</12><15><16>등록</16> 이 양식을 작성하여 제출물을 등록하세요.</15></8>"
@@ -2350,6 +2359,9 @@ msgstr "다시 연결"
 
 msgid "No suspected malicious behavior found."
 msgstr "악성 행위가 의심되지 않습니다."
+
+msgid "Open in Messages"
+msgstr ""
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "브라우저가 Firefly Bridge를 지원하지 않습니다."
@@ -3764,6 +3776,9 @@ msgstr "앱에서 로그인을 확인해 주세요"
 
 msgid "Website"
 msgstr "웹사이트"
+
+msgid "Sign in to send a message"
+msgstr ""
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"

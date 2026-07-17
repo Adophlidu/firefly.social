@@ -599,6 +599,9 @@ msgstr "El token se puede comprar."
 msgid "Failed to like swap."
 msgstr "No se pudo dar Me gusta al intercambio."
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Liked."
 msgstr "Me gustó."
 
@@ -1215,6 +1218,9 @@ msgstr "Citar"
 msgid "action-unlike"
 msgstr "Quitar Me gusta"
 
+msgid "Conversation with {panelTitle}"
+msgstr ""
+
 msgid "Buy {firstOutcome}"
 msgstr "Comprar {firstOutcome}"
 
@@ -1718,6 +1724,9 @@ msgstr "Cantidad personalizada"
 
 msgid "Preview image"
 msgstr "Vista previa de la imagen"
+
+msgid "This conversation could not be opened."
+msgstr ""
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>¡Firefly está lanzando <1>el trading de Polymarket</1>, conectando los mercados de predicción onchain con tu feed social! Te invitamos a unirte como colaborador inicial, ¡empezando por nuestras <2>tareas de recompensa de contenido</2>!</0><3>💰 Los usuarios que produzcan contenido de alta calidad pueden ganar <4>100 USDC</4> cada uno.</3><5>🧩 Crea una publicación en Firefly para compartir tu historia de trading en Polymarket. Puedes hablar de tus predicciones, estrategias de trading, ideas, éxitos o incluso fracasos en Polymarket. Las propuestas se evaluarán según la calidad del contenido, la creatividad, la profundidad, la legibilidad y el alcance. Los ganadores se anunciarán en <6>@thefireflyapp</6> y se les contactará por DM.</5><7>📌 Cómo participar:</7><8><9><10>Crea</10> un artículo o un hilo largo compartiendo tu <11>historia de trading en Polymarket</11>, y publícalo en cualquier plataforma social compatible con Firefly.</9><12><13>Sigue y menciona</13> a <14>@thefireflyapp</14>.</12><15><16>Registra</16> tu propuesta rellenando este formulario.</15></8>"
@@ -2362,6 +2371,9 @@ msgstr "Reconectar"
 
 msgid "No suspected malicious behavior found."
 msgstr "No se ha detectado comportamiento posiblemente malicioso."
+
+msgid "Open in Messages"
+msgstr ""
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "Su navegador no es compatible con Firefly Bridge."
@@ -3786,6 +3798,9 @@ msgstr "Por favor confirma el inicio de sesión en la app"
 
 msgid "Website"
 msgstr "Sitio web"
+
+msgid "Sign in to send a message"
+msgstr ""
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"

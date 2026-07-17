@@ -236,7 +236,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
     const mirrored = !!post.hasMirrored;
 
     const canUndoMirror = post.source === Source.Lens && mirrored && post.publicationId !== post.postId;
-    const [{ loading, value }, handleMirror] = useMirror(post);
+    const [{ loading }, handleMirror] = useMirror(post);
 
     const { canPost, sources } = useAnonymousPostAvailability();
     const anonymousPostEnabled = !isLogin && canPost && sources.includes(source);

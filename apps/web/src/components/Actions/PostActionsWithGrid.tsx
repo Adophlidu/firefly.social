@@ -62,7 +62,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             </div>
         ) : null,
         <div key="like">
-            <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
+            <Like isComment={isComment} post={post} disabled={disabled} hiddenCount size={18} />
         </div>,
         identity.id ? (
             <Tips key="tips" post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
