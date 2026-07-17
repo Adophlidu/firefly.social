@@ -1,7 +1,7 @@
 'use client';
 
+import GalleryIcon from '@dimensiondev/assets/gallery.svg';
 import GifIcon from '@dimensiondev/assets/gif.svg';
-import ImageIcon from '@dimensiondev/assets/image.svg';
 import PlayIcon from '@dimensiondev/assets/play.svg';
 import SendIcon from '@dimensiondev/assets/send.svg';
 import { classNames } from '@dimensiondev/utils';
@@ -35,6 +35,8 @@ import type { DmAttachmentDraft } from '@/providers/orb/chat/types.js';
 
 // Show the character counter as the message approaches the limit.
 const MESSAGE_LENGTH_COUNTER_THRESHOLD = MAX_CHAT_MESSAGE_LENGTH - 80;
+const MIN_COMPOSER_HEIGHT_PX = 24;
+const MAX_COMPOSER_HEIGHT_PX = 112;
 
 interface MessageComposerProps {
     recipientName: string;
@@ -77,6 +79,16 @@ export const MessageComposer = memo(function MessageComposer({ recipientName, on
         },
         [],
     );
+
+    useLayoutEffect(() => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+
+        textarea.style.height = 'auto';
+        const nextHeight = Math.max(MIN_COMPOSER_HEIGHT_PX, Math.min(textarea.scrollHeight, MAX_COMPOSER_HEIGHT_PX));
+        textarea.style.height = `${nextHeight}px`;
+        textarea.style.overflowY = textarea.scrollHeight > MAX_COMPOSER_HEIGHT_PX ? 'auto' : 'hidden';
+    }, [content]);
 
     useLayoutEffect(() => {
         if (!pendingSelectionRef.current) return;
@@ -262,8 +274,8 @@ export const MessageComposer = memo(function MessageComposer({ recipientName, on
     };
 
     return (
-        <div className="shrink-0 border-t border-line bg-primaryBottom px-3 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 md:px-5 md:pb-5">
-            <div className="focus-within:border-fireflyBrand/40 rounded-[22px] border border-line bg-lightBg px-3 pb-2.5 pt-3 transition-colors focus-within:bg-primaryBottom">
+        <div className="shrink-0 border-t border-line bg-primaryBottom px-3 pb-[max(12px,env(safe-area-inset-bottom))] pt-2 md:px-5 md:pb-4">
+            <div className="rounded-xl border border-line bg-lightBg px-3 py-2 transition-colors focus-within:border-fireflyBrand focus-within:bg-primaryBottom">
                 {attachments.length ? (
                     <div className="no-scrollbar mb-3 flex gap-2 overflow-x-auto px-1">
                         {attachments.map((attachment) => (
@@ -313,7 +325,7 @@ export const MessageComposer = memo(function MessageComposer({ recipientName, on
                     rows={1}
                     value={content}
                     maxLength={MAX_CHAT_MESSAGE_LENGTH}
-                    className="block max-h-28 min-h-7 w-full resize-none border-0 bg-transparent px-1 py-0 text-sm leading-6 text-main outline-none placeholder:text-second focus:ring-0"
+                    className="block max-h-28 min-h-6 w-full resize-none border-0 bg-transparent px-1 py-0 text-sm leading-5 text-main outline-none placeholder:text-second focus:ring-0"
                     placeholder={t`Message ${recipientName}`}
                     onChange={handleTextChange}
                     onPaste={handlePaste}
@@ -346,10 +358,10 @@ export const MessageComposer = memo(function MessageComposer({ recipientName, on
                     }}
                     onKeyDown={handleKeyDown}
                 />
-                <div className="mt-2 flex items-center justify-between">
+                <div className="mt-1.5 flex items-center justify-between">
                     <div className="flex items-center gap-0.5 text-second">
                         <ComposerToolButton
-                            icon={<ImageIcon width={18} height={18} />}
+                            icon={<GalleryIcon width={18} height={18} />}
                             label={t`Add media`}
                             disabled={isAttachmentsFull}
                             onClick={() => mediaInputRef.current?.click()}
@@ -363,7 +375,7 @@ export const MessageComposer = memo(function MessageComposer({ recipientName, on
                             onChange={handleMediaChange}
                         />
                         <ComposerToolButton
-                            icon={<GifIcon width={19} height={19} />}
+                            icon={<GifIcon width={18} height={18} viewBox="0 0 24 24" />}
                             label={t`Add GIF`}
                             disabled={isAttachmentsFull}
                             onClick={() => setIsGifPickerOpen(true)}
@@ -385,10 +397,10 @@ export const MessageComposer = memo(function MessageComposer({ recipientName, on
                             type="button"
                             disabled={!canSend}
                             className={classNames(
-                                'flex h-8 items-center gap-1.5 rounded-xl px-3 text-xs font-bold transition-all',
+                                'flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-bold transition-colors',
                                 {
-                                    'bg-fireflyBrand text-white hover:brightness-95 active:scale-95': canSend,
-                                    'cursor-not-allowed bg-line text-second': !canSend,
+                                    'bg-fireflyBrand text-white hover:opacity-90': canSend,
+                                    'cursor-not-allowed bg-transparent text-second': !canSend,
                                 },
                             )}
                             onClick={handleSend}
@@ -399,7 +411,7 @@ export const MessageComposer = memo(function MessageComposer({ recipientName, on
                     </div>
                 </div>
             </div>
-            <p className="mt-2 hidden text-center text-[10px] text-second md:block">
+            <p className="mt-2 hidden text-center text-xs text-second md:block">
                 <Trans>Press Enter to send · Shift + Enter for a new line</Trans>
             </p>
             <DmGifPicker

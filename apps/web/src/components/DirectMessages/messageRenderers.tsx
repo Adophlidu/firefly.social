@@ -39,7 +39,7 @@ function TextMessage({ item }: MessageContentProps<'text'>) {
     return (
         <div
             className={classNames(
-                'max-w-full break-words rounded-[22px] px-4 py-2.5 text-sm leading-5 shadow-sm [overflow-wrap:anywhere]',
+                'max-w-full break-words rounded-2xl px-4 py-2.5 text-sm leading-5 [overflow-wrap:anywhere]',
                 {
                     'rounded-br-md bg-fireflyBrand text-white': item.isSelf,
                     'rounded-bl-md border border-line bg-lightBg text-main': !item.isSelf,
@@ -82,7 +82,7 @@ function TipMessageContent({ item, account }: MessageContentProps<'tip'>) {
 
 function UnknownMessage() {
     return (
-        <div className="rounded-[22px] border border-line bg-lightBg px-4 py-3 text-sm text-second shadow-sm">
+        <div className="rounded-2xl border border-line bg-lightBg px-4 py-3 text-sm text-second">
             <Trans>Unsupported message</Trans>
         </div>
     );

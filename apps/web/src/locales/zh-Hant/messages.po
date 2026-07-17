@@ -1699,9 +1699,6 @@ msgstr "賽事狀態"
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr "在 {3} 回覆 <0>@{0}</0>、<1>@{1}</1> 及 <2>其他{2}人</2>"
 
-msgid "Private conversations across Firefly"
-msgstr ""
-
 msgid "Connect Wallet"
 msgstr "連接錢包"
 
@@ -1971,6 +1968,9 @@ msgstr "射門"
 
 msgid "Your Firefly Account is now connected"
 msgstr "你的 Firefly 帳戶已連接"
+
+msgid "People could not be loaded"
+msgstr ""
 
 msgid "Legacy Firefly wallet"
 msgstr "舊版 Firefly 錢包"

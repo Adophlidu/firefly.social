@@ -25,7 +25,7 @@ export const ConversationListToggle = memo(function ConversationListToggle({
             <button
                 type="button"
                 className={classNames(
-                    'hidden size-9 shrink-0 place-items-center rounded-xl border border-line bg-lightBg text-second shadow-sm transition-colors hover:bg-primaryBottom hover:text-main md:grid',
+                    'hidden size-9 shrink-0 place-items-center rounded-md border border-line bg-lightBg text-second transition-colors hover:bg-primaryBottom hover:text-main md:grid',
                     className,
                 )}
                 aria-controls="dm-conversation-list"

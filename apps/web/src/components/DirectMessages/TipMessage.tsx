@@ -47,38 +47,38 @@ export const TipMessage = memo(function TipMessage({ account, interactiveActionI
                     : null;
 
     return (
-        <div className="flex h-[286px] w-[min(72vw,320px)] flex-col overflow-hidden rounded-[24px] border border-white/10 bg-[#171717] p-5 text-white shadow-sm">
+        <div className="flex h-[286px] w-[min(72vw,320px)] flex-col overflow-hidden rounded-xl border border-line bg-lightBg p-5 text-main">
             {detailQuery.isLoading ? (
                 <div className="flex h-full animate-pulse flex-col" aria-label={t`Loading payment request`}>
                     <div className="flex items-start justify-between">
                         <div>
-                            <div className="h-4 w-20 rounded bg-white/15" />
-                            <div className="mt-2 h-3 w-16 rounded bg-white/10" />
+                            <div className="h-4 w-20 rounded bg-line" />
+                            <div className="mt-2 h-3 w-16 rounded bg-line" />
                         </div>
-                        <div className="size-10 rounded-2xl bg-white/10" />
+                        <div className="size-10 rounded-lg bg-line" />
                     </div>
                     <div className="flex flex-1 flex-col items-center justify-center gap-3">
-                        <div className="h-12 w-28 rounded-xl bg-white/15" />
-                        <div className="h-4 w-20 rounded bg-white/10" />
+                        <div className="h-12 w-28 rounded-lg bg-line" />
+                        <div className="h-4 w-20 rounded bg-line" />
                     </div>
-                    <div className="border-t border-white/10 pt-4">
-                        <div className="h-3 w-12 rounded bg-white/10" />
-                        <div className="mt-2 h-4 w-20 rounded bg-white/15" />
+                    <div className="border-t border-line pt-4">
+                        <div className="h-3 w-12 rounded bg-line" />
+                        <div className="mt-2 h-4 w-20 rounded bg-line" />
                     </div>
                 </div>
             ) : detail ? (
                 <>
                     <div className="flex items-start justify-between">
                         <div>
-                            <p className="text-base font-extrabold">
+                            <p className="text-base font-bold">
                                 <Trans>Payment</Trans>
                             </p>
-                            <p className="mt-0.5 text-sm text-white/55">{subtitle}</p>
+                            <p className="mt-0.5 text-sm text-second">{subtitle}</p>
                         </div>
                         <span
-                            className={classNames('grid size-10 place-items-center rounded-2xl', {
-                                'bg-green-400/15 text-green-400': isCompleted && !isSelf,
-                                'bg-orange-500/15 text-orange-400': !isCompleted || isSelf,
+                            className={classNames('grid size-10 place-items-center rounded-lg', {
+                                'bg-green-500/10 text-green-500': isCompleted && !isSelf,
+                                'bg-fireflyBrand/10 text-fireflyBrand': !isCompleted || isSelf,
                             })}
                         >
                             <DollarIcon width={22} height={22} />
@@ -88,49 +88,46 @@ export const TipMessage = memo(function TipMessage({ account, interactiveActionI
                         {hasAmount && typeof amount === 'number' ? (
                             <>
                                 <p
-                                    className={classNames(
-                                        'max-w-full truncate text-5xl font-extrabold tracking-tight',
-                                        {
-                                            'text-green-400': isCompleted && !isSelf,
-                                            'text-white/45': isInactive,
-                                        },
-                                    )}
+                                    className={classNames('max-w-full truncate text-5xl font-bold tracking-tight', {
+                                        'text-green-500': isCompleted && !isSelf,
+                                        'text-second': isInactive,
+                                    })}
                                 >
                                     {!isSelf && isCompleted ? '+' : ''}${formatAmount(amount)}
                                 </p>
-                                <p className="mt-2 max-w-full truncate text-sm font-medium text-white/55">
+                                <p className="mt-2 max-w-full truncate text-sm font-medium text-second">
                                     {formatAmount(amount)} ${symbol}
                                 </p>
                             </>
                         ) : (
-                            <p className="text-center text-sm font-semibold text-white/70">
+                            <p className="text-center text-sm font-semibold text-second">
                                 {isSelf ? <Trans>Payment request sent</Trans> : <Trans>Payment requested</Trans>}
                             </p>
                         )}
                     </div>
-                    <div className="border-t border-white/10 pt-4">
-                        <p className="text-xs font-semibold text-white/45">
+                    <div className="border-t border-line pt-4">
+                        <p className="text-xs font-semibold text-second">
                             {detail.message ? <Trans>Message</Trans> : <Trans>Status</Trans>}
                         </p>
-                        <p className="mt-1 line-clamp-2 text-sm font-semibold text-white/80">{status ?? '—'}</p>
+                        <p className="mt-1 line-clamp-2 text-sm font-semibold text-main">{status ?? '—'}</p>
                     </div>
                 </>
             ) : (
                 <div className="flex h-full flex-col">
                     <div className="flex items-start justify-between">
                         <div>
-                            <p className="text-base font-extrabold">
+                            <p className="text-base font-bold">
                                 <Trans>Payment</Trans>
                             </p>
-                            <p className="mt-0.5 text-sm text-white/55">
+                            <p className="mt-0.5 text-sm text-second">
                                 {isSelf ? <Trans>Sent</Trans> : <Trans>Requested</Trans>}
                             </p>
                         </div>
-                        <span className="grid size-10 place-items-center rounded-2xl bg-orange-500/15 text-orange-400">
+                        <span className="bg-fireflyBrand/10 grid size-10 place-items-center rounded-lg text-fireflyBrand">
                             <DollarIcon width={22} height={22} />
                         </span>
                     </div>
-                    <p className="m-auto max-w-48 text-center text-sm font-semibold leading-6 text-white/55">
+                    <p className="m-auto max-w-48 text-center text-sm font-semibold leading-6 text-second">
                         <Trans>Payment request details unavailable</Trans>
                     </p>
                 </div>

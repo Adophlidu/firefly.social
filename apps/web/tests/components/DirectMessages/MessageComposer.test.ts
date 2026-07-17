@@ -10,8 +10,8 @@ import { MAX_CHAT_ATTACHMENT_BYTES, MAX_CHAT_ATTACHMENTS } from '@/providers/orb
 
 vi.mock('@/helpers/enqueueMessage.js', () => ({ enqueueErrorMessage: vi.fn() }));
 vi.mock('@dimensiondev/assets/emoji.svg', () => ({ default: () => null }));
+vi.mock('@dimensiondev/assets/gallery.svg', () => ({ default: () => null }));
 vi.mock('@dimensiondev/assets/gif.svg', () => ({ default: () => null }));
-vi.mock('@dimensiondev/assets/image.svg', () => ({ default: () => null }));
 vi.mock('@dimensiondev/assets/play.svg', () => ({ default: () => null }));
 vi.mock('@dimensiondev/assets/send.svg', () => ({ default: () => null }));
 vi.mock('@lingui/react/macro', () => ({ Trans: ({ children }: { children?: unknown }) => children }));
@@ -34,6 +34,24 @@ vi.mock('@/helpers/getVideoMetadata.js', () => ({
 afterEach(cleanup);
 
 describe('MessageComposer', () => {
+    test('grows with multiline content and scrolls only after reaching its maximum height', () => {
+        render(createElement(MessageComposer, { recipientName: 'Alice', onSend: vi.fn() }));
+        const input = screen.getByRole<HTMLTextAreaElement>('textbox');
+        let scrollHeight = 72;
+        Object.defineProperty(input, 'scrollHeight', { configurable: true, get: () => scrollHeight });
+
+        fireEvent.change(input, { target: { value: 'one\ntwo\nthree' } });
+
+        expect(input.style.height).toBe('72px');
+        expect(input.style.overflowY).toBe('hidden');
+
+        scrollHeight = 160;
+        fireEvent.change(input, { target: { value: 'one\ntwo\nthree\nfour\nfive\nsix' } });
+
+        expect(input.style.height).toBe('112px');
+        expect(input.style.overflowY).toBe('auto');
+    });
+
     test('does not send when Enter confirms an IME composition', () => {
         const onSend = vi.fn();
         render(createElement(MessageComposer, { recipientName: 'Alice', onSend }));

@@ -15,7 +15,7 @@ export const StickerMessage = memo(function StickerMessage({ url, fallbackUrl, o
 
     if (!currentUrl) {
         return (
-            <div className="rounded-[22px] border border-line bg-lightBg px-4 py-3 text-sm text-second shadow-sm">
+            <div className="rounded-2xl border border-line bg-lightBg px-4 py-3 text-sm text-second">
                 <Trans>Unsupported message</Trans>
             </div>
         );

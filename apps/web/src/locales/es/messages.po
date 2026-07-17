@@ -1707,9 +1707,6 @@ msgstr "Estado del evento"
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr "Respondiendo a <0>@{0}</0>, <1>@{1}</1> y <2>{2} más</2> en {3}"
 
-msgid "Private conversations across Firefly"
-msgstr ""
-
 msgid "Connect Wallet"
 msgstr "Conectar billetera"
 
@@ -1981,6 +1978,9 @@ msgstr "Tiros"
 
 msgid "Your Firefly Account is now connected"
 msgstr "Tu cuenta de Firefly ahora está conectada"
+
+msgid "People could not be loaded"
+msgstr ""
 
 msgid "Legacy Firefly wallet"
 msgstr "Cartera Firefly heredada"

@@ -28,7 +28,7 @@ export const ContactAvatar = memo(function ContactAvatar({
         <span className="relative inline-flex shrink-0" aria-label={name}>
             <span
                 className={classNames(
-                    'grid place-items-center rounded-[38%] font-bold tracking-[-0.02em] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]',
+                    'grid place-items-center overflow-hidden rounded-full border border-line font-bold',
                     SIZE_CLASS_NAMES[size],
                     avatarClassName,
                 )}
@@ -37,7 +37,7 @@ export const ContactAvatar = memo(function ContactAvatar({
                     <>
                         {/* Orb avatars can use user-defined hosts that are not compatible with Next Image's allowlist. */}
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={avatarUrl} alt="" className="size-full rounded-[38%] object-cover" />
+                        <img src={avatarUrl} alt="" className="size-full object-cover" />
                     </>
                 ) : (
                     initials

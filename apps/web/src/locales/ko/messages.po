@@ -1699,9 +1699,6 @@ msgstr "이벤트 상태"
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr "{3}에서 <0>@{0}</0>, <1>@{1}</1> 및 <2>외 {2}명</2>에게 답글 중"
 
-msgid "Private conversations across Firefly"
-msgstr ""
-
 msgid "Connect Wallet"
 msgstr "지갑 연결"
 
@@ -1971,6 +1968,9 @@ msgstr "슈팅"
 
 msgid "Your Firefly Account is now connected"
 msgstr "Firefly 계정이 연결되었습니다"
+
+msgid "People could not be loaded"
+msgstr ""
 
 msgid "Legacy Firefly wallet"
 msgstr "레거시 Firefly 지갑"

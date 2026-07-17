@@ -91,7 +91,7 @@ export const DmGifPicker = memo(function DmGifPicker({ open, onClose, onSelect }
                 title={<Trans>GIFs</Trans>}
                 enableClose
                 disableDialogClose={false}
-                panelClassName="flex min-h-0 flex-1 flex-col overflow-hidden p-0"
+                panelClassName="flex min-h-0 flex-1 flex-col overflow-hidden !p-0 !pt-0"
                 onClose={onClose}
             >
                 {content}

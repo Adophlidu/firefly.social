@@ -72,7 +72,7 @@ const MessageDateDivider = memo(function MessageDateDivider({ createdAt }: { cre
         );
 
     return (
-        <div className="my-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.14em] text-second">
+        <div className="my-5 flex items-center gap-3 text-xs font-medium text-second">
             <span className="h-px flex-1 bg-line" />
             <span>{label}</span>
             <span className="h-px flex-1 bg-line" />
@@ -274,7 +274,7 @@ export const MessageThread = memo(function MessageThread({
         <>
             <ContactAvatar {...conversation} size="sm" />
             <div className="min-w-0">
-                <h2 className="truncate text-sm font-extrabold text-main group-hover:underline">{conversation.name}</h2>
+                <h2 className="truncate text-sm font-bold text-main group-hover:underline">{conversation.name}</h2>
                 <p className="mt-0.5 truncate text-[11px] text-second">
                     {conversation.isOnline ? <Trans>Active now</Trans> : conversation.handle}
                 </p>
@@ -286,11 +286,10 @@ export const MessageThread = memo(function MessageThread({
         <section className="relative flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-primaryBottom">
             <header
                 className={classNames(
-                    'absolute inset-x-0 top-0 z-20 flex h-[72px] min-w-0 items-center justify-between border-b px-3 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none md:px-5',
+                    'absolute inset-x-0 top-0 z-20 flex h-[calc(60px+env(safe-area-inset-top))] min-w-0 items-center justify-between border-b px-3 pt-[env(safe-area-inset-top)] transition-colors md:px-4',
                     {
                         'border-line bg-primaryBottom': !isHeaderElevated,
-                        'border-transparent bg-primaryBottom/75 backdrop-blur-[28px] backdrop-saturate-150':
-                            isHeaderElevated,
+                        'border-line bg-primaryBottom shadow-sm': isHeaderElevated,
                     },
                 )}
             >
@@ -305,7 +304,7 @@ export const MessageThread = memo(function MessageThread({
                             <Link
                                 href={profileUrl}
                                 aria-label={profileLabel}
-                                className="group -ml-1.5 flex min-w-0 items-center gap-2.5 rounded-2xl border border-transparent px-1.5 py-1 transition-[background-color,border-color] hover:border-line hover:bg-lightBg focus-visible:border-line focus-visible:bg-lightBg focus-visible:outline-none"
+                                className="group -ml-1 flex min-w-0 items-center gap-2.5 rounded-md border border-transparent p-1 transition-colors hover:bg-lightBg focus-visible:border-line focus-visible:bg-lightBg focus-visible:outline-none"
                                 onClick={() => replaceDmConversationInUrl(conversation.id)}
                             >
                                 {profileIdentity}
@@ -320,7 +319,7 @@ export const MessageThread = memo(function MessageThread({
             <div className="relative min-h-0 flex-1">
                 <div
                     ref={scrollContainerRef}
-                    className="no-scrollbar size-full overflow-y-auto overflow-x-hidden bg-[radial-gradient(circle_at_50%_-20%,rgba(255,111,49,0.07),transparent_34%)] px-4 pb-5 pt-[92px] md:px-7"
+                    className="no-scrollbar size-full overflow-y-auto overflow-x-hidden px-4 pb-5 pt-[calc(80px+env(safe-area-inset-top))] md:px-6"
                     onScroll={(event) => {
                         const container = event.currentTarget;
                         setIsHeaderElevated(shouldElevateMessageThreadHeader(container.scrollTop));
@@ -345,7 +344,7 @@ export const MessageThread = memo(function MessageThread({
                         {messages.length ? null : (
                             <div className="mb-8 flex flex-col items-center pt-3 text-center">
                                 <ContactAvatar {...conversation} size="lg" />
-                                <h3 className="mt-3 text-base font-extrabold text-main">{conversation.name}</h3>
+                                <h3 className="mt-3 text-base font-bold text-main">{conversation.name}</h3>
                                 <p className="mt-1 text-xs text-second">{conversation.handle}</p>
                                 <p className="mt-3 max-w-72 text-xs leading-5 text-second">
                                     <Trans>You follow each other on Lens. This conversation is private.</Trans>
@@ -357,7 +356,7 @@ export const MessageThread = memo(function MessageThread({
                             <button
                                 type="button"
                                 disabled={messagesQuery.isFetchingNextPage}
-                                className="mx-auto mb-5 rounded-xl bg-lightBg px-4 py-2 text-xs font-bold text-main"
+                                className="mx-auto mb-5 rounded-md bg-lightBg px-4 py-2 text-xs font-bold text-main"
                                 onClick={() => void messagesQuery.fetchNextPage()}
                             >
                                 {messagesQuery.isFetchingNextPage ? (
@@ -370,9 +369,9 @@ export const MessageThread = memo(function MessageThread({
 
                         {messagesQuery.isPending ? (
                             <div className="space-y-4">
-                                <div className="h-12 w-2/3 animate-pulse rounded-[22px] bg-lightBg" />
-                                <div className="ml-auto h-12 w-1/2 animate-pulse rounded-[22px] bg-lightBg" />
-                                <div className="h-16 w-3/4 animate-pulse rounded-[22px] bg-lightBg" />
+                                <div className="h-12 w-2/3 animate-pulse rounded-xl bg-lightBg" />
+                                <div className="ml-auto h-12 w-1/2 animate-pulse rounded-xl bg-lightBg" />
+                                <div className="h-16 w-3/4 animate-pulse rounded-xl bg-lightBg" />
                             </div>
                         ) : messagesQuery.error ? (
                             <div className="py-8 text-center">
@@ -381,7 +380,7 @@ export const MessageThread = memo(function MessageThread({
                                 </p>
                                 <button
                                     type="button"
-                                    className="mt-3 rounded-xl bg-lightBg px-4 py-2 text-xs font-bold text-main"
+                                    className="mt-3 rounded-md bg-lightBg px-4 py-2 text-xs font-bold text-main"
                                     onClick={() => void messagesQuery.refetch()}
                                 >
                                     <Trans>Retry</Trans>
@@ -407,7 +406,7 @@ export const MessageThread = memo(function MessageThread({
                                             {showUnreadDivider ? (
                                                 <div
                                                     ref={unreadDividerRef}
-                                                    className="my-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.14em] text-fireflyBrand"
+                                                    className="my-5 flex items-center gap-3 text-xs font-medium text-fireflyBrand"
                                                 >
                                                     <span className="bg-fireflyBrand/30 h-px flex-1" />
                                                     <Trans>New messages</Trans>

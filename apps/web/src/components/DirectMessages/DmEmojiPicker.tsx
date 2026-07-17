@@ -31,12 +31,12 @@ export const DmEmojiPicker = memo(function DmEmojiPicker({ onSelect }: DmEmojiPi
     const button = (
         <button
             type="button"
-            className="grid size-8 place-items-center rounded-xl hover:bg-line"
+            className="grid size-8 place-items-center rounded-md hover:bg-line"
             aria-label={t`Add emoji`}
             aria-expanded={open}
             onClick={() => setOpen(true)}
         >
-            <EmojiIcon width={19} height={19} />
+            <EmojiIcon width={18} height={18} viewBox="0 0 24 24" />
         </button>
     );
     const picker = opened ? (

@@ -1699,9 +1699,6 @@ msgstr "イベントステータス"
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr "{3} で <0>@{0}</0>、<1>@{1}</1>、<2>他 {2} 人</2> に返信中"
 
-msgid "Private conversations across Firefly"
-msgstr ""
-
 msgid "Connect Wallet"
 msgstr "ウォレットを接続"
 
@@ -1971,6 +1968,9 @@ msgstr "シュート"
 
 msgid "Your Firefly Account is now connected"
 msgstr "あなたの Firefly アカウントが接続されました"
+
+msgid "People could not be loaded"
+msgstr ""
 
 msgid "Legacy Firefly wallet"
 msgstr "レガシー Firefly ウォレット"

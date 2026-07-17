@@ -84,7 +84,9 @@ See `/architecture` for the full layer diagram, package list, violation examples
 ## Git
 
 - **Base branch**: `origin/main`
+- **Branch format**: use Conventional Commit type prefixes such as `feat/...`, `fix/...`, `chore/...`, or `refactor/...`; never use tool- or agent-specific prefixes such as `codex/`
 - **Commit format**: `feat(scope): description` / `fix(scope):` / `chore(scope):`
+- **PR title format**: use the same Conventional Commit types, e.g. `feat(web): description`, `fix(web): description`, `chore(web): description`, or `refactor(web): description`
 - ❌ NEVER commit directly to `origin/main` or `released` — create a feature branch first (`feat/...`, `fix/...`, etc.)
 - ❌ Do NOT include AI tool attribution lines in commit messages
 - ✅ Before creating a PR, run a code review pass on the diff (`/code-review`, or the `code-review-pr` skill for the full Firefly checklist) and fix confirmed findings first

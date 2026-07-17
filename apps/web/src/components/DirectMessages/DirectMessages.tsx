@@ -88,7 +88,7 @@ function toConversation(
 const SignedOutState = memo(function SignedOutState() {
     return (
         <div className="flex size-full flex-col items-center justify-center px-6 text-center">
-            <div className="grid size-16 place-items-center rounded-[24px] bg-lightBg text-main">
+            <div className="grid size-16 place-items-center rounded-full bg-lightBg text-main">
                 <MessagesIcon width={28} height={28} />
             </div>
             <h1 className="mt-5 text-xl font-extrabold text-main">
@@ -324,7 +324,7 @@ export const DirectMessages = memo(function DirectMessages() {
 
     if (!identity) {
         return (
-            <div className="h-svh min-h-[560px] w-full overflow-hidden bg-primaryBottom md:border-r md:border-line">
+            <div className="h-dvh min-h-0 w-full overflow-hidden bg-primaryBottom md:border-r md:border-line">
                 <SignedOutState />
             </div>
         );
@@ -355,7 +355,7 @@ export const DirectMessages = memo(function DirectMessages() {
     };
 
     return (
-        <div className="h-svh min-h-[560px] w-full overflow-hidden bg-primaryBottom md:border-r md:border-line">
+        <div className="h-dvh min-h-0 w-full overflow-hidden bg-primaryBottom md:border-r md:border-line">
             <div className="flex h-full min-h-0">
                 <div
                     id="dm-conversation-list"
@@ -418,7 +418,7 @@ export const DirectMessages = memo(function DirectMessages() {
                 contacts={conversations}
                 open={isNewMessageOpen}
                 onClose={() => setIsNewMessageOpen(false)}
-                onSelect={(contact) => void handleContactSelect(contact)}
+                onSelect={handleContactSelect}
             />
         </div>
     );

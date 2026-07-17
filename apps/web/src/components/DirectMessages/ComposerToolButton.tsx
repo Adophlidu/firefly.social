@@ -22,7 +22,7 @@ export const ComposerToolButton = memo(function ComposerToolButton({
         <button
             type="button"
             disabled={disabled}
-            className={classNames('grid size-8 place-items-center rounded-xl hover:bg-line', {
+            className={classNames('grid size-8 place-items-center rounded-md hover:bg-line', {
                 'cursor-not-allowed opacity-50': disabled,
             })}
             aria-label={label}

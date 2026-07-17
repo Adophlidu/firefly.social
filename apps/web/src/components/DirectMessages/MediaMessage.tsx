@@ -18,9 +18,9 @@ export const MediaMessage = memo(function MediaMessage({ item }: { item: MediaMe
     const isSingle = item.attachments.length === 1;
 
     return (
-        <div className="overflow-hidden rounded-[22px] border border-line bg-lightBg p-1 shadow-sm">
+        <div className="overflow-hidden rounded-2xl border border-line bg-lightBg p-1">
             <div
-                className={classNames('grid max-w-[420px] gap-1 overflow-hidden rounded-[18px]', {
+                className={classNames('grid max-w-[420px] gap-1 overflow-hidden rounded-xl', {
                     'grid-cols-2': item.attachments.length > 1,
                 })}
             >

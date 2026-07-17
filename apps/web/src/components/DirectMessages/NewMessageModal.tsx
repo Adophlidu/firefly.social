@@ -3,7 +3,7 @@
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { memo, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 
 import { ContactAvatar } from '@/components/DirectMessages/ContactAvatar.js';
 import type { DirectMessageContact } from '@/components/DirectMessages/types.js';
@@ -20,7 +20,7 @@ interface NewMessageModalProps {
     contacts: DirectMessageContact[];
     open: boolean;
     onClose: () => void;
-    onSelect: (contact: DirectMessageContact) => void;
+    onSelect: (contact: DirectMessageContact) => Promise<void>;
 }
 
 export const NewMessageModal = memo(function NewMessageModal({
@@ -32,6 +32,7 @@ export const NewMessageModal = memo(function NewMessageModal({
 }: NewMessageModalProps) {
     const isMedium = useIsMedium();
     const [search, setSearch] = useState('');
+    const [selectedContactId, setSelectedContactId] = useState<string>();
     const debouncedSearch = useDebouncedDmSearch(search);
     const profileSearch = useDmProfileSearch(account, debouncedSearch);
     const filteredContacts = useMemo(() => {
@@ -60,15 +61,40 @@ export const NewMessageModal = memo(function NewMessageModal({
         profileSearch.isFetching &&
         debouncedSearch.trim().length >= 2 &&
         search.trim().toLowerCase() === debouncedSearch.trim().toLowerCase();
+    const hasProfileSearchError =
+        profileSearch.isError &&
+        debouncedSearch.trim().length >= 2 &&
+        search.trim().toLowerCase() === debouncedSearch.trim().toLowerCase();
+
+    useEffect(() => {
+        if (open) return;
+        setSearch('');
+        setSelectedContactId(undefined);
+    }, [open]);
+
+    const handleContactSelect = async (contact: DirectMessageContact) => {
+        if (selectedContactId) return;
+        setSelectedContactId(contact.id);
+
+        try {
+            await onSelect(contact);
+        } finally {
+            setSelectedContactId(undefined);
+        }
+    };
 
     const content = (
-        <div className="flex min-h-0 flex-1 flex-col">
-            <div className="px-5 pb-4 pt-2">
-                <label className="focus-within:ring-fireflyBrand/40 flex h-11 items-center gap-2.5 rounded-2xl bg-lightBg px-3.5 text-second focus-within:ring-1">
-                    <SearchIcon width={17} height={17} />
+        <div className="flex min-h-0 flex-col">
+            <div className="px-4 pb-4 pt-1">
+                <label className="flex h-10 items-center gap-2 rounded-md border border-line bg-lightBg px-3 text-second transition-colors focus-within:border-fireflyBrand">
+                    <SearchIcon width={16} height={16} className="shrink-0" />
                     <input
                         autoFocus
+                        type="search"
+                        autoComplete="off"
+                        spellCheck="false"
                         value={search}
+                        aria-label={t`Search by name, handle, ENS or address`}
                         className="min-w-0 flex-1 border-0 bg-transparent p-0 text-sm text-main outline-none placeholder:text-second focus:ring-0"
                         placeholder={t`Search by name, handle, ENS or address`}
                         onChange={(event) => setSearch(event.target.value)}
@@ -76,41 +102,55 @@ export const NewMessageModal = memo(function NewMessageModal({
                 </label>
             </div>
 
-            <div className="border-y border-line bg-lightBg px-5 py-2.5">
-                <span className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-second">
+            <div className="border-b border-line px-4 pb-2">
+                <span className="text-xs font-medium text-second">
                     {search ? <Trans>People</Trans> : <Trans>Recent</Trans>}
                 </span>
             </div>
 
-            <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-3 py-2">
+            <div className="no-scrollbar max-h-[360px] min-h-20 overflow-y-auto p-2">
                 {isSearchingProfiles ? (
-                    <div className="space-y-2 px-2 py-3">
+                    <div className="space-y-2 p-2">
                         {Array.from({ length: 4 }, (_, index) => (
-                            <div key={index} className="h-[72px] animate-pulse rounded-[18px] bg-lightBg" />
+                            <div key={index} className="h-16 animate-pulse rounded-lg bg-lightBg" />
                         ))}
+                    </div>
+                ) : hasProfileSearchError ? (
+                    <div className="flex flex-col items-center px-6 py-10 text-center">
+                        <p className="text-sm font-bold text-main">
+                            <Trans>People could not be loaded</Trans>
+                        </p>
+                        <p className="mt-1 text-xs leading-5 text-second">
+                            <Trans>Check your connection and try again.</Trans>
+                        </p>
+                        <button
+                            type="button"
+                            className="mt-4 rounded-md bg-main px-4 py-2 text-xs font-bold text-primaryBottom"
+                            onClick={() => void profileSearch.refetch()}
+                        >
+                            <Trans>Retry</Trans>
+                        </button>
                     </div>
                 ) : filteredContacts.length ? (
                     filteredContacts.map((contact) => (
                         <button
                             key={contact.id}
                             type="button"
-                            className="flex w-full items-center gap-3 rounded-[18px] p-3 text-left transition-colors hover:bg-lightBg"
-                            onClick={() => onSelect(contact)}
+                            disabled={Boolean(selectedContactId)}
+                            className="flex w-full items-center gap-3 rounded-lg p-3 text-left transition-colors hover:bg-lightBg disabled:cursor-wait disabled:opacity-60"
+                            onClick={() => void handleContactSelect(contact)}
                         >
                             <ContactAvatar {...contact} />
                             <span className="min-w-0 flex-1">
                                 <span className="block truncate text-sm font-bold text-main">{contact.name}</span>
                                 <span className="mt-0.5 block truncate text-xs text-second">{contact.handle}</span>
                             </span>
-                            <span className="rounded-xl border border-line px-3 py-1.5 text-xs font-bold text-main">
-                                <Trans>Message</Trans>
-                            </span>
                         </button>
                     ))
                 ) : (
-                    <div className="flex flex-col items-center px-6 py-14 text-center">
-                        <div className="grid size-14 place-items-center rounded-[22px] bg-lightBg text-second">
-                            <SearchIcon width={22} height={22} />
+                    <div className="flex flex-col items-center px-6 py-10 text-center">
+                        <div className="grid size-12 place-items-center rounded-full bg-lightBg text-second">
+                            <SearchIcon width={20} height={20} />
                         </div>
                         <p className="mt-4 text-sm font-bold text-main">
                             <Trans>No people found</Trans>
@@ -122,7 +162,7 @@ export const NewMessageModal = memo(function NewMessageModal({
                 )}
             </div>
 
-            <div className="border-t border-line px-5 py-3 text-center text-[10px] text-second">
+            <div className="border-t border-line px-4 py-3 text-center text-xs text-second">
                 <Trans>Messages are tied to your active Lens account.</Trans>
             </div>
         </div>
@@ -134,9 +174,10 @@ export const NewMessageModal = memo(function NewMessageModal({
                 open={open}
                 size="md"
                 enableClose
+                disableDialogClose={false}
                 title={<Trans>New message</Trans>}
-                className="h-[min(640px,88svh)] overflow-hidden"
-                panelClassName="flex min-h-0 flex-1 flex-col p-0"
+                className="max-h-[calc(100dvh-32px)] overflow-hidden"
+                panelClassName="flex min-h-0 flex-col !p-0 !pt-0"
                 onClose={onClose}
             >
                 {content}
@@ -151,7 +192,7 @@ export const NewMessageModal = memo(function NewMessageModal({
             dialogPanelClassName="!inset-x-3 !bottom-2 !p-0 !pt-8"
             onClose={onClose}
         >
-            <div className="flex h-[min(640px,75dvh)] min-h-0 flex-col overflow-hidden">
+            <div className="flex max-h-[75dvh] min-h-0 flex-col overflow-hidden">
                 <ModalTitle title={<Trans>New message</Trans>} onClose={onClose} />
                 {content}
             </div>
