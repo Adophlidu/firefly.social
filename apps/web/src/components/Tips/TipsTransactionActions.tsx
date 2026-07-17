@@ -2,7 +2,7 @@
 
 import ImageDownloadIcon from '@dimensiondev/assets/image-download.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
-import ShareIcon from '@dimensiondev/assets/share.svg';
+import SendIcon from '@dimensiondev/assets/send.svg';
 import { ExtraLikeType, Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { classNames, runInSafeAsync } from '@dimensiondev/utils';
@@ -196,7 +196,7 @@ export function TipsTransactionActions({
                 button={
                     <Tooltip content={<Trans>Share</Trans>} placement="top">
                         <span className="inline-flex">
-                            <ShareIcon width={16} height={16} className="text-secondary" />
+                            <SendIcon width={16} height={16} className="text-secondary" />
                         </span>
                     </Tooltip>
                 }
