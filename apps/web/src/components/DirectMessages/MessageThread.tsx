@@ -48,8 +48,8 @@ interface MessageThreadProps {
     currentProfile: Profile | null;
     isConversationListCollapsed?: boolean;
     isVisible: boolean;
-    // Whether the user explicitly opened this conversation. False while it is only shown as the
-    // desktop default, so we don't mark someone else's message as read without the user opening it.
+    // Whether this conversation is actually visible to the user. The desktop default is active;
+    // a mobile conversation remains inactive until the thread view is opened.
     isActive: boolean;
     onBack?: () => void;
     onConversationListToggle?: () => void;

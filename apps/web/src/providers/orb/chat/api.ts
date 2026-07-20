@@ -15,6 +15,7 @@ import type {
     ChatEnvelope,
     ChatItemsPage,
     ChatMessage,
+    ChatRealtimeSession,
     GetChannelsParams,
     GetMessagesParams,
     InteractiveActionDetail,
@@ -193,6 +194,18 @@ export async function getChatMessages(account: string, params: GetMessagesParams
 export async function getChannelCounters(account: string): Promise<ChannelCounters | null> {
     const payload = await postOrb<ChannelCounters>(account, 'get-channel-counters', {});
     return unwrapChatEnvelope('get-channel-counters', payload) ?? null;
+}
+
+export async function createChatRealtimeSession(account: string): Promise<ChatRealtimeSession> {
+    const payload = await postOrb<ChatRealtimeSession>(account, 'create-chat-realtime-session', {});
+    const session = unwrapChatEnvelope('create-chat-realtime-session', payload);
+    if (!session?.token || !session.supabaseUrl || !session.supabaseAnonKey) {
+        throw new ChatApiError(
+            'create-chat-realtime-session returned an invalid session',
+            'create-chat-realtime-session',
+        );
+    }
+    return session;
 }
 
 export async function getInteractiveAction(account: string, interactiveActionId: string) {

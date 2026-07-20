@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 
 import {
+    clearViewedConversationUnread,
     isConversationVisibleInTab,
     resolveAdjacentConversationIndex,
     resolveConversationState,
@@ -112,5 +113,23 @@ describe('isConversationVisibleInTab', () => {
 
         expect(isConversationVisibleInTab(readConversation, 'unread', 'selected')).toBe(false);
         expect(isConversationVisibleInTab(acceptedRequest, 'requests', 'request')).toBe(false);
+    });
+});
+
+describe('clearViewedConversationUnread', () => {
+    test('clears unread state for the conversation currently displayed on desktop', () => {
+        const viewedConversation = createConversation('first', { unreadCount: 2, isRequest: false });
+        const otherConversation = createConversation('second', { unreadCount: 3, isRequest: false });
+
+        expect(clearViewedConversationUnread([viewedConversation, otherConversation], 'first')).toEqual([
+            { ...viewedConversation, unreadCount: 0 },
+            otherConversation,
+        ]);
+    });
+
+    test('preserves unread state while no conversation is being viewed', () => {
+        const conversation = createConversation('first', { unreadCount: 2, isRequest: false });
+
+        expect(clearViewedConversationUnread([conversation], undefined)).toEqual([conversation]);
     });
 });

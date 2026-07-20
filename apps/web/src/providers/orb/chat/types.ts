@@ -128,6 +128,12 @@ export interface ChatEnvelope<T> {
     wasDuplicate?: boolean;
 }
 
+export interface ChatRealtimeSession {
+    token: string;
+    supabaseUrl: string;
+    supabaseAnonKey: string;
+}
+
 export interface ChatItemsPage<T> {
     items: T[];
 }

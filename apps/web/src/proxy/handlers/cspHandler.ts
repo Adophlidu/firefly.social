@@ -48,6 +48,10 @@ function buildCSP(): string {
         'api.lens.xyz',
         'rpc.lens.xyz',
 
+        // Orb Chat
+        'https://ruiftgqhbghujyxlnjql.supabase.co',
+        'wss://ruiftgqhbghujyxlnjql.supabase.co',
+
         'static.cloudflareinsights.com',
         '*.google-analytics.com',
 
@@ -115,7 +119,7 @@ function buildCSP(): string {
     ];
 
     // fallback to child-src, then default-src
-    const workerSrc = ["'self'", ...EXTRA_SOURCES];
+    const workerSrc = ["'self'", 'blob:', ...EXTRA_SOURCES];
 
     // what iframe we can load, fallback to child-src, then default-src
     const frameSrc = [

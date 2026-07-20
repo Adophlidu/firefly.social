@@ -60,3 +60,7 @@ export function shouldElevateMessageThreadHeader(scrollTop: number) {
 export function isDmThreadVisible(isDesktop: boolean, isMobileThreadOpen: boolean) {
     return isDesktop || isMobileThreadOpen;
 }
+
+export function isDmThreadActive(hasConversation: boolean, isDesktop: boolean, isMobileThreadOpen: boolean) {
+    return hasConversation && isDmThreadVisible(isDesktop, isMobileThreadOpen);
+}

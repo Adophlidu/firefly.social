@@ -62,6 +62,11 @@ peerDependencyRules:
     allowedVersions:
         react: 19.2.7
 
+packageExtensions:
+    '@reown/appkit-utils@1.8.20':
+        dependencies:
+            '@solana/web3.js': 1.98.4
+
 patchedDependencies:
     '@lens-protocol/client@0.0.0-canary-20250430134539': patches/@lens-protocol__client@0.0.0-canary-20250430134539.patch
     '@lexical/react@0.18.0': patches/@lexical__react@0.18.0.patch

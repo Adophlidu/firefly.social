@@ -36,6 +36,16 @@ export function retainConversationForTab(
     return [conversation, ...conversations];
 }
 
+export function clearViewedConversationUnread(
+    conversations: DirectMessageConversation[],
+    viewedConversationId: string | undefined,
+) {
+    if (!viewedConversationId) return conversations;
+    return conversations.map((conversation) =>
+        conversation.id === viewedConversationId ? { ...conversation, unreadCount: 0 } : conversation,
+    );
+}
+
 export function resolveConversationState({
     activeConversationId,
     conversations,

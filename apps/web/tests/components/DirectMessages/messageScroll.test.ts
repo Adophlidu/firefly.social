@@ -3,6 +3,7 @@
 import { describe, expect, test, vi } from 'vitest';
 
 import {
+    isDmThreadActive,
     isDmThreadVisible,
     isNearLatestMessage,
     observeMessageMediaReady,
@@ -27,6 +28,20 @@ describe('isDmThreadVisible', () => {
     test('treats the selected mobile conversation and desktop conversation as visible', () => {
         expect(isDmThreadVisible(false, true)).toBe(true);
         expect(isDmThreadVisible(true, false)).toBe(true);
+    });
+});
+
+describe('isDmThreadActive', () => {
+    test('treats the default desktop conversation as active while it is visible', () => {
+        expect(isDmThreadActive(true, true, false)).toBe(true);
+    });
+
+    test('does not activate a hidden mobile conversation', () => {
+        expect(isDmThreadActive(true, false, false)).toBe(false);
+    });
+
+    test('requires a resolved conversation', () => {
+        expect(isDmThreadActive(false, true, false)).toBe(false);
     });
 });
 

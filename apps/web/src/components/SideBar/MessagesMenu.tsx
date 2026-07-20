@@ -10,6 +10,7 @@ import { memo } from 'react';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { formatDmUnreadCount } from '@/components/SideBar/formatDmUnreadCount.js';
 import { useAuthenticatedDmAccount, useDmCounters } from '@/hooks/useDmSession.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface MessagesMenuProps {
     isSelected: boolean;
@@ -44,7 +45,9 @@ const UnreadBadge = memo(function UnreadBadge({ count, collapsed }: UnreadBadgeP
 export const MessagesMenu = memo<MessagesMenuProps>(function MessagesMenu({ isSelected, collapsed, size = 20 }) {
     const { authenticatedAccount } = useAuthenticatedDmAccount();
     const counters = useDmCounters(authenticatedAccount);
-    const unreadCount = Math.max(0, counters.data?.total_unread_count ?? 0);
+    const isDirectMessagePanelOpen = useGlobalState.use.directMessagePanelIsOpen();
+    const unreadCount =
+        isSelected || isDirectMessagePanelOpen ? 0 : Math.max(0, counters.data?.total_unread_count ?? 0);
 
     return (
         <BaseMenuItem

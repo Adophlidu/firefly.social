@@ -45,8 +45,7 @@ export { dmKeys, useActiveDmIdentity, useAuthenticatedDmAccount, useDmCounters }
 
 const REQUEST_TYPES: Array<Exclude<ChatRequestType, null>> = ['friends', 'personIFollow', 'followers', 'other'];
 const VIDEO_COVER_TIMEOUT_MS = 5_000;
-const DM_CHANNELS_REFETCH_INTERVAL_MS = 30_000;
-const DM_MESSAGES_REFETCH_INTERVAL_MS = 10_000;
+const DM_FALLBACK_REFETCH_INTERVAL_MS = 5 * 60_000;
 
 export function useDmChannels(account: string | undefined, params: GetChannelsParams, isRequests: boolean) {
     return useInfiniteQuery({
@@ -69,7 +68,7 @@ export function useDmChannels(account: string | undefined, params: GetChannelsPa
             !isRequests && lastPage.length === CHAT_CHANNEL_PAGE_LIMIT
                 ? lastPageParam + CHAT_CHANNEL_PAGE_LIMIT
                 : undefined,
-        refetchInterval: DM_CHANNELS_REFETCH_INTERVAL_MS,
+        refetchInterval: DM_FALLBACK_REFETCH_INTERVAL_MS,
         refetchIntervalInBackground: false,
     });
 }
@@ -111,6 +110,29 @@ export function mergeDmChannels(pages: ChatChannel[][] | undefined, startedChann
     return [...startedChannels.filter((channel) => !fetchedChannelIds.has(channel.id)), ...fetchedChannels];
 }
 
+export function mergeDmLastMessages(
+    channels: ChatChannel[],
+    fetchedMessages: Map<string, ChatMessage>,
+    previousMessages: Map<string, ChatMessage>,
+) {
+    const messages = new Map<string, ChatMessage>();
+    for (const channel of channels) {
+        const candidates = [
+            channel.last_message,
+            fetchedMessages.get(channel.id),
+            channel.last_message_at ? previousMessages.get(channel.id) : undefined,
+        ];
+        let message: ChatMessage | undefined;
+        for (const candidate of candidates) {
+            if (candidate && (!message || candidate.created_at > message.created_at)) message = candidate;
+        }
+
+        if (message) messages.set(channel.id, message);
+    }
+
+    return messages;
+}
+
 export function useDmLastMessages(
     account: string | undefined,
     channels: Array<Pick<ChatChannel, 'id' | 'last_message_at'>>,
@@ -143,7 +165,7 @@ export function useDmLatestMessages(account: string | undefined, channelId: stri
         queryFn: () =>
             getChatMessages(account as string, { channelId: channelId as string, limit: CHAT_MESSAGE_PAGE_LIMIT }),
         enabled: Boolean(account && channelId),
-        refetchInterval: DM_MESSAGES_REFETCH_INTERVAL_MS,
+        refetchInterval: DM_FALLBACK_REFETCH_INTERVAL_MS,
         refetchIntervalInBackground: false,
     });
 }

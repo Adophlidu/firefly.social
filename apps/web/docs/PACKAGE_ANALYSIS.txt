@@ -3,7 +3,7 @@ Package Analysis
 
 Application: apps/web
 
-Total packages: 2335
+Total packages: 2337
 Packages with multiple versions: 250
 
 Legend:
@@ -973,7 +973,7 @@ Packages with Single Version
  @solana/wallet-standard-chains@1.1.1
  @solana/wallet-standard-features@1.3.0
  @solana/wallet-standard-util@1.1.2
- @solana/web3.js@1.98.4
+*@solana/web3.js@1.98.4
  @speed-highlight/core@1.2.16
  @standard-schema/spec@1.0.0
  @statoscope/extensions@5.28.1
@@ -990,6 +990,8 @@ Packages with Single Version
  @statoscope/webpack-stats-extension-compressed@5.29.0
  @statoscope/webpack-stats-extension-package-info@5.29.0
  @statoscope/webpack-ui@5.29.0
+ @supabase/phoenix@0.4.5
+*@supabase/realtime-js@2.110.7
  @svgr/babel-plugin-add-jsx-attribute@8.0.0
  @svgr/babel-plugin-remove-jsx-attribute@8.0.0
  @svgr/babel-plugin-remove-jsx-empty-expression@8.0.0

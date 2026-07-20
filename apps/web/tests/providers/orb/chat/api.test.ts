@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
     createChat,
+    createChatRealtimeSession,
     DmAuthenticationError,
     getChatChannel,
     getChatChannelByUser,
@@ -191,6 +192,22 @@ describe('Orb chat API', () => {
             method: 'POST',
             headers: { 'x-access-token': 'Bearer lens-access-token' },
             body: JSON.stringify({ interactiveActionId: 'tip-1' }),
+        });
+    });
+
+    it('creates an authenticated realtime session', async () => {
+        const session = {
+            token: 'chat-token',
+            supabaseUrl: 'https://project.supabase.co',
+            supabaseAnonKey: 'anon-key',
+        };
+        fetchJsonMock.mockResolvedValueOnce({ status: 'SUCCESS', data: session });
+
+        await expect(createChatRealtimeSession(identity.account)).resolves.toEqual(session);
+        expect(fetchJsonMock).toHaveBeenCalledWith('/api/orb/chat/create-chat-realtime-session', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: '{}',
         });
     });
 

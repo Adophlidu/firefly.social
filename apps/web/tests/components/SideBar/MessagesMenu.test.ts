@@ -6,7 +6,8 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { MessagesMenu } from '@/components/SideBar/MessagesMenu.js';
 
-const { useActiveDmIdentityMock, useDmCountersMock } = vi.hoisted(() => ({
+const { dmPanelState, useActiveDmIdentityMock, useDmCountersMock } = vi.hoisted(() => ({
+    dmPanelState: { isOpen: false },
     useActiveDmIdentityMock: vi.fn(),
     useDmCountersMock: vi.fn(),
 }));
@@ -32,11 +33,15 @@ vi.mock('@/hooks/useDmSession.js', () => ({
     },
     useDmCounters: (...args: unknown[]) => useDmCountersMock(...args),
 }));
+vi.mock('@/store/useGlobalStore.js', () => ({
+    useGlobalState: { use: { directMessagePanelIsOpen: () => dmPanelState.isOpen } },
+}));
 
 afterEach(() => {
     cleanup();
     useActiveDmIdentityMock.mockReset();
     useDmCountersMock.mockReset();
+    dmPanelState.isOpen = false;
 });
 
 describe('MessagesMenu', () => {
@@ -78,6 +83,16 @@ describe('MessagesMenu', () => {
 
         expect(useDmCountersMock).toHaveBeenLastCalledWith('0xB');
         expect(screen.queryByText('99+')).toBeNull();
-        expect(screen.getByText('2')).toBeTruthy();
+        expect(screen.queryByText('2')).toBeNull();
+    });
+
+    test('hides the unread badge while the direct message panel is open', () => {
+        useActiveDmIdentityMock.mockReturnValue({ account: '0xA' });
+        useDmCountersMock.mockReturnValue({ data: { total_unread_count: 3 } });
+        dmPanelState.isOpen = true;
+
+        render(createElement(MessagesMenu, { isSelected: false, collapsed: false }));
+
+        expect(screen.queryByLabelText(/unread messages/)).toBeNull();
     });
 });
