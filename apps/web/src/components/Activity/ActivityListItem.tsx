@@ -13,15 +13,20 @@ import { Link } from '@/components/Link.js';
 import { formatEventTimestamp } from '@/helpers/formatTimestamp.js';
 import type { ActivityListItem as TypeActivityListItem } from '@/providers/types/Firefly.js';
 
+// The FIFA Prediction Festival has ended, but its detail page (`/event/fifa`)
+// is intentionally kept accessible, so we skip the "Event Ended" gate for it.
+const ALWAYS_ACCESSIBLE_ACTIVITY_NAMES = new Set(['fifa']);
+
 export function getActivityListItem(index: number, data: TypeActivityListItem) {
     return <ActivityListItem data={data} index={index} />;
 }
 
 function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number }) {
     const [openActivityEndedDialog, setOpenActivityEndedDialog] = useState(false);
+    const blockNavigation = data.status === ActivityStatus.Ended && !ALWAYS_ACCESSIBLE_ACTIVITY_NAMES.has(data.name);
     return (
         <>
-            {data.status === ActivityStatus.Ended ? (
+            {blockNavigation ? (
                 <ActivityEndedDialog
                     data={data}
                     open={openActivityEndedDialog}
@@ -31,10 +36,10 @@ function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number
             ) : null}
             <Link
                 href={data.url || `/event/${data.name}`}
-                data-disable-progress={data.status === ActivityStatus.Ended}
+                data-disable-progress={blockNavigation}
                 className="relative mb-4 flex w-full flex-col rounded-2xl border border-line bg-bg"
                 onClick={(e) => {
-                    if (data.status === ActivityStatus.Ended) {
+                    if (blockNavigation) {
                         e.preventDefault();
                         e.stopPropagation();
                         setOpenActivityEndedDialog(true);
