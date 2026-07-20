@@ -24,14 +24,17 @@ import { DmEmojiPicker } from '@/components/DirectMessages/DmEmojiPicker.js';
 import { DmGifPicker } from '@/components/DirectMessages/DmGifPicker.js';
 import type { MessageDraft } from '@/components/DirectMessages/types.js';
 import { useComposerHistory } from '@/components/DirectMessages/useComposerHistory.js';
+import { Tips } from '@/components/Tips/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
+import type { TipsSuccessResult } from '@/modals/TipsModal/refs.js';
 import {
     MAX_CHAT_ATTACHMENT_BYTES,
     MAX_CHAT_ATTACHMENTS,
     MAX_CHAT_MESSAGE_LENGTH,
 } from '@/providers/orb/chat/constants.js';
 import type { DmAttachmentDraft } from '@/providers/orb/chat/types.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 // Show the character counter as the message approaches the limit.
 const MESSAGE_LENGTH_COUNTER_THRESHOLD = MAX_CHAT_MESSAGE_LENGTH - 80;
@@ -41,6 +44,11 @@ const MAX_COMPOSER_HEIGHT_PX = 112;
 interface MessageComposerProps {
     recipientName: string;
     onSend: (draft: MessageDraft) => void;
+    tip?: {
+        identity: FireflyIdentity;
+        handle: string;
+        onSuccess: (result: TipsSuccessResult) => Promise<void>;
+    };
 }
 
 // The full editable state of the composer. Every edit produces a snapshot of this, so a future
@@ -53,7 +61,7 @@ interface ComposerState {
 
 const EMPTY_COMPOSER_STATE: ComposerState = { content: '', selection: { start: 0, end: 0 }, attachments: [] };
 
-export const MessageComposer = memo(function MessageComposer({ recipientName, onSend }: MessageComposerProps) {
+export const MessageComposer = memo(function MessageComposer({ recipientName, onSend, tip }: MessageComposerProps) {
     const history = useComposerHistory<ComposerState>(EMPTY_COMPOSER_STATE);
     const { content, attachments } = history.state;
     const [isGifPickerOpen, setIsGifPickerOpen] = useState(false);
@@ -381,6 +389,16 @@ export const MessageComposer = memo(function MessageComposer({ recipientName, on
                             onClick={() => setIsGifPickerOpen(true)}
                         />
                         <DmEmojiPicker onSelect={handleEmojiSelected} />
+                        {tip ? (
+                            <Tips
+                                identity={tip.identity}
+                                handle={tip.handle}
+                                closeOnSuccess
+                                toolbar
+                                tooltipDisabled
+                                onSuccess={tip.onSuccess}
+                            />
+                        ) : null}
                     </div>
                     <div className="flex items-center gap-3">
                         {content.length > MESSAGE_LENGTH_COUNTER_THRESHOLD ? (

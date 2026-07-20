@@ -2450,6 +2450,9 @@ msgstr "Cruz en manejadores"
 msgid "Add Wallet"
 msgstr "Agregar billetera"
 
+msgid "Tip sent, but the message could not be sent."
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 msgid "Followed by {0} and {1}"
@@ -5003,6 +5006,9 @@ msgstr "Recopilar"
 
 msgid "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
 msgstr "Cuenta deshabilitada por riesgo potencial. Contáctanos en <0>Telegram</0> para restaurar el acceso."
+
+msgid "Processing"
+msgstr ""
 
 #. placeholder {0}: remainingFailedAt.length
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0

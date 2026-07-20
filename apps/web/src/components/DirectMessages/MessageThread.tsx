@@ -38,7 +38,9 @@ import {
     useDmMessages,
     useMarkDmRead,
     useSendDmMessage,
+    useSendDmTip,
 } from '@/hooks/useDirectMessages.js';
+import type { TipsSuccessResult } from '@/modals/TipsModal/refs.js';
 import type { UserMetadata } from '@/providers/orb/chat/types.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -149,6 +151,26 @@ export const MessageThread = memo(function MessageThread({
         [account, currentProfile],
     );
     const sendMessage = useSendDmMessage(account, conversation.id, currentUser);
+    const sendTip = useSendDmTip(account, conversation.id, currentUser);
+    const tipIdentity = useMemo(
+        () => ({ source: Source.Lens, id: conversation.targetUserId }),
+        [conversation.targetUserId],
+    );
+    const handleTipSuccess = useCallback(
+        async ({ amount, token }: TipsSuccessResult) => {
+            shouldStickToBottomRef.current = true;
+            setIsAtLatest(true);
+            await sendTip.mutateAsync({
+                messageId: crypto.randomUUID(),
+                targetUserId: conversation.targetUserId,
+                amount: Number(amount),
+                currency: token.id,
+                currencySymbol: token.symbol,
+                chainId: token.chainId,
+            });
+        },
+        [conversation.targetUserId, sendTip],
+    );
     const markRead = useMarkDmRead(account, conversation.id, conversation.unreadCount, conversation.isRequest);
     const initialUnreadCountRef = useRef(conversation.unreadCount);
     const initialLastReadMessageIdRef = useRef(conversation.lastReadMessageId);
@@ -428,6 +450,24 @@ export const MessageThread = memo(function MessageThread({
                                                 isGroupedWithPrevious={isGroupedWithPrevious}
                                                 showTimestamp={showTimestamp}
                                                 onRetry={() => {
+                                                    if (item.kind === 'tip') {
+                                                        if (item.pendingTip) {
+                                                            sendTip.mutate({
+                                                                ...item.pendingTip,
+                                                                messageId: item.id,
+                                                                interactiveActionId: item.interactiveActionId,
+                                                            });
+                                                            return;
+                                                        }
+                                                        if (!item.interactiveActionId) return;
+                                                        sendMessage.mutate({
+                                                            content: '',
+                                                            messageId: item.id,
+                                                            attachments: [],
+                                                            interactiveActionId: item.interactiveActionId,
+                                                        });
+                                                        return;
+                                                    }
                                                     if (item.kind !== 'text' && item.kind !== 'media') return;
                                                     sendMessage.mutate({
                                                         content: item.content,
@@ -470,6 +510,7 @@ export const MessageThread = memo(function MessageThread({
             <MessageComposer
                 key={conversation.id}
                 recipientName={conversation.name}
+                tip={{ identity: tipIdentity, handle: conversation.handle, onSuccess: handleTipSuccess }}
                 onSend={(draft) => {
                     shouldStickToBottomRef.current = true;
                     setIsAtLatest(true);

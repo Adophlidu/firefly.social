@@ -1,12 +1,15 @@
 /// @vitest-environment jsdom
 // cspell:ignore nihao pinyin
 
+import { Source } from '@dimensiondev/enums';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createElement } from 'react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { MessageComposer } from '@/components/DirectMessages/MessageComposer.js';
 import { MAX_CHAT_ATTACHMENT_BYTES, MAX_CHAT_ATTACHMENTS } from '@/providers/orb/chat/constants.js';
+
+const { tipsMock } = vi.hoisted(() => ({ tipsMock: vi.fn((_props: unknown) => null) }));
 
 vi.mock('@/helpers/enqueueMessage.js', () => ({ enqueueErrorMessage: vi.fn() }));
 vi.mock('@dimensiondev/assets/emoji.svg', () => ({ default: () => null }));
@@ -27,13 +30,42 @@ vi.mock('@/components/DirectMessages/DmEmojiPicker.js', async () => {
     };
 });
 vi.mock('@/components/DirectMessages/DmGifPicker.js', () => ({ DmGifPicker: () => null }));
+vi.mock('@/components/Tips/index.js', () => ({ Tips: (props: unknown) => tipsMock(props) }));
 vi.mock('@/helpers/getVideoMetadata.js', () => ({
     getVideoMetadata: () => Promise.resolve({ duration: 12, width: 1920, height: 1080 }),
 }));
 
-afterEach(cleanup);
+afterEach(() => {
+    cleanup();
+    tipsMock.mockClear();
+});
 
 describe('MessageComposer', () => {
+    test('passes the current recipient to the real Tips flow using toolbar styling', () => {
+        const onSuccess = vi.fn();
+        render(
+            createElement(MessageComposer, {
+                recipientName: 'Alice',
+                onSend: vi.fn(),
+                tip: {
+                    identity: { source: Source.Lens, id: '0xrecipient' },
+                    handle: 'alice',
+                    onSuccess,
+                },
+            }),
+        );
+
+        expect(tipsMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                identity: { source: Source.Lens, id: '0xrecipient' },
+                handle: 'alice',
+                closeOnSuccess: true,
+                onSuccess,
+                toolbar: true,
+            }),
+        );
+    });
+
     test('grows with multiline content and scrolls only after reaching its maximum height', () => {
         render(createElement(MessageComposer, { recipientName: 'Alice', onSend: vi.fn() }));
         const input = screen.getByRole<HTMLTextAreaElement>('textbox');

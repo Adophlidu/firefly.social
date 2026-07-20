@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
-import { ORB_CHAT_API_URL, ORB_QUERIES_API_URL } from '@/providers/orb/chat/constants.js';
+import { ORB_CHAT_API_URL, ORB_MUTATIONS_API_URL, ORB_QUERIES_API_URL } from '@/providers/orb/chat/constants.js';
 
 export const runtime = 'edge';
 
@@ -22,6 +22,7 @@ const ParamsSchema = z.object({
         'get-chat-channel',
         'get-chat-channels',
         'get-chat-messages',
+        'interactive-actions',
         'mark-message-as-read',
         'search',
         'send-message',
@@ -29,6 +30,7 @@ const ParamsSchema = z.object({
 });
 
 const QUERY_ACTIONS = new Set<z.infer<typeof ParamsSchema>['action']>(['search']);
+const MUTATION_ACTIONS = new Set<z.infer<typeof ParamsSchema>['action']>(['interactive-actions']);
 const InteractiveActionBodySchema = z.object({ interactiveActionId: z.string().min(1) });
 const ChatTokenEnvelopeSchema = z.object({
     status: z.string().optional(),
@@ -139,7 +141,11 @@ export async function POST(request: NextRequest, context: NextRequestContext) {
     if (action === 'create-chat-realtime-session') return createChatRealtimeSession(accessToken);
     if (action === 'get-interactive-action') return getInteractiveAction(accessToken, request);
 
-    const baseUrl = QUERY_ACTIONS.has(action) ? ORB_QUERIES_API_URL : ORB_CHAT_API_URL;
+    const baseUrl = QUERY_ACTIONS.has(action)
+        ? ORB_QUERIES_API_URL
+        : MUTATION_ACTIONS.has(action)
+          ? ORB_MUTATIONS_API_URL
+          : ORB_CHAT_API_URL;
     const upstreamResponse = await fetch(`${baseUrl}/${action}`, {
         method: 'POST',
         headers: createOrbHeaders(accessToken),

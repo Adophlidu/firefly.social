@@ -16,6 +16,7 @@ import type {
     ChatItemsPage,
     ChatMessage,
     ChatRealtimeSession,
+    CreateDirectTipInput,
     GetChannelsParams,
     GetMessagesParams,
     InteractiveActionDetail,
@@ -213,6 +214,33 @@ export async function getInteractiveAction(account: string, interactiveActionId:
         interactiveActionId,
     });
     return unwrapChatEnvelope('get-interactive-action', payload) ?? null;
+}
+
+export async function createDirectTipInteractiveAction(account: string, input: CreateDirectTipInput) {
+    const { message, ...tip } = input;
+    const payload = await postOrb<{ id?: string }>(account, 'interactive-actions', {
+        task: 'create',
+        type: 'DIRECT_TIP',
+        ...tip,
+        metadata: {
+            source: 'messageInChat',
+            message: message ?? '',
+        },
+        availability: 'PUBLIC',
+    });
+    const data = unwrapChatEnvelope('interactive-actions', payload);
+    const interactiveActionId = data?.id;
+    if (!interactiveActionId) throw new ChatApiError('interactive-actions returned no id', 'interactive-actions');
+    return interactiveActionId;
+}
+
+export async function completeInteractiveAction(account: string, interactiveActionId: string) {
+    const payload = await postOrb(account, 'interactive-actions', {
+        task: 'edit',
+        interactiveActionId,
+        status: 'COMPLETED',
+    });
+    unwrapChatEnvelope('interactive-actions', payload);
 }
 
 export async function createChat(account: string, targetUserId: string): Promise<string> {

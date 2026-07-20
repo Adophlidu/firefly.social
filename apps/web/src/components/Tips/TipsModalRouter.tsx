@@ -13,11 +13,17 @@ import { memo, useEffect, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NoAvailableWallet } from '@/components/Tips/NoAvailableWallet.js';
-import { OpenTipsModalContext, RootView } from '@/components/Tips/views/RootView.js';
+import {
+    CloseTipsOnSuccessContext,
+    OpenTipsModalContext,
+    RootView,
+    TipsSuccessContext,
+} from '@/components/Tips/views/RootView.js';
 import { SuccessView } from '@/components/Tips/views/SuccessView.js';
 import { TipsMainView } from '@/components/Tips/views/TipsMainView.js';
 import { TipsRecipientListView } from '@/components/Tips/views/TipsRecipientListView.js';
 import { TokenSelectorView } from '@/components/Tips/views/TokenSelectorView.js';
+import type { TipsSuccessResult } from '@/modals/TipsModal/refs.js';
 
 export enum TipsRoutePath {
     TIPS = '/tips',
@@ -30,9 +36,11 @@ export enum TipsRoutePath {
 
 export const TipsModelRouter = memo<{
     onClose: () => void;
+    onSuccess?: (result: TipsSuccessResult) => Promise<void> | void;
+    closeOnSuccess?: boolean;
     open: boolean;
     initialEntries?: TipsRoutePath[];
-}>(({ onClose, open, initialEntries = [TipsRoutePath.TIPS] }) => {
+}>(({ onClose, onSuccess, closeOnSuccess = false, open, initialEntries = [TipsRoutePath.TIPS] }) => {
     const router = useMemo(() => {
         const tipsRootRoute = createRootRoute({
             component: RootView,
@@ -120,7 +128,11 @@ export const TipsModelRouter = memo<{
 
     return (
         <OpenTipsModalContext.Provider value={open}>
-            <RouterProvider router={router} context={{ onClose }} />
+            <CloseTipsOnSuccessContext.Provider value={closeOnSuccess}>
+                <TipsSuccessContext.Provider value={onSuccess}>
+                    <RouterProvider router={router} context={{ onClose }} />
+                </TipsSuccessContext.Provider>
+            </CloseTipsOnSuccessContext.Provider>
         </OpenTipsModalContext.Provider>
     );
 });

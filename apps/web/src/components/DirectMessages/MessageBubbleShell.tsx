@@ -23,7 +23,7 @@ export const MessageBubbleShell = memo(function MessageBubbleShell({
     onRetry,
     children,
 }: MessageBubbleShellProps) {
-    const sendStatus = item.kind === 'text' || item.kind === 'media' ? item.status : undefined;
+    const sendStatus = item.kind === 'text' || item.kind === 'media' || item.kind === 'tip' ? item.status : undefined;
     const isFailed = sendStatus === 'failed';
     const shouldShowMetadata = showTimestamp || sendStatus === 'pending' || isFailed;
 

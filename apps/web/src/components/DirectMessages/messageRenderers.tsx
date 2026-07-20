@@ -74,7 +74,13 @@ function StickerMessageContent({ item }: MessageContentProps<'sticker'>) {
 function TipMessageContent({ item, account }: MessageContentProps<'tip'>) {
     return (
         <div>
-            <TipMessage account={account} interactiveActionId={item.interactiveActionId} isSelf={item.isSelf} />
+            <TipMessage
+                account={account}
+                interactiveActionId={item.interactiveActionId}
+                pendingTip={item.pendingTip}
+                isSelf={item.isSelf}
+                isSending={item.status === 'pending'}
+            />
             <MessageCaption content={item.content} variant="detached" />
         </div>
     );

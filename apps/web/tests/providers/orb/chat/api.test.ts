@@ -1,8 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
+    completeInteractiveAction,
     createChat,
     createChatRealtimeSession,
+    createDirectTipInteractiveAction,
     DmAuthenticationError,
     getChatChannel,
     getChatChannelByUser,
@@ -209,6 +211,58 @@ describe('Orb chat API', () => {
             headers: { 'x-access-token': 'Bearer lens-access-token' },
             body: '{}',
         });
+    });
+
+    it('creates and completes a direct tip interactive action', async () => {
+        fetchJsonMock
+            .mockResolvedValueOnce({ status: 'SUCCESS', data: { id: 'tip-1' } })
+            .mockResolvedValueOnce({ status: 'SUCCESS' });
+
+        const interactiveActionId = await createDirectTipInteractiveAction(identity.account, {
+            targetUserId: '0xrecipient',
+            amount: 1.5,
+            currency: '0xtoken',
+            currencySymbol: 'TOKEN',
+            chainId: 1,
+            message: 'Thanks',
+        });
+        await completeInteractiveAction(identity.account, interactiveActionId);
+
+        expect(interactiveActionId).toBe('tip-1');
+        expect(fetchJsonMock).toHaveBeenNthCalledWith(1, '/api/orb/chat/interactive-actions', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: JSON.stringify({
+                task: 'create',
+                type: 'DIRECT_TIP',
+                targetUserId: '0xrecipient',
+                amount: 1.5,
+                currency: '0xtoken',
+                currencySymbol: 'TOKEN',
+                chainId: 1,
+                metadata: { source: 'messageInChat', message: 'Thanks' },
+                availability: 'PUBLIC',
+            }),
+        });
+        expect(fetchJsonMock).toHaveBeenNthCalledWith(2, '/api/orb/chat/interactive-actions', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: JSON.stringify({ task: 'edit', interactiveActionId: 'tip-1', status: 'COMPLETED' }),
+        });
+    });
+
+    it('rejects a direct tip action response without an id', async () => {
+        fetchJsonMock.mockResolvedValueOnce({ status: 'SUCCESS', data: {} });
+
+        await expect(
+            createDirectTipInteractiveAction(identity.account, {
+                targetUserId: '0xrecipient',
+                amount: 1,
+                currency: '0xtoken',
+                currencySymbol: 'TOKEN',
+                chainId: 1,
+            }),
+        ).rejects.toMatchObject({ route: 'interactive-actions' });
     });
 
     it('forwards media attachments when sending a message', async () => {

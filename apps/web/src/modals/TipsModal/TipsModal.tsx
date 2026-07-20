@@ -2,13 +2,13 @@ import { TIPS_SUPPORT_NETWORKS } from '@dimensiondev/constants/computed';
 import { NetworkType, Source } from '@dimensiondev/enums';
 import { formatAddressEthereum, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
-import { type Ref, useCallback, useMemo } from 'react';
+import { type Ref, useCallback, useMemo, useState } from 'react';
 
 import { TipsModelRouter, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { TipsModalRefType } from '@/modals/TipsModal/refs.js';
+import type { TipsModalRefType, TipsSuccessResult } from '@/modals/TipsModal/refs.js';
 import type { FireflyProfile, FireflyTipsProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
@@ -63,12 +63,18 @@ interface Props {
 
 export function TipsModal({ ref }: Props) {
     const { reset, update, open, recipientList } = useTipsStore();
+    // Held in render state (not a ref) so the success handler is passed down on the same render that opens the modal.
+    const [successOptions, setSuccessOptions] = useState<{
+        onSuccess?: (result: TipsSuccessResult) => Promise<void> | void;
+        closeOnSuccess: boolean;
+    }>({ closeOnSuccess: false });
 
     const [, dispatch] = useSingletonModal(ref, {
         name: 'tips-modal',
-        onOpen: ({ identity, handle, profiles, post, pureWallet = false }) => {
+        onOpen: ({ identity, handle, profiles, post, pureWallet = false, closeOnSuccess = false, onSuccess }) => {
             // avoid UI flicker when closing
             reset();
+            setSuccessOptions({ onSuccess, closeOnSuccess });
 
             try {
                 const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
@@ -99,6 +105,7 @@ export function TipsModal({ ref }: Props) {
         },
         onClose: () => {
             update({ open: false });
+            setSuccessOptions({ closeOnSuccess: false });
         },
     });
 
@@ -112,5 +119,13 @@ export function TipsModal({ ref }: Props) {
         [hasRecipients],
     );
 
-    return <TipsModelRouter onClose={onClose} open={open} initialEntries={initialEntries} />;
+    return (
+        <TipsModelRouter
+            onClose={onClose}
+            onSuccess={successOptions.onSuccess}
+            closeOnSuccess={successOptions.closeOnSuccess}
+            open={open}
+            initialEntries={initialEntries}
+        />
+    );
 }
