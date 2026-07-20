@@ -1,6 +1,6 @@
 import PolymarketEntryIcon from '@dimensiondev/assets/bet-entry.svg';
 import { Trans } from '@lingui/react/macro';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@dimensiondev/ssr';
 
 import { BetNavigationBar } from '@/components/Bet/BetNavigationBar.js';
 import { Button } from '@/components/ui/button.js';
@@ -15,7 +15,7 @@ export function AddFundGuide() {
     const openDepositViaCrypto = () => {
         // Explicit QR entry, so telemetry fires (the balance-gated shortcut is silent).
         captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_DEPOSIT_VIA_CRYPTO_CLICK, {});
-        navigate({ to: '/bet', search: { modal: ModalType.DepositViaCrypto } });
+        navigate(`/bet?modal=${ModalType.DepositViaCrypto}`);
     };
 
     return (

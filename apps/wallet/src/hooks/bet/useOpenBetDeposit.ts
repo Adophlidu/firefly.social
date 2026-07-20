@@ -1,5 +1,5 @@
 import { isLessThan } from '@dimensiondev/web3/numbers';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@dimensiondev/ssr';
 
 import { ModalType } from '@/configs/modalRoutes.js';
 import { useTotalBalance } from '@/hooks/useTotalBalance.js';
@@ -30,9 +30,9 @@ export function useOpenBetDeposit() {
 
     return () => {
         if (shouldRouteToCryptoDeposit(totalBalance)) {
-            navigate({ to: '/bet', search: { modal: ModalType.DepositViaCrypto } });
+            navigate(`/bet?modal=${ModalType.DepositViaCrypto}`);
             return;
         }
-        navigate({ to: '/bet/deposit' });
+        navigate('/bet/deposit');
     };
 }

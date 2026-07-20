@@ -1,7 +1,9 @@
 import { SwapFromPage } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@dimensiondev/ssr';
 import { useCallback } from 'react';
+
+import { stringifySearch } from '@/helpers/searchParams.js';
 
 function resolveBackPath(from?: SwapFromPage): string {
     if (!from) return '/swap';
@@ -26,11 +28,7 @@ export function useGoBackAfterSelectToken(from?: SwapFromPage) {
 
     return useCallback(
         (token?: { address: string; chainId: number }) => {
-            navigate({
-                to: resolveBackPath(from),
-                search: token || undefined,
-                replace: true,
-            });
+            navigate(`${resolveBackPath(from)}${stringifySearch(token)}`, { replace: true });
         },
         [from, navigate],
     );

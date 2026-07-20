@@ -1,7 +1,7 @@
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right2.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from '@tanstack/react-router';
+import { Link } from '@dimensiondev/ssr';
 import type { Address } from 'viem';
 
 import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
@@ -28,7 +28,7 @@ export function BetEntry({ className }: { className?: string }) {
 
     return (
         <Link
-            to="/bet"
+            href="/bet"
             className={cn('flex w-full items-center justify-between duration-100 active:scale-[0.99]', className)}
         >
             <span className="flex min-w-0 items-center">

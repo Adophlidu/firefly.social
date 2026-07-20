@@ -26,9 +26,9 @@ export function ClientProviders({ children }: ClientProvidersProps) {
         // pulls in wagmi + @reown/appkit-controllers, so it must stay in this group —
         // a static import here would drag WalletConnect/wagmi into the eager root chunk.
         Promise.all([
-            import('./Providers.js'),
-            import('./PrivyWalletAutomator.js'),
-            import('./FireflyWalletIframeBridge.js'),
+            import('@/components/Providers.js'),
+            import('@/components/PrivyWalletAutomator.js'),
+            import('@/components/FireflyWalletIframeBridge.js'),
         ]).then(([providersModule, privyWalletAutomatorModule, iframeBridgeModule]) => {
             setModules({
                 Providers: providersModule.Providers,

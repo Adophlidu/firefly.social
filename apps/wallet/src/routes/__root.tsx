@@ -1,14 +1,14 @@
 import '@/globals.css';
 
 import { APP_BASE_PATH } from '@dimensiondev/envs/wallet';
-import { createRootRoute, HeadContent, Outlet, ScriptOnce, Scripts, useLocation } from '@tanstack/react-router';
+import { ClientScripts, HeadOutlet, SsrDataOutlet, useRouterState } from '@dimensiondev/ssr';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import { NuqsAdapter } from 'nuqs/adapters/react';
 import type { ReactNode } from 'react';
-import { z } from 'zod';
+import { StyleSheet } from 'react-native';
 
 import { ClientProviders } from '@/components/ClientProviders.js';
+import { DefaultPendingComponent } from '@/components/DefaultPendingComponent.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary.js';
 import { GlobalError } from '@/components/GlobalError.js';
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
@@ -19,84 +19,103 @@ import { RouteChangedHandler } from '@/components/RouteChangedHandler.js';
 import { ThemeHandler } from '@/components/ThemeHandler.js';
 import { Toaster } from '@/components/ui/sonner.js';
 import { TooltipProvider } from '@/components/ui/tooltip.js';
-import { ModalType } from '@/configs/modalRoutes.js';
 import { Modals } from '@/modals/index.js';
 
-const rootSearchSchema = z.object({
-    modal: z.nativeEnum(ModalType).optional(),
-});
-
-export const Route = createRootRoute({
-    validateSearch: rootSearchSchema,
-    head: () => ({
+export function head() {
+    return {
+        title: 'Firefly Wallet',
         meta: [
             { charSet: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { title: 'Firefly Wallet' },
             { name: 'description', content: 'A modern wallet application' },
         ],
         links: [{ rel: 'icon', href: '/favicon.ico' }],
-    }),
-    component: RootLayout,
-});
+    };
+}
 
-function RootLayout() {
+/**
+ * Rendered for client-only routes on the server (see the `clientOnly`
+ * option in vite.config.ts): the server streams this shell and the client
+ * swaps in the real page after hydration.
+ */
+export const pendingComponent = DefaultPendingComponent;
+
+export default function RootLayout({ children }: { children?: ReactNode }) {
     return (
         <RootDocument>
-            <Outlet />
+            {children}
             <ModalRouteLayer />
         </RootDocument>
     );
 }
 
+const themeInitScript = `
+(function() {
+    try {
+        var s = localStorage.getItem('global-theme-state');
+        var m = s ? JSON.parse(s) : null;
+        var t = m && m.state && m.state.themeMode;
+        var d = t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.add(d ? 'dark' : 'light');
+    } catch (e) {
+        console.error('Error getting theme mode from localStorage', e.message);
+    }
+})()`;
+
+/**
+ * react-native-web manages its atomic stylesheet imperatively: on the client
+ * it reuses the `<style id="react-native-stylesheet">` element already in the
+ * DOM, inserting it when missing. If the server doesn't render that element,
+ * the client inserts it before hydration and React reports a mismatch.
+ * Render it on both sides (RNW's standard SSR pattern); the text content is
+ * suppressed because rule order may legitimately differ post-hydration.
+ */
+function ReactNativeStyleElement() {
+    const sheet = StyleSheet.getSheet();
+    return (
+        <style
+            id={sheet.id}
+            suppressHydrationWarning
+            dangerouslySetInnerHTML={{ __html: sheet.textContent }}
+        />
+    );
+}
+
 function RootDocument({ children }: { children: ReactNode }) {
-    const { pathname } = useLocation();
+    const { pathname } = useRouterState();
     const route = `${APP_BASE_PATH}${pathname}`;
 
     return (
         <html lang="en" className="overscroll-contain" suppressHydrationWarning>
             <head>
-                <HeadContent />
-                <ScriptOnce>
-                    {`
-                        (function() {
-                            try {
-                                var s = localStorage.getItem('global-theme-state');
-                                var m = s ? JSON.parse(s) : null;
-                                var t = m && m.state && m.state.themeMode;
-                                var d = t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-                                document.documentElement.classList.add(d ? 'dark' : 'light');
-                            } catch (e) {
-                                console.error('Error getting theme mode from localStorage', e.message);
-                            }
-                        })()`}
-                </ScriptOnce>
+                <HeadOutlet />
+                <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+                <ReactNativeStyleElement />
             </head>
             <body className="mx-auto flex min-h-screen flex-col items-center bg-primaryBottom text-main">
                 <div className="flex w-full max-w-[800px] flex-1 flex-col items-center">
                     <LinguiClientProvider>
                         <ClientProviders>
-                            <NuqsAdapter>
-                                <LoginRequired>
-                                    <PrivyReadyRequired>
-                                        <TooltipProvider>
-                                            <ThemeHandler />
-                                            <Toaster />
-                                            <RouteChangedHandler />
-                                            <ErrorBoundary fallback={GlobalError}>
-                                                {children}
-                                                <Modals />
-                                            </ErrorBoundary>
-                                        </TooltipProvider>
-                                    </PrivyReadyRequired>
-                                </LoginRequired>
-                            </NuqsAdapter>
+                            <LoginRequired>
+                                <PrivyReadyRequired>
+                                    <TooltipProvider>
+                                        <ThemeHandler />
+                                        <Toaster />
+                                        <RouteChangedHandler />
+                                        <ErrorBoundary fallback={GlobalError}>
+                                            {children}
+                                            <Modals />
+                                        </ErrorBoundary>
+                                    </TooltipProvider>
+                                </PrivyReadyRequired>
+                            </LoginRequired>
                         </ClientProviders>
                     </LinguiClientProvider>
                 </div>
                 <SpeedInsights route={route} />
                 <Analytics route={route} path={route} />
-                <Scripts />
+                <SsrDataOutlet />
+                <ClientScripts />
             </body>
         </html>
     );

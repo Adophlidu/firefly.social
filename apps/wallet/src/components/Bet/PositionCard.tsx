@@ -3,7 +3,7 @@ import { formatPriceToCents, parseJson } from '@dimensiondev/utils';
 import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@dimensiondev/ssr';
 import { BigNumber } from 'bignumber.js';
 import { type PropsWithChildren, type ReactNode, useMemo, useState } from 'react';
 import { toast } from 'sonner';
@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button.js';
 import { formatPercentRate } from '@/helpers/formatPercentRate.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getPositionShareImagePayload } from '@/helpers/polymarketShareImage.js';
+import { stringifySearch } from '@/helpers/searchParams.js';
 import { useLongPress } from '@/hooks/useLongPress.js';
 import { usePolymarketShareIdentity } from '@/hooks/usePolymarketShareIdentity.js';
 import { cn } from '@/lib/utils.js';
@@ -103,14 +104,14 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
             toast.error(<Trans>Unable to open this market.</Trans>);
             return;
         }
-        navigate({ to: `/bet/event/${encodeURIComponent(nextSlug)}`, search: buildSearch('sell') });
+        navigate(`/bet/event/${encodeURIComponent(nextSlug)}${stringifySearch(buildSearch('sell'))}`);
     };
 
     const navigateToDetail = async () => {
         let nextSlug = marketSlug;
         if (!nextSlug && eventSlug) nextSlug = await resolveMarketSlug();
         if (!nextSlug) return;
-        navigate({ to: `/bet/event/${encodeURIComponent(nextSlug)}`, search: buildSearch() });
+        navigate(`/bet/event/${encodeURIComponent(nextSlug)}${stringifySearch(buildSearch())}`);
     };
 
     return (

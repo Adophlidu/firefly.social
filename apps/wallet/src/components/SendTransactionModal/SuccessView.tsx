@@ -3,22 +3,24 @@ import SuccessIcon from '@dimensiondev/assets/success.svg';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { formatTokenItemAmount, getBlockExplorersURL } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
-import { Navigate, useLocation, useNavigate } from '@tanstack/react-router';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { omit } from 'lodash-es';
 import { useRef } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
+import { Navigate } from '@/components/Navigate.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { type FormValues, RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { getNavigationState } from '@/helpers/navigationState.js';
 
 export function SuccessView() {
     const navigate = useNavigate();
     const { token: contextToken } = useSendToken();
-    const location = useLocation();
-    const state = location.state as unknown as FormValues & { hash: string };
+    const { pathname } = useRouterState();
+    const state = getNavigationState<FormValues & { hash: string }>(pathname);
     const stateRef = useRef(state);
 
     if (!contextToken || !stateRef.current?.token) {
@@ -28,7 +30,7 @@ export function SuccessView() {
     const { token, recipient, amount, to, hash } = stateRef.current;
     return (
         <div className="flex w-full flex-1 flex-col">
-            <NavigationBar onBack={() => navigate({ to: '/' })}>
+            <NavigationBar onBack={() => navigate('/')}>
                 <Trans>Transaction completed!</Trans>
             </NavigationBar>
             <div className="my-auto flex size-full flex-col justify-between px-4 pb-4">
@@ -91,7 +93,7 @@ export function SuccessView() {
                     <ActionButton
                         className="h-10 w-full rounded-lg"
                         onClick={() => {
-                            navigate({ to: '/' });
+                            navigate('/');
                         }}
                     >
                         <span className="text-medium">

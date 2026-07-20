@@ -1,5 +1,5 @@
 import { isZero, multipliedBy } from '@dimensiondev/web3/numbers';
-import { Link } from '@tanstack/react-router';
+import { Link } from '@dimensiondev/ssr';
 import { first } from 'lodash-es';
 import { type MouseEvent, type ReactNode, useMemo } from 'react';
 
@@ -82,7 +82,7 @@ export function TokenInfoRow({
             <div className={cn('flex items-center justify-between gap-2 rounded-lg bg-bg p-3', containerClassName)}>
                 <div className="flex items-center gap-2">
                     <Link
-                        to={tokenPageUrl}
+                        href={tokenPageUrl}
                         onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
                             if (!onNavigate || !tokenPageUrl || !shouldHandleNavigation(event)) return;
                             event.preventDefault();
@@ -105,7 +105,7 @@ export function TokenInfoRow({
                     </Link>
                     <div className="flex flex-col">
                         <Link
-                            to={tokenPageUrl}
+                            href={tokenPageUrl}
                             onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
                                 if (!onNavigate || !tokenPageUrl || !shouldHandleNavigation(event)) return;
                                 event.preventDefault();

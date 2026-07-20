@@ -12,7 +12,7 @@ import {
 } from '@dimensiondev/rn-ui';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { useLingui } from '@lingui/react';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@dimensiondev/ssr';
 import { useAtomValue } from 'jotai';
 import { type PropsWithChildren, useCallback } from 'react';
 import { toast } from 'sonner';
@@ -65,18 +65,18 @@ export function PerpsProvider({ children }: PropsWithChildren) {
             switch (to) {
                 case 'details': {
                     const token = 'coin' in options ? options?.coin : undefined;
-                    return navigate({ to: `/perps/token?token=${token || ''}` });
+                    return navigate(`/perps/token?token=${token || ''}`);
                 }
                 case 'trade': {
                     const token = 'coin' in options ? options?.coin : undefined;
-                    return navigate({ to: `/perps/?token=${token || ''}` });
+                    return navigate(`/perps/?token=${token || ''}`);
                 }
                 case 'addFunds':
-                    return navigate({ to: '/perps/deposit' });
+                    return navigate('/perps/deposit');
                 case 'withdraw':
                     return;
                 case 'history':
-                    return navigate({ to: '/perps/history' });
+                    return navigate('/perps/history');
                 case 'perps-website':
                     iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
                         path: ABOUT_URL,

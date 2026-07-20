@@ -2,7 +2,7 @@ import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { ConnectionController as CoreConnectionController } from '@reown/appkit-controllers';
 import { useQuery } from '@tanstack/react-query';
-import { ClientOnly } from '@tanstack/react-router';
+import { ClientOnly } from '@dimensiondev/ssr';
 import { useAtom, useAtomValue } from 'jotai';
 import { memo, useEffect } from 'react';
 import { useConnect, useConnection, useConnectors, useDisconnect } from 'wagmi';

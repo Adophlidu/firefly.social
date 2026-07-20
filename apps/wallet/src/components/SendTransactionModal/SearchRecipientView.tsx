@@ -11,7 +11,7 @@ import {
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { type HistoryState, useLocation, useRouter } from '@tanstack/react-router';
+import { useNavigate, useSearch } from '@dimensiondev/ssr';
 import { compact } from 'lodash-es';
 import * as React from 'react';
 import { Suspense, useEffect, useState } from 'react';
@@ -28,6 +28,7 @@ import { RecipientItem, type RecipientItemProps } from '@/components/SendTransac
 import { type FormValues, RoutePath } from '@/components/SendTransactionModal/types.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { setNavigationState } from '@/helpers/navigationState.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflyWorkerEndpoint } from '@/providers/firefly/worker.js';
@@ -60,20 +61,18 @@ function EnsLookupErrorFallback({ reset }: ErrorPageProps) {
 }
 
 export function SearchRecipientView() {
-    const { search } = useLocation();
+    const search = useSearch();
     const { control, setValue } = useFormContext<FormValues>();
     const token = useWatch({ control, name: 'token' });
-    const router = useRouter();
+    const navigate = useNavigate();
     return (
         <SearchRecipient
             networkType={token.networkType}
-            initialKeyword={search.keyword}
+            initialKeyword={search.get('keyword') ?? ''}
             onClick={(recipient) => {
                 if (isZeroAddressEthereum(recipient.address)) {
-                    router.navigate({
-                        to: RoutePath.ChooseRecipient,
-                        state: { recipient } as unknown as HistoryState,
-                    });
+                    setNavigationState(RoutePath.ChooseRecipient, { recipient });
+                    navigate(RoutePath.ChooseRecipient);
                     return;
                 }
                 captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_RECIPIENT_SELECT, {
@@ -88,10 +87,7 @@ export function SearchRecipientView() {
                 setValue('to', recipient.address, {
                     shouldValidate: true,
                 });
-                router.navigate({
-                    to: RoutePath.Form,
-                    replace: true,
-                });
+                navigate(RoutePath.Form, { replace: true });
             }}
         />
     );
@@ -106,7 +102,7 @@ function SearchRecipient({
     networkType: NetworkType;
     initialKeyword?: string;
 }) {
-    const router = useRouter();
+    const navigate = useNavigate();
     const [keyword, setKeyword] = useState(initialKeyword);
     const [debouncedKeyword, setDebouncedKeyword] = useDebounceValue(keyword, 300);
     useEffect(() => {
@@ -117,7 +113,7 @@ function SearchRecipient({
 
     return (
         <div className="flex h-svh w-full flex-col gap-2 pb-4 md:h-full">
-            <NavigationBar onBack={() => router.navigate({ to: RoutePath.Form, replace: true })}>
+            <NavigationBar onBack={() => navigate(RoutePath.Form, { replace: true })}>
                 <Trans>Recipient</Trans>
             </NavigationBar>
             <div className="shrink-0 px-4">

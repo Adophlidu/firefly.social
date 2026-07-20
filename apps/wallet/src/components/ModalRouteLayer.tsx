@@ -1,4 +1,4 @@
-import { useLocation, useRouter } from '@tanstack/react-router';
+import { useRouterState } from '@dimensiondev/ssr';
 import { lazy, Suspense, useState } from 'react';
 
 import { ModalType } from '@/configs/modalRoutes.js';
@@ -22,10 +22,8 @@ const DepositViaCryptoModalWrapper = lazy(() =>
 );
 
 export function ModalRouteLayer() {
-    const location = useLocation();
-    const router = useRouter();
-    const search = location.search as { modal?: string };
-    const modalType = search?.modal;
+    const { pathname, search, navigate } = useRouterState();
+    const modalType = search.get('modal') ?? undefined;
 
     // To enable smooth closing
     const [closingModals, setClosingModals] = useState<string[]>([]);
@@ -33,19 +31,12 @@ export function ModalRouteLayer() {
     function handleClose(modalType: string, skipRedirect?: boolean) {
         if (!skipRedirect) {
             // Remove modal param while preserving other search params
-            const currentSearch = { ...(location.search as Record<string, unknown>) };
-            delete currentSearch.modal;
-            const searchString = new URLSearchParams(
-                Object.entries(currentSearch).reduce<Record<string, string>>((acc, [k, v]) => {
-                    if (v !== undefined && v !== null) {
-                        acc[k] = typeof v === 'object' ? JSON.stringify(v) : `${v as string | number | boolean}`;
-                    }
-                    return acc;
-                }, {}),
-            ).toString();
-            const newPath = searchString ? `${location.pathname}?${searchString}` : location.pathname;
+            const params = new URLSearchParams(search);
+            params.delete('modal');
+            const query = params.toString();
+            const newPath = query ? `${pathname}?${query}` : pathname;
             setClosingModals((closingModals) => [...closingModals, modalType]);
-            router.navigate({ to: newPath, replace: true });
+            navigate?.(newPath, { replace: true });
         }
         setTimeout(() => {
             setClosingModals((closingModals) => closingModals.filter((m) => m !== modalType));

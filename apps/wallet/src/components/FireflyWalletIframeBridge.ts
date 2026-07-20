@@ -12,7 +12,7 @@ import {
 import { delay, NotImplementedError, unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
 import { isVersionedTransaction } from '@solana/wallet-adapter-base';
-import { useNavigate, useRouter } from '@tanstack/react-router';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { getWalletClient } from '@wagmi/core';
 import bs58 from 'bs58';
 import { useSetAtom } from 'jotai';
@@ -72,8 +72,8 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
     const setShowEmbeddedWalletUI = useSetAtom(showEmbeddedWalletUIAtom);
     const setSkipAuth = useSetAtom(skipPinCodeAtom);
     const navigate = useNavigate();
-    const router = useRouter();
-    const pathnameRef = useRef(router.state.location.pathname);
+    const { pathname } = useRouterState();
+    const pathnameRef = useRef(pathname);
 
     useEffect(() => {
         evmAddressRef.current = evmAddress;
@@ -82,8 +82,8 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
         connectorsRef.current = connectors;
     }, [connectors]);
     useEffect(() => {
-        pathnameRef.current = router.state.location.pathname;
-    }, [router.state.location.pathname]);
+        pathnameRef.current = pathname;
+    }, [pathname]);
 
     const handlersRef = useRef({
         navigate,
@@ -109,7 +109,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
         function ensureHomePage() {
             const currentPath = pathnameRef.current;
             if (currentPath !== '/') {
-                handlersRef.current.navigate({ to: '/', replace: true });
+                handlersRef.current.navigate('/', { replace: true });
             }
         }
 
@@ -132,15 +132,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             },
             [IframeBridgeMethod.NAVIGATE]: async ({ path, replace }) => {
                 const { navigate } = handlersRef.current;
-                // Parse path and search params separately for TanStack Router
-                const url = new URL(path, 'http://localhost');
-                const pathname = url.pathname;
-                const search = Object.fromEntries(url.searchParams.entries());
-                if (replace) {
-                    navigate({ to: pathname, search, replace: true });
-                } else {
-                    navigate({ to: pathname, search });
-                }
+                navigate(path, { replace });
             },
             [IframeBridgeMethod.ENQUEUE_MESSAGE]: async () => {
                 throw new Error('Not implemented');
@@ -168,16 +160,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: async ({ path, replace }) => {
                 logger.debug('[IframeBridge.FIREFLY_WALLET_NAVIGATE]', { path, replace });
                 const { navigate } = handlersRef.current;
-                // Parse path and search params separately for TanStack Router
-                const url = new URL(path, 'http://localhost');
-                const pathname = url.pathname;
-                const search = Object.fromEntries(url.searchParams.entries());
-
-                if (replace) {
-                    navigate({ to: pathname, search, replace: true });
-                } else {
-                    navigate({ to: pathname, search });
-                }
+                navigate(path, { replace });
             },
             [IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY]: async ({ visible }) => {
                 handlersRef.current.setShowEmbeddedWalletUI(Boolean(visible));

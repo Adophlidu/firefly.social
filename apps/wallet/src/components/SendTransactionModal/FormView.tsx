@@ -20,7 +20,7 @@ import {
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { type HistoryState, Navigate, useNavigate, useRouter } from '@tanstack/react-router';
+import { useNavigate } from '@dimensiondev/ssr';
 import { omit } from 'lodash-es';
 import { RefreshCcw } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
@@ -30,6 +30,7 @@ import { type Address, formatEther } from 'viem';
 import { useConnections } from 'wagmi';
 
 import { ActionButton } from '@/components/ActionButton.js';
+import { Navigate } from '@/components/Navigate.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
@@ -46,6 +47,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
+import { setNavigationState } from '@/helpers/navigationState.js';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
@@ -68,7 +70,7 @@ export function FormView() {
 
     return (
         <div className="box-border flex h-screen flex-col">
-            <NavigationBar onBack={() => navigate({ to: '/', replace: true })}>
+            <NavigationBar onBack={() => navigate('/', { replace: true })}>
                 <Trans>Send</Trans>
             </NavigationBar>
             <div className="no-scrollbar min-h-0 overflow-auto p-4 pb-0">
@@ -79,7 +81,7 @@ export function FormView() {
 }
 
 function Form() {
-    const router = useRouter();
+    const navigateForm = useNavigate();
     const { handleSubmit, control, register, setValue } = useFormContext<FormValues>();
     const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
     const connections = useConnections();
@@ -296,18 +298,14 @@ function Form() {
                     chain_id: chainId,
                 });
 
-                router.navigate({
-                    to: RoutePath.Success,
-                    state: { ...values, hash } as unknown as HistoryState,
-                });
+                setNavigationState(RoutePath.Success, { ...values, hash });
+                navigateForm(RoutePath.Success);
             } catch (error) {
-                router.navigate({
-                    to: RoutePath.Failed,
-                    state: { error } as unknown as HistoryState,
-                });
+                setNavigationState(RoutePath.Failed, { error });
+                navigateForm(RoutePath.Failed);
             }
         },
-        [evmAddress, solanaAddress, connections, router, networkType, resolveTransferProvider],
+        [evmAddress, solanaAddress, connections, navigateForm, networkType, resolveTransferProvider],
     );
 
     useAutoHeightTextarea(() => document.getElementById('send-transaction-recipient') as HTMLTextAreaElement);
@@ -320,7 +318,7 @@ function Form() {
             <div className="no-scrollbar -mx-px flex min-h-0 w-full grow flex-col gap-3 overflow-y-auto px-px">
                 <ClickableButton
                     className="flex w-full items-center justify-between rounded-xl bg-line p-4"
-                    onClick={() => router.navigate({ to: RoutePath.SelectToken })}
+                    onClick={() => navigateForm(RoutePath.SelectToken)}
                 >
                     <div className="flex items-center gap-x-4">
                         <TokenIcon
@@ -389,14 +387,11 @@ function Form() {
                     </label>
                     <ClickableButton
                         onClick={() =>
-                            router.navigate({
-                                to: RoutePath.SearchRecipients,
-                                search: isValidAddress(to)
-                                    ? undefined
-                                    : {
-                                          keyword: to || '',
-                                      },
-                            })
+                            navigateForm(
+                                isValidAddress(to)
+                                    ? RoutePath.SearchRecipients
+                                    : `${RoutePath.SearchRecipients}?keyword=${encodeURIComponent(to || '')}`,
+                            )
                         }
                         type="button"
                         className="relative z-10 flex h-full items-center justify-center p-4 pl-0"

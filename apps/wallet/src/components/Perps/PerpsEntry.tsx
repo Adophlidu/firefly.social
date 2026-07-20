@@ -1,6 +1,6 @@
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right2.svg';
 import { Trans } from '@lingui/react/macro';
-import { Link } from '@tanstack/react-router';
+import { Link } from '@dimensiondev/ssr';
 
 import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
 import { useCachedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
@@ -18,7 +18,7 @@ export function PerpsEntry({ className }: { className?: string }) {
 
     return (
         <Link
-            to="/perps"
+            href="/perps"
             className={cn('flex w-full items-center justify-between duration-100 active:scale-[0.99]', className)}
         >
             <span className="flex min-w-0 items-center">

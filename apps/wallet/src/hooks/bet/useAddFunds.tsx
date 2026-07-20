@@ -5,7 +5,7 @@ import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@dimensiondev/ssr';
 import { toast } from 'sonner';
 import type { Address } from 'viem';
 import { polygon } from 'viem/chains';
@@ -133,7 +133,7 @@ export function useAddFunds(options: Options) {
             ]);
             toast.dismiss(toastId);
             toast.success(<Trans>Your funds are now in your predict wallet.</Trans>);
-            navigate({ to: '/bet' });
+            navigate('/bet');
         },
         onError(error: unknown) {
             store.set(showEmbeddedWalletUIAtom, true);

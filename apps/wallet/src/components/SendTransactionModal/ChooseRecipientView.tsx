@@ -3,13 +3,14 @@ import { Source } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { Navigate, useLocation, useRouter } from '@tanstack/react-router';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { Loading } from '@/components/Loading.js';
+import { Navigate } from '@/components/Navigate.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { FireflyTag } from '@/components/SendTransactionModal/FireflyTag.js';
 import {
@@ -21,6 +22,7 @@ import { type FormValues, RoutePath } from '@/components/SendTransactionModal/ty
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { getNavigationState } from '@/helpers/navigationState.js';
 import { filterAndSortWalletProfiles, isFireflyVerified } from '@/helpers/sortWalletProfiles.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
@@ -29,9 +31,10 @@ import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js
 export function ChooseRecipientView() {
     const { setValue, control } = useFormContext<FormValues>();
     const token = useWatch({ control, name: 'token' });
-    const { state } = useLocation();
-    const recipient = (state as unknown as { recipient?: RecipientItemProps })?.recipient;
-    const router = useRouter();
+    const { pathname } = useRouterState();
+    const state = getNavigationState<{ recipient?: RecipientItemProps }>(pathname);
+    const recipient = state?.recipient;
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!recipient) return;
@@ -46,7 +49,7 @@ export function ChooseRecipientView() {
     }
     return (
         <div className="flex w-full flex-col gap-2 pb-6">
-            <NavigationBar onBack={() => router.navigate({ to: RoutePath.Form, replace: true })}>
+            <NavigationBar onBack={() => navigate(RoutePath.Form, { replace: true })}>
                 <Trans>Recipient</Trans>
             </NavigationBar>
             <div className="px-4">
@@ -69,7 +72,7 @@ export function ChooseRecipientView() {
                         });
                         setValue('recipient', chosenRecipient);
                         setValue('to', chosenRecipient.address);
-                        router.navigate({ to: RoutePath.Form });
+                        navigate(RoutePath.Form);
                     }}
                 />
             </div>

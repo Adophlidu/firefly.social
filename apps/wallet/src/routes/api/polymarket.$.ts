@@ -1,5 +1,4 @@
 import { POLYMARKET_GAMMA_API_ROOT_URL } from '@dimensiondev/constants/static';
-import { createFileRoute } from '@tanstack/react-router';
 
 function withCorsHeaders(headers: Headers) {
     headers.set('Access-Control-Allow-Origin', '*');
@@ -41,7 +40,8 @@ async function proxy(request: Request, splatPath: string | undefined) {
         method,
         headers: upstreamHeaders,
         body,
-        cache: 'no-store',
+        // `cache: 'no-store'` is not implemented in the Workers runtime;
+        // upstream responses are already marked no-store below.
         redirect: 'follow',
     });
 
@@ -58,30 +58,31 @@ async function proxy(request: Request, splatPath: string | undefined) {
     });
 }
 
-export const Route = createFileRoute('/api/polymarket/$')({
-    server: {
-        handlers: {
-            OPTIONS: async () => {
-                return new Response(null, {
-                    status: 204,
-                    headers: withCorsHeaders(new Headers()),
-                });
-            },
-            GET: async ({ request, params }: { request: Request; params: { _splat?: string } }) => {
-                return proxy(request, params._splat);
-            },
-            POST: async ({ request, params }: { request: Request; params: { _splat?: string } }) => {
-                return proxy(request, params._splat);
-            },
-            PUT: async ({ request, params }: { request: Request; params: { _splat?: string } }) => {
-                return proxy(request, params._splat);
-            },
-            PATCH: async ({ request, params }: { request: Request; params: { _splat?: string } }) => {
-                return proxy(request, params._splat);
-            },
-            DELETE: async ({ request, params }: { request: Request; params: { _splat?: string } }) => {
-                return proxy(request, params._splat);
-            },
-        },
-    },
-});
+export async function OPTIONS() {
+    return new Response(null, {
+        status: 204,
+        headers: withCorsHeaders(new Headers()),
+    });
+}
+
+type ApiContext = { request: Request; params: Record<string, string> };
+
+export async function GET({ request, params }: ApiContext) {
+    return proxy(request, params['*']);
+}
+
+export async function POST({ request, params }: ApiContext) {
+    return proxy(request, params['*']);
+}
+
+export async function PUT({ request, params }: ApiContext) {
+    return proxy(request, params['*']);
+}
+
+export async function PATCH({ request, params }: ApiContext) {
+    return proxy(request, params['*']);
+}
+
+export async function DELETE({ request, params }: ApiContext) {
+    return proxy(request, params['*']);
+}

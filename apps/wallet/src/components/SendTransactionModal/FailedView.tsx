@@ -1,22 +1,24 @@
 import ErrorIcon from '@dimensiondev/assets/error-circle.svg';
 import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { Trans } from '@lingui/react/macro';
-import { Navigate, useLocation, useNavigate } from '@tanstack/react-router';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { toast } from 'sonner';
 
 import { ActionButton } from '@/components/ActionButton.js';
+import { Navigate } from '@/components/Navigate.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
+import { getNavigationState } from '@/helpers/navigationState.js';
 
 export function FailedView() {
     const [reported, setReported] = useState(false);
 
     const navigate = useNavigate();
     const { token } = useSendToken();
-    const location = useLocation();
-    const state = location.state as unknown as { error: Error };
+    const { pathname } = useRouterState();
+    const state = getNavigationState<{ error: Error }>(pathname);
 
     // Capture error on mount so it survives route transition re-renders.
     const errorRef = useRef(state?.error);
@@ -38,7 +40,7 @@ export function FailedView() {
 
     return (
         <div className="flex w-full flex-1 flex-col pb-4">
-            <NavigationBar onBack={() => navigate({ to: RoutePath.Form, replace: true })}>
+            <NavigationBar onBack={() => navigate(RoutePath.Form, { replace: true })}>
                 <Trans>Transaction failed</Trans>
             </NavigationBar>
             <div className="my-auto flex size-full flex-col justify-between px-4">
@@ -63,7 +65,7 @@ export function FailedView() {
                     </ActionButton>
                     <ActionButton
                         className="h-10 w-full rounded-lg"
-                        onClick={() => navigate({ to: RoutePath.Form, replace: true })}
+                        onClick={() => navigate(RoutePath.Form, { replace: true })}
                     >
                         <span className="text-medium">
                             <Trans>Try again</Trans>

@@ -10,7 +10,7 @@ import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { useLocation, useNavigate } from '@tanstack/react-router';
+import { useNavigate, useRouterState, useSearch } from '@dimensiondev/ssr';
 import { BigNumber } from 'bignumber.js';
 import { first, isArray, isObject, isUndefined, last } from 'lodash-es';
 import { type ReactNode, useEffect, useMemo, useState, useTransition } from 'react';
@@ -59,9 +59,8 @@ const PLACE_ORDER_TOAST_ID = 'place-order';
 
 function useBetEventQueryParams() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const pathname = location.pathname;
-    const searchParams = location.search as Record<string, string | undefined>;
+    const { pathname } = useRouterState();
+    const searchParams = Object.fromEntries(useSearch()) as Record<string, string | undefined>;
     const [isPending, startTransition] = useTransition();
 
     const parseSide = (v: string | null | undefined): Side => (v === Side.Sell ? Side.Sell : Side.Buy);
@@ -103,16 +102,12 @@ function useBetEventQueryParams() {
             if (patch.orderType !== undefined) setOrderType(nextOrderType);
             if (patch.outcome !== undefined) setOutcome(nextOutcome);
 
-            navigate({
-                to: pathname,
-                search: {
-                    side: nextSide,
-                    type: nextOrderType.toLowerCase(),
-                    outcome: String(nextOutcome),
-                },
-                replace: true,
-                resetScroll: false,
+            const params = new URLSearchParams({
+                side: nextSide,
+                type: nextOrderType.toLowerCase(),
+                outcome: String(nextOutcome),
             });
+            navigate(`${pathname}?${params.toString()}`, { replace: true });
         });
     };
 
@@ -126,9 +121,8 @@ function useBetEventQueryParams() {
 
 export default function BetEventClient({ id }: { id: string }) {
     const navigate = useNavigate();
-    const location = useLocation();
     const { i18n } = useLingui();
-    const searchParams = location.search as Record<string, string | undefined>;
+    const searchParams = Object.fromEntries(useSearch()) as Record<string, string | undefined>;
     const fallbackEventSlug = searchParams?.eventSlug ?? '';
     const fallbackConditionId = searchParams?.conditionId ?? '';
     const { side, orderType, outcome: selectedOutcomeIndex, priceFromUrl, setQueryParams } = useBetEventQueryParams();
@@ -425,7 +419,7 @@ export default function BetEventClient({ id }: { id: string }) {
             }
 
             // 2. Navigate away to avoid availableShares refetch showing stale data (FW-6800)
-            navigate({ to: '/bet', replace: true });
+            navigate('/bet', { replace: true });
 
             // 3. Optimistically update balance after navigation
             if (!isLimitOrder && account?.proxyAddress && variables?.side === 'SELL' && conditionId) {
@@ -621,7 +615,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         </p>
                     </div>
                 </button>
-                <Button size="icon" variant="ghost" onClick={() => navigate({ to: '/bet', replace: true })}>
+                <Button size="icon" variant="ghost" onClick={() => navigate('/bet', { replace: true })}>
                     <CloseIcon width={24} height={24} className="size-6" />
                 </Button>
             </div>

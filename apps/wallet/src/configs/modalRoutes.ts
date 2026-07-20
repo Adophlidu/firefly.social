@@ -1,5 +1,3 @@
-import { redirect } from '@tanstack/react-router';
-
 export enum ModalType {
     Receive = 'receive',
     ExportBetKey = 'export-bet-key',
@@ -18,10 +16,15 @@ export const MODAL_REDIRECTS = [
     { from: '/bet/deposit-via-crypto', to: '/bet', modal: ModalType.DepositViaCrypto },
 ] as const;
 
-export function redirectToModal(from: string): never {
+/**
+ * Target URL of a modal redirect (path + `?modal=...`). @dimensiondev/ssr has
+ * no `redirect()` primitive, so callers navigate to this URL instead of
+ * throwing a TanStack redirect.
+ */
+export function getModalRedirectUrl(from: string): string {
     const config = MODAL_REDIRECTS.find((r) => r.from === from);
     if (!config) {
         throw new Error(`No modal redirect config found for: ${from}`);
     }
-    throw redirect({ to: config.to, search: { modal: config.modal } });
+    return `${config.to}?modal=${config.modal}`;
 }

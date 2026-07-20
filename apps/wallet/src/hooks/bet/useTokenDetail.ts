@@ -4,7 +4,7 @@ import { isSolanaChain, solana } from '@dimensiondev/web3/chains';
 import { isGreaterThan, multipliedBy } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
-import { useSearch } from '@tanstack/react-router';
+import { useSearch } from '@dimensiondev/ssr';
 import { BigNumber } from 'bignumber.js';
 import { compact, first, orderBy } from 'lodash-es';
 import { polygon } from 'viem/chains';
@@ -59,7 +59,7 @@ export const usdcPolygonTokenFallback = {
 };
 
 export function useWithdrawToken(supportedTokens?: WithdrawSupportedToken[]) {
-    const { address, chainId } = useSearch({ from: '/bet/withdraw' }) as SelectedToken;
+    const { address, chainId } = Object.fromEntries(useSearch()) as SelectedToken;
 
     const isValidSelection =
         supportedTokens && address
@@ -99,7 +99,7 @@ export function useWithdrawToken(supportedTokens?: WithdrawSupportedToken[]) {
 }
 
 export function useDepositToken() {
-    const { address, chainId } = useSearch({ from: '/bet/deposit' }) as SelectedToken;
+    const { address, chainId } = Object.fromEntries(useSearch()) as SelectedToken;
     const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
 
     const { data: defaultToken, isLoading: isDefaultTokenLoading } = useQuery({

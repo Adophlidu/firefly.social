@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link } from '@dimensiondev/ssr';
 import type { MouseEvent, ReactNode } from 'react';
 
 import { cn } from '@/lib/utils.js';
@@ -26,7 +26,7 @@ function shouldHandleNavigation(event: MouseEvent<HTMLAnchorElement>) {
 export function InlineTarget({ href, logo, text, className, onClick, onNavigate }: InlineTargetProps) {
     return (
         <Link
-            to={href}
+            href={href}
             className={cn('flex items-center gap-x-1', className)}
             onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
                 onClick?.();

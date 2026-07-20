@@ -3,7 +3,7 @@ import SettingIcon from '@dimensiondev/assets/setting.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useLocation, useNavigate } from '@tanstack/react-router';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
 import { NavigationBar, NavigationBarRight } from '@/components/NavigationBar.js';
@@ -20,7 +20,7 @@ interface Props {
 
 export function BetNavigationBar({ hideActions, hideExportKey, title, onBack }: Props) {
     const navigate = useNavigate();
-    const location = useLocation();
+    const { pathname, search } = useRouterState();
     const { data: account } = useQuery(getPolymarketAccountQueryOptions());
     const { data: setting } = useQuery({
         ...getPolymarketSettingQueryOptions(),
@@ -30,15 +30,13 @@ export function BetNavigationBar({ hideActions, hideExportKey, title, onBack }: 
     const showExportKey = !hideExportKey && !!account && setting?.export_privatekey !== false;
 
     const openExportKeyModal = () => {
-        navigate({
-            to: location.pathname,
-            search: { modal: ModalType.ExportBetKey },
-            replace: true,
-        });
+        const params = new URLSearchParams(search);
+        params.set('modal', ModalType.ExportBetKey);
+        navigate(`${pathname}?${params.toString()}`, { replace: true });
     };
 
     return (
-        <NavigationBar onBack={onBack ?? (() => navigate({ to: '/', replace: true }))}>
+        <NavigationBar onBack={onBack ?? (() => navigate('/', { replace: true }))}>
             {title ?? <Trans>Predictions</Trans>}
             {!hideActions ? (
                 <NavigationBarRight>

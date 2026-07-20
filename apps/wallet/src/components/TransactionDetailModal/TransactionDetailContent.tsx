@@ -3,7 +3,7 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import { getChainName } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Select, Trans } from '@lingui/react/macro';
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from '@dimensiondev/ssr';
 import { memo, type MouseEvent, type ReactNode, useCallback, useMemo } from 'react';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -227,7 +227,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                 void iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, { path });
                 return;
             }
-            navigate({ to: path });
+            navigate(path);
         },
         [navigate],
     );
@@ -272,7 +272,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
             <div className="flex items-center gap-3">
                 {profileUrl ? (
                     <Link
-                        to={profileUrl}
+                        href={profileUrl}
                         onClick={(event: MouseEvent<HTMLAnchorElement>) => handleInternalLinkClick(event, profileUrl)}
                     >
                         <WalletAvatar address={profileAddress} className="size-10" />
@@ -284,7 +284,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                     <div className="flex items-center gap-x-1 text-medium">
                         {profileUrl ? (
                             <Link
-                                to={profileUrl}
+                                href={profileUrl}
                                 className="min-w-0 truncate text-base font-semibold text-lightMain"
                                 onClick={(event: MouseEvent<HTMLAnchorElement>) =>
                                     handleInternalLinkClick(event, profileUrl)
@@ -301,7 +301,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                     <div className="flex items-center gap-x-1 text-sm text-second">
                         {fromEnsHandle && profileUrl ? (
                             <Link
-                                to={profileUrl}
+                                href={profileUrl}
                                 className="text-second"
                                 onClick={(event: MouseEvent<HTMLAnchorElement>) =>
                                     handleInternalLinkClick(event, profileUrl)

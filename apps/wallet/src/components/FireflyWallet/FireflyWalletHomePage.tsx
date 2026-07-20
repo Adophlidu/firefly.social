@@ -1,7 +1,7 @@
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/wallet';
 import { Trans } from '@lingui/react/macro';
-import { Link, useLocation, useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { useSetAtom } from 'jotai';
 import { compact } from 'lodash-es';
 import { type PropsWithChildren, useCallback, useState } from 'react';
@@ -22,17 +22,14 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
 
     const navigate = useNavigate();
     const resetSwapCtx = useSetAtom(resetSwapWalletContext);
-    const location = useLocation();
-    const currentPathname = location.pathname;
+    const { pathname: currentPathname, search } = useRouterState();
 
     const openReceiveModal = useCallback(() => {
         captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_RECEIVE_CLICK, {});
-        navigate({
-            to: location.pathname,
-            search: { modal: ModalType.Receive },
-            replace: true,
-        });
-    }, [location.pathname, navigate]);
+        const params = new URLSearchParams(search);
+        params.set('modal', ModalType.Receive);
+        navigate(`${currentPathname}?${params.toString()}`, { replace: true });
+    }, [currentPathname, search, navigate]);
 
     const onDepositModalClose = useCallback(() => {
         setIsDepositModalOpen(false);
@@ -44,7 +41,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
     const openSwap = useCallback(() => {
         captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SWAP_CLICK, {});
         resetSwapCtx();
-        navigate({ to: '/swap' });
+        navigate('/swap');
     }, [navigate, resetSwapCtx]);
 
     return (
@@ -56,7 +53,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                 onReceive={openReceiveModal}
                 onSend={() => {
                     captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_SEND_CLICK, {});
-                    navigate({ to: '/send/tokens' });
+                    navigate('/send/tokens');
                 }}
                 onSwap={openSwap}
                 onFund={openDepositModal}
@@ -72,7 +69,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                     } else if (value === '/') {
                         captureWalletTelemetryEvent(WalletTelemetryEventId.WALLET_TOKENS_TAB_CLICK, {});
                     }
-                    navigate({ to: value, resetScroll: false });
+                    navigate(value);
                 }}
                 className="sticky top-0 z-10 mb-2 mt-4 w-full max-w-[800px] bg-primaryBottom px-4"
             >
@@ -84,7 +81,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                         return (
                             <TabsTrigger variant="second" asChild value={pathname} key={pathname}>
                                 <Link
-                                    to={pathname}
+                                    href={pathname}
                                     onClick={(e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault()}
                                 >
                                     {label}
