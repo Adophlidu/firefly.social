@@ -91,3 +91,6 @@ apps/web/.ssr-pages/
 /scripts/
 
 workers/**/types/
+
+# wrangler local state
+.wrangler/

@@ -1,0 +1,101 @@
+import type { ApiRouteModule, CacheConfig } from '../router/api.ts';
+import type { ComponentType, ReactNode } from 'react';
+
+/**
+ * Minimal structural shape of a serverless execution context (Cloudflare
+ * Workers, Deno, etc.). Only what the framework itself relies on.
+ */
+export interface ExecutionContextLike {
+    waitUntil(promise: Promise<unknown>): void;
+}
+
+/** Context passed to every route module's `loader`. */
+export interface LoaderContext<TEnv = unknown> {
+    /** Route params captured by the matcher. Catchall captures under `*`. */
+    params: Record<string, string>;
+    /** The incoming request. */
+    request: Request;
+    /** Parsed request URL. */
+    url: URL;
+    /** Platform bindings (Cloudflare Worker env, …). Undefined in plain Node. */
+    env?: TEnv;
+    /** Platform execution context, e.g. for `waitUntil`. */
+    ctx?: ExecutionContextLike;
+}
+
+export interface HeadMeta {
+    name?: string;
+    property?: string;
+    httpEquiv?: string;
+    charSet?: string;
+    content: string;
+}
+
+export interface HeadLink {
+    rel: string;
+    href: string;
+    type?: string;
+    as?: string;
+    crossOrigin?: '' | 'anonymous' | 'use-credentials';
+}
+
+/** Declarative `<head>` content contributed by one route module. */
+export interface HeadDescriptor {
+    title?: string;
+    meta?: HeadMeta[];
+    links?: HeadLink[];
+}
+
+export interface HeadContext {
+    /** The loader data of the module that declared this `head`. */
+    data: unknown;
+    params: Record<string, string>;
+}
+
+/** Static per-route configuration. */
+export interface RouteConfig {
+    cache?: CacheConfig;
+}
+
+/**
+ * The contract of a route file. `default` is the page/layout component;
+ * `loader` runs on the server before rendering (and again on client
+ * navigations); `head` contributes `<head>` tags based on loader data.
+ */
+export interface RouteModule {
+    default?: ComponentType<{ children?: ReactNode }>;
+    loader?: (context: LoaderContext) => unknown;
+    head?: (context: HeadContext) => HeadDescriptor;
+    config?: RouteConfig;
+    /**
+     * Rendered in place of the page when a loader throws an unexpected
+     * error. Also used as a React error boundary for runtime render errors
+     * in its subtree. Resolved page-outward: the nearest declaration wins.
+     */
+    errorComponent?: ComponentType<{ error: Error }>;
+    /**
+     * Rendered in place of the page when a loader throws `notFound()`.
+     * Resolved page-outward like `errorComponent`.
+     */
+    notFoundComponent?: ComponentType;
+    /**
+     * Rendered in place of the page during slow client-side navigations
+     * (after `pendingMs`). Client-only; SSR waits for loaders.
+     */
+    pendingComponent?: ComponentType;
+}
+
+/** Maps route file paths (as passed to `buildRouteTree`) to their modules. */
+export type RouteModuleMap = Record<string, RouteModule & ApiRouteModule>;
+
+/**
+ * Lazily imports a route module. The Vite plugin emits loaders (rather than
+ * eager imports) so the entire client dependency graph is not evaluated at
+ * server startup — Cloudflare Workers forbid async I/O, timers and random
+ * values in global scope, and eager evaluation of browser-only libraries
+ * violates that.
+ */
+export type RouteModuleLoader = () => Promise<RouteModule & ApiRouteModule>;
+
+/** Maps route file paths to their lazy module loaders. */
+export type RouteModuleLoaders = Record<string, RouteModuleLoader>;
