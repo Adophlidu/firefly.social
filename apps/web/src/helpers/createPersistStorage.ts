@@ -1,4 +1,4 @@
-import { createInstance } from 'localforage';
+import { createInstance } from '@/shims/localforage.js';
 import type { PersistStorage } from 'zustand/middleware';
 
 export function createPersistStorage<T>(name: string) {

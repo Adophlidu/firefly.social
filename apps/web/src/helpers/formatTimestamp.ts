@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration.js';
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import utc from 'dayjs/plugin/utc.js';
-import dayjsTwitter from 'dayjs-twitter';
+import dayjsTwitter from '@/shims/dayjs-twitter.js';
 
 import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { getLocalFromClientCookies } from '@/helpers/getCookies.js';

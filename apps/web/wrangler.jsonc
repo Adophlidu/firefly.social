@@ -1,0 +1,47 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "firefly-web",
+    "main": "./dist/server/worker.js",
+    "compatibility_flags": ["nodejs_compat_v2"],
+    "compatibility_date": "2024-09-23",
+    // Served from the workers.dev subdomain during the SSR migration; the
+    // production Next.js deployment on Vercel stays untouched in parallel.
+    "workers_dev": true,
+    // Optional wagmi/walletconnect connector peers that are not installed;
+    // they are only used by client-side connector flows, never during SSR.
+    "alias": {
+        "@base-org/account": "./src/shims/optional-connector.ts",
+        "@metamask/connect-evm": "./src/shims/optional-connector.ts",
+        "porto": "./src/shims/optional-connector.ts",
+        "porto/internal": "./src/shims/optional-connector.ts",
+        "@walletconnect/ethereum-provider": "./src/shims/optional-connector.ts",
+        "ws": "./src/shims/optional-connector.ts",
+    },
+    "assets": {
+        "directory": "./dist/client",
+        "binding": "ASSETS",
+    },
+    "env": {
+        "staging": {
+            "name": "firefly-web-staging",
+            "vars": {
+                "NEXT_PUBLIC_VERCEL_ENV": "staging",
+            },
+        },
+        "production": {
+            "name": "firefly-web",
+            "vars": {
+                "NEXT_PUBLIC_VERCEL_ENV": "production",
+            },
+        },
+    },
+    "observability": {
+        "enabled": false,
+        "logs": {
+            "enabled": true,
+            "head_sampling_rate": 1,
+            "persist": true,
+            "invocation_logs": true,
+        },
+    },
+}

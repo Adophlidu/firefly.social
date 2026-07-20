@@ -139,6 +139,9 @@
         "zustand": "^5.0.14"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-decorators": "^7.24.7",
+        "@babel/plugin-transform-class-properties": "^7.24.7",
+        "@dimensiondev/ssr": "workspace:*",
         "@dimensiondev/workers-frame": "workspace:*",
         "@dimensiondev/workers-iframe-blocker": "workspace:*",
         "@dimensiondev/workers-lens": "workspace:*",
@@ -158,11 +161,14 @@
         "@lingui/loader": "^5.9.5",
         "@lingui/react": "^5.9.5",
         "@lingui/swc-plugin": "^5.9.5",
+        "@lingui/vite-plugin": "^5.9.5",
         "@masknet/config": "^0.2.1",
         "@next/bundle-analyzer": "16.2.7",
         "@rollup/plugin-commonjs": "^25.0.8",
         "@rollup/plugin-node-resolve": "^15.3.1",
         "@statoscope/webpack-plugin": "^5.29.0",
+        "@svgr/plugin-jsx": "^8.1.0",
+        "@svgr/plugin-svgo": "^8.1.0",
         "@svgr/webpack": "^8.1.0",
         "@tailwindcss/forms": "^0.5.11",
         "@testing-library/react": "^16.3.2",
@@ -177,7 +183,9 @@
         "@types/react-dom": "19.2.3",
         "@types/twemoji-parser": "^13.1.4",
         "@types/twitter-text": "^3.1.10",
+        "@vitejs/plugin-react": "^5.2.0",
         "autoprefixer": "10.4.27",
+        "babel-plugin-macros": "^3.1.0",
         "buffer": "^6.0.3",
         "core-js-compat": "^3.42.0",
         "cross-fetch": "^4.1.0",
@@ -196,7 +204,10 @@
         "tailwindcss-safe-area": "^0.6.0",
         "twitter-text": "^3.1.0",
         "vite": "^7.3.5",
+        "vite-plugin-node-polyfills": "^0.25.0",
         "vite-plugin-svgr": "^4.5.0",
-        "vitest": "^3.2.6"
+        "vite-tsconfig-paths": "^6.1.1",
+        "vitest": "^3.2.6",
+        "wrangler": "^4.100.0"
     }
 }

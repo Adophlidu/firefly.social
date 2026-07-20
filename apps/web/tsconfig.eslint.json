@@ -16,6 +16,7 @@
         "postcss.config.cjs",
         "lingui.config.js",
         "next.config.ts",
+        "vite.config.ts",
         "vitest.config.ts",
         "../../packages/**/src/**/*.ts",
         "../../packages/**/src/**/*.tsx",
