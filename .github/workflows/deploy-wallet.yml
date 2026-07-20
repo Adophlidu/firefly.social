@@ -1,0 +1,82 @@
+name: Deploy Wallet
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - 'apps/wallet/**'
+            - 'packages/**'
+            - '.github/workflows/deploy-wallet.yml'
+            - '.github/scripts/setup.sh'
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: 'Deploy environment'
+                required: true
+                default: staging
+                type: choice
+                options:
+                    - staging
+                    - production
+
+permissions:
+    contents: read
+    packages: read
+
+concurrency:
+    group: deploy-wallet-${{ github.ref }}
+    cancel-in-progress: false
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version-file: '.node-version'
+
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Setup Github Actions
+              run: .github/scripts/setup.sh
+
+            - name: Compile i18n catalogs
+              run: pnpm --filter @dimensiondev/firefly-wallet run lingui:compile
+
+            - name: Build wallet (client + server bundles)
+              env:
+                  NEXT_PUBLIC_BASE_PATH: /wallet-iframe
+                  NEXT_PUBLIC_PRIVY_APP_ID: ${{ secrets.NEXT_PUBLIC_PRIVY_APP_ID }}
+                  NEXT_PUBLIC_FIREFLY_ROOT_URL: ${{ secrets.NEXT_PUBLIC_FIREFLY_ROOT_URL }}
+                  NEXT_PUBLIC_SOLANA_RPC_URL: ${{ secrets.NEXT_PUBLIC_SOLANA_RPC_URL }}
+                  NEXT_PUBLIC_W3M_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_W3M_PROJECT_ID }}
+              run: pnpm --filter @dimensiondev/firefly-wallet... run build
+
+            - name: Deploy to Cloudflare Workers
+              env:
+                  # NOTE: deliberately different secret names from
+                  # deploy-workers.yml — the wallet deploys to a separate
+                  # (personal) Cloudflare account, not the company one.
+                  CLOUDFLARE_API_TOKEN: ${{ secrets.WALLET_CLOUDFLARE_API_TOKEN }}
+                  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.WALLET_CLOUDFLARE_ACCOUNT_ID }}
+                  DEPLOY_ENV: ${{ inputs.environment || 'staging' }}
+              run: |
+                  set -euo pipefail
+                  if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then
+                    echo "::error::CLOUDFLARE_API_TOKEN secret is not set"
+                    exit 1
+                  fi
+                  # Push events on main always go to staging; production is manual only.
+                  if [ "${{ github.event_name }}" = "push" ]; then
+                    DEPLOY_ENV=staging
+                  fi
+                  pnpm --filter ./apps/wallet run deploy --env "$DEPLOY_ENV"
