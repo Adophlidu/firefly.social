@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { SessionType, Source } from '@dimensiondev/enums';
+import { SessionType } from '@dimensiondev/enums';
 import { NotFoundError, NotImplementedError, runInSafeAsync, UnauthorizedError } from '@dimensiondev/utils';
 import {
     createIndicator,
@@ -12,7 +12,6 @@ import { isServer } from '@tanstack/react-query';
 import { compact, last } from 'lodash-es';
 
 import { TweetUnavailableError } from '@/constants/error.js';
-import { AddAuthorFifaCampStatusForPosts } from '@/decorators/AddFifaCampStatusForPosts.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { Throw } from '@/decorators/Throw.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
@@ -54,7 +53,6 @@ function whenNotV11Cursor(argIndex: number): (...args: unknown[]) => boolean {
 }
 
 @SetQueryDataForPosts
-@AddAuthorFifaCampStatusForPosts(Source.Twitter)
 class NitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;

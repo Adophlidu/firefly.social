@@ -3,7 +3,7 @@ import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import type { HTMLProps } from 'react';
 
-import { FifaCampAvatar } from '@/components/FifaCamp/FifaCampAvatar.js';
+import { Avatar } from '@/components/Avatar.js';
 import { Image } from '@/components/Image.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
@@ -25,15 +25,11 @@ function FireflyAccountAvatarBanner({ src }: { src: string }) {
 export function FireflyAccountInfoUI({
     profile,
     banner,
-    fifaCampCountryCode,
-    fifaCampFlagUrl,
     children,
     className,
 }: HTMLProps<'div'> & {
     profile: FireflyAccountProfile;
     banner?: string;
-    fifaCampCountryCode?: string;
-    fifaCampFlagUrl?: string | null;
 }) {
     const { uid, avatar, displayName } = profile;
     const avatarWithFallback = avatar || getStampAvatarByProfileId(Source.Firefly, uid);
@@ -55,13 +51,7 @@ export function FireflyAccountInfoUI({
             )}
             {children}
             <div className="z-1 flex w-full flex-col items-center px-4">
-                <FifaCampAvatar
-                    size={80}
-                    alt="firefly-account"
-                    src={avatarWithFallback}
-                    countryCode={fifaCampCountryCode}
-                    flagUrl={fifaCampFlagUrl}
-                />
+                <Avatar size={80} alt="firefly-account" src={avatarWithFallback} />
                 <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">{accountName}</div>
             </div>
         </div>

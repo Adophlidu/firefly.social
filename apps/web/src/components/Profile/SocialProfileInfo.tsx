@@ -5,8 +5,8 @@ import { FollowCategory, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 
+import { Avatar } from '@/components/Avatar.js';
 import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
-import { FifaCampAvatar } from '@/components/FifaCamp/FifaCampAvatar.js';
 import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -18,7 +18,6 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useDefiUnitedBadgeByProfile } from '@/hooks/useDefiUnitedBadge.js';
-import { useFifaCampAvatar } from '@/hooks/useFifaCampAvatar.js';
 import { useRefreshedProfileInProfilePage } from '@/hooks/useRefreshedProfile.js';
 import { getLargeTwitterAvatar } from '@/providers/twitter/getLargeTwitterAvatar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -32,7 +31,6 @@ export const PROFILE_ACTION_ID = 'profile-action';
 export function SocialProfileInfo(props: InfoProps) {
     const { profile } = useRefreshedProfileInProfilePage(props.profile);
     const { source, followerCount = 0, followingCount = 0 } = profile;
-    const { data: fifaCampCountryCode, flagUrl: fifaCampFlagUrl } = useFifaCampAvatar(profile);
     const { data: defiUnitedTier } = useDefiUnitedBadgeByProfile(profile);
 
     const avatarSize = 40;
@@ -50,19 +48,15 @@ export function SocialProfileInfo(props: InfoProps) {
                 gridTemplateColumns: `${avatarColumnWidth}px calc(100% - ${avatarColumnWidth}px - 0.75rem)`,
             }}
         >
-            <FifaCampAvatar
+            <Avatar
                 src={avatarSrc}
                 alt="avatar"
                 size={avatarSize}
-                countryCode={fifaCampCountryCode}
-                flagUrl={fifaCampFlagUrl}
-                className={classNames({
-                    'size-10': !fifaCampCountryCode,
-                    'rounded-full border': !fifaCampCountryCode,
-                    'border-farcasterPrimary': !fifaCampCountryCode && profile.source === Source.Farcaster,
-                    'border-lensButton': !fifaCampCountryCode && profile.source === Source.Lens,
-                    'border-bskyPrimary': !fifaCampCountryCode && profile.source === Source.Bsky,
-                    'border-main': !fifaCampCountryCode && profile.source === Source.Twitter,
+                className={classNames('size-10 rounded-full border', {
+                    'border-farcasterPrimary': profile.source === Source.Farcaster,
+                    'border-lensButton': profile.source === Source.Lens,
+                    'border-bskyPrimary': profile.source === Source.Bsky,
+                    'border-main': profile.source === Source.Twitter,
                 })}
             />
 
