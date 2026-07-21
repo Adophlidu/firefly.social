@@ -16,6 +16,7 @@ export interface DirectMessageContact {
 export interface DirectMessageConversation extends DirectMessageContact {
     preview: string;
     timestamp: string;
+    lastMessageAt?: string | null;
     unreadCount: number;
     lastReadMessageId: string | null;
     isMuted?: boolean;

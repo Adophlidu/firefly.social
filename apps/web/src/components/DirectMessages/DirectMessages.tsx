@@ -16,6 +16,7 @@ import {
     resolveConversationState,
     type RetainedConversation,
 } from '@/components/DirectMessages/conversationNavigation.js';
+import { formatConversationTime } from '@/components/DirectMessages/conversationTime.js';
 import {
     clearDmTargetIntent,
     getDmRetainedConversation,
@@ -30,7 +31,6 @@ import { useDebouncedDmSearch } from '@/components/DirectMessages/useDebouncedDm
 import { openLoginModal } from '@/controllers/openLoginModal.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { getTwitterFormat } from '@/helpers/formatTimestamp.js';
 import { resolveInitials } from '@/helpers/resolveInitials.js';
 import {
     mergeDmChannels,
@@ -53,10 +53,6 @@ function resolvePicture(profile: UserMetadata | null): string | undefined {
     return profile?.picture?.url ?? profile?.rawPicture ?? undefined;
 }
 
-function formatConversationTime(value: string | null) {
-    return value ? getTwitterFormat(value) : '';
-}
-
 function toConversation(
     channel: ChatChannel,
     lastMessage: ChatMessage | undefined,
@@ -65,6 +61,7 @@ function toConversation(
     const profile = channel.other_member_profile;
     const name = profile?.name || profile?.handle || channel.name;
     const handle = profile?.handle || profile?.address || '';
+    const lastMessageAt = lastMessage?.created_at ?? channel.last_message_at;
 
     return {
         id: channel.id,
@@ -80,7 +77,8 @@ function toConversation(
                 : lastMessage?.attachments.length
                   ? t`Media attachment`
                   : ''),
-        timestamp: formatConversationTime(lastMessage?.created_at ?? channel.last_message_at),
+        timestamp: formatConversationTime(lastMessageAt),
+        lastMessageAt,
         unreadCount: channel.channel_membership.unread_count,
         lastReadMessageId: channel.channel_membership.last_read_message_id,
         isMuted: channel.channel_membership.is_muted,

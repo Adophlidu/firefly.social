@@ -7,10 +7,15 @@ import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
+import { useInterval } from 'usehooks-ts';
 
 import { ContactAvatar } from '@/components/DirectMessages/ContactAvatar.js';
 import { isConversationVisibleInTab } from '@/components/DirectMessages/conversationNavigation.js';
+import {
+    formatConversationTime,
+    getConversationTimeRefreshInterval,
+} from '@/components/DirectMessages/conversationTime.js';
 import type { DirectMessageConversation, InboxTab } from '@/components/DirectMessages/types.js';
 
 interface ConversationListProps {
@@ -50,6 +55,7 @@ export const ConversationList = memo(function ConversationList({
     onSearchChange,
     onTabChange,
 }: ConversationListProps) {
+    const [currentTime, setCurrentTime] = useState(Date.now);
     const filteredConversations = useMemo(() => {
         const normalizedSearch = search.trim().toLowerCase();
 
@@ -62,6 +68,16 @@ export const ConversationList = memo(function ConversationList({
                 .includes(normalizedSearch);
         });
     }, [activeConversationId, conversations, search, selectedTab]);
+    const timeRefreshInterval = useMemo(
+        () =>
+            filteredConversations.reduce<number | null>((shortestInterval, conversation) => {
+                const interval = getConversationTimeRefreshInterval(conversation.lastMessageAt, currentTime);
+                if (interval === null) return shortestInterval;
+                return shortestInterval === null ? interval : Math.min(shortestInterval, interval);
+            }, null),
+        [currentTime, filteredConversations],
+    );
+    useInterval(() => setCurrentTime(Date.now()), timeRefreshInterval);
 
     return (
         <section className="flex size-full min-h-0 flex-col bg-primaryBottom md:w-[350px] md:border-r md:border-line">
@@ -220,7 +236,8 @@ export const ConversationList = memo(function ConversationList({
                                     </span>
                                     <span className="flex h-10 shrink-0 flex-col items-end justify-between">
                                         <span className="text-[10px] font-medium text-second">
-                                            {conversation.timestamp}
+                                            {formatConversationTime(conversation.lastMessageAt) ||
+                                                conversation.timestamp}
                                         </span>
                                         {conversation.unreadCount ? (
                                             <span className="grid min-w-5 place-items-center rounded-full bg-fireflyBrand px-1.5 py-0.5 text-[10px] font-bold text-white">
