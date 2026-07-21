@@ -9,7 +9,7 @@ import type { Components } from 'react-markdown';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
-import { PlainLink, PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
+import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
@@ -29,10 +29,11 @@ interface ProfileInListProps {
     watchingFollowStatus?: boolean;
 }
 
-const overrideComponents: Components = {
-    // The bio is wrapped in a <Link>; render its links as plain text so they don't nest an
-    // <a> inside that <a> (invalid HTML → hydration mismatch).
-    a: PlainLink,
+// Render the bio as a single line of plain text (no <p> block, no <br> line breaks) so it
+// truncates cleanly under the stretched-link overlay. <a> is intentionally NOT overridden
+// here: BioMarkup's default renderer makes @-handles (and other links) highlighted and
+// clickable above the z-0 overlay.
+const bioComponents: Components = {
     p: PlainParagraph,
     br: VoidLineBreak,
 };
@@ -144,16 +145,26 @@ export const ProfileInList = memo<ProfileInListProps>(function ProfileInList({
                     ) : null}
                 </div>
                 {profile.bio ? (
-                    <Link href={profileUrl} onClick={handleClickOnLink} prefetch={false}>
+                    <div className="relative mt-1.5">
+                        {/* Stretched link: plain-text clicks on the bio navigate to the profile.
+                            Bio @-handle links (z-[1], below) stay clickable above this z-0 overlay. */}
+                        <Link
+                            className="link-overlay"
+                            href={profileUrl}
+                            onClick={handleClickOnLink}
+                            prefetch={false}
+                            tabIndex={-1}
+                            aria-hidden="true"
+                        />
                         <BioMarkup
-                            className="mt-1.5 truncate text-sm"
-                            components={overrideComponents}
+                            className="truncate text-sm [&_a]:relative [&_a]:z-[1]"
+                            components={bioComponents}
                             source={profile.source}
                             profile={profile}
                         >
                             {profile.bio}
                         </BioMarkup>
-                    </Link>
+                    </div>
                 ) : null}
             </div>
         </div>
