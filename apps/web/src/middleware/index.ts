@@ -1,5 +1,6 @@
 import type { MiddlewareFn } from '@dimensiondev/ssr';
 
+import { externalRewrites } from '@/middleware/external.js';
 import { localeRewrite, referralTracking, requestAnnotations } from '@/middleware/requests.js';
 import { clubRoutes, legacyRedirects, profileRoutes } from '@/middleware/routes.js';
 import { securityHeaders } from '@/middleware/security.js';
@@ -13,6 +14,7 @@ export const appMiddleware: MiddlewareFn[] = [
     profileRoutes,
     clubRoutes,
     requestAnnotations,
+    externalRewrites,
     localeRewrite,
     referralTracking,
     securityHeaders,

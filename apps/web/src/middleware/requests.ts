@@ -1,6 +1,7 @@
 import { FIREFLY_ROOT_URL, FIREFLY_ROOT_URL_DEV } from '@dimensiondev/constants/static';
 import type { MiddlewareFn } from '@dimensiondev/ssr';
 
+import { EXTERNAL_REWRITE_PREFIXES } from '@/middleware/external.js';
 import { hasLocalePrefix } from '@/helpers/stripLocalePathname.js';
 import { resolveLanguageLocale } from '@/helpers/resolveLocale.js';
 import { Locale } from '@dimensiondev/enums';
@@ -83,7 +84,19 @@ export const referralTracking: MiddlewareFn = async (request, { next }) => {
 };
 
 // Paths that must not get a locale prefix (API routes, short links, proxies, static files).
-const LOCALE_EXCLUDED_PREFIXES = ['/api', '/i', '/.well-known', '/font', '/image', '/music', '/svg', '/webm', '/assets', '/js'];
+const LOCALE_EXCLUDED_PREFIXES = [
+    '/api',
+    '/i',
+    '/.well-known',
+    '/font',
+    '/image',
+    '/music',
+    '/svg',
+    '/webm',
+    '/assets',
+    '/js',
+    ...EXTERNAL_REWRITE_PREFIXES,
+];
 const STATIC_FILE_PATTERN = /\.(?:svg|png|jpg|jpeg|gif|webp|js|css|map|ico|xml|txt|ttf|otf|woff|woff2|mp3|mp4|webm|webmanifest|json)$/;
 
 function resolveLocale(request: Request): string {
