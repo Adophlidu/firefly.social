@@ -23,9 +23,9 @@ export async function resolveChainModules(
     options?: { includeClientOnly?: boolean },
 ): Promise<RouteModuleMap> {
     const files = match.chain.flatMap((node) => {
-        if (node.clientOnly && !options?.includeClientOnly) return [];
         return [node.rootFile, node.layoutFile, node === match.page ? node.pageFile : undefined]
-            .filter((file): file is string => Boolean(file));
+            .filter((file): file is string => Boolean(file))
+            .filter((file) => options?.includeClientOnly || !match.clientOnlyFiles?.has(file));
     });
     const entries = await Promise.all(
         files.map(async (file) => {

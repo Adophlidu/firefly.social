@@ -10,6 +10,8 @@ export interface RouteMatch {
      * and group nodes. Renderers walk this chain to compose nested layouts.
      */
     chain: RouteNode[];
+    /** Files marked client-only (never loaded server-side). */
+    clientOnlyFiles?: Set<string>;
 }
 
 export type Matcher = (pathname: string) => RouteMatch | null;
@@ -112,6 +114,11 @@ export function createMatcher(tree: RouteTree): Matcher {
         }
 
         if (!best) return null;
-        return { params: best.params, page: best.page, chain: buildChain(best.page) };
+        return {
+            params: best.params,
+            page: best.page,
+            chain: buildChain(best.page),
+            clientOnlyFiles: tree.clientOnlyFiles,
+        };
     };
 }

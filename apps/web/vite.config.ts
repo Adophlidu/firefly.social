@@ -87,6 +87,15 @@ export default defineConfig({
             routesDir: 'src/routes',
             entry: '/src/entry-server.ts',
             clientEntry: '/src/entry-client.tsx',
+            // Personalized routes (login-gated feeds, home redirect): the
+            // server only streams the pending shell, the client takes over.
+            // Keeps their client-only dependency graph out of the worker too.
+            clientOnly: (file) =>
+                file === '$locale/index.tsx' ||
+                file.startsWith('$locale/activities/') ||
+                file.startsWith('$locale/prediction/') ||
+                file.startsWith('$locale/world-cup-feed/') ||
+                file.startsWith('$locale/following/'),
         }),
         react({
             babel: {
@@ -168,7 +177,7 @@ export default defineConfig({
         include: ['buffer', 'react-use'],
     },
     ssr: {
-        noExternal: ['react-use', '@lingui/core', '@lingui/react'],
+        noExternal: ['react-use', '@lingui/core', '@lingui/react', '@tanstack/react-query', '@tanstack/query-core'],
         external: [
             '@napi-rs/image',
             'canvas',

@@ -38,6 +38,8 @@ export interface RouteTree {
     root: RouteNode;
     /** All routable pages (nodes with a `pageFile`), in insertion order. */
     pages: RouteNode[];
+    /** Files marked client-only (their modules are never loaded server-side). */
+    clientOnlyFiles?: Set<string>;
 }
 
 function segmentToIdElement(segment: RouteSegment): string {
@@ -121,6 +123,7 @@ export interface BuildRouteTreeOptions {
  */
 export function buildRouteTree(options: BuildRouteTreeOptions): RouteTree {
     const { files, apiPrefix = 'api', clientOnly } = options;
+    const clientOnlyFiles = new Set(files.filter((file) => clientOnly?.(file)));
     const root = createNode(null, '/', [], []);
     const nodeById = new Map<string, RouteNode>([['/', root]]);
     const pages: RouteNode[] = [];
@@ -245,7 +248,7 @@ export function buildRouteTree(options: BuildRouteTreeOptions): RouteTree {
         canonicalUrlByPage.set(canonical, page.pageFile ?? page.id);
     }
 
-    return { root, pages };
+    return clientOnlyFiles.size > 0 ? { root, pages, clientOnlyFiles } : { root, pages };
 }
 
 function segmentsToDirectoryId(segments: RouteSegment[]): string {

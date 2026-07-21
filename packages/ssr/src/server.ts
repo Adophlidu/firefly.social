@@ -173,7 +173,9 @@ export function createServerHandler<TEnv = unknown>(
 
         // Client-only pages render just the pending shell on the server;
         // their modules and loaders only run for data requests / on the client.
+        // Layouts (non-clientOnly) still load and run their loaders.
         if (matched.page.clientOnly && !wantsData) {
+            const { data, heads } = await resolveChain(matched, modules, { request, url, ...platform });
             const pendingBoundary = findBoundaryComponent(matched, modules, 'pending');
             return renderPage({
                 matched,
@@ -182,8 +184,8 @@ export function createServerHandler<TEnv = unknown>(
                 search: url.searchParams,
                 basepath,
                 clientAssets,
-                data: {},
-                heads: [],
+                data,
+                heads,
                 terminalComponent: pendingBoundary,
                 pending: true,
             });
