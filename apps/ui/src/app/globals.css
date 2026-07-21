@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/*
+ * Design tokens copied verbatim (same CSS var names and values) from
+ * apps/web/src/app/globals.css — this is the subset actually used across the
+ * product (see the GH issue for per-token usage evidence), not an invented palette.
+ */
+.light {
+    --color-main: 7 16 27; /* #07101b */
+    --color-second: #767676;
+    --color-secondary: rgba(118, 127, 141, 1); /* #767f8d */
+    --color-third: rgba(177, 177, 177, 1); /* #b1b1b1 */
+    --color-main4: rgba(24, 24, 24, 1); /* #181818 — fourMain */
+    --color-main3: rgba(243, 243, 243, 1); /* #f3f3f3 — thirdMain */
+    --color-light-main: #181818;
+    --color-bottom: 255 255 255; /* #ffffff — primaryBottom */
+    --color-bg: rgba(249, 249, 249, 1); /* #f9f9f9 */
+    --color-light-bg: #f5f5f9;
+    --color-input: rgba(245, 245, 245, 1); /* #f5f5f5 */
+    --color-dark-bottom: #181818;
+    --m-light-bottom: #fff;
+    --color-line: #f4f4f4;
+    --color-line2: rgba(231, 231, 231, 1); /* #e7e7e7 — secondaryLine */
+    --color-highlight: 76 74 169; /* #4c4aa9 */
+    --color-light-highlight: 172 157 246; /* #ac9df6 */
+    --color-firefly-brand: rgba(146, 80, 255, 1); /* #9250ff */
+    --color-link: 142 150 255; /* #8e96ff */
+    --color-danger: 255 53 69; /* #ff3545 */
+    --m-common-danger: #ff3545;
+    --color-warn: 255 177 0; /* #ffb100 */
+    --m-common-warn: 255 177 0; /* #ffb100 */
+    --color-success: 61 194 51; /* #3dc233 */
+    --color-secondary-success: 24 195 123; /* #18c37b */
+    --color-fail: 255 53 69; /* #ff3545 */
+    --color-lens-primary: 154 227 42; /* #9ae32a */
+    --color-farcaster-primary: 133 93 205; /* #855dcd */
+    --color-twitter-primary: 29 161 243; /* #1da1f3 */
+    --color-bsky-primary: 10 122 255; /* #0a7aff */
+    --color-bg-modal: rgba(249, 249, 249, 1); /* #f9f9f9 */
+}
+
+.dark {
+    --color-main: 245 245 245; /* #f5f5f5 */
+    --color-second: rgba(255, 255, 255, 0.78); /* #ffffffc7 */
+    --color-secondary: rgba(255, 255, 255, 0.78); /* #ffffffc7 */
+    --color-third: rgba(255, 255, 255, 0.44); /* #ffffff70 */
+    --color-main4: rgba(245, 245, 245, 1); /* #f5f5f5 — fourMain */
+    --color-main3: rgba(255, 255, 255, 0.11); /* #ffffff1c — thirdMain */
+    --color-light-main: #f5f5f5;
+    --color-bottom: 3 3 3; /* #030303 — primaryBottom */
+    --color-bg: rgba(255, 255, 255, 0.08); /* #ffffff14 */
+    --color-light-bg: rgba(255, 255, 255, 0.08); /* #ffffff14 */
+    --color-input: rgba(255, 255, 255, 1); /* #ffffff */
+    --color-dark-bottom: #181818;
+    --m-light-bottom: #000;
+    --color-line: rgba(255, 255, 255, 0.18); /* #ffffff2e */
+    --color-line2: rgba(255, 255, 255, 0.25); /* #ffffff40 — secondaryLine */
+    --color-highlight: 172 157 246; /* #ac9df6 */
+    --color-light-highlight: 76 74 169; /* #4c4aa9 */
+    --color-firefly-brand: rgba(146, 80, 255, 1); /* #9250ff */
+    --color-link: 142 150 255; /* #8e96ff */
+    --color-danger: 255 53 69; /* #ff3545 */
+    --m-common-danger: #ff3545;
+    --color-warn: 255 177 0; /* #ffb100 */
+    --m-common-warn: 255 177 0; /* #ffb100 */
+    --color-success: 61 194 51; /* #3dc233 */
+    --color-secondary-success: 24 195 123; /* #18c37b */
+    --color-fail: 255 53 69; /* #ff3545 */
+    --color-lens-primary: 154 227 42; /* #9ae32a */
+    --color-farcaster-primary: 146 80 255; /* #9250ff */
+    --color-twitter-primary: 29 161 243; /* #1da1f3 */
+    --color-bsky-primary: 10 122 255; /* #0a7aff */
+    --color-bg-modal: rgba(0, 0, 0); /* #000000 */
+}
+
+.light .logo-dark {
+    display: none;
+}
+
+.dark .logo-light {
+    display: none;
+}
+
+body {
+    background-color: rgb(var(--color-bottom));
+    color: rgb(var(--color-main));
+}
