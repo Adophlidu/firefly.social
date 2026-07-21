@@ -95,7 +95,11 @@ export default defineConfig({
                 file.startsWith('$locale/activities/') ||
                 file.startsWith('$locale/prediction/') ||
                 file.startsWith('$locale/world-cup-feed/') ||
-                file.startsWith('$locale/following/'),
+                file.startsWith('$locale/following/') ||
+                file.startsWith('$locale/settings/') ||
+                file.startsWith('$locale/bookmarks/') ||
+                file.startsWith('$locale/notifications/') ||
+                file.startsWith('$locale/messages/'),
         }),
         react({
             babel: {
