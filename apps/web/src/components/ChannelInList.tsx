@@ -78,9 +78,17 @@ export const ChannelInList = memo(function ChannelInList({
             )}
             onClick={onClick}
         >
-            <div className="flex flex-1 items-center justify-start overflow-auto">
+            <div className="relative flex flex-1 items-center justify-start overflow-auto">
+                <Link
+                    className="link-overlay"
+                    href={getChannelUrl(channel)}
+                    onClick={handleClickOnLink}
+                    prefetch={false}
+                    tabIndex={-1}
+                    aria-hidden="true"
+                />
                 <div className="mr-2.5 shrink-0 self-start">
-                    <ChannelTippy channel={channel}>
+                    <ChannelTippy channel={channel} className="relative z-1">
                         <Link href={getChannelUrl(channel)} onClick={handleClickOnLink} prefetch={false}>
                             {!channel.imageUrl && showSourceAvatarWhenNoAvatar ? (
                                 <SocialSourceIcon className="rounded-full" source={channel.source} size={avatarSize} />
@@ -98,7 +106,7 @@ export const ChannelInList = memo(function ChannelInList({
 
                 <div className="flex max-w-[calc(100%-40px-16px)] flex-1 flex-col justify-start overflow-auto">
                     <div className="flex items-center justify-start gap-1 text-sm font-bold leading-5">
-                        <ChannelTippy channel={channel} className="mr-1 truncate">
+                        <ChannelTippy channel={channel} className="relative z-1 mr-1 truncate">
                             <Link
                                 href={getChannelUrl(channel)}
                                 onClick={handleClickOnLink}
@@ -111,7 +119,7 @@ export const ChannelInList = memo(function ChannelInList({
                         <SocialSourceIcon mono source={channel.source} size={16} className="shrink-0 text-secondary" />
                     </div>
                     <div className="flex items-center gap-2 text-sm leading-6 text-secondary">
-                        <ChannelTippy channel={channel}>
+                        <ChannelTippy channel={channel} className="relative z-1">
                             {isLens || isBsky ? (
                                 channel.lead?.handle ? (
                                     <Link
@@ -138,43 +146,29 @@ export const ChannelInList = memo(function ChannelInList({
                             <>
                                 <span className="leading-[22px] text-secondary">·</span>
 
-                                <Link href={getChannelUrl(channel)} onClick={handleClickOnLink} prefetch={false}>
-                                    <data value={followerCount}>
-                                        <span className="font-bold leading-[22px] text-lightMain">
-                                            {nFormatter(followerCount)}{' '}
-                                        </span>
-                                        <span className="leading-[22px] text-secondary">
-                                            {!isBsky ? (
-                                                <Plural value={followerCount} one="Follower" other="Followers" />
-                                            ) : (
-                                                <Plural value={followerCount} one="Like" other="Likes" />
-                                            )}
-                                        </span>
-                                    </data>
-                                </Link>
+                                <data value={followerCount}>
+                                    <span className="font-bold leading-[22px] text-lightMain">
+                                        {nFormatter(followerCount)}{' '}
+                                    </span>
+                                    <span className="leading-[22px] text-secondary">
+                                        {!isBsky ? (
+                                            <Plural value={followerCount} one="Follower" other="Followers" />
+                                        ) : (
+                                            <Plural value={followerCount} one="Like" other="Likes" />
+                                        )}
+                                    </span>
+                                </data>
                             </>
                         )}
                     </div>
                     {!dense && channel.description && !hideDescription ? (
-                        <div className="relative mt-1.5">
-                            {/* Stretched link: plain-text clicks on the description navigate to the
-                                channel. Description @-handle links (z-[1], below) stay clickable. */}
-                            <Link
-                                className="link-overlay"
-                                href={getChannelUrl(channel)}
-                                onClick={handleClickOnLink}
-                                prefetch={false}
-                                tabIndex={-1}
-                                aria-hidden="true"
-                            />
-                            <BioMarkup
-                                className="truncate text-sm [&_a]:relative [&_a]:z-[1]"
-                                components={descriptionComponents}
-                                source={channel.source}
-                            >
-                                {channel.description ?? '-'}
-                            </BioMarkup>
-                        </div>
+                        <BioMarkup
+                            className="mt-1.5 truncate text-sm [&_a]:relative [&_a]:z-1"
+                            components={descriptionComponents}
+                            source={channel.source}
+                        >
+                            {channel.description ?? '-'}
+                        </BioMarkup>
                     ) : null}
                 </div>
             </div>
