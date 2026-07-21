@@ -6,6 +6,7 @@ export { createMatcher } from './router/matcher.ts';
 export type { Matcher, RouteMatch } from './router/matcher.ts';
 export { coerceToResponse, dispatchApiRoute } from './router/api.ts';
 export type { ApiContext, ApiHandler, ApiMethod, ApiRouteModule } from './router/api.ts';
+export type { MiddlewareFn, MiddlewareNext } from './server.ts';
 
 export { ClientScripts, ClientStyles } from './runtime/assets.tsx';
 export type { ClientAssets } from './runtime/assets.tsx';

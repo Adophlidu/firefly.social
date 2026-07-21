@@ -31,9 +31,23 @@ export interface CreateServerHandlerOptions {
      * this from `virtual:ssr/client-assets`.
      */
     clientAssets?: ClientAssets;
+    /**
+     * Middleware chain, run in order before routing. A middleware returns a
+     * `Response` to short-circuit, `undefined` to continue to the next one,
+     * or calls `next(request?)` to continue with a (possibly rewritten)
+     * request and use the downstream response.
+     */
+    middleware?: MiddlewareFn[];
     /** Custom 404 response factory. Defaults to a plain text 404. */
     notFound?: (request: Request) => Response | Promise<Response>;
 }
+
+export type MiddlewareNext = (request?: Request) => Promise<Response>;
+
+export type MiddlewareFn = (
+    request: Request,
+    context: { next: MiddlewareNext },
+) => Response | undefined | void | Promise<Response | undefined | void>;
 
 /** Per-request platform context, passed through to loaders and API handlers. */
 export interface ServerContext<TEnv = unknown> {
@@ -131,10 +145,10 @@ async function renderPage(options: RenderPageOptions): Promise<Response> {
 export function createServerHandler<TEnv = unknown>(
     options: CreateServerHandlerOptions,
 ): ServerHandler<TEnv> {
-    const { tree, modules: moduleInput, notFound, basepath, clientAssets } = options;
+    const { tree, modules: moduleInput, notFound, basepath, clientAssets, middleware } = options;
     const match = createMatcher(tree);
 
-    return async (request: Request, context?: ServerContext<TEnv>): Promise<Response> => {
+    const handleRequest = async (request: Request, context?: ServerContext<TEnv>): Promise<Response> => {
         const url = new URL(request.url);
         const pathname = stripBasepath(url.pathname, basepath);
         const matched = match(pathname);
@@ -313,5 +327,23 @@ export function createServerHandler<TEnv = unknown>(
             data,
             heads,
         });
+    };
+
+    if (!middleware?.length) return handleRequest;
+
+    return async (request: Request, context?: ServerContext<TEnv>): Promise<Response> => {
+        const dispatch = (index: number, current: Request): Promise<Response> => {
+            const fn = middleware[index];
+            if (!fn) return handleRequest(current, context);
+            return Promise.resolve(
+                fn(current, {
+                    next: (nextRequest) => dispatch(index + 1, nextRequest ?? current),
+                }),
+            ).then((result) => {
+                if (result instanceof Response) return result;
+                return dispatch(index + 1, current);
+            });
+        };
+        return dispatch(0, request);
     };
 }
