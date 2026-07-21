@@ -3,7 +3,7 @@ import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
 import { LangSetter } from '@/components/LangSetter.js';
-import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
+import { AppProviders } from '@/compat/AppProviders.js';
 
 const LOCALES = Object.values(Locale);
 
@@ -30,7 +30,7 @@ export default function LocaleLayout({ children }: { children?: ReactNode }) {
     return (
         <>
             <LangSetter locale={locale} />
-            <LinguiClientProvider locale={locale}>{children}</LinguiClientProvider>
+            <AppProviders locale={locale}>{children}</AppProviders>
         </>
     );
 }
