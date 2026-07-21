@@ -1,9 +1,10 @@
 import type { RestrictionType } from '@dimensiondev/enums';
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 
-import { HOME_CLUB, WORLDCUP_2026_GROUP, WORLDCUP_2026_GROUP_ADDRESS } from '@/constants/channel.js';
+import { HOME_CLUB } from '@/constants/channel.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { detectMentionsForLens } from '@/helpers/detectMentions.js';
@@ -11,7 +12,10 @@ import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
-import { ensureLensGroupMembership } from '@/providers/lens/ensureLensGroupMembership.js';
+import {
+    ensureLensGroupMembership,
+    resolveLensGroupAddressForSilentJoin,
+} from '@/providers/lens/ensureLensGroupMembership.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
@@ -304,8 +308,12 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
 
     // login required — read the authoritative current session from the in-memory
     // store (not localStorage) so a just-switched account is honored immediately.
-    const currentSession = useLensProfileStore.getState().currentProfileSession as LensSession | null;
+    const lensProfileState = useLensProfileStore.getState();
+    const currentSession = lensProfileState.currentProfileSession as LensSession | null;
     if (!currentSession?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
+    const currentAccount = lensProfileState.accounts.find((account) =>
+        isSameEthereumAddress(account.profile.profileId, currentSession.profileId),
+    );
 
     // switchAccount updates the profile store synchronously but resumes the Lens
     // session client asynchronously; posting during that window would otherwise
@@ -345,9 +353,8 @@ export async function postToLens({ type, compositePost, keepPostLinks, signal }:
             // group feed, which is group-gated. Silently join the group first so
             // the post doesn't fail with FeedGroupGatedNotAMember (FW-7895).
             // Gated on the feed id so normal channel posts are untouched.
-            if (lensChannel?.feedId === WORLDCUP_2026_GROUP.feedId) {
-                await ensureLensGroupMembership(profileId, WORLDCUP_2026_GROUP_ADDRESS);
-            }
+            const groupAddress = resolveLensGroupAddressForSilentJoin(currentAccount, lensChannel);
+            if (groupAddress) await ensureLensGroupMembership(profileId, groupAddress);
             return publishPostForLens(
                 profileId,
                 readChars({ chars: newChars, strategy: 'both', source: Source.Lens, keepPostLinks }),
