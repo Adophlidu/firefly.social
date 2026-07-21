@@ -373,7 +373,7 @@ msgid "Malicious mining activities found."
 msgstr "Se detectaron actividades de minería maliciosas."
 
 msgid "Collecting"
-msgstr "Recopilando"
+msgstr "Coleccionando"
 
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "Tu frase de recuperación es como una contraseña, mantenla en secreto."
@@ -600,7 +600,7 @@ msgid "Failed to like swap."
 msgstr "No se pudo dar Me gusta al intercambio."
 
 msgid "Minimize"
-msgstr ""
+msgstr "Minimizar"
 
 msgid "Liked."
 msgstr "Me gustó."
@@ -648,7 +648,7 @@ msgid "Search in profile"
 msgstr "Buscar en el perfil"
 
 msgid "Casts"
-msgstr "Repartos"
+msgstr "Publicaciones"
 
 msgid "Club details"
 msgstr "Detalles del club"
@@ -838,8 +838,8 @@ msgstr "Handicap de la Torre"
 #. js-lingui:icu=%7Bcount%2C+plural%2C+one+%7B%23+unread+message%7D+other+%7B%23+unread+messages%7D%7D&pluralize_on=count
 msgid "# unread message"
 msgid_plural "# unread messages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "# mensaje sin leer"
+msgstr[1] "# mensajes sin leer"
 
 msgid "Search {id}"
 msgstr "Buscar {id}"
@@ -1219,7 +1219,7 @@ msgid "action-unlike"
 msgstr "Quitar Me gusta"
 
 msgid "Conversation with {panelTitle}"
-msgstr ""
+msgstr "Conversación con {panelTitle}"
 
 msgid "Buy {firstOutcome}"
 msgstr "Comprar {firstOutcome}"
@@ -1648,7 +1648,7 @@ msgid "Block"
 msgstr "Bloque"
 
 msgid "Free Collect"
-msgstr "Recopilar Gratis"
+msgstr "Coleccionar gratis"
 
 msgid "Max"
 msgstr "Máx"
@@ -1726,7 +1726,7 @@ msgid "Preview image"
 msgstr "Vista previa de la imagen"
 
 msgid "This conversation could not be opened."
-msgstr ""
+msgstr "No se pudo abrir esta conversación."
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>¡Firefly está lanzando <1>el trading de Polymarket</1>, conectando los mercados de predicción onchain con tu feed social! Te invitamos a unirte como colaborador inicial, ¡empezando por nuestras <2>tareas de recompensa de contenido</2>!</0><3>💰 Los usuarios que produzcan contenido de alta calidad pueden ganar <4>100 USDC</4> cada uno.</3><5>🧩 Crea una publicación en Firefly para compartir tu historia de trading en Polymarket. Puedes hablar de tus predicciones, estrategias de trading, ideas, éxitos o incluso fracasos en Polymarket. Las propuestas se evaluarán según la calidad del contenido, la creatividad, la profundidad, la legibilidad y el alcance. Los ganadores se anunciarán en <6>@thefireflyapp</6> y se les contactará por DM.</5><7>📌 Cómo participar:</7><8><9><10>Crea</10> un artículo o un hilo largo compartiendo tu <11>historia de trading en Polymarket</11>, y publícalo en cualquier plataforma social compatible con Firefly.</9><12><13>Sigue y menciona</13> a <14>@thefireflyapp</14>.</12><15><16>Registra</16> tu propuesta rellenando este formulario.</15></8>"
@@ -2121,7 +2121,7 @@ msgid "Semifinals"
 msgstr "Semifinales"
 
 msgid "Quotes"
-msgstr "Cotizaciones"
+msgstr "Citas"
 
 msgid "View game"
 msgstr "Ver partido"
@@ -2268,7 +2268,7 @@ msgid "View resolved"
 msgstr "Ver resueltos"
 
 msgid "Unmuting..."
-msgstr "Activando sonido..."
+msgstr "Dejando de silenciar..."
 
 msgid "Failed to sign in with Firefly Wallet."
 msgstr "No se pudo iniciar sesión con Firefly Wallet."
@@ -2373,7 +2373,7 @@ msgid "No suspected malicious behavior found."
 msgstr "No se ha detectado comportamiento posiblemente malicioso."
 
 msgid "Open in Messages"
-msgstr ""
+msgstr "Abrir en Mensajes"
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "Su navegador no es compatible con Firefly Bridge."
@@ -2451,7 +2451,7 @@ msgid "Add Wallet"
 msgstr "Agregar billetera"
 
 msgid "Tip sent, but the message could not be sent."
-msgstr ""
+msgstr "Se envió la propina, pero no se pudo enviar el mensaje."
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -2501,7 +2501,7 @@ msgstr "No se encontró ningún conector para {0}"
 
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
-msgstr "Activar sonido /{0}"
+msgstr "Dejar de silenciar /{0}"
 
 msgid "Sent"
 msgstr "Enviado"
@@ -2969,7 +2969,7 @@ msgid "No matching token"
 msgstr "No hay token coincidente"
 
 msgid "Collected"
-msgstr "Recogido"
+msgstr "Coleccionado"
 
 msgid "Are you sure you want to report this post?"
 msgstr "¿Está seguro de que desea denunciar esta publicación?"
@@ -3019,7 +3019,7 @@ msgid "Followed /{0} on {sourceName}"
 msgstr "Seguiste a /{0} en {sourceName}"
 
 msgid "Collect Post"
-msgstr "Recopilar Publicación"
+msgstr "Coleccionar publicación"
 
 msgid "No tokens found"
 msgstr "No se encontraron tokens"
@@ -3297,7 +3297,7 @@ msgid "App Store"
 msgstr "Tienda de Aplicaciones"
 
 msgid "Collect Article"
-msgstr "Recopilar Artículo"
+msgstr "Coleccionar artículo"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "Prohibido. Por favor comprueba tus permisos."
@@ -3365,7 +3365,7 @@ msgid "Money laundering found."
 msgstr "Se encontró lavado de dinero."
 
 msgid "Switch"
-msgstr "Interruptor"
+msgstr "Cambiar"
 
 msgid "Drafts"
 msgstr "Borradores"
@@ -3803,7 +3803,7 @@ msgid "Website"
 msgstr "Sitio web"
 
 msgid "Sign in to send a message"
-msgstr ""
+msgstr "Inicia sesión para enviar un mensaje"
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"
@@ -4314,7 +4314,7 @@ msgid "Tip"
 msgstr "Propina"
 
 msgid "Unmute"
-msgstr "Activar sonido"
+msgstr "Dejar de silenciar"
 
 msgid "Final outcome: {outcomeLabel}"
 msgstr "Resultado final: {outcomeLabel}"
@@ -4338,7 +4338,7 @@ msgid "Failed to download image. Please try again later."
 msgstr "No se pudo descargar la imagen. Vuelva a intentarlo más tarde."
 
 msgid "Lens"
-msgstr "Lente"
+msgstr "Lens"
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "Este contrato es un Proxy de Actualización Administrativa. El contrato proxy significa que el propietario del contrato puede modificar la función del token y posiblemente afectar el precio. Posiblemente exista una forma para que el equipo haga rug pull o estafe. Por favor confirme los detalles con el equipo del proyecto antes de comprar."
@@ -4418,7 +4418,7 @@ msgstr "Introduzca su contraseña para verificar su identidad."
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"
-msgstr "Activar sonido @{0}"
+msgstr "Dejar de silenciar @{0}"
 
 msgid "Are you sure you want to report this article?"
 msgstr "¿Está seguro de que desea denunciar este artículo?"
@@ -4458,8 +4458,8 @@ msgstr "ID de usuario: {0}"
 #. js-lingui:icu=%7BnewMessageCount%2C+plural%2C+one+%7B%23+new+message%7D+other+%7B%23+new+messages%7D%7D&pluralize_on=newMessageCount
 msgid "# new message"
 msgid_plural "# new messages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "# mensaje nuevo"
+msgstr[1] "# mensajes nuevos"
 
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "El propietario puede establecer una tasa impositiva distinta para cada dirección asignada."
@@ -5002,13 +5002,13 @@ msgid "Only mentioned profiles can comment on this post."
 msgstr "Solo los perfiles mencionados pueden comentar esta publicación."
 
 msgid "Collect"
-msgstr "Recopilar"
+msgstr "Coleccionar"
 
 msgid "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
 msgstr "Cuenta deshabilitada por riesgo potencial. Contáctanos en <0>Telegram</0> para restaurar el acceso."
 
 msgid "Processing"
-msgstr ""
+msgstr "Procesando"
 
 #. placeholder {0}: remainingFailedAt.length
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
@@ -5666,7 +5666,7 @@ msgid "Create your Firefly profile"
 msgstr "Crea tu perfil de Firefly"
 
 msgid "Collect Price"
-msgstr "Recopilar Precio"
+msgstr "Precio de coleccionar"
 
 msgid "Failed to unlike swap."
 msgstr "No se pudo quitar el me gusta del intercambio."

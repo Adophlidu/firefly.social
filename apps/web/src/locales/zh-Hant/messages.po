@@ -596,7 +596,7 @@ msgid "Failed to like swap."
 msgstr "按赞失敗。"
 
 msgid "Minimize"
-msgstr ""
+msgstr "最小化"
 
 msgid "Liked."
 msgstr "已按讚。"
@@ -834,7 +834,7 @@ msgstr "防禦塔讓分"
 #. js-lingui:icu=%7Bcount%2C+plural%2C+one+%7B%23+unread+message%7D+other+%7B%23+unread+messages%7D%7D&pluralize_on=count
 msgid "# unread message"
 msgid_plural "# unread messages"
-msgstr[0] ""
+msgstr[0] "# 則未讀訊息"
 
 msgid "Search {id}"
 msgstr "搜尋 {id}"
@@ -1213,7 +1213,7 @@ msgid "action-unlike"
 msgstr "收回讚"
 
 msgid "Conversation with {panelTitle}"
-msgstr ""
+msgstr "與 {panelTitle} 的對話"
 
 msgid "Buy {firstOutcome}"
 msgstr "購買 {firstOutcome}"
@@ -1718,7 +1718,7 @@ msgid "Preview image"
 msgstr "預覽圖片"
 
 msgid "This conversation could not be opened."
-msgstr ""
+msgstr "無法開啟此對話。"
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr "<0>Firefly 正式推出 <1>Polymarket 交易功能</1>，將鏈上預測市場與您的社交動態完美結合！我們誠邀您作為早期貢獻者加入，從參與我們的 <2>內容賞金任務</2>開始！</0><3>💰 創作高品質內容的用戶，每人可獲得 <4>100 USDC</4> 獎勵。</3><5>🧩 在 Firefly 上發佈貼文，分享您的 Polymarket 交易故事。您可以聊聊您的預測、交易策略、見解、成功的經驗，甚至是失敗的教訓。我們將根據內容品質、創意、深度、可讀性和影響力進行評選。獲獎名單將在 <6>@thefireflyapp</6> 公佈，並透過私訊聯繫。</5><7>📌 如何參與：</7><8><9><10>撰寫</10>一篇文章或長推文，分享您的 <11>Polymarket 交易故事</11>，並發佈在 Firefly 支援的任何社交平台上。</9><12><13>關注並標記</13> <14>@thefireflyapp</14>。</12><15><16>填寫</16>此表單以登記您的參賽作品。</15></8>"
@@ -2361,7 +2361,7 @@ msgid "No suspected malicious behavior found."
 msgstr "未檢測到可疑惡意行為。"
 
 msgid "Open in Messages"
-msgstr ""
+msgstr "在訊息中開啟"
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "您的瀏覽器不支援 Firefly Bridge。"
@@ -2439,7 +2439,7 @@ msgid "Add Wallet"
 msgstr "新增錢包"
 
 msgid "Tip sent, but the message could not be sent."
-msgstr ""
+msgstr "打賞已發送，但訊息未能傳送。"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -3781,7 +3781,7 @@ msgid "Website"
 msgstr "網站"
 
 msgid "Sign in to send a message"
-msgstr ""
+msgstr "登入以傳送訊息"
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"
@@ -4433,7 +4433,7 @@ msgstr "UID: {0}"
 #. js-lingui:icu=%7BnewMessageCount%2C+plural%2C+one+%7B%23+new+message%7D+other+%7B%23+new+messages%7D%7D&pluralize_on=newMessageCount
 msgid "# new message"
 msgid_plural "# new messages"
-msgstr[0] ""
+msgstr[0] "# 則新訊息"
 
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "擁有者可以為每個指定地址設定不同的稅率。"
@@ -4982,7 +4982,7 @@ msgid "Account disabled due to potential risk. Contact us on <0>Telegram</0> to 
 msgstr "帳戶因潛在風險已被禁用。請透過 <0>Telegram</0> 聯繫我們以恢復存取權限。"
 
 msgid "Processing"
-msgstr ""
+msgstr "處理中"
 
 #. placeholder {0}: remainingFailedAt.length
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
