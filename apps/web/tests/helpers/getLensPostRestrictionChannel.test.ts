@@ -1,6 +1,7 @@
 import { Source } from '@dimensiondev/enums';
 import { describe, expect, it } from 'vitest';
 
+import { HOME_CLUB } from '@/constants/channel.js';
 import { getLensPostRestrictionChannel } from '@/helpers/getLensPostRestrictionChannel.js';
 import type { Channel, ChannelMembershipStatus } from '@/providers/types/SocialMedia.js';
 
@@ -20,6 +21,10 @@ function channel(id: string, membershipStatus: ChannelMembershipStatus): Channel
 }
 
 describe('getLensPostRestrictionChannel', () => {
+    it('does not require membership for the Lens Home feed', () => {
+        expect(getLensPostRestrictionChannel([{ channel: HOME_CLUB, enabled: true }])).toBeUndefined();
+    });
+
     it('returns the first non-member club and ignores joined and empty channels', () => {
         const restricted = channel('request-club', 'requestToJoin');
         expect(

@@ -1,3 +1,5 @@
+import { HOME_CLUB } from '@/constants/channel.js';
+import { isSameChannel } from '@/helpers/isSameChannel.js';
 import { resolveChannelMembershipStatus } from '@/providers/lens/resolveChannelMembershipStatus.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -14,7 +16,9 @@ interface LensChannelSelection {
 export function getLensPostRestrictionChannel(channels: LensChannelSelection[]): Channel | undefined {
     for (const { channel, enabled } of channels) {
         if (!enabled) continue;
-        if (channel && resolveChannelMembershipStatus(channel) !== 'joined') return channel;
+        if (channel && !isSameChannel(channel, HOME_CLUB) && resolveChannelMembershipStatus(channel) !== 'joined') {
+            return channel;
+        }
     }
 
     return undefined;
