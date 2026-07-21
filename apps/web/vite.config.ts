@@ -141,6 +141,12 @@ export default defineConfig({
             // next/font is Next-only; reuse the Vitest stubs so font modules load.
             'next/font/local': resolve(__dirname, 'src/stubs/next-font-local.ts'),
             'next/font/google': resolve(__dirname, 'src/stubs/next-font-google.ts'),
+            // Components written against next/link and next/navigation use
+            // these wrappers; the new SSR app maps them onto the library's
+            // navigation (the Next.js app keeps the originals).
+            '@/esm/Link.js': resolve(__dirname, 'src/compat/Link.tsx'),
+            '@/esm/navigation.js': resolve(__dirname, 'src/compat/navigation.ts'),
+            '@/esm/navigation/server.js': resolve(__dirname, 'src/compat/navigation-server.ts'),
             // vite-plugin-node-polyfills injects these shim imports as a dev banner
             // into every module — including the SSR environment, whose
             // module-runner can't resolve the bare subpaths (ERR_MODULE_NOT_FOUND).
