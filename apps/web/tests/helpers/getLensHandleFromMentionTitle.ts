@@ -9,6 +9,8 @@ describe('getLensHandleFromMentionTitle', () => {
             ['@handle.lens', 'handle'],
             ['@fireflyapp', 'fireflyapp'],
             ['@Lens', 'Lens'],
+            // FW-7952: a 3-char bare handle resolves like any other bare handle
+            ['@orb', 'orb'],
             ['@club/handle', undefined],
             ['handle', undefined],
         ] as Array<[string, string | undefined]>;
