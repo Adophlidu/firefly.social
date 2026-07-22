@@ -15,9 +15,9 @@
         "production": "https://firefly-social-wallet.firefly.social/wallet-iframe/"
     },
     "/ui": {
-        "staging": "https://firefly-social-ui-staging.firefly.social/ui/",
-        "canary": "https://firefly-social-ui-canary.firefly.social/ui/",
-        "production": "https://firefly-social-ui.firefly.social/ui/"
+        "staging": "https://firefly-social-ui-staging.firefly.social/ui",
+        "canary": "https://firefly-social-ui-canary.firefly.social/ui",
+        "production": "https://firefly-social-ui.firefly.social/ui"
     },
     "/masko-iframe": {
         "staging": "https://firefly-chatbot-masko-git-main-dimension-dev.vercel.app/masko-iframe",
