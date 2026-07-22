@@ -1,4 +1,5 @@
 {
     "framework": "nextjs",
-    "redirects": []
+    "redirects": [],
+    "installCommand": "pnpm install --config.trust-lockfile=true"
 }
