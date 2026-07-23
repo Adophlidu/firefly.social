@@ -12,6 +12,9 @@ import type { DirectMessageItem } from '@/components/DirectMessages/types.js';
 vi.mock('@lingui/react/macro', () => ({ Trans: ({ children }: { children?: unknown }) => children }));
 vi.mock('@/controllers/openPreviewMediaModal.js', () => ({ openPreviewMediaModal: vi.fn() }));
 vi.mock('@/components/DirectMessages/MediaMessage.js', () => ({ MediaMessage: () => null }));
+vi.mock('@/components/DirectMessages/MessageText.js', () => ({
+    MessageText: ({ content }: { content: string }) => content,
+}));
 vi.mock('@/components/DirectMessages/StickerMessage.js', () => ({ StickerMessage: () => null }));
 vi.mock('@/components/DirectMessages/TipMessage.js', () => ({ TipMessage: () => null }));
 

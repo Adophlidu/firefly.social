@@ -7,6 +7,7 @@ import type { ComponentType } from 'react';
 
 import { MediaMessage } from '@/components/DirectMessages/MediaMessage.js';
 import { MessageCaption } from '@/components/DirectMessages/MessageCaption.js';
+import { MessageText } from '@/components/DirectMessages/MessageText.js';
 import { StickerMessage } from '@/components/DirectMessages/StickerMessage.js';
 import { TipMessage } from '@/components/DirectMessages/TipMessage.js';
 import type { DirectMessageItem } from '@/components/DirectMessages/types.js';
@@ -46,7 +47,7 @@ function TextMessage({ item }: MessageContentProps<'text'>) {
                 },
             )}
         >
-            {item.content}
+            <MessageText content={item.content} isSelf={item.isSelf} />
         </div>
     );
 }

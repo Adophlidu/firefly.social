@@ -618,8 +618,7 @@ export function mergeSportGroupedMarkets(
             // groupItemTitle breaks the "Game N" regex.
             if (marketType === 'child_moneyline') {
                 const titleEn = item.groupItemTitleEn || item.groupItemTitle;
-                const gameNum =
-                    gameNumberFromSlug(item.slug) ?? titleEn?.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
+                const gameNum = gameNumberFromSlug(item.slug) ?? titleEn?.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
                 if (gameNum) {
                     idToGameLine.set(item.id, Number(gameNum));
                 }
