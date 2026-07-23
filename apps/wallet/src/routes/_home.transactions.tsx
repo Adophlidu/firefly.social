@@ -1,7 +1,8 @@
 import { NetworkType } from '@dimensiondev/enums';
 import { chains, solana } from '@dimensiondev/web3/chains';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useSearch } from '@tanstack/react-router';
 import { lazy, Suspense, useState } from 'react';
+import { z } from 'zod';
 
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { TransactionDetailModal } from '@/components/TransactionDetailModal/TransactionDetailModal.js';
@@ -15,14 +16,20 @@ const FireflyWalletChainSelectorWithNetworkType = lazy(() =>
     })),
 );
 
+const transactionsSearchSchema = z.object({
+    network: z.nativeEnum(NetworkType).optional(),
+});
+
 export const Route = createFileRoute('/_home/transactions')({
     component: TransactionsPage,
     pendingComponent: LoadingPanel,
+    validateSearch: transactionsSearchSchema,
 });
 
 function TransactionsPage() {
     const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
-    const [networkType, setNetworkType] = useState<NetworkType>(NetworkType.Ethereum);
+    const { network } = useSearch({ from: '/_home/transactions' });
+    const [networkType, setNetworkType] = useState<NetworkType>(network ?? NetworkType.Ethereum);
     const [selectedTransaction, setSelectedTransaction] = useState<TransactionHistoryItem | null>(null);
 
     const isEvm = networkType === NetworkType.Ethereum;
