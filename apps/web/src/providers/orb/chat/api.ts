@@ -6,7 +6,11 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import type { LensSession } from '@/providers/lens/Session.js';
-import { CHAT_CHANNEL_PAGE_LIMIT, CHAT_MESSAGE_PAGE_LIMIT } from '@/providers/orb/chat/constants.js';
+import {
+    CHAT_CHANNEL_PAGE_LIMIT,
+    CHAT_MESSAGE_PAGE_LIMIT,
+    CHAT_PROFILE_SEARCH_PAGE_LIMIT,
+} from '@/providers/orb/chat/constants.js';
 import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
 import type {
     ChannelCounters,
@@ -283,17 +287,22 @@ function parseMention(item: unknown): MentionResult | null {
     };
 }
 
-export async function searchProfiles(account: string, query: string): Promise<MentionResult[]> {
+export async function searchProfiles(account: string, query: string, cursor = '0') {
     const payload = await postOrb<ChatItemsPage<unknown>>(account, 'search', {
         query,
         searchType: 'USER',
-        limit: 10,
-        cursor: '0',
+        limit: CHAT_PROFILE_SEARCH_PAGE_LIMIT,
+        cursor,
         sortFilter: 'RELEVANT',
         thumbnailDimension: 128,
     });
+    const page = unwrapChatEnvelope('search', payload);
+    const items = page?.items ?? [];
 
-    return (unwrapChatEnvelope('search', payload)?.items ?? [])
-        .map(parseMention)
-        .filter((item): item is MentionResult => item !== null && !isSameDmAccount(account, item.id));
+    return {
+        items: items
+            .map(parseMention)
+            .filter((item): item is MentionResult => item !== null && !isSameDmAccount(account, item.id)),
+        nextCursor: page?.pageInfo?.next ?? undefined,
+    };
 }

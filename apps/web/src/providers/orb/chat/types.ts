@@ -148,6 +148,10 @@ export interface ChatRealtimeSession {
 
 export interface ChatItemsPage<T> {
     items: T[];
+    pageInfo?: {
+        next: string | null;
+        prev: string | null;
+    };
 }
 
 export interface GetChannelsParams {

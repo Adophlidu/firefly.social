@@ -361,13 +361,47 @@ describe('Orb chat API', () => {
             },
         });
 
-        await expect(searchProfiles(identity.account, 'ali')).resolves.toEqual([
-            {
-                id: '0xc5b11b782856bd04b1441ff11c9f5b564c077c97',
-                handle: 'alice',
-                name: 'Alice',
-                avatar: 'https://images.example/alice.png',
+        await expect(searchProfiles(identity.account, 'ali')).resolves.toEqual({
+            items: [
+                {
+                    id: '0xc5b11b782856bd04b1441ff11c9f5b564c077c97',
+                    handle: 'alice',
+                    name: 'Alice',
+                    avatar: 'https://images.example/alice.png',
+                },
+            ],
+            nextCursor: undefined,
+        });
+    });
+
+    it('uses Orb page info for profile search pagination', async () => {
+        const items = Array.from({ length: 10 }, (_, index) => ({
+            id: index === 0 ? identity.account : `0x${index}`,
+            metadata: {
+                handle: `user-${index}`,
+                address: index === 0 ? identity.account : `0x${index}`,
             },
-        ]);
+        }));
+        fetchJsonMock.mockResolvedValueOnce({
+            status: 'SUCCESS',
+            data: { items, pageInfo: { next: '20', prev: '0' } },
+        });
+
+        const result = await searchProfiles(identity.account, 'user', '10');
+
+        expect(result.items).toHaveLength(9);
+        expect(result.nextCursor).toBe('20');
+        expect(fetchJsonMock).toHaveBeenCalledWith('/api/orb/chat/search', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: JSON.stringify({
+                query: 'user',
+                searchType: 'USER',
+                limit: 10,
+                cursor: '10',
+                sortFilter: 'RELEVANT',
+                thumbnailDimension: 128,
+            }),
+        });
     });
 });

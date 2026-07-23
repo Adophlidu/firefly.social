@@ -627,10 +627,22 @@ export function useMarkDmRead(account: string, channelId: string, unreadCountHin
 
 export function useDmProfileSearch(account: string | undefined, query: string) {
     const normalizedQuery = query.trim();
-    return useQuery<MentionResult[]>({
+    return useInfiniteQuery({
         queryKey: dmKeys.search(account ?? '__signed-out__', normalizedQuery),
-        queryFn: () => searchProfiles(account as string, normalizedQuery),
+        queryFn: ({ pageParam }) => searchProfiles(account as string, normalizedQuery, pageParam),
         enabled: Boolean(account && normalizedQuery.length >= 2),
+        initialPageParam: '0',
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+        select: (data) => {
+            const profiles = new Map<string, MentionResult>();
+            for (const page of data.pages) {
+                for (const profile of page.items) {
+                    if (!profiles.has(profile.id)) profiles.set(profile.id, profile);
+                }
+            }
+
+            return [...profiles.values()];
+        },
         staleTime: 30_000,
     });
 }
