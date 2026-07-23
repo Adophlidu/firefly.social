@@ -4,6 +4,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 
 import { resolveBskyEmbed } from '@/providers/bsky/resolveBskyEmbed.js';
+import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { TID } from '@/providers/bsky/TID.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -70,10 +71,36 @@ interface Options {
 }
 
 export async function publishPostToBsky(post: Post, isQuote: boolean, options?: Options, signal?: AbortSignal) {
+    // Hoisted above the retry boundary: ATProto records are keyed by
+    // `collection + rkey`, so `did`/`rkey`/`uri` MUST be computed once. Reusing
+    // the same `rkey` on retry guarantees we never create a DUPLICATE post —
+    // `applyWrites#create` fails (rather than overwrites) if the record already
+    // exists, and the threadgate/postgate writes share the same `rkey`/`uri`.
+    // (Edge case: if the first write committed but its response was lost to a
+    // network blip, the retry surfaces that "already exists" error to the user
+    // — a phantom failure, not a double post. Regenerating `rkey` per retry
+    // would cause real double-posts, which is worse.)
     const did = bskySessionHolder.agent.assertDid;
     const rkey = TID.next().toString();
     const uri = `at://${did}/app.bsky.feed.post/${rkey}`;
 
+    // Auto-retry transient transport failures (e.g. "Failed to fetch") so most
+    // network blips self-heal before the user sees an error. detectFacets and
+    // resolvePostEmbed/uploadBlob are safe to re-run (deterministic facets;
+    // ATProto dedupes blobs by CID). The signal also stops retrying once the
+    // caller is cancelled (e.g. compose modal closing).
+    return retryOnBskyWhenNetworkError(2, () => publishOnce(post, isQuote, options, did, rkey, uri, signal), signal);
+}
+
+async function publishOnce(
+    post: Post,
+    isQuote: boolean,
+    options: Options | undefined,
+    did: string,
+    rkey: string,
+    uri: string,
+    signal: AbortSignal | undefined,
+) {
     const text = post.metadata.content?.content;
     const richText = text ? new RichText({ text }) : undefined;
     if (richText) {
