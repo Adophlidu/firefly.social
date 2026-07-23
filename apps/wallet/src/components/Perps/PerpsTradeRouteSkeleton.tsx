@@ -1,6 +1,6 @@
 import { type CSSProperties, memo } from 'react';
 
-/** Mirrors `@dimensiondev/rn-ui`'s PerpsTradeDetail skeleton for lazy-route fallback only. */
+/** Keeps the wallet order route stable while its client-only data initializes. */
 function Block({ className = '', style }: { className?: string; style?: CSSProperties }) {
     return (
         <div className={`shrink-0 rounded-lg bg-[#EDEEF2] dark:bg-[#252525] ${className}`} style={style} aria-hidden />

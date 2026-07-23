@@ -1,29 +1,32 @@
+import { decodePerpsIntent } from '@dimensiondev/iframe-bridge';
 import { createFileRoute, useSearch } from '@tanstack/react-router';
-import { lazy, Suspense } from 'react';
 
-import { PerpsTradeRouteSkeleton } from '@/components/Perps/PerpsTradeRouteSkeleton.js';
-
-const PerpsTradeDetail = lazy(async () => {
-    const m = await import('@dimensiondev/rn-ui');
-    return { default: m.PerpsTradeDetail };
-});
+import { PerpsAccountPage } from '@/components/Perps/PerpsAccountPage.js';
+import { PerpsOrderIntentPage } from '@/components/Perps/PerpsOrderIntentPage.js';
 
 export const Route = createFileRoute('/perps/')({
     component: PerpsTradePage,
 });
 
 interface PerpsTradeSearch {
+    kind?: string;
+    coin?: string;
+    direction?: 'buy' | 'sell';
+    orderType?: 'market' | 'limit';
     token?: string;
 }
 
 function PerpsTradePage() {
     const search = useSearch({ from: '/perps/' }) as PerpsTradeSearch;
 
-    return (
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-            <Suspense fallback={<PerpsTradeRouteSkeleton />}>
-                <PerpsTradeDetail coin={search.token || 'BTC'} />
-            </Suspense>
-        </div>
-    );
+    if (search.kind === 'place-order' && search.coin && search.direction) {
+        return <PerpsOrderIntentPage coin={search.coin} direction={search.direction} orderType={search.orderType} />;
+    }
+    if (search.kind) {
+        const decoded = decodePerpsIntent(new URLSearchParams(search as Record<string, string>));
+        if (decoded.ok && !['account', 'deposit', 'withdraw', 'place-order'].includes(decoded.value.kind)) {
+            return <PerpsAccountPage intent={decoded.value as never} />;
+        }
+    }
+    return <PerpsAccountPage />;
 }

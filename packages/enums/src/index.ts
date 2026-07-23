@@ -304,6 +304,7 @@ export enum PageRoute {
     WorldCup = '/world-cup',
     WorldCupFeed = '/world-cup-feed',
     PredictionCategory = '/prediction/category',
+    Perpetuals = '/perpetuals',
 }
 
 export enum HomeTab {

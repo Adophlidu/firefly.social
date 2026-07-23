@@ -22,4 +22,16 @@ describe('CSP handler', () => {
 
         expect(policy).toContain("worker-src 'self' blob:");
     });
+
+    test('allows Hyperliquid HTTP and WebSocket origins', () => {
+        const response = handleCSP(new NextRequest('https://firefly.social/perpetuals'), () => NextResponse.next());
+        const policy =
+            response?.headers.get('Content-Security-Policy') ??
+            response?.headers.get('Content-Security-Policy-Report-Only');
+
+        expect(policy).toContain('https://api.hyperliquid.xyz');
+        expect(policy).toContain('wss://api.hyperliquid.xyz');
+        expect(policy).toContain('https://api.hyperliquid-testnet.xyz');
+        expect(policy).toContain('wss://api.hyperliquid-testnet.xyz');
+    });
 });

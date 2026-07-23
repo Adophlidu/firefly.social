@@ -11,9 +11,10 @@ import {
     ARBITRUM_USDC_ADDRESS,
     arbUsdcTokenFallback,
     HYPERLIQUID_DEPOSIT_ADDRESS,
-    HYPERLIQUID_QUERY_KEY_ROOT,
 } from '@/constants/hyperliquid.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
+import { invalidatePerpsQueries } from '@/helpers/invalidatePerpsQueries.js';
+import { publishPerpsMutation } from '@/helpers/perpsMutation.js';
 import { uploadSwapTx } from '@/helpers/swap/uploadSwapTx.js';
 import { withSkipPinCodeCheck } from '@/helpers/withSkipPinCodeCheck.js';
 import { useDepositArbitrumUsdcToHyperliquid } from '@/hooks/perps/useDepositArbitrumUsdcToHyperliquid.js';
@@ -83,12 +84,10 @@ export function useDepositToHyperliquid({ depositToken, amount, toastId, onSettl
             }),
         async onSuccess() {
             store.set(showEmbeddedWalletUIAtom, true);
-            await Promise.all([
-                queryClient.invalidateQueries({ queryKey: [HYPERLIQUID_QUERY_KEY_ROOT] }),
-                queryClient.invalidateQueries({ queryKey: ['token-balance'] }),
-            ]);
+            await invalidatePerpsQueries(queryClient, { includeTokenBalance: true });
             toast.dismiss(toastId);
             toast.success(<Trans>Deposit submitted. Funds will appear on Hyperliquid shortly.</Trans>);
+            publishPerpsMutation('deposit', 'success');
             comeback();
         },
         onError(error: unknown) {
@@ -96,6 +95,7 @@ export function useDepositToHyperliquid({ depositToken, amount, toastId, onSettl
             toast.dismiss(toastId);
             const { message: userHint, details } = getUserFacingErrorMessage(error);
             toast.error(<Trans>Deposit failed.</Trans>, { description: userHint || details });
+            publishPerpsMutation('deposit', 'failed');
         },
         onSettled,
     });

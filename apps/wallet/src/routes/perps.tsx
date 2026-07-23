@@ -1,6 +1,4 @@
-import { ClientOnly, createFileRoute, Outlet } from '@tanstack/react-router';
-
-import { PerpsProvider } from '@/components/Perps/PerpsProvider.js';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/perps')({
     component: PerpsLayout,
@@ -8,12 +6,8 @@ export const Route = createFileRoute('/perps')({
 
 function PerpsLayout() {
     return (
-        <div className="flex min-h-0 w-full flex-1 flex-col">
-            <ClientOnly>
-                <PerpsProvider>
-                    <Outlet />
-                </PerpsProvider>
-            </ClientOnly>
+        <div className="flex size-full min-h-0 flex-col overflow-hidden">
+            <Outlet />
         </div>
     );
 }

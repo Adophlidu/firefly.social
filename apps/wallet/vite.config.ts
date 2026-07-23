@@ -5,7 +5,6 @@ import { resolve } from 'node:path';
 import { lingui } from '@lingui/vite-plugin';
 import svgrJsx from '@svgr/plugin-jsx';
 import svgrSvgo from '@svgr/plugin-svgo';
-import { tamaguiPlugin } from '@tamagui/vite-plugin';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
@@ -17,10 +16,6 @@ import viteTsconfigPaths from 'vite-tsconfig-paths';
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '/wallet-iframe';
 const NEXT_PUBLIC_VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'development';
 const PACKAGE_VERSION = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')).version as string;
-
-// Resolve the Tamagui config from the published @dimensiondev/rn-ui package
-// (it exposes `./tamagui.config`); the wallet no longer depends on in-repo source.
-const rnUiTamaguiConfig = createRequire(import.meta.url).resolve('@dimensiondev/rn-ui/tamagui.config');
 
 const nodeRequire = createRequire(import.meta.url);
 // createRequire resolves the CJS (.cjs) build of the polyfill shims, but the Nitro
@@ -60,13 +55,6 @@ export default defineConfig({
             },
         }),
         nitro(),
-        tamaguiPlugin({
-            optimize: true,
-            // Wallet already aliases react-native / react-native-svg for RNW; avoid Tamagui overriding.
-            disableResolveConfig: true,
-            config: rnUiTamaguiConfig,
-            components: ['tamagui'],
-        }),
         react({
             babel: {
                 plugins: ['macros', 'babel-plugin-react-compiler'],
@@ -91,8 +79,6 @@ export default defineConfig({
         // virtual store paths; dedupe so the same Config instance works across both.
         dedupe: ['wagmi', '@wagmi/core'],
         alias: {
-            'react-native': resolve(__dirname, 'node_modules/react-native-web'),
-            'react-native-svg': resolve(__dirname, 'node_modules/@tamagui/react-native-svg'),
             'react-native-webview': resolve(__dirname, 'src/shims/react-native-webview.ts'),
             pino: resolve(__dirname, 'src/shims/pino.ts'),
             '@react-native-async-storage/async-storage': resolve(__dirname, 'src/shims/async-storage.ts'),

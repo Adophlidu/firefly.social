@@ -28,6 +28,7 @@ import { Route as SendSuccessRouteImport } from './routes/send.success'
 import { Route as SendRecipientsRouteImport } from './routes/send.recipients'
 import { Route as SendFormRouteImport } from './routes/send.form'
 import { Route as SendFailedRouteImport } from './routes/send.failed'
+import { Route as PerpsWithdrawRouteImport } from './routes/perps.withdraw'
 import { Route as PerpsTokenRouteImport } from './routes/perps.token'
 import { Route as PerpsHistoryRouteImport } from './routes/perps.history'
 import { Route as PerpsDepositRouteImport } from './routes/perps.deposit'
@@ -143,6 +144,11 @@ const SendFailedRoute = SendFailedRouteImport.update({
   id: '/failed',
   path: '/failed',
   getParentRoute: () => SendRoute,
+} as any)
+const PerpsWithdrawRoute = PerpsWithdrawRouteImport.update({
+  id: '/withdraw',
+  path: '/withdraw',
+  getParentRoute: () => PerpsRoute,
 } as any)
 const PerpsTokenRoute = PerpsTokenRouteImport.update({
   id: '/token',
@@ -269,6 +275,7 @@ export interface FileRoutesByFullPath {
   '/perps/deposit': typeof PerpsDepositRoute
   '/perps/history': typeof PerpsHistoryRoute
   '/perps/token': typeof PerpsTokenRoute
+  '/perps/withdraw': typeof PerpsWithdrawRoute
   '/send/failed': typeof SendFailedRoute
   '/send/form': typeof SendFormRoute
   '/send/recipients': typeof SendRecipientsRoute
@@ -304,6 +311,7 @@ export interface FileRoutesByTo {
   '/perps/deposit': typeof PerpsDepositRoute
   '/perps/history': typeof PerpsHistoryRoute
   '/perps/token': typeof PerpsTokenRoute
+  '/perps/withdraw': typeof PerpsWithdrawRoute
   '/send/failed': typeof SendFailedRoute
   '/send/form': typeof SendFormRoute
   '/send/recipients': typeof SendRecipientsRoute
@@ -346,6 +354,7 @@ export interface FileRoutesById {
   '/perps/deposit': typeof PerpsDepositRoute
   '/perps/history': typeof PerpsHistoryRoute
   '/perps/token': typeof PerpsTokenRoute
+  '/perps/withdraw': typeof PerpsWithdrawRoute
   '/send/failed': typeof SendFailedRoute
   '/send/form': typeof SendFormRoute
   '/send/recipients': typeof SendRecipientsRoute
@@ -389,6 +398,7 @@ export interface FileRouteTypes {
     | '/perps/deposit'
     | '/perps/history'
     | '/perps/token'
+    | '/perps/withdraw'
     | '/send/failed'
     | '/send/form'
     | '/send/recipients'
@@ -424,6 +434,7 @@ export interface FileRouteTypes {
     | '/perps/deposit'
     | '/perps/history'
     | '/perps/token'
+    | '/perps/withdraw'
     | '/send/failed'
     | '/send/form'
     | '/send/recipients'
@@ -465,6 +476,7 @@ export interface FileRouteTypes {
     | '/perps/deposit'
     | '/perps/history'
     | '/perps/token'
+    | '/perps/withdraw'
     | '/send/failed'
     | '/send/form'
     | '/send/recipients'
@@ -635,6 +647,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/send/failed'
       preLoaderRoute: typeof SendFailedRouteImport
       parentRoute: typeof SendRoute
+    }
+    '/perps/withdraw': {
+      id: '/perps/withdraw'
+      path: '/withdraw'
+      fullPath: '/perps/withdraw'
+      preLoaderRoute: typeof PerpsWithdrawRouteImport
+      parentRoute: typeof PerpsRoute
     }
     '/perps/token': {
       id: '/perps/token'
@@ -853,6 +872,7 @@ interface PerpsRouteChildren {
   PerpsDepositRoute: typeof PerpsDepositRoute
   PerpsHistoryRoute: typeof PerpsHistoryRoute
   PerpsTokenRoute: typeof PerpsTokenRoute
+  PerpsWithdrawRoute: typeof PerpsWithdrawRoute
   PerpsIndexRoute: typeof PerpsIndexRoute
 }
 
@@ -860,6 +880,7 @@ const PerpsRouteChildren: PerpsRouteChildren = {
   PerpsDepositRoute: PerpsDepositRoute,
   PerpsHistoryRoute: PerpsHistoryRoute,
   PerpsTokenRoute: PerpsTokenRoute,
+  PerpsWithdrawRoute: PerpsWithdrawRoute,
   PerpsIndexRoute: PerpsIndexRoute,
 }
 

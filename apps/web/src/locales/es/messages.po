@@ -106,6 +106,9 @@ msgstr "$ {0} <0>Patrimonio neto</0>"
 msgid "Cash"
 msgstr "Efectivo"
 
+msgid "Open Short"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "No se pudo citar en {0}."
@@ -242,6 +245,12 @@ msgstr "Conectando billeteras"
 msgid "Repost or quote"
 msgstr "Recompartir o citar"
 
+msgid "Type"
+msgstr ""
+
+msgid "Withdrawable cash"
+msgstr ""
+
 msgid "Delete post"
 msgstr "Eliminar publicación"
 
@@ -259,6 +268,9 @@ msgstr "Lavado de dinero."
 
 msgid "Enter a new password to verify your identity."
 msgstr "Introduzca una nueva contraseña para verificar su identidad."
+
+msgid "Funding"
+msgstr ""
 
 msgid "This space does not exist."
 msgstr "Este espacio no existe."
@@ -345,6 +357,10 @@ msgstr "Totales 2H de {teamName}"
 
 msgid "Mute {walletHandle}"
 msgstr "Silenciar {walletHandle}"
+
+#. placeholder {0}: unit === 'USDC' ? 'USDC' : coin
+msgid "Total ({0})"
+msgstr ""
 
 msgid "1H Moneyline"
 msgstr "1H Apuesta al ganador"
@@ -439,6 +455,9 @@ msgstr "Más"
 
 msgid "Translate post"
 msgstr "Traducir publicación"
+
+msgid "Sell / Short"
+msgstr ""
 
 msgid "Set Password"
 msgstr "Establecer contraseña"
@@ -548,6 +567,9 @@ msgstr "Por encima del 10% puede considerarse una tasa impositiva alta. Una tasa
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "La ubicación no debe exceder {maxLocationSize} caracteres"
 
+msgid "Stop Limit"
+msgstr ""
+
 msgid "Post engagements"
 msgstr "Interacciones de publicaciones"
 
@@ -559,6 +581,9 @@ msgstr "Contraseña no válida. Asegúrese de que sea un número de 6 dígitos."
 
 msgid "Props"
 msgstr "Mercados"
+
+msgid "Buy/Long"
+msgstr ""
 
 msgid "Potential risk of external call."
 msgstr "Riesgo potencial de llamada externa."
@@ -704,8 +729,14 @@ msgstr "Agregando..."
 msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> republicó"
 
+msgid "Edit order size"
+msgstr ""
+
 msgid "Stealing attack."
 msgstr "Ataque de robo."
+
+msgid "{displayCoin} price chart"
+msgstr ""
 
 msgid "Failed to like snapshot."
 msgstr "No se pudo marcar la instantánea con Me gusta."
@@ -772,6 +803,9 @@ msgstr "Pago"
 msgid "Stocks"
 msgstr "Acciones"
 
+msgid "Edit TP/SL"
+msgstr ""
+
 msgid "Sorry, the email you entered is invalid"
 msgstr "Lo sentimos, el correo electrónico que ingresaste no es válido"
 
@@ -783,6 +817,9 @@ msgstr "<0>La cantidad de monedas que ya se han creado, menos las monedas que ha
 
 msgid "Totals"
 msgstr "Totales"
+
+msgid "The notional value of currently open contracts."
+msgstr ""
 
 msgid "Failed to vote."
 msgstr "No se pudo votar."
@@ -967,6 +1004,9 @@ msgstr "Mantén Tu Frase de Recuperación Segura"
 msgid "Hope this sparks a smile."
 msgstr "Espero que esto provoque una sonrisa."
 
+msgid "Buy / Long"
+msgstr ""
+
 msgid "Firefly wallet"
 msgstr "Cartera Firefly"
 
@@ -1022,6 +1062,9 @@ msgstr "Escribe algo aquí..."
 msgid "Save Post?"
 msgstr "¿Guardar publicación?"
 
+msgid "Close Position"
+msgstr ""
+
 msgid "Added successfully"
 msgstr "Añadido correctamente"
 
@@ -1065,11 +1108,17 @@ msgstr "Escanea este código QR y confirma en tu aplicación móvil de Farcaster
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Imagen]} Video {[Vídeo]} Audio {[Audio]} Poll {[Encuesta]} other {}}"
 
+msgid "Order book is unavailable."
+msgstr ""
+
 msgid "Sending"
 msgstr "Enviando"
 
 msgid "The author has disabled comments on this post."
 msgstr "El autor ha desactivado los comentarios en esta publicación."
+
+msgid "About Funding"
+msgstr ""
 
 msgid "Retry Stream"
 msgstr "Reintentar Transmisión"
@@ -1338,8 +1387,14 @@ msgstr "Ir a Farcaster"
 msgid "Failed to refund red packet."
 msgstr "Error al reembolsar el sobre rojo."
 
+msgid "Add {selectedCoin} favorite"
+msgstr ""
+
 msgid "Remove Poll"
 msgstr "Eliminar Encuesta"
+
+msgid "Edit margin"
+msgstr ""
 
 msgid "No activity yet"
 msgstr "Sin actividad aún"
@@ -1382,6 +1437,9 @@ msgstr "Direcciones verificadas"
 
 msgid "Buy {secondOutcome}"
 msgstr "Comprar {secondOutcome}"
+
+msgid "Mark"
+msgstr ""
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "Es una billetera recuperada de registros públicos de datos verificables o de nuestro algoritmo de entidad. Por favor añade esta billetera para establecerla como billetera principal."
@@ -1519,6 +1577,9 @@ msgstr "{addressName} ya está conectado."
 msgid "Tomorrow"
 msgstr "Mañana"
 
+msgid "TP/SL"
+msgstr ""
+
 msgid "Go the Distance?"
 msgstr "¿Llegar hasta el final?"
 
@@ -1565,6 +1626,9 @@ msgstr "Cambiar monedero"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Error al cargar. Más de {maxImageCount} imágenes."
+
+msgid "No open positions"
+msgstr ""
 
 msgid "Available Balance"
 msgstr "Saldo Disponible"
@@ -1620,6 +1684,9 @@ msgstr "No se pudo marcar el artículo como favorito."
 msgid "No polymarket event found."
 msgstr "No se encontró evento de polymarket."
 
+msgid "No order-book data."
+msgstr ""
+
 msgid "Wins"
 msgstr "Victorias"
 
@@ -1643,6 +1710,9 @@ msgstr "Modo Claro"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "Se requiere inicio de sesión en varios dispositivos para programar la publicación. Introduce tu contraseña para confirmar tu identidad."
+
+msgid "Size"
+msgstr ""
 
 msgid "Block"
 msgstr "Bloque"
@@ -1737,6 +1807,9 @@ msgstr "<0>¡Firefly está lanzando <1>el trading de Polymarket</1>, conectando 
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "Respondiendo a <0>@{0}</0> y <1>@{1}</1> en {2}"
 
+msgid "Funding/Countdown"
+msgstr ""
+
 msgid "Content preference"
 msgstr "Preferencia de contenido"
 
@@ -1748,6 +1821,9 @@ msgid "# minute left"
 msgid_plural "# minutes left"
 msgstr[0] "# minuto restante"
 msgstr[1] "# minutos restantes"
+
+msgid "Open Long"
+msgstr ""
 
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
@@ -2032,6 +2108,9 @@ msgstr "🎭 Respondió en {0}."
 msgid "Unknown"
 msgstr "Desconocido"
 
+msgid "Connect your wallet to view positions"
+msgstr ""
+
 msgid "Claimed lucky drop successfully"
 msgstr "Reclamado botín de la suerte con éxito"
 
@@ -2100,6 +2179,9 @@ msgstr "Cartera principal"
 msgid "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
 msgstr "<0><1/><2>Enviaste una propina</2></0><3>a</3>{targetAccount}"
 
+msgid "(Cross)"
+msgstr ""
+
 msgid "Verified by Lens"
 msgstr "Verificado por Lens"
 
@@ -2116,6 +2198,9 @@ msgstr "Sin proxy"
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
 msgstr "Silenciaste a @{0} en {sourceName}."
+
+msgid "No trading history"
+msgstr ""
 
 msgid "Semifinals"
 msgstr "Semifinales"
@@ -2182,6 +2267,9 @@ msgstr "Tercer puesto"
 
 msgid "Losses"
 msgstr "Derrotas"
+
+msgid "Close Short"
+msgstr ""
 
 msgid "Failed to open miniapp"
 msgstr "No se pudo abrir la miniapp"
@@ -2266,6 +2354,9 @@ msgstr "Saldo"
 
 msgid "View resolved"
 msgstr "Ver resueltos"
+
+msgid "Live market updates are reconnecting."
+msgstr ""
 
 msgid "Unmuting..."
 msgstr "Dejando de silenciar..."
@@ -2354,6 +2445,9 @@ msgstr "Iniciar sesión en Firefly"
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "Se perderá el contenido al abandonar esta página en modo anónimo."
 
+msgid "Perpetuals account"
+msgstr ""
+
 msgid "1st Set Winner"
 msgstr "Ganador del 1.er set"
 
@@ -2362,6 +2456,10 @@ msgstr "Para publicar en este club debes ser miembro."
 
 msgid "Post could not be found."
 msgstr "Publicación no encontrada."
+
+#. placeholder {0}: market.coin
+msgid "Add {0} favorite"
+msgstr ""
 
 msgid "For you"
 msgstr "Para ti"
@@ -2480,6 +2578,9 @@ msgstr "Puedes guardar esto para enviarlo más tarde desde tus borradores."
 msgid "Failed to copy image. Please try again later."
 msgstr "No se pudo copiar la imagen. Inténtalo de nuevo más tarde."
 
+msgid "Edit order price"
+msgstr ""
+
 msgid "Failed Post"
 msgstr "Publicación Fallida"
 
@@ -2533,6 +2634,9 @@ msgstr "Ingrese Monto Por Cada"
 msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth le gustó tu transacción"
 
+msgid "The fair price used for margin and liquidation calculations."
+msgstr ""
+
 msgid "Failed to get live market URL. Please try again later."
 msgstr "No se pudo obtener la URL del mercado en vivo. Vuelva a intentarlo más tarde."
 
@@ -2560,6 +2664,12 @@ msgstr "Google Play"
 
 msgid "Lucky drop created successfully"
 msgstr "Botín de la suerte creado con éxito"
+
+msgid "New order size"
+msgstr ""
+
+msgid "Failed to add favorite"
+msgstr ""
 
 #. placeholder {0}: error.message
 msgid "Connection failed. {0}"
@@ -2639,8 +2749,14 @@ msgstr "{0} te dio una propina de <0>{1} ${2}</0> en <1>{3}</1>"
 msgid "P"
 msgstr "P"
 
+msgid "About Open Interest"
+msgstr ""
+
 msgid "Days"
 msgstr "Días"
+
+msgid "Chart interval"
+msgstr ""
 
 msgid "TBD"
 msgstr "Por definir"
@@ -2725,6 +2841,9 @@ msgstr "Top 40 proyectos impulsados por Rootdata"
 
 msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
 msgstr "<0>Todos los activos en esta billetera Firefly se perderán permanentemente y no podrán recuperarse.</0> Antes de continuar, retire todos los fondos y activos de sus billeteras Firefly para evitar cualquier pérdida."
+
+msgid "Oracle"
+msgstr ""
 
 #. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
@@ -2827,6 +2946,9 @@ msgstr "Tarifa de red estimada"
 msgid "Payment request sent"
 msgstr "Solicitud de pago enviada"
 
+msgid "Take Profit Market"
+msgstr ""
+
 msgid "<0>You</0> reposted"
 msgstr "<0>Tú</0> republicaste"
 
@@ -2853,6 +2975,9 @@ msgstr "No se encontró perfil"
 
 msgid "Refund"
 msgstr "Reembolso"
+
+msgid "{displayCoin} candlestick chart"
+msgstr ""
 
 msgid "Connecting..."
 msgstr "Conectando..."
@@ -2881,6 +3006,9 @@ msgstr "Límite de GIF alcanzado"
 
 msgid "Loading payment request"
 msgstr "Cargando solicitud de pago"
+
+msgid "Remove {selectedCoin} favorite"
+msgstr ""
 
 msgid "Unsaved draft found"
 msgstr "Borrador sin guardar encontrado"
@@ -2971,6 +3099,12 @@ msgstr "No hay token coincidente"
 msgid "Collected"
 msgstr "Coleccionado"
 
+msgid "Trading History"
+msgstr ""
+
+msgid "Loading account data…"
+msgstr ""
+
 msgid "Are you sure you want to report this post?"
 msgstr "¿Está seguro de que desea denunciar esta publicación?"
 
@@ -3017,6 +3151,9 @@ msgstr "<0>{0}</0> <1>republicó</1>"
 #. placeholder {0}: channel.id
 msgid "Followed /{0} on {sourceName}"
 msgstr "Seguiste a /{0} en {sourceName}"
+
+msgid "Last Price"
+msgstr ""
 
 msgid "Collect Post"
 msgstr "Coleccionar publicación"
@@ -3087,6 +3224,9 @@ msgstr "Patrimonio neto"
 msgid "Pinned"
 msgstr "Anclado"
 
+msgid "Loading order book…"
+msgstr ""
+
 msgid "Replies are restricted for this post."
 msgstr "Las respuestas están restringidas para esta publicación."
 
@@ -3104,6 +3244,10 @@ msgstr "El propietario del contrato puede tener la autoridad para modificar el i
 
 msgid "All Wallets"
 msgstr "Todas las billeteras"
+
+#. placeholder {0}: market.coin
+msgid "Remove {0} favorite"
+msgstr ""
 
 msgid "GIFs could not be loaded"
 msgstr "No se pudieron cargar los GIF"
@@ -3237,6 +3381,9 @@ msgstr "Los tenedores pueden vender todo el token."
 msgid "Select Network"
 msgstr "Seleccionar Red"
 
+msgid "Margin"
+msgstr ""
+
 msgid "Something went wrong. Please try again later."
 msgstr "Algo salió mal. Por favor inténtalo de nuevo más tarde."
 
@@ -3280,6 +3427,9 @@ msgstr "Hándicap de sets"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Seguido por {0}, {1} y {2}"
 
+msgid "The current hourly funding rate paid between long and short positions."
+msgstr ""
+
 msgid "Vote"
 msgstr "Votar"
 
@@ -3288,6 +3438,9 @@ msgstr "Verificar y Reclamar"
 
 msgid "Hide resolved"
 msgstr "Ocultar resueltos"
+
+msgid "PNL(ROE%)"
+msgstr ""
 
 #. placeholder {0}: dayjs(space.ended_at).format('MMM DD')
 msgid "Ended on {0}"
@@ -3315,6 +3468,9 @@ msgstr "Ingrese el número de ganadores"
 
 msgid "Please enter your 2FA confirmation code"
 msgstr "Por favor, introduzca su código de confirmación 2FA"
+
+msgid "Select order book unit"
+msgstr ""
 
 msgid "No active positions found in this wallet"
 msgstr "No se encontraron posiciones activas en esta cartera"
@@ -3388,6 +3544,9 @@ msgstr "Registrarse"
 msgid "Failed to verify password."
 msgstr "No se pudo verificar la contraseña."
 
+msgid "Retry chart"
+msgstr ""
+
 msgid "Any Player Rampage"
 msgstr "Cualquier jugador hace Rampage"
 
@@ -3457,6 +3616,9 @@ msgstr "Portafolio"
 msgid "Download Wallet"
 msgstr "Descargar cartera"
 
+msgid "Direction"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to reply on {0}."
 msgstr "No se pudo responder en {0}."
@@ -3515,6 +3677,9 @@ msgstr "{0} Comentarios"
 
 msgid "Assuming circulating supply = total supply (includes locked, excludes burned)"
 msgstr "Suponiendo oferta en circulación = oferta total (incluye bloqueadas, excluye quemadas)"
+
+msgid "Date"
+msgstr ""
 
 msgid "Resend"
 msgstr "Reenviar"
@@ -3702,6 +3867,9 @@ msgstr "Billeteras silenciadas"
 msgid "Create time:"
 msgstr "Hora de creación:"
 
+msgid "Take Profit Limit"
+msgstr ""
+
 msgid "No polymarket profile found."
 msgstr "No se encontró perfil de polymarket."
 
@@ -3729,6 +3897,9 @@ msgstr "Desconectado de tu grafo social"
 
 msgid "Malicious mining activities."
 msgstr "Actividades de minería maliciosas."
+
+msgid "Stop Market"
+msgstr ""
 
 msgid "Resolved"
 msgstr "Resueltos"
@@ -3846,6 +4017,15 @@ msgstr "Juego {0}"
 msgid "Mine"
 msgstr "Mis"
 
+msgid "The external reference price reported to Hyperliquid."
+msgstr ""
+
+msgid "Long"
+msgstr ""
+
+msgid "Loading chart…"
+msgstr ""
+
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}."
@@ -3953,6 +4133,9 @@ msgstr "tenedores de {awayLabel}"
 msgid "ALL"
 msgstr "TODOS"
 
+msgid "About Mark"
+msgstr ""
+
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr "Nota: los borradores en la nube guardan solo texto. Por favor, suba de nuevo las imágenes o el video originales."
 
@@ -4015,6 +4198,9 @@ msgstr "<0>Comprar {0}</0><1/>"
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL. [{0}]"
 msgstr "No encontrado. Por favor comprueba tu URL. [{0}]"
+
+msgid "Select price aggregation"
+msgstr ""
 
 msgid "5m"
 msgstr "5m"
@@ -4134,6 +4320,9 @@ msgstr "Truth Social"
 msgid "Associated wallets"
 msgstr "Carteras asociadas"
 
+msgid "Portfolio account value"
+msgstr ""
+
 msgid "Connected"
 msgstr "Conectado"
 
@@ -4238,6 +4427,9 @@ msgstr "Filtro de rango de tiempo"
 msgid "EVM wallets"
 msgstr "Carteras EVM"
 
+msgid "Maximum leverage"
+msgstr ""
+
 msgid "Hide tokens with small balances"
 msgstr "Ocultar tokens con saldos pequeños"
 
@@ -4252,6 +4444,9 @@ msgid "# Risky item"
 msgid_plural "# Risky items"
 msgstr[0] "# Elemento riesgoso"
 msgstr[1] "# Elementos riesgosos"
+
+msgid "8h Funding"
+msgstr ""
 
 msgid "{teamName} Totals"
 msgstr "Totales de {teamName}"
@@ -4282,6 +4477,9 @@ msgstr "¿Confirmar cerrar sesión en esta cuenta?"
 
 msgid "Statistic"
 msgstr "Estadística"
+
+msgid "Liq. Price"
+msgstr ""
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "Una medida del volumen de negociación de una criptomoneda en todas las plataformas rastreadas en las últimas 24 horas. Se realiza un seguimiento en una ventana móvil de 24 horas sin horarios de apertura/cierre."
@@ -4321,6 +4519,12 @@ msgstr "Resultado final: {outcomeLabel}"
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "El propietario del contrato no tiene restricciones sobre medidas anti-ballena."
+
+msgid "Close Long"
+msgstr ""
+
+msgid "Short"
+msgstr ""
 
 msgid "Final review"
 msgstr "Revisión final"
@@ -4410,6 +4614,9 @@ msgstr "¿Confirmar la desconexión de esta cuenta y de los monederos relacionad
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "Dejaste de seguir a {handleOrEnsOrAddress} en Firefly"
 
+msgid "Size/Value"
+msgstr ""
+
 msgid "Topics"
 msgstr "Temas"
 
@@ -4425,6 +4632,9 @@ msgstr "¿Está seguro de que desea denunciar este artículo?"
 
 msgid "Failed to create Firefly profile."
 msgstr "No se pudo crear el perfil de Firefly."
+
+msgid "Entry Price"
+msgstr ""
 
 msgid "Unauthorized. Please check your login."
 msgstr "No autorizado. Por favor, compruebe su inicio de sesión."
@@ -4512,8 +4722,14 @@ msgstr "Principal"
 msgid "Remove"
 msgstr "Eliminar"
 
+msgid "24h Change"
+msgstr ""
+
 msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
 msgstr "No se pudo reconectar. Por favor, escanee otro código QR para establecer una nueva conexión."
+
+msgid "Closed PNL"
+msgstr ""
 
 #. placeholder {0}: author.fullHandle || author.displayName
 msgid "by {0}"
@@ -4530,6 +4746,9 @@ msgstr "Mezclador de criptomonedas."
 
 msgid "Failed to send message. Please try again."
 msgstr "No se pudo enviar el mensaje. Inténtalo de nuevo."
+
+msgid "Market categories"
+msgstr ""
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
@@ -4577,8 +4796,14 @@ msgstr "Guardar"
 msgid "Halftime Result"
 msgstr "Resultado al descanso"
 
+msgid "Failed to remove favorite"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr "La publicación ha sido cifrada"
+
+msgid "Select market"
+msgstr ""
 
 msgid "Leaderboard"
 msgstr "Clasificación"
@@ -4637,6 +4862,9 @@ msgstr "No se pudo publicar en {sortedSourceNames}"
 msgid "Failed to join #{0} on {sourceName}"
 msgstr "No se pudo unirse a #{0} en {sourceName}"
 
+msgid "Trade Value"
+msgstr ""
+
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "Dejar de seguir a {handleOrEnsOrAddress}"
 
@@ -4677,6 +4905,9 @@ msgstr "Solicitud incorrecta. Por favor, compruebe su solicitud."
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "Lo sentimos, no hay ninguna dirección de billetera disponible para propinas."
+
+msgid "Cancel order"
+msgstr ""
 
 msgid "Follow me"
 msgstr "Sígueme"
@@ -4823,6 +5054,9 @@ msgstr "Eliminar adjunto"
 
 msgid "Search clubs"
 msgstr "Buscar clubes"
+
+msgid "No open orders"
+msgstr ""
 
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "No se pudo obtener la frase de recuperación. Vuelva a intentarlo."
@@ -5075,6 +5309,9 @@ msgstr "Idioma"
 msgid "Nashor Handicap"
 msgstr "Hándicap de Nashor"
 
+msgid "Perpetuals"
+msgstr ""
+
 msgid "Address on Watching Lists"
 msgstr "Dirección en Listas de Seguimiento"
 
@@ -5109,6 +5346,9 @@ msgstr "Reautorizar"
 
 msgid "Failed to unlike."
 msgstr "No se pudo quitar el Me gusta."
+
+msgid "About Oracle"
+msgstr ""
 
 msgid "Max Supply"
 msgstr "Suministro Máximo"
@@ -5147,6 +5387,9 @@ msgstr "Como máximo {0} destinatarios"
 msgid "General"
 msgstr "General"
 
+msgid "Mark Price"
+msgstr ""
+
 msgid "Round Total"
 msgstr "Total de rondas"
 
@@ -5161,6 +5404,9 @@ msgstr "<0>Tú</0> recompartiste"
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "La función de lista blanca no está incluida. Si existe una lista blanca, algunas direcciones pueden no poder operar con normalidad (riesgo de honeypot)."
+
+msgid "No markets found"
+msgstr ""
 
 msgid "Location"
 msgstr "Ubicación"
@@ -5181,6 +5427,9 @@ msgstr "Miembros"
 
 msgid "Value"
 msgstr "Valor"
+
+msgid "24h Volume"
+msgstr ""
 
 msgid "Your schedule thread has created successfully."
 msgstr "Tu hilo programado se ha creado correctamente."
@@ -5263,6 +5512,9 @@ msgstr "Su cuenta no está registrada en Firefly"
 msgid "Removed from bookmarks"
 msgstr "Eliminado de Marcadores"
 
+msgid "Close all"
+msgstr ""
+
 msgid "Deleted your Firefly account"
 msgstr "Cuenta de Firefly eliminada"
 
@@ -5293,6 +5545,9 @@ msgstr "Seguidores"
 
 msgid "Search channel"
 msgstr "Buscar canal"
+
+msgid "Favorites"
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "Esto no se puede deshacer y perderás tu borrador."
@@ -5358,6 +5613,9 @@ msgstr "No se pudo quitar el me gusta del artículo."
 msgid "Copy frame URL"
 msgstr "Copiar URL del marco"
 
+msgid "Sell/Short"
+msgstr ""
+
 msgid "This token can not self destruct."
 msgstr "Este token no puede autodestruirse."
 
@@ -5396,6 +5654,9 @@ msgstr "Dirección del contrato."
 
 msgid "[Quote]"
 msgstr "Cotización"
+
+msgid "Account data is unavailable."
+msgstr ""
 
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "Dejaste de silenciar a {handleOrEnsOrAddress}."
@@ -5569,6 +5830,9 @@ msgstr "Cargando"
 msgid "Transaction completed!"
 msgstr "Transacción completada!"
 
+msgid "Limit"
+msgstr ""
+
 msgid "Target"
 msgstr "Objetivo"
 
@@ -5588,6 +5852,9 @@ msgstr "<0/> <1>añadió a su colección tu </1><2>{0, select, Post {publicació
 msgid "Requested"
 msgstr "Solicitado"
 
+msgid "Spread"
+msgstr ""
+
 msgid "Hours"
 msgstr "Horas"
 
@@ -5597,6 +5864,9 @@ msgstr "Elija o establezca las manijas para el cruce en."
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recompartió"
+
+msgid "Clear all"
+msgstr ""
 
 msgid "Close"
 msgstr "Cerrar"
@@ -5626,6 +5896,9 @@ msgstr "Respondiendo a <0>@{0}</0> en {1}"
 
 msgid "Share"
 msgstr "Compartir"
+
+msgid "New order price"
+msgstr ""
 
 msgid "Fake KYC found."
 msgstr "Se encontró KYC falso."
@@ -5696,6 +5969,9 @@ msgstr "<0>cambiar</0> cartera o <1>registrarse</1> en Firefly"
 msgid "View engagements"
 msgstr "Ver interacciones"
 
+msgid "Search markets"
+msgstr ""
+
 #. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
@@ -5737,6 +6013,9 @@ msgstr "Éxito"
 
 msgid "The contract owner has restrictions on selling."
 msgstr "El propietario del contrato tiene restricciones sobre la venta."
+
+msgid "Filled"
+msgstr ""
 
 msgid "Likes"
 msgstr "Me gusta"

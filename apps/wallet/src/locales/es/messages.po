@@ -19,11 +19,23 @@ msgstr "Interacción fallida"
 msgid "Copy to clipboard"
 msgstr "Copiar al portapapeles"
 
+msgid "Close all positions"
+msgstr ""
+
+msgid "Cross Margin Ratio:"
+msgstr ""
+
 msgid "To"
 msgstr "Para"
 
 msgid "Unlimited Amount"
 msgstr "Monto ilimitado"
+
+msgid "Hyperliquid charges a fixed {EXECUTION_FEE} USDC withdrawal fee to cover Arbitrum gas costs."
+msgstr "Hyperliquid cobra una comisión fija de retiro de {EXECUTION_FEE} USDC para cubrir los costes de gas de Arbitrum."
+
+msgid "Open Orders"
+msgstr ""
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
@@ -35,6 +47,9 @@ msgstr "Mostrar activos menores a 1 USD"
 msgid "History"
 msgstr "Historial"
 
+msgid "Funding"
+msgstr ""
+
 msgid "Make sure to send funds on Ethereum."
 msgstr "Asegúrese de enviar fondos en la red Ethereum."
 
@@ -43,6 +58,9 @@ msgstr "Error al cargar"
 
 msgid "Failed to disable authentication"
 msgstr "Error al deshabilitar la autenticación"
+
+msgid "Account Activities"
+msgstr ""
 
 msgid "Positions"
 msgstr "Posiciones"
@@ -53,11 +71,17 @@ msgstr "Alfabéticamente"
 msgid "in your Firefly wallet"
 msgstr "en su billetera Firefly"
 
+msgid "This action will be submitted to Hyperliquid. Please confirm to continue."
+msgstr ""
+
 msgid "Skip reviews"
 msgstr "Omitir revisión"
 
 msgid "Address, ENS, or social handle"
 msgstr "Dirección, ENS o usuario de red social"
+
+msgid "Est. Liq. Price(USDC)"
+msgstr ""
 
 msgid "Dismiss"
 msgstr "Descartar"
@@ -65,11 +89,17 @@ msgstr "Descartar"
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "Su frase de recuperación es como una contraseña, manténgala en secreto."
 
+msgid "Minimum {MINIMUM_WITHDRAWAL} USDC"
+msgstr ""
+
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "¿Saldo insuficiente? Su Firefly Wallet puede cubrir el resto automáticamente."
 
 msgid "Failed to create predict wallet. {message}"
 msgstr "No se pudo crear la billetera de predicciones. {message}"
+
+msgid "Sell / Short"
+msgstr ""
 
 msgid "Transfer from an exchange"
 msgstr "Transferir desde un exchange"
@@ -108,6 +138,9 @@ msgstr "No se pudo depositar."
 msgid "Pay"
 msgstr "Pagar"
 
+msgid "MAX"
+msgstr ""
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -120,8 +153,14 @@ msgstr "Error al reclamar las ganancias"
 msgid "Transactions"
 msgstr "Transacciones"
 
+msgid "Add Margin"
+msgstr ""
+
 msgid "Claim requested"
 msgstr "Reclamo solicitado"
+
+msgid "This action will be submitted to Hyperliquid."
+msgstr ""
 
 msgid "Review"
 msgstr "Revisar"
@@ -131,6 +170,9 @@ msgstr "¿Confirmar el restablecimiento del PIN? Por su seguridad, esta acción 
 
 msgid "The PINs you entered do not match. Please check and try again."
 msgstr "Los PIN ingresados no coinciden. Verifique e inténtelo nuevamente."
+
+msgid "Trading history"
+msgstr ""
 
 msgid "Great job predicting the future!"
 msgstr "¡Excelente trabajo prediciendo el futuro!"
@@ -159,6 +201,9 @@ msgstr "Omitir"
 msgid "Copied"
 msgstr "Copiado"
 
+msgid "Action failed."
+msgstr ""
+
 msgid "Total"
 msgstr "Total"
 
@@ -175,6 +220,9 @@ msgstr "Se ha enviado un código de verificación de 6 dígitos a su correo. Ing
 msgid "Approved"
 msgstr "Aprobado"
 
+msgid "Margin Mode"
+msgstr ""
+
 msgid "{riskTokenSymbol} is a high-risk token"
 msgstr "{riskTokenSymbol} es un token de alto riesgo"
 
@@ -184,6 +232,9 @@ msgstr "El nuevo correo electrónico ingresado es igual al actual. Ingrese una d
 msgid "Confirm"
 msgstr "Confirmar"
 
+msgid "Action partially completed."
+msgstr ""
+
 msgid "Assets to Release"
 msgstr "Activos a liberar"
 
@@ -192,6 +243,9 @@ msgstr "Predecir en Polymarket"
 
 msgid "Keep Your Recovery Phrase Safe"
 msgstr "Mantenga su frase de recuperación segura"
+
+msgid "Buy / Long"
+msgstr ""
 
 msgid "Bought"
 msgstr "Comprado"
@@ -208,8 +262,17 @@ msgstr "Posición cerrada"
 msgid "No Route Found"
 msgstr "No se encontró ruta"
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Failed to enable authentication"
 msgstr "Error al habilitar la autenticación"
+
+msgid "Amount({coin})"
+msgstr ""
+
+msgid "Mid"
+msgstr ""
 
 msgid "Placing order..."
 msgstr "Colocando orden..."
@@ -235,15 +298,30 @@ msgstr "Ganado"
 msgid "Failed to load image."
 msgstr "No se pudo cargar la imagen."
 
+msgid "Failed to update position settings."
+msgstr ""
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
 msgstr "{0} acciones disponibles"
 
+msgid "Withdrawal submitted."
+msgstr ""
+
 msgid "Price"
 msgstr "Precio"
 
+msgid "Take profit"
+msgstr ""
+
+msgid "Mark Price(USDC)"
+msgstr ""
+
 msgid "Enable skip reviews"
 msgstr "Habilitar omisión de revisión"
+
+msgid "Manage your risk on individual positions by restricting the amount of margin allocated to each. If the margin ratio of an isolated position reaches 100%, the position will be liquidated. Margin can be added or removed to individual positions in this mode."
+msgstr ""
 
 msgid "This feature is currently unavailable in your region."
 msgstr "Esta función no está disponible actualmente en tu región."
@@ -251,11 +329,20 @@ msgstr "Esta función no está disponible actualmente en tu región."
 msgid "Connection taking longer than expected"
 msgstr "La conexión está tardando más de lo esperado"
 
+msgid "Order failed."
+msgstr ""
+
 msgid "Predict Wallet Pay"
 msgstr "Pago con billetera de predicciones"
 
+msgid "Insufficient Margin"
+msgstr ""
+
 msgid "with"
 msgstr "con"
+
+msgid "Position Size"
+msgstr ""
 
 msgid "Shares"
 msgstr "Acciones"
@@ -278,6 +365,15 @@ msgstr "¿Está seguro de que desea cancelar esta orden?<0/>Una vez cancelada, n
 msgid "Avg. Price"
 msgstr "Precio prom."
 
+msgid "Margin Required"
+msgstr ""
+
+msgid "TP/SL"
+msgstr ""
+
+msgid "The position or order is no longer available. Refresh the web page and try again."
+msgstr ""
+
 msgid "You won"
 msgstr "Ganó"
 
@@ -287,17 +383,29 @@ msgstr "Fondear con Firefly Wallet"
 msgid "Network cost"
 msgstr "Costo de red"
 
+msgid "No open positions"
+msgstr ""
+
 msgid "Revoked Failed"
 msgstr "Error al revocar"
 
 msgid "Forgot your PIN code?"
 msgstr "¿Olvidó su PIN?"
 
+msgid "Cancel All Orders"
+msgstr ""
+
 msgid "Recent"
 msgstr "Recientes"
 
 msgid "Oops! We couldn't find any tokens matching your search."
 msgstr "¡Vaya! No encontramos ningún token que coincida con su búsqueda."
+
+msgid "Cross"
+msgstr ""
+
+msgid "Size"
+msgstr ""
 
 msgid "Block"
 msgstr "Bloque"
@@ -311,6 +419,9 @@ msgstr "Detalle de la transacción"
 msgid "Slippage"
 msgstr "Deslizamiento"
 
+msgid "Available"
+msgstr ""
+
 msgid "Connect Wallet"
 msgstr "Conectar billetera"
 
@@ -323,6 +434,9 @@ msgstr "Correo de recuperación"
 msgid "Account Creating"
 msgstr "Creando cuenta"
 
+msgid "Market Close"
+msgstr ""
+
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "Transacción fallida: no se alcanzó el monto mínimo de retorno. Intente aumentar el deslizamiento."
 
@@ -332,11 +446,20 @@ msgstr "No hay datos disponibles para mostrar."
 msgid "Transaction was rejected."
 msgstr "La transacción fue rechazada."
 
+msgid "Est. Closed PnL"
+msgstr ""
+
 msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "Share position"
 msgstr "Compartir posición"
+
+msgid "Place Order"
+msgstr ""
+
+msgid "available"
+msgstr ""
 
 msgid "to"
 msgstr "a"
@@ -350,8 +473,14 @@ msgstr "Error en el puente"
 msgid "Enter new PIN"
 msgstr "Ingresar nuevo PIN"
 
+msgid "Perpetuals history"
+msgstr ""
+
 msgid "Pay Wallet"
 msgstr "Billetera de pago"
+
+msgid "Control the leverage used for {coin} positions. The maximum leverage is {max}x."
+msgstr ""
 
 msgid "Open orders"
 msgstr "Órdenes abiertas"
@@ -359,8 +488,14 @@ msgstr "Órdenes abiertas"
 msgid "Copy address"
 msgstr "Copiar dirección"
 
+msgid "Remove from Position"
+msgstr ""
+
 msgid "<0>{releaseAmountText}</0><1>to release</1>"
 msgstr "<0>{releaseAmountText}</0><1>para liberar</1>"
+
+msgid "Est. Liq. price"
+msgstr ""
 
 msgid "Your funds are now in your predict wallet."
 msgstr "Sus fondos ya están en su billetera de predicciones."
@@ -392,6 +527,9 @@ msgstr "Resultado"
 msgid "Failed to upgrade"
 msgstr "Error al actualizar"
 
+msgid "Available to remove"
+msgstr ""
+
 msgid "Unable to add funds to predictions account."
 msgstr "No se pueden agregar fondos a la cuenta de predicciones."
 
@@ -403,6 +541,9 @@ msgstr "Inicie sesión para ver la configuración de seguridad."
 
 msgid "Post with image"
 msgstr "Publicar con imagen"
+
+msgid "Close Short"
+msgstr ""
 
 msgid "on"
 msgstr "en"
@@ -422,17 +563,29 @@ msgstr "Tasa"
 msgid "No more orders"
 msgstr "No hay más órdenes"
 
+msgid "This will cancel all your open orders, including take-profit and stop-loss orders."
+msgstr ""
+
 msgid "No more positions"
 msgstr "No hay más posiciones"
 
 msgid "Received"
 msgstr "Recibido"
 
+msgid "Perpetuals account"
+msgstr ""
+
 msgid "Custom (0.5-100%)"
 msgstr "Personalizado (0.5-100%)"
 
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
 msgstr "Actualice su cuenta de predicciones de Firefly AHORA para asegurar que sus predicciones continúen sin interrupciones."
+
+msgid "Available to add"
+msgstr ""
+
+msgid "All cross positions share the same cross margin as collateral. In the event of liquidation, your cross margin balance and any remaining open positions under assets in this mode may be forfeited."
+msgstr ""
 
 msgid "from"
 msgstr "de"
@@ -490,6 +643,9 @@ msgstr "Siguiente"
 msgid "Recipient"
 msgstr "Destinatario"
 
+msgid "Cost"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr "Gas insuficiente"
 
@@ -526,6 +682,12 @@ msgstr "Disponible {0}"
 msgid "Trade"
 msgstr "Operar"
 
+msgid "Action submitted."
+msgstr ""
+
+msgid "Enter no more than 2 decimal places"
+msgstr ""
+
 msgid "No tokens available"
 msgstr "No hay tokens disponibles"
 
@@ -537,6 +699,9 @@ msgstr "Has llegado al fondo."
 
 msgid "View"
 msgstr "Ver"
+
+msgid "Trading History"
+msgstr ""
 
 msgid "Release Now"
 msgstr "Liberar ahora"
@@ -559,8 +724,14 @@ msgstr "Reportar problema"
 msgid "Withdrawing funds to your Firefly wallet..."
 msgstr "Retirando fondos a su billetera Firefly..."
 
+msgid "Entry Price(USDC)"
+msgstr ""
+
 msgid "Failed to set PIN. Please try again later."
 msgstr "Error al establecer el PIN. Inténtelo nuevamente más tarde."
+
+msgid "Confirming…"
+msgstr ""
 
 msgid "To win"
 msgstr "Para ganar"
@@ -577,13 +748,25 @@ msgstr "Sus fondos están en camino..."
 msgid "Deposit"
 msgstr "Depositar"
 
+msgid "Margin cannot be removed from this market"
+msgstr ""
+
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "{0} available"
 msgstr "{0} disponible"
 
+msgid "Current Price"
+msgstr ""
+
 msgid "Contract"
 msgstr "Contrato"
+
+msgid "Withdrawal failed."
+msgstr ""
+
+msgid "Order price"
+msgstr ""
 
 msgid "Limit Price"
 msgstr "Precio límite"
@@ -596,6 +779,9 @@ msgstr "Tendencias"
 
 msgid "Network Fee"
 msgstr "Comisión de red"
+
+msgid "Isolated"
+msgstr ""
 
 msgid "Please re-enter the PIN you just set to confirm."
 msgstr "Vuelva a ingresar el PIN que acaba de establecer para confirmar."
@@ -629,11 +815,20 @@ msgstr "Explorar mercados"
 msgid "Total PnL: <0>{0}({1})</0>"
 msgstr "PnL total: <0>{0}({1})</0>"
 
+msgid "Margin"
+msgstr ""
+
 msgid "Interacted"
 msgstr "Interactuado"
 
 msgid "The address could not be found."
 msgstr "No se pudo encontrar la dirección."
+
+msgid "Adjust Leverage"
+msgstr ""
+
+msgid "Stop Loss"
+msgstr ""
 
 msgid "Add"
 msgstr "Agregar"
@@ -643,6 +838,12 @@ msgstr "Confirmar nuevo PIN"
 
 msgid "Activity Rewards"
 msgstr "Recompensas por actividad"
+
+msgid "Submitting…"
+msgstr ""
+
+msgid "Your positions will all be closed at market price, and any open orders (or reduce-only orders) will be canceled. Options won't be affected."
+msgstr ""
 
 msgid "Sort closed positions"
 msgstr "Ordenar posiciones cerradas"
@@ -656,6 +857,9 @@ msgstr "{betText} • Ganó <0>{wonText}({pctText})</0>"
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "With <0>{0}</0>"
 msgstr "Con <0>{0}</0>"
+
+msgid "Max position size decreases the higher your leverage."
+msgstr ""
 
 msgid "Date"
 msgstr "Fecha"
@@ -699,6 +903,12 @@ msgstr "Error al intercambiar"
 msgid "Cancel order?"
 msgstr "¿Cancelar orden?"
 
+msgid "Margin mode cannot be changed while a position is open."
+msgstr ""
+
+msgid "Order submitted."
+msgstr ""
+
 msgid "Cancelling order..."
 msgstr "Cancelando orden..."
 
@@ -723,14 +933,23 @@ msgstr "P/G"
 msgid "Avg Price"
 msgstr "Precio prom."
 
+msgid "Maximum position at current leverage: {maxPosition} USDC."
+msgstr ""
+
 msgid "Total traded"
 msgstr "Total operado"
 
 msgid "Failed to close position"
 msgstr "Error al cerrar posición"
 
+msgid "Withdrawal fee"
+msgstr "Comisión de retiro"
+
 msgid "Failed to init exchange options. Please try again later."
 msgstr "Error al inicializar las opciones del exchange. Inténtelo nuevamente más tarde."
+
+msgid "Price(USDC)"
+msgstr ""
 
 msgid "Close all the losses"
 msgstr "Cerrar todas las posiciones con pérdida"
@@ -738,14 +957,23 @@ msgstr "Cerrar todas las posiciones con pérdida"
 msgid "Network"
 msgstr "Red"
 
+msgid "Cancel Order"
+msgstr ""
+
 msgid "Withdraw"
 msgstr "Retirar"
+
+msgid "Long"
+msgstr ""
 
 msgid "Transaction failed during execution."
 msgstr "La transacción falló durante la ejecución."
 
 msgid "Failed to fetch token info"
 msgstr "Error al obtener información del token"
+
+msgid "Close All Positions"
+msgstr ""
 
 msgid "Missed this round"
 msgstr "Se perdió esta ronda"
@@ -756,6 +984,10 @@ msgstr "Autenticación"
 msgid "Sent Failed"
 msgstr "Error al enviar"
 
+msgid "Cancel all orders"
+msgstr ""
+
+#. placeholder {0}: MIN_ISOLATED_MARGIN_ADJUST_USD.toFixed(2)
 #. placeholder {0}: minCheckoutUsd.toFixed(2)
 msgid "Minimum ${0}"
 msgstr "Mínimo ${0}"
@@ -769,8 +1001,17 @@ msgstr "Error al recibir"
 msgid "Available: {availableText}"
 msgstr "Disponible: {availableText}"
 
+msgid "Loading…"
+msgstr ""
+
 msgid "Confirming..."
 msgstr "Confirmando..."
+
+msgid "Liquidation Price"
+msgstr ""
+
+msgid "Limit price"
+msgstr ""
 
 msgid "Closed Positions"
 msgstr "Posiciones cerradas"
@@ -781,6 +1022,12 @@ msgstr "Error al liberar"
 msgid "Buy"
 msgstr "Comprar"
 
+msgid "Cancel all"
+msgstr ""
+
+msgid "Stop loss"
+msgstr ""
+
 msgid "Restricted Region"
 msgstr "Región restringida"
 
@@ -790,8 +1037,14 @@ msgstr "Intercambiado"
 msgid "PIN is too weak. Avoid sequential digits."
 msgstr "El PIN es demasiado débil. Evite dígitos secuenciales."
 
+msgid "Amount exceeds the available margin"
+msgstr ""
+
 msgid "Auto"
 msgstr "Automático"
+
+msgid "Liq. Price"
+msgstr ""
 
 msgid "Select"
 msgstr "Seleccionar"
@@ -801,6 +1054,15 @@ msgstr "Error al colocar la orden de venta. "
 
 msgid "User rejected"
 msgstr "Usuario rechazó"
+
+msgid "Reduce Only"
+msgstr ""
+
+msgid "Close Long"
+msgstr ""
+
+msgid "Short"
+msgstr ""
 
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
 msgstr "Polymarket V2 ya está activo. Libere su saldo disponible de {releaseAmountText} USDC.e como pUSD para continuar con sus predicciones."
@@ -820,6 +1082,9 @@ msgstr "No se encontraron actividades"
 
 msgid "Cancelled."
 msgstr "Cancelado."
+
+msgid "Modify Order"
+msgstr ""
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "To <0>{0}</0>"
@@ -841,6 +1106,9 @@ msgstr "No recomendamos compartirla con ninguna aplicación ni persona."
 msgid "second"
 msgstr "{time} s"
 
+msgid "Entry Price"
+msgstr ""
+
 msgid "View on Explorer"
 msgstr "Ver en el explorador"
 
@@ -857,14 +1125,29 @@ msgstr "Cerrar posiciones con pérdida"
 msgid "Primary"
 msgstr "Principal"
 
+msgid "Remove"
+msgstr ""
+
+msgid "No history yet"
+msgstr ""
+
 msgid "Save"
 msgstr "Guardar"
+
+msgid "Unrealized PnL:"
+msgstr ""
+
+msgid "TP/SL canceled."
+msgstr ""
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 msgstr "Predice. Opera. Solo cargue fondos en su billetera de predicciones de Firefly para comenzar."
 
 msgid "Failed to withdraw."
 msgstr "Error al retirar."
+
+msgid "Withdrawable Value:"
+msgstr ""
 
 msgid "Est. fee"
 msgstr "Comisión est."
@@ -875,11 +1158,20 @@ msgstr "Depositar con dirección cripto"
 msgid "Contract address"
 msgstr "Dirección del contrato"
 
+msgid "Trade Value"
+msgstr ""
+
 msgid "Minimum $1.00"
 msgstr "Mínimo $1.00"
 
+msgid "Cancel order"
+msgstr ""
+
 msgid "into your perps account"
 msgstr "en su cuenta de perps"
+
+msgid "Take Profit"
+msgstr ""
 
 msgid "No wallet address found for this user."
 msgstr "No se encontró dirección de billetera para este usuario."
@@ -921,6 +1213,9 @@ msgstr "Predicciones"
 msgid "Your transaction failed."
 msgstr "Su transacción falló."
 
+msgid "Take Profit / Stop Loss"
+msgstr ""
+
 msgid "Change Email"
 msgstr "Cambiar correo"
 
@@ -929,6 +1224,9 @@ msgstr "Comprar {outcome}"
 
 msgid "All networks"
 msgstr "Todas las redes"
+
+msgid "Withdrawal fee:"
+msgstr "Comisión de retiro:"
 
 msgid "Swap"
 msgstr "Intercambiar"
@@ -939,11 +1237,20 @@ msgstr "Guárdelo en un lugar seguro y no lo comparta"
 msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
 msgstr "Escanee este código o copie su dirección de billetera para recibir fondos en Ethereum."
 
+msgid "Limit Close"
+msgstr ""
+
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr "Sus fondos han sido retirados a su billetera Firefly."
 
 msgid "Failed to close losses"
 msgstr "Error al cerrar posiciones con pérdida"
+
+msgid "Perpetuals"
+msgstr ""
+
+msgid "New Total"
+msgstr ""
 
 msgid "Bridged"
 msgstr "Transferido por puente"
@@ -956,6 +1263,9 @@ msgstr "Mínimo {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 
 msgid "Enter the PIN code to verify identity"
 msgstr "Ingrese el PIN para verificar su identidad"
+
+msgid "Mark Price"
+msgstr ""
 
 msgid "Select Token"
 msgstr "Seleccionar token"
@@ -974,17 +1284,29 @@ msgstr "Compra rápida"
 msgid "Your tokens"
 msgstr "Sus tokens"
 
+msgid "Trigger Condition"
+msgstr ""
+
 msgid "Please enter a valid email address."
 msgstr "Ingrese una dirección de correo electrónico válida."
 
 msgid "Sell {outcome}"
 msgstr "Vender {outcome}"
 
+msgid "Add to Position"
+msgstr ""
+
 msgid "Reset PIN Code"
 msgstr "Restablecer PIN"
 
+msgid "Close all"
+msgstr ""
+
 msgid "This market may have been removed or the link is invalid."
 msgstr "Es posible que este mercado haya sido eliminado o que el enlace no sea válido."
+
+msgid "Current Margin"
+msgstr ""
 
 msgid "Trading Activities"
 msgstr "Actividades de trading"
@@ -1040,6 +1362,9 @@ msgstr "¡Transacción completada!"
 msgid "Limit"
 msgstr "Límite"
 
+msgid "Position settings updated."
+msgstr ""
+
 msgid "Swap faster by skipping the review step"
 msgstr "Intercambie más rápido omitiendo el paso de revisión"
 
@@ -1063,12 +1388,18 @@ msgstr "Seguridad y privacidad"
 msgid "Approve"
 msgstr "Aprobar"
 
+msgid "PnL(USDC)"
+msgstr ""
+
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
 msgstr "Prom. {0}"
 
 msgid "Current settings"
 msgstr "Configuración actual"
+
+msgid "Maintenance Margin:"
+msgstr ""
 
 msgid "Failed to cancel order"
 msgstr "Error al cancelar la orden"
@@ -1080,3 +1411,6 @@ msgstr "Saldo: {0} {1}"
 
 msgid "This wallet address is invalid"
 msgstr "Esta dirección de billetera no es válida"
+
+msgid "Filled"
+msgstr ""

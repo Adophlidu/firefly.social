@@ -1,5 +1,6 @@
 'use client';
 
+import PerpetualsIcon from '@dimensiondev/assets/block.svg';
 import CircleShareIcon from '@dimensiondev/assets/circle-share.svg';
 import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
 import SettingsIcon from '@dimensiondev/assets/setting.svg';
@@ -53,6 +54,13 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 href: PageRoute.Explore,
                                 name: <Trans>Explore</Trans>,
                                 match: () => pathname.startsWith(PageRoute.Explore),
+                            },
+                            {
+                                href: PageRoute.Perpetuals,
+                                name: <Trans>Perpetuals</Trans>,
+                                icon: PerpetualsIcon,
+                                selectedIcon: PerpetualsIcon,
+                                match: () => pathname.startsWith(PageRoute.Perpetuals),
                             },
                             {
                                 href: PageRoute.PredictionCategory,

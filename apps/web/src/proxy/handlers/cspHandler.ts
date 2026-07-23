@@ -64,6 +64,12 @@ function buildCSP(): string {
         'polygon.drpc.org',
         '*.alchemy.com',
 
+        // Hyperliquid
+        'https://api.hyperliquid.xyz',
+        'wss://api.hyperliquid.xyz',
+        'https://api.hyperliquid-testnet.xyz',
+        'wss://api.hyperliquid-testnet.xyz',
+
         // polymarket
         '*.polymarket.com',
         'wss://ws-subscriptions-clob.polymarket.com',

@@ -11,17 +11,7 @@ import type { SwapToken } from '@/providers/swap/types.js';
 
 export const HYPERLIQUID_INFO_URL = 'https://api.hyperliquid.xyz/info';
 
-// -----------------------------------------------------------------------------
-// React Query — shared key segments (invalidate with prefix [HYPERLIQUID_QUERY_KEY_ROOT])
-// -----------------------------------------------------------------------------
-
 export const HYPERLIQUID_QUERY_KEY_ROOT = 'hyperliquid' as const;
-
-/** Second segment: global spot meta + asset contexts. */
-export const HYPERLIQUID_QUERY_SPOT_META_AND_ASSET_CTXS = 'spotMetaAndAssetCtxs' as const;
-
-/** Second segment: bundled user info (abstraction + clearinghouse + spot state). */
-export const HYPERLIQUID_QUERY_PERPS_ACCOUNT_BUNDLE = 'perpsAccountBundle' as const;
 
 // -----------------------------------------------------------------------------
 // Arbitrum One — native USDC used for Hyperliquid deposits

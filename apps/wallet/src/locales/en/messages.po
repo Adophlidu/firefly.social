@@ -19,11 +19,23 @@ msgstr "Interacted Failed"
 msgid "Copy to clipboard"
 msgstr "Copy to clipboard"
 
+msgid "Close all positions"
+msgstr "Close all positions"
+
+msgid "Cross Margin Ratio:"
+msgstr "Cross Margin Ratio:"
+
 msgid "To"
 msgstr "To"
 
 msgid "Unlimited Amount"
 msgstr "Unlimited Amount"
+
+msgid "Hyperliquid charges a fixed {EXECUTION_FEE} USDC withdrawal fee to cover Arbitrum gas costs."
+msgstr "Hyperliquid charges a fixed {EXECUTION_FEE} USDC withdrawal fee to cover Arbitrum gas costs."
+
+msgid "Open Orders"
+msgstr "Open Orders"
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
@@ -35,6 +47,9 @@ msgstr "Show assets < 1 USD"
 msgid "History"
 msgstr "History"
 
+msgid "Funding"
+msgstr "Funding"
+
 msgid "Make sure to send funds on Ethereum."
 msgstr "Make sure to send funds on Ethereum."
 
@@ -43,6 +58,9 @@ msgstr "Load failed"
 
 msgid "Failed to disable authentication"
 msgstr "Failed to disable authentication"
+
+msgid "Account Activities"
+msgstr "Account Activities"
 
 msgid "Positions"
 msgstr "Positions"
@@ -53,11 +71,17 @@ msgstr "Alphabetically"
 msgid "in your Firefly wallet"
 msgstr "in your Firefly wallet"
 
+msgid "This action will be submitted to Hyperliquid. Please confirm to continue."
+msgstr "This action will be submitted to Hyperliquid. Please confirm to continue."
+
 msgid "Skip reviews"
 msgstr "Skip reviews"
 
 msgid "Address, ENS, or social handle"
 msgstr "Address, ENS, or social handle"
+
+msgid "Est. Liq. Price(USDC)"
+msgstr "Est. Liq. Price(USDC)"
 
 msgid "Dismiss"
 msgstr "Dismiss"
@@ -65,11 +89,17 @@ msgstr "Dismiss"
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "Your recovery phrase is like a password, keep it secret."
 
+msgid "Minimum {MINIMUM_WITHDRAWAL} USDC"
+msgstr "Minimum {MINIMUM_WITHDRAWAL} USDC"
+
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "Low on balance? Your Firefly Wallet can automatically cover the rest."
 
 msgid "Failed to create predict wallet. {message}"
 msgstr "Failed to create predict wallet. {message}"
+
+msgid "Sell / Short"
+msgstr "Sell / Short"
 
 msgid "Transfer from an exchange"
 msgstr "Transfer from an exchange"
@@ -108,6 +138,9 @@ msgstr "Failed to deposit."
 msgid "Pay"
 msgstr "Pay"
 
+msgid "MAX"
+msgstr "MAX"
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -120,8 +153,14 @@ msgstr "Failed to claim winnings"
 msgid "Transactions"
 msgstr "Transactions"
 
+msgid "Add Margin"
+msgstr "Add Margin"
+
 msgid "Claim requested"
 msgstr "Claim requested"
+
+msgid "This action will be submitted to Hyperliquid."
+msgstr "This action will be submitted to Hyperliquid."
 
 msgid "Review"
 msgstr "Review"
@@ -131,6 +170,9 @@ msgstr "Confirm to reset PIN code? For your security, this action requires sendi
 
 msgid "The PINs you entered do not match. Please check and try again."
 msgstr "The PINs you entered do not match. Please check and try again."
+
+msgid "Trading history"
+msgstr "Trading history"
 
 msgid "Great job predicting the future!"
 msgstr "Great job predicting the future!"
@@ -159,6 +201,9 @@ msgstr "Skip"
 msgid "Copied"
 msgstr "Copied"
 
+msgid "Action failed."
+msgstr "Action failed."
+
 msgid "Total"
 msgstr "Total"
 
@@ -175,6 +220,9 @@ msgstr "A 6-digit verification code has been sent to your email. Please enter th
 msgid "Approved"
 msgstr "Approved"
 
+msgid "Margin Mode"
+msgstr "Margin Mode"
+
 msgid "{riskTokenSymbol} is a high-risk token"
 msgstr "{riskTokenSymbol} is a high-risk token"
 
@@ -184,6 +232,9 @@ msgstr "The new email address you entered is the same as your current one. Pleas
 msgid "Confirm"
 msgstr "Confirm"
 
+msgid "Action partially completed."
+msgstr "Action partially completed."
+
 msgid "Assets to Release"
 msgstr "Assets to Release"
 
@@ -192,6 +243,9 @@ msgstr "Predict on Polymarket"
 
 msgid "Keep Your Recovery Phrase Safe"
 msgstr "Keep Your Recovery Phrase Safe"
+
+msgid "Buy / Long"
+msgstr "Buy / Long"
 
 msgid "Bought"
 msgstr "Bought"
@@ -208,8 +262,17 @@ msgstr "Position closed"
 msgid "No Route Found"
 msgstr "No Route Found"
 
+msgid "Symbol"
+msgstr "Symbol"
+
 msgid "Failed to enable authentication"
 msgstr "Failed to enable authentication"
+
+msgid "Amount({coin})"
+msgstr "Amount({coin})"
+
+msgid "Mid"
+msgstr "Mid"
 
 msgid "Placing order..."
 msgstr "Placing order..."
@@ -235,15 +298,30 @@ msgstr "Won"
 msgid "Failed to load image."
 msgstr "Failed to load image."
 
+msgid "Failed to update position settings."
+msgstr "Failed to update position settings."
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
 msgstr "{0} shares available"
 
+msgid "Withdrawal submitted."
+msgstr "Withdrawal submitted."
+
 msgid "Price"
 msgstr "Price"
 
+msgid "Take profit"
+msgstr "Take profit"
+
+msgid "Mark Price(USDC)"
+msgstr "Mark Price(USDC)"
+
 msgid "Enable skip reviews"
 msgstr "Enable skip reviews"
+
+msgid "Manage your risk on individual positions by restricting the amount of margin allocated to each. If the margin ratio of an isolated position reaches 100%, the position will be liquidated. Margin can be added or removed to individual positions in this mode."
+msgstr "Manage your risk on individual positions by restricting the amount of margin allocated to each. If the margin ratio of an isolated position reaches 100%, the position will be liquidated. Margin can be added or removed to individual positions in this mode."
 
 msgid "This feature is currently unavailable in your region."
 msgstr "This feature is currently unavailable in your region."
@@ -251,11 +329,20 @@ msgstr "This feature is currently unavailable in your region."
 msgid "Connection taking longer than expected"
 msgstr "Connection taking longer than expected"
 
+msgid "Order failed."
+msgstr "Order failed."
+
 msgid "Predict Wallet Pay"
 msgstr "Predict Wallet Pay"
 
+msgid "Insufficient Margin"
+msgstr "Insufficient Margin"
+
 msgid "with"
 msgstr "with"
+
+msgid "Position Size"
+msgstr "Position Size"
 
 msgid "Shares"
 msgstr "Shares"
@@ -278,6 +365,15 @@ msgstr "Are you sure you want to cancel this order?<0/>Once cancelled, it cannot
 msgid "Avg. Price"
 msgstr "Avg. Price"
 
+msgid "Margin Required"
+msgstr "Margin Required"
+
+msgid "TP/SL"
+msgstr "TP/SL"
+
+msgid "The position or order is no longer available. Refresh the web page and try again."
+msgstr "The position or order is no longer available. Refresh the web page and try again."
+
 msgid "You won"
 msgstr "You won"
 
@@ -287,17 +383,29 @@ msgstr "Fund via Firefly Wallet"
 msgid "Network cost"
 msgstr "Network cost"
 
+msgid "No open positions"
+msgstr "No open positions"
+
 msgid "Revoked Failed"
 msgstr "Revoked Failed"
 
 msgid "Forgot your PIN code?"
 msgstr "Forgot your PIN code?"
 
+msgid "Cancel All Orders"
+msgstr "Cancel All Orders"
+
 msgid "Recent"
 msgstr "Recent"
 
 msgid "Oops! We couldn't find any tokens matching your search."
 msgstr "Oops! We couldn't find any tokens matching your search."
+
+msgid "Cross"
+msgstr "Cross"
+
+msgid "Size"
+msgstr "Size"
 
 msgid "Block"
 msgstr "Block"
@@ -311,6 +419,9 @@ msgstr "Transaction Detail"
 msgid "Slippage"
 msgstr "Slippage"
 
+msgid "Available"
+msgstr "Available"
+
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
@@ -323,6 +434,9 @@ msgstr "Recovery Email"
 msgid "Account Creating"
 msgstr "Account Creating"
 
+msgid "Market Close"
+msgstr "Market Close"
+
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "Transaction failed: minimum return amount not reached. Try increasing slippage."
 
@@ -332,11 +446,20 @@ msgstr "There is no data available for display."
 msgid "Transaction was rejected."
 msgstr "Transaction was rejected."
 
+msgid "Est. Closed PnL"
+msgstr "Est. Closed PnL"
+
 msgid "Cancel"
 msgstr "Cancel"
 
 msgid "Share position"
 msgstr "Share position"
+
+msgid "Place Order"
+msgstr "Place Order"
+
+msgid "available"
+msgstr "available"
 
 msgid "to"
 msgstr "to"
@@ -350,8 +473,14 @@ msgstr "Bridged Failed"
 msgid "Enter new PIN"
 msgstr "Enter new PIN"
 
+msgid "Perpetuals history"
+msgstr "Perpetuals history"
+
 msgid "Pay Wallet"
 msgstr "Pay Wallet"
+
+msgid "Control the leverage used for {coin} positions. The maximum leverage is {max}x."
+msgstr "Control the leverage used for {coin} positions. The maximum leverage is {max}x."
 
 msgid "Open orders"
 msgstr "Open orders"
@@ -359,8 +488,14 @@ msgstr "Open orders"
 msgid "Copy address"
 msgstr "Copy address"
 
+msgid "Remove from Position"
+msgstr "Remove from Position"
+
 msgid "<0>{releaseAmountText}</0><1>to release</1>"
 msgstr "<0>{releaseAmountText}</0><1>to release</1>"
+
+msgid "Est. Liq. price"
+msgstr "Est. Liq. price"
 
 msgid "Your funds are now in your predict wallet."
 msgstr "Your funds are now in your predict wallet."
@@ -392,6 +527,9 @@ msgstr "Outcome"
 msgid "Failed to upgrade"
 msgstr "Failed to upgrade"
 
+msgid "Available to remove"
+msgstr "Available to remove"
+
 msgid "Unable to add funds to predictions account."
 msgstr "Unable to add funds to predictions account."
 
@@ -403,6 +541,9 @@ msgstr "Please login to view security settings."
 
 msgid "Post with image"
 msgstr "Post with image"
+
+msgid "Close Short"
+msgstr "Close Short"
 
 msgid "on"
 msgstr "on"
@@ -422,17 +563,29 @@ msgstr "Rate"
 msgid "No more orders"
 msgstr "No more orders"
 
+msgid "This will cancel all your open orders, including take-profit and stop-loss orders."
+msgstr "This will cancel all your open orders, including take-profit and stop-loss orders."
+
 msgid "No more positions"
 msgstr "No more positions"
 
 msgid "Received"
 msgstr "Received"
 
+msgid "Perpetuals account"
+msgstr "Perpetuals account"
+
 msgid "Custom (0.5-100%)"
 msgstr "Custom (0.5-100%)"
 
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
 msgstr "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
+
+msgid "Available to add"
+msgstr "Available to add"
+
+msgid "All cross positions share the same cross margin as collateral. In the event of liquidation, your cross margin balance and any remaining open positions under assets in this mode may be forfeited."
+msgstr "All cross positions share the same cross margin as collateral. In the event of liquidation, your cross margin balance and any remaining open positions under assets in this mode may be forfeited."
 
 msgid "from"
 msgstr "from"
@@ -490,6 +643,9 @@ msgstr "Next"
 msgid "Recipient"
 msgstr "Recipient"
 
+msgid "Cost"
+msgstr "Cost"
+
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
 
@@ -526,6 +682,12 @@ msgstr "Available {0}"
 msgid "Trade"
 msgstr "Trade"
 
+msgid "Action submitted."
+msgstr "Action submitted."
+
+msgid "Enter no more than 2 decimal places"
+msgstr "Enter no more than 2 decimal places"
+
 msgid "No tokens available"
 msgstr "No tokens available"
 
@@ -537,6 +699,9 @@ msgstr "You've hit rock bottom."
 
 msgid "View"
 msgstr "View"
+
+msgid "Trading History"
+msgstr "Trading History"
 
 msgid "Release Now"
 msgstr "Release Now"
@@ -559,8 +724,14 @@ msgstr "Report issue"
 msgid "Withdrawing funds to your Firefly wallet..."
 msgstr "Withdrawing funds to your Firefly wallet..."
 
+msgid "Entry Price(USDC)"
+msgstr "Entry Price(USDC)"
+
 msgid "Failed to set PIN. Please try again later."
 msgstr "Failed to set PIN. Please try again later."
+
+msgid "Confirming…"
+msgstr "Confirming…"
 
 msgid "To win"
 msgstr "To win"
@@ -577,13 +748,25 @@ msgstr "Your funds are on the way..."
 msgid "Deposit"
 msgstr "Deposit"
 
+msgid "Margin cannot be removed from this market"
+msgstr "Margin cannot be removed from this market"
+
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "{0} available"
 msgstr "{0} available"
 
+msgid "Current Price"
+msgstr "Current Price"
+
 msgid "Contract"
 msgstr "Contract"
+
+msgid "Withdrawal failed."
+msgstr "Withdrawal failed."
+
+msgid "Order price"
+msgstr "Order price"
 
 msgid "Limit Price"
 msgstr "Limit Price"
@@ -596,6 +779,9 @@ msgstr "Trendings"
 
 msgid "Network Fee"
 msgstr "Network Fee"
+
+msgid "Isolated"
+msgstr "Isolated"
 
 msgid "Please re-enter the PIN you just set to confirm."
 msgstr "Please re-enter the PIN you just set to confirm."
@@ -629,11 +815,20 @@ msgstr "Explore markets"
 msgid "Total PnL: <0>{0}({1})</0>"
 msgstr "Total PnL: <0>{0}({1})</0>"
 
+msgid "Margin"
+msgstr "Margin"
+
 msgid "Interacted"
 msgstr "Interacted"
 
 msgid "The address could not be found."
 msgstr "The address could not be found."
+
+msgid "Adjust Leverage"
+msgstr "Adjust Leverage"
+
+msgid "Stop Loss"
+msgstr "Stop Loss"
 
 msgid "Add"
 msgstr "Add"
@@ -643,6 +838,12 @@ msgstr "Confirm new PIN"
 
 msgid "Activity Rewards"
 msgstr "Activity Rewards"
+
+msgid "Submitting…"
+msgstr "Submitting…"
+
+msgid "Your positions will all be closed at market price, and any open orders (or reduce-only orders) will be canceled. Options won't be affected."
+msgstr "Your positions will all be closed at market price, and any open orders (or reduce-only orders) will be canceled. Options won't be affected."
 
 msgid "Sort closed positions"
 msgstr "Sort closed positions"
@@ -656,6 +857,9 @@ msgstr "{betText} • Won <0>{wonText}({pctText})</0>"
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "With <0>{0}</0>"
 msgstr "With <0>{0}</0>"
+
+msgid "Max position size decreases the higher your leverage."
+msgstr "Max position size decreases the higher your leverage."
 
 msgid "Date"
 msgstr "Date"
@@ -699,6 +903,12 @@ msgstr "Swapped Failed"
 msgid "Cancel order?"
 msgstr "Cancel order?"
 
+msgid "Margin mode cannot be changed while a position is open."
+msgstr "Margin mode cannot be changed while a position is open."
+
+msgid "Order submitted."
+msgstr "Order submitted."
+
 msgid "Cancelling order..."
 msgstr "Cancelling order..."
 
@@ -723,14 +933,23 @@ msgstr "PnL"
 msgid "Avg Price"
 msgstr "Avg Price"
 
+msgid "Maximum position at current leverage: {maxPosition} USDC."
+msgstr "Maximum position at current leverage: {maxPosition} USDC."
+
 msgid "Total traded"
 msgstr "Total traded"
 
 msgid "Failed to close position"
 msgstr "Failed to close position"
 
+msgid "Withdrawal fee"
+msgstr "Withdrawal fee"
+
 msgid "Failed to init exchange options. Please try again later."
 msgstr "Failed to init exchange options. Please try again later."
+
+msgid "Price(USDC)"
+msgstr "Price(USDC)"
 
 msgid "Close all the losses"
 msgstr "Close all the losses"
@@ -738,14 +957,23 @@ msgstr "Close all the losses"
 msgid "Network"
 msgstr "Network"
 
+msgid "Cancel Order"
+msgstr "Cancel Order"
+
 msgid "Withdraw"
 msgstr "Withdraw"
+
+msgid "Long"
+msgstr "Long"
 
 msgid "Transaction failed during execution."
 msgstr "Transaction failed during execution."
 
 msgid "Failed to fetch token info"
 msgstr "Failed to fetch token info"
+
+msgid "Close All Positions"
+msgstr "Close All Positions"
 
 msgid "Missed this round"
 msgstr "Missed this round"
@@ -756,6 +984,10 @@ msgstr "Authentication"
 msgid "Sent Failed"
 msgstr "Sent Failed"
 
+msgid "Cancel all orders"
+msgstr "Cancel all orders"
+
+#. placeholder {0}: MIN_ISOLATED_MARGIN_ADJUST_USD.toFixed(2)
 #. placeholder {0}: minCheckoutUsd.toFixed(2)
 msgid "Minimum ${0}"
 msgstr "Minimum ${0}"
@@ -769,8 +1001,17 @@ msgstr "Received Failed"
 msgid "Available: {availableText}"
 msgstr "Available: {availableText}"
 
+msgid "Loading…"
+msgstr "Loading…"
+
 msgid "Confirming..."
 msgstr "Confirming..."
+
+msgid "Liquidation Price"
+msgstr "Liquidation Price"
+
+msgid "Limit price"
+msgstr "Limit price"
 
 msgid "Closed Positions"
 msgstr "Closed Positions"
@@ -781,6 +1022,12 @@ msgstr "Failed to release"
 msgid "Buy"
 msgstr "Buy"
 
+msgid "Cancel all"
+msgstr "Cancel all"
+
+msgid "Stop loss"
+msgstr "Stop loss"
+
 msgid "Restricted Region"
 msgstr "Restricted Region"
 
@@ -790,8 +1037,14 @@ msgstr "Swapped"
 msgid "PIN is too weak. Avoid sequential digits."
 msgstr "PIN is too weak. Avoid sequential digits."
 
+msgid "Amount exceeds the available margin"
+msgstr "Amount exceeds the available margin"
+
 msgid "Auto"
 msgstr "Auto"
+
+msgid "Liq. Price"
+msgstr "Liq. Price"
 
 msgid "Select"
 msgstr "Select"
@@ -801,6 +1054,15 @@ msgstr "Failed to place sell order. "
 
 msgid "User rejected"
 msgstr "User rejected"
+
+msgid "Reduce Only"
+msgstr "Reduce Only"
+
+msgid "Close Long"
+msgstr "Close Long"
+
+msgid "Short"
+msgstr "Short"
 
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
 msgstr "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
@@ -820,6 +1082,9 @@ msgstr "No activities found"
 
 msgid "Cancelled."
 msgstr "Cancelled."
+
+msgid "Modify Order"
+msgstr "Modify Order"
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "To <0>{0}</0>"
@@ -841,6 +1106,9 @@ msgstr "We do not recommend ever sharing it with any app or person."
 msgid "second"
 msgstr "{time}s"
 
+msgid "Entry Price"
+msgstr "Entry Price"
+
 msgid "View on Explorer"
 msgstr "View on Explorer"
 
@@ -857,14 +1125,29 @@ msgstr "Close losses"
 msgid "Primary"
 msgstr "Primary"
 
+msgid "Remove"
+msgstr "Remove"
+
+msgid "No history yet"
+msgstr "No history yet"
+
 msgid "Save"
 msgstr "Save"
+
+msgid "Unrealized PnL:"
+msgstr "Unrealized PnL:"
+
+msgid "TP/SL canceled."
+msgstr "TP/SL canceled."
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 msgstr "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 
 msgid "Failed to withdraw."
 msgstr "Failed to withdraw."
+
+msgid "Withdrawable Value:"
+msgstr "Withdrawable Value:"
 
 msgid "Est. fee"
 msgstr "Est. fee"
@@ -875,11 +1158,20 @@ msgstr "Deposit via Crypto Address"
 msgid "Contract address"
 msgstr "Contract address"
 
+msgid "Trade Value"
+msgstr "Trade Value"
+
 msgid "Minimum $1.00"
 msgstr "Minimum $1.00"
 
+msgid "Cancel order"
+msgstr "Cancel order"
+
 msgid "into your perps account"
 msgstr "into your perps account"
+
+msgid "Take Profit"
+msgstr "Take Profit"
 
 msgid "No wallet address found for this user."
 msgstr "No wallet address found for this user."
@@ -921,6 +1213,9 @@ msgstr "Predictions"
 msgid "Your transaction failed."
 msgstr "Your transaction failed."
 
+msgid "Take Profit / Stop Loss"
+msgstr "Take Profit / Stop Loss"
+
 msgid "Change Email"
 msgstr "Change Email"
 
@@ -929,6 +1224,9 @@ msgstr "Buy {outcome}"
 
 msgid "All networks"
 msgstr "All networks"
+
+msgid "Withdrawal fee:"
+msgstr "Withdrawal fee:"
 
 msgid "Swap"
 msgstr "Swap"
@@ -939,11 +1237,20 @@ msgstr "Keep it safe and do not share"
 msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
 msgstr "Scan this code or copy your wallet address to receive funds on Ethereum."
 
+msgid "Limit Close"
+msgstr "Limit Close"
+
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr "Your funds have been withdrawn to your Firefly wallet."
 
 msgid "Failed to close losses"
 msgstr "Failed to close losses"
+
+msgid "Perpetuals"
+msgstr "Perpetuals"
+
+msgid "New Total"
+msgstr "New Total"
 
 msgid "Bridged"
 msgstr "Bridged"
@@ -956,6 +1263,9 @@ msgstr "Minimum {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 
 msgid "Enter the PIN code to verify identity"
 msgstr "Enter the PIN code to verify identity"
+
+msgid "Mark Price"
+msgstr "Mark Price"
 
 msgid "Select Token"
 msgstr "Select Token"
@@ -974,17 +1284,29 @@ msgstr "Quick Buy"
 msgid "Your tokens"
 msgstr "Your tokens"
 
+msgid "Trigger Condition"
+msgstr "Trigger Condition"
+
 msgid "Please enter a valid email address."
 msgstr "Please enter a valid email address."
 
 msgid "Sell {outcome}"
 msgstr "Sell {outcome}"
 
+msgid "Add to Position"
+msgstr "Add to Position"
+
 msgid "Reset PIN Code"
 msgstr "Reset PIN Code"
 
+msgid "Close all"
+msgstr "Close all"
+
 msgid "This market may have been removed or the link is invalid."
 msgstr "This market may have been removed or the link is invalid."
+
+msgid "Current Margin"
+msgstr "Current Margin"
 
 msgid "Trading Activities"
 msgstr "Trading Activities"
@@ -1040,6 +1362,9 @@ msgstr "Transaction completed!"
 msgid "Limit"
 msgstr "Limit"
 
+msgid "Position settings updated."
+msgstr "Position settings updated."
+
 msgid "Swap faster by skipping the review step"
 msgstr "Swap faster by skipping the review step"
 
@@ -1063,12 +1388,18 @@ msgstr "Security & Privacy"
 msgid "Approve"
 msgstr "Approve"
 
+msgid "PnL(USDC)"
+msgstr "PnL(USDC)"
+
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
 msgstr "Avg {0}"
 
 msgid "Current settings"
 msgstr "Current settings"
+
+msgid "Maintenance Margin:"
+msgstr "Maintenance Margin:"
 
 msgid "Failed to cancel order"
 msgstr "Failed to cancel order"
@@ -1080,3 +1411,6 @@ msgstr "Balance: {0} {1}"
 
 msgid "This wallet address is invalid"
 msgstr "This wallet address is invalid"
+
+msgid "Filled"
+msgstr "Filled"

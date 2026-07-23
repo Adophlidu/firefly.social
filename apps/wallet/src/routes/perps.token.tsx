@@ -1,5 +1,4 @@
-import { PerpsMarketDetail } from '@dimensiondev/rn-ui';
-import { createFileRoute, useSearch } from '@tanstack/react-router';
+import { createFileRoute, Navigate, useSearch } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/perps/token')({
     component: PerpsTokenPage,
@@ -11,10 +10,5 @@ interface PerpsTokenSearch {
 
 function PerpsTokenPage() {
     const search = useSearch({ from: '/perps/token' }) as PerpsTokenSearch;
-
-    return (
-        <div>
-            <PerpsMarketDetail coin={search.token || 'BTC'} />
-        </div>
-    );
+    return <Navigate to="/perps" search={{ token: search.token || 'BTC' }} replace />;
 }
