@@ -1,6 +1,9 @@
 import { Suspense } from 'react';
 
 import { Signup } from '@/app/[locale]/(whiteboard)/signup/pages/Signup.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+
+export const metadata = createSiteMetadata('/signup');
 
 // Server page with a page-level Suspense boundary: `useSearchParams` inside
 // <Signup> bails out here instead of the empty layout-level boundary, so the
