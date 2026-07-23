@@ -3,7 +3,7 @@
 import type { SocialSource } from '@dimensiondev/enums';
 import { SocialProfileCategory, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { memo, type ReactNode } from 'react';
+import { memo, type ReactNode, useContext } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -12,6 +12,7 @@ import { CollectedList } from '@/components/Profile/CollectedList.js';
 import { FeedList } from '@/components/Profile/FeedList.js';
 import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
 import { MediaList } from '@/components/Profile/MediaList.js';
+import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { TrumpTruthSocialPosts } from '@/components/TrumpTruthSocial/TrumpTruthSocialPosts.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
@@ -26,6 +27,7 @@ export const SocialProfileContentList = memo(function SocialProfileContentList({
     profileId: string;
 }) {
     const isSyncing = useAsyncStatus(source);
+    const { initialFeedPage } = useContext(ProfileContext);
 
     // Feed is the canonical, viewer-independent timeline. Its first page is prefetched
     // in the profile layout, so render it server-side (no NoSSR, no viewer-sync gate) to
@@ -35,6 +37,18 @@ export const SocialProfileContentList = memo(function SocialProfileContentList({
         // Twitter timelines need the viewer's token (no anonymous prefetch in the layout),
         // so keep them client-only to avoid a session-dependent SSR/hydration divergence.
         if (source === Source.Twitter) {
+            return (
+                <NoSSR>
+                    <FeedList source={source} profileId={profileId} />
+                </NoSSR>
+            );
+        }
+        // No prefetched first page — the layout's runInSafeAsync prefetch returned empty
+        // or failed (rejected). Letting FeedList's useSuspenseInfiniteQuery suspend on the
+        // server would re-run the feed fetch unswallowed; a rejecting endpoint then crashes
+        // the Suspense boundary (React #419). Render client-only so the server never issues
+        // it, matching the Twitter branch above.
+        if (!initialFeedPage) {
             return (
                 <NoSSR>
                     <FeedList source={source} profileId={profileId} />
