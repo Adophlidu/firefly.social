@@ -1,7 +1,7 @@
 import { PageHeading } from '#/components/catalog/PageHeading.js';
+import { CheckIcon, CloseIcon, CopyIcon, LeftArrowIcon, LoadingIcon } from '#/components/catalog/real-icons.js';
 import { Section } from '#/components/catalog/Section.js';
 import { Swatch } from '#/components/catalog/Swatch.js';
-import { CheckIcon, CloseIcon, CopyIcon, LeftArrowIcon, LoadingIcon } from '#/components/catalog/real-icons.js';
 
 export default function ButtonsPage() {
     return (

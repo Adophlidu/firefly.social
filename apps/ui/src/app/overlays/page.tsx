@@ -1,6 +1,6 @@
 import { PageHeading } from '#/components/catalog/PageHeading.js';
-import { Section } from '#/components/catalog/Section.js';
 import { CloseIcon } from '#/components/catalog/real-icons.js';
+import { Section } from '#/components/catalog/Section.js';
 
 export default function OverlaysPage() {
     return (
