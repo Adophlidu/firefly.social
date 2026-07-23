@@ -881,9 +881,13 @@ function buildResolvedSections(
         const effectiveConfig = hasConfig ? config : getSectionConfig(type);
         const renderAs = effectiveConfig.renderAs ?? inferRenderAs(type);
 
-        // Dynamic title resolution for context-dependent types
+        // Dynamic title resolution: prefer the API-returned, locale-translated group title over
+        // the hardcoded catalog, then fall back to catalog → market title → humanized type.
         let title: React.ReactNode =
-            effectiveConfig.title ?? markets[0]?.title ?? humanizeType(baseType !== type ? baseType : type);
+            markets[0]?.groupItemTitle ??
+            effectiveConfig.title ??
+            markets[0]?.title ??
+            humanizeType(baseType !== type ? baseType : type);
         // Esports: "Totals" → "Total Games" (Polymarket uses "Total Games" for esports series)
         if (type === 'totals' && isEsports) {
             title = <Trans>Total Games</Trans>;

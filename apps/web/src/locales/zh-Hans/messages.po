@@ -4439,7 +4439,7 @@ msgid "Enable now"
 msgstr "立即启用"
 
 msgid "Both Teams Slay Baron"
-msgstr "双方均击杀男爵"
+msgstr "双方都击杀男爵"
 
 msgid "Failed to unlike the comment."
 msgstr "评论取消点赞失败。"

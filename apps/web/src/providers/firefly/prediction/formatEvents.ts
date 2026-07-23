@@ -593,8 +593,10 @@ export function mergeSportGroupedMarkets(
         if (prefixed !== type) return prefixed;
         const slugNum = gameNumberFromSlug(item.slug);
         if (slugNum) return `game_${slugNum}_${type}`;
-        if (item.groupItemTitle) {
-            const gameNum = item.groupItemTitle.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
+        // Fall back to the English title (groupItemTitleEn); the translated title breaks the regex.
+        const titleEn = item.groupItemTitleEn || item.groupItemTitle;
+        if (titleEn) {
+            const gameNum = titleEn.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
             if (gameNum) return `game_${gameNum}_${type}`;
         }
         return type;
@@ -611,12 +613,13 @@ export function mergeSportGroupedMarkets(
             if (prefixed !== marketType) {
                 idToGameType.set(item.id, prefixed);
             }
-            // For child_moneyline, extract the game number so the line switcher shows "1","2"
-            // instead of "0". Slug-first for locale independence; translated titles (zh "第一局
-            // 胜者") break the English "Game N" regex.
+            // child_moneyline: derive the game number so the line switcher shows "1"/"2", not "0".
+            // Slug first; fall back to the English title (groupItemTitleEn) — the translated
+            // groupItemTitle breaks the "Game N" regex.
             if (marketType === 'child_moneyline') {
+                const titleEn = item.groupItemTitleEn || item.groupItemTitle;
                 const gameNum =
-                    gameNumberFromSlug(item.slug) ?? item.groupItemTitle?.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
+                    gameNumberFromSlug(item.slug) ?? titleEn?.match(/(?:Game|Map)[ #]?(\d+)/i)?.[1];
                 if (gameNum) {
                     idToGameLine.set(item.id, Number(gameNum));
                 }

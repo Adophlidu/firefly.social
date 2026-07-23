@@ -313,6 +313,40 @@ describe('esports per-game routing is locale-invariant (slug-driven)', () => {
         // Line switcher shows "1", not "0".
         expect(cm?.line).toBe(1);
     });
+
+    it('derives the child_moneyline line from groupItemTitleEn when the slug has no game number', () => {
+        // Slug carries no game number and groupItemTitle is translated — the switcher must still
+        // read "1"/"2" via the English groupItemTitleEn.
+        const itemId = 'cm-jdg-game1-id';
+        const detail: PolymarketSportDetail = {
+            slug: LOL_SLUG,
+            eventSlugs: [LOL_SLUG],
+            groupedMarkets: [
+                {
+                    sportsMarketType: 'child_moneyline',
+                    markets: [
+                        {
+                            id: itemId,
+                            slug: `${LOL_SLUG}-jdg-vs-al`, // no -gameN- segment
+                            eventSlug: LOL_SLUG,
+                            groupItemTitle: '第一局胜者',
+                            groupItemTitleEn: 'Game 1 Winner',
+                            outcomes: ['JDG', "Anyone's Legend"],
+                            outcomePrices: ['0.505', '0.495'],
+                            clobTokenIds: ['cm-a', 'cm-b'],
+                            volumeClob: 85700,
+                        },
+                    ],
+                },
+            ],
+        };
+        const event = { ...buildEvent(), markets: [mk({ id: itemId, sportsMarketType: 'child_moneyline' })] };
+
+        const result = mergeSportGroupedMarkets(event, detail);
+        const cm = result.markets.find((m) => m.sportsMarketType === 'child_moneyline');
+        // Line switcher shows "1" — parsed from groupItemTitleEn, not the translated title.
+        expect(cm?.line).toBe(1);
+    });
 });
 
 describe('formatPolymarketEvent — series types are never game-prefixed', () => {
