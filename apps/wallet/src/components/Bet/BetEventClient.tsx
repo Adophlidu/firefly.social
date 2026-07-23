@@ -256,6 +256,10 @@ export default function BetEventClient({ id }: { id: string }) {
             : safeOutcomeIndex === 1
               ? pageConfig?.rightTitle
               : undefined) || fallbackOutcome;
+    // Market/section name (e.g. "总局数" / "Match Winner"); separator is locale-aware.
+    const headerOutcome = pageConfig?.marketName
+        ? `${pageConfig.marketName}${/^(zh|ja|ko)/i.test(i18n.locale) ? '：' : ': '}${outcome}`
+        : (pageConfig?.selectedOutcomeTitle || outcome);
 
     // Fire buy/sell open success events when market data loads or side changes
     useEffect(() => {
@@ -616,9 +620,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         <p className="line-clamp-2 min-h-[18px] w-full text-secondary">
                             {pageConfig?.pageTitle || data?.question || id}
                         </p>
-                        <p className="max-h-[18px] w-full truncate text-main">
-                            {pageConfig?.selectedOutcomeTitle || outcome}
-                        </p>
+                        <p className="max-h-[18px] w-full truncate text-main">{headerOutcome}</p>
                     </div>
                 </button>
                 <Button size="icon" variant="ghost" onClick={() => navigate({ to: '/bet', replace: true })}>

@@ -275,3 +275,77 @@ describe('getSportMarketTabs — LoL novelty markets dropped to match Polymarket
         }
     });
 });
+
+/** Read the human text out of a section title, whether it's a raw string or a compiled <Trans>. */
+function titleText(node: React.ReactNode): string {
+    if (node === null || node === undefined || typeof node !== 'object') return String(node ?? '');
+    const props = (node as { props?: Record<string, unknown> }).props;
+    if (props) {
+        if (typeof props.message === 'string') return props.message;
+        if (typeof props.children === 'string') return props.children;
+    }
+    return JSON.stringify((node as { key?: unknown }).key ?? node);
+}
+
+describe('getSportMarketTabs — line-agnostic title for mergeByLine sections', () => {
+    const blueTeam: SportTeam = { name: 'T1', abbreviation: 't1', color: '#E2012D' };
+    const redTeam: SportTeam = { name: 'GenG', abbreviation: 'geng', color: '#AA824F' };
+
+    it('uses the catalog title ("Kill Totals") for a multi-line kill-totals section, not the embedded line', () => {
+        // Each market's groupItemTitle carries a different line number, like the sport-detail API returns.
+        const markets = [21.5, 24.5, 27.5, 30.5, 33.5, 36.5].map((line) =>
+            mk({
+                sportsMarketType: 'game_1_kill_over_under_game',
+                slug: `game-1-kill-totals-${line}`,
+                line,
+                groupItemTitle: `Total Kills Over/Under ${line} in Game 1?`,
+                title: `Total Kills Over/Under ${line} in Game 1?`,
+            }),
+        );
+        const tabs = getSportMarketTabs(markets, blueTeam, redTeam);
+        const section = tabs.flatMap((t) => t.sections).find((s) => s.mergeByLine);
+        expect(section).toBeDefined();
+        // The title must not carry any of the per-line numbers (the bug: a stale "27.5").
+        expect(titleText(section!.title)).toBe('Kill Totals');
+        expect(titleText(section!.title)).not.toMatch(/27\.5|30\.5/);
+    });
+
+    it('uses the generic "Totals" title for a multi-line totals section regardless of which line is first', () => {
+        const buildWith = (firstLine: number) =>
+            getSportMarketTabs(
+                [firstLine, 208.5, 210.5].map((line) =>
+                    mk({
+                        sportsMarketType: 'totals',
+                        slug: `totals-${line}`,
+                        line,
+                        groupItemTitle: `Total Points O/U ${line}`,
+                        title: `Total Points O/U ${line}`,
+                    }),
+                ),
+                blueTeam,
+                redTeam,
+            );
+        const a = buildWith(205.5).flatMap((t) => t.sections).find((s) => s.mergeByLine)!;
+        const b = buildWith(210.5).flatMap((t) => t.sections).find((s) => s.mergeByLine)!;
+        expect(titleText(a.title)).toBe('Totals');
+        expect(titleText(b.title)).toBe('Totals');
+    });
+
+    it('still uses the translated groupItemTitle for a single-line (non-switcher) section', () => {
+        const markets = [
+            mk({
+                sportsMarketType: 'first_blood_game',
+                slug: 'game-1-first-blood',
+                line: 0,
+                groupItemTitle: 'First Blood in Game 1?',
+                title: 'First Blood in Game 1?',
+            }),
+        ];
+        const section = getSportMarketTabs(markets, blueTeam, redTeam)
+            .flatMap((t) => t.sections)
+            .find((s) => s.sportsMarketType === 'first_blood_game')!;
+        expect(section).toBeDefined();
+        expect(section.mergeByLine).toBe(false);
+        expect(titleText(section.title)).toBe('First Blood in Game 1?');
+    });
+});
