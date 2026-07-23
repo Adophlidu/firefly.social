@@ -31,6 +31,7 @@ import {
     type OpenOrderDirection,
 } from '@/components/Perps/openOrderPresentation.js';
 import { perpsAggregatedFillsQueryKey } from '@/components/Perps/perpsAccountSubscriptions.js';
+import styles from '@/components/Perps/PerpsResponsive.module.css';
 import { buildTradingHistoryFinancials } from '@/components/Perps/tradingHistoryPresentation.js';
 
 interface Props {
@@ -153,7 +154,7 @@ function AccountTabs({ tab, counts, onChange }: TabsProps) {
         <div
             role="tablist"
             aria-label={t`Perpetuals account`}
-            className="flex h-12 items-start gap-8 border-b border-[#f5f5f5] px-4"
+            className={classNames(styles.accountTabs, 'flex h-12 items-start border-b border-[#f5f5f5]')}
         >
             {tabs.map((item) => (
                 <button
@@ -161,7 +162,10 @@ function AccountTabs({ tab, counts, onChange }: TabsProps) {
                     type="button"
                     role="tab"
                     aria-selected={tab === item.id}
-                    className="h-12 border-b-4 border-transparent text-base font-bold leading-6 text-[#b1b1b1] outline-none focus-visible:ring-2 focus-visible:ring-[#4c4aa9] aria-selected:border-lightTextMain aria-selected:text-lightTextMain"
+                    className={classNames(
+                        styles.accountTab,
+                        'h-12 border-b-4 border-transparent font-bold leading-6 text-[#b1b1b1] outline-none focus-visible:ring-2 focus-visible:ring-[#4c4aa9] aria-selected:border-lightTextMain aria-selected:text-lightTextMain',
+                    )}
                     onClick={() => onChange(item.id)}
                 >
                     {item.label}
@@ -271,8 +275,10 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
     );
     const attachedOrderIds = useMemo(() => new Set(orders.flatMap(getOpenOrderChildIds)), [orders]);
     const activeQuery = tab === 'positions' ? accountState : tab === 'orders' ? orderState : fills;
-    const tableContainerClassName =
-        'relative max-h-[360px] overflow-auto [scrollbar-color:#b1b1b1_#f5f5f5] [scrollbar-width:thin] [&::-webkit-scrollbar]:size-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#b1b1b1] [&::-webkit-scrollbar-track]:bg-[#f5f5f5]';
+    const tableContainerClassName = classNames(
+        styles.accountTable,
+        'relative overflow-auto [scrollbar-color:#b1b1b1_#f5f5f5] [scrollbar-width:thin] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#b1b1b1] [&::-webkit-scrollbar-track]:bg-[#f5f5f5] [&::-webkit-scrollbar]:size-2',
+    );
     const updateOrderActionShadow = useCallback(() => {
         const container = ordersTableContainerRef.current;
         if (!container) return;
@@ -817,36 +823,43 @@ export const PerpsAccountPanels = memo(function PerpsAccountPanels({ address, on
     return (
         <section className="h-[209px] overflow-hidden bg-white text-lightTextMain">
             <AccountTabs tab={tab} counts={{ positions: 0, orders: 0, history: 0 }} onChange={setTab} />
-            <table className="w-full table-fixed text-left text-[13px]">
-                <thead className="h-[41px] border-b border-[#f5f5f5] text-[#767676]">
-                    <tr>
-                        <th className="px-4 font-normal">
-                            <Trans>Date</Trans>
-                        </th>
-                        <th className="font-normal">
-                            <Trans>Type</Trans>
-                        </th>
-                        <th className="font-normal">
-                            <Trans>Market</Trans>
-                        </th>
-                        <th className="font-normal">
-                            <Trans>Size</Trans>
-                        </th>
-                        <th className="font-normal">
-                            <Trans>Filled</Trans>
-                        </th>
-                        <th className="font-normal">
-                            <Trans>Value</Trans>
-                        </th>
-                        <th className="font-normal">
-                            <Trans>Price</Trans>
-                        </th>
-                        <th className="font-normal">
-                            <Trans>TP/SL</Trans>
-                        </th>
-                    </tr>
-                </thead>
-            </table>
+            <div className={classNames(styles.accountTable, 'overflow-auto')}>
+                <table
+                    className={classNames(
+                        styles.unauthenticatedAccountTable,
+                        'w-full table-fixed text-left text-[13px]',
+                    )}
+                >
+                    <thead className="h-[41px] border-b border-[#f5f5f5] text-[#767676]">
+                        <tr>
+                            <th className="px-4 font-normal">
+                                <Trans>Date</Trans>
+                            </th>
+                            <th className="font-normal">
+                                <Trans>Type</Trans>
+                            </th>
+                            <th className="font-normal">
+                                <Trans>Market</Trans>
+                            </th>
+                            <th className="font-normal">
+                                <Trans>Size</Trans>
+                            </th>
+                            <th className="font-normal">
+                                <Trans>Filled</Trans>
+                            </th>
+                            <th className="font-normal">
+                                <Trans>Value</Trans>
+                            </th>
+                            <th className="font-normal">
+                                <Trans>Price</Trans>
+                            </th>
+                            <th className="font-normal">
+                                <Trans>TP/SL</Trans>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
             <EmptyState>
                 <button
                     type="button"

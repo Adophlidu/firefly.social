@@ -18,6 +18,7 @@ import {
     toRawPerpsMarketName,
 } from '@/components/Perps/marketSelection.js';
 import { PerpsFavoriteButton } from '@/components/Perps/PerpsFavoriteButton.js';
+import styles from '@/components/Perps/PerpsResponsive.module.css';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
@@ -218,7 +219,10 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                     <PopoverPanel
                         transition
                         anchor="bottom start"
-                        className="z-50 mt-1 w-[min(978px,calc(100vw-32px))] origin-top-left overflow-hidden rounded-2xl border border-[#e7e7e7] bg-white p-6 text-lightTextMain shadow-[0_16px_20px_rgba(64,61,87,0.1)] transition duration-150 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+                        className={classNames(
+                            styles.marketPopover,
+                            'z-50 mt-1 w-[min(978px,calc(100vw-24px))] origin-top-left overflow-hidden rounded-2xl border border-[#e7e7e7] bg-white text-lightTextMain shadow-[0_16px_20px_rgba(64,61,87,0.1)] transition duration-150 ease-out data-[closed]:scale-95 data-[closed]:opacity-0',
+                        )}
                     >
                         <label className="flex h-8 items-center gap-1.5 rounded-xl bg-[#efeff3] px-3 text-[#767676] focus-within:ring-1 focus-within:ring-[#4c4aa9]">
                             <SearchIcon className="size-4 shrink-0" />
@@ -258,8 +262,13 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                         </div>
 
                         <div className="no-scrollbar overflow-x-auto">
-                            <div className="min-w-[820px]">
-                                <div className="grid h-[38px] grid-cols-[256px_80px_150px_96px_128px_128px] items-center gap-2 px-3 text-xs font-medium leading-[14px] text-[#767676]">
+                            <div className={styles.marketTable}>
+                                <div
+                                    className={classNames(
+                                        styles.marketGrid,
+                                        'grid h-[38px] items-center gap-2 px-3 text-xs font-medium leading-[14px] text-[#767676]',
+                                    )}
+                                >
                                     <span>
                                         <Trans>Market</Trans>
                                     </span>
@@ -293,7 +302,10 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                                     role="option"
                                                     tabIndex={0}
                                                     aria-selected={market.coin === selectedCoin}
-                                                    className="grid h-[42px] cursor-pointer grid-cols-[256px_80px_150px_96px_128px_128px] items-center gap-2 rounded-lg px-3 text-left text-sm font-medium leading-[18px] outline-none hover:bg-[#f5f5f9] focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                                                    className={classNames(
+                                                        styles.marketGrid,
+                                                        'grid h-[42px] cursor-pointer items-center gap-2 rounded-lg px-3 text-left text-sm font-medium leading-[18px] outline-none hover:bg-[#f5f5f9] focus-visible:ring-2 focus-visible:ring-[#4c4aa9]',
+                                                    )}
                                                     onClick={() => {
                                                         onSelect(market.coin);
                                                         setQuery('');

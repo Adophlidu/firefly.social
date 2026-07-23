@@ -15,6 +15,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, useEffect, useMemo, useState } from 'react';
 
+import styles from '@/components/Perps/PerpsResponsive.module.css';
 import { type PerpsCandleInterval, usePerpsCandles } from '@/components/Perps/usePerpsCandles.js';
 
 interface Props {
@@ -87,10 +88,17 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
         <section
             data-testid="perps-chart"
             aria-label={t`${displayCoin} price chart`}
-            className="flex h-[557px] min-w-0 flex-1 flex-col overflow-hidden border-b border-r border-[#f5f5f5] bg-white"
+            className={classNames(
+                styles.chart,
+                'flex min-w-0 flex-1 flex-col overflow-hidden border-b border-r border-[#f5f5f5] bg-white',
+            )}
         >
             <header className="flex h-12 shrink-0 items-center justify-between border-b border-[#f5f5f5] px-3 text-[#767676]">
-                <div role="group" aria-label={t`Chart interval`} className="flex items-center gap-1">
+                <div
+                    role="group"
+                    aria-label={t`Chart interval`}
+                    className={classNames(styles.chartIntervals, 'flex items-center gap-1')}
+                >
                     {intervals.map(({ label, value }, index) => (
                         <button
                             key={`${label}-${index}`}
@@ -106,7 +114,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                         ⌄
                     </span>
                 </div>
-                <div className="flex items-center gap-3 text-lightTextMain">
+                <div className={classNames(styles.chartDesktopTools, 'items-center gap-3 text-lightTextMain')}>
                     <ChartIcon className="size-5" />
                     <MenuIcon className="size-5" />
                     <MusicIcon className="size-5" />
@@ -120,7 +128,10 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
             <div className="relative min-h-0 flex-1 overflow-hidden">
                 <div
                     aria-hidden
-                    className="absolute inset-y-0 left-0 z-1 flex w-14 flex-col items-center gap-3 border-r border-[#f5f5f5] bg-white py-3 text-[#767676]"
+                    className={classNames(
+                        styles.chartDrawingTools,
+                        'absolute inset-y-0 left-0 z-1 w-14 flex-col items-center gap-3 border-r border-[#f5f5f5] bg-white py-3 text-[#767676]',
+                    )}
                 >
                     <span className="flex size-10 items-center justify-center rounded-lg bg-[#ececf0] text-xl">＋</span>
                     <EditIcon className="size-5" />
@@ -272,8 +283,13 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                     </svg>
                 ) : null}
             </div>
-            <footer className="flex h-11 shrink-0 items-center justify-between border-t border-[#f5f5f5] px-4 text-base text-[#767676]">
-                <div className="flex items-center gap-4">
+            <footer
+                className={classNames(
+                    styles.chartFooter,
+                    'flex shrink-0 items-center border-t border-[#f5f5f5] text-[#767676]',
+                )}
+            >
+                <div className={classNames(styles.chartFooterRanges, 'items-center gap-4')}>
                     <span>1D</span>
                     <span>5D</span>
                     <span>1M</span>
@@ -281,7 +297,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                     <span>6M</span>
                     <span>1Y</span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className={classNames(styles.chartFooterModes, 'items-center gap-3')}>
                     <span>{clock} UTC+8</span>
                     <span>%</span>
                     <span>log</span>

@@ -14,6 +14,7 @@ import { PerpsChart } from '@/components/Perps/PerpsChart.js';
 import { PerpsMarketSelector } from '@/components/Perps/PerpsMarketSelector.js';
 import { PerpsMetric } from '@/components/Perps/PerpsMetric.js';
 import { PerpsOrderBook } from '@/components/Perps/PerpsOrderBook.js';
+import styles from '@/components/Perps/PerpsResponsive.module.css';
 import { usePerpsAccountSubscriptions } from '@/components/Perps/usePerpsAccountSubscriptions.js';
 import { usePerpsMarketData } from '@/components/Perps/usePerpsMarketData.js';
 import { usePerpsMutationSubscriber } from '@/components/Perps/usePerpsMutationSubscriber.js';
@@ -24,6 +25,8 @@ import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { usePrivyAddresses } from '@/hooks/usePrivyAddresses.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
+
+type WorkspaceTab = 'chart' | 'order-book';
 
 function formatMetric(value?: string, options?: Intl.NumberFormatOptions) {
     const number = Number(value);
@@ -81,6 +84,7 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
     const { coinInfo, markets, rawCoin, error } = usePerpsMarketData(selectedCoin);
     const { evm: privyEvmAddress } = usePrivyAddresses();
     const accountAddress = privyEvmAddress as PerpsAddress | undefined;
+    const [workspaceTab, setWorkspaceTab] = useState<WorkspaceTab>('chart');
     usePerpsAccountSubscriptions(accountAddress);
     usePerpsMutationSubscriber(accountAddress);
 
@@ -129,95 +133,188 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
         [change, changeAmount, coinInfo],
     );
 
+    const buyIntent = useCallback(
+        () =>
+            void handleWalletIntent({
+                kind: 'place-order',
+                coin: selectedCoin,
+                direction: 'buy',
+                orderType: 'market',
+            }),
+        [handleWalletIntent, selectedCoin],
+    );
+    const sellIntent = useCallback(
+        () =>
+            void handleWalletIntent({
+                kind: 'place-order',
+                coin: selectedCoin,
+                direction: 'sell',
+                orderType: 'market',
+            }),
+        [handleWalletIntent, selectedCoin],
+    );
+
     return (
-        <div className="min-h-screen w-full overflow-x-hidden bg-white pb-16 text-lightTextMain">
-            <header className="flex h-[60px] items-center justify-between px-4">
-                <h1 className="text-xl font-bold leading-6">
-                    <Trans>Perpetuals</Trans>
-                </h1>
-                <PerpsAccountHeader address={accountAddress} onIntent={(intent) => void handleWalletIntent(intent)} />
-            </header>
-            <div className="flex h-[58px] items-center justify-between gap-4 overflow-visible border-b border-[#f5f5f5] px-3 py-2">
-                <PerpsMarketSelector
-                    markets={markets}
-                    selectedCoin={selectedCoin}
-                    leverage={metricValues.leverage}
-                    onSelect={handleSelectMarket}
-                />
-                <div className="no-scrollbar flex min-w-0 items-center overflow-x-auto">
-                    <PerpsMetric
-                        label={<Trans>Mark</Trans>}
-                        value={metricValues.mark}
-                        valueClassName="w-14"
-                        helpLabel={t`About Mark`}
-                        description={<Trans>The fair price used for margin and liquidation calculations.</Trans>}
+        <div className={styles.shell}>
+            <div
+                className={classNames(styles.page, 'min-h-screen w-full overflow-x-hidden bg-white text-lightTextMain')}
+            >
+                <header className={classNames(styles.pageHeader, 'flex items-center justify-between')}>
+                    <h1 className={classNames(styles.pageTitle, 'font-bold')}>
+                        <Trans>Perpetuals</Trans>
+                    </h1>
+                    <PerpsAccountHeader
+                        address={accountAddress}
+                        onIntent={(intent) => void handleWalletIntent(intent)}
                     />
-                    <PerpsMetric
-                        label={<Trans>Oracle</Trans>}
-                        value={metricValues.oracle}
-                        valueClassName="w-16"
-                        helpLabel={t`About Oracle`}
-                        description={<Trans>The external reference price reported to Hyperliquid.</Trans>}
-                    />
-                    <PerpsMetric
-                        label={<Trans>24h Change</Trans>}
-                        value={metricValues.change}
-                        valueClassName={classNames(
-                            'w-24',
-                            change === undefined
-                                ? 'text-lightTextMain'
-                                : change >= 0
-                                  ? 'text-[#3dc233]'
-                                  : 'text-[#ff564d]',
-                        )}
-                    />
-                    <PerpsMetric label={<Trans>24h Volume</Trans>} value={metricValues.volume} valueClassName="w-28" />
-                    <PerpsMetric
-                        label={<Trans>Open Interest</Trans>}
-                        value={metricValues.interest}
-                        valueClassName="w-28"
-                        helpLabel={t`About Open Interest`}
-                        description={<Trans>The notional value of currently open contracts.</Trans>}
-                    />
-                    <PerpsFundingMetric funding={coinInfo?.assetCtx?.funding} />
-                    <span data-testid="perps-market-metric" className="sr-only">
-                        <Trans>Maximum leverage</Trans>
-                        <span data-testid="perps-market-metric-value">{metricValues.leverage}</span>
-                    </span>
+                </header>
+                <div className={classNames(styles.marketBar, 'border-b border-[#f5f5f5]')}>
+                    <div className={styles.marketPrimary}>
+                        <PerpsMarketSelector
+                            markets={markets}
+                            selectedCoin={selectedCoin}
+                            leverage={metricValues.leverage}
+                            onSelect={handleSelectMarket}
+                        />
+                        <div className={styles.mobilePriceSummary}>
+                            <span className={styles.mobilePrice}>{metricValues.mark}</span>
+                            <span
+                                className={classNames(
+                                    styles.mobileChange,
+                                    change === undefined
+                                        ? 'text-[#767676]'
+                                        : change >= 0
+                                          ? 'text-[#3dc233]'
+                                          : 'text-[#ff564d]',
+                                )}
+                            >
+                                {metricValues.change}
+                            </span>
+                        </div>
+                    </div>
+                    <div className={styles.metricRail}>
+                        <div className={styles.mobileDuplicateMetric}>
+                            <PerpsMetric
+                                label={<Trans>Mark</Trans>}
+                                value={metricValues.mark}
+                                valueClassName="w-14"
+                                helpLabel={t`About Mark`}
+                                description={
+                                    <Trans>The fair price used for margin and liquidation calculations.</Trans>
+                                }
+                            />
+                        </div>
+                        <PerpsMetric
+                            label={<Trans>Oracle</Trans>}
+                            value={metricValues.oracle}
+                            valueClassName="w-16"
+                            helpLabel={t`About Oracle`}
+                            description={<Trans>The external reference price reported to Hyperliquid.</Trans>}
+                        />
+                        <div className={styles.mobileDuplicateMetric}>
+                            <PerpsMetric
+                                label={<Trans>24h Change</Trans>}
+                                value={metricValues.change}
+                                valueClassName={classNames(
+                                    'w-24',
+                                    change === undefined
+                                        ? 'text-lightTextMain'
+                                        : change >= 0
+                                          ? 'text-[#3dc233]'
+                                          : 'text-[#ff564d]',
+                                )}
+                            />
+                        </div>
+                        <PerpsMetric
+                            label={<Trans>24h Volume</Trans>}
+                            value={metricValues.volume}
+                            valueClassName="w-28"
+                        />
+                        <PerpsMetric
+                            label={<Trans>Open Interest</Trans>}
+                            value={metricValues.interest}
+                            valueClassName="w-28"
+                            helpLabel={t`About Open Interest`}
+                            description={<Trans>The notional value of currently open contracts.</Trans>}
+                        />
+                        <PerpsFundingMetric funding={coinInfo?.assetCtx?.funding} />
+                        <span data-testid="perps-market-metric" className="sr-only">
+                            <Trans>Maximum leverage</Trans>
+                            <span data-testid="perps-market-metric-value">{metricValues.leverage}</span>
+                        </span>
+                    </div>
+                </div>
+                {error ? (
+                    <div role="status" className="absolute z-20 bg-amber-50 px-4 py-1 text-xs text-[#767676]">
+                        <Trans>Live market updates are reconnecting.</Trans>
+                    </div>
+                ) : null}
+                <div className={styles.workspaceTabs} role="tablist" aria-label={t`Market view`}>
+                    <button
+                        type="button"
+                        role="tab"
+                        aria-selected={workspaceTab === 'chart'}
+                        aria-controls="perps-chart-panel"
+                        className={styles.workspaceTab}
+                        onClick={() => setWorkspaceTab('chart')}
+                    >
+                        <Trans>Chart</Trans>
+                    </button>
+                    <button
+                        type="button"
+                        role="tab"
+                        aria-selected={workspaceTab === 'order-book'}
+                        aria-controls="perps-order-book-panel"
+                        className={styles.workspaceTab}
+                        onClick={() => setWorkspaceTab('order-book')}
+                    >
+                        <Trans>Order Book</Trans>
+                    </button>
+                </div>
+                <div className={styles.workspace}>
+                    <div
+                        id="perps-chart-panel"
+                        role="tabpanel"
+                        className={classNames(styles.workspacePane, {
+                            [styles.workspacePaneActive]: workspaceTab === 'chart',
+                        })}
+                    >
+                        <PerpsChart
+                            coin={rawCoin}
+                            displayCoin={selectedMarketDisplayName}
+                            markPrice={coinInfo?.assetCtx?.markPx}
+                        />
+                    </div>
+                    <div
+                        id="perps-order-book-panel"
+                        role="tabpanel"
+                        className={classNames(styles.workspacePane, {
+                            [styles.workspacePaneActive]: workspaceTab === 'order-book',
+                        })}
+                    >
+                        <PerpsOrderBook coin={rawCoin} onBuy={buyIntent} onSell={sellIntent} />
+                    </div>
+                </div>
+                <PerpsAccountPanels address={accountAddress} onIntent={(intent) => void handleWalletIntent(intent)} />
+                <div className={styles.mobileTradeBar} aria-label={t`Trade actions`}>
+                    <button
+                        type="button"
+                        className={styles.mobileTradeButton}
+                        style={{ backgroundColor: '#3fa336' }}
+                        onClick={buyIntent}
+                    >
+                        <Trans>Buy/Long</Trans>
+                    </button>
+                    <button
+                        type="button"
+                        className={styles.mobileTradeButton}
+                        style={{ backgroundColor: '#ff372b' }}
+                        onClick={sellIntent}
+                    >
+                        <Trans>Sell/Short</Trans>
+                    </button>
                 </div>
             </div>
-            {error ? (
-                <div role="status" className="absolute z-20 bg-amber-50 px-4 py-1 text-xs text-[#767676]">
-                    <Trans>Live market updates are reconnecting.</Trans>
-                </div>
-            ) : null}
-            <div className="flex flex-col md:h-[557px] md:flex-row">
-                <PerpsChart
-                    coin={rawCoin}
-                    displayCoin={selectedMarketDisplayName}
-                    markPrice={coinInfo?.assetCtx?.markPx}
-                />
-                <PerpsOrderBook
-                    coin={rawCoin}
-                    onBuy={() =>
-                        void handleWalletIntent({
-                            kind: 'place-order',
-                            coin: selectedCoin,
-                            direction: 'buy',
-                            orderType: 'market',
-                        })
-                    }
-                    onSell={() =>
-                        void handleWalletIntent({
-                            kind: 'place-order',
-                            coin: selectedCoin,
-                            direction: 'sell',
-                            orderType: 'market',
-                        })
-                    }
-                />
-            </div>
-            <PerpsAccountPanels address={accountAddress} onIntent={(intent) => void handleWalletIntent(intent)} />
         </div>
     );
 });

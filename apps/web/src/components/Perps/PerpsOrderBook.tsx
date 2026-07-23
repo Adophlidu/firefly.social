@@ -16,6 +16,7 @@ import {
     type OrderBookRow,
     type OrderBookUnit,
 } from '@/components/Perps/orderBookPresentation.js';
+import styles from '@/components/Perps/PerpsResponsive.module.css';
 
 interface Props {
     coin: string;
@@ -181,9 +182,9 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
         <section
             data-testid="perps-order-book"
             aria-label={t`Order Book`}
-            className="flex h-[557px] w-56 shrink-0 flex-col border-y border-[#f5f5f5] bg-white"
+            className={classNames(styles.orderBook, 'flex shrink-0 flex-col border-y border-[#f5f5f5] bg-white')}
         >
-            <div className="flex h-[124px] shrink-0 flex-col gap-3 px-3 py-2">
+            <div className={classNames(styles.orderBookActions, 'h-[124px] shrink-0 flex-col gap-3 px-3 py-2')}>
                 <button
                     type="button"
                     aria-label={t`Buy / Long`}
@@ -201,7 +202,7 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
                     <Trans>Sell/Short</Trans>
                 </button>
             </div>
-            <div className="mt-2 flex min-h-0 flex-1 flex-col">
+            <div className={classNames(styles.orderBookBody, 'flex min-h-0 flex-1 flex-col')}>
                 <div className="flex h-6 gap-3">
                     <OrderBookSelect<number>
                         label={t`Select price aggregation`}
