@@ -31,7 +31,7 @@ export default function OverlaysPage() {
             >
                 <div className="w-full max-w-[420px] rounded-2xl border border-line bg-primaryBottom p-3 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
                     <div className="mx-auto mb-2 h-1 w-12 rounded-full bg-main" />
-                    <div className="flex flex-col gap-2 px-2 py-2 text-sm">
+                    <div className="flex flex-col gap-2 p-2 text-sm">
                         <p className="font-medium">Select an option</p>
                         <p className="text-second">Sheet content scrolls independently of the page.</p>
                     </div>
