@@ -38,6 +38,8 @@ import { formatPerpsHomeBalance } from '@/components/Perps/formatPerpsHomeBalanc
 import { getPerpsDexes } from '@/components/Perps/getPerpsDexes.js';
 import { getPerpsAccountTab, type PerpsAccountTab } from '@/components/Perps/perpsAccountTab.js';
 import { PerpsActionSheet } from '@/components/Perps/PerpsActionSheet.js';
+import { toPerpsCoinDisplayName } from '@/components/Perps/perpsCoin.js';
+import { usePerpsAccountSubscriptions } from '@/components/Perps/usePerpsAccountSubscriptions.js';
 import { useCachedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
 import { cn } from '@/lib/utils.js';
 
@@ -141,6 +143,7 @@ const PositionCard = memo(function PositionCard({
     const funding = Number(position.cumFunding.sinceOpen);
     const { tp, sl } = positionTpSl(orders, position.coin);
     const coin = `${position.coin}-USDC`;
+    const coinDisplayName = toPerpsCoinDisplayName(position.coin);
     const positionId = position.coin;
     const [sizeInUsd, setSizeInUsd] = useState(false);
 
@@ -153,7 +156,7 @@ const PositionCard = memo(function PositionCard({
                         className="flex items-center gap-1 text-sm font-semibold"
                         onClick={() => void openPerpsMarketOnWeb(coin)}
                     >
-                        {position.coin}
+                        {coinDisplayName}
                         <CoinArrowIcon className="size-3" />
                     </button>
                     <span className="text-xs leading-[14px] text-[#767676]">
@@ -193,11 +196,11 @@ const PositionCard = memo(function PositionCard({
                     label={
                         <button
                             type="button"
-                            aria-label={sizeInUsd ? `Show size in ${position.coin}` : 'Show size in USDC'}
+                            aria-label={sizeInUsd ? `Show size in ${coinDisplayName}` : 'Show size in USDC'}
                             className="flex items-center gap-0.5"
                             onClick={() => setSizeInUsd((value) => !value)}
                         >
-                            <Trans>Size</Trans>({sizeInUsd ? 'USDC' : position.coin})
+                            <Trans>Size</Trans>({sizeInUsd ? 'USDC' : coinDisplayName})
                             <SwapIcon className="size-4" />
                         </button>
                     }
@@ -301,6 +304,7 @@ const OpenOrderCard = memo(function OpenOrderCard({ order }: { order: OpenOrder 
     const filled = Math.max(Number(order.origSz) - Number(order.sz), 0);
     const orderPrice = order.orderType.includes('Market') ? <Trans>Market</Trans> : formatNumber(order.limitPx, 2);
     const coin = `${order.coin}-USDC`;
+    const coinDisplayName = toPerpsCoinDisplayName(order.coin);
 
     return (
         <article className="rounded-xl border border-[#f5f5f5] bg-white p-3 text-lightTextMain dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50">
@@ -308,7 +312,7 @@ const OpenOrderCard = memo(function OpenOrderCard({ order }: { order: OpenOrder 
                 <BtcIcon className="size-9 shrink-0" />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
-                        <strong className="text-sm font-semibold">{order.coin}</strong>
+                        <strong className="text-sm font-semibold">{coinDisplayName}</strong>
                         <PerpsIntentButton
                             intent={{ kind: 'cancel-order', coin, orderId: String(order.oid) }}
                             className="flex size-6 items-center justify-center text-[#767676]"
@@ -378,36 +382,31 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
     const markets = usePerpsMarkets();
     const dexes = useMemo(() => getPerpsDexes(markets.data), [markets.data]);
     const queryAddress = (address ?? '0x0000000000000000000000000000000000000000') as PerpsAddress;
-    const computedAccount = usePerpsComputedAccountValue(address as PerpsAddress | undefined, {
-        refetchInterval: 5_000,
-    });
+    usePerpsAccountSubscriptions(address as PerpsAddress | undefined);
+    const computedAccount = usePerpsComputedAccountValue(address as PerpsAddress | undefined);
     const abstraction = useQuery({
         ...perpsUserAbstractionQueryOptions(client, queryAddress),
         enabled: Boolean(address),
-        refetchInterval: 5_000,
+        staleTime: Number.POSITIVE_INFINITY,
     });
     const spotAccount = useQuery({
         ...perpsSpotAccountQueryOptions(client, queryAddress),
         enabled: Boolean(address),
-        refetchInterval: 5_000,
+        staleTime: Number.POSITIVE_INFINITY,
     });
     const [tab, setTab] = useState<PerpsAccountTab>(() => getPerpsAccountTab(intent));
     const accountQueries = useQueries({
         queries: dexes.map((dex) => ({
             ...perpsAccountQueryOptions(client, queryAddress, dex),
             enabled: Boolean(address),
-            staleTime: 0,
-            refetchOnMount: 'always' as const,
-            refetchInterval: 5_000,
+            staleTime: Number.POSITIVE_INFINITY,
         })),
     });
     const orderQueries = useQueries({
         queries: dexes.map((dex) => ({
             ...perpsOpenOrdersQueryOptions(client, queryAddress, dex),
             enabled: Boolean(address),
-            staleTime: 0,
-            refetchOnMount: 'always' as const,
-            refetchInterval: 5_000,
+            staleTime: Number.POSITIVE_INFINITY,
         })),
     });
     const data = accountQueries[0]?.data;
@@ -416,8 +415,8 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
         [accountQueries],
     );
     const openOrders = useMemo(() => orderQueries.flatMap((query) => query.data ?? []), [orderQueries]);
-    const isAccountLoading = accountQueries.some((query) => query.isLoading);
-    const isOrdersLoading = orderQueries.some((query) => query.isLoading);
+    const isAccountLoading = accountQueries.some((query) => query.isPending);
+    const isOrdersLoading = orderQueries.some((query) => query.isPending);
     const unifiedRisk = useMemo(
         () =>
             computeUnifiedAccountRisk(
@@ -606,6 +605,8 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                     intent={intent}
                     positions={positions.map(({ position }) => position)}
                     orders={openOrders}
+                    isAccountLoading={isAccountLoading}
+                    isOrdersLoading={isOrdersLoading}
                     withdrawable={withdrawable}
                     onClose={() => navigate({ to: '/perps', replace: true })}
                 />

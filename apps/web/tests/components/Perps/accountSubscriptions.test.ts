@@ -13,9 +13,9 @@ import {
 } from '@/components/Perps/perpsAccountSubscriptions.js';
 import { usePerpsAccountSubscriptions } from '@/components/Perps/usePerpsAccountSubscriptions.js';
 
-const { clearinghouseState, openOrders, spotState, unsubscribe, usePerpsClient, usePerpsMarkets, userFills } =
+const { allDexsClearinghouseState, openOrders, spotState, unsubscribe, usePerpsClient, usePerpsMarkets, userFills } =
     vi.hoisted(() => ({
-        clearinghouseState: vi.fn(),
+        allDexsClearinghouseState: vi.fn(),
         openOrders: vi.fn(),
         spotState: vi.fn(),
         unsubscribe: vi.fn(),
@@ -60,13 +60,13 @@ function createFill(tid: number, time: number) {
 beforeEach(() => {
     unsubscribe.mockReset();
 
-    for (const subscribe of [clearinghouseState, openOrders, spotState, userFills]) {
+    for (const subscribe of [allDexsClearinghouseState, openOrders, spotState, userFills]) {
         subscribe.mockReset();
         subscribe.mockImplementation(async () => ({ unsubscribe }));
     }
 
     usePerpsClient.mockReturnValue({
-        subscriptions: { clearinghouseState, openOrders, spotState, userFills },
+        subscriptions: { allDexsClearinghouseState, openOrders, spotState, userFills },
     });
     usePerpsMarkets.mockReturnValue({
         data: [{ universe: [{ name: 'BTC' }] }, { universe: [{ name: 'xyz:XYZ100' }] }],
@@ -94,15 +94,18 @@ describe('Perpetuals account subscriptions', () => {
             createElement(QueryClientProvider, { client: queryClient }, children);
         const { unmount } = renderHook(() => usePerpsAccountSubscriptions(ADDRESS), { wrapper });
 
-        await waitFor(() => expect(clearinghouseState).toHaveBeenCalledTimes(2));
+        await waitFor(() => expect(allDexsClearinghouseState).toHaveBeenCalledOnce());
 
-        expect(clearinghouseState.mock.calls.map(([params]) => params.dex)).toEqual(['', 'xyz']);
         expect(openOrders.mock.calls.map(([params]) => params.dex)).toEqual(['', 'xyz']);
         expect(userFills).toHaveBeenCalledOnce();
 
         act(() => {
-            clearinghouseState.mock.calls[0][1]({ clearinghouseState: { withdrawable: '12' } });
-            clearinghouseState.mock.calls[1][1]({ clearinghouseState: { assetPositions: [{ position: 'xyz' }] } });
+            allDexsClearinghouseState.mock.calls[0][1]({
+                clearinghouseStates: [
+                    ['', { withdrawable: '12' }],
+                    ['xyz', { assetPositions: [{ position: 'xyz' }] }],
+                ],
+            });
             spotState.mock.calls[0][1]({ spotState: { balances: [] } });
             openOrders.mock.calls[0][1]({ orders: [{ oid: 1 }] });
             openOrders.mock.calls[1][1]({ orders: [{ oid: 2 }] });
@@ -123,6 +126,6 @@ describe('Perpetuals account subscriptions', () => {
         ]);
 
         unmount();
-        await waitFor(() => expect(unsubscribe).toHaveBeenCalledTimes(6));
+        await waitFor(() => expect(unsubscribe).toHaveBeenCalledTimes(5));
     });
 });

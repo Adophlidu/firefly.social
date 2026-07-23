@@ -8,6 +8,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { toPerpsCoinDisplayName } from '@/components/Perps/marketSelection.js';
 import {
     buildOrderBookPresentation,
     getOrderBookRetryDelay,
@@ -148,6 +149,7 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
     onStepIndexChange,
     onUnitChange,
 }: PerpsOrderBookContentProps) {
+    const coinDisplayName = toPerpsCoinDisplayName(coin);
     const { book, levels, isLoading, error } = usePerpsL2Book({ coin, stepIndex, maxRows: 7, reverseAsks: false });
     const asks = useMemo(() => [...levels.asks].reverse(), [levels.asks]);
     const bids = levels.bids;
@@ -160,9 +162,9 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
     const unitOptions = useMemo<Array<SelectOption<OrderBookUnit>>>(
         () => [
             { label: 'USDC', value: 'USDC' },
-            { label: coin, value: 'coin' },
+            { label: coinDisplayName, value: 'coin' },
         ],
-        [coin],
+        [coinDisplayName],
     );
 
     useEffect(() => {
@@ -219,7 +221,7 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
                         <Trans>Price</Trans>
                     </span>
                     <span className="text-right">
-                        <Trans>Total ({unit === 'USDC' ? 'USDC' : coin})</Trans>
+                        <Trans>Total ({unit === 'USDC' ? 'USDC' : coinDisplayName})</Trans>
                     </span>
                 </div>
                 {isLoading ? (

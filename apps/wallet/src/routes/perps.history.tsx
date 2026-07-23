@@ -12,6 +12,7 @@ import AccountWithdrawIcon from '@/assets/perps-history/withdraw.svg';
 import BackIcon from '@/assets/perps-profile/back.svg';
 import BtcIcon from '@/assets/perps-profile/btc.svg';
 import { NavigationBar } from '@/components/NavigationBar.js';
+import { toPerpsCoinDisplayName } from '@/components/Perps/perpsCoin.js';
 import { useCachedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
 import { cn } from '@/lib/utils.js';
 
@@ -98,7 +99,9 @@ const TradingHistoryCard = memo(function TradingHistoryCard({ fill }: { fill: Fi
             <div className="flex items-center gap-2">
                 <BtcIcon className="size-9 shrink-0" />
                 <div className="min-w-0 flex-1">
-                    <h2 className="truncate text-sm font-semibold leading-5">{fill.coin}USDC</h2>
+                    <h2 className="truncate text-sm font-semibold leading-5">
+                        {toPerpsCoinDisplayName(fill.coin)}USDC
+                    </h2>
                     <p className="text-xs leading-[14px] text-[#767676]">{fill.dir}</p>
                 </div>
                 {showPnl ? (

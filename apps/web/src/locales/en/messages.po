@@ -358,7 +358,7 @@ msgstr "{teamName} 2H Totals"
 msgid "Mute {walletHandle}"
 msgstr "Mute {walletHandle}"
 
-#. placeholder {0}: unit === 'USDC' ? 'USDC' : coin
+#. placeholder {0}: unit === 'USDC' ? 'USDC' : coinDisplayName
 msgid "Total ({0})"
 msgstr "Total ({0})"
 
@@ -633,11 +633,17 @@ msgstr "Liked."
 msgid "Trending"
 msgstr "Trending"
 
+msgid "Add {marketDisplayName} favorite"
+msgstr "Add {marketDisplayName} favorite"
+
 msgid "View similar symbols"
 msgstr "View similar symbols"
 
 msgid "DAOs"
 msgstr "DAOs"
+
+msgid "Add {selectedMarketDisplayName} favorite"
+msgstr "Add {selectedMarketDisplayName} favorite"
 
 msgid "Scheduled"
 msgstr "Scheduled"
@@ -1386,9 +1392,6 @@ msgstr "Go to Farcaster"
 
 msgid "Failed to refund red packet."
 msgstr "Failed to refund red packet."
-
-msgid "Add {selectedCoin} favorite"
-msgstr "Add {selectedCoin} favorite"
 
 msgid "Remove Poll"
 msgstr "Remove Poll"
@@ -2457,10 +2460,6 @@ msgstr "To post in this club you must be a member."
 msgid "Post could not be found."
 msgstr "Post could not be found."
 
-#. placeholder {0}: market.coin
-msgid "Add {0} favorite"
-msgstr "Add {0} favorite"
-
 msgid "For you"
 msgstr "For you"
 
@@ -3007,9 +3006,6 @@ msgstr "GIF count limit reached"
 msgid "Loading payment request"
 msgstr "Loading payment request"
 
-msgid "Remove {selectedCoin} favorite"
-msgstr "Remove {selectedCoin} favorite"
-
 msgid "Unsaved draft found"
 msgstr "Unsaved draft found"
 
@@ -3034,6 +3030,9 @@ msgstr "No verified addresses found"
 
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
+
+msgid "Remove {marketDisplayName} favorite"
+msgstr "Remove {marketDisplayName} favorite"
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "The contract owner has restrictions on anti whale."
@@ -3244,10 +3243,6 @@ msgstr "The contract owner may contain the authority to modify the transaction t
 
 msgid "All Wallets"
 msgstr "All Wallets"
-
-#. placeholder {0}: market.coin
-msgid "Remove {0} favorite"
-msgstr "Remove {0} favorite"
 
 msgid "GIFs could not be loaded"
 msgstr "GIFs could not be loaded"
@@ -3857,6 +3852,9 @@ msgstr "Your Recovery Phrase"
 #. placeholder {0}: channel.name
 msgid "Added #{0} on {sourceName}"
 msgstr "Added #{0} on {sourceName}"
+
+msgid "Remove {selectedMarketDisplayName} favorite"
+msgstr "Remove {selectedMarketDisplayName} favorite"
 
 msgid "Failed to switch chain"
 msgstr "Failed to switch chain"

@@ -19,7 +19,7 @@ import BigNumber from 'bignumber.js';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { getPerpsDexes } from '@/components/Perps/getPerpsDexes.js';
-import { toDisplayPerpsMarketName } from '@/components/Perps/marketSelection.js';
+import { toDisplayPerpsMarketName, toPerpsCoinDisplayName } from '@/components/Perps/marketSelection.js';
 import {
     isOpenOrderEditChanged,
     isValidOpenOrderEdit,
@@ -414,7 +414,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                                         isLong ? 'text-[#3dc233]' : 'text-[#ff564d]',
                                                     )}
                                                 >
-                                                    {order.coin}
+                                                    {toPerpsCoinDisplayName(order.coin)}
                                                 </span>
                                             </td>
                                             <td className="min-w-[200px]">
@@ -631,7 +631,9 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                                         isLong ? 'bg-[#3dc233]' : 'bg-[#ff564d]',
                                                     )}
                                                 />
-                                                <span className="block font-bold">{position.coin}</span>
+                                                <span className="block font-bold">
+                                                    {toPerpsCoinDisplayName(position.coin)}
+                                                </span>
                                                 <span className="mt-1 inline-flex rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium leading-[14px] text-[#a9a6bc]">
                                                     {position.leverage.value}x
                                                 </span>
@@ -771,10 +773,12 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                             <td className={directionClassName}>
                                                 <FillDirectionLabel direction={fill.dir} />
                                             </td>
-                                            <td className={classNames('font-bold', directionClassName)}>{fill.coin}</td>
+                                            <td className={classNames('font-bold', directionClassName)}>
+                                                {toPerpsCoinDisplayName(fill.coin)}
+                                            </td>
                                             <td>{formatNumber(fill.px)}</td>
                                             <td>
-                                                {formatSize(fill.sz)} {fill.coin}
+                                                {formatSize(fill.sz)} {toPerpsCoinDisplayName(fill.coin)}
                                             </td>
                                             <td>{tradeValue.toFormat(2)} USDC</td>
                                             <td

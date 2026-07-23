@@ -356,7 +356,7 @@ msgstr "{teamName} 下半場總分"
 msgid "Mute {walletHandle}"
 msgstr "隱藏 {walletHandle}"
 
-#. placeholder {0}: unit === 'USDC' ? 'USDC' : coin
+#. placeholder {0}: unit === 'USDC' ? 'USDC' : coinDisplayName
 msgid "Total ({0})"
 msgstr ""
 
@@ -629,11 +629,17 @@ msgstr "已按讚。"
 msgid "Trending"
 msgstr "熱門"
 
+msgid "Add {marketDisplayName} favorite"
+msgstr ""
+
 msgid "View similar symbols"
 msgstr "查看名稱相似的代幣"
 
 msgid "DAOs"
 msgstr "DAOs"
+
+msgid "Add {selectedMarketDisplayName} favorite"
+msgstr ""
 
 msgid "Scheduled"
 msgstr "已預約"
@@ -1379,9 +1385,6 @@ msgstr "前往 Farcaster"
 
 msgid "Failed to refund red packet."
 msgstr "退款紅包失敗"
-
-msgid "Add {selectedCoin} favorite"
-msgstr ""
 
 msgid "Remove Poll"
 msgstr "移除投票"
@@ -2445,10 +2448,6 @@ msgstr "要在此群組發文，你必須是成員。"
 msgid "Post could not be found."
 msgstr "找不到貼文。"
 
-#. placeholder {0}: market.coin
-msgid "Add {0} favorite"
-msgstr ""
-
 msgid "For you"
 msgstr "為你推薦"
 
@@ -2992,9 +2991,6 @@ msgstr "達到 GIF 數量上限"
 msgid "Loading payment request"
 msgstr "正在載入付款請求"
 
-msgid "Remove {selectedCoin} favorite"
-msgstr ""
-
 msgid "Unsaved draft found"
 msgstr "發現未儲存的草稿"
 
@@ -3019,6 +3015,9 @@ msgstr "未發現已驗證地址"
 
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr "市值數據來自 CoinGecko，包含該代幣在其他區塊鏈上的發行量。"
+
+msgid "Remove {marketDisplayName} favorite"
+msgstr ""
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "合約持有者設有反巨鯨機制。"
@@ -3226,10 +3225,6 @@ msgstr "合約持有者可能具備修改交易稅權限，若稅率超過 49% �
 
 msgid "All Wallets"
 msgstr "所有錢包"
-
-#. placeholder {0}: market.coin
-msgid "Remove {0} favorite"
-msgstr ""
 
 msgid "GIFs could not be loaded"
 msgstr "無法載入 GIF"
@@ -3837,6 +3832,9 @@ msgstr "您的助記詞"
 #. placeholder {0}: channel.name
 msgid "Added #{0} on {sourceName}"
 msgstr "在 {sourceName} 新增了 #{0}"
+
+msgid "Remove {selectedMarketDisplayName} favorite"
+msgstr ""
 
 msgid "Failed to switch chain"
 msgstr "切換鏈失敗"

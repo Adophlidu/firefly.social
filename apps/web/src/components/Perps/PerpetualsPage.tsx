@@ -7,7 +7,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { DEFAULT_PERPS_MARKET } from '@/components/Perps/marketSelection.js';
+import { DEFAULT_PERPS_MARKET, toPerpsMarketDisplayName } from '@/components/Perps/marketSelection.js';
 import { PerpsAccountHeader } from '@/components/Perps/PerpsAccountHeader.js';
 import { PerpsAccountPanels } from '@/components/Perps/PerpsAccountPanels.js';
 import { PerpsChart } from '@/components/Perps/PerpsChart.js';
@@ -77,6 +77,7 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
     const searchParams = useSearchParams();
     const openFireflyWallet = useOpenFireflyWallet();
     const selectedCoin = searchParams.get('coin') || DEFAULT_PERPS_MARKET;
+    const selectedMarketDisplayName = toPerpsMarketDisplayName(selectedCoin);
     const { coinInfo, markets, rawCoin, error } = usePerpsMarketData(selectedCoin);
     const { evm: privyEvmAddress } = usePrivyAddresses();
     const accountAddress = privyEvmAddress as PerpsAddress | undefined;
@@ -191,7 +192,11 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
                 </div>
             ) : null}
             <div className="flex flex-col md:h-[557px] md:flex-row">
-                <PerpsChart coin={rawCoin} displayCoin={selectedCoin} markPrice={coinInfo?.assetCtx?.markPx} />
+                <PerpsChart
+                    coin={rawCoin}
+                    displayCoin={selectedMarketDisplayName}
+                    markPrice={coinInfo?.assetCtx?.markPx}
+                />
                 <PerpsOrderBook
                     coin={rawCoin}
                     onBuy={() =>

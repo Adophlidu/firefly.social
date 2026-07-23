@@ -38,6 +38,14 @@ export function toDisplayPerpsMarketName(coin: string) {
     return coin.endsWith('-USDC') ? coin : `${coin}-USDC`;
 }
 
+export function toPerpsCoinDisplayName(coin: string) {
+    return toRawPerpsMarketName(coin).split(':').pop() ?? coin;
+}
+
+export function toPerpsMarketDisplayName(coin: string) {
+    return `${toPerpsCoinDisplayName(coin)}-USDC`;
+}
+
 export function resolvePerpsMarketIconUrl(coin: string) {
     return `https://app.hyperliquid.xyz/coins/${encodeURIComponent(toRawPerpsMarketName(coin))}.svg`;
 }

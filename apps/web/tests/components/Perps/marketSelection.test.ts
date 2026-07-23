@@ -5,6 +5,8 @@ import {
     filterAndOrderPerpsMarkets,
     parsePerpsMarketFromUrl,
     resolvePerpsMarketIconUrl,
+    toPerpsCoinDisplayName,
+    toPerpsMarketDisplayName,
     toPerpsMarketUrl,
 } from '@/components/Perps/marketSelection.js';
 
@@ -23,6 +25,12 @@ const markets: MarketFixture[] = [
 ];
 
 describe('Perpetuals market selection contract', () => {
+    it('hides HIP-3 DEX prefixes only in display names', () => {
+        expect(toPerpsCoinDisplayName('xyz:SNDK-USDC')).toBe('SNDK'); // ASSERTION (frozen)
+        expect(toPerpsMarketDisplayName('xyz:SNDK')).toBe('SNDK-USDC'); // ASSERTION (frozen)
+        expect(toPerpsMarketDisplayName('BTC-USDC')).toBe('BTC-USDC'); // ASSERTION (frozen)
+    });
+
     it('uses BTC-USDC when the URL does not select a market', () => {
         expect(DEFAULT_PERPS_MARKET).toBe('BTC-USDC'); // ASSERTION (frozen)
         expect(parsePerpsMarketFromUrl(new URL('https://firefly.social/en/perpetuals'))).toBe('BTC-USDC'); // ASSERTION (frozen)

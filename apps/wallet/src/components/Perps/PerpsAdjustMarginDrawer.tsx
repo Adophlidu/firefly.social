@@ -6,6 +6,7 @@ import {
     getAdjustMarginInputState,
     MIN_ISOLATED_MARGIN_ADJUST_USD,
 } from '@/components/Perps/adjustMarginInput.js';
+import { toPerpsCoinDisplayName } from '@/components/Perps/perpsCoin.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer.js';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select.js';
@@ -50,6 +51,7 @@ export function PerpsAdjustMarginDrawer({
     onClose,
     onConfirm,
 }: Props) {
+    const coinDisplayName = toPerpsCoinDisplayName(coin);
     const state = getAdjustMarginInputState({
         amount,
         mode,
@@ -93,7 +95,7 @@ export function PerpsAdjustMarginDrawer({
                     <div className="flex items-center gap-2">
                         <TokenIcon
                             size={30}
-                            symbol={coin}
+                            symbol={coinDisplayName}
                             icon={`https://app.hyperliquid.xyz/coins/${encodeURIComponent(coin)}.svg`}
                         />
                         <span className="text-sm font-semibold leading-[14px]">

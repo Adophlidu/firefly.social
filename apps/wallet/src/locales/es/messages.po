@@ -268,9 +268,6 @@ msgstr ""
 msgid "Failed to enable authentication"
 msgstr "Error al habilitar la autenticación"
 
-msgid "Amount({coin})"
-msgstr ""
-
 msgid "Mid"
 msgstr ""
 
@@ -823,6 +820,9 @@ msgstr "Interactuado"
 
 msgid "The address could not be found."
 msgstr "No se pudo encontrar la dirección."
+
+msgid "Amount({coinDisplayName})"
+msgstr ""
 
 msgid "Adjust Leverage"
 msgstr ""

@@ -13,6 +13,8 @@ import {
     filterAndOrderPerpsMarkets,
     type PerpsMarketCategory,
     resolvePerpsMarketIconUrl,
+    toPerpsCoinDisplayName,
+    toPerpsMarketDisplayName,
     toRawPerpsMarketName,
 } from '@/components/Perps/marketSelection.js';
 import { PerpsFavoriteButton } from '@/components/Perps/PerpsFavoriteButton.js';
@@ -44,11 +46,6 @@ interface Props {
     selectedCoin: string;
     leverage?: string;
     onSelect: (coin: string) => void;
-}
-
-function formatMarketName(coin: string) {
-    const name = coin.split(':').at(-1) ?? coin;
-    return name.endsWith('-USDC') ? name.slice(0, -5) : name;
 }
 
 function formatPrice(value?: string) {
@@ -83,6 +80,7 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
     const queryClient = useQueryClient();
     const currentProfileSession = useFireflyProfileStore.use.currentProfileSession();
     const profileId = currentProfileSession?.profileId;
+    const selectedMarketDisplayName = toPerpsMarketDisplayName(selectedCoin);
     const [query, setQuery] = useState('');
     const [category, setCategory] = useState<PerpsMarketCategory>('all');
     const categoriesQuery = useQuery({
@@ -189,8 +187,8 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                             favorite={favorites.has(toRawPerpsMarketName(selectedCoin).toLowerCase())}
                             label={
                                 favorites.has(toRawPerpsMarketName(selectedCoin).toLowerCase())
-                                    ? t`Remove ${selectedCoin} favorite`
-                                    : t`Add ${selectedCoin} favorite`
+                                    ? t`Remove ${selectedMarketDisplayName} favorite`
+                                    : t`Add ${selectedMarketDisplayName} favorite`
                             }
                             className="size-5"
                             disabled={favoriteMutation.isPending}
@@ -204,7 +202,7 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                 data-testid="perps-selected-market"
                                 className="font-[Poppins] text-2xl font-semibold leading-9 text-lightTextMain"
                             >
-                                {selectedCoin}
+                                {selectedMarketDisplayName}
                             </span>
                             <span className="rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium leading-[14px] text-[#a9a6bc]">
                                 {leverage ?? '--'}
@@ -287,6 +285,8 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                         orderedMarkets.map((market) => {
                                             const change = market.priceChangeRatio;
                                             const funding = Number(market.fundingRate);
+                                            const coinDisplayName = toPerpsCoinDisplayName(market.coin);
+                                            const marketDisplayName = toPerpsMarketDisplayName(market.coin);
                                             return (
                                                 <div
                                                     key={market.coin}
@@ -313,8 +313,8 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                                             favorite={market.favorite}
                                                             label={
                                                                 market.favorite
-                                                                    ? t`Remove ${market.coin} favorite`
-                                                                    : t`Add ${market.coin} favorite`
+                                                                    ? t`Remove ${marketDisplayName} favorite`
+                                                                    : t`Add ${marketDisplayName} favorite`
                                                             }
                                                             className="size-[18px]"
                                                             disabled={favoriteMutation.isPending}
@@ -324,13 +324,13 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                                             }}
                                                         />
                                                         <TokenIcon
-                                                            name={formatMarketName(market.coin)}
+                                                            name={coinDisplayName}
                                                             icon={resolvePerpsMarketIconUrl(market.coin)}
                                                             size={18}
                                                             className="shrink-0"
                                                         />
                                                         <span className="truncate text-lightTextMain">
-                                                            {formatMarketName(market.coin)}
+                                                            {coinDisplayName}
                                                         </span>
                                                         <span className="flex h-5 items-center rounded bg-[rgba(61,194,51,0.1)] px-1 text-xs font-medium leading-[14px] text-[#3dc233]">
                                                             {market.maxLeverage ? `${market.maxLeverage}x` : '--'}

@@ -356,7 +356,7 @@ msgstr "{teamName} 後半合計"
 msgid "Mute {walletHandle}"
 msgstr "{walletHandle} をミュート"
 
-#. placeholder {0}: unit === 'USDC' ? 'USDC' : coin
+#. placeholder {0}: unit === 'USDC' ? 'USDC' : coinDisplayName
 msgid "Total ({0})"
 msgstr ""
 
@@ -629,11 +629,17 @@ msgstr "いいねしました。"
 msgid "Trending"
 msgstr "トレンド"
 
+msgid "Add {marketDisplayName} favorite"
+msgstr ""
+
 msgid "View similar symbols"
 msgstr "類似した名前のトークンを見る"
 
 msgid "DAOs"
 msgstr "DAO"
+
+msgid "Add {selectedMarketDisplayName} favorite"
+msgstr ""
 
 msgid "Scheduled"
 msgstr "予約済み"
@@ -1379,9 +1385,6 @@ msgstr "Farcaster へ移動"
 
 msgid "Failed to refund red packet."
 msgstr "お年玉の返金に失敗しました。"
-
-msgid "Add {selectedCoin} favorite"
-msgstr ""
 
 msgid "Remove Poll"
 msgstr "アンケートを削除"
@@ -2445,10 +2448,6 @@ msgstr "このクラブに投稿するにはメンバーである必要があり
 msgid "Post could not be found."
 msgstr "投稿が見つかりませんでした。"
 
-#. placeholder {0}: market.coin
-msgid "Add {0} favorite"
-msgstr ""
-
 msgid "For you"
 msgstr "おすすめ"
 
@@ -2992,9 +2991,6 @@ msgstr "GIF 数の上限に達しました"
 msgid "Loading payment request"
 msgstr "支払いリクエストを読み込み中"
 
-msgid "Remove {selectedCoin} favorite"
-msgstr ""
-
 msgid "Unsaved draft found"
 msgstr "未保存の下書きが見つかりました"
 
@@ -3019,6 +3015,9 @@ msgstr "認証済みアドレスが見つかりません"
 
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr "時価総額は CoinGecko から取得され、他のブロックチェーンで発行されたトークンも含まれます。"
+
+msgid "Remove {marketDisplayName} favorite"
+msgstr ""
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "コントラクトオーナーは反クジラに制限を設けています。"
@@ -3226,10 +3225,6 @@ msgstr "コントラクトオーナーは取引税を変更する権限を持っ
 
 msgid "All Wallets"
 msgstr "全ウォレット"
-
-#. placeholder {0}: market.coin
-msgid "Remove {0} favorite"
-msgstr ""
 
 msgid "GIFs could not be loaded"
 msgstr "GIF を読み込めませんでした"
@@ -3837,6 +3832,9 @@ msgstr "リカバリーフレーズ"
 #. placeholder {0}: channel.name
 msgid "Added #{0} on {sourceName}"
 msgstr "{sourceName} で #{0} を追加しました"
+
+msgid "Remove {selectedMarketDisplayName} favorite"
+msgstr ""
 
 msgid "Failed to switch chain"
 msgstr "チェーンの切り替えに失敗しました"

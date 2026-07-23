@@ -4,9 +4,7 @@ import type { QueryClient } from '@tanstack/react-query';
 import { HYPERLIQUID_QUERY_KEY_ROOT } from '@/constants/hyperliquid.js';
 
 /**
- * Invalidates every Hyperliquid/perps query cache after a perps mutation settles.
- * Deposits also move the wallet's on-chain token balances, so pass
- * `includeTokenBalance` for deposit flows.
+ * Refreshes balance data after a deposit or withdrawal settles.
  */
 export function invalidatePerpsQueries(
     queryClient: QueryClient,
@@ -14,7 +12,8 @@ export function invalidatePerpsQueries(
 ) {
     return Promise.all([
         queryClient.invalidateQueries({ queryKey: [HYPERLIQUID_QUERY_KEY_ROOT] }),
-        queryClient.invalidateQueries({ queryKey: perpsQueryKeys.all }),
+        queryClient.invalidateQueries({ queryKey: [...perpsQueryKeys.all, 'account'] }),
+        queryClient.invalidateQueries({ queryKey: [...perpsQueryKeys.all, 'spot-account'] }),
         ...(includeTokenBalance ? [queryClient.invalidateQueries({ queryKey: ['token-balance'] })] : []),
     ]);
 }

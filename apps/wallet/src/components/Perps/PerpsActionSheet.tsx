@@ -17,7 +17,7 @@ import {
 import { usePerpsClient, usePerpsMarkets } from '@dimensiondev/perps-react';
 import { Trans } from '@lingui/react/macro';
 import type { ClearinghouseStateResponse, FrontendOpenOrdersResponse } from '@nktkas/hyperliquid/api/info';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import { ArrowLeftRight } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -28,14 +28,15 @@ import { type AdjustMarginMode, getAdjustMarginInputState } from '@/components/P
 import { buildPerpsModifyOrder } from '@/components/Perps/buildPerpsModifyOrder.js';
 import { buildPerpsPositionTpsl } from '@/components/Perps/buildPerpsPositionTpsl.js';
 import { executePerpsCloseAll, PerpsPartialSuccessError } from '@/components/Perps/executePerpsCloseAll.js';
+import { getPerpsActionTargetStatus } from '@/components/Perps/getPerpsActionTargetStatus.js';
 import { getTopLevelOpenOrders } from '@/components/Perps/getTopLevelOpenOrders.js';
 import { PerpsAdjustMarginDrawer } from '@/components/Perps/PerpsAdjustMarginDrawer.js';
-import { toRawPerpsCoin } from '@/components/Perps/perpsCoin.js';
+import { toPerpsCoinDisplayName, toRawPerpsCoin } from '@/components/Perps/perpsCoin.js';
 import { usePerpsMarketData } from '@/components/Perps/usePerpsMarketData.js';
 import { useTpSlField } from '@/components/Perps/useTpSlField.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer.js';
-import { invalidatePerpsQueries } from '@/helpers/invalidatePerpsQueries.js';
+import { Spinner } from '@/components/ui/spinner.js';
 import { publishPerpsMutation } from '@/helpers/perpsMutation.js';
 import { withSkipPinCodeCheck } from '@/helpers/withSkipPinCodeCheck.js';
 import { cn } from '@/lib/utils.js';
@@ -47,6 +48,8 @@ interface Props {
     intent: ActionIntent;
     positions: Position[];
     orders: FrontendOpenOrdersResponse;
+    isAccountLoading: boolean;
+    isOrdersLoading: boolean;
     withdrawable?: string;
     onClose(): void;
 }
@@ -72,15 +75,23 @@ function titleForIntent(kind: ActionIntent['kind']) {
     }
 }
 
-export function PerpsActionSheet({ intent, positions, orders, withdrawable, onClose }: Props) {
+export function PerpsActionSheet({
+    intent,
+    positions,
+    orders,
+    isAccountLoading,
+    isOrdersLoading,
+    withdrawable,
+    onClose,
+}: Props) {
     const client = usePerpsClient();
     const markets = usePerpsMarkets();
-    const queryClient = useQueryClient();
     const connectors = useConnectors();
     const { data: walletClient } = useWalletClient({
         connector: connectors.find((connector) => connector.id === PRIVY_CONNECTOR_ID),
     });
     const targetCoin = 'coin' in intent && intent.coin ? toRawPerpsCoin(intent.coin) : (positions[0]?.coin ?? 'BTC');
+    const targetCoinDisplayName = toPerpsCoinDisplayName(targetCoin);
     const { coinInfo } = usePerpsMarketData(targetCoin);
     const [amount, setAmount] = useState('');
     const [marginAdjustMode, setMarginAdjustMode] = useState<AdjustMarginMode>('add');
@@ -107,7 +118,18 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
             sl: positionOrders.find((order) => order.orderType.startsWith('Stop')),
         };
     }, [orders, targetCoin]);
-    const isTargetMissing = ('positionId' in intent && !targetPosition) || ('orderId' in intent && !targetOrder);
+    const targetStatus = getPerpsActionTargetStatus({
+        intent,
+        hasPosition: Boolean(targetPosition),
+        hasOrder: Boolean(targetOrder),
+        isAccountLoading,
+        isOrdersLoading,
+        isMarketsLoading: markets.isLoading,
+    });
+    const isTargetLoading =
+        targetStatus === 'loading' ||
+        (targetStatus === 'ready' && ('positionId' in intent || 'orderId' in intent) && !coinInfo);
+    const isTargetMissing = targetStatus === 'missing';
     const absolutePositionSize = targetPosition ? new BigNumber(targetPosition.szi).abs().toFixed() : '0';
     const markPrice =
         coinInfo?.assetCtx?.markPx ??
@@ -309,16 +331,12 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
                 ...('positionId' in intent ? { positionId: intent.positionId } : {}),
                 ...('orderId' in intent ? { orderId: intent.orderId } : {}),
             });
-            await invalidatePerpsQueries(queryClient);
             toast.success(<Trans>Action submitted.</Trans>);
             onClose();
         },
         async onError(error) {
             const message = error instanceof Error ? error.message : 'Action failed.';
             const isPartialSuccess = error instanceof PerpsPartialSuccessError;
-            if (isPartialSuccess) {
-                await invalidatePerpsQueries(queryClient);
-            }
             await publishPerpsMutation(intent.kind, 'failed', { message, partial: isPartialSuccess });
             toast.error(isPartialSuccess ? <Trans>Action partially completed.</Trans> : <Trans>Action failed.</Trans>, {
                 description: message,
@@ -333,7 +351,6 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
                 await exchange.cancel({ cancels: [{ a: coinInfo.index, o: orderId }] });
             }),
         async onSuccess() {
-            await invalidatePerpsQueries(queryClient);
             toast.success(<Trans>TP/SL canceled.</Trans>);
         },
         onError(error) {
@@ -462,7 +479,7 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
         );
     }
 
-    if (intent.kind === 'cancel-all' || intent.kind === 'close-all') {
+    if ((intent.kind === 'cancel-all' || intent.kind === 'close-all') && !isTargetLoading) {
         const isCancelAll = intent.kind === 'cancel-all';
         return (
             <Drawer
@@ -529,15 +546,20 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
                 <DrawerHeader>
                     <DrawerTitle>{titleForIntent(intent.kind)}</DrawerTitle>
                 </DrawerHeader>
+                {isTargetLoading ? (
+                    <div className="flex h-32 items-center justify-center">
+                        <Spinner className="size-6 text-[#4c4aa9]" />
+                    </div>
+                ) : null}
                 {isTargetMissing ? (
                     <p role="alert" className="rounded-lg bg-red-50 p-4 text-sm text-[#ff3545]">
                         <Trans>The position or order is no longer available. Refresh the web page and try again.</Trans>
                     </p>
                 ) : null}
-                {!isTargetMissing && intent.kind === 'add-margin' ? (
+                {!isTargetLoading && !isTargetMissing && intent.kind === 'add-margin' ? (
                     <ActionInput label={<Trans>Amount</Trans>} value={amount} onChange={setAmount} suffix="USDC" />
                 ) : null}
-                {!isTargetMissing && intent.kind === 'edit-tpsl' ? (
+                {!isTargetLoading && !isTargetMissing && intent.kind === 'edit-tpsl' ? (
                     <div className="grid grid-cols-2 gap-2">
                         <ActionInput
                             label={<Trans>Take Profit</Trans>}
@@ -553,14 +575,14 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
                         />
                     </div>
                 ) : null}
-                {!isTargetMissing && isClose ? (
+                {!isTargetLoading && !isTargetMissing && isClose ? (
                     <div className="space-y-3">
                         <ActionInput
                             label={<Trans>Size</Trans>}
                             value={amount}
                             onChange={setAmount}
                             placeholder={targetPosition ? new BigNumber(targetPosition.szi).abs().toFixed() : '0'}
-                            suffix={targetCoin}
+                            suffix={targetCoinDisplayName}
                         />
                         {intent.kind === 'limit-close' ? (
                             <ActionInput
@@ -572,7 +594,7 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
                         ) : null}
                     </div>
                 ) : null}
-                {!isTargetMissing && intent.kind === 'modify-order' ? (
+                {!isTargetLoading && !isTargetMissing && intent.kind === 'modify-order' ? (
                     <div className="py-2">
                         <span className="block text-sm text-[#767676] dark:text-neutral-400">
                             {intent.field === 'size' ? <Trans>Size</Trans> : <Trans>Price</Trans>}
@@ -584,7 +606,7 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
                             </span>
                             <span>{intent.value}</span>
                             <span className="text-sm font-medium text-[#767676] dark:text-neutral-400">
-                                {intent.field === 'size' ? targetCoin : 'USDC'}
+                                {intent.field === 'size' ? targetCoinDisplayName : 'USDC'}
                             </span>
                         </div>
                         <p className="mt-3 text-[13px] leading-[17px] text-[#767676] dark:text-neutral-400">
@@ -592,19 +614,21 @@ export function PerpsActionSheet({ intent, positions, orders, withdrawable, onCl
                         </p>
                     </div>
                 ) : null}
-                {!isTargetMissing && isConfirmation ? (
+                {!isTargetLoading && !isTargetMissing && isConfirmation ? (
                     <p className="rounded-lg bg-[#f5f5f9] p-4 text-sm dark:bg-neutral-900">
                         <Trans>This action will be submitted to Hyperliquid. Please confirm to continue.</Trans>
                     </p>
                 ) : null}
-                <button
-                    type="button"
-                    disabled={isTargetMissing || mutation.isPending}
-                    className="mb-2 mt-6 h-12 w-full rounded-full bg-lightTextMain text-base font-bold text-white disabled:opacity-40 dark:bg-white dark:text-lightTextMain"
-                    onClick={() => mutation.mutate()}
-                >
-                    {mutation.isPending ? <Trans>Submitting…</Trans> : <Trans>Confirm</Trans>}
-                </button>
+                {!isTargetLoading ? (
+                    <button
+                        type="button"
+                        disabled={isTargetMissing || mutation.isPending}
+                        className="mb-2 mt-6 h-12 w-full rounded-full bg-lightTextMain text-base font-bold text-white disabled:opacity-40 dark:bg-white dark:text-lightTextMain"
+                        onClick={() => mutation.mutate()}
+                    >
+                        {mutation.isPending ? <Trans>Submitting…</Trans> : <Trans>Confirm</Trans>}
+                    </button>
+                ) : null}
             </DrawerContent>
         </Drawer>
     );
@@ -722,6 +746,7 @@ function ClosePositionDrawer({
     onConfirm(): void;
 }) {
     const pnlIsNegative = estimatedPnl?.isNegative() ?? false;
+    const coinDisplayName = toPerpsCoinDisplayName(coin);
     return (
         <PerpsDrawerFrame
             title={type === 'market' ? <Trans>Market Close</Trans> : <Trans>Limit Close</Trans>}
@@ -731,7 +756,7 @@ function ClosePositionDrawer({
                 <div className="flex items-center gap-2">
                     <TokenIcon
                         size={30}
-                        symbol={coin}
+                        symbol={coinDisplayName}
                         icon={`https://app.hyperliquid.xyz/coins/${encodeURIComponent(coin)}.svg`}
                     />
                     <span className="text-sm font-semibold leading-[14px]">
@@ -750,12 +775,19 @@ function ClosePositionDrawer({
                 </LabeledCompactInput>
             ) : null}
             <div className="space-y-1">
-                <LabeledCompactInput label={<Trans>Amount({coin})</Trans>} value={amount} onChange={onAmountChange}>
-                    <span className="text-xs font-medium text-[rgba(70,70,70,0.8)]">{coin}</span>
+                <LabeledCompactInput
+                    label={<Trans>Amount({coinDisplayName})</Trans>}
+                    value={amount}
+                    onChange={onAmountChange}
+                >
+                    <span className="text-xs font-medium text-[rgba(70,70,70,0.8)]">{coinDisplayName}</span>
                 </LabeledCompactInput>
                 <PositionSizeSlider value={amountRatio} onChange={onRatioChange} />
             </div>
-            <MetaValueRow label={<Trans>Size</Trans>} value={`${formatPerpsValue(positionSize, 8)} ${coin}`} />
+            <MetaValueRow
+                label={<Trans>Size</Trans>}
+                value={`${formatPerpsValue(positionSize, 8)} ${coinDisplayName}`}
+            />
             <MetaValueRow
                 label={<Trans>Est. Closed PnL</Trans>}
                 value={estimatedPnl ? `${estimatedPnl.gt(0) ? '+' : ''}${estimatedPnl.toFixed(2)} USDC` : '-- USDC'}
@@ -883,10 +915,11 @@ function TpslDrawer({
     onClose(): void;
     onConfirm(): void;
 }) {
+    const coinDisplayName = toPerpsCoinDisplayName(coin);
     return (
         <PerpsDrawerFrame title={<Trans>TP/SL</Trans>} onClose={onClose}>
             <div className="space-y-2 text-xs font-medium leading-[14px]">
-                <MetaValueRow label={<Trans>Symbol</Trans>} value={`${coin}USDC`} />
+                <MetaValueRow label={<Trans>Symbol</Trans>} value={`${coinDisplayName}USDC`} />
                 <MetaValueRow label={<Trans>Entry Price(USDC)</Trans>} value={formatPerpsValue(entryPrice)} />
                 <MetaValueRow label={<Trans>Mark Price(USDC)</Trans>} value={formatPerpsValue(markPrice)} />
                 <MetaValueRow label={<Trans>Est. Liq. Price(USDC)</Trans>} value={formatPerpsValue(liquidationPrice)} />

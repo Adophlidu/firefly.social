@@ -20,7 +20,14 @@ function PerpsTradePage() {
     const search = useSearch({ from: '/perps/' }) as PerpsTradeSearch;
 
     if (search.kind === 'place-order' && search.coin && search.direction) {
-        return <PerpsOrderIntentPage coin={search.coin} direction={search.direction} orderType={search.orderType} />;
+        return (
+            <PerpsOrderIntentPage
+                key={search.coin}
+                coin={search.coin}
+                direction={search.direction}
+                orderType={search.orderType}
+            />
+        );
     }
     if (search.kind) {
         const decoded = decodePerpsIntent(new URLSearchParams(search as Record<string, string>));

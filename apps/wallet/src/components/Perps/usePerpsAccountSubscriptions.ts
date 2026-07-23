@@ -1,13 +1,9 @@
-'use client';
-
 import { type PerpsAddress, perpsQueryKeys, usePerpsClient, usePerpsMarkets } from '@dimensiondev/perps-react';
 import type { ISubscription } from '@nktkas/hyperliquid';
-import type { UserFillsResponse } from '@nktkas/hyperliquid/api/info';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 import { getPerpsDexes } from '@/components/Perps/getPerpsDexes.js';
-import { mergePerpsFills, perpsAggregatedFillsQueryKey } from '@/components/Perps/perpsAccountSubscriptions.js';
 
 const SUBSCRIPTION_RETRY_DELAY = 3000;
 
@@ -64,10 +60,10 @@ export function usePerpsAccountSubscriptions(address?: PerpsAddress) {
             }),
         );
         subscribe(() =>
-            client.subscriptions.userFills({ user: address, aggregateByTime: true }, ({ fills, isSnapshot }) => {
-                queryClient.setQueryData<UserFillsResponse>(perpsAggregatedFillsQueryKey(address), (current) =>
-                    isSnapshot ? fills : mergePerpsFills(current, fills),
-                );
+            client.subscriptions.webData3({ user: address }, ({ userState }) => {
+                if (userState.abstraction) {
+                    queryClient.setQueryData(perpsQueryKeys.userAbstraction(address), userState.abstraction);
+                }
             }),
         );
 

@@ -12,7 +12,7 @@ import {
 } from '@dimensiondev/perps-core';
 import { type PerpsAddress, usePerpsClient, usePerpsComputedAccountValue } from '@dimensiondev/perps-react';
 import { Trans } from '@lingui/react/macro';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import BigNumber from 'bignumber.js';
 import { ArrowLeftRight, Check, ChevronDown, Minus, Plus, PlusCircle, Star, X } from 'lucide-react';
@@ -21,12 +21,12 @@ import { toast } from 'sonner';
 import { useConnectors, useWalletClient } from 'wagmi';
 
 import { calculateOrderLiquidationPrice, resolveEstimatedFillPrice } from '@/components/Perps/orderLiquidationPrice.js';
+import { toPerpsCoinDisplayName, toPerpsMarketDisplayName } from '@/components/Perps/perpsCoin.js';
 import { resolvePerpsPriceInput } from '@/components/Perps/resolvePerpsPriceInput.js';
 import { usePerpsAccountValueStream } from '@/components/Perps/usePerpsAccountValueStream.js';
 import { usePerpsMarketData } from '@/components/Perps/usePerpsMarketData.js';
 import { useTpSlField } from '@/components/Perps/useTpSlField.js';
 import { Drawer, DrawerContent } from '@/components/ui/drawer.js';
-import { invalidatePerpsQueries } from '@/helpers/invalidatePerpsQueries.js';
 import { publishCurrentPerpsMutation } from '@/helpers/perpsMutation.js';
 import { withSkipPinCodeCheck } from '@/helpers/withSkipPinCodeCheck.js';
 import { useCachedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
@@ -40,7 +40,7 @@ interface Props {
 }
 
 type MarginMode = 'cross' | 'isolated';
-type Sheet = 'margin' | 'leverage' | 'order-type' | null;
+type Sheet = 'margin' | 'leverage' | null;
 
 const DEFAULT_SLIPPAGE = '0.08';
 
@@ -57,7 +57,6 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
 }: Props) {
     const client = usePerpsClient();
     const navigate = useNavigate();
-    const queryClient = useQueryClient();
     const connectors = useConnectors();
     const address = useCachedEvmAddress();
     const perpsAddress = address as PerpsAddress | undefined;
@@ -68,6 +67,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
     });
     const { isBlocked, isLoading: isGeoblockLoading } = useIsPerpsBlocked();
     const { activeAssetData, coinInfo, isMarketDataFresh, rawCoin } = usePerpsMarketData(coin, address ?? undefined);
+    const coinDisplayName = toPerpsCoinDisplayName(rawCoin);
     const [direction, setDirection] = useState(initialDirection);
     const [marginMode, setMarginMode] = useState<MarginMode>('isolated');
     const [leverage, setLeverage] = useState(() => getDefaultLeverage(coinInfo?.maxLeverage));
@@ -81,6 +81,14 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
     const [hasTpSl, setHasTpSl] = useState(false);
     const [sheet, setSheet] = useState<Sheet>(null);
     const handleClose = () => navigate({ to: '/perps', replace: true });
+
+    useEffect(() => {
+        setDirection(initialDirection);
+    }, [initialDirection]);
+
+    useEffect(() => {
+        setOrderType(initialOrderType);
+    }, [initialOrderType]);
 
     const markPrice = coinInfo?.assetCtx?.markPx ?? activeAssetData?.markPx;
     const midPrice = coinInfo?.assetCtx?.midPx ?? markPrice;
@@ -271,7 +279,6 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
             setSizeInput('');
             setSizePercentage(0);
             await publishCurrentPerpsMutation('success');
-            await invalidatePerpsQueries(queryClient);
             toast.success(<Trans>Order submitted.</Trans>);
             handleClose();
         },
@@ -345,7 +352,9 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                     </button>
                     <div className="flex h-10 flex-col justify-center">
                         <div className="flex h-5 items-center gap-0.5">
-                            <h1 className="font-[Poppins] text-lg font-semibold leading-none">{rawCoin}-USDC</h1>
+                            <h1 className="font-[Poppins] text-lg font-semibold leading-none">
+                                {toPerpsMarketDisplayName(rawCoin)}
+                            </h1>
                             <span className="rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium text-[#a9a6bc]">
                                 {maxLeverage}x
                             </span>
@@ -376,7 +385,10 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                         {marginMode === 'cross' ? <Trans>Cross</Trans> : <Trans>Isolated</Trans>}
                     </ControlButton>
                     <ControlButton onClick={() => setSheet('leverage')}>{leverage}x</ControlButton>
-                    <ControlButton icon="switch" onClick={() => setSheet('order-type')}>
+                    <ControlButton
+                        icon="switch"
+                        onClick={() => setOrderType((current) => (current === 'market' ? 'limit' : 'market'))}
+                    >
                         {orderType === 'market' ? <Trans>Market</Trans> : <Trans>Limit</Trans>}
                     </ControlButton>
                 </div>
@@ -441,7 +453,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                         className="flex items-center gap-1 text-xs font-medium"
                         onClick={() => setShowUnitMenu((value) => !value)}
                     >
-                        {sizeUnit === 'USDC' ? 'USDC' : rawCoin}
+                        {sizeUnit === 'USDC' ? 'USDC' : coinDisplayName}
                         <ChevronDown className="size-3.5" />
                     </button>
                     {showUnitMenu ? (
@@ -458,7 +470,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                                 className="h-9 w-full text-sm font-semibold"
                                 onClick={() => selectSizeUnit('coin')}
                             >
-                                {rawCoin}
+                                {coinDisplayName}
                             </button>
                         </div>
                     ) : null}
@@ -585,16 +597,11 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                 marginMode={marginMode}
                 leverage={leverage}
                 maxLeverage={maxLeverage}
-                orderType={orderType}
                 loading={settingMutation.isPending}
                 maxPosition={maxPositionAtCurrentLeverage}
                 rawCoin={rawCoin}
                 onConfirmMargin={(mode) => settingMutation.mutate({ mode, nextLeverage: leverage })}
                 onConfirmLeverage={(nextLeverage) => settingMutation.mutate({ mode: marginMode, nextLeverage })}
-                onSelectOrderType={(value) => {
-                    setOrderType(value);
-                    setSheet(null);
-                }}
             />
         </div>
     );
@@ -793,13 +800,11 @@ interface OrderControlDrawerProps {
     marginMode: MarginMode;
     leverage: number;
     maxLeverage: number;
-    orderType: 'market' | 'limit';
     loading: boolean;
     maxPosition: string;
     rawCoin: string;
     onConfirmMargin(value: MarginMode): void;
     onConfirmLeverage(value: number): void;
-    onSelectOrderType(value: 'market' | 'limit'): void;
 }
 
 function OrderControlDrawer(props: OrderControlDrawerProps) {
@@ -826,14 +831,11 @@ function OrderControlDrawer(props: OrderControlDrawerProps) {
                     <LeverageContent
                         current={props.leverage}
                         max={props.maxLeverage}
-                        coin={props.rawCoin}
+                        coin={toPerpsCoinDisplayName(props.rawCoin)}
                         loading={props.loading}
                         maxPosition={props.maxPosition}
                         onConfirm={props.onConfirmLeverage}
                     />
-                ) : null}
-                {props.sheet === 'order-type' ? (
-                    <OrderTypeContent current={props.orderType} onSelect={props.onSelectOrderType} />
                 ) : null}
             </DrawerContent>
         </Drawer>
@@ -1019,53 +1021,6 @@ function LeverageSlider({
                 onChange={(event) => onChange(Number(event.target.value))}
             />
         </div>
-    );
-}
-
-function OrderTypeContent({
-    current,
-    onSelect,
-}: {
-    current: 'market' | 'limit';
-    onSelect(value: 'market' | 'limit'): void;
-}) {
-    return (
-        <div className="pb-2">
-            <OrderTypeOption selected={current === 'market'} onClick={() => onSelect('market')}>
-                <Trans>Market</Trans>
-            </OrderTypeOption>
-            <OrderTypeOption selected={current === 'limit'} onClick={() => onSelect('limit')}>
-                <Trans>Limit</Trans>
-            </OrderTypeOption>
-        </div>
-    );
-}
-
-function OrderTypeOption({
-    selected,
-    children,
-    onClick,
-}: {
-    selected: boolean;
-    children: React.ReactNode;
-    onClick(): void;
-}) {
-    return (
-        <button
-            type="button"
-            className="flex h-10 w-full items-center justify-between px-2 text-base font-semibold"
-            onClick={onClick}
-        >
-            {children}
-            <span
-                className={cn(
-                    'flex size-6 items-center justify-center rounded-full border',
-                    selected ? 'border-[#181818] bg-[#181818] text-white' : 'border-[#b1b1b1]',
-                )}
-            >
-                {selected ? <Check className="size-4" /> : null}
-            </span>
-        </button>
     );
 }
 

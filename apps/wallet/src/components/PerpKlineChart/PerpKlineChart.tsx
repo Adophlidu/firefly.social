@@ -3,6 +3,7 @@ import { memo, useState } from 'react';
 import { PerpKlineIntervalPills } from '@/components/PerpKlineChart/PerpKlineIntervalPills.js';
 import { PerpKlineRenderer } from '@/components/PerpKlineChart/PerpKlineRenderer.js';
 import type { KlineInterval } from '@/components/PerpKlineChart/types.js';
+import { toPerpsCoinDisplayName } from '@/components/Perps/perpsCoin.js';
 import { useCandleHistory } from '@/hooks/perps/useCandleHistory.js';
 import { useUserFillMarkers } from '@/hooks/perps/useUserFillMarkers.js';
 
@@ -18,6 +19,7 @@ export const PerpKlineChart = memo<PerpKlineChartProps>(function PerpKlineChart(
     walletAddress,
 }) {
     const [interval, setInterval] = useState<KlineInterval>(initialInterval);
+    const coinDisplayName = toPerpsCoinDisplayName(coin);
     const { data: candles, isLoading, error, retry } = useCandleHistory(coin, interval);
     const markers = useUserFillMarkers(coin, walletAddress);
 
@@ -31,7 +33,7 @@ export const PerpKlineChart = memo<PerpKlineChartProps>(function PerpKlineChart(
                 <PerpKlineIntervalPills value={interval} onChange={setInterval} />
 
                 <span className="text-sm font-semibold leading-[18px] text-main">
-                    {coin}USD · {interval} · Hyperliquid
+                    {coinDisplayName}USD · {interval} · Hyperliquid
                 </span>
             </div>
 

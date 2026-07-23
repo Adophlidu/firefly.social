@@ -24,16 +24,28 @@ export function usePerpsMutationSubscriber(address?: PerpsAddress) {
             const reconciliation = resolvePerpsMutationReconciliation(decoded.value);
             const scopes = new Set(reconciliation.invalidate);
             if (scopes.has('account') || scopes.has('positions')) {
-                void queryClient.invalidateQueries({ queryKey: perpsAccountQueryKeyPrefix(address) });
+                void queryClient.invalidateQueries({
+                    queryKey: perpsAccountQueryKeyPrefix(address),
+                    refetchType: 'none',
+                });
             }
             if (scopes.has('account')) {
-                void queryClient.invalidateQueries({ queryKey: perpsQueryKeys.spotAccount(address) });
+                void queryClient.invalidateQueries({
+                    queryKey: perpsQueryKeys.spotAccount(address),
+                    refetchType: 'none',
+                });
             }
             if (scopes.has('open-orders')) {
-                void queryClient.invalidateQueries({ queryKey: perpsOpenOrdersQueryKeyPrefix(address) });
+                void queryClient.invalidateQueries({
+                    queryKey: perpsOpenOrdersQueryKeyPrefix(address),
+                    refetchType: 'none',
+                });
             }
             if (scopes.has('fills')) {
-                void queryClient.invalidateQueries({ queryKey: perpsAggregatedFillsQueryKey(address) });
+                void queryClient.invalidateQueries({
+                    queryKey: perpsAggregatedFillsQueryKey(address),
+                    refetchType: 'none',
+                });
             }
         });
         return unsubscribe;

@@ -358,7 +358,7 @@ msgstr "Totales 2H de {teamName}"
 msgid "Mute {walletHandle}"
 msgstr "Silenciar {walletHandle}"
 
-#. placeholder {0}: unit === 'USDC' ? 'USDC' : coin
+#. placeholder {0}: unit === 'USDC' ? 'USDC' : coinDisplayName
 msgid "Total ({0})"
 msgstr ""
 
@@ -633,11 +633,17 @@ msgstr "Me gustó."
 msgid "Trending"
 msgstr "Tendencias"
 
+msgid "Add {marketDisplayName} favorite"
+msgstr ""
+
 msgid "View similar symbols"
 msgstr "Ver símbolos similares"
 
 msgid "DAOs"
 msgstr "DAOs"
+
+msgid "Add {selectedMarketDisplayName} favorite"
+msgstr ""
 
 msgid "Scheduled"
 msgstr "Programado"
@@ -1386,9 +1392,6 @@ msgstr "Ir a Farcaster"
 
 msgid "Failed to refund red packet."
 msgstr "Error al reembolsar el sobre rojo."
-
-msgid "Add {selectedCoin} favorite"
-msgstr ""
 
 msgid "Remove Poll"
 msgstr "Eliminar Encuesta"
@@ -2457,10 +2460,6 @@ msgstr "Para publicar en este club debes ser miembro."
 msgid "Post could not be found."
 msgstr "Publicación no encontrada."
 
-#. placeholder {0}: market.coin
-msgid "Add {0} favorite"
-msgstr ""
-
 msgid "For you"
 msgstr "Para ti"
 
@@ -3007,9 +3006,6 @@ msgstr "Límite de GIF alcanzado"
 msgid "Loading payment request"
 msgstr "Cargando solicitud de pago"
 
-msgid "Remove {selectedCoin} favorite"
-msgstr ""
-
 msgid "Unsaved draft found"
 msgstr "Borrador sin guardar encontrado"
 
@@ -3034,6 +3030,9 @@ msgstr "No se encontraron direcciones verificadas"
 
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr "La capitalización de mercado proviene de CoinGecko e incluye token emitido en otra blockchain."
+
+msgid "Remove {marketDisplayName} favorite"
+msgstr ""
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "El propietario del contrato tiene restricciones sobre medidas anti-ballena."
@@ -3244,10 +3243,6 @@ msgstr "El propietario del contrato puede tener la autoridad para modificar el i
 
 msgid "All Wallets"
 msgstr "Todas las billeteras"
-
-#. placeholder {0}: market.coin
-msgid "Remove {0} favorite"
-msgstr ""
 
 msgid "GIFs could not be loaded"
 msgstr "No se pudieron cargar los GIF"
@@ -3857,6 +3852,9 @@ msgstr "Tu Frase de Recuperación"
 #. placeholder {0}: channel.name
 msgid "Added #{0} on {sourceName}"
 msgstr "Agregaste #{0} en {sourceName}"
+
+msgid "Remove {selectedMarketDisplayName} favorite"
+msgstr ""
 
 msgid "Failed to switch chain"
 msgstr "Error al cambiar de cadena"

@@ -6,14 +6,11 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
+import { formatPerpsAccountBalance } from '@/components/Perps/formatPerpsAccountBalance.js';
+
 interface Props {
     address?: PerpsAddress;
     onIntent: (intent: PerpsIntent) => void;
-}
-
-function formatUSD(value?: string) {
-    const amount = Number(value);
-    return Number.isFinite(amount) ? `$${amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '$--';
 }
 
 function AuthenticatedSummary({ address, onIntent }: Required<Props>) {
@@ -30,7 +27,7 @@ function AuthenticatedSummary({ address, onIntent }: Required<Props>) {
                     <Trans>Portfolio</Trans>
                 </span>
                 <span className="block text-sm font-semibold leading-5 text-[#4c4aa9]">
-                    {isLoading ? '$--' : formatUSD(accountValue)}
+                    {isLoading ? '$--' : formatPerpsAccountBalance(accountValue)}
                 </span>
             </button>
             <button
@@ -43,7 +40,7 @@ function AuthenticatedSummary({ address, onIntent }: Required<Props>) {
                     <Trans>Cash</Trans>
                 </span>
                 <span className="block text-sm font-semibold leading-5 text-[#4c4aa9]">
-                    {isLoading ? '$--' : formatUSD(withdrawable)}
+                    {isLoading ? '$--' : formatPerpsAccountBalance(withdrawable)}
                 </span>
             </button>
             <button
