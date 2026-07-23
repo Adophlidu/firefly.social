@@ -15,7 +15,7 @@ const transports: Record<number, Transport> = Object.fromEntries(
  *
  * It exposes the same chain list as the real config. Transports match exactly
  * only for the chains with explicit URLs in `wagmiTransportUrls` (mainnet,
- * optimism, polygon, fantom); the others fall back to their default public RPC
+ * optimism, polygon, Lens, fantom); the others fall back to their default public RPC
  * here, while the real config routes them through the Reown Blockchain API —
  * so fallback read paths should stick to the explicitly-configured chains.
  * Read-path hooks (`useChainId`, `useChains`, `useEnsName`, `useEnsAvatar`, ...)

@@ -46,7 +46,6 @@ function buildCSP(): string {
 
         // Lens
         'api.lens.xyz',
-        'rpc.lens.xyz',
 
         // Orb Chat
         'https://ruiftgqhbghujyxlnjql.supabase.co',
