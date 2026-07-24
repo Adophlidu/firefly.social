@@ -26,6 +26,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { FEATURE_FLAGS } from '@/constants/featureFlags.js';
 import { openDirectMessagePanel } from '@/controllers/openDirectMessagePanel.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
@@ -141,7 +142,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                     </MenuItem>
                 ) : (
                     <>
-                        {source === Source.Lens && !isMyPost && !isCurrentDmAccount && author.address ? (
+                        {FEATURE_FLAGS.messages &&
+                        source === Source.Lens &&
+                        !isMyPost &&
+                        !isCurrentDmAccount &&
+                        author.address ? (
                             <MenuItem>
                                 {({ close }) =>
                                     isMedium ? (

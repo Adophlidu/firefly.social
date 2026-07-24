@@ -20,6 +20,7 @@ import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { PredictionMenu } from '@/components/SideBar/PredictionMenu.js';
 import { Profile } from '@/components/SideBar/Profile.js';
+import { FEATURE_FLAGS } from '@/constants/featureFlags.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -55,23 +56,27 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Explore</Trans>,
                                 match: () => pathname.startsWith(PageRoute.Explore),
                             },
-                            {
-                                href: PageRoute.Perpetuals,
-                                name: <Trans>Perpetuals</Trans>,
-                                icon: PerpetualsIcon,
-                                selectedIcon: PerpetualsIcon,
-                                match: () => pathname.startsWith(PageRoute.Perpetuals),
-                            },
+                            FEATURE_FLAGS.perpetuals
+                                ? {
+                                      href: PageRoute.Perpetuals,
+                                      name: <Trans>Perpetuals</Trans>,
+                                      icon: PerpetualsIcon,
+                                      selectedIcon: PerpetualsIcon,
+                                      match: () => pathname.startsWith(PageRoute.Perpetuals),
+                                  }
+                                : null,
                             {
                                 href: PageRoute.PredictionCategory,
                                 name: <Trans>Predictions</Trans>,
                                 match: () => pathname.startsWith(PageRoute.PredictionCategory),
                             },
-                            {
-                                href: PageRoute.Messages,
-                                name: <Trans>Messages</Trans>,
-                                match: () => isRoutePathname(pathname, PageRoute.Messages),
-                            },
+                            FEATURE_FLAGS.messages
+                                ? {
+                                      href: PageRoute.Messages,
+                                      name: <Trans>Messages</Trans>,
+                                      match: () => isRoutePathname(pathname, PageRoute.Messages),
+                                  }
+                                : null,
                             {
                                 href: PageRoute.Notifications,
                                 name: <Trans>Notifications</Trans>,

@@ -12,6 +12,7 @@ import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileLoginStatus } from '@/components/Profile/ProfileLoginStatus.js';
 import { ProfileMoreAction, type ProfileMoreActionProps } from '@/components/Profile/ProfileMoreAction.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { FEATURE_FLAGS } from '@/constants/featureFlags.js';
 import { openDirectMessagePanel } from '@/controllers/openDirectMessagePanel.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -72,7 +73,8 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
     return (
         <>
             {button}
-            {profile.source === Source.Lens &&
+            {FEATURE_FLAGS.messages &&
+            profile.source === Source.Lens &&
             profile.address &&
             !isEditableProfile &&
             !isRelatedProfile &&
