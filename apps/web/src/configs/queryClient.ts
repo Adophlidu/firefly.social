@@ -102,6 +102,23 @@ export function createServerQueryClient() {
 
 export const queryClient = new QueryClient(queryClientConfig);
 
+/**
+ * Per-request QueryClient on the server, the shared singleton on the browser.
+ *
+ * Paired with `useState(getQueryClient)` in `QueryClientProviders`, the server gets one
+ * isolated client per request (fresh `QueryCache`/`MutationCache`), so the module-level
+ * cache cannot leak across ISR regenerations on warm instances — the cause of React
+ * hydration error #418 on SSR'd feeds (a warm instance served a previous regeneration's
+ * cached feed as a no-op cache hit, which `useSuspenseInfiniteQuery` prefers over the
+ * fresh `initialData` and which `ReactQueryStreamedHydration` never re-streams).
+ *
+ * On the browser this returns the `queryClient` singleton, so the modules that import it
+ * directly stay in sync with the provider.
+ */
+export function getQueryClient(): QueryClient {
+    return typeof window === 'undefined' ? createServerQueryClient() : queryClient;
+}
+
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
     Object.defineProperty(window, '__TANSTACK_QUERY_CLIENT__', {
         value: queryClient,
