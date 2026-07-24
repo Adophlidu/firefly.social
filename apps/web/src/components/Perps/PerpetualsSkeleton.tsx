@@ -9,7 +9,7 @@ import styles from '@/components/Perps/PerpsResponsive.module.css';
  * back to client-side rendering for its subtree.
  */
 function Block({ className }: { className?: string }) {
-    return <div className={classNames('animate-pulse rounded bg-[#efeff3]', className)} />;
+    return <div className={classNames('animate-pulse rounded bg-lightBg', className)} />;
 }
 
 const METRIC_KEYS = ['leverage', 'mark', 'oracle', 'change', 'volume', 'interest'] as const;
@@ -22,7 +22,7 @@ export function PerpetualsSkeleton() {
             <div
                 aria-hidden
                 role="status"
-                className={classNames(styles.page, 'min-h-screen w-full overflow-x-hidden bg-white')}
+                className={classNames(styles.page, 'min-h-screen w-full overflow-x-hidden bg-primaryBottom')}
             >
                 <header className={classNames(styles.pageHeader, 'flex items-center justify-between')}>
                     <Block className="h-6 w-28" />
@@ -32,7 +32,7 @@ export function PerpetualsSkeleton() {
                     </div>
                 </header>
 
-                <div className={classNames(styles.marketBar, 'border-b border-[#f5f5f5]')}>
+                <div className={classNames(styles.marketBar, 'border-b border-line')}>
                     <div className={styles.marketPrimary}>
                         <Block className="h-8 w-40 shrink-0" />
                         <Block className="h-8 w-20 shrink-0" />
@@ -57,7 +57,7 @@ export function PerpetualsSkeleton() {
                         <div
                             className={classNames(
                                 styles.chart,
-                                'flex min-w-0 flex-1 flex-col gap-3 border-b border-r border-[#f5f5f5] p-3',
+                                'flex min-w-0 flex-1 flex-col gap-3 border-b border-r border-line p-3',
                             )}
                         >
                             <Block className="h-8 w-full" />
@@ -68,11 +68,11 @@ export function PerpetualsSkeleton() {
                         <div
                             className={classNames(
                                 styles.orderBook,
-                                'flex shrink-0 flex-col gap-3 border-y border-[#f5f5f5] p-3',
+                                'flex shrink-0 flex-col gap-3 border-y border-line p-3',
                             )}
                         >
-                            <Block className="h-12 w-full bg-[#dcf1d9]" />
-                            <Block className="h-12 w-full bg-[#ffe6e4]" />
+                            <Block className="h-12 w-full bg-[#dcf1d9] dark:bg-[#284129]" />
+                            <Block className="h-12 w-full bg-[#ffe6e4] dark:bg-[#502829]" />
                             <div className="mt-2 flex flex-col gap-1.5">
                                 {BOOK_ROW_KEYS.map((key) => (
                                     <Block key={key} className="h-4 w-full" />
@@ -83,7 +83,7 @@ export function PerpetualsSkeleton() {
                 </div>
 
                 <div className="px-4 pt-3">
-                    <div className="flex gap-8 border-b border-[#f5f5f5] pb-3">
+                    <div className="flex gap-8 border-b border-line pb-3">
                         <Block className="h-5 w-20" />
                         <Block className="h-5 w-24" />
                         <Block className="h-5 w-28" />

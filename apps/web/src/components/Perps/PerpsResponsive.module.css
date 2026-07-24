@@ -39,15 +39,15 @@
 }
 
 .mobileAccountButton:hover {
-    background: #f5f5f9;
+    background: var(--color-light-bg);
 }
 
 .mobileDepositButton {
     height: 2rem;
     border-radius: 0.5rem;
-    background: #181818;
+    background: rgb(var(--color-main));
     padding-inline: 0.75rem;
-    color: white;
+    color: rgb(var(--color-bottom));
     font-size: 0.8125rem;
     font-weight: 700;
 }
@@ -82,7 +82,7 @@
 .mobilePrice {
     overflow: hidden;
     max-width: 9rem;
-    color: #181818;
+    color: rgb(var(--color-main));
     font-size: 1.125rem;
     font-weight: 700;
     line-height: 1.5rem;
@@ -117,27 +117,27 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     height: 2.75rem;
-    border-bottom: 1px solid #f5f5f5;
-    background: white;
+    border-bottom: 1px solid var(--color-line);
+    background: rgb(var(--color-bottom));
     padding: 0.25rem 0.75rem;
 }
 
 .workspaceTab {
     position: relative;
     border-radius: 0.5rem;
-    color: #a9a6bc;
+    color: var(--color-third);
     font-size: 0.875rem;
     font-weight: 700;
     outline: none;
 }
 
 .workspaceTab[aria-selected='true'] {
-    background: #efeff3;
-    color: #181818;
+    background: var(--color-light-bg);
+    color: rgb(var(--color-main));
 }
 
 .workspaceTab:focus-visible {
-    box-shadow: 0 0 0 2px #4c4aa9;
+    box-shadow: 0 0 0 2px rgb(var(--color-highlight));
 }
 
 .workspace {
@@ -204,10 +204,10 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.5rem;
-    border-top: 1px solid #e7e7e7;
-    background: rgb(255 255 255 / 94%);
+    border-top: 1px solid var(--color-line2);
+    background: rgb(var(--color-bottom) / 94%);
     padding: 0.625rem 0.75rem calc(0.625rem + env(safe-area-inset-bottom));
-    box-shadow: 0 -0.5rem 1.5rem rgb(34 33 47 / 8%);
+    box-shadow: 0 -0.5rem 1.5rem rgb(var(--color-main) / 8%);
     backdrop-filter: blur(1rem);
 }
 
@@ -233,7 +233,7 @@
 }
 
 .mobileTradeButton:focus-visible {
-    box-shadow: 0 0 0 2px #4c4aa9;
+    box-shadow: 0 0 0 2px rgb(var(--color-highlight));
 }
 
 .accountTabs {

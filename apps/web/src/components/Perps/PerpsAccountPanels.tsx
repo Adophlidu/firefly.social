@@ -53,7 +53,7 @@ function formatNumber(value?: string | number) {
 }
 
 function EmptyState({ children }: { children: React.ReactNode }) {
-    return <div className="flex h-[120px] items-center justify-center text-sm text-[#767676]">{children}</div>;
+    return <div className="flex h-[120px] items-center justify-center text-sm text-second">{children}</div>;
 }
 
 function OrderDirectionLabel({ direction }: { direction: OpenOrderDirection }) {
@@ -154,7 +154,7 @@ function AccountTabs({ tab, counts, onChange }: TabsProps) {
         <div
             role="tablist"
             aria-label={t`Perpetuals account`}
-            className={classNames(styles.accountTabs, 'flex h-12 items-start border-b border-[#f5f5f5]')}
+            className={classNames(styles.accountTabs, 'flex h-12 items-start border-b border-line')}
         >
             {tabs.map((item) => (
                 <button
@@ -164,7 +164,7 @@ function AccountTabs({ tab, counts, onChange }: TabsProps) {
                     aria-selected={tab === item.id}
                     className={classNames(
                         styles.accountTab,
-                        'h-12 border-b-4 border-transparent font-bold leading-6 text-[#b1b1b1] outline-none focus-visible:ring-2 focus-visible:ring-[#4c4aa9] aria-selected:border-lightTextMain aria-selected:text-lightTextMain',
+                        'h-12 border-b-4 border-transparent font-bold leading-6 text-third outline-none focus-visible:ring-2 focus-visible:ring-highlight aria-selected:border-main aria-selected:text-main',
                     )}
                     onClick={() => onChange(item.id)}
                 >
@@ -206,7 +206,7 @@ function InlineOrderEdit({
                 aria-invalid={!isValid}
                 value={value}
                 inputMode="decimal"
-                className="aria-invalid:border-[#ff3545] h-8 w-24 rounded-md border border-[#767676] px-2 outline-none focus:border-[#4c4aa9]"
+                className="aria-invalid:border-danger h-8 w-24 rounded-md border border-second bg-transparent px-2 text-main outline-none focus:border-highlight"
                 onChange={(event) => onChange(normalizeOpenOrderEditInput(event.target.value))}
                 onKeyDown={(event) => {
                     if (event.key === 'Enter' && canConfirm) onConfirm();
@@ -216,7 +216,7 @@ function InlineOrderEdit({
             <button
                 type="button"
                 disabled={!canConfirm}
-                className="font-semibold text-[#4c4aa9] disabled:opacity-40"
+                className="font-semibold text-highlight disabled:opacity-40"
                 onClick={onConfirm}
             >
                 <Trans>Confirm</Trans>
@@ -277,7 +277,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
     const activeQuery = tab === 'positions' ? accountState : tab === 'orders' ? orderState : fills;
     const tableContainerClassName = classNames(
         styles.accountTable,
-        'relative overflow-auto [scrollbar-color:#b1b1b1_#f5f5f5] [scrollbar-width:thin] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#b1b1b1] [&::-webkit-scrollbar-track]:bg-[#f5f5f5] [&::-webkit-scrollbar]:size-2',
+        'relative overflow-auto [scrollbar-color:var(--color-third)_var(--color-light-bg)] [scrollbar-width:thin] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-third [&::-webkit-scrollbar-track]:bg-lightBg [&::-webkit-scrollbar]:size-2',
     );
     const updateOrderActionShadow = useCallback(() => {
         const container = ordersTableContainerRef.current;
@@ -296,7 +296,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
         return () => resizeObserver.disconnect();
     }, [orders.length, tab, updateOrderActionShadow]);
 
-    const orderActionColumnClassName = 'sticky right-0 border-l border-[#f5f5f5] bg-white px-4 text-right';
+    const orderActionColumnClassName = 'sticky right-0 border-l border-line bg-primaryBottom px-4 text-right';
     const orderActionShadow = showOrderActionShadow ? (
         <span
             aria-hidden
@@ -305,7 +305,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
     ) : null;
 
     return (
-        <section className="bg-white text-lightTextMain">
+        <section className="bg-primaryBottom text-main">
             <AccountTabs tab={tab} counts={counts} onChange={setTab} />
             {activeQuery.isLoading ? (
                 <EmptyState>
@@ -327,7 +327,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                         onScroll={updateOrderActionShadow}
                     >
                         <table className="w-full min-w-[1260px] text-left text-[13px]">
-                            <thead className="sticky top-0 z-20 h-[41px] border-b border-[#f5f5f5] bg-white text-[#767676]">
+                            <thead className="sticky top-0 z-20 h-[41px] border-b border-line bg-primaryBottom text-second">
                                 <tr>
                                     <th className="min-w-[190px] px-4 font-normal">
                                         <Trans>Date</Trans>
@@ -362,7 +362,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                         {orderActionShadow}
                                         <button
                                             type="button"
-                                            className="text-[#4c4aa9]"
+                                            className="text-highlight"
                                             onClick={() => onIntent({ kind: 'cancel-all' })}
                                         >
                                             <Trans>Clear all</Trans>
@@ -401,7 +401,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                         setOrderEdit(null);
                                     };
                                     return (
-                                        <tr key={order.oid} className="h-[60px] border-b border-[#f5f5f5] text-sm">
+                                        <tr key={order.oid} className="h-[60px] border-b border-line text-sm">
                                             <td className="whitespace-nowrap px-4">
                                                 {new Date(order.timestamp).toLocaleString()}
                                             </td>
@@ -417,7 +417,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                                 <span
                                                     className={classNames(
                                                         'block font-bold',
-                                                        isLong ? 'text-[#3dc233]' : 'text-[#ff564d]',
+                                                        isLong ? 'text-success' : 'text-fail',
                                                     )}
                                                 >
                                                     {toPerpsCoinDisplayName(order.coin)}
@@ -530,12 +530,12 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                                 )}
                                             </td>
                                             <td>
-                                                <span className="block whitespace-nowrap text-[#3dc233]">
+                                                <span className="block whitespace-nowrap text-success">
                                                     {presentation.takeProfit
                                                         ? formatNumber(presentation.takeProfit)
                                                         : '--'}
                                                 </span>
-                                                <span className="block whitespace-nowrap text-[#ff564d]">
+                                                <span className="block whitespace-nowrap text-fail">
                                                     {presentation.stopLoss ? formatNumber(presentation.stopLoss) : '--'}
                                                 </span>
                                             </td>
@@ -557,7 +557,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                                         })
                                                     }
                                                 >
-                                                    <TrashIcon className="ml-auto size-4 text-[#767676]" />
+                                                    <TrashIcon className="ml-auto size-4 text-second" />
                                                 </button>
                                             </td>
                                         </tr>
@@ -576,7 +576,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                 positions.length ? (
                     <div className={tableContainerClassName}>
                         <table className="w-full min-w-[978px] table-fixed text-left text-[13px]">
-                            <thead className="sticky top-0 z-20 h-[41px] border-y border-[#f5f5f5] bg-white font-normal leading-[17px] text-[#767676]">
+                            <thead className="sticky top-0 z-20 h-[41px] border-y border-line bg-primaryBottom font-normal leading-[17px] text-second">
                                 <tr>
                                     <th className="w-[10%] px-4 font-normal">
                                         <Trans>Market</Trans>
@@ -605,10 +605,10 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                     <th className="w-[10%] font-normal">
                                         <Trans>TP/SL</Trans>
                                     </th>
-                                    <th className="sticky right-0 z-30 w-[9%] border-l border-[#f5f5f5] bg-white px-4 text-right font-normal">
+                                    <th className="sticky right-0 z-30 w-[9%] border-l border-line bg-primaryBottom px-4 text-right font-normal">
                                         <button
                                             type="button"
-                                            className="text-[#4c4aa9]"
+                                            className="text-highlight"
                                             onClick={() => onIntent({ kind: 'close-all' })}
                                         >
                                             <Trans>Close all</Trans>
@@ -627,20 +627,20 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                     return (
                                         <tr
                                             key={position.coin}
-                                            className="relative h-[60px] border-b border-[#f5f5f5] text-sm leading-[18px] text-lightTextMain"
+                                            className="relative h-[60px] border-b border-line text-sm leading-[18px] text-main"
                                         >
                                             <td className="relative px-4">
                                                 <span
                                                     aria-hidden
                                                     className={classNames(
                                                         'absolute inset-y-px left-0 w-1.5',
-                                                        isLong ? 'bg-[#3dc233]' : 'bg-[#ff564d]',
+                                                        isLong ? 'bg-success' : 'bg-fail',
                                                     )}
                                                 />
                                                 <span className="block font-bold">
                                                     {toPerpsCoinDisplayName(position.coin)}
                                                 </span>
-                                                <span className="mt-1 inline-flex rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium leading-[14px] text-[#a9a6bc]">
+                                                <span className="mt-1 inline-flex rounded-full bg-lightBg px-1.5 py-0.5 text-xs font-medium leading-[14px] text-third">
                                                     {position.leverage.value}x
                                                 </span>
                                             </td>
@@ -657,7 +657,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                                 )}
                                             </td>
                                             <td>{formatNumber(position.liquidationPx ?? undefined)}</td>
-                                            <td className={pnl.isNegative() ? 'text-[#ff564d]' : 'text-[#3dc233]'}>
+                                            <td className={pnl.isNegative() ? 'text-fail' : 'text-success'}>
                                                 <span className="block">{formatSignedUsd(pnl)}</span>
                                                 <span className="mt-1 block">{formatSignedPercent(roe)}</span>
                                             </td>
@@ -684,10 +684,10 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                             <td>
                                                 <div className="flex items-center justify-between gap-1">
                                                     <div>
-                                                        <span className="block whitespace-nowrap text-[#3dc233]">
+                                                        <span className="block whitespace-nowrap text-success">
                                                             {takeProfit ? formatNumber(takeProfit) : '--'}
                                                         </span>
-                                                        <span className="mt-1 block whitespace-nowrap text-[#ff564d]">
+                                                        <span className="mt-1 block whitespace-nowrap text-fail">
                                                             {stopLoss ? formatNumber(stopLoss) : '--'}
                                                         </span>
                                                     </div>
@@ -703,8 +703,8 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                                     </button>
                                                 </div>
                                             </td>
-                                            <td className="sticky right-0 z-20 border-l border-[#f5f5f5] bg-white px-4 text-right">
-                                                <div className="flex flex-col items-end gap-2 text-[#4c4aa9]">
+                                            <td className="sticky right-0 z-20 border-l border-line bg-primaryBottom px-4 text-right">
+                                                <div className="flex flex-col items-end gap-2 text-highlight">
                                                     <button
                                                         type="button"
                                                         onClick={() =>
@@ -739,7 +739,7 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                 fills.data?.length ? (
                     <div className={tableContainerClassName}>
                         <table className="w-full min-w-[978px] table-fixed text-left text-[13px]">
-                            <thead className="sticky top-0 z-20 h-[41px] border-y border-[#f5f5f5] bg-white font-normal leading-[17px] text-[#767676]">
+                            <thead className="sticky top-0 z-20 h-[41px] border-y border-line bg-primaryBottom font-normal leading-[17px] text-second">
                                 <tr>
                                     <th className="w-[22%] px-4 font-normal">
                                         <Trans>Date</Trans>
@@ -769,11 +769,11 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                     const { tradeValue, closedPnl, closedPnlPercent } =
                                         buildTradingHistoryFinancials(fill);
                                     const isBuy = fill.side === 'B';
-                                    const directionClassName = isBuy ? 'text-[#3dc233]' : 'text-[#ff3545]';
+                                    const directionClassName = isBuy ? 'text-success' : 'text-danger';
                                     return (
                                         <tr
                                             key={`${fill.tid}-${fill.time}`}
-                                            className="h-[60px] border-b border-[#f5f5f5] text-sm leading-[18px] text-lightTextMain"
+                                            className="h-[60px] border-b border-line text-sm leading-[18px] text-main"
                                         >
                                             <td className="px-4">{new Date(fill.time).toLocaleString()}</td>
                                             <td className={directionClassName}>
@@ -790,10 +790,10 @@ function AuthenticatedPanels({ address, onIntent }: Required<Props>) {
                                             <td
                                                 className={
                                                     closedPnl.isPositive()
-                                                        ? 'text-[#3dc233]'
+                                                        ? 'text-success'
                                                         : closedPnl.isNegative()
-                                                          ? 'text-[#ff3545]'
-                                                          : 'text-lightTextMain'
+                                                          ? 'text-danger'
+                                                          : 'text-main'
                                                 }
                                             >
                                                 <span className="block">{formatSignedUsd(closedPnl)}</span>
@@ -821,7 +821,7 @@ export const PerpsAccountPanels = memo(function PerpsAccountPanels({ address, on
     const [tab, setTab] = useState<Tab>('orders');
     if (address) return <AuthenticatedPanels address={address} onIntent={onIntent} />;
     return (
-        <section className="h-[209px] overflow-hidden bg-white text-lightTextMain">
+        <section className="h-[209px] overflow-hidden bg-primaryBottom text-main">
             <AccountTabs tab={tab} counts={{ positions: 0, orders: 0, history: 0 }} onChange={setTab} />
             <div className={classNames(styles.accountTable, 'overflow-auto')}>
                 <table
@@ -830,7 +830,7 @@ export const PerpsAccountPanels = memo(function PerpsAccountPanels({ address, on
                         'w-full table-fixed text-left text-[13px]',
                     )}
                 >
-                    <thead className="h-[41px] border-b border-[#f5f5f5] text-[#767676]">
+                    <thead className="h-[41px] border-b border-line text-second">
                         <tr>
                             <th className="px-4 font-normal">
                                 <Trans>Date</Trans>
@@ -863,7 +863,7 @@ export const PerpsAccountPanels = memo(function PerpsAccountPanels({ address, on
             <EmptyState>
                 <button
                     type="button"
-                    className="font-semibold text-[#4c4aa9]"
+                    className="font-semibold text-highlight"
                     onClick={() => onIntent({ kind: 'account' })}
                 >
                     <Trans>Connect your wallet to view positions</Trans>

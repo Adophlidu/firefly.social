@@ -340,7 +340,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
         (!reduceOnly && (available === undefined || hasInsufficientMargin));
 
     return (
-        <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-white text-lightTextMain dark:bg-neutral-950 dark:text-neutral-50">
+        <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-primaryBottom text-main">
             <header className="flex shrink-0 items-start gap-4 p-4">
                 <div className="flex min-w-0 flex-1 items-center gap-2">
                     <button
@@ -355,13 +355,13 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                             <h1 className="font-[Poppins] text-lg font-semibold leading-none">
                                 {toPerpsMarketDisplayName(rawCoin)}
                             </h1>
-                            <span className="rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium text-[#a9a6bc]">
+                            <span className="rounded-full bg-lightBg px-1.5 py-0.5 text-xs font-medium text-third">
                                 {maxLeverage}x
                             </span>
                         </div>
-                        <p className="text-[13px] font-medium leading-[17px] text-[#767676]">
+                        <p className="text-[13px] font-medium leading-[17px] text-second">
                             {formatNumber(markPrice)}{' '}
-                            <span className={cn(Number(priceChange) >= 0 ? 'text-[#3dc233]' : 'text-[#ff3545]')}>
+                            <span className={cn(Number(priceChange) >= 0 ? 'text-success' : 'text-danger')}>
                                 {priceChange === undefined
                                     ? '--'
                                     : `${priceChange >= 0 ? '+' : ''}${priceChange.toFixed(2)}%`}
@@ -396,7 +396,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                 <div
                     role="tablist"
                     aria-label="Order direction"
-                    className="mt-3 flex rounded-md border border-[#e7e7e7] p-1"
+                    className="mt-3 flex rounded-md border border-secondaryLine p-1"
                 >
                     <DirectionTab selected={direction === 'buy'} direction="buy" onClick={() => setDirection('buy')}>
                         <Trans>Buy / Long</Trans>
@@ -407,7 +407,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                 </div>
 
                 {orderType === 'limit' ? (
-                    <label className="mt-3 flex h-10 items-center rounded-md border border-[#e7e7e7] px-2 focus-within:border-[#4c4aa9]">
+                    <label className="mt-3 flex h-10 items-center rounded-md border border-secondaryLine px-2 focus-within:border-highlight">
                         <span className="sr-only">
                             <Trans>Limit price</Trans>
                         </span>
@@ -422,12 +422,12 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                             }}
                             inputMode="decimal"
                             placeholder="Price"
-                            className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm shadow-none outline-none ring-0 placeholder:text-[#b1b1b1] focus:border-0 focus:outline-none focus:ring-0"
+                            className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm text-main shadow-none outline-none ring-0 placeholder:text-third focus:border-0 focus:outline-none focus:ring-0"
                         />
                         <span className="shrink-0 text-xs font-medium">USDC</span>
                         <button
                             type="button"
-                            className="ml-1 shrink-0 text-sm font-medium text-[#4c4aa9]"
+                            className="ml-1 shrink-0 text-sm font-medium text-highlight"
                             onClick={() => {
                                 if (midPrice && coinInfo) setLimitPrice(formatPrice(midPrice, coinInfo.szDecimals));
                             }}
@@ -437,7 +437,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                     </label>
                 ) : null}
 
-                <label className="relative mt-3 flex h-10 items-center rounded-md border border-[#e7e7e7] px-2 focus-within:border-[#4c4aa9]">
+                <label className="relative mt-3 flex h-10 items-center rounded-md border border-secondaryLine px-2 focus-within:border-highlight">
                     <span className="sr-only">
                         <Trans>Size</Trans>
                     </span>
@@ -446,7 +446,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                         onChange={(event) => handleSizeInput(event.target.value)}
                         inputMode="decimal"
                         placeholder="Size"
-                        className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm shadow-none outline-none ring-0 focus:border-0 focus:outline-none focus:ring-0"
+                        className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm text-main shadow-none outline-none ring-0 placeholder:text-third focus:border-0 focus:outline-none focus:ring-0"
                     />
                     <button
                         type="button"
@@ -457,7 +457,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                         <ChevronDown className="size-3.5" />
                     </button>
                     {showUnitMenu ? (
-                        <div className="absolute right-0 top-11 z-30 w-16 overflow-hidden rounded-md bg-white py-1 shadow-[0_8px_64px_rgba(0,0,0,0.1)] dark:bg-neutral-900">
+                        <div className="absolute right-0 top-11 z-30 w-16 overflow-hidden rounded-md bg-primaryBottom py-1 shadow-[0_8px_64px_rgba(0,0,0,0.1)] dark:shadow-none">
                             <button
                                 type="button"
                                 className="h-9 w-full text-sm font-semibold"
@@ -479,7 +479,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                 <SizeSlider value={sizePercentage} onChange={handlePercentage} />
 
                 <div className="mt-2 flex h-6 items-center justify-between text-sm">
-                    <span className="text-[#767676]">
+                    <span className="text-second">
                         <Trans>Available</Trans>
                     </span>
                     <button
@@ -488,7 +488,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                         onClick={() => navigate({ to: '/perps/deposit' })}
                     >
                         {available === undefined ? '--' : `$${formatNumber(available)}`}{' '}
-                        <PlusCircle className="size-3 text-[#4c4aa9]" />
+                        <PlusCircle className="size-3 text-highlight" />
                     </button>
                 </div>
 
@@ -562,20 +562,20 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                         value={canCalculateOrderSummary ? `$${formatNumber(marginRequired, 2)}` : '-'}
                     />
                     {isBlocked ? (
-                        <p role="alert" className="rounded-md bg-red-50 p-2 text-xs text-[#ff3545]">
+                        <p role="alert" className="rounded-md bg-dangerBg p-2 text-xs text-danger">
                             <Trans>This feature is currently unavailable in your region.</Trans>
                         </p>
                     ) : null}
                 </div>
             </main>
 
-            <footer className="shrink-0 bg-white px-4 pb-4 pt-2 dark:bg-neutral-950">
+            <footer className="shrink-0 bg-primaryBottom px-4 pb-4 pt-2">
                 <button
                     type="button"
                     disabled={submitDisabled}
                     className={cn(
                         'h-12 w-full rounded-full text-base font-bold text-white disabled:opacity-40',
-                        direction === 'buy' ? 'bg-[#3dc233]' : 'bg-[#ff3545]',
+                        direction === 'buy' ? 'bg-success' : 'bg-danger',
                     )}
                     onClick={() => orderMutation.mutate()}
                 >
@@ -619,12 +619,12 @@ function ControlButton({
     return (
         <button
             type="button"
-            className="flex h-10 items-center justify-between rounded-md border border-[#e7e7e7] px-2.5 text-xs font-medium"
+            className="flex h-10 items-center justify-between rounded-md border border-secondaryLine px-2.5 text-xs font-medium"
             onClick={onClick}
         >
             {children}
             {icon === 'switch' ? (
-                <ArrowLeftRight className="size-3.5 text-[#767676]" />
+                <ArrowLeftRight className="size-3.5 text-second" />
             ) : (
                 <ChevronDown className="size-3.5" />
             )}
@@ -650,11 +650,7 @@ function DirectionTab({
             aria-selected={selected}
             className={cn(
                 'flex-1 rounded px-3 py-1.5 text-sm font-semibold',
-                selected
-                    ? direction === 'buy'
-                        ? 'bg-[#3dc233] text-white'
-                        : 'bg-[#ff3545] text-white'
-                    : 'text-[#767676]',
+                selected ? (direction === 'buy' ? 'bg-success text-white' : 'bg-danger text-white') : 'text-second',
             )}
             onClick={onClick}
         >
@@ -667,23 +663,23 @@ function SizeSlider({ value, onChange }: { value: number; onChange(value: number
     const steps = [0, 25, 50, 75, 100];
     return (
         <div className="relative mt-3 h-6" aria-label="Order size percentage">
-            <div className="pointer-events-none absolute inset-x-[7px] top-1/2 h-0.5 -translate-y-1/2 bg-[#b1b1b1]" />
+            <div className="pointer-events-none absolute inset-x-[7px] top-1/2 h-0.5 -translate-y-1/2 bg-third" />
             <div
-                className="pointer-events-none absolute left-[7px] top-1/2 h-0.5 -translate-y-1/2 bg-lightTextMain"
+                className="pointer-events-none absolute left-[7px] top-1/2 h-0.5 -translate-y-1/2 bg-main"
                 style={{ width: `calc(${value}% - ${value * 0.14}px)` }}
             />
             {steps.map((step) => (
                 <span
                     key={step}
                     className={cn(
-                        'pointer-events-none absolute top-1/2 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-white',
-                        step < value ? 'border-lightTextMain' : 'border-[#b1b1b1]',
+                        'pointer-events-none absolute top-1/2 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-primaryBottom',
+                        step < value ? 'border-main' : 'border-third',
                     )}
                     style={{ left: `calc(7px + (100% - 14px) * ${step / 100})` }}
                 />
             ))}
             <span
-                className="pointer-events-none absolute top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-lightTextMain bg-white"
+                className="pointer-events-none absolute top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-main bg-primaryBottom"
                 style={{ left: `calc(7px + (100% - 14px) * ${value / 100})` }}
             />
             <input
@@ -717,7 +713,7 @@ function CheckboxRow({
                 aria-checked={checked}
                 className={cn(
                     'flex size-4 items-center justify-center rounded-[3px] border',
-                    checked ? 'border-[#181818] bg-[#181818] text-white' : 'border-[#b1b1b1]',
+                    checked ? 'border-main bg-main text-primaryBottom' : 'border-third',
                 )}
                 onClick={() => onChange(!checked)}
             >
@@ -740,7 +736,7 @@ function CompactPriceField({
     onChange(value: string): void;
 }) {
     return (
-        <label className="flex h-8 items-center rounded-md border border-[#e7e7e7] px-2">
+        <label className="flex h-8 items-center rounded-md border border-secondaryLine px-2">
             <input
                 value={value}
                 onChange={(event) => {
@@ -749,7 +745,7 @@ function CompactPriceField({
                 }}
                 inputMode="decimal"
                 placeholder={placeholder}
-                className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-xs shadow-none outline-none ring-0 placeholder:text-[#b1b1b1] focus:border-0 focus:outline-none focus:ring-0"
+                className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-xs text-main shadow-none outline-none ring-0 placeholder:text-third focus:border-0 focus:outline-none focus:ring-0"
             />
             <span className="text-xs font-medium">$</span>
         </label>
@@ -770,16 +766,16 @@ function GainField({
     onToggleMethod(): void;
 }) {
     return (
-        <label className="flex h-8 items-center rounded-md border border-[#e7e7e7] px-2">
+        <label className="flex h-8 items-center rounded-md border border-secondaryLine px-2">
             <input
                 value={value}
                 onChange={(event) => onChange(event.target.value)}
                 inputMode="decimal"
                 placeholder={placeholder}
-                className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-xs shadow-none outline-none ring-0 placeholder:text-[#b1b1b1] focus:border-0 focus:outline-none focus:ring-0"
+                className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-xs text-main shadow-none outline-none ring-0 placeholder:text-third focus:border-0 focus:outline-none focus:ring-0"
             />
             <button type="button" className="flex items-center gap-0.5 text-xs font-medium" onClick={onToggleMethod}>
-                {method === 'usd' ? '$' : '%'} <ArrowLeftRight className="size-3 text-[#767676]" />
+                {method === 'usd' ? '$' : '%'} <ArrowLeftRight className="size-3 text-second" />
             </button>
         </label>
     );
@@ -788,7 +784,7 @@ function GainField({
 function SummaryRow({ label, value }: { label: React.ReactNode; value: string }) {
     return (
         <div className="flex items-center justify-between">
-            <span className="text-[#767676]">{label}</span>
+            <span className="text-second">{label}</span>
             <strong>{value}</strong>
         </div>
     );
@@ -816,7 +812,7 @@ function OrderControlDrawer(props: OrderControlDrawerProps) {
             }}
         >
             <DrawerContent
-                className="mx-auto w-full max-w-[800px] rounded-t-[36px] border border-[#e7e7e7] shadow-[0_16px_20px_rgba(0,0,0,0.1)]"
+                className="mx-auto w-full max-w-[800px] rounded-t-[36px] border border-secondaryLine bg-primaryBottom text-main shadow-[0_16px_20px_rgba(0,0,0,0.1)] dark:shadow-none"
                 bodyClassName="px-4 pb-4"
             >
                 <SheetHandle />
@@ -843,7 +839,7 @@ function OrderControlDrawer(props: OrderControlDrawerProps) {
 }
 
 function SheetHandle() {
-    return <div className="mx-auto mb-4 mt-2 h-1 w-10 rounded-full bg-[#d9d9d9]" />;
+    return <div className="mx-auto mb-4 mt-2 h-1 w-10 rounded-full bg-third" />;
 }
 
 function MarginModeContent({
@@ -910,14 +906,14 @@ function MarginOption({
                 <span
                     className={cn(
                         'flex size-5 items-center justify-center rounded-[4px] border',
-                        selected ? 'border-[#181818] bg-[#181818] text-white' : 'border-[#181818]',
+                        selected ? 'border-main bg-main text-primaryBottom' : 'border-main',
                     )}
                 >
                     {selected ? <Check className="size-3.5" /> : null}
                 </span>
                 {title}
             </span>
-            <span className="mt-2 block text-[13px] font-medium leading-[17px] text-[#767676]">{description}</span>
+            <span className="mt-2 block text-[13px] font-medium leading-[17px] text-second">{description}</span>
         </button>
     );
 }
@@ -955,7 +951,7 @@ function LeverageContent({
                 </LeverageStepButton>
             </div>
             <LeverageSlider value={value} min={1} max={max} onChange={(next) => setValue(clamp(next))} />
-            <ul className="list-disc pl-[19.5px] text-[13px] font-medium leading-[17px] text-[#767676]">
+            <ul className="list-disc pl-[19.5px] text-[13px] font-medium leading-[17px] text-second">
                 <li>
                     <Trans>
                         Control the leverage used for {coin} positions. The maximum leverage is {max}x.
@@ -979,7 +975,7 @@ function LeverageStepButton({ children, onClick }: { children: React.ReactNode; 
     return (
         <button
             type="button"
-            className="flex size-10 items-center justify-center rounded-lg bg-[#f8f7f9] text-[#767676] dark:bg-neutral-900"
+            className="flex size-10 items-center justify-center rounded-lg bg-lightBg text-second"
             onClick={onClick}
         >
             {children}
@@ -1007,7 +1003,7 @@ function LeverageSlider({
                 style={{ width: `${ratio * 100}%` }}
             />
             <span
-                className="pointer-events-none absolute top-[7px] size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#e7e7e7] bg-white shadow-[0_2px_4px_rgba(94,105,255,0.36)]"
+                className="pointer-events-none absolute top-[7px] size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-secondaryLine bg-primaryBottom shadow-[0_2px_4px_rgba(94,105,255,0.36)]"
                 style={{ left: `${ratio * 100}%` }}
             />
             <input
@@ -1029,7 +1025,7 @@ function ConfirmButton({ loading, onClick }: { loading: boolean; onClick(): void
         <button
             type="button"
             disabled={loading}
-            className="h-12 w-full rounded-full bg-lightTextMain text-base font-bold text-white disabled:opacity-40 dark:bg-white dark:text-lightTextMain"
+            className="h-12 w-full rounded-full bg-main text-base font-bold text-primaryBottom disabled:opacity-40"
             onClick={onClick}
         >
             {loading ? <Trans>Confirming…</Trans> : <Trans>Confirm</Trans>}

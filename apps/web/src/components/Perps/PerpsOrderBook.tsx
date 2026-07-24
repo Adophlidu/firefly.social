@@ -45,7 +45,7 @@ function OrderBookSelectInner<T extends string | number>({ label, options, value
                 <>
                     <PopoverButton
                         aria-label={label}
-                        className="flex h-6 w-full items-center justify-between rounded bg-[#f5f5f9] px-2 text-xs font-medium text-lightTextMain outline-none focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                        className="flex h-6 w-full items-center justify-between rounded bg-lightBg px-2 text-xs font-medium text-main outline-none focus-visible:ring-2 focus-visible:ring-highlight"
                     >
                         <span>{selected?.label ?? '--'}</span>
                         <ArrowDownIcon className={classNames('size-4 transition-transform', { 'rotate-180': open })} />
@@ -53,7 +53,7 @@ function OrderBookSelectInner<T extends string | number>({ label, options, value
                     <PopoverPanel
                         role="listbox"
                         aria-label={label}
-                        className="absolute left-0 top-7 z-50 w-full overflow-hidden rounded-lg border border-[#efeff3] bg-white p-1 shadow-lg"
+                        className="absolute left-0 top-7 z-50 w-full overflow-hidden rounded-lg border border-secondaryLine bg-primaryBottom p-1 shadow-lg dark:shadow-none"
                     >
                         {options.map((option) => (
                             <button
@@ -61,7 +61,7 @@ function OrderBookSelectInner<T extends string | number>({ label, options, value
                                 type="button"
                                 role="option"
                                 aria-selected={option.value === value}
-                                className="flex h-7 w-full items-center rounded px-2 text-left text-xs font-medium text-lightTextMain hover:bg-[#f5f5f9] aria-selected:bg-[#efeff3]"
+                                className="flex h-7 w-full items-center rounded px-2 text-left text-xs font-medium text-main hover:bg-lightBg aria-selected:bg-lightBg"
                                 onClick={() => {
                                     onChange(option.value);
                                     close();
@@ -110,18 +110,16 @@ function BookRows({ rows, side, unit }: BookRowsProps) {
                             aria-hidden
                             className={
                                 side === 'ask'
-                                    ? 'absolute inset-y-0 left-0 bg-[#ffe6e4]'
-                                    : 'absolute inset-y-0 left-0 bg-[#dcf1d9]'
+                                    ? 'absolute inset-y-0 left-0 bg-[#ffe6e4] dark:bg-[#502829]'
+                                    : 'absolute inset-y-0 left-0 bg-[#dcf1d9] dark:bg-[#284129]'
                             }
                             style={{ width: `${Math.min(100, Math.max(0, level.ratio * 100))}%` }}
                         />
-                        <span
-                            className={side === 'ask' ? 'relative z-1 text-[#ff564d]' : 'relative z-1 text-[#48ad3c]'}
-                        >
+                        <span className={side === 'ask' ? 'relative z-1 text-fail' : 'relative z-1 text-success'}>
                             {formatPrice(level.px)}
                         </span>
                     </div>
-                    <span className="text-right text-lightTextMain">{formatBookValue(level.total, unit)}</span>
+                    <span className="text-right text-main">{formatBookValue(level.total, unit)}</span>
                 </div>
             ))}
         </div>
@@ -182,13 +180,13 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
         <section
             data-testid="perps-order-book"
             aria-label={t`Order Book`}
-            className={classNames(styles.orderBook, 'flex shrink-0 flex-col border-y border-[#f5f5f5] bg-white')}
+            className={classNames(styles.orderBook, 'flex shrink-0 flex-col border-y border-line bg-primaryBottom')}
         >
             <div className={classNames(styles.orderBookActions, 'h-[124px] shrink-0 flex-col gap-3 px-3 py-2')}>
                 <button
                     type="button"
                     aria-label={t`Buy / Long`}
-                    className="h-12 rounded-lg bg-[#3fa336] text-base font-bold leading-6 text-white outline-none hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="h-12 rounded-lg bg-[#3fa336] text-base font-bold leading-6 text-white outline-none hover:opacity-90 focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={onBuy}
                 >
                     <Trans>Buy/Long</Trans>
@@ -196,7 +194,7 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
                 <button
                     type="button"
                     aria-label={t`Sell / Short`}
-                    className="h-12 rounded-lg bg-[#ff372b] text-base font-bold leading-6 text-white outline-none hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="h-12 rounded-lg bg-[#ff372b] text-base font-bold leading-6 text-white outline-none hover:opacity-90 focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={onSell}
                 >
                     <Trans>Sell/Short</Trans>
@@ -217,7 +215,7 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
                         onChange={onUnitChange}
                     />
                 </div>
-                <div className="grid h-[18px] grid-cols-2 items-center gap-1 text-xs leading-[14px] text-[#767676]">
+                <div className="grid h-[18px] grid-cols-2 items-center gap-1 text-xs leading-[14px] text-second">
                     <span>
                         <Trans>Price</Trans>
                     </span>
@@ -226,21 +224,21 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
                     </span>
                 </div>
                 {isLoading ? (
-                    <p className="flex flex-1 items-center justify-center text-sm text-[#767676]">
+                    <p className="flex flex-1 items-center justify-center text-sm text-second">
                         <Trans>Loading order book…</Trans>
                     </p>
                 ) : null}
                 {error ? (
                     <div
                         role="alert"
-                        className="flex flex-1 flex-col items-center justify-center gap-2 text-sm text-[#ff372b]"
+                        className="flex flex-1 flex-col items-center justify-center gap-2 text-sm text-fail"
                     >
                         <p>
                             <Trans>Order book is unavailable.</Trans>
                         </p>
                         <button
                             type="button"
-                            className="font-semibold text-[#4c4aa9] outline-none focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                            className="font-semibold text-highlight outline-none focus-visible:ring-2 focus-visible:ring-highlight"
                             onClick={onRetry}
                         >
                             <Trans>Retry</Trans>
@@ -250,7 +248,7 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
                 {!isLoading && !error ? (
                     <>
                         <BookRows rows={presentation.asks} side="ask" unit={unit} />
-                        <div className="my-1 flex h-[30px] shrink-0 items-center justify-center gap-3 bg-[#f5f5f9] text-xs leading-[14px] text-lightTextMain">
+                        <div className="my-1 flex h-[30px] shrink-0 items-center justify-center gap-3 bg-lightBg text-xs leading-[14px] text-main">
                             <span>
                                 <Trans>Spread</Trans>
                             </span>
@@ -267,7 +265,7 @@ const PerpsOrderBookContent = memo(function PerpsOrderBookContent({
                     </>
                 ) : null}
                 {!isLoading && !error && asks.length === 0 && bids.length === 0 ? (
-                    <p className="flex flex-1 items-center justify-center text-sm text-[#767676]">
+                    <p className="flex flex-1 items-center justify-center text-sm text-second">
                         <Trans>No order-book data.</Trans>
                     </p>
                 ) : null}

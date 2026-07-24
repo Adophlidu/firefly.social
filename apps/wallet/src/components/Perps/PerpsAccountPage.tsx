@@ -148,7 +148,7 @@ const PositionCard = memo(function PositionCard({
     const [sizeInUsd, setSizeInUsd] = useState(false);
 
     return (
-        <article className="rounded-xl border border-[#f5f5f5] bg-white p-3 text-lightTextMain dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50">
+        <article className="rounded-xl border border-line bg-primaryBottom p-3 text-main">
             <div className="flex h-9 flex-col justify-between">
                 <div className="flex items-center justify-between">
                     <button
@@ -159,7 +159,7 @@ const PositionCard = memo(function PositionCard({
                         {coinDisplayName}
                         <CoinArrowIcon className="size-3" />
                     </button>
-                    <span className="text-xs leading-[14px] text-[#767676]">
+                    <span className="text-xs leading-[14px] text-second">
                         <Trans>PnL(USDC)</Trans>
                     </span>
                 </div>
@@ -168,22 +168,22 @@ const PositionCard = memo(function PositionCard({
                         <span
                             className={cn(
                                 'rounded-full px-1.5 py-0.5 text-xs font-medium leading-[14px]',
-                                isLong ? 'bg-[#3dc23333] text-[#3dc233]' : 'bg-[#ff354533] text-[#ff3545]',
+                                isLong ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger',
                             )}
                         >
                             {isLong ? <Trans>Buy</Trans> : <Trans>Sell</Trans>}
                         </span>
-                        <span className="rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium leading-[14px] text-[#b1b1b1]">
+                        <span className="rounded-full bg-lightBg px-1.5 py-0.5 text-xs font-medium leading-[14px] text-third">
                             {position.leverage.type === 'isolated' ? <Trans>Isolated</Trans> : <Trans>Cross</Trans>}
                         </span>
-                        <span className="rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium leading-[14px] text-[#b1b1b1]">
+                        <span className="rounded-full bg-lightBg px-1.5 py-0.5 text-xs font-medium leading-[14px] text-third">
                             {position.leverage.value}x
                         </span>
                     </div>
                     <strong
                         className={cn(
                             'text-sm font-semibold leading-[14px]',
-                            pnl >= 0 ? 'text-[#3dc233]' : 'text-[#ff3545]',
+                            pnl >= 0 ? 'text-success' : 'text-danger',
                         )}
                     >
                         {formatUSD(pnl, true)} ({formatSignedNumber(roe)}%)
@@ -225,7 +225,7 @@ const PositionCard = memo(function PositionCard({
                     align="right"
                     label={<Trans>Funding</Trans>}
                     value={
-                        <span className={funding >= 0 ? 'text-[#3dc233]' : 'text-[#ff3545]'}>
+                        <span className={funding >= 0 ? 'text-success' : 'text-danger'}>
                             {formatSignedNumber(funding)}
                         </span>
                     }
@@ -242,34 +242,34 @@ const PositionCard = memo(function PositionCard({
                 />
             </div>
 
-            <div className="mt-3 flex items-center gap-1 text-xs text-[#767676]">
+            <div className="mt-3 flex items-center gap-1 text-xs text-second">
                 <Trans>TP/SL</Trans>
                 {tp || sl ? (
-                    <strong className="text-sm font-semibold text-lightTextMain dark:text-neutral-50">
-                        <span className="text-[#3dc233]">{tp ? formatNumber(tp, 2) : '--'}</span>
+                    <strong className="text-sm font-semibold text-main">
+                        <span className="text-success">{tp ? formatNumber(tp, 2) : '--'}</span>
                         {' / '}
-                        <span className="text-[#ff3545]">{sl ? formatNumber(sl, 2) : '--'}</span>
+                        <span className="text-danger">{sl ? formatNumber(sl, 2) : '--'}</span>
                     </strong>
                 ) : (
-                    <strong className="text-sm font-semibold text-lightTextMain dark:text-neutral-50">--/--</strong>
+                    <strong className="text-sm font-semibold text-main">--/--</strong>
                 )}
             </div>
 
             <div className="mt-3 grid grid-cols-3 gap-3">
                 <PerpsIntentButton
-                    className="h-8 rounded-[22px] bg-[#e8e8e8] text-xs font-medium dark:bg-neutral-800"
+                    className="h-8 rounded-[22px] bg-lightBg text-xs font-medium"
                     intent={{ kind: 'edit-tpsl', coin, positionId }}
                 >
                     <Trans>TP/SL</Trans>
                 </PerpsIntentButton>
                 <PerpsIntentButton
-                    className="h-8 rounded-[22px] bg-[#e8e8e8] text-xs font-medium dark:bg-neutral-800"
+                    className="h-8 rounded-[22px] bg-lightBg text-xs font-medium"
                     intent={{ kind: 'limit-close', coin, positionId }}
                 >
                     <Trans>Limit Close</Trans>
                 </PerpsIntentButton>
                 <PerpsIntentButton
-                    className="h-8 rounded-[22px] bg-[#e8e8e8] text-xs font-medium dark:bg-neutral-800"
+                    className="h-8 rounded-[22px] bg-lightBg text-xs font-medium"
                     intent={{ kind: 'market-close', coin, positionId }}
                 >
                     <Trans>Market Close</Trans>
@@ -290,7 +290,7 @@ function PositionMetric({
 }) {
     return (
         <div className={cn('min-w-0', align === 'right' && 'text-right')}>
-            <div className="text-xs leading-[14px] text-[#767676]">{label}</div>
+            <div className="text-xs leading-[14px] text-second">{label}</div>
             <div className={cn('mt-0.5 text-sm font-semibold leading-5', align === 'right' && 'flex justify-end')}>
                 {value}
             </div>
@@ -307,7 +307,7 @@ const OpenOrderCard = memo(function OpenOrderCard({ order }: { order: OpenOrder 
     const coinDisplayName = toPerpsCoinDisplayName(order.coin);
 
     return (
-        <article className="rounded-xl border border-[#f5f5f5] bg-white p-3 text-lightTextMain dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50">
+        <article className="rounded-xl border border-line bg-primaryBottom p-3 text-main">
             <div className="flex gap-3">
                 <BtcIcon className="size-9 shrink-0" />
                 <div className="min-w-0 flex-1">
@@ -315,7 +315,7 @@ const OpenOrderCard = memo(function OpenOrderCard({ order }: { order: OpenOrder 
                         <strong className="text-sm font-semibold">{coinDisplayName}</strong>
                         <PerpsIntentButton
                             intent={{ kind: 'cancel-order', coin, orderId: String(order.oid) }}
-                            className="flex size-6 items-center justify-center text-[#767676]"
+                            className="flex size-6 items-center justify-center text-second"
                         >
                             <TrashIcon className="size-4" />
                             <span className="sr-only">
@@ -327,13 +327,13 @@ const OpenOrderCard = memo(function OpenOrderCard({ order }: { order: OpenOrder 
                         <span
                             className={cn(
                                 'rounded-full px-1.5 py-0.5 text-xs font-medium leading-[14px]',
-                                isLong ? 'bg-[#3dc23333] text-[#3dc233]' : 'bg-[#ff354533] text-[#ff3545]',
+                                isLong ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger',
                             )}
                         >
                             {order.orderType} / <OrderDirectionLabel order={order} />
                         </span>
                         {!order.isTrigger ? (
-                            <span className="ml-1 rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium leading-[14px] text-[#b1b1b1]">
+                            <span className="ml-1 rounded-full bg-lightBg px-1.5 py-0.5 text-xs font-medium leading-[14px] text-third">
                                 3x
                             </span>
                         ) : null}
@@ -351,7 +351,7 @@ const OpenOrderCard = memo(function OpenOrderCard({ order }: { order: OpenOrder 
                 <div className="min-w-0">
                     {order.isTrigger ? (
                         <>
-                            <div className="text-xs leading-[14px] text-[#767676]">
+                            <div className="text-xs leading-[14px] text-second">
                                 <Trans>Trigger Condition</Trans>
                             </div>
                             <strong className="block truncate text-sm font-semibold leading-5">
@@ -359,15 +359,13 @@ const OpenOrderCard = memo(function OpenOrderCard({ order }: { order: OpenOrder 
                             </strong>
                         </>
                     ) : (
-                        <div className="flex items-center gap-1 text-xs text-[#767676]">
+                        <div className="flex items-center gap-1 text-xs text-second">
                             <Trans>TP/SL</Trans>
-                            <strong className="text-sm font-semibold text-lightTextMain dark:text-neutral-50">
-                                --/--
-                            </strong>
+                            <strong className="text-sm font-semibold text-main">--/--</strong>
                         </div>
                     )}
                 </div>
-                <time className="shrink-0 text-xs leading-[14px] text-[#767676]">
+                <time className="shrink-0 text-xs leading-[14px] text-second">
                     {new Date(order.timestamp).toLocaleString()}
                 </time>
             </div>
@@ -454,7 +452,7 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
     }, [intent]);
 
     return (
-        <div className="no-scrollbar flex min-h-0 w-full flex-1 flex-col overflow-y-auto overflow-x-hidden bg-white text-lightTextMain dark:bg-neutral-950 dark:text-neutral-50">
+        <div className="no-scrollbar flex min-h-0 w-full flex-1 flex-col overflow-y-auto overflow-x-hidden bg-primaryBottom text-main">
             <NavigationBar
                 className="shrink-0"
                 backIcon={<BackIcon className="size-6" />}
@@ -473,7 +471,7 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
             <main className="flex shrink-0 flex-col px-4 pb-6">
                 <section className="py-4">
                     <div className="flex items-end gap-1 leading-none">
-                        <span className="text-5xl font-normal leading-[56px] text-[#b1b1b1]">$</span>
+                        <span className="text-5xl font-normal leading-[56px] text-third">$</span>
                         <strong className="text-5xl font-bold leading-[56px]">
                             {isBalanceLoading ? '--' : balance.integer}
                             {!isBalanceLoading ? (
@@ -481,12 +479,12 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                             ) : null}
                         </strong>
                     </div>
-                    <dl className="space-y-1 text-[13px] leading-[17px] text-[#767676]">
+                    <dl className="space-y-1 text-[13px] leading-[17px] text-second">
                         <div className="flex gap-1">
                             <dt>
                                 <Trans>Unrealized PnL:</Trans>
                             </dt>
-                            <dd className={cn('font-bold', unrealizedPnl >= 0 ? 'text-[#3dc233]' : 'text-[#ff3545]')}>
+                            <dd className={cn('font-bold', unrealizedPnl >= 0 ? 'text-success' : 'text-danger')}>
                                 {formatUSD(unrealizedPnl, true)}
                             </dd>
                         </div>
@@ -508,9 +506,7 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                             </dt>
                             <dd
                                 className={cn(
-                                    Number.isFinite(crossRatio) && crossRatio < 0.8
-                                        ? 'text-[#3dc233]'
-                                        : 'text-[#ff3545]',
+                                    Number.isFinite(crossRatio) && crossRatio < 0.8 ? 'text-success' : 'text-danger',
                                 )}
                             >
                                 {Number.isFinite(crossRatio) ? `${(crossRatio * 100).toFixed(2)}%` : '--'}
@@ -521,14 +517,14 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                     <div className="mt-6 grid grid-cols-2 gap-3">
                         <button
                             type="button"
-                            className="flex h-10 items-center justify-center gap-1.5 rounded-[20px] bg-[#f5f5f9] text-sm font-medium dark:bg-neutral-900"
+                            className="flex h-10 items-center justify-center gap-1.5 rounded-[20px] bg-lightBg text-sm font-medium"
                             onClick={() => navigate({ to: '/perps/withdraw' })}
                         >
                             <WithdrawIcon className="size-5" /> <Trans>Withdraw</Trans>
                         </button>
                         <button
                             type="button"
-                            className="flex h-10 items-center justify-center gap-1.5 rounded-[20px] bg-[#f5f5f9] text-sm font-medium dark:bg-neutral-900"
+                            className="flex h-10 items-center justify-center gap-1.5 rounded-[20px] bg-lightBg text-sm font-medium"
                             onClick={() => navigate({ to: '/perps/deposit' })}
                         >
                             <DepositIcon className="size-5" /> <Trans>Add Funds</Trans>
@@ -543,7 +539,7 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                                 type="button"
                                 role="tab"
                                 aria-selected={tab === 'positions'}
-                                className="h-9 border-b-[2.5px] border-transparent font-[Poppins] text-base font-semibold text-[#767676] aria-selected:border-lightTextMain aria-selected:text-lightTextMain dark:aria-selected:border-neutral-50 dark:aria-selected:text-neutral-50"
+                                className="h-9 border-b-[2.5px] border-transparent font-[Poppins] text-base font-semibold text-second aria-selected:border-main aria-selected:text-main"
                                 onClick={() => setTab('positions')}
                             >
                                 <Trans>Positions</Trans>
@@ -552,7 +548,7 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                                 type="button"
                                 role="tab"
                                 aria-selected={tab === 'orders'}
-                                className="h-9 border-b-[2.5px] border-transparent font-[Poppins] text-base font-semibold text-[#767676] aria-selected:border-lightTextMain aria-selected:text-lightTextMain dark:aria-selected:border-neutral-50 dark:aria-selected:text-neutral-50"
+                                className="h-9 border-b-[2.5px] border-transparent font-[Poppins] text-base font-semibold text-second aria-selected:border-main aria-selected:text-main"
                                 onClick={() => setTab('orders')}
                             >
                                 <Trans>Open Orders</Trans>
@@ -572,7 +568,7 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                         <div className="mt-4 flex justify-end">
                             <PerpsIntentButton
                                 intent={{ kind: tab === 'positions' ? 'close-all' : 'cancel-all' }}
-                                className="flex h-[34px] items-center justify-center gap-1 rounded-2xl border border-[#e7e7e7] px-4 text-sm font-medium dark:border-neutral-800"
+                                className="flex h-[34px] items-center justify-center gap-1 rounded-2xl border border-secondaryLine px-4 text-sm font-medium"
                             >
                                 <BatchActionIcon className="size-3.5" />
                                 {tab === 'positions' ? <Trans>Close all</Trans> : <Trans>Cancel all</Trans>}
@@ -588,12 +584,12 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                             : openOrders.map((order) => <OpenOrderCard key={order.oid} order={order} />)}
 
                         {tab === 'positions' && !isAccountLoading && !positions.length ? (
-                            <p className="py-10 text-center text-sm text-[#767676]">
+                            <p className="py-10 text-center text-sm text-second">
                                 <Trans>No open positions</Trans>
                             </p>
                         ) : null}
                         {tab === 'orders' && !isOrdersLoading && !openOrders.length ? (
-                            <p className="py-10 text-center text-sm text-[#767676]">
+                            <p className="py-10 text-center text-sm text-second">
                                 <Trans>No open orders</Trans>
                             </p>
                         ) : null}

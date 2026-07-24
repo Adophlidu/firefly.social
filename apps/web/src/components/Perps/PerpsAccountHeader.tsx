@@ -22,32 +22,32 @@ function AuthenticatedSummary({ address, onIntent }: Required<Props>) {
                 <button
                     type="button"
                     aria-label={t`Portfolio account value`}
-                    className="rounded-lg px-2 py-1 text-left outline-none hover:bg-[#f5f5f9] focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="rounded-lg px-2 py-1 text-left outline-none hover:bg-lightBg focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={() => onIntent({ kind: 'account' })}
                 >
-                    <span className="block text-xs leading-[14px] text-[#b1b1b1]">
+                    <span className="block text-xs leading-[14px] text-third">
                         <Trans>Portfolio</Trans>
                     </span>
-                    <span className="block text-sm font-semibold leading-5 text-[#4c4aa9]">
+                    <span className="block text-sm font-semibold leading-5 text-highlight">
                         {isLoading ? '$--' : formatPerpsAccountBalance(accountValue)}
                     </span>
                 </button>
                 <button
                     type="button"
                     aria-label={t`Withdrawable cash`}
-                    className="rounded-lg px-2 py-1 text-left outline-none hover:bg-[#f5f5f9] focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="rounded-lg px-2 py-1 text-left outline-none hover:bg-lightBg focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={() => onIntent({ kind: 'account' })}
                 >
-                    <span className="block text-xs leading-[14px] text-[#b1b1b1]">
+                    <span className="block text-xs leading-[14px] text-third">
                         <Trans>Cash</Trans>
                     </span>
-                    <span className="block text-sm font-semibold leading-5 text-[#4c4aa9]">
+                    <span className="block text-sm font-semibold leading-5 text-highlight">
                         {isLoading ? '$--' : formatPerpsAccountBalance(withdrawable)}
                     </span>
                 </button>
                 <button
                     type="button"
-                    className="h-8 rounded-lg bg-lightTextMain px-5 text-[15px] font-bold leading-5 text-white outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="h-8 rounded-lg bg-main px-5 text-[15px] font-bold leading-5 text-primaryBottom outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={() => onIntent({ kind: 'deposit' })}
                 >
                     <Trans>Deposit</Trans>
@@ -60,10 +60,10 @@ function AuthenticatedSummary({ address, onIntent }: Required<Props>) {
                     className={styles.mobileAccountButton}
                     onClick={() => onIntent({ kind: 'account' })}
                 >
-                    <span className="block truncate text-[11px] leading-[13px] text-[#b1b1b1]">
+                    <span className="block truncate text-[11px] leading-[13px] text-third">
                         <Trans>Portfolio</Trans>
                     </span>
-                    <span className="block truncate text-sm font-semibold leading-5 text-[#4c4aa9]">
+                    <span className="block truncate text-sm font-semibold leading-5 text-highlight">
                         {isLoading ? '$--' : formatPerpsAccountBalance(accountValue)}
                     </span>
                 </button>
@@ -87,28 +87,28 @@ export const PerpsAccountHeader = memo(function PerpsAccountHeader({ address, on
                 <button
                     type="button"
                     aria-label={t`Portfolio account value`}
-                    className="rounded-lg px-2 py-1 text-left outline-none hover:bg-[#f5f5f9] focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="rounded-lg px-2 py-1 text-left outline-none hover:bg-lightBg focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={() => onIntent({ kind: 'account' })}
                 >
-                    <span className="block text-xs leading-[14px] text-[#b1b1b1]">
+                    <span className="block text-xs leading-[14px] text-third">
                         <Trans>Portfolio</Trans>
                     </span>
-                    <span className="block text-sm font-semibold leading-5 text-[#4c4aa9]">$--</span>
+                    <span className="block text-sm font-semibold leading-5 text-highlight">$--</span>
                 </button>
                 <button
                     type="button"
                     aria-label={t`Withdrawable cash`}
-                    className="rounded-lg px-2 py-1 text-left outline-none hover:bg-[#f5f5f9] focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="rounded-lg px-2 py-1 text-left outline-none hover:bg-lightBg focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={() => onIntent({ kind: 'account' })}
                 >
-                    <span className="block text-xs leading-[14px] text-[#b1b1b1]">
+                    <span className="block text-xs leading-[14px] text-third">
                         <Trans>Cash</Trans>
                     </span>
-                    <span className="block text-sm font-semibold leading-5 text-[#4c4aa9]">$--</span>
+                    <span className="block text-sm font-semibold leading-5 text-highlight">$--</span>
                 </button>
                 <button
                     type="button"
-                    className="h-8 rounded-lg bg-lightTextMain px-5 text-[15px] font-bold leading-5 text-white outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="h-8 rounded-lg bg-main px-5 text-[15px] font-bold leading-5 text-primaryBottom outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={() => onIntent({ kind: 'deposit' })}
                 >
                     <Trans>Deposit</Trans>
@@ -121,10 +121,10 @@ export const PerpsAccountHeader = memo(function PerpsAccountHeader({ address, on
                     className={styles.mobileAccountButton}
                     onClick={() => onIntent({ kind: 'account' })}
                 >
-                    <span className="block text-[11px] leading-[13px] text-[#b1b1b1]">
+                    <span className="block text-[11px] leading-[13px] text-third">
                         <Trans>Portfolio</Trans>
                     </span>
-                    <span className="block text-sm font-semibold leading-5 text-[#4c4aa9]">$--</span>
+                    <span className="block text-sm font-semibold leading-5 text-highlight">$--</span>
                 </button>
                 <button
                     type="button"

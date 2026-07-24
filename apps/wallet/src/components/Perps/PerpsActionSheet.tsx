@@ -489,16 +489,16 @@ export function PerpsActionSheet({
                 }}
             >
                 <DrawerContent
-                    className="mx-auto max-w-[800px] rounded-t-[36px] border border-[rgba(34,33,47,0.03)] shadow-[0_16px_20px_rgba(64,61,87,0.1)] sm:rounded-t-[36px]"
+                    className="mx-auto max-w-[800px] rounded-t-[36px] border border-line bg-primaryBottom text-main shadow-[0_16px_20px_rgba(64,61,87,0.1)] dark:shadow-none sm:rounded-t-[36px]"
                     bodyClassName="gap-4 overflow-visible px-4 pb-4 pt-2"
                 >
                     <div className="flex flex-col items-center">
-                        <div className="h-1 w-12 rounded-full bg-[#d1d1d1]" />
+                        <div className="h-1 w-12 rounded-full bg-third" />
                         <DrawerTitle className="mt-3 flex-none self-stretch text-left text-xl font-[SF_Pro_Rounded] font-bold leading-6 first:mr-0">
                             {isCancelAll ? <Trans>Cancel all orders</Trans> : <Trans>Close all positions</Trans>}
                         </DrawerTitle>
                     </div>
-                    <DrawerDescription className="text-[13px] font-medium leading-[17px] text-[rgba(70,70,70,0.8)]">
+                    <DrawerDescription className="text-[13px] font-medium leading-[17px] text-second">
                         {isCancelAll ? (
                             <Trans>
                                 This will cancel all your open orders, including take-profit and stop-loss orders.
@@ -513,7 +513,7 @@ export function PerpsActionSheet({
                     <div className="grid grid-cols-2 gap-4">
                         <button
                             type="button"
-                            className="h-12 rounded-full border border-[#171717] text-sm font-bold leading-6 text-[#171717]"
+                            className="h-12 rounded-full border border-main text-sm font-bold leading-6 text-main"
                             onClick={onClose}
                         >
                             <Trans>Back</Trans>
@@ -521,7 +521,7 @@ export function PerpsActionSheet({
                         <button
                             type="button"
                             disabled={mutation.isPending}
-                            className="h-12 rounded-full bg-[#171717] text-base font-bold leading-6 text-[#e8e8e8] disabled:opacity-40"
+                            className="h-12 rounded-full bg-main text-base font-bold leading-6 text-primaryBottom disabled:opacity-40"
                             onClick={() => mutation.mutate()}
                         >
                             {mutation.isPending ? <Trans>Submitting…</Trans> : <Trans>Confirm</Trans>}
@@ -540,19 +540,19 @@ export function PerpsActionSheet({
             }}
         >
             <DrawerContent
-                className="mx-auto max-w-[800px] outline-none focus:outline-none focus-visible:outline-none"
+                className="mx-auto max-w-[800px] bg-primaryBottom text-main outline-none focus:outline-none focus-visible:outline-none"
                 bodyClassName="px-4"
             >
-                <DrawerHeader>
+                <DrawerHeader className="bg-primaryBottom">
                     <DrawerTitle>{titleForIntent(intent.kind)}</DrawerTitle>
                 </DrawerHeader>
                 {isTargetLoading ? (
                     <div className="flex h-32 items-center justify-center">
-                        <Spinner className="size-6 text-[#4c4aa9]" />
+                        <Spinner className="size-6 text-highlight" />
                     </div>
                 ) : null}
                 {isTargetMissing ? (
-                    <p role="alert" className="rounded-lg bg-red-50 p-4 text-sm text-[#ff3545]">
+                    <p role="alert" className="rounded-lg bg-dangerBg p-4 text-sm text-danger">
                         <Trans>The position or order is no longer available. Refresh the web page and try again.</Trans>
                     </p>
                 ) : null}
@@ -596,26 +596,26 @@ export function PerpsActionSheet({
                 ) : null}
                 {!isTargetLoading && !isTargetMissing && intent.kind === 'modify-order' ? (
                     <div className="py-2">
-                        <span className="block text-sm text-[#767676] dark:text-neutral-400">
+                        <span className="block text-sm text-second">
                             {intent.field === 'size' ? <Trans>Size</Trans> : <Trans>Price</Trans>}
                         </span>
                         <div className="mt-2 flex flex-wrap items-baseline gap-2 text-lg font-semibold leading-6">
                             <span>{intent.field === 'size' ? targetOrder?.sz : targetOrder?.limitPx}</span>
-                            <span aria-hidden className="text-[#b1b1b1]">
+                            <span aria-hidden className="text-third">
                                 →
                             </span>
                             <span>{intent.value}</span>
-                            <span className="text-sm font-medium text-[#767676] dark:text-neutral-400">
+                            <span className="text-sm font-medium text-second">
                                 {intent.field === 'size' ? targetCoinDisplayName : 'USDC'}
                             </span>
                         </div>
-                        <p className="mt-3 text-[13px] leading-[17px] text-[#767676] dark:text-neutral-400">
+                        <p className="mt-3 text-[13px] leading-[17px] text-second">
                             <Trans>This action will be submitted to Hyperliquid.</Trans>
                         </p>
                     </div>
                 ) : null}
                 {!isTargetLoading && !isTargetMissing && isConfirmation ? (
-                    <p className="rounded-lg bg-[#f5f5f9] p-4 text-sm dark:bg-neutral-900">
+                    <p className="rounded-lg bg-lightBg p-4 text-sm">
                         <Trans>This action will be submitted to Hyperliquid. Please confirm to continue.</Trans>
                     </p>
                 ) : null}
@@ -623,7 +623,7 @@ export function PerpsActionSheet({
                     <button
                         type="button"
                         disabled={isTargetMissing || mutation.isPending}
-                        className="mb-2 mt-6 h-12 w-full rounded-full bg-lightTextMain text-base font-bold text-white disabled:opacity-40 dark:bg-white dark:text-lightTextMain"
+                        className="mb-2 mt-6 h-12 w-full rounded-full bg-main text-base font-bold text-primaryBottom disabled:opacity-40"
                         onClick={() => mutation.mutate()}
                     >
                         {mutation.isPending ? <Trans>Submitting…</Trans> : <Trans>Confirm</Trans>}
@@ -651,11 +651,11 @@ function PerpsDrawerFrame({
             }}
         >
             <DrawerContent
-                className="mx-auto max-w-[400px] rounded-t-[36px] border border-[rgba(34,33,47,0.03)] shadow-[0_16px_20px_rgba(64,61,87,0.1)] outline-none focus:outline-none sm:rounded-t-[36px]"
+                className="mx-auto max-w-[400px] rounded-t-[36px] border border-line bg-primaryBottom text-main shadow-[0_16px_20px_rgba(64,61,87,0.1)] outline-none focus:outline-none dark:shadow-none sm:rounded-t-[36px]"
                 bodyClassName="gap-4 overflow-visible px-4 pb-4 pt-2"
             >
                 <div className="flex flex-col items-center">
-                    <div className="h-1 w-12 rounded-full bg-[#d1d1d1]" />
+                    <div className="h-1 w-12 rounded-full bg-third" />
                     <DrawerTitle className="mt-3 flex-none self-stretch text-left text-xl font-[SF_Pro_Rounded] font-bold leading-6 first:mr-0">
                         {title}
                     </DrawerTitle>
@@ -675,23 +675,23 @@ function PositionSizeSlider({ value, onChange }: { value: number; onChange(value
     const steps = [0, 25, 50, 75, 100];
     return (
         <div className="relative h-6" aria-label="Close position percentage">
-            <div className="pointer-events-none absolute inset-x-[7px] top-1/2 h-0.5 -translate-y-1/2 bg-[#d1d1d1]" />
+            <div className="pointer-events-none absolute inset-x-[7px] top-1/2 h-0.5 -translate-y-1/2 bg-third" />
             <div
-                className="pointer-events-none absolute left-[7px] top-1/2 h-0.5 -translate-y-1/2 bg-[#171717]"
+                className="pointer-events-none absolute left-[7px] top-1/2 h-0.5 -translate-y-1/2 bg-main"
                 style={{ width: `calc(${value}% - ${value * 0.14}px)` }}
             />
             {steps.map((step) => (
                 <span
                     key={step}
                     className={cn(
-                        'pointer-events-none absolute top-1/2 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-white',
-                        step <= value ? 'border-[#171717]' : 'border-[#d1d1d1]',
+                        'pointer-events-none absolute top-1/2 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-primaryBottom',
+                        step <= value ? 'border-main' : 'border-third',
                     )}
                     style={{ left: `calc(7px + (100% - 14px) * ${step / 100})` }}
                 />
             ))}
             <span
-                className="pointer-events-none absolute top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#171717] bg-white"
+                className="pointer-events-none absolute top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-main bg-primaryBottom"
                 style={{ left: `calc(7px + (100% - 14px) * ${value / 100})` }}
             />
             <input
@@ -768,7 +768,7 @@ function ClosePositionDrawer({
             {type === 'limit' ? (
                 <LabeledCompactInput label={<Trans>Price(USDC)</Trans>} value={price} onChange={onPriceChange}>
                     {midPrice ? (
-                        <button type="button" className="text-[#5e69ff]" onClick={onUseMid}>
+                        <button type="button" className="text-highlight" onClick={onUseMid}>
                             <Trans>Mid</Trans>
                         </button>
                     ) : null}
@@ -780,7 +780,7 @@ function ClosePositionDrawer({
                     value={amount}
                     onChange={onAmountChange}
                 >
-                    <span className="text-xs font-medium text-[rgba(70,70,70,0.8)]">{coinDisplayName}</span>
+                    <span className="text-xs font-medium text-second">{coinDisplayName}</span>
                 </LabeledCompactInput>
                 <PositionSizeSlider value={amountRatio} onChange={onRatioChange} />
             </div>
@@ -791,12 +791,12 @@ function ClosePositionDrawer({
             <MetaValueRow
                 label={<Trans>Est. Closed PnL</Trans>}
                 value={estimatedPnl ? `${estimatedPnl.gt(0) ? '+' : ''}${estimatedPnl.toFixed(2)} USDC` : '-- USDC'}
-                valueClassName={estimatedPnl ? (pnlIsNegative ? 'text-[#ff3545]' : 'text-[#429f37]') : undefined}
+                valueClassName={estimatedPnl ? (pnlIsNegative ? 'text-danger' : 'text-success') : undefined}
             />
             <div className="grid grid-cols-2 gap-4">
                 <button
                     type="button"
-                    className="h-12 rounded-full border border-[#171717] text-sm font-bold"
+                    className="h-12 rounded-full border border-main text-sm font-bold"
                     onClick={onCancel}
                 >
                     <Trans>Cancel</Trans>
@@ -804,7 +804,7 @@ function ClosePositionDrawer({
                 <button
                     type="button"
                     disabled={disabled}
-                    className="h-12 rounded-full bg-[#171717] text-base font-bold text-[#e8e8e8] disabled:opacity-40"
+                    className="h-12 rounded-full bg-main text-base font-bold text-primaryBottom disabled:opacity-40"
                     onClick={onConfirm}
                 >
                     {pending ? <Trans>Submitting…</Trans> : <Trans>Close</Trans>}
@@ -826,9 +826,9 @@ function LabeledCompactInput({
     children?: React.ReactNode;
 }) {
     return (
-        <label className="flex items-center justify-between gap-2 text-[13px] font-medium leading-[17px] text-[rgba(70,70,70,0.8)]">
+        <label className="flex items-center justify-between gap-2 text-[13px] font-medium leading-[17px] text-second">
             <span>{label}</span>
-            <span className="flex h-10 w-[203px] items-center gap-2 rounded-lg border border-[rgba(34,33,47,0.15)] px-2 text-sm leading-[18px] text-[#171717] focus-within:border-[#4c4aa9]">
+            <span className="flex h-10 w-[203px] items-center gap-2 rounded-lg border border-secondaryLine px-2 text-sm leading-[18px] text-main focus-within:border-highlight">
                 <input
                     value={value}
                     inputMode="decimal"
@@ -851,9 +851,9 @@ function MetaValueRow({
     valueClassName?: string;
 }) {
     return (
-        <div className="flex items-center justify-between text-[13px] font-medium leading-[17px] text-[rgba(70,70,70,0.8)]">
+        <div className="flex items-center justify-between text-[13px] font-medium leading-[17px] text-second">
             <span>{label}</span>
-            <span className={cn('text-sm leading-[18px] text-[#171717]', valueClassName)}>{value}</span>
+            <span className={cn('text-sm leading-[18px] text-main', valueClassName)}>{value}</span>
         </div>
     );
 }
@@ -973,7 +973,7 @@ function TpslDrawer({
             <button
                 type="button"
                 disabled={!canSubmit || pending}
-                className="h-12 w-full rounded-full bg-[#171717] text-base font-bold leading-6 text-[#e8e8e8] disabled:opacity-40"
+                className="h-12 w-full rounded-full bg-main text-base font-bold leading-6 text-primaryBottom disabled:opacity-40"
                 onClick={onConfirm}
             >
                 {pending ? <Trans>Submitting…</Trans> : <Trans>Confirm</Trans>}
@@ -1008,13 +1008,13 @@ function ExistingTpslRow({
     return (
         <div className="space-y-1">
             <div className="flex items-center justify-between text-xs font-medium">
-                <span className="text-[rgba(70,70,70,0.4)]">{label}</span>
+                <span className="text-third">{label}</span>
                 <div className="flex items-center gap-3">
                     <strong className="text-sm">{formatPerpsValue(order.triggerPx)}</strong>
                     <button
                         type="button"
                         disabled={disabled}
-                        className="text-sm font-semibold text-[#4c4aa9] disabled:opacity-40"
+                        className="text-sm font-semibold text-highlight disabled:opacity-40"
                         onClick={onCancel}
                     >
                         <Trans>Cancel</Trans>
@@ -1022,7 +1022,7 @@ function ExistingTpslRow({
                 </div>
             </div>
             {expectedPnl ? (
-                <p className={cn('text-right text-xs', expectedPnl.isNegative ? 'text-[#ff3545]' : 'text-[#429f37]')}>
+                <p className={cn('text-right text-xs', expectedPnl.isNegative ? 'text-danger' : 'text-success')}>
                     {expectedPnl.isNegative ? '-' : '+'}${expectedPnl.amountText}
                 </p>
             ) : null}
@@ -1052,10 +1052,10 @@ function TpslInputRow({
     onToggleGainMethod(): void;
 }) {
     const inputClassName =
-        'min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm font-medium leading-[18px] shadow-none outline-none ring-0 placeholder:text-[rgba(70,70,70,0.4)] focus:border-0 focus:outline-none focus:ring-0 focus-visible:outline-none';
+        'min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm font-medium leading-[18px] text-main shadow-none outline-none ring-0 placeholder:text-third focus:border-0 focus:outline-none focus:ring-0 focus-visible:outline-none';
     return (
         <div className="grid grid-cols-2 gap-2">
-            <label className="flex h-8 items-center rounded-md border border-[rgba(34,33,47,0.15)] px-2 focus-within:border-[#4c4aa9]">
+            <label className="flex h-8 items-center rounded-md border border-secondaryLine px-2 focus-within:border-highlight">
                 <input
                     value={price}
                     inputMode="decimal"
@@ -1064,8 +1064,8 @@ function TpslInputRow({
                     onChange={(event) => onPriceChange(event.target.value)}
                 />
             </label>
-            <label className="flex h-8 items-center gap-1 rounded-md border border-[rgba(34,33,47,0.15)] px-2 focus-within:border-[#4c4aa9]">
-                <span className="text-sm text-[rgba(70,70,70,0.4)]">{sign}</span>
+            <label className="flex h-8 items-center gap-1 rounded-md border border-secondaryLine px-2 focus-within:border-highlight">
+                <span className="text-sm text-third">{sign}</span>
                 <input
                     value={gain}
                     inputMode="decimal"
@@ -1080,7 +1080,7 @@ function TpslInputRow({
                     onClick={onToggleGainMethod}
                 >
                     {gainMethod === 'ratio' ? '%' : '$'}
-                    <ArrowLeftRight className="size-3 text-[rgba(70,70,70,0.4)]" />
+                    <ArrowLeftRight className="size-3 text-third" />
                 </button>
             </label>
         </div>
@@ -1103,7 +1103,7 @@ function ActionInput({
     return (
         <label className="block">
             <span className="mb-1 block text-sm font-semibold">{label}</span>
-            <div className="flex h-12 items-center rounded-lg border border-[#e7e7e7] px-3 focus-within:border-[#4c4aa9]">
+            <div className="flex h-12 items-center rounded-lg border border-secondaryLine px-3 focus-within:border-highlight">
                 <input
                     value={value}
                     onChange={(event) => onChange(event.target.value)}

@@ -62,9 +62,7 @@ const PerpsFundingMetric = memo(function PerpsFundingMetric({ funding }: { fundi
             label={<Trans>Funding/Countdown</Trans>}
             value={
                 <>
-                    <span className={hasRate ? (rate >= 0 ? 'text-[#3dc233]' : 'text-[#ff564d]') : undefined}>
-                        {rateText}
-                    </span>{' '}
+                    <span className={hasRate ? (rate >= 0 ? 'text-success' : 'text-fail') : undefined}>{rateText}</span>{' '}
                     {countdown}
                 </>
             }
@@ -157,7 +155,7 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
     return (
         <div className={styles.shell}>
             <div
-                className={classNames(styles.page, 'min-h-screen w-full overflow-x-hidden bg-white text-lightTextMain')}
+                className={classNames(styles.page, 'min-h-screen w-full overflow-x-hidden bg-primaryBottom text-main')}
             >
                 <header className={classNames(styles.pageHeader, 'flex items-center justify-between')}>
                     <h1 className={classNames(styles.pageTitle, 'font-bold')}>
@@ -168,7 +166,7 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
                         onIntent={(intent) => void handleWalletIntent(intent)}
                     />
                 </header>
-                <div className={classNames(styles.marketBar, 'border-b border-[#f5f5f5]')}>
+                <div className={classNames(styles.marketBar, 'border-b border-line')}>
                     <div className={styles.marketPrimary}>
                         <PerpsMarketSelector
                             markets={markets}
@@ -181,11 +179,7 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
                             <span
                                 className={classNames(
                                     styles.mobileChange,
-                                    change === undefined
-                                        ? 'text-[#767676]'
-                                        : change >= 0
-                                          ? 'text-[#3dc233]'
-                                          : 'text-[#ff564d]',
+                                    change === undefined ? 'text-second' : change >= 0 ? 'text-success' : 'text-fail',
                                 )}
                             >
                                 {metricValues.change}
@@ -217,11 +211,7 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
                                 value={metricValues.change}
                                 valueClassName={classNames(
                                     'w-24',
-                                    change === undefined
-                                        ? 'text-lightTextMain'
-                                        : change >= 0
-                                          ? 'text-[#3dc233]'
-                                          : 'text-[#ff564d]',
+                                    change === undefined ? 'text-main' : change >= 0 ? 'text-success' : 'text-fail',
                                 )}
                             />
                         </div>
@@ -245,7 +235,10 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
                     </div>
                 </div>
                 {error ? (
-                    <div role="status" className="absolute z-20 bg-amber-50 px-4 py-1 text-xs text-[#767676]">
+                    <div
+                        role="status"
+                        className="absolute z-20 bg-amber-50 px-4 py-1 text-xs text-second dark:bg-amber-950"
+                    >
                         <Trans>Live market updates are reconnecting.</Trans>
                     </div>
                 ) : null}

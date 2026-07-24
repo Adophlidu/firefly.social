@@ -197,19 +197,19 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                         />
                         <PopoverButton
                             aria-label={t`Select market`}
-                            className="flex h-[41px] items-center gap-1 text-left outline-none hover:opacity-80 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                            className="flex h-[41px] items-center gap-1 text-left outline-none hover:opacity-80 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-highlight"
                         >
                             <span
                                 data-testid="perps-selected-market"
-                                className="font-[Poppins] text-2xl font-semibold leading-9 text-lightTextMain"
+                                className="font-[Poppins] text-2xl font-semibold leading-9 text-main"
                             >
                                 {selectedMarketDisplayName}
                             </span>
-                            <span className="rounded-full bg-[#efeff3] px-1.5 py-0.5 text-xs font-medium leading-[14px] text-[#a9a6bc]">
+                            <span className="rounded-full bg-lightBg px-1.5 py-0.5 text-xs font-medium leading-[14px] text-third">
                                 {leverage ?? '--'}
                             </span>
                             <ArrowDownIcon
-                                className={classNames('size-4 text-lightTextMain transition-transform', {
+                                className={classNames('size-4 text-main transition-transform', {
                                     'rotate-180': open,
                                 })}
                             />
@@ -221,23 +221,23 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                         anchor="bottom start"
                         className={classNames(
                             styles.marketPopover,
-                            'z-50 mt-1 w-[min(978px,calc(100vw-24px))] origin-top-left overflow-hidden rounded-2xl border border-[#e7e7e7] bg-white text-lightTextMain shadow-[0_16px_20px_rgba(64,61,87,0.1)] transition duration-150 ease-out data-[closed]:scale-95 data-[closed]:opacity-0',
+                            'z-50 mt-1 w-[min(978px,calc(100vw-24px))] origin-top-left overflow-hidden rounded-2xl border border-secondaryLine bg-primaryBottom text-main shadow-[0_16px_20px_rgba(64,61,87,0.1)] transition duration-150 ease-out data-[closed]:scale-95 data-[closed]:opacity-0 dark:shadow-none',
                         )}
                     >
-                        <label className="flex h-8 items-center gap-1.5 rounded-xl bg-[#efeff3] px-3 text-[#767676] focus-within:ring-1 focus-within:ring-[#4c4aa9]">
+                        <label className="flex h-8 items-center gap-1.5 rounded-xl bg-lightBg px-3 text-second focus-within:ring-1 focus-within:ring-highlight">
                             <SearchIcon className="size-4 shrink-0" />
                             <input
                                 type="search"
                                 aria-label={t`Search markets`}
                                 value={query}
                                 placeholder={t`Search`}
-                                className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm leading-[18px] text-lightTextMain outline-none placeholder:text-[#767676] focus:border-0 focus:ring-0"
+                                className="min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm leading-[18px] text-main outline-none placeholder:text-second focus:border-0 focus:ring-0"
                                 onChange={(event) => setQuery(event.target.value)}
                             />
                         </label>
 
                         <div
-                            className="mt-3 flex h-12 items-stretch gap-5 border-b border-[#f5f5f5]"
+                            className="mt-3 flex h-12 items-stretch gap-5 border-b border-line"
                             role="tablist"
                             aria-label={t`Market categories`}
                         >
@@ -248,14 +248,14 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                     role="tab"
                                     aria-selected={category === value}
                                     className={classNames(
-                                        'relative px-1 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-[#4c4aa9]',
-                                        category === value ? 'text-[#4c4aa9]' : 'text-[#767676]',
+                                        'relative px-1 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-highlight',
+                                        category === value ? 'text-highlight' : 'text-second',
                                     )}
                                     onClick={() => setCategory(value)}
                                 >
                                     {label}
                                     {category === value ? (
-                                        <span className="absolute inset-x-0 bottom-0 h-1 rounded-full bg-[#4c4aa9]" />
+                                        <span className="absolute inset-x-0 bottom-0 h-1 rounded-full bg-highlight" />
                                     ) : null}
                                 </button>
                             ))}
@@ -266,7 +266,7 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                 <div
                                     className={classNames(
                                         styles.marketGrid,
-                                        'grid h-[38px] items-center gap-2 px-3 text-xs font-medium leading-[14px] text-[#767676]',
+                                        'grid h-[38px] items-center gap-2 px-3 text-xs font-medium leading-[14px] text-second',
                                     )}
                                 >
                                     <span>
@@ -304,7 +304,7 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                                     aria-selected={market.coin === selectedCoin}
                                                     className={classNames(
                                                         styles.marketGrid,
-                                                        'grid h-[42px] cursor-pointer items-center gap-2 rounded-lg px-3 text-left text-sm font-medium leading-[18px] outline-none hover:bg-[#f5f5f9] focus-visible:ring-2 focus-visible:ring-[#4c4aa9]',
+                                                        'grid h-[42px] cursor-pointer items-center gap-2 rounded-lg px-3 text-left text-sm font-medium leading-[18px] outline-none hover:bg-lightBg focus-visible:ring-2 focus-visible:ring-highlight',
                                                     )}
                                                     onClick={() => {
                                                         onSelect(market.coin);
@@ -341,24 +341,22 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                                             size={18}
                                                             className="shrink-0"
                                                         />
-                                                        <span className="truncate text-lightTextMain">
-                                                            {coinDisplayName}
-                                                        </span>
-                                                        <span className="flex h-5 items-center rounded bg-[rgba(61,194,51,0.1)] px-1 text-xs font-medium leading-[14px] text-[#3dc233]">
+                                                        <span className="truncate text-main">{coinDisplayName}</span>
+                                                        <span className="flex h-5 items-center rounded bg-success/10 px-1 text-xs font-medium leading-[14px] text-success">
                                                             {market.maxLeverage ? `${market.maxLeverage}x` : '--'}
                                                         </span>
                                                     </span>
-                                                    <span className="tabular-nums text-lightTextMain">
+                                                    <span className="tabular-nums text-main">
                                                         {formatPrice(market.lastPrice)}
                                                     </span>
                                                     <span
                                                         className={classNames(
                                                             'tabular-nums',
                                                             change === undefined
-                                                                ? 'text-[#767676]'
+                                                                ? 'text-second'
                                                                 : change >= 0
-                                                                  ? 'text-[#3dc233]'
-                                                                  : 'text-[#ff564d]',
+                                                                  ? 'text-success'
+                                                                  : 'text-fail',
                                                         )}
                                                     >
                                                         {formatPercent(change)}
@@ -367,25 +365,25 @@ export const PerpsMarketSelector = memo(function PerpsMarketSelector({
                                                         className={classNames(
                                                             'tabular-nums',
                                                             !Number.isFinite(funding)
-                                                                ? 'text-[#767676]'
+                                                                ? 'text-second'
                                                                 : funding >= 0
-                                                                  ? 'text-[#3dc233]'
-                                                                  : 'text-[#ff564d]',
+                                                                  ? 'text-success'
+                                                                  : 'text-fail',
                                                         )}
                                                     >
                                                         {formatFunding(market.fundingRate)}
                                                     </span>
-                                                    <span className="tabular-nums text-lightTextMain">
+                                                    <span className="tabular-nums text-main">
                                                         {formatUsd(market.volume)}
                                                     </span>
-                                                    <span className="tabular-nums text-lightTextMain">
+                                                    <span className="tabular-nums text-main">
                                                         {formatUsd(market.openInterest)}
                                                     </span>
                                                 </div>
                                             );
                                         })
                                     ) : (
-                                        <div className="flex h-28 items-center justify-center text-sm text-[#767676]">
+                                        <div className="flex h-28 items-center justify-center text-sm text-second">
                                             <Trans>No markets found</Trans>
                                         </div>
                                     )}

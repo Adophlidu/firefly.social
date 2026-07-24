@@ -90,10 +90,10 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
             aria-label={t`${displayCoin} price chart`}
             className={classNames(
                 styles.chart,
-                'flex min-w-0 flex-1 flex-col overflow-hidden border-b border-r border-[#f5f5f5] bg-white',
+                'flex min-w-0 flex-1 flex-col overflow-hidden border-b border-r border-line bg-primaryBottom text-main',
             )}
         >
-            <header className="flex h-12 shrink-0 items-center justify-between border-b border-[#f5f5f5] px-3 text-[#767676]">
+            <header className="flex h-12 shrink-0 items-center justify-between border-b border-line px-3 text-second">
                 <div
                     role="group"
                     aria-label={t`Chart interval`}
@@ -104,7 +104,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                             key={`${label}-${index}`}
                             type="button"
                             aria-pressed={interval === value}
-                            className="rounded px-2 py-1 text-base font-semibold leading-5 outline-none hover:text-lightTextMain focus-visible:ring-2 focus-visible:ring-[#4c4aa9] aria-pressed:bg-[#f5f5f5] aria-pressed:text-lightTextMain"
+                            className="rounded px-2 py-1 text-base font-semibold leading-5 outline-none hover:text-main focus-visible:ring-2 focus-visible:ring-highlight aria-pressed:bg-lightBg aria-pressed:text-main"
                             onClick={() => setChartInterval(value)}
                         >
                             {label}
@@ -114,12 +114,12 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                         ⌄
                     </span>
                 </div>
-                <div className={classNames(styles.chartDesktopTools, 'items-center gap-3 text-lightTextMain')}>
+                <div className={classNames(styles.chartDesktopTools, 'items-center gap-3 text-main')}>
                     <ChartIcon className="size-5" />
                     <MenuIcon className="size-5" />
                     <MusicIcon className="size-5" />
                     <SettingsIcon className="size-5" />
-                    <span className="h-6 w-px bg-[#f5f5f5]" />
+                    <span className="h-6 w-px bg-line" />
                     <UndoIcon className="size-5" />
                     <span className="text-xs font-semibold">Last ›</span>
                     <CameraIcon className="size-5" />
@@ -130,10 +130,10 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                     aria-hidden
                     className={classNames(
                         styles.chartDrawingTools,
-                        'absolute inset-y-0 left-0 z-1 w-14 flex-col items-center gap-3 border-r border-[#f5f5f5] bg-white py-3 text-[#767676]',
+                        'absolute inset-y-0 left-0 z-1 w-14 flex-col items-center gap-3 border-r border-line bg-primaryBottom py-3 text-second',
                     )}
                 >
-                    <span className="flex size-10 items-center justify-center rounded-lg bg-[#ececf0] text-xl">＋</span>
+                    <span className="flex size-10 items-center justify-center rounded-lg bg-lightBg text-xl">＋</span>
                     <EditIcon className="size-5" />
                     <FilterIcon className="size-5" />
                     <ActivityIcon className="size-5" />
@@ -146,7 +146,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                 {isLoading ? (
                     <span
                         role="status"
-                        className="absolute inset-0 z-10 flex items-center justify-center text-sm text-[#767676]"
+                        className="absolute inset-0 z-10 flex items-center justify-center text-sm text-second"
                     >
                         <Trans>Loading chart…</Trans>
                     </span>
@@ -155,7 +155,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                     <button
                         type="button"
                         title={error.message}
-                        className="absolute inset-0 z-10 m-auto h-10 rounded-lg px-3 text-sm font-semibold text-[#4c4aa9] outline-none focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                        className="absolute inset-0 z-10 m-auto h-10 rounded-lg px-3 text-sm font-semibold text-highlight outline-none focus-visible:ring-2 focus-visible:ring-highlight"
                         onClick={retry}
                     >
                         <Trans>Retry chart</Trans>
@@ -178,11 +178,11 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                                         x2={PLOT_RIGHT}
                                         y1={lineY}
                                         y2={lineY}
-                                        stroke="#eeeeee"
+                                        stroke="var(--color-line)"
                                         strokeWidth="1"
                                         vectorEffect="non-scaling-stroke"
                                     />
-                                    <text x="994" y={lineY + 5} textAnchor="end" fill="#181818" fontSize="18">
+                                    <text x="994" y={lineY + 5} textAnchor="end" fill="currentColor" fontSize="18">
                                         {price.toLocaleString(undefined, { maximumFractionDigits: 1 })}
                                     </text>
                                 </g>
@@ -197,17 +197,17 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                                     x2={x}
                                     y1="0"
                                     y2={CHART_BOTTOM}
-                                    stroke="#f1f1f1"
+                                    stroke="var(--color-line)"
                                     strokeWidth="1"
                                     vectorEffect="non-scaling-stroke"
                                 />
                             );
                         })}
-                        <text x={PLOT_LEFT + 10} y="23" fill="#181818" fontSize="19">
+                        <text x={PLOT_LEFT + 10} y="23" fill="currentColor" fontSize="19">
                             {`${displayCoin.replace('-USDC', 'USDT')} Perpetual · ${RESOLUTION_LABELS[interval]} · Hyperliquid`}
                         </text>
                         {latest ? (
-                            <text x={PLOT_LEFT + 10} y="45" fill="#ff45a1" fontSize="16">
+                            <text x={PLOT_LEFT + 10} y="45" fill="rgb(var(--color-fail))" fontSize="16">
                                 O{latest.open.toLocaleString()} H{latest.high.toLocaleString()} L
                                 {latest.low.toLocaleString()} C{latest.close.toLocaleString()}
                             </text>
@@ -217,7 +217,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                             const isUp = candle.close >= candle.open;
                             const top = y(Math.max(candle.open, candle.close));
                             const bottom = y(Math.min(candle.open, candle.close));
-                            const color = isUp ? '#70d600' : '#ff45a1';
+                            const color = isUp ? 'rgb(var(--color-success))' : 'rgb(var(--color-fail))';
                             const volumeHeight = (candle.volume / maxVolume) * (CHART_BOTTOM - VOLUME_TOP);
                             return (
                                 <g key={candle.time}>
@@ -248,13 +248,13 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                                 </g>
                             );
                         })}
-                        <text x={PLOT_LEFT + 10} y={VOLUME_TOP - 8} fill="#181818" fontSize="17">
+                        <text x={PLOT_LEFT + 10} y={VOLUME_TOP - 8} fill="currentColor" fontSize="17">
                             Volume
                         </text>
-                        <text x={PLOT_LEFT + 83} y={VOLUME_TOP - 8} fill="#ff45a1" fontSize="17">
+                        <text x={PLOT_LEFT + 83} y={VOLUME_TOP - 8} fill="rgb(var(--color-fail))" fontSize="17">
                             {compactNumber(latest?.volume ?? 0)}
                         </text>
-                        <text x="994" y={VOLUME_TOP + 4} textAnchor="end" fill="#181818" fontSize="17">
+                        <text x="994" y={VOLUME_TOP + 4} textAnchor="end" fill="currentColor" fontSize="17">
                             {compactNumber(maxVolume)}
                         </text>
                         {Number.isFinite(displayMark) ? (
@@ -264,11 +264,17 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                                     x2={PLOT_RIGHT}
                                     y1={y(displayMark)}
                                     y2={y(displayMark)}
-                                    stroke="#ff45a1"
+                                    stroke="rgb(var(--color-fail))"
                                     strokeDasharray="2 2"
                                     vectorEffect="non-scaling-stroke"
                                 />
-                                <rect x={PLOT_RIGHT} y={y(displayMark) - 11} width="66" height="22" fill="#ff45a1" />
+                                <rect
+                                    x={PLOT_RIGHT}
+                                    y={y(displayMark) - 11}
+                                    width="66"
+                                    height="22"
+                                    fill="rgb(var(--color-fail))"
+                                />
                                 <text
                                     x={PLOT_RIGHT + 33}
                                     y={y(displayMark) + 6}
@@ -286,7 +292,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
             <footer
                 className={classNames(
                     styles.chartFooter,
-                    'flex shrink-0 items-center border-t border-[#f5f5f5] text-[#767676]',
+                    'flex shrink-0 items-center border-t border-line text-second',
                 )}
             >
                 <div className={classNames(styles.chartFooterRanges, 'items-center gap-4')}>
@@ -301,7 +307,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin, m
                     <span>{clock} UTC+8</span>
                     <span>%</span>
                     <span>log</span>
-                    <span className={classNames('rounded bg-[#ececf0] px-1.5 py-2 text-lightTextMain')}>auto</span>
+                    <span className={classNames('rounded bg-lightBg px-1.5 py-2 text-main')}>auto</span>
                 </div>
             </footer>
         </section>

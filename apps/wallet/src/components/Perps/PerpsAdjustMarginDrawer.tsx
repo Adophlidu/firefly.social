@@ -81,11 +81,11 @@ export function PerpsAdjustMarginDrawer({
             }}
         >
             <DrawerContent
-                className="mx-auto max-w-[400px] rounded-t-[36px] border border-[rgba(34,33,47,0.03)] shadow-[0_16px_20px_rgba(64,61,87,0.1)] outline-none focus:outline-none sm:rounded-t-[36px]"
+                className="mx-auto max-w-[400px] rounded-t-[36px] border border-line bg-primaryBottom text-main shadow-[0_16px_20px_rgba(64,61,87,0.1)] outline-none focus:outline-none dark:shadow-none sm:rounded-t-[36px]"
                 bodyClassName="gap-4 overflow-visible px-4 pb-4 pt-2"
             >
                 <div className="flex flex-col items-center">
-                    <div className="h-1 w-12 rounded-full bg-[#d1d1d1]" />
+                    <div className="h-1 w-12 rounded-full bg-third" />
                     <DrawerTitle className="mt-3 flex-none self-stretch text-left text-xl font-[SF_Pro_Rounded] font-bold leading-6 first:mr-0">
                         {mode === 'add' ? <Trans>Add to Position</Trans> : <Trans>Remove from Position</Trans>}
                     </DrawerTitle>
@@ -105,13 +105,13 @@ export function PerpsAdjustMarginDrawer({
                     <strong className="text-base font-semibold leading-5">{formatUsd(markPrice, 4)}</strong>
                 </div>
 
-                <div className="overflow-hidden rounded-2xl border border-[rgba(34,33,47,0.15)] py-3">
+                <div className="overflow-hidden rounded-2xl border border-secondaryLine py-3">
                     <div className="space-y-1 px-3">
                         <div className="flex min-h-10 items-center justify-between gap-2">
-                            <span className="shrink-0 text-[13px] font-medium leading-[17px] text-[rgba(70,70,70,0.8)]">
+                            <span className="shrink-0 text-[13px] font-medium leading-[17px] text-second">
                                 <Trans>Amount</Trans>
                             </span>
-                            <div className="flex h-10 w-[220px] min-w-0 items-center rounded-lg border border-[rgba(34,33,47,0.15)] px-2 focus-within:border-[#4c4aa9]">
+                            <div className="flex h-10 w-[220px] min-w-0 items-center rounded-lg border border-secondaryLine px-2 focus-within:border-highlight">
                                 <span className="text-sm font-medium">$</span>
                                 <input
                                     value={amount}
@@ -123,7 +123,7 @@ export function PerpsAdjustMarginDrawer({
                                 <button
                                     type="button"
                                     disabled={!state.available.gt(0)}
-                                    className="px-1.5 text-xs font-semibold text-[#4c4aa9] disabled:opacity-40"
+                                    className="px-1.5 text-xs font-semibold text-highlight disabled:opacity-40"
                                     onClick={() =>
                                         onAmountChange(state.available.decimalPlaces(2, BigNumber.ROUND_DOWN).toFixed())
                                     }
@@ -134,7 +134,7 @@ export function PerpsAdjustMarginDrawer({
                                     <SelectTrigger className="h-8 w-[76px] shrink-0 border-0 px-1.5 text-xs font-semibold shadow-none">
                                         <SelectValue />
                                     </SelectTrigger>
-                                    <SelectContent className="min-w-[96px] bg-white" viewPortClassName="h-auto">
+                                    <SelectContent className="min-w-[96px] bg-primaryBottom" viewPortClassName="h-auto">
                                         <SelectItem value="add">
                                             <Trans>Add</Trans>
                                         </SelectItem>
@@ -146,7 +146,7 @@ export function PerpsAdjustMarginDrawer({
                             </div>
                         </div>
                         {errorLabel ? (
-                            <p role="alert" className="text-right text-xs text-[#ff372b]">
+                            <p role="alert" className="text-right text-xs text-danger">
                                 {errorLabel}
                             </p>
                         ) : null}
@@ -157,7 +157,7 @@ export function PerpsAdjustMarginDrawer({
                             value={formatUsd(liquidationPrice, 4)}
                         />
                     </div>
-                    <div className="my-1 border-t border-[rgba(34,33,47,0.15)]" />
+                    <div className="my-1 border-t border-secondaryLine" />
                     <div className="px-3">
                         <MarginValueRow
                             label={<Trans>New Total</Trans>}
@@ -169,7 +169,7 @@ export function PerpsAdjustMarginDrawer({
                 <div className="flex gap-4">
                     <button
                         type="button"
-                        className="h-12 flex-1 rounded-full border border-[#171717] text-sm font-bold text-[#171717]"
+                        className="h-12 flex-1 rounded-full border border-main text-sm font-bold text-main"
                         onClick={onClose}
                     >
                         <Trans>Cancel</Trans>
@@ -177,7 +177,7 @@ export function PerpsAdjustMarginDrawer({
                     <button
                         type="button"
                         disabled={!state.isValid || pending}
-                        className="h-12 flex-1 rounded-full bg-[#171717] text-base font-bold text-[#e8e8e8] disabled:opacity-40"
+                        className="h-12 flex-1 rounded-full bg-main text-base font-bold text-primaryBottom disabled:opacity-40"
                         onClick={onConfirm}
                     >
                         {pending ? (
@@ -197,8 +197,8 @@ export function PerpsAdjustMarginDrawer({
 function MarginValueRow({ label, value }: { label: React.ReactNode; value: string }) {
     return (
         <div className="flex min-h-10 items-center justify-between gap-4">
-            <span className="text-[13px] font-medium leading-[17px] text-[rgba(70,70,70,0.8)]">{label}</span>
-            <span className="text-right text-sm font-medium leading-[18px] text-[#171717]">{value}</span>
+            <span className="text-[13px] font-medium leading-[17px] text-second">{label}</span>
+            <span className="text-right text-sm font-medium leading-[18px] text-main">{value}</span>
         </div>
     );
 }

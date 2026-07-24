@@ -15,8 +15,8 @@ export const PerpsFavoriteButton = memo(function PerpsFavoriteButton({ favorite,
             aria-label={label}
             aria-pressed={favorite}
             className={classNames(
-                'flex shrink-0 items-center justify-center outline-none focus-visible:rounded focus-visible:ring-2 focus-visible:ring-[#4c4aa9] disabled:cursor-wait disabled:opacity-60',
-                favorite ? 'text-[#ffb100]' : 'text-[#b1b1b1]',
+                'flex shrink-0 items-center justify-center outline-none focus-visible:rounded focus-visible:ring-2 focus-visible:ring-highlight disabled:cursor-wait disabled:opacity-60',
+                favorite ? 'text-warn' : 'text-third',
                 className,
             )}
             {...rest}

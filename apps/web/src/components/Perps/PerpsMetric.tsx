@@ -23,7 +23,7 @@ export const PerpsMetric = memo(function PerpsMetric({ label, value, valueClassN
                     type="button"
                     aria-label={helpLabel}
                     aria-expanded={isOpen}
-                    className="whitespace-nowrap text-xs leading-[14px] text-[#b1b1b1] outline-none focus-visible:rounded focus-visible:ring-2 focus-visible:ring-[#4c4aa9]"
+                    className="whitespace-nowrap text-xs leading-[14px] text-third outline-none focus-visible:rounded focus-visible:ring-2 focus-visible:ring-highlight"
                     onClick={() => setIsOpen((value) => !value)}
                     onKeyDown={(event) => {
                         if (event.key === 'Escape') setIsOpen(false);
@@ -32,13 +32,13 @@ export const PerpsMetric = memo(function PerpsMetric({ label, value, valueClassN
                     {label}
                 </button>
             ) : (
-                <span className="whitespace-nowrap text-xs leading-[14px] text-[#b1b1b1]">{label}</span>
+                <span className="whitespace-nowrap text-xs leading-[14px] text-third">{label}</span>
             )}
             <span
                 data-testid="perps-market-metric-value"
                 className={classNames(
                     'block whitespace-nowrap text-sm font-semibold tabular-nums leading-5',
-                    valueClassName ?? 'text-lightTextMain',
+                    valueClassName ?? 'text-main',
                 )}
             >
                 {value}
@@ -46,7 +46,7 @@ export const PerpsMetric = memo(function PerpsMetric({ label, value, valueClassN
             {isOpen ? (
                 <span
                     role="tooltip"
-                    className="absolute left-2 top-12 z-40 w-64 rounded-lg bg-lightTextMain p-3 text-xs leading-5 text-white shadow-lg"
+                    className="absolute left-2 top-12 z-40 w-64 rounded-lg bg-tooltipBg p-3 text-xs leading-5 text-primaryBottom shadow-lg"
                 >
                     {description}
                 </span>
