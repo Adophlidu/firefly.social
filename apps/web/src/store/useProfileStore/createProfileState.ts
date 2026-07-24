@@ -127,7 +127,7 @@ export function createProfileState(
                         state.currentProfileSession = null;
                     }),
                 refreshAccounts: async () => {
-                    const { currentProfile: profile, accounts } = get();
+                    const { accounts } = get();
                     const updatedAccounts = await Promise.all(
                         accounts.map(async (account) => {
                             const profile = await provider.refreshProfile?.(account.profile);
@@ -144,9 +144,14 @@ export function createProfileState(
                     if (!get().currentProfileSession) return;
 
                     set((state) => {
-                        const account = accounts.find((x) => isSameProfile(x.profile, profile));
-                        if (account) state.updateCurrentAccount?.(account);
                         state.updateAccounts(updatedAccounts);
+
+                        // re-read currentProfile here in case it changed while refreshing was in flight
+                        const currentProfile = state.currentProfile;
+                        if (!currentProfile) return;
+
+                        const account = updatedAccounts.find((x) => isSameProfile(x.profile, currentProfile));
+                        if (account) state.updateCurrentAccount(account);
                     });
                 },
                 refreshCurrentAccount: async (refreshSession = true) => {
@@ -159,8 +164,6 @@ export function createProfileState(
                     const session = refreshSession ? await provider.refreshSession?.() : null;
 
                     set((state) => {
-                        state.currentProfile = updatedProfile;
-                        if (session) state.currentProfileSession = session;
                         state.accounts = state.accounts.map((x) => {
                             if (isSameProfile(x.profile, profile)) {
                                 return {
@@ -170,6 +173,13 @@ export function createProfileState(
                             }
                             return x;
                         });
+
+                        // the user may have switched accounts while this refresh was in flight —
+                        // don't clobber whichever profile is current now with stale refreshed data
+                        if (!state.currentProfile || !isSameProfile(state.currentProfile, profile)) return;
+
+                        state.currentProfile = updatedProfile;
+                        if (session) state.currentProfileSession = session;
                     });
                 },
                 upgrade: () =>

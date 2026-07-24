@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useCallbackRef } from '@/hooks/useCallbackRef.js';
@@ -49,11 +49,20 @@ export function usePollingSyncChannelStatus(options: UsePollingSyncChannelStatus
         enabled: !!session && enabled,
     });
 
+    // tracks the last (session, status) pair we've already reacted to, so a status
+    // that keeps polling the same value (e.g. Scanned) doesn't re-fire callbacks every tick
+    const handledRef = useRef<{ session?: string; status: DesktopSyncChannelStatus | null }>({
+        session: undefined,
+        status: null,
+    });
+
     useEffect(() => {
         if (!enabled || !data) return;
         const status = data?.status;
 
         if (!status) return;
+        if (handledRef.current.session === session && handledRef.current.status === status) return;
+        handledRef.current = { session, status };
 
         switch (status) {
             case DesktopSyncChannelStatus.Scanned:
@@ -75,7 +84,7 @@ export function usePollingSyncChannelStatus(options: UsePollingSyncChannelStatus
             default:
                 safeUnreachable(status);
         }
-    }, [enabled, data, onScannedRef, onCancelRef, onExpiredRef]);
+    }, [enabled, data, session, onScannedRef, onCancelRef, onExpiredRef]);
 
     return {
         data,

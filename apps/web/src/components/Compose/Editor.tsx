@@ -86,10 +86,10 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
 
     useDebounce(
         () => {
-            loadComponentsFromChars();
+            loadComponentsFromChars(post.id);
         },
         300,
-        [chars, loadComponentsFromChars],
+        [chars, post.id, loadComponentsFromChars],
     );
 
     const onChange = useMemo(

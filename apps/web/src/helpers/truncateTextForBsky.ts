@@ -49,8 +49,9 @@ export function truncateTextForBsky(text: string, longPostUrl: string): string {
 
     const maxTextLength = BSKY_SHORT_POST_LIMIT - urlLength - ellipsisLength - newlineLength - RESERVED_CHARS;
 
-    if (maxTextLength < 50) {
-        return `${text.slice(0, BSKY_SHORT_POST_LIMIT - ellipsisLength - 10).trim()}${ELLIPSIS}`;
+    if (maxTextLength <= 0) {
+        // No room left for any text alongside the link — keep the link so the post stays reachable.
+        return longPostUrl;
     }
 
     if (text.length <= maxTextLength) {
