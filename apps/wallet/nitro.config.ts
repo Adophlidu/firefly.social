@@ -26,7 +26,13 @@ const cjsCompatPlugin = {
 export default defineNitroConfig({
     preset: 'vercel',
     baseURL: BASE_PATH,
-    plugins: ['./src/server/plugins/otel.ts'],
+    // Disabled: @vercel/otel's auto-instrumentation setup crashes some routes
+    // under Nitro's Vercel-preset "web entry format" (missing
+    // process.versions.node reaches it via a deferred/lazily-installed hook
+    // that a synchronous try/catch around registerOTel() doesn't cover — see
+    // src/server/plugins/otel.ts and PR #9541 for the full incident writeup).
+    // Re-enable once that's root-caused properly, not under incident pressure.
+    // plugins: ['./src/server/plugins/otel.ts'],
     // The Vercel preset enables SSR sourcemaps by default. Generating them for
     // the ~12k-module server bundle peaks Rollup's resident memory during chunk
     // rendering and OOMs the 8 GB build container (SIGKILL mid-render, which also
