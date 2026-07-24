@@ -26,13 +26,50 @@ function registerOpenTelemetry() {
         headers: parseOtlpHeaders(process.env.OTEL_EXPORTER_OTLP_HEADERS),
     };
     const protocol = process.env.OTEL_EXPORTER_OTLP_TRACES_PROTOCOL || process.env.OTEL_EXPORTER_OTLP_PROTOCOL;
+    const traceExporter =
+        protocol === 'http/json'
+            ? new OTLPHttpJsonTraceExporter(exporterConfig)
+            : new OTLPHttpProtoTraceExporter(exporterConfig);
     registerOTel({
         serviceName: process.env.OTEL_SERVICE_NAME || 'firefly-web',
-        traceExporter:
-            protocol === 'http/json'
-                ? new OTLPHttpJsonTraceExporter(exporterConfig)
-                : new OTLPHttpProtoTraceExporter(exporterConfig),
+        traceExporter: dropUnreliableInternalSpans(traceExporter),
     });
+}
+
+// Next.js's `NextNodeServer.clientComponentLoading` span reads a process-global
+// (not per-request) counter that's only flushed inside a `req.on('end')` handler.
+// Under Vercel Fluid Compute, concurrent requests share one warm instance, so that
+// flush can fire on a request that didn't trigger the load — producing a span
+// whose real start time is minutes older than its own parent span, which corrupts
+// trace-duration stats (a 160ms render gets reported as several minutes long).
+// Next.js has no per-request scoping or opt-out for this (see
+// next/dist/server/{app-render/app-render,client-component-renderer-logger}.js),
+// so it's dropped at the export boundary instead.
+const UNRELIABLE_SPAN_NAMES = new Set(['NextNodeServer.clientComponentLoading']);
+
+interface FilterableSpan {
+    name: string;
+}
+
+interface FilterableSpanExporter {
+    export(spans: FilterableSpan[], resultCallback: (result: { code: number }) => void): void;
+    shutdown(): Promise<void>;
+    forceFlush?(): Promise<void>;
+}
+
+function dropUnreliableInternalSpans(exporter: FilterableSpanExporter): FilterableSpanExporter {
+    return {
+        export(spans, resultCallback) {
+            const filtered = spans.filter((span) => !UNRELIABLE_SPAN_NAMES.has(span.name));
+            if (filtered.length === 0) {
+                resultCallback({ code: 0 });
+                return;
+            }
+            exporter.export(filtered, resultCallback);
+        },
+        shutdown: () => exporter.shutdown(),
+        ...(exporter.forceFlush ? { forceFlush: () => exporter.forceFlush!() } : {}),
+    };
 }
 
 // OTEL_EXPORTER_OTLP_HEADERS format per the OTel spec: comma-separated `key=value` pairs.
