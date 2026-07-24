@@ -1177,6 +1177,9 @@ msgstr "<1>{1}</1>의 <0>{0}</0>"
 msgid "TOTAL"
 msgstr "합계"
 
+msgid "Trade actions"
+msgstr ""
+
 msgid "Failed to unlike tip."
 msgstr "팁 좋아요 취소에 실패했습니다."
 
@@ -3802,6 +3805,9 @@ msgstr "팔로우한 사람만"
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "숨긴 계정, 지갑, 클럽을 관리하세요."
 
+msgid "Chart"
+msgstr ""
+
 msgid "Others"
 msgstr "기타"
 
@@ -5762,6 +5768,9 @@ msgstr "댓글 더 보기"
 
 msgid "Different Account Detected"
 msgstr "다른 계정이 감지되었습니다"
+
+msgid "Market view"
+msgstr ""
 
 msgid "Enter your username and password to sign in instantly"
 msgstr "사용자 이름과 비밀번호를 입력하여 즉시 로그인"

@@ -259,7 +259,7 @@ export default function BetEventClient({ id }: { id: string }) {
     // Market/section name (e.g. "总局数" / "Match Winner"); separator is locale-aware.
     const headerOutcome = pageConfig?.marketName
         ? `${pageConfig.marketName}${/^(zh|ja|ko)/i.test(i18n.locale) ? '：' : ': '}${outcome}`
-        : (pageConfig?.selectedOutcomeTitle || outcome);
+        : pageConfig?.selectedOutcomeTitle || outcome;
 
     // Fire buy/sell open success events when market data loads or side changes
     useEffect(() => {

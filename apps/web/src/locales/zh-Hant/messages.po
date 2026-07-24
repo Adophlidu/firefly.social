@@ -1177,6 +1177,9 @@ msgstr "<0>{0}</0> 由 <1>{1}</1> 建立"
 msgid "TOTAL"
 msgstr "總計"
 
+msgid "Trade actions"
+msgstr ""
+
 msgid "Failed to unlike tip."
 msgstr "取消按赞失敗。"
 
@@ -3802,6 +3805,9 @@ msgstr "僅限你追蹤的人"
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "管理您已隱藏的帳號，錢包和群組。"
 
+msgid "Chart"
+msgstr ""
+
 msgid "Others"
 msgstr "其他"
 
@@ -5762,6 +5768,9 @@ msgstr "顯示更多留言"
 
 msgid "Different Account Detected"
 msgstr "檢測到帳戶衝突"
+
+msgid "Market view"
+msgstr ""
 
 msgid "Enter your username and password to sign in instantly"
 msgstr "請輸入使用者名稱與密碼以立即登入"

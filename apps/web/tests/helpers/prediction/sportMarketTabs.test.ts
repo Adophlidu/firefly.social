@@ -325,8 +325,12 @@ describe('getSportMarketTabs — line-agnostic title for mergeByLine sections', 
                 blueTeam,
                 redTeam,
             );
-        const a = buildWith(205.5).flatMap((t) => t.sections).find((s) => s.mergeByLine)!;
-        const b = buildWith(210.5).flatMap((t) => t.sections).find((s) => s.mergeByLine)!;
+        const a = buildWith(205.5)
+            .flatMap((t) => t.sections)
+            .find((s) => s.mergeByLine)!;
+        const b = buildWith(210.5)
+            .flatMap((t) => t.sections)
+            .find((s) => s.mergeByLine)!;
         expect(titleText(a.title)).toBe('Totals');
         expect(titleText(b.title)).toBe('Totals');
     });

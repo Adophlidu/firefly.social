@@ -42,7 +42,7 @@ describe('resolveBetEventPageConfig', () => {
 
         const config = resolveBetEventPageConfig(event, 'total-1');
 
-        expect(config?.pageTitle).toBe('JD Gaming vs Anyone\'s Legend');
+        expect(config?.pageTitle).toBe("JD Gaming vs Anyone's Legend");
         expect(config?.marketName).toBe('Games Total');
         expect(config?.leftTitle).toBe('Over 2.5');
         expect(config?.rightTitle).toBe('Under 2.5');
