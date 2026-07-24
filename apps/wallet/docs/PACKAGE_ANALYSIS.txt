@@ -1118,7 +1118,7 @@ Packages with Single Version
  @urql/exchange-auth@2.2.1
 *@vercel/analytics@2.0.1
  @vercel/kv@1.0.1
- @vercel/otel@2.1.3
+*@vercel/otel@2.1.3
 *@vercel/speed-insights@2.0.0
 *@vitejs/plugin-react@5.2.0
  @vitest/expect@3.2.6

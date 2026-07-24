@@ -26,6 +26,7 @@ const cjsCompatPlugin = {
 export default defineNitroConfig({
     preset: 'vercel',
     baseURL: BASE_PATH,
+    plugins: ['./src/server/plugins/otel.ts'],
     // The Vercel preset enables SSR sourcemaps by default. Generating them for
     // the ~12k-module server bundle peaks Rollup's resident memory during chunk
     // rendering and OOMs the 8 GB build container (SIGKILL mid-render, which also
