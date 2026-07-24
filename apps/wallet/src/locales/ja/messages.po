@@ -20,10 +20,10 @@ msgid "Copy to clipboard"
 msgstr "クリップボードにコピー"
 
 msgid "Close all positions"
-msgstr ""
+msgstr "すべてのポジションを決済"
 
 msgid "Cross Margin Ratio:"
-msgstr ""
+msgstr "クロス証拠金率:"
 
 msgid "To"
 msgstr "宛先"
@@ -35,7 +35,7 @@ msgid "Hyperliquid charges a fixed {EXECUTION_FEE} USDC withdrawal fee to cover 
 msgstr "Hyperliquid は Arbitrum のガス代を賄うため、{EXECUTION_FEE} USDC の固定出金手数料を請求します。"
 
 msgid "Open Orders"
-msgstr ""
+msgstr "未約定注文"
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
@@ -48,7 +48,7 @@ msgid "History"
 msgstr "履歴"
 
 msgid "Funding"
-msgstr ""
+msgstr "ファンディング"
 
 msgid "Make sure to send funds on Ethereum."
 msgstr "Ethereum ネットワークで送金してください。"
@@ -60,7 +60,7 @@ msgid "Failed to disable authentication"
 msgstr "認証の無効化に失敗しました"
 
 msgid "Account Activities"
-msgstr ""
+msgstr "アカウントアクティビティ"
 
 msgid "Positions"
 msgstr "ポジション"
@@ -72,7 +72,7 @@ msgid "in your Firefly wallet"
 msgstr "Firefly ウォレット内"
 
 msgid "This action will be submitted to Hyperliquid. Please confirm to continue."
-msgstr ""
+msgstr "この操作はHyperliquidに送信されます。続行するには確認してください。"
 
 msgid "Skip reviews"
 msgstr "確認をスキップ"
@@ -81,7 +81,7 @@ msgid "Address, ENS, or social handle"
 msgstr "アドレス、ENS、またはソーシャルハンドル"
 
 msgid "Est. Liq. Price(USDC)"
-msgstr ""
+msgstr "推定強制決済価格(USDC)"
 
 msgid "Dismiss"
 msgstr "閉じる"
@@ -90,7 +90,7 @@ msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "リカバリーフレーズはパスワードと同じです。絶対に秘密にしてください。"
 
 msgid "Minimum {MINIMUM_WITHDRAWAL} USDC"
-msgstr ""
+msgstr "最低{MINIMUM_WITHDRAWAL} USDC"
 
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "残高不足ですか？Firefly ウォレットが不足分を自動補填できます。"
@@ -99,7 +99,7 @@ msgid "Failed to create predict wallet. {message}"
 msgstr "予測ウォレットの作成に失敗しました。{message}"
 
 msgid "Sell / Short"
-msgstr ""
+msgstr "売り / ショート"
 
 msgid "Transfer from an exchange"
 msgstr "取引所から送金"
@@ -139,7 +139,7 @@ msgid "Pay"
 msgstr "支払い"
 
 msgid "MAX"
-msgstr ""
+msgstr "最大"
 
 msgid "Solana"
 msgstr "Solana"
@@ -154,13 +154,13 @@ msgid "Transactions"
 msgstr "トランザクション"
 
 msgid "Add Margin"
-msgstr ""
+msgstr "証拠金を追加"
 
 msgid "Claim requested"
 msgstr "受け取りリクエスト済み"
 
 msgid "This action will be submitted to Hyperliquid."
-msgstr ""
+msgstr "この操作はHyperliquidに送信されます。"
 
 msgid "Review"
 msgstr "確認"
@@ -172,7 +172,7 @@ msgid "The PINs you entered do not match. Please check and try again."
 msgstr "入力した PIN が一致しません。確認して再試行してください。"
 
 msgid "Trading history"
-msgstr ""
+msgstr "取引履歴"
 
 msgid "Great job predicting the future!"
 msgstr "予測が当たりました！素晴らしい！"
@@ -202,7 +202,7 @@ msgid "Copied"
 msgstr "コピーしました"
 
 msgid "Action failed."
-msgstr ""
+msgstr "操作に失敗しました。"
 
 msgid "Total"
 msgstr "合計"
@@ -221,7 +221,7 @@ msgid "Approved"
 msgstr "承認済み"
 
 msgid "Margin Mode"
-msgstr ""
+msgstr "証拠金モード"
 
 msgid "{riskTokenSymbol} is a high-risk token"
 msgstr "{riskTokenSymbol} はリスクの高いトークンです"
@@ -233,7 +233,7 @@ msgid "Confirm"
 msgstr "確認"
 
 msgid "Action partially completed."
-msgstr ""
+msgstr "操作は一部完了しました。"
 
 msgid "Assets to Release"
 msgstr "解放する資産"
@@ -245,7 +245,7 @@ msgid "Keep Your Recovery Phrase Safe"
 msgstr "リカバリーフレーズを安全に保管してください"
 
 msgid "Buy / Long"
-msgstr ""
+msgstr "買い / ロング"
 
 msgid "Bought"
 msgstr "購入済み"
@@ -263,13 +263,13 @@ msgid "No Route Found"
 msgstr "ルートが見つかりません"
 
 msgid "Symbol"
-msgstr ""
+msgstr "銘柄"
 
 msgid "Failed to enable authentication"
 msgstr "認証の有効化に失敗しました"
 
 msgid "Mid"
-msgstr ""
+msgstr "仲値"
 
 msgid "Placing order..."
 msgstr "注文中..."
@@ -296,29 +296,29 @@ msgid "Failed to load image."
 msgstr "画像を読み込めませんでした。"
 
 msgid "Failed to update position settings."
-msgstr ""
+msgstr "ポジション設定の更新に失敗しました。"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
 msgstr "{0} 口利用可能"
 
 msgid "Withdrawal submitted."
-msgstr ""
+msgstr "出金を送信しました。"
 
 msgid "Price"
 msgstr "価格"
 
 msgid "Take profit"
-msgstr ""
+msgstr "テイクプロフィット"
 
 msgid "Mark Price(USDC)"
-msgstr ""
+msgstr "マーク価格(USDC)"
 
 msgid "Enable skip reviews"
 msgstr "確認スキップを有効にする"
 
 msgid "Manage your risk on individual positions by restricting the amount of margin allocated to each. If the margin ratio of an isolated position reaches 100%, the position will be liquidated. Margin can be added or removed to individual positions in this mode."
-msgstr ""
+msgstr "各ポジションに割り当てる証拠金額を制限することで、個別のリスクを管理します。分離ポジションの証拠金率が100%に達すると、そのポジションは強制決済されます。このモードでは、個別のポジションに証拠金を追加または削除できます。"
 
 msgid "This feature is currently unavailable in your region."
 msgstr "この機能は現在、お住まいの地域ではご利用いただけません。"
@@ -327,19 +327,19 @@ msgid "Connection taking longer than expected"
 msgstr "接続に予想以上の時間がかかっています"
 
 msgid "Order failed."
-msgstr ""
+msgstr "注文に失敗しました。"
 
 msgid "Predict Wallet Pay"
 msgstr "予測ウォレット支払い"
 
 msgid "Insufficient Margin"
-msgstr ""
+msgstr "証拠金不足"
 
 msgid "with"
 msgstr "で"
 
 msgid "Position Size"
-msgstr ""
+msgstr "ポジション数量"
 
 msgid "Shares"
 msgstr "口数"
@@ -363,13 +363,13 @@ msgid "Avg. Price"
 msgstr "平均約定価格"
 
 msgid "Margin Required"
-msgstr ""
+msgstr "必要証拠金"
 
 msgid "TP/SL"
-msgstr ""
+msgstr "TP/SL"
 
 msgid "The position or order is no longer available. Refresh the web page and try again."
-msgstr ""
+msgstr "このポジションまたは注文はすでに利用できません。ウェブページを更新して、もう一度お試しください。"
 
 msgid "You won"
 msgstr "勝利"
@@ -381,7 +381,7 @@ msgid "Network cost"
 msgstr "ネットワークコスト"
 
 msgid "No open positions"
-msgstr ""
+msgstr "保有ポジションはありません"
 
 msgid "Revoked Failed"
 msgstr "取り消しに失敗しました"
@@ -390,7 +390,7 @@ msgid "Forgot your PIN code?"
 msgstr "PIN コードをお忘れですか？"
 
 msgid "Cancel All Orders"
-msgstr ""
+msgstr "すべての注文をキャンセル"
 
 msgid "Recent"
 msgstr "最近"
@@ -399,10 +399,10 @@ msgid "Oops! We couldn't find any tokens matching your search."
 msgstr "お探しのトークンは見つかりませんでした。"
 
 msgid "Cross"
-msgstr ""
+msgstr "クロス"
 
 msgid "Size"
-msgstr ""
+msgstr "数量"
 
 msgid "Block"
 msgstr "ブロック"
@@ -417,7 +417,7 @@ msgid "Slippage"
 msgstr "スリッページ"
 
 msgid "Available"
-msgstr ""
+msgstr "利用可能"
 
 msgid "Connect Wallet"
 msgstr "ウォレットを接続"
@@ -432,7 +432,7 @@ msgid "Account Creating"
 msgstr "アカウント作成中"
 
 msgid "Market Close"
-msgstr ""
+msgstr "成行決済"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "トランザクション失敗：最小受取額に達しませんでした。スリッページを増やしてください。"
@@ -444,7 +444,7 @@ msgid "Transaction was rejected."
 msgstr "トランザクションが拒否されました。"
 
 msgid "Est. Closed PnL"
-msgstr ""
+msgstr "推定確定損益"
 
 msgid "Cancel"
 msgstr "キャンセル"
@@ -453,10 +453,10 @@ msgid "Share position"
 msgstr "ポジションをシェア"
 
 msgid "Place Order"
-msgstr ""
+msgstr "注文する"
 
 msgid "available"
-msgstr ""
+msgstr "利用可能"
 
 msgid "to"
 msgstr "宛先"
@@ -471,13 +471,13 @@ msgid "Enter new PIN"
 msgstr "新しい PIN を入力"
 
 msgid "Perpetuals history"
-msgstr ""
+msgstr "無期限契約履歴"
 
 msgid "Pay Wallet"
 msgstr "支払いウォレット"
 
 msgid "Control the leverage used for {coin} positions. The maximum leverage is {max}x."
-msgstr ""
+msgstr "{coin}ポジションに使用するレバレッジを設定します。最大レバレッジは{max}倍です。"
 
 msgid "Open orders"
 msgstr "未決注文"
@@ -486,13 +486,13 @@ msgid "Copy address"
 msgstr "アドレスをコピー"
 
 msgid "Remove from Position"
-msgstr ""
+msgstr "ポジションから削除"
 
 msgid "<0>{releaseAmountText}</0><1>to release</1>"
 msgstr "<0>{releaseAmountText}</0><1>解放予定</1>"
 
 msgid "Est. Liq. price"
-msgstr ""
+msgstr "推定強制決済価格"
 
 msgid "Your funds are now in your predict wallet."
 msgstr "資金が予測ウォレットに入金されました。"
@@ -525,7 +525,7 @@ msgid "Failed to upgrade"
 msgstr "アップグレードに失敗しました"
 
 msgid "Available to remove"
-msgstr ""
+msgstr "削除可能額"
 
 msgid "Unable to add funds to predictions account."
 msgstr "予測アカウントへの入金ができません。"
@@ -540,7 +540,7 @@ msgid "Post with image"
 msgstr "画像付きで投稿"
 
 msgid "Close Short"
-msgstr ""
+msgstr "ショートを決済"
 
 msgid "on"
 msgstr "で"
@@ -561,7 +561,7 @@ msgid "No more orders"
 msgstr "これ以上の注文はありません"
 
 msgid "This will cancel all your open orders, including take-profit and stop-loss orders."
-msgstr ""
+msgstr "テイクプロフィットおよびストップロス注文を含む、すべての未約定注文がキャンセルされます。"
 
 msgid "No more positions"
 msgstr "これ以上のポジションはありません"
@@ -570,7 +570,7 @@ msgid "Received"
 msgstr "受取済み"
 
 msgid "Perpetuals account"
-msgstr ""
+msgstr "無期限契約アカウント"
 
 msgid "Custom (0.5-100%)"
 msgstr "カスタム (0.5-100%)"
@@ -579,10 +579,10 @@ msgid "Upgrade your Firefly prediction account NOW to ensure your predictions co
 msgstr "今すぐ Firefly 予測アカウントをアップグレードして、予測を途切れなく継続できるようにしてください。"
 
 msgid "Available to add"
-msgstr ""
+msgstr "追加可能額"
 
 msgid "All cross positions share the same cross margin as collateral. In the event of liquidation, your cross margin balance and any remaining open positions under assets in this mode may be forfeited."
-msgstr ""
+msgstr "すべてのクロスポジションは、担保として同じクロス証拠金を共有します。強制決済が発生した場合、クロス証拠金残高およびこのモードの資産に残っている保有ポジションが没収されることがあります。"
 
 msgid "from"
 msgstr "送付元"
@@ -641,7 +641,7 @@ msgid "Recipient"
 msgstr "受取人"
 
 msgid "Cost"
-msgstr ""
+msgstr "コスト"
 
 msgid "Insufficient Gas"
 msgstr "Gas 不足"
@@ -680,10 +680,10 @@ msgid "Trade"
 msgstr "取引"
 
 msgid "Action submitted."
-msgstr ""
+msgstr "操作を送信しました。"
 
 msgid "Enter no more than 2 decimal places"
-msgstr ""
+msgstr "小数点以下2桁までで入力してください"
 
 msgid "No tokens available"
 msgstr "利用可能なトークンがありません"
@@ -698,7 +698,7 @@ msgid "View"
 msgstr "表示"
 
 msgid "Trading History"
-msgstr ""
+msgstr "取引履歴"
 
 msgid "Release Now"
 msgstr "今すぐ解放"
@@ -722,13 +722,13 @@ msgid "Withdrawing funds to your Firefly wallet..."
 msgstr "Firefly ウォレットへ出金中..."
 
 msgid "Entry Price(USDC)"
-msgstr ""
+msgstr "建値(USDC)"
 
 msgid "Failed to set PIN. Please try again later."
 msgstr "PIN の設定に失敗しました。後でもう一度お試しください。"
 
 msgid "Confirming…"
-msgstr ""
+msgstr "確認中…"
 
 msgid "To win"
 msgstr "獲得予定"
@@ -746,7 +746,7 @@ msgid "Deposit"
 msgstr "入金"
 
 msgid "Margin cannot be removed from this market"
-msgstr ""
+msgstr "このマーケットでは証拠金を削除できません"
 
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
@@ -754,16 +754,16 @@ msgid "{0} available"
 msgstr "{0} 利用可能"
 
 msgid "Current Price"
-msgstr ""
+msgstr "現在価格"
 
 msgid "Contract"
 msgstr "コントラクト"
 
 msgid "Withdrawal failed."
-msgstr ""
+msgstr "出金に失敗しました。"
 
 msgid "Order price"
-msgstr ""
+msgstr "注文価格"
 
 msgid "Limit Price"
 msgstr "指値"
@@ -778,7 +778,7 @@ msgid "Network Fee"
 msgstr "ネットワーク手数料"
 
 msgid "Isolated"
-msgstr ""
+msgstr "分離"
 
 msgid "Please re-enter the PIN you just set to confirm."
 msgstr "確認のため、設定した PIN を再入力してください。"
@@ -813,7 +813,7 @@ msgid "Total PnL: <0>{0}({1})</0>"
 msgstr "合計 PnL: <0>{0}({1})</0>"
 
 msgid "Margin"
-msgstr ""
+msgstr "証拠金"
 
 msgid "Interacted"
 msgstr "操作済み"
@@ -822,13 +822,13 @@ msgid "The address could not be found."
 msgstr "アドレスが見つかりませんでした。"
 
 msgid "Amount({coinDisplayName})"
-msgstr ""
+msgstr "数量({coinDisplayName})"
 
 msgid "Adjust Leverage"
-msgstr ""
+msgstr "レバレッジを調整"
 
 msgid "Stop Loss"
-msgstr ""
+msgstr "ストップロス"
 
 msgid "Add"
 msgstr "追加"
@@ -840,10 +840,10 @@ msgid "Activity Rewards"
 msgstr "アクティビティ報酬"
 
 msgid "Submitting…"
-msgstr ""
+msgstr "送信中…"
 
 msgid "Your positions will all be closed at market price, and any open orders (or reduce-only orders) will be canceled. Options won't be affected."
-msgstr ""
+msgstr "保有するすべてのポジションが成行価格で決済され、未約定注文（縮小注文を含む）はキャンセルされます。オプションには影響しません。"
 
 msgid "Sort closed positions"
 msgstr "クローズドポジションを並び替え"
@@ -859,7 +859,7 @@ msgid "With <0>{0}</0>"
 msgstr "<0>{0}</0> で"
 
 msgid "Max position size decreases the higher your leverage."
-msgstr ""
+msgstr "レバレッジが高いほど、最大ポジションサイズは小さくなります。"
 
 msgid "Date"
 msgstr "日付"
@@ -904,10 +904,10 @@ msgid "Cancel order?"
 msgstr "注文をキャンセルしますか？"
 
 msgid "Margin mode cannot be changed while a position is open."
-msgstr ""
+msgstr "ポジション保有中は証拠金モードを変更できません。"
 
 msgid "Order submitted."
-msgstr ""
+msgstr "注文を送信しました。"
 
 msgid "Cancelling order..."
 msgstr "注文をキャンセル中..."
@@ -934,7 +934,7 @@ msgid "Avg Price"
 msgstr "平均価格"
 
 msgid "Maximum position at current leverage: {maxPosition} USDC."
-msgstr ""
+msgstr "現在のレバレッジでの最大ポジション: {maxPosition} USDC。"
 
 msgid "Total traded"
 msgstr "合計取引量"
@@ -949,7 +949,7 @@ msgid "Failed to init exchange options. Please try again later."
 msgstr "取引所オプションの初期化に失敗しました。後でもう一度お試しください。"
 
 msgid "Price(USDC)"
-msgstr ""
+msgstr "価格(USDC)"
 
 msgid "Close all the losses"
 msgstr "すべての損失ポジションをクローズ"
@@ -958,13 +958,13 @@ msgid "Network"
 msgstr "ネットワーク"
 
 msgid "Cancel Order"
-msgstr ""
+msgstr "注文をキャンセル"
 
 msgid "Withdraw"
 msgstr "出金"
 
 msgid "Long"
-msgstr ""
+msgstr "ロング"
 
 msgid "Transaction failed during execution."
 msgstr "実行中にトランザクションが失敗しました。"
@@ -973,7 +973,7 @@ msgid "Failed to fetch token info"
 msgstr "トークン情報の取得に失敗しました"
 
 msgid "Close All Positions"
-msgstr ""
+msgstr "すべてのポジションを決済"
 
 msgid "Missed this round"
 msgstr "今回は逃しました"
@@ -985,7 +985,7 @@ msgid "Sent Failed"
 msgstr "送信に失敗しました"
 
 msgid "Cancel all orders"
-msgstr ""
+msgstr "すべての注文をキャンセル"
 
 #. placeholder {0}: MIN_ISOLATED_MARGIN_ADJUST_USD.toFixed(2)
 #. placeholder {0}: minCheckoutUsd.toFixed(2)
@@ -1002,16 +1002,16 @@ msgid "Available: {availableText}"
 msgstr "利用可能：{availableText}"
 
 msgid "Loading…"
-msgstr ""
+msgstr "読み込み中…"
 
 msgid "Confirming..."
 msgstr "確認中..."
 
 msgid "Liquidation Price"
-msgstr ""
+msgstr "強制決済価格"
 
 msgid "Limit price"
-msgstr ""
+msgstr "指値価格"
 
 msgid "Closed Positions"
 msgstr "クローズドポジション"
@@ -1023,10 +1023,10 @@ msgid "Buy"
 msgstr "買い"
 
 msgid "Cancel all"
-msgstr ""
+msgstr "すべてキャンセル"
 
 msgid "Stop loss"
-msgstr ""
+msgstr "ストップロス"
 
 msgid "Restricted Region"
 msgstr "制限地域"
@@ -1038,13 +1038,13 @@ msgid "PIN is too weak. Avoid sequential digits."
 msgstr "PIN が弱すぎます。連続した数字は避けてください。"
 
 msgid "Amount exceeds the available margin"
-msgstr ""
+msgstr "金額が利用可能な証拠金を超えています"
 
 msgid "Auto"
 msgstr "自動"
 
 msgid "Liq. Price"
-msgstr ""
+msgstr "強制決済価格"
 
 msgid "Select"
 msgstr "選択"
@@ -1056,13 +1056,13 @@ msgid "User rejected"
 msgstr "ユーザーが拒否しました"
 
 msgid "Reduce Only"
-msgstr ""
+msgstr "ポジション縮小のみ"
 
 msgid "Close Long"
-msgstr ""
+msgstr "ロングを決済"
 
 msgid "Short"
-msgstr ""
+msgstr "ショート"
 
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
 msgstr "Polymarket V2 が公開されました。予測を継続するために、利用可能残高 {releaseAmountText} USDC.e を pUSD として解放してください。"
@@ -1084,7 +1084,7 @@ msgid "Cancelled."
 msgstr "キャンセルしました。"
 
 msgid "Modify Order"
-msgstr ""
+msgstr "注文を変更"
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "To <0>{0}</0>"
@@ -1107,7 +1107,7 @@ msgid "second"
 msgstr "{time}秒"
 
 msgid "Entry Price"
-msgstr ""
+msgstr "建値"
 
 msgid "View on Explorer"
 msgstr "エクスプローラーで表示"
@@ -1126,19 +1126,19 @@ msgid "Primary"
 msgstr "プライマリ"
 
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 msgid "No history yet"
-msgstr ""
+msgstr "履歴はまだありません"
 
 msgid "Save"
 msgstr "保存"
 
 msgid "Unrealized PnL:"
-msgstr ""
+msgstr "未実現損益:"
 
 msgid "TP/SL canceled."
-msgstr ""
+msgstr "TP/SLがキャンセルされました。"
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 msgstr "予測して取引しましょう。Firefly 予測ウォレットに入金するだけで始められます。"
@@ -1147,7 +1147,7 @@ msgid "Failed to withdraw."
 msgstr "出金に失敗しました。"
 
 msgid "Withdrawable Value:"
-msgstr ""
+msgstr "出金可能額:"
 
 msgid "Est. fee"
 msgstr "推定手数料"
@@ -1159,19 +1159,19 @@ msgid "Contract address"
 msgstr "コントラクトアドレス"
 
 msgid "Trade Value"
-msgstr ""
+msgstr "取引金額"
 
 msgid "Minimum $1.00"
 msgstr "最低 $1.00"
 
 msgid "Cancel order"
-msgstr ""
+msgstr "注文をキャンセル"
 
 msgid "into your perps account"
 msgstr "無期限契約アカウントへ"
 
 msgid "Take Profit"
-msgstr ""
+msgstr "テイクプロフィット"
 
 msgid "No wallet address found for this user."
 msgstr "このユーザーのウォレットアドレスが見つかりません。"
@@ -1214,7 +1214,7 @@ msgid "Your transaction failed."
 msgstr "トランザクションが失敗しました。"
 
 msgid "Take Profit / Stop Loss"
-msgstr ""
+msgstr "テイクプロフィット / ストップロス"
 
 msgid "Change Email"
 msgstr "メールを変更"
@@ -1238,7 +1238,7 @@ msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
 msgstr "このコードをスキャンするか、ウォレットアドレスをコピーして Ethereum で資金を受け取ってください。"
 
 msgid "Limit Close"
-msgstr ""
+msgstr "指値決済"
 
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr "Firefly ウォレットへの出金が完了しました。"
@@ -1247,10 +1247,10 @@ msgid "Failed to close losses"
 msgstr "損失のクローズに失敗しました"
 
 msgid "Perpetuals"
-msgstr ""
+msgstr "無期限契約"
 
 msgid "New Total"
-msgstr ""
+msgstr "新しい合計"
 
 msgid "Bridged"
 msgstr "ブリッジ済み"
@@ -1265,7 +1265,7 @@ msgid "Enter the PIN code to verify identity"
 msgstr "本人確認のために PIN コードを入力"
 
 msgid "Mark Price"
-msgstr ""
+msgstr "マーク価格"
 
 msgid "Select Token"
 msgstr "トークンを選択"
@@ -1285,7 +1285,7 @@ msgid "Your tokens"
 msgstr "保有トークン"
 
 msgid "Trigger Condition"
-msgstr ""
+msgstr "トリガー条件"
 
 msgid "Please enter a valid email address."
 msgstr "有効なメールアドレスを入力してください。"
@@ -1294,19 +1294,19 @@ msgid "Sell {outcome}"
 msgstr "{outcome} を売却"
 
 msgid "Add to Position"
-msgstr ""
+msgstr "ポジションに追加"
 
 msgid "Reset PIN Code"
 msgstr "PIN コードをリセット"
 
 msgid "Close all"
-msgstr ""
+msgstr "すべて決済"
 
 msgid "This market may have been removed or the link is invalid."
 msgstr "このマーケットは削除されたか、リンクが無効です。"
 
 msgid "Current Margin"
-msgstr ""
+msgstr "現在の証拠金"
 
 msgid "Trading Activities"
 msgstr "取引履歴"
@@ -1363,7 +1363,7 @@ msgid "Limit"
 msgstr "指値"
 
 msgid "Position settings updated."
-msgstr ""
+msgstr "ポジション設定を更新しました。"
 
 msgid "Swap faster by skipping the review step"
 msgstr "確認ステップをスキップしてスワップを高速化"
@@ -1389,7 +1389,7 @@ msgid "Approve"
 msgstr "承認"
 
 msgid "PnL(USDC)"
-msgstr ""
+msgstr "損益(USDC)"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
@@ -1399,7 +1399,7 @@ msgid "Current settings"
 msgstr "現在の設定"
 
 msgid "Maintenance Margin:"
-msgstr ""
+msgstr "維持証拠金:"
 
 msgid "Failed to cancel order"
 msgstr "注文のキャンセルに失敗しました"
@@ -1413,4 +1413,4 @@ msgid "This wallet address is invalid"
 msgstr "このウォレットアドレスは無効です"
 
 msgid "Filled"
-msgstr ""
+msgstr "約定済み"

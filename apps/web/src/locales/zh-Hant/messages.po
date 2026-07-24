@@ -106,7 +106,7 @@ msgid "Cash"
 msgstr "現金"
 
 msgid "Open Short"
-msgstr ""
+msgstr "開空"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
@@ -244,10 +244,10 @@ msgid "Repost or quote"
 msgstr "轉發或引用"
 
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 msgid "Withdrawable cash"
-msgstr ""
+msgstr "可提現金額"
 
 msgid "Delete post"
 msgstr "刪除貼文"
@@ -268,7 +268,7 @@ msgid "Enter a new password to verify your identity."
 msgstr "請輸入新密碼以驗證身份。"
 
 msgid "Funding"
-msgstr ""
+msgstr "資金費"
 
 msgid "This space does not exist."
 msgstr "該空間不存在。"
@@ -358,7 +358,7 @@ msgstr "隱藏 {walletHandle}"
 
 #. placeholder {0}: unit === 'USDC' ? 'USDC' : coinDisplayName
 msgid "Total ({0})"
-msgstr ""
+msgstr "總計({0})"
 
 msgid "1H Moneyline"
 msgstr "上半場獨贏"
@@ -454,7 +454,7 @@ msgid "Translate post"
 msgstr "翻譯貼文"
 
 msgid "Sell / Short"
-msgstr ""
+msgstr "賣出 / 做空"
 
 msgid "Set Password"
 msgstr "設定密碼"
@@ -564,7 +564,7 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "位置不得超過 {maxLocationSize} 個字元"
 
 msgid "Stop Limit"
-msgstr ""
+msgstr "止損限價"
 
 msgid "Post engagements"
 msgstr "貼文互動"
@@ -579,7 +579,7 @@ msgid "Props"
 msgstr "玩法"
 
 msgid "Buy/Long"
-msgstr ""
+msgstr "買入/做多"
 
 msgid "Potential risk of external call."
 msgstr "存在外部調用風險。"
@@ -630,7 +630,7 @@ msgid "Trending"
 msgstr "熱門"
 
 msgid "Add {marketDisplayName} favorite"
-msgstr ""
+msgstr "將{marketDisplayName}加入收藏"
 
 msgid "View similar symbols"
 msgstr "查看名稱相似的代幣"
@@ -639,7 +639,7 @@ msgid "DAOs"
 msgstr "DAOs"
 
 msgid "Add {selectedMarketDisplayName} favorite"
-msgstr ""
+msgstr "將{selectedMarketDisplayName}加入收藏"
 
 msgid "Scheduled"
 msgstr "已預約"
@@ -732,13 +732,13 @@ msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> 轉發了"
 
 msgid "Edit order size"
-msgstr ""
+msgstr "編輯委託數量"
 
 msgid "Stealing attack."
 msgstr "竊取攻擊。"
 
 msgid "{displayCoin} price chart"
-msgstr ""
+msgstr "{displayCoin} 價格圖表"
 
 msgid "Failed to like snapshot."
 msgstr "取消按赞失敗。"
@@ -806,7 +806,7 @@ msgid "Stocks"
 msgstr "股票代幣"
 
 msgid "Edit TP/SL"
-msgstr ""
+msgstr "編輯 TP/SL"
 
 msgid "Sorry, the email you entered is invalid"
 msgstr "抱歉，您輸入的電子郵件無效"
@@ -821,7 +821,7 @@ msgid "Totals"
 msgstr "大小"
 
 msgid "The notional value of currently open contracts."
-msgstr ""
+msgstr "目前持倉合約的名目價值。"
 
 msgid "Failed to vote."
 msgstr "投票失敗。"
@@ -1005,7 +1005,7 @@ msgid "Hope this sparks a smile."
 msgstr "希望這能讓你展現笑容。"
 
 msgid "Buy / Long"
-msgstr ""
+msgstr "買入 / 做多"
 
 msgid "Firefly wallet"
 msgstr "Firefly 錢包"
@@ -1063,7 +1063,7 @@ msgid "Save Post?"
 msgstr "儲存草稿？"
 
 msgid "Close Position"
-msgstr ""
+msgstr "平倉"
 
 msgid "Added successfully"
 msgstr "新增成功"
@@ -1109,7 +1109,7 @@ msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]}
 msgstr "{0, select, Image {[圖片]} Video {[影片]} Audio {[音頻]} Poll {[投票]} other {}}"
 
 msgid "Order book is unavailable."
-msgstr ""
+msgstr "訂單簿暫不可用。"
 
 msgid "Sending"
 msgstr "發布中"
@@ -1118,7 +1118,7 @@ msgid "The author has disabled comments on this post."
 msgstr "作者已停用此貼文的留言功能。"
 
 msgid "About Funding"
-msgstr ""
+msgstr "關於資金費"
 
 msgid "Retry Stream"
 msgstr "重試"
@@ -1178,7 +1178,7 @@ msgid "TOTAL"
 msgstr "總計"
 
 msgid "Trade actions"
-msgstr ""
+msgstr "交易操作"
 
 msgid "Failed to unlike tip."
 msgstr "取消按赞失敗。"
@@ -1393,7 +1393,7 @@ msgid "Remove Poll"
 msgstr "移除投票"
 
 msgid "Edit margin"
-msgstr ""
+msgstr "編輯保證金"
 
 msgid "No activity yet"
 msgstr "这里空空如也"
@@ -1438,7 +1438,7 @@ msgid "Buy {secondOutcome}"
 msgstr "購買 {secondOutcome}"
 
 msgid "Mark"
-msgstr ""
+msgstr "標記"
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "此錢包來自公開數據或我們的算法，請先添加錢包再設為主要錢包。"
@@ -1576,7 +1576,7 @@ msgid "Tomorrow"
 msgstr "明天"
 
 msgid "TP/SL"
-msgstr ""
+msgstr "TP/SL"
 
 msgid "Go the Distance?"
 msgstr "是否打滿全程？"
@@ -1626,7 +1626,7 @@ msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上傳失敗。超過最大 {maxImageCount} 張的圖片數量上限。"
 
 msgid "No open positions"
-msgstr ""
+msgstr "暫無持倉"
 
 msgid "Available Balance"
 msgstr "可用餘額"
@@ -1683,7 +1683,7 @@ msgid "No polymarket event found."
 msgstr "未發現 Polymarket 市場。"
 
 msgid "No order-book data."
-msgstr ""
+msgstr "暫無訂單簿資料。"
 
 msgid "Wins"
 msgstr "勝場"
@@ -1710,7 +1710,7 @@ msgid "Multi-device login is required for schedule post. Enter your password to 
 msgstr "預約發佈需啟用多裝置登入。請輸入密碼驗證身份。"
 
 msgid "Size"
-msgstr ""
+msgstr "數量"
 
 msgid "Block"
 msgstr "區塊"
@@ -1806,7 +1806,7 @@ msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "在{2}回覆 <0>@{0}</0> 和 <1>@{1}</1>"
 
 msgid "Funding/Countdown"
-msgstr ""
+msgstr "資金費/倒數"
 
 msgid "Content preference"
 msgstr "內容偏好"
@@ -1820,7 +1820,7 @@ msgid_plural "# minutes left"
 msgstr[0] "剩餘 # 分鐘"
 
 msgid "Open Long"
-msgstr ""
+msgstr "開多"
 
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
@@ -2104,7 +2104,7 @@ msgid "Unknown"
 msgstr "未知"
 
 msgid "Connect your wallet to view positions"
-msgstr ""
+msgstr "連接錢包以查看持倉"
 
 msgid "Claimed lucky drop successfully"
 msgstr "紅包領取成功"
@@ -2175,7 +2175,7 @@ msgid "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
 msgstr "<0><1/><2>發送打賞</2></0><3>給</3>{targetAccount}"
 
 msgid "(Cross)"
-msgstr ""
+msgstr "（全倉）"
 
 msgid "Verified by Lens"
 msgstr "由 Lens 驗證"
@@ -2195,7 +2195,7 @@ msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上隱藏 @{0}。"
 
 msgid "No trading history"
-msgstr ""
+msgstr "暫無交易記錄"
 
 msgid "Semifinals"
 msgstr "半決賽"
@@ -2264,7 +2264,7 @@ msgid "Losses"
 msgstr "負場"
 
 msgid "Close Short"
-msgstr ""
+msgstr "平空"
 
 msgid "Failed to open miniapp"
 msgstr "打開 miniapp 失敗"
@@ -2351,7 +2351,7 @@ msgid "View resolved"
 msgstr "查看已結算"
 
 msgid "Live market updates are reconnecting."
-msgstr ""
+msgstr "即時行情更新正在重新連接。"
 
 msgid "Unmuting..."
 msgstr "正在取消隐藏……"
@@ -2440,7 +2440,7 @@ msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "匿名模式下離開此頁面內容將丟失。"
 
 msgid "Perpetuals account"
-msgstr ""
+msgstr "永續合約帳戶"
 
 msgid "1st Set Winner"
 msgstr "第一盤勝者"
@@ -2568,7 +2568,7 @@ msgid "Failed to copy image. Please try again later."
 msgstr "複製圖片失敗。請稍後重試。"
 
 msgid "Edit order price"
-msgstr ""
+msgstr "編輯委託價格"
 
 msgid "Failed Post"
 msgstr "發佈失敗"
@@ -2624,7 +2624,7 @@ msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth 喜歡您的交易"
 
 msgid "The fair price used for margin and liquidation calculations."
-msgstr ""
+msgstr "用於保證金和強平計算的公允價格。"
 
 msgid "Failed to get live market URL. Please try again later."
 msgstr "無法取得即時市場連結。請稍後再試。"
@@ -2655,10 +2655,10 @@ msgid "Lucky drop created successfully"
 msgstr "紅包創建成功"
 
 msgid "New order size"
-msgstr ""
+msgstr "新委託數量"
 
 msgid "Failed to add favorite"
-msgstr ""
+msgstr "加入收藏失敗"
 
 #. placeholder {0}: error.message
 msgid "Connection failed. {0}"
@@ -2738,13 +2738,13 @@ msgid "P"
 msgstr "P"
 
 msgid "About Open Interest"
-msgstr ""
+msgstr "關於持倉量"
 
 msgid "Days"
 msgstr "日"
 
 msgid "Chart interval"
-msgstr ""
+msgstr "圖表週期"
 
 msgid "TBD"
 msgstr "待定"
@@ -2825,7 +2825,7 @@ msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot 
 msgstr "<0>Firefly 錢包內資產將永久遺失且無法恢復。</0> 請先提領所有資金與資產以避免損失。"
 
 msgid "Oracle"
-msgstr ""
+msgstr "預言機"
 
 #. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
@@ -2929,7 +2929,7 @@ msgid "Payment request sent"
 msgstr "付款請求已傳送"
 
 msgid "Take Profit Market"
-msgstr ""
+msgstr "止盈市價"
 
 msgid "<0>You</0> reposted"
 msgstr "<0>您</0>轉發了"
@@ -2959,7 +2959,7 @@ msgid "Refund"
 msgstr "退款"
 
 msgid "{displayCoin} candlestick chart"
-msgstr ""
+msgstr "{displayCoin} K線圖"
 
 msgid "Connecting..."
 msgstr "連接中..."
@@ -3015,7 +3015,7 @@ msgid "Market Cap is sourced from CoinGecko and includes token issued on other b
 msgstr "市值數據來自 CoinGecko，包含該代幣在其他區塊鏈上的發行量。"
 
 msgid "Remove {marketDisplayName} favorite"
-msgstr ""
+msgstr "取消收藏{marketDisplayName}"
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "合約持有者設有反巨鯨機制。"
@@ -3081,10 +3081,10 @@ msgid "Collected"
 msgstr "已收集"
 
 msgid "Trading History"
-msgstr ""
+msgstr "交易記錄"
 
 msgid "Loading account data…"
-msgstr ""
+msgstr "正在載入帳戶資料…"
 
 msgid "Are you sure you want to report this post?"
 msgstr "確定要檢舉此貼文？"
@@ -3134,7 +3134,7 @@ msgid "Followed /{0} on {sourceName}"
 msgstr "在 {sourceName} 關注了 /{0}"
 
 msgid "Last Price"
-msgstr ""
+msgstr "最新價格"
 
 msgid "Collect Post"
 msgstr "鑄造收集貼文"
@@ -3204,7 +3204,7 @@ msgid "Pinned"
 msgstr "已釘選"
 
 msgid "Loading order book…"
-msgstr ""
+msgstr "正在載入訂單簿…"
 
 msgid "Replies are restricted for this post."
 msgstr "此貼文的回覆已受限。"
@@ -3356,7 +3356,7 @@ msgid "Select Network"
 msgstr "選擇網路"
 
 msgid "Margin"
-msgstr ""
+msgstr "保證金"
 
 msgid "Something went wrong. Please try again later."
 msgstr "哎呀... 發生錯誤，請重試。"
@@ -3402,7 +3402,7 @@ msgid "Followed by {0} , {1}, and {2}"
 msgstr "共同追蹤者包含 {0}、{1} 及 {2}"
 
 msgid "The current hourly funding rate paid between long and short positions."
-msgstr ""
+msgstr "多空雙方之間目前支付的每小時資金費率。"
 
 msgid "Vote"
 msgstr "投票"
@@ -3414,7 +3414,7 @@ msgid "Hide resolved"
 msgstr "隱藏已結算"
 
 msgid "PNL(ROE%)"
-msgstr ""
+msgstr "PNL(ROE%)"
 
 #. placeholder {0}: dayjs(space.ended_at).format('MMM DD')
 msgid "Ended on {0}"
@@ -3444,7 +3444,7 @@ msgid "Please enter your 2FA confirmation code"
 msgstr "請輸入您的 2FA 確認碼"
 
 msgid "Select order book unit"
-msgstr ""
+msgstr "選擇訂單簿單位"
 
 msgid "No active positions found in this wallet"
 msgstr "此錢包中未發現持倉"
@@ -3518,7 +3518,7 @@ msgid "Failed to verify password."
 msgstr "密碼驗證失敗。"
 
 msgid "Retry chart"
-msgstr ""
+msgstr "重試圖表"
 
 msgid "Any Player Rampage"
 msgstr "任意選手暴走"
@@ -3590,7 +3590,7 @@ msgid "Download Wallet"
 msgstr "下載錢包"
 
 msgid "Direction"
-msgstr ""
+msgstr "方向"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to reply on {0}."
@@ -3652,7 +3652,7 @@ msgid "Assuming circulating supply = total supply (includes locked, excludes bur
 msgstr "假設流通量 = 總量（含鎖定部分，不含銷毀部分）"
 
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 msgid "Resend"
 msgstr "重新發布"
@@ -3801,7 +3801,7 @@ msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "管理您已隱藏的帳號，錢包和群組。"
 
 msgid "Chart"
-msgstr ""
+msgstr "圖表"
 
 msgid "Others"
 msgstr "其他"
@@ -3835,7 +3835,7 @@ msgid "Added #{0} on {sourceName}"
 msgstr "在 {sourceName} 新增了 #{0}"
 
 msgid "Remove {selectedMarketDisplayName} favorite"
-msgstr ""
+msgstr "取消收藏{selectedMarketDisplayName}"
 
 msgid "Failed to switch chain"
 msgstr "切換鏈失敗"
@@ -3847,7 +3847,7 @@ msgid "Create time:"
 msgstr "建立時間："
 
 msgid "Take Profit Limit"
-msgstr ""
+msgstr "止盈限價"
 
 msgid "No polymarket profile found."
 msgstr "未發現 Polymarket 個人檔案。"
@@ -3877,7 +3877,7 @@ msgid "Malicious mining activities."
 msgstr "惡意挖礦活動。"
 
 msgid "Stop Market"
-msgstr ""
+msgstr "止損市價"
 
 msgid "Resolved"
 msgstr "已結算"
@@ -3995,13 +3995,13 @@ msgid "Mine"
 msgstr "我的交易"
 
 msgid "The external reference price reported to Hyperliquid."
-msgstr ""
+msgstr "回報給 Hyperliquid 的外部參考價格。"
 
 msgid "Long"
-msgstr ""
+msgstr "做多"
 
 msgid "Loading chart…"
-msgstr ""
+msgstr "正在載入圖表…"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
@@ -4111,7 +4111,7 @@ msgid "ALL"
 msgstr "全部"
 
 msgid "About Mark"
-msgstr ""
+msgstr "關於標記價格"
 
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr "注意：雲端草稿僅儲存文字。請重新上傳原圖或影片。"
@@ -4176,7 +4176,7 @@ msgid "Not Found. Please check your URL. [{0}]"
 msgstr "未找到。請檢查你的 URL。[ {0} ]"
 
 msgid "Select price aggregation"
-msgstr ""
+msgstr "選擇價格聚合精度"
 
 msgid "5m"
 msgstr "5分鐘"
@@ -4296,7 +4296,7 @@ msgid "Associated wallets"
 msgstr "關聯錢包"
 
 msgid "Portfolio account value"
-msgstr ""
+msgstr "投資組合帳戶價值"
 
 msgid "Connected"
 msgstr "已連接"
@@ -4403,7 +4403,7 @@ msgid "EVM wallets"
 msgstr "EVM 錢包"
 
 msgid "Maximum leverage"
-msgstr ""
+msgstr "最大槓桿"
 
 msgid "Hide tokens with small balances"
 msgstr "隱藏小額代幣"
@@ -4420,7 +4420,7 @@ msgid_plural "# Risky items"
 msgstr[0] "# 高風險項"
 
 msgid "8h Funding"
-msgstr ""
+msgstr "8小時資金費"
 
 msgid "{teamName} Totals"
 msgstr "{teamName} 總分"
@@ -4453,7 +4453,7 @@ msgid "Statistic"
 msgstr "統計數據"
 
 msgid "Liq. Price"
-msgstr ""
+msgstr "強平價格"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "24 小時交易量為全網追蹤平台統計數據，採滾動 24 小時計算。"
@@ -4495,10 +4495,10 @@ msgid "The contract owner has no restrictions on anti whale."
 msgstr "合約持有者未設反巨鯨機制。"
 
 msgid "Close Long"
-msgstr ""
+msgstr "平多"
 
 msgid "Short"
-msgstr ""
+msgstr "做空"
 
 msgid "Final review"
 msgstr "最終審核"
@@ -4589,7 +4589,7 @@ msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "於 Firefly 上取消追蹤 {handleOrEnsOrAddress}"
 
 msgid "Size/Value"
-msgstr ""
+msgstr "數量/金額"
 
 msgid "Topics"
 msgstr "主題"
@@ -4608,7 +4608,7 @@ msgid "Failed to create Firefly profile."
 msgstr "Firefly 個人檔案建立失敗。"
 
 msgid "Entry Price"
-msgstr ""
+msgstr "開倉價格"
 
 msgid "Unauthorized. Please check your login."
 msgstr "未經授權，請檢查登入狀態。"
@@ -4696,13 +4696,13 @@ msgid "Remove"
 msgstr "移除"
 
 msgid "24h Change"
-msgstr ""
+msgstr "24小時漲跌幅"
 
 msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
 msgstr "重連失敗，請重新掃描QR碼建立連接。"
 
 msgid "Closed PNL"
-msgstr ""
+msgstr "已實現盈虧"
 
 #. placeholder {0}: author.fullHandle || author.displayName
 msgid "by {0}"
@@ -4721,7 +4721,7 @@ msgid "Failed to send message. Please try again."
 msgstr "訊息傳送失敗，請重試。"
 
 msgid "Market categories"
-msgstr ""
+msgstr "市場分類"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
@@ -4770,13 +4770,13 @@ msgid "Halftime Result"
 msgstr "中場結果"
 
 msgid "Failed to remove favorite"
-msgstr ""
+msgstr "取消收藏失敗"
 
 msgid "Post has been encrypted"
 msgstr "貼文已經被加密"
 
 msgid "Select market"
-msgstr ""
+msgstr "選擇市場"
 
 msgid "Leaderboard"
 msgstr "排行榜"
@@ -4796,7 +4796,7 @@ msgstr "標準"
 #. js-lingui:icu=%7BreplyCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=replyCount
 msgid "View # reply"
 msgid_plural "View # replies"
-msgstr[0] ""
+msgstr[0] "查看#則留言"
 
 msgid "Emoji"
 msgstr "表情"
@@ -4841,7 +4841,7 @@ msgid "Failed to join #{0} on {sourceName}"
 msgstr "加入 {sourceName} 的 #{0} 失敗"
 
 msgid "Trade Value"
-msgstr ""
+msgstr "成交額"
 
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "取消追蹤 {handleOrEnsOrAddress}"
@@ -4885,7 +4885,7 @@ msgid "Sorry, there is no wallet address available for tipping."
 msgstr "抱歉，未找到相關地址用於發送打賞。"
 
 msgid "Cancel order"
-msgstr ""
+msgstr "取消訂單"
 
 msgid "Follow me"
 msgstr "追蹤我"
@@ -5034,7 +5034,7 @@ msgid "Search clubs"
 msgstr "搜尋群組"
 
 msgid "No open orders"
-msgstr ""
+msgstr "暫無委託訂單"
 
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "無法取得助記詞。請重試。"
@@ -5287,7 +5287,7 @@ msgid "Nashor Handicap"
 msgstr "納什男爵讓分"
 
 msgid "Perpetuals"
-msgstr ""
+msgstr "永續合約"
 
 msgid "Address on Watching Lists"
 msgstr "關注名單地址"
@@ -5325,7 +5325,7 @@ msgid "Failed to unlike."
 msgstr "取消按赞失敗。"
 
 msgid "About Oracle"
-msgstr ""
+msgstr "關於預言機"
 
 msgid "Max Supply"
 msgstr "最大供應量"
@@ -5365,7 +5365,7 @@ msgid "General"
 msgstr "通用"
 
 msgid "Mark Price"
-msgstr ""
+msgstr "標記價格"
 
 msgid "Round Total"
 msgstr "回合總數"
@@ -5383,7 +5383,7 @@ msgid "The whitelist function is not included. If there is a whitelist, some add
 msgstr "白名單功能未啟用。如果存在白名單，某些地址可能無法正常交易（詐騙風險）。"
 
 msgid "No markets found"
-msgstr ""
+msgstr "未找到市場"
 
 msgid "Location"
 msgstr "位置"
@@ -5406,7 +5406,7 @@ msgid "Value"
 msgstr "价值"
 
 msgid "24h Volume"
-msgstr ""
+msgstr "24小時成交量"
 
 msgid "Your schedule thread has created successfully."
 msgstr "你預約發布的貼文串已成功創建。"
@@ -5489,7 +5489,7 @@ msgid "Removed from bookmarks"
 msgstr "已從書籤移除"
 
 msgid "Close all"
-msgstr ""
+msgstr "全部平倉"
 
 msgid "Deleted your Firefly account"
 msgstr "你的 Firefly 帳戶已刪除"
@@ -5523,7 +5523,7 @@ msgid "Search channel"
 msgstr "搜尋群組"
 
 msgid "Favorites"
-msgstr ""
+msgstr "收藏"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
@@ -5590,7 +5590,7 @@ msgid "Copy frame URL"
 msgstr "複製框架網址"
 
 msgid "Sell/Short"
-msgstr ""
+msgstr "賣出/做空"
 
 msgid "This token can not self destruct."
 msgstr "此代幣不具備自毀功能。"
@@ -5632,7 +5632,7 @@ msgid "[Quote]"
 msgstr "[引用]"
 
 msgid "Account data is unavailable."
-msgstr ""
+msgstr "帳戶資料暫不可用。"
 
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "已取消隱藏 {handleOrEnsOrAddress}。"
@@ -5770,7 +5770,7 @@ msgid "Different Account Detected"
 msgstr "檢測到帳戶衝突"
 
 msgid "Market view"
-msgstr ""
+msgstr "市場檢視"
 
 msgid "Enter your username and password to sign in instantly"
 msgstr "請輸入使用者名稱與密碼以立即登入"
@@ -5809,7 +5809,7 @@ msgid "Transaction completed!"
 msgstr "交易完成！"
 
 msgid "Limit"
-msgstr ""
+msgstr "限價"
 
 msgid "Target"
 msgstr "目標"
@@ -5831,7 +5831,7 @@ msgid "Requested"
 msgstr "已請求"
 
 msgid "Spread"
-msgstr ""
+msgstr "價差"
 
 msgid "Hours"
 msgstr "小時"
@@ -5844,7 +5844,7 @@ msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 轉發了"
 
 msgid "Clear all"
-msgstr ""
+msgstr "清除全部"
 
 msgid "Close"
 msgstr "關閉"
@@ -5876,7 +5876,7 @@ msgid "Share"
 msgstr "分享"
 
 msgid "New order price"
-msgstr ""
+msgstr "新委託價格"
 
 msgid "Fake KYC found."
 msgstr "檢測到偽造 KYC。"
@@ -5947,7 +5947,7 @@ msgid "View engagements"
 msgstr "查看互動數據"
 
 msgid "Search markets"
-msgstr ""
+msgstr "搜尋市場"
 
 #. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
 #. placeholder {1}: token.symbol?.toUpperCase()
@@ -5992,7 +5992,7 @@ msgid "The contract owner has restrictions on selling."
 msgstr "合約擁有者設有銷售限制。"
 
 msgid "Filled"
-msgstr ""
+msgstr "已成交"
 
 msgid "Likes"
 msgstr "讚"

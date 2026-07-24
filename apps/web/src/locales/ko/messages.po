@@ -106,7 +106,7 @@ msgid "Cash"
 msgstr "현금"
 
 msgid "Open Short"
-msgstr ""
+msgstr "숏 진입"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
@@ -244,10 +244,10 @@ msgid "Repost or quote"
 msgstr "리포스트 또는 인용"
 
 msgid "Type"
-msgstr ""
+msgstr "유형"
 
 msgid "Withdrawable cash"
-msgstr ""
+msgstr "출금 가능 금액"
 
 msgid "Delete post"
 msgstr "게시물 삭제"
@@ -268,7 +268,7 @@ msgid "Enter a new password to verify your identity."
 msgstr "신원 확인을 위해 새 비밀번호를 입력하세요."
 
 msgid "Funding"
-msgstr ""
+msgstr "펀딩비"
 
 msgid "This space does not exist."
 msgstr "이 스페이스는 존재하지 않습니다."
@@ -358,7 +358,7 @@ msgstr "{walletHandle} 숨기기"
 
 #. placeholder {0}: unit === 'USDC' ? 'USDC' : coinDisplayName
 msgid "Total ({0})"
-msgstr ""
+msgstr "합계({0})"
 
 msgid "1H Moneyline"
 msgstr "전반 머니라인"
@@ -454,7 +454,7 @@ msgid "Translate post"
 msgstr "게시물 번역"
 
 msgid "Sell / Short"
-msgstr ""
+msgstr "매도 / 숏"
 
 msgid "Set Password"
 msgstr "비밀번호 설정"
@@ -564,7 +564,7 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "위치는 {maxLocationSize}자를 초과할 수 없습니다"
 
 msgid "Stop Limit"
-msgstr ""
+msgstr "스탑 리밋"
 
 msgid "Post engagements"
 msgstr "게시물 참여"
@@ -579,7 +579,7 @@ msgid "Props"
 msgstr "Props"
 
 msgid "Buy/Long"
-msgstr ""
+msgstr "매수/롱"
 
 msgid "Potential risk of external call."
 msgstr "외부 호출의 잠재적 위험이 있습니다."
@@ -630,7 +630,7 @@ msgid "Trending"
 msgstr "트렌딩"
 
 msgid "Add {marketDisplayName} favorite"
-msgstr ""
+msgstr "{marketDisplayName} 즐겨찾기 추가"
 
 msgid "View similar symbols"
 msgstr "유사한 심볼 보기"
@@ -639,7 +639,7 @@ msgid "DAOs"
 msgstr "DAOs"
 
 msgid "Add {selectedMarketDisplayName} favorite"
-msgstr ""
+msgstr "{selectedMarketDisplayName} 즐겨찾기 추가"
 
 msgid "Scheduled"
 msgstr "예약됨"
@@ -732,13 +732,13 @@ msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0>님이 리포스트했습니다"
 
 msgid "Edit order size"
-msgstr ""
+msgstr "주문 수량 수정"
 
 msgid "Stealing attack."
 msgstr "탈취 공격."
 
 msgid "{displayCoin} price chart"
-msgstr ""
+msgstr "{displayCoin} 가격 차트"
 
 msgid "Failed to like snapshot."
 msgstr "스냅샷 좋아요에 실패했습니다."
@@ -806,7 +806,7 @@ msgid "Stocks"
 msgstr "주식"
 
 msgid "Edit TP/SL"
-msgstr ""
+msgstr "TP/SL 수정"
 
 msgid "Sorry, the email you entered is invalid"
 msgstr "죄송합니다. 입력하신 이메일이 유효하지 않습니다"
@@ -821,7 +821,7 @@ msgid "Totals"
 msgstr "합계"
 
 msgid "The notional value of currently open contracts."
-msgstr ""
+msgstr "현재 보유 중인 계약의 명목 가치입니다."
 
 msgid "Failed to vote."
 msgstr "투표에 실패했습니다."
@@ -1005,7 +1005,7 @@ msgid "Hope this sparks a smile."
 msgstr "이것이 미소를 가져다주길 바랍니다."
 
 msgid "Buy / Long"
-msgstr ""
+msgstr "매수 / 롱"
 
 msgid "Firefly wallet"
 msgstr "Firefly 지갑"
@@ -1063,7 +1063,7 @@ msgid "Save Post?"
 msgstr "게시물을 저장할까요?"
 
 msgid "Close Position"
-msgstr ""
+msgstr "포지션 종료"
 
 msgid "Added successfully"
 msgstr "추가되었습니다"
@@ -1109,7 +1109,7 @@ msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]}
 msgstr "{0, select, Image {[이미지]} Video {[동영상]} Audio {[오디오]} Poll {[투표]} other {}}"
 
 msgid "Order book is unavailable."
-msgstr ""
+msgstr "호가창을 사용할 수 없습니다."
 
 msgid "Sending"
 msgstr "전송 중"
@@ -1118,7 +1118,7 @@ msgid "The author has disabled comments on this post."
 msgstr "작성자가 이 게시물의 댓글을 비활성화했습니다."
 
 msgid "About Funding"
-msgstr ""
+msgstr "펀딩비 안내"
 
 msgid "Retry Stream"
 msgstr "스트림 재시도"
@@ -1178,7 +1178,7 @@ msgid "TOTAL"
 msgstr "합계"
 
 msgid "Trade actions"
-msgstr ""
+msgstr "거래 작업"
 
 msgid "Failed to unlike tip."
 msgstr "팁 좋아요 취소에 실패했습니다."
@@ -1393,7 +1393,7 @@ msgid "Remove Poll"
 msgstr "투표 삭제"
 
 msgid "Edit margin"
-msgstr ""
+msgstr "마진 수정"
 
 msgid "No activity yet"
 msgstr "아직 활동이 없습니다"
@@ -1438,7 +1438,7 @@ msgid "Buy {secondOutcome}"
 msgstr "{secondOutcome} 매수"
 
 msgid "Mark"
-msgstr ""
+msgstr "마크"
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "공개 검증 데이터 레지스트리 또는 당사 알고리즘에서 가져온 지갑입니다. 기본 지갑으로 설정하려면 이 지갑을 추가하세요."
@@ -1576,7 +1576,7 @@ msgid "Tomorrow"
 msgstr "내일"
 
 msgid "TP/SL"
-msgstr ""
+msgstr "TP/SL"
 
 msgid "Go the Distance?"
 msgstr "풀라운드 진행 여부?"
@@ -1626,7 +1626,7 @@ msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "업로드에 실패했습니다. 이미지가 {maxImageCount}개를 초과합니다."
 
 msgid "No open positions"
-msgstr ""
+msgstr "보유 중인 포지션이 없습니다"
 
 msgid "Available Balance"
 msgstr "사용 가능 잔액"
@@ -1683,7 +1683,7 @@ msgid "No polymarket event found."
 msgstr "Polymarket 이벤트를 찾을 수 없습니다."
 
 msgid "No order-book data."
-msgstr ""
+msgstr "호가창 데이터가 없습니다."
 
 msgid "Wins"
 msgstr "승"
@@ -1710,7 +1710,7 @@ msgid "Multi-device login is required for schedule post. Enter your password to 
 msgstr "예약 게시에는 다중 기기 로그인이 필요합니다. 신원 확인을 위해 비밀번호를 입력하세요."
 
 msgid "Size"
-msgstr ""
+msgstr "수량"
 
 msgid "Block"
 msgstr "블록"
@@ -1806,7 +1806,7 @@ msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "{2}에서 <0>@{0}</0> 및 <1>@{1}</1>에게 답글 중"
 
 msgid "Funding/Countdown"
-msgstr ""
+msgstr "펀딩비/카운트다운"
 
 msgid "Content preference"
 msgstr "콘텐츠 환경설정"
@@ -1820,7 +1820,7 @@ msgid_plural "# minutes left"
 msgstr[0] "# 분 남음"
 
 msgid "Open Long"
-msgstr ""
+msgstr "롱 진입"
 
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
@@ -2104,7 +2104,7 @@ msgid "Unknown"
 msgstr "알 수 없음"
 
 msgid "Connect your wallet to view positions"
-msgstr ""
+msgstr "포지션을 보려면 지갑을 연결하세요"
 
 msgid "Claimed lucky drop successfully"
 msgstr "럭키 드롭을 성공적으로 수령했습니다"
@@ -2175,7 +2175,7 @@ msgid "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
 msgstr "<0><1/><2>팁을 보냈습니다</2></0><3>대상:</3>{targetAccount}"
 
 msgid "(Cross)"
-msgstr ""
+msgstr "(교차)"
 
 msgid "Verified by Lens"
 msgstr "Lens 인증"
@@ -2195,7 +2195,7 @@ msgid "Muted @{0} on {sourceName}."
 msgstr "{sourceName}에서 @{0}을(를) 숨겼습니다."
 
 msgid "No trading history"
-msgstr ""
+msgstr "거래 내역이 없습니다"
 
 msgid "Semifinals"
 msgstr "4강"
@@ -2264,7 +2264,7 @@ msgid "Losses"
 msgstr "패"
 
 msgid "Close Short"
-msgstr ""
+msgstr "숏 종료"
 
 msgid "Failed to open miniapp"
 msgstr "미니앱을 열지 못했습니다"
@@ -2351,7 +2351,7 @@ msgid "View resolved"
 msgstr "결산된 항목 보기"
 
 msgid "Live market updates are reconnecting."
-msgstr ""
+msgstr "실시간 시세 업데이트를 다시 연결하는 중입니다."
 
 msgid "Unmuting..."
 msgstr "숨김 해제 중..."
@@ -2440,7 +2440,7 @@ msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "익명 모드에서 이 페이지를 떠나면 콘텐츠가 사라집니다."
 
 msgid "Perpetuals account"
-msgstr ""
+msgstr "무기한 계약 계정"
 
 msgid "1st Set Winner"
 msgstr "1세트 승자"
@@ -2568,7 +2568,7 @@ msgid "Failed to copy image. Please try again later."
 msgstr "이미지를 복사하지 못했습니다. 나중에 다시 시도해 주세요."
 
 msgid "Edit order price"
-msgstr ""
+msgstr "주문 가격 수정"
 
 msgid "Failed Post"
 msgstr "게시 실패"
@@ -2624,7 +2624,7 @@ msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth가 회원님의 거래에 좋아요를 눌렀습니다"
 
 msgid "The fair price used for margin and liquidation calculations."
-msgstr ""
+msgstr "마진 및 청산 계산에 사용되는 공정 가격입니다."
 
 msgid "Failed to get live market URL. Please try again later."
 msgstr "라이브 마켓 URL을 가져오지 못했습니다. 나중에 다시 시도해 주세요."
@@ -2655,10 +2655,10 @@ msgid "Lucky drop created successfully"
 msgstr "럭키 드롭이 생성되었습니다"
 
 msgid "New order size"
-msgstr ""
+msgstr "새 주문 수량"
 
 msgid "Failed to add favorite"
-msgstr ""
+msgstr "즐겨찾기 추가 실패"
 
 #. placeholder {0}: error.message
 msgid "Connection failed. {0}"
@@ -2738,13 +2738,13 @@ msgid "P"
 msgstr "P"
 
 msgid "About Open Interest"
-msgstr ""
+msgstr "미결제약정 안내"
 
 msgid "Days"
 msgstr "일"
 
 msgid "Chart interval"
-msgstr ""
+msgstr "차트 주기"
 
 msgid "TBD"
 msgstr "미정"
@@ -2825,7 +2825,7 @@ msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot 
 msgstr "<0>이 Firefly 지갑의 모든 자산은 영구적으로 손실되며 복구할 수 없습니다.</0> 계속하기 전에 손실을 방지하려면 Firefly 지갑에서 모든 자금과 자산을 출금하세요."
 
 msgid "Oracle"
-msgstr ""
+msgstr "오라클"
 
 #. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
@@ -2929,7 +2929,7 @@ msgid "Payment request sent"
 msgstr "결제 요청이 전송되었습니다"
 
 msgid "Take Profit Market"
-msgstr ""
+msgstr "테이크 프로핏 마켓"
 
 msgid "<0>You</0> reposted"
 msgstr "<0>회원님</0>이 리포스트했습니다"
@@ -2959,7 +2959,7 @@ msgid "Refund"
 msgstr "환불"
 
 msgid "{displayCoin} candlestick chart"
-msgstr ""
+msgstr "{displayCoin} 캔들 차트"
 
 msgid "Connecting..."
 msgstr "연결 중..."
@@ -3015,7 +3015,7 @@ msgid "Market Cap is sourced from CoinGecko and includes token issued on other b
 msgstr "시가총액은 CoinGecko에서 제공하며 다른 블록체인에 발행된 토큰을 포함합니다."
 
 msgid "Remove {marketDisplayName} favorite"
-msgstr ""
+msgstr "{marketDisplayName} 즐겨찾기 삭제"
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "컨트랙트 소유자에게 반고래 제한이 있습니다."
@@ -3081,10 +3081,10 @@ msgid "Collected"
 msgstr "수집함"
 
 msgid "Trading History"
-msgstr ""
+msgstr "거래 내역"
 
 msgid "Loading account data…"
-msgstr ""
+msgstr "계정 데이터를 불러오는 중…"
 
 msgid "Are you sure you want to report this post?"
 msgstr "이 게시물을 신고하시겠습니까?"
@@ -3134,7 +3134,7 @@ msgid "Followed /{0} on {sourceName}"
 msgstr "{sourceName}에서 /{0} 팔로우함"
 
 msgid "Last Price"
-msgstr ""
+msgstr "최근 체결가"
 
 msgid "Collect Post"
 msgstr "게시물 수집"
@@ -3204,7 +3204,7 @@ msgid "Pinned"
 msgstr "고정됨"
 
 msgid "Loading order book…"
-msgstr ""
+msgstr "호가창을 불러오는 중…"
 
 msgid "Replies are restricted for this post."
 msgstr "이 게시물의 답글이 제한되어 있습니다."
@@ -3356,7 +3356,7 @@ msgid "Select Network"
 msgstr "네트워크 선택"
 
 msgid "Margin"
-msgstr ""
+msgstr "마진"
 
 msgid "Something went wrong. Please try again later."
 msgstr "문제가 발생했습니다. 나중에 다시 시도해 주세요."
@@ -3402,7 +3402,7 @@ msgid "Followed by {0} , {1}, and {2}"
 msgstr "{0}, {1}, {2}님이 팔로우함"
 
 msgid "The current hourly funding rate paid between long and short positions."
-msgstr ""
+msgstr "롱과 숏 포지션 간에 지급되는 현재 시간당 펀딩비율입니다."
 
 msgid "Vote"
 msgstr "투표"
@@ -3414,7 +3414,7 @@ msgid "Hide resolved"
 msgstr "결산된 항목 숨기기"
 
 msgid "PNL(ROE%)"
-msgstr ""
+msgstr "PNL(ROE%)"
 
 #. placeholder {0}: dayjs(space.ended_at).format('MMM DD')
 msgid "Ended on {0}"
@@ -3444,7 +3444,7 @@ msgid "Please enter your 2FA confirmation code"
 msgstr "2FA 확인 코드를 입력하세요"
 
 msgid "Select order book unit"
-msgstr ""
+msgstr "호가창 단위 선택"
 
 msgid "No active positions found in this wallet"
 msgstr "이 지갑에서 활성 포지션을 찾을 수 없습니다"
@@ -3518,7 +3518,7 @@ msgid "Failed to verify password."
 msgstr "비밀번호 확인에 실패했습니다."
 
 msgid "Retry chart"
-msgstr ""
+msgstr "차트 다시 시도"
 
 msgid "Any Player Rampage"
 msgstr "임의 선수 램페이지"
@@ -3590,7 +3590,7 @@ msgid "Download Wallet"
 msgstr "지갑 다운로드"
 
 msgid "Direction"
-msgstr ""
+msgstr "방향"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to reply on {0}."
@@ -3652,7 +3652,7 @@ msgid "Assuming circulating supply = total supply (includes locked, excludes bur
 msgstr "유통 공급량 = 총 공급량(잠금 포함, 소각 제외)으로 가정"
 
 msgid "Date"
-msgstr ""
+msgstr "날짜"
 
 msgid "Resend"
 msgstr "다시 보내기"
@@ -3801,7 +3801,7 @@ msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "숨긴 계정, 지갑, 클럽을 관리하세요."
 
 msgid "Chart"
-msgstr ""
+msgstr "차트"
 
 msgid "Others"
 msgstr "기타"
@@ -3835,7 +3835,7 @@ msgid "Added #{0} on {sourceName}"
 msgstr "{sourceName}에서 #{0} 추가함"
 
 msgid "Remove {selectedMarketDisplayName} favorite"
-msgstr ""
+msgstr "{selectedMarketDisplayName} 즐겨찾기 삭제"
 
 msgid "Failed to switch chain"
 msgstr "체인 전환에 실패했습니다"
@@ -3847,7 +3847,7 @@ msgid "Create time:"
 msgstr "생성 시간:"
 
 msgid "Take Profit Limit"
-msgstr ""
+msgstr "테이크 프로핏 리밋"
 
 msgid "No polymarket profile found."
 msgstr "Polymarket 프로필을 찾을 수 없습니다."
@@ -3877,7 +3877,7 @@ msgid "Malicious mining activities."
 msgstr "악성 채굴 활동."
 
 msgid "Stop Market"
-msgstr ""
+msgstr "스탑 마켓"
 
 msgid "Resolved"
 msgstr "결산됨"
@@ -3995,13 +3995,13 @@ msgid "Mine"
 msgstr "내 거래"
 
 msgid "The external reference price reported to Hyperliquid."
-msgstr ""
+msgstr "Hyperliquid에 보고되는 외부 참조 가격입니다."
 
 msgid "Long"
-msgstr ""
+msgstr "롱"
 
 msgid "Loading chart…"
-msgstr ""
+msgstr "차트를 불러오는 중…"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
@@ -4111,7 +4111,7 @@ msgid "ALL"
 msgstr "전체"
 
 msgid "About Mark"
-msgstr ""
+msgstr "마크 가격 안내"
 
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr "참고: 클라우드 임시 저장은 텍스트만 저장합니다. 원본 이미지나 동영상을 다시 업로드하세요."
@@ -4176,7 +4176,7 @@ msgid "Not Found. Please check your URL. [{0}]"
 msgstr "찾을 수 없습니다. URL을 확인해 주세요. [{0}]"
 
 msgid "Select price aggregation"
-msgstr ""
+msgstr "가격 그룹 단위 선택"
 
 msgid "5m"
 msgstr "5분"
@@ -4296,7 +4296,7 @@ msgid "Associated wallets"
 msgstr "연결된 지갑"
 
 msgid "Portfolio account value"
-msgstr ""
+msgstr "포트폴리오 계정 가치"
 
 msgid "Connected"
 msgstr "연결됨"
@@ -4403,7 +4403,7 @@ msgid "EVM wallets"
 msgstr "EVM 지갑"
 
 msgid "Maximum leverage"
-msgstr ""
+msgstr "최대 레버리지"
 
 msgid "Hide tokens with small balances"
 msgstr "소액 잔액 토큰 숨기기"
@@ -4420,7 +4420,7 @@ msgid_plural "# Risky items"
 msgstr[0] "# 위험 항목"
 
 msgid "8h Funding"
-msgstr ""
+msgstr "8시간 펀딩비"
 
 msgid "{teamName} Totals"
 msgstr "{teamName} 합계"
@@ -4453,7 +4453,7 @@ msgid "Statistic"
 msgstr "통계"
 
 msgid "Liq. Price"
-msgstr ""
+msgstr "청산가"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "지난 24시간 동안 추적된 모든 플랫폼에서의 암호화폐 거래량 지표입니다. 개장/폐장 시간 없이 24시간 롤링 기준으로 추적됩니다."
@@ -4495,10 +4495,10 @@ msgid "The contract owner has no restrictions on anti whale."
 msgstr "컨트랙트 소유자에게 반고래 제한이 없습니다."
 
 msgid "Close Long"
-msgstr ""
+msgstr "롱 종료"
 
 msgid "Short"
-msgstr ""
+msgstr "숏"
 
 msgid "Final review"
 msgstr "최종 검토"
@@ -4589,7 +4589,7 @@ msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "Firefly에서 {handleOrEnsOrAddress} 팔로우를 취소했습니다"
 
 msgid "Size/Value"
-msgstr ""
+msgstr "수량/금액"
 
 msgid "Topics"
 msgstr "토픽"
@@ -4608,7 +4608,7 @@ msgid "Failed to create Firefly profile."
 msgstr "Firefly 프로필 생성에 실패했습니다."
 
 msgid "Entry Price"
-msgstr ""
+msgstr "진입 가격"
 
 msgid "Unauthorized. Please check your login."
 msgstr "권한이 없습니다. 로그인을 확인해 주세요."
@@ -4696,13 +4696,13 @@ msgid "Remove"
 msgstr "제거"
 
 msgid "24h Change"
-msgstr ""
+msgstr "24시간 변동"
 
 msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
 msgstr "다시 연결하지 못했습니다. 새 QR 코드를 스캔하여 연결을 설정하세요."
 
 msgid "Closed PNL"
-msgstr ""
+msgstr "실현 손익"
 
 #. placeholder {0}: author.fullHandle || author.displayName
 msgid "by {0}"
@@ -4721,7 +4721,7 @@ msgid "Failed to send message. Please try again."
 msgstr "메시지 전송에 실패했습니다. 다시 시도해 주세요."
 
 msgid "Market categories"
-msgstr ""
+msgstr "마켓 카테고리"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
@@ -4770,13 +4770,13 @@ msgid "Halftime Result"
 msgstr "하프타임 결과"
 
 msgid "Failed to remove favorite"
-msgstr ""
+msgstr "즐겨찾기 삭제 실패"
 
 msgid "Post has been encrypted"
 msgstr "게시물이 암호화되었습니다"
 
 msgid "Select market"
-msgstr ""
+msgstr "마켓 선택"
 
 msgid "Leaderboard"
 msgstr "리더보드"
@@ -4796,7 +4796,7 @@ msgstr "표준"
 #. js-lingui:icu=%7BreplyCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=replyCount
 msgid "View # reply"
 msgid_plural "View # replies"
-msgstr[0] ""
+msgstr[0] "답글 #개 보기"
 
 msgid "Emoji"
 msgstr "이모지"
@@ -4841,7 +4841,7 @@ msgid "Failed to join #{0} on {sourceName}"
 msgstr "{sourceName}에서 #{0} 참여에 실패했습니다"
 
 msgid "Trade Value"
-msgstr ""
+msgstr "거래 금액"
 
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "{handleOrEnsOrAddress} 팔로우 취소"
@@ -4885,7 +4885,7 @@ msgid "Sorry, there is no wallet address available for tipping."
 msgstr "죄송합니다. 팁을 보낼 수 있는 지갑 주소가 없습니다."
 
 msgid "Cancel order"
-msgstr ""
+msgstr "주문 취소"
 
 msgid "Follow me"
 msgstr "팔로우하기"
@@ -5034,7 +5034,7 @@ msgid "Search clubs"
 msgstr "클럽 검색"
 
 msgid "No open orders"
-msgstr ""
+msgstr "미체결 주문이 없습니다"
 
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "복구 구문을 가져오지 못했습니다. 다시 시도해 주세요."
@@ -5287,7 +5287,7 @@ msgid "Nashor Handicap"
 msgstr "내셔 핸디캡"
 
 msgid "Perpetuals"
-msgstr ""
+msgstr "무기한 계약"
 
 msgid "Address on Watching Lists"
 msgstr "관심 목록의 주소"
@@ -5325,7 +5325,7 @@ msgid "Failed to unlike."
 msgstr "좋아요 취소에 실패했습니다."
 
 msgid "About Oracle"
-msgstr ""
+msgstr "오라클 안내"
 
 msgid "Max Supply"
 msgstr "최대 공급량"
@@ -5365,7 +5365,7 @@ msgid "General"
 msgstr "일반"
 
 msgid "Mark Price"
-msgstr ""
+msgstr "마크 가격"
 
 msgid "Round Total"
 msgstr "라운드 합계"
@@ -5383,7 +5383,7 @@ msgid "The whitelist function is not included. If there is a whitelist, some add
 msgstr "화이트리스트 기능이 포함되어 있지 않습니다. 화이트리스트가 있으면 일부 주소는 정상적으로 거래하지 못할 수 있습니다(허니팟 위험)."
 
 msgid "No markets found"
-msgstr ""
+msgstr "마켓을 찾을 수 없습니다"
 
 msgid "Location"
 msgstr "위치"
@@ -5406,7 +5406,7 @@ msgid "Value"
 msgstr "가치"
 
 msgid "24h Volume"
-msgstr ""
+msgstr "24시간 거래량"
 
 msgid "Your schedule thread has created successfully."
 msgstr "예약 스레드가 성공적으로 생성되었습니다."
@@ -5489,7 +5489,7 @@ msgid "Removed from bookmarks"
 msgstr "북마크에서 제거됨"
 
 msgid "Close all"
-msgstr ""
+msgstr "전체 종료"
 
 msgid "Deleted your Firefly account"
 msgstr "Firefly 계정이 삭제되었습니다"
@@ -5523,7 +5523,7 @@ msgid "Search channel"
 msgstr "채널 검색"
 
 msgid "Favorites"
-msgstr ""
+msgstr "즐겨찾기"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "이 작업은 취소할 수 없으며 초안이 사라집니다."
@@ -5590,7 +5590,7 @@ msgid "Copy frame URL"
 msgstr "Frame URL 복사"
 
 msgid "Sell/Short"
-msgstr ""
+msgstr "매도/숏"
 
 msgid "This token can not self destruct."
 msgstr "이 토큰은 자가 파괴할 수 없습니다."
@@ -5632,7 +5632,7 @@ msgid "[Quote]"
 msgstr "[인용]"
 
 msgid "Account data is unavailable."
-msgstr ""
+msgstr "계정 데이터를 사용할 수 없습니다."
 
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "{handleOrEnsOrAddress} 숨김을 해제했습니다."
@@ -5770,7 +5770,7 @@ msgid "Different Account Detected"
 msgstr "다른 계정이 감지되었습니다"
 
 msgid "Market view"
-msgstr ""
+msgstr "마켓 보기"
 
 msgid "Enter your username and password to sign in instantly"
 msgstr "사용자 이름과 비밀번호를 입력하여 즉시 로그인"
@@ -5809,7 +5809,7 @@ msgid "Transaction completed!"
 msgstr "거래가 완료되었습니다!"
 
 msgid "Limit"
-msgstr ""
+msgstr "지정가"
 
 msgid "Target"
 msgstr "대상"
@@ -5831,7 +5831,7 @@ msgid "Requested"
 msgstr "요청됨"
 
 msgid "Spread"
-msgstr ""
+msgstr "스프레드"
 
 msgid "Hours"
 msgstr "시간"
@@ -5844,7 +5844,7 @@ msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0>이(가) 리캐스트함"
 
 msgid "Clear all"
-msgstr ""
+msgstr "모두 지우기"
 
 msgid "Close"
 msgstr "닫기"
@@ -5876,7 +5876,7 @@ msgid "Share"
 msgstr "공유"
 
 msgid "New order price"
-msgstr ""
+msgstr "새 주문 가격"
 
 msgid "Fake KYC found."
 msgstr "가짜 KYC가 발견되었습니다."
@@ -5947,7 +5947,7 @@ msgid "View engagements"
 msgstr "참여 보기"
 
 msgid "Search markets"
-msgstr ""
+msgstr "마켓 검색"
 
 #. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
 #. placeholder {1}: token.symbol?.toUpperCase()
@@ -5992,7 +5992,7 @@ msgid "The contract owner has restrictions on selling."
 msgstr "컨트랙트 소유자는 판매에 제한이 있습니다."
 
 msgid "Filled"
-msgstr ""
+msgstr "체결됨"
 
 msgid "Likes"
 msgstr "좋아요"
