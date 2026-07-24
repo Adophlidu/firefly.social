@@ -30,13 +30,14 @@ export default async function LocaleLayout({
         <>
             <LangSetter locale={resolved} />
             <VercelRegion />
-            <AgentProvider>
-                <Suspense>
+            {/* Inside Suspense: AgentProvider reads useSearchParams(), which requires a boundary. */}
+            <Suspense>
+                <AgentProvider>
                     <LayoutBody locale={resolved}>
                         <NuqsAdapter>{children}</NuqsAdapter>
                     </LayoutBody>
-                </Suspense>
-            </AgentProvider>
+                </AgentProvider>
+            </Suspense>
         </>
     );
 }
