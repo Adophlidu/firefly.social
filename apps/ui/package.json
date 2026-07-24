@@ -4,7 +4,7 @@
         "#/*": "./src/*"
     },
     "type": "module",
-    "version": "0.1.0",
+    "version": "8.4.0",
     "private": true,
     "scripts": {
         "dev": "next dev --turbo",
