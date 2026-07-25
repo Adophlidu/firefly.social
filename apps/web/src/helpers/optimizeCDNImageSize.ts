@@ -108,8 +108,9 @@ export function optimizeCDNImageSize(url: string, width: number, height = width,
     // 	https://coin-images.coingecko.com/coins/images/<id>/large/LOGOMARK.png?<timestamp>
     if (url.match(coinGecko)) {
         if (width < 100 && height < 100) {
-            const [, id, filename] = url.match(coinGecko)!;
-            return `https://coin-images.coingecko.com/coins/images/${id}/small/${filename}?${Date.now()}`;
+            // Swap /large/ for /small/ and keep the rest (filename + original query) verbatim —
+            // no Date.now() cache-bust, which baked a server/client diff into `src` (#418).
+            return url.replace('/large/', '/small/');
         }
         return url;
     }

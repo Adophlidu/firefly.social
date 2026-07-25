@@ -45,4 +45,26 @@ describe('optimizeCDNImageSize', () => {
             expect(optimizeCDNImageSize(url, 40, 40, 3)).toContain('w=120,h=120,sharpen=3');
         });
     });
+
+    describe('CoinGecko', () => {
+        const url = 'https://coin-images.coingecko.com/coins/images/30663/large/gho-token-logo.png?1720517200';
+
+        it('rewrites /large/ to /small/ for sub-100px icons, preserving the source version stamp', () => {
+            expect(optimizeCDNImageSize(url, 36, 36)).toBe(
+                'https://coin-images.coingecko.com/coins/images/30663/small/gho-token-logo.png?1720517200',
+            );
+        });
+
+        it('is deterministic across renders (no render-time Date.now() that diverges SSR/hydration)', () => {
+            // A render-time Date.now() previously baked a server/client timestamp diff into `src`
+            // and surfaced as a React hydration attribute mismatch (#418).
+            expect(optimizeCDNImageSize(url, 36, 36)).toBe(optimizeCDNImageSize(url, 36, 36));
+            // `filename` already carries the source `?version`, so no appended cache-bust / double-`?`.
+            expect(optimizeCDNImageSize(url, 36, 36)).not.toContain('?1720517200?');
+        });
+
+        it('leaves >=100px CoinGecko URLs unchanged', () => {
+            expect(optimizeCDNImageSize(url, 120, 120)).toBe(url);
+        });
+    });
 });
