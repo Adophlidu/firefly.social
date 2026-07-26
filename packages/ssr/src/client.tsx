@@ -46,6 +46,13 @@ export interface HydrateAppOptions {
      * to true.
      */
     prefetchAll?: boolean;
+    /**
+     * Rewrite the browser pathname before matching, mirroring server-side
+     * middleware rewrites (e.g. locale prefixing: `/posts` → `/en/posts`).
+     * Applied on hydration and every client-side navigation. The browser
+     * URL itself is left untouched.
+     */
+    rewritePathname?: (pathname: string) => string;
 }
 
 /**
@@ -62,7 +69,8 @@ export async function hydrateApp(options: HydrateAppOptions): Promise<void> {
     const payload = parseSsrPayload(payloadElement.textContent);
 
     const url = new URL(options.url ?? globalThis.location.href);
-    const pathname = stripBasepath(url.pathname, options.basepath);
+    const rawPathname = options.rewritePathname?.(url.pathname) ?? url.pathname;
+    const pathname = stripBasepath(rawPathname, options.basepath);
     const matched = createMatcher(tree)(pathname);
     if (!matched) {
         throw new Error(`hydrateApp: no route matches ${pathname}`);
@@ -95,6 +103,7 @@ export async function hydrateApp(options: HydrateAppOptions): Promise<void> {
             basepath={options.basepath}
             pendingMs={options.pendingMs}
             prefetchAll={options.prefetchAll}
+            rewritePathname={options.rewritePathname}
         />,
     );
 }

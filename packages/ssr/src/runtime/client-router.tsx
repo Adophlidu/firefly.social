@@ -63,6 +63,11 @@ export interface ClientAppProps {
      * true; param/catchall routes are never prefetched.
      */
     prefetchAll?: boolean;
+    /**
+     * Rewrite a pathname before matching (mirrors server middleware
+     * rewrites, e.g. locale prefixing). Applied on every navigation.
+     */
+    rewritePathname?: (pathname: string) => string;
 }
 
 /**
@@ -71,7 +76,7 @@ export interface ClientAppProps {
  * `<head>`, history and scroll position.
  */
 export function ClientApp(props: ClientAppProps): ReactElement {
-    const { tree, moduleLoaders, payload, history = 'browser', basepath, pendingMs = 1000, prefetchAll = true } = props;
+    const { tree, moduleLoaders, payload, history = 'browser', basepath, pendingMs = 1000, prefetchAll = true, rewritePathname } = props;
     const [state, setState] = useState(props.initial);
     const matcher = useMemo(() => createMatcher(tree), [tree]);
     const navigationId = useRef(0);
@@ -99,7 +104,8 @@ export function ClientApp(props: ClientAppProps): ReactElement {
         (to: string, options: { replace?: boolean } = {}) => {
             void (async () => {
                 const url = new URL(to, window.location.href);
-                const target = stripBasepath(url.pathname, basepath);
+                const rewritten = rewritePathname?.(url.pathname) ?? url.pathname;
+                const target = stripBasepath(rewritten, basepath);
                 // Full-load fallback: keep app-relative paths under the basepath.
                 const fullLoad = () => {
                     window.location.href =
@@ -161,7 +167,9 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 }
 
                 if (history === 'browser') {
-                    const href = withBasepath(target, basepath) + url.search + url.hash;
+                    // Keep the browser URL clean (un-rewritten, like Next's
+                    // middleware model); the rewrite only affects routing.
+                    const href = withBasepath(url.pathname, basepath) + url.search + url.hash;
                     if (options.replace) window.history.replaceState(null, '', href);
                     else window.history.pushState(null, '', href);
                 }
@@ -181,16 +189,17 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 window.scrollTo(0, 0);
             })();
         },
-        [basepath, fetchPayload, history, matcher, moduleLoaders, pendingMs],
+        [basepath, fetchPayload, history, matcher, moduleLoaders, pendingMs, rewritePathname],
     );
 
     const prefetch = useCallback(
         (to: string) => {
             const url = new URL(to, window.location.href);
-            const target = stripBasepath(url.pathname, basepath);
+            const rewritten = rewritePathname?.(url.pathname) ?? url.pathname;
+            const target = stripBasepath(rewritten, basepath);
             if (matcher(target)) void fetchPayload(target, url.search);
         },
-        [basepath, fetchPayload, matcher],
+        [basepath, fetchPayload, matcher, rewritePathname],
     );
 
     useEffect(() => {
