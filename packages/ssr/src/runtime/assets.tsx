@@ -12,6 +12,14 @@ export interface ClientAssets {
     scripts: string[];
     /** CSS URLs, rendered as `<link rel="stylesheet">`. */
     styles: string[];
+    /**
+     * Per-route-file assets (keyed by route file path, e.g.
+     * `_layout.tsx` or `post/$source/$id/index.tsx`): the JS chunk and its
+     * extracted CSS. The server merges the matched chain's CSS into
+     * `styles` for the initial document — route CSS must arrive with the
+     * HTML, not via the client bundle's late injection (FOUC).
+     */
+    routes?: Record<string, { scripts?: string[]; styles?: string[] }>;
 }
 
 /**

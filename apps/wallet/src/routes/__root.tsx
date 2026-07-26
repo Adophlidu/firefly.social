@@ -1,7 +1,7 @@
 import '@/globals.css';
 
 import { APP_BASE_PATH } from '@dimensiondev/envs/wallet';
-import { ClientScripts, HeadOutlet, SsrDataOutlet, useRouterState } from '@dimensiondev/ssr';
+import { ClientScripts, ClientStyles, HeadOutlet, SsrDataOutlet, useRouterState } from '@dimensiondev/ssr';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import type { ReactNode } from 'react';
@@ -89,6 +89,7 @@ function RootDocument({ children }: { children: ReactNode }) {
         <html lang="en" className="overscroll-contain" suppressHydrationWarning>
             <head>
                 <HeadOutlet />
+                <ClientStyles />
                 <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
                 <ReactNativeStyleElement />
             </head>

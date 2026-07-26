@@ -6,7 +6,7 @@ import type { RouteTree } from './router/tree.ts';
 import type { ClientAssets } from './runtime/assets.tsx';
 import { composeMatch, findBoundaryComponent } from './runtime/compose.tsx';
 import { isNotFoundError, isRedirectError } from './runtime/errors.ts';
-import { resolveChain } from './runtime/loaders.ts';
+import { resolveChain, filesOfMatch } from './runtime/loaders.ts';
 import { stripBasepath } from './runtime/paths.ts';
 import { resolveChainModules, type RouteModuleInput } from './runtime/resolve-modules.ts';
 import { SSR_DATA_HEADER, type NavigationPayload, type SsrPayload } from './runtime/serialize.ts';
@@ -97,6 +97,20 @@ interface RenderPageOptions {    matched: RouteMatch;
 async function renderPage(options: RenderPageOptions): Promise<Response> {
     const { matched, modules } = options;
 
+    // Ship the matched chain's route CSS with the document (deduped,
+    // entry styles first) — otherwise it only arrives via the client
+    // bundle's late injection and the first paint is unstyled (FOUC).
+    let clientAssets = options.clientAssets;
+    if (clientAssets?.routes) {
+        const styles = [...clientAssets.styles];
+        for (const file of filesOfMatch(matched)) {
+            for (const href of clientAssets.routes[file]?.styles ?? []) {
+                if (!styles.includes(href)) styles.push(href);
+            }
+        }
+        clientAssets = { ...clientAssets, styles };
+    }
+
     const payload: SsrPayload = {
         url: options.pathname,
         params: matched.params,
@@ -116,7 +130,7 @@ async function renderPage(options: RenderPageOptions): Promise<Response> {
         search: options.search,
         payload,
         basepath: options.basepath,
-        clientAssets: options.clientAssets,
+        clientAssets,
         terminalComponent: options.terminalComponent,
         error: options.error,
         notFound: options.notFound,

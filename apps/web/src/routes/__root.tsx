@@ -3,7 +3,7 @@ import '@/app/globals.css';
 import { SITE_DESCRIPTION, SITE_NAME } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
-import { ClientScripts, HeadOutlet, SsrDataOutlet } from '@dimensiondev/ssr';
+import { ClientScripts, ClientStyles, HeadOutlet, SsrDataOutlet } from '@dimensiondev/ssr';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import type { ReactNode } from 'react';
@@ -79,6 +79,7 @@ export default function RootLayout({ children }: { children?: ReactNode }) {
         <html suppressHydrationWarning>
             <head>
                 <HeadOutlet />
+                <ClientStyles />
                 {/* eslint-disable react/no-danger */}
                 <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
                 <style dangerouslySetInnerHTML={{ __html: fontFaces }} />

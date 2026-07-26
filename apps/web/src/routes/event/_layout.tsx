@@ -1,12 +1,14 @@
 import type { ReactNode } from 'react';
 
-import { AppProviders } from '@/compat/AppProviders.js';
+import { EventLayoutBody } from '@/app/[locale]/(event)/EventLayoutBody.js';
 
 /**
- * Layout for non-locale event routes. The Next (event) group relies on the
- * RSC-level lingui context; the SSR library has no equivalent, so provide
- * the full provider tree explicitly (event pages are English-only).
+ * Port of the Next (event) group layout
+ * (src/app/[locale]/(event)/layout.tsx). The root layout's AppLayoutBody
+ * already provides the full provider tree, so this layout only renders the
+ * event frame (sidebar, search bars, asides) around children — nesting
+ * AppProviders here would re-run provider side effects.
  */
 export default function EventLayout({ children }: { children?: ReactNode }) {
-    return <AppProviders locale="en">{children}</AppProviders>;
+    return <EventLayoutBody>{children}</EventLayoutBody>;
 }

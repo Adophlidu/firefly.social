@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { Plugin, RunnableDevEnvironment } from 'vite';
 
+import type { ClientAssets } from './runtime/assets.tsx';
 import { scanRoutesDirectory } from './vite/scan.ts';
 
 export interface SsrPluginOptions {
@@ -44,8 +45,11 @@ const RESOLVED_VIRTUAL_WORKER_ID = '\0virtual:ssr/worker';
 
 interface ViteManifestChunk {
     file: string;
+    name?: string;
     src?: string;
     isEntry?: boolean;
+    isDynamicEntry?: boolean;
+    imports?: string[];
     css?: string[];
 }
 
@@ -77,7 +81,7 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
     let routesDirectory = '';
 
     /** Resolve the client asset URLs for the current command. */
-    async function resolveClientAssets(): Promise<{ scripts: string[]; styles: string[] }> {
+    async function resolveClientAssets(): Promise<ClientAssets> {
         const clientEntry = options.clientEntry ?? '/src/entry-client.tsx';
         if (command === 'serve') {
             return { scripts: [joinUrl(base, clientEntry)], styles: [] };
@@ -91,9 +95,51 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
         if (!entryChunk) {
             throw new Error(`[ssr] no entry chunk found in ${manifestPath} (build client first)`);
         }
+
+        // Map every route file to its client chunk + extracted CSS, so the
+        // server can ship the matched chain's stylesheets with the HTML.
+        // CSS is collected recursively through each chunk's static imports:
+        // Vite attaches extracted CSS to the shared chunk that owns it, not
+        // to the route facade that (transitively) imports it.
+        const collectCss = (chunk: ViteManifestChunk, seen: Set<string>): string[] => {
+            if (seen.has(chunk.file)) return [];
+            seen.add(chunk.file);
+            const css = [...(chunk.css ?? [])];
+            for (const imported of chunk.imports ?? []) {
+                const importedChunk = manifest[imported];
+                if (importedChunk) css.push(...collectCss(importedChunk, seen));
+            }
+            return css;
+        };
+
+        const files = await scanRoutesDirectory(routesDirectory);
+        const routes: NonNullable<ClientAssets['routes']> = {};
+        for (const file of files) {
+            const key = path.relative(root, path.join(routesDirectory, file)).split(path.sep).join('/');
+            let chunk = manifest[key];
+            if (!chunk) {
+                // A route chunk can lose its source-keyed manifest entry
+                // (e.g. the root _layout, which is also statically
+                // reachable); fall back to the src-less dynamic entry with
+                // the same module name.
+                const name = file.replace(/\.[^.]+$/, '').split('/').pop();
+                const candidates = Object.values(manifest).filter(
+                    (candidate) => candidate.isDynamicEntry && !candidate.src && candidate.name === name,
+                );
+                if (candidates.length === 1) chunk = candidates[0];
+            }
+            if (!chunk) continue;
+            const css = collectCss(chunk, new Set());
+            routes[file] = {
+                scripts: [joinUrl(base, chunk.file)],
+                styles: css.map((file) => joinUrl(base, file)),
+            };
+        }
+
         return {
             scripts: [joinUrl(base, entryChunk.file)],
             styles: (entryChunk.css ?? []).map((file) => joinUrl(base, file)),
+            routes,
         };
     }
 
