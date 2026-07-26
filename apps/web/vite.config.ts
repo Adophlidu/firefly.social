@@ -121,6 +121,12 @@ export default defineConfig({
                 file.startsWith('$locale/bookmarks/') ||
                 file.startsWith('$locale/notifications/') ||
                 file.startsWith('$locale/messages/') ||
+                // Interactive login/whiteboard flows.
+                file.startsWith('$locale/signup/') ||
+                file.startsWith('$locale/login/') ||
+                file.startsWith('$locale/telegram/') ||
+                file.startsWith('$locale/frame/') ||
+                file.startsWith('$locale/redirect/') ||
                 // Interactive trading apps, not SEO content.
                 file.startsWith('$locale/polymarket/') ||
                 file.startsWith('$locale/opinion/'),
