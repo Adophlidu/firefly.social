@@ -10,6 +10,7 @@ import { IfWalletStackActive } from '@/components/IfWalletStackActive.js';
 import { SessionUnauthorizedBoundaryTrigger } from '@/components/SessionUnauthorizedBoundaryTrigger.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { AppProviders } from '@/compat/AppProviders.js';
+import { NormalLayoutBody } from '@/compat/NormalLayoutBody.js';
 import { dynamic } from '@/esm/dynamic.js';
 
 const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), { ssr: false });
@@ -50,7 +51,14 @@ function LayoutBodyInner({ children }: { children?: ReactNode }) {
             <IfPathname isOneOf={['/signup']}>{children}</IfPathname>
             <IfPathname isNotOneOf={['/signup']}>
                 <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
-                    {children}
+                    {/* Event/whiteboard/settings pages render bare; everything else
+                        gets the (normal) main-column frame. */}
+                    <IfPathname isNotOneOf={[...EVENT_ROUTES, ...WHITEBOARD_ROUTES, '/settings']}>
+                        <NormalLayoutBody>{children}</NormalLayoutBody>
+                    </IfPathname>
+                    <IfPathname isOneOf={[...EVENT_ROUTES, ...WHITEBOARD_ROUTES, '/settings']}>
+                        {children}
+                    </IfPathname>
                     {agent !== Agent.FireflyApp ? (
                         <IfPathname isNotOneOf={[...EVENT_ROUTES, ...WHITEBOARD_ROUTES]}>
                             <SideBar />
