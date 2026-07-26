@@ -1,21 +1,22 @@
-import type { MiddlewareFn } from '@dimensiondev/ssr';
-
 import { externalRewrites } from '@/middleware/external.js';
-import { localeRewrite, referralTracking, requestAnnotations } from '@/middleware/requests.js';
+import { legacyLocaleRedirects } from '@/middleware/locale.js';
+import { referralTracking, requestAnnotations } from '@/middleware/requests.js';
 import { clubRoutes, legacyRedirects, profileRoutes } from '@/middleware/routes.js';
 import { securityHeaders } from '@/middleware/security.js';
+import type { MiddlewareFn } from '@dimensiondev/ssr';
 
 /**
  * Middleware chain for the new SSR app, mirroring src/proxy.ts (Next
- * middleware). Order matters: redirects/rewrites first, locale last.
+ * middleware). Locale is resolved per request in the root layout loader —
+ * no locale prefix rewrite needed (legacy prefixed URLs 308-redirect).
  */
 export const appMiddleware: MiddlewareFn[] = [
+    legacyLocaleRedirects,
     legacyRedirects,
     profileRoutes,
     clubRoutes,
     requestAnnotations,
     externalRewrites,
-    localeRewrite,
     referralTracking,
     securityHeaders,
 ];

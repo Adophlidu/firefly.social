@@ -1,13 +1,6 @@
 import { FIREFLY_ROOT_URL, FIREFLY_ROOT_URL_DEV } from '@dimensiondev/constants/static';
 import type { MiddlewareFn } from '@dimensiondev/ssr';
 
-import { EXTERNAL_REWRITE_PREFIXES } from '@/middleware/external.js';
-import { hasLocalePrefix } from '@/helpers/stripLocalePathname.js';
-import { resolveLanguageLocale } from '@/helpers/resolveLocale.js';
-import { Locale } from '@dimensiondev/enums';
-
-const SUPPORTED_LOCALES = Object.values(Locale) as string[];
-
 const BOT_PATTERN = /bot|spider|crawl|slurp|facebookexternalhit|twitterbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkshare|whatsapp|telegrambot|discordbot/i;
 
 /**
@@ -81,47 +74,4 @@ export const referralTracking: MiddlewareFn = async (request, { next }) => {
     }).catch(() => {});
 
     return response;
-};
-
-// Paths that must not get a locale prefix (API routes, short links, proxies, static files).
-const LOCALE_EXCLUDED_PREFIXES = [
-    '/api',
-    '/i',
-    '/.well-known',
-    '/font',
-    '/image',
-    '/music',
-    '/svg',
-    '/webm',
-    '/assets',
-    '/js',
-    ...EXTERNAL_REWRITE_PREFIXES,
-];
-const STATIC_FILE_PATTERN = /\.(?:svg|png|jpg|jpeg|gif|webp|js|css|map|ico|xml|txt|ttf|otf|woff|woff2|mp3|mp4|webm|webmanifest|json)$/;
-
-function resolveLocale(request: Request): string {
-    const cookieStore = request.headers.get('cookie') ?? '';
-    const localeCookie = cookieStore.match(/(?:^|;\s*)locale=([^;]*)/)?.[1];
-    if (localeCookie && SUPPORTED_LOCALES.includes(decodeURIComponent(localeCookie))) {
-        return decodeURIComponent(localeCookie);
-    }
-    const acceptLanguage = request.headers.get('accept-language')?.split(',')[0];
-    return resolveLanguageLocale(acceptLanguage);
-}
-
-/**
- * Locale prefix rewrite: `/post/x/1` → `/en/post/x/1` (locale from cookie →
- * Accept-Language → 'en'). Already-prefixed, API, and static paths pass through.
- */
-export const localeRewrite: MiddlewareFn = (request, { next }) => {
-    const url = new URL(request.url);
-    const { pathname } = url;
-
-    if (hasLocalePrefix(pathname)) return next();
-    if (LOCALE_EXCLUDED_PREFIXES.some((prefix) => pathname.startsWith(prefix))) return next();
-    if (STATIC_FILE_PATTERN.test(pathname)) return next();
-
-    const locale = resolveLocale(request);
-    const destination = new URL(`/${locale}${pathname === '/' ? '' : pathname}${url.search}`, request.url);
-    return next(new Request(destination, request));
 };
