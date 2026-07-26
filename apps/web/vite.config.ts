@@ -191,6 +191,7 @@ export default defineConfig({
             '@/esm/navigation.js': resolve(__dirname, 'src/compat/navigation.ts'),
             '@/esm/navigation/server.js': resolve(__dirname, 'src/compat/navigation-server.ts'),
             '@/esm/dynamic.js': resolve(__dirname, 'src/compat/dynamic.tsx'),
+            '@/esm/Image.js': resolve(__dirname, 'src/compat/Image.tsx'),
             // vite-plugin-node-polyfills injects these shim imports as a dev banner
             // into every module — including the SSR environment, whose
             // module-runner can't resolve the bare subpaths (ERR_MODULE_NOT_FOUND).

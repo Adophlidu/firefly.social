@@ -14,7 +14,16 @@ export function dynamic<T extends ComponentType<any>>(
     importer: () => Promise<T | { default: T }>,
     options?: DynamicOptions,
 ): (props: Record<string, unknown>) => ReactNode {
-    const LazyComponent = lazy(importer as () => Promise<{ default: T }>);
+    // next/dynamic accepts both a component directly and a module object;
+    // React.lazy requires `{ default }`, so normalize.
+    const LazyComponent = lazy(async () => {
+        const resolved = (await importer()) as T | { default: T };
+        const component =
+            resolved && typeof resolved === 'object' && 'default' in resolved
+                ? (resolved as { default: T }).default
+                : (resolved as T);
+        return { default: component };
+    });
     const Fallback = options?.loading ?? (() => null);
 
     if (options?.ssr === false) {
