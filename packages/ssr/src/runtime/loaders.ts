@@ -56,12 +56,33 @@ export async function resolveChain(
         if (entry) data[entry[0]] = entry[1];
     }
 
-    return { data, heads: collectHeads(match, modules, data) };
+    return { data, heads: await resolveHeads(match, modules, data) };
 }
 
 /**
- * Collect head descriptors from already-resolved loader data. Used on the
- * client during hydration, where loaders must not run again.
+ * Evaluate every module's `head()` against the resolved loader data,
+ * awaiting async heads. Used on the server, where promises must never be
+ * left floating (see the `RouteModule.head` contract).
+ */
+export async function resolveHeads(
+    match: RouteMatch,
+    modules: RouteModuleMap,
+    data: Record<string, unknown>,
+): Promise<HeadDescriptor[]> {
+    const heads = await Promise.all(
+        filesOfMatch(match).map(async (file) => {
+            const routeModule = modules[file];
+            if (!routeModule?.head) return null;
+            return routeModule.head({ data: data[file], params: match.params });
+        }),
+    );
+    return heads.filter((head): head is HeadDescriptor => Boolean(head));
+}
+
+/**
+ * Collect head descriptors from already-resolved loader data. Only valid for
+ * synchronous heads — prefer `resolveHeads` on the server. Kept for client
+ * hydration fallbacks (older payloads without embedded heads).
  */
 export function collectHeads(
     match: RouteMatch,
@@ -72,7 +93,11 @@ export function collectHeads(
     for (const file of filesOfMatch(match)) {
         const routeModule = modules[file];
         if (!routeModule?.head) continue;
-        heads.push(routeModule.head({ data: data[file], params: match.params }));
+        const head = routeModule.head({ data: data[file], params: match.params });
+        // Async heads cannot be collected synchronously; they are resolved
+        // server-side and embedded in the payload instead.
+        if (head instanceof Promise) continue;
+        heads.push(head);
     }
     return heads;
 }

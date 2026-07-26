@@ -127,6 +127,13 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
                                       copyPublicDir: false,
                                       rollupOptions: {
                                           input: VIRTUAL_WORKER_ID,
+                                          output: {
+                                              // The real entry chunk is renamed so
+                                              // the plugin can emit a clean
+                                              // `worker.js` facade on top (see
+                                              // generateBundle below).
+                                              entryFileNames: 'ssr-worker.js',
+                                          },
                                       },
                                   },
                               },
@@ -196,6 +203,22 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
                 `const clientOnlyFiles = new Set(${JSON.stringify(files.filter((file) => options.clientOnly?.(file)))});`,
                 `export const tree = buildRouteTree({ files, apiPrefix: ${JSON.stringify(options.apiPrefix ?? 'api')}, clientOnly: (file) => clientOnlyFiles.has(file) });`,
             ].join('\n');
+        },
+
+        generateBundle() {
+            if (this.environment?.name !== 'ssr' || !options.entry) return;
+            // Rollup exposes bindings shared between the entry chunk and
+            // lazily-imported route chunks as *named exports of the entry
+            // module*. Cloudflare Workers (workerd) validates every named
+            // export of the worker entry as a potential entrypoint and
+            // rejects non-handler values ("Incorrect type for map entry
+            // '<name>'"). Emit a facade that re-exports only the default
+            // handler so the deployed module surface stays clean.
+            this.emitFile({
+                type: 'asset',
+                fileName: 'worker.js',
+                source: `export { default } from './ssr-worker.js';\n`,
+            });
         },
 
         configureServer(server) {

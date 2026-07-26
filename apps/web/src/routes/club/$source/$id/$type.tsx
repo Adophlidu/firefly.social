@@ -3,6 +3,7 @@ import { Source, SourceInURL } from '@dimensiondev/enums';
 import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { ChannelContentList } from '@/components/Channel/ChannelContentList.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -30,9 +31,11 @@ export async function loader({ params }: LoaderContext): Promise<ClubLoaderData>
     return { channel, type: type as ChannelTabType };
 }
 
-export function head({ params }: HeadContext) {
+export async function head({ params }: HeadContext) {
     const { id, source = SourceInURL.Farcaster } = params;
-    return getChannelPageMetadata(source as SocialSourceInURL, id ?? '', `/club/${source}/${id}`);
+    return fromNextMetadata(
+        await getChannelPageMetadata(source as SocialSourceInURL, id ?? '', `/club/${source}/${id}`),
+    );
 }
 
 export default function ClubPage() {

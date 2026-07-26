@@ -2,6 +2,7 @@ import { Source } from '@dimensiondev/enums';
 import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 
 import { getDiscoverPostsPageData } from '@/app/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
@@ -23,7 +24,7 @@ export async function loader(_context: LoaderContext): Promise<DiscoverPostsLoad
 }
 
 export function head() {
-    return createSiteMetadata('/posts');
+    return fromNextMetadata(createSiteMetadata('/posts'));
 }
 
 export default function DiscoverPostsPage() {

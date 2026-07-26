@@ -29,6 +29,12 @@ export interface SsrPayload {
      * bootstrap identically — hydration stays consistent by construction.
      */
     dev?: boolean;
+    /**
+     * Head descriptors computed on the server. Hydration reuses them as-is:
+     * `head()` may be async, so recomputing on the client is not always
+     * possible (and would diverge from the server-rendered <head>).
+     */
+    heads?: import('./types.ts').HeadDescriptor[];
 }
 
 /**

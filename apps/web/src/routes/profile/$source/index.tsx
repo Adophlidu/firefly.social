@@ -2,6 +2,7 @@ import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@
 
 import { RedirectProfilePage } from '@/app/[locale]/(normal)/profile/pages/RedirectProfilePage.js';
 import { RedirectWithFireflyUID } from '@/app/[locale]/(normal)/profile/pages/RedirectWithFireflyUID.js';
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
@@ -21,8 +22,8 @@ export function loader({ params }: LoaderContext): ProfileSourceLoaderData {
     return { kind: 'source', source: resolvedSource };
 }
 
-export function head({ params }: HeadContext) {
-    return getFireflyProfilePageMetadata(params.source ?? '', `/profile/${params.source ?? ''}`);
+export async function head({ params }: HeadContext) {
+    return fromNextMetadata(await getFireflyProfilePageMetadata(params.source ?? '', `/profile/${params.source ?? ''}`));
 }
 
 export default function ProfileSourcePage() {

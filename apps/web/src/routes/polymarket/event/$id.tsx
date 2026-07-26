@@ -1,6 +1,7 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPolymarketEventPageData.js';
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
@@ -26,16 +27,18 @@ export async function loader({ params, url }: LoaderContext): Promise<Polymarket
     return { event, id, isMutil, locale, type };
 }
 
-export function head({ data, params }: HeadContext) {
+export async function head({ data, params }: HeadContext) {
     const { isMutil, locale, type } = (data ?? {}) as Partial<PolymarketEventLoaderData>;
-    return getPredictionEventPageMetadata({
-        id: params.id ?? '',
-        isMutil: Boolean(isMutil),
-        locale: locale ?? params.locale ?? 'en',
-        platform: PredictionPlatform.Polymarket,
-        pathname: `/polymarket/event/${params.id}`,
-        type: type ?? undefined,
-    });
+    return fromNextMetadata(
+        await getPredictionEventPageMetadata({
+            id: params.id ?? '',
+            isMutil: Boolean(isMutil),
+            locale: locale ?? params.locale ?? 'en',
+            platform: PredictionPlatform.Polymarket,
+            pathname: `/polymarket/event/${params.id}`,
+            type: type ?? undefined,
+        }),
+    );
 }
 
 export default function PolymarketEventPage() {

@@ -1,6 +1,7 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
 import { type HeadContext, type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
 
@@ -22,16 +23,18 @@ export function loader({ params, url }: LoaderContext): OpinionEventLoaderData {
     };
 }
 
-export function head({ data, params }: HeadContext) {
+export async function head({ data, params }: HeadContext) {
     const { isMutil, locale, type } = (data ?? {}) as Partial<OpinionEventLoaderData>;
-    return getPredictionEventPageMetadata({
-        id: params.id ?? '',
-        isMutil: Boolean(isMutil),
-        locale: locale ?? params.locale ?? 'en',
-        platform: PredictionPlatform.Opinion,
-        pathname: `/opinion/event/${params.id}${type ? `?type=${type}` : ''}`,
-        type: type ?? undefined,
-    });
+    return fromNextMetadata(
+        await getPredictionEventPageMetadata({
+            id: params.id ?? '',
+            isMutil: Boolean(isMutil),
+            locale: locale ?? params.locale ?? 'en',
+            platform: PredictionPlatform.Opinion,
+            pathname: `/opinion/event/${params.id}${type ? `?type=${type}` : ''}`,
+            type: type ?? undefined,
+        }),
+    );
 }
 
 export default function OpinionEventPage() {

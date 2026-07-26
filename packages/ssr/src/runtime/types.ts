@@ -61,11 +61,14 @@ export interface RouteConfig {
  * The contract of a route file. `default` is the page/layout component;
  * `loader` runs on the server before rendering (and again on client
  * navigations); `head` contributes `<head>` tags based on loader data.
+ * `head` may be async: the server always awaits it (an un-awaited promise
+ * would leak a floating fetch that can poison shared HTTP clients on
+ * runtimes that freeze canceled request contexts, e.g. Cloudflare Workers).
  */
 export interface RouteModule {
     default?: ComponentType<{ children?: ReactNode }>;
     loader?: (context: LoaderContext) => unknown;
-    head?: (context: HeadContext) => HeadDescriptor;
+    head?: (context: HeadContext) => HeadDescriptor | Promise<HeadDescriptor>;
     config?: RouteConfig;
     /**
      * Rendered in place of the page when a loader throws an unexpected

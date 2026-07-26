@@ -3,6 +3,7 @@ import { Source, SourceInURL } from '@dimensiondev/enums';
 import { type HeadContext, type LoaderContext, notFound, redirect, useLoaderData } from '@dimensiondev/ssr';
 import { Trans } from '@lingui/react/macro';
 
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { Comeback } from '@/components/Comeback.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -71,15 +72,15 @@ export async function loader({ params, url }: LoaderContext): Promise<PostSource
  * the URL is available on the loader context only, hence we keep the metadata
  * mapping here using the same derivation as the Next generateMetadata.
  */
-export function head({ data, params }: HeadContext) {
+export async function head({ data, params }: HeadContext) {
     const { article } = (data ?? {}) as Partial<PostSourceLoaderData>;
     const source = params.source ?? '';
     if (article) {
         // /post/{articleId}?s=bsky — only bsky articles reach the page.
         const pathname = `/post/${source}?s=bsky`;
-        return getFireflyArticlePageMetadata(source, SourceInURL.Bsky, pathname);
+        return fromNextMetadata(await getFireflyArticlePageMetadata(source, SourceInURL.Bsky, pathname));
     }
-    return createSiteMetadata(`/post/${source}`);
+    return fromNextMetadata(createSiteMetadata(`/post/${source}`));
 }
 
 export default function PostSourcePage() {

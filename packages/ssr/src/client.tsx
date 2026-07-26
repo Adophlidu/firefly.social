@@ -59,12 +59,12 @@ export interface HydrateAppOptions {
      * #419 — recoverable by client re-render) to a console warning while
      * surfacing everything else as errors.
      */
-    onRecoverableError?: (error: Error) => void;
+    onRecoverableError?: (error: unknown) => void;
 }
 
 const SUSPENSE_HYDRATION_PATTERN = /#419|Suspense boundary/i;
 
-function defaultRecoverableErrorHandler(error: Error): void {
+function defaultRecoverableErrorHandler(error: unknown): void {
     const message = String(error);
     if (SUSPENSE_HYDRATION_PATTERN.test(message)) {
         console.warn('[ssr] suspense boundary failed to hydrate; re-rendered on the client:', error);
@@ -96,9 +96,10 @@ export async function hydrateApp(options: HydrateAppOptions): Promise<void> {
 
     const modules = await resolveChainModules(matched, moduleInput);
 
-    // Recompute heads from the dehydrated data so the client render matches
-    // the server-rendered <head> exactly, without re-running loaders.
-    const heads = collectHeads(matched, modules, payload.data);
+    // Reuse the server-computed heads embedded in the payload (head() may be
+    // async and cannot be recomputed synchronously on the client). Fall back
+    // to a synchronous recompute for payloads rendered by an older server.
+    const heads = payload.heads ?? collectHeads(matched, modules, payload.data);
 
     hydrateRoot(
         root,

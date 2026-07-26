@@ -112,24 +112,24 @@ export default defineConfig({
             // server only streams the pending shell, the client takes over.
             // Keeps their client-only dependency graph out of the worker too.
             clientOnly: (file) =>
-                file === '$locale/index.tsx' ||
-                file.startsWith('$locale/activities/') ||
-                file.startsWith('$locale/prediction/') ||
-                file.startsWith('$locale/world-cup-feed/') ||
-                file.startsWith('$locale/following/') ||
-                file.startsWith('$locale/settings/') ||
-                file.startsWith('$locale/bookmarks/') ||
-                file.startsWith('$locale/notifications/') ||
-                file.startsWith('$locale/messages/') ||
+                file === 'index.tsx' ||
+                file.startsWith('activities/') ||
+                file.startsWith('prediction/') ||
+                file.startsWith('world-cup-feed/') ||
+                file.startsWith('following/') ||
+                file.startsWith('settings/') ||
+                file.startsWith('bookmarks/') ||
+                file.startsWith('notifications/') ||
+                file.startsWith('messages/') ||
                 // Interactive login/whiteboard flows.
-                file.startsWith('$locale/signup/') ||
-                file.startsWith('$locale/login/') ||
-                file.startsWith('$locale/telegram/') ||
-                file.startsWith('$locale/frame/') ||
-                file.startsWith('$locale/redirect/') ||
+                file.startsWith('signup/') ||
+                file.startsWith('login/') ||
+                file.startsWith('telegram/') ||
+                file.startsWith('frame/') ||
+                file.startsWith('redirect/') ||
                 // Interactive trading apps, not SEO content.
-                file.startsWith('$locale/polymarket/') ||
-                file.startsWith('$locale/opinion/'),
+                file.startsWith('polymarket/') ||
+                file.startsWith('opinion/'),
         }),
         react({
             babel: {

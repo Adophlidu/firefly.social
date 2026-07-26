@@ -6,13 +6,14 @@ import { PageDetail } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/
 import type { PostThreadQueryData } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { isValidPostId } from '@/helpers/postId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { createPostMetadataFromPost } from '@/providers/firefly/metadata/createPostMetadataFromPost.js';
 import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
-import { getPostPageMetadata } from '@/providers/firefly/metadata/getPostPageMetadata.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export const config = { cache: { sMaxAge: 300 } };
@@ -48,12 +49,15 @@ export async function loader({ params }: LoaderContext): Promise<PostDetailLoade
 }
 
 export function head({ data, params }: HeadContext) {
-    const { sourceInURL } = (data ?? {}) as Partial<PostDetailLoaderData>;
+    const { sourceInURL, post } = (data ?? {}) as Partial<PostDetailLoaderData>;
     const source = sourceInURL ?? params.source ?? '';
     const id = params.id ?? '';
     const pathname = `/post/${source}/${id}`;
-    if (!isSocialSourceInUrl(source as SocialSourceInURL)) return createSiteMetadata(pathname);
-    return getPostPageMetadata(source as SocialSourceInURL, id, pathname);
+    // Derived from loader data — no second fetch, no floating promise.
+    if (post && isSocialSourceInUrl(source as SocialSourceInURL)) {
+        return fromNextMetadata(createPostMetadataFromPost(source as SocialSourceInURL, id, post, pathname));
+    }
+    return fromNextMetadata(createSiteMetadata(pathname));
 }
 
 export default function PostDetailPage() {

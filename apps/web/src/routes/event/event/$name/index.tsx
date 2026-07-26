@@ -1,6 +1,7 @@
 import { ActivityStatus } from '@dimensiondev/enums';
 import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getEventPageData } from '@/providers/firefly/metadata/getEventPageData.js';
@@ -32,8 +33,8 @@ export async function loader({ params }: LoaderContext): Promise<EventLoaderData
     return { data, name: params.name! };
 }
 
-export function head({ params }: HeadContext) {
-    return getEventPageMetadata(params.name ?? '', `/event/${params.name}`);
+export async function head({ params }: HeadContext) {
+    return fromNextMetadata(await getEventPageMetadata(params.name ?? '', `/event/${params.name}`));
 }
 
 export default function EventNamePage() {

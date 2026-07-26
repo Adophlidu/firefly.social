@@ -2,8 +2,9 @@ import { Locale } from '@dimensiondev/enums';
 import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
+import { AgentProvider } from '@/components/AgentProvider.js';
 import { LangSetter } from '@/components/LangSetter.js';
-import { AppProviders } from '@/compat/AppProviders.js';
+import { AppLayoutBody } from '@/compat/AppLayoutBody.js';
 import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 
 /**
@@ -27,9 +28,9 @@ export default function RootLayout({ children }: { children?: ReactNode }) {
     const { locale } = useLoaderData<{ locale: Locale }>('_layout.tsx');
 
     return (
-        <>
+        <AgentProvider>
             <LangSetter locale={locale} />
-            <AppProviders locale={locale}>{children}</AppProviders>
-        </>
+            <AppLayoutBody locale={locale}>{children}</AppLayoutBody>
+        </AgentProvider>
     );
 }

@@ -1,5 +1,6 @@
 import { RouterContext, type RouterState } from './context.ts';
 import { ErrorBoundary } from './error-boundary.tsx';
+import { flattenHeads } from './head-manager.ts';
 import { filesOfMatch } from './loaders.ts';
 import { SSR_DATA_ELEMENT_ID, serializeForHtml, type SsrPayload } from './serialize.ts';
 import type { RouteModuleMap } from './types.ts';
@@ -45,22 +46,17 @@ export function HeadOutlet(): ReactElement {
         <RouterContext.Consumer>
             {(state) => {
                 if (!state) return null;
-                const titles = state.heads.map((head) => head.title).filter(Boolean);
-                const title = titles.at(-1);
+                const { title, meta, links } = flattenHeads(state.heads);
                 return (
                     <>
                         <DevBootstrap dev={state.payload?.dev} />
                         {title ? <title>{title}</title> : null}
-                        {state.heads.flatMap((head, index) =>
-                            (head.meta ?? []).map((meta, metaIndex) => (
-                                <meta key={`${index}:${metaIndex}`} data-ssr-managed="" {...meta} />
-                            )),
-                        )}
-                        {state.heads.flatMap((head, index) =>
-                            (head.links ?? []).map((link, linkIndex) => (
-                                <link key={`${index}:${linkIndex}`} data-ssr-managed="" {...link} />
-                            )),
-                        )}
+                        {meta.map((entry, index) => (
+                            <meta key={index} data-ssr-managed="" {...entry} />
+                        ))}
+                        {links.map((entry, index) => (
+                            <link key={index} data-ssr-managed="" {...entry} />
+                        ))}
                     </>
                 );
             }}

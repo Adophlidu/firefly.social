@@ -105,6 +105,7 @@ async function renderPage(options: RenderPageOptions): Promise<Response> {
         error: options.error?.message,
         pending: options.pending || undefined,
         dev: isViteDev() || undefined,
+        heads: options.heads,
     };
     const element = composeMatch({
         match: matched,

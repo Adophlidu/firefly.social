@@ -1,6 +1,7 @@
 import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 
 import { TipsDetailWithView } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/TipsDetailWithView.js';
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { getTransactionPageData } from '@/providers/firefly/metadata/getTransactionPageData.js';
@@ -27,9 +28,11 @@ export async function loader({ params }: LoaderContext): Promise<TxLoaderData> {
     };
 }
 
-export function head({ params }: HeadContext) {
+export async function head({ params }: HeadContext) {
     const { chain_id, hash } = params;
-    return getTransactionPageMetadata(Number.parseInt(chain_id ?? '', 10), hash ?? '', `/tx/${chain_id}/${hash}`);
+    return fromNextMetadata(
+        await getTransactionPageMetadata(Number.parseInt(chain_id ?? '', 10), hash ?? '', `/tx/${chain_id}/${hash}`),
+    );
 }
 
 export default function TxPage() {

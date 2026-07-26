@@ -1,6 +1,6 @@
 import type { ProfileCategory } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
-import { notFound, useParams, useSearch } from '@dimensiondev/ssr';
+import { SocialProfileCategory, Source, WalletProfileCategory } from '@dimensiondev/enums';
+import { type HeadContext, notFound, useParams, useSearch } from '@dimensiondev/ssr';
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, use, useMemo } from 'react';
 
@@ -8,11 +8,34 @@ import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
-import { isProfilePageSource } from '@/helpers/isSource.js';
+import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
+import { getProfilePageMetadata } from '@/providers/firefly/metadata/getProfilePageMetadata.js';
+
+/**
+ * Equivalent of the category layout's generateMetadata in the Next app
+ * (src/app/[locale]/(normal)/profile/(profile)/[source]/[id]/[category]/layout.tsx).
+ */
+export async function head({ params }: HeadContext) {
+    const { source, id, category } = params;
+    const resolvedSource = resolveSourceFromUrlNoFallback(source ?? '');
+
+    if (resolvedSource && isProfilePageSource(resolvedSource)) {
+        // the public URL of the default category is the bare profile URL
+        const defaultCategory = isSocialSource(resolvedSource)
+            ? SocialProfileCategory.Feed
+            : WalletProfileCategory.Transactions;
+        const pathname =
+            category === defaultCategory ? `/profile/${source}/${id}` : `/profile/${source}/${id}/${category}`;
+        return fromNextMetadata(await getProfilePageMetadata(source ?? '', id ?? '', pathname));
+    }
+    return fromNextMetadata(createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`));
+}
 
 export default function ProfileCategoryPage() {
     const params = useParams();
