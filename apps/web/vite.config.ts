@@ -56,6 +56,27 @@ function dualImplementationPlugin() {
             if (isLogger) {
                 return resolve(__dirname, isSsr ? 'src/libs/Logger.ts' : 'src/libs/LoggerNative.ts');
             }
+            if (isSsr) {
+                // Client-interaction libraries that must not bloat the worker:
+                // modals are client-driven; satori belongs to workers/og;
+                // hls/emoji-picker only run in the browser.
+                if (id === '@/modals/index.js' || id.endsWith('/src/modals/index.js')) {
+                    return resolve(__dirname, 'src/shims/app-modals-stub.tsx');
+                }
+                if (id === '@/modals/AppModals.js' || id.endsWith('/src/modals/AppModals.js')) {
+                    return resolve(__dirname, 'src/shims/app-modals-stub.tsx');
+                }
+                if (id === '@/modals/WalletModals.js' || id.endsWith('/src/modals/WalletModals.js')) {
+                    return resolve(__dirname, 'src/shims/app-modals-stub.tsx');
+                }
+                if (id === 'satori') return resolve(__dirname, 'src/shims/satori-stub.ts');
+                if (id === 'hls.js' || id === 'hls.js/dist/hls.mjs') {
+                    return resolve(__dirname, 'src/shims/hls-stub.ts');
+                }
+                if (id === 'emoji-picker-react') {
+                    return resolve(__dirname, 'src/shims/emoji-picker-stub.tsx');
+                }
+            }
             return null;
         },
     };
@@ -99,7 +120,10 @@ export default defineConfig({
                 file.startsWith('$locale/settings/') ||
                 file.startsWith('$locale/bookmarks/') ||
                 file.startsWith('$locale/notifications/') ||
-                file.startsWith('$locale/messages/'),
+                file.startsWith('$locale/messages/') ||
+                // Interactive trading apps, not SEO content.
+                file.startsWith('$locale/polymarket/') ||
+                file.startsWith('$locale/opinion/'),
         }),
         react({
             babel: {

@@ -120,6 +120,11 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
                               ssr: {
                                   build: {
                                       outDir: 'dist/server',
+                                      // Public assets belong to the client
+                                      // bundle (served via ASSETS); copying
+                                      // them into the server bundle bloats
+                                      // the deploy artifact by tens of MB.
+                                      copyPublicDir: false,
                                       rollupOptions: {
                                           input: VIRTUAL_WORKER_ID,
                                       },
