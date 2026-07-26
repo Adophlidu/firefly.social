@@ -14,7 +14,7 @@ interface ExploreLoaderData {
     explore: ExploreType;
 }
 
-export async function loader({ params }: LoaderContext): Promise<ExploreLoaderData> {
+export async function loader({ params, url }: LoaderContext): Promise<ExploreLoaderData> {
     const explore = params.explore as ExploreType;
 
     if (explore === ExploreType.Prediction) {
@@ -26,7 +26,11 @@ export async function loader({ params }: LoaderContext): Promise<ExploreLoaderDa
         redirect(urlcat('/explore/:explore/:source', { explore, source: slug.slug }), 307);
     }
     if (explore !== ExploreType.Projects && explore !== ExploreType.TruthSocial) {
-        redirect(resolveExploreUrl(explore), 307);
+        const target = resolveExploreUrl(explore);
+        // Unknown explore type whose resolution is a self-loop (e.g. `truthsocial`
+        // vs the enum's `truth-social`): fail instead of redirecting forever.
+        if (target === url.pathname) notFound();
+        redirect(target, 307);
     }
     return { explore };
 }

@@ -53,6 +53,24 @@ export interface HydrateAppOptions {
      * URL itself is left untouched.
      */
     rewritePathname?: (pathname: string) => string;
+    /**
+     * Recoverable hydration error handler (hydrateRoot's onRecoverableError).
+     * Defaults to downgrading suspense-boundary hydration failures (React
+     * #419 — recoverable by client re-render) to a console warning while
+     * surfacing everything else as errors.
+     */
+    onRecoverableError?: (error: Error) => void;
+}
+
+const SUSPENSE_HYDRATION_PATTERN = /#419|Suspense boundary/i;
+
+function defaultRecoverableErrorHandler(error: Error): void {
+    const message = String(error);
+    if (SUSPENSE_HYDRATION_PATTERN.test(message)) {
+        console.warn('[ssr] suspense boundary failed to hydrate; re-rendered on the client:', error);
+        return;
+    }
+    console.error(error);
 }
 
 /**
@@ -105,5 +123,6 @@ export async function hydrateApp(options: HydrateAppOptions): Promise<void> {
             prefetchAll={options.prefetchAll}
             rewritePathname={options.rewritePathname}
         />,
+        { onRecoverableError: options.onRecoverableError ?? defaultRecoverableErrorHandler },
     );
 }

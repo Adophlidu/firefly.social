@@ -1,48 +1,74 @@
 import { ClientOnly } from '@dimensiondev/ssr';
-import { lazy, Suspense, type ComponentType, type ReactNode } from 'react';
+import { useEffect, useState, type ComponentType, type ReactElement, type ReactNode } from 'react';
 
 interface DynamicOptions {
     ssr?: boolean;
     loading?: ComponentType;
 }
 
+type Loadable = () => Promise<ComponentType>;
+
+const componentCache = new Map<Loadable, ComponentType>();
+const registeredLoadables: Loadable[] = [];
+
 /**
- * Compatibility shim for next/dynamic over React.lazy (+ ClientOnly for
- * `ssr: false`). The new SSR app aliases `@/esm/dynamic.js` here.
+ * Resolve and cache every registered dynamic importer. Call once before
+ * hydration: streamed suspense boundaries (already resolved on the server)
+ * then render synchronously on the client and match the server DOM —
+ * without it React reports hydration error #419.
+ */
+export function preloadDynamics(): Promise<unknown[]> {
+    return Promise.all(registeredLoadables.map((loadable) => loadable()));
+}
+
+function normalize<T extends ComponentType>(resolved: T | { default: T }): T {
+    return resolved && typeof resolved === 'object' && 'default' in resolved
+        ? (resolved as { default: T }).default
+        : (resolved as T);
+}
+
+/**
+ * Compatibility shim for next/dynamic. Unlike React.lazy, it resolves
+ * synchronously once preloaded (see preloadDynamics), which full-document
+ * hydration with out-of-order suspense boundaries requires.
  */
 export function dynamic<T extends ComponentType<any>>(
     importer: () => Promise<T | { default: T }>,
     options?: DynamicOptions,
 ): (props: Record<string, unknown>) => ReactNode {
-    // next/dynamic accepts both a component directly and a module object;
-    // React.lazy requires `{ default }`, so normalize.
-    const LazyComponent = lazy(async () => {
-        const resolved = (await importer()) as T | { default: T };
-        const component =
-            resolved && typeof resolved === 'object' && 'default' in resolved
-                ? (resolved as { default: T }).default
-                : (resolved as T);
-        return { default: component };
-    });
-    const Fallback = options?.loading ?? (() => null);
+    const loadable: Loadable = async () => {
+        const cached = componentCache.get(loadable);
+        if (cached) return cached as ComponentType;
+        const component = normalize(await importer());
+        componentCache.set(loadable, component);
+        return component;
+    };
+    registeredLoadables.push(loadable);
 
-    if (options?.ssr === false) {
-        return function ClientOnlyDynamic(props) {
-            return (
-                <ClientOnly fallback={<Fallback />}>
-                    <Suspense fallback={<Fallback />}>
-                        <LazyComponent {...props} />
-                    </Suspense>
-                </ClientOnly>
-            );
-        };
+    const Fallback: ComponentType = options?.loading ?? (() => null);
+
+    function DynamicComponent(props: Record<string, unknown>): ReactElement | null {
+        const [Component, setComponent] = useState<ComponentType | null>(
+            () => componentCache.get(loadable) ?? null,
+        );
+        useEffect(() => {
+            if (Component) return;
+            let mounted = true;
+            void loadable().then((component) => {
+                if (mounted) setComponent(() => component);
+            });
+            return () => {
+                mounted = false;
+            };
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, []);
+
+        if (Component) return <Component {...props} />;
+        if (options?.ssr === false) return <Fallback />;
+        // Not loaded yet: suspend (React renders the fallback / streams the
+        // boundary); the thrown promise is memoized via componentCache.
+        throw loadable();
     }
 
-    return function LazyDynamic(props) {
-        return (
-            <Suspense fallback={<Fallback />}>
-                <LazyComponent {...props} />
-            </Suspense>
-        );
-    };
+    return DynamicComponent;
 }

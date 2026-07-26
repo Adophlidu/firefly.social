@@ -32,6 +32,16 @@ function loadI18nInstance(locale: Locale): Promise<I18n> {
     return instance;
 }
 
+/**
+ * Preload a locale's catalog so the first `use(loadI18nInstance())` resolves
+ * synchronously during hydration — otherwise the server-streamed suspense
+ * boundary (already resolved on the server) re-suspends on the client and
+ * React reports a hydration error (#419).
+ */
+export function preloadI18n(locale: Locale): Promise<I18n> {
+    return loadI18nInstance(locale);
+}
+
 function getLocaleFromClientCookie(): Locale | null {
     const pair = bom.document?.cookie.split('; ').find((x) => x.startsWith(`${SiteCookies.Locale}=`));
     if (!pair) return null;
