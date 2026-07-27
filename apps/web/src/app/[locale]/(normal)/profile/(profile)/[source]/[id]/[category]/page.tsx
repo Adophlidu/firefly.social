@@ -44,6 +44,7 @@ export default function Page(props: Props) {
     }, [cachedSocialProfile, idForQuery, params.id]);
 
     // Lens used handle in profile page, while timeline can only be queried using profileId, it is necessary to convert handle to profileId.
+    // Skip refetching when profileInitialData already matches — otherwise staleTime: 0 fires a duplicate request on mount.
     const { data: profile = null } = useQuery({
         queryKey: ['profile', source, idForQuery],
         queryFn: async () => {
@@ -52,6 +53,7 @@ export default function Page(props: Props) {
             return provider.getProfileByHandle(idForQuery, true);
         },
         initialData: profileInitialData,
+        enabled: !profileInitialData,
     });
 
     const profileId = profile?.profileId || cachedIdentity?.id || idForQuery || params.id;
