@@ -1,13 +1,14 @@
+'use client';
+
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ActivityStatus, AdvertisementType } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { parseUrl, runInSafeAsync } from '@dimensiondev/utils';
-import { Suspense } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import { AdvertisementItem } from '@/components/Advertisement/AdvertisementItem.js';
 import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementSkeleton.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { logger } from '@/libs/Logger.js';
 import { getFireflyActivityList } from '@/providers/firefly/activity/getFireflyActivityList.js';
 import type { Advertisement as AdvertisementInterface } from '@/types/advertisement.js';
 
@@ -46,31 +47,30 @@ async function fetchAdvertisements(): Promise<AdvertisementInterface[]> {
     return [...activityBannerAds, ...STATIC_ADS];
 }
 
-async function AdvertisementContent() {
-    try {
-        const ads = await fetchAdvertisements();
-        const origin = parseUrl(envs.external.NEXT_PUBLIC_SITE_URL)?.origin ?? '';
+function AdvertisementContent() {
+    // Sync hook-based fetch: react-dom cannot render async components
+    // outside RSC — the async version crashed hydration/client navigation
+    // with React #482 whenever the streamed boundary was still pending.
+    const { data: ads } = useQuery({
+        queryKey: ['advertisement', 'activities'],
+        queryFn: fetchAdvertisements,
+        staleTime: 10 * 60 * 1000,
+    });
 
-        if (!ads.length) return null;
-        if (ads.length === 1)
-            return (
-                <div className="ff-advertisement">
-                    <AdvertisementItem ad={ads[0]} origin={origin} />
-                </div>
-            );
+    if (!ads) return <AdvertisementSkeleton />;
+    const origin = parseUrl(envs.external.NEXT_PUBLIC_SITE_URL)?.origin ?? '';
 
-        return <AdvertisementSwiper items={ads} origin={origin} />;
-    } catch (error) {
-        logger.error(`Failed to fetch advertisement: ${error}`);
-        return null;
-    }
+    if (!ads.length) return null;
+    if (ads.length === 1)
+        return (
+            <div className="ff-advertisement">
+                <AdvertisementItem ad={ads[0]} origin={origin} />
+            </div>
+        );
+
+    return <AdvertisementSwiper items={ads} origin={origin} />;
 }
 
 export function Advertisement() {
-    // Stream the ad independently so a cache-miss fetch never blocks the page shell.
-    return (
-        <Suspense fallback={<AdvertisementSkeleton />}>
-            <AdvertisementContent />
-        </Suspense>
-    );
+    return <AdvertisementContent />;
 }
