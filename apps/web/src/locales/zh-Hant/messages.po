@@ -2743,9 +2743,6 @@ msgstr "關於持倉量"
 msgid "Days"
 msgstr "日"
 
-msgid "Chart interval"
-msgstr "圖表週期"
-
 msgid "TBD"
 msgstr "待定"
 
@@ -2957,9 +2954,6 @@ msgstr "找不到個人檔案"
 
 msgid "Refund"
 msgstr "退款"
-
-msgid "{displayCoin} candlestick chart"
-msgstr "{displayCoin} K線圖"
 
 msgid "Connecting..."
 msgstr "連接中..."
@@ -3517,9 +3511,6 @@ msgstr "註冊"
 msgid "Failed to verify password."
 msgstr "密碼驗證失敗。"
 
-msgid "Retry chart"
-msgstr "重試圖表"
-
 msgid "Any Player Rampage"
 msgstr "任意選手暴走"
 
@@ -3999,9 +3990,6 @@ msgstr "回報給 Hyperliquid 的外部參考價格。"
 
 msgid "Long"
 msgstr "做多"
-
-msgid "Loading chart…"
-msgstr "正在載入圖表…"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle

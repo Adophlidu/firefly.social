@@ -3,8 +3,8 @@ Package Analysis
 
 Application: apps/web
 
-Total packages: 2140
-Packages with multiple versions: 221
+Total packages: 2142
+Packages with multiple versions: 223
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -19,6 +19,8 @@ Packages with Multiple Versions
  @babel/helper-validator-identifier@7.29.7,8.0.0-rc.3
  @babel/parser@7.29.7,8.0.0-rc.3
  @babel/types@7.29.7,8.0.0-rc.3
+*@dimensiondev/perps-core@0.3.1,0.4.0
+*@dimensiondev/perps-react@0.3.1,0.4.0
  @emnapi/core@1.10.0,1.11.1
  @emnapi/runtime@1.10.0,1.11.1
  @emnapi/wasi-threads@1.2.1,1.2.2
@@ -420,8 +422,8 @@ Packages with Single Version
  @csstools/css-parser-algorithms@4.0.0
  @csstools/css-syntax-patches-for-csstree@1.1.5
  @csstools/css-tokenizer@4.0.0
-*@dimensiondev/perps-core@0.3.1
-*@dimensiondev/perps-react@0.3.1
+*@dimensiondev/kline-core@0.4.0
+*@dimensiondev/kline-hyperliquid@0.4.0
  @discoveryjs/json-ext@0.5.7
  @discoveryjs/natural-compare@1.1.0
  @emotion/is-prop-valid@1.4.0

@@ -592,15 +592,21 @@ importers:
       '@dimensiondev/iframe-bridge':
         specifier: workspace:^
         version: link:../../packages/iframe-bridge
+      '@dimensiondev/kline-core':
+        specifier: ^0.4.0
+        version: 0.4.0(react@19.2.7)
+      '@dimensiondev/kline-hyperliquid':
+        specifier: ^0.4.0
+        version: 0.4.0(@dimensiondev/kline-core@0.4.0(react@19.2.7))(@dimensiondev/perps-core@0.4.0(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1))(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))
       '@dimensiondev/native-bridge':
         specifier: workspace:^
         version: link:../../packages/native-bridge
       '@dimensiondev/perps-core':
-        specifier: ^0.3.1
-        version: 0.3.1(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1)
+        specifier: ^0.4.0
+        version: 0.4.0(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1)
       '@dimensiondev/perps-react':
-        specifier: ^0.3.1
-        version: 0.3.1(@dimensiondev/perps-core@0.3.1(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1))(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(@tanstack/react-query@5.85.9(react@19.2.7))(react@19.2.7)
+        specifier: ^0.4.0
+        version: 0.4.0(@dimensiondev/perps-core@0.4.0(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1))(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(@tanstack/react-query@5.85.9(react@19.2.7))(react@19.2.7)
       '@dimensiondev/short-link':
         specifier: workspace:^
         version: link:../../packages/short-link
@@ -2989,8 +2995,26 @@ packages:
     resolution: {integrity: sha512-QxULHAm7cNu72w97JUNCBFODFaXpbDg+dP8b/oWFAZ2MTRppA3U00Y2L1HqaS4J6yBqxwa/Y3nMBaxVKbB/NsA==}
     engines: {node: '>=20.19.0'}
 
+  '@dimensiondev/kline-core@0.4.0':
+    resolution: {integrity: sha512-dmxWwFWULDXwYtoM5wQ9ykgt0iNuLWZPxXICp6bEe3JVBAUEK77IZm3LD7GZOZWcsPFnFaAu/TV2mzS/XBPB/Q==, tarball: https://npm.pkg.github.com/download/@dimensiondev/kline-core/0.4.0/0be864deb6d0e51a1913e23ced3fd4c5b22a624b}
+    peerDependencies:
+      react: 19.2.7
+
+  '@dimensiondev/kline-hyperliquid@0.4.0':
+    resolution: {integrity: sha512-WlsnpKpqW8XaKu+z4wvmfohyH5VJLRG/QEfBjNYKpXxM1p7mRUN1eGxqYV5P8hnjJXfRzsWzgiXedT8JcEek/g==, tarball: https://npm.pkg.github.com/download/@dimensiondev/kline-hyperliquid/0.4.0/0dd7404002646d3299aaec3201500b3c93c148b6}
+    peerDependencies:
+      '@dimensiondev/kline-core': ^0.4.0
+      '@dimensiondev/perps-core': ^0.4.0
+      '@nktkas/hyperliquid': ^0.32.2
+
   '@dimensiondev/perps-core@0.3.1':
     resolution: {integrity: sha512-kW6nk61JZKOJxG6YGAvYkjK2rYszvx64YHhnVpyNxpyQUlMKYH3/Qie27sUgXS24ylUzYAJImAjnWIQ4TMgH1Q==, tarball: https://npm.pkg.github.com/download/@dimensiondev/perps-core/0.3.1/6156fae0307c16ee4e57c36c67ee9859be982d52}
+    peerDependencies:
+      '@nktkas/hyperliquid': ^0.32.2
+      bignumber.js: ^9.3.1
+
+  '@dimensiondev/perps-core@0.4.0':
+    resolution: {integrity: sha512-dwYH8/F0eIzfI9A0Cyw661cE7dAPkxWObd5x0quEfnW6hi0xOSnm88HtZZZhJnZCAlsLi2OZXXkN/TR7u/hL1g==, tarball: https://npm.pkg.github.com/download/@dimensiondev/perps-core/0.4.0/cf0bf7e490a413572fdfc4eb1bd12ea9320228d7}
     peerDependencies:
       '@nktkas/hyperliquid': ^0.32.2
       bignumber.js: ^9.3.1
@@ -2999,6 +3023,14 @@ packages:
     resolution: {integrity: sha512-K2JBXrAJ5oPw7E/NgnsIDpcqObjEW2psM+fbXyMeORxksyTydQtN8ZLkekWvMk9GOXHnZenen8DFaDmiBe3Jcw==, tarball: https://npm.pkg.github.com/download/@dimensiondev/perps-react/0.3.1/8864ca7b847515db908dd9645dbec10e91aa70a9}
     peerDependencies:
       '@dimensiondev/perps-core': ^0.3.1
+      '@nktkas/hyperliquid': ^0.32.2
+      '@tanstack/react-query': 5.85.9
+      react: 19.2.7
+
+  '@dimensiondev/perps-react@0.4.0':
+    resolution: {integrity: sha512-OXZc1grbo5OaU5UmyRE/BR0cbwgiY2ER9scmueSEHRGjAkg9qMYd3dckvA1zzeLo/t1YXeiozDTv7G4kLtBKbA==, tarball: https://npm.pkg.github.com/download/@dimensiondev/perps-react/0.4.0/6601d2498677062c0d6c7fcc7838a21761a0931a}
+    peerDependencies:
+      '@dimensiondev/perps-core': ^0.4.0
       '@nktkas/hyperliquid': ^0.32.2
       '@tanstack/react-query': 5.85.9
       react: 19.2.7
@@ -15441,7 +15473,22 @@ snapshots:
 
   '@csstools/css-tokenizer@4.0.0': {}
 
+  '@dimensiondev/kline-core@0.4.0(react@19.2.7)':
+    dependencies:
+      react: 19.2.7
+
+  '@dimensiondev/kline-hyperliquid@0.4.0(@dimensiondev/kline-core@0.4.0(react@19.2.7))(@dimensiondev/perps-core@0.4.0(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1))(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))':
+    dependencies:
+      '@dimensiondev/kline-core': 0.4.0(react@19.2.7)
+      '@dimensiondev/perps-core': 0.4.0(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1)
+      '@nktkas/hyperliquid': 0.32.2(typescript@7.0.1-rc)
+
   '@dimensiondev/perps-core@0.3.1(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1)':
+    dependencies:
+      '@nktkas/hyperliquid': 0.32.2(typescript@7.0.1-rc)
+      bignumber.js: 9.3.1
+
+  '@dimensiondev/perps-core@0.4.0(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1)':
     dependencies:
       '@nktkas/hyperliquid': 0.32.2(typescript@7.0.1-rc)
       bignumber.js: 9.3.1
@@ -15449,6 +15496,13 @@ snapshots:
   '@dimensiondev/perps-react@0.3.1(@dimensiondev/perps-core@0.3.1(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1))(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(@tanstack/react-query@5.85.9(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@dimensiondev/perps-core': 0.3.1(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1)
+      '@nktkas/hyperliquid': 0.32.2(typescript@7.0.1-rc)
+      '@tanstack/react-query': 5.85.9(react@19.2.7)
+      react: 19.2.7
+
+  '@dimensiondev/perps-react@0.4.0(@dimensiondev/perps-core@0.4.0(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1))(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(@tanstack/react-query@5.85.9(react@19.2.7))(react@19.2.7)':
+    dependencies:
+      '@dimensiondev/perps-core': 0.4.0(@nktkas/hyperliquid@0.32.2(typescript@7.0.1-rc))(bignumber.js@9.3.1)
       '@nktkas/hyperliquid': 0.32.2(typescript@7.0.1-rc)
       '@tanstack/react-query': 5.85.9(react@19.2.7)
       react: 19.2.7
@@ -28619,8 +28673,12 @@ time:
   '@bprogress/next@3.2.12': '2025-04-14T15:15:02.291Z'
   '@cloudflare/workers-types@4.20260613.1': '2026-06-13T01:41:29.469Z'
   '@coral-xyz/anchor@0.32.1': '2025-10-10T02:34:12.654Z'
+  '@dimensiondev/kline-core@0.4.0': '2026-07-27T02:55:06Z'
+  '@dimensiondev/kline-hyperliquid@0.4.0': '2026-07-27T02:55:08Z'
   '@dimensiondev/perps-core@0.3.1': '2026-07-21T12:36:36Z'
+  '@dimensiondev/perps-core@0.4.0': '2026-07-27T02:55:02Z'
   '@dimensiondev/perps-react@0.3.1': '2026-07-21T12:36:38Z'
+  '@dimensiondev/perps-react@0.4.0': '2026-07-27T02:55:04Z'
   '@farcaster/core@0.18.11': '2026-05-06T18:59:46.209Z'
   '@farcaster/miniapp-host@0.2.16': '2026-02-05T00:52:21.049Z'
   '@giphy/js-fetch-api@5.8.0': '2026-05-01T15:14:06.896Z'

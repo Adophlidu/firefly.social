@@ -86,8 +86,10 @@ minimumReleaseAgeExclude:
     - react-native-worklets@0.9.2
     - typescript@7.0.1-rc
     - '@dimensiondev/rn-ui@0.2.0 || 0.3.0'
-    - '@dimensiondev/perps-core@0.3.0 || 0.3.1'
-    - '@dimensiondev/perps-react@0.3.0 || 0.3.1'
+    - '@dimensiondev/perps-core@0.3.0 || 0.3.1 || 0.4.0'
+    - '@dimensiondev/perps-react@0.3.0 || 0.3.1 || 0.4.0'
+    - '@dimensiondev/kline-core@0.4.0'
+    - '@dimensiondev/kline-hyperliquid@0.4.0'
 
 allowBuilds:
     '@firebase/util': false

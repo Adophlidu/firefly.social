@@ -2743,9 +2743,6 @@ msgstr "建玉について"
 msgid "Days"
 msgstr "日"
 
-msgid "Chart interval"
-msgstr "チャート間隔"
-
 msgid "TBD"
 msgstr "未定"
 
@@ -2957,9 +2954,6 @@ msgstr "プロフィールが見つかりません"
 
 msgid "Refund"
 msgstr "返金"
-
-msgid "{displayCoin} candlestick chart"
-msgstr "{displayCoin}のローソク足チャート"
 
 msgid "Connecting..."
 msgstr "接続中..."
@@ -3517,9 +3511,6 @@ msgstr "登録"
 msgid "Failed to verify password."
 msgstr "パスワードの検証に失敗しました。"
 
-msgid "Retry chart"
-msgstr "チャートを再試行"
-
 msgid "Any Player Rampage"
 msgstr "いずれかの選手がランページ"
 
@@ -3999,9 +3990,6 @@ msgstr "Hyperliquidに報告される外部参照価格です。"
 
 msgid "Long"
 msgstr "ロング"
-
-msgid "Loading chart…"
-msgstr "チャートを読み込み中…"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle

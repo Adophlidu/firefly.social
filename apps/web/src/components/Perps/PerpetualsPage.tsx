@@ -272,11 +272,7 @@ export const PerpetualsPage = memo(function PerpetualsPage() {
                             [styles.workspacePaneActive]: workspaceTab === 'chart',
                         })}
                     >
-                        <PerpsChart
-                            coin={rawCoin}
-                            displayCoin={selectedMarketDisplayName}
-                            markPrice={coinInfo?.assetCtx?.markPx}
-                        />
+                        <PerpsChart coin={rawCoin} displayCoin={selectedMarketDisplayName} />
                     </div>
                     <div
                         id="perps-order-book-panel"

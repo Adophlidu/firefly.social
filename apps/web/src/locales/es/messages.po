@@ -2757,9 +2757,6 @@ msgstr "Acerca del interés abierto"
 msgid "Days"
 msgstr "Días"
 
-msgid "Chart interval"
-msgstr "Intervalo del gráfico"
-
 msgid "TBD"
 msgstr "Por definir"
 
@@ -2971,9 +2968,6 @@ msgstr "No se encontró perfil"
 
 msgid "Refund"
 msgstr "Reembolso"
-
-msgid "{displayCoin} candlestick chart"
-msgstr "Gráfico de velas de {displayCoin}"
 
 msgid "Connecting..."
 msgstr "Conectando..."
@@ -3536,9 +3530,6 @@ msgstr "Registrarse"
 msgid "Failed to verify password."
 msgstr "No se pudo verificar la contraseña."
 
-msgid "Retry chart"
-msgstr "Reintentar gráfico"
-
 msgid "Any Player Rampage"
 msgstr "Cualquier jugador hace Rampage"
 
@@ -4020,9 +4011,6 @@ msgstr "El precio de referencia externo reportado a Hyperliquid."
 
 msgid "Long"
 msgstr "Long"
-
-msgid "Loading chart…"
-msgstr "Cargando gráfico…"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle

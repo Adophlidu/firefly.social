@@ -2757,9 +2757,6 @@ msgstr "About Open Interest"
 msgid "Days"
 msgstr "Days"
 
-msgid "Chart interval"
-msgstr "Chart interval"
-
 msgid "TBD"
 msgstr "TBD"
 
@@ -2971,9 +2968,6 @@ msgstr "No profile found"
 
 msgid "Refund"
 msgstr "Refund"
-
-msgid "{displayCoin} candlestick chart"
-msgstr "{displayCoin} candlestick chart"
 
 msgid "Connecting..."
 msgstr "Connecting..."
@@ -3536,9 +3530,6 @@ msgstr "Sign Up"
 msgid "Failed to verify password."
 msgstr "Failed to verify password."
 
-msgid "Retry chart"
-msgstr "Retry chart"
-
 msgid "Any Player Rampage"
 msgstr "Any Player Rampage"
 
@@ -4020,9 +4011,6 @@ msgstr "The external reference price reported to Hyperliquid."
 
 msgid "Long"
 msgstr "Long"
-
-msgid "Loading chart…"
-msgstr "Loading chart…"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle

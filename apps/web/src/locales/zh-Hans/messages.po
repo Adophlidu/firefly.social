@@ -2743,9 +2743,6 @@ msgstr "关于持仓量"
 msgid "Days"
 msgstr "天"
 
-msgid "Chart interval"
-msgstr "图表周期"
-
 msgid "TBD"
 msgstr "待定"
 
@@ -2957,9 +2954,6 @@ msgstr "找不到任何账户"
 
 msgid "Refund"
 msgstr "退款"
-
-msgid "{displayCoin} candlestick chart"
-msgstr "{displayCoin} K线图"
 
 msgid "Connecting..."
 msgstr "正在连接…"
@@ -3517,9 +3511,6 @@ msgstr "注册"
 msgid "Failed to verify password."
 msgstr "密码验证失败。"
 
-msgid "Retry chart"
-msgstr "重试图表"
-
 msgid "Any Player Rampage"
 msgstr "任意玩家狂暴"
 
@@ -3999,9 +3990,6 @@ msgstr "报告给 Hyperliquid 的外部参考价格。"
 
 msgid "Long"
 msgstr "做多"
-
-msgid "Loading chart…"
-msgstr "正在加载图表…"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle

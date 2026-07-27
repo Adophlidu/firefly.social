@@ -20,8 +20,8 @@ describe('Perpetuals dependency boundary', () => {
             dependencies: Record<string, string>;
         };
 
-        expect(packageJson.dependencies['@dimensiondev/perps-core']).toMatch(/^\^?0\.3\./); // ASSERTION (frozen)
-        expect(packageJson.dependencies['@dimensiondev/perps-react']).toMatch(/^\^?0\.3\./); // ASSERTION (frozen)
+        expect(packageJson.dependencies['@dimensiondev/perps-core']).toMatch(/^\^?0\.4\./); // ASSERTION (frozen)
+        expect(packageJson.dependencies['@dimensiondev/perps-react']).toMatch(/^\^?0\.4\./); // ASSERTION (frozen)
         expect(packageJson.dependencies['@dimensiondev/rn-ui']).toBeUndefined(); // ASSERTION (frozen)
     });
 
