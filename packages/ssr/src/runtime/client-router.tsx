@@ -41,6 +41,13 @@ export interface ClientRouterState {
     notFound?: boolean;
     /** True while a slow navigation is showing its pending fallback. */
     pending?: boolean;
+    /**
+     * The pendingMs timer fired and the chain swapped to the target route's
+     * loading boundary. Distinct from `pending` (any in-flight navigation):
+     * the current page must never be replaced by its own loading boundary
+     * just because a transition started.
+     */
+    showLoading?: boolean;
 }
 
 export interface ClientAppProps {
@@ -187,8 +194,12 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     return reusable.includes(file);
                 });
                 setState((previous) => ({ ...previous, pending: true }));
+                // Swap to the loading boundary only when the route declares
+                // one — otherwise the old page stays mounted until the
+                // payload lands (no flash, and no data-less page render).
+                const loadingBoundary = renderable ? findBoundaryComponent(matched, modules, 'loading') : undefined;
                 const pendingTimer = setTimeout(() => {
-                    if (navigationId.current !== id || !renderable) return;
+                    if (navigationId.current !== id || !renderable || !loadingBoundary) return;
                     setState((previous) => ({
                         match: matched,
                         modules,
@@ -198,6 +209,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         search: url.searchParams,
                         navigationType: options.replace ? 'replace' : 'push',
                         pending: true,
+                        showLoading: true,
                     }));
                 }, pendingMs);
                 let navigation: NavigationPayload | null = null;
@@ -349,9 +361,11 @@ export function ClientApp(props: ClientAppProps): ReactElement {
         ? findBoundaryComponent(state.match, state.modules, 'notFound')
         : state.error
           ? findBoundaryComponent(state.match, state.modules, 'error')
-          : state.pending
+          : state.showLoading
             ? findBoundaryComponent(state.match, state.modules, 'loading')
-            : undefined;
+            : state.pending
+              ? findBoundaryComponent(state.match, state.modules, 'pending')
+              : undefined;
 
     const element = composeMatch({
         match: state.match,
