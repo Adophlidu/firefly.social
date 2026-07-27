@@ -95,6 +95,7 @@ export interface BetsMarketDataForUI {
     bestAsk?: number;
     bestBid?: number;
     question?: string;
+    description?: string;
     active?: boolean;
     groupItemTitle?: string;
     groupItemThreshold?: string;
