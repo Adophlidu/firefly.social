@@ -32,7 +32,7 @@ function registerOpenTelemetry() {
             : new OTLPHttpProtoTraceExporter(exporterConfig);
     registerOTel({
         serviceName: process.env.OTEL_SERVICE_NAME || 'firefly-web',
-        traceExporter: truncateFetchSpanQueryStrings(dropUnreliableInternalSpans(traceExporter)),
+        traceExporter: normalizeOutboundSpanNames(dropUnreliableInternalSpans(traceExporter)),
     });
 }
 
@@ -72,19 +72,25 @@ function dropUnreliableInternalSpans(exporter: FilterableSpanExporter): Filterab
     };
 }
 
-// @vercel/otel's fetch instrumentation names every span `fetch <method> <full-url>`, query
-// string included. Different query strings for the same endpoint (e.g. `?ids=...`) each
-// become their own label series in Prometheus, fragmenting latency/rate aggregation for
-// what's really one dependency. Truncate the span name only — attributes still carry the
-// full URL — so equivalent calls aggregate into one series.
-const FETCH_SPAN_NAME = /^(fetch \S+ https?:\/\/[^?]+)\?.*$/;
+// Fetch / undici instrumentation names outbound spans `<fetch|http> <method> <full-url>`,
+// query string included. Different query strings for the same endpoint (e.g. `?ids=...`)
+// each become their own Prometheus label series, fragmenting latency/rate aggregation.
+// `data:` URIs embed huge payloads in the name. Normalize the span name only — attributes
+// still carry the full URL — so equivalent calls aggregate into one series.
+const HTTP_SPAN_WITH_QUERY = /^((?:fetch|http) \S+ https?:\/\/[^?\s]+)\?.*$/i;
+const DATA_URI_SPAN = /^((?:fetch|http) \S+) data:.*/i;
 
-function truncateFetchSpanQueryStrings(exporter: FilterableSpanExporter): FilterableSpanExporter {
+function normalizeOutboundSpanNames(exporter: FilterableSpanExporter): FilterableSpanExporter {
     return {
         export(spans, resultCallback) {
             for (const span of spans) {
-                const match = FETCH_SPAN_NAME.exec(span.name);
-                if (match) span.name = match[1];
+                const withQuery = HTTP_SPAN_WITH_QUERY.exec(span.name);
+                if (withQuery) {
+                    span.name = withQuery[1];
+                    continue;
+                }
+                const dataUri = DATA_URI_SPAN.exec(span.name);
+                if (dataUri) span.name = `${dataUri[1]} data:`;
             }
 
             exporter.export(spans, resultCallback);
