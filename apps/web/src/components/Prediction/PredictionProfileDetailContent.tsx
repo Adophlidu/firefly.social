@@ -5,20 +5,18 @@ import { PredictionProfileCategoryTabs } from '@/components/Prediction/Predictio
 import { PredictionProfileOverview } from '@/components/Prediction/PredictionProfileOverview.js';
 import { PredictionProfilePageHeader } from '@/components/Prediction/PredictionProfilePageHeader.js';
 import { PredictionProfileTabContent } from '@/components/Prediction/PredictionProfileTabContent.js';
-import { notFound } from '@/esm/navigation/server.js';
-import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
+import type { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
 
 interface Props {
     address: string;
     platform: PredictionPlatform;
+    /** Fetched by the route loader (async client components are not
+        renderable outside RSC — data fetching belongs in loaders). */
+    predictionProfile: NonNullable<Awaited<ReturnType<typeof fetchPredictionProfile>>>;
 }
 
-export async function PredictionProfileDetailContent({ address, platform }: Props) {
-    if (!address || !isValidAddressEthereum(address)) notFound();
-
-    const predictionProfile = await fetchPredictionProfile(address, platform, true);
-
-    if (!predictionProfile) notFound();
+export function PredictionProfileDetailContent({ address, platform, predictionProfile }: Props) {
+    if (!address || !isValidAddressEthereum(address)) return null;
 
     return (
         <div>

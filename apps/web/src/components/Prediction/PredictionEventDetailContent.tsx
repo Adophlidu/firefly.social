@@ -1,6 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import type { PredictionPlatform } from '@dimensiondev/enums';
-import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { EventSeriesPills } from '@/components/Prediction/EventSeriesPills/index.js';
@@ -16,11 +15,8 @@ import { PredictionSingleChart } from '@/components/Prediction/PredictionSingleC
 import { SportEventDetailContent } from '@/components/Prediction/Sport/SportEventDetailContent.js';
 import { SportEventPageTitle } from '@/components/Prediction/Sport/SportEventPageTitle.js';
 import { SuperfortuneEntry } from '@/components/Prediction/Superfortune/SuperfortuneEntry.js';
-import { notFound } from '@/esm/navigation/server.js';
 import { shouldShowSuperfortuneEntry } from '@/helpers/prediction/superfortune.js';
 import { resolveLocale } from '@/helpers/resolveLocale.js';
-import { setupLocaleFromParams } from '@/i18n/static.js';
-import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PredictionEventDetailContentProps {
@@ -28,21 +24,19 @@ interface PredictionEventDetailContentProps {
     isMutil: boolean;
     locale: string;
     platform: PredictionPlatform;
-    event?: BetsEventDataForUI;
+    /** Always provided by the route loader (async client components are not
+        renderable outside RSC — data fetching belongs in loaders). */
+    event: BetsEventDataForUI;
 }
 
-export async function PredictionEventDetailContent({
-    event: initialEvent,
+export function PredictionEventDetailContent({
+    event,
     id,
     isMutil,
     locale,
     platform,
 }: PredictionEventDetailContentProps) {
-    setupLocaleFromParams(locale); // Ensure i18n is set for <Trans> in this server component
     const resolvedLocale = resolveLocale(locale);
-    const event =
-        initialEvent ?? (await runInSafeAsync(() => getEventDetail(platform, { id, isMutil, locale: resolvedLocale })));
-    if (!event) notFound();
 
     const markets = event.markets || EMPTY_LIST;
     const showResolution = markets.length === 1 && !!markets[0]?.statusList?.length;

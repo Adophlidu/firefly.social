@@ -102,7 +102,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
     );
 
     const navigate = useCallback(
-        (to: string, options: { replace?: boolean } = {}) => {
+        (to: string, options: { replace?: boolean; scroll?: boolean } = {}) => {
             void (async () => {
                 const url = new URL(to, window.location.href);
                 const rewritten = rewritePathname?.(url.pathname) ?? url.pathname;
@@ -227,7 +227,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     error: navigationError,
                     notFound: navigation.notFound || undefined,
                 });
-                window.scrollTo(0, 0);
+                if (options.scroll !== false) window.scrollTo(0, 0);
             })();
         },
         [basepath, fetchPayload, history, matcher, moduleLoaders, pendingMs, rewritePathname],

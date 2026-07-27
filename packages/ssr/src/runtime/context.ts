@@ -24,7 +24,7 @@ export interface RouterState {
     /** True when rendering a `notFoundComponent` fallback. */
     notFound?: boolean;
     /** Client-side navigation. Undefined during server rendering. */
-    navigate?: (to: string, options?: { replace?: boolean }) => void;
+    navigate?: (to: string, options?: { replace?: boolean; scroll?: boolean }) => void;
     /** Prefetch a route's data payload. Undefined during server rendering. */
     prefetch?: (to: string) => void;
     /**
@@ -78,7 +78,7 @@ export function useLoaderData<T = unknown>(file?: string): T {
  * throws only if invoked, since navigating during server rendering is a
  * programming error — use `redirect()` in loaders instead).
  */
-export function useNavigate(): (to: string, options?: { replace?: boolean }) => void {
+export function useNavigate(): (to: string, options?: { replace?: boolean; scroll?: boolean }) => void {
     const { navigate } = useRouterState();
     if (!navigate) {
         return () => {

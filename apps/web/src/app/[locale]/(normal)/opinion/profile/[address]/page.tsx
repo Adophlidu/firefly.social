@@ -1,7 +1,10 @@
 import { PredictionPlatform } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { PredictionProfileDetailContent } from '@/components/Prediction/PredictionProfileDetailContent.js';
+import { notFound } from '@/esm/navigation/server.js';
+import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
 
 export const revalidate = 60;
 
@@ -17,6 +20,16 @@ interface Props extends LayoutProps<{
 
 export default async function OpinionProfilePage(props: Props) {
     const { address } = await props.params;
+    if (!address || !isValidAddressEthereum(address)) notFound();
 
-    return <PredictionProfileDetailContent address={address} platform={PredictionPlatform.Opinion} />;
+    const predictionProfile = await fetchPredictionProfile(address, PredictionPlatform.Opinion, true);
+    if (!predictionProfile) notFound();
+
+    return (
+        <PredictionProfileDetailContent
+            address={address}
+            platform={PredictionPlatform.Opinion}
+            predictionProfile={predictionProfile}
+        />
+    );
 }
