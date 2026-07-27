@@ -32,7 +32,7 @@ function registerOpenTelemetry() {
             : new OTLPHttpProtoTraceExporter(exporterConfig);
     registerOTel({
         serviceName: process.env.OTEL_SERVICE_NAME || 'firefly-web',
-        traceExporter: dropUnreliableInternalSpans(traceExporter),
+        traceExporter: truncateFetchSpanQueryStrings(dropUnreliableInternalSpans(traceExporter)),
     });
 }
 
@@ -66,6 +66,28 @@ function dropUnreliableInternalSpans(exporter: FilterableSpanExporter): Filterab
                 return;
             }
             exporter.export(filtered, resultCallback);
+        },
+        shutdown: () => exporter.shutdown(),
+        ...(exporter.forceFlush ? { forceFlush: () => exporter.forceFlush!() } : {}),
+    };
+}
+
+// @vercel/otel's fetch instrumentation names every span `fetch <method> <full-url>`, query
+// string included. Different query strings for the same endpoint (e.g. `?ids=...`) each
+// become their own label series in Prometheus, fragmenting latency/rate aggregation for
+// what's really one dependency. Truncate the span name only — attributes still carry the
+// full URL — so equivalent calls aggregate into one series.
+const FETCH_SPAN_NAME = /^(fetch \S+ https?:\/\/[^?]+)\?.*$/;
+
+function truncateFetchSpanQueryStrings(exporter: FilterableSpanExporter): FilterableSpanExporter {
+    return {
+        export(spans, resultCallback) {
+            for (const span of spans) {
+                const match = FETCH_SPAN_NAME.exec(span.name);
+                if (match) span.name = match[1];
+            }
+
+            exporter.export(spans, resultCallback);
         },
         shutdown: () => exporter.shutdown(),
         ...(exporter.forceFlush ? { forceFlush: () => exporter.forceFlush!() } : {}),
