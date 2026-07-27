@@ -202,7 +202,7 @@ export const SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES: SocialSource[] = [Source
 
 export const SUPPORTED_PINNED_POST_SOURCES: SocialSource[] = [Source.Twitter];
 
-export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Lens, Source.Farcaster, Source.Bsky] as const;
+export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Lens, Source.Farcaster] as const;
 
 export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [Source.Twitter];
 
