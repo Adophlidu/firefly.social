@@ -8,19 +8,38 @@ import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@d
 import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
 
-import type { TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
+import type { TokenPageProps, TokenPageSearch } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 
-export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
-    const { exchange, slug = EMPTY_LIST } = use(params);
+function isThenable<T>(value: T | Promise<T>): value is Promise<T> {
+    return value instanceof Promise;
+}
+
+interface TokenPageParamsInput {
+    /** Next RSC passes a (React-instrumented) promise; the SSR library's
+        routes pass plain values — a promise created during render suspends
+        forever on mount retry (React #482). */
+    params: TokenPageProps['params'] | Awaited<TokenPageProps['params']>;
+    searchParams: TokenPageSearch | Promise<TokenPageSearch>;
+}
+
+export function useTokenPageParams({ params, searchParams }: TokenPageParamsInput) {
+    // `use` is the one hook allowed in conditionals; plain values skip it.
+    const { exchange, slug = EMPTY_LIST } = isThenable(params) ? use(params) : params;
     const isMedium = useIsMedium();
 
     const isCex = exchange === 'cex';
     const isDex = exchange === 'dex';
-    const { chainId: paramChainId, trader, traderName, address: paramAddress, category: current } = use(searchParams);
+    const {
+        chainId: paramChainId,
+        trader,
+        traderName,
+        address: paramAddress,
+        category: current,
+    } = isThenable(searchParams) ? use(searchParams) : searchParams;
     const addressSlug = slug[1];
     const chainIdSlug = isDex ? +slug[0] : undefined;
     const isSolAddress = isValidAddressSolana(addressSlug);

@@ -6,7 +6,7 @@ import { TokenCategory } from '@dimensiondev/enums';
 import { isTrackedChain } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import { type ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation.js';
+import { usePathname, useSearchParams } from '@/esm/navigation.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 import urlcat from 'urlcat';
 
@@ -25,7 +25,7 @@ const labels: Record<TokenCategory, ReactNode> = {
     [TokenCategory.About]: <Trans>About</Trans>,
 };
 
-function resolveTab(pathname: string, category: TokenCategory, params: ReadonlyURLSearchParams) {
+function resolveTab(pathname: string, category: TokenCategory, params: URLSearchParams) {
     return urlcat(pathname, { ...Object.fromEntries(params), category });
 }
 

@@ -5,14 +5,12 @@ import { useMemo } from 'react';
 import { Feeds } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/categories/Feeds.js';
 import { Transactions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/categories/Transactions.js';
 import TokenPageLoading from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';
-import type { TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { TokenOverview } from '@/components/TokenProfile/TokenOverview/index.js';
 import { useTokenPageParams } from '@/hooks/useTokenPageParams.js';
 
 /**
- * useTokenPageParams expects Next-style promise params/searchParams (it
- * `use()`s them). Feed it memoized resolved promises so the hook works
- * unchanged.
+ * The hook accepts plain values (promises created during render suspend
+ * forever on mount retry — React #482).
  */
 export default function TokenCategoryPage() {
     const params = useParams();
@@ -27,11 +25,7 @@ export default function TokenCategoryPage() {
         searchParams.forEach((value, key) => {
             mappedSearch[key] = value;
         });
-        return {
-            params: Promise.resolve(mapped),
-            searchParams: Promise.resolve(mappedSearch as never),
-            children: null,
-        } as TokenPageProps;
+        return { params: mapped, searchParams: mappedSearch as never };
     }, [params, searchParams]);
 
     const {
