@@ -2,7 +2,7 @@
     "$schema": "../../node_modules/wrangler/config-schema.json",
     "name": "firefly-web",
     "main": "./dist/server/worker.js",
-    "compatibility_flags": ["nodejs_compat_v2"],
+    "compatibility_flags": ["nodejs_compat_v2", "nodejs_compat_populate_process_env"],
     "compatibility_date": "2024-09-23",
     // Served from the workers.dev subdomain during the SSR migration; the
     // production Next.js deployment on Vercel stays untouched in parallel.

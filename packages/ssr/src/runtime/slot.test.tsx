@@ -92,3 +92,30 @@ describe('layout slots', () => {
         expect(html).toContain('<section></section>');
     });
 });
+
+describe('useLoaderData group fallback', () => {
+    it('matches loader data group-insensitively when the file moved', async () => {
+        const { RouterContext } = await import('./context.ts');
+        const { useLoaderData } = await import('./context.ts');
+        const { useContext } = await import('react');
+        let observed: unknown;
+        function Probe() {
+            observed = useLoaderData('profile/$source/$id/_layout.tsx');
+            return null;
+        }
+        const state = {
+            pathname: '/',
+            search: new URLSearchParams(),
+            params: {},
+            files: ['(normal)/profile/$source/$id/_layout.tsx'],
+            data: { '(normal)/profile/$source/$id/_layout.tsx': { ok: true } },
+            heads: [],
+        };
+        renderToString(
+            <RouterContext value={state as never}>
+                <Probe />
+            </RouterContext>,
+        );
+        expect(observed).toEqual({ ok: true });
+    });
+});

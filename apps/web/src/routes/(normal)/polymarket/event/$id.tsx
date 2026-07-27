@@ -7,6 +7,10 @@ import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPoly
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
 import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 
+/** Renders its own header — suppress the (normal) frame's NavigatorBar. */
+export const topnav = () => null;
+
+
 interface PolymarketEventLoaderData {
     event: NonNullable<Awaited<ReturnType<typeof getPolymarketEventPageData>>['event']>;
     id: string;

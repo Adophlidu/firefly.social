@@ -2,7 +2,7 @@
     "$schema": "../../node_modules/wrangler/config-schema.json",
     "name": "firefly-wallet",
     "main": "./dist/server/worker.js",
-    "compatibility_flags": ["nodejs_compat_v2"],
+    "compatibility_flags": ["nodejs_compat_v2", "nodejs_compat_populate_process_env"],
     "compatibility_date": "2024-09-23",
     // Deployed to a personal Cloudflare account; served from the workers.dev
     // subdomain until a custom domain (and its zone) is available.

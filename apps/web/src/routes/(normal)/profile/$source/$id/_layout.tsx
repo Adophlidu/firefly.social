@@ -17,6 +17,10 @@ import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { getProfilePageData, type ProfilePageData } from '@/providers/firefly/metadata/getProfilePageData.js';
 import type { FireflyIdentity, WalletProfile, WalletProfiles } from '@/providers/types/Firefly.js';
 
+/** Renders its own header — suppress the (normal) frame's NavigatorBar. */
+export const topnav = () => null;
+
+
 interface ProfileLayoutData {
     source: ProfilePageSource;
     pageData: ProfilePageData;

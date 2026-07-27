@@ -10,6 +10,10 @@ import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/get
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
+/** Renders its own header — suppress the (normal) frame's NavigatorBar. */
+export const topnav = () => null;
+
+
 interface OpinionEventLoaderData {
     id: string;
     isMutil: boolean;

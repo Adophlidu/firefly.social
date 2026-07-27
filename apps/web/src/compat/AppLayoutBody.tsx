@@ -8,9 +8,7 @@ import { DirectMessagePanelHost } from '@/components/DirectMessages/DirectMessag
 import { IfPathname } from '@/components/IfPathname.js';
 import { IfWalletStackActive } from '@/components/IfWalletStackActive.js';
 import { SessionUnauthorizedBoundaryTrigger } from '@/components/SessionUnauthorizedBoundaryTrigger.js';
-import { SideBar } from '@/components/SideBar/index.js';
 import { AppProviders } from '@/compat/AppProviders.js';
-import { NormalLayoutBody } from '@/compat/NormalLayoutBody.js';
 import { dynamic } from '@/esm/dynamic.js';
 
 const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), { ssr: false });
@@ -38,35 +36,19 @@ const NotificationListener = dynamic(
 );
 
 /**
- * Port of the Next app's src/app/layout-body.tsx. Differences:
- * - RouteProgressBar (@bprogress/next) is dropped: it drives off the Next
- *   router. A replacement wired to the SSR library's navigation events is a
- *   follow-up.
- * - Providers is AppProviders (no react-query-next-experimental).
+ * Global services mounted above every route (modals, bridges, listeners) plus
+ * the provider tree. Layout frames are the route groups' business
+ * (routes/(normal|event|settings|whiteboard|messages)/_layout.tsx) — nothing
+ * here picks layouts by pathname.
+ *
+ * The IfPathname gates below are not layout selection: they toggle global
+ * services off on pages that must stay isolated (whiteboard flows, iframe
+ * embeds), matching the old layout-body's behavior.
  */
-function LayoutBodyInner({ children }: { children?: ReactNode }) {
+function GlobalServices() {
     const agent = useAgent();
     return (
         <>
-            <IfPathname isOneOf={['/signup']}>{children}</IfPathname>
-            <IfPathname isNotOneOf={['/signup']}>
-                <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
-                    {/* Event/whiteboard/settings pages render bare; everything else
-                        gets the (normal) main-column frame. */}
-                    <IfPathname isNotOneOf={[...EVENT_ROUTES, ...WHITEBOARD_ROUTES, '/settings']}>
-                        <NormalLayoutBody>{children}</NormalLayoutBody>
-                    </IfPathname>
-                    <IfPathname isOneOf={[...EVENT_ROUTES, ...WHITEBOARD_ROUTES, '/settings']}>
-                        {children}
-                    </IfPathname>
-                    {agent !== Agent.FireflyApp ? (
-                        <IfPathname isNotOneOf={[...EVENT_ROUTES, ...WHITEBOARD_ROUTES]}>
-                            <SideBar />
-                        </IfPathname>
-                    ) : null}
-                </div>
-            </IfPathname>
-
             <Modals />
             <DirectMessagePanelHost />
 
@@ -84,7 +66,7 @@ function LayoutBodyInner({ children }: { children?: ReactNode }) {
 
             {/* delay render */}
             {agent !== Agent.FireflyApp ? (
-                <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
+                <IfPathname isNotOneOf={[...EVENT_ROUTES, ...WHITEBOARD_ROUTES]}>
                     <Suspense>
                         <NotificationListener />
                     </Suspense>
@@ -109,7 +91,8 @@ export function AppLayoutBody({ locale, children }: { locale?: string; children?
                 straight to the root error boundary, past every segment-level boundary. */}
             <SessionUnauthorizedBoundaryTrigger />
             <AppProviders locale={locale}>
-                <LayoutBodyInner>{children}</LayoutBodyInner>
+                {children}
+                <GlobalServices />
             </AppProviders>
             <BeforeUnload />
         </>

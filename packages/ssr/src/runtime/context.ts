@@ -67,16 +67,28 @@ export function useSearch(): URLSearchParams {
     return useRouterState().search;
 }
 
+/** Remove `(group)` segments from a route file path. */
+function stripRouteGroups(file: string): string {
+    return file.replace(/(?:^|\/)\([^)]+\)\//g, '');
+}
+
 /**
  * Read loader data. Without arguments returns the data of the innermost
  * matched module (usually the page); pass a route file path to read the
- * data of a specific layout or the root.
+ * data of a specific layout or the root. Group segments are organizational
+ * only, so a file path that no longer matches exactly (after a file moved
+ * between groups) falls back to a group-insensitive match.
  */
 export function useLoaderData<T = unknown>(file?: string): T {
     const state = useRouterState();
     const key = file ?? state.files.at(-1);
     if (!key) throw new Error('useLoaderData: no matched route');
-    return state.data[key] as T;
+    if (key in state.data) return state.data[key] as T;
+    const normalized = stripRouteGroups(key);
+    for (const [dataKey, value] of Object.entries(state.data)) {
+        if (stripRouteGroups(dataKey) === normalized) return value as T;
+    }
+    return undefined as T;
 }
 
 /**

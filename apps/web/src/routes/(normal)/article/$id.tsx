@@ -10,6 +10,10 @@ import { getArticleCoverUrl } from '@/providers/firefly/metadata/getArticleCover
 import { getArticleDetailPageData } from '@/providers/firefly/metadata/getArticleDetailPageData.js';
 import type { Article } from '@/providers/types/Article.js';
 
+/** Renders its own header — suppress the (normal) frame's NavigatorBar. */
+export const topnav = () => null;
+
+
 interface ArticleLoaderData {
     article: Article;
     cover: string | null;

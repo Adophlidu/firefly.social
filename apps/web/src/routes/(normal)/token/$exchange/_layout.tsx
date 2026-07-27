@@ -4,6 +4,11 @@ import type { ReactNode } from 'react';
 import { resolveTokenDetailQueryOptions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
 import { getTokenDetailPageData } from '@/providers/firefly/metadata/getTokenDetailPageData.js';
 
+/** Renders its own header and no compose affordance. */
+export const topnav = () => null;
+export const compose = () => null;
+
+
 function updateSearch(originSearch: string, patch: Record<string, string>) {
     const newSearch = new URLSearchParams(originSearch);
     newSearch.delete('isCoinId');
