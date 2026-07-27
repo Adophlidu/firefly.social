@@ -47,22 +47,20 @@ const HOME_TAB_PATTERNS: Array<`/${string}`> = [
  */
 function ExploreSubnav() {
     const pathname = usePathname();
-    const [, explore, source] = pathname.split('/');
+    const [, , explore, source] = pathname.split('/');
     if (!explore) return null;
     return (
         <>
             <ExploreSourceTabs explore={explore as ExploreType} />
-            <NoSSR>
-                {explore === ExploreType.Prediction ? (
-                    <PredictionSourceNav className="bg-primaryBottom" />
-                ) : source ? (
-                    <ExploreSourceNav
-                        explore={explore as ExploreType}
-                        source={source as ExploreSourceInURL}
-                        className="bg-primaryBottom"
-                    />
-                ) : null}
-            </NoSSR>
+            {explore === ExploreType.Prediction ? (
+                <PredictionSourceNav className="bg-primaryBottom" />
+            ) : source ? (
+                <ExploreSourceNav
+                    explore={explore as ExploreType}
+                    source={source as ExploreSourceInURL}
+                    className="bg-primaryBottom"
+                />
+            ) : null}
         </>
     );
 }

@@ -17,6 +17,10 @@ import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { getProfilePageMetadata } from '@/providers/firefly/metadata/getProfilePageMetadata.js';
 
+// Mirrors the old layout's `revalidate = 300`: anonymous responses are
+// CDN-cached; cookied requests bypass the CDN.
+export const config = { cache: { sMaxAge: 300 } };
+
 /**
  * Equivalent of the category layout's generateMetadata in the Next app
  * (src/app/[locale]/(normal)/profile/(profile)/[source]/[id]/[category]/layout.tsx).

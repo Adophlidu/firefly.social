@@ -329,7 +329,13 @@ export function createServerHandler<TEnv = unknown>(
                 data,
                 heads,
             };
-            return Response.json(navigationPayload);
+            const response = Response.json(navigationPayload);
+            // Honor the page's cache config on payloads too — tab switches
+            // and repeat visits then hit the CDN instead of re-running
+            // loaders (the old Next app's `revalidate` covered both).
+            const cache = modules[matched.page.pageFile ?? '']?.config?.cache;
+            if (cache) response.headers.set('cache-control', cacheControlHeader(cache));
+            return response;
         }
 
         return renderPage({

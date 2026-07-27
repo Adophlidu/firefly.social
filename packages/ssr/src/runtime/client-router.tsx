@@ -14,6 +14,11 @@ import type { HeadDescriptor, LoaderContext, RouteModuleMap } from './types.ts';
 
 export type HistoryMode = 'browser' | 'memory';
 
+/** How long a navigation payload stays reusable (Next.js: 30s for dynamic). */
+const PAYLOAD_CACHE_TTL = 30_000;
+/** Bound on cached payloads; oldest entry is evicted first. */
+const PAYLOAD_CACHE_MAX = 50;
+
 export interface ClientRouterState {
     match: RouteMatch;
     /** Resolved modules of the current chain. */
@@ -82,20 +87,28 @@ export function ClientApp(props: ClientAppProps): ReactElement {
     const matcher = useMemo(() => createMatcher(tree), [tree]);
     const navigationId = useRef(0);
     const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const payloadCache = useRef(new Map<string, Promise<NavigationPayload | null>>());
+    const payloadCache = useRef(new Map<string, { time: number; promise: Promise<NavigationPayload | null> }>());
 
+    // Short-TTL payload cache (Next.js client router semantics): repeat
+    // visits, back/forward and hover-prefetched links swap instantly instead
+    // of waiting for another server roundtrip. Entries are also written by
+    // `prefetch`, so most real clicks hit a warm cache.
     const fetchPayload = useCallback(
         (pathname: string, search: string): Promise<NavigationPayload | null> => {
             const key = pathname + search;
             const cached = payloadCache.current.get(key);
-            if (cached) return cached;
+            if (cached && Date.now() - cached.time < PAYLOAD_CACHE_TTL) return cached.promise;
             const promise = fetch(withBasepath(key, basepath), { headers: { [SSR_DATA_HEADER]: 'true' } })
                 .then(async (response) => {
                     if (!response.ok) return null;
                     return (await response.json()) as NavigationPayload;
                 })
                 .catch(() => null);
-            payloadCache.current.set(key, promise);
+            if (payloadCache.current.size >= PAYLOAD_CACHE_MAX) {
+                const oldest = payloadCache.current.keys().next().value;
+                if (oldest !== undefined) payloadCache.current.delete(oldest);
+            }
+            payloadCache.current.set(key, { time: Date.now(), promise });
             return promise;
         },
         [basepath],
@@ -158,8 +171,6 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     fullLoad();
                     return;
                 }
-
-                payloadCache.current.delete(target + url.search);
 
                 // A loader redirected: follow it as another navigation.
                 if (navigation.redirect) {
