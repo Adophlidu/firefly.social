@@ -1,9 +1,13 @@
-import { ExploreType } from '@dimensiondev/enums';
-import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
+import { type ExploreSourceInURL, ExploreType } from '@dimensiondev/enums';
+import { type LoaderContext, useLoaderData, useParams } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
 import { getExploreChannelsPageData } from '@/app/[locale]/(normal)/explore/[explore]/[source]/getExploreChannelsPageData.js';
 import { ExploreChannelsProvider } from '@/components/Explores/ExploreChannelsContext.js';
+import { ExploreSourceTabs } from '@/components/Explores/ExploreSourceTabs.js';
+import { HeaderSearchBar } from '@/components/Search/SearchBar.js';
+import { ExploreSourceNav } from '@/components/SourceNav/ExploreSourceNav.js';
+import { PredictionSourceNav } from '@/components/SourceNav/PredictionSourceNav.js';
 import type { ExploreChannelsInitialData } from '@/helpers/buildExploreChannelsInitialData.js';
 
 interface ExploreLayoutData {
@@ -18,6 +22,27 @@ export async function loader({ params }: LoaderContext): Promise<ExploreLayoutDa
         isTopChannels,
         initialChannelsPage: isTopChannels ? await getExploreChannelsPageData(params.source!) : undefined,
     };
+}
+
+/** The explore sub-navigation including the per-source nav (the old
+    @subnav/explore/[explore]/[source] parallel route). */
+export function subnav() {
+    const { explore, source } = useParams();
+    return (
+        <>
+            <HeaderSearchBar />
+            <ExploreSourceTabs explore={explore as ExploreType} />
+            {explore === ExploreType.Prediction ? (
+                <PredictionSourceNav className="bg-primaryBottom" />
+            ) : (
+                <ExploreSourceNav
+                    explore={explore as ExploreType}
+                    source={source as ExploreSourceInURL}
+                    className="bg-primaryBottom"
+                />
+            )}
+        </>
+    );
 }
 
 /**

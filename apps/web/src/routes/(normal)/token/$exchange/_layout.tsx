@@ -4,6 +4,10 @@ import type { ReactNode } from 'react';
 import { resolveTokenDetailQueryOptions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
 import { getTokenDetailPageData } from '@/providers/firefly/metadata/getTokenDetailPageData.js';
 
+/** Manages its own right column. */
+export const sidebar = () => null;
+
+
 /** Renders its own header and no compose affordance. */
 export const topnav = () => null;
 export const compose = () => null;

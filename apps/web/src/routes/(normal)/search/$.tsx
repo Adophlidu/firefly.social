@@ -1,4 +1,14 @@
 import { SearchType } from '@dimensiondev/enums';
+import { useSearchStateStore as useSearchStateStoreForSidebar } from '@/store/useSearchStore.js';
+import { DefaultRightSidebarContent } from '@/components/DefaultRightSidebarContent.js';
+import { SearchPredictionFilterSidebar } from '@/components/Search/SearchPredictionFilterSidebar.js';
+
+/** Prediction searches get the filter sidebar (the old exact-path rule,
+    expressed against the search-type store the page already uses). */
+export function sidebar() {
+    const { searchType } = useSearchStateStoreForSidebar();
+    return searchType === SearchType.Prediction ? <SearchPredictionFilterSidebar /> : <DefaultRightSidebarContent />;
+}
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { SearchChannelContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchChannelContent.js';

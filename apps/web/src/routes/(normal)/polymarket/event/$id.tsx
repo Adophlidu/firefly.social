@@ -7,6 +7,10 @@ import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPoly
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
 import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 
+/** Manages its own right column. */
+export const sidebar = () => null;
+
+
 /** Renders its own header — suppress the (normal) frame's NavigatorBar. */
 export const topnav = () => null;
 
