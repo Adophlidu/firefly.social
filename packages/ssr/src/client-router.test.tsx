@@ -6,13 +6,26 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { hydrateApp } from './client.tsx';
 import { buildRouteTree } from './router/tree.ts';
-import { Link, SsrDataOutlet, useLoaderData, useNavigate, useRouterState } from './index.ts';
+import { HeadOutlet, Link, SsrDataOutlet, useLoaderData, useNavigate, useRouterState } from './index.ts';
 import type { RouteModuleMap } from './runtime/types.ts';
 import { createServerHandler } from './server.ts';
 
 function Root(props: { children?: ReactNode }) {
     return (
         <div id="app">
+            {props.children}
+            <SsrDataOutlet />
+        </div>
+    );
+}
+
+// Variant exercising head updates on navigation (React owns <head> tags
+// via <HeadOutlet>; two mounted head-rendering roots would fight over
+// document.head, so only the title test uses it).
+function HeadfulRoot(props: { children?: ReactNode }) {
+    return (
+        <div id="app">
+            <HeadOutlet />
             {props.children}
             <SsrDataOutlet />
         </div>
@@ -69,6 +82,7 @@ async function renderInto(path: string): Promise<HTMLElement> {
 }
 
 describe('client-side navigation', () => {
+    const mountedRoots: Array<{ unmount: () => void }> = [];
     beforeEach(() => {
         (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
         window.history.replaceState(null, '', '/');
@@ -76,6 +90,12 @@ describe('client-side navigation', () => {
     });
 
     afterEach(() => {
+        // Unmount every hydrated root: React 19 hoists head tags into the
+        // shared document.head, and a root left mounted across tests fights
+        // the next one over those nodes (removeChild on null).
+        for (const root of mountedRoots.splice(0)) {
+            act(() => root.unmount());
+        }
         document.body.innerHTML = '';
         vi.unstubAllGlobals();
         vi.restoreAllMocks();
@@ -93,9 +113,13 @@ describe('client-side navigation', () => {
         });
         vi.stubGlobal('fetch', fetchMock);
 
+        const headfulTree = buildRouteTree({ files: FILES });
+        const headfulModules: RouteModuleMap = { ...modules, '__root.tsx': { default: HeadfulRoot } };
         const container = await renderInto('/');
         await act(async () => {
-            await hydrateApp({ tree, modules, root: container, url: 'http://localhost/' });
+            mountedRoots.push(
+                await hydrateApp({ tree: headfulTree, modules: headfulModules, root: container, url: 'http://localhost/' }),
+            );
         });
         expect(container.querySelector('h1')?.textContent).toBe('home');
 
@@ -117,7 +141,7 @@ describe('client-side navigation', () => {
 
         const container = await renderInto('/');
         await act(async () => {
-            await hydrateApp({ tree, modules, root: container, url: 'http://localhost/' });
+            mountedRoots.push(await hydrateApp({ tree, modules, root: container, url: 'http://localhost/' }));
         });
 
         const anchor = container.querySelector('a')!;
@@ -145,7 +169,7 @@ describe('client-side navigation', () => {
 
         const container = await renderInto('/');
         await act(async () => {
-            await hydrateApp({ tree, modules, root: container, url: 'http://localhost/' });
+            mountedRoots.push(await hydrateApp({ tree, modules, root: container, url: 'http://localhost/' }));
         });
 
         await act(async () => {
@@ -180,7 +204,7 @@ describe('client-side navigation', () => {
 
         const container = await renderInto('/');
         await act(async () => {
-            await hydrateApp({ tree, modules, root: container, url: 'http://localhost/' });
+            mountedRoots.push(await hydrateApp({ tree, modules, root: container, url: 'http://localhost/' }));
         });
 
         await act(async () => {
@@ -215,13 +239,15 @@ describe('client-side navigation', () => {
 
         const container = await renderInto('/');
         await act(async () => {
-            await hydrateApp({
-                tree,
-                modules: pendingModules,
-                root: container,
-                url: 'http://localhost/',
-                pendingMs: 10,
-            });
+            mountedRoots.push(
+                await hydrateApp({
+                    tree,
+                    modules: pendingModules,
+                    root: container,
+                    url: 'http://localhost/',
+                    pendingMs: 10,
+                }),
+            );
         });
 
         // Start a navigation whose payload never arrives immediately.
@@ -286,7 +312,7 @@ describe('client-side navigation', () => {
         document.body.append(container);
 
         await act(async () => {
-            await hydrateApp({ tree, modules: probeModules, root: container, url: 'http://localhost/' });
+            mountedRoots.push(await hydrateApp({ tree, modules: probeModules, root: container, url: 'http://localhost/' }));
         });
         expect(observedType).toBeUndefined();
 
@@ -294,5 +320,56 @@ describe('client-side navigation', () => {
             container.querySelector('button')!.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
         });
         expect(observedType).toBe('replace');
+    });
+
+    it('runs client-only loaders in the browser and merges their data', async () => {
+        const coFiles = ['__root.tsx', 'index.tsx', 'co.tsx'];
+        const coTree = buildRouteTree({ files: coFiles, clientOnly: (file) => file === 'co.tsx' });
+        const coModules: RouteModuleMap = {
+            '__root.tsx': { default: Root },
+            'index.tsx': {
+                default: function CoHomePage() {
+                    return (
+                        <main>
+                            <h1>home</h1>
+                            <Link href="/co">go co</Link>
+                        </main>
+                    );
+                },
+                loader: () => ({ message: 'home' }),
+            },
+            'co.tsx': {
+                default: function CoPage() {
+                    const data = useLoaderData<{ message: string }>();
+                    return <main>co:{data.message}</main>;
+                },
+                loader: () => ({ message: 'loaded-on-client' }),
+            },
+        };
+        // The server payload can only carry non-clientOnly data.
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async () => Response.json({ url: '/co', params: {}, data: {}, heads: [] })),
+        );
+
+        const tree = coTree;
+        const handler = createServerHandler({ tree, modules: coModules });
+        const response = await handler(new Request('http://localhost/'));
+        const html = (await response.text()).replace('<!DOCTYPE html>', '');
+        const container = document.createElement('div');
+        container.innerHTML = html;
+        document.body.append(container);
+
+        await act(async () => {
+            mountedRoots.push(await hydrateApp({ tree, modules: coModules, root: container, url: 'http://localhost/' }));
+        });
+
+        const anchor = container.querySelector('a');
+        await act(async () => {
+            anchor!.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        });
+
+        expect(container.querySelector('main')?.textContent).toBe('co:loaded-on-client');
+        expect(window.location.pathname).toBe('/co');
     });
 });

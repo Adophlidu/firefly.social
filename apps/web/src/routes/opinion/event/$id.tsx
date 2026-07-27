@@ -4,6 +4,7 @@ import { type HeadContext, type LoaderContext, useLoaderData } from '@dimensiond
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
+import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 
 interface OpinionEventLoaderData {
     id: string;
@@ -13,12 +14,12 @@ interface OpinionEventLoaderData {
 }
 
 // Reads ?type= searchParams — fully dynamic by design (no cache config).
-export function loader({ params, url }: LoaderContext): OpinionEventLoaderData {
+export function loader({ params, url, request }: LoaderContext): OpinionEventLoaderData {
     const type = url.searchParams.get('type');
     return {
         id: params.id!,
         isMutil: type === 'multi',
-        locale: params.locale!,
+        locale: resolveRequestLocale(request),
         type,
     };
 }
@@ -29,7 +30,7 @@ export async function head({ data, params }: HeadContext) {
         await getPredictionEventPageMetadata({
             id: params.id ?? '',
             isMutil: Boolean(isMutil),
-            locale: locale ?? params.locale ?? 'en',
+            locale: locale ?? 'en',
             platform: PredictionPlatform.Opinion,
             pathname: `/opinion/event/${params.id}${type ? `?type=${type}` : ''}`,
             type: type ?? undefined,

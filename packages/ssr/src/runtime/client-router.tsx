@@ -5,11 +5,12 @@ import { createMatcher, type RouteMatch } from '../router/matcher.ts';
 import type { RouteTree } from '../router/tree.ts';
 import { composeMatch, findBoundaryComponent } from './compose.tsx';
 import { RouterContext } from './context.ts';
-import { applyHeads } from './head-manager.ts';
+import { isNotFoundError, isRedirectError } from './errors.ts';
+import { filesOfMatch } from './loaders.ts';
 import { stripBasepath, withBasepath } from './paths.ts';
 import { resolveChainModules, type RouteModuleInput } from './resolve-modules.ts';
 import { SSR_DATA_HEADER, type NavigationPayload, type SsrPayload } from './serialize.ts';
-import type { HeadDescriptor, RouteModuleMap } from './types.ts';
+import type { HeadDescriptor, LoaderContext, RouteModuleMap } from './types.ts';
 
 export type HistoryMode = 'browser' | 'memory';
 
@@ -174,11 +175,51 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     else window.history.pushState(null, '', href);
                 }
                 const navigationError = navigation.error ? new Error(navigation.error) : undefined;
-                if (!navigationError && !navigation.notFound) applyHeads(navigation.heads);
+
+                // Client-only modules never reach the server bundle, so
+                // their loaders can only run here, in the browser. Fill in
+                // the files the payload could not cover.
+                let data = navigation.data;
+                const clientOnlyFiles = (tree.clientOnlyFiles?.size ?? 0) > 0 ? filesOfMatch(matched).filter((file) => tree.clientOnlyFiles?.has(file)) : [];
+                if (clientOnlyFiles.length > 0 && !navigationError && !navigation.notFound) {
+                    const loaderContext: LoaderContext = {
+                        params: matched.params,
+                        request: new Request(url.href),
+                        url,
+                    };
+                    try {
+                        const extraEntries = await Promise.all(
+                            clientOnlyFiles.map(async (file) => {
+                                if (data[file] !== undefined) return null;
+                                const loader = modules[file]?.loader;
+                                if (!loader) return null;
+                                return [file, await loader(loaderContext)] as const;
+                            }),
+                        );
+                        if (id !== navigationId.current) return; // superseded
+                        const extra = Object.fromEntries(extraEntries.filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)));
+                        if (Object.keys(extra).length > 0) data = { ...data, ...extra };
+                    } catch (error) {
+                        if (isRedirectError(error)) {
+                            navigate(error.url, options);
+                            return;
+                        }
+                        if (isNotFoundError(error)) {
+                            setState((previous) => ({ ...previous, notFound: true }));
+                            return;
+                        }
+                        setState((previous) => ({
+                            ...previous,
+                            error: error instanceof Error ? error : new Error(String(error)),
+                        }));
+                        return;
+                    }
+                }
+
                 setState({
                     match: matched,
                     modules,
-                    data: navigation.data,
+                    data,
                     heads: navigation.heads,
                     pathname: target,
                     search: url.searchParams,

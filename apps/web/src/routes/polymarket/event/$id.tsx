@@ -5,6 +5,7 @@ import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPolymarketEventPageData.js';
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
+import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 
 interface PolymarketEventLoaderData {
     event: NonNullable<Awaited<ReturnType<typeof getPolymarketEventPageData>>['event']>;
@@ -15,9 +16,9 @@ interface PolymarketEventLoaderData {
 }
 
 // Reads ?type= searchParams — fully dynamic by design (no cache config).
-export async function loader({ params, url }: LoaderContext): Promise<PolymarketEventLoaderData> {
+export async function loader({ params, url, request }: LoaderContext): Promise<PolymarketEventLoaderData> {
     const id = params.id!;
-    const locale = params.locale!;
+    const locale = resolveRequestLocale(request);
     const type = url.searchParams.get('type');
     const isMutil = type === 'multi';
 
@@ -33,7 +34,7 @@ export async function head({ data, params }: HeadContext) {
         await getPredictionEventPageMetadata({
             id: params.id ?? '',
             isMutil: Boolean(isMutil),
-            locale: locale ?? params.locale ?? 'en',
+            locale: locale ?? 'en',
             platform: PredictionPlatform.Polymarket,
             pathname: `/polymarket/event/${params.id}`,
             type: type ?? undefined,

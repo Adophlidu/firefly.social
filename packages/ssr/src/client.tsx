@@ -1,4 +1,4 @@
-import { hydrateRoot } from 'react-dom/client';
+import { hydrateRoot, type Root } from 'react-dom/client';
 
 import { createMatcher } from './router/matcher.ts';
 import type { RouteTree } from './router/tree.ts';
@@ -76,8 +76,9 @@ function defaultRecoverableErrorHandler(error: unknown): void {
 /**
  * Hydrate a server-rendered app: read the dehydration payload, rebuild the
  * matched element tree with the same data, and attach the client router.
+ * Returns the React root so callers (tests, embeds) can unmount later.
  */
-export async function hydrateApp(options: HydrateAppOptions): Promise<void> {
+export async function hydrateApp(options: HydrateAppOptions): Promise<Root> {
     const { tree, modules: moduleInput, root = document } = options;
 
     const payloadElement = document.getElementById(SSR_DATA_ELEMENT_ID);
@@ -101,7 +102,7 @@ export async function hydrateApp(options: HydrateAppOptions): Promise<void> {
     // to a synchronous recompute for payloads rendered by an older server.
     const heads = payload.heads ?? collectHeads(matched, modules, payload.data);
 
-    hydrateRoot(
+    return hydrateRoot(
         root,
         <ClientApp
             tree={tree}

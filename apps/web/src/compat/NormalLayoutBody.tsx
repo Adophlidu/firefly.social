@@ -1,15 +1,24 @@
+import { ExploreType, type ExploreSourceInURL } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import type { ReactNode } from 'react';
 
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { DefaultRightSidebarContent } from '@/components/DefaultRightSidebarContent.js';
+import { ExploreSourceTabs } from '@/components/Explores/ExploreSourceTabs.js';
 import { HomeTabs } from '@/components/HomeTab/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
+import { NoSSR } from '@/components/NoSSR.js';
+import { ClubTypeTab } from '@/components/Search/CommunityTypeTab.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchPredictionFilterSidebar } from '@/components/Search/SearchPredictionFilterSidebar.js';
+import { SearchSources } from '@/components/Search/SearchSources.js';
+import { SearchTabs } from '@/components/Search/SearchTabs.js';
+import { ExploreSourceNav } from '@/components/SourceNav/ExploreSourceNav.js';
+import { PredictionSourceNav } from '@/components/SourceNav/PredictionSourceNav.js';
+import { usePathname } from '@/esm/navigation.js';
 
 // Left offset that clears the fixed navigation sidebar; shared by every main content column.
 const SIDEBAR_OFFSET = 'md:pl-[235px] lg:pl-[289px]';
@@ -31,6 +40,43 @@ const HOME_TAB_PATTERNS: Array<`/${string}`> = [
     '/world-cup-feed',
     '/following',
 ];
+
+/**
+ * The explore sub-navigation (the old @subnav parallel route): explore type
+ * tabs plus the per-type source nav, driven by the current pathname.
+ */
+function ExploreSubnav() {
+    const pathname = usePathname();
+    const [, explore, source] = pathname.split('/');
+    if (!explore) return null;
+    return (
+        <>
+            <ExploreSourceTabs explore={explore as ExploreType} />
+            <NoSSR>
+                {explore === ExploreType.Prediction ? (
+                    <PredictionSourceNav className="bg-primaryBottom" />
+                ) : source ? (
+                    <ExploreSourceNav
+                        explore={explore as ExploreType}
+                        source={source as ExploreSourceInURL}
+                        className="bg-primaryBottom"
+                    />
+                ) : null}
+            </NoSSR>
+        </>
+    );
+}
+
+/** The search sub-navigation (the old @subnav/search parallel route). */
+function SearchSubnav() {
+    return (
+        <>
+            <SearchTabs />
+            <ClubTypeTab />
+            <SearchSources />
+        </>
+    );
+}
 
 /**
  * Port of the Next (normal) group layout
@@ -82,7 +128,12 @@ export function NormalLayoutBody({ children }: { children?: ReactNode }) {
 
                         <IfPathname isOneOf={['/search', '/explore']}>
                             <HeaderSearchBar />
-                            {/* @subnav parallel slot renders null by default */}
+                            <IfPathname isOneOf={['/explore']}>
+                                <ExploreSubnav />
+                            </IfPathname>
+                            <IfPathname isOneOf={['/search']}>
+                                <SearchSubnav />
+                            </IfPathname>
                         </IfPathname>
                     </div>
                     <IfPathname isOneOf={HOME_TAB_PATTERNS}>
@@ -110,6 +161,7 @@ export function NormalLayoutBody({ children }: { children?: ReactNode }) {
                             }
                         >
                             {/* @sidebar parallel slot renders null by default */}
+                            {null}
                         </IfPathname>
                         <LinkCloud />
                     </div>
