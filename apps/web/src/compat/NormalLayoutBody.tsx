@@ -32,14 +32,20 @@ const parallelSidebarPatterns: Array<`/${string}`> = [
 ];
 
 // Pages that render the home tabs above their content — the old (home) group:
-// (discover) posts/activities/prediction/world-cup-feed + following/*.
-const HOME_TAB_PATTERNS: Array<`/${string}`> = [
-    '/posts',
-    '/activities',
-    '/prediction',
-    '/world-cup-feed',
-    '/following',
-];
+// (discover) posts/activities/prediction/world-cup-feed (exact) + following/*.
+// Exact matching matters: /prediction/category/* and /prediction/leaderboard
+// are NOT home pages even though they share the prefix.
+const HOME_TAB_EXACT_PATHS: Array<`/${string}`> = ['/posts', '/activities', '/prediction', '/world-cup-feed'];
+const HOME_TAB_PREFIX_PATHS: Array<`/${string}`> = ['/following'];
+
+function HomeTabsFrame({ children }: { children?: ReactNode }) {
+    return (
+        <div className="flex w-full flex-col">
+            <HomeTabs />
+            {children}
+        </div>
+    );
+}
 
 /**
  * The explore sub-navigation (the old @subnav parallel route): explore type
@@ -134,13 +140,15 @@ export function NormalLayoutBody({ children }: { children?: ReactNode }) {
                             </IfPathname>
                         </IfPathname>
                     </div>
-                    <IfPathname isOneOf={HOME_TAB_PATTERNS}>
-                        <div className="flex w-full flex-col">
-                            <HomeTabs />
-                            {children}
-                        </div>
+                    <IfPathname exact isOneOf={HOME_TAB_EXACT_PATHS}>
+                        <HomeTabsFrame>{children}</HomeTabsFrame>
                     </IfPathname>
-                    <IfPathname isNotOneOf={HOME_TAB_PATTERNS}>{children}</IfPathname>
+                    <IfPathname exact isNotOneOf={HOME_TAB_EXACT_PATHS}>
+                        <IfPathname isOneOf={HOME_TAB_PREFIX_PATHS}>
+                            <HomeTabsFrame>{children}</HomeTabsFrame>
+                        </IfPathname>
+                        <IfPathname isNotOneOf={HOME_TAB_PREFIX_PATHS}>{children}</IfPathname>
+                    </IfPathname>
                 </main>
                 <aside className="sticky top-0 z-1 hidden h-screen w-96 flex-col px-4 md:min-w-[384px] lg:flex">
                     <AsideSearchBar />
