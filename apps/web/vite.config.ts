@@ -111,25 +111,31 @@ export default defineConfig({
             // Personalized routes (login-gated feeds, home redirect): the
             // server only streams the pending shell, the client takes over.
             // Keeps their client-only dependency graph out of the worker too.
-            clientOnly: (file) =>
-                file === 'index.tsx' ||
-                file.startsWith('activities/') ||
-                file.startsWith('prediction/') ||
-                file.startsWith('world-cup-feed/') ||
-                file.startsWith('following/') ||
-                file.startsWith('settings/') ||
-                file.startsWith('bookmarks/') ||
-                file.startsWith('notifications/') ||
-                file.startsWith('messages/') ||
-                // Interactive login/whiteboard flows.
-                file.startsWith('signup/') ||
-                file.startsWith('login/') ||
-                file.startsWith('telegram/') ||
-                file.startsWith('frame/') ||
-                file.startsWith('redirect/') ||
-                // Interactive trading apps, not SEO content.
-                file.startsWith('polymarket/') ||
-                file.startsWith('opinion/'),
+            clientOnly: (file) => {
+                // Group segments are organizational only — strip them so the
+                // patterns below stay URL-shaped regardless of file moves.
+                const path = file.replace(/(?:^|\/)\([^)]+\)(?=\/)/g, '');
+                return (
+                    path === 'index.tsx' ||
+                    path.startsWith('activities/') ||
+                    path.startsWith('prediction/') ||
+                    path.startsWith('world-cup-feed/') ||
+                    path.startsWith('following/') ||
+                    path.startsWith('settings/') ||
+                    path.startsWith('bookmarks/') ||
+                    path.startsWith('notifications/') ||
+                    path.startsWith('messages/') ||
+                    // Interactive login/whiteboard flows.
+                    path.startsWith('signup/') ||
+                    path.startsWith('login/') ||
+                    path.startsWith('telegram/') ||
+                    path.startsWith('frame/') ||
+                    path.startsWith('redirect/') ||
+                    // Interactive trading apps, not SEO content.
+                    path.startsWith('polymarket/') ||
+                    path.startsWith('opinion/')
+                );
+            },
         }),
         react({
             babel: {
