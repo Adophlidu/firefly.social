@@ -1,4 +1,4 @@
 export const FEATURE_FLAGS = {
-    messages: false,
-    perpetuals: false,
+    messages: true,
+    perpetuals: true,
 } as const;
