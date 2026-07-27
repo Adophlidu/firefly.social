@@ -29,6 +29,8 @@ export interface RouterState {
     error?: Error;
     /** True when rendering a `notFoundComponent` fallback. */
     notFound?: boolean;
+    /** True while a client-side navigation payload is in flight. */
+    pending?: boolean;
     /** Client-side navigation. Undefined during server rendering. */
     navigate?: (to: string, options?: { replace?: boolean; scroll?: boolean }) => void;
     /** Prefetch a route's data payload. Undefined during server rendering. */
@@ -73,6 +75,20 @@ function stripRouteGroups(file: string): string {
 }
 
 /**
+ * Find a chain data entry by route file, tolerating `(group)` moves
+ * (same rule as useLoaderData's fallback).
+ */
+export function findChainData<T = unknown>(allData: Record<string, unknown> | undefined, file: string): T | undefined {
+    if (!allData) return undefined;
+    if (file in allData) return allData[file] as T;
+    const normalized = stripRouteGroups(file);
+    for (const [key, value] of Object.entries(allData)) {
+        if (stripRouteGroups(key) === normalized) return value as T;
+    }
+    return undefined;
+}
+
+/**
  * Read loader data. Without arguments returns the data of the innermost
  * matched module (usually the page); pass a route file path to read the
  * data of a specific layout or the root. Group segments are organizational
@@ -104,4 +120,14 @@ export function useNavigate(): (to: string, options?: { replace?: boolean; scrol
         };
     }
     return navigate;
+}
+
+/**
+ * True while a client-side navigation is in flight (payload loading). When
+ * the new chain can render immediately, the target page already shows its
+ * loading boundary; otherwise the previous page stays mounted — apps use
+ * this to show a global progress indicator for that case.
+ */
+export function useIsNavigating(): boolean {
+    return Boolean(useRouterState().pending);
 }

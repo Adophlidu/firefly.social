@@ -3,6 +3,7 @@ import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
 import { AgentProvider } from '@/components/AgentProvider.js';
+import { NavigationProgress } from '@/components/NavigationProgress.js';
 import { LangSetter } from '@/components/LangSetter.js';
 import { AppLayoutBody } from '@/compat/AppLayoutBody.js';
 import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children?: ReactNode }) {
 
     return (
         <AgentProvider>
+            <NavigationProgress />
             <LangSetter locale={locale} />
             <AppLayoutBody locale={locale}>{children}</AppLayoutBody>
         </AgentProvider>

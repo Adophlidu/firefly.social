@@ -240,7 +240,15 @@ export function createServerHandler<TEnv = unknown>(
         let data: Record<string, unknown>;
         let heads: NavigationPayload['heads'];
         try {
-            ({ data, heads } = await resolveChain(matched, modules, { request, url, ...platform }));
+            // x-ssr-have: the client already holds fresh data for these files
+            // (params + search unchanged), so skip their loaders. When the
+            // client reuses anything, it recomputes heads after merging, so
+            // the server skips head work entirely for this payload.
+            const haveHeader = wantsData ? request.headers.get('x-ssr-have') : null;
+            const have = haveHeader ? haveHeader.split(',').filter(Boolean) : [];
+            const skipLoaders = have.length ? new Set(have) : undefined;
+            ({ data, heads } = await resolveChain(matched, modules, { request, url, ...platform }, skipLoaders));
+            if (have.length) heads = [];
         } catch (error) {
             if (isRedirectError(error)) {
                 if (wantsData) {

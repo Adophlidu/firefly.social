@@ -28,12 +28,15 @@ export function filesOfMatch(match: RouteMatch): string[] {
 
 /**
  * Run the loaders of every module in the matched chain (in parallel), then
- * collect head descriptors with the resolved data.
+ * collect head descriptors with the resolved data. Files in `skipLoaders`
+ * keep neither loader nor data — used by the `x-ssr-have` protocol, where
+ * the client already holds fresh data for those files.
  */
 export async function resolveChain(
     match: RouteMatch,
     modules: RouteModuleMap,
     context: Omit<LoaderContext, 'params'>,
+    skipLoaders?: ReadonlySet<string>,
 ): Promise<ResolvedChain> {
     const loaderContext: LoaderContext = {
         params: match.params,
@@ -46,7 +49,7 @@ export async function resolveChain(
     const dataEntries = await Promise.all(
         filesOfMatch(match).map(async (file) => {
             const routeModule = modules[file];
-            if (!routeModule?.loader) return null;
+            if (!routeModule?.loader || skipLoaders?.has(file)) return null;
             return [file, await routeModule.loader(loaderContext)] as const;
         }),
     );
@@ -73,7 +76,7 @@ export async function resolveHeads(
         filesOfMatch(match).map(async (file) => {
             const routeModule = modules[file];
             if (!routeModule?.head) return null;
-            return routeModule.head({ data: data[file], params: match.params });
+            return routeModule.head({ data: data[file], allData: data, params: match.params });
         }),
     );
     return heads.filter((head): head is HeadDescriptor => Boolean(head));

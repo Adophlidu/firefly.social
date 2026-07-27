@@ -4,7 +4,16 @@ import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 import { getDiscoverPostsPageData } from '@/app/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
+import { Loading } from '@/components/Loading.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+
+/** Shown in the page area while this route's data is in flight (layouts keep rendering). */
+export const loadingComponent = () => (
+    <div className="flex min-h-[50vh] items-center justify-center">
+        <Loading minHeight={200} />
+    </div>
+);
+
 
 export const config = { cache: { sMaxAge: 60 } };
 

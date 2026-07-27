@@ -24,7 +24,7 @@ export { ClientApp, Link } from './runtime/client-router.tsx';
 export { ClientOnly } from './runtime/client-only.tsx';
 export type { ClientOnlyProps } from './runtime/client-only.tsx';
 export type { ClientAppProps, ClientRouterState, HistoryMode, LinkProps } from './runtime/client-router.tsx';
-export { RouterContext, useLoaderData, useNavigate, useParams, useRouterState, useSearch } from './runtime/context.ts';
+export { findChainData, RouterContext, useIsNavigating, useLoaderData, useNavigate, useParams, useRouterState, useSearch } from './runtime/context.ts';
 export type { RouterState } from './runtime/context.ts';
 export { stripBasepath, withBasepath } from './runtime/paths.ts';
 export { collectSlots, Slot } from './runtime/slot.tsx';

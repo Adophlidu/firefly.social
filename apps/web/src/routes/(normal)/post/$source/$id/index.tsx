@@ -6,6 +6,7 @@ import { PageDetail } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/
 import type { PostThreadQueryData } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { Loading } from '@/components/Loading.js';
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
@@ -15,6 +16,14 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { createPostMetadataFromPost } from '@/providers/firefly/metadata/createPostMetadataFromPost.js';
 import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+
+/** Shown in the page area while this route's data is in flight (layouts keep rendering). */
+export const loadingComponent = () => (
+    <div className="flex min-h-[50vh] items-center justify-center">
+        <Loading minHeight={200} />
+    </div>
+);
+
 
 export const config = { cache: { sMaxAge: 300 } };
 

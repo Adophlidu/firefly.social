@@ -1,6 +1,6 @@
-import type { ProfileCategory } from '@dimensiondev/enums';
+import type { ProfileCategory, ProfilePageSourceInURL } from '@dimensiondev/enums';
 import { SocialProfileCategory, Source, WalletProfileCategory } from '@dimensiondev/enums';
-import { type HeadContext, notFound, useParams, useSearch } from '@dimensiondev/ssr';
+import { findChainData, type HeadContext, notFound, useParams, useSearch } from '@dimensiondev/ssr';
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, use, useMemo } from 'react';
 
@@ -15,7 +15,17 @@ import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
-import { getProfilePageMetadata } from '@/providers/firefly/metadata/getProfilePageMetadata.js';
+import { createProfileMetadataFromProfile } from '@/providers/firefly/metadata/createProfileMetadataFromProfile.js';
+import { createWalletProfileMetadataFromProfile } from '@/providers/firefly/metadata/createWalletProfileMetadataFromProfile.js';
+import type { ProfilePageData } from '@/providers/firefly/metadata/getProfilePageData.js';
+
+/** Shown in the page area while this route's data is in flight (layouts keep rendering). */
+export const loadingComponent = () => (
+    <div className="flex min-h-[50vh] items-center justify-center">
+        <Loading minHeight={200} />
+    </div>
+);
+
 
 // Mirrors the old layout's `revalidate = 300`: anonymous responses are
 // CDN-cached; cookied requests bypass the CDN.
@@ -24,21 +34,27 @@ export const config = { cache: { sMaxAge: 300 } };
 /**
  * Equivalent of the category layout's generateMetadata in the Next app
  * (src/app/[locale]/(normal)/profile/(profile)/[source]/[id]/[category]/layout.tsx).
+ * Derived from the layout's loader data — no second profile fetch (the old
+ * getProfilePageMetadata path re-fetched everything the layout already had).
  */
-export async function head({ params }: HeadContext) {
+export function head({ params, allData }: HeadContext) {
     const { source, id, category } = params;
     const resolvedSource = resolveSourceFromUrlNoFallback(source ?? '');
+    const pathname =
+        category === (isSocialSource(resolvedSource!) ? SocialProfileCategory.Feed : WalletProfileCategory.Transactions)
+            ? `/profile/${source}/${id}`
+            : `/profile/${source}/${id}/${category}`;
 
-    if (resolvedSource && isProfilePageSource(resolvedSource)) {
-        // the public URL of the default category is the bare profile URL
-        const defaultCategory = isSocialSource(resolvedSource)
-            ? SocialProfileCategory.Feed
-            : WalletProfileCategory.Transactions;
-        const pathname =
-            category === defaultCategory ? `/profile/${source}/${id}` : `/profile/${source}/${id}/${category}`;
-        return fromNextMetadata(await getProfilePageMetadata(source ?? '', id ?? '', pathname));
+    const pageData = findChainData<ProfilePageData>(allData, 'profile/$source/$id/_layout.tsx');
+    if (pageData?.socialProfile) {
+        return fromNextMetadata(
+            createProfileMetadataFromProfile(pageData.socialProfile, source as ProfilePageSourceInURL, pathname),
+        );
     }
-    return fromNextMetadata(createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`));
+    if (pageData?.walletProfile) {
+        return fromNextMetadata(createWalletProfileMetadataFromProfile(pageData.walletProfile, id ?? '', pathname));
+    }
+    return fromNextMetadata(createSiteMetadata(`/profile/${source}/${id}/${category}`));
 }
 
 export default function ProfileCategoryPage() {

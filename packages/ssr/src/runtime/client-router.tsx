@@ -6,13 +6,19 @@ import type { RouteTree } from '../router/tree.ts';
 import { composeMatch, findBoundaryComponent } from './compose.tsx';
 import { RouterContext } from './context.ts';
 import { isNotFoundError, isRedirectError } from './errors.ts';
-import { filesOfMatch } from './loaders.ts';
+import { filesOfMatch, resolveHeads } from './loaders.ts';
 import { stripBasepath, withBasepath } from './paths.ts';
 import { resolveChainModules, type RouteModuleInput } from './resolve-modules.ts';
 import { SSR_DATA_HEADER, type NavigationPayload, type SsrPayload } from './serialize.ts';
 import type { HeadDescriptor, LoaderContext, RouteModuleMap } from './types.ts';
 
 export type HistoryMode = 'browser' | 'memory';
+
+function shallowEqualRecord(a: Record<string, string>, b: Record<string, string>): boolean {
+    const aKeys = Object.keys(a);
+    const bKeys = Object.keys(b);
+    return aKeys.length === bKeys.length && aKeys.every((key) => a[key] === b[key]);
+}
 
 /** How long a navigation payload stays reusable (Next.js: 30s for dynamic). */
 const PAYLOAD_CACHE_TTL = 30_000;
@@ -82,11 +88,10 @@ export interface ClientAppProps {
  * `<head>`, history and scroll position.
  */
 export function ClientApp(props: ClientAppProps): ReactElement {
-    const { tree, moduleLoaders, payload, history = 'browser', basepath, pendingMs = 1000, prefetchAll = true, rewritePathname } = props;
+    const { tree, moduleLoaders, payload, history = 'browser', basepath, prefetchAll = true, rewritePathname } = props;
     const [state, setState] = useState(props.initial);
     const matcher = useMemo(() => createMatcher(tree), [tree]);
     const navigationId = useRef(0);
-    const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const payloadCache = useRef(new Map<string, { time: number; promise: Promise<NavigationPayload | null> }>());
 
     // Short-TTL payload cache (Next.js client router semantics): repeat
@@ -94,11 +99,13 @@ export function ClientApp(props: ClientAppProps): ReactElement {
     // of waiting for another server roundtrip. Entries are also written by
     // `prefetch`, so most real clicks hit a warm cache.
     const fetchPayload = useCallback(
-        (pathname: string, search: string): Promise<NavigationPayload | null> => {
-            const key = pathname + search;
+        (pathname: string, search: string, have?: string[]): Promise<NavigationPayload | null> => {
+            const key = pathname + search + (have?.length ? `|have:${have.join(',')}` : '');
             const cached = payloadCache.current.get(key);
             if (cached && Date.now() - cached.time < PAYLOAD_CACHE_TTL) return cached.promise;
-            const promise = fetch(withBasepath(key, basepath), { headers: { [SSR_DATA_HEADER]: 'true' } })
+            const headers: Record<string, string> = { [SSR_DATA_HEADER]: 'true' };
+            if (have?.length) headers['x-ssr-have'] = have.join(',');
+            const promise = fetch(withBasepath(pathname + search, basepath), { headers })
                 .then(async (response) => {
                     if (!response.ok) return null;
                     return (await response.json()) as NavigationPayload;
@@ -136,36 +143,62 @@ export function ClientApp(props: ClientAppProps): ReactElement {
 
                 const id = (navigationId.current += 1);
 
-                // Resolve the target chain's modules (usually cached) before
-                // arming the pending fallback; fetch the payload in parallel.
-                // Client-side resolution always includes client-only nodes.
-                const payloadPromise = fetchPayload(target, url.search);
+                // Data reuse: a chain file keeps its loader data when it is
+                // also in the current chain with identical params and search
+                // (the `x-ssr-have` protocol skips its server-side loader).
+                const files = filesOfMatch(matched);
+                const currentFiles = filesOfMatch(state.match);
+                const reusable =
+                    shallowEqualRecord(state.match.params, matched.params) &&
+                    state.search.toString() === url.searchParams.toString()
+                        ? files.filter((file) => currentFiles.includes(file) && state.data[file] !== undefined)
+                        : [];
+                const reusedData = Object.fromEntries(reusable.map((file) => [file, state.data[file]]));
+
+                // Fire the payload in parallel with module resolution.
+                const payloadPromise = fetchPayload(target, url.search, reusable);
                 const modules = await resolveChainModules(matched, moduleLoaders, {
                     includeClientOnly: true,
                 });
                 if (id !== navigationId.current) return; // superseded
 
-                // Slow navigations swap the page for its pending fallback.
-                if (pendingTimer.current) clearTimeout(pendingTimer.current);
-                const PendingBoundary = findBoundaryComponent(matched, modules, 'pending');
-                if (PendingBoundary && pendingMs > 0) {
-                    pendingTimer.current = setTimeout(() => {
-                        if (navigationId.current !== id) return;
-                        setState((previous) => ({
-                            match: matched,
-                            modules,
-                            data: previous.data,
-                            heads: previous.heads,
-                            pathname: target,
-                            search: url.searchParams,
-                            navigationType: options.replace ? 'replace' : 'push',
-                            pending: true,
-                        }));
-                    }, pendingMs);
+                const pushUrl = () => {
+                    if (history !== 'browser') return;
+                    // Keep the browser URL clean (un-rewritten, like Next's
+                    // middleware model); the rewrite only affects routing.
+                    const href = withBasepath(url.pathname, basepath) + url.search + url.hash;
+                    if (options.replace) window.history.replaceState(null, '', href);
+                    else window.history.pushState(null, '', href);
+                };
+
+                // Instant transition: swap immediately when every layout in
+                // the new chain can render (its loader data was reused, or it
+                // has no loader). The page area shows the route's loading
+                // boundary until the payload lands. Otherwise keep the old
+                // page and only mark the transition (see useIsNavigating).
+                const renderable = files.every((file) => {
+                    if (file === matched.page.pageFile) return true;
+                    const routeModule = modules[file];
+                    if (!routeModule?.default || !routeModule.loader) return true;
+                    return reusable.includes(file);
+                });
+                if (renderable) {
+                    pushUrl();
+                    setState((previous) => ({
+                        match: matched,
+                        modules,
+                        data: { ...reusedData },
+                        heads: previous.heads,
+                        pathname: target,
+                        search: url.searchParams,
+                        navigationType: options.replace ? 'replace' : 'push',
+                        pending: true,
+                    }));
+                } else {
+                    setState((previous) => ({ ...previous, pending: true }));
                 }
 
                 const navigation = await payloadPromise;
-                if (pendingTimer.current) clearTimeout(pendingTimer.current);
                 if (id !== navigationId.current) return; // superseded
                 if (!navigation) {
                     fullLoad();
@@ -178,19 +211,13 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     return;
                 }
 
-                if (history === 'browser') {
-                    // Keep the browser URL clean (un-rewritten, like Next's
-                    // middleware model); the rewrite only affects routing.
-                    const href = withBasepath(url.pathname, basepath) + url.search + url.hash;
-                    if (options.replace) window.history.replaceState(null, '', href);
-                    else window.history.pushState(null, '', href);
-                }
+                if (!renderable) pushUrl();
                 const navigationError = navigation.error ? new Error(navigation.error) : undefined;
 
                 // Client-only modules never reach the server bundle, so
                 // their loaders can only run here, in the browser. Fill in
                 // the files the payload could not cover.
-                let data = navigation.data;
+                let data = { ...reusedData, ...navigation.data };
                 const clientOnlyFiles = (tree.clientOnlyFiles?.size ?? 0) > 0 ? filesOfMatch(matched).filter((file) => tree.clientOnlyFiles?.has(file)) : [];
                 if (clientOnlyFiles.length > 0 && !navigationError && !navigation.notFound) {
                     const loaderContext: LoaderContext = {
@@ -227,11 +254,20 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     }
                 }
 
+                // Reused files came without server-computed heads; recompute
+                // the chain's heads against the merged data on the client.
+                let heads = navigation.heads;
+                if (reusable.length > 0 && !navigationError && !navigation.notFound) {
+                    if (id !== navigationId.current) return;
+                    heads = await resolveHeads(matched, modules, data);
+                }
+
+                if (id !== navigationId.current) return; // superseded
                 setState({
                     match: matched,
                     modules,
                     data,
-                    heads: navigation.heads,
+                    heads,
                     pathname: target,
                     search: url.searchParams,
                     navigationType: options.replace ? 'replace' : 'push',
@@ -241,7 +277,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 if (options.scroll !== false) window.scrollTo(0, 0);
             })();
         },
-        [basepath, fetchPayload, history, matcher, moduleLoaders, pendingMs, rewritePathname],
+        [basepath, fetchPayload, history, matcher, moduleLoaders, rewritePathname, state],
     );
 
     const prefetch = useCallback(
@@ -262,13 +298,6 @@ export function ClientApp(props: ClientAppProps): ReactElement {
         window.addEventListener('popstate', onPopState);
         return () => window.removeEventListener('popstate', onPopState);
     }, [history, navigate]);
-
-    useEffect(
-        () => () => {
-            if (pendingTimer.current) clearTimeout(pendingTimer.current);
-        },
-        [],
-    );
 
     // A client-only page was server-rendered as its pending shell: load the
     // real page right after hydration.
@@ -315,7 +344,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
         : state.error
           ? findBoundaryComponent(state.match, state.modules, 'error')
           : state.pending
-            ? findBoundaryComponent(state.match, state.modules, 'pending')
+            ? findBoundaryComponent(state.match, state.modules, 'loading')
             : undefined;
 
     const element = composeMatch({

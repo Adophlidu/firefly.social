@@ -133,7 +133,7 @@ interface ChainEntry {
 export function findBoundaryComponent(
     match: RouteMatch,
     modules: RouteModuleMap,
-    kind: 'error' | 'notFound' | 'pending',
+    kind: 'error' | 'notFound' | 'pending' | 'loading',
 ): ComponentType | undefined {
     for (let index = match.chain.length - 1; index >= 0; index -= 1) {
         const node = match.chain[index];
@@ -148,7 +148,9 @@ export function findBoundaryComponent(
                     ? routeModule?.errorComponent
                     : kind === 'notFound'
                       ? routeModule?.notFoundComponent
-                      : routeModule?.pendingComponent;
+                      : kind === 'loading'
+                        ? (routeModule?.loadingComponent ?? routeModule?.pendingComponent)
+                        : routeModule?.pendingComponent;
             if (boundary) return boundary as ComponentType;
         }
     }

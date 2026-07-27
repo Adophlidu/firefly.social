@@ -50,6 +50,12 @@ export interface HeadContext {
     /** The loader data of the module that declared this `head`. */
     data: unknown;
     params: Record<string, string>;
+    /**
+     * Loader data of the whole matched chain, keyed by route file. Lets
+     * `head` derive metadata from an ancestor layout's data instead of
+     * re-fetching the same records the layout's loader already fetched.
+     */
+    allData?: Record<string, unknown>;
 }
 
 /** Static per-route configuration. */
@@ -81,6 +87,12 @@ export interface RouteModule {
      * Resolved page-outward like `errorComponent`.
      */
     notFoundComponent?: ComponentType;
+    /**
+     * Rendered in place of the page during a client-side transition while
+     * the next page's data is in flight (layouts keep rendering with reused
+     * data). Falls back to `pendingComponent` when absent.
+     */
+    loadingComponent?: ComponentType;
     /**
      * Rendered in place of the page during slow client-side navigations
      * (after `pendingMs`). Client-only; SSR waits for loaders.
