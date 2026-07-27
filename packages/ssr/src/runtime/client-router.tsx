@@ -88,7 +88,7 @@ export interface ClientAppProps {
  * `<head>`, history and scroll position.
  */
 export function ClientApp(props: ClientAppProps): ReactElement {
-    const { tree, moduleLoaders, payload, history = 'browser', basepath, prefetchAll = true, rewritePathname } = props;
+    const { tree, moduleLoaders, payload, history = 'browser', basepath, pendingMs = 300, prefetchAll = true, rewritePathname } = props;
     const [state, setState] = useState(props.initial);
     const matcher = useMemo(() => createMatcher(tree), [tree]);
     const navigationId = useRef(0);
@@ -143,6 +143,18 @@ export function ClientApp(props: ClientAppProps): ReactElement {
 
                 const id = (navigationId.current += 1);
 
+                const pushUrl = () => {
+                    if (history !== 'browser') return;
+                    // Keep the browser URL clean (un-rewritten, like Next's
+                    // middleware model); the rewrite only affects routing.
+                    const href = withBasepath(url.pathname, basepath) + url.search + url.hash;
+                    if (options.replace) window.history.replaceState(null, '', href);
+                    else window.history.pushState(null, '', href);
+                };
+                // The URL changes with the click, before any module/data
+                // loading — the old page stays interactive underneath.
+                pushUrl();
+
                 // Data reuse: a chain file keeps its loader data when it is
                 // also in the current chain with identical params and search
                 // (the `x-ssr-have` protocol skips its server-side loader).
@@ -162,28 +174,21 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 });
                 if (id !== navigationId.current) return; // superseded
 
-                const pushUrl = () => {
-                    if (history !== 'browser') return;
-                    // Keep the browser URL clean (un-rewritten, like Next's
-                    // middleware model); the rewrite only affects routing.
-                    const href = withBasepath(url.pathname, basepath) + url.search + url.hash;
-                    if (options.replace) window.history.replaceState(null, '', href);
-                    else window.history.pushState(null, '', href);
-                };
 
-                // Instant transition: swap immediately when every layout in
-                // the new chain can render (its loader data was reused, or it
-                // has no loader). The page area shows the route's loading
-                // boundary until the payload lands. Otherwise keep the old
-                // page and only mark the transition (see useIsNavigating).
+                // Instant URL update; the old page stays mounted while the
+                // payload is in flight. Only when the payload is slow
+                // (pendingMs) AND the new chain can render (every layout has
+                // data or no loader) does the page area swap to the route's
+                // loading boundary — quick navigations never flash a loader.
                 const renderable = files.every((file) => {
                     if (file === matched.page.pageFile) return true;
                     const routeModule = modules[file];
                     if (!routeModule?.default || !routeModule.loader) return true;
                     return reusable.includes(file);
                 });
-                if (renderable) {
-                    pushUrl();
+                setState((previous) => ({ ...previous, pending: true }));
+                const pendingTimer = setTimeout(() => {
+                    if (navigationId.current !== id || !renderable) return;
                     setState((previous) => ({
                         match: matched,
                         modules,
@@ -194,11 +199,13 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         navigationType: options.replace ? 'replace' : 'push',
                         pending: true,
                     }));
-                } else {
-                    setState((previous) => ({ ...previous, pending: true }));
+                }, pendingMs);
+                let navigation: NavigationPayload | null = null;
+                try {
+                    navigation = await payloadPromise;
+                } finally {
+                    clearTimeout(pendingTimer);
                 }
-
-                const navigation = await payloadPromise;
                 if (id !== navigationId.current) return; // superseded
                 if (!navigation) {
                     fullLoad();
@@ -211,7 +218,6 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     return;
                 }
 
-                if (!renderable) pushUrl();
                 const navigationError = navigation.error ? new Error(navigation.error) : undefined;
 
                 // Client-only modules never reach the server bundle, so
@@ -277,7 +283,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 if (options.scroll !== false) window.scrollTo(0, 0);
             })();
         },
-        [basepath, fetchPayload, history, matcher, moduleLoaders, rewritePathname, state],
+        [basepath, fetchPayload, history, matcher, moduleLoaders, pendingMs, rewritePathname, state],
     );
 
     const prefetch = useCallback(
