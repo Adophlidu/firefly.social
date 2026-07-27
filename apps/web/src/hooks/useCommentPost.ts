@@ -67,7 +67,8 @@ export function useCommentPost(post: Post, disabled = false, commentComposeOptio
     // the permission query can still be loading or stale when the user clicks,
     // and without this the quick-reply panel would open the composer for a post
     // whose gate is already resolved (FW-7785).
-    const commentDisabled = disabled || ((canReply === false || post.canComment === false) && !replyClubJoined);
+    const commentDisabled =
+        disabled || ((canReply === false || (post.canComment === false && canReply !== true)) && !replyClubJoined);
     const disabledMessage = commentDisabled ? resolveMessageForCommentDisabled(post) : null;
 
     const { canPost, sources } = useAnonymousPostAvailability();

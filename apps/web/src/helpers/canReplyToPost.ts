@@ -6,6 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveChannelMembershipStatus } from '@/providers/lens/resolveChannelMembershipStatus.js';
 import type { Post, Profile, ProfileLike } from '@/providers/types/SocialMedia.js';
 
 function isSameProfileInStrict(profile: ProfileLike | null | undefined, otherProfile: ProfileLike | null | undefined) {
@@ -70,9 +71,23 @@ async function checkPostRestrictions(post: Post, currentProfile: Profile) {
 
 export async function canReplyToPost(post: Post, currentProfile: Profile | null) {
     if (!currentProfile) return false;
-    if (!isUndefined(post.canComment)) return !!post.canComment;
 
     const source = post.source;
+    if (!isUndefined(post.canComment)) {
+        if (post.canComment || source !== Source.Lens) return !!post.canComment;
+
+        const clubAddress = post.replyRestriction?.clubGated ? post.replyRestriction.clubAddress : undefined;
+        if (!clubAddress) return false;
+
+        const channel = await resolveSocialMediaProvider(Source.Lens).getChannelById(
+            clubAddress,
+            true,
+            undefined,
+            currentProfile.profileId,
+        );
+        return resolveChannelMembershipStatus(channel) === 'joined';
+    }
+
     switch (source) {
         case Source.Twitter:
             return canReplyToTwitterPost(post, currentProfile);
