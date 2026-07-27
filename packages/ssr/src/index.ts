@@ -27,6 +27,8 @@ export type { ClientAppProps, ClientRouterState, HistoryMode, LinkProps } from '
 export { RouterContext, useLoaderData, useNavigate, useParams, useRouterState, useSearch } from './runtime/context.ts';
 export type { RouterState } from './runtime/context.ts';
 export { stripBasepath, withBasepath } from './runtime/paths.ts';
+export { collectSlots, Slot } from './runtime/slot.tsx';
+export type { SlotProps } from './runtime/slot.tsx';
 export { collectHeads, filesOfMatch, filesOfNode, resolveChain, resolveHeads } from './runtime/loaders.ts';
 export type { ResolvedChain } from './runtime/loaders.ts';
 export { resolveChainModules } from './runtime/resolve-modules.ts';

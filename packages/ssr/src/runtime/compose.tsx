@@ -3,6 +3,7 @@ import { ErrorBoundary } from './error-boundary.tsx';
 import { flattenHeads } from './head-manager.ts';
 import { filesOfMatch } from './loaders.ts';
 import { SSR_DATA_ELEMENT_ID, serializeForHtml, type SsrPayload } from './serialize.ts';
+import { collectSlots } from './slot.tsx';
 import type { RouteModuleMap } from './types.ts';
 import type { RouteMatch } from '../router/matcher.ts';
 import type { HeadDescriptor } from './types.ts';
@@ -210,6 +211,7 @@ export function composeMatch(options: ComposeOptions): ReactElement {
         data: options.data,
         files: filesOfMatch(match),
         heads: options.heads,
+        slots: collectSlots(filesOfMatch(match), options.modules),
         error: options.error,
         notFound: options.notFound,
         basepath: options.basepath,

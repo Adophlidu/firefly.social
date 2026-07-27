@@ -16,6 +16,12 @@ export interface RouterState {
     /** Head descriptors contributed by the matched chain, root first. */
     heads: HeadDescriptor[];
     /**
+     * Layout slot content collected from the matched chain (inner modules
+     * override outer ones), consumed by `<Slot>` in layouts. Values are
+     * components, resolved at render time.
+     */
+    slots?: Record<string, import('react').ComponentType>;
+    /**
      * The error a loader threw, when the page is rendering an
      * `errorComponent` fallback. Also present in the hydration payload (as a
      * message) so server and client render identically.
