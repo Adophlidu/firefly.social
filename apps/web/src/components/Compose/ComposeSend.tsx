@@ -24,6 +24,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { logger } from '@/libs/Logger.js';
 import { deleteCloudDraft } from '@/providers/firefly/cloud-draft/deleteCloudDraft.js';
@@ -46,6 +47,7 @@ export function ComposeSend(_props: ComposeSendProps) {
     const { type, posts, currentDraftId } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
     const { removeDraft, removeTempDrafts } = useComposeDraftState();
+    const lensProfile = useCurrentProfile(Source.Lens);
 
     const isMedium = useIsMedium();
 
@@ -56,11 +58,12 @@ export function ComposeSend(_props: ComposeSendProps) {
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
             if (checkPostMedias()) return;
-            const restrictedLensChannel = getLensPostRestrictionChannel(
+            const restrictedLensChannel = await getLensPostRestrictionChannel(
                 posts.map((post) => ({
                     channel: post.channel[Source.Lens],
                     enabled: post.availableSources.includes(Source.Lens),
                 })),
+                lensProfile?.profileId,
             );
             if (restrictedLensChannel) {
                 await openPostRestrictionModal({ channel: restrictedLensChannel });
@@ -123,6 +126,7 @@ export function ComposeSend(_props: ComposeSendProps) {
             removeDraft,
             removeTempDrafts,
             posts,
+            lensProfile?.profileId,
         ],
     );
 
