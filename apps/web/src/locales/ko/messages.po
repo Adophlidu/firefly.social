@@ -13,9 +13,6 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 
-msgid "Group {id} could not be found."
-msgstr "그룹 {id}을(를) 찾을 수 없습니다."
-
 msgid "Unmute successfully."
 msgstr "숨김 해제되었습니다."
 
@@ -205,9 +202,6 @@ msgstr "입찰 없음"
 
 msgid "Disconnect"
 msgstr "연결 해제"
-
-msgid "No frame found."
-msgstr "frame을 찾을 수 없습니다."
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
@@ -462,9 +456,6 @@ msgstr "비밀번호 설정"
 msgid "Joined"
 msgstr "참여됨"
 
-msgid "Global"
-msgstr "전체"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "{0} 로그인 토큰이 만료되었습니다. 다시 로그인해 주세요."
@@ -531,9 +522,6 @@ msgstr "Firefly 지갑"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "외부 호출 기능이 포함되어 있지 않습니다. 외부 호출 기능이 있을 경우 프로젝트 소유자가 컨트랙트를 제어할 수 있습니다."
-
-msgid "Join our Discord"
-msgstr "Discord에 참여하세요"
 
 msgid "Blocked"
 msgstr "차단됨"
@@ -676,9 +664,6 @@ msgstr "프로필에서 검색"
 
 msgid "Casts"
 msgstr "게시물"
-
-msgid "Club details"
-msgstr "클럽 상세"
 
 msgid "The scheduled time has passed. Please reset."
 msgstr "예약 시간이 지났습니다. 다시 설정해 주세요."
@@ -862,9 +847,6 @@ msgstr "QR 코드를 스캔하여 Firefly 모바일 앱 다운로드"
 msgid "Undo repost"
 msgstr "리포스트 취소"
 
-msgid "Prediction"
-msgstr "예측"
-
 msgid "Hide conversations"
 msgstr "대화 숨기기"
 
@@ -878,9 +860,6 @@ msgstr "타워 핸디캡"
 msgid "# unread message"
 msgid_plural "# unread messages"
 msgstr[0] "# 읽지 않은 메시지"
-
-msgid "Search {id}"
-msgstr "{id} 검색"
 
 msgid "Skip"
 msgstr "건너뛰기"
@@ -992,9 +971,6 @@ msgstr "<0>{0}</0>님이 <2>{marketTitle}</2>에서 <3>{3}¢</3>에 <1>{1} {2}</
 msgid "Outcome proposed: {outcomeLabel}"
 msgstr "제안된 결과: {outcomeLabel}"
 
-msgid "Mutes"
-msgstr "숨김"
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "이런! 계정이 현재 차단되어 있습니다. 자세한 내용은 고객 지원에 문의하세요."
 
@@ -1019,9 +995,6 @@ msgstr "예약 게시물은 {0}에서만 사용할 수 있습니다"
 
 msgid "Bought"
 msgstr "구매됨"
-
-msgid "Page not found"
-msgstr "페이지를 찾을 수 없습니다"
 
 msgid "Connect Email"
 msgstr "이메일 연결"
@@ -1449,9 +1422,6 @@ msgstr "지분"
 msgid "2FA confirmation code"
 msgstr "2FA 확인 코드"
 
-msgid "Visit mask.io"
-msgstr "mask.io 방문"
-
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1520,9 +1490,6 @@ msgstr "7일"
 msgid "POST"
 msgstr "게시"
 
-msgid "No opinion profile found."
-msgstr "Opinion 프로필을 찾을 수 없습니다."
-
 msgid "Unsupported message"
 msgstr "지원되지 않는 메시지"
 
@@ -1566,9 +1533,6 @@ msgstr "{type, select, compose {{0}} quote {댓글 추가} reply {답글 게시}
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "이 동영상을 처리할 수 없습니다. 50 MB 미만의 MP4 동영상을 시도해 보세요."
 
-msgid "<0/>EVM wallets"
-msgstr "<0/>EVM 지갑"
-
 msgid "{addressName} is already connected."
 msgstr "{addressName}이(가) 이미 연결되어 있습니다."
 
@@ -1607,9 +1571,6 @@ msgstr "Lens 매니저 연결에 실패했습니다. 나중에 다시 시도해 
 msgid "or"
 msgstr "또는"
 
-msgid "Channel {id} could not be found."
-msgstr "채널 {id}을(를) 찾을 수 없습니다."
-
 msgid "Network cost"
 msgstr "네트워크 비용"
 
@@ -1633,9 +1594,6 @@ msgstr "사용 가능 잔액"
 
 msgid "Load earlier messages"
 msgstr "이전 메시지 불러오기"
-
-msgid "Follow @thefireflyapp on X"
-msgstr "X에서 @thefireflyapp 팔로우"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Firefly 닉네임 입력"
@@ -1679,9 +1637,6 @@ msgstr "경기 보기"
 msgid "Failed to bookmark article."
 msgstr "아티클 북마크에 실패했습니다."
 
-msgid "No polymarket event found."
-msgstr "Polymarket 이벤트를 찾을 수 없습니다."
-
 msgid "No order-book data."
 msgstr "호가창 데이터가 없습니다."
 
@@ -1702,9 +1657,6 @@ msgstr "보유자"
 
 msgid "Phishing activities found."
 msgstr "피싱 활동이 발견되었습니다."
-
-msgid "Light Mode"
-msgstr "라이트 모드"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "예약 게시에는 다중 기기 로그인이 필요합니다. 신원 확인을 위해 비밀번호를 입력하세요."
@@ -1870,9 +1822,6 @@ msgstr "표시할 데이터가 없습니다."
 msgid "Feed"
 msgstr "피드"
 
-msgid "Search article"
-msgstr "아티클 검색"
-
 msgid "Switch Done!"
 msgstr "전환 완료!"
 
@@ -1887,9 +1836,6 @@ msgstr "확인"
 
 msgid "Delete Firefly account?"
 msgstr "Firefly 계정을 삭제하시겠습니까?"
-
-msgid "Search user"
-msgstr "사용자 검색"
 
 msgid "Cancel"
 msgstr "취소"
@@ -1931,9 +1877,6 @@ msgstr "Firefly 앱으로 로그인"
 msgid "Explore and follow accounts to see the feed"
 msgstr "피드를 보려면 계정을 탐색하고 팔로우하세요"
 
-msgid "Profile could not be found."
-msgstr "프로필을 찾을 수 없습니다."
-
 msgid "Muted contents"
 msgstr "숨긴 콘텐츠"
 
@@ -1963,9 +1906,6 @@ msgstr "게시물 좋아요에 실패했습니다."
 
 msgid "Failed to remove draft. Please try again."
 msgstr "임시 저장 삭제에 실패했습니다. 다시 시도해 주세요."
-
-msgid "Profile details"
-msgstr "프로필 상세"
 
 msgid "Enter the amount that each winner can claim"
 msgstr "각 수령자가 받을 수 있는 금액을 입력하세요"
@@ -2065,9 +2005,6 @@ msgstr "사용자를 불러올 수 없습니다"
 
 msgid "Legacy Firefly wallet"
 msgstr "레거시 Firefly 지갑"
-
-msgid "Follow System"
-msgstr "시스템 설정 따르기"
 
 msgid "Link up to three accounts"
 msgstr "최대 3개 계정 연결"
@@ -2242,9 +2179,6 @@ msgstr "최소 2자 이상 입력하세요."
 msgid "Remove from Bookmarks"
 msgstr "북마크에서 제거"
 
-msgid "Article"
-msgstr "아티클"
-
 msgid "Draws"
 msgstr "무승부"
 
@@ -2290,9 +2224,6 @@ msgstr "로그아웃"
 msgid "Owner can't change balance"
 msgstr "소유자가 잔액을 변경할 수 없음"
 
-msgid "Search predictions"
-msgstr "예측 검색"
-
 msgid "Post Restriction"
 msgstr "게시 제한"
 
@@ -2301,9 +2232,6 @@ msgstr "동영상 업로드에 실패했습니다. 다시 시도해 주세요."
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "앗... 모든 요구 사항을 충족하지 못했습니다"
-
-msgid "Join our Telegram"
-msgstr "Telegram 참여"
 
 msgid "Volume Traded(shares)"
 msgstr "거래량(지분)"
@@ -2463,9 +2391,6 @@ msgstr "악성 행위가 의심되지 않습니다."
 msgid "Open in Messages"
 msgstr "메시지에서 열기"
 
-msgid "Your browser does not support the Firefly Bridge."
-msgstr "브라우저가 Firefly Bridge를 지원하지 않습니다."
-
 msgid "Canceled"
 msgstr "취소됨"
 
@@ -2608,9 +2533,6 @@ msgstr "월"
 msgid "Failed to un-bookmark post."
 msgstr "게시물 북마크 해제에 실패했습니다."
 
-msgid "Channel"
-msgstr "채널"
-
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "이 게시물을 복호화할 자격이 없습니다. 자격이 있는 {sourceName} 계정으로 다시 시도하세요."
 
@@ -2679,9 +2601,6 @@ msgstr "팁 좋아요에 실패했습니다."
 
 msgid "Stream"
 msgstr "스트림"
-
-msgid "No available wallet."
-msgstr "사용 가능한 지갑이 없습니다."
 
 msgid "Current"
 msgstr "현재"
@@ -2797,9 +2716,6 @@ msgstr "이 계정을 Firefly 소셜 그래프에서 연결 해제하시겠습�
 msgid "The contract owner has no restrictions on selling."
 msgstr "컨트랙트 소유자에게 매도 제한이 없습니다."
 
-msgid "Follow @fireflyappcn on X"
-msgstr "X에서 @fireflyappcn 팔로우"
-
 msgid "Cost"
 msgstr "비용"
 
@@ -2897,9 +2813,6 @@ msgstr "게시 중..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 게시물이 {0}에 전송되었습니다."
-
-msgid "Add an existing account"
-msgstr "기존 계정 추가"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "거래량(24시간) · 시가총액"
@@ -3095,9 +3008,6 @@ msgstr "암호화된 선택지"
 msgid "Odd/Even Total Kills"
 msgstr "총 킬 홀짝"
 
-msgid "Club could not be found."
-msgstr "클럽을 찾을 수 없습니다."
-
 msgid "Hide small transactions(<$100)"
 msgstr "소액 거래(<$100) 숨기기"
 
@@ -3266,9 +3176,6 @@ msgstr "예약 시간 설정에 실패했습니다."
 msgid "[LuckyDrop]"
 msgstr "[럭키드롭]"
 
-msgid "Group"
-msgstr "그룹"
-
 msgid "Set {formattedAddress} as primary Solana wallet"
 msgstr "{formattedAddress}을(를) 기본 Solana 지갑으로 설정"
 
@@ -3286,9 +3193,6 @@ msgstr "{source}에서 연결에 실패했습니다"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "럭키 드롭 발신자를 사용자 지정하세요: 소셜 계정 핸들 또는 지갑 중에서 선택하세요."
-
-msgid "Open in Firefly App"
-msgstr "Firefly 앱에서 열기"
 
 msgid "Privacy Policy"
 msgstr "개인정보 처리방침"
@@ -3334,9 +3238,6 @@ msgstr "실시간 통계"
 msgid "Time"
 msgstr "시간"
 
-msgid "Firefly"
-msgstr "Firefly"
-
 msgid "No voting power"
 msgstr "투표권 없음"
 
@@ -3367,9 +3268,6 @@ msgstr "임시 저장이 저장되었습니다."
 
 msgid "The post you quoted/replied not found"
 msgstr "인용/답글한 게시물을 찾을 수 없습니다"
-
-msgid "Follow @masknetwork on X"
-msgstr "X에서 @masknetwork 팔로우"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Firefly 온체인 기능을 사용하려면 EVM 지갑 1개와 Solana 지갑 1개를 선택하세요."
@@ -3517,9 +3415,6 @@ msgstr "임의 선수 램페이지"
 msgid "Add media"
 msgstr "미디어 추가"
 
-msgid "Club"
-msgstr "클럽"
-
 msgid "6H"
 msgstr "6시간"
 
@@ -3601,9 +3496,6 @@ msgstr "아직 메시지가 없습니다. 인사를 남겨 보세요!"
 
 msgid "New message"
 msgstr "새 메시지"
-
-msgid "Post details"
-msgstr "게시물 상세"
 
 msgid "Leave"
 msgstr "나가기"
@@ -3840,9 +3732,6 @@ msgstr "생성 시간:"
 msgid "Take Profit Limit"
 msgstr "테이크 프로핏 리밋"
 
-msgid "No polymarket profile found."
-msgstr "Polymarket 프로필을 찾을 수 없습니다."
-
 msgid "Username or email address"
 msgstr "사용자 이름 또는 이메일 주소"
 
@@ -3904,9 +3793,6 @@ msgstr "블랙리스트 없음"
 
 msgid "Address removed on Farcaster"
 msgstr "Farcaster에서 주소가 제거됨"
-
-msgid "Failed to switch wallet. Please try again"
-msgstr "지갑 전환에 실패했습니다. 다시 시도해 주세요"
 
 msgid "Exact Score"
 msgstr "정확한 스코어"
@@ -3971,9 +3857,6 @@ msgstr "인기 검색"
 
 msgid "Article added to your Bookmarks"
 msgstr "아티클이 북마크에 추가되었습니다"
-
-msgid "Dark Mode"
-msgstr "다크 모드"
 
 msgid "Just now"
 msgstr "방금"
@@ -4210,9 +4093,6 @@ msgstr "이 토큰은 선언된 팀이 발행했습니다. 일부 사기는 동�
 msgid "Select Chain for {0}"
 msgstr "{0}용 체인 선택"
 
-msgid "Search ${symbol}"
-msgstr "${symbol} 검색"
-
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "중단 가능한 코드가 포함되면 토큰을 매수하거나 매도할 수 없을 수 있습니다(허니팟 위험)."
 
@@ -4279,9 +4159,6 @@ msgstr "뉴스"
 
 msgid "Truth Social"
 msgstr "Truth Social"
-
-msgid "Associated wallets"
-msgstr "연결된 지갑"
 
 msgid "Portfolio account value"
 msgstr "포트폴리오 계정 가치"
@@ -4604,9 +4481,6 @@ msgstr "권한이 없습니다. 로그인을 확인해 주세요."
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "업로드에 실패했습니다. 동영상 크기가 {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}를 초과합니다"
 
-msgid "Mask Network"
-msgstr "Mask Network"
-
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "럭키 드롭 스마트 컨트랙트에 {0} 접근 권한을 부여하세요. 토큰당 한 번만 하면 됩니다."
@@ -4643,9 +4517,6 @@ msgstr "익스플로러에서 보기"
 
 msgid "Halftime"
 msgstr "하프타임"
-
-msgid "Your Telegram account is now connected"
-msgstr "Telegram 계정이 연결되었습니다"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4766,9 +4637,6 @@ msgstr "게시물이 암호화되었습니다"
 msgid "Select market"
 msgstr "마켓 선택"
 
-msgid "Leaderboard"
-msgstr "리더보드"
-
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth가 1850 USDC를 0.5 ETH로 스왑했습니다"
 
@@ -4792,9 +4660,6 @@ msgstr "이모지"
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 및 <1>외 {0}명</1>"
-
-msgid "Token ${symbol} could not be found."
-msgstr "토큰 ${symbol}을(를) 찾을 수 없습니다."
 
 msgid "Media attachment"
 msgstr "미디어 첨부파일"
@@ -5012,14 +4877,8 @@ msgstr "토큰 검색"
 msgid "No one you follow has traded this token."
 msgstr "팔로우한 사람 중 이 토큰을 거래한 사람이 없습니다."
 
-msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
-msgstr "탐색 - Farcaster, Lens, Bluesky 인기 클럽 - Firefly"
-
 msgid "Remove attachment"
 msgstr "첨부파일 제거"
-
-msgid "Search clubs"
-msgstr "클럽 검색"
 
 msgid "No open orders"
 msgstr "미체결 주문이 없습니다"
@@ -5115,9 +4974,6 @@ msgstr "24시간"
 
 msgid "Bio should be at least {extra} characters"
 msgstr "소개는 최소 {extra}자 이상이어야 합니다"
-
-msgid "No opinion event found."
-msgstr "Opinion 이벤트를 찾을 수 없습니다."
 
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 알림이 꺼져 있습니다. "
@@ -5267,9 +5123,6 @@ msgstr "게임"
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "{sourceName}에서 #{0} 추가에 실패했습니다"
-
-msgid "Language"
-msgstr "언어"
 
 msgid "Nashor Handicap"
 msgstr "내셔 핸디캡"
@@ -5507,9 +5360,6 @@ msgstr "금융 범죄."
 msgid "Followers"
 msgstr "팔로워"
 
-msgid "Search channel"
-msgstr "채널 검색"
-
 msgid "Favorites"
 msgstr "즐겨찾기"
 
@@ -5586,9 +5436,6 @@ msgstr "이 토큰은 자가 파괴할 수 없습니다."
 msgid "Cybercrime."
 msgstr "사이버 범죄."
 
-msgid "Display"
-msgstr "표시"
-
 msgid "Sell"
 msgstr "판매"
 
@@ -5609,9 +5456,6 @@ msgstr "이 지갑은 이미 다른 Firefly 계정에 연결되어 있습니다.
 
 msgid "You are not eligible to claim this red packet"
 msgstr "이 홍바오를 받을 자격이 없습니다"
-
-msgid "Article could not be found"
-msgstr "아티클을 찾을 수 없습니다"
 
 msgid "Contract address."
 msgstr "컨트랙트 주소."
@@ -5691,9 +5535,6 @@ msgstr "{sourceName}에서 #{0} 나가기에 실패했습니다"
 
 msgid "Something went wrong, please try again."
 msgstr "문제가 발생했습니다. 다시 시도해 주세요."
-
-msgid "This Telegram account is already linked"
-msgstr "이 Telegram 계정은 이미 연결되어 있습니다"
 
 msgid "Following"
 msgstr "팔로잉"
@@ -5843,9 +5684,6 @@ msgstr "로그인"
 msgid "Security & Privacy"
 msgstr "보안 및 개인정보"
 
-msgid "Loading..."
-msgstr "로딩 중..."
-
 msgid "Your session has expired. Please sign in again."
 msgstr "세션이 만료되었습니다. 다시 로그인해 주세요."
 
@@ -5921,9 +5759,6 @@ msgstr "리캐스트가 성공적으로 취소되었습니다"
 msgid "like"
 msgid_plural "likes"
 msgstr[0] "좋아요"
-
-msgid "Posts from Trump on Truth Social (Explore, profile)"
-msgstr "Truth Social의 Trump 게시물(탐색, 프로필)"
 
 msgid "Golden"
 msgstr "골드"

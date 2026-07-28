@@ -13,9 +13,6 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 
-msgid "Group {id} could not be found."
-msgstr "未找到群組 {id}。"
-
 msgid "Unmute successfully."
 msgstr "成功取消隱藏。"
 
@@ -205,9 +202,6 @@ msgstr "暫無買單"
 
 msgid "Disconnect"
 msgstr "斷開"
-
-msgid "No frame found."
-msgstr "未找到 frame。"
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
@@ -462,9 +456,6 @@ msgstr "設定密碼"
 msgid "Joined"
 msgstr "已加入"
 
-msgid "Global"
-msgstr "總榜"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "您的 {0} 登入權杖已過期，請重新登入。"
@@ -531,9 +522,6 @@ msgstr "Firefly 錢包"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "未包含外部調用功能。若存在此功能，項目所有者可能有能力控制合約。"
-
-msgid "Join our Discord"
-msgstr "加入我們的 Discord 社群"
 
 msgid "Blocked"
 msgstr "已封鎖"
@@ -676,9 +664,6 @@ msgstr "在個人檔案中搜尋"
 
 msgid "Casts"
 msgstr "貼文"
-
-msgid "Club details"
-msgstr "群組詳情"
 
 msgid "The scheduled time has passed. Please reset."
 msgstr "預約時間已過，請重新設定。"
@@ -862,9 +847,6 @@ msgstr "掃描QR碼下載 Firefly 行動版應用"
 msgid "Undo repost"
 msgstr "取消轉發"
 
-msgid "Prediction"
-msgstr "預測"
-
 msgid "Hide conversations"
 msgstr "隱藏對話列表"
 
@@ -878,9 +860,6 @@ msgstr "防禦塔讓分"
 msgid "# unread message"
 msgid_plural "# unread messages"
 msgstr[0] "# 則未讀訊息"
-
-msgid "Search {id}"
-msgstr "搜尋 {id}"
 
 msgid "Skip"
 msgstr "跳過"
@@ -992,9 +971,6 @@ msgstr "<0>{0}</0> 以 <3>{3}¢</3> 的價格賣出了 <1>{1} {2}</1>，預測�
 msgid "Outcome proposed: {outcomeLabel}"
 msgstr "建議結果：{outcomeLabel}"
 
-msgid "Mutes"
-msgstr "隱藏"
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "您的帳戶已被封鎖，請聯繫客服了解詳情。"
 
@@ -1019,9 +995,6 @@ msgstr "預約發佈僅支援 {0}"
 
 msgid "Bought"
 msgstr "已購買"
-
-msgid "Page not found"
-msgstr "頁面不存在"
 
 msgid "Connect Email"
 msgstr "綁定電子郵件"
@@ -1449,9 +1422,6 @@ msgstr "份"
 msgid "2FA confirmation code"
 msgstr "2FA 確認碼"
 
-msgid "Visit mask.io"
-msgstr "訪問 mask.io"
-
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1520,9 +1490,6 @@ msgstr "7日"
 msgid "POST"
 msgstr "貼文"
 
-msgid "No opinion profile found."
-msgstr "未發現觀點個人檔案。"
-
 msgid "Unsupported message"
 msgstr "不支援的訊息"
 
@@ -1566,9 +1533,6 @@ msgstr "{type, select, compose {{0}} quote {新增留言} reply {發佈你的留
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "無法處理此影片，請嘗試上傳小於 50 MB 的 MP4 影片。"
 
-msgid "<0/>EVM wallets"
-msgstr "<0/>EVM 錢包"
-
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已經綁定了。"
 
@@ -1607,9 +1571,6 @@ msgstr "無法綁定 Lens 管理器，請稍後再試。"
 msgid "or"
 msgstr "或"
 
-msgid "Channel {id} could not be found."
-msgstr "找不到群組 {id}。"
-
 msgid "Network cost"
 msgstr "手續費"
 
@@ -1633,9 +1594,6 @@ msgstr "可用餘額"
 
 msgid "Load earlier messages"
 msgstr "載入更早的訊息"
-
-msgid "Follow @thefireflyapp on X"
-msgstr "在 X 追蹤 @thefireflyapp"
 
 msgid "Enter your nickname on Firefly"
 msgstr "輸入您在 Firefly 的暱稱"
@@ -1679,9 +1637,6 @@ msgstr "查看比賽"
 msgid "Failed to bookmark article."
 msgstr "收藏文章失敗。"
 
-msgid "No polymarket event found."
-msgstr "未發現 Polymarket 市場。"
-
 msgid "No order-book data."
 msgstr "暫無訂單簿資料。"
 
@@ -1702,9 +1657,6 @@ msgstr "擁有者"
 
 msgid "Phishing activities found."
 msgstr "發現釣魚活動。"
-
-msgid "Light Mode"
-msgstr "淺色模式"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "預約發佈需啟用多裝置登入。請輸入密碼驗證身份。"
@@ -1870,9 +1822,6 @@ msgstr "暫無可顯示的數據。"
 msgid "Feed"
 msgstr "貼文"
 
-msgid "Search article"
-msgstr "搜尋文章"
-
 msgid "Switch Done!"
 msgstr "已切換！"
 
@@ -1887,9 +1836,6 @@ msgstr "確認"
 
 msgid "Delete Firefly account?"
 msgstr "刪除 Firefly 帳戶？"
-
-msgid "Search user"
-msgstr "搜尋用戶"
 
 msgid "Cancel"
 msgstr "取消"
@@ -1931,9 +1877,6 @@ msgstr "透過 Firefly App 登入"
 msgid "Explore and follow accounts to see the feed"
 msgstr "探索並追蹤帳戶以查看動態"
 
-msgid "Profile could not be found."
-msgstr "找不到相關個人檔案。"
-
 msgid "Muted contents"
 msgstr "已隱藏內容"
 
@@ -1963,9 +1906,6 @@ msgstr "按讚貼文失敗。"
 
 msgid "Failed to remove draft. Please try again."
 msgstr "刪除草稿失敗。請重試。"
-
-msgid "Profile details"
-msgstr "個人檔案詳情"
 
 msgid "Enter the amount that each winner can claim"
 msgstr "輸入每位獲獎者可領取金額"
@@ -2065,9 +2005,6 @@ msgstr "無法載入用戶"
 
 msgid "Legacy Firefly wallet"
 msgstr "舊版 Firefly 錢包"
-
-msgid "Follow System"
-msgstr "跟隨系統"
 
 msgid "Link up to three accounts"
 msgstr "連結最多三個帳戶"
@@ -2242,9 +2179,6 @@ msgstr "請輸入至少 2 個字元。"
 msgid "Remove from Bookmarks"
 msgstr "從書籤移除"
 
-msgid "Article"
-msgstr "文章"
-
 msgid "Draws"
 msgstr "平局"
 
@@ -2290,9 +2224,6 @@ msgstr "登出"
 msgid "Owner can't change balance"
 msgstr "擁有者無法變更餘額"
 
-msgid "Search predictions"
-msgstr "搜尋預測"
-
 msgid "Post Restriction"
 msgstr "發文限制"
 
@@ -2301,9 +2232,6 @@ msgstr "影片上傳失敗，請重試。"
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀...尚未滿足所有要求"
-
-msgid "Join our Telegram"
-msgstr "加入我們的 Telegram"
 
 msgid "Volume Traded(shares)"
 msgstr "成交量 (份)"
@@ -2463,9 +2391,6 @@ msgstr "未檢測到可疑惡意行為。"
 msgid "Open in Messages"
 msgstr "在訊息中開啟"
 
-msgid "Your browser does not support the Firefly Bridge."
-msgstr "您的瀏覽器不支援 Firefly Bridge。"
-
 msgid "Canceled"
 msgstr "已取消"
 
@@ -2608,9 +2533,6 @@ msgstr "月份"
 msgid "Failed to un-bookmark post."
 msgstr "取消收藏貼文失敗。"
 
-msgid "Channel"
-msgstr "群組"
-
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "您無權解密此貼文，請使用符合資格的 {sourceName} 帳戶重試。"
 
@@ -2679,9 +2601,6 @@ msgstr "按赞失敗。"
 
 msgid "Stream"
 msgstr "直播"
-
-msgid "No available wallet."
-msgstr "無可用錢包"
 
 msgid "Current"
 msgstr "当前"
@@ -2797,9 +2716,6 @@ msgstr "確認要斷開該帳戶與 Firefly 社交圖譜的綁定嗎？"
 msgid "The contract owner has no restrictions on selling."
 msgstr "合約持有者無出售限制。"
 
-msgid "Follow @fireflyappcn on X"
-msgstr "在 X 追蹤 @fireflyappcn"
-
 msgid "Cost"
 msgstr "成本"
 
@@ -2897,9 +2813,6 @@ msgstr "發布中..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 你的貼文已發布至 {0}。"
-
-msgid "Add an existing account"
-msgstr "新增現有帳號"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "24小時交易量 · 市值"
@@ -3095,9 +3008,6 @@ msgstr "加密選項"
 msgid "Odd/Even Total Kills"
 msgstr "總擊殺單雙"
 
-msgid "Club could not be found."
-msgstr "未找到群組。"
-
 msgid "Hide small transactions(<$100)"
 msgstr "隱藏小額交易（<$100）"
 
@@ -3266,9 +3176,6 @@ msgstr "設定預約時間失敗。"
 msgid "[LuckyDrop]"
 msgstr "[紅包]"
 
-msgid "Group"
-msgstr "群組"
-
 msgid "Set {formattedAddress} as primary Solana wallet"
 msgstr "將 {formattedAddress} 設為 Solana 主要錢包"
 
@@ -3286,9 +3193,6 @@ msgstr "在 {source} 上連接失敗"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自訂你的紅包發送者名稱：可選擇社交帳號或錢包地址。"
-
-msgid "Open in Firefly App"
-msgstr "開啟 Firefly App"
 
 msgid "Privacy Policy"
 msgstr "隱私政策"
@@ -3334,9 +3238,6 @@ msgstr "即時數據"
 msgid "Time"
 msgstr "時間"
 
-msgid "Firefly"
-msgstr "Firefly"
-
 msgid "No voting power"
 msgstr "無投票權"
 
@@ -3367,9 +3268,6 @@ msgstr "草稿已儲存"
 
 msgid "The post you quoted/replied not found"
 msgstr "未找到您引用或回覆的貼文"
-
-msgid "Follow @masknetwork on X"
-msgstr "在 X 上追蹤 @masknetwork"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "請選擇一個 EVM 錢包與一個 Solana 錢包以使用 Firefly 鏈上功能。"
@@ -3517,9 +3415,6 @@ msgstr "任意選手暴走"
 msgid "Add media"
 msgstr "新增媒體"
 
-msgid "Club"
-msgstr "群組"
-
 msgid "6H"
 msgstr "6 小時"
 
@@ -3601,9 +3496,6 @@ msgstr "尚無訊息，來打個招呼吧！"
 
 msgid "New message"
 msgstr "新私訊"
-
-msgid "Post details"
-msgstr "貼文詳情"
 
 msgid "Leave"
 msgstr "離開"
@@ -3840,9 +3732,6 @@ msgstr "建立時間："
 msgid "Take Profit Limit"
 msgstr "止盈限價"
 
-msgid "No polymarket profile found."
-msgstr "未發現 Polymarket 個人檔案。"
-
 msgid "Username or email address"
 msgstr "用戶名或電子郵件"
 
@@ -3904,9 +3793,6 @@ msgstr "無黑名單"
 
 msgid "Address removed on Farcaster"
 msgstr "地址已從 Farcaster 移除"
-
-msgid "Failed to switch wallet. Please try again"
-msgstr "切換錢包失敗。請再試一次"
 
 msgid "Exact Score"
 msgstr "精確比分"
@@ -3971,9 +3857,6 @@ msgstr "熱門搜尋"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已加入書籤"
-
-msgid "Dark Mode"
-msgstr "暗黑模式"
 
 msgid "Just now"
 msgstr "剛剛"
@@ -4210,9 +4093,6 @@ msgstr "此代幣由聲明團隊發行，請注意同名詐騙代幣風險。"
 msgid "Select Chain for {0}"
 msgstr "為{0}選擇鏈"
 
-msgid "Search ${symbol}"
-msgstr "搜尋 ${symbol}"
-
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "若包含可暫停代碼，代幣可能無法買賣（詐騙風險）。"
 
@@ -4279,9 +4159,6 @@ msgstr "新聞"
 
 msgid "Truth Social"
 msgstr "Truth Social"
-
-msgid "Associated wallets"
-msgstr "關聯錢包"
 
 msgid "Portfolio account value"
 msgstr "投資組合帳戶價值"
@@ -4604,9 +4481,6 @@ msgstr "未經授權，請檢查登入狀態。"
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "影片尺寸需介於 {minWidth}x{minHeight} 至 {maxWidth}x{maxHeight}"
 
-msgid "Mask Network"
-msgstr "Mask Network"
-
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "授予紅包智能合約訪問你 {0} 的權限。每個代幣只需執行一次。"
@@ -4643,9 +4517,6 @@ msgstr "在區塊瀏覽器查看"
 
 msgid "Halftime"
 msgstr "中場"
-
-msgid "Your Telegram account is now connected"
-msgstr "您的 Telegram 帳戶已綁定"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4766,9 +4637,6 @@ msgstr "貼文已經被加密"
 msgid "Select market"
 msgstr "選擇市場"
 
-msgid "Leaderboard"
-msgstr "排行榜"
-
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth 將 1850 USDC 兌換為 0.5 ETH"
 
@@ -4792,9 +4660,6 @@ msgstr "表情"
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 及 <1>其他的 {0} 個用户</1>"
-
-msgid "Token ${symbol} could not be found."
-msgstr "未找到代幣 ${symbol}。"
 
 msgid "Media attachment"
 msgstr "媒體附件"
@@ -5012,14 +4877,8 @@ msgstr "搜尋代幣"
 msgid "No one you follow has traded this token."
 msgstr "你追蹤的人中沒有人交易過此代幣。"
 
-msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
-msgstr "探索 - 來自 Farcaster、Lens 和 Bluesky 的熱門群組 - Firefly"
-
 msgid "Remove attachment"
 msgstr "移除附件"
-
-msgid "Search clubs"
-msgstr "搜尋群組"
 
 msgid "No open orders"
 msgstr "暫無委託訂單"
@@ -5115,9 +4974,6 @@ msgstr "24 小時"
 
 msgid "Bio should be at least {extra} characters"
 msgstr "個人簡介至少需要 {extra} 個字元"
-
-msgid "No opinion event found."
-msgstr "未找到 Opinion 市場。"
 
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未開啟！"
@@ -5267,9 +5123,6 @@ msgstr "比賽"
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "在 {sourceName} 新增 #{0} 失敗"
-
-msgid "Language"
-msgstr "語言"
 
 msgid "Nashor Handicap"
 msgstr "納什男爵讓分"
@@ -5507,9 +5360,6 @@ msgstr "金融犯罪。"
 msgid "Followers"
 msgstr "追蹤者"
 
-msgid "Search channel"
-msgstr "搜尋群組"
-
 msgid "Favorites"
 msgstr "收藏"
 
@@ -5586,9 +5436,6 @@ msgstr "此代幣不具備自毀功能。"
 msgid "Cybercrime."
 msgstr "網路犯罪。"
 
-msgid "Display"
-msgstr "外觀"
-
 msgid "Sell"
 msgstr "賣出"
 
@@ -5609,9 +5456,6 @@ msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
 
 msgid "You are not eligible to claim this red packet"
 msgstr "你不符合領取此紅包的資格"
-
-msgid "Article could not be found"
-msgstr "找不到文章"
 
 msgid "Contract address."
 msgstr "合約地址。"
@@ -5691,9 +5535,6 @@ msgstr "退出 {sourceName} 的 #{0} 失敗"
 
 msgid "Something went wrong, please try again."
 msgstr "哎呀... 發生錯誤，請重試。"
-
-msgid "This Telegram account is already linked"
-msgstr "此 Telegram 帳號已綁定"
 
 msgid "Following"
 msgstr "正在追蹤"
@@ -5843,9 +5684,6 @@ msgstr "登入"
 msgid "Security & Privacy"
 msgstr "安全與隱私"
 
-msgid "Loading..."
-msgstr "載入中……"
-
 msgid "Your session has expired. Please sign in again."
 msgstr "你的工作階段已過期。請重新登入。"
 
@@ -5921,9 +5759,6 @@ msgstr "取消轉發成功"
 msgid "like"
 msgid_plural "likes"
 msgstr[0] "讚"
-
-msgid "Posts from Trump on Truth Social (Explore, profile)"
-msgstr "來自特朗普的 Truth Social 貼文（探索、個人檔案）"
 
 msgid "Golden"
 msgstr "黃金版"

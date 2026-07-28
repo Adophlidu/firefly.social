@@ -17,25 +17,11 @@
         "strictFunctionTypes": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
-        "lib": [
-            "ES2024",
-            "DOM",
-            "DOM.Iterable",
-            "DOM.AsyncIterable"
-        ],
+        "lib": ["ES2024", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
         "paths": {
-            "@/*": [
-                "./src/*"
-            ]
+            "@/*": ["./src/*"]
         }
     },
-    "include": [
-        "globals.d.ts",
-        "src/**/*.ts",
-        "src/**/*.tsx"
-    ],
-    "exclude": [
-        "node_modules",
-        "src/service-workers"
-    ]
+    "include": ["globals.d.ts", "src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["node_modules", "src/service-workers"]
 }

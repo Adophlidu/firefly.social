@@ -13,9 +13,6 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 
-msgid "Group {id} could not be found."
-msgstr "Group {id} could not be found."
-
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
 
@@ -207,9 +204,6 @@ msgstr "No bids"
 
 msgid "Disconnect"
 msgstr "Disconnect"
-
-msgid "No frame found."
-msgstr "No frame found."
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
@@ -465,9 +459,6 @@ msgstr "Set Password"
 msgid "Joined"
 msgstr "Joined"
 
-msgid "Global"
-msgstr "Global"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "Your {0} login token has expired. Please sign in again."
@@ -534,9 +525,6 @@ msgstr "Firefly wallets"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
-
-msgid "Join our Discord"
-msgstr "Join our Discord"
 
 msgid "Blocked"
 msgstr "Blocked"
@@ -680,9 +668,6 @@ msgstr "Search in profile"
 
 msgid "Casts"
 msgstr "Casts"
-
-msgid "Club details"
-msgstr "Club details"
 
 msgid "The scheduled time has passed. Please reset."
 msgstr "The scheduled time has passed. Please reset."
@@ -866,9 +851,6 @@ msgstr "Scan and Get Firefly Mobile App"
 msgid "Undo repost"
 msgstr "Undo repost"
 
-msgid "Prediction"
-msgstr "Prediction"
-
 msgid "Hide conversations"
 msgstr "Hide conversations"
 
@@ -883,9 +865,6 @@ msgid "# unread message"
 msgid_plural "# unread messages"
 msgstr[0] "# unread message"
 msgstr[1] "# unread messages"
-
-msgid "Search {id}"
-msgstr "Search {id}"
 
 msgid "Skip"
 msgstr "Skip"
@@ -998,9 +977,6 @@ msgstr "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> 
 msgid "Outcome proposed: {outcomeLabel}"
 msgstr "Outcome proposed: {outcomeLabel}"
 
-msgid "Mutes"
-msgstr "Mutes"
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "Oops! Your account is currently blocked. Reach out to support for more details."
 
@@ -1025,9 +1001,6 @@ msgstr "Scheduled posts are only available on {0}"
 
 msgid "Bought"
 msgstr "Bought"
-
-msgid "Page not found"
-msgstr "Page not found"
 
 msgid "Connect Email"
 msgstr "Connect Email"
@@ -1456,9 +1429,6 @@ msgstr "Shares"
 msgid "2FA confirmation code"
 msgstr "2FA confirmation code"
 
-msgid "Visit mask.io"
-msgstr "Visit mask.io"
-
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1527,9 +1497,6 @@ msgstr "7D"
 msgid "POST"
 msgstr "POST"
 
-msgid "No opinion profile found."
-msgstr "No opinion profile found."
-
 msgid "Unsupported message"
 msgstr "Unsupported message"
 
@@ -1574,9 +1541,6 @@ msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your repl
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "This video could not be processed. Try an MP4 video under 50 MB."
 
-msgid "<0/>EVM wallets"
-msgstr "<0/>EVM wallets"
-
 msgid "{addressName} is already connected."
 msgstr "{addressName} is already connected."
 
@@ -1615,9 +1579,6 @@ msgstr "Failed to bind Lens manager, please try again later."
 msgid "or"
 msgstr "or"
 
-msgid "Channel {id} could not be found."
-msgstr "Channel {id} could not be found."
-
 msgid "Network cost"
 msgstr "Network cost"
 
@@ -1641,9 +1602,6 @@ msgstr "Available Balance"
 
 msgid "Load earlier messages"
 msgstr "Load earlier messages"
-
-msgid "Follow @thefireflyapp on X"
-msgstr "Follow @thefireflyapp on X"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Enter your nickname on Firefly"
@@ -1687,9 +1645,6 @@ msgstr "View match"
 msgid "Failed to bookmark article."
 msgstr "Failed to bookmark article."
 
-msgid "No polymarket event found."
-msgstr "No polymarket event found."
-
 msgid "No order-book data."
 msgstr "No order-book data."
 
@@ -1710,9 +1665,6 @@ msgstr "Holders"
 
 msgid "Phishing activities found."
 msgstr "Phishing activities found."
-
-msgid "Light Mode"
-msgstr "Light Mode"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "Multi-device login is required for schedule post. Enter your password to confirm your identity."
@@ -1879,9 +1831,6 @@ msgstr "There is no data available for display."
 msgid "Feed"
 msgstr "Feed"
 
-msgid "Search article"
-msgstr "Search article"
-
 msgid "Switch Done!"
 msgstr "Switch Done!"
 
@@ -1896,9 +1845,6 @@ msgstr "Confirmation"
 
 msgid "Delete Firefly account?"
 msgstr "Delete Firefly account?"
-
-msgid "Search user"
-msgstr "Search user"
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -1940,9 +1886,6 @@ msgstr "Sign in via Firefly App"
 msgid "Explore and follow accounts to see the feed"
 msgstr "Explore and follow accounts to see the feed"
 
-msgid "Profile could not be found."
-msgstr "Profile could not be found."
-
 msgid "Muted contents"
 msgstr "Muted contents"
 
@@ -1972,9 +1915,6 @@ msgstr "Failed to like the post."
 
 msgid "Failed to remove draft. Please try again."
 msgstr "Failed to remove draft. Please try again."
-
-msgid "Profile details"
-msgstr "Profile details"
 
 msgid "Enter the amount that each winner can claim"
 msgstr "Enter the amount that each winner can claim"
@@ -2075,9 +2015,6 @@ msgstr "People could not be loaded"
 
 msgid "Legacy Firefly wallet"
 msgstr "Legacy Firefly wallet"
-
-msgid "Follow System"
-msgstr "Follow System"
 
 msgid "Link up to three accounts"
 msgstr "Link up to three accounts"
@@ -2253,9 +2190,6 @@ msgstr "Please enter at least 2 characters."
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
 
-msgid "Article"
-msgstr "Article"
-
 msgid "Draws"
 msgstr "Draws"
 
@@ -2301,9 +2235,6 @@ msgstr "Log out"
 msgid "Owner can't change balance"
 msgstr "Owner can't change balance"
 
-msgid "Search predictions"
-msgstr "Search predictions"
-
 msgid "Post Restriction"
 msgstr "Post Restriction"
 
@@ -2312,9 +2243,6 @@ msgstr "Failed to upload video. Please try again."
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "Oops... Not all the requirements have been met"
-
-msgid "Join our Telegram"
-msgstr "Join our Telegram"
 
 msgid "Volume Traded(shares)"
 msgstr "Volume Traded(shares)"
@@ -2475,9 +2403,6 @@ msgstr "No suspected malicious behavior found."
 msgid "Open in Messages"
 msgstr "Open in Messages"
 
-msgid "Your browser does not support the Firefly Bridge."
-msgstr "Your browser does not support the Firefly Bridge."
-
 msgid "Canceled"
 msgstr "Canceled"
 
@@ -2621,9 +2546,6 @@ msgstr "Month"
 msgid "Failed to un-bookmark post."
 msgstr "Failed to un-bookmark post."
 
-msgid "Channel"
-msgstr "Channel"
-
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 
@@ -2692,9 +2614,6 @@ msgstr "Failed to like tip."
 
 msgid "Stream"
 msgstr "Stream"
-
-msgid "No available wallet."
-msgstr "No available wallet."
 
 msgid "Current"
 msgstr "Current"
@@ -2811,9 +2730,6 @@ msgstr "Confirm to disconnect this account from Firefly’s social graph?"
 msgid "The contract owner has no restrictions on selling."
 msgstr "The contract owner has no restrictions on selling."
 
-msgid "Follow @fireflyappcn on X"
-msgstr "Follow @fireflyappcn on X"
-
 msgid "Cost"
 msgstr "Cost"
 
@@ -2911,9 +2827,6 @@ msgstr "Posting..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 Your post was sent to {0}."
-
-msgid "Add an existing account"
-msgstr "Add an existing account"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "Volume(24h) · Market Cap"
@@ -3110,9 +3023,6 @@ msgstr "Encrypted choice"
 msgid "Odd/Even Total Kills"
 msgstr "Odd/Even Total Kills"
 
-msgid "Club could not be found."
-msgstr "Club could not be found."
-
 msgid "Hide small transactions(<$100)"
 msgstr "Hide small transactions(<$100)"
 
@@ -3283,9 +3193,6 @@ msgstr "Failed to set schedule time."
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
 
-msgid "Group"
-msgstr "Group"
-
 msgid "Set {formattedAddress} as primary Solana wallet"
 msgstr "Set {formattedAddress} as primary Solana wallet"
 
@@ -3304,9 +3211,6 @@ msgstr "Failed to connect on {source}"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
-
-msgid "Open in Firefly App"
-msgstr "Open in Firefly App"
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
@@ -3352,9 +3256,6 @@ msgstr "Live Stats"
 msgid "Time"
 msgstr "Time"
 
-msgid "Firefly"
-msgstr "Firefly"
-
 msgid "No voting power"
 msgstr "No voting power"
 
@@ -3385,9 +3286,6 @@ msgstr "Your draft was saved."
 
 msgid "The post you quoted/replied not found"
 msgstr "The post you quoted/replied not found"
-
-msgid "Follow @masknetwork on X"
-msgstr "Follow @masknetwork on X"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
@@ -3536,9 +3434,6 @@ msgstr "Any Player Rampage"
 msgid "Add media"
 msgstr "Add media"
 
-msgid "Club"
-msgstr "Club"
-
 msgid "6H"
 msgstr "6H"
 
@@ -3620,9 +3515,6 @@ msgstr "No messages yet. Say hello!"
 
 msgid "New message"
 msgstr "New message"
-
-msgid "Post details"
-msgstr "Post details"
 
 msgid "Leave"
 msgstr "Leave"
@@ -3859,9 +3751,6 @@ msgstr "Create time:"
 msgid "Take Profit Limit"
 msgstr "Take Profit Limit"
 
-msgid "No polymarket profile found."
-msgstr "No polymarket profile found."
-
 msgid "Username or email address"
 msgstr "Username or email address"
 
@@ -3926,9 +3815,6 @@ msgstr "No blacklist"
 msgid "Address removed on Farcaster"
 msgstr "Address removed on Farcaster"
 
-msgid "Failed to switch wallet. Please try again"
-msgstr "Failed to switch wallet. Please try again"
-
 msgid "Exact Score"
 msgstr "Exact Score"
 
@@ -3992,9 +3878,6 @@ msgstr "Top Searches"
 
 msgid "Article added to your Bookmarks"
 msgstr "Article added to your Bookmarks"
-
-msgid "Dark Mode"
-msgstr "Dark Mode"
 
 msgid "Just now"
 msgstr "Just now"
@@ -4233,9 +4116,6 @@ msgstr "This token is issued by its declared team. Some scams will create a well
 msgid "Select Chain for {0}"
 msgstr "Select Chain for {0}"
 
-msgid "Search ${symbol}"
-msgstr "Search ${symbol}"
-
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 
@@ -4302,9 +4182,6 @@ msgstr "News"
 
 msgid "Truth Social"
 msgstr "Truth Social"
-
-msgid "Associated wallets"
-msgstr "Associated wallets"
 
 msgid "Portfolio account value"
 msgstr "Portfolio account value"
@@ -4628,9 +4505,6 @@ msgstr "Unauthorized. Please check your login."
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 
-msgid "Mask Network"
-msgstr "Mask Network"
-
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
@@ -4668,9 +4542,6 @@ msgstr "View on explorer"
 
 msgid "Halftime"
 msgstr "Halftime"
-
-msgid "Your Telegram account is now connected"
-msgstr "Your Telegram account is now connected"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4791,9 +4662,6 @@ msgstr "Post has been encrypted"
 msgid "Select market"
 msgstr "Select market"
 
-msgid "Leaderboard"
-msgstr "Leaderboard"
-
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth swapped 1850 USDC for 0.5 ETH"
 
@@ -4818,9 +4686,6 @@ msgstr "Emoji"
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> and <1>{0} others</1>"
-
-msgid "Token ${symbol} could not be found."
-msgstr "Token ${symbol} could not be found."
 
 msgid "Media attachment"
 msgstr "Media attachment"
@@ -5038,14 +4903,8 @@ msgstr "Search token"
 msgid "No one you follow has traded this token."
 msgstr "No one you follow has traded this token."
 
-msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
-msgstr "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
-
 msgid "Remove attachment"
 msgstr "Remove attachment"
-
-msgid "Search clubs"
-msgstr "Search clubs"
 
 msgid "No open orders"
 msgstr "No open orders"
@@ -5141,9 +5000,6 @@ msgstr "24 hours"
 
 msgid "Bio should be at least {extra} characters"
 msgstr "Bio should be at least {extra} characters"
-
-msgid "No opinion event found."
-msgstr "No opinion event found."
 
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly notifications are off. "
@@ -5294,9 +5150,6 @@ msgstr "Games"
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "Failed to add #{0} on {sourceName}"
-
-msgid "Language"
-msgstr "Language"
 
 msgid "Nashor Handicap"
 msgstr "Nashor Handicap"
@@ -5535,9 +5388,6 @@ msgstr "Financial crime."
 msgid "Followers"
 msgstr "Followers"
 
-msgid "Search channel"
-msgstr "Search channel"
-
 msgid "Favorites"
 msgstr "Favorites"
 
@@ -5614,9 +5464,6 @@ msgstr "This token can not self destruct."
 msgid "Cybercrime."
 msgstr "Cybercrime."
 
-msgid "Display"
-msgstr "Display"
-
 msgid "Sell"
 msgstr "Sell"
 
@@ -5637,9 +5484,6 @@ msgstr "This wallet is already linked to a different Firefly account."
 
 msgid "You are not eligible to claim this red packet"
 msgstr "You are not eligible to claim this red packet"
-
-msgid "Article could not be found"
-msgstr "Article could not be found"
 
 msgid "Contract address."
 msgstr "Contract address."
@@ -5719,9 +5563,6 @@ msgstr "Failed to leave #{0} on {sourceName}"
 
 msgid "Something went wrong, please try again."
 msgstr "Something went wrong, please try again."
-
-msgid "This Telegram account is already linked"
-msgstr "This Telegram account is already linked"
 
 msgid "Following"
 msgstr "Following"
@@ -5872,9 +5713,6 @@ msgstr "Login"
 msgid "Security & Privacy"
 msgstr "Security & Privacy"
 
-msgid "Loading..."
-msgstr "Loading..."
-
 msgid "Your session has expired. Please sign in again."
 msgstr "Your session has expired. Please sign in again."
 
@@ -5951,9 +5789,6 @@ msgid "like"
 msgid_plural "likes"
 msgstr[0] "like"
 msgstr[1] "likes"
-
-msgid "Posts from Trump on Truth Social (Explore, profile)"
-msgstr "Posts from Trump on Truth Social (Explore, profile)"
 
 msgid "Golden"
 msgstr "Golden"

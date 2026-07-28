@@ -3,8 +3,8 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2273
-Packages with multiple versions: 248
+Total packages: 2257
+Packages with multiple versions: 247
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -53,7 +53,7 @@ Packages with Multiple Versions
  @esbuild/win32-x64@0.25.12,0.27.3,0.27.7
  @jridgewell/trace-mapping@0.3.31,0.3.9
  @napi-rs/wasm-runtime@1.0.7,1.1.5
-*@next/eslint-plugin-next@16.0.11,16.2.7,16.2.9
+*@next/eslint-plugin-next@16.0.11,16.2.9
  @noble/hashes@1.4.0,1.7.0,1.8.0,2.2.0
  @react-native/normalize-colors@0.74.89,0.86.0
  @resvg/resvg-wasm@2.4.1,2.6.2
@@ -166,7 +166,6 @@ Packages with Multiple Versions
  es-module-lexer@1.7.0,2.1.0
  esbuild@0.25.12,0.27.3,0.27.7
  escape-string-regexp@1.0.5,4.0.0,5.0.0
-*eslint-config-next@16.0.11,16.2.7
 *eslint-plugin-react-hooks@5.2.0,7.1.1
  eslint-scope@5.1.1,8.4.0
  eslint-visitor-keys@3.4.3,4.2.1,5.0.1
@@ -700,14 +699,6 @@ Packages with Single Version
  @nodelib/fs.walk@1.2.8
  @nolyfill/is-core-module@1.0.39
  @opentelemetry/api@1.9.1
- @opentelemetry/api-logs@0.219.0
- @opentelemetry/core@2.8.0
- @opentelemetry/instrumentation@0.219.0
- @opentelemetry/resources@2.8.0
- @opentelemetry/sdk-logs@0.219.0
- @opentelemetry/sdk-metrics@2.8.0
- @opentelemetry/sdk-trace-base@2.8.0
- @opentelemetry/semantic-conventions@1.41.1
  @oxc-project/types@0.127.0
  @oxc-resolver/binding-android-arm-eabi@11.20.0
  @oxc-resolver/binding-android-arm64@11.20.0
@@ -1220,10 +1211,7 @@ Packages with Single Version
  @unrs/resolver-binding-win32-x64-msvc@1.12.2
  @urql/core@5.2.0
  @urql/exchange-auth@2.2.1
-*@vercel/analytics@2.0.1
  @vercel/kv@1.0.1
-*@vercel/otel@2.1.3
-*@vercel/speed-insights@2.0.0
 *@vitejs/plugin-react@5.2.0
  @vitest/expect@3.2.6
  @vitest/mocker@3.2.6
@@ -1278,7 +1266,6 @@ Packages with Single Version
  accepts@2.0.0
 *accounts@0.8.10
  acorn@8.17.0
- acorn-import-attributes@1.9.5
  acorn-import-phases@1.0.4
  acorn-jsx@5.3.2
  acorn-walk@8.3.5
@@ -1380,7 +1367,6 @@ Packages with Single Version
  chrome-trace-event@1.0.4
  chromium-edge-launcher@0.3.0
  cipher-base@1.0.7
- cjs-module-lexer@2.2.0
 *class-variance-authority@0.7.1
  cldr-core@45.0.0
  clean-regexp@1.0.0
@@ -1519,6 +1505,7 @@ Packages with Single Version
  escalade@3.2.0
  escape-html@1.0.3
 *eslint@9.39.4
+*eslint-config-next@16.0.11
  eslint-import-resolver-node@0.3.10
 *eslint-import-resolver-typescript@3.10.1
  eslint-module-utils@2.13.0
@@ -1642,7 +1629,6 @@ Packages with Single Version
  immediate@3.0.6
 *immer@10.2.0
  import-fresh@3.3.1
- import-in-the-middle@3.2.0
  import-without-cache@0.3.3
  imurmurhash@0.1.4
  incur@0.3.25
@@ -1854,7 +1840,6 @@ Packages with Single Version
  minipass@7.1.3
  mipd@0.0.7
  mkdirp@1.0.4
- module-details-from-path@1.0.4
  moo@0.5.3
  moti@0.29.0
 *motion@12.40.0
@@ -2034,7 +2019,6 @@ Packages with Single Version
  remark-rehype@11.1.2
  require-directory@2.1.1
  require-from-string@2.0.2
- require-in-the-middle@8.0.1
  require-main-filename@2.0.0
  resize-observer-polyfill@1.5.1
  resolve-from@4.0.0

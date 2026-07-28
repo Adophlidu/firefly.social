@@ -13,9 +13,6 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 
-msgid "Group {id} could not be found."
-msgstr "グループ {id} が見つかりませんでした。"
-
 msgid "Unmute successfully."
 msgstr "ミュート解除しました。"
 
@@ -205,9 +202,6 @@ msgstr "入札なし"
 
 msgid "Disconnect"
 msgstr "切断"
-
-msgid "No frame found."
-msgstr "フレームが見つかりませんでした。"
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
@@ -462,9 +456,6 @@ msgstr "パスワードを設定"
 msgid "Joined"
 msgstr "参加済み"
 
-msgid "Global"
-msgstr "グローバル"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "{0} のログイントークンが期限切れです。再度ログインしてください。"
@@ -531,9 +522,6 @@ msgstr "Firefly ウォレット"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "外部呼び出し機能は含まれていません。外部呼び出し機能がある場合、プロジェクトオーナーがコントラクトを制御できる可能性があります。"
-
-msgid "Join our Discord"
-msgstr "Discord に参加する"
 
 msgid "Blocked"
 msgstr "ブロック済み"
@@ -676,9 +664,6 @@ msgstr "プロフィール内を検索"
 
 msgid "Casts"
 msgstr "投稿"
-
-msgid "Club details"
-msgstr "クラブの詳細"
 
 msgid "The scheduled time has passed. Please reset."
 msgstr "予定時刻が過ぎました。再設定してください。"
@@ -862,9 +847,6 @@ msgstr "QR コードをスキャンして Firefly モバイルアプリをダウ
 msgid "Undo repost"
 msgstr "リポストを取り消す"
 
-msgid "Prediction"
-msgstr "予測"
-
 msgid "Hide conversations"
 msgstr "会話を非表示"
 
@@ -878,9 +860,6 @@ msgstr "タワーハンディキャップ"
 msgid "# unread message"
 msgid_plural "# unread messages"
 msgstr[0] "# 通の未読メッセージ"
-
-msgid "Search {id}"
-msgstr "{id} を検索"
 
 msgid "Skip"
 msgstr "スキップ"
@@ -992,9 +971,6 @@ msgstr "<0>{0}</0> が <2>{marketTitle}</2> の <1>{1} {2}</1> を <3>{3}¢</3> 
 msgid "Outcome proposed: {outcomeLabel}"
 msgstr "提案された結果: {outcomeLabel}"
 
-msgid "Mutes"
-msgstr "ミュート"
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "あなたのアカウントは現在ブロックされています。詳細についてはサポートにお問い合わせください。"
 
@@ -1019,9 +995,6 @@ msgstr "予約投稿は {0} でのみ利用可能です"
 
 msgid "Bought"
 msgstr "購入済み"
-
-msgid "Page not found"
-msgstr "ページが見つかりません"
 
 msgid "Connect Email"
 msgstr "メールアドレスを連携"
@@ -1449,9 +1422,6 @@ msgstr "シェア"
 msgid "2FA confirmation code"
 msgstr "2FA 確認コード"
 
-msgid "Visit mask.io"
-msgstr "mask.io を開く"
-
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1520,9 +1490,6 @@ msgstr "7日"
 msgid "POST"
 msgstr "投稿"
 
-msgid "No opinion profile found."
-msgstr "Opinion プロフィールが見つかりません。"
-
 msgid "Unsupported message"
 msgstr "サポートされていないメッセージ"
 
@@ -1566,9 +1533,6 @@ msgstr "{type, select, compose {{0}} quote {コメントを追加} reply {返信
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "この動画を処理できませんでした。50 MB 未満の MP4 動画をお試しください。"
 
-msgid "<0/>EVM wallets"
-msgstr "<0/>EVM ウォレット"
-
 msgid "{addressName} is already connected."
 msgstr "{addressName} は既に接続されています。"
 
@@ -1607,9 +1571,6 @@ msgstr "Lens マネージャーのバインドに失敗しました。後でも�
 msgid "or"
 msgstr "または"
 
-msgid "Channel {id} could not be found."
-msgstr "チャンネル {id} が見つかりませんでした。"
-
 msgid "Network cost"
 msgstr "ネットワーク手数料"
 
@@ -1633,9 +1594,6 @@ msgstr "利用可能残高"
 
 msgid "Load earlier messages"
 msgstr "以前のメッセージを読み込む"
-
-msgid "Follow @thefireflyapp on X"
-msgstr "X で @thefireflyapp をフォロー"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Firefly のニックネームを入力"
@@ -1679,9 +1637,6 @@ msgstr "試合を表示"
 msgid "Failed to bookmark article."
 msgstr "記事のブックマークに失敗しました。"
 
-msgid "No polymarket event found."
-msgstr "Polymarket イベントが見つかりません。"
-
 msgid "No order-book data."
 msgstr "板情報のデータがありません。"
 
@@ -1702,9 +1657,6 @@ msgstr "ホルダー"
 
 msgid "Phishing activities found."
 msgstr "フィッシング行為が検出されました。"
-
-msgid "Light Mode"
-msgstr "ライトモード"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "予約投稿にはマルチデバイスログインが必要です。本人確認のためパスワードを入力してください。"
@@ -1870,9 +1822,6 @@ msgstr "表示できるデータがありません。"
 msgid "Feed"
 msgstr "フィード"
 
-msgid "Search article"
-msgstr "記事を検索"
-
 msgid "Switch Done!"
 msgstr "切り替え完了！"
 
@@ -1887,9 +1836,6 @@ msgstr "確認"
 
 msgid "Delete Firefly account?"
 msgstr "Firefly アカウントを削除しますか？"
-
-msgid "Search user"
-msgstr "ユーザーを検索"
 
 msgid "Cancel"
 msgstr "キャンセル"
@@ -1931,9 +1877,6 @@ msgstr "Firefly アプリでログイン"
 msgid "Explore and follow accounts to see the feed"
 msgstr "アカウントを探索してフォローし、フィードを表示"
 
-msgid "Profile could not be found."
-msgstr "プロフィールが見つかりませんでした。"
-
 msgid "Muted contents"
 msgstr "ミュートしたコンテンツ"
 
@@ -1963,9 +1906,6 @@ msgstr "投稿へのいいねに失敗しました。"
 
 msgid "Failed to remove draft. Please try again."
 msgstr "下書きの削除に失敗しました。もう一度お試しください。"
-
-msgid "Profile details"
-msgstr "プロフィール詳細"
 
 msgid "Enter the amount that each winner can claim"
 msgstr "各当選者が受け取れる金額を入力"
@@ -2065,9 +2005,6 @@ msgstr "ユーザーを読み込めませんでした"
 
 msgid "Legacy Firefly wallet"
 msgstr "レガシー Firefly ウォレット"
-
-msgid "Follow System"
-msgstr "システムに従う"
 
 msgid "Link up to three accounts"
 msgstr "最大 3 つのアカウントをリンク"
@@ -2242,9 +2179,6 @@ msgstr "2 文字以上入力してください。"
 msgid "Remove from Bookmarks"
 msgstr "ブックマークから削除"
 
-msgid "Article"
-msgstr "記事"
-
 msgid "Draws"
 msgstr "引き分け"
 
@@ -2290,9 +2224,6 @@ msgstr "ログアウト"
 msgid "Owner can't change balance"
 msgstr "オーナーは残高を変更できません"
 
-msgid "Search predictions"
-msgstr "予測を検索"
-
 msgid "Post Restriction"
 msgstr "投稿制限"
 
@@ -2301,9 +2232,6 @@ msgstr "動画のアップロードに失敗しました。もう一度お試し
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "おっと... 全ての条件を満たしていません"
-
-msgid "Join our Telegram"
-msgstr "Telegram に参加"
 
 msgid "Volume Traded(shares)"
 msgstr "取引量（シェア）"
@@ -2463,9 +2391,6 @@ msgstr "疑わしい悪意のある行為は検出されませんでした。"
 msgid "Open in Messages"
 msgstr "メッセージで開く"
 
-msgid "Your browser does not support the Firefly Bridge."
-msgstr "お使いのブラウザは Firefly Bridge をサポートしていません。"
-
 msgid "Canceled"
 msgstr "キャンセル済み"
 
@@ -2608,9 +2533,6 @@ msgstr "月"
 msgid "Failed to un-bookmark post."
 msgstr "投稿のブックマーク解除に失敗しました。"
 
-msgid "Channel"
-msgstr "チャンネル"
-
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "この投稿を復号化する資格がありません。条件を満たす {sourceName} アカウントでもう一度お試しください。"
 
@@ -2679,9 +2601,6 @@ msgstr "チップへのいいねに失敗しました。"
 
 msgid "Stream"
 msgstr "配信"
-
-msgid "No available wallet."
-msgstr "利用可能なウォレットがありません。"
 
 msgid "Current"
 msgstr "現在"
@@ -2797,9 +2716,6 @@ msgstr "このアカウントを Firefly のソーシャルグラフから切断
 msgid "The contract owner has no restrictions on selling."
 msgstr "コントラクトオーナーは売却に制限を設けていません。"
 
-msgid "Follow @fireflyappcn on X"
-msgstr "X で @fireflyappcn をフォロー"
-
 msgid "Cost"
 msgstr "コスト"
 
@@ -2897,9 +2813,6 @@ msgstr "投稿中..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 あなたの投稿が {0} に送信されました。"
-
-msgid "Add an existing account"
-msgstr "既存のアカウントを追加"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "取引量(24h) · 時価総額"
@@ -3095,9 +3008,6 @@ msgstr "暗号化された選択肢"
 msgid "Odd/Even Total Kills"
 msgstr "合計キル 奇数/偶数"
 
-msgid "Club could not be found."
-msgstr "クラブが見つかりませんでした。"
-
 msgid "Hide small transactions(<$100)"
 msgstr "少額取引（<$100）を非表示"
 
@@ -3266,9 +3176,6 @@ msgstr "予約時刻の設定に失敗しました。"
 msgid "[LuckyDrop]"
 msgstr "[ラッキードロップ]"
 
-msgid "Group"
-msgstr "グループ"
-
 msgid "Set {formattedAddress} as primary Solana wallet"
 msgstr "{formattedAddress} をプライマリ Solana ウォレットに設定"
 
@@ -3286,9 +3193,6 @@ msgstr "{source} での接続に失敗しました。"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "ラッキードロップの送信者をカスタマイズ: ソーシャルアカウントのハンドルまたはウォレットから選択してください。"
-
-msgid "Open in Firefly App"
-msgstr "Firefly アプリで開く"
 
 msgid "Privacy Policy"
 msgstr "プライバシーポリシー"
@@ -3334,9 +3238,6 @@ msgstr "ライブ統計"
 msgid "Time"
 msgstr "時間"
 
-msgid "Firefly"
-msgstr "Firefly"
-
 msgid "No voting power"
 msgstr "投票権がありません"
 
@@ -3367,9 +3268,6 @@ msgstr "下書きが保存されました。"
 
 msgid "The post you quoted/replied not found"
 msgstr "引用/返信した投稿が見つかりません"
-
-msgid "Follow @masknetwork on X"
-msgstr "X で @masknetwork をフォロー"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Firefly のオンチェーン機能には、EVM ウォレット 1 つと Solana ウォレット 1 つを選択してください。"
@@ -3517,9 +3415,6 @@ msgstr "いずれかの選手がランページ"
 msgid "Add media"
 msgstr "メディアを追加"
 
-msgid "Club"
-msgstr "クラブ"
-
 msgid "6H"
 msgstr "6時間"
 
@@ -3601,9 +3496,6 @@ msgstr "まだメッセージはありません。あいさつしてみましょ
 
 msgid "New message"
 msgstr "新しいメッセージ"
-
-msgid "Post details"
-msgstr "投稿詳細"
 
 msgid "Leave"
 msgstr "退出"
@@ -3840,9 +3732,6 @@ msgstr "作成時刻:"
 msgid "Take Profit Limit"
 msgstr "テイクプロフィットリミット"
 
-msgid "No polymarket profile found."
-msgstr "Polymarket プロフィールが見つかりません。"
-
 msgid "Username or email address"
 msgstr "ユーザー名またはメールアドレス"
 
@@ -3904,9 +3793,6 @@ msgstr "ブラックリストなし"
 
 msgid "Address removed on Farcaster"
 msgstr "Farcaster でアドレスが削除されました"
-
-msgid "Failed to switch wallet. Please try again"
-msgstr "ウォレットの切り替えに失敗しました。もう一度お試しください"
 
 msgid "Exact Score"
 msgstr "正確なスコア"
@@ -3971,9 +3857,6 @@ msgstr "人気の検索"
 
 msgid "Article added to your Bookmarks"
 msgstr "記事がブックマークに追加されました"
-
-msgid "Dark Mode"
-msgstr "ダークモード"
 
 msgid "Just now"
 msgstr "たった今"
@@ -4210,9 +4093,6 @@ msgstr "このトークンは宣言されたチームによって発行されて
 msgid "Select Chain for {0}"
 msgstr "{0} のチェーンを選択"
 
-msgid "Search ${symbol}"
-msgstr "${symbol} を検索"
-
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "停止可能なコードが含まれている場合、トークンは売買できない可能性があります（ハニーポットのリスク）。"
 
@@ -4279,9 +4159,6 @@ msgstr "ニュース"
 
 msgid "Truth Social"
 msgstr "Truth Social"
-
-msgid "Associated wallets"
-msgstr "関連ウォレット"
 
 msgid "Portfolio account value"
 msgstr "ポートフォリオ口座価値"
@@ -4604,9 +4481,6 @@ msgstr "未認証です。ログインを確認してください。"
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "アップロードに失敗しました。動画のサイズが {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight} の制限を超えています"
 
-msgid "Mask Network"
-msgstr "Mask Network"
-
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "ラッキードロップスマートコントラクトに {0} へのアクセスを許可してください。トークンごとに 1 回だけ行えば十分です。"
@@ -4643,9 +4517,6 @@ msgstr "エクスプローラーで表示"
 
 msgid "Halftime"
 msgstr "ハーフタイム"
-
-msgid "Your Telegram account is now connected"
-msgstr "あなたの Telegram アカウントが接続されました"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4766,9 +4637,6 @@ msgstr "投稿は暗号化されました"
 msgid "Select market"
 msgstr "マーケットを選択"
 
-msgid "Leaderboard"
-msgstr "リーダーボード"
-
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth が 1850 USDC を 0.5 ETH にスワップしました"
 
@@ -4792,9 +4660,6 @@ msgstr "絵文字"
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> と <1>他 {0} 人</1>"
-
-msgid "Token ${symbol} could not be found."
-msgstr "トークン ${symbol} が見つかりませんでした。"
 
 msgid "Media attachment"
 msgstr "メディア添付"
@@ -5012,14 +4877,8 @@ msgstr "トークンを検索"
 msgid "No one you follow has traded this token."
 msgstr "フォローしている人はこのトークンを取引していません。"
 
-msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
-msgstr "探索 - Farcaster、Lens、Bluesky のトレンドクラブ - Firefly"
-
 msgid "Remove attachment"
 msgstr "添付ファイルを削除"
-
-msgid "Search clubs"
-msgstr "クラブを検索"
 
 msgid "No open orders"
 msgstr "未約定注文はありません"
@@ -5115,9 +4974,6 @@ msgstr "24 時間"
 
 msgid "Bio should be at least {extra} characters"
 msgstr "自己紹介は {extra} 文字以上にしてください"
-
-msgid "No opinion event found."
-msgstr "Opinion イベントが見つかりません。"
 
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly の通知がオフです。 "
@@ -5267,9 +5123,6 @@ msgstr "ゲーム"
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "{sourceName} で #{0} の追加に失敗しました"
-
-msgid "Language"
-msgstr "言語"
 
 msgid "Nashor Handicap"
 msgstr "ナッシャーハンディキャップ"
@@ -5507,9 +5360,6 @@ msgstr "金融犯罪。"
 msgid "Followers"
 msgstr "フォロワー"
 
-msgid "Search channel"
-msgstr "チャンネルを検索"
-
 msgid "Favorites"
 msgstr "お気に入り"
 
@@ -5586,9 +5436,6 @@ msgstr "このトークンは自己破壊できません。"
 msgid "Cybercrime."
 msgstr "サイバー犯罪。"
 
-msgid "Display"
-msgstr "表示"
-
 msgid "Sell"
 msgstr "売却"
 
@@ -5609,9 +5456,6 @@ msgstr "このウォレットは別の Firefly アカウントに既にリンク
 
 msgid "You are not eligible to claim this red packet"
 msgstr "このレッドパケットを受け取る資格がありません"
-
-msgid "Article could not be found"
-msgstr "記事が見つかりませんでした"
 
 msgid "Contract address."
 msgstr "コントラクトアドレス。"
@@ -5691,9 +5535,6 @@ msgstr "{sourceName} で #{0} の退出に失敗しました"
 
 msgid "Something went wrong, please try again."
 msgstr "問題が発生しました。もう一度お試しください。"
-
-msgid "This Telegram account is already linked"
-msgstr "この Telegram アカウントは既にリンクされています"
 
 msgid "Following"
 msgstr "フォロー中"
@@ -5843,9 +5684,6 @@ msgstr "ログイン"
 msgid "Security & Privacy"
 msgstr "セキュリティとプライバシー"
 
-msgid "Loading..."
-msgstr "読み込み中..."
-
 msgid "Your session has expired. Please sign in again."
 msgstr "セッションの有効期限が切れました。もう一度サインインしてください。"
 
@@ -5921,9 +5759,6 @@ msgstr "リキャストを正常にキャンセルしました"
 msgid "like"
 msgid_plural "likes"
 msgstr[0] "いいね"
-
-msgid "Posts from Trump on Truth Social (Explore, profile)"
-msgstr "Truth Social の Trump の投稿（探索、プロフィール）"
 
 msgid "Golden"
 msgstr "ゴールド"

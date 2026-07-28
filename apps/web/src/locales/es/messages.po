@@ -13,9 +13,6 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 
-msgid "Group {id} could not be found."
-msgstr "Grupo {id} no encontrado."
-
 msgid "Unmute successfully."
 msgstr "Sonido activado con éxito."
 
@@ -207,9 +204,6 @@ msgstr "Sin ofertas"
 
 msgid "Disconnect"
 msgstr "Desconectar"
-
-msgid "No frame found."
-msgstr "No se encontró ningún marco."
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
@@ -465,9 +459,6 @@ msgstr "Establecer contraseña"
 msgid "Joined"
 msgstr "Unido"
 
-msgid "Global"
-msgstr "Global"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "Su token de inicio de sesión de {0} ha caducado. Por favor, vuelva a iniciar sesión."
@@ -534,9 +525,6 @@ msgstr "Carteras Firefly"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "La función de llamada externa no está incluida. Si existe una función de llamada externa, el propietario del proyecto puede tener la capacidad de controlar el contrato."
-
-msgid "Join our Discord"
-msgstr "Únete a nuestro Discord"
 
 msgid "Blocked"
 msgstr "Bloqueado"
@@ -680,9 +668,6 @@ msgstr "Buscar en el perfil"
 
 msgid "Casts"
 msgstr "Publicaciones"
-
-msgid "Club details"
-msgstr "Detalles del club"
 
 msgid "The scheduled time has passed. Please reset."
 msgstr "La hora programada ha pasado. Por favor, restablezca."
@@ -866,9 +851,6 @@ msgstr "Escanea y Obtén la App Móvil de Firefly"
 msgid "Undo repost"
 msgstr "Deshacer republicación"
 
-msgid "Prediction"
-msgstr "Predicción"
-
 msgid "Hide conversations"
 msgstr "Ocultar conversaciones"
 
@@ -883,9 +865,6 @@ msgid "# unread message"
 msgid_plural "# unread messages"
 msgstr[0] "# mensaje sin leer"
 msgstr[1] "# mensajes sin leer"
-
-msgid "Search {id}"
-msgstr "Buscar {id}"
 
 msgid "Skip"
 msgstr "Omitir"
@@ -998,9 +977,6 @@ msgstr "<0>{0}</0> Vendió <1>{1} {2}</1> en <2>{marketTitle}</2> a <3>{3}¢</3>
 msgid "Outcome proposed: {outcomeLabel}"
 msgstr "Resultado propuesto: {outcomeLabel}"
 
-msgid "Mutes"
-msgstr "Silenciados"
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "¡Ups! Tu cuenta está actualmente bloqueada. Comunícate con soporte para más detalles."
 
@@ -1025,9 +1001,6 @@ msgstr "Las publicaciones programadas solo están disponibles en {0}"
 
 msgid "Bought"
 msgstr "Comprado"
-
-msgid "Page not found"
-msgstr "Página no encontrada"
 
 msgid "Connect Email"
 msgstr "Conectar correo electrónico"
@@ -1456,9 +1429,6 @@ msgstr "Acciones"
 msgid "2FA confirmation code"
 msgstr "Código de confirmación 2FA"
 
-msgid "Visit mask.io"
-msgstr "Visitar mask.io"
-
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1527,9 +1497,6 @@ msgstr "7D"
 msgid "POST"
 msgstr "PUBLICAR"
 
-msgid "No opinion profile found."
-msgstr "No se encontró perfil de opinión."
-
 msgid "Unsupported message"
 msgstr "Mensaje no compatible"
 
@@ -1574,9 +1541,6 @@ msgstr "{type, select, compose {{0}} quote {Añadir un comentario} reply {Public
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "No se pudo procesar este vídeo. Prueba con un vídeo MP4 de menos de 50 MB."
 
-msgid "<0/>EVM wallets"
-msgstr "<0/>Carteras EVM"
-
 msgid "{addressName} is already connected."
 msgstr "{addressName} ya está conectado."
 
@@ -1615,9 +1579,6 @@ msgstr "No se pudo vincular el administrador de Lens. Vuelva a intentarlo más t
 msgid "or"
 msgstr "o"
 
-msgid "Channel {id} could not be found."
-msgstr "Canal {id} no encontrado."
-
 msgid "Network cost"
 msgstr "Coste de red"
 
@@ -1641,9 +1602,6 @@ msgstr "Saldo Disponible"
 
 msgid "Load earlier messages"
 msgstr "Cargar mensajes anteriores"
-
-msgid "Follow @thefireflyapp on X"
-msgstr "Sigue a @thefireflyapp en X"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Introduce tu apodo en Firefly"
@@ -1687,9 +1645,6 @@ msgstr "Ver partido"
 msgid "Failed to bookmark article."
 msgstr "No se pudo marcar el artículo como favorito."
 
-msgid "No polymarket event found."
-msgstr "No se encontró evento de polymarket."
-
 msgid "No order-book data."
 msgstr "Sin datos del libro de órdenes."
 
@@ -1710,9 +1665,6 @@ msgstr "Titulares"
 
 msgid "Phishing activities found."
 msgstr "Actividades de phishing detectadas."
-
-msgid "Light Mode"
-msgstr "Modo Claro"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "Se requiere inicio de sesión en varios dispositivos para programar la publicación. Introduce tu contraseña para confirmar tu identidad."
@@ -1879,9 +1831,6 @@ msgstr "No hay datos disponibles para mostrar."
 msgid "Feed"
 msgstr "Noticias"
 
-msgid "Search article"
-msgstr "Buscar artículo"
-
 msgid "Switch Done!"
 msgstr "¡Cambio realizado!"
 
@@ -1896,9 +1845,6 @@ msgstr "Confirmación"
 
 msgid "Delete Firefly account?"
 msgstr "¿Eliminar cuenta de Firefly?"
-
-msgid "Search user"
-msgstr "Buscar usuario"
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -1940,9 +1886,6 @@ msgstr "Iniciar sesión vía Firefly App"
 msgid "Explore and follow accounts to see the feed"
 msgstr "Explora y sigue cuentas para ver el feed"
 
-msgid "Profile could not be found."
-msgstr "Perfil no encontrado."
-
 msgid "Muted contents"
 msgstr "Contenidos silenciados"
 
@@ -1972,9 +1915,6 @@ msgstr "No se pudo dar Me gusta a la publicación."
 
 msgid "Failed to remove draft. Please try again."
 msgstr "No se pudo eliminar el borrador. Vuelva a intentarlo."
-
-msgid "Profile details"
-msgstr "Detalles del perfil"
 
 msgid "Enter the amount that each winner can claim"
 msgstr "Ingrese la cantidad que cada ganador puede reclamar"
@@ -2075,9 +2015,6 @@ msgstr "No se pudieron cargar las personas"
 
 msgid "Legacy Firefly wallet"
 msgstr "Cartera Firefly heredada"
-
-msgid "Follow System"
-msgstr "Usar la configuración del sistema"
 
 msgid "Link up to three accounts"
 msgstr "Vincular hasta tres cuentas"
@@ -2253,9 +2190,6 @@ msgstr "Por favor, introduzca al menos 2 caracteres."
 msgid "Remove from Bookmarks"
 msgstr "Eliminar de Marcadores"
 
-msgid "Article"
-msgstr "Artículo"
-
 msgid "Draws"
 msgstr "Empates"
 
@@ -2301,9 +2235,6 @@ msgstr "Cerrar sesión"
 msgid "Owner can't change balance"
 msgstr "El propietario no puede cambiar el saldo"
 
-msgid "Search predictions"
-msgstr "Sugerencias de búsqueda"
-
 msgid "Post Restriction"
 msgstr "Restricción de publicación"
 
@@ -2312,9 +2243,6 @@ msgstr "No se pudo subir el vídeo. Inténtalo de nuevo."
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "Ups... No se han cumplido todos los requisitos"
-
-msgid "Join our Telegram"
-msgstr "Únete a nuestro Telegram"
 
 msgid "Volume Traded(shares)"
 msgstr "Volumen Negociado(acciones)"
@@ -2475,9 +2403,6 @@ msgstr "No se ha detectado comportamiento posiblemente malicioso."
 msgid "Open in Messages"
 msgstr "Abrir en Mensajes"
 
-msgid "Your browser does not support the Firefly Bridge."
-msgstr "Su navegador no es compatible con Firefly Bridge."
-
 msgid "Canceled"
 msgstr "Cancelado"
 
@@ -2621,9 +2546,6 @@ msgstr "Mes"
 msgid "Failed to un-bookmark post."
 msgstr "No se pudo desmarcar la publicación como favorita."
 
-msgid "Channel"
-msgstr "Canal"
-
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "No eres elegible para descifrar esta publicación, intenta nuevamente con una cuenta {sourceName} elegible."
 
@@ -2692,9 +2614,6 @@ msgstr "No se pudo dar Me gusta."
 
 msgid "Stream"
 msgstr "Transmisión"
-
-msgid "No available wallet."
-msgstr "No hay billetera disponible."
 
 msgid "Current"
 msgstr "Actual"
@@ -2811,9 +2730,6 @@ msgstr "¿Confirmar la desconexión de esta cuenta del grafo social de Firefly?"
 msgid "The contract owner has no restrictions on selling."
 msgstr "El propietario del contrato no tiene restricciones sobre la venta."
 
-msgid "Follow @fireflyappcn on X"
-msgstr "Sigue a @fireflyappcn en X"
-
 msgid "Cost"
 msgstr "Costo"
 
@@ -2911,9 +2827,6 @@ msgstr "Publicando..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 Tu publicación fue enviada a {0}."
-
-msgid "Add an existing account"
-msgstr "Agregar una cuenta existente"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "Volumen(24h) · Capitalización de mercado"
@@ -3110,9 +3023,6 @@ msgstr "Opción cifrada"
 msgid "Odd/Even Total Kills"
 msgstr "Total de muertes par/impar"
 
-msgid "Club could not be found."
-msgstr "Club no encontrado."
-
 msgid "Hide small transactions(<$100)"
 msgstr "Ocultar transacciones pequeñas(<$100)"
 
@@ -3283,9 +3193,6 @@ msgstr "No se pudo establecer la hora programada."
 msgid "[LuckyDrop]"
 msgstr "Lucky Drop"
 
-msgid "Group"
-msgstr "Grupo"
-
 msgid "Set {formattedAddress} as primary Solana wallet"
 msgstr "Establecer {formattedAddress} como cartera Solana principal"
 
@@ -3304,9 +3211,6 @@ msgstr "No se pudo conectar en {source}"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "Personaliza el remitente de tu Lucky Drop: Elige entre los nombres de usuario de tus cuentas sociales o billeteras."
-
-msgid "Open in Firefly App"
-msgstr "Abrir en Firefly App"
 
 msgid "Privacy Policy"
 msgstr "Política de Privacidad"
@@ -3352,9 +3256,6 @@ msgstr "Estadísticas en vivo"
 msgid "Time"
 msgstr "Hora"
 
-msgid "Firefly"
-msgstr "Firefly"
-
 msgid "No voting power"
 msgstr "Sin poder de voto"
 
@@ -3385,9 +3286,6 @@ msgstr "Tu borrador se guardó."
 
 msgid "The post you quoted/replied not found"
 msgstr "La publicación que citaste/respondiste no se encontró"
-
-msgid "Follow @masknetwork on X"
-msgstr "Sigue a @masknetwork en X"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Por favor seleccione una billetera EVM y una billetera Solana para las funciones on-chain en Firefly."
@@ -3536,9 +3434,6 @@ msgstr "Cualquier jugador hace Rampage"
 msgid "Add media"
 msgstr "Añadir medios"
 
-msgid "Club"
-msgstr "Club"
-
 msgid "6H"
 msgstr "6H"
 
@@ -3620,9 +3515,6 @@ msgstr "Aún no hay mensajes. ¡Saluda!"
 
 msgid "New message"
 msgstr "Nuevo mensaje"
-
-msgid "Post details"
-msgstr "Detalles de la publicación"
 
 msgid "Leave"
 msgstr "Abandonar"
@@ -3859,9 +3751,6 @@ msgstr "Hora de creación:"
 msgid "Take Profit Limit"
 msgstr "Take Profit Limit"
 
-msgid "No polymarket profile found."
-msgstr "No se encontró perfil de polymarket."
-
 msgid "Username or email address"
 msgstr "Nombre de usuario o dirección de correo electrónico"
 
@@ -3926,9 +3815,6 @@ msgstr "Sin lista negra"
 msgid "Address removed on Farcaster"
 msgstr "Dirección eliminada en Farcaster"
 
-msgid "Failed to switch wallet. Please try again"
-msgstr "No se pudo cambiar el monedero. Por favor, inténtelo de nuevo."
-
 msgid "Exact Score"
 msgstr "Resultado exacto"
 
@@ -3992,9 +3878,6 @@ msgstr "Búsquedas Más Populares"
 
 msgid "Article added to your Bookmarks"
 msgstr "Artículo añadido a tus Marcadores"
-
-msgid "Dark Mode"
-msgstr "Modo Oscuro"
 
 msgid "Just now"
 msgstr "Ahora mismo"
@@ -4233,9 +4116,6 @@ msgstr "Este token es emitido por su equipo declarado. Algunas estafas crearán 
 msgid "Select Chain for {0}"
 msgstr "Seleccionar cadena para {0}"
 
-msgid "Search ${symbol}"
-msgstr "Buscar ${symbol}"
-
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "Si se incluye un código suspendible, el token quizá no pueda comprarse ni venderse (riesgo de honeypot)."
 
@@ -4302,9 +4182,6 @@ msgstr "Noticias"
 
 msgid "Truth Social"
 msgstr "Truth Social"
-
-msgid "Associated wallets"
-msgstr "Carteras asociadas"
 
 msgid "Portfolio account value"
 msgstr "Valor de la cuenta de la cartera"
@@ -4628,9 +4505,6 @@ msgstr "No autorizado. Por favor, compruebe su inicio de sesión."
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "No se pudo subir. El tamaño del vídeo supera {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 
-msgid "Mask Network"
-msgstr "Mask Red"
-
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "Otorga acceso a tu {0} al contrato inteligente Lucky Drop. Solo tienes que hacerlo una vez por token."
@@ -4668,9 +4542,6 @@ msgstr "Ver en el explorador"
 
 msgid "Halftime"
 msgstr "Descanso"
-
-msgid "Your Telegram account is now connected"
-msgstr "Tu cuenta de Telegram ahora está conectada"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4791,9 +4662,6 @@ msgstr "La publicación ha sido cifrada"
 msgid "Select market"
 msgstr "Seleccionar mercado"
 
-msgid "Leaderboard"
-msgstr "Clasificación"
-
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth intercambió 1850 USDC por 0.5 ETH"
 
@@ -4818,9 +4686,6 @@ msgstr "Emoji"
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> y <1>{0} otros</1>"
-
-msgid "Token ${symbol} could not be found."
-msgstr "Token ${symbol} no encontrado."
 
 msgid "Media attachment"
 msgstr "Archivo multimedia adjunto"
@@ -5038,14 +4903,8 @@ msgstr "Buscar token"
 msgid "No one you follow has traded this token."
 msgstr "Nadie a quien sigues ha comerciado con este token."
 
-msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
-msgstr "Explorar - clubes en tendencia de Farcaster, Lens y Bluesky - Firefly"
-
 msgid "Remove attachment"
 msgstr "Eliminar adjunto"
-
-msgid "Search clubs"
-msgstr "Buscar clubes"
 
 msgid "No open orders"
 msgstr "Sin órdenes abiertas"
@@ -5141,9 +5000,6 @@ msgstr "24 horas"
 
 msgid "Bio should be at least {extra} characters"
 msgstr "La biografía debe tener al menos {extra} caracteres"
-
-msgid "No opinion event found."
-msgstr "No se encontró evento de opinión."
 
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Las notificaciones de Firefly están desactivadas."
@@ -5294,9 +5150,6 @@ msgstr "Juegos"
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "No se pudo agregar #{0} en {sourceName}"
-
-msgid "Language"
-msgstr "Idioma"
 
 msgid "Nashor Handicap"
 msgstr "Hándicap de Nashor"
@@ -5535,9 +5388,6 @@ msgstr "Delito financiero."
 msgid "Followers"
 msgstr "Seguidores"
 
-msgid "Search channel"
-msgstr "Buscar canal"
-
 msgid "Favorites"
 msgstr "Favoritos"
 
@@ -5614,9 +5464,6 @@ msgstr "Este token no puede autodestruirse."
 msgid "Cybercrime."
 msgstr "Ciberdelito."
 
-msgid "Display"
-msgstr "Pantalla"
-
 msgid "Sell"
 msgstr "Vender"
 
@@ -5637,9 +5484,6 @@ msgstr "Esta cartera ya está vinculada a otra cuenta de Firefly."
 
 msgid "You are not eligible to claim this red packet"
 msgstr "No eres elegible para reclamar este sobre rojo"
-
-msgid "Article could not be found"
-msgstr "Artículo no encontrado"
 
 msgid "Contract address."
 msgstr "Dirección del contrato."
@@ -5719,9 +5563,6 @@ msgstr "No se pudo salir de #{0} en {sourceName}"
 
 msgid "Something went wrong, please try again."
 msgstr "Algo salió mal, por favor inténtalo de nuevo."
-
-msgid "This Telegram account is already linked"
-msgstr "Esta cuenta de Telegram ya está vinculada"
 
 msgid "Following"
 msgstr "Siguiendo"
@@ -5872,9 +5713,6 @@ msgstr "Iniciar sesión"
 msgid "Security & Privacy"
 msgstr "Seguridad & Privacidad"
 
-msgid "Loading..."
-msgstr "Cargando..."
-
 msgid "Your session has expired. Please sign in again."
 msgstr "Tu sesión ha caducado. Inicia sesión de nuevo."
 
@@ -5951,9 +5789,6 @@ msgid "like"
 msgid_plural "likes"
 msgstr[0] "me gusta"
 msgstr[1] "me gusta"
-
-msgid "Posts from Trump on Truth Social (Explore, profile)"
-msgstr "Publicaciones de Trump en Truth Social (Explorar, perfil)"
 
 msgid "Golden"
 msgstr "Dorado"
