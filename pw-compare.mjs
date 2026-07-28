@@ -4,23 +4,6 @@ const STAGING = 'https://firefly-web-staging.adolph-office.workers.dev';
 const PROD = 'https://firefly.social';
 
 const urls = [
-    '/',
-    '/posts',
-    '/activities',
-    '/prediction',
-    '/world-cup-feed',
-    '/events',
-    '/event/fifa',
-    '/messages',
-    '/bookmarks',
-    '/bookmarks/lens',
-    '/notifications',
-    '/explore/posts/trending',
-    '/explore/users/x',
-    '/explore/prediction/trending',
-    '/explore/clubs/trending',
-    '/search',
-    '/search?q=bitcoin',
     '/intent/compose',
     '/post/lens/1148336xac4bpv9fv9j',
     '/profile/lens/binrui',
@@ -41,6 +24,7 @@ const urls = [
     '/signup',
     '/login/desktop',
     '/world-cup',
+    '/event/prediction-campaign-2',
 ];
 
 async function probe(browser, base, url) {

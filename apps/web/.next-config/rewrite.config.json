@@ -47,7 +47,7 @@
     "/wallet-iframe": {
         "canary": "https://firefly-social-wallet-canary.firefly.social/wallet-iframe/",
         "production": "https://firefly-social-wallet.firefly.social/wallet-iframe/",
-        "staging": "https://firefly-social-wallet-staging.firefly.social/wallet-iframe/"
+        "staging": "https://firefly-wallet-staging.adolph-office.workers.dev/wallet-iframe/"
     },
     "/world-cup-iframe": {
         "canary": "https://firefly-world-cup.vercel.app/world-cup-iframe",
