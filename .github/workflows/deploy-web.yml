@@ -52,7 +52,7 @@ jobs:
 
             - name: Build web (client + server bundles)
               env:
-                  NEXT_PUBLIC_VERCEL_ENV: staging
+                  NEXT_PUBLIC_VERCEL_ENV: preview
                   NEXT_PUBLIC_PRIVY_APP_ID: ${{ secrets.NEXT_PUBLIC_PRIVY_APP_ID }}
                   NEXT_PUBLIC_FIREFLY_ROOT_URL: ${{ secrets.NEXT_PUBLIC_FIREFLY_ROOT_URL }}
                   NEXT_PUBLIC_W3M_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_W3M_PROJECT_ID }}

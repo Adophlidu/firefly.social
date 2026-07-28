@@ -25,7 +25,7 @@
             "name": "firefly-wallet-staging",
             "vars": {
                 "NEXT_PUBLIC_BASE_PATH": "/wallet-iframe",
-                "NEXT_PUBLIC_VERCEL_ENV": "staging",
+                "NEXT_PUBLIC_VERCEL_ENV": "preview",
             },
         },
         "production": {

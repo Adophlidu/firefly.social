@@ -26,7 +26,7 @@
         "staging": {
             "name": "firefly-web-staging",
             "vars": {
-                "NEXT_PUBLIC_VERCEL_ENV": "staging",
+                "NEXT_PUBLIC_VERCEL_ENV": "preview",
             },
         },
         "production": {
