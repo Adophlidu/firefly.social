@@ -99,8 +99,12 @@ for (const url of urls) {
     if (problems.length) {
         issues++;
         console.log(`DIFF ${url} — ${problems.join(' | ')}`);
-        console.log(`  staging: [${s.status}] w=${s.mainWidth}@${s.mainX} aside=${s.hasAside} | ${s.text.slice(0, 90)}`);
-        console.log(`  prod   : [${p.status}] w=${p.mainWidth}@${p.mainX} aside=${p.hasAside} | ${p.text.slice(0, 90)}`);
+        console.log(
+            `  staging: [${s.status}] w=${s.mainWidth}@${s.mainX} aside=${s.hasAside} | ${s.text.slice(0, 90)}`,
+        );
+        console.log(
+            `  prod   : [${p.status}] w=${p.mainWidth}@${p.mainX} aside=${p.hasAside} | ${p.text.slice(0, 90)}`,
+        );
     } else {
         console.log(`OK   ${url}`);
     }
