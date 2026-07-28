@@ -28,11 +28,10 @@ import CoinArrowIcon from '@/assets/perps-profile/coin-arrow.svg';
 import DepositIcon from '@/assets/perps-profile/deposit.svg';
 import EditIcon from '@/assets/perps-profile/edit.svg';
 import HistoryIcon from '@/assets/perps-profile/history-clock.svg';
-import SettingsIcon from '@/assets/perps-profile/settings.svg';
 import SwapIcon from '@/assets/perps-profile/swap.svg';
 import TrashIcon from '@/assets/perps-profile/trash.svg';
 import WithdrawIcon from '@/assets/perps-profile/withdraw.svg';
-import { NavigationBar, NavigationBarRight } from '@/components/NavigationBar.js';
+import { NavigationBar } from '@/components/NavigationBar.js';
 import { computeUnifiedAccountRisk } from '@/components/Perps/computeUnifiedAccountRisk.js';
 import { formatPerpsHomeBalance } from '@/components/Perps/formatPerpsHomeBalance.js';
 import { getPerpsDexes } from '@/components/Perps/getPerpsDexes.js';
@@ -461,11 +460,6 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                 <h1 className="font-[Poppins] text-lg font-semibold">
                     <Trans>Perpetuals</Trans>
                 </h1>
-                <NavigationBarRight>
-                    <span aria-hidden className="flex size-6 items-center justify-center">
-                        <SettingsIcon className="size-6" />
-                    </span>
-                </NavigationBarRight>
             </NavigationBar>
 
             <main className="flex shrink-0 flex-col px-4 pb-6">

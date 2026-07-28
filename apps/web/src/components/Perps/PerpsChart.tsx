@@ -1,6 +1,5 @@
 'use client';
 
-import { DARK_THEME, LIGHT_THEME } from '@dimensiondev/kline-core';
 import { KlineChart } from '@dimensiondev/kline-core/react';
 import { createHyperliquidDataFeed } from '@dimensiondev/kline-hyperliquid';
 import { usePerpsClient } from '@dimensiondev/perps-react';
@@ -8,6 +7,7 @@ import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { memo, useMemo } from 'react';
 
+import { FIREFLY_DARK_KLINE_THEME, FIREFLY_LIGHT_KLINE_THEME } from '@/components/Perps/perpsKlineTheme.js';
 import styles from '@/components/Perps/PerpsResponsive.module.css';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
@@ -20,7 +20,7 @@ export const PerpsChart = memo(function PerpsChart({ coin, displayCoin = coin }:
     const client = usePerpsClient();
     const isDarkMode = useIsDarkMode();
     const datafeed = useMemo(() => createHyperliquidDataFeed(client), [client]);
-    const theme = isDarkMode ? DARK_THEME : LIGHT_THEME;
+    const theme = isDarkMode ? FIREFLY_DARK_KLINE_THEME : FIREFLY_LIGHT_KLINE_THEME;
 
     return (
         <section

@@ -6,13 +6,8 @@ export function ThemeHandler() {
     const isDarkMode = useIsDarkMode();
 
     useLayoutEffect(() => {
-        if (isDarkMode) {
-            document.documentElement.classList.remove('light');
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.add('light');
-            document.documentElement.classList.remove('dark');
-        }
+        document.documentElement.classList.toggle('dark', isDarkMode);
+        document.documentElement.classList.toggle('light', !isDarkMode);
     }, [isDarkMode]);
 
     return null;
