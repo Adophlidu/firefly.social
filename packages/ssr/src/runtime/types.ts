@@ -61,6 +61,17 @@ export interface HeadContext {
 /** Static per-route configuration. */
 export interface RouteConfig {
     cache?: CacheConfig;
+    /**
+     * How client-side navigations to this page get their data.
+     * - `'payload'` (default): loaders run on the server, the client fetches
+     *   a JSON payload.
+     * - `'client'`: the payload is skipped; the client renders immediately
+     *   (loading boundary as needed) and runs the chain's loaders in the
+     *   browser. Requires the loaders to be isomorphic (no server-only
+     *   secrets, no CORS-restricted upstreams).
+     * The first load is always full SSR regardless of this setting.
+     */
+    navMode?: 'payload' | 'client';
 }
 
 /**

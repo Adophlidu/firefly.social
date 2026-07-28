@@ -174,13 +174,21 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         : [];
                 const reusedData = Object.fromEntries(reusable.map((file) => [file, state.data[file]]));
 
-                // Fire the payload in parallel with module resolution.
-                const payloadPromise = fetchPayload(target, url.search, reusable);
                 const modules = await resolveChainModules(matched, moduleLoaders, {
                     includeClientOnly: true,
                 });
                 if (id !== navigationId.current) return; // superseded
 
+                // navMode=client routes skip the payload entirely: the page
+                // renders immediately and its loaders run in the browser.
+                const navMode = modules[matched.page.pageFile ?? '']?.config?.navMode;
+                const payloadPromise = navMode === 'client' ? null : fetchPayload(target, url.search, reusable);
+
+                const loaderContext: LoaderContext = {
+                    params: matched.params,
+                    request: new Request(url.href),
+                    url,
+                };
 
                 // Instant URL update; the old page stays mounted while the
                 // payload is in flight. Only when the payload is slow
@@ -214,7 +222,47 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 }, pendingMs);
                 let navigation: NavigationPayload | null = null;
                 try {
-                    navigation = await payloadPromise;
+                    if (navMode === 'client') {
+                        navigation = await (async (): Promise<NavigationPayload> => {
+                            try {
+                                const dataEntries = await Promise.all(
+                                    files.map(async (file) => {
+                                        if (reusedData[file] !== undefined) return null;
+                                        const loader = modules[file]?.loader;
+                                        if (!loader) return null;
+                                        return [file, await loader(loaderContext)] as const;
+                                    }),
+                                );
+                                if (id !== navigationId.current) {
+                                    return { url: target, params: matched.params, data: {}, heads: [] };
+                                }
+                                const data = {
+                                    ...reusedData,
+                                    ...Object.fromEntries(
+                                        dataEntries.filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)),
+                                    ),
+                                };
+                                const heads = await resolveHeads(matched, modules, data);
+                                return { url: target, params: matched.params, data, heads };
+                            } catch (error) {
+                                if (isRedirectError(error)) {
+                                    return { url: target, params: matched.params, data: {}, heads: [], redirect: error.url };
+                                }
+                                if (isNotFoundError(error)) {
+                                    return { url: target, params: matched.params, data: {}, heads: [], notFound: true };
+                                }
+                                return {
+                                    url: target,
+                                    params: matched.params,
+                                    data: {},
+                                    heads: [],
+                                    error: error instanceof Error ? error.message : String(error),
+                                };
+                            }
+                        })();
+                    } else if (payloadPromise) {
+                        navigation = await payloadPromise;
+                    }
                 } finally {
                     clearTimeout(pendingTimer);
                 }
@@ -238,11 +286,6 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 let data = { ...reusedData, ...navigation.data };
                 const clientOnlyFiles = (tree.clientOnlyFiles?.size ?? 0) > 0 ? filesOfMatch(matched).filter((file) => tree.clientOnlyFiles?.has(file)) : [];
                 if (clientOnlyFiles.length > 0 && !navigationError && !navigation.notFound) {
-                    const loaderContext: LoaderContext = {
-                        params: matched.params,
-                        request: new Request(url.href),
-                        url,
-                    };
                     try {
                         const extraEntries = await Promise.all(
                             clientOnlyFiles.map(async (file) => {
@@ -275,7 +318,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 // Reused files came without server-computed heads; recompute
                 // the chain's heads against the merged data on the client.
                 let heads = navigation.heads;
-                if (reusable.length > 0 && !navigationError && !navigation.notFound) {
+                if (navMode !== 'client' && reusable.length > 0 && !navigationError && !navigation.notFound) {
                     if (id !== navigationId.current) return;
                     heads = await resolveHeads(matched, modules, data);
                 }

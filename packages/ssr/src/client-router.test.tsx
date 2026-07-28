@@ -322,6 +322,56 @@ describe('client-side navigation', () => {
         expect(observedType).toBe('replace');
     });
 
+    it('navMode=client navigates without a payload request and runs loaders in the browser', async () => {
+        const clientLoader = vi.fn(() => ({ message: 'client-rendered' }));
+        const cmFiles = ['__root.tsx', 'index.tsx', 'cm.tsx'];
+        const cmTree = buildRouteTree({ files: cmFiles });
+        const cmModules: RouteModuleMap = {
+            '__root.tsx': { default: Root },
+            'index.tsx': {
+                default: function CmHomePage() {
+                    return (
+                        <main>
+                            <h1>home</h1>
+                            <Link href="/cm">go cm</Link>
+                        </main>
+                    );
+                },
+                loader: () => ({ message: 'home' }),
+            },
+            'cm.tsx': {
+                default: function CmPage() {
+                    const data = useLoaderData<{ message: string }>();
+                    return <main>cm:{data.message}</main>;
+                },
+                loader: clientLoader,
+                config: { navMode: 'client' },
+            },
+        };
+        const fetchMock = vi.fn(async () => Response.json({ url: '/cm', params: {}, data: {}, heads: [] }));
+        vi.stubGlobal('fetch', fetchMock);
+
+        const handler = createServerHandler({ tree: cmTree, modules: cmModules });
+        const response = await handler(new Request('http://localhost/'));
+        const html = (await response.text()).replace('<!DOCTYPE html>', '');
+        const container = document.createElement('div');
+        container.innerHTML = html;
+        document.body.append(container);
+
+        await act(async () => {
+            mountedRoots.push(await hydrateApp({ tree: cmTree, modules: cmModules, root: container, url: 'http://localhost/' }));
+        });
+
+        await act(async () => {
+            container.querySelector('a')!.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        });
+
+        expect(fetchMock).not.toHaveBeenCalled();
+        expect(clientLoader).toHaveBeenCalledTimes(1);
+        expect(container.querySelector('main')?.textContent).toBe('cm:client-rendered');
+        expect(window.location.pathname).toBe('/cm');
+    });
+
     it('runs client-only loaders in the browser and merges their data', async () => {
         const coFiles = ['__root.tsx', 'index.tsx', 'co.tsx'];
         const coTree = buildRouteTree({ files: coFiles, clientOnly: (file) => file === 'co.tsx' });

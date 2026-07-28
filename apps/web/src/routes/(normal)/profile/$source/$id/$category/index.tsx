@@ -29,7 +29,7 @@ export const loadingComponent = () => (
 
 // Mirrors the old layout's `revalidate = 300`: anonymous responses are
 // CDN-cached; cookied requests bypass the CDN.
-export const config = { cache: { sMaxAge: 300 } };
+export const config = { cache: { sMaxAge: 300 }, navMode: 'client' } as const;
 
 /**
  * Equivalent of the category layout's generateMetadata in the Next app
