@@ -27,12 +27,7 @@ import type { WalletProfiles } from '@/providers/types/Firefly.js';
 import { SourceSchema } from '@/schemas/Source.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 import { createOgImageResponse } from '@/services/og/createOgImageResponse.js';
-import {
-    getOgSatoriFonts,
-    loadImageDataUri,
-    loadSvgDataUri,
-    type OgAssets,
-} from '@/services/og/loadOgAsset.js';
+import { getOgSatoriFonts, loadImageDataUri, loadSvgDataUri, type OgAssets } from '@/services/og/loadOgAsset.js';
 
 const OG_AVATAR_SIZE = 284;
 const BASE_FONT_FAMILY = ['Bedstead'];
@@ -44,23 +39,37 @@ interface OgEnv {
 }
 
 async function loadProfileOgImages(assets: OgAssets) {
-    const [background, fallbackAvatar, bskyCircle, bskyFill, ethCircle, farcaster, farcasterFill, fireflyCircle, lens, lensFill, solanaCircle, wallet, xCircleLight, xFill] =
-        await Promise.all([
-            loadImageDataUri(assets, '/image/profile-og-background.png'),
-            loadImageDataUri(assets, '/image/firefly-light-avatar.png'),
-            loadSvgDataUri(assets, '/svg/bsky-circle.svg'),
-            loadSvgDataUri(assets, '/svg/bsky-fill.svg'),
-            loadSvgDataUri(assets, '/svg/eth-circle.svg'),
-            loadSvgDataUri(assets, '/svg/farcaster.svg'),
-            loadSvgDataUri(assets, '/svg/farcaster-fill.svg'),
-            loadSvgDataUri(assets, '/svg/firefly-circle2.svg'),
-            loadSvgDataUri(assets, '/svg/lens.svg'),
-            loadSvgDataUri(assets, '/svg/lens-fill.svg'),
-            loadSvgDataUri(assets, '/svg/solana-circle.svg'),
-            loadSvgDataUri(assets, '/svg/wallet3.svg'),
-            loadSvgDataUri(assets, '/svg/x-circle-light.svg'),
-            loadSvgDataUri(assets, '/svg/x-fill.svg'),
-        ]);
+    const [
+        background,
+        fallbackAvatar,
+        bskyCircle,
+        bskyFill,
+        ethCircle,
+        farcaster,
+        farcasterFill,
+        fireflyCircle,
+        lens,
+        lensFill,
+        solanaCircle,
+        wallet,
+        xCircleLight,
+        xFill,
+    ] = await Promise.all([
+        loadImageDataUri(assets, '/image/profile-og-background.png'),
+        loadImageDataUri(assets, '/image/firefly-light-avatar.png'),
+        loadSvgDataUri(assets, '/svg/bsky-circle.svg'),
+        loadSvgDataUri(assets, '/svg/bsky-fill.svg'),
+        loadSvgDataUri(assets, '/svg/eth-circle.svg'),
+        loadSvgDataUri(assets, '/svg/farcaster.svg'),
+        loadSvgDataUri(assets, '/svg/farcaster-fill.svg'),
+        loadSvgDataUri(assets, '/svg/firefly-circle2.svg'),
+        loadSvgDataUri(assets, '/svg/lens.svg'),
+        loadSvgDataUri(assets, '/svg/lens-fill.svg'),
+        loadSvgDataUri(assets, '/svg/solana-circle.svg'),
+        loadSvgDataUri(assets, '/svg/wallet3.svg'),
+        loadSvgDataUri(assets, '/svg/x-circle-light.svg'),
+        loadSvgDataUri(assets, '/svg/x-fill.svg'),
+    ]);
     return {
         background,
         fallbackAvatar,
@@ -340,9 +349,10 @@ const ParamsSchema = z.object({
 
 const getHandler = async (request: NextRequest, context?: NextRequestContext, env?: OgEnv) => {
     const { id, source } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!id || !source) return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
-        env!.ASSETS.fetch(new Request(new URL(path, request.url))),
-    );
+    if (!id || !source)
+        return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
+            env!.ASSETS.fetch(new Request(new URL(path, request.url))),
+        );
 
     const origin = new URL(request.url).origin;
     const assets = env!.ASSETS;
@@ -353,9 +363,10 @@ const getHandler = async (request: NextRequest, context?: NextRequestContext, en
 
     if (source === Source.Firefly) {
         const profiles = await getAllRelatedProfileInfo({ uid: id });
-        if (!profiles.account) return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
-        env!.ASSETS.fetch(new Request(new URL(path, request.url))),
-    );
+        if (!profiles.account)
+            return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
+                env!.ASSETS.fetch(new Request(new URL(path, request.url))),
+            );
 
         const avatar = walletProfilesToAvatar(profiles, images.fallbackAvatar);
         return createProfileOpenGraphImageResponse(
@@ -374,8 +385,8 @@ const getHandler = async (request: NextRequest, context?: NextRequestContext, en
 
     if (!isSocialSource(source) && !isWalletSource(source)) {
         return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
-        env!.ASSETS.fetch(new Request(new URL(path, request.url))),
-    );
+            env!.ASSETS.fetch(new Request(new URL(path, request.url))),
+        );
     }
 
     const identity = { source, id };
@@ -383,9 +394,10 @@ const getHandler = async (request: NextRequest, context?: NextRequestContext, en
 
     if (isWalletSource(source)) {
         const networkType = getAddressType(id);
-        if (!networkType) return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
-        env!.ASSETS.fetch(new Request(new URL(path, request.url))),
-    );
+        if (!networkType)
+            return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
+                env!.ASSETS.fetch(new Request(new URL(path, request.url))),
+            );
 
         return createProfileOpenGraphImageResponse(
             {
@@ -404,9 +416,10 @@ const getHandler = async (request: NextRequest, context?: NextRequestContext, en
     const profile = await runInSafeAsync(() =>
         resolveSocialMediaProvider(source as SocialSource).getProfileByIdOrHandle(id),
     );
-    if (!profile) return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
-        env!.ASSETS.fetch(new Request(new URL(path, request.url))),
-    );
+    if (!profile)
+        return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
+            env!.ASSETS.fetch(new Request(new URL(path, request.url))),
+        );
 
     return createProfileOpenGraphImageResponse(
         {
@@ -425,8 +438,10 @@ const getHandler = async (request: NextRequest, context?: NextRequestContext, en
 export function GET({ request, params, env }: ApiContext<OgEnv>) {
     // withRequestErrorHandler's wrapper only forwards (request, context), so
     // bind env via closure instead of a third argument.
-    const handler = withRequestErrorHandler()(
-        ((req: NextRequest, context?: NextRequestContext) => getHandler(req, context, env)) as never,
-    ) as (request: NextRequest, context?: NextRequestContext) => Promise<Response>;
+    const handler = withRequestErrorHandler()(((req: NextRequest, context?: NextRequestContext) =>
+        getHandler(req, context, env)) as never) as (
+        request: NextRequest,
+        context?: NextRequestContext,
+    ) => Promise<Response>;
     return handler(request as NextRequest, { params } as never);
 }

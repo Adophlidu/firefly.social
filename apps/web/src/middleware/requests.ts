@@ -1,7 +1,8 @@
 import { FIREFLY_ROOT_URL, FIREFLY_ROOT_URL_DEV } from '@dimensiondev/constants/static';
 import type { MiddlewareFn } from '@dimensiondev/ssr';
 
-const BOT_PATTERN = /bot|spider|crawl|slurp|facebookexternalhit|twitterbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkshare|whatsapp|telegrambot|discordbot/i;
+const BOT_PATTERN =
+    /bot|spider|crawl|slurp|facebookexternalhit|twitterbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkshare|whatsapp|telegrambot|discordbot/i;
 
 /**
  * Header/cookie helpers middleware: bot flag for /post pages and search

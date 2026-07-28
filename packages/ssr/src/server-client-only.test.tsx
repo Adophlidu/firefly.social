@@ -80,9 +80,7 @@ describe('client-only routes', () => {
 
     it('runs loaders for data requests against the same route', async () => {
         const handler = createHandler();
-        const response = await handler(
-            new Request('http://localhost/heavy', { headers: { 'x-ssr-data': 'true' } }),
-        );
+        const response = await handler(new Request('http://localhost/heavy', { headers: { 'x-ssr-data': 'true' } }));
         expect(await response.json()).toMatchObject({
             url: '/heavy',
             data: { 'heavy.tsx': { expensive: 'server-loaded-data' } },

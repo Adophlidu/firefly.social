@@ -107,11 +107,7 @@ function TabNavigation() {
 
     return (
         <div className="sticky top-0 z-10 mb-2 mt-4 flex w-full items-center gap-4 bg-primaryBottom px-4">
-            <Tabs
-                className="min-w-0 flex-1"
-                value={pathnameInTab}
-                onValueChange={(path) => navigate(path)}
-            >
+            <Tabs className="min-w-0 flex-1" value={pathnameInTab} onValueChange={(path) => navigate(path)}>
                 <TabsList variant="second" className="flex w-full justify-normal">
                     {tabs.map(({ path, label }) => (
                         <TabsTrigger key={path} variant="second" value={path}>

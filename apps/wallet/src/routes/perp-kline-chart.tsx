@@ -20,8 +20,7 @@ function parseChartSearch(search: Record<string, unknown>): PerpKlineChartSearch
     const interval: KlineInterval = (VALID_INTERVALS as readonly string[]).includes(intervalCandidate)
         ? (intervalCandidate as KlineInterval)
         : '1h';
-    const address =
-        typeof search.address === 'string' && search.address.startsWith('0x') ? search.address : undefined;
+    const address = typeof search.address === 'string' && search.address.startsWith('0x') ? search.address : undefined;
 
     return { coin, interval, address };
 }

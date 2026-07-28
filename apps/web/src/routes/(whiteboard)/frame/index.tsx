@@ -1,4 +1,3 @@
-
 import FireflyLogo from '@dimensiondev/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { EIP6963_PROVIDER_DESCRIPTION } from '@dimensiondev/constants/static';

@@ -13,12 +13,7 @@ import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import type { Article } from '@/providers/types/Article.js';
 import { createOgImageResponse } from '@/services/og/createOgImageResponse.js';
-import {
-    getOgSatoriFonts,
-    loadImageDataUri,
-    loadSvgDataUri,
-    type OgAssets,
-} from '@/services/og/loadOgAsset.js';
+import { getOgSatoriFonts, loadImageDataUri, loadSvgDataUri, type OgAssets } from '@/services/og/loadOgAsset.js';
 
 const OG_FONT_FAMILY = ['Inter', 'Noto Sans Symbols 2'];
 const CJK_FONT_FAMILY = ['NotoSansSC'];

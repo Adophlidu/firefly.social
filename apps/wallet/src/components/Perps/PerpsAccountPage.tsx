@@ -112,11 +112,7 @@ function PerpsIntentButton({
 }) {
     const navigate = useNavigate();
     return (
-        <button
-            type="button"
-            className={className}
-            onClick={() => navigate(`/perps/?${encodePerpsIntent(intent)}`)}
-        >
+        <button type="button" className={className} onClick={() => navigate(`/perps/?${encodePerpsIntent(intent)}`)}>
             {children}
         </button>
     );
@@ -512,14 +508,14 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                         <button
                             type="button"
                             className="flex h-10 items-center justify-center gap-1.5 rounded-[20px] bg-lightBg text-sm font-medium"
-                            onClick={() => navigate('/perps/withdraw' )}
+                            onClick={() => navigate('/perps/withdraw')}
                         >
                             <WithdrawIcon className="size-5" /> <Trans>Withdraw</Trans>
                         </button>
                         <button
                             type="button"
                             className="flex h-10 items-center justify-center gap-1.5 rounded-[20px] bg-lightBg text-sm font-medium"
-                            onClick={() => navigate('/perps/deposit' )}
+                            onClick={() => navigate('/perps/deposit')}
                         >
                             <DepositIcon className="size-5" /> <Trans>Add Funds</Trans>
                         </button>
@@ -552,7 +548,7 @@ export const PerpsAccountPage = memo(function PerpsAccountPage({ intent }: { int
                             type="button"
                             aria-label={t`Trading history`}
                             className="flex size-7 items-center justify-center"
-                            onClick={() => navigate('/perps/history' )}
+                            onClick={() => navigate('/perps/history')}
                         >
                             <HistoryIcon className="size-6" />
                         </button>

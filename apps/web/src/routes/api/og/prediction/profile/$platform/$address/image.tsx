@@ -20,12 +20,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 import { createOgImageResponse } from '@/services/og/createOgImageResponse.js';
-import {
-    getOgSatoriFonts,
-    loadImageDataUri,
-    loadSvgDataUri,
-    type OgAssets,
-} from '@/services/og/loadOgAsset.js';
+import { getOgSatoriFonts, loadImageDataUri, loadSvgDataUri, type OgAssets } from '@/services/og/loadOgAsset.js';
 import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
 const predictionDefaultOgImage = getDefaultOgImageUrl();
@@ -477,8 +472,10 @@ const getHandler = async (request: NextRequest, context?: NextRequestContext, en
 export function GET({ request, params, env }: ApiContext<OgEnv>) {
     // withRequestErrorHandler's wrapper only forwards (request, context), so
     // bind env via closure instead of a third argument.
-    const handler = withRequestErrorHandler()(
-        ((req: NextRequest, context?: NextRequestContext) => getHandler(req, context, env)) as never,
-    ) as (request: NextRequest, context?: NextRequestContext) => Promise<Response>;
+    const handler = withRequestErrorHandler()(((req: NextRequest, context?: NextRequestContext) =>
+        getHandler(req, context, env)) as never) as (
+        request: NextRequest,
+        context?: NextRequestContext,
+    ) => Promise<Response>;
     return handler(request as NextRequest, { params } as never);
 }

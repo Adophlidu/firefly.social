@@ -1,4 +1,3 @@
-
 import FullLogo from '@dimensiondev/assets/logo-full.svg';
 import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';

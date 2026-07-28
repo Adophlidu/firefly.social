@@ -59,12 +59,8 @@ describe('buildRouteTree', () => {
     });
 
     it('rejects duplicate pages for the same URL, including across groups', () => {
-        expect(() => buildRouteTree({ files: ['posts.tsx', 'posts/index.tsx'] })).toThrow(
-            /Duplicate pages/,
-        );
-        expect(() => buildRouteTree({ files: ['(a)/users.tsx', '(b)/users.tsx'] })).toThrow(
-            /Duplicate pages/,
-        );
+        expect(() => buildRouteTree({ files: ['posts.tsx', 'posts/index.tsx'] })).toThrow(/Duplicate pages/);
+        expect(() => buildRouteTree({ files: ['(a)/users.tsx', '(b)/users.tsx'] })).toThrow(/Duplicate pages/);
     });
 
     it('chains layouts around the pages in their directory', () => {
@@ -93,8 +89,6 @@ describe('buildRouteTree', () => {
     });
 
     it('rejects a catchall in a non-terminal position', () => {
-        expect(() => buildRouteTree({ files: ['docs.$.more.tsx'] })).toThrow(
-            /Catchall segment must be the last/,
-        );
+        expect(() => buildRouteTree({ files: ['docs.$.more.tsx'] })).toThrow(/Catchall segment must be the last/);
     });
 });

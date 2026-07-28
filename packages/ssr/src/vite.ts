@@ -87,10 +87,7 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
             return { scripts: [joinUrl(base, clientEntry)], styles: [] };
         }
         const manifestPath = path.join(root, 'dist/client/.vite/manifest.json');
-        const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as Record<
-            string,
-            ViteManifestChunk
-        >;
+        const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as Record<string, ViteManifestChunk>;
         const entryChunk = Object.values(manifest).find((chunk) => chunk.isEntry);
         if (!entryChunk) {
             throw new Error(`[ssr] no entry chunk found in ${manifestPath} (build client first)`);
@@ -122,7 +119,10 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
                 // (e.g. the root _layout, which is also statically
                 // reachable); fall back to the src-less dynamic entry with
                 // the same module name.
-                const name = file.replace(/\.[^.]+$/, '').split('/').pop();
+                const name = file
+                    .replace(/\.[^.]+$/, '')
+                    .split('/')
+                    .pop();
                 const candidates = Object.values(manifest).filter(
                     (candidate) => candidate.isDynamicEntry && !candidate.src && candidate.name === name,
                 );

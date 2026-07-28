@@ -14,7 +14,6 @@ export const loadingComponent = () => (
     </div>
 );
 
-
 export const config = { cache: { sMaxAge: 60 } };
 
 interface DiscoverPostsLoaderData {

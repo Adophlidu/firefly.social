@@ -23,7 +23,9 @@ export async function loader({ params }: LoaderContext): Promise<PolymarketProfi
 }
 
 export default function PolymarketProfilePage() {
-    const { address, predictionProfile } = useLoaderData<PolymarketProfileLoaderData>('polymarket/profile/$address.tsx');
+    const { address, predictionProfile } = useLoaderData<PolymarketProfileLoaderData>(
+        'polymarket/profile/$address.tsx',
+    );
     return (
         <PredictionProfileDetailContent
             address={address}

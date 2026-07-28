@@ -1,18 +1,10 @@
-
 /**
  * Compatibility shim over @dimensiondev/ssr for components written against
  * next/navigation (via @bprogress/next's useRouter). The new SSR app aliases
  * `@/esm/navigation.js` here (see vite.config.ts); the Next.js app keeps the
  * original implementation.
  */
-import {
-    notFound,
-    redirect,
-    useNavigate,
-    useParams,
-    useRouterState,
-    useSearch,
-} from '@dimensiondev/ssr';
+import { notFound, redirect, useNavigate, useParams, useRouterState, useSearch } from '@dimensiondev/ssr';
 import { useMemo } from 'react';
 
 export { notFound, redirect, useParams };

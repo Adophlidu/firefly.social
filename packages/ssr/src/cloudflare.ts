@@ -55,7 +55,10 @@ export function createWorkersHandler<TEnv extends WorkersEnv = WorkersEnv>(
             // basepath before the lookup (HTML references base-prefixed URLs).
             const url = new URL(request.url);
             const assetPath = stripBasepath(url.pathname, options.basepath);
-            const assetRequest = assetPath === url.pathname ? request : new Request(new URL(assetPath + url.search, url.origin), request);
+            const assetRequest =
+                assetPath === url.pathname
+                    ? request
+                    : new Request(new URL(assetPath + url.search, url.origin), request);
             const assetResponse = await assetsBinding.fetch(assetRequest);
             if (assetResponse.status !== 404) return assetResponse;
         }

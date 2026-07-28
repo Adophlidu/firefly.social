@@ -1,4 +1,3 @@
-
 import FireflyIcon from '@dimensiondev/assets/logo.svg';
 import { useParams } from '@dimensiondev/ssr';
 

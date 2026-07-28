@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 
 import { SettingsList } from '@/app/[locale]/(settings)/components/SettingsList.js';

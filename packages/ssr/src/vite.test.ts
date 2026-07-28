@@ -144,9 +144,9 @@ describe('ssrPlugin production build', () => {
         const bundleFile = serverFiles.find((file) => file.endsWith('.js'));
         expect(bundleFile).toBeDefined();
 
-        const serverModule = (await import(
-            pathToFileURL(path.join(distDirectory, 'server', bundleFile!)).href
-        )) as { default: { fetch: (request: Request) => Promise<Response> } };
+        const serverModule = (await import(pathToFileURL(path.join(distDirectory, 'server', bundleFile!)).href)) as {
+            default: { fetch: (request: Request) => Promise<Response> };
+        };
 
         const response = await serverModule.default.fetch(new Request('http://localhost/'));
         expect(response.status).toBe(200);

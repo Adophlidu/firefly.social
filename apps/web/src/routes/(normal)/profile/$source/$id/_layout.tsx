@@ -20,7 +20,6 @@ import type { FireflyIdentity, WalletProfile, WalletProfiles } from '@/providers
 /** Renders its own header — suppress the (normal) frame's NavigatorBar. */
 export const topnav = () => null;
 
-
 interface ProfileLayoutData {
     source: ProfilePageSource;
     pageData: ProfilePageData;
@@ -104,10 +103,7 @@ export default function ProfileLayout({ children }: { children?: ReactNode }) {
                         relatedProfile={relatedProfile}
                     />
                     {socialProfile ? (
-                        <ProfileInfoCard
-                            source={source}
-                            hasFireflyAccount={!!relatedProfile.account}
-                        />
+                        <ProfileInfoCard source={source} hasFireflyAccount={!!relatedProfile.account} />
                     ) : null}
                 </ProfileContextProvider>
                 <NotLoginFallback source={source as LoginFallbackSource} />

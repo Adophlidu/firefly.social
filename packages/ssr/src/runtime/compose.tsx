@@ -138,9 +138,7 @@ export function findBoundaryComponent(
     for (let index = match.chain.length - 1; index >= 0; index -= 1) {
         const node = match.chain[index];
         const files =
-            node === match.page
-                ? [node.pageFile, node.layoutFile, node.rootFile]
-                : [node.layoutFile, node.rootFile];
+            node === match.page ? [node.pageFile, node.layoutFile, node.rootFile] : [node.layoutFile, node.rootFile];
         for (const file of files) {
             const routeModule = file ? modules[file] : undefined;
             const boundary =
@@ -200,9 +198,7 @@ export function composeMatch(options: ComposeOptions): ReactElement {
         const children = Fallback ? <ErrorBoundary Fallback={Fallback}>{tree}</ErrorBoundary> : tree;
         // A terminal errorComponent receives the error as a prop.
         const errorProps =
-            options.terminalComponent && options.error && index === entries.length - 1
-                ? { error: options.error }
-                : {};
+            options.terminalComponent && options.error && index === entries.length - 1 ? { error: options.error } : {};
         tree = <Component {...errorProps}>{children}</Component>;
     }
 

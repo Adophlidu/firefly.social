@@ -51,7 +51,9 @@ export const legacyRedirects: MiddlewareFn = (request, { next }) => {
     const oldDiscover = parseOldDiscoverUrl(url);
     if (oldDiscover) {
         const destination = new URL(
-            oldDiscover.exploreType ? resolveExploreUrl(oldDiscover.exploreType) : resolveDiscoverUrl(oldDiscover.source),
+            oldDiscover.exploreType
+                ? resolveExploreUrl(oldDiscover.exploreType)
+                : resolveDiscoverUrl(oldDiscover.source),
             request.url,
         );
         return Response.redirect(destination, 307);

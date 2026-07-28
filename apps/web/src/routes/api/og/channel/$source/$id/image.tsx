@@ -20,12 +20,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { SocialSourceSchema } from '@/schemas/Source.js';
 import { createOgImageResponse } from '@/services/og/createOgImageResponse.js';
-import {
-    getOgSatoriFonts,
-    loadImageDataUri,
-    loadSvgDataUri,
-    type OgAssets,
-} from '@/services/og/loadOgAsset.js';
+import { getOgSatoriFonts, loadImageDataUri, loadSvgDataUri, type OgAssets } from '@/services/og/loadOgAsset.js';
 
 const OG_AVATAR_SIZE = 284;
 const BASE_FONT_FAMILY = ['Bedstead'];
@@ -242,14 +237,16 @@ const ParamsSchema = z.object({
 
 const getHandler = async (request: NextRequest, context?: NextRequestContext, env?: OgEnv) => {
     const { id, source } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!id || !source) return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
-        env!.ASSETS.fetch(new Request(new URL(path, request.url))),
-    );
+    if (!id || !source)
+        return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
+            env!.ASSETS.fetch(new Request(new URL(path, request.url))),
+        );
 
     const channel = await resolveSocialMediaProvider(source).getChannelById(id);
-    if (!channel) return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
-        env!.ASSETS.fetch(new Request(new URL(path, request.url))),
-    );
+    if (!channel)
+        return createProxyImageResponse(getDefaultOgImageUrl(), (path) =>
+            env!.ASSETS.fetch(new Request(new URL(path, request.url))),
+        );
 
     const images = await loadChannelOgImages(env!.ASSETS);
     const displayName = resolveChannelName(channel);
@@ -270,8 +267,10 @@ const getHandler = async (request: NextRequest, context?: NextRequestContext, en
 export function GET({ request, params, env }: ApiContext<OgEnv>) {
     // withRequestErrorHandler's wrapper only forwards (request, context), so
     // bind env via closure instead of a third argument.
-    const handler = withRequestErrorHandler()(
-        ((req: NextRequest, context?: NextRequestContext) => getHandler(req, context, env)) as never,
-    ) as (request: NextRequest, context?: NextRequestContext) => Promise<Response>;
+    const handler = withRequestErrorHandler()(((req: NextRequest, context?: NextRequestContext) =>
+        getHandler(req, context, env)) as never) as (
+        request: NextRequest,
+        context?: NextRequestContext,
+    ) => Promise<Response>;
     return handler(request as NextRequest, { params } as never);
 }

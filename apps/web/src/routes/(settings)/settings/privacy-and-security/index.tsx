@@ -1,4 +1,3 @@
-
 import { Trans } from '@lingui/react/macro';
 
 import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';

@@ -20,8 +20,7 @@ export async function loader({ params, request }: LoaderContext): Promise<Predic
 }
 
 export default function PredictionCategoryRoute() {
-    const { slugs, slugList, initialPropsListPage } = useLoaderData<PredictionCategoryLoaderData>('prediction/category/$.tsx');
-    return (
-        <PredictionCategoryPage slugs={slugs} slugList={slugList} initialPropsListPage={initialPropsListPage} />
-    );
+    const { slugs, slugList, initialPropsListPage } =
+        useLoaderData<PredictionCategoryLoaderData>('prediction/category/$.tsx');
+    return <PredictionCategoryPage slugs={slugs} slugList={slugList} initialPropsListPage={initialPropsListPage} />;
 }

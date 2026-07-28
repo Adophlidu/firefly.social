@@ -16,8 +16,8 @@ export interface ResolvedChain {
  * its own exact URL, but renders the layout for all descendant URLs.
  */
 export function filesOfNode(node: RouteNode, isMatchedPage: boolean): string[] {
-    return [node.rootFile, node.layoutFile, isMatchedPage ? node.pageFile : undefined].filter(
-        (file): file is string => Boolean(file),
+    return [node.rootFile, node.layoutFile, isMatchedPage ? node.pageFile : undefined].filter((file): file is string =>
+        Boolean(file),
     );
 }
 

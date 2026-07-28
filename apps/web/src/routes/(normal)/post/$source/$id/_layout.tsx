@@ -6,7 +6,6 @@ import { Comeback } from '@/components/Comeback.js';
 /** Renders its own header — suppress the (normal) frame's NavigatorBar. */
 export const topnav = () => null;
 
-
 export default function PostDetailLayout({ children }: { children?: ReactNode }) {
     return (
         <>

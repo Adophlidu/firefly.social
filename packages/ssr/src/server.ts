@@ -62,10 +62,7 @@ export interface ServerContext<TEnv = unknown> {
     ctx?: ExecutionContextLike;
 }
 
-export type ServerHandler<TEnv = unknown> = (
-    request: Request,
-    context?: ServerContext<TEnv>,
-) => Promise<Response>;
+export type ServerHandler<TEnv = unknown> = (request: Request, context?: ServerContext<TEnv>) => Promise<Response>;
 
 /** Render a route's static cache config into a `Cache-Control` value. */
 export function cacheControlHeader(cache: CacheConfig): string {
@@ -86,7 +83,8 @@ function isViteDev(): boolean {
     }
 }
 
-interface RenderPageOptions {    matched: RouteMatch;
+interface RenderPageOptions {
+    matched: RouteMatch;
     modules: RouteModuleMap;
     pathname: string;
     search: URLSearchParams;
@@ -164,9 +162,7 @@ async function renderPage(options: RenderPageOptions): Promise<Response> {
  * - `notFound()` → nearest `notFoundComponent` with 404, else plain 404
  * - any other error → nearest `errorComponent` with 500, else rethrown
  */
-export function createServerHandler<TEnv = unknown>(
-    options: CreateServerHandlerOptions,
-): ServerHandler<TEnv> {
+export function createServerHandler<TEnv = unknown>(options: CreateServerHandlerOptions): ServerHandler<TEnv> {
     const { tree, modules: moduleInput, notFound, basepath, clientAssets, middleware } = options;
     const match = createMatcher(tree);
 
@@ -398,7 +394,7 @@ export function createServerHandler<TEnv = unknown>(
             data,
             heads,
         });
-    };
+    }
 
     if (!middleware?.length) return handleRequest;
 

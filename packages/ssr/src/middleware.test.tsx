@@ -67,9 +67,11 @@ describe('middleware', () => {
 
     it('runs the chain in order', async () => {
         const order: number[] = [];
-        const make = (index: number): MiddlewareFn => () => {
-            order.push(index);
-        };
+        const make =
+            (index: number): MiddlewareFn =>
+            () => {
+                order.push(index);
+            };
         const handler = createServerHandler({ tree, modules, middleware: [make(1), make(2), make(3)] });
         await handler(new Request('http://localhost/'));
         expect(order).toEqual([1, 2, 3]);

@@ -23,7 +23,9 @@ export function loader({ params }: LoaderContext): ProfileSourceLoaderData {
 }
 
 export async function head({ params }: HeadContext) {
-    return fromNextMetadata(await getFireflyProfilePageMetadata(params.source ?? '', `/profile/${params.source ?? ''}`));
+    return fromNextMetadata(
+        await getFireflyProfilePageMetadata(params.source ?? '', `/profile/${params.source ?? ''}`),
+    );
 }
 
 export default function ProfileSourcePage() {

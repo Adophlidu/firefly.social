@@ -485,7 +485,7 @@ export const PerpsOrderIntentPage = memo(function PerpsOrderIntentPage({
                     <button
                         type="button"
                         className="flex items-center gap-1 font-medium"
-                        onClick={() => navigate('/perps/deposit' )}
+                        onClick={() => navigate('/perps/deposit')}
                     >
                         {available === undefined ? '--' : `$${formatNumber(available)}`}{' '}
                         <PlusCircle className="size-3 text-highlight" />

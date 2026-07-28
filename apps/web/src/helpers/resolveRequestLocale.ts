@@ -15,4 +15,3 @@ export function resolveRequestLocale(request: Request): Locale {
     const acceptLanguage = request.headers.get('accept-language')?.split(',')[0];
     return resolveLanguageLocale(acceptLanguage);
 }
-

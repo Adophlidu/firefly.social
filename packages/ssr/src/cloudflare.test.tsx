@@ -1,12 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import type { ReactNode } from 'react';
 
-import {
-    createWorkersHandler,
-    getGeo,
-    withEdgeCache,
-    type WorkersEnv,
-} from './cloudflare.ts';
+import { createWorkersHandler, getGeo, withEdgeCache, type WorkersEnv } from './cloudflare.ts';
 import { buildRouteTree } from './router/tree.ts';
 import { SsrDataOutlet } from './runtime/compose.tsx';
 import { cacheControlHeader } from './server.ts';
@@ -50,11 +45,7 @@ describe('createWorkersHandler', () => {
 
     it('threads env into loaders and applies route cache config', async () => {
         const handler = createWorkersHandler({ tree, modules });
-        const response = await handler(
-            new Request('http://localhost/'),
-            createEnv({ SECRET: 's3cr3t' }),
-            noopCtx,
-        );
+        const response = await handler(new Request('http://localhost/'), createEnv({ SECRET: 's3cr3t' }), noopCtx);
         expect(response.status).toBe(200);
         expect(response.headers.get('cache-control')).toBe('public, s-maxage=300, stale-while-revalidate=60');
         const html = await response.text();
@@ -75,9 +66,7 @@ describe('createWorkersHandler', () => {
         const env = createEnv({
             ASSETS: {
                 fetch: async (request) =>
-                    new URL(request.url).pathname === '/app.js'
-                        ? assetResponse
-                        : new Response('nope', { status: 404 }),
+                    new URL(request.url).pathname === '/app.js' ? assetResponse : new Response('nope', { status: 404 }),
             },
         });
 
@@ -164,18 +153,33 @@ describe('withEdgeCache', () => {
             return new Response(`render-${produced}`);
         };
 
-        const en = await withEdgeCache(new Request('http://localhost/page'), ctx, { sMaxAge: 60, vary: ['en'] }, produce);
+        const en = await withEdgeCache(
+            new Request('http://localhost/page'),
+            ctx,
+            { sMaxAge: 60, vary: ['en'] },
+            produce,
+        );
         expect(await en.text()).toBe('render-1');
         await Promise.all(waits);
 
         // Same URL, different vary: a miss, not a hit.
-        const zh = await withEdgeCache(new Request('http://localhost/page'), ctx, { sMaxAge: 60, vary: ['zh-Hans'] }, produce);
+        const zh = await withEdgeCache(
+            new Request('http://localhost/page'),
+            ctx,
+            { sMaxAge: 60, vary: ['zh-Hans'] },
+            produce,
+        );
         expect(zh.headers.get('x-ssr-cache')).toBeNull();
         expect(await zh.text()).toBe('render-2');
         await Promise.all(waits);
 
         // Same URL, same vary again: a hit.
-        const enAgain = await withEdgeCache(new Request('http://localhost/page'), ctx, { sMaxAge: 60, vary: ['en'] }, produce);
+        const enAgain = await withEdgeCache(
+            new Request('http://localhost/page'),
+            ctx,
+            { sMaxAge: 60, vary: ['en'] },
+            produce,
+        );
         expect(enAgain.headers.get('x-ssr-cache')).toBe('hit');
         expect(produced).toBe(2);
 
@@ -218,8 +222,6 @@ describe('withEdgeCache', () => {
 describe('cacheControlHeader', () => {
     it('renders only the configured directives', () => {
         expect(cacheControlHeader({ sMaxAge: 10 })).toBe('public, s-maxage=10');
-        expect(cacheControlHeader({ staleWhileRevalidate: 5 })).toBe(
-            'public, stale-while-revalidate=5',
-        );
+        expect(cacheControlHeader({ staleWhileRevalidate: 5 })).toBe('public, stale-while-revalidate=5');
     });
 });

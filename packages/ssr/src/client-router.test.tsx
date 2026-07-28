@@ -118,7 +118,12 @@ describe('client-side navigation', () => {
         const container = await renderInto('/');
         await act(async () => {
             mountedRoots.push(
-                await hydrateApp({ tree: headfulTree, modules: headfulModules, root: container, url: 'http://localhost/' }),
+                await hydrateApp({
+                    tree: headfulTree,
+                    modules: headfulModules,
+                    root: container,
+                    url: 'http://localhost/',
+                }),
             );
         });
         expect(container.querySelector('h1')?.textContent).toBe('home');
@@ -312,7 +317,9 @@ describe('client-side navigation', () => {
         document.body.append(container);
 
         await act(async () => {
-            mountedRoots.push(await hydrateApp({ tree, modules: probeModules, root: container, url: 'http://localhost/' }));
+            mountedRoots.push(
+                await hydrateApp({ tree, modules: probeModules, root: container, url: 'http://localhost/' }),
+            );
         });
         expect(observedType).toBeUndefined();
 
@@ -359,7 +366,9 @@ describe('client-side navigation', () => {
         document.body.append(container);
 
         await act(async () => {
-            mountedRoots.push(await hydrateApp({ tree: cmTree, modules: cmModules, root: container, url: 'http://localhost/' }));
+            mountedRoots.push(
+                await hydrateApp({ tree: cmTree, modules: cmModules, root: container, url: 'http://localhost/' }),
+            );
         });
 
         await act(async () => {
@@ -411,7 +420,9 @@ describe('client-side navigation', () => {
         document.body.append(container);
 
         await act(async () => {
-            mountedRoots.push(await hydrateApp({ tree, modules: coModules, root: container, url: 'http://localhost/' }));
+            mountedRoots.push(
+                await hydrateApp({ tree, modules: coModules, root: container, url: 'http://localhost/' }),
+            );
         });
 
         const anchor = container.querySelector('a');

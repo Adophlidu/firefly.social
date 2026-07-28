@@ -1,4 +1,3 @@
-
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';

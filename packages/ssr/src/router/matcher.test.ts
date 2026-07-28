@@ -46,12 +46,7 @@ describe('createMatcher', () => {
     });
 
     it('returns the full chain including pathless layouts and groups', () => {
-        const match = matcherFor([
-            '__root.tsx',
-            '_layout.tsx',
-            '(admin)/_layout.tsx',
-            '(admin)/users/$id.tsx',
-        ]);
+        const match = matcherFor(['__root.tsx', '_layout.tsx', '(admin)/_layout.tsx', '(admin)/users/$id.tsx']);
         const result = match('/users/42');
         expect(result?.params).toEqual({ id: '42' });
         expect(result?.chain.map((node) => node.id)).toEqual([

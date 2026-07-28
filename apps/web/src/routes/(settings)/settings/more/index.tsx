@@ -1,4 +1,3 @@
-
 import DiscordIcon from '@dimensiondev/assets/discord.svg';
 import DocumentsIcon from '@dimensiondev/assets/documents.svg';
 import MaskRoundIcon from '@dimensiondev/assets/mask.round.svg';

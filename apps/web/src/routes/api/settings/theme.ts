@@ -12,9 +12,7 @@ const SearchParamsSchema = z.object({
 });
 
 const postHandler = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const { root_class: rootClass } = SearchParamsSchema.parse(
-        Object.fromEntries(new URL(request.url).searchParams),
-    );
+    const { root_class: rootClass } = SearchParamsSchema.parse(Object.fromEntries(new URL(request.url).searchParams));
 
     return createSuccessResponseJson(null, {
         headers: {

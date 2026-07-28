@@ -78,7 +78,11 @@ export async function loader({ params, url }: LoaderContext): Promise<TokenLayou
     const slug = slugs[0]; // category of the legacy route, or coingecko_id of the new route
     const rawSearch = url.search.replace(/^\?/, '');
 
-    const newSearch = !isNewRoute ? updateSearch(rawSearch, slug ? { category: slug } : {}) : rawSearch ? `?${rawSearch}` : '';
+    const newSearch = !isNewRoute
+        ? updateSearch(rawSearch, slug ? { category: slug } : {})
+        : rawSearch
+          ? `?${rawSearch}`
+          : '';
 
     // legacy search param: the exchange segment already is a coingecko id
     if (!isNewRoute && url.searchParams.get('isCoinId') === 'true') {

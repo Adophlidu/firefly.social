@@ -19,7 +19,12 @@ describe('flattenHeads', () => {
     it('lets later meta tags override earlier ones with the same property', () => {
         const { meta } = flattenHeads([
             { meta: [{ property: 'og:title', content: 'root' }] },
-            { meta: [{ property: 'og:title', content: 'page' }, { property: 'og:image', content: 'x.png' }] },
+            {
+                meta: [
+                    { property: 'og:title', content: 'page' },
+                    { property: 'og:image', content: 'x.png' },
+                ],
+            },
         ]);
         expect(meta).toEqual([
             { property: 'og:title', content: 'page' },
@@ -42,7 +47,12 @@ describe('flattenHeads', () => {
 
     it('dedupes links by rel and href', () => {
         const { links } = flattenHeads([
-            { links: [{ rel: 'canonical', href: 'https://a.test/x' }, { rel: 'icon', href: '/favicon.ico' }] },
+            {
+                links: [
+                    { rel: 'canonical', href: 'https://a.test/x' },
+                    { rel: 'icon', href: '/favicon.ico' },
+                ],
+            },
             { links: [{ rel: 'canonical', href: 'https://a.test/y' }] },
         ]);
         expect(links).toEqual([

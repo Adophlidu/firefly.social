@@ -46,11 +46,7 @@ export function coerceToResponse(value: unknown): Response {
     if (typeof value === 'string') {
         return new Response(value, { headers: { 'content-type': 'text/plain; charset=utf-8' } });
     }
-    if (
-        value instanceof ReadableStream ||
-        value instanceof Uint8Array ||
-        value instanceof URLSearchParams
-    ) {
+    if (value instanceof ReadableStream || value instanceof Uint8Array || value instanceof URLSearchParams) {
         return new Response(value as BodyInit);
     }
     return Response.json(value);
@@ -61,10 +57,7 @@ export function coerceToResponse(value: unknown): Response {
  * `HEAD` falls back to `GET`. Returns `405` with an `Allow` header when the
  * method is not implemented.
  */
-export async function dispatchApiRoute(
-    routeModule: ApiRouteModule,
-    context: ApiContext,
-): Promise<Response> {
+export async function dispatchApiRoute(routeModule: ApiRouteModule, context: ApiContext): Promise<Response> {
     const method = context.request.method.toUpperCase() as ApiMethod;
     const handler = routeModule[method] ?? (method === 'HEAD' ? routeModule.GET : undefined);
     if (!handler) {

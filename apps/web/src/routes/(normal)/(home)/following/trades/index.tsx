@@ -9,7 +9,6 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 /** Manages its own right column. */
 export const sidebar = () => null;
 
-
 export function head() {
     return fromNextMetadata(createSiteMetadata('/following/trades'));
 }

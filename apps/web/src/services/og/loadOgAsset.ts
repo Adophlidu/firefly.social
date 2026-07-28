@@ -30,11 +30,7 @@ export function loadStaticImageDataUri(assets: OgAssets, path: string): Promise<
  * Fonts come from the worker's own static assets (via the ASSETS binding)
  * instead of the (Vercel-protected) site URL.
  */
-export function getOgSatoriFonts(
-    preferences: Parameters<typeof getSatoriFonts>[0],
-    origin: string,
-    assets: OgAssets,
-) {
+export function getOgSatoriFonts(preferences: Parameters<typeof getSatoriFonts>[0], origin: string, assets: OgAssets) {
     return getSatoriFonts(preferences, undefined, origin, (url) =>
         assets.fetch(new Request(url)).then((response: Response) => response.arrayBuffer()),
     );

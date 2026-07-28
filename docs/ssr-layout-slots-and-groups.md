@@ -7,12 +7,12 @@
 
 迁移过程中，我们把 Next 的布局机制机械映射到了新架构上，产生了一连串同源 bug：
 
-| Next 机制 | 临时映射 | 代价 |
-| --- | --- | --- |
-| 组布局 `(normal)` / `(home)` | `IfPathname` 按路径选框架 | 前缀 vs 精确匹配出错（HomeTabs 错包 `/prediction/category/*`） |
-| 并行路由 `@subnav` / `@sidebar` | `ExploreSubnav` 手解析 pathname | split off-by-one，子 tab 整体丢失 |
-| `@modal` 拦截路由 | 无（渲染 null） | 功能缺失，暂可接受 |
-| RSC async 组件 | 直接复用 | 客户端 #482 连环崩溃 |
+| Next 机制                       | 临时映射                        | 代价                                                           |
+| ------------------------------- | ------------------------------- | -------------------------------------------------------------- |
+| 组布局 `(normal)` / `(home)`    | `IfPathname` 按路径选框架       | 前缀 vs 精确匹配出错（HomeTabs 错包 `/prediction/category/*`） |
+| 并行路由 `@subnav` / `@sidebar` | `ExploreSubnav` 手解析 pathname | split off-by-one，子 tab 整体丢失                              |
+| `@modal` 拦截路由               | 无（渲染 null）                 | 功能缺失，暂可接受                                             |
+| RSC async 组件                  | 直接复用                        | 客户端 #482 连环崩溃                                           |
 
 核心原则（与 Next 对齐但更简单）：**布局归属由目录决定，不由路径正则决定**。
 `IfPathname` 只允许用于纯 UI 分支（同一份布局内的局部差异），不允许用于布局选择。

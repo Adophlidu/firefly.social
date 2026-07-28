@@ -95,7 +95,16 @@ export interface ClientAppProps {
  * `<head>`, history and scroll position.
  */
 export function ClientApp(props: ClientAppProps): ReactElement {
-    const { tree, moduleLoaders, payload, history = 'browser', basepath, pendingMs = 300, prefetchAll = true, rewritePathname } = props;
+    const {
+        tree,
+        moduleLoaders,
+        payload,
+        history = 'browser',
+        basepath,
+        pendingMs = 300,
+        prefetchAll = true,
+        rewritePathname,
+    } = props;
     const [state, setState] = useState(props.initial);
     const matcher = useMemo(() => createMatcher(tree), [tree]);
     const navigationId = useRef(0);
@@ -239,14 +248,22 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                                 const data = {
                                     ...reusedData,
                                     ...Object.fromEntries(
-                                        dataEntries.filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)),
+                                        dataEntries.filter((entry): entry is NonNullable<typeof entry> =>
+                                            Boolean(entry),
+                                        ),
                                     ),
                                 };
                                 const heads = await resolveHeads(matched, modules, data);
                                 return { url: target, params: matched.params, data, heads };
                             } catch (error) {
                                 if (isRedirectError(error)) {
-                                    return { url: target, params: matched.params, data: {}, heads: [], redirect: error.url };
+                                    return {
+                                        url: target,
+                                        params: matched.params,
+                                        data: {},
+                                        heads: [],
+                                        redirect: error.url,
+                                    };
                                 }
                                 return {
                                     url: target,
@@ -290,7 +307,10 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 // their loaders can only run here, in the browser. Fill in
                 // the files the payload could not cover.
                 let data = { ...reusedData, ...navigation.data };
-                const clientOnlyFiles = (tree.clientOnlyFiles?.size ?? 0) > 0 ? filesOfMatch(matched).filter((file) => tree.clientOnlyFiles?.has(file)) : [];
+                const clientOnlyFiles =
+                    (tree.clientOnlyFiles?.size ?? 0) > 0
+                        ? filesOfMatch(matched).filter((file) => tree.clientOnlyFiles?.has(file))
+                        : [];
                 if (clientOnlyFiles.length > 0 && !navigationError && !navigation.notFound) {
                     try {
                         const extraEntries = await Promise.all(
@@ -302,7 +322,9 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                             }),
                         );
                         if (id !== navigationId.current) return; // superseded
-                        const extra = Object.fromEntries(extraEntries.filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)));
+                        const extra = Object.fromEntries(
+                            extraEntries.filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)),
+                        );
                         if (Object.keys(extra).length > 0) data = { ...data, ...extra };
                     } catch (error) {
                         if (isRedirectError(error)) {
@@ -390,11 +412,9 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 if (page.pageKind === 'api') continue;
                 if (page.fullSegments.some((segment) => segment.type !== 'static')) continue;
                 void fetchPayload(page.path, '');
-                void resolveChainModules(
-                    { page, chain: [page], params: {} } as RouteMatch,
-                    moduleLoaders,
-                    { includeClientOnly: true },
-                );
+                void resolveChainModules({ page, chain: [page], params: {} } as RouteMatch, moduleLoaders, {
+                    includeClientOnly: true,
+                });
             }
         };
         const w = window as Window & {

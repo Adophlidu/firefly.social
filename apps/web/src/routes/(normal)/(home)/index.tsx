@@ -16,9 +16,7 @@ function HomeRedirect() {
     const isLogin = useIsLoginDiscoverSource();
 
     useEffect(() => {
-        const target = isLogin
-            ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE)
-            : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE);
+        const target = isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE);
         navigate?.(target, { replace: true });
     }, [isLogin, navigate]);
 

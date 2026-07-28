@@ -74,13 +74,7 @@ const themeInitScript = `
  */
 function ReactNativeStyleElement() {
     const sheet = StyleSheet.getSheet();
-    return (
-        <style
-            id={sheet.id}
-            suppressHydrationWarning
-            dangerouslySetInnerHTML={{ __html: sheet.textContent }}
-        />
-    );
+    return <style id={sheet.id} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: sheet.textContent }} />;
 }
 
 function RootDocument({ children }: { children: ReactNode }) {

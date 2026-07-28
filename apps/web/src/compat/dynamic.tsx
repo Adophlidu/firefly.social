@@ -48,9 +48,7 @@ export function dynamic<T extends ComponentType<any>>(
     const Fallback: ComponentType = options?.loading ?? (() => null);
 
     function DynamicComponent(props: Record<string, unknown>): ReactElement | null {
-        const [Component, setComponent] = useState<ComponentType | null>(
-            () => componentCache.get(loadable) ?? null,
-        );
+        const [Component, setComponent] = useState<ComponentType | null>(() => componentCache.get(loadable) ?? null);
         useEffect(() => {
             if (Component) return;
             let mounted = true;

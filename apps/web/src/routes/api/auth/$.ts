@@ -127,7 +127,10 @@ export async function GET({ params, request, url }: ApiContext) {
         );
     }
 
-    if (url.pathname === '/api/auth/callback/twitter' && parseCookies(request.headers.get('cookie'))[MaskDelegateCookieName]) {
+    if (
+        url.pathname === '/api/auth/callback/twitter' &&
+        parseCookies(request.headers.get('cookie'))[MaskDelegateCookieName]
+    ) {
         return new Response(
             `<!doctype html><a id="c" href="#">It's now safe to turn off this page.</a><script>${DeleteCookieScript};c.onclose=()=>window.close()</script>`,
             {

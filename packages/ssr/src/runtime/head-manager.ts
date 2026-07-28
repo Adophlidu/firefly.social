@@ -15,7 +15,10 @@ export function flattenHeads(heads: HeadDescriptor[]): {
     meta: HeadMeta[];
     links: HeadLink[];
 } {
-    const title = heads.map((head) => head.title).filter(Boolean).at(-1);
+    const title = heads
+        .map((head) => head.title)
+        .filter(Boolean)
+        .at(-1);
 
     const metaByKey = new Map<string, HeadMeta>();
     const linkByKey = new Map<string, HeadLink>();

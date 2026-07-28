@@ -49,9 +49,7 @@ describe('server error paths', () => {
         expect(html.status).toBe(302);
         expect(html.headers.get('location')).toBe('/target');
 
-        const data = await handler(
-            new Request('http://localhost/leave', { headers: { 'x-ssr-data': 'true' } }),
-        );
+        const data = await handler(new Request('http://localhost/leave', { headers: { 'x-ssr-data': 'true' } }));
         expect(await data.json()).toMatchObject({ redirect: '/target' });
     });
 
@@ -67,9 +65,7 @@ describe('server error paths', () => {
         expect(html).toContain('custom-404');
         expect(html).not.toContain('page-content');
 
-        const data = await handler(
-            new Request('http://localhost/gone', { headers: { 'x-ssr-data': 'true' } }),
-        );
+        const data = await handler(new Request('http://localhost/gone', { headers: { 'x-ssr-data': 'true' } }));
         expect(await data.json()).toMatchObject({ notFound: true });
     });
 
@@ -99,9 +95,7 @@ describe('server error paths', () => {
         expect(html).toContain('custom-500:');
         expect(html).toContain('kaput');
 
-        const data = await handler(
-            new Request('http://localhost/boom', { headers: { 'x-ssr-data': 'true' } }),
-        );
+        const data = await handler(new Request('http://localhost/boom', { headers: { 'x-ssr-data': 'true' } }));
         expect(await data.json()).toMatchObject({ error: 'kaput' });
     });
 

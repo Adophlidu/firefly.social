@@ -16,8 +16,6 @@ import { createPostMetadataFromPost } from '@/providers/firefly/metadata/createP
 import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-
-
 export const config = { cache: { sMaxAge: 300 }, navMode: 'client' } as const;
 
 interface PostDetailLoaderData {

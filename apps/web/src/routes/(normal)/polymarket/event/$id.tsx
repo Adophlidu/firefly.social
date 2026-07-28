@@ -10,10 +10,8 @@ import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 /** Manages its own right column. */
 export const sidebar = () => null;
 
-
 /** Renders its own header — suppress the (normal) frame's NavigatorBar. */
 export const topnav = () => null;
-
 
 interface PolymarketEventLoaderData {
     event: NonNullable<Awaited<ReturnType<typeof getPolymarketEventPageData>>['event']>;

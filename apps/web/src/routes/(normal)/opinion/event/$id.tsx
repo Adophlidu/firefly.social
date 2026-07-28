@@ -13,7 +13,6 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 /** Renders its own header — suppress the (normal) frame's NavigatorBar. */
 export const topnav = () => null;
 
-
 interface OpinionEventLoaderData {
     id: string;
     isMutil: boolean;

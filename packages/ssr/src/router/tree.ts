@@ -138,9 +138,7 @@ export function buildRouteTree(options: BuildRouteTreeOptions): RouteTree {
             const directoryId = segmentsToDirectoryId(parsed.directory);
             const existing = layoutByDirectory.get(directoryId);
             if (existing) {
-                throw new Error(
-                    `Duplicate layouts for directory "${directoryId}": "${existing}" and "${file}"`,
-                );
+                throw new Error(`Duplicate layouts for directory "${directoryId}": "${existing}" and "${file}"`);
             }
             layoutByDirectory.set(directoryId, file);
         }
@@ -148,7 +146,8 @@ export function buildRouteTree(options: BuildRouteTreeOptions): RouteTree {
     });
 
     function getOrCreateChild(parent: RouteNode, segment: RouteSegment): RouteNode {
-        const id = parent.id === '/' ? `/${segmentToIdElement(segment)}` : `${parent.id}/${segmentToIdElement(segment)}`;
+        const id =
+            parent.id === '/' ? `/${segmentToIdElement(segment)}` : `${parent.id}/${segmentToIdElement(segment)}`;
         const existing = nodeById.get(id);
         if (existing) return existing;
         const node = createNode(parent, id, [segment], [...parent.fullSegments, segment]);
@@ -216,9 +215,7 @@ export function buildRouteTree(options: BuildRouteTreeOptions): RouteTree {
             leaf = getOrCreateChild(leaf, segment);
         }
         if (leaf.pageFile) {
-            throw new Error(
-                `Duplicate pages for URL "${leaf.path}": "${leaf.pageFile}" and "${file}"`,
-            );
+            throw new Error(`Duplicate pages for URL "${leaf.path}": "${leaf.pageFile}" and "${file}"`);
         }
         leaf.pageFile = file;
         const firstVisible = leaf.fullSegments.find((s) => s.type !== 'group');
@@ -237,13 +234,10 @@ export function buildRouteTree(options: BuildRouteTreeOptions): RouteTree {
         if (catchallIndex !== -1 && catchallIndex !== visible.length - 1) {
             throw new Error(`Catchall segment must be the last segment of a route ("${page.id}")`);
         }
-        const canonical =
-            '/' + visible.map((s) => (s.type === 'static' ? s.name : '$')).join('/');
+        const canonical = '/' + visible.map((s) => (s.type === 'static' ? s.name : '$')).join('/');
         const existing = canonicalUrlByPage.get(canonical);
         if (existing) {
-            throw new Error(
-                `Duplicate pages for URL "${canonical}": "${existing}" and "${page.pageFile}"`,
-            );
+            throw new Error(`Duplicate pages for URL "${canonical}": "${existing}" and "${page.pageFile}"`);
         }
         canonicalUrlByPage.set(canonical, page.pageFile ?? page.id);
     }

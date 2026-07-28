@@ -11,17 +11,14 @@ import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG
 
 const ParamsSchema = z.object({ username: z.string() });
 
-const getHandler = compose(
-    withRequestErrorHandler(),
-    async (request: NextRequest, context?: NextRequestContext) => {
-        const { username } = await getParamsWithZodSchema(ParamsSchema, context);
+const getHandler = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
+    const { username } = await getParamsWithZodSchema(ParamsSchema, context);
 
-        const profile = await getTwitterProfileByOG(username);
-        if (!profile) throw new NotFoundError();
+    const profile = await getTwitterProfileByOG(username);
+    if (!profile) throw new NotFoundError();
 
-        return createRedirectResponse(profile.pfp);
-    },
-);
+    return createRedirectResponse(profile.pfp);
+});
 
 export function GET({ request, params }: ApiContext) {
     return getHandler(request as NextRequest, { params: Promise.resolve(params) });

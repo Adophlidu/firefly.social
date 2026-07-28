@@ -27,7 +27,11 @@ const FONT_CONFIGS: FontConfig[] = [
 // NotoSans TTFs are ~22 MB) and keeps the buffers resident across warm invocations.
 const fontBufferCache = new Map<string, Promise<ArrayBuffer>>();
 
-function loadOgFont(url: string, signal?: AbortSignal, fetchBuffer?: (url: string) => Promise<ArrayBuffer>): Promise<ArrayBuffer> {
+function loadOgFont(
+    url: string,
+    signal?: AbortSignal,
+    fetchBuffer?: (url: string) => Promise<ArrayBuffer>,
+): Promise<ArrayBuffer> {
     const cached = fontBufferCache.get(url);
     if (cached) return cached;
 
@@ -52,7 +56,9 @@ export async function getSatoriFonts(
 ): Promise<Font[]> {
     const configs = (
         preferences === 'all' ? FONT_CONFIGS : FONT_CONFIGS.filter((config) => preferences.includes(config.name))
-    ).map((config) => (baseUrl ? { ...config, url: new URL(new URL(config.url).pathname, baseUrl).toString() } : config));
+    ).map((config) =>
+        baseUrl ? { ...config, url: new URL(new URL(config.url).pathname, baseUrl).toString() } : config,
+    );
 
     const fonts = await Promise.all(configs.map((config) => loadOgFont(config.url, signal, fetchBuffer)));
 

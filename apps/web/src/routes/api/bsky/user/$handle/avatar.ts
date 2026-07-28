@@ -11,14 +11,11 @@ import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 
 const ParamsSchema = z.object({ handle: z.string() });
 
-const getHandler = compose(
-    withRequestErrorHandler(),
-    async (request: NextRequest, context?: NextRequestContext) => {
-        const { handle: idOrHandle } = await getParamsWithZodSchema(ParamsSchema, context);
-        const profile = await getBskyProfileById(idOrHandle);
-        return createRedirectResponse(profile.pfp);
-    },
-);
+const getHandler = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
+    const { handle: idOrHandle } = await getParamsWithZodSchema(ParamsSchema, context);
+    const profile = await getBskyProfileById(idOrHandle);
+    return createRedirectResponse(profile.pfp);
+});
 
 export function GET({ request, params }: ApiContext) {
     return getHandler(request as NextRequest, { params: Promise.resolve(params) });

@@ -33,10 +33,7 @@ describe('dispatchApiRoute', () => {
     });
 
     it('dispatches to the exported method handler with params', async () => {
-        const response = await dispatchApiRoute(
-            { GET: ({ params }) => ({ id: params.id }) },
-            context('GET'),
-        );
+        const response = await dispatchApiRoute({ GET: ({ params }) => ({ id: params.id }) }, context('GET'));
         expect(response.status).toBe(200);
         expect(await response.json()).toEqual({ id: '42' });
     });

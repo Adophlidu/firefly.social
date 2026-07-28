@@ -9,9 +9,7 @@ export default function MutedSourceTypePage() {
     const { source, type } = useParams();
 
     const muteMenuList = useMuteMenuList();
-    const currentMenu = muteMenuList.find(
-        (menu) => menu.type === type && resolveSourceInUrl(menu.source) === source,
-    );
+    const currentMenu = muteMenuList.find((menu) => menu.type === type && resolveSourceInUrl(menu.source) === source);
     if (!currentMenu || currentMenu.shouldHide()) return null;
 
     return <MutedListPage name={currentMenu.name} type={type as MuteType} source={currentMenu.source} />;
