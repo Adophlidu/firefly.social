@@ -26,13 +26,15 @@ export async function loader({ request }: LoaderContext) {
 }
 
 export default function RootLayout({ children }: { children?: ReactNode }) {
-    const { locale } = useLoaderData<{ locale: Locale }>('_layout.tsx');
+    // Fallback for transitions whose error/notFound state precedes the data.
+    const { locale } = useLoaderData<{ locale: Locale } | undefined>('_layout.tsx') ?? {};
+    const resolvedLocale = locale ?? Locale.en;
 
     return (
         <AgentProvider>
             <NavigationProgress />
-            <LangSetter locale={locale} />
-            <AppLayoutBody locale={locale}>{children}</AppLayoutBody>
+            <LangSetter locale={resolvedLocale} />
+            <AppLayoutBody locale={resolvedLocale}>{children}</AppLayoutBody>
         </AgentProvider>
     );
 }

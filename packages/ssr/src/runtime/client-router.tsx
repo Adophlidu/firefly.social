@@ -223,7 +223,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 let navigation: NavigationPayload | null = null;
                 try {
                     if (navMode === 'client') {
-                        navigation = await (async (): Promise<NavigationPayload> => {
+                        const clientNavigation = await (async (): Promise<NavigationPayload> => {
                             try {
                                 const dataEntries = await Promise.all(
                                     files.map(async (file) => {
@@ -248,18 +248,24 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                                 if (isRedirectError(error)) {
                                     return { url: target, params: matched.params, data: {}, heads: [], redirect: error.url };
                                 }
-                                if (isNotFoundError(error)) {
-                                    return { url: target, params: matched.params, data: {}, heads: [], notFound: true };
-                                }
                                 return {
                                     url: target,
                                     params: matched.params,
                                     data: {},
                                     heads: [],
                                     error: error instanceof Error ? error.message : String(error),
+                                    notFound: isNotFoundError(error) || undefined,
                                 };
                             }
                         })();
+                        // Degrade to the server payload when browser-run
+                        // loaders fail — the server has no browser-CORS
+                        // limits and may succeed where the client cannot.
+                        if (clientNavigation.error || clientNavigation.notFound) {
+                            navigation = await fetchPayload(target, url.search, reusable);
+                        } else {
+                            navigation = clientNavigation;
+                        }
                     } else if (payloadPromise) {
                         navigation = await payloadPromise;
                     }
@@ -324,17 +330,20 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 }
 
                 if (id !== navigationId.current) return; // superseded
-                setState({
+                setState((previous) => ({
                     match: matched,
                     modules,
-                    data,
-                    heads,
+                    // Error/notFound fallbacks must keep the previous data so
+                    // layouts above the boundary can keep rendering (a cleared
+                    // data map crashes ancestor layouts mid-render).
+                    data: navigationError || navigation.notFound ? previous.data : data,
+                    heads: navigationError || navigation.notFound ? previous.heads : heads,
                     pathname: target,
                     search: url.searchParams,
                     navigationType: options.replace ? 'replace' : 'push',
                     error: navigationError,
                     notFound: navigation.notFound || undefined,
-                });
+                }));
                 if (options.scroll !== false) window.scrollTo(0, 0);
             })();
         },
