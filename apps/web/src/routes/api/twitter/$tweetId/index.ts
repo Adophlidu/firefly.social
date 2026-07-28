@@ -3,7 +3,7 @@ import type { ApiContext } from '@dimensiondev/ssr';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose, runInSafeAsync } from '@dimensiondev/utils';
 import { pick } from 'lodash-es';
-import type { NextRequest } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';

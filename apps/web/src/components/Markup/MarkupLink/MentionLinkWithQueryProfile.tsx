@@ -2,7 +2,7 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { useQueries } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
-import type { LinkProps } from 'next/link.js';
+import type { LinkProps } from '@/esm/Link.js';
 import { memo, type ReactNode } from 'react';
 
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';

@@ -1,6 +1,6 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import type { NextRequestContext } from '@dimensiondev/types';
-import type { NextRequest } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';

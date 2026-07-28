@@ -99,8 +99,28 @@ declare module '*.svg' {
 declare module '*.css';
 
 declare module '*.svg?url' {
-    const content: import('next/image.js').StaticImageData;
+    interface StaticImageData {
+        src: string;
+        height: number;
+        width: number;
+        blurDataURL?: string;
+    }
+    const content: StaticImageData;
     export default content;
+}
+
+// The global JSX namespace used to come from next-env.d.ts (Next.js bundles it
+// via /// <reference types="react" />); @types/react 19 no longer declares it
+// globally. Re-declare it here, mapped onto React.JSX.
+declare namespace JSX {
+    type Element = import('react').JSX.Element;
+    interface ElementClass extends import('react').JSX.ElementClass {}
+    interface ElementAttributesProperty extends import('react').JSX.ElementAttributesProperty {}
+    interface ElementChildrenAttribute extends import('react').JSX.ElementChildrenAttribute {}
+    interface IntrinsicElements extends import('react').JSX.IntrinsicElements {}
+    interface IntrinsicAttributes extends import('react').JSX.IntrinsicAttributes {}
+    interface IntrinsicClassAttributes<T> extends import('react').JSX.IntrinsicClassAttributes<T> {}
+    type LibraryManagedAttributes<C, P> = import('react').JSX.LibraryManagedAttributes<C, P>;
 }
 
 declare module 'next/font/local' {

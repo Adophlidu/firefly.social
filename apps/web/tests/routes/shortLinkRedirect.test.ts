@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server.js';
+import { NextRequest } from '@/compat/next-server.js';
 import { describe, expect, it, vi } from 'vitest';
 
 import { GET } from '@/legacy/i/[hash]/route.js';

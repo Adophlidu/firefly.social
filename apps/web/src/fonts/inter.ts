@@ -1,5 +1,5 @@
 // @ts-ignore skip
-import { Inter } from 'next/font/google';
+import { Inter } from '@/stubs/next-font-google.js';
 
 export const inter = Inter({
     preload: true,

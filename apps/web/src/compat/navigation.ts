@@ -4,24 +4,28 @@
  * `@/esm/navigation.js` here (see vite.config.ts); the Next.js app keeps the
  * original implementation.
  */
-import { notFound, redirect, useNavigate, useParams, useRouterState, useSearch } from '@dimensiondev/ssr';
+import { notFound, useNavigate, useParams as ssrUseParams, useRouterState, useSearch } from '@dimensiondev/ssr';
 import { useMemo } from 'react';
 
-export { notFound, redirect, useParams };
+export { notFound };
+export { redirect, RedirectType } from '@/compat/navigation-server.js';
 
-export const RedirectType = {
-    push: 'push',
-    replace: 'replace',
-} as const;
-export type RedirectType = (typeof RedirectType)[keyof typeof RedirectType];
+export type ReadonlyURLSearchParams = URLSearchParams;
 
 interface RouterShim {
-    push: (href: string) => void;
-    replace: (href: string) => void;
+    push: (href: string, options?: RouterOptions) => void;
+    replace: (href: string, options?: RouterOptions) => void;
     back: () => void;
     forward: () => void;
     refresh: () => void;
     prefetch: (href: string) => void;
+}
+
+/** @bprogress/next navigation options; accepted for compatibility, ignored. */
+interface RouterOptions {
+    showProgress?: boolean;
+    disableSameURL?: boolean;
+    scroll?: boolean;
 }
 
 export function useRouter(): RouterShim {
@@ -53,4 +57,8 @@ export function useSearchParams(): URLSearchParams {
 export function useSelectedLayoutSegments(): string[] {
     const { pathname } = useRouterState();
     return pathname.split('/').filter(Boolean);
+}
+
+export function useParams<T extends Record<string, string> = Record<string, string>>(): T {
+    return ssrUseParams() as T;
 }

@@ -1,7 +1,7 @@
 import { SITE_NAME } from '@dimensiondev/constants/static';
 import type { ProfilePageSourceInURL } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
-import type { Metadata } from 'next';
+import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

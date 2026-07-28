@@ -1,6 +1,6 @@
 import { envs } from '@dimensiondev/envs/web';
 import { parseJson } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
 import { getToken, type JWT } from 'next-auth/jwt';
 
 import { logger } from '@/libs/Logger.js';
@@ -13,13 +13,11 @@ interface TwitterAuthPayload {
 }
 
 /**
- * Session-from-headers works on any runtime: callers either pass the
- * request's headers (Workers/SSR library) or rely on next/headers (the old
- * Next app, when omitted).
+ * Session-from-headers works on any runtime: callers pass the incoming
+ * request's headers.
  */
-export async function createTwitterSessionPayloadFromHeaders(rawHeaders?: Headers) {
-    const resolvedHeaders = rawHeaders ?? (await import('next/headers.js')).headers();
-    const payload = TwitterSession.payloadFromHeaders(await resolvedHeaders);
+export async function createTwitterSessionPayloadFromHeaders(rawHeaders: Headers) {
+    const payload = TwitterSession.payloadFromHeaders(rawHeaders);
     if (!payload) return null;
 
     return TwitterSessionPayload.revealPayload(payload);
@@ -35,8 +33,10 @@ function parseCookieHeader(request: Request, name: string): string | undefined {
 }
 
 async function createTwitterSessionPayloadFromJWT(request: NextRequest): Promise<SessionPayload | null> {
+    // getToken only reads the cookie header; next-auth's request type expects
+    // Next.js request shapes that no longer exist in this repo.
     const token: JWT | null = await getToken({
-        req: request,
+        req: request as never,
         secret: envs.internal.NEXTAUTH_SECRET,
     });
 
@@ -52,10 +52,8 @@ async function createTwitterSessionPayloadFromJWT(request: NextRequest): Promise
     };
 }
 
-async function createTwitterSessionPayloadFromCookies(request?: Request) {
-    const tokenValue = request
-        ? parseCookieHeader(request, 'twitterToken')
-        : (await (await import('next/headers.js')).cookies()).get('twitterToken')?.value;
+async function createTwitterSessionPayloadFromCookies(request: Request) {
+    const tokenValue = parseCookieHeader(request, 'twitterToken');
     if (!tokenValue) {
         logger.warn('[createTwitterSessionPayloadFromCookies] No twitter token found in cookies');
         return null;
@@ -82,14 +80,9 @@ export async function createTwitterSessionBeforeLogin(request: NextRequest) {
     return null;
 }
 
-/**
- * `request`-optional: the SSR library's API routes pass the incoming Request
- * (Workers-safe); the old Next app calls without arguments and the session
- * comes from next/headers.
- */
-export async function createTwitterSessionAfterLogin(request?: Request) {
+export async function createTwitterSessionAfterLogin(request: Request) {
     // for api requests: retrieve session from headers
-    const fromHeaders = await createTwitterSessionPayloadFromHeaders(request?.headers);
+    const fromHeaders = await createTwitterSessionPayloadFromHeaders(request.headers);
     if (fromHeaders) return fromHeaders;
 
     // for ssr: retrieve session from cookies

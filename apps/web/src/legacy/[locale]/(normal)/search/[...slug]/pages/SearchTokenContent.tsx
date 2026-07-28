@@ -4,7 +4,7 @@ import { TokenPlatformType } from '@dimensiondev/enums';
 import type { TokenWithMarket } from '@dimensiondev/workers-token';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { redirect } from 'next/navigation.js';
+import { redirect } from '@/esm/navigation.js';
 import { useState } from 'react';
 
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';

@@ -1,6 +1,6 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
 import type { UserV2TimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 

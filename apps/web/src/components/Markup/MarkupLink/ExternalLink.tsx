@@ -2,7 +2,7 @@
 
 import { classNames, parseUrl } from '@dimensiondev/utils';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
-import type { LinkProps } from 'next/link.js';
+import type { LinkProps } from '@/esm/Link.js';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';

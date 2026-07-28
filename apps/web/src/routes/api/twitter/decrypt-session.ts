@@ -1,7 +1,7 @@
 import { envs } from '@dimensiondev/envs/web';
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose, parseJson } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';

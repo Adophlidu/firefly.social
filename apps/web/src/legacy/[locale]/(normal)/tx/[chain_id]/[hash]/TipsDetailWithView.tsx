@@ -1,7 +1,7 @@
 'use client';
 
 import { TipsDetailViewType } from '@dimensiondev/enums';
-import { useSearchParams } from 'next/navigation.js';
+import { useSearchParams } from '@/esm/navigation.js';
 
 import { TipsDetail } from '@/components/Tips/TipsDetail.js';
 import type { TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';

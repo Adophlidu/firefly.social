@@ -1,4 +1,4 @@
-import localFont from 'next/font/local';
+import localFont from '@/stubs/next-font-local.js';
 
 export const bedStead = localFont({
     src: [

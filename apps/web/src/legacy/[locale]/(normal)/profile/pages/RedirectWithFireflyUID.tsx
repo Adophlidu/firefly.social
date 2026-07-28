@@ -1,6 +1,6 @@
 import { SORTED_PROFILE_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { notFound, redirect, RedirectType } from 'next/navigation.js';
+import { notFound, redirect, RedirectType } from '@/esm/navigation.js';
 import type { ReactNode } from 'react';
 
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';

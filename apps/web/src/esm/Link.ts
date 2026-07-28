@@ -1,3 +1,1 @@
-import NextLink from 'next/link.js';
-
-export const Link = NextLink as unknown as typeof NextLink.default;
+export { Link, type LinkProps } from '@/compat/Link.js';

@@ -187,17 +187,13 @@ export default defineConfig({
             // pino cannot run in Workers (thread-stream worker threads); the
             // server-side Logger implementation reaches it, so stub it out.
             pino: resolve(__dirname, 'src/shims/pino.ts'),
-            // next/font is Next-only; reuse the Vitest stubs so font modules load.
+            // next/font is Next-only; src/fonts/* imports these stubs directly,
+            // the alias only covers stragglers.
             'next/font/local': resolve(__dirname, 'src/stubs/next-font-local.ts'),
             'next/font/google': resolve(__dirname, 'src/stubs/next-font-google.ts'),
-            // Components written against next/link and next/navigation use
-            // these wrappers; the new SSR app maps them onto the library's
-            // navigation (the Next.js app keeps the originals).
-            '@/esm/Link.js': resolve(__dirname, 'src/compat/Link.tsx'),
-            '@/esm/navigation.js': resolve(__dirname, 'src/compat/navigation.ts'),
-            '@/esm/navigation/server.js': resolve(__dirname, 'src/compat/navigation-server.ts'),
-            '@/esm/dynamic.js': resolve(__dirname, 'src/compat/dynamic.tsx'),
-            '@/esm/Image.js': resolve(__dirname, 'src/compat/Image.tsx'),
+            // Only reachable from next-auth's (never executed) App-Router branch.
+            'next/headers': resolve(__dirname, 'src/stubs/next-headers.ts'),
+            'next/headers.js': resolve(__dirname, 'src/stubs/next-headers.ts'),
             // vite-plugin-node-polyfills injects these shim imports as a dev banner
             // into every module — including the SSR environment, whose
             // module-runner can't resolve the bare subpaths (ERR_MODULE_NOT_FOUND).

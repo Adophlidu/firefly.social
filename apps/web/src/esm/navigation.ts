@@ -1,12 +1,11 @@
-'use client';
-
-export { useRouter } from '@bprogress/next';
 export {
     notFound,
     redirect,
     RedirectType,
+    type ReadonlyURLSearchParams,
     useParams,
     usePathname,
+    useRouter,
     useSearchParams,
     useSelectedLayoutSegments,
-} from 'next/dist/client/components/navigation.js';
+} from '@/compat/navigation.js';

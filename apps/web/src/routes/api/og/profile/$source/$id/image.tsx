@@ -9,7 +9,7 @@ import type { NextRequestContext } from '@dimensiondev/types';
 import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { compact, first } from 'lodash-es';
-import type { NextRequest } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
 import type { HTMLProps } from 'react';
 import { z } from 'zod';
 

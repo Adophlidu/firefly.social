@@ -32,14 +32,14 @@ function normalize<T extends ComponentType>(resolved: T | { default: T }): T {
  * synchronously once preloaded (see preloadDynamics), which full-document
  * hydration with out-of-order suspense boundaries requires.
  */
-export function dynamic<T extends ComponentType<any>>(
-    importer: () => Promise<T | { default: T }>,
+export function dynamic<P extends object = Record<string, unknown>>(
+    importer: () => Promise<ComponentType<P> | { default: ComponentType<P> } | Record<string, unknown>>,
     options?: DynamicOptions,
-): (props: Record<string, unknown>) => ReactNode {
+): ComponentType<P> {
     const loadable: Loadable = async () => {
         const cached = componentCache.get(loadable);
         if (cached) return cached as ComponentType;
-        const component = normalize(await importer());
+        const component = normalize((await importer()) as ComponentType | { default: ComponentType });
         componentCache.set(loadable, component);
         return component;
     };
@@ -47,13 +47,15 @@ export function dynamic<T extends ComponentType<any>>(
 
     const Fallback: ComponentType = options?.loading ?? (() => null);
 
-    function DynamicComponent(props: Record<string, unknown>): ReactElement | null {
-        const [Component, setComponent] = useState<ComponentType | null>(() => componentCache.get(loadable) ?? null);
+    function DynamicComponent(props: P): ReactElement | null {
+        const [Component, setComponent] = useState<ComponentType<P> | null>(
+            () => (componentCache.get(loadable) ?? null) as ComponentType<P> | null,
+        );
         useEffect(() => {
             if (Component) return;
             let mounted = true;
             void loadable().then((component) => {
-                if (mounted) setComponent(() => component);
+                if (mounted) setComponent(() => component as ComponentType<P>);
             });
             return () => {
                 mounted = false;

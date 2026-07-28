@@ -1,9 +1,6 @@
 import '@/globals.css';
 
-import { APP_BASE_PATH } from '@dimensiondev/envs/wallet';
 import { ClientScripts, ClientStyles, HeadOutlet, SsrDataOutlet, useRouterState } from '@dimensiondev/ssr';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 import type { ReactNode } from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -79,7 +76,6 @@ function ReactNativeStyleElement() {
 
 function RootDocument({ children }: { children: ReactNode }) {
     const { pathname } = useRouterState();
-    const route = `${APP_BASE_PATH}${pathname}`;
     const isPerpsRoute = pathname.startsWith('/perps');
 
     return (
@@ -126,8 +122,6 @@ function RootDocument({ children }: { children: ReactNode }) {
                         </ClientProviders>
                     </LinguiClientProvider>
                 </div>
-                <SpeedInsights route={route} />
-                <Analytics route={route} path={route} />
                 <SsrDataOutlet />
                 <ClientScripts />
             </body>

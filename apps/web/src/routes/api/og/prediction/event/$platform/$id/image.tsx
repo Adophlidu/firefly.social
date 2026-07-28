@@ -4,7 +4,7 @@ import { BetsPriceTimeRange, PredictionPlatform } from '@dimensiondev/enums';
 import type { ApiContext } from '@dimensiondev/ssr';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { first } from 'lodash-es';
-import type { NextRequest } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
 import type { HTMLProps } from 'react';
 import { z } from 'zod';
 

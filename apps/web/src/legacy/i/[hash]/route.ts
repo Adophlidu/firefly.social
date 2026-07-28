@@ -1,6 +1,6 @@
 import type { NextRequestContext } from '@dimensiondev/types';
-import type { NextRequest } from 'next/server.js';
-import { NextResponse } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
+import { NextResponse } from '@/compat/next-server.js';
 
 import { getShortLink } from '@/helpers/shortLink.js';
 

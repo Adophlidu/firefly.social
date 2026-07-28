@@ -6,7 +6,7 @@ import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import type { Context, MiniAppHost, SignInOptions } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
-import type { UnwrapPromise } from 'next/dist/lib/coalesced-function.js';
+type UnwrapPromise<T> = T extends Promise<infer R> ? R : T;
 import urlcat from 'urlcat';
 
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';

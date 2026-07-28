@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { ImageProps as NextImageProps } from 'next/image.js';
+import type { ImageProps as NextImageProps } from '@/esm/Image.js';
 import { memo, type SyntheticEvent } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';

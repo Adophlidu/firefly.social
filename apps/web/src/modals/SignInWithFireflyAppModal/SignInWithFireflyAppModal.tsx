@@ -6,7 +6,7 @@ import { SITE_URL } from '@dimensiondev/envs/web';
 import { bom, classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo, useCallback, useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useMount } from 'react-use';

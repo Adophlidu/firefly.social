@@ -1,6 +1,6 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
 import { SPACE_OPTIONS } from '@/constants/twitter.js';
@@ -18,7 +18,7 @@ const getHandler = compose(
     async (request, context) => {
         const { spaceId } = await getParamsWithZodSchema(ParamsSchema, context);
 
-        const client = await createAppOnlyTwitterClientV2();
+        const client = await createAppOnlyTwitterClientV2(request);
         const space = await client.v2.space(spaceId, {
             ...SPACE_OPTIONS,
         });

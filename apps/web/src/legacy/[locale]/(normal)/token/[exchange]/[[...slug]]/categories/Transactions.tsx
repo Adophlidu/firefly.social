@@ -8,7 +8,7 @@ import { ETH_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import type { ReadonlyURLSearchParams } from 'next/navigation.js';
+import type { ReadonlyURLSearchParams } from '@/esm/navigation.js';
 import { type HTMLProps, memo, Suspense, useCallback, useContext, useMemo, useState, useTransition } from 'react';
 
 import TokenPageLoading from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';

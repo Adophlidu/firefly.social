@@ -1,5 +1,37 @@
 import type { HeadDescriptor, HeadLink, HeadMeta } from '@dimensiondev/ssr';
-import type { Metadata } from 'next';
+
+/**
+ * Structural subset of Next.js' `Metadata` used by this repo's metadata
+ * helpers, defined locally now that the `next` package is gone.
+ */
+export interface Metadata {
+    metadataBase?: URL | null;
+    title?: string | { absolute?: string; default?: string; template?: string } | null;
+    description?: string | null;
+    openGraph?: {
+        title?: Metadata['title'];
+        description?: string | null;
+        siteName?: string;
+        url?: string | URL;
+        type?: string;
+        images?: unknown;
+        audio?: unknown;
+        videos?: unknown;
+    } | null;
+    twitter?: {
+        card?: string;
+        title?: Metadata['title'];
+        description?: string | null;
+        creator?: string;
+        images?: unknown;
+    } | null;
+    robots?: string | { index?: boolean; follow?: boolean } | null;
+    itunes?: { appId?: string };
+    alternates?: { canonical?: string };
+    manifest?: string;
+    icons?: unknown;
+    [key: string]: unknown;
+}
 
 type OgImage = string | URL | { url: string | URL; alt?: string };
 

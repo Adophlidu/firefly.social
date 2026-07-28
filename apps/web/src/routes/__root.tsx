@@ -4,8 +4,6 @@ import { SITE_DESCRIPTION, SITE_NAME } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { ClientScripts, ClientStyles, HeadOutlet, SsrDataOutlet } from '@dimensiondev/ssr';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 import type { ReactNode } from 'react';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
@@ -65,7 +63,7 @@ const fontFaces = `
 `;
 
 /* Inline theme script — executes synchronously during HTML parsing, before any paint */
-/* Keep in sync with src/app/layout.tsx and apps/web/src/proxy/handlers/cspHandler.ts */
+/* Keep in sync with apps/web/src/middleware/security.ts */
 const themeInitScript = `(function(){var c=document.cookie.match(/(?:^|;\\s*)firefly_root_class=([^;]*)/);var t=c?decodeURIComponent(c[1]):'light';if(t==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.add('light')}})();`;
 
 const GA_ID = 'G-61NFDTK6LT';
@@ -99,8 +97,6 @@ export default function RootLayout({ children }: { children?: ReactNode }) {
             </head>
             <body className="notranslate font-inter">
                 <ErrorBoundary>{children}</ErrorBoundary>
-                {TELEMETRY_ENABLED ? <SpeedInsights /> : null}
-                {TELEMETRY_ENABLED ? <Analytics /> : null}
                 <SsrDataOutlet />
                 <ClientScripts />
             </body>

@@ -1,7 +1,7 @@
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { FileMimeType } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
-import type { Metadata } from 'next';
+import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
 import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
