@@ -1,4 +1,3 @@
-'use client';
 
 import FireflyLogo from '@dimensiondev/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@dimensiondev/constants';

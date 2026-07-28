@@ -1,4 +1,3 @@
-'use client';
 
 import { Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';

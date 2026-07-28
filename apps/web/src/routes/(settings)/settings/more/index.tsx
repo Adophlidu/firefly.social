@@ -1,4 +1,3 @@
-'use client';
 
 import DiscordIcon from '@dimensiondev/assets/discord.svg';
 import DocumentsIcon from '@dimensiondev/assets/documents.svg';

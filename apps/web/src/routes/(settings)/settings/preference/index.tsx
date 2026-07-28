@@ -1,4 +1,3 @@
-'use client';
 
 import { ExploreSwitchType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';

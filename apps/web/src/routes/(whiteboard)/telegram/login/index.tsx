@@ -1,4 +1,3 @@
-'use client';
 
 import FullLogo from '@dimensiondev/assets/logo-full.svg';
 import { SessionType, Source } from '@dimensiondev/enums';

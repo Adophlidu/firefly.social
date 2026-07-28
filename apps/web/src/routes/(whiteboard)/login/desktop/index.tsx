@@ -1,4 +1,3 @@
-'use client';
 
 import FullLogo from '@dimensiondev/assets/logo-full.svg';
 import { bom } from '@dimensiondev/utils';

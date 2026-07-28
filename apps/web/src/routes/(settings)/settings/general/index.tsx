@@ -1,4 +1,3 @@
-'use client';
 
 import type { ThemeMode } from '@dimensiondev/enums';
 import { Locale, SiteCookies } from '@dimensiondev/enums';

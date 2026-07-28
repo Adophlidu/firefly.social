@@ -1,4 +1,3 @@
-'use client';
 
 import { useIsNavigating } from '@dimensiondev/ssr';
 import { useEffect, useState } from 'react';

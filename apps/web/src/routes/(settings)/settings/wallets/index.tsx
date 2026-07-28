@@ -1,4 +1,3 @@
-'use client';
 
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';

@@ -1,4 +1,3 @@
-'use client';
 
 /**
  * Compatibility shim over @dimensiondev/ssr for components written against
