@@ -7,9 +7,11 @@ export interface TwitterUserContextClient extends TwitterApi {
     viewerId: string;
 }
 
-// OAuth 1.0a (User context)
-export async function createTwitterClientV2() {
-    const payload = await createTwitterSessionAfterLogin();
+// OAuth 1.0a (User context). `request`-optional: the SSR library's API
+// routes pass the incoming Request (Workers-safe); the old Next app calls
+// without arguments and the session comes from next/headers.
+export async function createTwitterClientV2(request?: Request) {
+    const payload = await createTwitterSessionAfterLogin(request);
     if (!payload) throw new UnauthorizedError();
 
     const client = new TwitterApi({
@@ -25,7 +27,7 @@ export async function createTwitterClientV2() {
 }
 
 // OAuth2 (app-only or user context)
-export async function createAppOnlyTwitterClientV2() {
-    const client = await createTwitterClientV2();
+export async function createAppOnlyTwitterClientV2(request?: Request) {
+    const client = await createTwitterClientV2(request);
     return client.appLogin();
 }

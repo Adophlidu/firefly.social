@@ -225,6 +225,14 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
             if (id !== RESOLVED_VIRTUAL_ROUTES_ID) return null;
             const files = await scanRoutesDirectory(routesDirectory);
 
+            const isSsrEnvironment = this.environment?.name === 'ssr';
+            const apiPrefix = options.apiPrefix ?? 'api';
+            // API routes are server-only: the client bundle neither matches
+            // nor loads them (navigations to /api/* fall back to full
+            // loads). This also keeps Node-only API dependencies out of the
+            // browser build.
+            const effectiveFiles = isSsrEnvironment ? files : files.filter((file) => !file.startsWith(`${apiPrefix}/`));
+
             // Lazy loaders: the client dependency graph of each route module
             // is only evaluated when a request actually matches it. Eagerly
             // importing everything would evaluate browser-only libraries at
@@ -232,8 +240,7 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
             // Client-only modules are excluded from the SSR environment's
             // module map entirely, keeping their chunks out of the server
             // bundle (they still ship in the client bundle).
-            const isSsrEnvironment = this.environment?.name === 'ssr';
-            const moduleEntries = files
+            const moduleEntries = effectiveFiles
                 .filter((file) => !isSsrEnvironment || !options.clientOnly?.(file))
                 .map((file) => {
                     const absolute = path.join(routesDirectory, file);
@@ -244,10 +251,10 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
 
             return [
                 `import { buildRouteTree } from '@dimensiondev/ssr';`,
-                `export const files = ${JSON.stringify(files)};`,
+                `export const files = ${JSON.stringify(effectiveFiles)};`,
                 `export const modules = { ${moduleEntries} };`,
-                `const clientOnlyFiles = new Set(${JSON.stringify(files.filter((file) => options.clientOnly?.(file)))});`,
-                `export const tree = buildRouteTree({ files, apiPrefix: ${JSON.stringify(options.apiPrefix ?? 'api')}, clientOnly: (file) => clientOnlyFiles.has(file) });`,
+                `const clientOnlyFiles = new Set(${JSON.stringify(effectiveFiles.filter((file) => options.clientOnly?.(file)))});`,
+                `export const tree = buildRouteTree({ files: ${JSON.stringify(effectiveFiles)}, apiPrefix: ${JSON.stringify(apiPrefix)}, clientOnly: (file) => clientOnlyFiles.has(file) });`,
             ].join('\n');
         },
 
