@@ -9,8 +9,8 @@ import { useComeback } from '@/components/useComeback.js';
 import {
     ARBITRUM_CHAIN_ID,
     ARBITRUM_USDC_ADDRESS,
-    arbUsdcTokenFallback,
-    HYPERLIQUID_DEPOSIT_ADDRESS,
+    HYPERLIQUID_CHAIN_ID,
+    hyperliquidUsdcTokenFallback,
 } from '@/constants/hyperliquid.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { invalidatePerpsQueries } from '@/helpers/invalidatePerpsQueries.js';
@@ -45,13 +45,13 @@ export function useDepositToHyperliquid({ depositToken, amount, toastId, onSettl
 
     const { execute: depositWithSwap } = useSwapExecuteCore({
         fromToken: depositToken ?? null,
-        toToken: arbUsdcTokenFallback,
+        toToken: hyperliquidUsdcTokenFallback,
         fromAmount: amount,
         fromChainId: depositToken?.chainId ?? null,
         walletAddress,
         slippage: 'auto',
-        toChainId: ARBITRUM_CHAIN_ID,
-        recipientAddress: HYPERLIQUID_DEPOSIT_ADDRESS,
+        toChainId: HYPERLIQUID_CHAIN_ID,
+        recipientAddress: evmAddress,
         isPrivyReady,
         accessPath: SwapAccessPath.WalletGUI,
         freeGasTxType: FreeGasTxType.TokenTransfer,

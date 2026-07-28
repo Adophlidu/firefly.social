@@ -24,6 +24,16 @@ export const ARBITRUM_USDC_ADDRESS = '0xaf88d065e77c8cC2239327C5EDb3A432268e5831
 export const ARBITRUM_USDC_DECIMALS = 6;
 
 // -----------------------------------------------------------------------------
+// Hyperliquid (HyperCore) — Relay deposit destination
+// @see https://docs.relay.link/references/api/api_guides/hyperliquid-support
+// -----------------------------------------------------------------------------
+
+export const HYPERLIQUID_CHAIN_ID = 1337;
+
+/** Relay's special currency identifier for Hyperliquid perps USDC. */
+export const HYPERLIQUID_USDC_ADDRESS = '0x00000000000000000000000000000000';
+
+// -----------------------------------------------------------------------------
 // Bridge / deposit (same addresses as OneKey `packages/shared/types/hyperliquid/perp.constants.ts`)
 // -----------------------------------------------------------------------------
 
@@ -42,6 +52,12 @@ export const arbUsdcTokenFallback: SwapToken = {
     logoURI: 'https://sdk-cdn.fun.xyz/images/usdc.svg',
     price: 1,
     networkType: NetworkType.Ethereum,
+};
+
+export const hyperliquidUsdcTokenFallback: SwapToken = {
+    ...arbUsdcTokenFallback,
+    address: HYPERLIQUID_USDC_ADDRESS,
+    chainId: HYPERLIQUID_CHAIN_ID,
 };
 
 export function isArbitrumUsdcToken(chainId: number, address: string | undefined): boolean {
