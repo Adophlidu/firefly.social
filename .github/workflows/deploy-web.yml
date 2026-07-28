@@ -66,6 +66,40 @@ jobs:
                   NEXT_PUBLIC_FIREBASE_VAPID_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_VAPID_KEY }}
               run: pnpm --filter @dimensiondev/firefly-web run build
 
+            - name: Write runtime secrets (.dev.vars)
+              # The worker validates internal env vars at startup (zod schema in
+              # packages/envs), and Cloudflare's upload-time version check executes
+              # that code — the required bindings must ship with the version.
+              env:
+                  TWITTER_CLIENT_ID: ${{ secrets.TWITTER_CLIENT_ID }}
+                  TWITTER_CLIENT_SECRET: ${{ secrets.TWITTER_CLIENT_SECRET }}
+                  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+                  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+                  APPLE_CLIENT_ID: ${{ secrets.APPLE_CLIENT_ID }}
+                  APPLE_CLIENT_SECRET: ${{ secrets.APPLE_CLIENT_SECRET }}
+                  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+                  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+                  SESSION_CIPHER_KEY: ${{ secrets.SESSION_CIPHER_KEY }}
+                  SESSION_CIPHER_IV: ${{ secrets.SESSION_CIPHER_IV }}
+                  FARCASTER_SIGNER_FID: ${{ secrets.FARCASTER_SIGNER_FID }}
+                  FARCASTER_SIGNER_MNEMONIC: ${{ secrets.FARCASTER_SIGNER_MNEMONIC }}
+                  FIREFLY_JWT_SECRET: ${{ secrets.FIREFLY_JWT_SECRET }}
+                  ORB_API_KEY: ${{ secrets.ORB_API_KEY }}
+                  ORB_SUPABASE_URL: ${{ secrets.ORB_SUPABASE_URL }}
+                  ORB_SUPABASE_ANON_KEY: ${{ secrets.ORB_SUPABASE_ANON_KEY }}
+              run: |
+                  set -euo pipefail
+                  for key in TWITTER_CLIENT_ID TWITTER_CLIENT_SECRET \
+                      GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET \
+                      APPLE_CLIENT_ID APPLE_CLIENT_SECRET \
+                      NEXTAUTH_SECRET NEXTAUTH_URL \
+                      SESSION_CIPHER_KEY SESSION_CIPHER_IV \
+                      FARCASTER_SIGNER_FID FARCASTER_SIGNER_MNEMONIC \
+                      FIREFLY_JWT_SECRET ORB_API_KEY \
+                      ORB_SUPABASE_URL ORB_SUPABASE_ANON_KEY; do
+                    printf '%s="%s"\n' "$key" "${!key}" >> .dev.vars
+                  done
+
             - name: Deploy to Cloudflare Workers
               env:
                   # NOTE: same personal-account secrets as deploy-wallet.yml —
