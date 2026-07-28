@@ -12,6 +12,7 @@ export default {
             path: 'src/locales/{locale}/messages',
             include: [
                 'src/legacy/**',
+                'src/routes/**',
                 'src/configs/**',
                 'src/components/**',
                 'src/constants/**',

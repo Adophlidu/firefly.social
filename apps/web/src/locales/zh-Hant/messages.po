@@ -203,6 +203,9 @@ msgstr "暫無買單"
 msgid "Disconnect"
 msgstr "斷開"
 
+msgid "No frame found."
+msgstr "未找到 frame。"
+
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "賣出稅率: {0}%"
@@ -456,6 +459,9 @@ msgstr "設定密碼"
 msgid "Joined"
 msgstr "已加入"
 
+msgid "Global"
+msgstr "全球"
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "您的 {0} 登入權杖已過期，請重新登入。"
@@ -522,6 +528,9 @@ msgstr "Firefly 錢包"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "未包含外部調用功能。若存在此功能，項目所有者可能有能力控制合約。"
+
+msgid "Join our Discord"
+msgstr "加入我們的 Discord 社群"
 
 msgid "Blocked"
 msgstr "已封鎖"
@@ -1422,6 +1431,9 @@ msgstr "份"
 msgid "2FA confirmation code"
 msgstr "2FA 確認碼"
 
+msgid "Visit mask.io"
+msgstr "訪問 mask.io"
+
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1533,6 +1545,9 @@ msgstr "{type, select, compose {{0}} quote {新增留言} reply {發佈你的留
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "無法處理此影片，請嘗試上傳小於 50 MB 的 MP4 影片。"
 
+msgid "<0/>EVM wallets"
+msgstr "<0/>EVM 錢包"
+
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已經綁定了。"
 
@@ -1594,6 +1609,9 @@ msgstr "可用餘額"
 
 msgid "Load earlier messages"
 msgstr "載入更早的訊息"
+
+msgid "Follow @thefireflyapp on X"
+msgstr "在 X 追蹤 @thefireflyapp"
 
 msgid "Enter your nickname on Firefly"
 msgstr "輸入您在 Firefly 的暱稱"
@@ -1657,6 +1675,9 @@ msgstr "擁有者"
 
 msgid "Phishing activities found."
 msgstr "發現釣魚活動。"
+
+msgid "Light Mode"
+msgstr "淺色模式"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "預約發佈需啟用多裝置登入。請輸入密碼驗證身份。"
@@ -2006,6 +2027,9 @@ msgstr "無法載入用戶"
 msgid "Legacy Firefly wallet"
 msgstr "舊版 Firefly 錢包"
 
+msgid "Follow System"
+msgstr "跟隨系統"
+
 msgid "Link up to three accounts"
 msgstr "連結最多三個帳戶"
 
@@ -2233,6 +2257,9 @@ msgstr "影片上傳失敗，請重試。"
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀...尚未滿足所有要求"
 
+msgid "Join our Telegram"
+msgstr "加入我們的 Telegram"
+
 msgid "Volume Traded(shares)"
 msgstr "成交量 (份)"
 
@@ -2390,6 +2417,9 @@ msgstr "未檢測到可疑惡意行為。"
 
 msgid "Open in Messages"
 msgstr "在訊息中開啟"
+
+msgid "Your browser does not support the Firefly Bridge."
+msgstr "您的瀏覽器不支援 Firefly Bridge。"
 
 msgid "Canceled"
 msgstr "已取消"
@@ -2602,6 +2632,9 @@ msgstr "按赞失敗。"
 msgid "Stream"
 msgstr "直播"
 
+msgid "No available wallet."
+msgstr "無可用錢包"
+
 msgid "Current"
 msgstr "当前"
 
@@ -2716,6 +2749,9 @@ msgstr "確認要斷開該帳戶與 Firefly 社交圖譜的綁定嗎？"
 msgid "The contract owner has no restrictions on selling."
 msgstr "合約持有者無出售限制。"
 
+msgid "Follow @fireflyappcn on X"
+msgstr "在 X 追蹤 @fireflyappcn"
+
 msgid "Cost"
 msgstr "成本"
 
@@ -2813,6 +2849,9 @@ msgstr "發布中..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 你的貼文已發布至 {0}。"
+
+msgid "Add an existing account"
+msgstr "新增現有帳號"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "24小時交易量 · 市值"
@@ -3194,6 +3233,9 @@ msgstr "在 {source} 上連接失敗"
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自訂你的紅包發送者名稱：可選擇社交帳號或錢包地址。"
 
+msgid "Open in Firefly App"
+msgstr "開啟 Firefly App"
+
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
@@ -3238,6 +3280,9 @@ msgstr "即時數據"
 msgid "Time"
 msgstr "時間"
 
+msgid "Firefly"
+msgstr ""
+
 msgid "No voting power"
 msgstr "無投票權"
 
@@ -3268,6 +3313,9 @@ msgstr "草稿已儲存"
 
 msgid "The post you quoted/replied not found"
 msgstr "未找到您引用或回覆的貼文"
+
+msgid "Follow @masknetwork on X"
+msgstr "在 X 上追蹤 @masknetwork"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "請選擇一個 EVM 錢包與一個 Solana 錢包以使用 Firefly 鏈上功能。"
@@ -3794,6 +3842,9 @@ msgstr "無黑名單"
 msgid "Address removed on Farcaster"
 msgstr "地址已從 Farcaster 移除"
 
+msgid "Failed to switch wallet. Please try again"
+msgstr "切換錢包失敗。請再試一次"
+
 msgid "Exact Score"
 msgstr "精確比分"
 
@@ -3857,6 +3908,9 @@ msgstr "熱門搜尋"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已加入書籤"
+
+msgid "Dark Mode"
+msgstr "暗黑模式"
 
 msgid "Just now"
 msgstr "剛剛"
@@ -4481,6 +4535,9 @@ msgstr "未經授權，請檢查登入狀態。"
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "影片尺寸需介於 {minWidth}x{minHeight} 至 {maxWidth}x{maxHeight}"
 
+msgid "Mask Network"
+msgstr ""
+
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "授予紅包智能合約訪問你 {0} 的權限。每個代幣只需執行一次。"
@@ -4517,6 +4574,9 @@ msgstr "在區塊瀏覽器查看"
 
 msgid "Halftime"
 msgstr "中場"
+
+msgid "Your Telegram account is now connected"
+msgstr "您的 Telegram 帳戶已綁定"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4636,6 +4696,9 @@ msgstr "貼文已經被加密"
 
 msgid "Select market"
 msgstr "選擇市場"
+
+msgid "Leaderboard"
+msgstr "排行榜"
 
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth 將 1850 USDC 兌換為 0.5 ETH"
@@ -5124,6 +5187,9 @@ msgstr "比賽"
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "在 {sourceName} 新增 #{0} 失敗"
 
+msgid "Language"
+msgstr "語言"
+
 msgid "Nashor Handicap"
 msgstr "納什男爵讓分"
 
@@ -5436,6 +5502,9 @@ msgstr "此代幣不具備自毀功能。"
 msgid "Cybercrime."
 msgstr "網路犯罪。"
 
+msgid "Display"
+msgstr "外觀"
+
 msgid "Sell"
 msgstr "賣出"
 
@@ -5535,6 +5604,9 @@ msgstr "退出 {sourceName} 的 #{0} 失敗"
 
 msgid "Something went wrong, please try again."
 msgstr "哎呀... 發生錯誤，請重試。"
+
+msgid "This Telegram account is already linked"
+msgstr "此 Telegram 帳號已綁定"
 
 msgid "Following"
 msgstr "正在追蹤"
@@ -5684,6 +5756,9 @@ msgstr "登入"
 msgid "Security & Privacy"
 msgstr "安全與隱私"
 
+msgid "Loading..."
+msgstr "載入中……"
+
 msgid "Your session has expired. Please sign in again."
 msgstr "你的工作階段已過期。請重新登入。"
 
@@ -5759,6 +5834,9 @@ msgstr "取消轉發成功"
 msgid "like"
 msgid_plural "likes"
 msgstr[0] "讚"
+
+msgid "Posts from Trump on Truth Social (Explore, profile)"
+msgstr "來自特朗普的 Truth Social 貼文（探索、個人檔案）"
 
 msgid "Golden"
 msgstr "黃金版"

@@ -205,6 +205,9 @@ msgstr "Sin ofertas"
 msgid "Disconnect"
 msgstr "Desconectar"
 
+msgid "No frame found."
+msgstr "No se encontró ningún marco."
+
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "Impuesto De Venta: {0}%"
@@ -459,6 +462,9 @@ msgstr "Establecer contraseña"
 msgid "Joined"
 msgstr "Unido"
 
+msgid "Global"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "Su token de inicio de sesión de {0} ha caducado. Por favor, vuelva a iniciar sesión."
@@ -525,6 +531,9 @@ msgstr "Carteras Firefly"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "La función de llamada externa no está incluida. Si existe una función de llamada externa, el propietario del proyecto puede tener la capacidad de controlar el contrato."
+
+msgid "Join our Discord"
+msgstr "Únete a nuestro Discord"
 
 msgid "Blocked"
 msgstr "Bloqueado"
@@ -1429,6 +1438,9 @@ msgstr "Acciones"
 msgid "2FA confirmation code"
 msgstr "Código de confirmación 2FA"
 
+msgid "Visit mask.io"
+msgstr "Visitar mask.io"
+
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1541,6 +1553,9 @@ msgstr "{type, select, compose {{0}} quote {Añadir un comentario} reply {Public
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "No se pudo procesar este vídeo. Prueba con un vídeo MP4 de menos de 50 MB."
 
+msgid "<0/>EVM wallets"
+msgstr "<0/>Carteras EVM"
+
 msgid "{addressName} is already connected."
 msgstr "{addressName} ya está conectado."
 
@@ -1602,6 +1617,9 @@ msgstr "Saldo Disponible"
 
 msgid "Load earlier messages"
 msgstr "Cargar mensajes anteriores"
+
+msgid "Follow @thefireflyapp on X"
+msgstr "Sigue a @thefireflyapp en X"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Introduce tu apodo en Firefly"
@@ -1665,6 +1683,9 @@ msgstr "Titulares"
 
 msgid "Phishing activities found."
 msgstr "Actividades de phishing detectadas."
+
+msgid "Light Mode"
+msgstr "Modo Claro"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "Se requiere inicio de sesión en varios dispositivos para programar la publicación. Introduce tu contraseña para confirmar tu identidad."
@@ -2016,6 +2037,9 @@ msgstr "No se pudieron cargar las personas"
 msgid "Legacy Firefly wallet"
 msgstr "Cartera Firefly heredada"
 
+msgid "Follow System"
+msgstr "Usar la configuración del sistema"
+
 msgid "Link up to three accounts"
 msgstr "Vincular hasta tres cuentas"
 
@@ -2244,6 +2268,9 @@ msgstr "No se pudo subir el vídeo. Inténtalo de nuevo."
 msgid "Oops... Not all the requirements have been met"
 msgstr "Ups... No se han cumplido todos los requisitos"
 
+msgid "Join our Telegram"
+msgstr "Únete a nuestro Telegram"
+
 msgid "Volume Traded(shares)"
 msgstr "Volumen Negociado(acciones)"
 
@@ -2402,6 +2429,9 @@ msgstr "No se ha detectado comportamiento posiblemente malicioso."
 
 msgid "Open in Messages"
 msgstr "Abrir en Mensajes"
+
+msgid "Your browser does not support the Firefly Bridge."
+msgstr "Su navegador no es compatible con Firefly Bridge."
 
 msgid "Canceled"
 msgstr "Cancelado"
@@ -2615,6 +2645,9 @@ msgstr "No se pudo dar Me gusta."
 msgid "Stream"
 msgstr "Transmisión"
 
+msgid "No available wallet."
+msgstr "No hay billetera disponible."
+
 msgid "Current"
 msgstr "Actual"
 
@@ -2730,6 +2763,9 @@ msgstr "¿Confirmar la desconexión de esta cuenta del grafo social de Firefly?"
 msgid "The contract owner has no restrictions on selling."
 msgstr "El propietario del contrato no tiene restricciones sobre la venta."
 
+msgid "Follow @fireflyappcn on X"
+msgstr "Sigue a @fireflyappcn en X"
+
 msgid "Cost"
 msgstr "Costo"
 
@@ -2827,6 +2863,9 @@ msgstr "Publicando..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 Tu publicación fue enviada a {0}."
+
+msgid "Add an existing account"
+msgstr "Agregar una cuenta existente"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "Volumen(24h) · Capitalización de mercado"
@@ -3212,6 +3251,9 @@ msgstr "No se pudo conectar en {source}"
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "Personaliza el remitente de tu Lucky Drop: Elige entre los nombres de usuario de tus cuentas sociales o billeteras."
 
+msgid "Open in Firefly App"
+msgstr "Abrir en Firefly App"
+
 msgid "Privacy Policy"
 msgstr "Política de Privacidad"
 
@@ -3256,6 +3298,9 @@ msgstr "Estadísticas en vivo"
 msgid "Time"
 msgstr "Hora"
 
+msgid "Firefly"
+msgstr ""
+
 msgid "No voting power"
 msgstr "Sin poder de voto"
 
@@ -3286,6 +3331,9 @@ msgstr "Tu borrador se guardó."
 
 msgid "The post you quoted/replied not found"
 msgstr "La publicación que citaste/respondiste no se encontró"
+
+msgid "Follow @masknetwork on X"
+msgstr "Sigue a @masknetwork en X"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Por favor seleccione una billetera EVM y una billetera Solana para las funciones on-chain en Firefly."
@@ -3815,6 +3863,9 @@ msgstr "Sin lista negra"
 msgid "Address removed on Farcaster"
 msgstr "Dirección eliminada en Farcaster"
 
+msgid "Failed to switch wallet. Please try again"
+msgstr "No se pudo cambiar el monedero. Por favor, inténtelo de nuevo."
+
 msgid "Exact Score"
 msgstr "Resultado exacto"
 
@@ -3878,6 +3929,9 @@ msgstr "Búsquedas Más Populares"
 
 msgid "Article added to your Bookmarks"
 msgstr "Artículo añadido a tus Marcadores"
+
+msgid "Dark Mode"
+msgstr "Modo Oscuro"
 
 msgid "Just now"
 msgstr "Ahora mismo"
@@ -4505,6 +4559,9 @@ msgstr "No autorizado. Por favor, compruebe su inicio de sesión."
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "No se pudo subir. El tamaño del vídeo supera {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 
+msgid "Mask Network"
+msgstr "Mask Red"
+
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "Otorga acceso a tu {0} al contrato inteligente Lucky Drop. Solo tienes que hacerlo una vez por token."
@@ -4542,6 +4599,9 @@ msgstr "Ver en el explorador"
 
 msgid "Halftime"
 msgstr "Descanso"
+
+msgid "Your Telegram account is now connected"
+msgstr "Tu cuenta de Telegram ahora está conectada"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4661,6 +4721,9 @@ msgstr "La publicación ha sido cifrada"
 
 msgid "Select market"
 msgstr "Seleccionar mercado"
+
+msgid "Leaderboard"
+msgstr "Clasificación"
 
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth intercambió 1850 USDC por 0.5 ETH"
@@ -5151,6 +5214,9 @@ msgstr "Juegos"
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "No se pudo agregar #{0} en {sourceName}"
 
+msgid "Language"
+msgstr "Idioma"
+
 msgid "Nashor Handicap"
 msgstr "Hándicap de Nashor"
 
@@ -5464,6 +5530,9 @@ msgstr "Este token no puede autodestruirse."
 msgid "Cybercrime."
 msgstr "Ciberdelito."
 
+msgid "Display"
+msgstr "Pantalla"
+
 msgid "Sell"
 msgstr "Vender"
 
@@ -5563,6 +5632,9 @@ msgstr "No se pudo salir de #{0} en {sourceName}"
 
 msgid "Something went wrong, please try again."
 msgstr "Algo salió mal, por favor inténtalo de nuevo."
+
+msgid "This Telegram account is already linked"
+msgstr "Esta cuenta de Telegram ya está vinculada"
 
 msgid "Following"
 msgstr "Siguiendo"
@@ -5713,6 +5785,9 @@ msgstr "Iniciar sesión"
 msgid "Security & Privacy"
 msgstr "Seguridad & Privacidad"
 
+msgid "Loading..."
+msgstr "Cargando..."
+
 msgid "Your session has expired. Please sign in again."
 msgstr "Tu sesión ha caducado. Inicia sesión de nuevo."
 
@@ -5789,6 +5864,9 @@ msgid "like"
 msgid_plural "likes"
 msgstr[0] "me gusta"
 msgstr[1] "me gusta"
+
+msgid "Posts from Trump on Truth Social (Explore, profile)"
+msgstr "Publicaciones de Trump en Truth Social (Explorar, perfil)"
 
 msgid "Golden"
 msgstr "Dorado"

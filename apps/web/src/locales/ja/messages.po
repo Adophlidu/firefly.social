@@ -203,6 +203,9 @@ msgstr "入札なし"
 msgid "Disconnect"
 msgstr "切断"
 
+msgid "No frame found."
+msgstr "フレームが見つかりませんでした。"
+
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "売却税率: {0}%"
@@ -456,6 +459,9 @@ msgstr "パスワードを設定"
 msgid "Joined"
 msgstr "参加済み"
 
+msgid "Global"
+msgstr "グローバル"
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "{0} のログイントークンが期限切れです。再度ログインしてください。"
@@ -522,6 +528,9 @@ msgstr "Firefly ウォレット"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "外部呼び出し機能は含まれていません。外部呼び出し機能がある場合、プロジェクトオーナーがコントラクトを制御できる可能性があります。"
+
+msgid "Join our Discord"
+msgstr "Discord に参加する"
 
 msgid "Blocked"
 msgstr "ブロック済み"
@@ -1422,6 +1431,9 @@ msgstr "シェア"
 msgid "2FA confirmation code"
 msgstr "2FA 確認コード"
 
+msgid "Visit mask.io"
+msgstr "mask.io を開く"
+
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1533,6 +1545,9 @@ msgstr "{type, select, compose {{0}} quote {コメントを追加} reply {返信
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "この動画を処理できませんでした。50 MB 未満の MP4 動画をお試しください。"
 
+msgid "<0/>EVM wallets"
+msgstr "<0/>EVM ウォレット"
+
 msgid "{addressName} is already connected."
 msgstr "{addressName} は既に接続されています。"
 
@@ -1594,6 +1609,9 @@ msgstr "利用可能残高"
 
 msgid "Load earlier messages"
 msgstr "以前のメッセージを読み込む"
+
+msgid "Follow @thefireflyapp on X"
+msgstr "X で @thefireflyapp をフォロー"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Firefly のニックネームを入力"
@@ -1657,6 +1675,9 @@ msgstr "ホルダー"
 
 msgid "Phishing activities found."
 msgstr "フィッシング行為が検出されました。"
+
+msgid "Light Mode"
+msgstr "ライトモード"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "予約投稿にはマルチデバイスログインが必要です。本人確認のためパスワードを入力してください。"
@@ -2006,6 +2027,9 @@ msgstr "ユーザーを読み込めませんでした"
 msgid "Legacy Firefly wallet"
 msgstr "レガシー Firefly ウォレット"
 
+msgid "Follow System"
+msgstr "システムに従う"
+
 msgid "Link up to three accounts"
 msgstr "最大 3 つのアカウントをリンク"
 
@@ -2233,6 +2257,9 @@ msgstr "動画のアップロードに失敗しました。もう一度お試し
 msgid "Oops... Not all the requirements have been met"
 msgstr "おっと... 全ての条件を満たしていません"
 
+msgid "Join our Telegram"
+msgstr "Telegram に参加"
+
 msgid "Volume Traded(shares)"
 msgstr "取引量（シェア）"
 
@@ -2390,6 +2417,9 @@ msgstr "疑わしい悪意のある行為は検出されませんでした。"
 
 msgid "Open in Messages"
 msgstr "メッセージで開く"
+
+msgid "Your browser does not support the Firefly Bridge."
+msgstr "お使いのブラウザは Firefly Bridge をサポートしていません。"
 
 msgid "Canceled"
 msgstr "キャンセル済み"
@@ -2602,6 +2632,9 @@ msgstr "チップへのいいねに失敗しました。"
 msgid "Stream"
 msgstr "配信"
 
+msgid "No available wallet."
+msgstr "利用可能なウォレットがありません。"
+
 msgid "Current"
 msgstr "現在"
 
@@ -2716,6 +2749,9 @@ msgstr "このアカウントを Firefly のソーシャルグラフから切断
 msgid "The contract owner has no restrictions on selling."
 msgstr "コントラクトオーナーは売却に制限を設けていません。"
 
+msgid "Follow @fireflyappcn on X"
+msgstr "X で @fireflyappcn をフォロー"
+
 msgid "Cost"
 msgstr "コスト"
 
@@ -2813,6 +2849,9 @@ msgstr "投稿中..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 あなたの投稿が {0} に送信されました。"
+
+msgid "Add an existing account"
+msgstr "既存のアカウントを追加"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "取引量(24h) · 時価総額"
@@ -3194,6 +3233,9 @@ msgstr "{source} での接続に失敗しました。"
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "ラッキードロップの送信者をカスタマイズ: ソーシャルアカウントのハンドルまたはウォレットから選択してください。"
 
+msgid "Open in Firefly App"
+msgstr "Firefly アプリで開く"
+
 msgid "Privacy Policy"
 msgstr "プライバシーポリシー"
 
@@ -3238,6 +3280,9 @@ msgstr "ライブ統計"
 msgid "Time"
 msgstr "時間"
 
+msgid "Firefly"
+msgstr ""
+
 msgid "No voting power"
 msgstr "投票権がありません"
 
@@ -3268,6 +3313,9 @@ msgstr "下書きが保存されました。"
 
 msgid "The post you quoted/replied not found"
 msgstr "引用/返信した投稿が見つかりません"
+
+msgid "Follow @masknetwork on X"
+msgstr "X で @masknetwork をフォロー"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Firefly のオンチェーン機能には、EVM ウォレット 1 つと Solana ウォレット 1 つを選択してください。"
@@ -3794,6 +3842,9 @@ msgstr "ブラックリストなし"
 msgid "Address removed on Farcaster"
 msgstr "Farcaster でアドレスが削除されました"
 
+msgid "Failed to switch wallet. Please try again"
+msgstr "ウォレットの切り替えに失敗しました。もう一度お試しください"
+
 msgid "Exact Score"
 msgstr "正確なスコア"
 
@@ -3857,6 +3908,9 @@ msgstr "人気の検索"
 
 msgid "Article added to your Bookmarks"
 msgstr "記事がブックマークに追加されました"
+
+msgid "Dark Mode"
+msgstr "ダークモード"
 
 msgid "Just now"
 msgstr "たった今"
@@ -4481,6 +4535,9 @@ msgstr "未認証です。ログインを確認してください。"
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "アップロードに失敗しました。動画のサイズが {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight} の制限を超えています"
 
+msgid "Mask Network"
+msgstr ""
+
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "ラッキードロップスマートコントラクトに {0} へのアクセスを許可してください。トークンごとに 1 回だけ行えば十分です。"
@@ -4517,6 +4574,9 @@ msgstr "エクスプローラーで表示"
 
 msgid "Halftime"
 msgstr "ハーフタイム"
+
+msgid "Your Telegram account is now connected"
+msgstr "あなたの Telegram アカウントが接続されました"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4636,6 +4696,9 @@ msgstr "投稿は暗号化されました"
 
 msgid "Select market"
 msgstr "マーケットを選択"
+
+msgid "Leaderboard"
+msgstr "リーダーボード"
 
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth が 1850 USDC を 0.5 ETH にスワップしました"
@@ -5124,6 +5187,9 @@ msgstr "ゲーム"
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "{sourceName} で #{0} の追加に失敗しました"
 
+msgid "Language"
+msgstr "言語"
+
 msgid "Nashor Handicap"
 msgstr "ナッシャーハンディキャップ"
 
@@ -5436,6 +5502,9 @@ msgstr "このトークンは自己破壊できません。"
 msgid "Cybercrime."
 msgstr "サイバー犯罪。"
 
+msgid "Display"
+msgstr "表示"
+
 msgid "Sell"
 msgstr "売却"
 
@@ -5535,6 +5604,9 @@ msgstr "{sourceName} で #{0} の退出に失敗しました"
 
 msgid "Something went wrong, please try again."
 msgstr "問題が発生しました。もう一度お試しください。"
+
+msgid "This Telegram account is already linked"
+msgstr "この Telegram アカウントは既にリンクされています"
 
 msgid "Following"
 msgstr "フォロー中"
@@ -5684,6 +5756,9 @@ msgstr "ログイン"
 msgid "Security & Privacy"
 msgstr "セキュリティとプライバシー"
 
+msgid "Loading..."
+msgstr "読み込み中..."
+
 msgid "Your session has expired. Please sign in again."
 msgstr "セッションの有効期限が切れました。もう一度サインインしてください。"
 
@@ -5759,6 +5834,9 @@ msgstr "リキャストを正常にキャンセルしました"
 msgid "like"
 msgid_plural "likes"
 msgstr[0] "いいね"
+
+msgid "Posts from Trump on Truth Social (Explore, profile)"
+msgstr "Truth Social の Trump の投稿（探索、プロフィール）"
 
 msgid "Golden"
 msgstr "ゴールド"

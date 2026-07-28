@@ -203,6 +203,9 @@ msgstr "입찰 없음"
 msgid "Disconnect"
 msgstr "연결 해제"
 
+msgid "No frame found."
+msgstr "frame을 찾을 수 없습니다."
+
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "매도세: {0}%"
@@ -456,6 +459,9 @@ msgstr "비밀번호 설정"
 msgid "Joined"
 msgstr "참여됨"
 
+msgid "Global"
+msgstr "전체"
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr "{0} 로그인 토큰이 만료되었습니다. 다시 로그인해 주세요."
@@ -522,6 +528,9 @@ msgstr "Firefly 지갑"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "외부 호출 기능이 포함되어 있지 않습니다. 외부 호출 기능이 있을 경우 프로젝트 소유자가 컨트랙트를 제어할 수 있습니다."
+
+msgid "Join our Discord"
+msgstr "Discord에 참여하세요"
 
 msgid "Blocked"
 msgstr "차단됨"
@@ -1422,6 +1431,9 @@ msgstr "지분"
 msgid "2FA confirmation code"
 msgstr "2FA 확인 코드"
 
+msgid "Visit mask.io"
+msgstr "mask.io 방문"
+
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChainSwap(activity) ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
@@ -1533,6 +1545,9 @@ msgstr "{type, select, compose {{0}} quote {댓글 추가} reply {답글 게시}
 msgid "This video could not be processed. Try an MP4 video under 50 MB."
 msgstr "이 동영상을 처리할 수 없습니다. 50 MB 미만의 MP4 동영상을 시도해 보세요."
 
+msgid "<0/>EVM wallets"
+msgstr "<0/>EVM 지갑"
+
 msgid "{addressName} is already connected."
 msgstr "{addressName}이(가) 이미 연결되어 있습니다."
 
@@ -1594,6 +1609,9 @@ msgstr "사용 가능 잔액"
 
 msgid "Load earlier messages"
 msgstr "이전 메시지 불러오기"
+
+msgid "Follow @thefireflyapp on X"
+msgstr "X에서 @thefireflyapp 팔로우"
 
 msgid "Enter your nickname on Firefly"
 msgstr "Firefly 닉네임 입력"
@@ -1657,6 +1675,9 @@ msgstr "보유자"
 
 msgid "Phishing activities found."
 msgstr "피싱 활동이 발견되었습니다."
+
+msgid "Light Mode"
+msgstr "라이트 모드"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "예약 게시에는 다중 기기 로그인이 필요합니다. 신원 확인을 위해 비밀번호를 입력하세요."
@@ -2006,6 +2027,9 @@ msgstr "사용자를 불러올 수 없습니다"
 msgid "Legacy Firefly wallet"
 msgstr "레거시 Firefly 지갑"
 
+msgid "Follow System"
+msgstr "시스템 설정 따르기"
+
 msgid "Link up to three accounts"
 msgstr "최대 3개 계정 연결"
 
@@ -2233,6 +2257,9 @@ msgstr "동영상 업로드에 실패했습니다. 다시 시도해 주세요."
 msgid "Oops... Not all the requirements have been met"
 msgstr "앗... 모든 요구 사항을 충족하지 못했습니다"
 
+msgid "Join our Telegram"
+msgstr "Telegram 참여"
+
 msgid "Volume Traded(shares)"
 msgstr "거래량(지분)"
 
@@ -2390,6 +2417,9 @@ msgstr "악성 행위가 의심되지 않습니다."
 
 msgid "Open in Messages"
 msgstr "메시지에서 열기"
+
+msgid "Your browser does not support the Firefly Bridge."
+msgstr "브라우저가 Firefly Bridge를 지원하지 않습니다."
 
 msgid "Canceled"
 msgstr "취소됨"
@@ -2602,6 +2632,9 @@ msgstr "팁 좋아요에 실패했습니다."
 msgid "Stream"
 msgstr "스트림"
 
+msgid "No available wallet."
+msgstr "사용 가능한 지갑이 없습니다."
+
 msgid "Current"
 msgstr "현재"
 
@@ -2716,6 +2749,9 @@ msgstr "이 계정을 Firefly 소셜 그래프에서 연결 해제하시겠습�
 msgid "The contract owner has no restrictions on selling."
 msgstr "컨트랙트 소유자에게 매도 제한이 없습니다."
 
+msgid "Follow @fireflyappcn on X"
+msgstr "X에서 @fireflyappcn 팔로우"
+
 msgid "Cost"
 msgstr "비용"
 
@@ -2813,6 +2849,9 @@ msgstr "게시 중..."
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 게시물이 {0}에 전송되었습니다."
+
+msgid "Add an existing account"
+msgstr "기존 계정 추가"
 
 msgid "Volume(24h) · Market Cap"
 msgstr "거래량(24시간) · 시가총액"
@@ -3194,6 +3233,9 @@ msgstr "{source}에서 연결에 실패했습니다"
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "럭키 드롭 발신자를 사용자 지정하세요: 소셜 계정 핸들 또는 지갑 중에서 선택하세요."
 
+msgid "Open in Firefly App"
+msgstr "Firefly 앱에서 열기"
+
 msgid "Privacy Policy"
 msgstr "개인정보 처리방침"
 
@@ -3238,6 +3280,9 @@ msgstr "실시간 통계"
 msgid "Time"
 msgstr "시간"
 
+msgid "Firefly"
+msgstr ""
+
 msgid "No voting power"
 msgstr "투표권 없음"
 
@@ -3268,6 +3313,9 @@ msgstr "임시 저장이 저장되었습니다."
 
 msgid "The post you quoted/replied not found"
 msgstr "인용/답글한 게시물을 찾을 수 없습니다"
+
+msgid "Follow @masknetwork on X"
+msgstr "X에서 @masknetwork 팔로우"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Firefly 온체인 기능을 사용하려면 EVM 지갑 1개와 Solana 지갑 1개를 선택하세요."
@@ -3794,6 +3842,9 @@ msgstr "블랙리스트 없음"
 msgid "Address removed on Farcaster"
 msgstr "Farcaster에서 주소가 제거됨"
 
+msgid "Failed to switch wallet. Please try again"
+msgstr "지갑 전환에 실패했습니다. 다시 시도해 주세요"
+
 msgid "Exact Score"
 msgstr "정확한 스코어"
 
@@ -3857,6 +3908,9 @@ msgstr "인기 검색"
 
 msgid "Article added to your Bookmarks"
 msgstr "아티클이 북마크에 추가되었습니다"
+
+msgid "Dark Mode"
+msgstr "다크 모드"
 
 msgid "Just now"
 msgstr "방금"
@@ -4481,6 +4535,9 @@ msgstr "권한이 없습니다. 로그인을 확인해 주세요."
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr "업로드에 실패했습니다. 동영상 크기가 {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}를 초과합니다"
 
+msgid "Mask Network"
+msgstr ""
+
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "럭키 드롭 스마트 컨트랙트에 {0} 접근 권한을 부여하세요. 토큰당 한 번만 하면 됩니다."
@@ -4517,6 +4574,9 @@ msgstr "익스플로러에서 보기"
 
 msgid "Halftime"
 msgstr "하프타임"
+
+msgid "Your Telegram account is now connected"
+msgstr "Telegram 계정이 연결되었습니다"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -4636,6 +4696,9 @@ msgstr "게시물이 암호화되었습니다"
 
 msgid "Select market"
 msgstr "마켓 선택"
+
+msgid "Leaderboard"
+msgstr "리더보드"
 
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth가 1850 USDC를 0.5 ETH로 스왑했습니다"
@@ -5124,6 +5187,9 @@ msgstr "게임"
 msgid "Failed to add #{0} on {sourceName}"
 msgstr "{sourceName}에서 #{0} 추가에 실패했습니다"
 
+msgid "Language"
+msgstr "언어"
+
 msgid "Nashor Handicap"
 msgstr "내셔 핸디캡"
 
@@ -5436,6 +5502,9 @@ msgstr "이 토큰은 자가 파괴할 수 없습니다."
 msgid "Cybercrime."
 msgstr "사이버 범죄."
 
+msgid "Display"
+msgstr "표시"
+
 msgid "Sell"
 msgstr "판매"
 
@@ -5535,6 +5604,9 @@ msgstr "{sourceName}에서 #{0} 나가기에 실패했습니다"
 
 msgid "Something went wrong, please try again."
 msgstr "문제가 발생했습니다. 다시 시도해 주세요."
+
+msgid "This Telegram account is already linked"
+msgstr "이 Telegram 계정은 이미 연결되어 있습니다"
 
 msgid "Following"
 msgstr "팔로잉"
@@ -5684,6 +5756,9 @@ msgstr "로그인"
 msgid "Security & Privacy"
 msgstr "보안 및 개인정보"
 
+msgid "Loading..."
+msgstr "로딩 중..."
+
 msgid "Your session has expired. Please sign in again."
 msgstr "세션이 만료되었습니다. 다시 로그인해 주세요."
 
@@ -5759,6 +5834,9 @@ msgstr "리캐스트가 성공적으로 취소되었습니다"
 msgid "like"
 msgid_plural "likes"
 msgstr[0] "좋아요"
+
+msgid "Posts from Trump on Truth Social (Explore, profile)"
+msgstr "Truth Social의 Trump 게시물(탐색, 프로필)"
 
 msgid "Golden"
 msgstr "골드"
