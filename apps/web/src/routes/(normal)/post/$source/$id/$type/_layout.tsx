@@ -1,12 +1,11 @@
-import type { SocialSource } from '@dimensiondev/enums';
-import { EngagementType } from '@dimensiondev/enums';
+import type { EngagementType, SocialSource } from '@dimensiondev/enums';
 import { type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
-import { EngagementLayout } from '@/legacy/[locale]/(normal)/post/[source]/[id]/pages/EngagementLayout.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { isEngagementType } from '@/helpers/parseEngagementUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { EngagementLayout } from '@/legacy/[locale]/(normal)/post/[source]/[id]/pages/EngagementLayout.js';
 
 interface EngagementLayoutData {
     source: SocialSource;

@@ -13,6 +13,7 @@ export function parseSearchParams(search: URLSearchParams): Record<string, unkno
             result[key] = value;
         }
     }
+
     return result;
 }
 
@@ -22,8 +23,9 @@ export function stringifySearch(search: Record<string, unknown> | undefined): st
     const params = new URLSearchParams();
     for (const [key, value] of Object.entries(search)) {
         if (value === undefined || value === null) continue;
-        params.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
+        params.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value as string | number | boolean));
     }
+
     const query = params.toString();
     return query ? `?${query}` : '';
 }

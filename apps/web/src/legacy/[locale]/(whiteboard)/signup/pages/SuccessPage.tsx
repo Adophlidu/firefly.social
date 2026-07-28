@@ -5,16 +5,16 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
-import { GamePlayer } from '@/legacy/[locale]/(whiteboard)/components/Signup/GamePlayer.js';
-import { LoggedInSources } from '@/legacy/[locale]/(whiteboard)/components/Signup/LoggedInSources.js';
-import { MusicTogglePlay } from '@/legacy/[locale]/(whiteboard)/components/Signup/MusicTogglePlay.js';
-import { ShadowInAndOut } from '@/legacy/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
-import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { openComposeModal } from '@/controllers/openComposeModal.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { getSignupRedirectPath } from '@/helpers/getSignupRedirectPath.js';
+import { GamePlayer } from '@/legacy/[locale]/(whiteboard)/components/Signup/GamePlayer.js';
+import { LoggedInSources } from '@/legacy/[locale]/(whiteboard)/components/Signup/LoggedInSources.js';
+import { MusicTogglePlay } from '@/legacy/[locale]/(whiteboard)/components/Signup/MusicTogglePlay.js';
+import { ShadowInAndOut } from '@/legacy/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
+import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function SuccessPage() {

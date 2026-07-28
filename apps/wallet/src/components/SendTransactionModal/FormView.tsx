@@ -5,6 +5,7 @@ import SearchIcon from '@dimensiondev/assets/search.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
 import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { NetworkType } from '@dimensiondev/enums';
+import { useNavigate } from '@dimensiondev/ssr';
 import { removeTrailingZeros, safeUnreachable, unreachable } from '@dimensiondev/utils';
 import { resolveWagmiChain, solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
@@ -20,7 +21,6 @@ import {
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate } from '@dimensiondev/ssr';
 import { omit } from 'lodash-es';
 import { RefreshCcw } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
@@ -30,9 +30,9 @@ import { type Address, formatEther } from 'viem';
 import { useConnections } from 'wagmi';
 
 import { ActionButton } from '@/components/ActionButton.js';
-import { Navigate } from '@/components/Navigate.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { Navigate } from '@/components/Navigate.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import {
     isOnlyAddress,
@@ -46,8 +46,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { setNavigationState } from '@/helpers/navigationState.js';
+import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';

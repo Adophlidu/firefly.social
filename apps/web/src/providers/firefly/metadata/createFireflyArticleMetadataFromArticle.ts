@@ -1,9 +1,9 @@
 import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';

@@ -71,7 +71,6 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                 onClose({ account });
                 runInSafeAsync(() => queryClient.refetchQueries({ queryKey: queryMyAllConnections.queryKey }));
                 enqueueSuccessMessage(<Trans>{resolveSourceName(source)} profile created.</Trans>);
-
             } catch (error) {
                 if (isUserRejectErrorInWallet(error)) {
                     enqueueWarningMessage(getWarningMessageFromError(error));

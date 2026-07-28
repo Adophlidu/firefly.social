@@ -1,9 +1,9 @@
 import type { NetworkType, ProfilePageSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';

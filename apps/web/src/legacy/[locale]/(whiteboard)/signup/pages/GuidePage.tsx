@@ -7,12 +7,12 @@ import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useState } from 'react';
 
-import { ShadowInAndOut } from '@/legacy/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
-import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { openDownloadMobileAppModal } from '@/controllers/openDownloadMobileAppModal.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
+import { ShadowInAndOut } from '@/legacy/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
+import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
 
 interface GuidePageProps {

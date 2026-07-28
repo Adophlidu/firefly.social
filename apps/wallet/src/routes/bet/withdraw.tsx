@@ -14,7 +14,6 @@ import { parseUnits } from 'viem';
 import { polygon } from 'viem/chains';
 import { useConnectors, useSignMessage } from 'wagmi';
 
-import { BetError } from '@/components/Bet/BetError.js';
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
@@ -39,6 +38,7 @@ import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 import { store } from '@/store/index.js';
 
 export default WithdrawPage;
+
 function WithdrawPage() {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
 

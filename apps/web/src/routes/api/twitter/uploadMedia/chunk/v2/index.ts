@@ -1,8 +1,8 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import urlcat from 'urlcat';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

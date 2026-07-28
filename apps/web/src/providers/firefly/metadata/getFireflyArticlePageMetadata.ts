@@ -1,8 +1,8 @@
 import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import type { Metadata } from '@/compat/nextMetadata.js';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createFireflyArticleMetadataFromArticle } from '@/providers/firefly/metadata/createFireflyArticleMetadataFromArticle.js';
 import { getArticleDetailPageData } from '@/providers/firefly/metadata/getArticleDetailPageData.js';

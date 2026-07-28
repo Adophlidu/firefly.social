@@ -1,11 +1,11 @@
 import { ScrollListKey } from '@dimensiondev/enums';
 import { createIndicator, NotFoundError } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { notFound } from '@/esm/navigation.js';
 
 import type { PostEngagementListProps } from '@/components/Engagement/type.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
+import { notFound } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

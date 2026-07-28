@@ -1,5 +1,6 @@
-import type { NextRequest } from '@/compat/next-server.js';
 import type { ZodObject, ZodRawShape } from 'zod';
+
+import type { NextRequest } from '@/compat/next-server.js';
 
 /**
  * Works with both Next's NextRequest (`request.nextUrl`) and the standard

@@ -1,6 +1,5 @@
-import { beforeAll, describe, expect, it } from 'vitest';
-
 import type { ApiContext } from '@dimensiondev/ssr';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 // next-auth falls back to process.env.NEXTAUTH_SECRET; must be set before the
 // route module (and its options import chain) is evaluated.

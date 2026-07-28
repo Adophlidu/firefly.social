@@ -1,7 +1,7 @@
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right2.svg';
+import { Link } from '@dimensiondev/ssr';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from '@dimensiondev/ssr';
 import type { Address } from 'viem';
 
 import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';

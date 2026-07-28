@@ -3,8 +3,8 @@ import { hydrateApp } from '@dimensiondev/ssr/client';
 import { bom } from '@dimensiondev/utils';
 import { modules, tree } from 'virtual:ssr/routes';
 
-import { preloadI18n } from '@/components/LinguiClientProvider.js';
 import { preloadDynamics } from '@/compat/dynamic.js';
+import { preloadI18n } from '@/components/LinguiClientProvider.js';
 import { rewriteInternalPathname } from '@/helpers/rewriteInternalPathname.js';
 
 function resolvePreloadLocale(): Locale {

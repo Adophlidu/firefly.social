@@ -6,14 +6,14 @@ import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { memo, useEffect, useMemo } from 'react';
 
-import { getNotificationItemContent } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/getNotificationItemContent.js';
-import { updateNotificationReadStatus } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useNotificationSources } from '@/hooks/useNotificationSources.js';
+import { getNotificationItemContent } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/getNotificationItemContent.js';
+import { updateNotificationReadStatus } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { getAllNotifications } from '@/providers/firefly/endpoint/getAllNotifications.js';
 import { getPolymarketRewardNotifications } from '@/providers/firefly/endpoint/getPolymarketRewardNotifications.js';
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';

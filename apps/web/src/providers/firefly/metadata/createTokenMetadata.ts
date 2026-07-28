@@ -1,5 +1,4 @@
 import type { Metadata } from '@/compat/nextMetadata.js';
-
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createTokenMetadataFromToken } from '@/providers/firefly/metadata/createTokenMetadataFromToken.js';
 import { searchTokenByKeyword } from '@/providers/firefly/metadata/searchTokenByKeyword.js';

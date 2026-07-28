@@ -1,9 +1,9 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import type { SendTweetV2Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';

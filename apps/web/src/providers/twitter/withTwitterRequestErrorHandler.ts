@@ -1,6 +1,6 @@
 import type { NextRequestContext } from '@dimensiondev/types';
-import type { NextRequest } from '@/compat/next-server.js';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { getTwitterErrorMessage } from '@/providers/twitter/getTwitterErrorMessage.js';
 

@@ -2,14 +2,14 @@ import { Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { Trans } from '@lingui/react/macro';
 
-import { AccountCards } from '@/legacy/[locale]/(settings)/components/AccountCard.js';
-import { FireflyAccountCard } from '@/legacy/[locale]/(settings)/components/FireflyAccountCard.js';
-import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
-import { ThirdPartAccounts } from '@/legacy/[locale]/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { AccountCards } from '@/legacy/[locale]/(settings)/components/AccountCard.js';
+import { FireflyAccountCard } from '@/legacy/[locale]/(settings)/components/FireflyAccountCard.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
+import { ThirdPartAccounts } from '@/legacy/[locale]/(settings)/components/ThirdPartAccounts.js';
 
 export default function Connected() {
     const isLogin = useIsLoginFirefly();

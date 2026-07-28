@@ -3,9 +3,9 @@ import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@
 
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
+import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 import { getPolymarketEventPageData } from '@/providers/firefly/metadata/getPolymarketEventPageData.js';
 import { getPredictionEventPageMetadata } from '@/providers/firefly/metadata/getPredictionEventPageMetadata.js';
-import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 
 /** Manages its own right column. */
 export const sidebar = () => null;

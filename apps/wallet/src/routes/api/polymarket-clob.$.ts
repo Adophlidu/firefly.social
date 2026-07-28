@@ -65,7 +65,10 @@ export async function OPTIONS() {
     });
 }
 
-type ApiContext = { request: Request; params: Record<string, string> };
+interface ApiContext {
+    request: Request;
+    params: Record<string, string>;
+}
 
 export async function GET({ request, params }: ApiContext) {
     return proxy(request, params['*']);

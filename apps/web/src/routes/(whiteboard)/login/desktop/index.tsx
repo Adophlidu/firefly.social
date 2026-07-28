@@ -1,10 +1,10 @@
 import FullLogo from '@dimensiondev/assets/logo-full.svg';
 import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useSearchParams } from '@/esm/navigation.js';
 import { useMemo } from 'react';
 
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
+import { useSearchParams } from '@/esm/navigation.js';
 import { DeviceType } from '@/types/device.js';
 
 export default function Page() {

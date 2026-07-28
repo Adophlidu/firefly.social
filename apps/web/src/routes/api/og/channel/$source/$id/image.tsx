@@ -5,10 +5,10 @@ import { type SocialSource, Source } from '@dimensiondev/enums';
 import type { ApiContext } from '@dimensiondev/ssr';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { safeUnreachable } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

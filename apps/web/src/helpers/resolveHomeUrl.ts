@@ -1,4 +1,5 @@
-import { HomeTab, PageRoute, Source } from '@dimensiondev/enums';
+import type { Source } from '@dimensiondev/enums';
+import { HomeTab, PageRoute } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 

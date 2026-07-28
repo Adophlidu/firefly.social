@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/rules-of-hooks -- slot exports are components, but named after the slot (lowercase) they fill */
 import { type ExploreSourceInURL, ExploreType } from '@dimensiondev/enums';
 import { type LoaderContext, useLoaderData, useParams } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
-import { getExploreChannelsPageData } from '@/legacy/[locale]/(normal)/explore/[explore]/[source]/getExploreChannelsPageData.js';
 import { ExploreChannelsProvider } from '@/components/Explores/ExploreChannelsContext.js';
 import { ExploreSourceTabs } from '@/components/Explores/ExploreSourceTabs.js';
 import { HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { ExploreSourceNav } from '@/components/SourceNav/ExploreSourceNav.js';
 import { PredictionSourceNav } from '@/components/SourceNav/PredictionSourceNav.js';
 import type { ExploreChannelsInitialData } from '@/helpers/buildExploreChannelsInitialData.js';
+import { getExploreChannelsPageData } from '@/legacy/[locale]/(normal)/explore/[explore]/[source]/getExploreChannelsPageData.js';
 
 interface ExploreLayoutData {
     /** Computed on the server; the client must render the same branch. */

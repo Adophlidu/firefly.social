@@ -64,6 +64,7 @@ function resolveTokenLogoCandidates(token: CoinGeckoToken, chainId?: number) {
 async function loadChainIcon(assets: OgAssets, chainId?: number) {
     const path = getChainIcon(chainId);
     if (!path) return null;
+
     try {
         return await loadStaticImageDataUri(assets, path);
     } catch {

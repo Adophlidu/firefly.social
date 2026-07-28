@@ -1,7 +1,7 @@
-import type { LinkProps } from '@/esm/Link.js';
 import { type HTMLProps, type PropsWithChildren, useCallback } from 'react';
 
 import { openAndWaitForCloseConfirmLeavingModal } from '@/controllers/openConfirmLeavingModal.js';
+import type { LinkProps } from '@/esm/Link.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';

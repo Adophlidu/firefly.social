@@ -14,11 +14,11 @@ import {
     usePerpsComputedAccountValue,
     usePerpsMarkets,
 } from '@dimensiondev/perps-react';
+import { useNavigate } from '@dimensiondev/ssr';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import type { ClearinghouseStateResponse, FrontendOpenOrdersResponse } from '@nktkas/hyperliquid/api/info';
 import { useQueries, useQuery } from '@tanstack/react-query';
-import { useNavigate } from '@dimensiondev/ssr';
 import { memo, useEffect, useMemo, useState } from 'react';
 
 import BackIcon from '@/assets/perps-profile/back.svg';

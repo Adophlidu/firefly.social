@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/rules-of-hooks -- slot exports are components, but named after the slot (lowercase) they fill */
 import { type LoaderContext, notFound, redirect, useLoaderData, useParams, useSearch } from '@dimensiondev/ssr';
 import { type ReactNode, useMemo } from 'react';
 
-import { CategoryTabs } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
-import { MobileSwapButton } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
-import { resolveTokenDetailQueryOptions } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
-import { WrapTokenMarketData } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { TokenOverview } from '@/components/TokenProfile/TokenOverview/index.js';
 import { useTokenPageParams } from '@/hooks/useTokenPageParams.js';
+import { CategoryTabs } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
+import { MobileSwapButton } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
+import { resolveTokenDetailQueryOptions } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
+import { WrapTokenMarketData } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { getTokenDetailPageData } from '@/providers/firefly/metadata/getTokenDetailPageData.js';
 
 /** The token info card in the right column (the old @sidebar/token route). */

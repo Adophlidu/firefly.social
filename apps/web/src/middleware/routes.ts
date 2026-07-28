@@ -2,6 +2,7 @@ import { ChannelTabType, SocialProfileCategory, WalletProfileCategory } from '@d
 import type { MiddlewareFn } from '@dimensiondev/ssr';
 import urlcat from 'urlcat';
 
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
@@ -17,7 +18,6 @@ import { parseOldSettingsUrl } from '@/helpers/parseOldSettingsUrl.js';
 import { parseOldSwapUrl } from '@/helpers/parseOldSwapUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseOldProfileUrl, parseProfileUrl } from '@/helpers/parseProfileUrl.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';

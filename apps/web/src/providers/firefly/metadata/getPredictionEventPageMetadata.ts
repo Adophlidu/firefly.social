@@ -1,9 +1,9 @@
 import type { PredictionPlatform } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveLocale } from '@/helpers/resolveLocale.js';
 import { createPredictionEventMetadataFromEvent } from '@/providers/firefly/metadata/createPredictionEventMetadataFromEvent.js';

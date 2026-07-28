@@ -1,7 +1,7 @@
 import { SITE_URL } from '@dimensiondev/envs/web';
-import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createWalletProfileMetadataFromProfile } from '@/providers/firefly/metadata/createWalletProfileMetadataFromProfile.js';
 import { getWalletProfilePageData } from '@/providers/firefly/metadata/getWalletProfilePageData.js';

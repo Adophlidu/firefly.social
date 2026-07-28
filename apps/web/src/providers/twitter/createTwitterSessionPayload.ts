@@ -1,8 +1,8 @@
 import { envs } from '@dimensiondev/envs/web';
 import { parseJson } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import { getToken, type JWT } from 'next-auth/jwt';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { logger } from '@/libs/Logger.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload, TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
@@ -29,6 +29,7 @@ function parseCookieHeader(request: Request, name: string): string | undefined {
         const [key, ...rest] = part.trim().split('=');
         if (key === name) return decodeURIComponent(rest.join('='));
     }
+
     return undefined;
 }
 

@@ -1,9 +1,9 @@
 import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 
-import { TipsDetailWithView } from '@/legacy/[locale]/(normal)/tx/[chain_id]/[hash]/TipsDetailWithView.js';
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
+import { TipsDetailWithView } from '@/legacy/[locale]/(normal)/tx/[chain_id]/[hash]/TipsDetailWithView.js';
 import { getTransactionPageData } from '@/providers/firefly/metadata/getTransactionPageData.js';
 import { getTransactionPageMetadata } from '@/providers/firefly/metadata/getTransactionPageMetadata.js';
 

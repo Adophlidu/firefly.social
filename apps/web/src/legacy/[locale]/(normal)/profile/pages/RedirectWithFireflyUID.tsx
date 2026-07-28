@@ -1,8 +1,8 @@
 import { SORTED_PROFILE_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { notFound, redirect, RedirectType } from '@/esm/navigation.js';
 import type { ReactNode } from 'react';
 
+import { notFound, redirect, RedirectType } from '@/esm/navigation.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';

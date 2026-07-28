@@ -7,7 +7,6 @@ import { classNames } from '@dimensiondev/utils';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
 
-import { getPostDetailQuery, getPostThreadQuery } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/PostActionsWithGrid.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { QuickReply } from '@/components/Actions/QuickReply.js';
@@ -24,6 +23,10 @@ import { TweetUnavailableError } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolvePostDetailAllPosts } from '@/helpers/resolvePostDetailAllPosts.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import {
+    getPostDetailQuery,
+    getPostThreadQuery,
+} from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 
 interface PostMediaSidebarProps {
     postId: string;

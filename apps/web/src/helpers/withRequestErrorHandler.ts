@@ -2,9 +2,9 @@ import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { reportExceptionServer } from '@dimensiondev/exception-tracker';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { NotFoundError, parseJson, UnauthorizedError } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import { ZodError } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { AccountSuspendedError, MalformedRequestError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { configureErrorCapture } from '@/providers/errorCapture/configure.js';

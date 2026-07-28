@@ -4,10 +4,10 @@ import RightArrowIcon from '@dimensiondev/assets/right-arrow.svg';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import { ContentCard } from '@/legacy/[locale]/(settings)/settings/privacy-and-security/pages/ContentCard.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
+import { ContentCard } from '@/legacy/[locale]/(settings)/settings/privacy-and-security/pages/ContentCard.js';
 
 export const MutedContents = memo(function MutedContents() {
     const menus = useMuteMenuList();

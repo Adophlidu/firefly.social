@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks -- slot exports are components, but named after the slot (lowercase) they fill */
 import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import { type HeadContext, type LoaderContext, notFound, redirect, useLoaderData } from '@dimensiondev/ssr';
@@ -12,7 +13,6 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { getFireflyArticlePageMetadata } from '@/providers/firefly/metadata/getFireflyArticlePageMetadata.js';
-import { getPostPageMetadata } from '@/providers/firefly/metadata/getPostPageMetadata.js';
 import type { Article } from '@/providers/types/Article.js';
 
 interface PostSourceLoaderData {

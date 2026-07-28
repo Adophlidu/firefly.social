@@ -1,5 +1,5 @@
 import { SITE_NAME } from '@dimensiondev/constants/static';
-import { type LoaderContext } from '@dimensiondev/ssr';
+import type { LoaderContext } from '@dimensiondev/ssr';
 import { msg } from '@lingui/core/macro';
 import { Suspense } from 'react';
 

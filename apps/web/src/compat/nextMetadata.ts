@@ -78,11 +78,13 @@ export function fromNextMetadata(metadata: Metadata): HeadDescriptor {
             const url = imageUrl(image as OgImage);
             if (url) meta.push({ property: 'og:image', content: url });
         }
+
         const ogAudios = Array.isArray(og.audio) ? og.audio : og.audio ? [og.audio] : [];
         for (const audio of ogAudios) {
             const url = imageUrl(audio as OgImage);
             if (url) meta.push({ property: 'og:audio', content: url });
         }
+
         const ogVideos = Array.isArray(og.videos) ? og.videos : og.videos ? [og.videos] : [];
         for (const video of ogVideos) {
             const url = imageUrl(video as OgImage);

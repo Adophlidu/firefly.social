@@ -1,9 +1,8 @@
-import { parseJson } from '@dimensiondev/utils';
 import { useNavigate, useSearch } from '@dimensiondev/ssr';
+import { parseJson } from '@dimensiondev/utils';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { z } from 'zod';
 
-import { BetError } from '@/components/Bet/BetError.js';
 import { PositionClaimModal } from '@/components/Bet/PositionClaimModal.js';
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { parseSearchParams } from '@/helpers/searchParams.js';
@@ -23,6 +22,7 @@ const positionSearchSchema = z
     .passthrough();
 
 export default PositionPage;
+
 function PositionPage() {
     return (
         <Suspense fallback={<LoadingPanel />}>

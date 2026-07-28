@@ -2,14 +2,14 @@
 
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@dimensiondev/constants/static';
 import { AttachmentType, type SocialSource, Source } from '@dimensiondev/enums';
-import type { NextRequestContext } from '@dimensiondev/types';
-import { compose, safeUnreachable } from '@dimensiondev/utils';
-import dayjs from 'dayjs';
 import type { ApiContext } from '@dimensiondev/ssr';
-import type { NextRequest } from '@/compat/next-server.js';
+import type { NextRequestContext } from '@dimensiondev/types';
+import { safeUnreachable } from '@dimensiondev/utils';
+import dayjs from 'dayjs';
 import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
@@ -37,6 +37,7 @@ async function loadSvgDataUri(assets: OgEnv['ASSETS'], path: string): Promise<st
     const text = await response.text();
     let binary = '';
     for (const byte of new TextEncoder().encode(text)) binary += String.fromCharCode(byte);
+
     return `data:image/svg+xml;base64,${btoa(binary)}`;
 }
 
@@ -45,6 +46,7 @@ async function loadImageDataUri(assets: OgEnv['ASSETS'], path: string, mime: str
     const buffer = new Uint8Array(await response.arrayBuffer());
     let binary = '';
     for (const byte of buffer) binary += String.fromCharCode(byte);
+
     return `data:${mime};base64,${btoa(binary)}`;
 }
 

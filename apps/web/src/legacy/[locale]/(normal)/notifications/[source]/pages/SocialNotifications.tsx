@@ -4,13 +4,13 @@ import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import { getNotificationItemContent } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/getNotificationItemContent.js';
-import { updateNotificationReadStatus } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { mergeNotifications } from '@/helpers/mergeNotifications.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { getNotificationItemContent } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/getNotificationItemContent.js';
+import { updateNotificationReadStatus } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { listenNotifications } from '@/services/listenNotifications.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 

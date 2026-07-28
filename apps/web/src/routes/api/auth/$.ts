@@ -1,9 +1,9 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import urlcat from 'urlcat';
 
+import { Auth } from '@/esm/Auth.js';
 import { authOptions } from '@/legacy/api/auth/[...nextauth]/options.js';
 import { DeleteCookieScript, MaskDelegateCookieName } from '@/legacy/api/mask/delegate-x-token/shared.js';
-import { Auth } from '@/esm/Auth.js';
 
 /**
  * next-auth v4 ships two entry paths (see `next-auth/next/index.js`):
@@ -17,13 +17,13 @@ import { Auth } from '@/esm/Auth.js';
  * Cookie writing goes through plain `Set-Cookie` headers.
  */
 
-type NodeishRequest = {
+interface NodeishRequest {
     method: string;
     headers: Record<string, string>;
     cookies: Record<string, string>;
     query: Record<string, string | string[]>;
     body?: Record<string, unknown>;
-};
+}
 
 /** Captures the NextApiResponse-style calls made by `NextAuthApiHandler`. */
 class NodeishResponse {
@@ -67,6 +67,7 @@ class NodeishResponse {
                 headers.set(name, value);
             }
         }
+
         return new Response(this.body, { status: this.statusCode, headers });
     }
 }
@@ -88,6 +89,7 @@ function parseCookies(header: string | null): Record<string, string> {
             cookies[name] = raw;
         }
     }
+
     return cookies;
 }
 

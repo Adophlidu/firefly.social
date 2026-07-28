@@ -3,14 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { Fragment, useEffect } from 'react';
 
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import {
     NotificationChildConfigItem,
     NotificationConfigItem,
 } from '@/legacy/[locale]/(settings)/components/NotificationConfigItem.js';
 import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
 import { formatNotificationConfigs } from '@/legacy/[locale]/(settings)/settings/notification-settings/formatNotificationConfigs.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getWebNotificationPushSwitch } from '@/providers/firefly/endpoint/getWebNotificationPushSwitch.js';
 import { type NotificationConfig, NotificationPlatform } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';

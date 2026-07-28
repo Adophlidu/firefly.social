@@ -14,12 +14,14 @@ function detectImageMime(buffer: Uint8Array, fallback: string): string {
     for (const { mime, bytes } of IMAGE_MAGIC) {
         if (bytes.every((byte, index) => buffer[index] === byte)) return mime;
     }
+
     return fallback;
 }
 
 function toBase64(buffer: Uint8Array): string {
     let binary = '';
     for (const byte of buffer) binary += String.fromCharCode(byte);
+
     return btoa(binary);
 }
 

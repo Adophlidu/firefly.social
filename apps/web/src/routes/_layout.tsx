@@ -2,10 +2,10 @@ import { Locale } from '@dimensiondev/enums';
 import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
-import { AgentProvider } from '@/components/AgentProvider.js';
-import { NavigationProgress } from '@/components/NavigationProgress.js';
-import { LangSetter } from '@/components/LangSetter.js';
 import { AppLayoutBody } from '@/compat/AppLayoutBody.js';
+import { AgentProvider } from '@/components/AgentProvider.js';
+import { LangSetter } from '@/components/LangSetter.js';
+import { NavigationProgress } from '@/components/NavigationProgress.js';
 import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 
 /**

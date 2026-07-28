@@ -9,7 +9,6 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 import { first, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 
-import { useUpdateContractParams } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Loading } from '@/components/Loading.js';
@@ -23,6 +22,7 @@ import { Link } from '@/esm/Link.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
+import { useUpdateContractParams } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import { getTreasuryHoldings } from '@/providers/coingecko/getTreasuryHoldings.js';
 import type { Contract } from '@/providers/types/Trending.js';
 

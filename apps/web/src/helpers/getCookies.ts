@@ -1,4 +1,4 @@
-import { Locale, SiteCookies } from '@dimensiondev/enums';
+import { SiteCookies } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 
 import { resolveLanguageLocale, resolveLocale } from '@/helpers/resolveLocale.js';

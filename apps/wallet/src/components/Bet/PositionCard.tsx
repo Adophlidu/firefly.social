@@ -1,9 +1,9 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
+import { useNavigate } from '@dimensiondev/ssr';
 import { formatPriceToCents, parseJson } from '@dimensiondev/utils';
 import { formatTokenItemAmount } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate } from '@dimensiondev/ssr';
 import { BigNumber } from 'bignumber.js';
 import { type PropsWithChildren, type ReactNode, useMemo, useState } from 'react';
 import { toast } from 'sonner';

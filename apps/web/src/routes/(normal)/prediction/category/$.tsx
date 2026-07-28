@@ -1,8 +1,8 @@
 import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 
-import { getPredictionCategoryPageData } from '@/legacy/[locale]/(normal)/prediction/category/[...slugs]/getPredictionCategoryPageData.js';
 import { PredictionCategoryPage } from '@/components/Prediction/Category/PredictionCategoryPage.js';
 import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
+import { getPredictionCategoryPageData } from '@/legacy/[locale]/(normal)/prediction/category/[...slugs]/getPredictionCategoryPageData.js';
 
 export const config = { cache: { sMaxAge: 60 } };
 

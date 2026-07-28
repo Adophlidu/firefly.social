@@ -1,10 +1,10 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { useSearch } from '@dimensiondev/ssr';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { lazy, Suspense, useEffect } from 'react';
 import { z } from 'zod';
 
-import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { parseSearchParams } from '@/helpers/searchParams.js';
+import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 
 function SkeletonLine({ className }: { className: string }) {
@@ -51,6 +51,7 @@ const historySearchSchema = z
     .passthrough();
 
 export default HistoryPage;
+
 function HistoryPage() {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const { tab } = historySearchSchema.parse(parseSearchParams(useSearch()));

@@ -7,7 +7,6 @@ import { BigNumber } from 'bignumber.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
-import { BetLoadFailed } from '@/components/Bet/BetLoadFailed.js';
 import { DepositAmountField } from '@/components/Deposit/DepositAmountField.js';
 import { DepositFormFooter } from '@/components/Deposit/DepositFormFooter.js';
 import { DepositPayTokenRow } from '@/components/Deposit/DepositPayTokenRow.js';
@@ -34,6 +33,7 @@ import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js'
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
 
 export default PerpsDepositPage;
+
 const TOAST_ID = 'perps-hyperliquid-deposit';
 
 function PerpsDepositPage() {

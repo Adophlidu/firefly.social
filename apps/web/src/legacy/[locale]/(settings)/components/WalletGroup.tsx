@@ -5,8 +5,8 @@ import { WalletSource } from '@dimensiondev/enums';
 import { AnimatePresence } from 'framer-motion';
 import { memo, type ReactNode } from 'react';
 
-import { WalletItem } from '@/legacy/[locale]/(settings)/components/WalletItem.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { WalletItem } from '@/legacy/[locale]/(settings)/components/WalletItem.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface WalletGroupProps {

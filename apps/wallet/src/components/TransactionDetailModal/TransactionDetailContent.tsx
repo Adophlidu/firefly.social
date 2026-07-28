@@ -1,9 +1,9 @@
 import { Source } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { Link, useNavigate } from '@dimensiondev/ssr';
 import { getChainName } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Select, Trans } from '@lingui/react/macro';
-import { Link, useNavigate } from '@dimensiondev/ssr';
 import { memo, type MouseEvent, type ReactNode, useCallback, useMemo } from 'react';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';

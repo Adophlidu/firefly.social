@@ -6,6 +6,7 @@ import { PerpsOrderIntentPage } from '@/components/Perps/PerpsOrderIntentPage.js
 import { parseSearchParams } from '@/helpers/searchParams.js';
 
 export default PerpsTradePage;
+
 interface PerpsTradeSearch {
     kind?: string;
     coin?: string;

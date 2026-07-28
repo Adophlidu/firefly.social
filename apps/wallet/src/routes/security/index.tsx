@@ -4,6 +4,7 @@ import { NavigationBar } from '@/components/NavigationBar.js';
 import { SecuritySettings } from '@/components/Security/index.js';
 
 export default SecuritySettingsPage;
+
 function SecuritySettingsPage() {
     return (
         <div className="flex size-full min-h-0 flex-1 flex-col">

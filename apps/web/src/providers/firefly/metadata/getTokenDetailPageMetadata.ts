@@ -1,6 +1,6 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
-import type { Metadata } from '@/compat/nextMetadata.js';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { createTokenMetadataFromToken } from '@/providers/firefly/metadata/createTokenMetadataFromToken.js';

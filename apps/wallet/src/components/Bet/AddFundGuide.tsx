@@ -1,6 +1,6 @@
 import PolymarketEntryIcon from '@dimensiondev/assets/bet-entry.svg';
-import { Trans } from '@lingui/react/macro';
 import { useNavigate } from '@dimensiondev/ssr';
+import { Trans } from '@lingui/react/macro';
 
 import { BetNavigationBar } from '@/components/Bet/BetNavigationBar.js';
 import { Button } from '@/components/ui/button.js';

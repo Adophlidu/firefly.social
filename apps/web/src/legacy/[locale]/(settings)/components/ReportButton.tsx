@@ -4,9 +4,9 @@ import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
-import { waitForDisconnectConfirmation } from '@/legacy/[locale]/(settings)/components/waitForDisconnectConfirmation.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { waitForDisconnectConfirmation } from '@/legacy/[locale]/(settings)/components/waitForDisconnectConfirmation.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 

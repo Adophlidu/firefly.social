@@ -5,16 +5,16 @@ import { Trans } from '@lingui/react/macro';
 import { uniqBy } from 'lodash-es';
 import { useCallback } from 'react';
 
-import {
-    type PredictionSearchItem,
-    type SearchPredictionContentPagedData,
-    useSearchPredictionContent,
-} from '@/legacy/[locale]/(normal)/search/[...slug]/pages/useSearchPredictionContent.js';
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionPolymarketListItem } from '@/components/Prediction/PredictionPolymarketListItem.js';
 import { SearchPredictionEventStatusTabs } from '@/components/Search/SearchPredictionEventStatusTabs.js';
 import { usePolymarketListSportsPrices } from '@/hooks/prediction/usePolymarketListSportsPrices.js';
+import {
+    type PredictionSearchItem,
+    type SearchPredictionContentPagedData,
+    useSearchPredictionContent,
+} from '@/legacy/[locale]/(normal)/search/[...slug]/pages/useSearchPredictionContent.js';
 import { capturePolymarketSearchEventClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
 import { useSearchPredictionEventStatus } from '@/store/useSearchPredictionFilterStore.js';

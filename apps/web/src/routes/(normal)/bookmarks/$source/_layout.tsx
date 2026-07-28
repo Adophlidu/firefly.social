@@ -5,10 +5,10 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
-import { BookmarkSourceTabs } from '@/legacy/[locale]/(normal)/bookmarks/[source]/BookmarkSourceTabs.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { BookmarkSourceTabs } from '@/legacy/[locale]/(normal)/bookmarks/[source]/BookmarkSourceTabs.js';
 
 interface BookmarksLayoutData {
     source: BookmarkSource;

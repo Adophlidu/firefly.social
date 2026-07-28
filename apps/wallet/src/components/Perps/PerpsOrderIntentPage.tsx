@@ -11,9 +11,9 @@ import {
     validatePerpsPriceInput,
 } from '@dimensiondev/perps-core';
 import { type PerpsAddress, usePerpsClient, usePerpsComputedAccountValue } from '@dimensiondev/perps-react';
+import { useNavigate } from '@dimensiondev/ssr';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@dimensiondev/ssr';
 import BigNumber from 'bignumber.js';
 import { ArrowLeftRight, Check, ChevronDown, Minus, Plus, PlusCircle, Star, X } from 'lucide-react';
 import { memo, useEffect, useMemo, useState } from 'react';

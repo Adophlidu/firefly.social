@@ -1,5 +1,4 @@
 import type { Metadata } from '@/compat/nextMetadata.js';
-
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import {

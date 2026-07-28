@@ -157,7 +157,7 @@ export const ProfileInList = memo<ProfileInListProps>(function ProfileInList({
                             aria-hidden="true"
                         />
                         <BioMarkup
-                            className="truncate text-sm [&_a]:relative [&_a]:z-[1]"
+                            className="truncate text-sm [&_a]:relative [&_a]:z-1"
                             components={bioComponents}
                             source={profile.source}
                             profile={profile}

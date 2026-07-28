@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { lazy, Suspense } from 'react';
 
-import { BetError } from '@/components/Bet/BetError.js';
 import { SettleResolvedMarketsSection } from '@/components/Bet/SettleResolvedMarketsSection.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 
@@ -51,6 +50,7 @@ function PositionsSkeleton() {
 const Positions = lazy(() => import('@/components/Bet/Positions.js').then((m) => ({ default: m.Positions })));
 
 export default BetHomePage;
+
 function SettleSection() {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const address = account?.proxyAddress;

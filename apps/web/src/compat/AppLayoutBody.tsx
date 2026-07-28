@@ -3,12 +3,12 @@ import { Agent, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { type ReactNode, Suspense } from 'react';
 
+import { AppProviders } from '@/compat/AppProviders.js';
 import { useAgent } from '@/components/AgentProvider.js';
 import { DirectMessagePanelHost } from '@/components/DirectMessages/DirectMessagePanelHost.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { IfWalletStackActive } from '@/components/IfWalletStackActive.js';
 import { SessionUnauthorizedBoundaryTrigger } from '@/components/SessionUnauthorizedBoundaryTrigger.js';
-import { AppProviders } from '@/compat/AppProviders.js';
 import { dynamic } from '@/esm/dynamic.js';
 
 const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), { ssr: false });

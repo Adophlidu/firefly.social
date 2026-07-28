@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks -- slot exports are components, but named after the slot (lowercase) they fill */
 import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { SourceInURL } from '@dimensiondev/enums';
 import { type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';

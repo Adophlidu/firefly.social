@@ -12,9 +12,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { FarcasterAccountActions } from '@/legacy/[locale]/(settings)/components/FarcasterAccountActions.js';
-import { LensAccountActions } from '@/legacy/[locale]/(settings)/components/LensAccountActions.js';
-import { PrimaryButton } from '@/legacy/[locale]/(settings)/components/PrimaryButton.js';
 import { ErrorHandler } from '@/components/ErrorHandler.js';
 import { IconButton } from '@/components/IconButton.js';
 import { Loading } from '@/components/Loading.js';
@@ -29,6 +26,9 @@ import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.j
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { FarcasterAccountActions } from '@/legacy/[locale]/(settings)/components/FarcasterAccountActions.js';
+import { LensAccountActions } from '@/legacy/[locale]/(settings)/components/LensAccountActions.js';
+import { PrimaryButton } from '@/legacy/[locale]/(settings)/components/PrimaryButton.js';
 import { checkBatchCustodyWallet } from '@/providers/firefly/endpoint/checkBatchCustodyWallet.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { LensConnection } from '@/providers/types/Firefly.js';

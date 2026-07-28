@@ -2,9 +2,9 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { runInSafeAsync, UnauthorizedError } from '@dimensiondev/utils';
 import { cache } from 'react';
 
-import type { PostThreadQueryData } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { compactPostForPageTransfer, compactPostsForPageTransfer } from '@/helpers/compactPostForPageTransfer.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
+import type { PostThreadQueryData } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { getThreads } from '@/services/getThreads.js';

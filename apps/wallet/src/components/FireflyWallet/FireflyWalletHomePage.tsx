@@ -1,7 +1,7 @@
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/wallet';
-import { Trans } from '@lingui/react/macro';
 import { Link, useNavigate, useRouterState } from '@dimensiondev/ssr';
+import { Trans } from '@lingui/react/macro';
 import { useSetAtom } from 'jotai';
 import { compact } from 'lodash-es';
 import { type PropsWithChildren, useCallback, useState } from 'react';

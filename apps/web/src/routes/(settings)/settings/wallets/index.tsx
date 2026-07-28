@@ -5,14 +5,14 @@ import { Source } from '@dimensiondev/enums';
 import { delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import { AddWalletButton } from '@/legacy/[locale]/(settings)/components/AddWalletButton.js';
-import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
-import { WalletGroup } from '@/legacy/[locale]/(settings)/components/WalletGroup.js';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { AddWalletButton } from '@/legacy/[locale]/(settings)/components/AddWalletButton.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
+import { WalletGroup } from '@/legacy/[locale]/(settings)/components/WalletGroup.js';
 
 export default function Wallets() {
     const isLogin = useIsLoginFirefly();

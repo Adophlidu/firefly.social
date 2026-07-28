@@ -1,6 +1,6 @@
 import { SwapFromPage } from '@dimensiondev/enums';
-import { safeUnreachable } from '@dimensiondev/utils';
 import { useNavigate } from '@dimensiondev/ssr';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { useCallback } from 'react';
 
 import { stringifySearch } from '@/helpers/searchParams.js';

@@ -1,11 +1,11 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { ImageProps } from '@/esm/Image.js';
 import { memo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import type { ImageProps } from '@/esm/Image.js';
 import { Image } from '@/esm/Image.js';
 
 interface ImageWithLoadingProps extends ImageProps {

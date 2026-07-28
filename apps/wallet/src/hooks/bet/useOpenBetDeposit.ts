@@ -1,5 +1,5 @@
-import { isLessThan } from '@dimensiondev/web3/numbers';
 import { useNavigate } from '@dimensiondev/ssr';
+import { isLessThan } from '@dimensiondev/web3/numbers';
 
 import { ModalType } from '@/configs/modalRoutes.js';
 import { useTotalBalance } from '@/hooks/useTotalBalance.js';

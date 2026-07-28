@@ -1,9 +1,9 @@
 'use client';
 
 import { classNames, parseUrl } from '@dimensiondev/utils';
-import type { ImageProps as NextImageProps } from '@/esm/Image.js';
 import { memo, useMemo } from 'react';
 
+import type { ImageProps as NextImageProps } from '@/esm/Image.js';
 import { Image as NextImage } from '@/esm/Image.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';

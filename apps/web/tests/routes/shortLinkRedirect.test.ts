@@ -1,8 +1,8 @@
-import { NextRequest } from '@/compat/next-server.js';
 import { describe, expect, it, vi } from 'vitest';
 
-import { GET } from '@/legacy/i/[hash]/route.js';
+import { NextRequest } from '@/compat/next-server.js';
 import { getShortLink } from '@/helpers/shortLink.js';
+import { GET } from '@/legacy/i/[hash]/route.js';
 
 vi.mock('@/helpers/shortLink.js', () => ({
     getShortLink: vi.fn(),

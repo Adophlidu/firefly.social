@@ -4,12 +4,12 @@ import { MuteType, PageRoute } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { type ReactNode, Suspense } from 'react';
 
-import { MutedWallets } from '@/legacy/[locale]/(settings)/components/MutedWallets.js';
 import { MutedChannels } from '@/components/Channel/MutedChannels.js';
 import { Loading } from '@/components/Loading.js';
 import { MutedProfiles } from '@/components/Profile/MutedProfiles.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { MutedWallets } from '@/legacy/[locale]/(settings)/components/MutedWallets.js';
 
 interface MutedListProps {
     name: ReactNode;

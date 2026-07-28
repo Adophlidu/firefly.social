@@ -6,13 +6,13 @@ import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { toggleSwitchNotificationConfig } from '@/legacy/[locale]/(settings)/settings/notification-settings/toggleSwitchNotificationConfig.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Switch } from '@/components/Switch/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { toggleSwitchNotificationConfig } from '@/legacy/[locale]/(settings)/settings/notification-settings/toggleSwitchNotificationConfig.js';
 import type { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 
 interface NotificationConfigItemProps {

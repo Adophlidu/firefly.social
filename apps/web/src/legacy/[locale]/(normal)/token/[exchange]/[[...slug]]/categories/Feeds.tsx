@@ -3,16 +3,16 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { SearchType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
-import type { ReadonlyURLSearchParams } from '@/esm/navigation.js';
 import { type HTMLProps, memo, Suspense, useMemo, useState, useTransition } from 'react';
 
-import TokenPageLoading from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import { DisableScrollRestoreContext } from '@/components/DisableScrollRestore/index.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchPostList } from '@/components/Search/SearchPostList.js';
 import { Link } from '@/esm/Link.js';
+import type { ReadonlyURLSearchParams } from '@/esm/navigation.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import TokenPageLoading from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     chainId: number | undefined;

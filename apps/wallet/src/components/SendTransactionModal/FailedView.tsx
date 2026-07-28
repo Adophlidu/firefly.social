@@ -1,7 +1,7 @@
 import ErrorIcon from '@dimensiondev/assets/error-circle.svg';
 import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
-import { Trans } from '@lingui/react/macro';
 import { useNavigate, useRouterState } from '@dimensiondev/ssr';
+import { Trans } from '@lingui/react/macro';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { toast } from 'sonner';

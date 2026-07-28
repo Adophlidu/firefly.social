@@ -6,14 +6,14 @@ import { WalletSource } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
-import {
-    getRelatedProfiles,
-    waitForDisconnectConfirmation,
-} from '@/legacy/[locale]/(settings)/components/waitForDisconnectConfirmation.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
+import {
+    getRelatedProfiles,
+    waitForDisconnectConfirmation,
+} from '@/legacy/[locale]/(settings)/components/waitForDisconnectConfirmation.js';
 import { disconnectAccount } from '@/providers/firefly/endpoint/disconnectAccount.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { removeAccountsByProfiles } from '@/services/account.js';

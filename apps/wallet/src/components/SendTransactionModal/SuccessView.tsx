@@ -1,9 +1,9 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import SuccessIcon from '@dimensiondev/assets/success.svg';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { formatTokenItemAmount, getBlockExplorersURL } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
-import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { omit } from 'lodash-es';
 import { useRef } from 'react';
 

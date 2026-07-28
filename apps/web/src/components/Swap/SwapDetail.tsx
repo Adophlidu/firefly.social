@@ -14,7 +14,6 @@ import { first } from 'lodash-es';
 import { memo } from 'react';
 import type { Address } from 'viem';
 
-import { AddressLink, TxLink } from '@/legacy/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Comeback } from '@/components/Comeback.js';
@@ -34,6 +33,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isCrossChainSwap } from '@/helpers/isCrossChainSwap.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
+import { AddressLink, TxLink } from '@/legacy/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 
 interface SwapDetailProps {

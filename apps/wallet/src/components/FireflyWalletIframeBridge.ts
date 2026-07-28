@@ -9,10 +9,10 @@ import {
     type SolanaRequestArguments,
     type SolanaResponse,
 } from '@dimensiondev/iframe-bridge';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { delay, NotImplementedError, unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
 import { isVersionedTransaction } from '@solana/wallet-adapter-base';
-import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { getWalletClient } from '@wagmi/core';
 import bs58 from 'bs58';
 import { useSetAtom } from 'jotai';

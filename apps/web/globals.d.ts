@@ -111,15 +111,16 @@ declare module '*.svg?url' {
 
 // The global JSX namespace used to come from next-env.d.ts (Next.js bundles it
 // via /// <reference types="react" />); @types/react 19 no longer declares it
-// globally. Re-declare it here, mapped onto React.JSX.
+// globally. Re-declare it here, mapped onto React.JSX (type aliases instead of
+// interface extends: prettier cannot parse `extends import(...)`).
 declare namespace JSX {
     type Element = import('react').JSX.Element;
-    interface ElementClass extends import('react').JSX.ElementClass {}
-    interface ElementAttributesProperty extends import('react').JSX.ElementAttributesProperty {}
-    interface ElementChildrenAttribute extends import('react').JSX.ElementChildrenAttribute {}
-    interface IntrinsicElements extends import('react').JSX.IntrinsicElements {}
-    interface IntrinsicAttributes extends import('react').JSX.IntrinsicAttributes {}
-    interface IntrinsicClassAttributes<T> extends import('react').JSX.IntrinsicClassAttributes<T> {}
+    type ElementClass = import('react').JSX.ElementClass;
+    type ElementAttributesProperty = import('react').JSX.ElementAttributesProperty;
+    type ElementChildrenAttribute = import('react').JSX.ElementChildrenAttribute;
+    type IntrinsicElements = import('react').JSX.IntrinsicElements;
+    type IntrinsicAttributes = import('react').JSX.IntrinsicAttributes;
+    type IntrinsicClassAttributes<T> = import('react').JSX.IntrinsicClassAttributes<T>;
     type LibraryManagedAttributes<C, P> = import('react').JSX.LibraryManagedAttributes<C, P>;
 }
 

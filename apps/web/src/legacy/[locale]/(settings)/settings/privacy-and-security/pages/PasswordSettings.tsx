@@ -8,7 +8,6 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { ContentCard } from '@/legacy/[locale]/(settings)/settings/privacy-and-security/pages/ContentCard.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Switch } from '@/components/Switch/index.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -17,6 +16,7 @@ import { openLoginModalWithGuard } from '@/controllers/openLoginModal.js';
 import { openAndWaitForClosePasswordModal, openPasswordModal } from '@/controllers/openPasswordModal.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { ContentCard } from '@/legacy/[locale]/(settings)/settings/privacy-and-security/pages/ContentCard.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { resetPasscode } from '@/providers/firefly/metrics/resetPasscode.js';
 import { captureRemovePasscodeEvent } from '@/providers/telemetry/capturePasscodeEvent.js';

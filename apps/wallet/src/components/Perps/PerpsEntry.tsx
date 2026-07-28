@@ -1,7 +1,7 @@
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right2.svg';
 import { type PerpsAddress, usePerpsComputedAccountValue } from '@dimensiondev/perps-react';
-import { Trans } from '@lingui/react/macro';
 import { Link } from '@dimensiondev/ssr';
+import { Trans } from '@lingui/react/macro';
 
 import { formatPerpsHomeBalance } from '@/components/Perps/formatPerpsHomeBalance.js';
 import { useCachedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';

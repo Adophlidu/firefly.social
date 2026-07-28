@@ -1,8 +1,8 @@
 import { envs } from '@dimensiondev/envs/web';
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose, UnauthorizedError } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterSessionBeforeLogin } from '@/providers/twitter/createTwitterSessionPayload.js';

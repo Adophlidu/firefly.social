@@ -9,11 +9,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { Suspense, useEffect, useRef, useState } from 'react';
 
-import {
-    getPostDetailQuery,
-    getPostThreadQuery,
-    type PostThreadQueryData,
-} from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/PostActionsWithGrid.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { QuickReply } from '@/components/Actions/QuickReply.js';
@@ -34,6 +29,11 @@ import { notFound, useSearchParams } from '@/esm/navigation.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolvePostDetailAllPosts } from '@/helpers/resolvePostDetailAllPosts.js';
 import { useFixedScrollInToViewBeforeUserInteraction } from '@/hooks/useFixedScrollInToViewBeforeUserInteraction.js';
+import {
+    getPostDetailQuery,
+    getPostThreadQuery,
+    type PostThreadQueryData,
+} from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 

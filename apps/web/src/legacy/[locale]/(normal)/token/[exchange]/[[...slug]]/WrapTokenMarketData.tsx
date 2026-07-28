@@ -4,11 +4,11 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3
 import { useQuery } from '@tanstack/react-query';
 import { memo, useContext, useMemo } from 'react';
 
-import { useUpdateContractParams } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
+import { useUpdateContractParams } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import { getFollowingTraderCount } from '@/providers/firefly/endpoint/getFollowingTraderCount.js';
 
 function useFollowingTraderCount(tokenId: string | null, chainId?: number, address?: string) {

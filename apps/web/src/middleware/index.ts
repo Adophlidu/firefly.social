@@ -1,9 +1,10 @@
+import type { MiddlewareFn } from '@dimensiondev/ssr';
+
 import { externalRewrites } from '@/middleware/external.js';
 import { legacyLocaleRedirects } from '@/middleware/locale.js';
 import { referralTracking, requestAnnotations } from '@/middleware/requests.js';
 import { clubRoutes, legacyRedirects, profileRoutes } from '@/middleware/routes.js';
 import { securityHeaders } from '@/middleware/security.js';
-import type { MiddlewareFn } from '@dimensiondev/ssr';
 
 /**
  * Middleware chain for the new SSR app, mirroring src/proxy.ts (Next

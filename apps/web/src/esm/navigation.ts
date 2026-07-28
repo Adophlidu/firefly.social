@@ -1,8 +1,8 @@
 export {
     notFound,
+    type ReadonlyURLSearchParams,
     redirect,
     RedirectType,
-    type ReadonlyURLSearchParams,
     useParams,
     usePathname,
     useRouter,

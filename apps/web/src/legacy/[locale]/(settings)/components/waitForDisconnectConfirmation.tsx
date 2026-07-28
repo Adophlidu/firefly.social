@@ -3,10 +3,10 @@
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
-import { WalletItem } from '@/legacy/[locale]/(settings)/components/WalletItem.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { openAndWaitForCloseConfirmModal } from '@/controllers/openConfirmModal.js';
+import { WalletItem } from '@/legacy/[locale]/(settings)/components/WalletItem.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 

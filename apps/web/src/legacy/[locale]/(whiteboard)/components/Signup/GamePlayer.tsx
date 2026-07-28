@@ -3,10 +3,10 @@ import { classNames } from '@dimensiondev/utils';
 import { throttle } from 'lodash-es';
 import { memo, useEffect, useRef, useState } from 'react';
 
-import { toggleSignupAudio } from '@/legacy/[locale]/(whiteboard)/signup/pages/audio.js';
 import { Image } from '@/esm/Image.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { toggleSignupAudio } from '@/legacy/[locale]/(whiteboard)/signup/pages/audio.js';
 
 interface GamePlayerProps {
     avatar?: string;

@@ -8,10 +8,8 @@ import { ETH_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import type { ReadonlyURLSearchParams } from '@/esm/navigation.js';
 import { type HTMLProps, memo, Suspense, useCallback, useContext, useMemo, useState, useTransition } from 'react';
 
-import TokenPageLoading from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import { Avatar } from '@/components/Avatar.js';
 import { DisableScrollRestoreContext } from '@/components/DisableScrollRestore/index.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -19,12 +17,14 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { Link } from '@/esm/Link.js';
+import type { ReadonlyURLSearchParams } from '@/esm/navigation.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import TokenPageLoading from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 
 function resolveTab(pathname: string, params: ReadonlyURLSearchParams, category: string) {

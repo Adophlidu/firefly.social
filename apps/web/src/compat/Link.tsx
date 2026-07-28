@@ -20,6 +20,13 @@ interface LinkCompatProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export type LinkProps = LinkCompatProps;
 
-export function Link({ href, replace: _replace, scroll: _scroll, shallow: _shallow, prefetch, ...rest }: LinkCompatProps): ReactElement {
+export function Link({
+    href,
+    replace: _replace,
+    scroll: _scroll,
+    shallow: _shallow,
+    prefetch,
+    ...rest
+}: LinkCompatProps): ReactElement {
     return <SsrLink href={href} prefetch={prefetch} {...rest} />;
 }

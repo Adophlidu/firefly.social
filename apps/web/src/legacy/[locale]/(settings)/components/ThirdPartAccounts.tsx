@@ -12,12 +12,12 @@ import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { type FunctionComponent, type SVGAttributes, useMemo } from 'react';
 
-import { ThirdPartConnectButton } from '@/legacy/[locale]/(settings)/components/ThirdPartConnectButton.js';
-import { ThirdPartDisconnectButton } from '@/legacy/[locale]/(settings)/components/ThirdPartDisconnectButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
+import { ThirdPartConnectButton } from '@/legacy/[locale]/(settings)/components/ThirdPartConnectButton.js';
+import { ThirdPartDisconnectButton } from '@/legacy/[locale]/(settings)/components/ThirdPartDisconnectButton.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import type { Account } from '@/providers/types/Account.js';

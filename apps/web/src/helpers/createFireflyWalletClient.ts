@@ -4,10 +4,10 @@ import { squashCallback } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { EthereumMethodType } from '@dimensiondev/web3/enums';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
-import { createInstance } from '@/shims/localforage.js';
 import { toHex } from 'viem';
 import { mainnet } from 'viem/chains';
 
+import { createInstance } from '@/shims/localforage.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 
 const storage = createInstance({

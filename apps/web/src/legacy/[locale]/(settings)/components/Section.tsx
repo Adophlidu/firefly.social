@@ -1,8 +1,8 @@
 import { classNames } from '@dimensiondev/utils';
 import type { HTMLProps, ReactNode } from 'react';
 
-import { PageHeader } from '@/legacy/[locale]/(settings)/components/PageHeader.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { PageHeader } from '@/legacy/[locale]/(settings)/components/PageHeader.js';
 
 interface SettingsSectionProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {
     title: ReactNode;

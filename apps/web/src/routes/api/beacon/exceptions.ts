@@ -3,9 +3,9 @@ import { envs } from '@dimensiondev/envs/web';
 import { isExceptionTrackerEnabled } from '@dimensiondev/exception-tracker';
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import urlcat from 'urlcat';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 

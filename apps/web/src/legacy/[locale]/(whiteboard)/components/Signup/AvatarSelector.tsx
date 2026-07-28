@@ -17,12 +17,12 @@ import {
 } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { ImageWithLoading } from '@/legacy/[locale]/(whiteboard)/components/Signup/ImageWithLoading.js';
-import { SocialAvatarSelector } from '@/legacy/[locale]/(whiteboard)/components/Signup/SocialAvatarSelector.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { openAndWaitForCloseImageEditorModal } from '@/controllers/openImageEditorModal.js';
 import { Image } from '@/esm/Image.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { ImageWithLoading } from '@/legacy/[locale]/(whiteboard)/components/Signup/ImageWithLoading.js';
+import { SocialAvatarSelector } from '@/legacy/[locale]/(whiteboard)/components/Signup/SocialAvatarSelector.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 type AvatarType = 'pfp' | 'random' | 'custom';

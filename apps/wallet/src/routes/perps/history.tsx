@@ -152,6 +152,7 @@ const AccountActivityCard = memo(function AccountActivityCard({ update }: { upda
 });
 
 export default PerpsHistory;
+
 function PerpsHistory() {
     const client = usePerpsClient();
     const address = useCachedEvmAddress() as `0x${string}` | null;

@@ -1,10 +1,10 @@
 import { WARPCAST_ROOT_URL } from '@dimensiondev/constants/static';
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';

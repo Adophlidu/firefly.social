@@ -4,14 +4,14 @@ import { useParams } from '@dimensiondev/ssr';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense } from 'react';
 
-import { ArticleBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/ArticleBookmarkList.js';
-import { BookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/BookmarkList.js';
-import { PredictionBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/PredictionBookmarkList.js';
-import { TokenBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/TokenBookmarkList.js';
 import { Loading } from '@/components/Loading.js';
 import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useMounted } from '@/hooks/useMounted.js';
+import { ArticleBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/ArticleBookmarkList.js';
+import { BookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/BookmarkList.js';
+import { PredictionBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/PredictionBookmarkList.js';
+import { TokenBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/TokenBookmarkList.js';
 
 function BookmarkListContent({ source }: { source: BookmarkSource }) {
     switch (source) {

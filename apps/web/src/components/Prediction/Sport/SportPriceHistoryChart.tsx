@@ -30,14 +30,14 @@ function loadRechartComponent(name: keyof RechartsModule) {
     };
 }
 
-const CartesianGrid = dynamic<Record<string, unknown>>(loadRechartComponent('CartesianGrid'), { ssr: false });
-const Line = dynamic<Record<string, unknown>>(loadRechartComponent('Line'), { ssr: false });
-const LineChart = dynamic<Record<string, unknown>>(loadRechartComponent('LineChart'), { ssr: false });
-const ResponsiveContainer = dynamic<Record<string, unknown>>(loadRechartComponent('ResponsiveContainer'), {
+const CartesianGrid = dynamic(loadRechartComponent('CartesianGrid'), { ssr: false });
+const Line = dynamic(loadRechartComponent('Line'), { ssr: false });
+const LineChart = dynamic(loadRechartComponent('LineChart'), { ssr: false });
+const ResponsiveContainer = dynamic(loadRechartComponent('ResponsiveContainer'), {
     ssr: false,
 });
-const Tooltip = dynamic<Record<string, unknown>>(loadRechartComponent('Tooltip'), { ssr: false });
-const YAxis = dynamic<Record<string, unknown>>(loadRechartComponent('YAxis'), { ssr: false });
+const Tooltip = dynamic(loadRechartComponent('Tooltip'), { ssr: false });
+const YAxis = dynamic(loadRechartComponent('YAxis'), { ssr: false });
 
 export interface SportChartOutcome {
     id: string;

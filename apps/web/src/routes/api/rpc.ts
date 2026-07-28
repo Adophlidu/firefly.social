@@ -1,9 +1,9 @@
 import { SourceInURL } from '@dimensiondev/enums';
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

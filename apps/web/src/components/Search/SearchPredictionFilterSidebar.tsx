@@ -6,13 +6,13 @@ import { Trans } from '@lingui/react/macro';
 import { uniqBy } from 'lodash-es';
 import { memo, type PropsWithChildren } from 'react';
 
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { SEARCH_PREDICTION_EVENT_STATUS_OPTIONS } from '@/components/Search/SearchPredictionEventStatusTabs.js';
 import {
     type SearchPredictionContentPagedData,
     useSearchPredictionContent,
 } from '@/legacy/[locale]/(normal)/search/[...slug]/pages/useSearchPredictionContent.js';
-import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { SEARCH_PREDICTION_EVENT_STATUS_OPTIONS } from '@/components/Search/SearchPredictionEventStatusTabs.js';
 import type { PredictionSearchTag } from '@/providers/firefly/prediction/searchPrediction.js';
 import { capturePolymarketSearchTopicClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import {

@@ -5,12 +5,12 @@ import { Trans } from '@lingui/react/macro';
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { OptionButton } from '@/legacy/[locale]/(settings)/components/OptionButton.js';
-import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
-import { Subtitle } from '@/legacy/[locale]/(settings)/components/Subtitle.js';
 import { useCookie } from '@/hooks/useCookie.js';
 import { useLocale } from '@/hooks/useLocale.js';
 import { supportedLocales } from '@/i18n/core.js';
+import { OptionButton } from '@/legacy/[locale]/(settings)/components/OptionButton.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
+import { Subtitle } from '@/legacy/[locale]/(settings)/components/Subtitle.js';
 import { logger } from '@/libs/Logger.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 

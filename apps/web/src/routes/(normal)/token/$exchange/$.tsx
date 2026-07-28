@@ -2,11 +2,11 @@ import { TokenCategory } from '@dimensiondev/enums';
 import { useParams, useSearch } from '@dimensiondev/ssr';
 import { useMemo } from 'react';
 
+import { TokenOverview } from '@/components/TokenProfile/TokenOverview/index.js';
+import { useTokenPageParams } from '@/hooks/useTokenPageParams.js';
 import { Feeds } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/categories/Feeds.js';
 import { Transactions } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/categories/Transactions.js';
 import TokenPageLoading from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';
-import { TokenOverview } from '@/components/TokenProfile/TokenOverview/index.js';
-import { useTokenPageParams } from '@/hooks/useTokenPageParams.js';
 
 /**
  * The hook accepts plain values (promises created during render suspend

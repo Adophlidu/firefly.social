@@ -1,12 +1,12 @@
 import { SITE_NAME } from '@dimensiondev/constants/static';
+import type { LoaderContext } from '@dimensiondev/ssr';
 import { msg } from '@lingui/core/macro';
 
-import { FireflyLoginFallback } from '@/legacy/[locale]/(normal)/profile/pages/FireflyLoginFallback.js';
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';
 import { setupAndActiveI18n } from '@/i18n/server.js';
-import type { LoaderContext } from '@dimensiondev/ssr';
+import { FireflyLoginFallback } from '@/legacy/[locale]/(normal)/profile/pages/FireflyLoginFallback.js';
 
 export function loader({ request }: LoaderContext) {
     return { locale: resolveRequestLocale(request) };

@@ -1,5 +1,4 @@
-import { ClientOnly } from '@dimensiondev/ssr';
-import { useEffect, useState, type ComponentType, type ReactElement, type ReactNode } from 'react';
+import { type ComponentType, type ReactElement, useEffect, useState } from 'react';
 
 interface DynamicOptions {
     ssr?: boolean;

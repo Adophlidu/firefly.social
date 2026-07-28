@@ -1,7 +1,7 @@
 import type { PredictionPlatform } from '@dimensiondev/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
-import type { Metadata } from '@/compat/nextMetadata.js';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createPredictionProfileMetadataFromProfile } from '@/providers/firefly/metadata/createPredictionProfileMetadataFromProfile.js';
 import { getPredictionProfilePageData } from '@/providers/firefly/metadata/getPredictionProfilePageData.js';
 import { getPredictionProfileSocialName } from '@/providers/firefly/metadata/getPredictionProfileSocialName.js';

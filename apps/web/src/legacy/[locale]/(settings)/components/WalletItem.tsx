@@ -11,13 +11,13 @@ import { formatAddressEthereum, formatAddressSolana } from '@dimensiondev/web3/u
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
-import { DisconnectBindAddressButton } from '@/legacy/[locale]/(settings)/components/DisconnectBindAddressButton.js';
-import { PrimaryButton } from '@/legacy/[locale]/(settings)/components/PrimaryButton.js';
-import { ReportButton } from '@/legacy/[locale]/(settings)/components/ReportButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { DisconnectBindAddressButton } from '@/legacy/[locale]/(settings)/components/DisconnectBindAddressButton.js';
+import { PrimaryButton } from '@/legacy/[locale]/(settings)/components/PrimaryButton.js';
+import { ReportButton } from '@/legacy/[locale]/(settings)/components/ReportButton.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface WalletItemProps {

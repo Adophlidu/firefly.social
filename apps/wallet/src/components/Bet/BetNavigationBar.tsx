@@ -1,9 +1,9 @@
 import RankingIcon from '@dimensiondev/assets/ranking.svg';
 import SettingIcon from '@dimensiondev/assets/setting.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
 import { NavigationBar, NavigationBarRight } from '@/components/NavigationBar.js';

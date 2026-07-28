@@ -1,12 +1,12 @@
 import type { SwapAccessPath } from '@dimensiondev/enums';
-import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { useNavigate, useSearch } from '@dimensiondev/ssr';
+import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
-import { parseSearchParams } from '@/helpers/searchParams.js';
 import { SwapNavigationBar } from '@/components/SwapUI/SwapNavigationBar.js';
 import { SwapPanel } from '@/components/SwapUI/SwapPanel.js';
+import { parseSearchParams } from '@/helpers/searchParams.js';
 import { getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 import {
     accessPathAtom,
@@ -33,6 +33,7 @@ interface SwapSearch {
 }
 
 export default SwapPage;
+
 function SwapPage() {
     const search = parseSearchParams(useSearch()) as SwapSearch;
     const navigate = useNavigate();

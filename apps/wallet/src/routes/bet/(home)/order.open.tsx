@@ -8,6 +8,7 @@ import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarke
 const OpenOrders = lazy(() => import('@/components/Bet/OpenOrders.js').then((m) => ({ default: m.OpenOrders })));
 
 export default OpenOrdersPage;
+
 function OpenOrdersPage() {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
 

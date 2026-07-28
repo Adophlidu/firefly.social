@@ -1,9 +1,9 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
-import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';

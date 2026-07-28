@@ -10,8 +10,6 @@ import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
-import { FramePage, FramePageBody, FramePageTitle } from '@/legacy/[locale]/(whiteboard)/components/FramePage.js';
-import { GhostError } from '@/legacy/[locale]/(whiteboard)/components/GhostError.js';
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
@@ -23,6 +21,8 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
+import { FramePage, FramePageBody, FramePageTitle } from '@/legacy/[locale]/(whiteboard)/components/FramePage.js';
+import { GhostError } from '@/legacy/[locale]/(whiteboard)/components/GhostError.js';
 import { logger } from '@/libs/Logger.js';
 import {
     RelayConfirmationPopover,

@@ -1,19 +1,18 @@
 import QrCodeIcon from '@dimensiondev/assets/qrcode.svg';
 import { BET_DEPOSIT_MIN_USD } from '@dimensiondev/constants/static';
 import { SwapFromPage } from '@dimensiondev/enums';
+import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { removeTrailingZeros } from '@dimensiondev/utils';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isLessThan, multipliedBy, toFixed } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useRouterState } from '@dimensiondev/ssr';
 import { BigNumber } from 'bignumber.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { formatUnits } from 'viem';
 
-import { BetError } from '@/components/Bet/BetError.js';
 import { DepositAmountField } from '@/components/Deposit/DepositAmountField.js';
 import { DepositFormFooter } from '@/components/Deposit/DepositFormFooter.js';
 import { DepositPayTokenRow } from '@/components/Deposit/DepositPayTokenRow.js';

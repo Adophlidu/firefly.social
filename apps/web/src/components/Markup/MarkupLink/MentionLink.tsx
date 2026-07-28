@@ -1,10 +1,10 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { LinkProps } from '@/esm/Link.js';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
+import type { LinkProps } from '@/esm/Link.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
 interface Props extends LinkProps {

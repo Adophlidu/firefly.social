@@ -1,5 +1,5 @@
-import { Resvg, initResvg, resvgWasmModule } from '@cf-wasm/resvg/edge-light';
-import satori, { initSatori, yogaWasmModule } from '@cf-wasm/satori/workerd';
+import { initResvg, Resvg } from '@cf-wasm/resvg/edge-light';
+import satori, { initSatori } from '@cf-wasm/satori/workerd';
 import type { ReactElement } from 'react';
 import type { Font } from 'satori';
 

@@ -10,12 +10,6 @@ import { compact, first } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { type AvatarConfig, AvatarSelector } from '@/legacy/[locale]/(whiteboard)/components/Signup/AvatarSelector.js';
-import { Card } from '@/legacy/[locale]/(whiteboard)/components/Signup/Card.js';
-import { LoadingBar } from '@/legacy/[locale]/(whiteboard)/components/Signup/LoadingBar.js';
-import { LoggedInSources } from '@/legacy/[locale]/(whiteboard)/components/Signup/LoggedInSources.js';
-import { ShadowInAndOut } from '@/legacy/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
-import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { downloadUrlWithProxy } from '@/helpers/downloadMediaObjects.js';
@@ -24,6 +18,12 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { trimify } from '@/helpers/trimify.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { type AvatarConfig, AvatarSelector } from '@/legacy/[locale]/(whiteboard)/components/Signup/AvatarSelector.js';
+import { Card } from '@/legacy/[locale]/(whiteboard)/components/Signup/Card.js';
+import { LoadingBar } from '@/legacy/[locale]/(whiteboard)/components/Signup/LoadingBar.js';
+import { LoggedInSources } from '@/legacy/[locale]/(whiteboard)/components/Signup/LoggedInSources.js';
+import { ShadowInAndOut } from '@/legacy/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
+import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { updateProfile } from '@/providers/firefly/endpoint/updateProfile.js';
 import { autoCreateLensAccount } from '@/services/account.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';

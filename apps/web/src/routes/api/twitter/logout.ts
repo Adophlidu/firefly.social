@@ -1,7 +1,7 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';

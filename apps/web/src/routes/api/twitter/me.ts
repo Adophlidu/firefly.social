@@ -1,9 +1,9 @@
 import { Source } from '@dimensiondev/enums';
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import {
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,
@@ -11,7 +11,6 @@ import {
     MAX_PROFILE_WEBSITE_SIZE,
 } from '@/constants/limitation.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
-import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';

@@ -3,14 +3,13 @@ import { SessionType, Source } from '@dimensiondev/enums';
 import { AbortError, delay, ForbiddenError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
-import { useSearchParams } from '@/esm/navigation.js';
 import { useMemo } from 'react';
 import { useAsync } from 'react-use';
 
 import { Loading } from '@/components/Loading.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
-import { useRouter } from '@/esm/navigation.js';
+import { useRouter, useSearchParams } from '@/esm/navigation.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
 import {
     enqueueForbiddenMessage,

@@ -1,8 +1,8 @@
 import type { ProfilePageSourceInURL } from '@dimensiondev/enums';
 import { SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import type { Metadata } from '@/compat/nextMetadata.js';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';

@@ -2,9 +2,9 @@ import { SITE_DESCRIPTION, SITE_NAME } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';

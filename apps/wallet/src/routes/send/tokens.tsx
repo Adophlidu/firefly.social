@@ -1,8 +1,8 @@
 import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
+import { useNavigate, useSearch } from '@dimensiondev/ssr';
 import { solana, visibleChains } from '@dimensiondev/web3/chains';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useNavigate, useSearch } from '@dimensiondev/ssr';
 import { uniq } from 'lodash-es';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';

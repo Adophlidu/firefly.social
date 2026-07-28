@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
-
 import { useNavigate, useSearch } from '@dimensiondev/ssr';
+import { useEffect } from 'react';
 
 import { parseSearchParams } from '@/helpers/searchParams.js';
 
 export default PerpsTokenPage;
+
 interface PerpsTokenSearch {
     token?: string;
 }

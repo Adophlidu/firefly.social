@@ -1,11 +1,11 @@
 import { SwapAccessPath } from '@dimensiondev/enums';
+import { useNavigate } from '@dimensiondev/ssr';
 import { InvalidResultError, retry } from '@dimensiondev/utils';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@dimensiondev/ssr';
 import { toast } from 'sonner';
 import type { Address } from 'viem';
 import { polygon } from 'viem/chains';

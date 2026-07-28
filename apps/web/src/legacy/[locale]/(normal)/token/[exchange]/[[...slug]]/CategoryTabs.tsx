@@ -6,12 +6,12 @@ import { TokenCategory } from '@dimensiondev/enums';
 import { isTrackedChain } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import { usePathname, useSearchParams } from '@/esm/navigation.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 import urlcat from 'urlcat';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
+import { usePathname, useSearchParams } from '@/esm/navigation.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 

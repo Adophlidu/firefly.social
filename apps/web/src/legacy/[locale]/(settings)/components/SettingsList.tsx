@@ -3,8 +3,8 @@
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
-import { TextLink } from '@/legacy/[locale]/(settings)/components/TextLink.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { TextLink } from '@/legacy/[locale]/(settings)/components/TextLink.js';
 
 interface SettingLink {
     name: ReactNode;

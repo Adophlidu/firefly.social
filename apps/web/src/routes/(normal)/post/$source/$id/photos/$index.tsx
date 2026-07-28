@@ -1,7 +1,7 @@
 import 'swiper/css';
 
 import type { SocialSource } from '@dimensiondev/enums';
-import { useNavigate, useParams } from '@dimensiondev/ssr';
+import { notFound, useNavigate, useParams } from '@dimensiondev/ssr';
 import { NotFoundError } from '@dimensiondev/utils';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useCallback } from 'react';
@@ -14,7 +14,6 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalContent } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
-import { notFound } from '@dimensiondev/ssr';
 
 interface PhotoContentProps {
     postId: string;

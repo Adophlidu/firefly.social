@@ -2,11 +2,11 @@ import type { SocialProfileCategory, WalletProfileCategory } from '@dimensiondev
 import { type LoaderContext, notFound, useParams } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
-import { ProfileCategoryTabs } from '@/legacy/[locale]/(normal)/profile/pages/ProfileCategoryTabs.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
+import { ProfileCategoryTabs } from '@/legacy/[locale]/(normal)/profile/pages/ProfileCategoryTabs.js';
 
 export function loader({ params }: LoaderContext): void {
     const source = resolveSourceFromUrlNoFallback(params.source!);

@@ -2,10 +2,10 @@
 
 import { classNames, parseUrl } from '@dimensiondev/utils';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
-import type { LinkProps } from '@/esm/Link.js';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
+import type { LinkProps } from '@/esm/Link.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';

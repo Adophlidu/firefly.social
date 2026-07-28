@@ -1,9 +1,9 @@
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { formatAddress } from '@dimensiondev/web3/utils';
-import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

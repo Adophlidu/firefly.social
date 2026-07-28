@@ -3,9 +3,9 @@ import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { AttachmentType } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
 import { compact } from 'lodash-es';
-import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostDescriptionFromPost } from '@/helpers/getPostDescriptionFromPost.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';

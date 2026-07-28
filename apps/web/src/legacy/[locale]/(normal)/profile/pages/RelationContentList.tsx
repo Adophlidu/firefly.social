@@ -4,11 +4,11 @@ import type { ProfileCategory } from '@dimensiondev/enums';
 import { FollowCategory } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { ProfileRelationContext } from '@/hooks/useProfileRelationContext.js';
 import { FollowersList } from '@/legacy/[locale]/(normal)/profile/pages/FollowersList.js';
 import { FollowingList } from '@/legacy/[locale]/(normal)/profile/pages/FollowingList.js';
 import { MutualFollowersList } from '@/legacy/[locale]/(normal)/profile/pages/MutualFollowersList.js';
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { ProfileRelationContext } from '@/hooks/useProfileRelationContext.js';
 
 interface RelationContentListProps {
     category: ProfileCategory;

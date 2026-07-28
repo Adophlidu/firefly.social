@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
-import { SettingsList } from '@/legacy/[locale]/(settings)/components/SettingsList.js';
 import { useRouter } from '@/esm/navigation.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { SettingsList } from '@/legacy/[locale]/(settings)/components/SettingsList.js';
 
 export default function Settings() {
     const router = useRouter();

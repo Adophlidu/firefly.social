@@ -1,7 +1,7 @@
 import { useNavigate, useRouterState, useSearch } from '@dimensiondev/ssr';
 import {
-    unstable_createAdapterProvider as createAdapterProvider,
     type unstable_AdapterOptions as AdapterOptions,
+    unstable_createAdapterProvider as createAdapterProvider,
     type unstable_UpdateUrlFunction as UpdateUrlFunction,
 } from 'nuqs/adapters/custom';
 

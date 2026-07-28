@@ -1,11 +1,11 @@
 import { Source } from '@dimensiondev/enums';
 import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 
-import { getDiscoverPostsPageData } from '@/legacy/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
-import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { Loading } from '@/components/Loading.js';
+import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getDiscoverPostsPageData } from '@/legacy/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
 
 /** Shown in the page area while this route's data is in flight (layouts keep rendering). */
 export const loadingComponent = () => (

@@ -1,8 +1,8 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import type { NextRequestContext } from '@dimensiondev/types';
-import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';

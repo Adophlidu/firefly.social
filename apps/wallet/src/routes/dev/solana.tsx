@@ -22,6 +22,7 @@ import { SolanaTransfer } from '@/providers/solana/Transfer.js';
 import { getMultiChainTokensQuery } from '@/queries/firefly/multiChainTokens.js';
 
 export default SolanaDevPage;
+
 function SolanaDevPage() {
     const { walletProvider } = useAppKitProvider<Provider>('solana');
     const solAddress = walletProvider?.publicKey?.toString() || '';

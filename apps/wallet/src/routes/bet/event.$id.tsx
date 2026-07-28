@@ -1,5 +1,5 @@
-import { Trans } from '@lingui/react/macro';
 import { Link, useParams } from '@dimensiondev/ssr';
+import { Trans } from '@lingui/react/macro';
 import { lazy, Suspense } from 'react';
 
 import { BetEventLoading } from '@/components/Bet/BetEventLoading.js';

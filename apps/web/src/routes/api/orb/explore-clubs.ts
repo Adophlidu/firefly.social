@@ -1,10 +1,10 @@
 import { ORB_API_URL } from '@dimensiondev/constants/static';
 import type { ApiContext } from '@dimensiondev/ssr';
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from '@/compat/next-server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { createResponseJsonFromOrb } from '@/helpers/createResponseJsonFromOrb.js';
 import { fetchOrbJson } from '@/helpers/fetchOrbJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

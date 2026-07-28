@@ -1,9 +1,9 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { ImageProps as NextImageProps } from '@/esm/Image.js';
 import { memo, type SyntheticEvent } from 'react';
 
+import type { ImageProps as NextImageProps } from '@/esm/Image.js';
 import { Image as NextImage } from '@/esm/Image.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useResourceFallback } from '@/hooks/useResourceFallback.js';

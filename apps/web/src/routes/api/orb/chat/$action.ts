@@ -1,9 +1,9 @@
 import { envs } from '@dimensiondev/envs/web';
 import type { ApiContext } from '@dimensiondev/ssr';
 import type { NextRequestContext } from '@dimensiondev/types';
-import type { NextRequest } from '@/compat/next-server.js';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { ORB_CHAT_API_URL, ORB_MUTATIONS_API_URL, ORB_QUERIES_API_URL } from '@/providers/orb/chat/constants.js';

@@ -1,9 +1,9 @@
 import { SITE_DESCRIPTION } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/envs/web';
-import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';

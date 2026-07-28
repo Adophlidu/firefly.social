@@ -1,10 +1,10 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 
+import { NuqsAdapter } from '@/compat/NuqsAdapter.js';
 import { InitialProviders } from '@/components/InitialProviders.js';
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
 import { WalletStackBoundary } from '@/components/WalletStackBoundary.js';
-import { NuqsAdapter } from '@/compat/NuqsAdapter.js';
 import { queryClient } from '@/configs/queryClient.js';
 
 /**

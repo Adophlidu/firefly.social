@@ -1,10 +1,10 @@
 import { ChannelTabType, SocialProfileCategory, WalletProfileCategory } from '@dimensiondev/enums';
+import urlcat from 'urlcat';
 
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { parseClubUrl } from '@/helpers/parseClubUrl.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveProfileSourceInURL, resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import urlcat from 'urlcat';
 
 /**
  * Internal URL rewrites applied by BOTH the server middleware (before

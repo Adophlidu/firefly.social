@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
+import { SideBar } from '@/components/SideBar/index.js';
 import { SettingsHeader } from '@/legacy/[locale]/(settings)/components/SettingsHeader.js';
 import { SettingsList } from '@/legacy/[locale]/(settings)/components/SettingsList.js';
-import { SideBar } from '@/components/SideBar/index.js';
 
 /**
  * Settings group frame: left nav sidebar + settings shell (header, section

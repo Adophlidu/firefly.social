@@ -11,14 +11,6 @@ import { first } from 'lodash-es';
 import { type ReactNode, useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { Card } from '@/legacy/[locale]/(whiteboard)/components/Signup/Card.js';
-import {
-    LoggedInProfiles,
-    LoggedInProfilesThirdParty,
-} from '@/legacy/[locale]/(whiteboard)/components/Signup/LoggedInProfiles.js';
-import { LoginButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/LoginButton.js';
-import { ShadowInAndOut } from '@/legacy/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
-import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { activateWalletStack } from '@/controllers/activateWalletStack.js';
 import { openLoginModal } from '@/controllers/openLoginModal.js';
 import { openSignInWithFireflyAppModal } from '@/controllers/openSignInWithFireflyAppModal.js';
@@ -29,6 +21,14 @@ import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { getSignupRedirectPath } from '@/helpers/getSignupRedirectPath.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { Card } from '@/legacy/[locale]/(whiteboard)/components/Signup/Card.js';
+import {
+    LoggedInProfiles,
+    LoggedInProfilesThirdParty,
+} from '@/legacy/[locale]/(whiteboard)/components/Signup/LoggedInProfiles.js';
+import { LoginButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/LoginButton.js';
+import { ShadowInAndOut } from '@/legacy/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
+import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
 import { resumeFireflySession } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

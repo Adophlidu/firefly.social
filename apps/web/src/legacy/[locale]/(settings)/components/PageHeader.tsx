@@ -5,8 +5,8 @@ import { PageRoute } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import type { PropsWithChildren } from 'react';
 
-import { Headline } from '@/legacy/[locale]/(settings)/components/Headline.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { Headline } from '@/legacy/[locale]/(settings)/components/Headline.js';
 
 type PageHeaderProps = PropsWithChildren<{
     enableBack?: boolean;

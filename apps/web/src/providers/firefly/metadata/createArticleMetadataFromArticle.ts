@@ -1,7 +1,7 @@
 import { SITE_URL } from '@dimensiondev/envs/web';
-import type { Metadata } from '@/compat/nextMetadata.js';
 import urlcat from 'urlcat';
 
+import type { Metadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import type { Article } from '@/providers/types/Article.js';
 

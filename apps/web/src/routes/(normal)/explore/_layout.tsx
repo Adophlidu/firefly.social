@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks -- slot exports are components, but named after the slot (lowercase) they fill */
+import type { ExploreType } from '@dimensiondev/enums';
+import { useParams } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
 import { ExploreSourceTabs } from '@/components/Explores/ExploreSourceTabs.js';
 import { HeaderSearchBar } from '@/components/Search/SearchBar.js';
-import { useParams } from '@dimensiondev/ssr';
-import { ExploreType } from '@dimensiondev/enums';
 
 /** The explore sub-navigation (the old @subnav parallel route). */
 export function subnav() {

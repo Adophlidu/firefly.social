@@ -71,7 +71,10 @@ const themeInitScript = `
  */
 function ReactNativeStyleElement() {
     const sheet = StyleSheet.getSheet();
-    return <style id={sheet.id} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: sheet.textContent }} />;
+    return (
+        // eslint-disable-next-line react/no-danger -- RNW atomic stylesheet, framework-generated
+        <style id={sheet.id} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: sheet.textContent }} />
+    );
 }
 
 function RootDocument({ children }: { children: ReactNode }) {
@@ -87,6 +90,7 @@ function RootDocument({ children }: { children: ReactNode }) {
             <head>
                 <HeadOutlet />
                 <ClientStyles />
+                {/* eslint-disable-next-line react/no-danger -- inline theme bootstrap, no user input */}
                 <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
                 <ReactNativeStyleElement />
             </head>

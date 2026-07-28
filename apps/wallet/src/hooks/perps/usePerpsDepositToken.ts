@@ -1,8 +1,8 @@
+import { useSearch } from '@dimensiondev/ssr';
 import { isSolanaChain, solana } from '@dimensiondev/web3/chains';
 import { isGreaterThan, multipliedBy } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
-import { useSearch } from '@dimensiondev/ssr';
 import { BigNumber } from 'bignumber.js';
 import { compact, first, orderBy } from 'lodash-es';
 

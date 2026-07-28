@@ -1,5 +1,6 @@
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { NetworkType, Source } from '@dimensiondev/enums';
+import { useNavigate, useSearch } from '@dimensiondev/ssr';
 import type { ErrorPageProps } from '@dimensiondev/types';
 import { createIndicator, createNextIndicator, createPageable } from '@dimensiondev/utils';
 import {
@@ -11,7 +12,6 @@ import {
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useNavigate, useSearch } from '@dimensiondev/ssr';
 import { compact } from 'lodash-es';
 import * as React from 'react';
 import { Suspense, useEffect, useState } from 'react';

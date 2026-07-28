@@ -4,11 +4,11 @@ import { findChainData, type HeadContext, notFound, useParams, useSearch } from 
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, use, useMemo } from 'react';
 
+import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
-import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';

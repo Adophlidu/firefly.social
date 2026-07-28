@@ -1,5 +1,4 @@
 import type { Metadata } from '@/compat/nextMetadata.js';
-
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createEventMetadataFromActivity } from '@/providers/firefly/metadata/createEventMetadataFromActivity.js';
 import { getEventPageData } from '@/providers/firefly/metadata/getEventPageData.js';

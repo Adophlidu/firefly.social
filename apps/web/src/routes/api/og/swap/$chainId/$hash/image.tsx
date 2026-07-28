@@ -7,10 +7,10 @@ import type { NextRequestContext } from '@dimensiondev/types';
 import { getChainIcon } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
-import type { NextRequest } from '@/compat/next-server.js';
 import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
+import type { NextRequest } from '@/compat/next-server.js';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
@@ -55,6 +55,7 @@ type SwapOgImages = Awaited<ReturnType<typeof loadSwapOgImages>>;
 async function loadChainIcon(assets: OgAssets, chainId?: number) {
     const path = chainId ? getChainIcon(chainId) : undefined;
     if (!path) return null;
+
     try {
         return await loadStaticImageDataUri(assets, path);
     } catch {

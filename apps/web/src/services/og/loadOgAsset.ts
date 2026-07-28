@@ -9,6 +9,7 @@ export async function loadSvgDataUri(assets: OgAssets, path: string): Promise<st
     const text = await response.text();
     let binary = '';
     for (const byte of new TextEncoder().encode(text)) binary += String.fromCharCode(byte);
+
     return `data:image/svg+xml;base64,${btoa(binary)}`;
 }
 
@@ -17,6 +18,7 @@ export async function loadImageDataUri(assets: OgAssets, path: string, mime = 'i
     const buffer = new Uint8Array(await response.arrayBuffer());
     let binary = '';
     for (const byte of buffer) binary += String.fromCharCode(byte);
+
     return `data:${mime};base64,${btoa(binary)}`;
 }
 
