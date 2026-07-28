@@ -36,6 +36,9 @@ function proxyRequest(request: Request, targetBase: string, prefix: string): Pro
     for (const [key, value] of request.headers.entries()) {
         if (!HOP_BY_HOP_HEADERS.has(key.toLowerCase())) headers.set(key, value);
     }
+    // The satellite apps on Vercel sit behind deployment protection.
+    const bypassSecret = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+    if (bypassSecret) headers.set('x-vercel-protection-bypass', bypassSecret);
 
     return fetch(target, {
         method: request.method,

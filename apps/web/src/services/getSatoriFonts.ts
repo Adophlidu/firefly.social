@@ -27,11 +27,11 @@ const FONT_CONFIGS: FontConfig[] = [
 // NotoSans TTFs are ~22 MB) and keeps the buffers resident across warm invocations.
 const fontBufferCache = new Map<string, Promise<ArrayBuffer>>();
 
-function loadOgFont(url: string, signal?: AbortSignal): Promise<ArrayBuffer> {
+function loadOgFont(url: string, signal?: AbortSignal, fetchBuffer?: (url: string) => Promise<ArrayBuffer>): Promise<ArrayBuffer> {
     const cached = fontBufferCache.get(url);
     if (cached) return cached;
 
-    const buffer = fetchArrayBuffer(url, { signal }).catch((error: unknown) => {
+    const buffer = (fetchBuffer ? fetchBuffer(url) : fetchArrayBuffer(url, { signal })).catch((error: unknown) => {
         // Drop rejected promises so the next render retries.
         fontBufferCache.delete(url);
         throw error;
@@ -43,11 +43,18 @@ function loadOgFont(url: string, signal?: AbortSignal): Promise<ArrayBuffer> {
 export async function getSatoriFonts(
     preferences: 'all' | Array<(typeof FONT_CONFIGS)[0]['name']> = 'all',
     signal?: AbortSignal,
+    /** Base URL to resolve font files against (defaults to the site URL).
+        The SSR worker passes the request origin so fonts come from its own
+        assets instead of the (Vercel-protected) site URL. */
+    baseUrl?: string,
+    /** Custom font fetcher (e.g. the ASSETS binding on Workers). */
+    fetchBuffer?: (url: string) => Promise<ArrayBuffer>,
 ): Promise<Font[]> {
-    const configs =
-        preferences === 'all' ? FONT_CONFIGS : FONT_CONFIGS.filter((config) => preferences.includes(config.name));
+    const configs = (
+        preferences === 'all' ? FONT_CONFIGS : FONT_CONFIGS.filter((config) => preferences.includes(config.name))
+    ).map((config) => (baseUrl ? { ...config, url: new URL(new URL(config.url).pathname, baseUrl).toString() } : config));
 
-    const fonts = await Promise.all(configs.map((config) => loadOgFont(config.url, signal)));
+    const fonts = await Promise.all(configs.map((config) => loadOgFont(config.url, signal, fetchBuffer)));
 
     return configs.map<Font>((config, index) => ({
         name: config.name,

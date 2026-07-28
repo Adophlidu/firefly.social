@@ -1,12 +1,26 @@
-import { Transformer } from '@napi-rs/image';
 import { compact } from 'lodash-es';
 
 import { fetch } from '@/helpers/fetch.js';
 import { logger } from '@/libs/Logger.js';
 
-function isActuallyPng(buffer: Buffer): boolean {
-    // PNG magic bytes: 89 50 4E 47 0D 0A 1A 0A
-    return buffer.length >= 8 && buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47;
+const IMAGE_MAGIC: Array<{ mime: string; bytes: number[] }> = [
+    { mime: 'image/png', bytes: [0x89, 0x50, 0x4e, 0x47] },
+    { mime: 'image/jpeg', bytes: [0xff, 0xd8, 0xff] },
+    { mime: 'image/gif', bytes: [0x47, 0x49, 0x46, 0x38] },
+    { mime: 'image/webp', bytes: [0x52, 0x49, 0x46, 0x46] },
+];
+
+function detectImageMime(buffer: Uint8Array, fallback: string): string {
+    for (const { mime, bytes } of IMAGE_MAGIC) {
+        if (bytes.every((byte, index) => buffer[index] === byte)) return mime;
+    }
+    return fallback;
+}
+
+function toBase64(buffer: Uint8Array): string {
+    let binary = '';
+    for (const byte of buffer) binary += String.fromCharCode(byte);
+    return btoa(binary);
 }
 
 async function fetchAndTransform(imageUrl: string) {
@@ -14,15 +28,11 @@ async function fetchAndTransform(imageUrl: string) {
         const response = await fetch(imageUrl);
         if (!response.ok) return null;
 
-        const arrayBuffer = await response.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-
-        // Sometimes, even though the image has a png extension and the content-type also returns png, the image is actually jpeg. This will cause the transform to fail.
-        if (isActuallyPng(buffer)) return `data:image/png;base64,${buffer.toString('base64')}`;
-
-        const tf = new Transformer(buffer);
-        const pngBuffer = await tf.png();
-        return `data:image/png;base64,${pngBuffer.toString('base64')}`;
+        const buffer = new Uint8Array(await response.arrayBuffer());
+        // No transcoding: satori/resvg rasterize PNG and JPEG directly, so a
+        // native image library is unnecessary (and unavailable on Workers).
+        const mime = detectImageMime(buffer, response.headers.get('content-type')?.split(';')[0] || 'image/png');
+        return `data:${mime};base64,${toBase64(buffer)}`;
     } catch (error) {
         logger.error(`[fetchImageAsBase64] failed to fetch image as base64: url=${imageUrl}, error=${error}`);
         return null;

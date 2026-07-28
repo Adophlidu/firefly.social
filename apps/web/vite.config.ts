@@ -220,6 +220,8 @@ export default defineConfig({
     ssr: {
         noExternal: ['react-use', '@lingui/core', '@lingui/react', '@tanstack/react-query', '@tanstack/query-core'],
         external: [
+            '@cf-wasm/resvg',
+            '@cf-wasm/satori',
             '@napi-rs/image',
             'canvas',
             'thread-stream',

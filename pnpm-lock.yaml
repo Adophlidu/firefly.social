@@ -544,6 +544,12 @@ importers:
       '@bprogress/next':
         specifier: ^3.2.12
         version: 3.2.12(next@16.2.7(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@cf-wasm/resvg':
+        specifier: ^0.3.5
+        version: 0.3.5
+      '@cf-wasm/satori':
+        specifier: ^0.3.7
+        version: 0.3.7
       '@coral-xyz/anchor':
         specifier: ^0.32.1
         version: 0.32.1(bufferutil@4.1.0)(typescript@7.0.1-rc)(utf-8-validate@6.0.6)
@@ -649,6 +655,9 @@ importers:
       '@reown/appkit-utils':
         specifier: 1.8.20
         version: 1.8.20(@types/react@19.2.17)(@upstash/redis@1.38.0)(@vercel/kv@1.0.1)(bufferutil@4.1.0)(db0@0.3.4)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.7)(typescript@7.0.1-rc)(use-sync-external-store@1.5.0(react@19.2.7))(utf-8-validate@6.0.6)(valtio@2.1.7(@types/react@19.2.17)(react@19.2.7))(zod@3.25.76)
+      '@resvg/resvg-wasm':
+        specifier: ^2.6.2
+        version: 2.6.2
       '@solana/spl-token':
         specifier: ^0.4.14
         version: 0.4.14(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@7.0.1-rc)(utf-8-validate@6.0.6))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@7.0.1-rc)(utf-8-validate@6.0.6)
@@ -2915,6 +2924,12 @@ packages:
     peerDependencies:
       react: 19.2.7
       react-dom: 19.2.7
+
+  '@cf-wasm/resvg@0.3.5':
+    resolution: {integrity: sha512-0dTZFR7AEVrnchNR68VLWg/AL64e42q7WkT4Dc6PxMCRjnPuWrqY3qu01bN/w31pXgPIJTvnNHnqtw9WbZCUEw==}
+
+  '@cf-wasm/satori@0.3.7':
+    resolution: {integrity: sha512-4/r2WRtriyrco0tvIJ5SiNRelxjUx4xk6Bt913uNAnINvkfWVh7em6Zz8bRKlRM7nbSf5hxsnDdoOKgHGkn2ww==}
 
   '@cfworker/json-schema@4.1.1':
     resolution: {integrity: sha512-gAmrUZSGtKc3AiBL71iNWxDsyUC5uMaKKGdvzYsBoTW/xi42JQHl7eKV2OYzCUqvc+D2RCcf7EXY2iCyFIk6og==}
@@ -5486,6 +5501,14 @@ packages:
 
   '@reown/appkit@1.8.20':
     resolution: {integrity: sha512-+OI1TWg3XcMRhZ5RGVF0+AjkUvTPpODP6HFIgmxsV8HCf6bfE+jaYYE+JJcaz05TYJJ2TCXSYDyRfRvjSUzMzg==}
+
+  '@resvg/resvg-wasm@2.4.1':
+    resolution: {integrity: sha512-yi6R0HyHtsoWTRA06Col4WoDs7SvlXU3DLMNP2bdAgs7HK18dTEVl1weXgxRzi8gwLteGUbIg29zulxIB3GSdg==}
+    engines: {node: '>= 10'}
+
+  '@resvg/resvg-wasm@2.6.2':
+    resolution: {integrity: sha512-FqALmHI8D4o6lk/LRWDnhw95z5eO+eAa6ORjVg09YRR7BkcM6oPHU9uyC0gtQG5vpFLvgpeU4+zEAz2H8APHNw==}
+    engines: {node: '>= 10'}
 
   '@rolldown/binding-android-arm64@1.0.0-rc.17':
     resolution: {integrity: sha512-s70pVGhw4zqGeFnXWvAzJDlvxhlRollagdCCKRgOsgUOH3N1l0LIxf83AtGzmb5SiVM4Hjl5HyarMRfdfj3DaQ==}
@@ -12910,6 +12933,10 @@ packages:
     resolution: {integrity: sha512-HanEzgXHlX3fzpGgxPoR3qI7FDpc/B+uE/KplzA6BkZGlWMaH98B/1Amq+OBF1pYPlGNzAXPYNHlrEVBvRBnHQ==}
     engines: {node: '>=16'}
 
+  satori@0.26.0:
+    resolution: {integrity: sha512-tkMFrfIs3l2mQ2JEcyW0ADTy3zGggFRFzi6Ef8YozQSFsFKEqaSO1Y8F9wJg4//PJGQauMalHGTUEkPrFwhVPA==}
+    engines: {node: '>=16'}
+
   sax@1.6.0:
     resolution: {integrity: sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==}
     engines: {node: '>=11.0.0'}
@@ -15853,6 +15880,15 @@ snapshots:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
 
+  '@cf-wasm/resvg@0.3.5':
+    dependencies:
+      '@resvg/resvg-wasm': 2.6.2
+      '@resvg/resvg-wasm-legacy': '@resvg/resvg-wasm@2.4.1'
+
+  '@cf-wasm/satori@0.3.7':
+    dependencies:
+      satori: 0.26.0
+
   '@cfworker/json-schema@4.1.1': {}
 
   '@cloudflare/kv-asset-handler@0.5.0': {}
@@ -18795,6 +18831,10 @@ snapshots:
       - use-sync-external-store
       - utf-8-validate
       - zod
+
+  '@resvg/resvg-wasm@2.4.1': {}
+
+  '@resvg/resvg-wasm@2.6.2': {}
 
   '@rolldown/binding-android-arm64@1.0.0-rc.17':
     optional: true
@@ -28675,6 +28715,20 @@ snapshots:
       postcss-value-parser: 4.2.0
       yoga-layout: 3.2.1
 
+  satori@0.26.0:
+    dependencies:
+      '@shuding/opentype.js': 1.4.0-beta.0
+      css-background-parser: 0.1.0
+      css-box-shadow: 1.0.0-3
+      css-gradient-parser: 0.0.17
+      css-to-react-native: 3.2.0
+      emoji-regex-xs: 2.0.1
+      escape-html: 1.0.3
+      linebreak: 1.1.0
+      parse-css-color: 0.2.1
+      postcss-value-parser: 4.2.0
+      yoga-layout: 3.2.1
+
   sax@1.6.0: {}
 
   saxes@6.0.0:
@@ -30454,6 +30508,8 @@ time:
   '@babel/plugin-proposal-decorators@7.29.7': '2026-05-25T11:17:02.515Z'
   '@babel/plugin-transform-class-properties@7.29.7': '2026-05-25T11:17:02.610Z'
   '@bprogress/next@3.2.12': '2025-04-14T15:15:02.291Z'
+  '@cf-wasm/resvg@0.3.5': '2026-07-13T19:53:34.536Z'
+  '@cf-wasm/satori@0.3.7': '2026-07-13T19:53:32.655Z'
   '@cloudflare/workers-types@4.20260613.1': '2026-06-13T01:41:29.469Z'
   '@coral-xyz/anchor@0.32.1': '2025-10-10T02:34:12.654Z'
   '@dimensiondev/rn-ui@0.2.0': '2026-06-24T12:30:23Z'
@@ -30499,6 +30555,7 @@ time:
   '@reown/appkit-controllers@1.8.20': '2026-05-20T09:41:08.082Z'
   '@reown/appkit-utils@1.8.20': '2026-05-20T09:41:01.630Z'
   '@reown/appkit@1.8.20': '2026-05-20T09:41:01.577Z'
+  '@resvg/resvg-wasm@2.6.2': '2024-03-26T13:43:40.968Z'
   '@rollup/plugin-commonjs@25.0.8': '2024-05-22T17:15:13.512Z'
   '@rollup/plugin-node-resolve@15.3.1': '2024-12-15T16:16:40.190Z'
   '@solana-program/memo@0.8.0': '2025-09-02T16:11:13.112Z'

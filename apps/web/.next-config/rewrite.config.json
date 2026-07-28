@@ -1,52 +1,52 @@
 {
-    "/freekick-challenge": {
-        "staging": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge",
-        "canary": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge",
-        "production": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge"
-    },
-    "/particle-recovery": {
-        "staging": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
-        "canary": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
-        "production": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery"
-    },
-    "/wallet-iframe": {
-        "staging": "https://firefly-social-wallet-staging.firefly.social/wallet-iframe/",
-        "canary": "https://firefly-social-wallet-canary.firefly.social/wallet-iframe/",
-        "production": "https://firefly-social-wallet.firefly.social/wallet-iframe/"
-    },
-    "/masko-iframe": {
-        "staging": "https://firefly-chatbot-masko-git-main-dimension-dev.vercel.app/masko-iframe",
-        "canary": "https://firefly-chatbot-masko-git-canary-dimension-dev.vercel.app/masko-iframe",
-        "production": "https://firefly-chatbot-masko.vercel.app/masko-iframe"
-    },
-    "/prophet-iframe": {
-        "staging": "https://firefly-prophet.vercel.app/prophet-iframe",
-        "canary": "https://firefly-prophet.vercel.app/prophet-iframe",
-        "production": "https://prophet.firefly.social/prophet-iframe"
-    },
-    "/world-cup-iframe": {
-        "staging": "https://firefly-world-cup.vercel.app/world-cup-iframe",
-        "canary": "https://firefly-world-cup.vercel.app/world-cup-iframe",
-        "production": "https://world-cup.firefly.social/world-cup-iframe"
-    },
     "/about": {
-        "staging": "https://firefly-social-about.vercel.app/about",
         "canary": "https://firefly-social-about.vercel.app/about",
-        "production": "https://firefly-social-about.vercel.app/about"
+        "production": "https://firefly-social-about.vercel.app/about",
+        "staging": "https://firefly-social-about.vercel.app/about"
     },
     "/chat": {
-        "staging": "https://firefly-chatbot-git-main-dimension-dev.vercel.app/chat",
         "canary": "https://firefly-chatbot-git-canary-dimension-dev.vercel.app/chat",
-        "production": "https://chat.firefly.social/chat"
+        "production": "https://chat.firefly.social/chat",
+        "staging": "https://firefly-chatbot-git-main-dimension-dev.vercel.app/chat"
     },
-    "/sitemap": {
-        "staging": "https://firefly-sitemap.pages.dev/sitemap",
-        "canary": "https://firefly-sitemap.pages.dev/sitemap",
-        "production": "https://firefly-sitemap.pages.dev/sitemap"
+    "/freekick-challenge": {
+        "canary": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge",
+        "production": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge",
+        "staging": "https://firefly-world-cup-freekick-challenge.vercel.app/freekick-challenge"
+    },
+    "/masko-iframe": {
+        "canary": "https://firefly-chatbot-masko-git-canary-dimension-dev.vercel.app/masko-iframe",
+        "production": "https://firefly-chatbot-masko.vercel.app/masko-iframe",
+        "staging": "https://firefly-chatbot-masko-git-main-dimension-dev.vercel.app/masko-iframe"
+    },
+    "/particle-recovery": {
+        "canary": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
+        "production": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
+        "staging": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery"
     },
     "/perp-kline-chart": {
-        "staging": "https://firefly-social-wallet-staging.firefly.social/wallet-iframe/perp-kline-chart",
         "canary": "https://firefly-social-wallet-staging.firefly.social/wallet-iframe/perp-kline-chart",
-        "production": "https://firefly-social-wallet.firefly.social/wallet-iframe/perp-kline-chart"
+        "production": "https://firefly-social-wallet.firefly.social/wallet-iframe/perp-kline-chart",
+        "staging": "https://firefly-social-wallet-staging.firefly.social/wallet-iframe/perp-kline-chart"
+    },
+    "/prophet-iframe": {
+        "canary": "https://firefly-prophet.vercel.app/prophet-iframe",
+        "production": "https://prophet.firefly.social/prophet-iframe",
+        "staging": "https://firefly-prophet.vercel.app/prophet-iframe"
+    },
+    "/sitemap": {
+        "canary": "https://firefly-sitemap.pages.dev/sitemap",
+        "production": "https://firefly-sitemap.pages.dev/sitemap",
+        "staging": "https://firefly-sitemap.pages.dev/sitemap"
+    },
+    "/wallet-iframe": {
+        "canary": "https://firefly-social-wallet-canary.firefly.social/wallet-iframe/",
+        "production": "https://firefly-social-wallet.firefly.social/wallet-iframe/",
+        "staging": "https://firefly-social-wallet-staging.firefly.social/wallet-iframe/"
+    },
+    "/world-cup-iframe": {
+        "canary": "https://firefly-world-cup.vercel.app/world-cup-iframe",
+        "production": "https://world-cup.firefly.social/world-cup-iframe",
+        "staging": "https://firefly-world-cup.vercel.app/world-cup-iframe"
     }
 }
