@@ -1,7 +1,7 @@
 import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 
-import { EventsList } from '@/app/[locale]/(event)/events/EventsList.js';
-import { getEventsListPageData } from '@/app/[locale]/(event)/events/getEventsListPageData.js';
+import { EventsList } from '@/legacy/[locale]/(event)/events/EventsList.js';
+import { getEventsListPageData } from '@/legacy/[locale]/(event)/events/getEventsListPageData.js';
 
 export const config = { cache: { sMaxAge: 60 } };
 

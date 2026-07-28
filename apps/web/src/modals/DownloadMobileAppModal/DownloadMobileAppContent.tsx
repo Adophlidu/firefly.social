@@ -4,7 +4,7 @@ import GoogleStoreIcon from '@dimensiondev/assets/google-store.svg';
 import { Trans } from '@lingui/react/macro';
 import QRCode from 'react-qr-code';
 
-import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
+import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { openWindow } from '@/helpers/openWindow.js';
 
 export function DownloadMobileAppContent() {

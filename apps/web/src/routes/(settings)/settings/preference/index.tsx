@@ -1,7 +1,7 @@
 import { ExploreSwitchType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
-import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
 import { Switch } from '@/components/Switch/index.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
 

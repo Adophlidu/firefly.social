@@ -2,7 +2,7 @@ import { EXPLORE_SOURCES } from '@dimensiondev/constants/computed';
 import { type ExploreSource, type ExploreSourceInURL, ExploreType, type TrendingType } from '@dimensiondev/enums';
 import { notFound, useParams } from '@dimensiondev/ssr';
 
-import { ExplorePage } from '@/app/[locale]/(normal)/explore/pages/Explore.js';
+import { ExplorePage } from '@/legacy/[locale]/(normal)/explore/pages/Explore.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
 export default function ExploreSourcePage() {

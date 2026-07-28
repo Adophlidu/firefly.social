@@ -5,8 +5,8 @@ import { type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
-import { FollowPageLayout } from '@/app/[locale]/(normal)/profile/pages/FollowPageLayout.js';
-import { ProfileRelationContextProvider } from '@/app/[locale]/(normal)/profile/pages/ProfileRelationContextProvider.js';
+import { FollowPageLayout } from '@/legacy/[locale]/(normal)/profile/pages/FollowPageLayout.js';
+import { ProfileRelationContextProvider } from '@/legacy/[locale]/(normal)/profile/pages/ProfileRelationContextProvider.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { Title } from '@/components/Profile/Title.js';

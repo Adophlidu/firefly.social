@@ -11,9 +11,9 @@ import { BigNumber } from 'bignumber.js';
 import { memo } from 'react';
 import type { Address } from 'viem';
 
-import { ChainInfo } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/ChainInfo.js';
-import { TransactionDate } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TransactionDate.js';
-import { TxLink } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
+import { ChainInfo } from '@/legacy/[locale]/(normal)/tx/[chain_id]/[hash]/components/ChainInfo.js';
+import { TransactionDate } from '@/legacy/[locale]/(normal)/tx/[chain_id]/[hash]/components/TransactionDate.js';
+import { TxLink } from '@/legacy/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import { Comeback } from '@/components/Comeback.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';

@@ -1,10 +1,10 @@
 import { type LoaderContext, notFound, redirect, useLoaderData, useParams, useSearch } from '@dimensiondev/ssr';
 import { type ReactNode, useMemo } from 'react';
 
-import { CategoryTabs } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
-import { MobileSwapButton } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
-import { resolveTokenDetailQueryOptions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
-import { WrapTokenMarketData } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
+import { CategoryTabs } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
+import { MobileSwapButton } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
+import { resolveTokenDetailQueryOptions } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/resolveTokenDetailQueryOptions.js';
+import { WrapTokenMarketData } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { TokenOverview } from '@/components/TokenProfile/TokenOverview/index.js';

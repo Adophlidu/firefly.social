@@ -1,4 +1,4 @@
-import '@/app/globals.css';
+import '@/legacy/globals.css';
 
 import { SITE_DESCRIPTION, SITE_NAME } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';

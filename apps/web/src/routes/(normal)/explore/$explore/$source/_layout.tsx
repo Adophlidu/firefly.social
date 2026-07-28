@@ -2,7 +2,7 @@ import { type ExploreSourceInURL, ExploreType } from '@dimensiondev/enums';
 import { type LoaderContext, useLoaderData, useParams } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
 
-import { getExploreChannelsPageData } from '@/app/[locale]/(normal)/explore/[explore]/[source]/getExploreChannelsPageData.js';
+import { getExploreChannelsPageData } from '@/legacy/[locale]/(normal)/explore/[explore]/[source]/getExploreChannelsPageData.js';
 import { ExploreChannelsProvider } from '@/components/Explores/ExploreChannelsContext.js';
 import { ExploreSourceTabs } from '@/components/Explores/ExploreSourceTabs.js';
 import { HeaderSearchBar } from '@/components/Search/SearchBar.js';

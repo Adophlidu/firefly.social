@@ -2,7 +2,7 @@ import type { NextRequestContext } from '@dimensiondev/types';
 import { NextRequest } from 'next/server.js';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
-import { POST } from '@/app/api/orb/chat/[action]/route.js';
+import { POST } from '@/legacy/api/orb/chat/[action]/route.js';
 
 vi.mock('@dimensiondev/envs/web', () => ({
     envs: {

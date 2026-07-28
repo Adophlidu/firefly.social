@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { SettingsList } from '@/app/[locale]/(settings)/components/SettingsList.js';
+import { SettingsList } from '@/legacy/[locale]/(settings)/components/SettingsList.js';
 import { useRouter } from '@/esm/navigation.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 

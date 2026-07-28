@@ -14,7 +14,7 @@ import { first } from 'lodash-es';
 import { memo } from 'react';
 import type { Address } from 'viem';
 
-import { AddressLink, TxLink } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
+import { AddressLink, TxLink } from '@/legacy/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Comeback } from '@/components/Comeback.js';

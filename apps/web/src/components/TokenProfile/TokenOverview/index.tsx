@@ -9,7 +9,7 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 import { first, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 
-import { useUpdateContractParams } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
+import { useUpdateContractParams } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Loading } from '@/components/Loading.js';

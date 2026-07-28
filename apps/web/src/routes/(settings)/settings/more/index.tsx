@@ -6,10 +6,10 @@ import TelegramIcon from '@dimensiondev/assets/telegram.svg';
 import { FIREFLY_TELEGRAM_URL } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
 
-import { DocumentCard } from '@/app/[locale]/(settings)/components/DocumentCard.js';
-import { LinkCard } from '@/app/[locale]/(settings)/components/LinkCard.js';
-import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
-import { Subtitle } from '@/app/[locale]/(settings)/components/Subtitle.js';
+import { DocumentCard } from '@/legacy/[locale]/(settings)/components/DocumentCard.js';
+import { LinkCard } from '@/legacy/[locale]/(settings)/components/LinkCard.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
+import { Subtitle } from '@/legacy/[locale]/(settings)/components/Subtitle.js';
 import { XIcon } from '@/components/XIcon.js';
 
 function SmallXIcon() {

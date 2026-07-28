@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-import { SettingsHeader } from '@/app/[locale]/(settings)/components/SettingsHeader.js';
-import { SettingsList } from '@/app/[locale]/(settings)/components/SettingsList.js';
+import { SettingsHeader } from '@/legacy/[locale]/(settings)/components/SettingsHeader.js';
+import { SettingsList } from '@/legacy/[locale]/(settings)/components/SettingsList.js';
 import { SideBar } from '@/components/SideBar/index.js';
 
 /**

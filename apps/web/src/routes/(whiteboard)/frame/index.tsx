@@ -10,8 +10,8 @@ import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
-import { FramePage, FramePageBody, FramePageTitle } from '@/app/[locale]/(whiteboard)/components/FramePage.js';
-import { GhostError } from '@/app/[locale]/(whiteboard)/components/GhostError.js';
+import { FramePage, FramePageBody, FramePageTitle } from '@/legacy/[locale]/(whiteboard)/components/FramePage.js';
+import { GhostError } from '@/legacy/[locale]/(whiteboard)/components/GhostError.js';
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';

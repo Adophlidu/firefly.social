@@ -4,10 +4,10 @@ import { useParams } from '@dimensiondev/ssr';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense } from 'react';
 
-import { ArticleBookmarkList } from '@/app/[locale]/(normal)/bookmarks/ArticleBookmarkList.js';
-import { BookmarkList } from '@/app/[locale]/(normal)/bookmarks/BookmarkList.js';
-import { PredictionBookmarkList } from '@/app/[locale]/(normal)/bookmarks/PredictionBookmarkList.js';
-import { TokenBookmarkList } from '@/app/[locale]/(normal)/bookmarks/TokenBookmarkList.js';
+import { ArticleBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/ArticleBookmarkList.js';
+import { BookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/BookmarkList.js';
+import { PredictionBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/PredictionBookmarkList.js';
+import { TokenBookmarkList } from '@/legacy/[locale]/(normal)/bookmarks/TokenBookmarkList.js';
 import { Loading } from '@/components/Loading.js';
 import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList.js';
 import { resolveSource } from '@/helpers/resolveSource.js';

@@ -1,7 +1,7 @@
 import { SITE_NAME } from '@dimensiondev/constants/static';
 import { msg } from '@lingui/core/macro';
 
-import { FireflyLoginFallback } from '@/app/[locale]/(normal)/profile/pages/FireflyLoginFallback.js';
+import { FireflyLoginFallback } from '@/legacy/[locale]/(normal)/profile/pages/FireflyLoginFallback.js';
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveRequestLocale } from '@/helpers/resolveRequestLocale.js';

@@ -11,12 +11,12 @@ export function sidebar() {
 }
 import { safeUnreachable } from '@dimensiondev/utils';
 
-import { SearchChannelContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchChannelContent.js';
-import { SearchCommunityContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchCommunityContent.js';
-import { SearchPostContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchPostContent.js';
-import { SearchPredictionContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchPredictionContent.js';
-import { SearchProfileContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchProfileContent.js';
-import { SearchTokenContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchTokenContent.js';
+import { SearchChannelContent } from '@/legacy/[locale]/(normal)/search/[...slug]/pages/SearchChannelContent.js';
+import { SearchCommunityContent } from '@/legacy/[locale]/(normal)/search/[...slug]/pages/SearchCommunityContent.js';
+import { SearchPostContent } from '@/legacy/[locale]/(normal)/search/[...slug]/pages/SearchPostContent.js';
+import { SearchPredictionContent } from '@/legacy/[locale]/(normal)/search/[...slug]/pages/SearchPredictionContent.js';
+import { SearchProfileContent } from '@/legacy/[locale]/(normal)/search/[...slug]/pages/SearchProfileContent.js';
+import { SearchTokenContent } from '@/legacy/[locale]/(normal)/search/[...slug]/pages/SearchTokenContent.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export default function SearchPage() {

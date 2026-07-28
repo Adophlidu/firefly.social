@@ -5,9 +5,9 @@ import { Source } from '@dimensiondev/enums';
 import { delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import { AddWalletButton } from '@/app/[locale]/(settings)/components/AddWalletButton.js';
-import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
-import { WalletGroup } from '@/app/[locale]/(settings)/components/WalletGroup.js';
+import { AddWalletButton } from '@/legacy/[locale]/(settings)/components/AddWalletButton.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
+import { WalletGroup } from '@/legacy/[locale]/(settings)/components/WalletGroup.js';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';

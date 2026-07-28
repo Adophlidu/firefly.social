@@ -1,8 +1,8 @@
 import type { ApiContext } from '@dimensiondev/ssr';
 import urlcat from 'urlcat';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
-import { DeleteCookieScript, MaskDelegateCookieName } from '@/app/api/mask/delegate-x-token/shared.js';
+import { authOptions } from '@/legacy/api/auth/[...nextauth]/options.js';
+import { DeleteCookieScript, MaskDelegateCookieName } from '@/legacy/api/mask/delegate-x-token/shared.js';
 import { Auth } from '@/esm/Auth.js';
 
 /**

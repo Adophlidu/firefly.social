@@ -8,7 +8,7 @@ import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@d
 import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
 
-import type { TokenPageProps, TokenPageSearch } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
+import type { TokenPageProps, TokenPageSearch } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

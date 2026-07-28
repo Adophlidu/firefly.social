@@ -2,7 +2,7 @@ import { PageRoute } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import type { Ref } from 'react';
 
-import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
+import { SquareButton } from '@/legacy/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { EventLayoutBody } from '@/app/[locale]/(event)/EventLayoutBody.js';
+import { EventLayoutBody } from '@/legacy/[locale]/(event)/EventLayoutBody.js';
 
 /**
  * Event group frame (the old (event) group layout): EventLayoutBody with its

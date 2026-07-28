@@ -13,7 +13,7 @@ import { cleanup, render } from '@testing-library/react';
 import { createElement, type ReactNode } from 'react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
-import { Transactions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/categories/Transactions.js';
+import { Transactions } from '@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/categories/Transactions.js';
 
 // Per-test knobs. isLogin drives the following-while-logged-out fallback; tx drives the active
 // subcategory (mirrors the `?tx=` search param).
@@ -49,7 +49,7 @@ vi.mock('@/components/Avatar.js', () => ({
     Avatar: () => createElement('div', { 'data-testid': 'avatar' }),
 }));
 
-vi.mock('@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js', () => ({
+vi.mock('@/legacy/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js', () => ({
     default: () => createElement('div', { 'data-testid': 'token-loading' }),
 }));
 

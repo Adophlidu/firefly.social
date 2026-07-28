@@ -1,7 +1,7 @@
 import type { ProfileCategory } from '@dimensiondev/enums';
 import { useParams } from '@dimensiondev/ssr';
 
-import { RelationContentList } from '@/app/[locale]/(normal)/profile/pages/RelationContentList.js';
+import { RelationContentList } from '@/legacy/[locale]/(normal)/profile/pages/RelationContentList.js';
 
 export default function ProfileRelationPage() {
     const params = useParams();

@@ -6,9 +6,9 @@ import { Fragment, useEffect } from 'react';
 import {
     NotificationChildConfigItem,
     NotificationConfigItem,
-} from '@/app/[locale]/(settings)/components/NotificationConfigItem.js';
-import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
-import { formatNotificationConfigs } from '@/app/[locale]/(settings)/settings/notification-settings/formatNotificationConfigs.js';
+} from '@/legacy/[locale]/(settings)/components/NotificationConfigItem.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
+import { formatNotificationConfigs } from '@/legacy/[locale]/(settings)/settings/notification-settings/formatNotificationConfigs.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getWebNotificationPushSwitch } from '@/providers/firefly/endpoint/getWebNotificationPushSwitch.js';

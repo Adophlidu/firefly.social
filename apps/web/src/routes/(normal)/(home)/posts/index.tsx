@@ -1,7 +1,7 @@
 import { Source } from '@dimensiondev/enums';
 import { type LoaderContext, useLoaderData } from '@dimensiondev/ssr';
 
-import { getDiscoverPostsPageData } from '@/app/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
+import { getDiscoverPostsPageData } from '@/legacy/[locale]/(normal)/(home)/(discover)/posts/getDiscoverPostsPageData.js';
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { Loading } from '@/components/Loading.js';

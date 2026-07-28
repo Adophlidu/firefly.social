@@ -2,7 +2,7 @@ import { DEFAULT_SOCIAL_SOURCE } from '@dimensiondev/constants/computed';
 import { useSearch } from '@dimensiondev/ssr';
 import { useEffect } from 'react';
 
-import { ShareLinkPage } from '@/app/[locale]/(normal)/intent/compose/pages/ShareLinkPage.js';
+import { ShareLinkPage } from '@/legacy/[locale]/(normal)/intent/compose/pages/ShareLinkPage.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { trimify } from '@/helpers/trimify.js';

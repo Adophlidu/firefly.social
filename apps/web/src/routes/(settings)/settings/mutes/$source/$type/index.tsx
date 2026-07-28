@@ -1,7 +1,7 @@
 import type { MuteType } from '@dimensiondev/enums';
 import { useParams } from '@dimensiondev/ssr';
 
-import { MutedListPage } from '@/app/[locale]/(settings)/settings/mutes/[source]/[type]/pages/MutedListPage.js';
+import { MutedListPage } from '@/legacy/[locale]/(settings)/settings/mutes/[source]/[type]/pages/MutedListPage.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
 

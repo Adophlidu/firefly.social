@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/react/macro';
 
-import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
-import { MutedContents } from '@/app/[locale]/(settings)/settings/privacy-and-security/pages/MutedContents.js';
-import { PasswordSettings } from '@/app/[locale]/(settings)/settings/privacy-and-security/pages/PasswordSettings.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
+import { MutedContents } from '@/legacy/[locale]/(settings)/settings/privacy-and-security/pages/MutedContents.js';
+import { PasswordSettings } from '@/legacy/[locale]/(settings)/settings/privacy-and-security/pages/PasswordSettings.js';
 
 export default function PrivacyAndSecurityPage() {
     return (

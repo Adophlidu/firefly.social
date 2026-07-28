@@ -9,7 +9,7 @@ import { memo, type PropsWithChildren } from 'react';
 import {
     type SearchPredictionContentPagedData,
     useSearchPredictionContent,
-} from '@/app/[locale]/(normal)/search/[...slug]/pages/useSearchPredictionContent.js';
+} from '@/legacy/[locale]/(normal)/search/[...slug]/pages/useSearchPredictionContent.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SEARCH_PREDICTION_EVENT_STATUS_OPTIONS } from '@/components/Search/SearchPredictionEventStatusTabs.js';

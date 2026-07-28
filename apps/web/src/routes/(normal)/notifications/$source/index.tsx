@@ -2,8 +2,8 @@ import type { NotificationSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { useParams } from '@dimensiondev/ssr';
 
-import { FireflyNotifications } from '@/app/[locale]/(normal)/notifications/[source]/pages/FireflyNotifications.js';
-import { SocialNotifications } from '@/app/[locale]/(normal)/notifications/[source]/pages/SocialNotifications.js';
+import { FireflyNotifications } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/FireflyNotifications.js';
+import { SocialNotifications } from '@/legacy/[locale]/(normal)/notifications/[source]/pages/SocialNotifications.js';
 import { Loading } from '@/components/Loading.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';

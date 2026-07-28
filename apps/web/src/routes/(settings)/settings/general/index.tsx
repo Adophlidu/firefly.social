@@ -6,9 +6,9 @@ import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { changeCookies } from '@/actions/changeCookies.js';
-import { OptionButton } from '@/app/[locale]/(settings)/components/OptionButton.js';
-import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
-import { Subtitle } from '@/app/[locale]/(settings)/components/Subtitle.js';
+import { OptionButton } from '@/legacy/[locale]/(settings)/components/OptionButton.js';
+import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
+import { Subtitle } from '@/legacy/[locale]/(settings)/components/Subtitle.js';
 import { useCookie } from '@/hooks/useCookie.js';
 import { useLocale } from '@/hooks/useLocale.js';
 import { supportedLocales } from '@/i18n/core.js';

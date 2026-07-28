@@ -2,8 +2,8 @@ import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 import { Trans } from '@lingui/react/macro';
 
-import { PageDetail } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/client.js';
-import type { PostThreadQueryData } from '@/app/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
+import { PageDetail } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/client.js';
+import type { PostThreadQueryData } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { fromNextMetadata } from '@/compat/nextMetadata.js';
