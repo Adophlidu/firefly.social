@@ -210,7 +210,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                             <span className="text-sm text-second">
                                 <Trans>Time</Trans>
                             </span>
-                            <span className="text-sm font-medium text-main">
+                            <span className="text-sm font-medium text-main" suppressHydrationWarning>
                                 {tipsData.timestamp ? <TransactionDate time={tipsData.timestamp} /> : '--'}
                             </span>
                         </div>

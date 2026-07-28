@@ -7,9 +7,7 @@ const DEFAULT_OPTIONS: confetti.Options = {
     zIndex: 100_000,
 };
 
-// canvas-confetti's global `confetti()` renders via a Web Worker created from a `blob:` URL.
-// Firefly's CSP `worker-src` does not allow `blob:`, so that worker is blocked. Use a custom
-// instance with `useWorker: false` to render on the main thread instead (the animation is brief).
+// Keep this brief animation on the main thread rather than starting another worker.
 const fireConfetti = confetti.create(undefined, { resize: true, useWorker: false });
 
 function fire(particleRatio: number, opts: confetti.Options) {

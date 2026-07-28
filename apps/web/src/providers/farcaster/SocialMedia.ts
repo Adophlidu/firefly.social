@@ -3,7 +3,6 @@ import { FireflyPlatform, SessionType, Source } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
 
-import { AddAuthorFifaCampStatusForPosts } from '@/decorators/AddFifaCampStatusForPosts.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -100,7 +99,6 @@ import { warpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForJoinChannel(Source.Farcaster)
 @SetQueryDataForReportPost(Source.Farcaster)
 @SetQueryDataForPosts
-@AddAuthorFifaCampStatusForPosts(Source.Farcaster)
 class FarcasterSocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;

@@ -1,6 +1,8 @@
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
+import { MessageText } from '@/components/DirectMessages/MessageText.js';
+
 interface MessageCaptionProps {
     content: string;
     // 'attached' sits inside a media card and supplies its own padding; 'detached' hangs below a
@@ -21,7 +23,7 @@ export const MessageCaption = memo(function MessageCaption({ content, variant }:
                 },
             )}
         >
-            {content}
+            <MessageText content={content} />
         </p>
     );
 });

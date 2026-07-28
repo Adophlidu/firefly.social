@@ -17,7 +17,7 @@ import { NavigationBar } from '@/components/NavigationBar.js';
 import {
     ARBITRUM_CHAIN_ID,
     arbUsdcTokenFallback,
-    HYPERLIQUID_DEPOSIT_ADDRESS,
+    HYPERLIQUID_CHAIN_ID,
     isArbitrumUsdcToken,
     MIN_HYPERLIQUID_DEPOSIT_USDC,
 } from '@/constants/hyperliquid.js';
@@ -85,9 +85,9 @@ function PerpsDepositClient() {
         fromAmount: amount,
         slippage: 'auto',
         fromChainId: depositToken?.chainId ?? null,
-        toChainId: ARBITRUM_CHAIN_ID,
+        toChainId: HYPERLIQUID_CHAIN_ID,
         walletAddress: embeddedAddress,
-        recipientAddress: HYPERLIQUID_DEPOSIT_ADDRESS,
+        recipientAddress: evmAddress,
         enabled: !!depositToken && !!embeddedAddress && !isSameToken,
     });
 

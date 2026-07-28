@@ -4,9 +4,49 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { POST } from '@/app/api/orb/chat/[action]/route.js';
 
+vi.mock('@dimensiondev/envs/web', () => ({
+    envs: {
+        internal: {
+            ORB_SUPABASE_URL: 'https://orb-chat.supabase.co',
+            ORB_SUPABASE_ANON_KEY: 'orb-anon-key',
+        },
+    },
+}));
+
 afterEach(() => vi.unstubAllGlobals());
 
 describe('Orb interactive action proxy', () => {
+    test('forwards interactive action writes to the Orb mutations API', async () => {
+        const fetchMock = vi.fn().mockResolvedValue(Response.json({ status: 'SUCCESS', data: { id: 'tip-1' } }));
+        vi.stubGlobal('fetch', fetchMock);
+        const body = {
+            task: 'create',
+            type: 'DIRECT_TIP',
+            targetUserId: '0xrecipient',
+            amount: 1,
+            currency: '0xtoken',
+            currencySymbol: 'TOKEN',
+            chainId: 1,
+        };
+        const request = new NextRequest('http://localhost/api/orb/chat/interactive-actions', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-token' },
+            body: JSON.stringify(body),
+        });
+        const context: NextRequestContext = { params: Promise.resolve({ action: 'interactive-actions' }) };
+
+        const response = await POST(request, context);
+
+        await expect(response.json()).resolves.toEqual({ status: 'SUCCESS', data: { id: 'tip-1' } });
+        expect(fetchMock).toHaveBeenCalledWith(
+            expect.stringContaining('/MAINNET-MUTATIONS/interactive-actions'),
+            expect.objectContaining({
+                body: JSON.stringify(body),
+                headers: expect.objectContaining({ 'x-access-token': 'Bearer lens-token' }),
+            }),
+        );
+    });
+
     test('mints a chat token and returns normalized payment request details', async () => {
         const fetchMock = vi
             .fn()
@@ -44,6 +84,39 @@ describe('Orb interactive action proxy', () => {
             2,
             expect.stringContaining('/rest/v1/interactive_actions?'),
             expect.objectContaining({ headers: expect.objectContaining({ Authorization: 'Bearer chat-token' }) }),
+        );
+    });
+});
+
+describe('Orb realtime session proxy', () => {
+    test('returns the Supabase connection details with a short-lived chat token', async () => {
+        const fetchMock = vi
+            .fn()
+            .mockResolvedValueOnce(Response.json({ status: 'SUCCESS', data: { token: 'chat-token' } }));
+        vi.stubGlobal('fetch', fetchMock);
+        const request = new NextRequest('http://localhost/api/orb/chat/create-chat-realtime-session', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-token' },
+            body: '{}',
+        });
+        const context: NextRequestContext = {
+            params: Promise.resolve({ action: 'create-chat-realtime-session' }),
+        };
+
+        const response = await POST(request, context);
+
+        await expect(response.json()).resolves.toEqual({
+            status: 'SUCCESS',
+            data: {
+                token: 'chat-token',
+                supabaseUrl: expect.any(String),
+                supabaseAnonKey: expect.any(String),
+            },
+        });
+        expect(response.headers.get('Cache-Control')).toBe('no-store');
+        expect(fetchMock).toHaveBeenCalledWith(
+            expect.stringContaining('/create-chat-token'),
+            expect.objectContaining({ headers: expect.objectContaining({ 'x-access-token': 'Bearer lens-token' }) }),
         );
     });
 });

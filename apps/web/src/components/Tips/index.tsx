@@ -4,6 +4,7 @@ import TipsIcon from '@dimensiondev/assets/tips.svg';
 import { Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import type { HTMLProps } from 'react';
@@ -21,6 +22,7 @@ import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFirefly
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import type { TipsSuccessResult } from '@/modals/TipsModal/refs.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -31,10 +33,13 @@ interface TipsProps extends HTMLProps<HTMLButtonElement> {
     isAuthRequired?: boolean;
     handle?: string | null;
     label?: string;
+    toolbar?: boolean;
     tooltipDisabled?: boolean;
     pureWallet?: boolean;
     post?: Post;
+    closeOnSuccess?: boolean;
     onClick?: () => void;
+    onSuccess?: (result: TipsSuccessResult) => Promise<void> | void;
 }
 
 export function Tips({
@@ -42,13 +47,16 @@ export function Tips({
     disabled = false,
     isAuthRequired = true,
     label,
+    toolbar = false,
     tooltipDisabled = false,
     pureWallet = false,
     handle = '',
     post,
+    closeOnSuccess = false,
     className,
     ref,
     onClick,
+    onSuccess,
 }: TipsProps) {
     const isLogin = useIsLoginFirefly();
     const profiles = useCurrentFireflyProfilesAll();
@@ -84,12 +92,14 @@ export function Tips({
                 pureWallet,
                 profiles: relatedProfiles,
                 post,
+                closeOnSuccess,
+                onSuccess,
             });
         } catch (error) {
             enqueueErrorMessage(<Trans>Something went wrong, please try again.</Trans>, { error });
             throw error;
         }
-    }, [identity, onClick, handle, pureWallet, post, isLogin, isAuthRequired]);
+    }, [identity, onClick, onSuccess, handle, pureWallet, post, closeOnSuccess, isLogin, isAuthRequired]);
 
     if (
         envs.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||
@@ -101,8 +111,8 @@ export function Tips({
         <ClickableArea
             className={classNames('flex cursor-pointer items-center text-second md:space-x-2', className, {
                 'opacity-50': disabled,
-                'md:hover:text-lightWarn': !disabled && !label && !loading,
-                'max-md:active:text-lightWarn': !disabled && !label && !loading,
+                'md:hover:text-lightWarn': !toolbar && !disabled && !label && !loading,
+                'max-md:active:text-lightWarn': !toolbar && !disabled && !label && !loading,
                 'w-min': !label,
             })}
         >
@@ -113,14 +123,16 @@ export function Tips({
             >
                 <motion.button
                     className={classNames('inline-flex items-center', {
-                        'md:hover:bg-lightWarn/[.20]': !disabled && !label && !loading,
-                        'max-md:active:bg-lightWarn/[.20]': !disabled && !label && !loading,
+                        'md:hover:bg-lightWarn/[.20]': !toolbar && !disabled && !label && !loading,
+                        'max-md:active:bg-lightWarn/[.20]': !toolbar && !disabled && !label && !loading,
+                        'size-8 justify-center rounded-md hover:bg-line': toolbar,
                         'cursor-not-allowed': disabled,
-                        'size-7 justify-center rounded-full': !label,
+                        'size-7 justify-center rounded-full': !toolbar && !label,
                         'w-full': !!label,
                     })}
-                    whileTap={!label ? { scale: 0.9 } : undefined}
+                    whileTap={!toolbar && !label ? { scale: 0.9 } : undefined}
                     disabled={disabled || loading}
+                    aria-label={label || t`Send a tip`}
                     ref={ref}
                     onClick={(event) => {
                         event.preventDefault();

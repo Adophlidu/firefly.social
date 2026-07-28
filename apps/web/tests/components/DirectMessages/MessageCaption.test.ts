@@ -2,9 +2,13 @@
 
 import { cleanup, render, screen } from '@testing-library/react';
 import { createElement } from 'react';
-import { afterEach, describe, expect, test } from 'vitest';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { MessageCaption } from '@/components/DirectMessages/MessageCaption.js';
+
+vi.mock('@/components/DirectMessages/MessageText.js', () => ({
+    MessageText: ({ content }: { content: string }) => content,
+}));
 
 afterEach(cleanup);
 

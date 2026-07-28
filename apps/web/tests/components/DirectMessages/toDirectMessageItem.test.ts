@@ -96,4 +96,25 @@ describe('toDirectMessageItem', () => {
             isSelf: false,
         });
     });
+
+    test('maps a pending local tip before it has an interactive action ID', () => {
+        const message = createMessage(null, '');
+        message.send_status = 'pending';
+        message.pending_tip = {
+            targetUserId: '0xtarget',
+            amount: 1,
+            currency: '0xtoken',
+            currencySymbol: 'GHO',
+            chainId: 232,
+            nextStep: 'create',
+        };
+
+        expect(toDirectMessageItem(message, '0xauthor')).toMatchObject({
+            kind: 'tip',
+            interactiveActionId: undefined,
+            pendingTip: message.pending_tip,
+            status: 'pending',
+            isSelf: true,
+        });
+    });
 });

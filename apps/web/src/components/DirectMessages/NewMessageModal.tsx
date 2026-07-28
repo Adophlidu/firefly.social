@@ -3,18 +3,38 @@
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { ContactAvatar } from '@/components/DirectMessages/ContactAvatar.js';
 import type { DirectMessageContact } from '@/components/DirectMessages/types.js';
 import { useDebouncedDmSearch } from '@/components/DirectMessages/useDebouncedDmSearch.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
 import { Popover } from '@/components/Popover.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { resolveInitials } from '@/helpers/resolveInitials.js';
 import { useDmProfileSearch } from '@/hooks/useDirectMessages.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
+
+const CONTACT_ITEM_HEIGHT = 72;
+const CONTACT_LIST_MIN_HEIGHT = 80;
+const CONTACT_LIST_MAX_HEIGHT = 360;
+
+interface ContactListContext {
+    isFetchingNextPage: boolean;
+}
+
+const ContactListFooter = memo(function ContactListFooter({ context }: { context?: ContactListContext }) {
+    if (!context?.isFetchingNextPage) return null;
+
+    return (
+        <div className="flex items-center justify-center p-2">
+            <LoadingIcon size={16} />
+        </div>
+    );
+});
 
 interface NewMessageModalProps {
     account: string;
@@ -36,11 +56,20 @@ export const NewMessageModal = memo(function NewMessageModal({
     const [selectedContactId, setSelectedContactId] = useState<string>();
     const debouncedSearch = useDebouncedDmSearch(search);
     const profileSearch = useDmProfileSearch(account, debouncedSearch);
+    const { fetchNextPage, hasNextPage, isFetchingNextPage } = profileSearch;
+    const isLoadingMoreRef = useRef(false);
+    const hasPendingEndReachedRef = useRef(false);
+    const hasNextPageRef = useRef(hasNextPage);
+    const profileCountRef = useRef(profileSearch.data?.length ?? 0);
+    hasNextPageRef.current = hasNextPage;
+    profileCountRef.current = profileSearch.data?.length ?? profileCountRef.current;
+    const normalizedSearch = search.trim().toLowerCase();
+    const isProfileSearchActive =
+        normalizedSearch.length >= 2 && normalizedSearch === debouncedSearch.trim().toLowerCase();
     const filteredContacts = useMemo(() => {
-        const normalizedSearch = search.trim().toLowerCase();
         if (!normalizedSearch) return contacts.filter((contact) => !isSameDmAccount(account, contact.targetUserId));
 
-        if (normalizedSearch === debouncedSearch.trim().toLowerCase() && profileSearch.data) {
+        if (isProfileSearchActive && profileSearch.data) {
             return profileSearch.data
                 .filter((profile) => !isSameDmAccount(account, profile.id))
                 .map((profile) => {
@@ -61,15 +90,13 @@ export const NewMessageModal = memo(function NewMessageModal({
                 !isSameDmAccount(account, contact.targetUserId) &&
                 `${contact.name} ${contact.handle}`.toLowerCase().includes(normalizedSearch),
         );
-    }, [account, contacts, debouncedSearch, profileSearch.data, search]);
-    const isSearchingProfiles =
-        profileSearch.isFetching &&
-        debouncedSearch.trim().length >= 2 &&
-        search.trim().toLowerCase() === debouncedSearch.trim().toLowerCase();
-    const hasProfileSearchError =
-        profileSearch.isError &&
-        debouncedSearch.trim().length >= 2 &&
-        search.trim().toLowerCase() === debouncedSearch.trim().toLowerCase();
+    }, [account, contacts, isProfileSearchActive, normalizedSearch, profileSearch.data]);
+    const isSearchingProfiles = profileSearch.isFetching && !profileSearch.data && isProfileSearchActive;
+    const hasProfileSearchError = profileSearch.isError && !profileSearch.data?.length && isProfileSearchActive;
+    const contactListHeight = Math.min(
+        CONTACT_LIST_MAX_HEIGHT,
+        Math.max(CONTACT_LIST_MIN_HEIGHT, filteredContacts.length * CONTACT_ITEM_HEIGHT + 16),
+    );
 
     useEffect(() => {
         if (open) return;
@@ -77,16 +104,69 @@ export const NewMessageModal = memo(function NewMessageModal({
         setSelectedContactId(undefined);
     }, [open]);
 
-    const handleContactSelect = async (contact: DirectMessageContact) => {
-        if (selectedContactId) return;
-        setSelectedContactId(contact.id);
+    const handleContactSelect = useCallback(
+        async (contact: DirectMessageContact) => {
+            if (selectedContactId) return;
+            setSelectedContactId(contact.id);
+
+            try {
+                await onSelect(contact);
+            } finally {
+                setSelectedContactId(undefined);
+            }
+        },
+        [onSelect, selectedContactId],
+    );
+    const handleEndReached = useCallback(async () => {
+        if (!isProfileSearchActive || !hasNextPageRef.current) return;
+        if (isLoadingMoreRef.current) {
+            hasPendingEndReachedRef.current = true;
+            return;
+        }
+
+        isLoadingMoreRef.current = true;
 
         try {
-            await onSelect(contact);
+            do {
+                hasPendingEndReachedRef.current = false;
+                const currentProfileCount = profileCountRef.current;
+                let result = await fetchNextPage();
+
+                while (result.hasNextPage && result.data?.length === currentProfileCount) {
+                    result = await fetchNextPage();
+                }
+
+                hasNextPageRef.current = result.hasNextPage;
+                profileCountRef.current = result.data?.length ?? currentProfileCount;
+            } while (hasPendingEndReachedRef.current && hasNextPageRef.current);
         } finally {
-            setSelectedContactId(undefined);
+            isLoadingMoreRef.current = false;
         }
-    };
+    }, [fetchNextPage, isProfileSearchActive]);
+    const handleAtBottomStateChange = useCallback(
+        (isAtBottom: boolean) => {
+            if (isAtBottom) void handleEndReached();
+        },
+        [handleEndReached],
+    );
+    const listContext = useMemo<ContactListContext>(() => ({ isFetchingNextPage }), [isFetchingNextPage]);
+    const renderContact = useCallback(
+        (_index: number, contact: DirectMessageContact) => (
+            <button
+                type="button"
+                disabled={Boolean(selectedContactId)}
+                className="flex w-full items-center gap-3 rounded-lg p-3 text-left transition-colors hover:bg-lightBg disabled:cursor-wait disabled:opacity-60"
+                onClick={() => void handleContactSelect(contact)}
+            >
+                <ContactAvatar {...contact} />
+                <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-bold text-main">{contact.name}</span>
+                    <span className="mt-0.5 block truncate text-xs text-second">{contact.handle}</span>
+                </span>
+            </button>
+        ),
+        [handleContactSelect, selectedContactId],
+    );
 
     const content = (
         <div className="flex min-h-0 flex-col">
@@ -113,9 +193,9 @@ export const NewMessageModal = memo(function NewMessageModal({
                 </span>
             </div>
 
-            <div className="no-scrollbar max-h-[360px] min-h-20 overflow-y-auto p-2">
+            <div className="min-h-20">
                 {isSearchingProfiles ? (
-                    <div className="space-y-2 p-2">
+                    <div className="max-h-[360px] space-y-2 overflow-y-auto p-4">
                         {Array.from({ length: 4 }, (_, index) => (
                             <div key={index} className="h-16 animate-pulse rounded-lg bg-lightBg" />
                         ))}
@@ -137,21 +217,18 @@ export const NewMessageModal = memo(function NewMessageModal({
                         </button>
                     </div>
                 ) : filteredContacts.length ? (
-                    filteredContacts.map((contact) => (
-                        <button
-                            key={contact.id}
-                            type="button"
-                            disabled={Boolean(selectedContactId)}
-                            className="flex w-full items-center gap-3 rounded-lg p-3 text-left transition-colors hover:bg-lightBg disabled:cursor-wait disabled:opacity-60"
-                            onClick={() => void handleContactSelect(contact)}
-                        >
-                            <ContactAvatar {...contact} />
-                            <span className="min-w-0 flex-1">
-                                <span className="block truncate text-sm font-bold text-main">{contact.name}</span>
-                                <span className="mt-0.5 block truncate text-xs text-second">{contact.handle}</span>
-                            </span>
-                        </button>
-                    ))
+                    <VirtualList
+                        data={filteredContacts}
+                        atBottomStateChange={handleAtBottomStateChange}
+                        increaseViewportBy={0}
+                        overscan={0}
+                        style={{ height: contactListHeight }}
+                        className="no-scrollbar p-2"
+                        computeItemKey={(_index, contact) => contact.id}
+                        itemContent={renderContact}
+                        components={{ Footer: ContactListFooter }}
+                        context={listContext}
+                    />
                 ) : (
                     <div className="flex flex-col items-center px-6 py-10 text-center">
                         <div className="grid size-12 place-items-center rounded-full bg-lightBg text-second">

@@ -106,6 +106,9 @@ msgstr "$ {0} <0>Net worth</0>"
 msgid "Cash"
 msgstr "Cash"
 
+msgid "Open Short"
+msgstr "Open Short"
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "Failed to quote on {0}."
@@ -242,6 +245,12 @@ msgstr "Connecting wallets"
 msgid "Repost or quote"
 msgstr "Repost or quote"
 
+msgid "Type"
+msgstr "Type"
+
+msgid "Withdrawable cash"
+msgstr "Withdrawable cash"
+
 msgid "Delete post"
 msgstr "Delete post"
 
@@ -259,6 +268,9 @@ msgstr "Money laundering."
 
 msgid "Enter a new password to verify your identity."
 msgstr "Enter a new password to verify your identity."
+
+msgid "Funding"
+msgstr "Funding"
 
 msgid "This space does not exist."
 msgstr "This space does not exist."
@@ -345,6 +357,10 @@ msgstr "{teamName} 2H Totals"
 
 msgid "Mute {walletHandle}"
 msgstr "Mute {walletHandle}"
+
+#. placeholder {0}: unit === 'USDC' ? 'USDC' : coinDisplayName
+msgid "Total ({0})"
+msgstr "Total ({0})"
 
 msgid "1H Moneyline"
 msgstr "1H Moneyline"
@@ -439,6 +455,9 @@ msgstr "More"
 
 msgid "Translate post"
 msgstr "Translate post"
+
+msgid "Sell / Short"
+msgstr "Sell / Short"
 
 msgid "Set Password"
 msgstr "Set Password"
@@ -548,6 +567,9 @@ msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate mean
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "Location should not exceed {maxLocationSize} characters"
 
+msgid "Stop Limit"
+msgstr "Stop Limit"
+
 msgid "Post engagements"
 msgstr "Post engagements"
 
@@ -559,6 +581,9 @@ msgstr "Invalid password. Please ensure it is a 6-digit number."
 
 msgid "Props"
 msgstr "Props"
+
+msgid "Buy/Long"
+msgstr "Buy/Long"
 
 msgid "Potential risk of external call."
 msgstr "Potential risk of external call."
@@ -608,11 +633,17 @@ msgstr "Liked."
 msgid "Trending"
 msgstr "Trending"
 
+msgid "Add {marketDisplayName} favorite"
+msgstr "Add {marketDisplayName} favorite"
+
 msgid "View similar symbols"
 msgstr "View similar symbols"
 
 msgid "DAOs"
 msgstr "DAOs"
+
+msgid "Add {selectedMarketDisplayName} favorite"
+msgstr "Add {selectedMarketDisplayName} favorite"
 
 msgid "Scheduled"
 msgstr "Scheduled"
@@ -704,8 +735,14 @@ msgstr "Adding..."
 msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> reposted"
 
+msgid "Edit order size"
+msgstr "Edit order size"
+
 msgid "Stealing attack."
 msgstr "Stealing attack."
+
+msgid "{displayCoin} price chart"
+msgstr "{displayCoin} price chart"
 
 msgid "Failed to like snapshot."
 msgstr "Failed to like snapshot."
@@ -772,6 +809,9 @@ msgstr "Payment"
 msgid "Stocks"
 msgstr "Stocks"
 
+msgid "Edit TP/SL"
+msgstr "Edit TP/SL"
+
 msgid "Sorry, the email you entered is invalid"
 msgstr "Sorry, the email you entered is invalid"
 
@@ -783,6 +823,9 @@ msgstr "<0>The amount of coins that have already been created, minus any coins t
 
 msgid "Totals"
 msgstr "Totals"
+
+msgid "The notional value of currently open contracts."
+msgstr "The notional value of currently open contracts."
 
 msgid "Failed to vote."
 msgstr "Failed to vote."
@@ -967,6 +1010,9 @@ msgstr "Keep Your Recovery Phrase Safe"
 msgid "Hope this sparks a smile."
 msgstr "Hope this sparks a smile."
 
+msgid "Buy / Long"
+msgstr "Buy / Long"
+
 msgid "Firefly wallet"
 msgstr "Firefly wallet"
 
@@ -1022,6 +1068,9 @@ msgstr "Type something here..."
 msgid "Save Post?"
 msgstr "Save Post?"
 
+msgid "Close Position"
+msgstr "Close Position"
+
 msgid "Added successfully"
 msgstr "Added successfully"
 
@@ -1065,11 +1114,17 @@ msgstr "Scan this QR code and confirm on your Farcaster mobile app to register a
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
+msgid "Order book is unavailable."
+msgstr "Order book is unavailable."
+
 msgid "Sending"
 msgstr "Sending"
 
 msgid "The author has disabled comments on this post."
 msgstr "The author has disabled comments on this post."
+
+msgid "About Funding"
+msgstr "About Funding"
 
 msgid "Retry Stream"
 msgstr "Retry Stream"
@@ -1127,6 +1182,9 @@ msgstr "<0>{0}</0> by <1>{1}</1>"
 
 msgid "TOTAL"
 msgstr "TOTAL"
+
+msgid "Trade actions"
+msgstr "Trade actions"
 
 msgid "Failed to unlike tip."
 msgstr "Failed to unlike tip."
@@ -1341,6 +1399,9 @@ msgstr "Failed to refund red packet."
 msgid "Remove Poll"
 msgstr "Remove Poll"
 
+msgid "Edit margin"
+msgstr "Edit margin"
+
 msgid "No activity yet"
 msgstr "No activity yet"
 
@@ -1382,6 +1443,9 @@ msgstr "Verified addresses"
 
 msgid "Buy {secondOutcome}"
 msgstr "Buy {secondOutcome}"
+
+msgid "Mark"
+msgstr "Mark"
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
@@ -1519,6 +1583,9 @@ msgstr "{addressName} is already connected."
 msgid "Tomorrow"
 msgstr "Tomorrow"
 
+msgid "TP/SL"
+msgstr "TP/SL"
+
 msgid "Go the Distance?"
 msgstr "Go the Distance?"
 
@@ -1565,6 +1632,9 @@ msgstr "Switch wallet"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
+
+msgid "No open positions"
+msgstr "No open positions"
 
 msgid "Available Balance"
 msgstr "Available Balance"
@@ -1620,6 +1690,9 @@ msgstr "Failed to bookmark article."
 msgid "No polymarket event found."
 msgstr "No polymarket event found."
 
+msgid "No order-book data."
+msgstr "No order-book data."
+
 msgid "Wins"
 msgstr "Wins"
 
@@ -1643,6 +1716,9 @@ msgstr "Light Mode"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "Multi-device login is required for schedule post. Enter your password to confirm your identity."
+
+msgid "Size"
+msgstr "Size"
 
 msgid "Block"
 msgstr "Block"
@@ -1737,6 +1813,9 @@ msgstr "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain pr
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 
+msgid "Funding/Countdown"
+msgstr "Funding/Countdown"
+
 msgid "Content preference"
 msgstr "Content preference"
 
@@ -1748,6 +1827,9 @@ msgid "# minute left"
 msgid_plural "# minutes left"
 msgstr[0] "# minute left"
 msgstr[1] "# minutes left"
+
+msgid "Open Long"
+msgstr "Open Long"
 
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
@@ -2032,6 +2114,9 @@ msgstr "🎭 Replied on {0}."
 msgid "Unknown"
 msgstr "Unknown"
 
+msgid "Connect your wallet to view positions"
+msgstr "Connect your wallet to view positions"
+
 msgid "Claimed lucky drop successfully"
 msgstr "Claimed lucky drop successfully"
 
@@ -2100,6 +2185,9 @@ msgstr "Primary wallet"
 msgid "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
 msgstr "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
 
+msgid "(Cross)"
+msgstr "(Cross)"
+
 msgid "Verified by Lens"
 msgstr "Verified by Lens"
 
@@ -2116,6 +2204,9 @@ msgstr "No proxy"
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
 msgstr "Muted @{0} on {sourceName}."
+
+msgid "No trading history"
+msgstr "No trading history"
 
 msgid "Semifinals"
 msgstr "Semifinals"
@@ -2182,6 +2273,9 @@ msgstr "3rd Place"
 
 msgid "Losses"
 msgstr "Losses"
+
+msgid "Close Short"
+msgstr "Close Short"
 
 msgid "Failed to open miniapp"
 msgstr "Failed to open miniapp"
@@ -2266,6 +2360,9 @@ msgstr "Balance"
 
 msgid "View resolved"
 msgstr "View resolved"
+
+msgid "Live market updates are reconnecting."
+msgstr "Live market updates are reconnecting."
 
 msgid "Unmuting..."
 msgstr "Unmuting..."
@@ -2353,6 +2450,9 @@ msgstr "Login to Firefly"
 
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "Content will be lost when leaving this page in anonymous mode."
+
+msgid "Perpetuals account"
+msgstr "Perpetuals account"
 
 msgid "1st Set Winner"
 msgstr "1st Set Winner"
@@ -2450,6 +2550,9 @@ msgstr "Cross at handles"
 msgid "Add Wallet"
 msgstr "Add Wallet"
 
+msgid "Tip sent, but the message could not be sent."
+msgstr "Tip sent, but the message could not be sent."
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 msgid "Followed by {0} and {1}"
@@ -2476,6 +2579,9 @@ msgstr "You can save this to send later from your drafts."
 
 msgid "Failed to copy image. Please try again later."
 msgstr "Failed to copy image. Please try again later."
+
+msgid "Edit order price"
+msgstr "Edit order price"
 
 msgid "Failed Post"
 msgstr "Failed Post"
@@ -2530,6 +2636,9 @@ msgstr "Enter Amount Each"
 msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth liked your transaction"
 
+msgid "The fair price used for margin and liquidation calculations."
+msgstr "The fair price used for margin and liquidation calculations."
+
 msgid "Failed to get live market URL. Please try again later."
 msgstr "Failed to get live market URL. Please try again later."
 
@@ -2557,6 +2666,12 @@ msgstr "Google Play"
 
 msgid "Lucky drop created successfully"
 msgstr "Lucky drop created successfully"
+
+msgid "New order size"
+msgstr "New order size"
+
+msgid "Failed to add favorite"
+msgstr "Failed to add favorite"
 
 #. placeholder {0}: error.message
 msgid "Connection failed. {0}"
@@ -2636,6 +2751,9 @@ msgstr "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
 msgid "P"
 msgstr "P"
 
+msgid "About Open Interest"
+msgstr "About Open Interest"
+
 msgid "Days"
 msgstr "Days"
 
@@ -2659,12 +2777,6 @@ msgstr "Next"
 
 msgid "Failed to send."
 msgstr "Failed to send."
-
-#. js-lingui:icu=%7BdeclaredCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=declaredCount
-msgid "View # reply"
-msgid_plural "View # replies"
-msgstr[0] "View # reply"
-msgstr[1] "View # replies"
 
 msgid "Matters article"
 msgstr "Matters article"
@@ -2722,6 +2834,9 @@ msgstr "Top 40 Projects powered by Rootdata"
 
 msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
 msgstr "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
+
+msgid "Oracle"
+msgstr "Oracle"
 
 #. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
@@ -2824,6 +2939,9 @@ msgstr "Estimated network fee"
 msgid "Payment request sent"
 msgstr "Payment request sent"
 
+msgid "Take Profit Market"
+msgstr "Take Profit Market"
+
 msgid "<0>You</0> reposted"
 msgstr "<0>You</0> reposted"
 
@@ -2904,6 +3022,9 @@ msgstr "No verified addresses found"
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 
+msgid "Remove {marketDisplayName} favorite"
+msgstr "Remove {marketDisplayName} favorite"
+
 msgid "The contract owner has restrictions on anti whale."
 msgstr "The contract owner has restrictions on anti whale."
 
@@ -2968,6 +3089,12 @@ msgstr "No matching token"
 msgid "Collected"
 msgstr "Collected"
 
+msgid "Trading History"
+msgstr "Trading History"
+
+msgid "Loading account data…"
+msgstr "Loading account data…"
+
 msgid "Are you sure you want to report this post?"
 msgstr "Are you sure you want to report this post?"
 
@@ -3014,6 +3141,9 @@ msgstr "<0>{0}</0> <1>reposted</1>"
 #. placeholder {0}: channel.id
 msgid "Followed /{0} on {sourceName}"
 msgstr "Followed /{0} on {sourceName}"
+
+msgid "Last Price"
+msgstr "Last Price"
 
 msgid "Collect Post"
 msgstr "Collect Post"
@@ -3083,6 +3213,9 @@ msgstr "Net Worth"
 
 msgid "Pinned"
 msgstr "Pinned"
+
+msgid "Loading order book…"
+msgstr "Loading order book…"
 
 msgid "Replies are restricted for this post."
 msgstr "Replies are restricted for this post."
@@ -3234,6 +3367,9 @@ msgstr "Holders can sell all of the token."
 msgid "Select Network"
 msgstr "Select Network"
 
+msgid "Margin"
+msgstr "Margin"
+
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
@@ -3277,6 +3413,9 @@ msgstr "Set Handicap"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
 
+msgid "The current hourly funding rate paid between long and short positions."
+msgstr "The current hourly funding rate paid between long and short positions."
+
 msgid "Vote"
 msgstr "Vote"
 
@@ -3285,6 +3424,9 @@ msgstr "Verify and Claim"
 
 msgid "Hide resolved"
 msgstr "Hide resolved"
+
+msgid "PNL(ROE%)"
+msgstr "PNL(ROE%)"
 
 #. placeholder {0}: dayjs(space.ended_at).format('MMM DD')
 msgid "Ended on {0}"
@@ -3312,6 +3454,9 @@ msgstr "Enter Number of Winners"
 
 msgid "Please enter your 2FA confirmation code"
 msgstr "Please enter your 2FA confirmation code"
+
+msgid "Select order book unit"
+msgstr "Select order book unit"
 
 msgid "No active positions found in this wallet"
 msgstr "No active positions found in this wallet"
@@ -3454,6 +3599,9 @@ msgstr "Portfolio"
 msgid "Download Wallet"
 msgstr "Download Wallet"
 
+msgid "Direction"
+msgstr "Direction"
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to reply on {0}."
 msgstr "Failed to reply on {0}."
@@ -3512,6 +3660,9 @@ msgstr "{0} Comments"
 
 msgid "Assuming circulating supply = total supply (includes locked, excludes burned)"
 msgstr "Assuming circulating supply = total supply (includes locked, excludes burned)"
+
+msgid "Date"
+msgstr "Date"
 
 msgid "Resend"
 msgstr "Resend"
@@ -3659,6 +3810,9 @@ msgstr "Only people you follow"
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "Manage the accounts, wallets, and clubs that you’ve muted."
 
+msgid "Chart"
+msgstr "Chart"
+
 msgid "Others"
 msgstr "Others"
 
@@ -3690,6 +3844,9 @@ msgstr "Your Recovery Phrase"
 msgid "Added #{0} on {sourceName}"
 msgstr "Added #{0} on {sourceName}"
 
+msgid "Remove {selectedMarketDisplayName} favorite"
+msgstr "Remove {selectedMarketDisplayName} favorite"
+
 msgid "Failed to switch chain"
 msgstr "Failed to switch chain"
 
@@ -3698,6 +3855,9 @@ msgstr "Muted wallets"
 
 msgid "Create time:"
 msgstr "Create time:"
+
+msgid "Take Profit Limit"
+msgstr "Take Profit Limit"
 
 msgid "No polymarket profile found."
 msgstr "No polymarket profile found."
@@ -3726,6 +3886,9 @@ msgstr "Disconnected from your social graph"
 
 msgid "Malicious mining activities."
 msgstr "Malicious mining activities."
+
+msgid "Stop Market"
+msgstr "Stop Market"
 
 msgid "Resolved"
 msgstr "Resolved"
@@ -3843,6 +4006,12 @@ msgstr "Game {0}"
 msgid "Mine"
 msgstr "Mine"
 
+msgid "The external reference price reported to Hyperliquid."
+msgstr "The external reference price reported to Hyperliquid."
+
+msgid "Long"
+msgstr "Long"
+
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}."
@@ -3950,6 +4119,9 @@ msgstr "{awayLabel} holders"
 msgid "ALL"
 msgstr "ALL"
 
+msgid "About Mark"
+msgstr "About Mark"
+
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr "Note: Cloud drafts save text only. Please upload original images or video again."
 
@@ -4012,6 +4184,9 @@ msgstr "<0>Buy {0}</0><1/>"
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL. [{0}]"
 msgstr "Not Found. Please check your URL. [{0}]"
+
+msgid "Select price aggregation"
+msgstr "Select price aggregation"
 
 msgid "5m"
 msgstr "5m"
@@ -4131,6 +4306,9 @@ msgstr "Truth Social"
 msgid "Associated wallets"
 msgstr "Associated wallets"
 
+msgid "Portfolio account value"
+msgstr "Portfolio account value"
+
 msgid "Connected"
 msgstr "Connected"
 
@@ -4235,6 +4413,9 @@ msgstr "Time range filter"
 msgid "EVM wallets"
 msgstr "EVM wallets"
 
+msgid "Maximum leverage"
+msgstr "Maximum leverage"
+
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
 
@@ -4249,6 +4430,9 @@ msgid "# Risky item"
 msgid_plural "# Risky items"
 msgstr[0] "# Risky item"
 msgstr[1] "# Risky items"
+
+msgid "8h Funding"
+msgstr "8h Funding"
 
 msgid "{teamName} Totals"
 msgstr "{teamName} Totals"
@@ -4279,6 +4463,9 @@ msgstr "Confirm to log out this account?"
 
 msgid "Statistic"
 msgstr "Statistic"
+
+msgid "Liq. Price"
+msgstr "Liq. Price"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
@@ -4318,6 +4505,12 @@ msgstr "Final outcome: {outcomeLabel}"
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "The contract owner has no restrictions on anti whale."
+
+msgid "Close Long"
+msgstr "Close Long"
+
+msgid "Short"
+msgstr "Short"
 
 msgid "Final review"
 msgstr "Final review"
@@ -4407,6 +4600,9 @@ msgstr "Confirm to disconnect this account and related wallets from Firefly’s 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "Unfollowed {handleOrEnsOrAddress} on Firefly"
 
+msgid "Size/Value"
+msgstr "Size/Value"
+
 msgid "Topics"
 msgstr "Topics"
 
@@ -4422,6 +4618,9 @@ msgstr "Are you sure you want to report this article?"
 
 msgid "Failed to create Firefly profile."
 msgstr "Failed to create Firefly profile."
+
+msgid "Entry Price"
+msgstr "Entry Price"
 
 msgid "Unauthorized. Please check your login."
 msgstr "Unauthorized. Please check your login."
@@ -4509,8 +4708,14 @@ msgstr "Primary"
 msgid "Remove"
 msgstr "Remove"
 
+msgid "24h Change"
+msgstr "24h Change"
+
 msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
 msgstr "Failed to reconnect. Please scan another QR code to establish a new connection."
+
+msgid "Closed PNL"
+msgstr "Closed PNL"
 
 #. placeholder {0}: author.fullHandle || author.displayName
 msgid "by {0}"
@@ -4527,6 +4732,9 @@ msgstr "Cryptocurrency mixer."
 
 msgid "Failed to send message. Please try again."
 msgstr "Failed to send message. Please try again."
+
+msgid "Market categories"
+msgstr "Market categories"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
@@ -4574,8 +4782,14 @@ msgstr "Save"
 msgid "Halftime Result"
 msgstr "Halftime Result"
 
+msgid "Failed to remove favorite"
+msgstr "Failed to remove favorite"
+
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
+
+msgid "Select market"
+msgstr "Select market"
 
 msgid "Leaderboard"
 msgstr "Leaderboard"
@@ -4591,6 +4805,12 @@ msgstr "This mini app works only inside Farcaster. Open it there to check it out
 
 msgid "Standard"
 msgstr "Standard"
+
+#. js-lingui:icu=%7BreplyCount%2C+plural%2C+one+%7BView+%23+reply%7D+other+%7BView+%23+replies%7D%7D&pluralize_on=replyCount
+msgid "View # reply"
+msgid_plural "View # replies"
+msgstr[0] "View # reply"
+msgstr[1] "View # replies"
 
 msgid "Emoji"
 msgstr "Emoji"
@@ -4634,6 +4854,9 @@ msgstr "Failed to publish on {sortedSourceNames}"
 msgid "Failed to join #{0} on {sourceName}"
 msgstr "Failed to join #{0} on {sourceName}"
 
+msgid "Trade Value"
+msgstr "Trade Value"
+
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "Unfollow {handleOrEnsOrAddress}"
 
@@ -4674,6 +4897,9 @@ msgstr "Bad Request. Please check your request."
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "Sorry, there is no wallet address available for tipping."
+
+msgid "Cancel order"
+msgstr "Cancel order"
 
 msgid "Follow me"
 msgstr "Follow me"
@@ -4820,6 +5046,9 @@ msgstr "Remove attachment"
 
 msgid "Search clubs"
 msgstr "Search clubs"
+
+msgid "No open orders"
+msgstr "No open orders"
 
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "Failed to get recovery phrase. Please try again."
@@ -5004,6 +5233,9 @@ msgstr "Collect"
 msgid "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
 msgstr "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
 
+msgid "Processing"
+msgstr "Processing"
+
 #. placeholder {0}: remainingFailedAt.length
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
 msgid "Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again."
@@ -5069,6 +5301,9 @@ msgstr "Language"
 msgid "Nashor Handicap"
 msgstr "Nashor Handicap"
 
+msgid "Perpetuals"
+msgstr "Perpetuals"
+
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
 
@@ -5103,6 +5338,9 @@ msgstr "Reauthorize"
 
 msgid "Failed to unlike."
 msgstr "Failed to unlike."
+
+msgid "About Oracle"
+msgstr "About Oracle"
 
 msgid "Max Supply"
 msgstr "Max Supply"
@@ -5141,6 +5379,9 @@ msgstr "At most {0} recipients"
 msgid "General"
 msgstr "General"
 
+msgid "Mark Price"
+msgstr "Mark Price"
+
 msgid "Round Total"
 msgstr "Round Total"
 
@@ -5155,6 +5396,9 @@ msgstr "<0>You</0> recasted"
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
+
+msgid "No markets found"
+msgstr "No markets found"
 
 msgid "Location"
 msgstr "Location"
@@ -5175,6 +5419,9 @@ msgstr "Members"
 
 msgid "Value"
 msgstr "Value"
+
+msgid "24h Volume"
+msgstr "24h Volume"
 
 msgid "Your schedule thread has created successfully."
 msgstr "Your schedule thread has created successfully."
@@ -5257,6 +5504,9 @@ msgstr "Your account has not registered on Firefly"
 msgid "Removed from bookmarks"
 msgstr "Removed from bookmarks"
 
+msgid "Close all"
+msgstr "Close all"
+
 msgid "Deleted your Firefly account"
 msgstr "Deleted your Firefly account"
 
@@ -5287,6 +5537,9 @@ msgstr "Followers"
 
 msgid "Search channel"
 msgstr "Search channel"
+
+msgid "Favorites"
+msgstr "Favorites"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
@@ -5352,6 +5605,9 @@ msgstr "Failed to unlike article."
 msgid "Copy frame URL"
 msgstr "Copy frame URL"
 
+msgid "Sell/Short"
+msgstr "Sell/Short"
+
 msgid "This token can not self destruct."
 msgstr "This token can not self destruct."
 
@@ -5390,6 +5646,9 @@ msgstr "Contract address."
 
 msgid "[Quote]"
 msgstr "[Quote]"
+
+msgid "Account data is unavailable."
+msgstr "Account data is unavailable."
 
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "Unmuted {handleOrEnsOrAddress}."
@@ -5527,6 +5786,9 @@ msgstr "Show more comments"
 msgid "Different Account Detected"
 msgstr "Different Account Detected"
 
+msgid "Market view"
+msgstr "Market view"
+
 msgid "Enter your username and password to sign in instantly"
 msgstr "Enter your username and password to sign in instantly"
 
@@ -5563,6 +5825,9 @@ msgstr "Loading"
 msgid "Transaction completed!"
 msgstr "Transaction completed!"
 
+msgid "Limit"
+msgstr "Limit"
+
 msgid "Target"
 msgstr "Target"
 
@@ -5582,6 +5847,9 @@ msgstr "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} 
 msgid "Requested"
 msgstr "Requested"
 
+msgid "Spread"
+msgstr "Spread"
+
 msgid "Hours"
 msgstr "Hours"
 
@@ -5591,6 +5859,9 @@ msgstr "Choose or set the handles for cross at."
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
+
+msgid "Clear all"
+msgstr "Clear all"
 
 msgid "Close"
 msgstr "Close"
@@ -5620,6 +5891,9 @@ msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "Share"
 msgstr "Share"
+
+msgid "New order price"
+msgstr "New order price"
 
 msgid "Fake KYC found."
 msgstr "Fake KYC found."
@@ -5690,6 +5964,9 @@ msgstr "<0>change</0> wallet or <1>sign up</1> on Firefly"
 msgid "View engagements"
 msgstr "View engagements"
 
+msgid "Search markets"
+msgstr "Search markets"
+
 #. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
@@ -5731,6 +6008,9 @@ msgstr "Success"
 
 msgid "The contract owner has restrictions on selling."
 msgstr "The contract owner has restrictions on selling."
+
+msgid "Filled"
+msgstr "Filled"
 
 msgid "Likes"
 msgstr "Likes"

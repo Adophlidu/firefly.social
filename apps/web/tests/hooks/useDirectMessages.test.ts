@@ -8,6 +8,7 @@ import {
     markChannelRead,
     markCountersRead,
     mergeDmChannels,
+    mergeDmLastMessages,
     resolveSentDmMessage,
 } from '@/hooks/useDirectMessages.js';
 import type { ChannelCounters, ChatChannel, ChatMessage, MediaAttachment } from '@/providers/orb/chat/types.js';
@@ -45,6 +46,25 @@ function createChannel(id: string, lastMessageAt: string | null, unreadCount = 0
     };
 }
 
+function createMessage(id: string, channelId: string, createdAt: string): ChatMessage {
+    return {
+        id,
+        channel_id: channelId,
+        author_id: 'author',
+        content: id,
+        parent_message_id: null,
+        created_at: createdAt,
+        updated_at: createdAt,
+        sticker_id: null,
+        shared_publication_id: null,
+        offer_id: null,
+        sale_id: null,
+        interactive_action_id: null,
+        author_profile: { address: 'author', name: null, handle: null },
+        attachments: [],
+    };
+}
+
 describe('mergeDmChannels', () => {
     test('keeps a newly created empty channel before the inbox returns it', () => {
         const fetchedChannel = createChannel('existing', '2026-01-02T00:00:00.000Z');
@@ -58,6 +78,53 @@ describe('mergeDmChannels', () => {
         const fetchedStartedChannel = createChannel('started', '2026-01-03T00:00:00.000Z');
 
         expect(mergeDmChannels([[fetchedStartedChannel]], [staleStartedChannel])).toEqual([fetchedStartedChannel]);
+    });
+});
+
+describe('mergeDmLastMessages', () => {
+    test('keeps the previous preview while the replacement message is loading', () => {
+        const previousMessage = createMessage('previous', 'channel-1', '2026-01-01T00:00:00.000Z');
+        const channel = createChannel('channel-1', '2026-01-02T00:00:00.000Z');
+
+        expect(mergeDmLastMessages([channel], new Map(), new Map([['channel-1', previousMessage]]))).toEqual(
+            new Map([['channel-1', previousMessage]]),
+        );
+    });
+
+    test('replaces the preview when the latest message finishes loading', () => {
+        const previousMessage = createMessage('previous', 'channel-1', '2026-01-01T00:00:00.000Z');
+        const latestMessage = createMessage('latest', 'channel-1', '2026-01-02T00:00:00.000Z');
+        const channel = createChannel('channel-1', latestMessage.created_at);
+
+        expect(
+            mergeDmLastMessages(
+                [channel],
+                new Map([['channel-1', latestMessage]]),
+                new Map([['channel-1', previousMessage]]),
+            ),
+        ).toEqual(new Map([['channel-1', latestMessage]]));
+    });
+
+    test('does not regress when the channel payload contains an older embedded message', () => {
+        const embeddedMessage = createMessage('embedded', 'channel-1', '2026-01-01T00:00:00.000Z');
+        const fetchedMessage = createMessage('fetched', 'channel-1', '2026-01-02T00:00:00.000Z');
+        const channel = { ...createChannel('channel-1', fetchedMessage.created_at), last_message: embeddedMessage };
+
+        expect(mergeDmLastMessages([channel], new Map([['channel-1', fetchedMessage]]), new Map())).toEqual(
+            new Map([['channel-1', fetchedMessage]]),
+        );
+    });
+
+    test('does not retain a preview for an empty channel', () => {
+        const previousMessage = createMessage('previous', 'channel-1', '2026-01-01T00:00:00.000Z');
+
+        expect(
+            mergeDmLastMessages(
+                [createChannel('channel-1', null)],
+                new Map(),
+                new Map([['channel-1', previousMessage]]),
+            ),
+        ).toEqual(new Map());
     });
 });
 

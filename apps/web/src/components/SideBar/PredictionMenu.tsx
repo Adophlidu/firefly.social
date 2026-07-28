@@ -1,5 +1,7 @@
 'use client';
 
+import PredictionSelectedIcon from '@dimensiondev/assets/prediction.selected.svg';
+import PredictionIcon from '@dimensiondev/assets/prediction.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
@@ -37,16 +39,16 @@ export const PredictionMenu = memo<PredictionMenuProps>(function PredictionMenu(
             collapsed={collapsed}
             menuName={<Trans>Predictions</Trans>}
             icon={
-                <span className="flex size-5 items-center justify-center">
-                    {/* Static SVG (baked from football.json's final frame). A plain <img> keeps
-                        the 14.5KB markup out of the JS bundle; `next/image` is unsuitable for SVG. */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src="/football.svg"
-                        alt=""
+                <span className="relative flex size-5 items-center justify-center">
+                    <PredictionIcon
                         width={size}
                         height={size}
-                        className="football-bounce size-full object-contain"
+                        className={isSelected ? 'hidden' : 'block group-hover:hidden'}
+                    />
+                    <PredictionSelectedIcon
+                        width={size}
+                        height={size}
+                        className={isSelected ? 'block' : 'hidden group-hover:block'}
                     />
                 </span>
             }

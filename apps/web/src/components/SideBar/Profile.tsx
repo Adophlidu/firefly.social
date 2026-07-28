@@ -2,6 +2,7 @@
 
 import ProfileSelectedIcon from '@dimensiondev/assets/profile.selected.svg';
 import ProfileIcon from '@dimensiondev/assets/profile.svg';
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import { PageRoute } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
@@ -12,6 +13,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { matchPath } from '@/helpers/matchPath.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
+import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 
@@ -22,8 +24,31 @@ interface ProfileProps {
 export function Profile({ collapsed: sideBarCollapsed = false }: ProfileProps) {
     const profile = useCurrentProfileFirstAvailable();
     const profiles = useCurrentFireflyProfilesAll();
+    const { data: connections } = useAllConnectionsFormattedWithProfiles();
 
-    const href = profile ? getProfileUrl(profile) : PageRoute.Profile;
+    // Land on the primary account (per-source connection.isDefault) rather
+    // than the active session profile. PrimaryButton refetches the
+    // ['allConnections'] query this reads, so it stays in sync.
+    const primaryProfile = useMemo(() => {
+        const groups = connections?.socialConnections;
+        if (!groups) return null;
+
+        for (const source of SORTED_SOCIAL_SOURCES) {
+            const group = groups.find((x) => x.source === source);
+            if (!group) continue;
+            const primary = group.items.find(({ connection, profile }) => {
+                const isConnected =
+                    ('connectedAt' in connection && connection.connectedAt) ||
+                    ('connected' in connection && connection.connected);
+                return isConnected && connection.isDefault && profile;
+            });
+            if (primary) return primary.profile;
+        }
+
+        return null;
+    }, [connections]);
+
+    const href = primaryProfile ? getProfileUrl(primaryProfile) : profile ? getProfileUrl(profile) : PageRoute.Profile;
     const pathname = usePathname();
     const isSelected = useMemo(() => {
         if (profiles.length) {

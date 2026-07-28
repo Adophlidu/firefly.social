@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
@@ -15,7 +15,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureAccountDeleteEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { removeAllAccounts } from '@/services/account.js';
 
-function CountdownButton() {
+const CountdownButton = memo(function CountdownButton() {
     const [count, { startCountdown }] = useCountdown({
         countStart: 10,
         countStop: 0,
@@ -36,7 +36,7 @@ function CountdownButton() {
             {count > 0 ? <Trans>{count}s</Trans> : <Trans>Confirm</Trans>}
         </ClickableButton>
     );
-}
+});
 
 export function useDeleteFireflyAccount() {
     const router = useRouter();

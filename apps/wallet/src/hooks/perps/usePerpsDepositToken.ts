@@ -11,6 +11,7 @@ import {
     ARBITRUM_CHAIN_ID,
     ARBITRUM_USDC_ADDRESS,
     arbUsdcTokenFallback,
+    hyperliquidUsdcTokenFallback,
     MIN_HYPERLIQUID_DEPOSIT_USDC,
 } from '@/constants/hyperliquid.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
@@ -135,6 +136,6 @@ export function usePerpsDepositToken() {
         isLoading,
         isBalanceLoading,
         isDefaultTokenLoading,
-        receiveToken: arbUsdcTokenFallback,
+        receiveToken: hyperliquidUsdcTokenFallback,
     };
 }

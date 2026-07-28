@@ -23,7 +23,7 @@ function Toaster({ ...props }: ToasterProps) {
             position="top-center"
             toastOptions={{
                 classNames: {
-                    toast: 'group toast group-[.toaster]:bg-primaryBottom group-[.toaster]:text-foreground group-[.toaster]:shadow-popup3 text-sm',
+                    toast: 'group toast group-[.toaster]:bg-primaryBottom group-[.toaster]:text-main group-[.toaster]:shadow-popup3 text-sm',
                     description: 'group-[.toast]:text-second',
                     actionButton: 'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
                     cancelButton: 'group-[.toast]:bg-muted group-[.toast]:text-second',

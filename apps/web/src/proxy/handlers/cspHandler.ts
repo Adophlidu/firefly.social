@@ -46,7 +46,10 @@ function buildCSP(): string {
 
         // Lens
         'api.lens.xyz',
-        'rpc.lens.xyz',
+
+        // Orb Chat
+        'https://ruiftgqhbghujyxlnjql.supabase.co',
+        'wss://ruiftgqhbghujyxlnjql.supabase.co',
 
         'static.cloudflareinsights.com',
         '*.google-analytics.com',
@@ -59,6 +62,12 @@ function buildCSP(): string {
         'eth.llamarpc.com',
         'polygon.drpc.org',
         '*.alchemy.com',
+
+        // Hyperliquid
+        'https://api.hyperliquid.xyz',
+        'wss://api.hyperliquid.xyz',
+        'https://api.hyperliquid-testnet.xyz',
+        'wss://api.hyperliquid-testnet.xyz',
 
         // polymarket
         '*.polymarket.com',
@@ -115,7 +124,7 @@ function buildCSP(): string {
     ];
 
     // fallback to child-src, then default-src
-    const workerSrc = ["'self'", ...EXTRA_SOURCES];
+    const workerSrc = ["'self'", 'blob:', ...EXTRA_SOURCES];
 
     // what iframe we can load, fallback to child-src, then default-src
     const frameSrc = [

@@ -31,6 +31,54 @@ describe('TipMessage', () => {
         expect(container.firstElementChild?.className).toContain('h-[286px]');
     });
 
+    test('renders local tip details while the interactive action is being created', () => {
+        useDmInteractiveActionMock.mockReturnValue({ data: undefined, isLoading: false });
+        render(
+            createElement(TipMessage, {
+                account: '0xviewer',
+                isSelf: true,
+                isSending: true,
+                pendingTip: {
+                    targetUserId: '0xtarget',
+                    amount: 1,
+                    currency: '0xtoken',
+                    currencySymbol: 'GHO',
+                    chainId: 232,
+                    nextStep: 'create',
+                },
+            }),
+        );
+
+        expect(useDmInteractiveActionMock).toHaveBeenCalledWith('0xviewer', undefined);
+        expect(screen.getByText('Sending')).toBeTruthy();
+        expect(screen.getByText('$1')).toBeTruthy();
+        expect(screen.getByText('1 $GHO')).toBeTruthy();
+        expect(screen.getByText('Processing')).toBeTruthy();
+    });
+
+    test('does not fetch action details before the local send flow finishes', () => {
+        useDmInteractiveActionMock.mockReturnValue({ data: undefined, isLoading: false });
+        render(
+            createElement(TipMessage, {
+                account: '0xviewer',
+                interactiveActionId: 'tip-1',
+                isSelf: true,
+                isSending: true,
+                pendingTip: {
+                    targetUserId: '0xtarget',
+                    amount: 1,
+                    currency: '0xtoken',
+                    currencySymbol: 'GHO',
+                    chainId: 232,
+                    nextStep: 'complete',
+                },
+            }),
+        );
+
+        expect(useDmInteractiveActionMock).toHaveBeenCalledWith('0xviewer', undefined);
+        expect(screen.getByText('Sending')).toBeTruthy();
+    });
+
     test('renders read-only payment request details without a payment button', () => {
         useDmInteractiveActionMock.mockReturnValue({
             data: { amount: 1, currencySymbol: 'GHO', status: 'PENDING', message: null },

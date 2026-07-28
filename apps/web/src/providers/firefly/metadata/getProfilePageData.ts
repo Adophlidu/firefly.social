@@ -8,6 +8,7 @@ import { AccountSuspendedError } from '@/constants/error.js';
 import { buildProfileFeedInitialData } from '@/helpers/buildProfileFeedInitialData.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
@@ -47,7 +48,22 @@ export const getProfilePageData = cache(
         // fall back to the NotLoginFallback UI and the feed is not prefetched.
         const sessionless = isRequestedLoginSource(source) && !resolveSessionHolder(source).session;
         const identityFromUrl = resolveSpecialProfileIdentity({ source, id: urlId });
-        const relatedProfile = await runInSafeAsync(() => getAllRelatedProfilesWithDefault(identityFromUrl));
+
+        // The wallet-profile lookup below and the social-profile-by-handle lookup don't
+        // depend on each other: fixIdentity() never changes `.source`, and the handle
+        // lookup is keyed off the URL id directly, not anything derived from
+        // relatedProfile. Fire the handle lookup concurrently instead of waterfalling
+        // ~300-900ms of avoidable sequential wait. Gated on isSocialSource so wallet-address
+        // profile pages (where this fetch is skipped once walletProfile resolves below)
+        // don't grow an extra unneeded request.
+        const relatedProfilePromise = runInSafeAsync(() => getAllRelatedProfilesWithDefault(identityFromUrl));
+        const socialProfilePromise =
+            identityFromUrl.id && isSocialSource(identityFromUrl.source)
+                ? getSocialProfileByHandlePageData(narrowToSocialSource(identityFromUrl.source), identityFromUrl.id)
+                : null;
+        socialProfilePromise?.catch(() => {});
+
+        const relatedProfile = await relatedProfilePromise;
         if (!relatedProfile) return null;
 
         const profiles = formatFireflyProfilesFromWalletProfiles(relatedProfile) as FireflyProfile[];
@@ -60,10 +76,8 @@ export const getProfilePageData = cache(
 
         if (identityFromUrl.id && !walletProfile) {
             try {
-                socialProfile = await getSocialProfileByHandlePageData(
-                    narrowToSocialSource(identity.source),
-                    identityFromUrl.id,
-                );
+                socialProfile = await (socialProfilePromise ??
+                    getSocialProfileByHandlePageData(narrowToSocialSource(identity.source), identityFromUrl.id));
 
                 if (socialProfile && !sessionless && socialProfile.source !== Source.Twitter) {
                     const page = await runInSafeAsync(() =>

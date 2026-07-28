@@ -8,13 +8,14 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useContext } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useConnection } from 'wagmi';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { EstimatedCost } from '@/components/Tips/EstimatedCost.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { CloseTipsOnSuccessContext, TipsSuccessContext } from '@/components/Tips/views/RootView.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { openWalletConnectModal } from '@/controllers/openWalletConnectModal.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -36,6 +37,8 @@ interface SendTipsButtonProps {
 const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ connected, onConnect }) {
     const router = useRouter();
     const { context } = useMatch({ from: rootRouteId });
+    const onSuccess = useContext(TipsSuccessContext);
+    const closeOnSuccess = useContext(CloseTipsOnSuccessContext);
     const {
         token,
         recipient,
@@ -161,6 +164,20 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 eventId: EventId.TIPS_SEND_SUCCESS,
             });
 
+            if (closeOnSuccess) {
+                update({ isSending: false, hasError: false });
+                context.onClose();
+                enqueueSuccessMessage(<Trans>Tip sent successfully!</Trans>);
+            }
+
+            try {
+                await onSuccess?.({ amount, hash, recipient, token });
+            } catch (error) {
+                enqueueMessageFromError(error, <Trans>Tip sent, but the message could not be sent.</Trans>);
+            }
+
+            if (closeOnSuccess) return;
+
             enqueueSuccessMessage(<Trans>Tip sent successfully!</Trans>);
             router.navigate({ to: TipsRoutePath.SUCCESS });
             update({ isSending: false, hasError: false });
@@ -171,7 +188,20 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             enqueueMessageFromError(error, <Trans>Failed to send tip.</Trans>);
             throw error;
         }
-    }, [router, connected, onConnect, recipient, token, update, amount, identity, isCustomAmount]);
+    }, [
+        router,
+        connected,
+        onConnect,
+        recipient,
+        token,
+        update,
+        amount,
+        identity,
+        isCustomAmount,
+        onSuccess,
+        closeOnSuccess,
+        context,
+    ]);
 
     const isValidating = isLoading || isRefetching;
     const disabled = !connected ? false : isValidating || isSending || !!value?.disabled;

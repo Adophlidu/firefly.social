@@ -19,6 +19,7 @@ import { openLoginModal } from '@/controllers/openLoginModal.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveInitials } from '@/helpers/resolveInitials.js';
 import { useAuthenticatedDmAccount, useDmTargetChannel } from '@/hooks/useDirectMessages.js';
+import { useDmRealtime } from '@/hooks/useDmRealtime.js';
 import type { ChatChannel } from '@/providers/orb/chat/types.js';
 
 interface DirectMessagePanelProps {
@@ -69,6 +70,7 @@ export const DirectMessagePanel = memo(function DirectMessagePanel({
 
     const channel = channelQuery.data;
     const conversation = useMemo(() => (channel ? toConversation(channel, target) : undefined), [channel, target]);
+    useDmRealtime(authenticatedAccount, conversation?.id);
     const messagesUrl = conversation
         ? `${PageRoute.Messages}?channel=${encodeURIComponent(conversation.id)}`
         : `${PageRoute.Messages}?to=${encodeURIComponent(target.targetUserId)}`;

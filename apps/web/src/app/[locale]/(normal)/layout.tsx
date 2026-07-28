@@ -30,11 +30,11 @@ interface Props {
 export default async function Layout({ children, modal, sidebar, subnav }: Props) {
     return (
         <>
-            <IfPathname isOneOf={['/messages']}>
+            <IfPathname isOneOf={['/messages', '/perpetuals']}>
                 <main className={classNames('w-full', SIDEBAR_OFFSET)}>{children}</main>
                 {modal}
             </IfPathname>
-            <IfPathname isNotOneOf={['/messages']}>
+            <IfPathname isNotOneOf={['/messages', '/perpetuals']}>
                 <main
                     className={classNames(
                         'flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line lg:w-[888px] lg:max-w-[calc(100%-384px)]',
@@ -98,7 +98,7 @@ export default async function Layout({ children, modal, sidebar, subnav }: Props
                     </div>
                 </aside>
             </IfPathname>
-            <IfPathname isNotOneOf={['/token', '/messages']}>
+            <IfPathname isNotOneOf={['/token', '/messages', '/perpetuals']}>
                 <ComposeButton />
             </IfPathname>
             <ComposeWatcher />

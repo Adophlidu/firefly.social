@@ -19,11 +19,23 @@ msgstr "互動失敗"
 msgid "Copy to clipboard"
 msgstr "複製到剪貼簿"
 
+msgid "Close all positions"
+msgstr "平掉所有倉位"
+
+msgid "Cross Margin Ratio:"
+msgstr "全倉保證金率："
+
 msgid "To"
 msgstr "至"
 
 msgid "Unlimited Amount"
 msgstr "無限額度"
+
+msgid "Hyperliquid charges a fixed {EXECUTION_FEE} USDC withdrawal fee to cover Arbitrum gas costs."
+msgstr "Hyperliquid 收取固定的 {EXECUTION_FEE} USDC 提現手續費，用於支付 Arbitrum 網路的 Gas 費用。"
+
+msgid "Open Orders"
+msgstr "當前委託"
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
@@ -35,6 +47,9 @@ msgstr "顯示小於 1 美元的資產"
 msgid "History"
 msgstr "歷史紀錄"
 
+msgid "Funding"
+msgstr "資金費"
+
 msgid "Make sure to send funds on Ethereum."
 msgstr "請確保在以太坊 (Ethereum) 網路上發送資金。"
 
@@ -43,6 +58,9 @@ msgstr "載入失敗"
 
 msgid "Failed to disable authentication"
 msgstr "停用身份驗證失敗"
+
+msgid "Account Activities"
+msgstr "帳戶動態"
 
 msgid "Positions"
 msgstr "部位"
@@ -53,11 +71,17 @@ msgstr "按字母順序"
 msgid "in your Firefly wallet"
 msgstr "在您的 Firefly 錢包中"
 
+msgid "This action will be submitted to Hyperliquid. Please confirm to continue."
+msgstr "此操作將提交至 Hyperliquid，請確認後繼續。"
+
 msgid "Skip reviews"
 msgstr "跳過預覽"
 
 msgid "Address, ENS, or social handle"
 msgstr "地址、ENS 或社交帳號"
+
+msgid "Est. Liq. Price(USDC)"
+msgstr "預計強平價格(USDC)"
 
 msgid "Dismiss"
 msgstr "關閉"
@@ -65,11 +89,17 @@ msgstr "關閉"
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "助記詞等同於最高控制權限，請嚴格保密。"
 
+msgid "Minimum {MINIMUM_WITHDRAWAL} USDC"
+msgstr "最低 {MINIMUM_WITHDRAWAL} USDC"
+
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "餘額不足？您的 Firefly 錢包可以自動補足差額。"
 
 msgid "Failed to create predict wallet. {message}"
 msgstr "建立預測錢包失敗。{message}"
+
+msgid "Sell / Short"
+msgstr "賣出 / 做空"
 
 msgid "Transfer from an exchange"
 msgstr "從交易所轉帳"
@@ -108,6 +138,9 @@ msgstr "充值失敗。"
 msgid "Pay"
 msgstr "支付"
 
+msgid "MAX"
+msgstr "最大"
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -120,8 +153,14 @@ msgstr "領取獎金失敗"
 msgid "Transactions"
 msgstr "交易紀錄"
 
+msgid "Add Margin"
+msgstr "追加保證金"
+
 msgid "Claim requested"
 msgstr "領取請求已提交"
+
+msgid "This action will be submitted to Hyperliquid."
+msgstr "此操作將提交至 Hyperliquid。"
 
 msgid "Review"
 msgstr "預覽/檢查"
@@ -131,6 +170,9 @@ msgstr "確認重設 PIN 碼？為了您的安全，此操作需要向您的備�
 
 msgid "The PINs you entered do not match. Please check and try again."
 msgstr "您輸入的 PIN 碼不一致。請檢查並重試。"
+
+msgid "Trading history"
+msgstr "交易記錄"
 
 msgid "Great job predicting the future!"
 msgstr "預測精準！做得好！"
@@ -159,6 +201,9 @@ msgstr "跳過"
 msgid "Copied"
 msgstr "已複製"
 
+msgid "Action failed."
+msgstr "操作失敗。"
+
 msgid "Total"
 msgstr "總計"
 
@@ -175,6 +220,9 @@ msgstr "已向您的信箱發送 6 位數驗證碼。請輸入驗證碼以完成
 msgid "Approved"
 msgstr "已授權"
 
+msgid "Margin Mode"
+msgstr "保證金模式"
+
 msgid "{riskTokenSymbol} is a high-risk token"
 msgstr "{riskTokenSymbol} 是高風險代幣"
 
@@ -184,6 +232,9 @@ msgstr "您輸入的新信箱地址與目前信箱相同。請輸入一個不同
 msgid "Confirm"
 msgstr "確認"
 
+msgid "Action partially completed."
+msgstr "操作部分完成。"
+
 msgid "Assets to Release"
 msgstr "待釋放資產"
 
@@ -192,6 +243,9 @@ msgstr "在 Polymarket 上預測"
 
 msgid "Keep Your Recovery Phrase Safe"
 msgstr "請安全備份您的助記詞"
+
+msgid "Buy / Long"
+msgstr "買入 / 做多"
 
 msgid "Bought"
 msgstr "已購入"
@@ -208,8 +262,14 @@ msgstr "部位已平"
 msgid "No Route Found"
 msgstr "未找到交易路徑"
 
+msgid "Symbol"
+msgstr "幣種"
+
 msgid "Failed to enable authentication"
 msgstr "啟用身份驗證失敗"
+
+msgid "Mid"
+msgstr "中間價"
 
 msgid "Placing order..."
 msgstr "正在下單..."
@@ -235,15 +295,30 @@ msgstr "盈利"
 msgid "Failed to load image."
 msgstr "載入圖片失敗。"
 
+msgid "Failed to update position settings."
+msgstr "更新持倉設定失敗。"
+
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
 msgstr "{0} 份可用"
 
+msgid "Withdrawal submitted."
+msgstr "提現已提交。"
+
 msgid "Price"
 msgstr "價格"
 
+msgid "Take profit"
+msgstr "止盈"
+
+msgid "Mark Price(USDC)"
+msgstr "標記價格(USDC)"
+
 msgid "Enable skip reviews"
 msgstr "開啟跳過預覽"
+
+msgid "Manage your risk on individual positions by restricting the amount of margin allocated to each. If the margin ratio of an isolated position reaches 100%, the position will be liquidated. Margin can be added or removed to individual positions in this mode."
+msgstr "透過限制分配給每個倉位的保證金數量來管理單一倉位的風險。若逐倉倉位的保證金率達到100%，該倉位將被強制平倉。在此模式下，可以為單一倉位追加或移除保證金。"
 
 msgid "This feature is currently unavailable in your region."
 msgstr "此功能目前在您所在的地區無法使用。"
@@ -251,11 +326,20 @@ msgstr "此功能目前在您所在的地區無法使用。"
 msgid "Connection taking longer than expected"
 msgstr "連接時間較長，請稍候"
 
+msgid "Order failed."
+msgstr "下單失敗。"
+
 msgid "Predict Wallet Pay"
 msgstr "預測錢包支付"
 
+msgid "Insufficient Margin"
+msgstr "保證金不足"
+
 msgid "with"
 msgstr "與"
+
+msgid "Position Size"
+msgstr "持倉數量"
 
 msgid "Shares"
 msgstr "份額"
@@ -278,6 +362,15 @@ msgstr "確定要取消此訂單嗎？<0/>一旦取消將無法恢復。"
 msgid "Avg. Price"
 msgstr "平均成交價"
 
+msgid "Margin Required"
+msgstr "所需保證金"
+
+msgid "TP/SL"
+msgstr "TP/SL"
+
+msgid "The position or order is no longer available. Refresh the web page and try again."
+msgstr "該持倉或訂單已不可用。請重新整理網頁後再試一次。"
+
 msgid "You won"
 msgstr "獲利"
 
@@ -287,17 +380,29 @@ msgstr "透過 Firefly 錢包入金"
 msgid "Network cost"
 msgstr "網路成本"
 
+msgid "No open positions"
+msgstr "暫無持倉"
+
 msgid "Revoked Failed"
 msgstr "撤銷失敗"
 
 msgid "Forgot your PIN code?"
 msgstr "忘記 PIN 碼？"
 
+msgid "Cancel All Orders"
+msgstr "取消所有訂單"
+
 msgid "Recent"
 msgstr "最近"
 
 msgid "Oops! We couldn't find any tokens matching your search."
 msgstr "哎呀！沒有找到匹配的代幣。"
+
+msgid "Cross"
+msgstr "全倉"
+
+msgid "Size"
+msgstr "數量"
 
 msgid "Block"
 msgstr "區塊"
@@ -311,6 +416,9 @@ msgstr "交易詳情"
 msgid "Slippage"
 msgstr "滑點"
 
+msgid "Available"
+msgstr "可用"
+
 msgid "Connect Wallet"
 msgstr "連接錢包"
 
@@ -323,6 +431,9 @@ msgstr "備援信箱"
 msgid "Account Creating"
 msgstr "帳戶建立中"
 
+msgid "Market Close"
+msgstr "市價平倉"
+
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "交易失敗：未達到預期最小數額。請嘗試提高滑點。"
 
@@ -332,11 +443,20 @@ msgstr "暫無數據可顯示。"
 msgid "Transaction was rejected."
 msgstr "交易被拒絕。"
 
+msgid "Est. Closed PnL"
+msgstr "預計已實現盈虧"
+
 msgid "Cancel"
 msgstr "取消"
 
 msgid "Share position"
 msgstr "分享持倉"
+
+msgid "Place Order"
+msgstr "下單"
+
+msgid "available"
+msgstr "可用"
 
 msgid "to"
 msgstr "至"
@@ -350,8 +470,14 @@ msgstr "跨鏈失敗"
 msgid "Enter new PIN"
 msgstr "輸入新 PIN 碼"
 
+msgid "Perpetuals history"
+msgstr "永續合約記錄"
+
 msgid "Pay Wallet"
 msgstr "支付錢包"
+
+msgid "Control the leverage used for {coin} positions. The maximum leverage is {max}x."
+msgstr "控制用於 {coin} 倉位的槓桿。最大槓桿為 {max} 倍。"
 
 msgid "Open orders"
 msgstr "當前訂單"
@@ -359,8 +485,14 @@ msgstr "當前訂單"
 msgid "Copy address"
 msgstr "複製地址"
 
+msgid "Remove from Position"
+msgstr "減倉"
+
 msgid "<0>{releaseAmountText}</0><1>to release</1>"
 msgstr "<0>{releaseAmountText}</0><1>待釋放</1>"
+
+msgid "Est. Liq. price"
+msgstr "預計強平價格"
 
 msgid "Your funds are now in your predict wallet."
 msgstr "資金已到達您的預測錢包。"
@@ -392,6 +524,9 @@ msgstr "預測結果"
 msgid "Failed to upgrade"
 msgstr "升級失敗"
 
+msgid "Available to remove"
+msgstr "可移除"
+
 msgid "Unable to add funds to predictions account."
 msgstr "無法向預測帳戶充值。"
 
@@ -403,6 +538,9 @@ msgstr "請登入以查看安全設定。"
 
 msgid "Post with image"
 msgstr "帶圖片發佈"
+
+msgid "Close Short"
+msgstr "平空"
 
 msgid "on"
 msgstr "在"
@@ -422,17 +560,29 @@ msgstr "匯率"
 msgid "No more orders"
 msgstr "沒有更多訂單"
 
+msgid "This will cancel all your open orders, including take-profit and stop-loss orders."
+msgstr "這將取消您所有的當前委託，包括止盈和止損訂單。"
+
 msgid "No more positions"
 msgstr "沒有更多部位"
 
 msgid "Received"
 msgstr "已收到"
 
+msgid "Perpetuals account"
+msgstr "永續合約帳戶"
+
 msgid "Custom (0.5-100%)"
 msgstr "自定義 (0.5-100%)"
 
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
 msgstr "立即升級您的 Firefly 預測帳戶，確保您的預測活動無縫延續。"
+
+msgid "Available to add"
+msgstr "可追加"
+
+msgid "All cross positions share the same cross margin as collateral. In the event of liquidation, your cross margin balance and any remaining open positions under assets in this mode may be forfeited."
+msgstr "所有全倉倉位共用同一份全倉保證金作為抵押品。一旦發生強制平倉，您的全倉保證金餘額及該模式下剩餘的持倉可能會被沒收。"
 
 msgid "from"
 msgstr "從"
@@ -490,6 +640,9 @@ msgstr "下一步"
 msgid "Recipient"
 msgstr "收款方"
 
+msgid "Cost"
+msgstr "成本"
+
 msgid "Insufficient Gas"
 msgstr "Gas 費不足"
 
@@ -526,6 +679,12 @@ msgstr "可用 {0}"
 msgid "Trade"
 msgstr "交易"
 
+msgid "Action submitted."
+msgstr "操作已提交。"
+
+msgid "Enter no more than 2 decimal places"
+msgstr "最多輸入2位小數"
+
 msgid "No tokens available"
 msgstr "沒有可用代幣"
 
@@ -537,6 +696,9 @@ msgstr "已經到底啦。"
 
 msgid "View"
 msgstr "查看"
+
+msgid "Trading History"
+msgstr "交易記錄"
 
 msgid "Release Now"
 msgstr "立即釋放"
@@ -559,8 +721,14 @@ msgstr "回報問題"
 msgid "Withdrawing funds to your Firefly wallet..."
 msgstr "正在提現至您的 Firefly 錢包..."
 
+msgid "Entry Price(USDC)"
+msgstr "開倉價格(USDC)"
+
 msgid "Failed to set PIN. Please try again later."
 msgstr "設定 PIN 碼失敗。請稍後再試。"
+
+msgid "Confirming…"
+msgstr "確認中…"
 
 msgid "To win"
 msgstr "預期獲利"
@@ -577,13 +745,25 @@ msgstr "資金正在到帳途中..."
 msgid "Deposit"
 msgstr "入金"
 
+msgid "Margin cannot be removed from this market"
+msgstr "無法從該市場移除保證金"
+
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "{0} available"
 msgstr "{0} 可用"
 
+msgid "Current Price"
+msgstr "目前價格"
+
 msgid "Contract"
 msgstr "合約"
+
+msgid "Withdrawal failed."
+msgstr "提現失敗。"
+
+msgid "Order price"
+msgstr "委託價格"
 
 msgid "Limit Price"
 msgstr "限價"
@@ -596,6 +776,9 @@ msgstr "熱門"
 
 msgid "Network Fee"
 msgstr "網路費用 (Gas)"
+
+msgid "Isolated"
+msgstr "逐倉"
 
 msgid "Please re-enter the PIN you just set to confirm."
 msgstr "請重新輸入您剛剛設定的 PIN 碼以確認。"
@@ -629,11 +812,23 @@ msgstr "探索市場"
 msgid "Total PnL: <0>{0}({1})</0>"
 msgstr "總損益: <0>{0}({1})</0>"
 
+msgid "Margin"
+msgstr "保證金"
+
 msgid "Interacted"
 msgstr "已互動"
 
 msgid "The address could not be found."
 msgstr "找不到該地址。"
+
+msgid "Amount({coinDisplayName})"
+msgstr "數量({coinDisplayName})"
+
+msgid "Adjust Leverage"
+msgstr "調整槓桿"
+
+msgid "Stop Loss"
+msgstr "止損"
 
 msgid "Add"
 msgstr "新增"
@@ -643,6 +838,12 @@ msgstr "確認新 PIN 碼"
 
 msgid "Activity Rewards"
 msgstr "活動獎勵"
+
+msgid "Submitting…"
+msgstr "提交中…"
+
+msgid "Your positions will all be closed at market price, and any open orders (or reduce-only orders) will be canceled. Options won't be affected."
+msgstr "您的所有倉位都將以市價平倉，所有當前委託（包括只減倉訂單）都將被取消。選擇權不受影響。"
 
 msgid "Sort closed positions"
 msgstr "排序已平倉位"
@@ -656,6 +857,9 @@ msgstr "{betText} • 獲利 <0>{wonText}({pctText})</0>"
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "With <0>{0}</0>"
 msgstr "使用 <0>{0}</0>"
+
+msgid "Max position size decreases the higher your leverage."
+msgstr "槓桿越高，最大持倉規模越小。"
 
 msgid "Date"
 msgstr "日期"
@@ -699,6 +903,12 @@ msgstr "兌換失敗"
 msgid "Cancel order?"
 msgstr "取消訂單？"
 
+msgid "Margin mode cannot be changed while a position is open."
+msgstr "持倉期間無法變更保證金模式。"
+
+msgid "Order submitted."
+msgstr "訂單已提交。"
+
 msgid "Cancelling order..."
 msgstr "正在取消訂單..."
 
@@ -723,14 +933,23 @@ msgstr "盈虧"
 msgid "Avg Price"
 msgstr "均價"
 
+msgid "Maximum position at current leverage: {maxPosition} USDC."
+msgstr "目前槓桿下的最大持倉：{maxPosition} USDC。"
+
 msgid "Total traded"
 msgstr "總交易量"
 
 msgid "Failed to close position"
 msgstr "平倉失敗"
 
+msgid "Withdrawal fee"
+msgstr "提現手續費"
+
 msgid "Failed to init exchange options. Please try again later."
 msgstr "初始化交易所選項失敗。請稍後再試。"
+
+msgid "Price(USDC)"
+msgstr "價格(USDC)"
 
 msgid "Close all the losses"
 msgstr "平掉所有虧損倉位"
@@ -738,14 +957,23 @@ msgstr "平掉所有虧損倉位"
 msgid "Network"
 msgstr "網路"
 
+msgid "Cancel Order"
+msgstr "取消訂單"
+
 msgid "Withdraw"
 msgstr "提現"
+
+msgid "Long"
+msgstr "做多"
 
 msgid "Transaction failed during execution."
 msgstr "交易在執行過程中失敗。"
 
 msgid "Failed to fetch token info"
 msgstr "獲取代幣資訊失敗"
+
+msgid "Close All Positions"
+msgstr "平掉所有倉位"
 
 msgid "Missed this round"
 msgstr "錯過了這一輪"
@@ -756,6 +984,10 @@ msgstr "身份驗證"
 msgid "Sent Failed"
 msgstr "發送失敗"
 
+msgid "Cancel all orders"
+msgstr "取消所有訂單"
+
+#. placeholder {0}: MIN_ISOLATED_MARGIN_ADJUST_USD.toFixed(2)
 #. placeholder {0}: minCheckoutUsd.toFixed(2)
 msgid "Minimum ${0}"
 msgstr "最低 ${0}"
@@ -769,8 +1001,17 @@ msgstr "接收失敗"
 msgid "Available: {availableText}"
 msgstr "可用：{availableText}"
 
+msgid "Loading…"
+msgstr "載入中…"
+
 msgid "Confirming..."
 msgstr "確認中..."
+
+msgid "Liquidation Price"
+msgstr "強平價格"
+
+msgid "Limit price"
+msgstr "限價"
 
 msgid "Closed Positions"
 msgstr "已平倉位"
@@ -781,6 +1022,12 @@ msgstr "待釋放資產"
 msgid "Buy"
 msgstr "買入"
 
+msgid "Cancel all"
+msgstr "全部取消"
+
+msgid "Stop loss"
+msgstr "止損"
+
 msgid "Restricted Region"
 msgstr "受限地區"
 
@@ -790,8 +1037,14 @@ msgstr "已兌換"
 msgid "PIN is too weak. Avoid sequential digits."
 msgstr "PIN 碼太弱。請避免使用連續數字。"
 
+msgid "Amount exceeds the available margin"
+msgstr "金額超出可用保證金"
+
 msgid "Auto"
 msgstr "自動"
+
+msgid "Liq. Price"
+msgstr "強平價格"
 
 msgid "Select"
 msgstr "選擇"
@@ -801,6 +1054,15 @@ msgstr "下單賣出失敗。"
 
 msgid "User rejected"
 msgstr "用戶已拒絕交易"
+
+msgid "Reduce Only"
+msgstr "只減倉"
+
+msgid "Close Long"
+msgstr "平多"
+
+msgid "Short"
+msgstr "做空"
 
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
 msgstr "Polymarket V2 現已上線。將您可用的 {releaseAmountText} USDC.e 釋放為 pUSD，以繼續進行預測。"
@@ -820,6 +1082,9 @@ msgstr "未找到活動"
 
 msgid "Cancelled."
 msgstr "已取消。"
+
+msgid "Modify Order"
+msgstr "修改訂單"
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "To <0>{0}</0>"
@@ -841,6 +1106,9 @@ msgstr "我們建議您永遠不要將其洩露給任何應用程式或個人。
 msgid "second"
 msgstr "{time}秒"
 
+msgid "Entry Price"
+msgstr "開倉價格"
+
 msgid "View on Explorer"
 msgstr "在區塊瀏覽器上查看"
 
@@ -857,14 +1125,29 @@ msgstr "平掉虧損"
 msgid "Primary"
 msgstr "主要"
 
+msgid "Remove"
+msgstr "移除"
+
+msgid "No history yet"
+msgstr "暫無記錄"
+
 msgid "Save"
 msgstr "儲存"
+
+msgid "Unrealized PnL:"
+msgstr "未實現盈虧："
+
+msgid "TP/SL canceled."
+msgstr "TP/SL 已取消。"
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 msgstr "預測、交易。只需為 Firefly 預測錢包充值即可開始。"
 
 msgid "Failed to withdraw."
 msgstr "提現失敗。"
+
+msgid "Withdrawable Value:"
+msgstr "可提現價值："
 
 msgid "Est. fee"
 msgstr "預估費用"
@@ -875,11 +1158,20 @@ msgstr "透過加密貨幣地址入金"
 msgid "Contract address"
 msgstr "合約地址"
 
+msgid "Trade Value"
+msgstr "成交額"
+
 msgid "Minimum $1.00"
 msgstr "最低 $1.00"
 
+msgid "Cancel order"
+msgstr "取消訂單"
+
 msgid "into your perps account"
 msgstr "到您的永續合約帳戶"
+
+msgid "Take Profit"
+msgstr "止盈"
 
 msgid "No wallet address found for this user."
 msgstr "未找到該用戶的錢包地址。"
@@ -921,6 +1213,9 @@ msgstr "預測市場"
 msgid "Your transaction failed."
 msgstr "您的交易失敗。"
 
+msgid "Take Profit / Stop Loss"
+msgstr "止盈 / 止損"
+
 msgid "Change Email"
 msgstr "更改信箱"
 
@@ -929,6 +1224,9 @@ msgstr "買入 {outcome}"
 
 msgid "All networks"
 msgstr "所有網路"
+
+msgid "Withdrawal fee:"
+msgstr "提現手續費："
 
 msgid "Swap"
 msgstr "兌換"
@@ -939,11 +1237,20 @@ msgstr "請妥善保管，切勿洩露"
 msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
 msgstr "掃描此行動條碼或複製您的錢包地址，以在以太坊網路接收資金。"
 
+msgid "Limit Close"
+msgstr "限價平倉"
+
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr "資金已成功提現至您的 Firefly 錢包。"
 
 msgid "Failed to close losses"
 msgstr "平掉虧損失敗"
+
+msgid "Perpetuals"
+msgstr "永續合約"
+
+msgid "New Total"
+msgstr "新總額"
 
 msgid "Bridged"
 msgstr "已跨鏈"
@@ -956,6 +1263,9 @@ msgstr "最低金額 {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 
 msgid "Enter the PIN code to verify identity"
 msgstr "輸入 PIN 碼以驗證身份"
+
+msgid "Mark Price"
+msgstr "標記價格"
 
 msgid "Select Token"
 msgstr "選擇代幣"
@@ -974,17 +1284,29 @@ msgstr "快捷買入"
 msgid "Your tokens"
 msgstr "您的代幣資產"
 
+msgid "Trigger Condition"
+msgstr "觸發條件"
+
 msgid "Please enter a valid email address."
 msgstr "請輸入有效的信箱地址。"
 
 msgid "Sell {outcome}"
 msgstr "賣出 {outcome}"
 
+msgid "Add to Position"
+msgstr "加倉"
+
 msgid "Reset PIN Code"
 msgstr "重設 PIN 碼"
 
+msgid "Close all"
+msgstr "全部平倉"
+
 msgid "This market may have been removed or the link is invalid."
 msgstr "該市場可能已被移除或連結失效。"
+
+msgid "Current Margin"
+msgstr "目前保證金"
 
 msgid "Trading Activities"
 msgstr "交易活動"
@@ -1040,6 +1362,9 @@ msgstr "交易已完成！"
 msgid "Limit"
 msgstr "限價"
 
+msgid "Position settings updated."
+msgstr "持倉設定已更新。"
+
 msgid "Swap faster by skipping the review step"
 msgstr "跳過預覽步驟以實現極速兌換"
 
@@ -1063,12 +1388,18 @@ msgstr "安全與隱私"
 msgid "Approve"
 msgstr "授權"
 
+msgid "PnL(USDC)"
+msgstr "盈虧(USDC)"
+
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
 msgstr "平均 {0}"
 
 msgid "Current settings"
 msgstr "當前設置"
+
+msgid "Maintenance Margin:"
+msgstr "維持保證金："
 
 msgid "Failed to cancel order"
 msgstr "取消訂單失敗"
@@ -1080,3 +1411,6 @@ msgstr "餘額：{0} {1}"
 
 msgid "This wallet address is invalid"
 msgstr "錢包地址無效"
+
+msgid "Filled"
+msgstr "已成交"

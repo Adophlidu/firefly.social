@@ -399,11 +399,23 @@ describe('LENS_MENTION_REGEX', () => {
             ['@alice.xyz', null],
             ['alice.lens', null],
             ['@lens', '@lens'],
+            // FW-7952: a 3-char bare handle is a valid Lens local part and must be linked
+            ['@orb', '@orb'],
+            // 2-char handles and email-style text must NOT be tokenized
+            ['@ab', null],
+            ['me@orb.com', null],
         ] as const;
         cases.forEach(([input, expected]) => {
             const [matched] = input.match(LENS_MENTION_REGEX) ?? [null];
             expect(matched).toBe(expected);
         });
+    });
+
+    // FW-7952: every @handle in a Lens bio must be highlighted, including a 3-char one
+    it('should match every handle in a lens bio', () => {
+        const bio = 'building a better future with you\n@masknetwork @lens and @orb';
+        const matches = bio.match(LENS_MENTION_REGEX);
+        expect(matches).toEqual(['@masknetwork', '@lens', '@orb']);
     });
 });
 

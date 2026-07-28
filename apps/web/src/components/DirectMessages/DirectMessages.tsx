@@ -11,17 +11,19 @@ import { useLocalStorage } from 'usehooks-ts';
 import { ConversationList } from '@/components/DirectMessages/ConversationList.js';
 import { ConversationListToggle } from '@/components/DirectMessages/ConversationListToggle.js';
 import {
+    clearViewedConversationUnread,
     resolveAdjacentConversationIndex,
     resolveConversationState,
     type RetainedConversation,
 } from '@/components/DirectMessages/conversationNavigation.js';
+import { formatConversationTime } from '@/components/DirectMessages/conversationTime.js';
 import {
     clearDmTargetIntent,
     getDmRetainedConversation,
     replaceDmConversationInUrl,
     replaceDmInboxTabInUrl,
 } from '@/components/DirectMessages/dmTargetIntent.js';
-import { isDmThreadVisible } from '@/components/DirectMessages/messageScroll.js';
+import { isDmThreadActive, isDmThreadVisible } from '@/components/DirectMessages/messageScroll.js';
 import { MessageThread } from '@/components/DirectMessages/MessageThread.js';
 import { NewMessageModal } from '@/components/DirectMessages/NewMessageModal.js';
 import type { DirectMessageContact, DirectMessageConversation, InboxTab } from '@/components/DirectMessages/types.js';
@@ -29,16 +31,17 @@ import { useDebouncedDmSearch } from '@/components/DirectMessages/useDebouncedDm
 import { openLoginModal } from '@/controllers/openLoginModal.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { getTwitterFormat } from '@/helpers/formatTimestamp.js';
 import { resolveInitials } from '@/helpers/resolveInitials.js';
 import {
     mergeDmChannels,
+    mergeDmLastMessages,
     useAuthenticatedDmAccount,
     useDmChannels,
     useDmCounters,
     useDmLastMessages,
     useStartDmChat,
 } from '@/hooks/useDirectMessages.js';
+import { useDmRealtime } from '@/hooks/useDmRealtime.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
 import type { ChatChannel, ChatMessage, UserMetadata } from '@/providers/orb/chat/types.js';
@@ -50,10 +53,6 @@ function resolvePicture(profile: UserMetadata | null): string | undefined {
     return profile?.picture?.url ?? profile?.rawPicture ?? undefined;
 }
 
-function formatConversationTime(value: string | null) {
-    return value ? getTwitterFormat(value) : '';
-}
-
 function toConversation(
     channel: ChatChannel,
     lastMessage: ChatMessage | undefined,
@@ -62,6 +61,7 @@ function toConversation(
     const profile = channel.other_member_profile;
     const name = profile?.name || profile?.handle || channel.name;
     const handle = profile?.handle || profile?.address || '';
+    const lastMessageAt = lastMessage?.created_at ?? channel.last_message_at;
 
     return {
         id: channel.id,
@@ -77,7 +77,8 @@ function toConversation(
                 : lastMessage?.attachments.length
                   ? t`Media attachment`
                   : ''),
-        timestamp: formatConversationTime(lastMessage?.created_at ?? channel.last_message_at),
+        timestamp: formatConversationTime(lastMessageAt),
+        lastMessageAt,
         unreadCount: channel.channel_membership.unread_count,
         lastReadMessageId: channel.channel_membership.last_read_message_id,
         isMuted: channel.channel_membership.is_muted,
@@ -117,7 +118,6 @@ export const DirectMessages = memo(function DirectMessages() {
     const initialTab: InboxTab = tabParam === 'unread' || tabParam === 'requests' ? tabParam : 'all';
     const { identity, account, authenticatedAccount } = useAuthenticatedDmAccount();
     const [activeConversationId, setActiveConversationId] = useState<string | undefined>(initialConversationId);
-    const [hasActiveConversationSelection, setHasActiveConversationSelection] = useState(false);
     const [retainedConversation, setRetainedConversation] = useState<RetainedConversation>();
     const [restoredConversation, setRestoredConversation] = useState<RetainedConversation>();
     const [isMobileThreadOpen, setIsMobileThreadOpen] = useState(Boolean(initialConversationId));
@@ -125,6 +125,7 @@ export const DirectMessages = memo(function DirectMessages() {
     const [selectedTab, setSelectedTab] = useState<InboxTab>(initialTab);
     const [search, setSearch] = useState('');
     const [startedChannels, setStartedChannels] = useState<ChatChannel[]>([]);
+    const lastMessageCacheRef = useRef(new Map<string, ChatMessage>());
     const [isConversationListCollapsed, setIsConversationListCollapsed] = useLocalStorage(
         CONVERSATION_LIST_COLLAPSED_STORAGE_KEY,
         false,
@@ -155,12 +156,16 @@ export const DirectMessages = memo(function DirectMessages() {
         [rawChannels],
     );
     const lastMessages = useDmLastMessages(authenticatedAccount, channelsWithoutLastMessage);
+    const resolvedLastMessages = useMemo(
+        () => mergeDmLastMessages(rawChannels, lastMessages, lastMessageCacheRef.current),
+        [lastMessages, rawChannels],
+    );
+    useEffect(() => {
+        lastMessageCacheRef.current = resolvedLastMessages;
+    }, [resolvedLastMessages]);
     const conversations = useMemo(
-        () =>
-            rawChannels.map((channel) =>
-                toConversation(channel, channel.last_message ?? lastMessages.get(channel.id), isRequests),
-            ),
-        [isRequests, lastMessages, rawChannels],
+        () => rawChannels.map((channel) => toConversation(channel, resolvedLastMessages.get(channel.id), isRequests)),
+        [isRequests, rawChannels, resolvedLastMessages],
     );
     const { activeConversation, displayedConversations } = useMemo(
         () =>
@@ -173,12 +178,23 @@ export const DirectMessages = memo(function DirectMessages() {
             }),
         [activeConversationId, conversations, restoredConversation, retainedConversation, selectedTab],
     );
-    const isActiveConversationSelected =
-        hasActiveConversationSelection &&
-        Boolean(activeConversationId) &&
-        activeConversation?.id === activeConversationId;
-    const highlightedConversationId = activeConversation?.id ?? '';
     const counters = useDmCounters(authenticatedAccount);
+    const isThreadVisible = isDmThreadVisible(isDesktop, isMobileThreadOpen);
+    const isActiveConversationViewed = isDmThreadActive(Boolean(activeConversation), isDesktop, isMobileThreadOpen);
+    const viewedConversationId = isActiveConversationViewed ? activeConversation?.id : undefined;
+    const isActiveChannelCounterRefreshSuppressed = useDmRealtime(authenticatedAccount, viewedConversationId);
+    const visibleUnreadCount = Math.max(
+        0,
+        (counters.data?.total_unread_count ?? 0) -
+            (isActiveConversationViewed && !isActiveChannelCounterRefreshSuppressed
+                ? (activeConversation?.unreadCount ?? 0)
+                : 0),
+    );
+    const visibleConversations = useMemo(
+        () => clearViewedConversationUnread(displayedConversations, viewedConversationId),
+        [displayedConversations, viewedConversationId],
+    );
+    const highlightedConversationId = activeConversation?.id ?? '';
     const startChat = useStartDmChat(authenticatedAccount ?? '__signed-out__');
     const retainStartedChannel = useCallback((channel: ChatChannel) => {
         setStartedChannels((currentChannels) => [
@@ -191,7 +207,6 @@ export const DirectMessages = memo(function DirectMessages() {
             retainStartedChannel(channel);
             replaceDmConversationInUrl(channel.id);
             setActiveConversationId(channel.id);
-            setHasActiveConversationSelection(true);
             setIsMobileThreadOpen(true);
         },
         [retainStartedChannel],
@@ -215,7 +230,6 @@ export const DirectMessages = memo(function DirectMessages() {
                 });
             }
             setActiveConversationId(conversation.id);
-            setHasActiveConversationSelection(true);
             setRetainedConversation({ conversation, tab: selectedTab });
             setRestoredConversation(undefined);
             setIsMobileThreadOpen(true);
@@ -231,12 +245,12 @@ export const DirectMessages = memo(function DirectMessages() {
 
         replaceDmConversationInUrl();
         setActiveConversationId(undefined);
-        setHasActiveConversationSelection(false);
         setRetainedConversation(undefined);
         setRestoredConversation(undefined);
         setIsMobileThreadOpen(false);
         setIsNewMessageOpen(false);
         setStartedChannels([]);
+        lastMessageCacheRef.current.clear();
         handledIntentRef.current = undefined;
     }, [account]);
 
@@ -245,7 +259,6 @@ export const DirectMessages = memo(function DirectMessages() {
         const restoredConversation = getDmRetainedConversation(account, initialConversationId);
         if (restoredConversation) {
             setRestoredConversation(restoredConversation);
-            setHasActiveConversationSelection(true);
         }
     }, [account, initialConversationId]);
 
@@ -377,13 +390,13 @@ export const DirectMessages = memo(function DirectMessages() {
                 >
                     <ConversationList
                         activeConversationId={highlightedConversationId}
-                        conversations={displayedConversations}
+                        conversations={visibleConversations}
                         error={channelsQuery.error}
                         isLoading={channelsQuery.isPending}
                         requestCount={counters.data?.requests_count ?? 0}
                         search={search}
                         selectedTab={selectedTab}
-                        unreadCount={counters.data?.total_unread_count ?? 0}
+                        unreadCount={visibleUnreadCount}
                         onConversationSelect={handleConversationSelect}
                         onNewMessage={() => setIsNewMessageOpen(true)}
                         onRetry={() => void channelsQuery.refetch()}
@@ -400,8 +413,8 @@ export const DirectMessages = memo(function DirectMessages() {
                             conversation={activeConversation}
                             currentProfile={identity.profile}
                             isConversationListCollapsed={isConversationListCollapsed}
-                            isVisible={isDmThreadVisible(isDesktop, isMobileThreadOpen)}
-                            isActive={isActiveConversationSelected}
+                            isVisible={isThreadVisible}
+                            isActive={isActiveConversationViewed}
                             onBack={() => setIsMobileThreadOpen(false)}
                             onConversationListToggle={handleConversationListToggle}
                         />

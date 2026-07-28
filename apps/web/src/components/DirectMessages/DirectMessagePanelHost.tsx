@@ -21,7 +21,7 @@ interface PanelRequest {
 export const DirectMessagePanelHost = memo(function DirectMessagePanelHost() {
     const pathname = usePathname();
     const isWalletOpen = useGlobalState.use.fireflyWalletIsOpen();
-    const { updateFireflyWalletIsOpen } = useGlobalState();
+    const { updateDirectMessagePanelIsOpen, updateFireflyWalletIsOpen } = useGlobalState();
     const [request, setRequest] = useState<PanelRequest>();
 
     useEffect(() => {
@@ -38,6 +38,12 @@ export const DirectMessagePanelHost = memo(function DirectMessagePanelHost() {
     useEffect(() => {
         if (isWalletOpen || pathname.startsWith('/messages')) setRequest(undefined);
     }, [isWalletOpen, pathname]);
+
+    useEffect(() => {
+        updateDirectMessagePanelIsOpen(Boolean(request));
+    }, [request, updateDirectMessagePanelIsOpen]);
+
+    useEffect(() => () => updateDirectMessagePanelIsOpen(false), [updateDirectMessagePanelIsOpen]);
 
     if (!request) return null;
 

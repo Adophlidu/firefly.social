@@ -9,7 +9,8 @@ import type { SeriesEventForPills } from '@/helpers/prediction/polymarket/eventS
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const MAX_CURRENT_PILLS = 4;
+export const MAX_CURRENT_PILLS = 4;
+
 const FORTY_EIGHT_HOURS_MS = 1728e5;
 
 function formatYmdEt(date: dayjs.Dayjs): string {

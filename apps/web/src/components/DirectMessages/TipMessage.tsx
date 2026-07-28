@@ -7,11 +7,14 @@ import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { useDmInteractiveAction } from '@/hooks/useDirectMessages.js';
+import type { PendingDmTip } from '@/providers/orb/chat/types.js';
 
 interface TipMessageProps {
     account: string;
-    interactiveActionId: string;
+    interactiveActionId?: string;
+    pendingTip?: PendingDmTip;
     isSelf: boolean;
+    isSending?: boolean;
 }
 
 function formatAmount(value: number) {
@@ -19,36 +22,45 @@ function formatAmount(value: number) {
     return value.toFixed(6).replace(/\.?0+$/u, '');
 }
 
-export const TipMessage = memo(function TipMessage({ account, interactiveActionId, isSelf }: TipMessageProps) {
-    const detailQuery = useDmInteractiveAction(account, interactiveActionId);
+export const TipMessage = memo(function TipMessage({
+    account,
+    interactiveActionId,
+    pendingTip,
+    isSelf,
+    isSending,
+}: TipMessageProps) {
+    const detailQuery = useDmInteractiveAction(account, isSending ? undefined : interactiveActionId);
     const detail = detailQuery.data;
     const normalizedStatus = detail?.status?.toUpperCase() ?? '';
     const isCompleted = normalizedStatus === 'ACCEPTED' || normalizedStatus === 'COMPLETED';
     const isPending = normalizedStatus === 'PENDING' || normalizedStatus === 'ACTIVE' || normalizedStatus === 'UPDATED';
     const isInactive = ['DECLINED', 'CANCELLED', 'REFUNDED', 'EXPIRED'].includes(normalizedStatus);
-    const amount = detail?.amount;
-    const symbol = detail?.currencySymbol;
+    const amount = detail?.amount ?? pendingTip?.amount;
+    const symbol = detail?.currencySymbol ?? pendingTip?.currencySymbol;
     const hasAmount = typeof amount === 'number' && Boolean(symbol);
-    const subtitle = !isSelf && isCompleted ? t`Received` : isPending ? t`Requested` : t`Sent`;
-    const status = detail?.message
-        ? detail.message
-        : isPending
-          ? t`Pending`
-          : normalizedStatus === 'DECLINED'
-            ? t`Declined`
-            : normalizedStatus === 'CANCELLED'
-              ? t`Cancelled`
-              : normalizedStatus === 'REFUNDED'
-                ? t`Refunded`
-                : normalizedStatus === 'EXPIRED'
-                  ? t`Expired`
-                  : isSelf || isCompleted
-                    ? t`Paid`
-                    : null;
+    const subtitle =
+        isSending && pendingTip
+            ? t`Sending`
+            : !isSelf && isCompleted
+              ? t`Received`
+              : isPending
+                ? t`Requested`
+                : t`Sent`;
+    const status = (() => {
+        if (isSending && pendingTip) return t`Processing`;
+        if (detail?.message) return detail.message;
+        if (isPending) return t`Pending`;
+        if (normalizedStatus === 'DECLINED') return t`Declined`;
+        if (normalizedStatus === 'CANCELLED') return t`Cancelled`;
+        if (normalizedStatus === 'REFUNDED') return t`Refunded`;
+        if (normalizedStatus === 'EXPIRED') return t`Expired`;
+        if (isSelf || isCompleted) return t`Paid`;
+        return null;
+    })();
 
     return (
         <div className="flex h-[286px] w-[min(72vw,320px)] flex-col overflow-hidden rounded-xl border border-line bg-lightBg p-5 text-main">
-            {detailQuery.isLoading ? (
+            {detailQuery.isLoading && !pendingTip ? (
                 <div className="flex h-full animate-pulse flex-col" aria-label={t`Loading payment request`}>
                     <div className="flex items-start justify-between">
                         <div>
@@ -66,7 +78,7 @@ export const TipMessage = memo(function TipMessage({ account, interactiveActionI
                         <div className="mt-2 h-4 w-20 rounded bg-line" />
                     </div>
                 </div>
-            ) : detail ? (
+            ) : detail || pendingTip ? (
                 <>
                     <div className="flex items-start justify-between">
                         <div>
@@ -107,7 +119,7 @@ export const TipMessage = memo(function TipMessage({ account, interactiveActionI
                     </div>
                     <div className="border-t border-line pt-4">
                         <p className="text-xs font-semibold text-second">
-                            {detail.message ? <Trans>Message</Trans> : <Trans>Status</Trans>}
+                            {detail?.message ? <Trans>Message</Trans> : <Trans>Status</Trans>}
                         </p>
                         <p className="mt-1 line-clamp-2 text-sm font-semibold text-main">{status ?? '—'}</p>
                     </div>

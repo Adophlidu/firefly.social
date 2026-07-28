@@ -15,7 +15,7 @@ describe('confettiWithRealistic', () => {
         mockFire.mockClear();
     });
 
-    it('creates a main-thread instance (no Web Worker) to satisfy the CSP worker-src policy', () => {
+    it('creates a main-thread instance without starting another worker', () => {
         expect(mockCreate).toHaveBeenCalledWith(undefined, expect.objectContaining({ useWorker: false }));
     });
 

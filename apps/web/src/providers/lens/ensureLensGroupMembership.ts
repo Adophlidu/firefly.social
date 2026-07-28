@@ -1,5 +1,30 @@
+import { HOME_CLUB, WORLDCUP_2026_GROUP, WORLDCUP_2026_GROUP_ADDRESS } from '@/constants/channel.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useJoinedChannelStore } from '@/store/useJoinedChannelStore.js';
+
+interface LensAccountControl {
+    origin?: Account['origin'];
+    profile: Pick<Profile, 'profileType'>;
+}
+
+/**
+ * Resolve the Lens group that should be joined before publishing.
+ *
+ * Accounts restored through Privy are controlled by the embedded wallet. The
+ * `profileType` fallback covers the same accounts before/after account refresh:
+ * Lens reports them as either managed or owned by that wallet.
+ */
+export function resolveLensGroupAddressForSilentJoin(
+    account: LensAccountControl | undefined,
+    channel: Channel | null | undefined,
+) {
+    if (!channel || channel.id === HOME_CLUB.id) return;
+    if (channel.feedId === WORLDCUP_2026_GROUP.feedId) return WORLDCUP_2026_GROUP_ADDRESS;
+    if (account?.origin !== 'force_restore' && !account?.profile.profileType) return;
+    return channel.id;
+}
 
 /**
  * Silently ensure the current Lens profile is a member of `groupAddress`.

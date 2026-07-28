@@ -123,7 +123,7 @@ export default function BetEventClient({ id }: { id: string }) {
     const navigate = useNavigate();
     const { i18n } = useLingui();
     const searchParams = Object.fromEntries(useSearch()) as Record<string, string | undefined>;
-    const fallbackEventSlug = searchParams?.eventSlug ?? '';
+    const paramEventSlug = searchParams?.eventSlug ?? '';
     const fallbackConditionId = searchParams?.conditionId ?? '';
     const { side, orderType, outcome: selectedOutcomeIndex, priceFromUrl, setQueryParams } = useBetEventQueryParams();
     const queryClient = useQueryClient();
@@ -132,10 +132,10 @@ export default function BetEventClient({ id }: { id: string }) {
     const [prices, setPrices] = useState<MarketPriceChangeData[]>();
 
     const { data } = useSuspenseQuery({
-        queryKey: ['polymarketGammaEndpoint', id, fallbackEventSlug, fallbackConditionId, i18n.locale],
+        queryKey: ['polymarketGammaEndpoint', id, paramEventSlug, fallbackConditionId, i18n.locale],
         async queryFn() {
             const result = await polymarketGammaEndpoint.getMarketBySlug(id);
-            const eventSlugToTry = first(result?.data?.events)?.slug || fallbackEventSlug || id;
+            const eventSlugToTry = first(result?.data?.events)?.slug || paramEventSlug || id;
             const parentEvent = await runInSafeAsync(() =>
                 getFireflyEndpoint().getPolymarketEventBySlug(eventSlugToTry, i18n.locale as Locale),
             );
@@ -250,13 +250,17 @@ export default function BetEventClient({ id }: { id: string }) {
             : safeOutcomeIndex === 1
               ? pageConfig?.rightTitle
               : undefined) || fallbackOutcome;
+    // Market/section name (e.g. "总局数" / "Match Winner"); separator is locale-aware.
+    const headerOutcome = pageConfig?.marketName
+        ? `${pageConfig.marketName}${/^(zh|ja|ko)/i.test(i18n.locale) ? '：' : ': '}${outcome}`
+        : pageConfig?.selectedOutcomeTitle || outcome;
 
     // Fire buy/sell open success events when market data loads or side changes
     useEffect(() => {
         if (!data?.slug) return;
         const ctx = {
             proxy_wallet_address: account.proxyAddress,
-            event_slug: data.parentEvent?.slug || fallbackEventSlug,
+            event_slug: data.parentEvent?.slug || paramEventSlug,
             event_title: data.parentEvent?.title || '',
             market_slug: data.slug,
             market_title: data.question || '',
@@ -276,7 +280,7 @@ export default function BetEventClient({ id }: { id: string }) {
         data.question,
         data.groupItemTitle,
         account.proxyAddress,
-        fallbackEventSlug,
+        paramEventSlug,
         outcome,
     ]);
 
@@ -504,7 +508,7 @@ export default function BetEventClient({ id }: { id: string }) {
     let formNode: ReactNode = null;
     const formTelemetryContext = data
         ? {
-              event_slug: data.parentEvent?.slug || fallbackEventSlug,
+              event_slug: data.parentEvent?.slug || paramEventSlug,
               event_title: data.parentEvent?.title || '',
               market_slug: data.slug || id,
               market_title: data.question || '',
@@ -586,7 +590,7 @@ export default function BetEventClient({ id }: { id: string }) {
                     type="button"
                     className="grid grid-cols-[40px_1fr] items-center gap-2 text-left"
                     onClick={() => {
-                        const eventSlug = data?.parentEvent?.slug || fallbackEventSlug;
+                        const eventSlug = paramEventSlug || data?.parentEvent?.slug;
                         iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
                             path: `/polymarket/event/${eventSlug}`,
                         });
@@ -610,9 +614,7 @@ export default function BetEventClient({ id }: { id: string }) {
                         <p className="line-clamp-2 min-h-[18px] w-full text-secondary">
                             {pageConfig?.pageTitle || data?.question || id}
                         </p>
-                        <p className="max-h-[18px] w-full truncate text-main">
-                            {pageConfig?.selectedOutcomeTitle || outcome}
-                        </p>
+                        <p className="max-h-[18px] w-full truncate text-main">{headerOutcome}</p>
                     </div>
                 </button>
                 <Button size="icon" variant="ghost" onClick={() => navigate('/bet', { replace: true })}>
@@ -640,7 +642,7 @@ export default function BetEventClient({ id }: { id: string }) {
                     onClick={() => {
                         const nextOrderType = orderType === OrderType.Market ? OrderType.Limit : OrderType.Market;
                         captureWalletTelemetryEvent(WalletTelemetryEventId.BETS_MARKET_ORDER_TYPE_CHANGE_CLICK, {
-                            event_slug: data?.parentEvent?.slug || fallbackEventSlug,
+                            event_slug: data?.parentEvent?.slug || paramEventSlug,
                             event_title: data?.parentEvent?.title || '',
                             market_slug: data?.slug || id,
                             market_title: data?.question || '',

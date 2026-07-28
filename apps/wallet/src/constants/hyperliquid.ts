@@ -11,17 +11,7 @@ import type { SwapToken } from '@/providers/swap/types.js';
 
 export const HYPERLIQUID_INFO_URL = 'https://api.hyperliquid.xyz/info';
 
-// -----------------------------------------------------------------------------
-// React Query — shared key segments (invalidate with prefix [HYPERLIQUID_QUERY_KEY_ROOT])
-// -----------------------------------------------------------------------------
-
 export const HYPERLIQUID_QUERY_KEY_ROOT = 'hyperliquid' as const;
-
-/** Second segment: global spot meta + asset contexts. */
-export const HYPERLIQUID_QUERY_SPOT_META_AND_ASSET_CTXS = 'spotMetaAndAssetCtxs' as const;
-
-/** Second segment: bundled user info (abstraction + clearinghouse + spot state). */
-export const HYPERLIQUID_QUERY_PERPS_ACCOUNT_BUNDLE = 'perpsAccountBundle' as const;
 
 // -----------------------------------------------------------------------------
 // Arbitrum One — native USDC used for Hyperliquid deposits
@@ -32,6 +22,16 @@ export const ARBITRUM_CHAIN_ID = arbitrum.id;
 export const ARBITRUM_USDC_ADDRESS = '0xaf88d065e77c8cC2239327C5EDb3A432268e5831' as Address;
 
 export const ARBITRUM_USDC_DECIMALS = 6;
+
+// -----------------------------------------------------------------------------
+// Hyperliquid (HyperCore) — Relay deposit destination
+// @see https://docs.relay.link/references/api/api_guides/hyperliquid-support
+// -----------------------------------------------------------------------------
+
+export const HYPERLIQUID_CHAIN_ID = 1337;
+
+/** Relay's special currency identifier for Hyperliquid perps USDC. */
+export const HYPERLIQUID_USDC_ADDRESS = '0x00000000000000000000000000000000';
 
 // -----------------------------------------------------------------------------
 // Bridge / deposit (same addresses as OneKey `packages/shared/types/hyperliquid/perp.constants.ts`)
@@ -52,6 +52,12 @@ export const arbUsdcTokenFallback: SwapToken = {
     logoURI: 'https://sdk-cdn.fun.xyz/images/usdc.svg',
     price: 1,
     networkType: NetworkType.Ethereum,
+};
+
+export const hyperliquidUsdcTokenFallback: SwapToken = {
+    ...arbUsdcTokenFallback,
+    address: HYPERLIQUID_USDC_ADDRESS,
+    chainId: HYPERLIQUID_CHAIN_ID,
 };
 
 export function isArbitrumUsdcToken(chainId: number, address: string | undefined): boolean {

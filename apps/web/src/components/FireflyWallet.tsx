@@ -115,13 +115,14 @@ export function FireflyWallet() {
         setWallet(NetworkType.Solana, walletAccounts[NetworkType.Solana]);
     }, [walletAccounts, isAuthorized, setWallet]);
 
-    const isHidePath = pathname.startsWith(PageRoute.Settings) || pathname.startsWith(PageRoute.Messages);
+    const isWalletDisabledPath = pathname.startsWith(PageRoute.Settings) || pathname.startsWith(PageRoute.Messages);
+    const isLauncherHiddenPath = isWalletDisabledPath || pathname.startsWith(PageRoute.Perpetuals);
 
     useUpdateEffect(() => {
-        if (isHidePath && isOpen) {
+        if (isWalletDisabledPath && isOpen) {
             updateFireflyWalletIsOpen(false);
         }
-    }, [isHidePath, isOpen, updateFireflyWalletIsOpen]);
+    }, [isWalletDisabledPath, isOpen, updateFireflyWalletIsOpen]);
 
     useUpdateEffect(() => {
         if (isOpen) {
@@ -172,7 +173,7 @@ export function FireflyWallet() {
                     'fixed bottom-0 left-1/2 h-0 w-full max-w-[1265px] -translate-x-1/2 duration-100',
                     isOpen ? 'z-50' : 'z-30',
                     {
-                        'pointer-events-none translate-y-full opacity-0': isHidePath && !isOpen,
+                        'pointer-events-none translate-y-full opacity-0': isLauncherHiddenPath && !isOpen,
                     },
                 )}
             >

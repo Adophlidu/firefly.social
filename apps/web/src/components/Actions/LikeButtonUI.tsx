@@ -4,7 +4,7 @@ import LikeIcon from '@dimensiondev/assets/like.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { AnimatePresence, motion } from 'framer-motion';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -38,7 +38,7 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
     onToggle,
 }) {
     const [particles, setParticles] = useState<Particle[]>([]);
-    const buttonId = useRef(`like-button-${crypto.randomUUID()}`);
+    const buttonId = useId();
     const burstTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
@@ -87,7 +87,7 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
                 className,
             )}
             disabled={isDisabled}
-            id={buttonId.current}
+            id={buttonId}
             onClick={() => {
                 if (isDisabled) return;
                 handleLike();

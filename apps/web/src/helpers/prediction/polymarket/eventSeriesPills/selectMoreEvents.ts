@@ -4,6 +4,7 @@ import utc from 'dayjs/plugin/utc.js';
 
 import { pickLatestEndDateEvent } from '@/helpers/prediction/polymarket/eventSeriesPills/filterAndSortSeriesEvents.js';
 import { getSeriesSettings } from '@/helpers/prediction/polymarket/eventSeriesPills/getSeriesSettings.js';
+import { MAX_CURRENT_PILLS } from '@/helpers/prediction/polymarket/eventSeriesPills/selectCurrentPills.js';
 import type { SeriesEventForPills } from '@/helpers/prediction/polymarket/eventSeriesPills/types.js';
 
 dayjs.extend(utc);
@@ -37,7 +38,7 @@ export function selectMoreEvents(
         });
     }
 
-    let more = openEvents.slice(4);
+    let more = openEvents.slice(MAX_CURRENT_PILLS);
 
     if (currentPills?.some((e) => e.slug === currentSlug)) {
         more = more.filter((e) => e.slug !== currentSlug);

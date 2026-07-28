@@ -1,30 +1,21 @@
 'use client';
 
 import MessagesIcon from '@dimensiondev/assets/messages.svg';
-import { PredictionPlatform, ScrollListKey, Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useContext, useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { OrbCommentCell } from '@/components/Posts/OrbCommentCell.js';
 import { OrbReplies } from '@/components/Posts/OrbReplies.js';
-import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
-import { STALE_TIMES } from '@/constants/query.js';
 import { openOrbCommentCompose } from '@/controllers/openOrbCommentCompose.js';
-import {
-    mapPositionToLpt1Input,
-    pickLargestPosition,
-    resolveMarketIdByConditionId,
-} from '@/helpers/prediction/predictPositionToLpt1.js';
-import { getAccountMarketPositions } from '@/providers/firefly/prediction/getAccountMarketPositions.js';
+import { useOrbReplyPosition } from '@/hooks/prediction/useOrbReplyPosition.js';
 import { getLensPostsByLpt1Item } from '@/providers/lens/getLensPostsByLpt1Item.js';
 import { ensureInternalLensAccountCurrent } from '@/services/ensureInternalLensAccountCurrent.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import type { SportTeam } from '@/types/prediction.js';
 
 interface PredictionEventCommentsProps {
@@ -42,57 +33,12 @@ export const PredictionEventComments = memo<PredictionEventCommentsProps>(functi
 
     const listKey = `${ScrollListKey.Comment}:orb:${eventSlug}`;
 
-    // Pre-fetch the commenter's largest position in this event on mount (NOT on
-    // click — click must stay instant) so it can be attached to the published
-    // Orb comment (FW-7899). Non-suspense: the comments list below already
-    // suspends, and a missing wallet must not block the tab. When the author
-    // holds positions in several markets of the event, the largest holding wins.
-    //
-    // Wallet + position scoping mirror iOS (FW-7899): polymarket/account/position
-    // is keyed off eventIds, and a sport event's positions often live on a CHILD
-    // event — so we batch the parent id with sportData.childEventIds. Querying
-    // conditionIds or the parent id alone returns [] even when the user holds a
-    // position. All positions returned this way belong to the current match.
-    const { currentProfileSession } = useFireflyProfileStore();
-    const batchEventIds = useMemo(
-        () => [event?.id, ...(event?.sportData?.childEventIds ?? [])].filter(Boolean) as string[],
-        [event?.id, event?.sportData?.childEventIds],
-    );
-    // Distinct query key — the Positions tab still uses the conditionIds call.
-    const { data: positionAccounts } = useQuery({
-        queryKey: [
-            Source.Prediction,
-            'orb-comment-position-wallets',
-            PredictionPlatform.Polymarket,
-            batchEventIds.join(','),
-            currentProfileSession?.profileId,
-        ],
-        enabled: !!currentProfileSession && batchEventIds.length > 0,
-        queryFn: () => getAccountMarketPositions([], batchEventIds),
-    });
-    const proxyAddress = first(positionAccounts ?? [])?.proxy ?? '';
-    const positionQuery = useQuery({
-        queryKey: [Source.Prediction, 'orb-comment-user-position', eventSlug, proxyAddress],
-        enabled: !!proxyAddress && batchEventIds.length > 0,
-        queryFn: () =>
-            getPredictionPositionList(PredictionPlatform.Polymarket, {
-                address: proxyAddress,
-                eventId: batchEventIds.join(','),
-                isProxyAddress: true,
-                positionType: 'current',
-            }),
-        staleTime: STALE_TIMES.MINUTE_5,
-    });
-    const lpt1Position = useMemo(() => {
-        const largest = pickLargestPosition(positionQuery.data?.data ?? []);
-        if (!largest) return null;
-        const input = mapPositionToLpt1Input(largest);
-        // Best-effort marketId for the iOS-style deep-link tag (matches iOS
-        // getMarketId). Omitted when the market isn't in the event — the tag is
-        // simply not emitted, exactly as iOS does when marketId is absent.
-        const marketId = resolveMarketIdByConditionId(largest.conditionId, event?.markets);
-        return marketId ? { ...input, marketId } : input;
-    }, [positionQuery.data?.data, event?.markets]);
+    // Pre-fetch the commenter's largest position in this event (NOT on click —
+    // click must stay instant) so it can be attached to the published Orb comment.
+    // Shared with the post-detail page via `useOrbReplyPosition`,
+    // which also keeps the position fresh right after a trade via the wallet
+    // `position-operation` event (stale-cache fix).
+    const lpt1Position = useOrbReplyPosition({ eventSlug, event });
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', Source.Lens, 'orb-comments', eventSlug],

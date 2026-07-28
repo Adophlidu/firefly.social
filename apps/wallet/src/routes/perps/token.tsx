@@ -1,5 +1,6 @@
-import { PerpsMarketDetail } from '@dimensiondev/rn-ui';
-import { useSearch } from '@dimensiondev/ssr';
+import { useEffect } from 'react';
+
+import { useNavigate, useSearch } from '@dimensiondev/ssr';
 
 import { parseSearchParams } from '@/helpers/searchParams.js';
 
@@ -9,11 +10,12 @@ interface PerpsTokenSearch {
 }
 
 function PerpsTokenPage() {
+    const navigate = useNavigate();
     const search = parseSearchParams(useSearch()) as PerpsTokenSearch;
 
-    return (
-        <div>
-            <PerpsMarketDetail coin={search.token || 'BTC'} />
-        </div>
-    );
+    useEffect(() => {
+        navigate(`/perps?token=${encodeURIComponent(search.token || 'BTC')}`, { replace: true });
+    }, [navigate, search.token]);
+
+    return null;
 }

@@ -62,6 +62,11 @@ peerDependencyRules:
     allowedVersions:
         react: 19.2.7
 
+packageExtensions:
+    '@reown/appkit-utils@1.8.20':
+        dependencies:
+            '@solana/web3.js': 1.98.4
+
 patchedDependencies:
     '@lens-protocol/client@0.0.0-canary-20250430134539': patches/@lens-protocol__client@0.0.0-canary-20250430134539.patch
     '@lexical/react@0.18.0': patches/@lexical__react@0.18.0.patch
@@ -80,7 +85,11 @@ minimumReleaseAgeExclude:
     - env-runner@0.1.11
     - react-native-worklets@0.9.2
     - typescript@7.0.1-rc
-    - '@dimensiondev/rn-ui@0.2.0'
+    - '@dimensiondev/rn-ui@0.2.0 || 0.3.0'
+    - '@dimensiondev/perps-core@0.3.0 || 0.3.1 || 0.4.0'
+    - '@dimensiondev/perps-react@0.3.0 || 0.3.1 || 0.4.0'
+    - '@dimensiondev/kline-core@0.4.0'
+    - '@dimensiondev/kline-hyperliquid@0.4.0'
 
 allowBuilds:
     '@firebase/util': false

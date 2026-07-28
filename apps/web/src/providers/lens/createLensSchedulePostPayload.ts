@@ -4,6 +4,7 @@ import { readChars } from '@/helpers/chars.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { createPostFragments } from '@/providers/lens/fragments/post/CreatePost.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { createLensPostMetadata, createPayloadAttachments } from '@/providers/lens/postToLens.js';
@@ -22,6 +23,7 @@ export interface LensSchedulePayload {
             commentOn?: {
                 post: string;
             };
+            feed?: ReturnType<typeof safeEvmAddress>;
         };
     };
     query: string;
@@ -33,9 +35,10 @@ export async function createLensSchedulePostPayload(
     isThread = false,
     signal?: AbortSignal,
 ): Promise<LensSchedulePayload> {
-    const { images, videos, chars, parentPost } = compositePost;
+    const { images, videos, chars, parentPost, channel } = compositePost;
 
     const lensParentPost = parentPost.Lens;
+    const lensChannel = channel[Source.Lens];
     const sourceName = resolveSourceName(Source.Lens);
 
     const imageResults = await Promise.all(
@@ -83,6 +86,7 @@ export async function createLensSchedulePostPayload(
                           post: commentOn,
                       }
                     : undefined,
+                feed: lensChannel?.feedId ? safeEvmAddress(lensChannel.feedId) : undefined,
             },
         },
         query: createPostFragments,

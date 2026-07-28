@@ -1,4 +1,4 @@
-import type { DmAttachmentDraft } from '@/providers/orb/chat/types.js';
+import type { DmAttachmentDraft, PendingDmTip } from '@/providers/orb/chat/types.js';
 
 export type InboxTab = 'all' | 'unread' | 'requests';
 
@@ -16,6 +16,7 @@ export interface DirectMessageContact {
 export interface DirectMessageConversation extends DirectMessageContact {
     preview: string;
     timestamp: string;
+    lastMessageAt?: string | null;
     unreadCount: number;
     lastReadMessageId: string | null;
     isMuted?: boolean;
@@ -63,7 +64,9 @@ export type DirectMessageItem = DirectMessageItemBase &
         | {
               kind: 'tip';
               content: string;
-              interactiveActionId: string;
+              interactiveActionId?: string;
+              pendingTip?: PendingDmTip;
+              status?: 'pending' | 'sent' | 'failed';
           }
         | {
               kind: 'unknown';

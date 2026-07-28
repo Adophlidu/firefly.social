@@ -5,7 +5,7 @@ import type { Address } from 'viem';
 
 import { withPinCodeCheck } from '@/helpers/withPinCodeCheck.js';
 import { logger } from '@/lib/Logger.js';
-import { type FreeGasTx, FreeGasTxType } from '@/providers/types/FreeGas.js';
+import { type FreeGasResponse, type FreeGasTx, FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export interface TryFreeGasParams {
@@ -20,6 +20,7 @@ export interface TryFreeGasParams {
 export type TryFreeGasResult = { type: 'free-gas'; hash: string } | { type: 'fallback' };
 
 async function executeFreeGasTransaction(params: TryFreeGasParams, privyCodeHash?: string): Promise<TryFreeGasResult> {
+    let apiResult: FreeGasResponse | undefined;
     try {
         const { chainId, txType, from, to, data, value, tokenAddress } = params;
 
@@ -65,7 +66,7 @@ async function executeFreeGasTransaction(params: TryFreeGasParams, privyCodeHash
             tx.gasPrice = `0x${gasPrice.toString(16)}`;
         }
 
-        const result = await getFireflyEndpoint().submitFreeGasTransaction({
+        apiResult = await getFireflyEndpoint().submitFreeGasTransaction({
             txId,
             chainId,
             txType,
@@ -73,20 +74,22 @@ async function executeFreeGasTransaction(params: TryFreeGasParams, privyCodeHash
             tx,
             privy_code_hash: privyCodeHash,
         });
-
-        if (result.canFreeGas) {
-            if (result.hash) {
-                return { type: 'free-gas', hash: result.hash };
-            } else {
-                // Server confirmed free-gas eligibility but returned no hash — treat as error
-                logger.error(`Free-gas accepted but no hash returned: ${result.failedReason || 'unknown'}`);
-            }
-        }
-
-        return { type: 'fallback' };
     } catch {
         return { type: 'fallback' };
     }
+
+    // Check response OUTSIDE try/catch so errors (e.g. timeout) propagate to callers
+    if (apiResult?.canFreeGas) {
+        if (apiResult.failedReason) {
+            throw new Error(apiResult.failedReason);
+        }
+        if (apiResult.hash) {
+            return { type: 'free-gas', hash: apiResult.hash };
+        }
+        logger.error('Free-gas accepted but no hash returned');
+    }
+
+    return { type: 'fallback' };
 }
 
 export async function tryFreeGasTransaction(params: TryFreeGasParams): Promise<TryFreeGasResult> {

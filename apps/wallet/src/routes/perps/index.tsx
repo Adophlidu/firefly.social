@@ -1,27 +1,37 @@
+import { decodePerpsIntent } from '@dimensiondev/iframe-bridge';
 import { useSearch } from '@dimensiondev/ssr';
-import { lazy, Suspense } from 'react';
 
-import { PerpsTradeRouteSkeleton } from '@/components/Perps/PerpsTradeRouteSkeleton.js';
+import { PerpsAccountPage } from '@/components/Perps/PerpsAccountPage.js';
+import { PerpsOrderIntentPage } from '@/components/Perps/PerpsOrderIntentPage.js';
 import { parseSearchParams } from '@/helpers/searchParams.js';
-
-const PerpsTradeDetail = lazy(async () => {
-    const m = await import('@dimensiondev/rn-ui');
-    return { default: m.PerpsTradeDetail };
-});
 
 export default PerpsTradePage;
 interface PerpsTradeSearch {
+    kind?: string;
+    coin?: string;
+    direction?: 'buy' | 'sell';
+    orderType?: 'market' | 'limit';
     token?: string;
 }
 
 function PerpsTradePage() {
     const search = parseSearchParams(useSearch()) as PerpsTradeSearch;
 
-    return (
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-            <Suspense fallback={<PerpsTradeRouteSkeleton />}>
-                <PerpsTradeDetail coin={search.token || 'BTC'} />
-            </Suspense>
-        </div>
-    );
+    if (search.kind === 'place-order' && search.coin && search.direction) {
+        return (
+            <PerpsOrderIntentPage
+                key={search.coin}
+                coin={search.coin}
+                direction={search.direction}
+                orderType={search.orderType}
+            />
+        );
+    }
+    if (search.kind) {
+        const decoded = decodePerpsIntent(new URLSearchParams(search as Record<string, string>));
+        if (decoded.ok && !['account', 'deposit', 'withdraw', 'place-order'].includes(decoded.value.kind)) {
+            return <PerpsAccountPage intent={decoded.value as never} />;
+        }
+    }
+    return <PerpsAccountPage />;
 }

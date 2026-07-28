@@ -14,6 +14,7 @@ import { type HTMLProps, memo, Suspense, useCallback, useContext, useMemo, useSt
 import TokenPageLoading from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import { Avatar } from '@/components/Avatar.js';
 import { DisableScrollRestoreContext } from '@/components/DisableScrollRestore/index.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
@@ -129,54 +130,62 @@ export const Transactions = memo<Props>(function Transactions({
             {isFollowing && !isLogin ? (
                 <NotLoginFallback source={Source.Swap} />
             ) : (
-                <Suspense
-                    fallback={
-                        <div className="flex grow flex-col">
-                            <TokenPageLoading />
-                        </div>
-                    }
-                >
-                    <DisableScrollRestoreContext value>
-                        {isFollowing ? (
-                            <SwapTimeline
-                                isFollowing
-                                {...timelineProps}
-                                listSubScope={`${chainId}-${tokenAddress}-following`}
-                                NoResultsFallbackProps={{
-                                    icon: null,
-                                    message: <Trans>No one you follow has traded this token.</Trans>,
-                                }}
-                            />
-                        ) : subcategory === 'mine' || isMyOwnWallet ? (
-                            account ? (
+                // The transactions feed is viewer/login-dependent (Following/Mine) and is never
+                // prefetched by the token layout. SwapTimeline drives a useSuspenseInfiniteQuery
+                // with networkMode: 'always'; letting it suspend on the server would re-run the
+                // swap-timeline fetch, and a rejecting endpoint would crash the Suspense boundary
+                // (React #419). Render client-only so the server never issues the query — same
+                // rationale as the profile feed's Twitter/no-prefetch branch.
+                <NoSSR>
+                    <Suspense
+                        fallback={
+                            <div className="flex grow flex-col">
+                                <TokenPageLoading />
+                            </div>
+                        }
+                    >
+                        <DisableScrollRestoreContext value>
+                            {isFollowing ? (
                                 <SwapTimeline
-                                    address={account}
+                                    isFollowing
                                     {...timelineProps}
-                                    listSubScope={`${chainId}-${tokenAddress}-${account}`}
+                                    listSubScope={`${chainId}-${tokenAddress}-following`}
                                     NoResultsFallbackProps={{
                                         icon: null,
-                                        message: <Trans>You haven&apos;t traded this token.</Trans>,
+                                        message: <Trans>No one you follow has traded this token.</Trans>,
                                     }}
                                 />
-                            ) : (
-                                <NotLoginFallback
-                                    source={Source.Wallet}
-                                    message={<Trans>Connect your wallet to unlock all features</Trans>}
+                            ) : subcategory === 'mine' || isMyOwnWallet ? (
+                                account ? (
+                                    <SwapTimeline
+                                        address={account}
+                                        {...timelineProps}
+                                        listSubScope={`${chainId}-${tokenAddress}-${account}`}
+                                        NoResultsFallbackProps={{
+                                            icon: null,
+                                            message: <Trans>You haven&apos;t traded this token.</Trans>,
+                                        }}
+                                    />
+                                ) : (
+                                    <NotLoginFallback
+                                        source={Source.Wallet}
+                                        message={<Trans>Connect your wallet to unlock all features</Trans>}
+                                    />
+                                )
+                            ) : subcategory === 'trader' && trader ? (
+                                <SwapTimeline
+                                    address={trader}
+                                    {...timelineProps}
+                                    listSubScope={`${chainId}-${tokenAddress}-${trader}`}
+                                    NoResultsFallbackProps={{
+                                        icon: null,
+                                        message: <Trans>No trade records</Trans>,
+                                    }}
                                 />
-                            )
-                        ) : subcategory === 'trader' && trader ? (
-                            <SwapTimeline
-                                address={trader}
-                                {...timelineProps}
-                                listSubScope={`${chainId}-${tokenAddress}-${trader}`}
-                                NoResultsFallbackProps={{
-                                    icon: null,
-                                    message: <Trans>No trade records</Trans>,
-                                }}
-                            />
-                        ) : null}
-                    </DisableScrollRestoreContext>
-                </Suspense>
+                            ) : null}
+                        </DisableScrollRestoreContext>
+                    </Suspense>
+                </NoSSR>
             )}
         </div>
     );

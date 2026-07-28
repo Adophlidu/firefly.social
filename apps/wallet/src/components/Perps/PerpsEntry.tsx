@@ -1,19 +1,23 @@
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right2.svg';
+import { type PerpsAddress, usePerpsComputedAccountValue } from '@dimensiondev/perps-react';
 import { Trans } from '@lingui/react/macro';
 import { Link } from '@dimensiondev/ssr';
 
-import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
+import { formatPerpsHomeBalance } from '@/components/Perps/formatPerpsHomeBalance.js';
 import { useCachedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
-import { usePerpsComputedAccountValue } from '@/hooks/usePerpsComputedAccountValue.js';
 import { cn } from '@/lib/utils.js';
 
 export function PerpsEntry({ className }: { className?: string }) {
     const { evmAddress, isLoading: isWalletAddressesLoading } = useCachedWalletAddresses();
     const hasEvmAddress = Boolean(evmAddress);
-    const { accountValue, isQueryPending } = usePerpsComputedAccountValue(evmAddress ?? void 0, {
-        enabled: hasEvmAddress,
+    const { accountValue, withdrawable, isQueryPending } = usePerpsComputedAccountValue(
+        evmAddress as PerpsAddress | undefined,
+        { enabled: hasEvmAddress },
+    );
+    const portfolioText = formatPerpsHomeBalance({
+        accountOpened: Boolean(accountValue && Number(accountValue) > 0),
+        availableBalance: withdrawable,
     });
-    const portfolioText = formatPortfolioUSDCe(accountValue ?? '0');
     const isLoadingSection = isWalletAddressesLoading || (hasEvmAddress && isQueryPending);
 
     return (

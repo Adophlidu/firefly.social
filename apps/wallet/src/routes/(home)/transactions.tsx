@@ -1,10 +1,12 @@
 import { NetworkType } from '@dimensiondev/enums';
+import { useSearch } from '@dimensiondev/ssr';
 import { chains, solana } from '@dimensiondev/web3/chains';
 import { lazy, Suspense, useState } from 'react';
 
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { TransactionDetailModal } from '@/components/TransactionDetailModal/TransactionDetailModal.js';
 import { TransactionHistory } from '@/components/Transactions.js';
+import { parseSearchParams } from '@/helpers/searchParams.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import type { TransactionHistoryItem } from '@/providers/types/Firefly.js';
 
@@ -15,9 +17,11 @@ const FireflyWalletChainSelectorWithNetworkType = lazy(() =>
 );
 
 export default TransactionsPage;
+
 function TransactionsPage() {
     const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
-    const [networkType, setNetworkType] = useState<NetworkType>(NetworkType.Ethereum);
+    const { network } = parseSearchParams(useSearch()) as { network?: NetworkType };
+    const [networkType, setNetworkType] = useState<NetworkType>(network ?? NetworkType.Ethereum);
     const [selectedTransaction, setSelectedTransaction] = useState<TransactionHistoryItem | null>(null);
 
     const isEvm = networkType === NetworkType.Ethereum;

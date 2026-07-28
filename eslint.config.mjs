@@ -124,6 +124,65 @@ export default defineConfig([
         },
     },
     {
+        files: ['apps/ui/**/*.{ts,tsx,js,jsx,mjs,cjs}'],
+        plugins: {
+            ...sharedEslintPlugins,
+            '@next/next': nextPlugin,
+            'use-client-newline': useClientNewline,
+        },
+
+        languageOptions: {
+            parser: tsParser,
+            ecmaVersion: 'latest',
+            sourceType: 'script',
+
+            parserOptions: {
+                project: './apps/ui/tsconfig.eslint.json',
+                tsconfigRootDir: import.meta.dirname,
+                warnOnUnsupportedTypeScriptVersion: false,
+                allowAutomaticSingleRunInference: true,
+            },
+        },
+        settings: {
+            next: {
+                rootDir: 'apps/*',
+            },
+            'import/resolver': {
+                typescript: {
+                    alwaysTryTypes: true,
+                    project: './apps/ui/tsconfig.eslint.json',
+                },
+                node: true,
+            },
+            ...sharedReactTailwindSettings,
+            tailwindcss: {
+                ...sharedReactTailwindSettings.tailwindcss,
+                config: 'apps/ui/tailwind.config.cjs',
+            },
+        },
+        rules: {
+            ...sharedEslintRulesWithoutRelativePaths,
+            'use-client-newline/require-newline-after-use-client': 'warn',
+
+            'import/no-restricted-paths': [
+                'warn',
+                {
+                    zones: importArchitecturalLayerZones,
+                },
+            ],
+
+            'no-relative-import-paths/no-relative-import-paths': [
+                'warn',
+                {
+                    prefix: '#',
+                    rootDir: 'apps/ui/src',
+                },
+            ],
+
+            ...nextPlugin.configs['core-web-vitals'].rules,
+        },
+    },
+    {
         // The root layout and not-found are the two files that gate ISR/CDN caching for the whole
         // site: pulling a dynamic request API (cookies/headers via next/headers) into either one
         // opts every route into per-request dynamic rendering. Keep them free of next/headers.

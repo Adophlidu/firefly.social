@@ -105,6 +105,7 @@ export function useSwapQuoteCore({
             toChainId,
             slippagePercent,
             walletAddress,
+            recipientAddress,
         ],
         queryFn: async () => {
             if (!fromToken || !toToken || !debouncedAmount || !walletAddress || !toChainId || !fromChainId) return null;

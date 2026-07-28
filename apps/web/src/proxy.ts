@@ -4,6 +4,7 @@ import { type NextRequest, NextResponse } from 'next/server.js';
 import { hasLocalePrefix } from '@/helpers/stripLocalePathname.js';
 import { handleClubRoutes } from '@/proxy/handlers/clubRoutes.js';
 import { handleCSP } from '@/proxy/handlers/cspHandler.js';
+import { handleDisabledRoutes } from '@/proxy/handlers/disabledRoutes.js';
 import { handleLegacyRedirects } from '@/proxy/handlers/legacyRedirects.js';
 import {
     addPrefixToRewriteResponse,
@@ -58,6 +59,8 @@ export default function proxy(request: NextRequest) {
     request.headers.delete('X-SEARCH-PARAMS');
 
     const { pathname } = request.nextUrl;
+    const disabledRouteResponse = handleDisabledRoutes(request);
+    if (disabledRouteResponse) return disabledRouteResponse;
 
     // Skip locale rewrite for external app proxies and already-prefixed locale routes.
     if (shouldSkipLocaleRewrite(pathname) || isPublicAssetPath(pathname) || hasLocalePrefix(pathname)) {

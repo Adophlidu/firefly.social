@@ -15,7 +15,6 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 export function useCheckPostMedias() {
     const { availableSources, images, videos } = useCompositePost();
     const { type } = useComposeStateStore();
-    const imageCount = images.length;
     return useCallback(() => {
         if (
             availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source)) &&
@@ -31,7 +30,7 @@ export function useCheckPostMedias() {
         }
 
         const maxImageCount = getCurrentPostImageLimits(type, availableSources);
-        if (imageCount > maxImageCount) {
+        if (images.length > maxImageCount) {
             enqueueErrorMessage(t`Failed to upload. More than ${maxImageCount} images.`);
             return true;
         }

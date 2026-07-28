@@ -33,6 +33,9 @@ interface GlobalState {
     fireflyWalletIsOpen: boolean;
     updateFireflyWalletIsOpen: (isOpen: boolean) => void;
 
+    directMessagePanelIsOpen: boolean;
+    updateDirectMessagePanelIsOpen: (isOpen: boolean) => void;
+
     publishWalletEvent: (type: string, data?: unknown) => void;
     subscribeToWalletEvents: (eventType: string, callback: WalletEventCallback) => () => void;
 
@@ -106,6 +109,13 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             updateFireflyWalletIsOpen(isOpen) {
                 set((state) => {
                     state.fireflyWalletIsOpen = isOpen;
+                });
+            },
+
+            directMessagePanelIsOpen: false,
+            updateDirectMessagePanelIsOpen(isOpen) {
+                set((state) => {
+                    state.directMessagePanelIsOpen = isOpen;
                 });
             },
 

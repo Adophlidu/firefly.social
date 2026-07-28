@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
-import { ORB_CHAT_API_URL, ORB_QUERIES_API_URL } from '@/providers/orb/chat/constants.js';
+import { ORB_CHAT_API_URL, ORB_MUTATIONS_API_URL, ORB_QUERIES_API_URL } from '@/providers/orb/chat/constants.js';
 
 export const runtime = 'edge';
 
@@ -16,11 +16,13 @@ const HeadersSchema = z.object({
 const ParamsSchema = z.object({
     action: z.enum([
         'create-chat',
+        'create-chat-realtime-session',
         'get-interactive-action',
         'get-channel-counters',
         'get-chat-channel',
         'get-chat-channels',
         'get-chat-messages',
+        'interactive-actions',
         'mark-message-as-read',
         'search',
         'send-message',
@@ -28,6 +30,7 @@ const ParamsSchema = z.object({
 });
 
 const QUERY_ACTIONS = new Set<z.infer<typeof ParamsSchema>['action']>(['search']);
+const MUTATION_ACTIONS = new Set<z.infer<typeof ParamsSchema>['action']>(['interactive-actions']);
 const InteractiveActionBodySchema = z.object({ interactiveActionId: z.string().min(1) });
 const ChatTokenEnvelopeSchema = z.object({
     status: z.string().optional(),
@@ -54,24 +57,49 @@ function createOrbHeaders(accessToken: string) {
     };
 }
 
-async function getInteractiveAction(accessToken: string, request: NextRequest) {
-    const { interactiveActionId } = InteractiveActionBodySchema.parse(await request.json());
+async function createChatToken(accessToken: string) {
     const tokenResponse = await fetch(`${ORB_CHAT_API_URL}/create-chat-token`, {
         method: 'POST',
         headers: createOrbHeaders(accessToken),
         body: '{}',
         cache: 'no-store',
     });
-    if (!tokenResponse.ok) {
-        return Response.json({ status: 'FAILED', msg: 'Failed to create chat token' });
+    if (!tokenResponse.ok) throw new Error('Failed to create chat token');
+
+    const tokenPayload = ChatTokenEnvelopeSchema.parse(await tokenResponse.json());
+    const token = tokenPayload.data?.token;
+    if (!token || tokenPayload.status === 'FAILED') throw new Error(tokenPayload.msg ?? 'Invalid chat token response');
+    return token;
+}
+
+async function createChatRealtimeSession(accessToken: string) {
+    try {
+        if (!ORB_SUPABASE_URL || !ORB_SUPABASE_ANON_KEY) throw new Error('Missing Orb Supabase configuration');
+
+        const token = await createChatToken(accessToken);
+        return Response.json(
+            {
+                status: 'SUCCESS',
+                data: {
+                    token,
+                    supabaseUrl: ORB_SUPABASE_URL,
+                    supabaseAnonKey: ORB_SUPABASE_ANON_KEY,
+                },
+            },
+            { headers: { 'Cache-Control': 'no-store' } },
+        );
+    } catch {
+        return Response.json({ status: 'FAILED', msg: 'Failed to create chat realtime session' });
     }
+}
 
-    const tokenPayload = ChatTokenEnvelopeSchema.safeParse(await tokenResponse.json());
-    if (!tokenPayload.success) return Response.json({ status: 'FAILED', msg: 'Invalid chat token response' });
-
-    const token = tokenPayload.data.data?.token;
-    if (!token || tokenPayload.data.status === 'FAILED') {
-        return Response.json({ status: 'FAILED', msg: tokenPayload.data.msg });
+async function getInteractiveAction(accessToken: string, request: NextRequest) {
+    const { interactiveActionId } = InteractiveActionBodySchema.parse(await request.json());
+    let token: string;
+    try {
+        token = await createChatToken(accessToken);
+    } catch {
+        return Response.json({ status: 'FAILED', msg: 'Failed to create chat token' });
     }
 
     const search = new URLSearchParams({
@@ -110,9 +138,14 @@ async function getInteractiveAction(accessToken: string, request: NextRequest) {
 export async function POST(request: NextRequest, context: NextRequestContext) {
     const { 'x-access-token': accessToken } = getHeadersWithZodSchema(request, HeadersSchema);
     const { action } = await getParamsWithZodSchema(ParamsSchema, context);
+    if (action === 'create-chat-realtime-session') return createChatRealtimeSession(accessToken);
     if (action === 'get-interactive-action') return getInteractiveAction(accessToken, request);
 
-    const baseUrl = QUERY_ACTIONS.has(action) ? ORB_QUERIES_API_URL : ORB_CHAT_API_URL;
+    const baseUrl = QUERY_ACTIONS.has(action)
+        ? ORB_QUERIES_API_URL
+        : MUTATION_ACTIONS.has(action)
+          ? ORB_MUTATIONS_API_URL
+          : ORB_CHAT_API_URL;
     const upstreamResponse = await fetch(`${baseUrl}/${action}`, {
         method: 'POST',
         headers: createOrbHeaders(accessToken),

@@ -44,12 +44,14 @@ export function toDirectMessageItem(message: ChatMessage, account: string): Dire
         };
     }
 
-    if (message.interactive_action_id) {
+    if (message.interactive_action_id || message.pending_tip) {
         return {
             ...baseItem,
             kind: 'tip',
             content: message.content ?? '',
-            interactiveActionId: message.interactive_action_id,
+            interactiveActionId: message.interactive_action_id ?? undefined,
+            pendingTip: message.pending_tip,
+            status: message.send_status,
         };
     }
 

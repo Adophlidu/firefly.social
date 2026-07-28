@@ -1,5 +1,5 @@
 import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
-import type { HTMLProps } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import { Button } from '@/components/ui/button.js';
 import { useComeback } from '@/components/useComeback.js';
@@ -9,12 +9,14 @@ export function NavigationBar({
     children,
     className,
     onBack,
+    backIcon,
 }: HTMLProps<'div'> & {
     /**
      * Override default "comeback" behavior.
      * If provided, clicking the back button will call this handler directly.
      */
     onBack?: () => void;
+    backIcon?: ReactNode;
 }) {
     const comeback = useComeback();
     return (
@@ -30,7 +32,7 @@ export function NavigationBar({
                 className="absolute left-2 top-1/2 -translate-y-1/2 [&_svg]:size-6"
                 onClick={() => (onBack ? onBack() : comeback())}
             >
-                <ComebackIcon />
+                {backIcon ?? <ComebackIcon />}
             </Button>
             {children}
         </div>

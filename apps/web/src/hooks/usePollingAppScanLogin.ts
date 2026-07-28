@@ -2,7 +2,7 @@ import { AsyncStatus, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -67,18 +67,33 @@ export function usePollingAppScanLogin(
         [],
     );
 
+    // tracks the last (session, status) pair we've already reacted to, so a status that keeps
+    // polling the same value (e.g. Confirm, Cancel) doesn't re-fire login/callbacks every tick
+    const handledRef = useRef<{ session?: string; status: DesktopLinkInfoStatus | null }>({
+        session: undefined,
+        status: null,
+    });
+
     useEffect(() => {
         if (!enabled || !data) return;
         const status = data.status;
+
+        if (handledRef.current.session === session && handledRef.current.status === status) return;
+
         switch (status) {
             case DesktopLinkInfoStatus.Confirm:
-                if (data?.encryptedData && otp) login(data, otp);
+                if (data?.encryptedData && otp) {
+                    handledRef.current = { session, status };
+                    login(data, otp);
+                }
                 return;
             case DesktopLinkInfoStatus.Cancel:
+                handledRef.current = { session, status };
                 enqueueWarningMessage(t`Mobile QR login is interrupted. Please try again.`);
                 onCancelRef.current?.();
                 return;
             case DesktopLinkInfoStatus.Expired:
+                handledRef.current = { session, status };
                 enqueueWarningMessage(t`This QR code is no longer valid. Please scan a new one to continue.`);
                 onExpiredRef.current?.();
                 return;
@@ -88,7 +103,7 @@ export function usePollingAppScanLogin(
                 safeUnreachable(status);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [enabled, login, otp, data]);
+    }, [enabled, login, otp, data, session]);
 
     return { loading };
 }

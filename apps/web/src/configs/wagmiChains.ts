@@ -1,4 +1,4 @@
-import { ETHEREUM_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL } from '@dimensiondev/constants/static';
+import { ETHEREUM_RPC_URL, LENS_RPC_URL, OPTIMISM_RPC_URL, POLYGON_RPC_URL } from '@dimensiondev/constants/static';
 import { robinhood } from '@dimensiondev/web3/chains';
 import type { Chain } from 'viem';
 import {
@@ -78,5 +78,6 @@ export const wagmiTransportUrls: Partial<Record<number, string>> = {
     [mainnet.id]: ETHEREUM_RPC_URL,
     [optimism.id]: OPTIMISM_RPC_URL,
     [polygon.id]: POLYGON_RPC_URL,
+    [lens.id]: LENS_RPC_URL,
     [fantom.id]: 'https://rpc.ftm.tools',
 };

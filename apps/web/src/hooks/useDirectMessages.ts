@@ -16,6 +16,8 @@ import { generateVideoCover } from '@/helpers/generateVideoCover.js';
 import { dmKeys } from '@/hooks/useDmSession.js';
 import {
     ChatApiError,
+    completeInteractiveAction,
+    createDirectTipInteractiveAction,
     getChatChannels,
     getChatMessages,
     getInteractiveAction,
@@ -32,8 +34,10 @@ import type {
     ChatMessage,
     ChatRequestType,
     DmAttachmentDraft,
+    DmTipSendStep,
     GetChannelsParams,
     MentionResult,
+    PendingDmTip,
     UserMetadata,
 } from '@/providers/orb/chat/types.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -45,8 +49,7 @@ export { dmKeys, useActiveDmIdentity, useAuthenticatedDmAccount, useDmCounters }
 
 const REQUEST_TYPES: Array<Exclude<ChatRequestType, null>> = ['friends', 'personIFollow', 'followers', 'other'];
 const VIDEO_COVER_TIMEOUT_MS = 5_000;
-const DM_CHANNELS_REFETCH_INTERVAL_MS = 30_000;
-const DM_MESSAGES_REFETCH_INTERVAL_MS = 10_000;
+const DM_FALLBACK_REFETCH_INTERVAL_MS = 5 * 60_000;
 
 export function useDmChannels(account: string | undefined, params: GetChannelsParams, isRequests: boolean) {
     return useInfiniteQuery({
@@ -69,7 +72,7 @@ export function useDmChannels(account: string | undefined, params: GetChannelsPa
             !isRequests && lastPage.length === CHAT_CHANNEL_PAGE_LIMIT
                 ? lastPageParam + CHAT_CHANNEL_PAGE_LIMIT
                 : undefined,
-        refetchInterval: DM_CHANNELS_REFETCH_INTERVAL_MS,
+        refetchInterval: DM_FALLBACK_REFETCH_INTERVAL_MS,
         refetchIntervalInBackground: false,
     });
 }
@@ -111,6 +114,29 @@ export function mergeDmChannels(pages: ChatChannel[][] | undefined, startedChann
     return [...startedChannels.filter((channel) => !fetchedChannelIds.has(channel.id)), ...fetchedChannels];
 }
 
+export function mergeDmLastMessages(
+    channels: ChatChannel[],
+    fetchedMessages: Map<string, ChatMessage>,
+    previousMessages: Map<string, ChatMessage>,
+) {
+    const messages = new Map<string, ChatMessage>();
+    for (const channel of channels) {
+        const candidates = [
+            channel.last_message,
+            fetchedMessages.get(channel.id),
+            channel.last_message_at ? previousMessages.get(channel.id) : undefined,
+        ];
+        let message: ChatMessage | undefined;
+        for (const candidate of candidates) {
+            if (candidate && (!message || candidate.created_at > message.created_at)) message = candidate;
+        }
+
+        if (message) messages.set(channel.id, message);
+    }
+
+    return messages;
+}
+
 export function useDmLastMessages(
     account: string | undefined,
     channels: Array<Pick<ChatChannel, 'id' | 'last_message_at'>>,
@@ -143,7 +169,7 @@ export function useDmLatestMessages(account: string | undefined, channelId: stri
         queryFn: () =>
             getChatMessages(account as string, { channelId: channelId as string, limit: CHAT_MESSAGE_PAGE_LIMIT }),
         enabled: Boolean(account && channelId),
-        refetchInterval: DM_MESSAGES_REFETCH_INTERVAL_MS,
+        refetchInterval: DM_FALLBACK_REFETCH_INTERVAL_MS,
         refetchIntervalInBackground: false,
     });
 }
@@ -236,6 +262,13 @@ interface SendMessageVariables {
     content: string;
     messageId: string;
     attachments: DmAttachmentDraft[];
+    interactiveActionId?: string;
+}
+
+interface SendTipVariables extends Omit<PendingDmTip, 'nextStep'> {
+    messageId: string;
+    interactiveActionId?: string;
+    nextStep?: DmTipSendStep;
 }
 
 async function uploadDmVideoCover(file: File) {
@@ -264,6 +297,7 @@ function createOptimisticMessage(
     messageId: string,
     author: UserMetadata,
     attachments: DmAttachmentDraft[],
+    interactiveActionId?: string,
 ): ChatMessage {
     const now = new Date().toISOString();
     return {
@@ -278,7 +312,7 @@ function createOptimisticMessage(
         shared_publication_id: null,
         offer_id: null,
         sale_id: null,
-        interactive_action_id: null,
+        interactive_action_id: interactiveActionId ?? null,
         author_profile: author,
         attachments: attachments.map((attachment, index) => createDmAttachment(attachment, index)),
         send_status: 'pending',
@@ -308,7 +342,7 @@ export function useSendDmMessage(account: string, channelId: string, author: Use
 
     return useMutation({
         mutationKey: [...dmKeys.root(account), 'send-message', channelId],
-        mutationFn: async ({ content, messageId, attachments: drafts }: SendMessageVariables) => {
+        mutationFn: async ({ content, messageId, attachments: drafts, interactiveActionId }: SendMessageVariables) => {
             const attachments = await Promise.all(
                 drafts.map(async (draft, index) => {
                     if (!draft.file) return createDmAttachment(draft, index);
@@ -326,6 +360,7 @@ export function useSendDmMessage(account: string, channelId: string, author: Use
                 content: content.trim() || undefined,
                 messageId,
                 attachments,
+                ...(interactiveActionId ? { interactiveActionId } : {}),
             };
             try {
                 const message = await sendMessage(account, input);
@@ -345,7 +380,7 @@ export function useSendDmMessage(account: string, channelId: string, author: Use
                 return { attachments, message };
             }
         },
-        onMutate: async ({ content, messageId, attachments }) => {
+        onMutate: async ({ content, messageId, attachments, interactiveActionId }) => {
             await queryClient.cancelQueries({ queryKey });
             const optimisticMessage = createOptimisticMessage(
                 channelId,
@@ -353,6 +388,7 @@ export function useSendDmMessage(account: string, channelId: string, author: Use
                 messageId,
                 author,
                 attachments,
+                interactiveActionId,
             );
             queryClient.setQueryData<InfiniteData<ChatMessage[], number>>(queryKey, (data) => {
                 if (!data) return { pages: [[optimisticMessage]], pageParams: [0] };
@@ -409,10 +445,131 @@ export function useSendDmMessage(account: string, channelId: string, author: Use
     });
 }
 
-export function useDmInteractiveAction(account: string, id: string) {
+export function useSendDmTip(account: string, channelId: string, author: UserMetadata) {
+    const queryClient = useQueryClient();
+    const queryKey = dmKeys.messages(account, channelId);
+
+    const updateOptimisticTip = useCallback(
+        (messageId: string, update: Partial<ChatMessage>) => {
+            queryClient.setQueryData<InfiniteData<ChatMessage[], number>>(queryKey, (data) => {
+                if (!data) return data;
+                return {
+                    ...data,
+                    pages: data.pages.map((page) =>
+                        page.map((message) => (message.id === messageId ? { ...message, ...update } : message)),
+                    ),
+                };
+            });
+        },
+        [queryClient, queryKey],
+    );
+
+    return useMutation({
+        mutationKey: [...dmKeys.root(account), 'send-tip', channelId],
+        mutationFn: async ({ messageId, interactiveActionId, nextStep = 'create', ...tip }: SendTipVariables) => {
+            let actionId = interactiveActionId;
+            let step = nextStep;
+
+            if (step === 'create') {
+                actionId = await createDirectTipInteractiveAction(account, tip);
+                step = 'complete';
+                updateOptimisticTip(messageId, {
+                    interactive_action_id: actionId,
+                    pending_tip: { ...tip, nextStep: step },
+                });
+            }
+
+            // After creating (or when resuming from a later step) the interactive action id must be present.
+            if (!actionId) {
+                throw new ChatApiError('Cannot send a tip without an interactive action id', 'interactive-actions');
+            }
+
+            if (step === 'complete') {
+                await completeInteractiveAction(account, actionId);
+                queryClient.removeQueries({
+                    queryKey: dmKeys.interactiveAction(account, actionId),
+                    exact: true,
+                });
+                step = 'send';
+                updateOptimisticTip(messageId, { pending_tip: { ...tip, nextStep: step } });
+            }
+
+            const message = await sendMessage(account, {
+                channelId,
+                messageId,
+                attachments: [],
+                interactiveActionId: actionId,
+            });
+            return { interactiveActionId: actionId, message };
+        },
+        onMutate: async ({ messageId, interactiveActionId, nextStep = 'create', ...tip }) => {
+            await queryClient.cancelQueries({ queryKey });
+            const optimisticMessage = createOptimisticMessage(
+                channelId,
+                '',
+                messageId,
+                author,
+                [],
+                interactiveActionId,
+            );
+            optimisticMessage.pending_tip = { ...tip, nextStep };
+            queryClient.setQueryData<InfiniteData<ChatMessage[], number>>(queryKey, (data) => {
+                if (!data) return { pages: [[optimisticMessage]], pageParams: [0] };
+                const hasMessage = data.pages.some((page) => page.some((message) => message.id === messageId));
+                const pages = hasMessage
+                    ? data.pages.map((page) =>
+                          page.map((message) =>
+                              message.id === messageId
+                                  ? {
+                                        ...message,
+                                        send_status: 'pending' as const,
+                                        interactive_action_id: interactiveActionId ?? message.interactive_action_id,
+                                        pending_tip: optimisticMessage.pending_tip,
+                                    }
+                                  : message,
+                          ),
+                      )
+                    : data.pages.map((page, index) => (index ? page : [...page, optimisticMessage]));
+                return { ...data, pages };
+            });
+            return { messageId };
+        },
+        onSuccess: ({ interactiveActionId, message }, _variables, context) => {
+            queryClient.setQueryData<InfiniteData<ChatMessage[], number>>(queryKey, (data) => {
+                if (!data) return data;
+                return {
+                    ...data,
+                    pages: data.pages.map((page) =>
+                        page.map((item) =>
+                            item.id === context.messageId
+                                ? {
+                                      ...resolveSentDmMessage(item, message, []),
+                                      interactive_action_id: interactiveActionId,
+                                  }
+                                : item,
+                        ),
+                    ),
+                };
+            });
+        },
+        onError: (_error, _variables, context) => {
+            if (context) updateOptimisticTip(context.messageId, { send_status: 'failed' });
+        },
+        onSettled: (_data, error) => {
+            if (error) return;
+            void queryClient.invalidateQueries({ queryKey });
+            void queryClient.invalidateQueries({ queryKey: [...dmKeys.root(account), 'channels'] });
+            void queryClient.invalidateQueries({ queryKey: dmKeys.counters(account) });
+            void queryClient.invalidateQueries({ queryKey: dmKeys.lastMessage(account, channelId) });
+        },
+    });
+}
+
+export function useDmInteractiveAction(account: string, id?: string) {
     return useQuery({
-        queryKey: dmKeys.interactiveAction(account, id),
-        queryFn: () => getInteractiveAction(account, id),
+        queryKey: dmKeys.interactiveAction(account, id ?? '__pending__'),
+        queryFn: () => getInteractiveAction(account, id as string),
+        enabled: Boolean(id),
         staleTime: 5 * 60_000,
         retry: 1,
     });
@@ -470,10 +627,22 @@ export function useMarkDmRead(account: string, channelId: string, unreadCountHin
 
 export function useDmProfileSearch(account: string | undefined, query: string) {
     const normalizedQuery = query.trim();
-    return useQuery<MentionResult[]>({
+    return useInfiniteQuery({
         queryKey: dmKeys.search(account ?? '__signed-out__', normalizedQuery),
-        queryFn: () => searchProfiles(account as string, normalizedQuery),
+        queryFn: ({ pageParam }) => searchProfiles(account as string, normalizedQuery, pageParam),
         enabled: Boolean(account && normalizedQuery.length >= 2),
+        initialPageParam: '0',
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+        select: (data) => {
+            const profiles = new Map<string, MentionResult>();
+            for (const page of data.pages) {
+                for (const profile of page.items) {
+                    if (!profiles.has(profile.id)) profiles.set(profile.id, profile);
+                }
+            }
+
+            return [...profiles.values()];
+        },
         staleTime: 30_000,
     });
 }

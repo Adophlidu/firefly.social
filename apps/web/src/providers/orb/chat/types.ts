@@ -84,6 +84,18 @@ export interface ChatMessage {
     send_status?: 'pending' | 'sent' | 'failed';
     is_optimistic?: boolean;
     pending_attachments?: DmAttachmentDraft[];
+    pending_tip?: PendingDmTip;
+}
+
+export type DmTipSendStep = 'create' | 'complete' | 'send';
+
+export interface PendingDmTip {
+    targetUserId: string;
+    amount: number;
+    currency: string;
+    currencySymbol: string;
+    chainId: number;
+    nextStep: DmTipSendStep;
 }
 
 export interface InteractiveActionDetail {
@@ -128,8 +140,18 @@ export interface ChatEnvelope<T> {
     wasDuplicate?: boolean;
 }
 
+export interface ChatRealtimeSession {
+    token: string;
+    supabaseUrl: string;
+    supabaseAnonKey: string;
+}
+
 export interface ChatItemsPage<T> {
     items: T[];
+    pageInfo?: {
+        next: string | null;
+        prev: string | null;
+    };
 }
 
 export interface GetChannelsParams {
@@ -152,6 +174,16 @@ export interface SendMessageInput {
     messageId: string;
     content?: string;
     attachments?: MediaAttachment[];
+    interactiveActionId?: string;
+}
+
+export interface CreateDirectTipInput {
+    targetUserId: string;
+    amount: number;
+    currency: string;
+    currencySymbol: string;
+    chainId: number;
+    message?: string;
 }
 
 export interface MentionResult {

@@ -1,0 +1,423 @@
+.shell {
+    container: perps / inline-size;
+    min-width: 0;
+    width: 100%;
+}
+
+.page {
+    padding-bottom: calc(5.25rem + env(safe-area-inset-bottom));
+}
+
+.pageHeader {
+    min-height: 3.5rem;
+    height: auto;
+    gap: 0.5rem;
+    padding-inline: 0.75rem;
+}
+
+.pageTitle {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+}
+
+.desktopAccountSummary {
+    display: none;
+}
+
+.mobileAccountSummary {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.mobileAccountButton {
+    min-width: 0;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    text-align: right;
+}
+
+.mobileAccountButton:hover {
+    background: var(--color-light-bg);
+}
+
+.mobileDepositButton {
+    height: 2rem;
+    border-radius: 0.5rem;
+    background: rgb(var(--color-main));
+    padding-inline: 0.75rem;
+    color: rgb(var(--color-bottom));
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+
+.marketBar {
+    min-height: 6.5rem;
+    height: auto;
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 0.25rem;
+    overflow: hidden;
+    padding: 0.5rem 0;
+}
+
+.marketPrimary {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-inline: 0.75rem;
+}
+
+.mobilePriceSummary {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.mobilePrice {
+    overflow: hidden;
+    max-width: 9rem;
+    color: rgb(var(--color-main));
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mobileChange {
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1rem;
+}
+
+.metricRail {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    overflow-x: auto;
+    padding-inline: 0.25rem;
+    scrollbar-width: none;
+}
+
+.metricRail::-webkit-scrollbar {
+    display: none;
+}
+
+.mobileDuplicateMetric {
+    display: none;
+}
+
+.workspaceTabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: 2.75rem;
+    border-bottom: 1px solid var(--color-line);
+    background: rgb(var(--color-bottom));
+    padding: 0.25rem 0.75rem;
+}
+
+.workspaceTab {
+    position: relative;
+    border-radius: 0.5rem;
+    color: var(--color-third);
+    font-size: 0.875rem;
+    font-weight: 700;
+    outline: none;
+}
+
+.workspaceTab[aria-selected='true'] {
+    background: var(--color-light-bg);
+    color: rgb(var(--color-main));
+}
+
+.workspaceTab:focus-visible {
+    box-shadow: 0 0 0 2px rgb(var(--color-highlight));
+}
+
+.workspace {
+    min-width: 0;
+}
+
+.workspacePane {
+    display: none;
+    min-width: 0;
+}
+
+.workspacePaneActive {
+    display: block;
+}
+
+.chart {
+    height: min(24rem, 58vh);
+    width: 100%;
+    border-right-width: 0;
+}
+
+.chartDesktopTools,
+.chartDrawingTools,
+.chartFooterRanges,
+.chartFooterModes {
+    display: none;
+}
+
+.chartIntervals {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.chartIntervals::-webkit-scrollbar {
+    display: none;
+}
+
+.chartFooter {
+    display: none !important;
+}
+
+.orderBook {
+    height: 29rem;
+    width: 100%;
+    border-top-width: 0;
+}
+
+.orderBookActions {
+    display: none;
+}
+
+.orderBookBody {
+    margin-top: 0;
+    padding: 0.75rem;
+}
+
+.mobileTradeBar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 35;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    border-top: 1px solid var(--color-line2);
+    background: rgb(var(--color-bottom) / 94%);
+    padding: 0.625rem 0.75rem calc(0.625rem + env(safe-area-inset-bottom));
+    box-shadow: 0 -0.5rem 1.5rem rgb(var(--color-main) / 8%);
+    backdrop-filter: blur(1rem);
+}
+
+@media (min-width: 48rem) {
+    .mobileTradeBar {
+        left: 14.6875rem;
+    }
+}
+
+@media (min-width: 64rem) {
+    .mobileTradeBar {
+        left: 18.0625rem;
+    }
+}
+
+.mobileTradeButton {
+    height: 2.75rem;
+    border-radius: 0.75rem;
+    color: white;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    outline: none;
+}
+
+.mobileTradeButton:focus-visible {
+    box-shadow: 0 0 0 2px rgb(var(--color-highlight));
+}
+
+.accountTabs {
+    gap: 0;
+    overflow-x: auto;
+    padding-inline: 0.5rem;
+    scrollbar-width: none;
+}
+
+.accountTabs::-webkit-scrollbar {
+    display: none;
+}
+
+.accountTab {
+    min-width: max-content;
+    flex: 1 0 auto;
+    padding-inline: 0.625rem;
+    font-size: 0.875rem;
+}
+
+.accountTable {
+    max-height: min(22.5rem, 52vh);
+    overscroll-behavior-inline: contain;
+}
+
+.unauthenticatedAccountTable {
+    min-width: 48rem;
+}
+
+.marketPopover {
+    max-height: min(34rem, calc(100dvh - 5rem));
+    padding: 1rem;
+}
+
+.marketTable {
+    min-width: 0;
+}
+
+.marketGrid {
+    grid-template-columns: minmax(0, 1fr) 6rem !important;
+}
+
+.marketGrid > :nth-child(n + 3) {
+    display: none;
+}
+
+@container perps (min-width: 56.25rem) {
+    .page {
+        padding-bottom: 4rem;
+    }
+
+    .pageHeader {
+        height: 3.75rem;
+        padding-inline: 1rem;
+    }
+
+    .pageTitle {
+        font-size: 1.25rem;
+    }
+
+    .desktopAccountSummary {
+        display: flex;
+    }
+
+    .mobileAccountSummary {
+        display: none;
+    }
+
+    .marketBar {
+        display: flex;
+        height: 3.625rem;
+        min-height: 3.625rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        overflow: visible;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .marketPrimary {
+        flex: 0 0 auto;
+        padding: 0;
+    }
+
+    .mobilePriceSummary {
+        display: none;
+    }
+
+    .metricRail {
+        padding: 0;
+    }
+
+    .mobileDuplicateMetric {
+        display: block;
+    }
+
+    .workspaceTabs {
+        display: none;
+    }
+
+    .workspace {
+        display: flex;
+        height: 34.8125rem;
+        flex-direction: row;
+    }
+
+    .workspacePane,
+    .workspacePaneActive {
+        display: flex;
+    }
+
+    .workspacePane:first-child {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .workspacePane:last-child {
+        width: 14rem;
+        flex: 0 0 14rem;
+    }
+
+    .chart {
+        height: 34.8125rem;
+        border-right-width: 1px;
+    }
+
+    .chartDesktopTools,
+    .chartDrawingTools,
+    .chartFooterRanges,
+    .chartFooterModes {
+        display: flex;
+    }
+
+    .chartFooter {
+        display: flex !important;
+        height: 2.75rem;
+        justify-content: space-between;
+        padding-inline: 1rem;
+        font-size: 1rem;
+    }
+
+    .orderBook {
+        height: 34.8125rem;
+        width: 14rem;
+        border-top-width: 1px;
+    }
+
+    .orderBookActions {
+        display: flex;
+    }
+
+    .orderBookBody {
+        margin-top: 0.5rem;
+        padding: 0;
+    }
+
+    .mobileTradeBar {
+        display: none;
+    }
+
+    .accountTabs {
+        gap: 2rem;
+        padding-inline: 1rem;
+    }
+
+    .accountTab {
+        flex: 0 0 auto;
+        padding-inline: 0;
+        font-size: 1rem;
+    }
+
+    .marketPopover {
+        padding: 1.5rem;
+    }
+
+    .marketTable {
+        min-width: 51.25rem;
+    }
+
+    .marketGrid {
+        grid-template-columns: 16rem 5rem 9.375rem 6rem 8rem 8rem !important;
+    }
+
+    .marketGrid > :nth-child(n + 3) {
+        display: initial;
+    }
+}

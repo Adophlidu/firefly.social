@@ -6,7 +6,11 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import type { LensSession } from '@/providers/lens/Session.js';
-import { CHAT_CHANNEL_PAGE_LIMIT, CHAT_MESSAGE_PAGE_LIMIT } from '@/providers/orb/chat/constants.js';
+import {
+    CHAT_CHANNEL_PAGE_LIMIT,
+    CHAT_MESSAGE_PAGE_LIMIT,
+    CHAT_PROFILE_SEARCH_PAGE_LIMIT,
+} from '@/providers/orb/chat/constants.js';
 import { isSameDmAccount } from '@/providers/orb/chat/isSameDmAccount.js';
 import type {
     ChannelCounters,
@@ -15,6 +19,8 @@ import type {
     ChatEnvelope,
     ChatItemsPage,
     ChatMessage,
+    ChatRealtimeSession,
+    CreateDirectTipInput,
     GetChannelsParams,
     GetMessagesParams,
     InteractiveActionDetail,
@@ -195,11 +201,50 @@ export async function getChannelCounters(account: string): Promise<ChannelCounte
     return unwrapChatEnvelope('get-channel-counters', payload) ?? null;
 }
 
+export async function createChatRealtimeSession(account: string): Promise<ChatRealtimeSession> {
+    const payload = await postOrb<ChatRealtimeSession>(account, 'create-chat-realtime-session', {});
+    const session = unwrapChatEnvelope('create-chat-realtime-session', payload);
+    if (!session?.token || !session.supabaseUrl || !session.supabaseAnonKey) {
+        throw new ChatApiError(
+            'create-chat-realtime-session returned an invalid session',
+            'create-chat-realtime-session',
+        );
+    }
+    return session;
+}
+
 export async function getInteractiveAction(account: string, interactiveActionId: string) {
     const payload = await postOrb<InteractiveActionDetail | null>(account, 'get-interactive-action', {
         interactiveActionId,
     });
     return unwrapChatEnvelope('get-interactive-action', payload) ?? null;
+}
+
+export async function createDirectTipInteractiveAction(account: string, input: CreateDirectTipInput) {
+    const { message, ...tip } = input;
+    const payload = await postOrb<{ id?: string }>(account, 'interactive-actions', {
+        task: 'create',
+        type: 'DIRECT_TIP',
+        ...tip,
+        metadata: {
+            source: 'messageInChat',
+            message: message ?? '',
+        },
+        availability: 'PUBLIC',
+    });
+    const data = unwrapChatEnvelope('interactive-actions', payload);
+    const interactiveActionId = data?.id;
+    if (!interactiveActionId) throw new ChatApiError('interactive-actions returned no id', 'interactive-actions');
+    return interactiveActionId;
+}
+
+export async function completeInteractiveAction(account: string, interactiveActionId: string) {
+    const payload = await postOrb(account, 'interactive-actions', {
+        task: 'edit',
+        interactiveActionId,
+        status: 'COMPLETED',
+    });
+    unwrapChatEnvelope('interactive-actions', payload);
 }
 
 export async function createChat(account: string, targetUserId: string): Promise<string> {
@@ -242,17 +287,22 @@ function parseMention(item: unknown): MentionResult | null {
     };
 }
 
-export async function searchProfiles(account: string, query: string): Promise<MentionResult[]> {
+export async function searchProfiles(account: string, query: string, cursor = '0') {
     const payload = await postOrb<ChatItemsPage<unknown>>(account, 'search', {
         query,
         searchType: 'USER',
-        limit: 10,
-        cursor: '0',
+        limit: CHAT_PROFILE_SEARCH_PAGE_LIMIT,
+        cursor,
         sortFilter: 'RELEVANT',
         thumbnailDimension: 128,
     });
+    const page = unwrapChatEnvelope('search', payload);
+    const items = page?.items ?? [];
 
-    return (unwrapChatEnvelope('search', payload)?.items ?? [])
-        .map(parseMention)
-        .filter((item): item is MentionResult => item !== null && !isSameDmAccount(account, item.id));
+    return {
+        items: items
+            .map(parseMention)
+            .filter((item): item is MentionResult => item !== null && !isSameDmAccount(account, item.id)),
+        nextCursor: page?.pageInfo?.next ?? undefined,
+    };
 }

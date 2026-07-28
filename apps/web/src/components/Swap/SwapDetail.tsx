@@ -356,7 +356,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                             <Trans>Time</Trans>
                         </span>
                         <div className="flex items-center gap-1">
-                            <span className="text-lightMain">
+                            <span className="text-lightMain" suppressHydrationWarning>
                                 {dayjs(Number(activity.timestamp) * 1000).format('MMM DD, YYYY [at] hh:mm A')}
                             </span>
                         </div>

@@ -13,9 +13,9 @@ import {
     ARBITRUM_USDC_ADDRESS,
     ARBITRUM_USDC_DECIMALS,
     HYPERLIQUID_DEPOSIT_ADDRESS,
-    HYPERLIQUID_QUERY_KEY_ROOT,
 } from '@/constants/hyperliquid.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
+import { invalidatePerpsQueries } from '@/helpers/invalidatePerpsQueries.js';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
 import { withSkipPinCodeCheck } from '@/helpers/withSkipPinCodeCheck.js';
@@ -117,8 +117,7 @@ export function useDepositArbitrumUsdcToHyperliquid({ toastId, onSettled }: Opti
                     chainId: ARBITRUM_CHAIN_ID,
                 });
 
-                await queryClient.invalidateQueries({ queryKey: [HYPERLIQUID_QUERY_KEY_ROOT] });
-                await queryClient.invalidateQueries({ queryKey: ['token-balance'] });
+                await invalidatePerpsQueries(queryClient, { includeTokenBalance: true });
 
                 return txHash;
             }),

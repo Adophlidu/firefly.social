@@ -14,11 +14,13 @@ import { GlobalError } from '@/components/GlobalError.js';
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
 import { LoginRequired } from '@/components/LoginRequired.js';
 import { ModalRouteLayer } from '@/components/ModalRouteLayer.js';
+import { PerpsProvider } from '@/components/Perps/PerpsProvider.js';
 import { PrivyReadyRequired } from '@/components/PrivyReadyRequired.js';
 import { RouteChangedHandler } from '@/components/RouteChangedHandler.js';
 import { ThemeHandler } from '@/components/ThemeHandler.js';
 import { Toaster } from '@/components/ui/sonner.js';
 import { TooltipProvider } from '@/components/ui/tooltip.js';
+import { cn } from '@/lib/utils.js';
 import { Modals } from '@/modals/index.js';
 
 export function head() {
@@ -84,17 +86,32 @@ function ReactNativeStyleElement() {
 function RootDocument({ children }: { children: ReactNode }) {
     const { pathname } = useRouterState();
     const route = `${APP_BASE_PATH}${pathname}`;
+    const isPerpsRoute = pathname.startsWith('/perps');
 
     return (
-        <html lang="en" className="overscroll-contain" suppressHydrationWarning>
+        <html
+            lang="en"
+            className={cn('overscroll-contain', isPerpsRoute && 'h-full overflow-hidden')}
+            suppressHydrationWarning
+        >
             <head>
                 <HeadOutlet />
                 <ClientStyles />
                 <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
                 <ReactNativeStyleElement />
             </head>
-            <body className="mx-auto flex min-h-screen flex-col items-center bg-primaryBottom text-main">
-                <div className="flex w-full max-w-[800px] flex-1 flex-col items-center">
+            <body
+                className={cn(
+                    'mx-auto flex min-h-screen flex-col items-center bg-primaryBottom text-main',
+                    isPerpsRoute && 'h-full min-h-0 overflow-hidden',
+                )}
+            >
+                <div
+                    className={cn(
+                        'flex w-full max-w-[800px] flex-1 flex-col items-center',
+                        isPerpsRoute && 'min-h-0 overflow-hidden',
+                    )}
+                >
                     <LinguiClientProvider>
                         <ClientProviders>
                             <LoginRequired>
@@ -104,8 +121,10 @@ function RootDocument({ children }: { children: ReactNode }) {
                                         <Toaster />
                                         <RouteChangedHandler />
                                         <ErrorBoundary fallback={GlobalError}>
-                                            {children}
-                                            <Modals />
+                                            <PerpsProvider>
+                                                {children}
+                                                <Modals />
+                                            </PerpsProvider>
                                         </ErrorBoundary>
                                     </TooltipProvider>
                                 </PrivyReadyRequired>

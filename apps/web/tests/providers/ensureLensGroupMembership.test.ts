@@ -1,6 +1,13 @@
+import { Source } from '@dimensiondev/enums';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { ensureLensGroupMembership } from '@/providers/lens/ensureLensGroupMembership.js';
+import { HOME_CLUB, WORLDCUP_2026_GROUP, WORLDCUP_2026_GROUP_ADDRESS } from '@/constants/channel.js';
+import {
+    ensureLensGroupMembership,
+    resolveLensGroupAddressForSilentJoin,
+} from '@/providers/lens/ensureLensGroupMembership.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 
 // Hoist the mocks so vi.mock factories (which are hoisted above imports) can
 // reference them without hitting the temporal-dead-zone.
@@ -26,6 +33,28 @@ vi.mock('@/store/useJoinedChannelStore.js', () => ({
 
 const PROFILE_ID = '0x01';
 const GROUP_ADDRESS = '0x230c140a85af16aa444ba87e0823e5c62cfe3366';
+const PRIVY_PROFILE_TYPES = ['AccountManaged', 'AccountOwned'] satisfies Array<NonNullable<Profile['profileType']>>;
+
+function account(profileType?: Profile['profileType'], origin?: Account['origin']) {
+    return {
+        origin,
+        profile: { profileType },
+    };
+}
+
+function channel(overrides: Partial<Channel> = {}): Channel {
+    return {
+        source: Source.Lens,
+        id: GROUP_ADDRESS,
+        name: 'Club',
+        imageUrl: '',
+        url: '',
+        parentUrl: '',
+        followerCount: 0,
+        timestamp: 0,
+        ...overrides,
+    };
+}
 
 beforeEach(() => {
     mocks.hasJoined.mockReset();
@@ -76,5 +105,34 @@ describe('ensureLensGroupMembership', () => {
 
         await expect(ensureLensGroupMembership(PROFILE_ID, GROUP_ADDRESS)).rejects.toThrow('FeedGroupGatedNotAMember');
         expect(mocks.markJoined).not.toHaveBeenCalled();
+    });
+});
+
+describe('resolveLensGroupAddressForSilentJoin', () => {
+    it.each(PRIVY_PROFILE_TYPES)('silently joins a normal club for Privy %s profiles', (profileType) => {
+        expect(resolveLensGroupAddressForSilentJoin(account(profileType), channel())).toBe(GROUP_ADDRESS);
+    });
+
+    it('recognizes a Privy-restored account after its profile type was lost during refresh', () => {
+        expect(resolveLensGroupAddressForSilentJoin(account(undefined, 'force_restore'), channel())).toBe(
+            GROUP_ADDRESS,
+        );
+    });
+
+    it('does not silently join a normal club for an ordinary Lens account', () => {
+        expect(resolveLensGroupAddressForSilentJoin(account(), channel())).toBeUndefined();
+    });
+
+    it('preserves the existing unconditional WorldCup group join', () => {
+        expect(
+            resolveLensGroupAddressForSilentJoin(
+                account(),
+                channel({ id: WORLDCUP_2026_GROUP.id, feedId: WORLDCUP_2026_GROUP.feedId }),
+            ),
+        ).toBe(WORLDCUP_2026_GROUP_ADDRESS);
+    });
+
+    it('never tries to join the Home pseudo-channel', () => {
+        expect(resolveLensGroupAddressForSilentJoin(account('AccountManaged'), HOME_CLUB)).toBeUndefined();
     });
 });

@@ -155,6 +155,9 @@ export interface PolymarketSportGroupedMarketItem {
     line?: number;
     groupItemThreshold?: number;
     groupItemTitle?: string;
+    /** Locale-independent English original of `groupItemTitle` (set by the backend before translating).
+     *  Use this when parsing game/set numbers — the translated title breaks English regexes. */
+    groupItemTitleEn?: string;
     outcomes?: string[];
     outcomePrices?: string[];
     volumeClob?: number;

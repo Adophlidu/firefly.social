@@ -48,7 +48,7 @@ export function PredictionBaseInfoTabContent({
     eventSlug,
     eventTitle,
 }: PredictionBaseInfoTabContentProps) {
-    const { event: detail } = use(PredictionContext);
+    const { event: detail, market } = use(PredictionContext);
     // Orb comments are FIFA-only for now.
     const showComments = !!eventSlug?.startsWith(FIFA_SLUG);
     const [tab] = useBetsEventInfoTab(showResolution, showComments);
@@ -83,7 +83,7 @@ export function PredictionBaseInfoTabContent({
                     tags={detail.tags}
                     volume={detail.volume}
                     endDate={detail.endTime}
-                    description={detail.description}
+                    description={market?.description || detail.description}
                 />
             );
         case BetsEventInfoTab.Resolution:

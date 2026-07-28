@@ -10,9 +10,14 @@ import { Popover } from '@/components/Popover.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { closeTipsModal } from '@/controllers/openTipsModal.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { TipsSuccessResult } from '@/modals/TipsModal/refs.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const OpenTipsModalContext = createContext<boolean>(false);
+export const CloseTipsOnSuccessContext = createContext(false);
+export const TipsSuccessContext = createContext<((result: TipsSuccessResult) => Promise<void> | void) | undefined>(
+    undefined,
+);
 
 export function RootView() {
     const isMedium = useIsMedium();

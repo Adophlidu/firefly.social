@@ -71,12 +71,16 @@ async function checkUploadLimits(file: File, signal?: AbortSignal) {
         },
         signal,
     );
-    const limits = await fetchJson<UploadLimits>(urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.getUploadLimits'), {
-        headers: { Authorization: `Bearer ${getLimitsAuthToken}` },
-        signal,
-    });
+    const limits = await fetchJson<UploadLimits>(
+        urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.getUploadLimits'),
+        {
+            headers: { Authorization: `Bearer ${getLimitsAuthToken}` },
+            signal,
+        },
+        { noStrictOK: true },
+    );
     if (!limits?.canUpload) {
-        throw new Error(limits?.error || limits?.message || 'Failed to get upload limits');
+        throw new Error(limits?.message || limits?.error || 'Failed to get upload limits');
     }
 
     const { remainingDailyBytes = 0, remainingDailyVideos = 0 } = limits;

@@ -398,11 +398,8 @@ export function BuyMarketForm({
                             onClick={() => {
                                 if (price === 'Max') {
                                     const maxBalance = BigNumber(availableAmount || 0);
-                                    const fee = computePolymarketMarketBuyFeeUsd(maxBalance, feeRate, avgPriceForFee);
-                                    const next = normalizeBetInput(
-                                        BigNumber.max(0, maxBalance.minus(fee)).toString(),
-                                        'usd',
-                                    );
+                                    // const fee = computePolymarketMarketBuyFeeUsd(maxBalance, feeRate, avgPriceForFee);
+                                    const next = normalizeBetInput(BigNumber.max(0, maxBalance).toString(), 'usd');
                                     form.setValue('amount', next, {
                                         shouldDirty: true,
                                         shouldTouch: true,

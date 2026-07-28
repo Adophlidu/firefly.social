@@ -881,9 +881,27 @@ function buildResolvedSections(
         const effectiveConfig = hasConfig ? config : getSectionConfig(type);
         const renderAs = effectiveConfig.renderAs ?? inferRenderAs(type);
 
-        // Dynamic title resolution for context-dependent types
-        let title: React.ReactNode =
-            effectiveConfig.title ?? markets[0]?.title ?? humanizeType(baseType !== type ? baseType : type);
+        // Auto-detect mergeByLine: true when multiple markets have different line values
+        const uniqueLines = new Set(markets.map((m) => m.line));
+        const hasMultipleLines = uniqueLines.size > 1;
+        const mergeByLine = effectiveConfig.mergeByLine ?? hasMultipleLines;
+
+        // Title resolution. A mergeByLine section spans several lines, yet the API groupItemTitle
+        // embeds ONE specific line ("Total Kills Over/Under 27.5 in Game 1?"). Showing that single
+        // number is misleading and it never tracks the selected pill (the line lives in the buy
+        // buttons and the pills, as on Polymarket, whose title is just "Kill Totals"). So for
+        // mergeByLine sections prefer the line-agnostic catalog title; only fall back to the
+        // translated group title when the catalog has none (e.g. map_handicap).
+        let title: React.ReactNode;
+        if (mergeByLine && effectiveConfig.title) {
+            title = effectiveConfig.title;
+        } else {
+            title =
+                markets[0]?.groupItemTitle ??
+                effectiveConfig.title ??
+                markets[0]?.title ??
+                humanizeType(baseType !== type ? baseType : type);
+        }
         // Esports: "Totals" → "Total Games" (Polymarket uses "Total Games" for esports series)
         if (type === 'totals' && isEsports) {
             title = <Trans>Total Games</Trans>;
@@ -893,11 +911,6 @@ function buildResolvedSections(
             const hasGame = markets.some((m) => m.groupItemTitle?.toLowerCase().includes('game'));
             title = hasGame ? <Trans>Game Handicap</Trans> : <Trans>Map Handicap</Trans>;
         }
-
-        // Auto-detect mergeByLine: true when multiple markets have different line values
-        const uniqueLines = new Set(markets.map((m) => m.line));
-        const hasMultipleLines = uniqueLines.size > 1;
-        const mergeByLine = effectiveConfig.mergeByLine ?? hasMultipleLines;
 
         sections.push({
             sportsMarketType: type,

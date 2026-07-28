@@ -15,8 +15,9 @@ import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore
 
 export const dmKeys = {
     root: (account: string) => ['dm', account.toLowerCase()] as const,
+    channelsRoot: (account: string) => [...dmKeys.root(account), 'channels'] as const,
     channels: (account: string, filter: GetChannelsParams, view: 'inbox' | 'requests' = 'inbox') =>
-        [...dmKeys.root(account), 'channels', view, filter] as const,
+        [...dmKeys.channelsRoot(account), view, filter] as const,
     messages: (account: string, channelId: string) => [...dmKeys.root(account), 'messages', channelId] as const,
     lastMessage: (account: string, channelId: string) => [...dmKeys.root(account), 'last-message', channelId] as const,
     lastMessageVersion: (account: string, channelId: string, lastMessageAt: string | null) =>
@@ -59,7 +60,7 @@ export function useDmCounters(account: string | undefined) {
         queryKey: dmKeys.counters(account ?? '__signed-out__'),
         queryFn: () => getChannelCounters(account as string),
         enabled: Boolean(account),
-        refetchInterval: 30_000,
+        refetchInterval: 5 * 60_000,
         refetchIntervalInBackground: false,
         staleTime: 15_000,
     });

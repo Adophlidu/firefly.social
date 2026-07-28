@@ -1,7 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
+    completeInteractiveAction,
     createChat,
+    createChatRealtimeSession,
+    createDirectTipInteractiveAction,
     DmAuthenticationError,
     getChatChannel,
     getChatChannelByUser,
@@ -194,6 +197,74 @@ describe('Orb chat API', () => {
         });
     });
 
+    it('creates an authenticated realtime session', async () => {
+        const session = {
+            token: 'chat-token',
+            supabaseUrl: 'https://project.supabase.co',
+            supabaseAnonKey: 'anon-key',
+        };
+        fetchJsonMock.mockResolvedValueOnce({ status: 'SUCCESS', data: session });
+
+        await expect(createChatRealtimeSession(identity.account)).resolves.toEqual(session);
+        expect(fetchJsonMock).toHaveBeenCalledWith('/api/orb/chat/create-chat-realtime-session', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: '{}',
+        });
+    });
+
+    it('creates and completes a direct tip interactive action', async () => {
+        fetchJsonMock
+            .mockResolvedValueOnce({ status: 'SUCCESS', data: { id: 'tip-1' } })
+            .mockResolvedValueOnce({ status: 'SUCCESS' });
+
+        const interactiveActionId = await createDirectTipInteractiveAction(identity.account, {
+            targetUserId: '0xrecipient',
+            amount: 1.5,
+            currency: '0xtoken',
+            currencySymbol: 'TOKEN',
+            chainId: 1,
+            message: 'Thanks',
+        });
+        await completeInteractiveAction(identity.account, interactiveActionId);
+
+        expect(interactiveActionId).toBe('tip-1');
+        expect(fetchJsonMock).toHaveBeenNthCalledWith(1, '/api/orb/chat/interactive-actions', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: JSON.stringify({
+                task: 'create',
+                type: 'DIRECT_TIP',
+                targetUserId: '0xrecipient',
+                amount: 1.5,
+                currency: '0xtoken',
+                currencySymbol: 'TOKEN',
+                chainId: 1,
+                metadata: { source: 'messageInChat', message: 'Thanks' },
+                availability: 'PUBLIC',
+            }),
+        });
+        expect(fetchJsonMock).toHaveBeenNthCalledWith(2, '/api/orb/chat/interactive-actions', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: JSON.stringify({ task: 'edit', interactiveActionId: 'tip-1', status: 'COMPLETED' }),
+        });
+    });
+
+    it('rejects a direct tip action response without an id', async () => {
+        fetchJsonMock.mockResolvedValueOnce({ status: 'SUCCESS', data: {} });
+
+        await expect(
+            createDirectTipInteractiveAction(identity.account, {
+                targetUserId: '0xrecipient',
+                amount: 1,
+                currency: '0xtoken',
+                currencySymbol: 'TOKEN',
+                chainId: 1,
+            }),
+        ).rejects.toMatchObject({ route: 'interactive-actions' });
+    });
+
     it('forwards media attachments when sending a message', async () => {
         const attachment = {
             __typename: 'MediaImage' as const,
@@ -290,13 +361,47 @@ describe('Orb chat API', () => {
             },
         });
 
-        await expect(searchProfiles(identity.account, 'ali')).resolves.toEqual([
-            {
-                id: '0xc5b11b782856bd04b1441ff11c9f5b564c077c97',
-                handle: 'alice',
-                name: 'Alice',
-                avatar: 'https://images.example/alice.png',
+        await expect(searchProfiles(identity.account, 'ali')).resolves.toEqual({
+            items: [
+                {
+                    id: '0xc5b11b782856bd04b1441ff11c9f5b564c077c97',
+                    handle: 'alice',
+                    name: 'Alice',
+                    avatar: 'https://images.example/alice.png',
+                },
+            ],
+            nextCursor: undefined,
+        });
+    });
+
+    it('uses Orb page info for profile search pagination', async () => {
+        const items = Array.from({ length: 10 }, (_, index) => ({
+            id: index === 0 ? identity.account : `0x${index}`,
+            metadata: {
+                handle: `user-${index}`,
+                address: index === 0 ? identity.account : `0x${index}`,
             },
-        ]);
+        }));
+        fetchJsonMock.mockResolvedValueOnce({
+            status: 'SUCCESS',
+            data: { items, pageInfo: { next: '20', prev: '0' } },
+        });
+
+        const result = await searchProfiles(identity.account, 'user', '10');
+
+        expect(result.items).toHaveLength(9);
+        expect(result.nextCursor).toBe('20');
+        expect(fetchJsonMock).toHaveBeenCalledWith('/api/orb/chat/search', {
+            method: 'POST',
+            headers: { 'x-access-token': 'Bearer lens-access-token' },
+            body: JSON.stringify({
+                query: 'user',
+                searchType: 'USER',
+                limit: 10,
+                cursor: '10',
+                sortFilter: 'RELEVANT',
+                thumbnailDimension: 128,
+            }),
+        });
     });
 });

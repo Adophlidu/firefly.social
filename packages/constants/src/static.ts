@@ -152,6 +152,7 @@ export const OPTIMISM_RPC_URL =
     'https://thrumming-flashy-replica.optimism.quiknode.pro/a5385e01c5d86056ee9c58742ad2a42d78f77e7a';
 export const POLYGON_RPC_URL =
     'https://thrumming-flashy-replica.matic.quiknode.pro/a5385e01c5d86056ee9c58742ad2a42d78f77e7a';
+export const LENS_RPC_URL = 'https://lens-mainnet.g.alchemy.com/v2/2OZcv0UsvTJWk2eVPumvsMhHerJQYqq8';
 export const SOLANA_RPC_URL =
     'https://twilight-icy-fog.solana-mainnet.quiknode.pro/95201eba4c05903e956afc5bb7f4cb0c0f007b60';
 export const ROBINHOOD_RPC_URL =
