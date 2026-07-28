@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+
 import type { Plugin, RunnableDevEnvironment } from 'vite';
 
 import type { ClientAssets } from './runtime/assets.tsx';
@@ -39,6 +40,7 @@ export interface SsrPluginOptions {
 export const VIRTUAL_ROUTES_ID = 'virtual:ssr/routes';
 export const VIRTUAL_CLIENT_ASSETS_ID = 'virtual:ssr/client-assets';
 export const VIRTUAL_WORKER_ID = 'virtual:ssr/worker';
+
 const RESOLVED_VIRTUAL_ROUTES_ID = '\0virtual:ssr/routes';
 const RESOLVED_VIRTUAL_CLIENT_ASSETS_ID = '\0virtual:ssr/client-assets';
 const RESOLVED_VIRTUAL_WORKER_ID = '\0virtual:ssr/worker';
@@ -106,6 +108,7 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
                 const importedChunk = manifest[imported];
                 if (importedChunk) css.push(...collectCss(importedChunk, seen));
             }
+
             return css;
         };
 
@@ -306,6 +309,7 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
                             if (value === undefined) continue;
                             headers.set(key, Array.isArray(value) ? value.join(', ') : value);
                         }
+
                         const request = new Request(url, {
                             method,
                             headers,
@@ -321,9 +325,11 @@ export function ssrPlugin(options: SsrPluginOptions = {}): Plugin {
                             res.end();
                             return;
                         }
+
                         for await (const chunk of response.body as AsyncIterable<Uint8Array>) {
                             res.write(chunk);
                         }
+
                         res.end();
                     } catch (error) {
                         console.error('[ssr] dev middleware error', error);

@@ -3,10 +3,10 @@
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import { composeMatch } from './compose.tsx';
-import { collectSlots, Slot } from './slot.tsx';
 import { createMatcher } from '../router/matcher.ts';
 import { buildRouteTree } from '../router/tree.ts';
+import { composeMatch } from './compose.tsx';
+import { collectSlots, Slot } from './slot.tsx';
 import type { RouteModuleMap } from './types.ts';
 
 const FILES = ['__root.tsx', '_layout.tsx', 'index.tsx', 'about.tsx'];
@@ -52,8 +52,13 @@ function render(modules: RouteModuleMap, url: string): string {
 
 describe('layout slots', () => {
     it('collectSlots skips framework exports and lets inner modules override', () => {
-        const Sidebar = () => <b>layout-sidebar</b>;
-        const PageSidebar = () => <b>page-sidebar</b>;
+        function Sidebar() {
+            return <b>layout-sidebar</b>;
+        }
+        function PageSidebar() {
+            return <b>page-sidebar</b>;
+        }
+
         const modules = makeModules({
             '_layout.tsx': { default: LayoutWithSlots, sidebar: Sidebar, loader: () => ({}) } as never,
             'index.tsx': { default: () => <p>home</p>, sidebar: PageSidebar } as never,
@@ -99,10 +104,12 @@ describe('useLoaderData group fallback', () => {
         const { useLoaderData } = await import('./context.ts');
         const { useContext } = await import('react');
         let observed: unknown;
+
         function Probe() {
             observed = useLoaderData('profile/$source/$id/_layout.tsx');
             return null;
         }
+
         const state = {
             pathname: '/',
             search: new URLSearchParams(),

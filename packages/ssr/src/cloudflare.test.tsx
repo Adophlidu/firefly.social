@@ -1,11 +1,11 @@
-import { afterEach, describe, expect, it } from 'vitest';
 import type { ReactNode } from 'react';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { createWorkersHandler, getGeo, withEdgeCache, type WorkersEnv } from './cloudflare.ts';
 import { buildRouteTree } from './router/tree.ts';
 import { SsrDataOutlet } from './runtime/compose.tsx';
-import { cacheControlHeader } from './server.ts';
 import type { RouteModuleMap } from './runtime/types.ts';
+import { cacheControlHeader } from './server.ts';
 
 const noopCtx = { waitUntil: (_promise: Promise<unknown>) => {} };
 
@@ -115,7 +115,7 @@ describe('withEdgeCache', () => {
         };
 
         let produced = 0;
-        const waits: Promise<unknown>[] = [];
+        const waits: Array<Promise<unknown>> = [];
         const ctx = { waitUntil: (promise: Promise<unknown>) => waits.push(promise) };
         const produce = async () => {
             produced += 1;
@@ -146,7 +146,7 @@ describe('withEdgeCache', () => {
         };
 
         let produced = 0;
-        const waits: Promise<unknown>[] = [];
+        const waits: Array<Promise<unknown>> = [];
         const ctx = { waitUntil: (promise: Promise<unknown>) => waits.push(promise) };
         const produce = async () => {
             produced += 1;

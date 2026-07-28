@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest';
 import { buildRouteTree } from './router/tree.ts';
 import { SsrDataOutlet } from './runtime/compose.tsx';
 import { useLoaderData } from './runtime/context.ts';
-import type { RouteModuleMap } from './runtime/types.ts';
 import { createServerHandler } from './server.ts';
 
 function Root(props: { children?: ReactNode }) {

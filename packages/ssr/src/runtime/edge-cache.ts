@@ -17,6 +17,7 @@ function buildCacheKey(request: Request, vary: string[] | undefined): Request {
     for (const [index, value] of vary.entries()) {
         url.searchParams.set(`__vary_${index}`, encodeURIComponent(value).slice(0, 64));
     }
+
     return new Request(url, { method: 'GET' });
 }
 

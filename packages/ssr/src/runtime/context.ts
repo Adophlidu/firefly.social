@@ -85,6 +85,7 @@ export function findChainData<T = unknown>(allData: Record<string, unknown> | un
     for (const [key, value] of Object.entries(allData)) {
         if (stripRouteGroups(key) === normalized) return value as T;
     }
+
     return undefined;
 }
 
@@ -104,6 +105,7 @@ export function useLoaderData<T = unknown>(file?: string): T {
     for (const [dataKey, value] of Object.entries(state.data)) {
         if (stripRouteGroups(dataKey) === normalized) return value as T;
     }
+
     return undefined as T;
 }
 

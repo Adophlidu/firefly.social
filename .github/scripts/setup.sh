@@ -6,6 +6,7 @@ pnpm install
 
 # Build packages (workers depend on @dimensiondev/enums and @dimensiondev/web3,
 # so these must be built before the workers are bundled)
+pnpm --filter @dimensiondev/ssr build
 pnpm --filter @dimensiondev/enums build
 pnpm --filter @dimensiondev/constants build
 pnpm --filter @dimensiondev/types build

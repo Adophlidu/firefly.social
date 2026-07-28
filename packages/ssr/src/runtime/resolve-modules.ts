@@ -38,5 +38,6 @@ export async function resolveChainModules(
     for (const entry of entries) {
         if (entry) modules[entry[0]] = entry[1] as RouteModuleMap[string];
     }
+
     return modules;
 }

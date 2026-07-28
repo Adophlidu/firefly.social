@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
-import { act } from 'react';
 import type { ReactNode } from 'react';
+import { act } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { hydrateApp } from './client.tsx';

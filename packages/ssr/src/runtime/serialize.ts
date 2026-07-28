@@ -34,7 +34,7 @@ export interface SsrPayload {
      * `head()` may be async, so recomputing on the client is not always
      * possible (and would diverge from the server-rendered <head>).
      */
-    heads?: import('./types.ts').HeadDescriptor[];
+    heads?: Array<import('./types.ts').HeadDescriptor>;
 }
 
 /**
@@ -43,7 +43,7 @@ export interface SsrPayload {
  * the target route without a full page load.
  */
 export interface NavigationPayload extends SsrPayload {
-    heads: import('./types.ts').HeadDescriptor[];
+    heads: Array<import('./types.ts').HeadDescriptor>;
 }
 
 /**

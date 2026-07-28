@@ -38,6 +38,7 @@ function compareScores(a: number[], b: number[]): number {
     for (let index = 0; index < length; index += 1) {
         if (a[index] !== b[index]) return a[index] - b[index];
     }
+
     return b.length - a.length;
 }
 
@@ -89,6 +90,7 @@ function buildChain(page: RouteNode): RouteNode[] {
         chain.unshift(node);
         node = node.parent;
     }
+
     return chain;
 }
 

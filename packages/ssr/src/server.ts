@@ -1,16 +1,16 @@
 import { renderToReadableStream } from 'react-dom/server';
 
-import { dispatchApiRoute, type CacheConfig } from './router/api.ts';
-import { withEdgeCache } from './runtime/edge-cache.ts';
+import { type CacheConfig, dispatchApiRoute } from './router/api.ts';
 import { createMatcher, type RouteMatch } from './router/matcher.ts';
 import type { RouteTree } from './router/tree.ts';
 import type { ClientAssets } from './runtime/assets.tsx';
 import { composeMatch, findBoundaryComponent } from './runtime/compose.tsx';
+import { withEdgeCache } from './runtime/edge-cache.ts';
 import { isNotFoundError, isRedirectError } from './runtime/errors.ts';
-import { resolveChain, filesOfMatch } from './runtime/loaders.ts';
+import { filesOfMatch, resolveChain } from './runtime/loaders.ts';
 import { stripBasepath } from './runtime/paths.ts';
 import { resolveChainModules, type RouteModuleInput } from './runtime/resolve-modules.ts';
-import { SSR_DATA_HEADER, type NavigationPayload, type SsrPayload } from './runtime/serialize.ts';
+import { type NavigationPayload, SSR_DATA_HEADER, type SsrPayload } from './runtime/serialize.ts';
 import type { ExecutionContextLike, RouteModuleMap } from './runtime/types.ts';
 
 export interface CreateServerHandlerOptions {
@@ -113,6 +113,7 @@ async function renderPage(options: RenderPageOptions): Promise<Response> {
                 if (!styles.includes(href)) styles.push(href);
             }
         }
+
         clientAssets = { ...clientAssets, styles };
     }
 

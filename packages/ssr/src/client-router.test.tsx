@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 
-import { act } from 'react';
 import type { ReactNode } from 'react';
+import { act } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { hydrateApp } from './client.tsx';
-import { buildRouteTree } from './router/tree.ts';
 import { HeadOutlet, Link, SsrDataOutlet, useLoaderData, useNavigate, useRouterState } from './index.ts';
+import { buildRouteTree } from './router/tree.ts';
 import type { RouteModuleMap } from './runtime/types.ts';
 import { createServerHandler } from './server.ts';
 
@@ -96,6 +96,7 @@ describe('client-side navigation', () => {
         for (const root of mountedRoots.splice(0)) {
             act(() => root.unmount());
         }
+
         document.body.innerHTML = '';
         vi.unstubAllGlobals();
         vi.restoreAllMocks();
@@ -169,7 +170,11 @@ describe('client-side navigation', () => {
         };
         vi.stubGlobal(
             'fetch',
-            vi.fn(async (input: RequestInfo | URL) => Response.json(payloads[String(input)])),
+            vi.fn(async (input: RequestInfo | URL) =>
+                Response.json(
+                    payloads[typeof input === 'string' ? input : input instanceof URL ? input.href : input.url],
+                ),
+            ),
         );
 
         const container = await renderInto('/');
@@ -193,7 +198,7 @@ describe('client-side navigation', () => {
 
     it('follows redirect payloads from loaders as another navigation', async () => {
         const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
-            const path = String(input);
+            const path = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
             if (path === '/about') {
                 // The /about loader redirects back home.
                 return Response.json({ url: '/about', params: {}, data: {}, heads: [], redirect: '/' });
@@ -277,6 +282,7 @@ describe('client-side navigation', () => {
 
     it('exposes navigationType=replace for replace navigations', async () => {
         let observedType: string | undefined;
+
         function Probe() {
             const state = useRouterState();
             observedType = state.navigationType;
@@ -291,6 +297,7 @@ describe('client-side navigation', () => {
                 </div>
             );
         }
+
         const probeModules: RouteModuleMap = {
             ...modules,
             '__root.tsx': { default: ReplaceRoot },

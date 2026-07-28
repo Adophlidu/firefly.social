@@ -1,13 +1,13 @@
+import type { ComponentType, ReactElement, ReactNode } from 'react';
+
+import type { RouteMatch } from '../router/matcher.ts';
 import { RouterContext, type RouterState } from './context.ts';
 import { ErrorBoundary } from './error-boundary.tsx';
 import { flattenHeads } from './head-manager.ts';
 import { filesOfMatch } from './loaders.ts';
-import { SSR_DATA_ELEMENT_ID, serializeForHtml, type SsrPayload } from './serialize.ts';
+import { serializeForHtml, SSR_DATA_ELEMENT_ID, type SsrPayload } from './serialize.ts';
 import { collectSlots } from './slot.tsx';
-import type { RouteModuleMap } from './types.ts';
-import type { RouteMatch } from '../router/matcher.ts';
-import type { HeadDescriptor } from './types.ts';
-import type { ComponentType, ReactElement, ReactNode } from 'react';
+import type { HeadDescriptor, RouteModuleMap } from './types.ts';
 
 function viteBaseUrl(): string {
     const base = (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL ?? '/';
@@ -152,6 +152,7 @@ export function findBoundaryComponent(
             if (boundary) return boundary as ComponentType;
         }
     }
+
     return undefined;
 }
 

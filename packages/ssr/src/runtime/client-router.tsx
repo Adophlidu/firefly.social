@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { AnchorHTMLAttributes, MouseEvent, ReactElement } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { createMatcher, type RouteMatch } from '../router/matcher.ts';
 import type { RouteTree } from '../router/tree.ts';
@@ -9,7 +9,7 @@ import { isNotFoundError, isRedirectError } from './errors.ts';
 import { filesOfMatch, resolveHeads } from './loaders.ts';
 import { stripBasepath, withBasepath } from './paths.ts';
 import { resolveChainModules, type RouteModuleInput } from './resolve-modules.ts';
-import { SSR_DATA_HEADER, type NavigationPayload, type SsrPayload } from './serialize.ts';
+import { type NavigationPayload, SSR_DATA_HEADER, type SsrPayload } from './serialize.ts';
 import type { HeadDescriptor, LoaderContext, RouteModuleMap } from './types.ts';
 
 export type HistoryMode = 'browser' | 'memory';
@@ -289,6 +289,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 } finally {
                     clearTimeout(pendingTimer);
                 }
+
                 if (id !== navigationId.current) return; // superseded
                 if (!navigation) {
                     fullLoad();

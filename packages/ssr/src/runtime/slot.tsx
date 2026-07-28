@@ -37,11 +37,13 @@ export function collectSlots(files: string[], modules: RouteModuleMap): Record<s
     for (const file of files) {
         const routeModule = modules[file] as Record<string, unknown> | undefined;
         if (!routeModule) continue;
+
         for (const [name, value] of Object.entries(routeModule)) {
             if (RESERVED_EXPORTS.has(name)) continue;
             if (typeof value === 'function') slots[name] = value as ComponentType;
         }
     }
+
     return slots;
 }
 

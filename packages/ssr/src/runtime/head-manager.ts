@@ -35,11 +35,13 @@ export function flattenHeads(heads: HeadDescriptor[]): {
                       : `content:${meta.content}`;
             metaByKey.set(key, meta);
         }
+
         for (const link of head.links ?? []) {
             const key = link.rel === 'canonical' ? 'canonical' : `${link.rel}|${link.href}`;
             linkByKey.set(key, link);
         }
     }
+
     return { title, meta: [...metaByKey.values()], links: [...linkByKey.values()] };
 }
 
@@ -58,19 +60,24 @@ export function applyHeads(heads: HeadDescriptor[]): void {
     for (const metaTag of meta) {
         const element = document.createElement('meta');
         element.setAttribute(MANAGED_ATTRIBUTE, '');
+
         for (const [key, value] of Object.entries(metaTag)) {
             if (value === undefined) continue;
             element.setAttribute(key === 'httpEquiv' ? 'http-equiv' : key, value);
         }
+
         document.head.append(element);
     }
+
     for (const linkTag of links) {
         const element = document.createElement('link');
         element.setAttribute(MANAGED_ATTRIBUTE, '');
+
         for (const [key, value] of Object.entries(linkTag)) {
             if (value === undefined) continue;
             element.setAttribute(key === 'crossOrigin' ? 'crossorigin' : key, value);
         }
+
         document.head.append(element);
     }
 }

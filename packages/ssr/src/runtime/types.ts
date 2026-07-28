@@ -1,5 +1,6 @@
-import type { ApiRouteModule, CacheConfig } from '../router/api.ts';
 import type { ComponentType, ReactNode } from 'react';
+
+import type { ApiRouteModule, CacheConfig } from '../router/api.ts';
 
 /**
  * Minimal structural shape of a serverless execution context (Cloudflare

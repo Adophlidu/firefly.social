@@ -6,7 +6,7 @@ import { ClientApp, type HistoryMode } from './runtime/client-router.tsx';
 import { collectHeads } from './runtime/loaders.ts';
 import { stripBasepath } from './runtime/paths.ts';
 import { resolveChainModules, type RouteModuleInput } from './runtime/resolve-modules.ts';
-import { SSR_DATA_ELEMENT_ID, parseSsrPayload } from './runtime/serialize.ts';
+import { parseSsrPayload, SSR_DATA_ELEMENT_ID } from './runtime/serialize.ts';
 
 export interface HydrateAppOptions {
     tree: RouteTree;

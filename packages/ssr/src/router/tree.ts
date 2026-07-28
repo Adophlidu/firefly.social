@@ -177,12 +177,14 @@ export function buildRouteTree(options: BuildRouteTreeOptions): RouteTree {
         let node = root;
         const rootLayout = layoutByDirectory.get('/');
         if (rootLayout) node = getOrCreateLayout(node, rootLayout);
+
         for (let index = 0; index < directory.length; index += 1) {
             node = getOrCreateChild(node, directory[index]);
             const directoryId = segmentsToDirectoryId(directory.slice(0, index + 1));
             const layout = layoutByDirectory.get(directoryId);
             if (layout) node = getOrCreateLayout(node, layout);
         }
+
         return node;
     }
 
@@ -214,6 +216,7 @@ export function buildRouteTree(options: BuildRouteTreeOptions): RouteTree {
         for (const segment of nameSegments) {
             leaf = getOrCreateChild(leaf, segment);
         }
+
         if (leaf.pageFile) {
             throw new Error(`Duplicate pages for URL "${leaf.path}": "${leaf.pageFile}" and "${file}"`);
         }

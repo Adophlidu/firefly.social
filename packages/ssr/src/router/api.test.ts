@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
 import { coerceToResponse, dispatchApiRoute } from './api.ts';
-import { buildRouteTree } from './tree.ts';
 import { createMatcher } from './matcher.ts';
+import { buildRouteTree } from './tree.ts';
 
 describe('buildRouteTree API marking', () => {
     it('marks files under the api directory as api pages', () => {

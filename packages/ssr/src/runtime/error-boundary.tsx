@@ -1,5 +1,5 @@
-import { Component } from 'react';
 import type { ComponentType, ReactNode } from 'react';
+import { Component } from 'react';
 
 interface ErrorBoundaryProps {
     Fallback: ComponentType<{ error: Error }>;

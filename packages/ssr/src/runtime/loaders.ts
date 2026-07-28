@@ -102,5 +102,6 @@ export function collectHeads(
         if (head instanceof Promise) continue;
         heads.push(head);
     }
+
     return heads;
 }

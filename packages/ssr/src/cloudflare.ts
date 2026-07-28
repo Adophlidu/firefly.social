@@ -1,6 +1,5 @@
-import { createServerHandler, type ServerContext } from './server.ts';
-import type { CreateServerHandlerOptions } from './server.ts';
 import { stripBasepath } from './runtime/paths.ts';
+import { createServerHandler, type CreateServerHandlerOptions, type ServerContext } from './server.ts';
 
 /**
  * Minimal structural types for Cloudflare Workers bindings — deliberately
@@ -93,5 +92,5 @@ export function getGeo(request: Request): GeoInfo {
         colo: cf.colo as string | undefined,
     };
 }
-export { withEdgeCache } from './runtime/edge-cache.ts';
 export type { EdgeCacheOptions } from './runtime/edge-cache.ts';
+export { withEdgeCache } from './runtime/edge-cache.ts';

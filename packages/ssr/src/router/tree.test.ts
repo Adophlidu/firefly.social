@@ -1,14 +1,16 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildRouteTree } from './tree.ts';
 import type { RouteNode } from './tree.ts';
+import { buildRouteTree } from './tree.ts';
 
 function findNode(root: RouteNode, id: string): RouteNode | undefined {
     if (root.id === id) return root;
+
     for (const child of root.children) {
         const found = findNode(child, id);
         if (found) return found;
     }
+
     return undefined;
 }
 

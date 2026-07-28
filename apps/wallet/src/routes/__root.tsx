@@ -2,7 +2,7 @@ import '@/globals.css';
 
 import { ClientScripts, ClientStyles, HeadOutlet, SsrDataOutlet, useRouterState } from '@dimensiondev/ssr';
 import type { ReactNode } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-web';
 
 import { ClientProviders } from '@/components/ClientProviders.js';
 import { DefaultPendingComponent } from '@/components/DefaultPendingComponent.js';

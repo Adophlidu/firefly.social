@@ -38,6 +38,9 @@ export default defineConfig([
         'packages/**/src/locales/**',
         'workers/**/dist/**',
         'workers/**/types/**',
+        '**/.wrangler/**',
+        '**/.tamagui/**',
+        'packages/**/test/fixtures/**',
         '*.config.ts',
         '**/*.config.js',
         '**/*.config.cjs',
@@ -183,28 +186,13 @@ export default defineConfig([
         },
     },
     {
-        // The root layout and not-found are the two files that gate ISR/CDN caching for the whole
-        // site: pulling a dynamic request API (cookies/headers via next/headers) into either one
-        // opts every route into per-request dynamic rendering. Keep them free of next/headers.
-        files: ['apps/web/src/app/not-found.tsx', 'apps/web/src/app/layout.tsx'],
+        // The SSR framework emits document-level <script> tags and inline
+        // bootstrap HTML by design — Next.js document rules do not apply.
+        files: ['packages/ssr/src/**/*.{ts,tsx}'],
         rules: {
-            'no-restricted-imports': [
-                'error',
-                {
-                    paths: [
-                        {
-                            name: 'next/headers',
-                            message:
-                                'Dynamic request APIs in the root layout/not-found force every route to dynamic rendering and disable ISR site-wide.',
-                        },
-                        {
-                            name: 'next/headers.js',
-                            message:
-                                'Dynamic request APIs in the root layout/not-found force every route to dynamic rendering and disable ISR site-wide.',
-                        },
-                    ],
-                },
-            ],
+            '@next/next/no-sync-scripts': 'off',
+            '@next/next/no-assign-module-variable': 'off',
+            'react/no-danger': 'off',
         },
     },
     {
