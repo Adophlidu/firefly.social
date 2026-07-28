@@ -66,10 +66,11 @@ jobs:
                   NEXT_PUBLIC_FIREBASE_VAPID_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_VAPID_KEY }}
               run: pnpm --filter @dimensiondev/firefly-web run build
 
-            - name: Upload worker secrets
+            - name: Write runtime secrets (.env.local)
               # The worker validates internal env vars at startup (zod schema in
               # packages/envs), and Cloudflare's upload-time version check executes
-              # that code — the secrets must be present on the script before deploy.
+              # that code. wrangler loads .env.local into the upload, so the
+              # required secrets must be written there first.
               env:
                   CLOUDFLARE_API_TOKEN: ${{ secrets.WALLET_CLOUDFLARE_API_TOKEN }}
                   CLOUDFLARE_ACCOUNT_ID: ${{ secrets.WALLET_CLOUDFLARE_ACCOUNT_ID }}
@@ -91,11 +92,16 @@ jobs:
                   ORB_SUPABASE_ANON_KEY: ${{ secrets.ORB_SUPABASE_ANON_KEY }}
               run: |
                   set -euo pipefail
-                  json='{}'
-                  for key in TWITTER_CLIENT_ID TWITTER_CLIENT_SECRET                       GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET                       APPLE_CLIENT_ID APPLE_CLIENT_SECRET                       NEXTAUTH_SECRET NEXTAUTH_URL                       SESSION_CIPHER_KEY SESSION_CIPHER_IV                       FARCASTER_SIGNER_FID FARCASTER_SIGNER_MNEMONIC                       FIREFLY_JWT_SECRET ORB_API_KEY                       ORB_SUPABASE_URL ORB_SUPABASE_ANON_KEY; do
-                    json=$(jq --arg k "$key" --arg v "${!key}" '. + {($k): $v}' <<<"$json")
+                  for key in TWITTER_CLIENT_ID TWITTER_CLIENT_SECRET \
+                      GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET \
+                      APPLE_CLIENT_ID APPLE_CLIENT_SECRET \
+                      NEXTAUTH_SECRET NEXTAUTH_URL \
+                      SESSION_CIPHER_KEY SESSION_CIPHER_IV \
+                      FARCASTER_SIGNER_FID FARCASTER_SIGNER_MNEMONIC \
+                      FIREFLY_JWT_SECRET ORB_API_KEY \
+                      ORB_SUPABASE_URL ORB_SUPABASE_ANON_KEY; do
+                    printf '%s="%s"\n' "$key" "${!key}" >> .env.local
                   done
-                  echo "$json" | npx wrangler secret bulk - --config wrangler.jsonc --env staging
               working-directory: apps/web
 
             - name: Deploy to Cloudflare Workers
