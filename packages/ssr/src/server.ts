@@ -1,6 +1,7 @@
 import { renderToReadableStream } from 'react-dom/server';
 
 import { dispatchApiRoute, type CacheConfig } from './router/api.ts';
+import { withEdgeCache } from './runtime/edge-cache.ts';
 import { createMatcher, type RouteMatch } from './router/matcher.ts';
 import type { RouteTree } from './router/tree.ts';
 import type { ClientAssets } from './runtime/assets.tsx';
@@ -40,6 +41,12 @@ export interface CreateServerHandlerOptions {
     middleware?: MiddlewareFn[];
     /** Custom 404 response factory. Defaults to a plain text 404. */
     notFound?: (request: Request) => Response | Promise<Response>;
+    /**
+     * Extra cache-key material for edge-cached responses (e.g. resolved
+     * locale). The payload/document distinction and cookie bypass are
+     * handled by the library; app-specific variance goes here.
+     */
+    cacheVary?: (request: Request, wantsData: boolean) => string[] | undefined;
 }
 
 export type MiddlewareNext = (request?: Request) => Promise<Response>;
@@ -198,6 +205,41 @@ export function createServerHandler<TEnv = unknown>(
             return response;
         }
 
+        const wantsData = request.headers.get(SSR_DATA_HEADER) === 'true';
+
+        // Edge caching (Cache API): only for routes declaring config.cache,
+        // only GET, and never for cookied requests — that is what keeps
+        // shared caches free of per-user content (locale, sessions).
+        const routeCache = modules[matched.page.pageFile ?? '']?.config?.cache;
+        if (
+            routeCache?.sMaxAge !== undefined &&
+            request.method === 'GET' &&
+            !request.headers.get('cookie') &&
+            platform.ctx
+        ) {
+            const vary = [
+                ...(wantsData ? ['__ssr_data__'] : []),
+                // A payload computed with skipped loaders (x-ssr-have) is
+                // partial — it must not be served for full-payload requests.
+                ...(request.headers.get('x-ssr-have') ? [`have:${request.headers.get('x-ssr-have')}`] : []),
+                ...(options.cacheVary?.(request, wantsData) ?? []),
+            ];
+            return withEdgeCache(request, platform.ctx, { sMaxAge: routeCache.sMaxAge, vary }, () =>
+                renderMatchedPage(request, url, matched, modules, { env: context?.env, ctx: context?.ctx }),
+            );
+        }
+
+        return renderMatchedPage(request, url, matched, modules, { env: context?.env, ctx: context?.ctx });
+    };
+
+    async function renderMatchedPage(
+        request: Request,
+        url: URL,
+        matched: RouteMatch,
+        modules: RouteModuleMap,
+        platform: ServerContext<TEnv>,
+    ): Promise<Response> {
+        const pathname = stripBasepath(url.pathname, basepath);
         const wantsData = request.headers.get(SSR_DATA_HEADER) === 'true';
 
         // Client-only pages render just the pending shell on the server;

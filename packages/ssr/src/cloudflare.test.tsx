@@ -145,6 +145,51 @@ describe('withEdgeCache', () => {
         expect(produced).toBe(1);
     });
 
+    it('differentiates cache keys by vary material', async () => {
+        const store = new Map<string, Response>();
+        (globalThis as { caches?: unknown }).caches = {
+            default: {
+                match: async (request: Request) => store.get(request.url),
+                put: async (request: Request, response: Response) => {
+                    store.set(request.url, response);
+                },
+            },
+        };
+
+        let produced = 0;
+        const waits: Promise<unknown>[] = [];
+        const ctx = { waitUntil: (promise: Promise<unknown>) => waits.push(promise) };
+        const produce = async () => {
+            produced += 1;
+            return new Response(`render-${produced}`);
+        };
+
+        const en = await withEdgeCache(new Request('http://localhost/page'), ctx, { sMaxAge: 60, vary: ['en'] }, produce);
+        expect(await en.text()).toBe('render-1');
+        await Promise.all(waits);
+
+        // Same URL, different vary: a miss, not a hit.
+        const zh = await withEdgeCache(new Request('http://localhost/page'), ctx, { sMaxAge: 60, vary: ['zh-Hans'] }, produce);
+        expect(zh.headers.get('x-ssr-cache')).toBeNull();
+        expect(await zh.text()).toBe('render-2');
+        await Promise.all(waits);
+
+        // Same URL, same vary again: a hit.
+        const enAgain = await withEdgeCache(new Request('http://localhost/page'), ctx, { sMaxAge: 60, vary: ['en'] }, produce);
+        expect(enAgain.headers.get('x-ssr-cache')).toBe('hit');
+        expect(produced).toBe(2);
+
+        // Payload/document distinction via vary as well.
+        const data = await withEdgeCache(
+            new Request('http://localhost/page'),
+            ctx,
+            { sMaxAge: 60, vary: ['__ssr_data__', 'en'] },
+            produce,
+        );
+        expect(data.headers.get('x-ssr-cache')).toBeNull();
+        expect(produced).toBe(3);
+    });
+
     it('passes through non-GET requests and non-200 responses', async () => {
         (globalThis as { caches?: unknown }).caches = {
             default: {
