@@ -5,7 +5,6 @@ import { Trans } from '@lingui/react/macro';
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { changeCookies } from '@/actions/changeCookies.js';
 import { OptionButton } from '@/legacy/[locale]/(settings)/components/OptionButton.js';
 import { SettingsSection } from '@/legacy/[locale]/(settings)/components/Section.js';
 import { Subtitle } from '@/legacy/[locale]/(settings)/components/Subtitle.js';
@@ -72,12 +71,14 @@ export default function General() {
                         selected={option.value === locale}
                         darkMode={mode === 'default' ? (isServer ? rootClass === 'dark' : isDarkOS) : mode === 'dark'}
                         label={supportedLocales[option.value]}
-                        onClick={async () => {
+                        onClick={() => {
                             logger.warn('[18n] change locale', option.value);
 
-                            const data = new FormData();
-                            data.append('locale', option.value);
-                            await changeCookies(data);
+                            // Write the locale cookie and reload — the next SSR pass
+                            // renders the whole app in the new locale (the old
+                            // changeCookies server action + RSC refresh equivalent).
+                            document.cookie = `${SiteCookies.Locale}=${option.value}; path=/; max-age=31536000`;
+                            location.reload();
                         }}
                     />
                 ))}

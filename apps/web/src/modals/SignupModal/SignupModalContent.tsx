@@ -1,26 +1,21 @@
 'use client';
 
-import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { isUserRejectErrorInWallet } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
-import { compact } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
-import { refreshPageCache } from '@/actions/refreshPageCache.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { FetchError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { SignupFormFields } from '@/modals/SignupModal/SignupFormFields.js';
 import { captureSocialSignupSuccessEvent } from '@/providers/telemetry/captureSocialAccountSignupEvent.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -31,20 +26,6 @@ import { uploadProfileAvatar } from '@/services/uploadProfileAvatar.js';
 
 interface SignupFormValues extends Omit<ProfileForSignup, 'pfp'> {
     pfp?: File;
-}
-
-async function refreshProfilePageCache() {
-    const currentProfileAll = getCurrentProfileAllFromStorage();
-    await Promise.allSettled(
-        compact(
-            SORTED_SOCIAL_SOURCES.map(async (x) => {
-                const profile = currentProfileAll[x];
-                if (!profile) return;
-
-                return refreshPageCache(RouteResolver.profile(profile), 'layout');
-            }),
-        ),
-    );
 }
 
 interface Props {
@@ -91,7 +72,6 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                 runInSafeAsync(() => queryClient.refetchQueries({ queryKey: queryMyAllConnections.queryKey }));
                 enqueueSuccessMessage(<Trans>{resolveSourceName(source)} profile created.</Trans>);
 
-                refreshProfilePageCache();
             } catch (error) {
                 if (isUserRejectErrorInWallet(error)) {
                     enqueueWarningMessage(getWarningMessageFromError(error));

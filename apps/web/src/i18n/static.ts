@@ -1,6 +1,6 @@
 /**
- * ISR-safe i18n setup — no cookies/headers dependency.
- * Import this module instead of '@/i18n/index.js' in layouts/pages that need ISR/SSG.
+ * Request-context-free i18n setup — no cookies/headers dependency, safe to use
+ * in loaders and layouts where the active locale is already known.
  */
 import { Locale } from '@dimensiondev/enums';
 import { getI18n } from '@lingui/react/server';

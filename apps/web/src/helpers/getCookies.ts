@@ -1,6 +1,5 @@
 import { Locale, SiteCookies } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
-import { cookies, headers } from 'next/headers.js';
 
 import { resolveLanguageLocale, resolveLocale } from '@/helpers/resolveLocale.js';
 
@@ -11,21 +10,9 @@ export function getClientCookies(name: SiteCookies) {
     return value;
 }
 
-export async function getCookie(name: SiteCookies) {
-    if (bom.document) return getClientCookies(name);
-    return (await cookies()).get(name)?.value;
-}
-
-async function resolveClientLocale() {
-    if (bom.document) return resolveLanguageLocale(bom.navigator?.language);
-    const acceptLanguageHeader = (await headers()).get('Accept-Language');
-    const headerLang = acceptLanguageHeader?.split(',')[0];
-    return headerLang ? resolveLanguageLocale(headerLang) : Locale.en;
-}
-
-export async function getLocaleFromCookies() {
-    const locale = await getCookie(SiteCookies.Locale);
-    return locale ? resolveLocale(locale) : resolveClientLocale();
+export function getLocaleFromCookies() {
+    const locale = getClientCookies(SiteCookies.Locale);
+    return locale ? resolveLocale(locale) : resolveLanguageLocale(bom.navigator?.language);
 }
 
 export function getLocalFromClientCookies() {
