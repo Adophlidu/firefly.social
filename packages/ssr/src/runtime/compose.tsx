@@ -238,6 +238,15 @@ export function composeMatch(options: ComposeOptions): ReactElement {
             options.terminalComponent && options.error && index === entries.length - 1 ? { error: options.error } : {};
         const content = <Component {...errorProps}>{tree}</Component>;
         const guarded = Fallback ? <ErrorBoundary Fallback={Fallback}>{content}</ErrorBoundary> : content;
+        // The outermost entry renders the full document (<html>) — a Suspense
+        // boundary around it emits boundary comments outside <html>, which the
+        // HTML parser relocates and hydration mismatches (#418). The root
+        // keeps its error boundary only; root loaders are expected to be
+        // reused across navigations (no suspension here).
+        if (index === 0) {
+            tree = guarded;
+            continue;
+        }
         const LoadingFallback = loadingComponent ?? NullComponent;
         // Keyed by route file: a navigation swaps in a fresh boundary, so a
         // suspending loader shows its fallback immediately instead of React
