@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { FeedErrorBoundary } from '@/components/FeedErrorBoundary.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { SettingsHeader } from '@/legacy/[locale]/(settings)/components/SettingsHeader.js';
 import { SettingsList } from '@/legacy/[locale]/(settings)/components/SettingsList.js';
@@ -18,7 +19,9 @@ export default function SettingsGroupLayout({ children }: { children?: ReactNode
                 <div className="no-scrollbar hidden shrink-0 overflow-y-auto lg:flex">
                     <SettingsList />
                 </div>
-                <div className="md:no-scrollbar w-full min-w-0 md:overflow-y-auto">{children}</div>
+                <div className="md:no-scrollbar w-full min-w-0 md:overflow-y-auto">
+                    <FeedErrorBoundary>{children}</FeedErrorBoundary>
+                </div>
             </main>
             <SideBar />
         </div>

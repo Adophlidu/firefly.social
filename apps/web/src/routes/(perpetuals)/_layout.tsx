@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { FeedErrorBoundary } from '@/components/FeedErrorBoundary.js';
 import { SideBar } from '@/components/SideBar/index.js';
 
 /**
@@ -10,7 +11,9 @@ import { SideBar } from '@/components/SideBar/index.js';
 export default function PerpetualsLayout({ children }: { children?: ReactNode }) {
     return (
         <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
-            <main className="w-full md:pl-[235px] lg:pl-[289px]">{children}</main>
+            <main className="w-full md:pl-[235px] lg:pl-[289px]">
+                <FeedErrorBoundary>{children}</FeedErrorBoundary>
+            </main>
             <SideBar />
         </div>
     );

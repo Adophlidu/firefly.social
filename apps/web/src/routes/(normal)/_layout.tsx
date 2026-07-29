@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { DefaultRightSidebarContent } from '@/components/DefaultRightSidebarContent.js';
+import { FeedErrorBoundary } from '@/components/FeedErrorBoundary.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar } from '@/components/Search/SearchBar.js';
@@ -39,12 +40,16 @@ export default function NormalGroupLayout({ children }: { children?: ReactNode }
                     <Slot name="topnav" fallback={<NavigatorBar />} />
                     <Slot name="subnav" />
                 </div>
-                {children}
+                {/* A failing feed (API error) degrades to a retryable area
+                    instead of crashing the whole page. */}
+                <FeedErrorBoundary>{children}</FeedErrorBoundary>
             </main>
             <aside className="sticky top-0 z-1 hidden h-screen w-96 flex-col px-4 md:min-w-[384px] lg:flex">
                 <AsideSearchBar />
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
-                    <Slot name="sidebar" fallback={<DefaultRightSidebarContent />} />
+                    <FeedErrorBoundary>
+                        <Slot name="sidebar" fallback={<DefaultRightSidebarContent />} />
+                    </FeedErrorBoundary>
                     <LinkCloud />
                 </div>
             </aside>

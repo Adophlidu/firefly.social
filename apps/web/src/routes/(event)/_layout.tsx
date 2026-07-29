@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { FeedErrorBoundary } from '@/components/FeedErrorBoundary.js';
 import { EventLayoutBody } from '@/legacy/[locale]/(event)/EventLayoutBody.js';
 
 /**
@@ -11,7 +12,9 @@ import { EventLayoutBody } from '@/legacy/[locale]/(event)/EventLayoutBody.js';
 export default function EventGroupLayout({ children }: { children?: ReactNode }) {
     return (
         <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
-            <EventLayoutBody>{children}</EventLayoutBody>
+            <EventLayoutBody>
+                <FeedErrorBoundary>{children}</FeedErrorBoundary>
+            </EventLayoutBody>
         </div>
     );
 }
