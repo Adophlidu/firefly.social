@@ -20,6 +20,49 @@ import type { FireflyIdentity, WalletProfile, WalletProfiles } from '@/providers
 /** Renders its own header — suppress the (normal) frame's NavigatorBar. */
 export const topnav = () => null;
 
+/**
+ * Transition skeleton (instant swap): banner + avatar + bio card + tabs,
+ * so the previous page never collapses while the profile loader is in
+ * flight.
+ */
+export function loadingComponent() {
+    return (
+        <div className="animate-pulse">
+            <div className="h-28 bg-line" />
+            <div className="px-4">
+                <div className="-mt-10 size-20 rounded-full border-4 border-primaryBottom bg-line" />
+                <div className="mt-3 h-5 w-1/3 rounded bg-line" />
+                <div className="mt-2 flex gap-2">
+                    <div className="h-6 w-24 rounded-full bg-line" />
+                    <div className="h-6 w-24 rounded-full bg-line" />
+                </div>
+                <div className="mt-4 rounded-2xl border border-line p-4">
+                    <div className="flex items-center gap-3">
+                        <div className="size-10 rounded-full bg-line" />
+                        <div className="flex-1 space-y-2">
+                            <div className="h-4 w-1/4 rounded bg-line" />
+                            <div className="h-3 w-1/3 rounded bg-line" />
+                        </div>
+                        <div className="h-8 w-20 rounded-full bg-line" />
+                    </div>
+                    <div className="mt-3 h-3 w-full rounded bg-line" />
+                    <div className="mt-2 h-3 w-2/3 rounded bg-line" />
+                    <div className="mt-3 flex gap-4">
+                        <div className="h-3 w-16 rounded bg-line" />
+                        <div className="h-3 w-16 rounded bg-line" />
+                    </div>
+                </div>
+                <div className="mt-4 flex gap-6 border-b border-line pb-3">
+                    <div className="h-4 w-12 rounded bg-line" />
+                    <div className="h-4 w-12 rounded bg-line" />
+                    <div className="h-4 w-12 rounded bg-line" />
+                    <div className="h-4 w-12 rounded bg-line" />
+                </div>
+            </div>
+        </div>
+    );
+}
+
 interface ProfileLayoutData {
     source: ProfilePageSource;
     pageData: ProfilePageData;

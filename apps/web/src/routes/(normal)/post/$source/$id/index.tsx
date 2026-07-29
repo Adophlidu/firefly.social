@@ -14,6 +14,7 @@ import { PageDetail } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detai
 import type { PostThreadQueryData } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { createPostMetadataFromPost } from '@/providers/firefly/metadata/createPostMetadataFromPost.js';
 import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
+import { findPostInFeedCache } from '@/services/findPostInFeedCache.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export const config = { cache: { sMaxAge: 300 }, navMode: 'client' } as const;
@@ -33,6 +34,22 @@ export async function loader({ params }: LoaderContext): Promise<PostDetailLoade
 
     const source = resolveSocialSource(sourceInURL as SocialSourceInURL);
     if (!isValidPostId(source, params.id!)) notFound();
+
+    // Fast path for in-app navigation: the clicked post is already rendered
+    // in a timeline cache — show it immediately and let the page refetch
+    // thread/comments itself (stale-while-revalidate), instead of blocking
+    // the swap on two sequential API roundtrips.
+    const cachedPost = findPostInFeedCache(params.id!);
+    if (cachedPost) {
+        return {
+            id: params.id!,
+            source,
+            sourceInURL,
+            post: cachedPost,
+            initialThread: undefined,
+            unauthorized: false,
+        };
+    }
 
     const { post, unauthorized, initialThread } = await getPostDetailPageData(source, params.id!);
 
