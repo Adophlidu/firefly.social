@@ -496,7 +496,12 @@ describe('instant transitions (navMode=client)', () => {
 
         await act(async () => {
             mountedRoots.push(
-                await hydrateApp({ tree: clientTree, modules: clientModules, root: container, url: 'http://localhost/' }),
+                await hydrateApp({
+                    tree: clientTree,
+                    modules: clientModules,
+                    root: container,
+                    url: 'http://localhost/',
+                }),
             );
         });
         expect(container.querySelector('h1')?.textContent).toBe('home');
@@ -539,7 +544,12 @@ describe('instant transitions (navMode=client)', () => {
 
         await act(async () => {
             mountedRoots.push(
-                await hydrateApp({ tree: clientTree, modules: clientModules, root: container, url: 'http://localhost/' }),
+                await hydrateApp({
+                    tree: clientTree,
+                    modules: clientModules,
+                    root: container,
+                    url: 'http://localhost/',
+                }),
             );
         });
 
@@ -571,7 +581,12 @@ describe('instant transitions (navMode=client)', () => {
 
         await act(async () => {
             mountedRoots.push(
-                await hydrateApp({ tree: clientTree, modules: clientModules, root: container, url: 'http://localhost/' }),
+                await hydrateApp({
+                    tree: clientTree,
+                    modules: clientModules,
+                    root: container,
+                    url: 'http://localhost/',
+                }),
             );
         });
 
