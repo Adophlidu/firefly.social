@@ -81,9 +81,7 @@ export const externalRewrites: MiddlewareFn = (request, { next, env }) => {
     const targetBase = targets[deployEnv()];
 
     const bindingName = prefix.replace(/^\//, '').replaceAll('-', '_').toUpperCase();
-    const binding = (env as Record<string, { fetch(request: Request): Promise<Response> }> | undefined)?.[
-        bindingName
-    ];
+    const binding = (env as Record<string, { fetch(request: Request): Promise<Response> }> | undefined)?.[bindingName];
     if (binding && new URL(targetBase).hostname.endsWith('.workers.dev')) {
         const target = targetUrl(request, prefix, targetBase);
         return binding.fetch(new Request(target, request));
