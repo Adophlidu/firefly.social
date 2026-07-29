@@ -132,15 +132,14 @@ export const profileRoutes: MiddlewareFn = (request, { next }) => {
     const parsedProfileUrl = parseProfileUrl(pathname);
 
     if (parsedProfileUrl?.category && isFollowCategory(parsedProfileUrl.category)) {
-        return next(
-            new Request(
-                urlcat(`/profile/:source/:id/relation/:category`, {
-                    ...parsedProfileUrl,
-                    source: resolveProfileSourceInURL(parsedProfileUrl.source),
-                }),
-                request,
-            ),
+        const destination = new URL(
+            urlcat(`/profile/:source/:id/relation/:category`, {
+                ...parsedProfileUrl,
+                source: resolveProfileSourceInURL(parsedProfileUrl.source),
+            }),
+            request.url,
         );
+        return next(new Request(destination, request));
     }
 
     if (
