@@ -331,7 +331,11 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         const apply = () => {
                             window.scrollTo(0, saved);
                             attempts += 1;
-                            if (attempts < 8 && window.scrollY < Math.min(saved, document.documentElement.scrollHeight - window.innerHeight)) {
+                            if (
+                                attempts < 8 &&
+                                window.scrollY <
+                                    Math.min(saved, document.documentElement.scrollHeight - window.innerHeight)
+                            ) {
                                 setTimeout(apply, 100);
                             }
                         };
