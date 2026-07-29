@@ -5014,6 +5014,9 @@ msgstr "已取消点赞。"
 msgid "Failed to create {0} profile.{1}"
 msgstr "创建 {0} 账户失败。{1}"
 
+msgid "Failed to load. Please check your connection and try again."
+msgstr "加载失败，请检查网络后重试。"
+
 msgid "Lens Auto login"
 msgstr "Lens 自动登录"
 

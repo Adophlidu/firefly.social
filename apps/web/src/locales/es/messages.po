@@ -5040,6 +5040,9 @@ msgstr "Se quitó Me gusta de la predicción."
 msgid "Failed to create {0} profile.{1}"
 msgstr "No se pudo crear el perfil de {0}.{1}"
 
+msgid "Failed to load. Please check your connection and try again."
+msgstr "Error al cargar. Comprueba tu conexión e inténtalo de nuevo."
+
 msgid "Lens Auto login"
 msgstr "Inicio de sesión automático de Lens"
 

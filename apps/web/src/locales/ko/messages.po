@@ -5014,6 +5014,9 @@ msgstr "예측 좋아요가 취소되었습니다."
 msgid "Failed to create {0} profile.{1}"
 msgstr "{0} 프로필 생성에 실패했습니다.{1}"
 
+msgid "Failed to load. Please check your connection and try again."
+msgstr "로드에 실패했습니다. 연결을 확인하고 다시 시도하세요."
+
 msgid "Lens Auto login"
 msgstr "Lens 자동 로그인"
 

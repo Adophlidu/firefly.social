@@ -5040,6 +5040,9 @@ msgstr "Prediction unliked."
 msgid "Failed to create {0} profile.{1}"
 msgstr "Failed to create {0} profile.{1}"
 
+msgid "Failed to load. Please check your connection and try again."
+msgstr "Failed to load. Please check your connection and try again."
+
 msgid "Lens Auto login"
 msgstr "Lens Auto login"
 

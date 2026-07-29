@@ -5014,6 +5014,9 @@ msgstr "已取消收藏預測。"
 msgid "Failed to create {0} profile.{1}"
 msgstr "建立 {0} 個人檔案失敗。{1}"
 
+msgid "Failed to load. Please check your connection and try again."
+msgstr "加載失敗，請檢查網絡後重試。"
+
 msgid "Lens Auto login"
 msgstr "Lens 自動登錄"
 

@@ -4,6 +4,7 @@ import { useParams } from '@dimensiondev/ssr';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense } from 'react';
 
+import { FeedErrorBoundary } from '@/components/FeedErrorBoundary.js';
 import { Loading } from '@/components/Loading.js';
 import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
@@ -42,8 +43,10 @@ export default function BookmarkSourcePage() {
     if (!mounted) return null;
 
     return (
-        <Suspense fallback={<Loading />}>
-            <BookmarkListContent source={source} />
-        </Suspense>
+        <FeedErrorBoundary>
+            <Suspense fallback={<Loading />}>
+                <BookmarkListContent source={source} />
+            </Suspense>
+        </FeedErrorBoundary>
     );
 }
