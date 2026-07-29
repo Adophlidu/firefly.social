@@ -1,6 +1,30 @@
 import { describe, expect, it } from 'vitest';
 
-import { flattenHeads } from './head-manager.ts';
+import { absolutizeHeadUrl, flattenHeads } from './head-manager.ts';
+
+describe('absolutizeHeadUrl', () => {
+    it('resolves root-relative URLs against the origin', () => {
+        expect(absolutizeHeadUrl('/api/og/post/lens/1/image', 'https://example.com')).toBe(
+            'https://example.com/api/og/post/lens/1/image',
+        );
+    });
+
+    it('passes absolute URLs through unchanged', () => {
+        expect(absolutizeHeadUrl('https://cdn.test/x.png', 'https://example.com')).toBe('https://cdn.test/x.png');
+    });
+
+    it('passes non-URL content through unchanged', () => {
+        expect(absolutizeHeadUrl('summary_large_image', 'https://example.com')).toBe('summary_large_image');
+    });
+
+    it('keeps relative URLs when no origin is known', () => {
+        expect(absolutizeHeadUrl('/image/og.png', undefined)).toBe('/image/og.png');
+    });
+
+    it('passes undefined through', () => {
+        expect(absolutizeHeadUrl(undefined, 'https://example.com')).toBeUndefined();
+    });
+});
 
 describe('flattenHeads', () => {
     it('takes the last non-empty title', () => {

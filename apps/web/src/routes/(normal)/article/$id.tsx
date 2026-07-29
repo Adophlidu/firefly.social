@@ -1,7 +1,6 @@
 import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 
-import { SITE_URL } from '@dimensiondev/envs/web';
 import { type HeadContext, type LoaderContext, notFound, useLoaderData } from '@dimensiondev/ssr';
 import urlcat from 'urlcat';
 
@@ -37,14 +36,16 @@ export function head({ data }: HeadContext) {
     const title = `View ${article.title} on Firefly`;
     const raw = article.content?.trim();
     const description = raw ? (raw.length > 160 ? `${raw.slice(0, 157)}...` : raw) : undefined;
-    const ogImage = urlcat(SITE_URL, '/api/og/article/:id/image', { id: article.id });
+    // Root-relative URLs: the SSR runtime absolutizes them against the
+    // request origin when rendering <head>.
+    const ogImage = urlcat('/api/og/article/:id/image', { id: article.id });
 
     return {
         title,
         meta: [
             ...(description ? [{ name: 'description', content: description }] : []),
             { property: 'og:type', content: 'article' },
-            { property: 'og:url', content: urlcat(SITE_URL, `/article/${article.id}`) },
+            { property: 'og:url', content: `/article/${article.id}` },
             { property: 'og:title', content: title },
             ...(description ? [{ property: 'og:description', content: description }] : []),
             { property: 'og:image', content: ogImage },

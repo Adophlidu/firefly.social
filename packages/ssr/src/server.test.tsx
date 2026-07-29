@@ -97,6 +97,30 @@ describe('createServerHandler', () => {
         expect(payloadMarkup).not.toContain('</script><script>alert(1)</script>');
     });
 
+    it('absolutizes root-relative head URLs against the request origin', async () => {
+        const handler = createHandler({
+            'index.tsx': {
+                default: HomePage,
+                loader: () => ({ message: 'og' }),
+                head: () => ({
+                    meta: [
+                        { property: 'og:image', content: '/api/og/post/lens/1/image' },
+                        { property: 'og:title', content: 'Firefly' },
+                        { name: 'twitter:image', content: 'https://cdn.test/absolute.png' },
+                    ],
+                    links: [{ rel: 'canonical', href: '/post/lens/1' }],
+                }),
+            },
+        });
+        const response = await handler(new Request('https://staging.example.com/'));
+        const html = await response.text();
+        expect(html).toContain('content="https://staging.example.com/api/og/post/lens/1/image"');
+        expect(html).toContain('href="https://staging.example.com/post/lens/1"');
+        // non-URL meta content and already-absolute URLs stay untouched
+        expect(html).toContain('content="Firefly"');
+        expect(html).toContain('content="https://cdn.test/absolute.png"');
+    });
+
     it('returns 404 for unmatched paths', async () => {
         const handler = createHandler();
         const response = await handler(new Request('http://localhost/nope'));

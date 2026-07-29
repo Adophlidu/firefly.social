@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import type { RouteMatch } from '../router/matcher.ts';
 import { RouterContext, type RouterState } from './context.ts';
 import { ErrorBoundary } from './error-boundary.tsx';
-import { flattenHeads } from './head-manager.ts';
+import { absolutizeHeadUrl, flattenHeads } from './head-manager.ts';
 import { filesOfMatch } from './loaders.ts';
 import { serializeForHtml, SSR_DATA_ELEMENT_ID, type SsrPayload } from './serialize.ts';
 import { collectSlots } from './slot.tsx';
@@ -49,15 +49,26 @@ export function HeadOutlet(): ReactElement {
             {(state) => {
                 if (!state) return null;
                 const { title, meta, links } = flattenHeads(state.heads);
+                const origin = state.origin;
                 return (
                     <>
                         <DevBootstrap dev={state.payload?.dev} />
                         {title ? <title>{title}</title> : null}
                         {meta.map((entry, index) => (
-                            <meta key={index} data-ssr-managed="" {...entry} />
+                            <meta
+                                key={index}
+                                data-ssr-managed=""
+                                {...entry}
+                                content={absolutizeHeadUrl(entry.content, origin)}
+                            />
                         ))}
                         {links.map((entry, index) => (
-                            <link key={index} data-ssr-managed="" {...entry} />
+                            <link
+                                key={index}
+                                data-ssr-managed=""
+                                {...entry}
+                                href={absolutizeHeadUrl(entry.href, origin)}
+                            />
                         ))}
                     </>
                 );
@@ -103,6 +114,8 @@ export interface ComposeOptions {
     payload?: SsrPayload;
     /** App basepath, exposed through router state (e.g. for `<Link>`). */
     basepath?: string;
+    /** Serving origin, exposed through router state to absolutize relative head URLs. */
+    origin?: string;
     /** Client assets, exposed through router state for `<ClientScripts>`/`<ClientStyles>`. */
     clientAssets?: import('./assets.tsx').ClientAssets;
     /** Client-only: navigation functions exposed through router state. */
@@ -275,6 +288,7 @@ export function composeMatch(options: ComposeOptions): ReactElement {
         loaderErrors: options.loaderErrors,
         loaderResults: options.loaderResults,
         basepath: options.basepath,
+        origin: options.origin,
         clientAssets: options.clientAssets,
         payload: options.payload,
         navigationType: options.navigationType,

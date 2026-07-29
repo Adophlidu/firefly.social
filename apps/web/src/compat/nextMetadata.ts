@@ -1,4 +1,16 @@
+import { SITE_URL } from '@dimensiondev/envs/web';
 import type { HeadDescriptor, HeadLink, HeadMeta } from '@dimensiondev/ssr';
+
+/**
+ * Absolute URLs built on SITE_URL (the build-time official origin) are
+ * rewritten to root-relative paths, which the SSR runtime resolves against
+ * the actual request origin when rendering `<head>`. That keeps og/twitter
+ * tags self-referential on every deployment (staging, previews, production)
+ * instead of pointing at whatever SITE_URL happened to be at build time.
+ */
+function relativizeSiteUrl(content: string): string {
+    return content.startsWith(`${SITE_URL}/`) ? content.slice(SITE_URL.length) : content;
+}
 
 /**
  * Structural subset of Next.js' `Metadata` used by this repo's metadata
@@ -140,5 +152,5 @@ export function fromNextMetadata(metadata: Metadata): HeadDescriptor {
         });
     }
 
-    return { title, meta, links };
+    return { title, meta: meta.map((entry) => ({ ...entry, content: relativizeSiteUrl(entry.content) })), links };
 }

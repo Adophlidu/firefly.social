@@ -89,6 +89,8 @@ interface RenderPageOptions {
     pathname: string;
     search: URLSearchParams;
     basepath?: string;
+    /** Request origin, used to absolutize relative head URLs. */
+    origin?: string;
     clientAssets?: ClientAssets;
     data: Record<string, unknown>;
     heads: NavigationPayload['heads'];
@@ -136,6 +138,7 @@ async function renderPage(options: RenderPageOptions): Promise<Response> {
         search: options.search,
         payload,
         basepath: options.basepath,
+        origin: options.origin,
         clientAssets,
         terminalComponent: options.terminalComponent,
         error: options.error,
@@ -251,6 +254,7 @@ export function createServerHandler<TEnv = unknown>(options: CreateServerHandler
                 pathname,
                 search: url.searchParams,
                 basepath,
+                origin: url.origin,
                 clientAssets,
                 data,
                 heads,
@@ -331,6 +335,7 @@ export function createServerHandler<TEnv = unknown>(options: CreateServerHandler
                     pathname,
                     search: url.searchParams,
                     basepath,
+                    origin: url.origin,
                     clientAssets,
                     data: {},
                     heads: [],
@@ -359,6 +364,7 @@ export function createServerHandler<TEnv = unknown>(options: CreateServerHandler
                 pathname,
                 search: url.searchParams,
                 basepath,
+                origin: url.origin,
                 clientAssets,
                 data: {},
                 heads: [],
@@ -391,6 +397,7 @@ export function createServerHandler<TEnv = unknown>(options: CreateServerHandler
             pathname,
             search: url.searchParams,
             basepath,
+            origin: url.origin,
             clientAssets,
             data,
             heads,

@@ -665,6 +665,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
         search: state.search,
         payload,
         basepath,
+        origin: window.location.origin,
         navigate,
         prefetch,
         terminalComponent,

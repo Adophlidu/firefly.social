@@ -7,7 +7,6 @@ import { ClientScripts, ClientStyles, HeadOutlet, SsrDataOutlet } from '@dimensi
 import type { ReactNode } from 'react';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
-import { getDefaultOgImageUrl } from '@/helpers/getDefaultOgImageUrl.js';
 
 const IS_PRODUCTION = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production';
 const TELEMETRY_ENABLED = IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled;
@@ -19,7 +18,9 @@ const TELEMETRY_ENABLED = IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY =
  * are mapped by hand here; keep them in sync when the Next layout changes.
  */
 export function head() {
-    const ogImage = getDefaultOgImageUrl();
+    // Root-relative: the SSR runtime resolves it against the request origin
+    // (getDefaultOgImageUrl stays absolute for server-side fetch fallbacks).
+    const ogImage = '/image/og.png';
     return {
         title: SITE_NAME,
         meta: [

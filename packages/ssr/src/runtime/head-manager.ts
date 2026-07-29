@@ -3,6 +3,19 @@ import type { HeadDescriptor, HeadLink, HeadMeta } from './types.ts';
 const MANAGED_ATTRIBUTE = 'data-ssr-managed';
 
 /**
+ * Absolutize a root-relative URL (`/api/og/...`) in a head tag against the
+ * serving origin. Absolute URLs pass through unchanged. Crawlers require
+ * absolute URLs in og/twitter tags, while apps want to emit relative ones so
+ * the same head descriptor works on any domain the app is deployed to —
+ * the runtime resolves them at render time (server: request origin; client:
+ * `location.origin`).
+ */
+export function absolutizeHeadUrl(value: string | undefined, origin: string | undefined): string | undefined {
+    if (!value || !origin || !value.startsWith('/')) return value;
+    return origin + value;
+}
+
+/**
  * Flatten a head descriptor chain (root → page) into the effective tag set:
  * the last non-empty title wins, and a later meta/link tag overrides an
  * earlier one with the same identity (mirrors how nested Next.js layouts
@@ -55,6 +68,7 @@ export function applyHeads(heads: HeadDescriptor[]): void {
     const { title, meta, links } = flattenHeads(heads);
     if (title !== undefined) document.title = title;
 
+    const origin = window.location.origin;
     document.head.querySelectorAll(`[${MANAGED_ATTRIBUTE}]`).forEach((element) => element.remove());
 
     for (const metaTag of meta) {
@@ -63,7 +77,8 @@ export function applyHeads(heads: HeadDescriptor[]): void {
 
         for (const [key, value] of Object.entries(metaTag)) {
             if (value === undefined) continue;
-            element.setAttribute(key === 'httpEquiv' ? 'http-equiv' : key, value);
+            const resolved = key === 'content' ? absolutizeHeadUrl(value, origin) : value;
+            element.setAttribute(key === 'httpEquiv' ? 'http-equiv' : key, resolved);
         }
 
         document.head.append(element);
@@ -75,7 +90,8 @@ export function applyHeads(heads: HeadDescriptor[]): void {
 
         for (const [key, value] of Object.entries(linkTag)) {
             if (value === undefined) continue;
-            element.setAttribute(key === 'crossOrigin' ? 'crossorigin' : key, value);
+            const resolved = key === 'href' ? absolutizeHeadUrl(value, origin) : value;
+            element.setAttribute(key === 'crossOrigin' ? 'crossorigin' : key, resolved);
         }
 
         document.head.append(element);

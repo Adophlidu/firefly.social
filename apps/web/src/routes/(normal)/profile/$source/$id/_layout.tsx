@@ -29,7 +29,7 @@ export function loadingComponent() {
     return (
         <div className="animate-pulse">
             {/* banner + back/action buttons */}
-            <div className="relative h-44 bg-line">
+            <div className="relative h-52 bg-line">
                 <div className="absolute left-3 top-3 size-9 rounded-xl bg-primaryBottom/60" />
                 <div className="absolute right-3 top-3 flex gap-2">
                     <div className="size-9 rounded-xl bg-primaryBottom/60" />
@@ -38,7 +38,7 @@ export function loadingComponent() {
             </div>
             {/* centered avatar + name + handle chips */}
             <div className="flex flex-col items-center px-4">
-                <div className="-mt-12 size-24 rounded-full border-4 border-primaryBottom bg-line" />
+                <div className="-mt-14 size-28 rounded-full border-4 border-primaryBottom bg-line" />
                 <div className="mt-2 h-6 w-40 rounded bg-line" />
                 <div className="mt-3 flex items-center gap-2">
                     <div className="h-7 w-28 rounded-full bg-line" />

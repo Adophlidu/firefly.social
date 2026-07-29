@@ -60,6 +60,11 @@ export interface RouterState {
     navigationType?: 'push' | 'replace';
     /** App basepath, when the app is mounted under a path prefix. */
     basepath?: string;
+    /**
+     * Origin used to absolutize root-relative URLs in head tags (server:
+     * the request origin; client: `location.origin`). See HeadOutlet.
+     */
+    origin?: string;
     /** Client assets to load, rendered by `<ClientScripts>`/`<ClientStyles>`. */
     clientAssets?: import('./assets.tsx').ClientAssets;
     /**

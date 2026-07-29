@@ -44,7 +44,9 @@ export function head({ params, allData }: HeadContext) {
             ? `/profile/${source}/${id}`
             : `/profile/${source}/${id}/${category}`;
 
-    const pageData = findChainData<ProfilePageData>(allData, 'profile/$source/$id/_layout.tsx');
+    // The layout loader wraps ProfilePageData: { source, pageData, sessionless }.
+    const layoutData = findChainData<{ pageData?: ProfilePageData }>(allData, 'profile/$source/$id/_layout.tsx');
+    const pageData = layoutData?.pageData;
     if (pageData?.socialProfile) {
         return fromNextMetadata(
             createProfileMetadataFromProfile(pageData.socialProfile, source as ProfilePageSourceInURL, pathname),
