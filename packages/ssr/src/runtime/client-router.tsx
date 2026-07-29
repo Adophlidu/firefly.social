@@ -113,6 +113,9 @@ export function ClientApp(props: ClientAppProps): ReactElement {
     const matcher = useMemo(() => createMatcher(tree), [tree]);
     const navigationId = useRef(0);
     const payloadCache = useRef(new Map<string, { time: number; promise: Promise<NavigationPayload | null> }>());
+    // Last known scrollY per visited path (pathname+search), restored after
+    // back/forward commits once the target page has rendered.
+    const scrollPositions = useRef(new Map<string, number>());
     // Warm loader data for navMode=client routes, filled by hover prefetch
     // and completed navigations — repeat visits and back/forward commit with
     // zero suspense.
@@ -146,7 +149,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
     );
 
     const navigate = useCallback(
-        (to: string, options: { replace?: boolean; scroll?: boolean } = {}) => {
+        (to: string, options: { replace?: boolean; scroll?: boolean; restoreScroll?: boolean } = {}) => {
             void (async () => {
                 const url = new URL(to, window.location.href);
                 const rewritten = rewritePathname?.(url.pathname) ?? url.pathname;
@@ -175,6 +178,11 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     if (options.replace) window.history.replaceState(null, '', href);
                     else window.history.pushState(null, '', href);
                 };
+                // Leaving a page: remember its scroll position for a later
+                // back/forward visit (see the restore after the commit).
+                if (history === 'browser' && !options.replace) {
+                    scrollPositions.current.set(window.location.pathname + window.location.search, window.scrollY);
+                }
                 // The URL changes with the click, before any module/data
                 // loading — the old page stays interactive underneath.
                 pushUrl();
@@ -313,6 +321,23 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     // (no white flash) and commit once below, when every
                     // loader has settled.
 
+                    const restoreScrollPosition = () => {
+                        if (!options.restoreScroll || history !== 'browser') return;
+                        const saved = scrollPositions.current.get(window.location.pathname + window.location.search);
+                        if (!saved) return;
+                        // The document may still be growing (feeds/lists);
+                        // apply across a few frames until it can hold the Y.
+                        let attempts = 0;
+                        const apply = () => {
+                            window.scrollTo(0, saved);
+                            attempts += 1;
+                            if (attempts < 8 && window.scrollY < Math.min(saved, document.documentElement.scrollHeight - window.innerHeight)) {
+                                setTimeout(apply, 100);
+                            }
+                        };
+                        requestAnimationFrame(apply);
+                    };
+
                     await Promise.allSettled(settleHandlers);
                     if (id !== navigationId.current) return; // superseded
 
@@ -335,6 +360,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     if (id !== navigationId.current) return; // superseded
                     if (hasLoadingBoundary) {
                         setState((previous) => ({ ...previous, heads, pending: false }));
+                        restoreScrollPosition();
                     } else {
                         // The held swap: commit with everything resolved —
                         // nothing suspends, the new page renders complete.
@@ -350,6 +376,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                             pending: false,
                         }));
                         if (options.scroll !== false) window.scrollTo(0, 0);
+                        restoreScrollPosition();
                     }
                     return;
                 }
@@ -534,13 +561,29 @@ export function ClientApp(props: ClientAppProps): ReactElement {
         [basepath, fetchPayload, matcher, moduleLoaders, rewritePathname],
     );
 
+    // We restore scroll positions ourselves (after the target page has
+    // rendered); the browser's native restoration fires too early — while
+    // the outgoing page is still visible — and reads as a stray jump.
+    useEffect(() => {
+        if (history !== 'browser' || !('scrollRestoration' in window.history)) return;
+        const previous = window.history.scrollRestoration;
+        window.history.scrollRestoration = 'manual';
+        return () => {
+            window.history.scrollRestoration = previous;
+        };
+    }, [history]);
+
     useEffect(() => {
         if (history === 'memory') return;
         const onPopState = () => {
             // Back/forward: never scroll — the browser restores the previous
             // scroll position natively; a scrollTo here fights it and shows
             // as a visible jump before the target page renders.
-            navigate(window.location.pathname + window.location.search, { replace: true, scroll: false });
+            navigate(window.location.pathname + window.location.search, {
+                replace: true,
+                scroll: false,
+                restoreScroll: true,
+            });
         };
         window.addEventListener('popstate', onPopState);
         return () => window.removeEventListener('popstate', onPopState);
