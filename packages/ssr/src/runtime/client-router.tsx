@@ -218,7 +218,12 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         url,
                     };
 
-                    const hasLoadingBoundary = Boolean(findBoundaryComponent(matched, modules, 'loading'));
+                    // Only page/layout-declared `loadingComponent`s count as a
+                    // transition skeleton. A root-level `pendingComponent`
+                    // (the client-only SSR shell) must not push every chain
+                    // into the instant path — skeleton-less pages hold the
+                    // old page instead of flashing the shell.
+                    const hasLoadingBoundary = files.some((file) => Boolean(modules[file]?.loadingComponent));
 
                     const settleHandlers: Promise<unknown>[] = [];
                     for (const file of files) {
