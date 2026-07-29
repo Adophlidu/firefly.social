@@ -14,6 +14,7 @@ import { PageDetail } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detai
 import type { PostThreadQueryData } from '@/legacy/[locale]/(normal)/post/[source]/[id]/(detail)/query.js';
 import { createPostMetadataFromPost } from '@/providers/firefly/metadata/createPostMetadataFromPost.js';
 import { getPostDetailPageData } from '@/providers/firefly/metadata/getPostDetailPageData.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { findPostInFeedCache } from '@/services/findPostInFeedCache.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -36,11 +37,13 @@ export async function loader({ params }: LoaderContext): Promise<PostDetailLoade
     if (!isValidPostId(source, params.id!)) notFound();
 
     // Fast path for in-app navigation: the clicked post is already rendered
-    // in a timeline cache — show it immediately and let the page refetch
-    // thread/comments itself (stale-while-revalidate), instead of blocking
-    // the swap on two sequential API roundtrips.
+    // in a timeline cache — seed the detail query with it (stale-while-
+    // revalidate) so the page shows the post immediately and refreshes
+    // thread/comments in the background, instead of blocking the swap on
+    // two sequential API roundtrips.
     const cachedPost = findPostInFeedCache(params.id!);
     if (cachedPost) {
+        queryClient.setQueryData([source, 'post-detail', params.id!], cachedPost);
         return {
             id: params.id!,
             source,

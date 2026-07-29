@@ -24,13 +24,23 @@ function* iterateCachedPosts(value: unknown): Generator<Post> {
  * `['posts', …]` infinite query in the shared browser QueryClient. Client
  * navigations use it to show the clicked post instantly (stale-while-
  * revalidate) instead of blocking the detail loader on a refetch. Always
- * returns undefined on the server.
+ * returns undefined on the server. (Mirror wrappers are matched on their
+ * own postId; original-post lookups fall through to the API path.)
  */
 export function findPostInFeedCache(postId: string): Post | undefined {
     if (typeof window === 'undefined') return undefined;
     for (const query of queryClient.getQueryCache().findAll({ queryKey: ['posts'] })) {
         for (const post of iterateCachedPosts(query.state.data)) {
-            if (post.postId === postId) return post;
+            // Lens URLs use the v3 slug / v2 id while the cached post keys on
+            // its own postId (and rootPostId for mirror wrappers).
+            if (
+                post.postId === postId ||
+                post.rootPostId === postId ||
+                post.publicationId === postId ||
+                post.slug === postId
+            ) {
+                return post;
+            }
         }
     }
     return undefined;
