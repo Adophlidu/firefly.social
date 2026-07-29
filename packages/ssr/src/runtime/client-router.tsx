@@ -537,7 +537,10 @@ export function ClientApp(props: ClientAppProps): ReactElement {
     useEffect(() => {
         if (history === 'memory') return;
         const onPopState = () => {
-            navigate(window.location.pathname + window.location.search, { replace: true });
+            // Back/forward: never scroll — the browser restores the previous
+            // scroll position natively; a scrollTo here fights it and shows
+            // as a visible jump before the target page renders.
+            navigate(window.location.pathname + window.location.search, { replace: true, scroll: false });
         };
         window.addEventListener('popstate', onPopState);
         return () => window.removeEventListener('popstate', onPopState);
