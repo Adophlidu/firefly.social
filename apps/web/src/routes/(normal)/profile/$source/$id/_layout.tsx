@@ -21,42 +21,65 @@ import type { FireflyIdentity, WalletProfile, WalletProfiles } from '@/providers
 export const topnav = () => null;
 
 /**
- * Transition skeleton (instant swap): banner + avatar + bio card + tabs,
- * so the previous page never collapses while the profile loader is in
- * flight.
+ * Transition skeleton (instant swap): mirrors the real profile header —
+ * tall banner, centered avatar, name, handle chips, bio card with follow
+ * button, follower counts and the category tabs.
  */
 export function loadingComponent() {
     return (
         <div className="animate-pulse">
-            <div className="h-28 bg-line" />
-            <div className="px-4">
-                <div className="-mt-10 size-20 rounded-full border-4 border-primaryBottom bg-line" />
-                <div className="mt-3 h-5 w-1/3 rounded bg-line" />
-                <div className="mt-2 flex gap-2">
-                    <div className="h-6 w-24 rounded-full bg-line" />
-                    <div className="h-6 w-24 rounded-full bg-line" />
+            {/* banner + back/action buttons */}
+            <div className="relative h-44 bg-line">
+                <div className="absolute left-3 top-3 size-9 rounded-xl bg-primaryBottom/60" />
+                <div className="absolute right-3 top-3 flex gap-2">
+                    <div className="size-9 rounded-xl bg-primaryBottom/60" />
+                    <div className="size-9 rounded-xl bg-primaryBottom/60" />
                 </div>
-                <div className="mt-4 rounded-2xl border border-line p-4">
-                    <div className="flex items-center gap-3">
-                        <div className="size-10 rounded-full bg-line" />
-                        <div className="flex-1 space-y-2">
-                            <div className="h-4 w-1/4 rounded bg-line" />
-                            <div className="h-3 w-1/3 rounded bg-line" />
-                        </div>
-                        <div className="h-8 w-20 rounded-full bg-line" />
-                    </div>
-                    <div className="mt-3 h-3 w-full rounded bg-line" />
-                    <div className="mt-2 h-3 w-2/3 rounded bg-line" />
-                    <div className="mt-3 flex gap-4">
-                        <div className="h-3 w-16 rounded bg-line" />
-                        <div className="h-3 w-16 rounded bg-line" />
-                    </div>
+            </div>
+            {/* centered avatar + name + handle chips */}
+            <div className="flex flex-col items-center px-4">
+                <div className="-mt-12 size-24 rounded-full border-4 border-primaryBottom bg-line" />
+                <div className="mt-2 h-6 w-40 rounded bg-line" />
+                <div className="mt-3 flex items-center gap-2">
+                    <div className="h-7 w-28 rounded-full bg-line" />
+                    <div className="h-7 w-28 rounded-full bg-line" />
+                    <div className="h-7 w-28 rounded-full bg-line" />
+                    <div className="h-7 w-36 rounded-full bg-line" />
                 </div>
-                <div className="mt-4 flex gap-6 border-b border-line pb-3">
-                    <div className="h-4 w-12 rounded bg-line" />
-                    <div className="h-4 w-12 rounded bg-line" />
-                    <div className="h-4 w-12 rounded bg-line" />
-                    <div className="h-4 w-12 rounded bg-line" />
+            </div>
+            {/* bio card */}
+            <div className="mx-4 mt-4 rounded-2xl border border-line p-4">
+                <div className="flex items-center gap-3">
+                    <div className="size-11 shrink-0 rounded-full bg-line" />
+                    <div className="flex-1 space-y-2">
+                        <div className="h-4 w-2/5 rounded bg-line" />
+                        <div className="h-3 w-1/4 rounded bg-line" />
+                    </div>
+                    <div className="h-9 w-24 rounded-full bg-line" />
+                    <div className="size-8 rounded-full bg-line" />
+                </div>
+                <div className="mt-3 h-3 w-full rounded bg-line" />
+                <div className="mt-2 h-3 w-2/3 rounded bg-line" />
+                <div className="mt-3 flex items-center gap-4">
+                    <div className="h-3 w-16 rounded bg-line" />
+                    <div className="h-3 w-16 rounded bg-line" />
+                </div>
+                <div className="mt-3 h-3 w-4/5 rounded bg-line" />
+            </div>
+            {/* category tabs */}
+            <div className="mt-4 flex gap-8 border-b border-line px-4 pb-3">
+                <div className="h-4 w-10 rounded bg-line" />
+                <div className="h-4 w-10 rounded bg-line" />
+                <div className="h-4 w-10 rounded bg-line" />
+                <div className="h-4 w-14 rounded bg-line" />
+            </div>
+            {/* first post placeholder */}
+            <div className="flex gap-3 p-4">
+                <div className="size-10 shrink-0 rounded-full bg-line" />
+                <div className="flex-1 space-y-2">
+                    <div className="h-4 w-1/2 rounded bg-line" />
+                    <div className="h-3 w-full rounded bg-line" />
+                    <div className="h-3 w-2/3 rounded bg-line" />
                 </div>
             </div>
         </div>
