@@ -80,9 +80,9 @@ export function useSearch(): URLSearchParams {
     return useRouterState().search;
 }
 
-/** Remove `(group)` segments from a route file path. */
+/** Remove `(group)` segments from a route file path (keeps the separators). */
 function stripRouteGroups(file: string): string {
-    return file.replace(/(?:^|\/)\([^)]+\)\//g, '');
+    return file.replace(/\/\([^)]+\)(?=\/)/g, '').replace(/^\([^)]+\)\//, '');
 }
 
 /**
