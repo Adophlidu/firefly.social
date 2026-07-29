@@ -79,3 +79,35 @@ export default function PostDetailPage() {
 
     return <PageDetail id={id} source={source} initialPost={post} initialThread={initialThread} />;
 }
+
+/**
+ * Transition skeleton (instant swap): roughly the shape of the detail
+ * header + post body, so the timeline never collapses while the loader is
+ * in flight.
+ */
+export function loadingComponent() {
+    return (
+        <article className="min-h-screen animate-pulse">
+            <header className="sticky top-0 z-40 flex items-center gap-8 border-b border-line bg-primaryBottom px-4 py-[18px]">
+                <div className="size-6 rounded-full bg-line" />
+                <div className="h-5 w-16 rounded bg-line" />
+            </header>
+            <div className="flex gap-3 border-b border-line p-4">
+                <div className="size-10 shrink-0 rounded-full bg-line" />
+                <div className="flex-1 space-y-2">
+                    <div className="h-4 w-1/3 rounded bg-line" />
+                    <div className="h-3 w-1/4 rounded bg-line" />
+                    <div className="h-3 w-full rounded bg-line" />
+                    <div className="h-3 w-2/3 rounded bg-line" />
+                </div>
+            </div>
+            <div className="flex gap-3 p-4 opacity-60">
+                <div className="size-8 shrink-0 rounded-full bg-line" />
+                <div className="flex-1 space-y-2">
+                    <div className="h-3 w-1/4 rounded bg-line" />
+                    <div className="h-3 w-1/2 rounded bg-line" />
+                </div>
+            </div>
+        </article>
+    );
+}
