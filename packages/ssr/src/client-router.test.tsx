@@ -561,6 +561,266 @@ describe('instant transitions (navMode=client)', () => {
         expect(container.querySelector('main')?.textContent).toBe('about-error:boom');
     });
 
+    // Shared harness for param-route navigations: the links live in the
+    // root layout so they stay mounted while pages swap underneath.
+    function ProfileNavRoot(props: { children?: ReactNode }) {
+        return (
+            <div id="app">
+                <nav>
+                    <Link href="/profile/a">profile a</Link>
+                    <Link href="/profile/b">profile b</Link>
+                </nav>
+                {props.children}
+                <SsrDataOutlet />
+            </div>
+        );
+    }
+
+    function profileRouteModules(loader: RouteModuleMap[string]['loader']): {
+        tree: ReturnType<typeof buildRouteTree>;
+        modules: RouteModuleMap;
+    } {
+        const pFiles = ['__root.tsx', 'index.tsx', 'profile/$id.tsx'];
+        return {
+            tree: buildRouteTree({ files: pFiles }),
+            modules: {
+                '__root.tsx': { default: ProfileNavRoot },
+                'index.tsx': { default: HomePage, loader: () => ({ message: 'home' }) },
+                'profile/$id.tsx': {
+                    default: function ProfilePage() {
+                        const data = useLoaderData<{ id: string }>();
+                        return <main>profile:{data.id}</main>;
+                    },
+                    loader,
+                    loadingComponent: () => <main>profile-loading</main>,
+                    config: { navMode: 'client' },
+                },
+            },
+        };
+    }
+
+    async function mountProfileApp(modules: RouteModuleMap, tree: ReturnType<typeof buildRouteTree>) {
+        const handler = createServerHandler({ tree, modules });
+        const response = await handler(new Request('http://localhost/'));
+        const container = document.createElement('div');
+        container.innerHTML = (await response.text()).replace('<!DOCTYPE html>', '');
+        document.body.append(container);
+        await act(async () => {
+            mountedRoots.push(await hydrateApp({ tree, modules, root: container, url: 'http://localhost/' }));
+        });
+        return container;
+    }
+
+    async function flushTicks(times = 3) {
+        for (let i = 0; i < times; i += 1) {
+            // eslint-disable-next-line no-await-in-loop
+            await act(async () => {});
+        }
+    }
+
+    it('revisiting a cached page never shows the previous page data (A→B→A)', async () => {
+        // Regression: settled loader results are kept in a ref that
+        // useLoaderData reads before `data`. After A→B, B's settled results
+        // sat in the ref; revisiting A (payload cache hit) kept the key and
+        // the page rendered B's data with A's URL.
+        const loader = vi.fn(({ params }: { params: Record<string, string> }) =>
+            Promise.resolve({ id: params.id }),
+        );
+        const { tree: pTree, modules: pModules } = profileRouteModules(loader);
+        const container = await mountProfileApp(pModules, pTree);
+        const clickProfile = (index: number) => {
+            container
+                .querySelectorAll('nav a')
+                [index].dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        };
+
+        // A → B: both loaders settle, showing their own data.
+        await act(async () => {
+            clickProfile(0);
+        });
+        await flushTicks();
+        expect(container.querySelector('main')?.textContent).toBe('profile:a');
+
+        await act(async () => {
+            clickProfile(1);
+        });
+        await flushTicks();
+        expect(container.querySelector('main')?.textContent).toBe('profile:b');
+
+        // Back to A: the payload cache serves A's data instantly — B's
+        // settled results must not bleed through.
+        await act(async () => {
+            clickProfile(0);
+        });
+        await flushTicks();
+        expect(container.querySelector('main')?.textContent).toBe('profile:a');
+        expect(window.location.pathname).toBe('/profile/a');
+        // A's second visit came from the cache — no third loader call.
+        expect(loader).toHaveBeenCalledTimes(2);
+    });
+
+    it('a superseded navigation’s late settle never pollutes the current page', async () => {
+        const slow = deferred<{ id: string }>();
+        const loader = vi.fn(({ params }: { params: Record<string, string> }) =>
+            params.id === 'b' ? slow.promise : Promise.resolve({ id: params.id }),
+        );
+        const { tree: pTree, modules: pModules } = profileRouteModules(loader);
+        const container = await mountProfileApp(pModules, pTree);
+        const clickProfile = (index: number) => {
+            container
+                .querySelectorAll('nav a')
+                [index].dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        };
+
+        // Visit A (settles, priming the payload cache), then B (slow).
+        await act(async () => {
+            clickProfile(0);
+        });
+        await flushTicks();
+        expect(container.querySelector('main')?.textContent).toBe('profile:a');
+
+        await act(async () => {
+            clickProfile(1);
+        });
+        await flushTicks();
+        // Different entity on the same route file: the boundary key carries
+        // the node's params, so B mounts a fresh boundary that falls back to
+        // the skeleton — A's content is never shown over B's URL.
+        expect(container.querySelector('main')?.textContent).toBe('profile-loading');
+        expect(window.location.pathname).toBe('/profile/b');
+
+        // Abandon B by revisiting A (cache hit) before B's loader settles.
+        await act(async () => {
+            clickProfile(0);
+        });
+        await flushTicks();
+        expect(container.querySelector('main')?.textContent).toBe('profile:a');
+
+        // B's loader finally settles — its result must be dropped, not
+        // written into the shared results ref of A's page.
+        await act(async () => {
+            slow.resolve({ id: 'b' });
+            await slow.promise;
+        });
+        await flushTicks();
+        expect(container.querySelector('main')?.textContent).toBe('profile:a');
+        expect(window.location.pathname).toBe('/profile/a');
+
+        // Any later cache-hit revisit must still show A (a polluted results
+        // ref would surface B's data here).
+        await act(async () => {
+            clickProfile(0);
+        });
+        await flushTicks();
+        expect(container.querySelector('main')?.textContent).toBe('profile:a');
+    });
+
+    it('keeps the layout boundary on same-entity tab switches but remounts it across entities', async () => {
+        // The Suspense key carries the params the route node OWNS: switching
+        // tabs (deeper segment) preserves the profile layout; switching
+        // entities ($id) remounts it into its loading boundary.
+        const repliesLoad = deferred<{ tab: string }>();
+        const yLayoutLoad = deferred<{ id: string }>();
+        const tabFiles = ['__root.tsx', 'index.tsx', 'profile/$id/_layout.tsx', 'profile/$id/$tab.tsx'];
+        const tabTree = buildRouteTree({ files: tabFiles });
+        const tabModules: RouteModuleMap = {
+            '__root.tsx': {
+                default: function TabNavRoot(props: { children?: ReactNode }) {
+                    return (
+                        <div id="app">
+                            <nav>
+                                <Link href="/profile/x/feed">x feed</Link>
+                                <Link href="/profile/x/replies">x replies</Link>
+                                <Link href="/profile/y/feed">y feed</Link>
+                            </nav>
+                            {props.children}
+                            <SsrDataOutlet />
+                        </div>
+                    );
+                },
+            },
+            'index.tsx': { default: HomePage, loader: () => ({ message: 'home' }) },
+            'profile/$id/_layout.tsx': {
+                default: function ProfileLayout(props: { children?: ReactNode }) {
+                    const data = useLoaderData<{ id: string }>('profile/$id/_layout.tsx');
+                    return (
+                        <section>
+                            <h2>HEADER:{data.id}</h2>
+                            {props.children}
+                        </section>
+                    );
+                },
+                loader: ({ params }) => (params.id === 'y' ? yLayoutLoad.promise : Promise.resolve({ id: params.id })),
+                loadingComponent: () => <main>layout-loading</main>,
+            },
+            'profile/$id/$tab.tsx': {
+                default: function TabPage() {
+                    const data = useLoaderData<{ tab: string }>();
+                    return <main>TAB:{data.tab}</main>;
+                },
+                loader: ({ params }) =>
+                    params.tab === 'replies' ? repliesLoad.promise : Promise.resolve({ tab: params.tab }),
+                loadingComponent: () => <main>tab-loading</main>,
+                config: { navMode: 'client' },
+            },
+        };
+        const handler = createServerHandler({ tree: tabTree, modules: tabModules });
+        const response = await handler(new Request('http://localhost/'));
+        const container = document.createElement('div');
+        container.innerHTML = (await response.text()).replace('<!DOCTYPE html>', '');
+        document.body.append(container);
+        await act(async () => {
+            mountedRoots.push(
+                await hydrateApp({ tree: tabTree, modules: tabModules, root: container, url: 'http://localhost/' }),
+            );
+        });
+        const clickLink = (index: number) => {
+            container
+                .querySelectorAll('nav a')
+                [index].dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        };
+
+        // Open profile x/feed.
+        await act(async () => {
+            clickLink(0);
+        });
+        await flushTicks();
+        expect(container.querySelector('h2')?.textContent).toBe('HEADER:x');
+        expect(container.querySelector('main')?.textContent).toBe('TAB:feed');
+
+        // Tab switch x/feed → x/replies: the layout (same owned params)
+        // keeps rendering while the page boundary shows its skeleton.
+        await act(async () => {
+            clickLink(1);
+        });
+        await flushTicks(2);
+        expect(container.querySelector('h2')?.textContent).toBe('HEADER:x');
+        expect(container.querySelector('main')?.textContent).toBe('tab-loading');
+
+        await act(async () => {
+            repliesLoad.resolve({ tab: 'replies' });
+            await repliesLoad.promise;
+        });
+        await flushTicks();
+        expect(container.querySelector('main')?.textContent).toBe('TAB:replies');
+
+        // Entity switch x → y: the layout's owned params changed, so it
+        // remounts into ITS loading boundary instead of holding x's header.
+        await act(async () => {
+            clickLink(2);
+        });
+        await flushTicks(2);
+        expect(container.querySelector('h2')).toBeNull();
+        expect(container.querySelector('main')?.textContent).toBe('layout-loading');
+        await act(async () => {
+            yLayoutLoad.resolve({ id: 'y' });
+            await yLayoutLoad.promise;
+        });
+        await flushTicks(3);
+        expect(container.querySelector('h2')?.textContent).toBe('HEADER:y');
+        expect(container.querySelector('main')?.textContent).toBe('TAB:feed');
+    });
+
     it('hover prefetch primes loaders so the click commits with content, no loading flash', async () => {
         const loader = vi.fn(async () => ({ message: 'prefetched' }));
         const clientModules: RouteModuleMap = {

@@ -221,8 +221,14 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     const cached =
                         cachedEntry && Date.now() - cachedEntry.time < PAYLOAD_CACHE_TTL ? cachedEntry.data : undefined;
                     const initialData = { ...cached, ...reusedData };
+                    // Drop every settled result left over from previous
+                    // navigations: a stale entry shadows fresh data because
+                    // useLoaderData reads this ref first (e.g. revisit A
+                    // after A→B with A's payload cached — B's settled layout
+                    // result must not bleed into A's header). Loaders of
+                    // THIS navigation repopulate the ref as they settle.
                     for (const key of Object.keys(loaderResults.current)) {
-                        if (!(key in initialData)) delete loaderResults.current[key];
+                        delete loaderResults.current[key];
                     }
                     const settledValues: Record<string, unknown> = {};
                     const loaderPromises: Record<string, Promise<unknown>> = {};
@@ -251,9 +257,13 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         settleHandlers.push(
                             promise.then(
                                 (value) => {
+                                    // Superseded navigation: never touch the
+                                    // shared ref/state — a late settle from an
+                                    // abandoned navigation must not overwrite
+                                    // the page the user is now looking at.
+                                    if (navigationId.current !== id) return;
                                     settledValues[file] = value;
                                     loaderResults.current[file] = value;
-                                    if (navigationId.current !== id) return;
                                     setState((previous) => {
                                         const nextPromises = { ...previous.loaderPromises };
                                         delete nextPromises[file];
@@ -509,6 +519,13 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 }
 
                 if (id !== navigationId.current) return; // superseded
+                // The server payload is authoritative for this chain — drop
+                // settled results cached by earlier navMode=client
+                // navigations so they cannot shadow it (useLoaderData reads
+                // the ref before data).
+                for (const key of Object.keys(loaderResults.current)) {
+                    delete loaderResults.current[key];
+                }
                 setState((previous) => ({
                     match: matched,
                     modules,

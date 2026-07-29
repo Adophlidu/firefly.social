@@ -147,6 +147,17 @@ function NullComponent(): null {
 interface ChainEntry {
     /** The route file this entry was composed from (drives Suspense keys). */
     file?: string;
+    /**
+     * Suspense key: the route file plus a fingerprint of the params this
+     * route node owns (the param/catchall segments up to its depth). A
+     * navigation to a different entity on the same route file (profile A →
+     * profile B) therefore mounts a FRESH boundary that falls back to the
+     * loading component, instead of React reusing the same-keyed boundary
+     * and keeping the previous entity's content visible over the new URL.
+     * Navigations that only change deeper segments (tab switches) keep the
+     * boundary and its state.
+     */
+    key: string;
     Component: ComponentType<{ children?: ReactNode; error?: Error }>;
     errorComponent?: ComponentType<{ error: Error }>;
     /** Loading fallback for instant transitions (loader suspense during navigation). */
@@ -200,18 +211,26 @@ export function findBoundaryComponent(
 }
 
 function entriesOfMatch(options: ComposeOptions): ChainEntry[] {
-    const { match, modules } = options;
+    const { match } = options;
     const entries = match.chain.flatMap((node): ChainEntry[] => {
+        // Params owned by this node: the param/catchall segments from the
+        // root down to its depth (pathless groups own nothing).
+        const ownedParams = JSON.stringify(
+            node.fullSegments
+                .filter((segment) => segment.type === 'param' || segment.type === 'catchall')
+                .map((segment) => [segment.name, match.params[segment.name] ?? '']),
+        );
         const files = [node.rootFile, node.layoutFile, node === match.page ? node.pageFile : undefined];
         return files.flatMap((file) => {
-            const routeModule = file ? modules[file] : undefined;
+            const routeModule = file ? options.modules[file] : undefined;
             if (!routeModule?.default) return [];
             return [
                 {
                     file,
+                    key: `${file}:${ownedParams}`,
                     Component: routeModule.default,
                     errorComponent: routeModule.errorComponent,
-                    loadingComponent: file ? loadingFallbackFor(match, modules, file) : undefined,
+                    loadingComponent: file ? loadingFallbackFor(match, options.modules, file) : undefined,
                 },
             ];
         });
@@ -220,11 +239,19 @@ function entriesOfMatch(options: ComposeOptions): ChainEntry[] {
         // Replace the page when it contributed a component; append the
         // fallback otherwise (e.g. client-only pages render nothing on the
         // server, so the pending fallback goes after the layouts).
-        const pageHasComponent = Boolean(modules[match.page.pageFile ?? '']?.default);
+        const pageHasComponent = Boolean(options.modules[match.page.pageFile ?? '']?.default);
         if (pageHasComponent && entries.length > 0) {
-            entries[entries.length - 1] = { Component: options.terminalComponent };
+            entries[entries.length - 1] = { ...entries[entries.length - 1], Component: options.terminalComponent };
         } else {
-            entries.push({ Component: options.terminalComponent });
+            const ownedParams = JSON.stringify(
+                match.page.fullSegments
+                    .filter((segment) => segment.type === 'param' || segment.type === 'catchall')
+                    .map((segment) => [segment.name, match.params[segment.name] ?? '']),
+            );
+            entries.push({
+                key: `terminal:${ownedParams}`,
+                Component: options.terminalComponent,
+            });
         }
     }
     return entries;
@@ -247,7 +274,7 @@ export function composeMatch(options: ComposeOptions): ReactElement {
 
     let tree: ReactNode = null;
     for (let index = entries.length - 1; index >= 0; index -= 1) {
-        const { file, Component, errorComponent: Fallback, loadingComponent } = entries[index];
+        const { key, Component, errorComponent: Fallback, loadingComponent } = entries[index];
         // A terminal errorComponent receives the error as a prop.
         const errorProps =
             options.terminalComponent && options.error && index === entries.length - 1 ? { error: options.error } : {};
@@ -263,12 +290,15 @@ export function composeMatch(options: ComposeOptions): ReactElement {
             continue;
         }
         const LoadingFallback = loadingComponent ?? NullComponent;
-        // Keyed by route file: a navigation swaps in a fresh boundary, so a
-        // suspending loader shows its fallback immediately instead of React
-        // keeping the previous page (boundaries never re-hide revealed
-        // content). Same-file layouts keep their key and their state.
+        // Keyed by route file + the params the route node owns: a navigation
+        // to a different entity on the same route files (profile A → profile
+        // B) swaps in a fresh boundary, so a suspending loader falls back to
+        // the loading component instead of React keeping the PREVIOUS
+        // entity's content visible over the new URL (boundaries never
+        // re-hide revealed content). Navigations that only change deeper
+        // segments (tab switches) keep their key and their state.
         tree = (
-            <Suspense key={file ?? index} fallback={<LoadingFallback />}>
+            <Suspense key={key ?? index} fallback={<LoadingFallback />}>
                 {guarded}
             </Suspense>
         );
