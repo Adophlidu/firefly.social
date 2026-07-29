@@ -53,7 +53,7 @@ export type MiddlewareNext = (request?: Request) => Promise<Response>;
 
 export type MiddlewareFn = (
     request: Request,
-    context: { next: MiddlewareNext },
+    context: { next: MiddlewareNext; env?: unknown; ctx?: unknown },
 ) => Response | undefined | void | Promise<Response | undefined | void>;
 
 /** Per-request platform context, passed through to loaders and API handlers. */
@@ -406,6 +406,8 @@ export function createServerHandler<TEnv = unknown>(options: CreateServerHandler
             return Promise.resolve(
                 fn(current, {
                     next: (nextRequest) => dispatch(index + 1, nextRequest ?? current),
+                    env: context?.env,
+                    ctx: context?.ctx,
                 }),
             ).then((result) => {
                 if (result instanceof Response) return result;

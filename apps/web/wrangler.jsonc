@@ -29,6 +29,12 @@
                 "NEXT_PUBLIC_VERCEL_ENV": "preview",
                 "NEXT_PUBLIC_DEPLOY_ENV": "staging",
             },
+            "services": [
+                {
+                    "binding": "WALLET_IFRAME",
+                    "service": "firefly-wallet-staging",
+                },
+            ],
         },
         "production": {
             "name": "firefly-web",

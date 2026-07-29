@@ -67,12 +67,27 @@ function proxyRequest(request: Request, targetBase: string, prefix: string): Pro
  * Reverse proxy for the satellite apps (wallet iframe, chat, about, sitemap,
  * …), replacing Next's external rewrites (.next-config/rewrite.config.json).
  * Preserves same-origin semantics for the wallet iframe.
+ *
+ * Targets on our own workers.dev subdomains cannot be fetched over HTTP from
+ * a same-account worker (Cloudflare answers 404); those go through a service
+ * binding named after the prefix (e.g. `/wallet-iframe` → `WALLET_IFRAME`).
  */
-export const externalRewrites: MiddlewareFn = (request, { next }) => {
+export const externalRewrites: MiddlewareFn = (request, { next, env }) => {
     const { pathname } = new URL(request.url);
     const entry = Object.entries(rewriteRoutes).find(([prefix]) => pathname.startsWith(prefix));
     if (!entry) return next();
 
     const [prefix, targets] = entry as [string, Record<Env, string>];
-    return proxyRequest(request, targets[deployEnv()], prefix);
+    const targetBase = targets[deployEnv()];
+
+    const bindingName = prefix.replace(/^\//, '').replaceAll('-', '_').toUpperCase();
+    const binding = (env as Record<string, { fetch(request: Request): Promise<Response> }> | undefined)?.[
+        bindingName
+    ];
+    if (binding && new URL(targetBase).hostname.endsWith('.workers.dev')) {
+        const target = targetUrl(request, prefix, targetBase);
+        return binding.fetch(new Request(target, request));
+    }
+
+    return proxyRequest(request, targetBase, prefix);
 };
