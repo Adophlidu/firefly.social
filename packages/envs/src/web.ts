@@ -105,18 +105,43 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_PASSCODE_IV: z.string().default('invalid_passcode_iv'),
 });
 
+type InternalEnv = z.infer<typeof InternalEnvSchema>;
+
+let internalCache: InternalEnv | undefined;
+
+/**
+ * Lazily parse the internal (server-only) env on first access. The Workers
+ * bundle's `process` is a node-polyfills shim whose `env` starts empty; the
+ * SSR framework's Workers handler mirrors the real bindings into it at the
+ * start of each request, so by the time anything reads `envs.internal` the
+ * values are present. Parsing eagerly at module scope would throw during
+ * Cloudflare's upload-time validation (no secrets there) and see the empty
+ * shim at runtime init.
+ */
+function resolveInternal(): InternalEnv {
+    if (internalCache) return internalCache;
+    if ((bom.window && !process.env.VITEST) || process.env.VITEST) {
+        internalCache = {} as InternalEnv;
+        return internalCache;
+    }
+    internalCache = InternalEnvSchema.parse(process.env);
+    return internalCache;
+}
+
+const lazyInternal = new Proxy({} as InternalEnv, {
+    get: (_, key: string) => resolveInternal()[key as keyof InternalEnv],
+    has: (_, key: string) => key in resolveInternal(),
+    ownKeys: () => Reflect.ownKeys(resolveInternal()),
+    getOwnPropertyDescriptor: (_, key: string) => Object.getOwnPropertyDescriptor(resolveInternal(), key),
+});
+
 export const envs = {
     shared: {
         NODE_ENV: process.env.NODE_ENV as NODE_ENV,
         VERSION: process.env.VERSION || '',
         COMMIT_HASH: process.env.COMMIT_HASH,
     },
-    internal: ((!bom.window || process.env.VITEST) &&
-    !process.env.GITHUB_ACTIONS &&
-    !process.env.VITEST &&
-    !('browser' in (process as any))
-        ? InternalEnvSchema.parse(process.env)
-        : {}) as z.infer<typeof InternalEnvSchema>,
+    internal: lazyInternal,
     external: ExternalEnvSchema.parse({
         NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
 

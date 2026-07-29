@@ -4,7 +4,12 @@ import rewriteRoutes from '../../.next-config/rewrite.config.json' with { type: 
 
 type Env = 'staging' | 'canary' | 'production';
 
-const ENV: Env = (process.env.NEXT_PUBLIC_DEPLOY_ENV as Env) || 'production';
+// Read per request (not at module scope): the Workers handler mirrors env
+// bindings into the polyfilled process.env at the start of each request.
+function deployEnv(): Env {
+    return (process.env.NEXT_PUBLIC_DEPLOY_ENV as Env) || 'production';
+}
+
 
 const HOP_BY_HOP_HEADERS = new Set([
     'connection',
@@ -70,5 +75,5 @@ export const externalRewrites: MiddlewareFn = (request, { next }) => {
     if (!entry) return next();
 
     const [prefix, targets] = entry as [string, Record<Env, string>];
-    return proxyRequest(request, targets[ENV], prefix);
+    return proxyRequest(request, targets[deployEnv()], prefix);
 };

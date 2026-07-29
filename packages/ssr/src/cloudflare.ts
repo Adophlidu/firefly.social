@@ -48,6 +48,17 @@ export function createWorkersHandler<TEnv extends WorkersEnv = WorkersEnv>(
     return async (request, env, ctx) => {
         const context: ServerContext<TEnv> = { env, ctx };
 
+        // The bundle ships a node-polyfills `process` shim whose `env` starts
+        // empty and shadows the runtime's populated `process.env` (workerd's
+        // nodejs_compat_populate_process_env flag). Mirror string bindings
+        // into it per request so isomorphic packages that read process.env
+        // (e.g. @dimensiondev/envs) see the real values.
+        if (env && typeof process !== 'undefined' && process.env) {
+            for (const [key, value] of Object.entries(env)) {
+                if (typeof value === 'string') process.env[key] = value;
+            }
+        }
+
         const assetsBinding = env?.ASSETS;
         if (assets && assetsBinding && (request.method === 'GET' || request.method === 'HEAD')) {
             // The assets directory is served from the root; strip the app
