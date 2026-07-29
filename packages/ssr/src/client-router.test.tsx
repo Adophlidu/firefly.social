@@ -609,3 +609,83 @@ describe('instant transitions (navMode=client)', () => {
         expect(loader).toHaveBeenCalledTimes(1);
     });
 });
+
+describe('transition strategy without loading boundaries', () => {
+    const mountedRoots: Array<{ unmount: () => void }> = [];
+    beforeEach(() => {
+        (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
+        window.history.replaceState(null, '', '/');
+        document.head.innerHTML = '';
+    });
+    afterEach(() => {
+        for (const root of mountedRoots.splice(0)) {
+            act(() => root.unmount());
+        }
+        document.body.innerHTML = '';
+        vi.unstubAllGlobals();
+        vi.restoreAllMocks();
+    });
+
+    it('keeps the old page visible until a skeleton-less route settles (no white flash)', async () => {
+        let resolveLoader!: (value: { message: string }) => void;
+        const slowPromise = new Promise<{ message: string }>((res) => {
+            resolveLoader = res;
+        });
+        function SlowPage() {
+            const data = useLoaderData<{ message: string }>();
+            return <main>slow:{data.message}</main>;
+        }
+        const files = ['__root.tsx', 'index.tsx', 'slow.tsx'];
+        const tree = buildRouteTree({ files });
+        const slowModules: RouteModuleMap = {
+            '__root.tsx': { default: Root },
+            'index.tsx': {
+                default: function SlowHome() {
+                    return (
+                        <main>
+                            <h1>home</h1>
+                            <Link href="/slow">go slow</Link>
+                        </main>
+                    );
+                },
+                loader: () => ({ message: 'home' }),
+            },
+            // No loadingComponent: the old page must hold until data lands.
+            'slow.tsx': {
+                default: SlowPage,
+                loader: () => slowPromise,
+                config: { navMode: 'client' },
+            },
+        };
+        const handler = createServerHandler({ tree, modules: slowModules });
+        const response = await handler(new Request('http://localhost/'));
+        const container = document.createElement('div');
+        container.innerHTML = (await response.text()).replace('<!DOCTYPE html>', '');
+        document.body.append(container);
+
+        await act(async () => {
+            mountedRoots.push(
+                await hydrateApp({ tree, modules: slowModules, root: container, url: 'http://localhost/' }),
+            );
+        });
+        expect(container.querySelector('h1')?.textContent).toBe('home');
+
+        await act(async () => {
+            container.querySelector('a')!.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        });
+        await act(async () => {});
+        await act(async () => {});
+        // Old page still visible — nothing blank, nothing suspended into a
+        // fallback (there is no skeleton on this route).
+        expect(container.querySelector('h1')?.textContent).toBe('home');
+        expect(container.querySelector('main')?.textContent).not.toContain('slow:');
+
+        await act(async () => {
+            resolveLoader({ message: 'settled' });
+            await slowPromise;
+        });
+        await act(async () => {});
+        await act(async () => {});
+        expect(container.querySelector('main')?.textContent).toBe('slow:settled');
+    });
+});

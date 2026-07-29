@@ -218,6 +218,8 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         url,
                     };
 
+                    const hasLoadingBoundary = Boolean(findBoundaryComponent(matched, modules, 'loading'));
+
                     const settleHandlers: Promise<unknown>[] = [];
                     for (const file of files) {
                         if (initialData[file] !== undefined) continue;
@@ -281,19 +283,30 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         );
                     }
 
-                    setState((previous) => ({
-                        match: matched,
-                        modules,
-                        data: initialData,
-                        heads: previous.heads,
-                        pathname: target,
-                        search: url.searchParams,
-                        navigationType: options.replace ? 'replace' : 'push',
-                        pending: true,
-                        loaderPromises,
-                        loaderErrors,
-                    }));
-                    if (options.scroll !== false) window.scrollTo(0, 0);
+                    // Show the progress indicator immediately, whichever
+                    // swap strategy the chain uses.
+                    setState((previous) => ({ ...previous, pending: true }));
+
+                    if (hasLoadingBoundary) {
+                        // Instant swap: mount now, suspending loaders show
+                        // their declared skeleton.
+                        setState((previous) => ({
+                            match: matched,
+                            modules,
+                            data: initialData,
+                            heads: previous.heads,
+                            pathname: target,
+                            search: url.searchParams,
+                            navigationType: options.replace ? 'replace' : 'push',
+                            pending: true,
+                            loaderPromises,
+                            loaderErrors,
+                        }));
+                        if (options.scroll !== false) window.scrollTo(0, 0);
+                    }
+                    // No skeleton anywhere in the chain: hold the old page
+                    // (no white flash) and commit once below, when every
+                    // loader has settled.
 
                     await Promise.allSettled(settleHandlers);
                     if (id !== navigationId.current) return; // superseded
@@ -315,7 +328,24 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         // breaks its head function.
                     }
                     if (id !== navigationId.current) return; // superseded
-                    setState((previous) => ({ ...previous, heads, pending: false }));
+                    if (hasLoadingBoundary) {
+                        setState((previous) => ({ ...previous, heads, pending: false }));
+                    } else {
+                        // The held swap: commit with everything resolved —
+                        // nothing suspends, the new page renders complete.
+                        setState((previous) => ({
+                            ...previous,
+                            match: matched,
+                            modules,
+                            data: finalData,
+                            heads,
+                            pathname: target,
+                            search: url.searchParams,
+                            navigationType: options.replace ? 'replace' : 'push',
+                            pending: false,
+                        }));
+                        if (options.scroll !== false) window.scrollTo(0, 0);
+                    }
                     return;
                 }
 
