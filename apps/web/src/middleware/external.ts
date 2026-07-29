@@ -10,7 +10,6 @@ function deployEnv(): Env {
     return (process.env.NEXT_PUBLIC_DEPLOY_ENV as Env) || 'production';
 }
 
-
 const HOP_BY_HOP_HEADERS = new Set([
     'connection',
     'keep-alive',
