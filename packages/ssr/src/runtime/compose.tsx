@@ -123,6 +123,8 @@ export interface ComposeOptions {
     loaderPromises?: Record<string, Promise<unknown>>;
     /** Rejected loader errors (instant client-side transitions). */
     loaderErrors?: Record<string, unknown>;
+    /** Synchronously-updated loader results (see useLoaderData). */
+    loaderResults?: Record<string, unknown>;
 }
 
 function NullComponent(): null {
@@ -271,6 +273,7 @@ export function composeMatch(options: ComposeOptions): ReactElement {
         notFound: options.notFound,
         loaderPromises: options.loaderPromises,
         loaderErrors: options.loaderErrors,
+        loaderResults: options.loaderResults,
         basepath: options.basepath,
         clientAssets: options.clientAssets,
         payload: options.payload,

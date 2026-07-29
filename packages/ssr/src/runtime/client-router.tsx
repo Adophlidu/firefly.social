@@ -1,5 +1,6 @@
 import type { AnchorHTMLAttributes, MouseEvent, ReactElement } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { createMatcher, type RouteMatch } from '../router/matcher.ts';
 import type { RouteTree } from '../router/tree.ts';
@@ -116,6 +117,10 @@ export function ClientApp(props: ClientAppProps): ReactElement {
     // Last known scrollY per visited path (pathname+search), restored after
     // back/forward commits once the target page has rendered.
     const scrollPositions = useRef(new Map<string, number>());
+    // Synchronously-updated loader results. useLoaderData reads this first,
+    // so a suspense retry right after a promise resolves can never observe
+    // a still-empty data map and re-suspend on an already-resolved promise.
+    const loaderResults = useRef<Record<string, unknown>>({});
     // Warm loader data for navMode=client routes, filled by hover prefetch
     // and completed navigations — repeat visits and back/forward commit with
     // zero suspense.
@@ -216,6 +221,9 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                     const cached =
                         cachedEntry && Date.now() - cachedEntry.time < PAYLOAD_CACHE_TTL ? cachedEntry.data : undefined;
                     const initialData = { ...cached, ...reusedData };
+                    for (const key of Object.keys(loaderResults.current)) {
+                        if (!(key in initialData)) delete loaderResults.current[key];
+                    }
                     const settledValues: Record<string, unknown> = {};
                     const loaderPromises: Record<string, Promise<unknown>> = {};
                     const loaderErrors: Record<string, unknown> = {};
@@ -244,6 +252,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                             promise.then(
                                 (value) => {
                                     settledValues[file] = value;
+                                    loaderResults.current[file] = value;
                                     if (navigationId.current !== id) return;
                                     setState((previous) => {
                                         const nextPromises = { ...previous.loaderPromises };
@@ -271,6 +280,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                                     if (navigationId.current !== id) return;
                                     if (recovered !== undefined) {
                                         settledValues[file] = recovered;
+                                        loaderResults.current[file] = recovered;
                                         setState((previous) => {
                                             const nextPromises = { ...previous.loaderPromises };
                                             delete nextPromises[file];
@@ -325,21 +335,22 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         if (!options.restoreScroll || history !== 'browser') return;
                         const saved = scrollPositions.current.get(window.location.pathname + window.location.search);
                         if (!saved) return;
-                        // The document may still be growing (feeds/lists);
-                        // apply across a few frames until it can hold the Y.
+                        // Apply immediately (right after the flushed commit,
+                        // before the next paint) and keep retrying while the
+                        // document is still too short to hold the position.
                         let attempts = 0;
                         const apply = () => {
                             window.scrollTo(0, saved);
                             attempts += 1;
                             if (
-                                attempts < 8 &&
+                                attempts < 12 &&
                                 window.scrollY <
                                     Math.min(saved, document.documentElement.scrollHeight - window.innerHeight)
                             ) {
-                                setTimeout(apply, 100);
+                                setTimeout(apply, 80);
                             }
                         };
-                        requestAnimationFrame(apply);
+                        apply();
                     };
 
                     await Promise.allSettled(settleHandlers);
@@ -366,19 +377,23 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                         setState((previous) => ({ ...previous, heads, pending: false }));
                         restoreScrollPosition();
                     } else {
-                        // The held swap: commit with everything resolved —
-                        // nothing suspends, the new page renders complete.
-                        setState((previous) => ({
-                            ...previous,
-                            match: matched,
-                            modules,
-                            data: finalData,
-                            heads,
-                            pathname: target,
-                            search: url.searchParams,
-                            navigationType: options.replace ? 'replace' : 'push',
-                            pending: false,
-                        }));
+                        // The held swap: flush the commit so the DOM is
+                        // updated in this task, then restore the saved
+                        // scroll position — both happen before the next
+                        // paint, so no top-of-page frame can flash through.
+                        flushSync(() => {
+                            setState((previous) => ({
+                                ...previous,
+                                match: matched,
+                                modules,
+                                data: finalData,
+                                heads,
+                                pathname: target,
+                                search: url.searchParams,
+                                navigationType: options.replace ? 'replace' : 'push',
+                                pending: false,
+                            }));
+                        });
                         if (options.scroll !== false) window.scrollTo(0, 0);
                         restoreScrollPosition();
                     }
@@ -658,6 +673,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
         navigationType: state.navigationType,
         loaderPromises: state.loaderPromises,
         loaderErrors: state.loaderErrors,
+        loaderResults: loaderResults.current,
     });
 
     return element;

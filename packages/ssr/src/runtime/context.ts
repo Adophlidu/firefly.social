@@ -42,6 +42,12 @@ export interface RouterState {
      * them so the nearest route `errorComponent` boundary catches.
      */
     loaderErrors?: Record<string, unknown>;
+    /**
+     * Synchronously-updated loader results (a ref object, not render state):
+     * written by settle handlers the moment a loader resolves, so suspense
+     * retries always see the data on their first re-render.
+     */
+    loaderResults?: Record<string, unknown>;
     /** Client-side navigation. Undefined during server rendering. */
     navigate?: (to: string, options?: { replace?: boolean; scroll?: boolean }) => void;
     /** Prefetch a route's data payload. Undefined during server rendering. */
@@ -111,8 +117,13 @@ export function useLoaderData<T = unknown>(file?: string): T {
     const state = useRouterState();
     const key = file ?? state.files.at(-1);
     if (!key) throw new Error('useLoaderData: no matched route');
-    if (key in state.data) return state.data[key] as T;
     const normalized = stripRouteGroups(key);
+    // Ref-based results first: updated synchronously on settle, immune to
+    // render/flush timing races with the suspense retry.
+    for (const [resultKey, value] of Object.entries(state.loaderResults ?? {})) {
+        if (resultKey === key || stripRouteGroups(resultKey) === normalized) return value as T;
+    }
+    if (key in state.data) return state.data[key] as T;
     for (const [dataKey, value] of Object.entries(state.data)) {
         if (stripRouteGroups(dataKey) === normalized) return value as T;
     }
