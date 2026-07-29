@@ -1,6 +1,7 @@
 import { ChannelTabType, SocialProfileCategory, WalletProfileCategory } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
+import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { parseClubUrl } from '@/helpers/parseClubUrl.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
@@ -10,6 +11,7 @@ import { resolveProfileSourceInURL, resolveSourceInUrl } from '@/helpers/resolve
  * Internal URL rewrites applied by BOTH the server middleware (before
  * matching) and the client router (hydrateApp's rewritePathname), so both
  * sides compute the same route for a URL:
+ * - /profile/:source/:id/:follow-category → /profile/:source/:id/relation/:category
  * - /profile/:source/:id → /profile/:source/:id/:default-category
  * - /club/:source/:id → /club/:source/:id/posts
  * The `_internal` marker the middleware adds to prevent redirect loops is
@@ -17,6 +19,13 @@ import { resolveProfileSourceInURL, resolveSourceInUrl } from '@/helpers/resolve
  */
 export function rewriteInternalPathname(pathname: string): string {
     const parsedProfileUrl = parseProfileUrl(pathname);
+    if (parsedProfileUrl?.category && isFollowCategory(parsedProfileUrl.category)) {
+        return urlcat(`/profile/:source/:id/relation/:category`, {
+            ...parsedProfileUrl,
+            source: resolveProfileSourceInURL(parsedProfileUrl.source),
+        });
+    }
+
     if (
         !parsedProfileUrl?.category &&
         !!parsedProfileUrl?.source &&
