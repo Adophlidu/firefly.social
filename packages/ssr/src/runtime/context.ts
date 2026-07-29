@@ -120,11 +120,14 @@ export function useLoaderData<T = unknown>(file?: string): T {
     // Instant transitions: a loader for this file is in flight or failed.
     // Suspend to the nearest route loading boundary / rethrow to the nearest
     // error boundary. The settle handler merges the outcome into router
-    // state, which retries this read.
-    const loaderError = state.loaderErrors?.[key];
-    if (loaderError !== undefined) throw loaderError;
-    const pending = state.loaderPromises?.[key];
-    if (pending) throw pending;
+    // state, which retries this read. Lookups tolerate `(group)` moves the
+    // same way the data lookup above does.
+    for (const [errorKey, loaderError] of Object.entries(state.loaderErrors ?? {})) {
+        if (errorKey === key || stripRouteGroups(errorKey) === normalized) throw loaderError;
+    }
+    for (const [promiseKey, pending] of Object.entries(state.loaderPromises ?? {})) {
+        if (promiseKey === key || stripRouteGroups(promiseKey) === normalized) throw pending;
+    }
 
     return undefined as T;
 }

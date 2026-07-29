@@ -240,10 +240,31 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                                         };
                                     });
                                 },
-                                (error) => {
+                                async (error) => {
                                     if (navigationId.current !== id) return;
                                     if (isRedirectError(error)) {
                                         navigate(error.url, options);
+                                        return;
+                                    }
+                                    // Degrade to the server when a browser-run
+                                    // loader fails — the server has no
+                                    // browser-CORS limits and may succeed
+                                    // where the client cannot.
+                                    const have = files.filter((other) => other !== file);
+                                    const payload = await fetchPayload(target, url.search, have);
+                                    const recovered = payload?.data?.[file];
+                                    if (navigationId.current !== id) return;
+                                    if (recovered !== undefined) {
+                                        settledValues[file] = recovered;
+                                        setState((previous) => {
+                                            const nextPromises = { ...previous.loaderPromises };
+                                            delete nextPromises[file];
+                                            return {
+                                                ...previous,
+                                                data: { ...previous.data, [file]: recovered },
+                                                loaderPromises: nextPromises,
+                                            };
+                                        });
                                         return;
                                     }
                                     setState((previous) => {
