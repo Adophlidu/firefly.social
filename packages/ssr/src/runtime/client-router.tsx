@@ -48,6 +48,10 @@ export interface ClientRouterState {
      * just because a transition started.
      */
     showLoading?: boolean;
+    /** In-flight loaders of an instant (navMode=client) transition. */
+    loaderPromises?: Record<string, Promise<unknown>>;
+    /** Rejected loaders of an instant (navMode=client) transition. */
+    loaderErrors?: Record<string, unknown>;
 }
 
 export interface ClientAppProps {
@@ -109,6 +113,10 @@ export function ClientApp(props: ClientAppProps): ReactElement {
     const matcher = useMemo(() => createMatcher(tree), [tree]);
     const navigationId = useRef(0);
     const payloadCache = useRef(new Map<string, { time: number; promise: Promise<NavigationPayload | null> }>());
+    // Warm loader data for navMode=client routes, filled by hover prefetch
+    // and completed navigations — repeat visits and back/forward commit with
+    // zero suspense.
+    const loaderCache = useRef(new Map<string, { time: number; data: Record<string, unknown> }>());
 
     // Short-TTL payload cache (Next.js client router semantics): repeat
     // visits, back/forward and hover-prefetched links swap instantly instead
@@ -188,10 +196,110 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 });
                 if (id !== navigationId.current) return; // superseded
 
-                // navMode=client routes skip the payload entirely: the page
-                // renders immediately and its loaders run in the browser.
                 const navMode = modules[matched.page.pageFile ?? '']?.config?.navMode;
-                const payloadPromise = navMode === 'client' ? null : fetchPayload(target, url.search, reusable);
+
+                // Instant transition (navMode=client): mount the new chain
+                // right away and let in-flight loaders suspend to their
+                // loading boundaries, instead of holding the old page until
+                // every loader has settled.
+                if (navMode === 'client') {
+                    const cacheKey = target + url.search;
+                    const cachedEntry = loaderCache.current.get(cacheKey);
+                    const cached =
+                        cachedEntry && Date.now() - cachedEntry.time < PAYLOAD_CACHE_TTL ? cachedEntry.data : undefined;
+                    const initialData = { ...cached, ...reusedData };
+                    const settledValues: Record<string, unknown> = {};
+                    const loaderPromises: Record<string, Promise<unknown>> = {};
+                    const loaderErrors: Record<string, unknown> = {};
+
+                    const loaderContext: LoaderContext = {
+                        params: matched.params,
+                        request: new Request(url.href),
+                        url,
+                    };
+
+                    const settleHandlers: Promise<unknown>[] = [];
+                    for (const file of files) {
+                        if (initialData[file] !== undefined) continue;
+                        const loader = modules[file]?.loader;
+                        if (!loader) continue;
+                        const promise = Promise.resolve().then(() => loader(loaderContext));
+                        loaderPromises[file] = promise;
+                        settleHandlers.push(
+                            promise.then(
+                                (value) => {
+                                    settledValues[file] = value;
+                                    if (navigationId.current !== id) return;
+                                    setState((previous) => {
+                                        const nextPromises = { ...previous.loaderPromises };
+                                        delete nextPromises[file];
+                                        return {
+                                            ...previous,
+                                            data: { ...previous.data, [file]: value },
+                                            loaderPromises: nextPromises,
+                                        };
+                                    });
+                                },
+                                (error) => {
+                                    if (navigationId.current !== id) return;
+                                    if (isRedirectError(error)) {
+                                        navigate(error.url, options);
+                                        return;
+                                    }
+                                    setState((previous) => {
+                                        const nextPromises = { ...previous.loaderPromises };
+                                        delete nextPromises[file];
+                                        return {
+                                            ...previous,
+                                            loaderPromises: nextPromises,
+                                            loaderErrors: { ...previous.loaderErrors, [file]: error },
+                                        };
+                                    });
+                                },
+                            ),
+                        );
+                    }
+
+                    setState((previous) => ({
+                        match: matched,
+                        modules,
+                        data: initialData,
+                        heads: previous.heads,
+                        pathname: target,
+                        search: url.searchParams,
+                        navigationType: options.replace ? 'replace' : 'push',
+                        pending: true,
+                        loaderPromises,
+                        loaderErrors,
+                    }));
+                    if (options.scroll !== false) window.scrollTo(0, 0);
+
+                    await Promise.allSettled(settleHandlers);
+                    if (id !== navigationId.current) return; // superseded
+
+                    const finalData = { ...initialData, ...settledValues };
+                    if (Object.keys(settledValues).length > 0) {
+                        if (loaderCache.current.size >= PAYLOAD_CACHE_MAX) {
+                            const oldest = loaderCache.current.keys().next().value;
+                            if (oldest !== undefined) loaderCache.current.delete(oldest);
+                        }
+                        loaderCache.current.set(cacheKey, { time: Date.now(), data: finalData });
+                    }
+
+                    let heads = state.heads;
+                    try {
+                        heads = await resolveHeads(matched, modules, finalData);
+                    } catch {
+                        // Keep the previous heads when a failed loader also
+                        // breaks its head function.
+                    }
+                    if (id !== navigationId.current) return; // superseded
+                    setState((previous) => ({ ...previous, heads, pending: false }));
+                    return;
+                }
+
+                // navMode=server routes go through the server payload.
+                const payloadPromise = fetchPayload(target, url.search, reusable);
 
                 const loaderContext: LoaderContext = {
                     params: matched.params,
@@ -231,61 +339,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 }, pendingMs);
                 let navigation: NavigationPayload | null = null;
                 try {
-                    if (navMode === 'client') {
-                        const clientNavigation = await (async (): Promise<NavigationPayload> => {
-                            try {
-                                const dataEntries = await Promise.all(
-                                    files.map(async (file) => {
-                                        if (reusedData[file] !== undefined) return null;
-                                        const loader = modules[file]?.loader;
-                                        if (!loader) return null;
-                                        return [file, await loader(loaderContext)] as const;
-                                    }),
-                                );
-                                if (id !== navigationId.current) {
-                                    return { url: target, params: matched.params, data: {}, heads: [] };
-                                }
-                                const data = {
-                                    ...reusedData,
-                                    ...Object.fromEntries(
-                                        dataEntries.filter((entry): entry is NonNullable<typeof entry> =>
-                                            Boolean(entry),
-                                        ),
-                                    ),
-                                };
-                                const heads = await resolveHeads(matched, modules, data);
-                                return { url: target, params: matched.params, data, heads };
-                            } catch (error) {
-                                if (isRedirectError(error)) {
-                                    return {
-                                        url: target,
-                                        params: matched.params,
-                                        data: {},
-                                        heads: [],
-                                        redirect: error.url,
-                                    };
-                                }
-                                return {
-                                    url: target,
-                                    params: matched.params,
-                                    data: {},
-                                    heads: [],
-                                    error: error instanceof Error ? error.message : String(error),
-                                    notFound: isNotFoundError(error) || undefined,
-                                };
-                            }
-                        })();
-                        // Degrade to the server payload when browser-run
-                        // loaders fail — the server has no browser-CORS
-                        // limits and may succeed where the client cannot.
-                        if (clientNavigation.error || clientNavigation.notFound) {
-                            navigation = await fetchPayload(target, url.search, reusable);
-                        } else {
-                            navigation = clientNavigation;
-                        }
-                    } else if (payloadPromise) {
-                        navigation = await payloadPromise;
-                    }
+                    navigation = await payloadPromise;
                 } finally {
                     clearTimeout(pendingTimer);
                 }
@@ -347,7 +401,7 @@ export function ClientApp(props: ClientAppProps): ReactElement {
                 // Reused files came without server-computed heads; recompute
                 // the chain's heads against the merged data on the client.
                 let heads = navigation.heads;
-                if (navMode !== 'client' && reusable.length > 0 && !navigationError && !navigation.notFound) {
+                if (reusable.length > 0 && !navigationError && !navigation.notFound) {
                     if (id !== navigationId.current) return;
                     heads = await resolveHeads(matched, modules, data);
                 }
@@ -378,9 +432,50 @@ export function ClientApp(props: ClientAppProps): ReactElement {
             const url = new URL(to, window.location.href);
             const rewritten = rewritePathname?.(url.pathname) ?? url.pathname;
             const target = stripBasepath(rewritten, basepath);
-            if (matcher(target)) void fetchPayload(target, url.search);
+            const matched = matcher(target);
+            if (!matched) return;
+            void (async () => {
+                // Warm the module chunk for every route; navMode=client
+                // routes also prime their loaders (the next navigation
+                // commits instantly, no suspense), server-mode routes warm
+                // the payload cache.
+                const modules = await resolveChainModules(matched, moduleLoaders, {
+                    includeClientOnly: true,
+                });
+                const navMode = modules[matched.page.pageFile ?? '']?.config?.navMode;
+                if (navMode !== 'client') {
+                    void fetchPayload(target, url.search);
+                    return;
+                }
+                const loaderContext: LoaderContext = {
+                    params: matched.params,
+                    request: new Request(url.href),
+                    url,
+                };
+                const files = filesOfMatch(matched);
+                const entries = await Promise.all(
+                    files.map(async (file) => {
+                        const loader = modules[file]?.loader;
+                        if (!loader) return null;
+                        try {
+                            return [file, await loader(loaderContext)] as const;
+                        } catch {
+                            return null;
+                        }
+                    }),
+                );
+                const data = Object.fromEntries(
+                    entries.filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)),
+                );
+                if (Object.keys(data).length === 0) return;
+                if (loaderCache.current.size >= PAYLOAD_CACHE_MAX) {
+                    const oldest = loaderCache.current.keys().next().value;
+                    if (oldest !== undefined) loaderCache.current.delete(oldest);
+                }
+                loaderCache.current.set(target + url.search, { time: Date.now(), data });
+            })();
         },
-        [basepath, fetchPayload, matcher, rewritePathname],
+        [basepath, fetchPayload, matcher, moduleLoaders, rewritePathname],
     );
 
     useEffect(() => {
@@ -455,6 +550,8 @@ export function ClientApp(props: ClientAppProps): ReactElement {
         error: state.error,
         notFound: state.notFound,
         navigationType: state.navigationType,
+        loaderPromises: state.loaderPromises,
+        loaderErrors: state.loaderErrors,
     });
 
     return element;
@@ -498,6 +595,12 @@ export function Link(props: LinkProps): ReactElement {
                     }}
                     onMouseEnter={(event) => {
                         onMouseEnter?.(event);
+                        if (prefetch) state?.prefetch?.(href);
+                    }}
+                    onTouchStart={() => {
+                        if (prefetch) state?.prefetch?.(href);
+                    }}
+                    onFocus={() => {
                         if (prefetch) state?.prefetch?.(href);
                     }}
                     {...rest}

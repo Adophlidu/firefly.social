@@ -1,4 +1,5 @@
 import type { ComponentType, ReactElement, ReactNode } from 'react';
+import { Suspense } from 'react';
 
 import type { RouteMatch } from '../router/matcher.ts';
 import { RouterContext, type RouterState } from './context.ts';
@@ -118,11 +119,38 @@ export interface ComposeOptions {
     error?: Error;
     /** True when presenting a `notFoundComponent` fallback. */
     notFound?: boolean;
+    /** In-flight loader promises (instant client-side transitions). */
+    loaderPromises?: Record<string, Promise<unknown>>;
+    /** Rejected loader errors (instant client-side transitions). */
+    loaderErrors?: Record<string, unknown>;
+}
+
+function NullComponent(): null {
+    return null;
 }
 
 interface ChainEntry {
+    /** The route file this entry was composed from (drives Suspense keys). */
+    file?: string;
     Component: ComponentType<{ children?: ReactNode; error?: Error }>;
     errorComponent?: ComponentType<{ error: Error }>;
+    /** Loading fallback for instant transitions (loader suspense during navigation). */
+    loadingComponent?: ComponentType;
+}
+
+/**
+ * The loading boundary a chain file falls back to when its loader suspends
+ * during an instant (client-side) transition: its own `loadingComponent`,
+ * else the nearest ancestor's, else nothing.
+ */
+function loadingFallbackFor(match: RouteMatch, modules: RouteModuleMap, file: string): ComponentType | undefined {
+    const files = filesOfMatch(match);
+    const index = files.indexOf(file);
+    for (let i = index; i >= 0; i -= 1) {
+        const boundary = modules[files[i]]?.loadingComponent ?? modules[files[i]]?.pendingComponent;
+        if (boundary) return boundary as ComponentType;
+    }
+    return undefined;
 }
 
 /**
@@ -163,7 +191,14 @@ function entriesOfMatch(options: ComposeOptions): ChainEntry[] {
         return files.flatMap((file) => {
             const routeModule = file ? modules[file] : undefined;
             if (!routeModule?.default) return [];
-            return [{ Component: routeModule.default, errorComponent: routeModule.errorComponent }];
+            return [
+                {
+                    file,
+                    Component: routeModule.default,
+                    errorComponent: routeModule.errorComponent,
+                    loadingComponent: file ? loadingFallbackFor(match, modules, file) : undefined,
+                },
+            ];
         });
     });
     if (options.terminalComponent) {
@@ -185,8 +220,10 @@ function entriesOfMatch(options: ComposeOptions): ChainEntry[] {
  * outermost layout, which wraps the next, down to the page. Nodes without a
  * component (virtual grouping nodes) are skipped; a node carrying both a
  * layout and a page contributes both components, layout outside page.
- * Modules declaring `errorComponent` get a React error boundary around
- * their subtree.
+ * Every component gets its own Suspense + error boundary pair around it, so
+ * instant (client-side) transitions can mount the chain before loaders
+ * settle: a component whose loader is in flight suspends to ITS loading
+ * boundary, a rejected loader rethrows into ITS errorComponent.
  */
 export function composeMatch(options: ComposeOptions): ReactElement {
     const { match } = options;
@@ -195,12 +232,22 @@ export function composeMatch(options: ComposeOptions): ReactElement {
 
     let tree: ReactNode = null;
     for (let index = entries.length - 1; index >= 0; index -= 1) {
-        const { Component, errorComponent: Fallback } = entries[index];
-        const children = Fallback ? <ErrorBoundary Fallback={Fallback}>{tree}</ErrorBoundary> : tree;
+        const { file, Component, errorComponent: Fallback, loadingComponent } = entries[index];
         // A terminal errorComponent receives the error as a prop.
         const errorProps =
             options.terminalComponent && options.error && index === entries.length - 1 ? { error: options.error } : {};
-        tree = <Component {...errorProps}>{children}</Component>;
+        const content = <Component {...errorProps}>{tree}</Component>;
+        const guarded = Fallback ? <ErrorBoundary Fallback={Fallback}>{content}</ErrorBoundary> : content;
+        const LoadingFallback = loadingComponent ?? NullComponent;
+        // Keyed by route file: a navigation swaps in a fresh boundary, so a
+        // suspending loader shows its fallback immediately instead of React
+        // keeping the previous page (boundaries never re-hide revealed
+        // content). Same-file layouts keep their key and their state.
+        tree = (
+            <Suspense key={file ?? index} fallback={<LoadingFallback />}>
+                {guarded}
+            </Suspense>
+        );
     }
 
     const state: RouterState = {
@@ -213,6 +260,8 @@ export function composeMatch(options: ComposeOptions): ReactElement {
         slots: collectSlots(filesOfMatch(match), options.modules),
         error: options.error,
         notFound: options.notFound,
+        loaderPromises: options.loaderPromises,
+        loaderErrors: options.loaderErrors,
         basepath: options.basepath,
         clientAssets: options.clientAssets,
         payload: options.payload,

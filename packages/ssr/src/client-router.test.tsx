@@ -441,3 +441,156 @@ describe('client-side navigation', () => {
         expect(window.location.pathname).toBe('/co');
     });
 });
+
+describe('instant transitions (navMode=client)', () => {
+    const mountedRoots: Array<{ unmount: () => void }> = [];
+    beforeEach(() => {
+        (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
+        window.history.replaceState(null, '', '/');
+        document.head.innerHTML = '';
+    });
+    afterEach(() => {
+        for (const root of mountedRoots.splice(0)) {
+            act(() => root.unmount());
+        }
+        document.body.innerHTML = '';
+        vi.unstubAllGlobals();
+        vi.restoreAllMocks();
+    });
+
+    function deferred<T>() {
+        let resolve!: (value: T) => void;
+        let reject!: (error: unknown) => void;
+        const promise = new Promise<T>((res, rej) => {
+            resolve = res;
+            reject = rej;
+        });
+        return { promise, resolve, reject };
+    }
+
+    function ClientAboutPage() {
+        const data = useLoaderData<{ message: string }>();
+        return <main>about:{data.message}</main>;
+    }
+
+    const clientFiles = ['__root.tsx', 'index.tsx', 'about.tsx'];
+    const clientTree = buildRouteTree({ files: clientFiles });
+
+    it('commits the new chain immediately and suspends to the loading boundary until the loader settles', async () => {
+        const slow = deferred<{ message: string }>();
+        const clientModules: RouteModuleMap = {
+            '__root.tsx': { default: Root },
+            'index.tsx': { default: HomePage, loader: () => ({ message: 'home' }) },
+            'about.tsx': {
+                default: ClientAboutPage,
+                loader: () => slow.promise,
+                loadingComponent: () => <main>about-loading</main>,
+                config: { navMode: 'client' },
+            },
+        };
+        const handler = createServerHandler({ tree: clientTree, modules: clientModules });
+        const response = await handler(new Request('http://localhost/'));
+        const container = document.createElement('div');
+        container.innerHTML = (await response.text()).replace('<!DOCTYPE html>', '');
+        document.body.append(container);
+
+        await act(async () => {
+            mountedRoots.push(
+                await hydrateApp({ tree: clientTree, modules: clientModules, root: container, url: 'http://localhost/' }),
+            );
+        });
+        expect(container.querySelector('h1')?.textContent).toBe('home');
+
+        // Click: the chain mounts instantly — old page is gone, loading
+        // boundary shows instead of a frozen old page.
+        await act(async () => {
+            container.querySelector('a')!.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        });
+        await act(async () => {});
+        await act(async () => {});
+        expect(container.querySelector('h1')).toBeNull();
+        expect(container.querySelector('main')?.textContent).toBe('about-loading');
+
+        // The loader settles: content fills in without another navigation.
+        await act(async () => {
+            slow.resolve({ message: 'loaded-in-browser' });
+            await slow.promise;
+        });
+        await act(async () => {});
+        expect(container.querySelector('main')?.textContent).toBe('about:loaded-in-browser');
+    });
+
+    it('renders the error boundary when a browser-run loader rejects', async () => {
+        const clientModules: RouteModuleMap = {
+            '__root.tsx': { default: Root },
+            'index.tsx': { default: HomePage, loader: () => ({ message: 'home' }) },
+            'about.tsx': {
+                default: ClientAboutPage,
+                loader: () => Promise.reject(new Error('boom')),
+                errorComponent: ({ error }) => <main>about-error:{error.message}</main>,
+                config: { navMode: 'client' },
+            },
+        };
+        const handler = createServerHandler({ tree: clientTree, modules: clientModules });
+        const response = await handler(new Request('http://localhost/'));
+        const container = document.createElement('div');
+        container.innerHTML = (await response.text()).replace('<!DOCTYPE html>', '');
+        document.body.append(container);
+
+        await act(async () => {
+            mountedRoots.push(
+                await hydrateApp({ tree: clientTree, modules: clientModules, root: container, url: 'http://localhost/' }),
+            );
+        });
+
+        act(() => {
+            container.querySelector('a')!.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        });
+        await act(async () => {});
+        await act(async () => {});
+        expect(container.querySelector('main')?.textContent).toBe('about-error:boom');
+    });
+
+    it('hover prefetch primes loaders so the click commits with content, no loading flash', async () => {
+        const loader = vi.fn(async () => ({ message: 'prefetched' }));
+        const clientModules: RouteModuleMap = {
+            '__root.tsx': { default: Root },
+            'index.tsx': { default: HomePage, loader: () => ({ message: 'home' }) },
+            'about.tsx': {
+                default: ClientAboutPage,
+                loader,
+                loadingComponent: () => <main>about-loading</main>,
+                config: { navMode: 'client' },
+            },
+        };
+        const handler = createServerHandler({ tree: clientTree, modules: clientModules });
+        const response = await handler(new Request('http://localhost/'));
+        const container = document.createElement('div');
+        container.innerHTML = (await response.text()).replace('<!DOCTYPE html>', '');
+        document.body.append(container);
+
+        await act(async () => {
+            mountedRoots.push(
+                await hydrateApp({ tree: clientTree, modules: clientModules, root: container, url: 'http://localhost/' }),
+            );
+        });
+
+        // Hover warms modules + loaders (React synthesizes mouseenter from mouseover).
+        act(() => {
+            container.querySelector('a')!.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+        });
+        await act(async () => {});
+        await act(async () => {});
+        expect(loader).toHaveBeenCalledTimes(1);
+
+        // The click renders the final content directly — the loading
+        // boundary never appears.
+        await act(async () => {
+            container.querySelector('a')!.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+        });
+        await act(async () => {});
+        await act(async () => {});
+        expect(container.querySelector('main')?.textContent).toBe('about:prefetched');
+        expect(loader).toHaveBeenCalledTimes(1);
+    });
+});

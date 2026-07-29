@@ -31,6 +31,17 @@ export interface RouterState {
     notFound?: boolean;
     /** True while a client-side navigation payload is in flight. */
     pending?: boolean;
+    /**
+     * In-flight loader promises keyed by route file (navMode=client instant
+     * transitions). `useLoaderData` suspends on these until the loader
+     * settles and the result lands in `data`.
+     */
+    loaderPromises?: Record<string, Promise<unknown>>;
+    /**
+     * Rejected loader errors keyed by route file. `useLoaderData` rethrows
+     * them so the nearest route `errorComponent` boundary catches.
+     */
+    loaderErrors?: Record<string, unknown>;
     /** Client-side navigation. Undefined during server rendering. */
     navigate?: (to: string, options?: { replace?: boolean; scroll?: boolean }) => void;
     /** Prefetch a route's data payload. Undefined during server rendering. */
@@ -105,6 +116,15 @@ export function useLoaderData<T = unknown>(file?: string): T {
     for (const [dataKey, value] of Object.entries(state.data)) {
         if (stripRouteGroups(dataKey) === normalized) return value as T;
     }
+
+    // Instant transitions: a loader for this file is in flight or failed.
+    // Suspend to the nearest route loading boundary / rethrow to the nearest
+    // error boundary. The settle handler merges the outcome into router
+    // state, which retries this read.
+    const loaderError = state.loaderErrors?.[key];
+    if (loaderError !== undefined) throw loaderError;
+    const pending = state.loaderPromises?.[key];
+    if (pending) throw pending;
 
     return undefined as T;
 }
